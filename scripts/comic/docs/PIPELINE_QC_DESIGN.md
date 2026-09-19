@@ -1,0 +1,162 @@
+# 도서→만화/웹툰 파이프라인 — 품질 재설계 (RCA + 폐루프 + Claude 검증)
+
+> 배경: A Christmas Carol Stave 1 첫 산출(RunPod 4090, 18패널)이 **형편없이** 나왔다
+> (18중 8패널 3~6점: 간판 오타 SCROUGEME·체커보드 무배경·Marley 근육질·빈 말풍선…).
+> 본 문서는 **왜 그랬는지(RCA)** 와 **재발을 코드로 막는 폐루프 설계**의 단일 소스다.
+> 상태 표기: ✅ 반영됨 · 🟡 부분 · ❌ 미구현(TODO).
+
+---
+
+## 1. 왜 이렇게 처참한가 — 근본 원인 (RCA)
+
+**핵심 한 줄**: 생성 파이프라인이 **열린 회로(open-loop)** 였다. 모델이 굴린 결과를 **아무도 안 보고** 조립했다. `"18 panels, 0 failed"` 의 `0 failed` 는 *크래시 0* 이지 *결함 0* 이 아니었다.
+
+| # | 근본원인 | 증거 | 성격 |
+|---|---|---|---|
+| **R1** | 검증 게이트가 생성경로 **밖**(휴리스틱·이미지 미검사) | `final-audit`: `images dir not found`, `vision-QC not configured`, story 9.6 추정 | 메타(치명) |
+| **R2** | 프롬프트가 결함을 **스스로 요청** | scene에 `sign reading SCROOGE AND MARLEY`(→오타), `red eyes, blue lips`(→컬러), `plain white background`(→체커보드) | 입력 설계 |
+| **R3** | Scrooge·Marley가 **시각적으로 안 갈림** + noref 표류 + 다인 패널 참조 1장 | P12/15 정체성 붕괴, P17 noref 근육질, P8 Bob=Fred 복제 | 캐릭터 설계 |
+| **R4** | 성공 지표가 학습자와 **어긋남** | `retention band ≥12% verbatim` 이 고어 욱여넣기를 보상 → 인지부하 초과·화자 부재·무주석 | 지표 설계 |
+
+R1이 결함을 **통과**시켰고, R2·R3·R4가 결함을 **생산**했다. 둘 다 고쳐야 한다.
+
+### 1-1. Claude의 역할 오배치 (R2·R3의 뿌리)
+Claude는 지금 **author-time 정적 템플릿 작성자**로 앉아 있다. 그런데 특정 확산모델(Qwen)용 프롬프트는 **"한 번 쓰기"가 아니라 "컴파일 + 피드백"** 이다. 우리 메모리엔 이미 "Qwen 결함 6종"이 문서화돼 있었으나 **RunPod 경로가 그 지식을 프롬프트로 적용하지 않았다**. → Claude를 **런타임 per-panel 컴파일러/통합자/검증자**로 옮기는 것이 근본 해결의 알맹이다(§3).
+
+---
+
+## 2. 근본 해결 — 폐루프(closed-loop) 파이프라인
+
+원칙: **본 적 없는 패널은 배포하지 않는다. 모든 패널은 시각 게이트를 통과해야 하고, 불합격은 원인별로 자동 수리한다.**
+
+```
+        ┌──────────────────── REPAIR LOOP (≤3) ────────────────────┐
+        │                                                          │
+[L0 하드닝]→[L1 생성]→[L2 시각 게이트]──pass──►[L4 텍스트층]→[L5 감사]→ SHIP
+  scene 정화   gen-comfy   hard-fail 룰        ▲fail          각색·화자      │
+  NEG·린트                                     └─원인별 패치→재생성      [L3 교차·독립검증]
+```
+
+| 층 | 내용 | 상태 | 위치 |
+|---|---|---|---|
+| **L0 하드닝** | scene에서 텍스트토큰·색단어 제거, 배경 강제, 캐릭터 차별화; NEG 방어; **scene 린트로 클래스 강제** | ✅ 린트 강제(원본 19E BLOCK / 각색 PASS 실증) | `examples/carol-stave1.adapted.json`, `comic-prompt.mjs` NEG, `lint-script.mjs` |
+| **L1 생성** | gen-comfy REST 드라이버, best-of-N | ✅ (best-of-N ❌) | `gen-comfy.mjs` |
+| **L2 시각 게이트** | 패널별 hard-fail 루브릭 채점(§3 T1) | 🟡 스캐폴드 | `qc-comfy.mjs` |
+| **L3 수리 루프** | 불합격만 재생성, ≤3회, **전원 PASS 시에만 조립**(R1 강제) | ✅ 강제 폐루프(키 없으면 checkpoint) | `gen-verified.mjs` |
+| **L4 텍스트/학습층** | 각색(≤2블록·화자=화면내·아이코닉만 verbatim·gloss·목표어휘) | 🟡 carol만 | `carol-stave1.adapted.json` |
+| **L5 수용 감사** | L2 실측결과 소비, 전원 PASS 시 SHIP | ❌ 미연동 | `final-audit-*.md` |
+
+### 2-1. 이미지 결함 → 예방↔포착 대칭 (핵심 설계)
+확산모델은 확률적 → 예방만으론 100% 못 막는다. **예방 규칙마다 대칭되는 포착(hard-fail) 규칙**을 둔다.
+
+| 결함 | ① PREVENT | ② CATCH(hard-fail) |
+|---|---|---|
+| 간판 오타(P2) | 빈 판+HTML 캡션+NEG signboards | `baked_text` |
+| 빈 말풍선(P16) | scene "no lettering"+NEG empty balloon | `empty_balloon` |
+| 컬러 누출(P3) | 색단어→ink+HARDBW | `colour_leak` |
+| 무배경/체커보드(P10) | 배경 강제+NEG checkerboard+noref:false | `no_background` |
+| 캐릭터 복제(P8) | 화면 1인 재구성+NEG duplicate | `wrong_or_duplicate_character` |
+| Scrooge=Marley(P12/15) | cast distinct_from+Marley 항상 붕대·체인·반투명 | `identity_collapse` |
+| 반투명 실패(P15) | scene "see-through" | `text_image_mismatch` |
+| Marley 근육질(P17) | scene "gaunt old, never muscular"+noref:false | `wrong_character` |
+| 썰매↔손수레(P11) | scene "slides on ice" | `text_image_mismatch` |
+
+---
+
+## 3. Claude 검증 — 3중 (요청하신 핵심)
+
+Claude를 **런타임 3역할**로 앉힌다. 전부 in-loop.
+
+| 역할/계층 | 무엇 | 상태 |
+|---|---|---|
+| **A 컴파일러** | 중립 의도→Qwen 최적 프롬프트(텍스트strip·색변환·차별화토큰·ref모드·종횡비) | ❌ 정적 1회(수동) |
+| **B 통합자** | 캡션↔씬 정합 자가검증, gloss·화자·캡션예산 단위 작성 | ❌ 수동 |
+| **T1 인라인 게이트** | 패널마다 이미지 vs 스펙 채점→수리 구동 | 🟡 `qc-comfy.mjs` 스캐폴드 |
+| **T2 교차 일관성** | 전 패널 통과 후 Marley 15/17/18 동일?·Scrooge≠Marley? | ❌ |
+| **T3 독립 적대감사** | 별도 Claude 에이전트 전수 재검증(self-rubber-stamp 방지) | ❌ (1회 임시만) |
+
+구현: `ANTHROPIC_API_KEY` + `@anthropic-ai/sdk` 있으면 `qc-comfy --sdk` 자동채점, 없으면 Claude(에이전트)가 `qc-manifest.json`→`qc-verdicts.json` 채움. T3는 Claude Code 서브에이전트/워크플로.
+
+---
+
+## 4. 구현 계획 + 목표 지표
+
+| 단계 | 산출 | 상태 |
+|---|---|---|
+| P1 | L0 하드닝 + carol 각색 스크립트 | 🟡 |
+| P2 | `gen-verified.mjs`(강제 폐루프) + **scene 린트** | ❌ |
+| P3 | L4 텍스트층 스키마(gloss·화자·target_vocab) 일반화 | 🟡 |
+| P4 | T2/T3 + final-audit 실측 연동 + **회귀 픽스처** | ❌ |
+
+**목표 지표(아직 게이트로 인코딩 안 됨 ❌)**: 첫 통과율 55%(10/18) → 폐루프 후 **실질 배포 품질 ≥95%**, `baked_text/no_background/identity_collapse` **hard-fail 0**, 캡션 ≤2/패널, 화면밖 화자 0.
+
+### 4-1. 회귀 픽스처 (재설계가 재난을 막는다는 "증명")
+기존 결함 8패널(SCROUGEME·체커보드·Marley근육질·빈말풍선…) + 기대 hard-fail 을 픽스처로 저장 → 게이트 verdicts 가 **전부 FAIL 로 잡는지** 검증. ✅ **8/8 정확 포착, 🟢 PASS**. `fixtures/carol-stave1-known-bad.{expected,verdicts}.json` + `qc-regress.mjs`.
+
+---
+
+## 5. 인프라 취약성 (신규 — 설계에 없던 갭)
+RunPod Secure Cloud **Stop→Start "GPU 없음"** 으로 생성 전면 중단됨(실측 2026-08). 단일 GPU 의존이 "처참한 결과=배포 불가"를 만든다.
+- 폴백: `pod.mjs` 에 start 실패→**다른 호스트 새 pod 생성**, 또는 **Kaggle 무료 T4 경로**(메모리 레시피)로 백엔드 스위치. ❌ TODO.
+
+---
+
+## 5.4 검증 스코프 원리 (구조) — 게이트 스코프 = 결함 스코프
+> **한 게이트가 잡을 수 있는 결함은 그 게이트의 SCOPE 안에 증거가 담기는 것뿐이다.**
+> 스코프를 결함에 맞추지 않으면 그 사이로 결함이 새어나간다(구조적 누락).
+
+| 결함 스코프 | 게이트 | 무엇을 보나 | 예시 결함 |
+|---|---|---|---|
+| 한 패널(생성 전) | **S0.5 preflight** | 그 패널의 text+scene | 소품 불일치(P18 snuffer) |
+| 한 패널(생성 후) | **S2 패널 게이트** | 이미지 1장 + 스펙 | baked_text·빈풍선·컬러·off-model |
+| 한 캐릭터 × N패널(스테이지 내) | **S3 교차** | 그 인물의 여러 이미지 | 캐릭터 표류(Marley 15/17/18) |
+| **스테이지/책 전체(상대적)** | **S3.5 책 게이트** | **모든 이미지를 함께** | **스타일 균일성·스테이지 간 연속성** |
+| **이야기 전체(내러티브 축)** | **S4 스토리 게이트** | **순서대로 텍스트+이미지(독자 시선)** | **흐름 이해·재미**(장면점프·미명명 인물·훅 부재·밋밋함) |
+
+축이 다르다: S2/S3/S3.5 는 **결함·일관성**(맞는가), S4 는 **독자 경험**(읽히고 재미있나) — 기술적으로 완벽해도 이야기가 안 읽힐 수 있으므로 별도 게이트가 필요(`qc-story.mjs`; Stave2 P14 미명명이 근거).
+
+**핵심**: 스타일 일관성·연속성은 "나머지와 다르다"는 **상대적 속성 → 스코프가 전체집합** → 패널·교차 게이트로는 **원리상 불가**. 그래서 S3.5(`qc-book.mjs`)가 필수다(Stave2 p14/p15 하프톤이 패널 게이트를 통과한 실측이 근거). 이 원리로 게이트를 배치하면 스코프 사이 틈이 사라진다.
+
+## 5.5 자립형 배치 — Claude 를 "필요한 위치마다" (효율+품질)
+Claude 판단을 후행 1곳이 아니라 파이프라인 전반의 최적 지점에 배치해, 사람 개입 없이 효율·품질 자립:
+
+| 위치 | 스테이지 | Claude 역할 | 효과 | 구현 |
+|---|---|---|---|---|
+| 앞 | **S0.5 preflight** | 생성 전 text↔scene 정합 검사 | **효율**(GPU 낭비 사전 차단) | `preflight.mjs` ✅ |
+| 중간 | **S2 패널 게이트** | 이미지 vs 스펙 hard-fail | 품질 | `qc-comfy.mjs` ✅ |
+| 중간 | **S2.5 교정수리** | regen_hint 를 프롬프트에 주입(재롤 아닌 교정) | **효율+품질** | `gen-comfy --hints` ✅ |
+| 뒤 | **S3 교차 일관성(T2)** | 캐릭터 크로스 표류 검사(스테이지 내) | 품질 | `qc-cross.mjs` ✅ |
+| 책 | **S3.5 책 게이트** | **전 스테이지 모든 패널 함께** — 스타일 균일성 + 스테이지 간 연속성 | 품질 | `qc-book.mjs` ✅ |
+| 최종 | **T3 독립감사** | 전수 적대 재검증 | 품질 | 에이전트/`--sdk` ✅ |
+
+**스테이지 내 오케스트레이터** `gen-verified.mjs`(스크립트 1개): lint→preflight→생성→S2→(교정 `--hints`)→S3→조립. `--sdk`(+키)면 end-to-end 자동, 없으면 각 Claude 스테이지 checkpoint→`--resume`.
+**책 레벨(S3.5)** 은 스코프가 다르다(여러 스테이지) → 각 스테이지가 per-stave 루프를 통과한 뒤 `qc-book.mjs --staves "s1=dir,s2=dir"` 로 **한 번** 돌려 스타일 아웃라이어/연속성 이슈를 뽑고, 해당 스테이지의 `gen-comfy --panels <n> --hints` 로 교정. 실증: S0.5 18/18 · S2 18/18 · S3 4/4 · **S3.5 가 Stave2 p14/p15 하프톤 아웃라이어 포착**(패널 게이트가 통과시킨 것).
+
+## 6.5 교정 루프 수렴 (whack-a-mole 탈출) — 실측 도출
+Carol graphic-novel 마감에서 재생성이 수렴하지 않음(교정 17 → 미착지 6 + 신규 11). 원인 3+해법:
+| 원인 | 해법(규칙) |
+|---|---|
+| 재생성 후 **재검증 없음**(fire-and-forget) → 미착지 누적 | **R21 검증-게이트형 교정**: 패널 재생성→그 패널 즉시 재검증→통과만 채택, 실패는 best-of-N, ≤K회 후 사람 플래그, 통과 패널 동결 |
+| **확률적 재생성이 새 결함 주입** → 매 라운드 새 주사위 | 통과 동결 + best-of-N(1롤 아님) + max-rounds 상한 |
+| **레지스터별 고유 결함**(realistic=텍스트·색틴트·얼굴·불투명) | **R20 레지스터 결함 프로파일**(NEG/힌트/난제목록 부속) |
+| **힌트 천장**(faceless·투명·노화·빈돌 저항) | **R22 구조적 해법**(조명연출·inpaint·별도 ref·noref·diegetic 수용) |
+| **게이트 우회**(스팟체크로 SHIP 선언) | **R23 게이트 강제**: gen-verified 경로 + 릴리스 게이트 없이 SHIP 금지 |
+핵심: 교정은 "재생성"이 아니라 **"재생성+재검증+동결"의 폐쇄 루프**여야 수렴한다. 지금 파이프라인은 재생성만 하고 재검증을 사람(나)에게 맡겨 새어나갔다.
+
+**구현(배선 완료)**: `repair-loop.mjs`(R21 수렴 엔진 = best-of-N 후보 → 패널별 재검증 → 통과분 채택·동결 → ≤K 후 사람 플래그)를 **gen-verified 의 S2.5 자리에 배선**. S2 실패 시:
+- `--sdk`(헤드리스): 실패 패널만 `repair-loop --sdk` 로 수렴 → 재생성 없이 S3 로 진행. 미해결 패널은 `qc/repair-report.json` 에 플래그하고 `exit 1`(무한루프 대신 사람 확인). 튜닝: `--bestof N`(기본 3), `--repair-rounds K`(기본 2).
+- 키 없음: 기존 `panels=fails` 단순 재생성 경로 유지(레거시). 또는 `repair-loop`(no-sdk)로 후보를 모아 에이전트가 `repair-picks.json` 채택하는 2단 흐름을 별도 사용.
+**④ 완료(2026-08-06)**: Carol 잔여 19패널을 이 방식으로 마감 — pod 재생성+프로비저닝 후 결함별 힌트 재생성 + 각 패널 Claude vision 재검증 + 채택·동결. 18 클린 + 1 채택-한계(Stave1 P15 Marley 반투명=글로우 관례).
+
+**실측 도출 규칙 갱신**:
+- **힌트-저항 결함의 1차 해법 = `noref t2i`**(근본원인=ref 조건화): elfin 귀·유령 노화·faceless 후드·baked 사인 전부 noref 재생성으로 해결. → `repair-loop` 이 **2라운드+ 자동 noref 승격**하도록 반영(genArgs r≥2 → `--noref`).
+- **post-fix 사각 fill 은 유기/라인아트 영역에 부적합**(실증): 후드 void=삐져나온 검은 박스, 간판 blank=회색 검열박스. → **균일 배경 직사각에만** 사용, 그 외는 noref 재생성. `--post-fix` 는 기본 비활성.
+- **whack-a-mole 재현**: "blank sign" 힌트가 빈 말풍선 유발 → 복합 NEG(말풍선 금지 병기)로 수렴. R21 검증-게이트가 포착.
+자세한 규칙: AUTHORING_RULES R22 / R22b.
+
+## 6. 반영 상태 요약 (traceability)
+- ✅ 커밋됨: 각색 스크립트(`carol-stave1.adapted.json`), NEG 방어+**scene-aware 절(`comic-prompt.mjs::sceneClauses`/`propLines`)**, **scene 린트(`lint-script.mjs`)**, QC 게이트(`qc-comfy.mjs`), **강제 폐루프(`gen-verified.mjs`)**, **R21 수렴 엔진(`repair-loop.mjs`, 2R+ 자동 noref) + gen-verified S2.5 배선**, **R22 구조 후처리(`post-fix.mjs`, 최후·용도한정)**, **R24 전수 릴리스 게이트(`release-gate.mjs`, 커버리지 강제→누락 패널 HOLD + 책 SHIP/HOLD 집계)**, **회귀 픽스처+검사(`fixtures/*`, `qc-regress.mjs`)**, pod 제어(`runpod/pod.mjs`), 본 설계서.
+- **게이트 계층 최상단 = `release-gate.mjs`(책 스코프)**: per-stave `gen-verified`(패널/교차) 위에 얹혀 전 스테이브 전 패널을 scene-match+하드페일로 재검증하고 커버리지를 강제한다. `qc-book`(스타일/연속성)과 함께 통과해야 최종 SHIP. 스팟-교정만 재검증하는 것을 exit 2(UNINSPECTED)로 원천 차단.
+- ❌ 미구현(다음): T3 독립검증 코드화, R22 구조적 후처리 헬퍼(묘비 blank·후드 darken·투명 합성), L5 감사 실측연동, 목표지표 게이트, 인프라 폴백(새 pod/Kaggle), **GPU 확보 후 Before/After 실증 + Carol 잔여 패널 수렴**.
+
+> 결론: 이미지 품질의 **예방↔포착 설계 + 그것을 강제·증명하는 층**(린트로 생성 전 차단 · gen-verified로 검증 전 조립 금지 · 회귀 픽스처로 재난 재발 차단 증명)이 **코드로 반영·검증**됨. 남은 건 다중검증(T2/T3) 코드화·인프라 폴백·GPU 실증. 본 문서가 단일 소스.

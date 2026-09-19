@@ -1,0 +1,465 @@
+{
+ "chunk": 3,
+ "type_id": "R-IRRELEVANT",
+ "type_name": "무관한 문장",
+ "analyses": [
+  {
+   "item_id": "2021#35",
+   "revised": true,
+   "measured_ability": "도입 세 문장이 세운 '누가 무엇을 얻는가'(organization members 가 unity·belonging 을 얻는다)를 자로 삼아, ①~⑤ 각 문장의 주체가 조직 안인지 밖인지 가려내고 뒤 문장의 되받는 표현(bonds among organization members · badge of membership)이 어느 문장에 닿는지 화살표로 이어 건너뛰어진 문장을 찾아내는 능력",
+   "design_intent": "도입이 조직 내 웃음이 단결을 만든다는 축을 세우고, ①은 그 사례(dumpster fire), ②는 소속감, ④는 유대, ⑤는 구성원 자격 표시로 같은 축을 네 층으로 쌓아 두었다. 그 사이에 humor·humorous 라는 같은 화제어를 쓰면서 주체만 조직 밖(commercials 과 시청자의 attention)으로 바꾼 문장을 끼워 넣었다 — 낱말 겹침으로는 잡히지 않고 주체와 목적(unity 인가 attention 인가)으로만 잡히게 만든 설계다.",
+   "answer_locus": {
+    "sentence_index": [7, 8],
+    "quote": "Instances of humor serve to enact bonds among organization members.",
+    "reasoning": "이 문장의 'bonds among organization members' 는 도입 3문장 'Repeatedly recounting humorous incidents reinforces unity based on key organizational values' 와 ②의 'a sense of belonging' 을 이름만 바꿔 회수한 것이다. 그런데 ②와 ④ 사이에 놓인 ③은 조직도 구성원도 말하지 않고 광고와 시청자의 주의를 말하므로, ④의 회수 화살표가 ③을 건너뛰어 ②에 닿는다. 뒤이어 ⑤의 'an informal badge of membership in the organization' 도 ②의 non-members 가 그은 안과 밖의 구분을 받는다. 반대로 ③이 꺼낸 commercials 와 attention 은 ④·⑤ 어디에서도 다시 다뤄지지 않는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "총론-각론 역전",
+     "why_tempting": "dumpster fire 와 safety 처럼 앞에 없던 낱말이 한꺼번에 나오고, 문장 자신이 'something that does not seem funny on its face' 라고 우습지 않다고 말한다. 유머를 다루는 글 한가운데 화재와 안전 이야기가 끼어든 것으로 읽혀 화제 이탈 후보가 된다. 지문에서 가장 긴 문장이라 군더더기 느낌도 커진다.",
+     "how_to_reject": "바로 앞 도입 3문장 'Repeatedly recounting humorous incidents reinforces unity based on key organizational values' 의 각론이다 — ①의 'the stories were shared multiple times by multiple parties' 가 Repeatedly recounting 을, 'the reactions of workers motivated to preserve safety' 가 key organizational values 를 하나씩 받는다. ①을 빼면 도입의 일반 진술을 뒷받침하는 실례가 지문에서 사라진다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "열거·병렬 절단",
+     "why_tempting": "문장 끝 'non-members were not and do not' 이 동사만 남은 생략 구문이라 뜻이 중간에서 끊기고, 구어를 그대로 인용한 'you had to be there' 가 다른 문장들의 설명 투와 결이 달라 다른 글에서 옮겨 온 문장으로 읽힌다.",
+     "how_to_reject": "생략을 복원하면 'non-members were not (there) and do not (see the humor)' 로 앞 절과 짝이 그대로 맞는다. 그리고 이 문장이 처음 꺼낸 'a sense of belonging' 을 ⑤의 'an informal badge of membership in the organization' 이 받는다 — ②를 빼면 ⑤의 membership 이 받을 안과 밖의 구분이 지문에 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "③은 'commercials tend to contain humorous elements, such as funny faces and gestures' 로 주체가 광고이고 얻는 것이 people’s attention 이다. 도입이 세운 축은 'Workers are united by laughing at shared events' — 주체는 조직 구성원이고 얻는 것은 unity 다. 곧 humor 라는 낱말만 같고 그 낱말의 역할이 다르다(조직 내 단결 장치 대 광고의 주의 획득 수단). ③이 꺼낸 commercials 와 attention 은 ④·⑤에 한 번도 다시 나오지 않고, ③을 가리면 ②의 'a sense of belonging' 이 ④의 'bonds among organization members' 로 곧장 이어진다.",
+     "confirmed_at": {
+      "sentence_index": [7],
+      "note": "③ 자체는 '유머가 주의를 끌어 광고에 쓰인다' 는 참이고 상식적인 진술이라 문장의 참·거짓으로는 갈리지 않는다. 확정은 ④가 조직 구성원을 다시 주체로 세워 ③을 건너뛰는 자리에서 난다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "마무리 문장 위치 오판",
+     "why_tempting": "'Instances of humor serve to enact bonds among organization members' 는 한 줄 요약처럼 읽히는데 뒤에 ⑤가 더 붙어 있어, 결론이 끝이 아닌 자리에 놓인 군더더기로 읽힌다. 도입 3문장과 뜻이 겹치는 것도 그 느낌을 키운다.",
+     "how_to_reject": "⑤가 'may even be required' 로 정도를 한 단계 올린다 — even 은 앞에 더 약한 진술이 있어야 성립하므로 ④의 '유대를 만든다' 가 그 발판이다. ④를 빼면 ⑤의 even 이 올라설 앞 단계가 없다. 요약 문장이 도입과 뜻이 겹치는 것은 이 유형에서 사례(①②)를 회수하는 정상 자리다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 반복 유인",
+     "why_tempting": "humor·organization·membership 을 한 문장에 몰아 써 ④와 낱말이 가장 많이 겹치므로, ④와 ⑤ 중 하나가 덧붙은 문장이라는 판단으로 기울기 쉽다. 우리 코퍼스에는 파싱 잔여 'may ] ______ even be required' 가 남아 주어와 동사가 더 끊겨 있어 결함 문장으로 읽히기도 한다.",
+     "how_to_reject": "겹치는 낱말의 양이 아니라 역할을 본다 — ⑤의 'an informal badge of membership in the organization' 은 ②의 'you had to be there' 와 non-members 가 그은 구성원 안과 밖의 구분에 이름을 붙인 것이고, 지문의 마지막 층(사례 → 소속감 → 유대 → 자격 표시)을 닫는다. 낱말 겹침을 근거로 삼으면 ③처럼 조직 밖 주체를 쓴 문장은 humor 만 겹쳐도 그대로 남게 된다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "번호가 안 붙은 앞 세 문장만 먼저 읽고 '누가 무엇을 얻는가' 를 두 낱말로 적는다 — 여기서는 organization members / unity",
+     "on_fail": "두 낱말이 안 잡히면 첫 문장의 주어(Workers)와 서술어(are united)를 그대로 옮겨 적는다"
+    },
+    {
+     "step": "①~⑤ 각각의 주어와 그 문장이 이득을 주는 대상을 한 낱말로 옮겨 적고, 1단계에 적은 주체와 다른 것에 표시한다",
+     "on_fail": "주어가 대명사나 동명사면 앞 문장에서 그것이 가리키는 명사를 찾아 적는다"
+    },
+    {
+     "step": "표시한 후보가 새로 꺼낸 명사(commercials · attention)를 그 뒤 문장들에서 눈으로 찾는다. 한 번도 다시 나오지 않으면 후보를 확정한다",
+     "on_fail": "다시 나오면 후보를 바꿔 2단계 표시를 다시 본다"
+    },
+    {
+     "step": "후보를 손으로 가리고 앞 문장과 뒤 문장을 붙여 읽어, 뒤 문장의 정관사·even·지시어가 받을 말이 앞 문장에 있는지 확인한다",
+     "on_fail": "받을 말이 없으면 다른 후보로 3단계를 다시 한다"
+    },
+    {
+     "step": "후보가 지문 화제어(humor)를 쓰고 있어도 겹치는 낱말 수는 세지 않는다. 그 낱말이 조직 안에서 쓰이는지 밖에서 쓰이는지 한 가지만 비교한다",
+     "on_fail": "안과 밖을 못 가르겠으면 그 문장의 주어가 조직 구성원인지만 본다"
+    }
+   ],
+   "time_budget_sec": 85,
+   "difficulty": {
+    "predicted": 0.79,
+    "drivers": [
+     "정답 문장이 humor·humorous 라는 지문 화제어를 그대로 되풀이한다",
+     "① 사례 문장이 지문에서 가장 길고 safety 라는 새 낱말을 몰고 나온다",
+     "⑤에 파싱 잔여(may ] ______)가 남아 결함 문장으로 읽힐 수 있다",
+     "주체 판별(조직 구성원 대 광고)만 하면 한 번에 갈린다"
+    ]
+   },
+   "required_vocab": ["reframe", "divisive", "subservient", "recount", "enact", "badge"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "answer_locus 를 ⑤ 대신 ④에서 잡았다 — ⑤는 코퍼스 지문에 'may ] ______ even' 이라는 파싱 잔여가 끼어 문자 그대로의 인용이 성립하지 않는다",
+      "why_correct 의 대응이 낱말 단위로 성립한다 — 인용 쪽 'bonds among organization members' 대 선지 쪽 'commercials tend to contain humorous elements' 로 주체가 갈린다"
+     ],
+     "checked": [
+      "answer_locus.quote 'Instances of humor serve to enact bonds among organization members.' 를 코퍼스 지문 문자열과 대조",
+      "why_correct 가 인용한 선지 표현이 choices[2] 원문과 글자까지 같은지 대조",
+      "R-IRRELEVANT 정의(정답 문장은 떼어 읽으면 참)와 ③의 참 여부 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revision_note": "초안은 ⑤의 함정을 ①과 같은 총론-각론 역전으로 달아 라벨이 겹쳤다. ⑤가 실제로 학생을 끄는 힘은 ④와의 낱말 겹침이므로 어휘 반복 유인으로 고치고 why_tempting 을 '④와 ⑤ 중 하나가 군더더기' 라는 판단 경로로 다시 썼다",
+     "findings": [
+      "고친 뒤 오답 4개의 라벨이 총론-각론 역전 · 열거·병렬 절단 · 마무리 문장 위치 오판 · 어휘 반복 유인 4종으로 모두 다르다",
+      "how_to_reject 넷 모두 위치를 지목한다 — 도입 3문장 · ⑤ 후반 · ⑤의 even · ②의 인용구"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 중복 여부 확인",
+      "why_tempting 이 각 선지 원문 표현에 근거하는지 선지 텍스트와 대조",
+      "how_to_reject 에 문장 위치 또는 영어 인용이 있는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1~2단계가 지문을 아직 안 읽은 상태에서 실행된다 — 번호 없는 앞부분만 읽고 두 낱말을 적는 일이라 사전 판단을 요구하지 않는다",
+      "5단계가 학습자의 기본 습관(겹치는 낱말이 많으면 본론)을 정면으로 막는다. 이 유형의 실점은 대부분 거기서 난다",
+      "85초 안에 끝난다 — 1단계 15초, 2단계 25초, 3~4단계 30초, 5단계 15초"
+     ],
+     "checked": [
+      "절차 5단계에 순환논법 표현(흐름을 파악하면 · 주제를 파악하면 등)이 없는지 확인",
+      "각 단계 on_fail 이 다음 행동을 지정하는지 확인",
+      "required_vocab 6낱말이 정답 판정에 실제로 쓰이는지 확인 — subservient·enact·badge 는 ②④⑤ 판정에 직접 쓰인다"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2109#35",
+   "revised": true,
+   "measured_ability": "도입 세 문장이 세운 축(경관을 시장 가치로 보는 상품화)을 자로 삼아, ①~⑤ 앞머리의 되돌아보는 표지(This process · itself · the landscape identity · Thus · these labels)가 각각 어느 문장에 닿는지 이어 보고 그 화살표가 건너뛴 문장을 찾아내는 능력",
+   "design_intent": "도입이 '경관은 상품이다 → 시장 가치로 값이 정해진다 → 주민의 정체성도 소득 창출 방식에 따라 생긴다' 로 축을 세우고, ①②가 그 상품화가 자연물을 넘어 사람과 자아까지 삼킨다고 넓히고 ④⑤가 그것이 로고와 지명 상표로 팔린다고 잇는다. 그 사이에 landscape 와 the US 라는 화제어를 그대로 쓰면서 술어만 상품화의 반대쪽(protection 과 wilderness 보존)으로 바꾼 문장을 끼워 넣었다 — 겹치는 낱말이 가장 많은 자리가 답이 되도록 설계된 문항이다.",
+   "answer_locus": {
+    "sentence_index": [7],
+    "quote": "Over time, the landscape identity can evolve into a sort of “logo” that can be used to sell the stories of the landscape.",
+    "reasoning": "정관사구 'the landscape identity' 는 앞에서 이미 세워진 정체성을 받아야 한다. 그 정체성은 도입 3문장 'Residents develop an identity in part based on how the landscape can generate income for the community' 와 ②의 'including the people and their sense of self' 에 있다. 그런데 ②와 ④ 사이의 ③은 정체성도 소득도 말하지 않고 보호구역을 말하므로, ④의 정관사가 ③을 건너뛰어 ②와 도입에 닿는다. 또 ④의 'used to sell' 은 도입 1·2문장의 commodities 와 market potential 축을 그대로 잇고, ③이 꺼낸 protection·wilderness·mountainous regions 는 ④·⑤에 한 번도 다시 나오지 않는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "'This process' 가 받을 process 라는 낱말이 앞 세 문장에 글자로 없어서, 선행사를 찾지 못한 학생은 이 문장을 다른 글에서 온 것으로 본다. 'more than' 뒤에 무엇이 더 있는지도 이 문장 안에서 끝나지 않아 미완성처럼 읽힌다.",
+     "how_to_reject": "앞 도입 3문장 'Residents develop an identity in part based on how the landscape can generate income for the community' 가 그 process(경관을 소득원으로 바꾸는 과정)다. 그리고 more than 이 비워 둔 자리를 바로 다음 ②의 'The landscape itself, including the people and their sense of self' 가 채운다 — ①을 빼면 ②의 itself 가 대조할 상대(natural elements)를 잃는다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "열거·병렬 절단",
+     "why_tempting": "'the people and their sense of self' 가 상품 목록에 사람을 끼워 넣어 과장된 주장으로 읽히고, 앞 문장 ①과 내용이 겹쳐 둘 중 하나가 군더더기라는 판단으로 기운다.",
+     "how_to_reject": "①의 'more than the conversion of the natural elements into commodities' 가 한쪽 항을 내놓고 ②가 그 이상인 항(경관 자체 + 사람 + 자아)을 채우는 짝이다. 이 짝을 끊으면 ①의 more than 이 받을 말이 지문에서 사라진다. 또 ②의 sense of self 는 도입 3문장의 identity 와 ④의 'the landscape identity' 를 잇는 고리다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "③은 'Landscape protection in the US traditionally focuses on protecting areas of wilderness' 로, 주체가 주민이 아니라 보호 제도이고 술어가 경관을 팔지 않고 손대지 않은 상태로 남겨 두는 일이다. 도입과 나머지 넷의 술어는 한결같이 상품화 쪽이다 — 'are seen as commodities' · 'valued because of their market potential' · 'takes on the form of a commodity' · 'used to sell the stories of the landscape'. 곧 landscape 와 the US 라는 낱말만 겹치고 그 낱말이 하는 일이 반대다. ③을 가리면 ②의 'takes on the form of a commodity' 가 ④의 'the landscape identity can evolve into a sort of “logo”' 로 곧장 이어지고, ③이 꺼낸 wilderness 와 mountainous regions 는 뒤에 다시 나오지 않는다.",
+     "confirmed_at": {
+      "sentence_index": [7],
+      "note": "③ 자체는 미국 경관 보호 정책에 관한 참인 서술이라 문장의 참·거짓으로는 갈리지 않는다. 확정은 ④의 정관사구 'the landscape identity' 가 받을 선행사가 ③에 없다는 데서 난다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "총론-각론 역전",
+     "why_tempting": "'Over time' 으로 시점이 갑자기 옮겨 가고 'a sort of “logo”' 라는 마케팅 낱말이 처음 나와, 주민과 경관 이야기에서 광고 이야기로 건너간 문장으로 읽힌다.",
+     "how_to_reject": "⑤가 Thus 로 시작해 California’s “Wine Country” 같은 실제 상표 이름을 대는데, 그 Thus 가 받을 총론은 ④뿐이다. ④를 빼면 ⑤의 'these labels' 가 가리킬 labels 가 지문에 없다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "연결사 방향 충돌",
+     "why_tempting": "Thus 뒤에 결론 대신 지명 세 개가 나열되고 문장이 지문에서 가장 길어, 결론 표지와 내용이 어긋난 문장으로 읽힌다. outsiders 라는 새 주체가 등장하는 것도 이탈처럼 느껴진다.",
+     "how_to_reject": "Thus 뒤의 세 이름은 ④의 'a sort of “logo”' 의 실례이고, 문장 후반 'these labels build a set of expectations associated with the culture of those who live there' 가 도입 3문장의 residents 와 identity 를 그대로 되받는다. 결론 표지 뒤에 실례가 오는 것은 이 글이 마무리하는 방식이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "번호 없는 도입 세 문장에서 이 글이 경관을 '무엇으로 보는가' 를 한 낱말로 적는다 — commodity",
+     "on_fail": "한 낱말이 안 나오면 둘째 문장 'valued because of their market potential' 을 그대로 옮겨 적는다"
+    },
+    {
+     "step": "①~⑤ 앞머리에서 앞을 되돌아보는 표지에만 동그라미를 친다 — This process · itself · the landscape identity · Thus · these labels",
+     "on_fail": "표지가 하나도 없는 문장에는 별표를 한다. 앞을 스스로 받지 않으므로 후보 1순위다"
+    },
+    {
+     "step": "동그라미마다 가리키는 말을 바로 앞 문장에서 찾아 화살표를 긋는다. 바로 앞에서 못 찾고 두 칸 앞에 닿는 화살표가 생기면 그 화살표가 건너뛴 문장을 후보로 적는다",
+     "on_fail": "화살표가 전부 바로 앞에 닿으면 각 문장 옆에 1단계 낱말에 대한 플러스와 마이너스를 적어, 혼자 부호가 다른 문장을 후보로 삼는다"
+    },
+    {
+     "step": "후보가 새로 꺼낸 명사(protection · wilderness · mountainous)를 후보 뒤 문장들에서 눈으로 찾는다. 한 번도 다시 나오지 않으면 확정한다",
+     "on_fail": "다시 나오면 후보를 바꿔 3단계로 돌아간다"
+    },
+    {
+     "step": "후보를 뺀 네 문장을 이어 읽어 This process · itself · the landscape identity · these labels 가 각각 받을 말을 가졌는지 15초 안에 확인한다",
+     "on_fail": "하나라도 비면 후보를 바꿔 3단계로 돌아간다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.74,
+    "drivers": [
+     "정답 문장이 landscape 와 the US 라는 지문 화제어를 그대로 되풀이한다",
+     "①의 This process 가 받을 낱말이 앞 문장에 글자로 없어 ①이 먼저 후보가 된다",
+     "⑤가 지명 세 개를 나열해 가장 길고 outsiders 라는 새 주체를 꺼낸다",
+     "commodity 라는 추상 명사와 sense of self 의 연결이 한 번 더 생각을 요구한다"
+    ]
+   },
+   "required_vocab": ["commodity", "conversion", "wilderness", "evolve", "perceive", "expectation"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 안의 logo 는 코퍼스에 곡선 따옴표로 들어 있고 게이트가 따옴표를 정규화하므로 문자 대조가 성립한다",
+      "why_correct 의 대응이 술어 층에서 성립한다 — 인용 쪽 'used to sell the stories of the landscape' 대 선지 쪽 'focuses on protecting areas of wilderness'"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조(곡선 따옴표 포함)",
+      "why_correct 가 인용한 선지 표현을 choices[2] 원문과 대조",
+      "③이 떼어 읽어 참인 진술인지 확인 — R-IRRELEVANT 정의와 일치"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 라벨이 지시어 선행사 절단 · 열거·병렬 절단 · 총론-각론 역전 · 연결사 방향 충돌 4종으로 서로 다르다",
+      "①의 why_tempting 은 'This process' 라는 선지 원문 표현에, ⑤는 Thus 와 지명 나열에 근거한다 — 넷 다 선지 텍스트에서 나왔다",
+      "how_to_reject 넷 모두 위치를 지목한다 — 도입 3문장 · ① 전반 · ⑤의 these labels · ④의 logo"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부 확인",
+      "why_tempting 을 각 선지 원문과 대조",
+      "how_to_reject 에 문장 위치 또는 영어 인용이 있는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revision_note": "초안 4단계가 '지문 화제어와 낱말이 가장 적게 겹치는 문장을 고른다' 였다. 이 문항에서 그 규칙을 쓰면 landscape 를 두 번 쓰는 ③이 아니라 화제어가 거의 없는 ①(This process ... natural elements)로 끌려간다 — 학습자를 오답으로 미는 절차였다. '후보가 새로 꺼낸 명사가 뒤에 다시 나오는가' 로 바꿨고, 이 기준은 ③의 wilderness 를 한 번에 집어낸다",
+     "findings": [
+      "고친 4단계로 ①은 걸리지 않는다 — ①의 natural elements 는 ②의 landscape itself 와 대조되어 뒤에서 다시 쓰인다",
+      "90초 안에 끝난다 — 1단계 15초, 2단계 20초, 3단계 25초, 4단계 15초, 5단계 15초",
+      "required_vocab 6낱말 전부 지문에 있고 판정에 쓰인다"
+     ],
+     "checked": [
+      "4단계 규칙을 ①~⑤ 다섯 문장에 실제로 적용해 결과 확인(초안 규칙은 ①을 지목했다)",
+      "절차에 순환논법 표현이 없는지 확인",
+      "required_vocab 낱말을 지문 문자열에서 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2019#35",
+   "revised": true,
+   "measured_ability": "사진의 등장이 회화를 어디로 밀었는지(직접 재현에서 멀어져 추상과 내면으로) 방향을 한 번 정하고, ①~⑤ 각 문장이 가리키는 방향이 현실 쪽인지 내면 쪽인지 표시해 혼자 반대쪽을 가리키는 문장을 찾아내는 능력. 특히 Therefore 가 붙은 문장이 앞 문장의 귀결로 실제로 성립하는지 따지는 능력",
+   "design_intent": "도입이 '사진이 자연 모방을 화가보다 잘해 회화가 위기에 놓였다' 로 대립을 세우고, ①②가 사진을 도구로 쓴 일부 사례를, ③이 But by and large 로 큰 줄기(직접 재현에서 추상으로)를 잡고, ⑤가 Since 절로 그 원인을 대며 내면과 상상으로 귀결한다. 그 사이에 Therefore 를 달고 귀결 자리를 가로채되 방향만 반대인 문장('as they were in reality')을 끼워 넣었다 — 결론 표지가 붙어 있어 앞 문장의 귀결로 읽히지만, 앞 ③의 귀결도 뒤 ⑤의 귀결도 정반대다.",
+   "answer_locus": {
+    "sentence_index": [5, 7],
+    "quote": "painters were freed to look inward and represent things as they were in their imagination",
+    "reasoning": "⑤는 Since 절(사진이 세상에 있는 대로를 잘 재현했으므로)을 전제로 삼아 이 귀결을 내놓는다. 같은 귀결을 ③이 먼저 'moving away from direct representation and reproduction to the abstract painting of the twentieth century' 로 말해 두었으므로 ③과 ⑤는 같은 방향으로 맞물린다. 그 사이에 낀 ④만 귀결이 'as they were in reality' 로 반대 방향이며, ④를 가리면 ③의 abstract painting 이 ⑤의 in their imagination 으로 곧장 이어진다. ⑤의 'freed to look inward' 는 화가가 직접 재현의 의무에서 풀려났다는 뜻이므로, ④가 주장하는 '현실 그대로의 표현에 더 집중' 과 같은 지문에 함께 설 수 없다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "총론-각론 역전",
+     "why_tempting": "앞 문장이 'painting was put in crisis' 로 위기를 말한 직후에 'Some painters made practical use of the invention' 이 와서 평가가 위기에서 활용으로 뒤집힌다. 문장이 짧고 앞을 받는 표지도 없어 붕 뜬 문장으로 읽힌다.",
+     "how_to_reject": "바로 다음 ②가 'There were Impressionist painters who used a photograph in place of the model or landscape they were painting' 으로 그 practical use 의 실례를 댄다 — ①을 빼면 ②가 무엇의 사례인지 사라진다. 또 ③의 'But by and large' 가 역접으로 되받는 상대가 ①②의 '일부 화가' 다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 반복 유인",
+     "why_tempting": "photograph·painters·painting·landscape 를 한 문장에 몰아 써 앞 문장들과 낱말이 가장 많이 겹치는데 내용은 인상주의 화가라는 구체 사실 하나뿐이어서, 논지를 밀지 않는 사례 군더더기로 읽힌다.",
+     "how_to_reject": "겹치는 낱말의 역할을 본다 — ②의 photograph 는 '모델 대신 쓰는 도구' 이고 이것은 ①의 practical use 를 그대로 잇는다. 그 도구 용법이 지문에 있어야 ③의 But 이 뒤집을 상대가 생긴다. 낱말 겹침으로 고르면 겹침이 가장 많은 이 문장이 늘 먼저 지목된다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "연결사 방향 충돌",
+     "why_tempting": "'But by and large' 가 앞 두 문장을 한꺼번에 뒤집고 문장이 지문에서 가장 길다. abstract painting 이라는 새 낱말도 이 문장에서 처음 나와 앞과 단절된 대목으로 읽힌다.",
+     "how_to_reject": "by and large 는 앞의 일부 사례(Some painters)를 인정한 뒤 큰 줄기로 돌아오는 표지이므로 단절이 아니라 연결의 증거다. 그리고 ⑤의 'painters were freed to look inward' 가 풀려난 대상, 곧 'direct representation and reproduction' 의 의무를 세워 주는 문장이 ③뿐이다 — ③을 빼면 ⑤의 freed 가 무엇에서 풀려났는지 지문에 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "④는 'Therefore, the painters of that century put more focus on expressing nature, people, and cities as they were in reality' 로 귀결이 현실 그대로의 재현 쪽이다. 그런데 Therefore 가 받는 바로 앞 ③의 귀결은 'moving away from direct representation and reproduction to the abstract painting' 이고, 뒤 ⑤의 귀결은 'represent things as they were in their imagination' 이다. ④와 ⑤는 'as they were in ~' 이라는 같은 틀을 쓰면서 reality 와 their imagination 한 자리만 갈렸으므로 같은 글의 같은 방향이 될 수 없다. 게다가 도입 2문장이 'The photograph ... did the work of imitating nature better than the painter ever could' 라고 못 박았으므로 화가가 현실 재현을 더 파고들 이유가 지문에서 나오지 않는다. ④를 가리면 ③의 abstract painting of the twentieth century 가 ⑤의 look inward 로 곧장 이어진다.",
+     "confirmed_at": {
+      "sentence_index": [7],
+      "note": "④를 한 문장으로 떼어 읽으면 '20세기 화가들이 현실을 더 표현하려 했다' 는 그럴듯한 진술이다. 확정은 ⑤가 같은 틀에 반대 낱말(their imagination)을 넣어 귀결을 다시 대는 자리에서 난다. 이 문항은 이 유형에서 드물게 극성 충돌이 직접 보이는 경우이고, 나머지 두 문항(2021#35 · M2109#35)처럼 '참이지만 딴 이야기' 인 설계와는 결이 다르다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "열거·병렬 절단",
+     "why_tempting": "문장 끝 'rendering emotion in the color, volume, line, and spatial configurations native to the painter’s art' 가 회화 기법 열거로 갑자기 늘어나, 사진과 회화의 관계를 다루던 글에서 벗어난 대목으로 읽힌다. 지문에서 가장 긴 문장인 것도 그 판단을 돕는다.",
+     "how_to_reject": "그 열거는 앞 절 'represent things as they were in their imagination' 의 수단을 적은 것이고, 끝의 'native to the painter’s art' 가 도입 1·2문장이 세운 대립(사진이 더 잘하는 imitating nature 대 화가 고유의 것)을 닫는다. ⑤를 빼면 첫 문장의 crisis 가 어떻게 풀렸는지가 지문에 남지 않는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "번호 없는 앞 두 문장에서 대립 항 두 개를 적는다 — 사진이 더 잘하는 일(imitating nature)과 그 때문에 위기에 놓인 것(painting)",
+     "on_fail": "두 항이 안 잡히면 첫 문장의 주어(photography)와 서술어(was put in crisis)만 옮겨 적는다"
+    },
+    {
+     "step": "①~⑤ 옆에 그 문장이 화가를 어느 쪽으로 보내는지 화살표를 적는다 — 현실 쪽(reality · representation · reproduction)인가 안쪽(inward · imagination · abstract)인가",
+     "on_fail": "화살표가 안 적히는 문장에는 물음표를 하고 그 문장의 목적어(무엇을 표현하는가)만 옮겨 적는다"
+    },
+    {
+     "step": "화살표가 혼자 반대인 문장을 후보로 적고, 그 문장 앞머리의 표지(Therefore)가 바로 앞 문장의 귀결로 성립하는지 앞 문장 하나만 다시 본다",
+     "on_fail": "앞머리에 표지가 없는 문장이면, 그 문장이 꺼낸 명사가 뒤 문장에 다시 나오는지로 바꿔 확인한다"
+    },
+    {
+     "step": "같은 틀이 되풀이되는 두 문장을 찾아 한 낱말만 다른 자리를 맞대 본다 — 여기서는 as they were in reality 와 as they were in their imagination",
+     "on_fail": "같은 틀이 안 보이면 각 문장에서 '무엇을 그리는가' 에 해당하는 명사만 뽑아 줄로 늘어놓는다"
+    },
+    {
+     "step": "후보를 손으로 가리고 앞뒤를 붙여 읽어 남은 네 문장의 화살표가 한 방향인지 확인한다",
+     "on_fail": "두 방향이 남으면 3단계로 돌아가 다른 후보를 잡는다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.71,
+    "drivers": [
+     "정답 문장에 Therefore 가 붙어 앞 문장의 귀결로 읽힌다",
+     "③이 가장 길고 But 으로 시작해 이탈 후보로 먼저 걸린다",
+     "판정이 낱말 겹침이 아니라 reality 대 their imagination 이라는 방향 대조에 달렸다",
+     "⑤의 기법 열거(color, volume, line, spatial configurations)가 새 화제처럼 늘어난다"
+    ]
+   },
+   "required_vocab": ["imitate", "representation", "reproduction", "abstract", "inward", "render", "configuration"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revision_note": "초안의 answer_locus.quote 는 ③의 'But by and large, the photograph was a challenge to painting' 이었다. 이 인용은 ③이 논지의 큰 줄기임을 보이지만 ④를 지목하지는 못한다 — ④가 Therefore 로 ③에 붙어 있고 '20세기' 라는 시대어를 공유하므로, ③만 보면 ④가 오히려 자연스러운 후속으로 읽힌다. ⑤의 'painters were freed to look inward and represent things as they were in their imagination' 으로 바꿨다. 같은 틀(as they were in ~)에서 한 낱말이 갈리는 자리라 ④를 직접 지목한다",
+     "findings": [
+      "바꾼 인용을 코퍼스 지문에서 문자 그대로 확인했다(정규화 없이도 일치)",
+      "why_correct 의 대응이 낱말 단위로 성립한다 — 선지 쪽 'as they were in reality' 대 인용 쪽 'as they were in their imagination'",
+      "이 문항은 유형 표의 '정답 문장은 떼어 읽으면 참' 은 만족하지만 판정 근거가 건너뜀이 아니라 극성 충돌이다. type_report 에 적었다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문 문자열과 대조",
+      "why_correct 가 인용한 선지 표현을 choices[3] 원문과 대조",
+      "③을 인용했을 때 ④가 배제되는지 실제로 따져 보고 인용을 교체"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 4개 라벨이 총론-각론 역전 · 어휘 반복 유인 · 연결사 방향 충돌 · 열거·병렬 절단 4종으로 서로 다르다",
+      "③의 why_tempting 과 how_to_reject 가 실제 채점에서 가장 많이 몰릴 자리를 다룬다 — But 으로 시작하고 가장 긴 문장이다",
+      "how_to_reject 넷 모두 위치를 지목한다 — ② 전반 · ① 전반 · ⑤의 freed · ⑤ 후반과 도입 1·2문장"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부 확인",
+      "why_tempting 을 각 선지 원문과 대조(특히 ⑤의 열거 부분이 선지 텍스트에 있는지)",
+      "how_to_reject 에 문장 위치 또는 영어 인용이 있는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계 화살표 표기가 이 문항의 핵심을 그대로 실행한다 — 방향을 적어 두면 ④가 혼자 반대인 것이 한눈에 남는다",
+      "5단계에서 참과 거짓 판정을 묻지 않게 했다. ④를 떼어 읽으면 참으로 보이므로, 참·거짓으로 고르는 습관이 이 문항에서 실점을 만든다",
+      "90초 안에 끝난다 — 1단계 15초, 2단계 30초, 3단계 20초, 4단계 15초, 5단계 10초"
+     ],
+     "checked": [
+      "절차 5단계에 순환논법 표현이 없는지 확인",
+      "2단계 화살표를 다섯 문장에 실제로 적용해 ④만 반대가 되는지 확인",
+      "required_vocab 7낱말을 지문 문자열에서 확인(imitating · representation · reproduction · abstract · inward · rendering · configurations)"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-IRRELEVANT",
+  "type_name": "무관한 문장",
+  "n_analyzed": 3,
+  "recurring_traps": [
+   {
+    "trap": "총론-각론 역전",
+    "count": 3,
+    "signature": "층위가 오르내리는 정상 문장을 화제 이탈로 본다 — 도입의 일반 진술을 받는 사례(2021#35 ① dumpster fire), 사례들을 묶는 일반화(M2109#35 ④ a sort of logo), 위기 서술 뒤에 오는 활용 서술(2019#35 ① practical use). 층위 이동은 뒤 문장이 반드시 받는다"
+   },
+   {
+    "trap": "열거·병렬 절단",
+    "count": 3,
+    "signature": "짝을 이루는 두 문장 중 한쪽만 보고 군더더기로 판정한다 — 생략 구문(2021#35 ② non-members were not and do not), more than A 다음의 A 이상 B(M2109#35 ②), 귀결 뒤에 붙은 수단 열거(2019#35 ⑤ color, volume, line). 복원하거나 짝을 찾으면 그대로 맞물린다"
+   },
+   {
+    "trap": "연결사 방향 충돌",
+    "count": 2,
+    "signature": "표지와 뒤 내용이 어긋나 보이는 정상 문장을 지운다 — Thus 뒤에 결론이 아니라 실례가 오는 경우(M2109#35 ⑤), But by and large 가 앞 두 문장을 한꺼번에 뒤집는 경우(2019#35 ③). 역접과 결론 표지는 앞 문장을 전제로 삼으므로 연결의 증거다"
+   },
+   {
+    "trap": "어휘 반복 유인",
+    "count": 2,
+    "signature": "지문 화제어를 가장 많이 몰아 쓴 정상 문장을 대신 지운다(2021#35 ⑤ humor·organization·membership, 2019#35 ② photograph·painters·landscape). 겹침의 양이 아니라 그 낱말의 역할이 판정한다"
+   },
+   {
+    "trap": "마무리 문장 위치 오판",
+    "count": 1,
+    "signature": "한 줄 요약처럼 읽히는 문장이 끝이 아닌 자리에 있어 군더더기로 보인다(2021#35 ④). 뒤 문장이 even 으로 정도를 올리면 그 요약이 발판이다"
+   },
+   {
+    "trap": "지시어 선행사 절단",
+    "count": 1,
+    "signature": "지시어가 받을 낱말이 앞 문장에 글자로 없어 그 문장 자체를 지운다(M2109#35 ① This process). 선행사는 낱말이 아니라 앞 문장이 서술한 과정이나 사태다"
+   }
+  ],
+  "answer_locus_pattern": "3/3에서 확정 근거가 정답 문장 **뒤쪽**에 있었다 — 2021#35 ④ 'bonds among organization members'(정답 바로 뒤), M2109#35 ④ 'the landscape identity ... logo'(바로 뒤), 2019#35 ⑤ 'freed to look inward ... in their imagination'(두 문장 뒤). 정답 문장 3/3이 지문 화제어를 그대로 되풀이한다(humor / landscape·the US / painters·century) — 겹침은 근거가 아니라 미끼다. 정답 문장 3/3이 떼어 읽으면 참이다. 다만 근거의 **모양**이 두 갈래였다: 2021#35 와 M2109#35 는 뒤 문장의 되받는 표현이 정답을 건너뛰어 두 칸 앞에 닿는 전형(주체가 조직 밖 / 술어가 보존 쪽)이고, 2019#35 는 같은 틀(as they were in ~)에 반대 낱말이 들어간 **극성 충돌**이라 방향 표시만으로 갈린다.",
+  "procedure": [
+   {
+    "step": "번호가 안 붙은 도입 1~3문장만 먼저 읽고 축을 두 낱말로 적는다 — '누가(주체) 무엇을 얻는가 또는 무엇으로 보는가'. ①~⑤는 모두 이 축을 받아야 한다",
+    "on_fail": "두 낱말이 안 잡히면 첫 문장의 주어와 서술어를 그대로 옮겨 적는다"
+   },
+   {
+    "step": "①~⑤ 앞머리에서 앞을 되돌아보는 표지에만 동그라미를 친다 — 지시어(This · these · itself · such), 정관사와 명사, 연결사(But · Therefore · Thus · also · even), 시점어(Over time)",
+    "on_fail": "표지가 하나도 없는 문장에는 별표를 한다. 앞을 스스로 받지 않으므로 후보 1순위다"
+   },
+   {
+    "step": "동그라미마다 가리키는 말을 바로 앞 문장에서 찾아 화살표를 긋는다. 바로 앞에서 못 찾고 두 칸 앞에 닿는 화살표가 생기면 그 화살표가 건너뛴 문장을 후보로 적는다",
+    "on_fail": "화살표가 전부 바로 앞에 닿으면 문장마다 1단계 축에 대한 부호(플러스·마이너스)나 방향(현실 쪽·내면 쪽)을 적어 혼자 다른 문장을 후보로 삼는다"
+   },
+   {
+    "step": "후보가 새로 꺼낸 명사(commercials·attention / protection·wilderness)를 후보 뒤 문장들에서 눈으로 찾는다. 한 번도 다시 나오지 않으면 확정한다",
+    "on_fail": "다시 나오면 후보를 바꿔 3단계로 돌아간다. 겹치는 낱말 수로 고르지 않는다 — 3/3에서 정답이 화제어를 되풀이했다"
+   },
+   {
+    "step": "후보를 손으로 가리고 앞뒤를 붙여 읽어, 남은 네 문장의 지시어·정관사·결론 표지가 각각 받을 말을 갖고 방향이 한 줄인지 15초 안에 확인한다",
+    "on_fail": "하나라도 비거나 방향이 둘로 갈리면 후보를 바꿔 3단계로 돌아간다"
+   }
+  ],
+  "failure_modes": [
+   "문장의 참과 거짓으로 고른다 — 3/3에서 정답 문장은 떼어 읽으면 참이고 상식적이다(광고에 유머가 쓰인다 · 미국은 원시 자연을 보호한다 · 20세기 화가들이 현실을 표현하려 했다). 틀린 문장을 찾는 눈으로는 원리상 안 잡힌다",
+   "겹치는 낱말이 가장 많은 문장을 '가장 본론' 으로 믿는다. 3/3에서 정답이 화제어를 되풀이했고, 2019#35 에서는 겹침이 가장 많은 ②가 정상 문장이다",
+   "지시어의 선행사를 못 찾은 문장 자체를 지운다(M2109#35 ① This process). 선행사가 멀어진 원인은 그 문장이 아니라 사이에 낀 문장이다",
+   "But 이나 Thus 같은 표지를 단절 신호로 읽는다(2019#35 ③ · M2109#35 ⑤). 역접과 결론 표지는 앞 문장을 전제로 삼는 연결의 증거다",
+   "결론 표지가 붙었으니 앞 문장의 귀결이라고 그대로 믿는다 — 2019#35 ④가 Therefore 를 달고 정반대 방향의 귀결을 내놓는다. 표지의 존재가 아니라 귀결의 방향을 확인해야 한다",
+   "번호 없는 도입부를 건너뛰고 ①부터 읽는다. 3/3에서 축을 세우는 문장이 ① 앞에 있었고, 축이 없으면 어느 문장이 벗어났는지 잴 자가 없다"
+  ],
+  "time_budget_sec": 90,
+  "open_questions": [
+   "**이 세 문항은 재분석이다.** 파서가 줄머리 ①을 선지 블록으로 오인해 지문이 첫 ① 앞에서 잘린 상태로 한 번 분석됐고(2019#35 는 955자 중 178자만 보였다), 그때는 판정해야 할 ①~⑤ 가 지문에 거의 없었다. 이번 분석은 2026-09-13 에 고친 파서의 온전한 전문으로 처음부터 다시 썼다. 같은 잘림이 남은 문항이 더 있는지 R-IRRELEVANT 사정권 28문항의 지문 길이를 다시 세어 볼 것을 제안한다 — 850자 미만이면 ① 앞에서 잘렸을 가능성이 있다",
+   "정답 위치는 검산에만 쓴다 — 유형 전체 실측(type_answer_distribution, keyed 28)은 ② 2 · ③ 12 · ④ 14 · ① 0 · ⑤ 0 이다. '①이 0회' 만 따로 보면 균등 가정에서 p=(4/5)^28=1.9e-3 으로 이 저장소의 Bonferroni 문턱(3.85e-4)을 못 넘으므로 유의하지 않다. '①과 ⑤ 를 합쳐 0회' 는 p=(3/5)^28=6.1e-7 로 문턱을 넘지만 사후에 양 끝을 묶어 세운 가설이므로, 풀이 규칙이 아니라 **①이나 ⑤ 를 고르려 할 때 근거를 두 개 요구하는 검산 신호**로만 적는다. 이 청크 3문항의 정답은 ③ 2 · ④ 1 로 전체 분포와 결이 같다",
+   "함정 라벨은 (B) 위치형 표의 여섯 개로 12개 오답이 모두 담겼다 — 앞 청크(2018#35 묶음)가 등재를 제안한 결론 신정보 착시와 핵심어 부재 착시는 이번에 쓸 자리가 없었다. 등재 근거는 아직 그 청크 표본뿐이다",
+   "2019#35 는 이 유형에서 근거의 모양이 다르다 — _PROMPT.md §1-c 는 R-IRRELEVANT 를 '떼어 읽으면 참이고, 뒤 문장의 되받는 표현이 건너뛰는지로만 잡힌다' 로 적는데, 이 문항은 같은 틀(as they were in ~)에 반대 낱말이 들어간 극성 충돌이라 방향 표시만으로 갈린다. 3문항 중 1건이므로 표를 고칠 근거로는 모자란다. 다음 청크에서 '정답 문장이 앞뒤 문장과 방향이 반대인가' 를 따로 세어 대조할 것",
+   "반려는 3문항에서 3건 나왔고 페르소나가 서로 달랐다 — setter 1(2019#35: 인용이 ③이면 ④를 지목하지 못한다), analyst 1(2021#35: ⑤ 라벨이 ①과 중복), tutor 1(M2109#35: '낱말이 가장 적게 겹치는 문장' 규칙이 학습자를 ①로 민다). 자가 서로 겹치지 않는다는 신호로 본다",
+   "recurring_traps 의 count 는 문항과 선지 쌍으로 한 번씩만 셌다 — 오답 4개 × 3문항 = 12 이고, 여섯 라벨의 합도 3+3+2+2+1+1=12 이다"
+  ]
+ }
+}

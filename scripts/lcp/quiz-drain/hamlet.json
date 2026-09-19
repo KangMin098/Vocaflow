@@ -1,0 +1,637 @@
+{
+  "book": {
+    "id": "42f3bce4-5cae-4cda-ae40-f1da16d8ad99",
+    "title": "Hamlet",
+    "book_v_level": 8
+  },
+  "target_per_chapter": 8,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": "Scene I",
+      "word_count": 1423,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 1. Scene I\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/hamlet/text/act-1#scene-1-1\n\nElsinore. A platform before the castle.\n\nFrancisco at his post. Enter to him Bernardo.\n\nBernardo Who's there?\n\nFrancisco Nay, answer me: stand, and unfold yourself.\n\nBernardo Long live the king!\n\nFrancisco Bernardo?\n\nBernardo He.\n\nFrancisco You come most carefully upon your hour.\n\nBernardo\n'Tis now struck twelve; get thee to bed, Francisco.\n\nFrancisco\n\nFor this relief much thanks: 'tis bitter cold,\n\nAnd I am sick at heart.\n\nBernardo Have you had quiet guard?\n\nFrancisco Not a mouse stirring.\n\nBernardo\n\nWell, good night.\n\nIf you do meet Horatio and Marcellus,\n\nThe rivals of my watch, bid them make haste.\n\nFrancisco I think I hear them. Stand, ho! Who's there?\n\nEnter Horatio and Marcellus.\n\nHoratio Friends to this ground.\n\nMarcellus And liegemen to the Dane.\n\nFrancisco Give you good night.\n\nMarcellus\n\nO, farewell, honest soldier:\n\nWho hath relieved you?\n\nFrancisco\n\nBernardo has my place.\n\nGive you good night. Exit.\n\nMarcellus Holla! Bernardo!\n\nBernardo\n\nSay,\n\nWhat, is Horatio there?\n\nHoratio A piece of him.\n\nBernardo Welcome, Horatio: welcome, good Marcellus.\n\nMarcellus What, has this thing appear'd again to-night?\n\nBernardo I have seen nothing.\n\nMarcellus\n\nHoratio says 'tis but our fantasy,\n\nAnd will not let belief take hold of him\n\nTouching this dreaded sight, twice seen of us:\n\nTherefore I have entreated him along\n\nWith us to watch the minutes of this night;\n\nThat if again this apparition come,\n\nHe may approve our eyes and speak to it.\n\nHoratio Tush, tush, 'twill not appear.\n\nBernardo\n\nSit down awhile;\n\nAnd let us once again assail your ears,\n\nThat are so fortified against our story\n\nWhat we have two nights seen.\n\nHoratio\n\nWell, sit we down,\n\nAnd let us hear Bernardo speak of this.\n\nBernardo\n\nLast night of all,\n\nWhen yond same star that's westward from the pole\n\nHad made his course to illume that part of heaven\n\nWhere now it burns, Marcellus and myself,\n\nThe bell then beating one⁠--\n\nEnter Ghost.\n\nMarcellus Peace, break thee off; look, where it comes again!\n\nBernardo In the same figure, like the king that's dead.\n\nMarcellus Thou art a scholar; speak to it, Horatio.\n\nBernardo Looks it not like the king? mark it, Horatio.\n\nHoratio Most like: it harrows me with fear and wonder.\n\nBernardo It would be spoke to.\n\nMarcellus Question it, Horatio.\n\nHoratio\n\nWhat art thou that usurp'st this time of night,\n\nTogether with that fair and warlike form\n\nIn which the majesty of buried Denmark\n\nDid sometimes march? by heaven I charge thee, speak!\n\nMarcellus It is offended.\n\nBernardo See, it stalks away!\n\nHoratio Stay! speak, speak! I charge thee, speak! Exit Ghost.\n\nMarcellus\n'Tis gone, and will not answer.\n\nBernardo\n\nHow now, Horatio! you tremble and look pale:\n\nIs not this something more than fantasy?\n\nWhat think you on't?\n\nHoratio\n\nBefore my God, I might not this believe\n\nWithout the sensible and true avouch\n\nOf mine own eyes.\n\nMarcellus Is it not like the king?\n\nHoratio\n\nAs thou art to thyself:\n\nSuch was the very armour he had on\n\nWhen he the ambitious Norway combated;\n\nSo frown'd he once, when, in an angry parle,\n\nHe smote the sledded Polacks on the ice.\n\n'Tis strange.\n\nMarcellus\n\nThus twice before, and jump at this dead hour,\n\nWith martial stalk hath he gone by our watch.\n\nHoratio\n\nIn what particular thought to work I know not;\n\nBut in the gross and scope of my opinion,\n\nThis bodes some strange eruption to our state.\n\nMarcellus\n\nGood now, sit down, and tell me, he that knows,\n\nWhy this same strict and most observant watch\n\nSo nightly toils the subject of the land,\n\nAnd why such daily cast of brazen cannon,\n\nAnd foreign mart for implements of war;\n\nWhy such impress of shipwrights, whose sore task\n\nDoes not divide the Sunday from the week;\n\nWhat might be toward, that this sweaty haste\n\nDoth make the night joint-labourer with the day:\n\nWho is't that can inform me?\n\nHoratio\n\nThat can I;\n\nAt least, the whisper goes so. Our last king,\n\nWhose image even but now appear'd to us,\n\nWas, as you know, by Fortinbras of Norway,\n\nThereto prick'd on by a most emulate pride,\n\nDared to the combat; in which our valiant Hamlet⁠--\n\nFor so this side of our known world esteem'd him⁠--\n\nDid slay this Fortinbras; who, by a seal'd compact,\n\nWell ratified by law and heraldry,\n\nDid forfeit, with his life, all those his lands\n\nWhich he stood seized of, to the conqueror:\n\nAgainst the which, a moiety competent\n\nWas gaged by our king; which had return'd\n\nTo the inheritance of Fortinbras,\n\nHad he been vanquisher; as, by the same covenant,\n\nAnd carriage of the article design'd,\n\nHis fell to Hamlet. Now, sir, young Fortinbras,\n\nOf unimproved mettle hot and full,\n\nHath in the skirts of Norway here and there\n\nShark'd up a list of lawless resolutes,\n\nFor food and diet, to some enterprise\n\nThat hath a stomach in't; which is no other⁠--\n\nAs it doth well appear unto our state⁠--\n\nBut to recover of us, by strong hand\n\nAnd terms compulsatory, those foresaid lands\n\nSo by his father lost: and this, I take it,\n\nIs the main motive of our preparations,\n\nThe source of this our watch and the chief head\n\nOf this post-haste and romage in the land.\n\nBernardo\n\nI think it be no other but e'en so:\n\nWell may it sort that this portentous figure\n\nComes armed through our watch; so like the king\n\nThat was and is the question of these wars.\n\nHoratio\n\nA mote it is to trouble the mind's eye.\n\nIn the most high and palmy state of Rome,\n\nA little ere the mightiest Julius fell,\n\nThe graves stood tenantless and the sheeted dead\n\nDid squeak and gibber in the Roman streets:\n\nAs stars with trains of fire and dews of blood,\n\nDisasters in the sun; and the moist star\n\nUpon whose influence Neptune's empire stands\n\nWas sick almost to doomsday with eclipse:\n\nAnd even the like precurse of fierce events,\n\nAs harbingers preceding still the fates\n\nAnd prologue to the omen coming on,\n\nHave heaven and earth together demonstrated\n\nUnto our climatures and countrymen.⁠--\n\nBut soft, behold! lo, where it comes again!\n\nReenter Ghost.\n\nI'll cross it, though it blast me. Stay, illusion!\n\nIf thou hast any sound, or use of voice,\n\nSpeak to me:\n\nIf there be any good thing to be done,\n\nThat may to thee do ease and grace to me,\n\nSpeak to me: Cock crows.\n\nIf thou art privy to thy country's fate,\n\nWhich, happily, foreknowing may avoid,\n\nO, speak!\n\nOr if thou hast uphoarded in thy life\n\nExtorted treasure in the womb of earth,\n\nFor which, they say, you spirits oft walk in death,\n\nSpeak of it: stay, and speak! Stop it, Marcellus.\n\nMarcellus Shall I strike at it with my partisan?\n\nHoratio Do, if it will not stand.\n\nBernardo\n'Tis here!\n\nHoratio\n'Tis here!\n\nMarcellus\n\n'Tis gone! Exit Ghost.\n\nWe do it wrong, being so majestical,\n\nTo offer it the show of violence;\n\nFor it is, as the air, invulnerable,\n\nAnd our vain blows malicious mockery.\n\nBernardo It was about to speak, when the cock crew.\n\nHoratio\n\nAnd then it started like a guilty thing\n\nUpon a fearful summons. I have heard,\n\nThe cock, that is the trumpet to the morn,\n\nDoth with his lofty and shrill-sounding throat\n\nAwake the god of day; and, at his warning,\n\nWhether in sea or fire, in earth or air,\n\nThe extravagant and erring spirit hies\n\nTo his confine: and of the truth herein\n\nThis present object made probation.\n\nMarcellus\n\nIt faded on the crowing of the cock.\n\nSome say that ever 'gainst that season comes\n\nWherein our Saviour's birth is celebrated,\n\nThe bird of dawning singeth all night long:\n\nAnd then, they say, no spirit dare stir abroad;\n\nThe nights are wholesome; then no planets strike,\n\nNo fairy takes, nor witch hath power to charm,\n\nSo hallow'd and so gracious is the time.\n\nHoratio\n\nSo have I heard and do in part believe it.\n\nBut, look, the morn, in russet mantle clad,\n\nWalks o'er the dew of yon high eastward hill:\n\nBreak we our watch up; and by my advice,\n\nLet us impart what we have seen to-night\n\nUnto young Hamlet; for, upon my life,\n\nThis spirit, dumb to us, will speak to him.\n\nDo you consent we shall acquaint him with it,\n\nAs needful in our loves, fitting our duty?\n\nMarcellus\n\nLet's do't, I pray; and I this morning know\n\nWhere we shall find him most conveniently. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why has Horatio been asked to join the watch?",
+          "questionKo": "호레이쇼는 왜 보초에 함께하도록 청해졌는가?",
+          "options": [
+            {
+              "text": "He says the apparition is only their fantasy, so they entreated him along — if it comes again, he may approve their eyes and speak to it.",
+              "textKo": "그가 유령을 그저 두 사람의 환상이라 하므로, 다시 나타나면 제 눈으로 확인하고 말을 걸어 보라고 청했다."
+            },
+            {
+              "text": "He is the officer who commands the platform.",
+              "textKo": "그가 성벽 보초를 지휘하는 장교라서."
+            },
+            {
+              "text": "The king ordered him to guard the castle.",
+              "textKo": "왕이 성을 지키라 명해서."
+            },
+            {
+              "text": "He asked to see the ghost out of curiosity.",
+              "textKo": "호기심에 유령을 보고 싶다고 청해서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Therefore I have entreated him along With us to watch the minutes of this night"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Horatio describe the figure’s resemblance to the dead king?",
+          "questionKo": "호레이쇼는 그 형상이 죽은 왕과 얼마나 닮았다고 말하는가?",
+          "options": [
+            {
+              "text": "Only faintly, in the dark he could not be sure.",
+              "textKo": "어둠 속이라 확신할 수 없을 만큼 희미하게."
+            },
+            {
+              "text": "As like as Horatio is to himself — the very armour he wore when he combated the ambitious Norway.",
+              "textKo": "호레이쇼가 자기 자신을 닮은 만큼 — 야심 찬 노르웨이 왕과 싸울 때 입었던 바로 그 갑옷이라고."
+            },
+            {
+              "text": "Not at all — he thinks it is a stranger.",
+              "textKo": "전혀 — 낯선 사람이라 여긴다."
+            },
+            {
+              "text": "Like the king, but far younger.",
+              "textKo": "왕을 닮았으나 훨씬 젊다고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Such was the very armour he had on When he the ambitious Norway combated"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Horatio conclude the apparition means for Denmark?",
+          "questionKo": "호레이쇼는 그 유령이 덴마크에 무엇을 뜻한다고 결론짓는가?",
+          "options": [
+            {
+              "text": "That the dead king wants a proper burial.",
+              "textKo": "죽은 왕이 제대로 된 장례를 원한다고."
+            },
+            {
+              "text": "That the watchmen have been drinking.",
+              "textKo": "보초들이 술을 마셨다고."
+            },
+            {
+              "text": "In the gross and scope of his opinion, this bodes some strange eruption to their state.",
+              "textKo": "대체로 보아 나라에 이상한 변란이 닥칠 조짐이라고."
+            },
+            {
+              "text": "That the queen is in danger.",
+              "textKo": "왕비가 위험하다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "This bodes some strange eruption to our state"
+        },
+        {
+          "type": "multiple",
+          "question": "Why is Denmark arming so hurriedly, according to Horatio?",
+          "questionKo": "호레이쇼에 따르면 덴마크가 이토록 급히 무장하는 까닭은?",
+          "options": [
+            {
+              "text": "Sweden has declared war on Denmark.",
+              "textKo": "스웨덴이 덴마크에 선전포고를 해서."
+            },
+            {
+              "text": "The new king wants to invade Poland.",
+              "textKo": "새 왕이 폴란드를 침공하려 해서."
+            },
+            {
+              "text": "The old king ordered it before he died.",
+              "textKo": "선왕이 죽기 전에 명령했기 때문에."
+            },
+            {
+              "text": "Young Fortinbras has sharked up a list of lawless resolutes to recover by strong hand the lands his father lost.",
+              "textKo": "젊은 포틴브라스가 무법한 자들을 긁어모아, 아비가 잃은 땅을 힘으로 되찾으려 하기 때문에."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Shark’d up a list of lawless resolutes"
+        },
+        {
+          "type": "multiple",
+          "question": "How did the elder Hamlet come to hold Fortinbras’s lands?",
+          "questionKo": "선왕 햄릿은 어떻게 포틴브라스의 땅을 갖게 되었는가?",
+          "options": [
+            {
+              "text": "He slew Fortinbras in single combat, and by a sealed compact ratified by law and heraldry the loser forfeited his lands with his life.",
+              "textKo": "결투에서 포틴브라스를 베었고, 법과 문장으로 승인된 봉인 계약에 따라 진 쪽이 목숨과 함께 영지를 잃었다."
+            },
+            {
+              "text": "He bought them from Norway.",
+              "textKo": "노르웨이에서 사들였다."
+            },
+            {
+              "text": "They came to him by marriage.",
+              "textKo": "혼인으로 물려받았다."
+            },
+            {
+              "text": "The Danish council granted them to him.",
+              "textKo": "덴마크 의회가 그에게 하사했다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Did slay this Fortinbras; who, by a seal’d compact, Well ratified by law and heraldry"
+        },
+        {
+          "type": "multiple",
+          "question": "What Roman precedent does Horatio recall?",
+          "questionKo": "호레이쇼가 떠올리는 로마의 전례는?",
+          "options": [
+            {
+              "text": "That Rome fell in a single night.",
+              "textKo": "로마가 하룻밤에 무너졌다는 것."
+            },
+            {
+              "text": "A little before the mightiest Julius fell, the graves stood tenantless and the sheeted dead did squeak and gibber in the Roman streets.",
+              "textKo": "가장 강대한 율리우스가 쓰러지기 조금 전, 무덤이 텅 비고 수의를 입은 죽은 자들이 로마 거리에서 찍찍대며 지껄였다는 것."
+            },
+            {
+              "text": "That Roman soldiers also kept a midnight watch.",
+              "textKo": "로마 병사들도 한밤의 보초를 섰다는 것."
+            },
+            {
+              "text": "That the Romans never spoke to spirits.",
+              "textKo": "로마인은 결코 영에게 말을 걸지 않았다는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "A little ere the mightiest Julius fell, The graves stood tenantless"
+        },
+        {
+          "type": "multiple",
+          "question": "What ends the ghost’s second appearance?",
+          "questionKo": "유령의 두 번째 출현을 끝맺는 것은?",
+          "options": [
+            {
+              "text": "Marcellus strikes it with his partisan and it falls.",
+              "textKo": "마셀러스가 창으로 내리치자 쓰러진다."
+            },
+            {
+              "text": "Horatio’s question makes it answer and depart.",
+              "textKo": "호레이쇼의 물음에 답하고 물러난다."
+            },
+            {
+              "text": "The cock crows — it started like a guilty thing upon a fearful summons and faded on the crowing.",
+              "textKo": "수탉이 운다 — 무서운 소환에 죄지은 것처럼 흠칫하더니 그 울음소리에 사라진다."
+            },
+            {
+              "text": "The morning sun rises over the hill.",
+              "textKo": "아침 해가 언덕 위로 떠오른다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "It faded on the crowing of the cock"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Horatio propose at the end of the watch?",
+          "questionKo": "보초가 끝날 무렵 호레이쇼가 제안하는 것은?",
+          "options": [
+            {
+              "text": "To report it to the king at once.",
+              "textKo": "당장 왕에게 보고하자고."
+            },
+            {
+              "text": "To say nothing to anyone.",
+              "textKo": "누구에게도 말하지 말자고."
+            },
+            {
+              "text": "To keep watch again the next three nights.",
+              "textKo": "다음 사흘 밤 더 보초를 서자고."
+            },
+            {
+              "text": "To impart what they have seen to young Hamlet — this spirit, dumb to them, will speak to him.",
+              "textKo": "본 것을 젊은 햄릿에게 알리자고 — 자기들에게 말없던 이 영이 그에게는 말하리라고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "This spirit, dumb to us, will speak to him"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": "Scene II",
+      "word_count": 2162,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 2. Scene II\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/hamlet/text/act-1#scene-1-2\n\nA room of state in the castle.\n\nEnter King, Queen, Hamlet, Polonius, Laertes, Voltimand, Cornelius, Lords, and Attendants.\n\nKing\n\nThough yet of Hamlet our dear brother's death\n\nThe memory be green, and that it us befitted\n\nTo bear our hearts in grief and our whole kingdom\n\nTo be contracted in one brow of woe,\n\nYet so far hath discretion fought with nature\n\nThat we with wisest sorrow think on him,\n\nTogether with remembrance of ourselves.\n\nTherefore our sometime sister, now our queen,\n\nThe imperial jointress to this warlike state,\n\nHave we, as 'twere with a defeated joy⁠--\n\nWith an auspicious and a dropping eye,\n\nWith mirth in funeral and with dirge in marriage,\n\nIn equal scale weighing delight and dole⁠--\n\nTaken to wife: nor have we herein barr'd\n\nYour better wisdoms, which have freely gone\n\nWith this affair along. For all, our thanks.\n\nNow follows, that you know, young Fortinbras,\n\nHolding a weak supposal of our worth,\n\nOr thinking by our late dear brother's death\n\nOur state to be disjoint and out of frame,\n\nColleagued with the dream of his advantage,\n\nHe hath not fail'd to pester us with message,\n\nImporting the surrender of those lands\n\nLost by his father, with all bonds of law,\n\nTo our most valiant brother. So much for him.\n\nNow for ourself and for this time of meeting:\n\nThus much the business is: we have here writ\n\nTo Norway, uncle of young Fortinbras⁠--\n\nWho, impotent and bed-rid, scarcely hears\n\nOf this his nephew's purpose⁠--to suppress\n\nHis further gait herein; in that the levies,\n\nThe lists and full proportions, are all made\n\nOut of his subject: and we here dispatch\n\nYou, good Cornelius, and you, Voltimand,\n\nFor bearers of this greeting to old Norway;\n\nGiving to you no further personal power\n\nTo business with the king, more than the scope\n\nOf these delated articles allow.\n\nFarewell, and let your haste commend your duty.\n\nCornelius\n\nVoltimand In that and all things will we show our duty.\n\nKing\n\nWe doubt it nothing: heartily farewell. Exeunt Voltimand and Cornelius.\n\nAnd now, Laertes, what's the news with you?\n\nYou told us of some suit; what is't, Laertes?\n\nYou cannot speak of reason to the Dane,\n\nAnd lose your voice: what wouldst thou beg, Laertes,\n\nThat shall not be my offer, not thy asking?\n\nThe head is not more native to the heart,\n\nThe hand more instrumental to the mouth,\n\nThan is the throne of Denmark to thy father.\n\nWhat wouldst thou have, Laertes?\n\nLaertes\n\nMy dread lord,\n\nYour leave and favour to return to France;\n\nFrom whence though willingly I came to Denmark,\n\nTo show my duty in your coronation,\n\nYet now, I must confess, that duty done,\n\nMy thoughts and wishes bend again toward France\n\nAnd bow them to your gracious leave and pardon.\n\nKing Have you your father's leave? What says Polonius?\n\nPolonius\n\nHe hath, my lord, wrung from me my slow leave\n\nBy laboursome petition, and at last\n\nUpon his will I seal'd my hard consent:\n\nI do beseech you, give him leave to go.\n\nKing\n\nTake thy fair hour, Laertes; time be thine,\n\nAnd thy best graces spend it at thy will!\n\nBut now, my cousin Hamlet, and my son⁠--\n\nHamlet Aside. A little more than kin, and less than kind.\n\nKing How is it that the clouds still hang on you?\n\nHamlet Not so, my lord; I am too much i' the sun.\n\nQueen\n\nGood Hamlet, cast thy nighted colour off,\n\nAnd let thine eye look like a friend on Denmark.\n\nDo not for ever with thy vailed lids\n\nSeek for thy noble father in the dust:\n\nThou know'st 'tis common; all that lives must die,\n\nPassing through nature to eternity.\n\nHamlet Ay, madam, it is common.\n\nQueen\n\nIf it be,\n\nWhy seems it so particular with thee?\n\nHamlet\n\nSeems, madam! nay, it is; I know not \"seems.\"\n\n'Tis not alone my inky cloak, good mother,\n\nNor customary suits of solemn black,\n\nNor windy suspiration of forced breath,\n\nNo, nor the fruitful river in the eye,\n\nNor the dejected 'havior of the visage,\n\nTogether with all forms, moods, shapes of grief,\n\nThat can denote me truly: these indeed seem,\n\nFor they are actions that a man might play:\n\nBut I have that within which passeth show;\n\nThese but the trappings and the suits of woe.\n\nKing\n\n'Tis sweet and commendable in your nature, Hamlet,\n\nTo give these mourning duties to your father:\n\nBut, you must know, your father lost a father;\n\nThat father lost, lost his, and the survivor bound\n\nIn filial obligation for some term\n\nTo do obsequious sorrow: but to persever\n\nIn obstinate condolement is a course\n\nOf impious stubbornness; 'tis unmanly grief;\n\nIt shows a will most incorrect to heaven,\n\nA heart unfortified, a mind impatient,\n\nAn understanding simple and unschool'd:\n\nFor what we know must be and is as common\n\nAs any the most vulgar thing to sense,\n\nWhy should we in our peevish opposition\n\nTake it to heart? Fie! 'tis a fault to heaven,\n\nA fault against the dead, a fault to nature,\n\nTo reason most absurd; whose common theme\n\nIs death of fathers, and who still hath cried,\n\nFrom the first corse till he that died to-day,\n\n\"This must be so.\" We pray you, throw to earth\n\nThis unprevailing woe, and think of us\n\nAs of a father: for let the world take note,\n\nYou are the most immediate to our throne;\n\nAnd with no less nobility of love\n\nThan that which dearest father bears his son,\n\nDo I impart toward you. For your intent\n\nIn going back to school in Wittenberg,\n\nIt is most retrograde to our desire:\n\nAnd we beseech you, bend you to remain\n\nHere, in the cheer and comfort of our eye,\n\nOur chiefest courtier, cousin, and our son.\n\nQueen\n\nLet not thy mother lose her prayers, Hamlet:\n\nI pray thee, stay with us; go not to Wittenberg.\n\nHamlet I shall in all my best obey you, madam.\n\nKing\n\nWhy, 'tis a loving and a fair reply:\n\nBe as ourself in Denmark. Madam, come;\n\nThis gentle and unforced accord of Hamlet\n\nSits smiling to my heart: in grace whereof,\n\nNo jocund health that Denmark drinks to-day,\n\nBut the great cannon to the clouds shall tell,\n\nAnd the king's rouse the heavens shall bruit again,\n\nRe-speaking earthly thunder. Come away. Exeunt all but Hamlet.\n\nHamlet\n\nO, that this too too solid flesh would melt,\n\nThaw and resolve itself into a dew!\n\nOr that the Everlasting had not fix'd\n\nHis canon 'gainst self-slaughter! O God! God!\n\nHow weary, stale, flat and unprofitable,\n\nSeem to me all the uses of this world!\n\nFie on't! ah fie! 'tis an unweeded garden,\n\nThat grows to seed; things rank and gross in nature\n\nPossess it merely. That it should come to this!\n\nBut two months dead: nay, not so much, not two:\n\nSo excellent a king; that was, to this,\n\nHyperion to a satyr; so loving to my mother\n\nThat he might not beteem the winds of heaven\n\nVisit her face too roughly. Heaven and earth!\n\nMust I remember? why, she would hang on him,\n\nAs if increase of appetite had grown\n\nBy what it fed on: and yet, within a month⁠--\n\nLet me not think on't⁠--Frailty, thy name is woman!⁠--\n\nA little month, or ere those shoes were old\n\nWith which she follow'd my poor father's body,\n\nLike Niobe, all tears:⁠--why she, even she⁠--\n\nO, God! a beast, that wants discourse of reason,\n\nWould have mourn'd longer⁠--married with my uncle,\n\nMy father's brother, but no more like my father\n\nThan I to Hercules: within a month:\n\nEre yet the salt of most unrighteous tears\n\nHad left the flushing in her galled eyes,\n\nShe married. O, most wicked speed, to post\n\nWith such dexterity to incestuous sheets!\n\nIt is not nor it cannot come to good:\n\nBut break, my heart; for I must hold my tongue.\n\nEnter Horatio, Marcellus, and Bernardo.\n\nHoratio Hail to your lordship!\n\nHamlet\n\nI am glad to see you well:\n\nHoratio⁠--or I do forget myself.\n\nHoratio The same, my lord, and your poor servant ever.\n\nHamlet\n\nSir, my good friend; I'll change that name with you:\n\nAnd what make you from Wittenberg, Horatio?\n\nMarcellus?\n\nMarcellus My good lord⁠--\n\nHamlet\n\nI am very glad to see you. Good even, sir.\n\nBut what, in faith, make you from Wittenberg?\n\nHoratio A truant disposition, good my lord.\n\nHamlet\n\nI would not hear your enemy say so,\n\nNor shall you do mine ear that violence,\n\nTo make it truster of your own report\n\nAgainst yourself: I know you are no truant.\n\nBut what is your affair in Elsinore?\n\nWe'll teach you to drink deep ere you depart.\n\nHoratio My lord, I came to see your father's funeral.\n\nHamlet\n\nI pray thee, do not mock me, fellow-student;\n\nI think it was to see my mother's wedding.\n\nHoratio Indeed, my lord, it follow'd hard upon.\n\nHamlet\n\nThrift, thrift, Horatio! the funeral baked meats\n\nDid coldly furnish forth the marriage tables.\n\nWould I had met my dearest foe in heaven\n\nOr ever I had seen that day, Horatio!\n\nMy father!⁠--methinks I see my father.\n\nHoratio Where, my lord?\n\nHamlet In my mind's eye, Horatio.\n\nHoratio I saw him once; he was a goodly king.\n\nHamlet\n\nHe was a man, take him for all in all,\n\nI shall not look upon his like again.\n\nHoratio My lord, I think I saw him yesternight.\n\nHamlet Saw? who?\n\nHoratio My lord, the king your father.\n\nHamlet The king my father!\n\nHoratio\n\nSeason your admiration for a while\n\nWith an attent ear, till I may deliver,\n\nUpon the witness of these gentlemen,\n\nThis marvel to you.\n\nHamlet For God's love, let me hear.\n\nHoratio\n\nTwo nights together had these gentlemen,\n\nMarcellus and Bernardo, on their watch,\n\nIn the dead vast and middle of the night,\n\nBeen thus encounter'd. A figure like your father,\n\nArmed at point exactly, cap-a-pe,\n\nAppears before them, and with solemn march\n\nGoes slow and stately by them: thrice he walk'd\n\nBy their oppress'd and fear-surprised eyes,\n\nWithin his truncheon's length; whilst they, distill'd\n\nAlmost to jelly with the act of fear,\n\nStand dumb and speak not to him. This to me\n\nIn dreadful secrecy impart they did;\n\nAnd I with them the third night kept the watch:\n\nWhere, as they had deliver'd, both in time,\n\nForm of the thing, each word made true and good,\n\nThe apparition comes: I knew your father;\n\nThese hands are not more like.\n\nHamlet But where was this?\n\nMarcellus My lord, upon the platform where we watch'd.\n\nHamlet Did you not speak to it?\n\nHoratio\n\nMy lord, I did;\n\nBut answer made it none: yet once methought\n\nIt lifted up its head and did address\n\nItself to motion, like as it would speak;\n\nBut even then the morning cock crew loud,\n\nAnd at the sound it shrunk in haste away,\n\nAnd vanish'd from our sight.\n\nHamlet\n'Tis very strange.\n\nHoratio\n\nAs I do live, my honour'd lord, 'tis true;\n\nAnd we did think it writ down in our duty\n\nTo let you know of it.\n\nHamlet\n\nIndeed, indeed, sirs, but this troubles me.\n\nHold you the watch to-night?\n\nMarcellus\n\nBernardo We do, my lord.\n\nHamlet Arm'd, say you?\n\nMarcellus\n\nBernardo Arm'd, my lord.\n\nHamlet From top to toe?\n\nMarcellus\n\nBernardo My lord, from head to foot.\n\nHamlet Then saw you not his face?\n\nHoratio O, yes, my lord; he wore his beaver up.\n\nHamlet What, look'd he frowningly?\n\nHoratio A countenance more in sorrow than in anger.\n\nHamlet Pale or red?\n\nHoratio Nay, very pale.\n\nHamlet And fix'd his eyes upon you?\n\nHoratio Most constantly.\n\nHamlet I would I had been there.\n\nHoratio It would have much amazed you.\n\nHamlet Very like, very like. Stay'd it long?\n\nHoratio While one with moderate haste might tell a hundred.\n\nMarcellus\n\nBernardo Longer, longer.\n\nHoratio Not when I saw't.\n\nHamlet His beard was grizzled⁠--no?\n\nHoratio\n\nIt was, as I have seen it in his life,\n\nA sable silver'd.\n\nHamlet\n\nI will watch to-night;\n\nPerchance 'twill walk again.\n\nHoratio I warrant it will.\n\nHamlet\n\nIf it assume my noble father's person,\n\nI'll speak to it, though hell itself should gape\n\nAnd bid me hold my peace. I pray you all,\n\nIf you have hitherto conceal'd this sight,\n\nLet it be tenable in your silence still;\n\nAnd whatsoever else shall hap to-night,\n\nGive it an understanding, but no tongue:\n\nI will requite your loves. So, fare you well:\n\nUpon the platform, 'twixt eleven and twelve,\n\nI'll visit you.\n\nAll Our duty to your honour.\n\nHamlet\n\nYour loves, as mine to you: farewell. Exeunt all but Hamlet.\n\nMy father's spirit in arms! all is not well;\n\nI doubt some foul play: would the night were come!\n\nTill then sit still, my soul: foul deeds will rise,\n\nThough all the earth o'erwhelm them, to men's eyes. Exit.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the King describe his marriage to the former queen?",
+          "questionKo": "왕은 선왕비와의 결혼을 어떻게 설명하는가?",
+          "options": [
+            {
+              "text": "With mirth in funeral and with dirge in marriage, weighing delight and dole in equal scale, he has taken his sometime sister, now his queen, to wife.",
+              "textKo": "장례에 기쁨을, 결혼에 만가를 섞어 기쁨과 슬픔을 같은 저울에 달아, 한때 형수였던 이를 이제 왕비로 맞았다고."
+            },
+            {
+              "text": "That he married in secret, against the court’s wish.",
+              "textKo": "궁정의 뜻을 거슬러 몰래 결혼했다고."
+            },
+            {
+              "text": "That the marriage was arranged before his brother died.",
+              "textKo": "형이 죽기 전에 정해진 혼사였다고."
+            },
+            {
+              "text": "That he delayed it a full year out of grief.",
+              "textKo": "슬픔 때문에 꼬박 일 년을 미뤘다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "With mirth in funeral and with dirge in marriage"
+        },
+        {
+          "type": "multiple",
+          "question": "What errand are Voltimand and Cornelius sent on?",
+          "questionKo": "볼티맨드와 코넬리어스는 어떤 임무로 보내지는가?",
+          "options": [
+            {
+              "text": "To fetch Prince Hamlet back from Wittenberg.",
+              "textKo": "햄릿 왕자를 비텐베르크에서 데려오는 일."
+            },
+            {
+              "text": "To carry a letter to old Norway, uncle of young Fortinbras, asking him to suppress his nephew’s purpose — with no power beyond the delated articles.",
+              "textKo": "젊은 포틴브라스의 숙부인 노(老)노르웨이 왕에게 편지를 전해 조카의 계획을 막게 하는 일 — 위임된 조항 이상의 권한은 없다."
+            },
+            {
+              "text": "To raise troops in France.",
+              "textKo": "프랑스에서 병력을 모으는 일."
+            },
+            {
+              "text": "To escort Laertes safely to Paris.",
+              "textKo": "레어티즈를 파리까지 무사히 호위하는 일."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "For bearers of this greeting to old Norway"
+        },
+        {
+          "type": "multiple",
+          "question": "What request does Laertes make, and on what ground is it granted?",
+          "questionKo": "레어티즈가 청하는 것과, 그것이 허락되는 근거는?",
+          "options": [
+            {
+              "text": "A command in the army, granted for his father’s service.",
+              "textKo": "군의 지휘권 — 아비의 공로를 보아 허락된다."
+            },
+            {
+              "text": "Ophelia’s betrothal to Hamlet, granted by the Queen.",
+              "textKo": "오필리아와 햄릿의 약혼 — 왕비가 허락한다."
+            },
+            {
+              "text": "Leave to return to France — Polonius says his son wrung a slow leave from him by laboursome petition, and the King then grants it.",
+              "textKo": "프랑스로 돌아갈 허락 — 폴로니어스가 끈질긴 간청에 마지못해 허락했다 말하자 왕이 이를 승인한다."
+            },
+            {
+              "text": "Leave to study at Wittenberg, granted freely.",
+              "textKo": "비텐베르크 유학 — 선선히 허락된다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "He hath, my lord, wrung from me my slow leave By laboursome petition"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Hamlet distinguish his grief from mere appearance?",
+          "questionKo": "햄릿은 제 슬픔을 겉모습과 어떻게 구별하는가?",
+          "options": [
+            {
+              "text": "He says his grief will pass in a month.",
+              "textKo": "한 달이면 슬픔이 지나가리라고."
+            },
+            {
+              "text": "He admits he feels nothing at all.",
+              "textKo": "아무것도 느끼지 못한다고 인정한다."
+            },
+            {
+              "text": "He says grief is a duty owed to the throne.",
+              "textKo": "슬픔은 왕좌에 진 의무라고."
+            },
+            {
+              "text": "The inky cloak and forced breath are actions a man might play; he has that within which passeth show — these are but the trappings and the suits of woe.",
+              "textKo": "검은 외투와 억지 한숨은 연기할 수 있는 짓이라며, 자기에겐 겉으로 드러나지 않는 것이 안에 있다고 — 저것들은 슬픔의 겉치레와 의복일 뿐이라고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "But I have that within which passeth show"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the King ask of Hamlet regarding Wittenberg?",
+          "questionKo": "왕은 비텐베르크에 관해 햄릿에게 무엇을 청하는가?",
+          "options": [
+            {
+              "text": "That he not go back — it is most retrograde to the King’s desire; he should remain as chiefest courtier, cousin, and son.",
+              "textKo": "돌아가지 말라고 — 왕의 뜻에 크게 어긋난다며, 으뜸가는 신하이자 조카이자 아들로 남으라고."
+            },
+            {
+              "text": "That he go at once and finish his studies.",
+              "textKo": "당장 가서 학업을 마치라고."
+            },
+            {
+              "text": "That he go, but return for the coronation.",
+              "textKo": "가되 대관식에는 돌아오라고."
+            },
+            {
+              "text": "That he decide the matter himself.",
+              "textKo": "스스로 정하라고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "It is most retrograde to our desire"
+        },
+        {
+          "type": "multiple",
+          "question": "In his soliloquy, how long does Hamlet say it has been since his father died?",
+          "questionKo": "독백에서 햄릿은 아버지가 죽은 지 얼마나 되었다고 말하는가?",
+          "options": [
+            {
+              "text": "A full year.",
+              "textKo": "꼬박 일 년."
+            },
+            {
+              "text": "But two months dead — nay, not so much, not two — and within a month his mother married.",
+              "textKo": "겨우 두 달 — 아니, 그만큼도 안 되는 — 그리고 한 달도 못 되어 어머니가 결혼했다고."
+            },
+            {
+              "text": "Six months.",
+              "textKo": "여섯 달."
+            },
+            {
+              "text": "Only a week.",
+              "textKo": "겨우 일주일."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "But two months dead: nay, not so much, not two"
+        },
+        {
+          "type": "multiple",
+          "question": "What bitter joke does Hamlet make to Horatio about the funeral?",
+          "questionKo": "햄릿이 장례에 관해 호레이쇼에게 던지는 쓴 농담은?",
+          "options": [
+            {
+              "text": "That the mourners were paid to weep.",
+              "textKo": "조문객들이 돈을 받고 울었다고."
+            },
+            {
+              "text": "That no one came to the funeral at all.",
+              "textKo": "장례에 아무도 오지 않았다고."
+            },
+            {
+              "text": "\"Thrift, thrift\" — the funeral baked meats did coldly furnish forth the marriage tables.",
+              "textKo": "\"절약, 절약\" — 장례에 구운 고기가 식은 채로 결혼식 상에 올랐다고."
+            },
+            {
+              "text": "That his uncle wept the loudest.",
+              "textKo": "숙부가 가장 크게 울었다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "The funeral baked meats Did coldly furnish forth the marriage tables"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Hamlet resolve after hearing Horatio’s report?",
+          "questionKo": "호레이쇼의 보고를 들은 뒤 햄릿이 결심하는 것은?",
+          "options": [
+            {
+              "text": "To tell the King and Queen immediately.",
+              "textKo": "왕과 왕비에게 즉시 알리겠다고."
+            },
+            {
+              "text": "To leave for Wittenberg that very night.",
+              "textKo": "바로 그날 밤 비텐베르크로 떠나겠다고."
+            },
+            {
+              "text": "To dismiss the report as a soldier’s tale.",
+              "textKo": "병사의 헛소리로 치부하겠다고."
+            },
+            {
+              "text": "To watch that night and speak to it if it assumes his father’s person, though hell itself should gape — and he binds them to silence.",
+              "textKo": "그날 밤 보초를 서고, 아버지의 모습을 하고 나타나면 지옥이 입을 벌리더라도 말을 걸겠다고 — 그리고 함구를 다짐받는다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "I’ll speak to it, though hell itself should gape And bid me hold my peace"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "Scene III",
+      "word_count": 1127,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 3. Scene III\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/hamlet/text/act-1#scene-1-3\n\nA room in Polonius' house.\n\nEnter Laertes and Ophelia.\n\nLaertes\n\nMy necessaries are embark'd: farewell:\n\nAnd, sister, as the winds give benefit\n\nAnd convoy is assistant, do not sleep,\n\nBut let me hear from you.\n\nOphelia Do you doubt that?\n\nLaertes\n\nFor Hamlet and the trifling of his favour,\n\nHold it a fashion and a toy in blood,\n\nA violet in the youth of primy nature,\n\nForward, not permanent, sweet, not lasting,\n\nThe perfume and suppliance of a minute;\n\nNo more.\n\nOphelia No more but so?\n\nLaertes\n\nThink it no more:\n\nFor nature, crescent, does not grow alone\n\nIn thews and bulk, but, as this temple waxes,\n\nThe inward service of the mind and soul\n\nGrows wide withal. Perhaps he loves you now,\n\nAnd now no soil nor cautel doth besmirch\n\nThe virtue of his will: but you must fear,\n\nHis greatness weigh'd, his will is not his own;\n\nFor he himself is subject to his birth:\n\nHe may not, as unvalued persons do,\n\nCarve for himself; for on his choice depends\n\nThe safety and health of this whole state;\n\nAnd therefore must his choice be circumscribed\n\nUnto the voice and yielding of that body\n\nWhereof he is the head. Then if he says he loves you,\n\nIt fits your wisdom so far to believe it\n\nAs he in his particular act and place\n\nMay give his saying deed; which is no further\n\nThan the main voice of Denmark goes withal.\n\nThen weigh what loss your honour may sustain,\n\nIf with too credent ear you list his songs,\n\nOr lose your heart, or your chaste treasure open\n\nTo his unmaster'd importunity.\n\nFear it, Ophelia, fear it, my dear sister,\n\nAnd keep you in the rear of your affection,\n\nOut of the shot and danger of desire.\n\nThe chariest maid is prodigal enough,\n\nIf she unmask her beauty to the moon:\n\nVirtue itself 'scapes not calumnious strokes:\n\nThe canker galls the infants of the spring,\n\nToo oft before their buttons be disclosed,\n\nAnd in the morn and liquid dew of youth\n\nContagious blastments are most imminent.\n\nBe wary then; best safety lies in fear:\n\nYouth to itself rebels, though none else near.\n\nOphelia\n\nI shall the effect of this good lesson keep,\n\nAs watchman to my heart. But, good my brother,\n\nDo not, as some ungracious pastors do,\n\nShow me the steep and thorny way to heaven;\n\nWhiles, like a puff'd and reckless libertine,\n\nHimself the primrose path of dalliance treads,\n\nAnd recks not his own rede.\n\nLaertes\n\nO, fear me not.\n\nI stay too long: but here my father comes.\n\nEnter Polonius.\n\nA double blessing is a double grace;\n\nOccasion smiles upon a second leave.\n\nPolonius\n\nYet here, Laertes! aboard, aboard, for shame!\n\nThe wind sits in the shoulder of your sail,\n\nAnd you are stay'd for. There; my blessing with thee!\n\nAnd these few precepts in thy memory\n\nSee thou character. Give thy thoughts no tongue,\n\nNor any unproportion'd thought his act.\n\nBe thou familiar, but by no means vulgar.\n\nThose friends thou hast, and their adoption tried,\n\nGrapple them to thy soul with hoops of steel;\n\nBut do not dull thy palm with entertainment\n\nOf each new-hatch'd, unfledged comrade. Beware\n\nOf entrance to a quarrel, but being in,\n\nBear't that the opposed may beware of thee.\n\nGive every man thy ear, but few thy voice;\n\nTake each man's censure, but reserve thy judgment.\n\nCostly thy habit as thy purse can buy,\n\nBut not express'd in fancy; rich, not gaudy;\n\nFor the apparel oft proclaims the man,\n\nAnd they in France of the best rank and station\n\nAre of a most select and generous chief in that.\n\nNeither a borrower nor a lender be;\n\nFor loan oft loses both itself and friend,\n\nAnd borrowing dulls the edge of husbandry.\n\nThis above all: to thine ownself be true,\n\nAnd it must follow, as the night the day,\n\nThou canst not then be false to any man.\n\nFarewell: my blessing season this in thee!\n\nLaertes Most humbly do I take my leave, my lord.\n\nPolonius The time invites you; go; your servants tend.\n\nLaertes\n\nFarewell, Ophelia; and remember well\n\nWhat I have said to you.\n\nOphelia\n\n'Tis in my memory lock'd,\n\nAnd you yourself shall keep the key of it.\n\nLaertes Farewell. Exit.\n\nPolonius What is't, Ophelia, he hath said to you?\n\nOphelia So please you, something touching the Lord Hamlet.\n\nPolonius\n\nMarry, well bethought:\n\n'Tis told me, he hath very oft of late\n\nGiven private time to you; and you yourself\n\nHave of your audience been most free and bounteous:\n\nIf it be so, as so 'tis put on me,\n\nAnd that in way of caution, I must tell you,\n\nYou do not understand yourself so clearly\n\nAs it behoves my daughter and your honour.\n\nWhat is between you? give me up the truth.\n\nOphelia\n\nHe hath, my lord, of late made many tenders\n\nOf his affection to me.\n\nPolonius\n\nAffection! pooh! you speak like a green girl,\n\nUnsifted in such perilous circumstance.\n\nDo you believe his tenders, as you call them?\n\nOphelia I do not know, my lord, what I should think.\n\nPolonius\n\nMarry, I'll teach you: think yourself a baby;\n\nThat you have ta'en these tenders for true pay,\n\nWhich are not sterling. Tender yourself more dearly;\n\nOr⁠--not to crack the wind of the poor phrase,\n\nRunning it thus⁠--you'll tender me a fool.\n\nOphelia\n\nMy lord, he hath importuned me with love\n\nIn honourable fashion.\n\nPolonius Ay, fashion you may call it; go to, go to.\n\nOphelia\n\nAnd hath given countenance to his speech, my lord,\n\nWith almost all the holy vows of heaven.\n\nPolonius\n\nAy, springes to catch woodcocks. I do know,\n\nWhen the blood burns, how prodigal the soul\n\nLends the tongue vows: these blazes, daughter,\n\nGiving more light than heat, extinct in both,\n\nEven in their promise, as it is a-making,\n\nYou must not take for fire. From this time\n\nBe somewhat scanter of your maiden presence;\n\nSet your entreatments at a higher rate\n\nThan a command to parley. For Lord Hamlet,\n\nBelieve so much in him, that he is young,\n\nAnd with a larger tether may he walk\n\nThan may be given you: in few, Ophelia,\n\nDo not believe his vows; for they are brokers,\n\nNot of that dye which their investments show,\n\nBut mere implorators of unholy suits,\n\nBreathing like sanctified and pious bonds,\n\nThe better to beguile. This is for all:\n\nI would not, in plain terms, from this time forth,\n\nHave you so slander any moment leisure,\n\nAs to give words or talk with the Lord Hamlet.\n\nLook to't, I charge you: come your ways.\n\nOphelia I shall obey, my lord. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does Laertes tell Ophelia to regard Hamlet’s favour?",
+          "questionKo": "레어티즈는 오필리아에게 햄릿의 호의를 어떻게 여기라 하는가?",
+          "options": [
+            {
+              "text": "As a fashion and a toy in blood — a violet in the youth of primy nature, sweet but not lasting, the perfume and suppliance of a minute.",
+              "textKo": "한때의 유행이자 젊은 피의 장난으로 — 한창때에 핀 제비꽃처럼 달콤하나 오래가지 않는, 한순간의 향기이자 소일거리로."
+            },
+            {
+              "text": "As a binding promise she must honour.",
+              "textKo": "반드시 지켜야 할 구속력 있는 약속으로."
+            },
+            {
+              "text": "As an insult to their father’s house.",
+              "textKo": "아버지 가문에 대한 모욕으로."
+            },
+            {
+              "text": "As proof that Hamlet will make her queen.",
+              "textKo": "햄릿이 그녀를 왕비로 삼으리라는 증거로."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Hold it a fashion and a toy in blood"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Laertes say Hamlet’s will is not his own?",
+          "questionKo": "레어티즈는 왜 햄릿의 뜻이 그 자신의 것이 아니라고 말하는가?",
+          "options": [
+            {
+              "text": "Because his uncle forbids him to marry.",
+              "textKo": "숙부가 결혼을 금했기 때문에."
+            },
+            {
+              "text": "He is subject to his birth — on his choice depends the safety and health of the whole state, so his choice must be circumscribed by the voice of that body.",
+              "textKo": "태생에 매인 몸이라 — 그의 선택에 온 나라의 안녕이 걸려 있으므로, 그 몸통의 뜻에 따라 제한되어야 한다고."
+            },
+            {
+              "text": "Because he is already betrothed elsewhere.",
+              "textKo": "이미 다른 데 약혼했기 때문에."
+            },
+            {
+              "text": "Because grief has taken away his judgment.",
+              "textKo": "슬픔이 판단력을 앗아갔기 때문에."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "For on his choice depends The safety and health of this whole state"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Ophelia turn her brother’s lesson back on him?",
+          "questionKo": "오필리아는 오빠의 훈계를 어떻게 되돌려주는가?",
+          "options": [
+            {
+              "text": "She says she will not listen to an absent brother.",
+              "textKo": "멀리 떠난 오빠의 말은 듣지 않겠다고."
+            },
+            {
+              "text": "She says their father has already approved the match.",
+              "textKo": "아버지가 이미 혼사를 승낙했다고."
+            },
+            {
+              "text": "He must not, like some ungracious pastors, show the steep and thorny way to heaven while himself treading the primrose path of dalliance.",
+              "textKo": "못된 목사들처럼 남에겐 험하고 가시밭인 천국 길을 가리키면서 정작 자신은 앵초꽃 깔린 유흥의 길을 밟지 말라고."
+            },
+            {
+              "text": "She refuses to answer him at all.",
+              "textKo": "아예 대답하지 않는다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Himself the primrose path of dalliance treads, And recks not his own rede"
+        },
+        {
+          "type": "multiple",
+          "question": "Which precept does Polonius give about friends?",
+          "questionKo": "폴로니어스가 벗에 관해 주는 교훈은?",
+          "options": [
+            {
+              "text": "Trust no one, not even old friends.",
+              "textKo": "오랜 벗이라도 아무도 믿지 말라고."
+            },
+            {
+              "text": "Make as many friends as possible while abroad.",
+              "textKo": "외지에 있는 동안 벗을 되도록 많이 사귀라고."
+            },
+            {
+              "text": "Choose friends only from the highest rank.",
+              "textKo": "가장 높은 신분에서만 벗을 고르라고."
+            },
+            {
+              "text": "Those friends thou hast, and their adoption tried, grapple them to thy soul with hoops of steel — but do not dull thy palm entertaining every new-hatched comrade.",
+              "textKo": "이미 사귀어 시험해 본 벗은 강철 테로 영혼에 붙들어 매되, 갓 나온 동무마다 손바닥을 무디게 하며 대접하지는 말라고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Grapple them to thy soul with hoops of steel"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Polonius say about lending and borrowing?",
+          "questionKo": "폴로니어스는 빌려주고 빌리는 일에 대해 무엇이라 하는가?",
+          "options": [
+            {
+              "text": "Neither a borrower nor a lender be — loan oft loses both itself and friend, and borrowing dulls the edge of husbandry.",
+              "textKo": "빌리는 자도 빌려주는 자도 되지 말라고 — 빚은 돈과 벗을 함께 잃게 하고, 빌리는 버릇은 살림의 날을 무디게 한다고."
+            },
+            {
+              "text": "Lend freely, for it wins goodwill.",
+              "textKo": "호의를 얻으니 아낌없이 빌려주라고."
+            },
+            {
+              "text": "Borrow only from family.",
+              "textKo": "집안사람에게서만 빌리라고."
+            },
+            {
+              "text": "Keep careful accounts of every loan.",
+              "textKo": "빌려준 것마다 장부를 꼼꼼히 적으라고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Neither a borrower nor a lender be"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Polonius set above all his other precepts?",
+          "questionKo": "폴로니어스가 다른 모든 교훈 위에 두는 것은?",
+          "options": [
+            {
+              "text": "To honour thy father above all men.",
+              "textKo": "누구보다 아버지를 공경하라고."
+            },
+            {
+              "text": "To thine ownself be true — and it must follow, as the night the day, thou canst not then be false to any man.",
+              "textKo": "네 자신에게 진실하라 — 그러면 밤이 낮을 뒤따르듯, 누구에게도 거짓될 수 없다고."
+            },
+            {
+              "text": "To keep silent in every company.",
+              "textKo": "어느 자리에서나 침묵하라고."
+            },
+            {
+              "text": "To dress richly wherever thou goest.",
+              "textKo": "어디를 가든 화려하게 차려입으라고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "This above all: to thine ownself be true"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Polonius characterise Hamlet’s vows to Ophelia?",
+          "questionKo": "폴로니어스는 햄릿이 오필리아에게 한 맹세를 어떻게 규정하는가?",
+          "options": [
+            {
+              "text": "Honourable offers he means to keep.",
+              "textKo": "지킬 뜻이 있는 떳떳한 청혼이라고."
+            },
+            {
+              "text": "A matter for the King alone to judge.",
+              "textKo": "오직 왕만이 판단할 일이라고."
+            },
+            {
+              "text": "Springes to catch woodcocks — blazes giving more light than heat, extinct in both even as they are made.",
+              "textKo": "멧도요를 잡는 덫이라고 — 열보다 빛이 많은 불꽃이라, 만들어지는 그 순간 둘 다 꺼져 버린다고."
+            },
+            {
+              "text": "Proof that Hamlet has lost his wits.",
+              "textKo": "햄릿이 정신을 잃었다는 증거라고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Ay, springes to catch woodcocks"
+        },
+        {
+          "type": "multiple",
+          "question": "What order does Polonius finally give Ophelia?",
+          "questionKo": "폴로니어스가 마지막으로 오필리아에게 내리는 명령은?",
+          "options": [
+            {
+              "text": "To accept his vows if he swears them again.",
+              "textKo": "다시 맹세하면 받아들이라는 것."
+            },
+            {
+              "text": "To report every meeting to the Queen.",
+              "textKo": "만남마다 왕비에게 알리라는 것."
+            },
+            {
+              "text": "To follow her brother to France.",
+              "textKo": "오빠를 따라 프랑스로 가라는 것."
+            },
+            {
+              "text": "From this time forth she is not to slander any moment’s leisure by giving words or talk with the Lord Hamlet.",
+              "textKo": "이제부터 햄릿 공과 말을 주고받느라 단 한순간의 여가도 더럽히지 말라는 것."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "As to give words or talk with the Lord Hamlet"
+        }
+      ]
+    }
+  ]
+}

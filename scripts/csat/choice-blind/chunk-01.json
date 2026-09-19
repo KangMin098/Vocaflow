@@ -1,0 +1,557 @@
+{
+ "rubric": {
+  "note": "자료를 보기 전에 고정한 규칙표. 선지마다 세 값을 매긴다. 정답이 무엇인지 모르는 채로 매겨야 한다.",
+  "abstractness": "1~5. 이 선지가 얼마나 추상적인가. 1 = 구체 사건·사례·수치·행위 서술. 3 = 일반 진술. 5 = 상위 개념을 가리키는 추상 명사구(예: the limits of perception). 길이를 보지 말고 지시 대상의 층위만 볼 것.",
+  "passageEcho": "0~2. 이 선지가 지문의 표현을 얼마나 그대로 쓰는가. 0 = 지문에 없는 낱말로 다시 썼다. 1 = 지문의 핵심어 한둘을 그대로 가져왔다. 2 = 지문의 구절을 거의 그대로 옮겼다. **낱말 겹침이 아니라 표현을 그대로 쓰는가**를 볼 것 — 같은 뜻 다른 낱말은 0 이다.",
+  "concreteMarker": "true/false. 구체 표지(고유명사·숫자·예시 도입어·시제 있는 사건 서술)가 하나라도 있는가. 이건 abstractness 와 따로 매긴다 — 내 추상도 판단이 길이만 따라간 것인지 검사하는 대조 항목이다."
+ },
+ "fillInstruction": "각 choices 원소에 abstractness(1~5) · passageEcho(0~2) · concreteMarker(true/false) 세 키를 더해 chunk-NN.out.json 으로 저장할 것. 다른 키는 건드리지 말 것.",
+ "items": [
+  {
+   "id": "2018#34",
+   "passage": "replicated behaviors and talents we thought were unique to humans, we’ve had to change our minds about what sets us apart. As we invent more species of AI, we will be forced to surrender more of what is supposedly unique about humans. Each step of surrender ─ we are not the only mind that can play chess, fly a plane, make music, or invent a mathematical law ─ will be painful and sad. We’ll spend the next three decades ─ indeed, perhaps the next century ─ in a permanent identity crisis, continually asking ourselves what humans are good for. If we aren’t unique toolmakers, or artists, or moral ethicists, then what, if anything, makes us special? In the grandest irony of all, the greatest benefit of an everyday, utilitarian AI will not be increased productivity or an economics of abundance or a new way of doing science ─ although all those will happen. The greatest benefit of the arrival of artificial intelligence is that * replicate",
+   "choices": [
+    {
+     "label": "A",
+     "text": "AIs could compensate for a decline in human intelligence"
+    },
+    {
+     "label": "B",
+     "text": "AIs could lead us in resolving moral dilemmas"
+    },
+    {
+     "label": "C",
+     "text": "humans could also be like AIs"
+    },
+    {
+     "label": "D",
+     "text": "AIs will help define humanity"
+    },
+    {
+     "label": "E",
+     "text": "humans will be liberated from hard labor"
+    }
+   ]
+  },
+  {
+   "id": "2019#31",
+   "passage": "unexpected death of Belgium’s King Baudouin in 1993 in a large sample of Belgian citizens. The data revealed that the news of the king’s death had been widely socially shared. By talking about the event, people gradually constructed a social narrative and a collective memory of the emotional event. At the same time, they consolidated their own memory of the personal circumstances in which the event took place, an effect known as “flashbulb memory.” The more an event is socially shared, the more it will be fixed in people’s minds. Social sharing may in this way help to counteract some natural tendency people may have. Naturally, people should be driven to “forget” undesirable events. Thus, someone who just heard a piece of bad news often tends initially to deny what happened. The social sharing of the bad news contributes to realism. * consolidate: 공고히 하다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "temporary"
+    },
+    {
+     "label": "B",
+     "text": "repetitive"
+    },
+    {
+     "label": "C",
+     "text": "rational"
+    },
+    {
+     "label": "D",
+     "text": "biased"
+    },
+    {
+     "label": "E",
+     "text": "illegal"
+    }
+   ]
+  },
+  {
+   "id": "2019#32",
+   "passage": "even be dismissed as troublemakers, extremists or simply ‘weirdos’. How, then, do they ever have any influence over the majority? The social psychologist Serge Moscovici claims that the answer lies in their behavioural style, i.e. the way . The crucial factor in the success of the suffragette movement was that its supporters were consistent in their views, and this created a considerable degree of social influence. Minorities that are active and organised, who support and defend their position consistently, can create social conflict, doubt and uncertainty among members of the majority, and ultimately this may lead to social change. Such change has often occurred because a minority has converted others to its point of view. Without the influence of minorities, we would have no innovation, no social change. Many of what we now regard as ‘major’ social movements (e.g. Christianity, trade unionism or feminism) were originally due to the influence of an outspoken minority. 5 * dismiss: 일축하다 ** weirdo: 별난 사람 *** suffragette: 여성 참정권론자",
+   "choices": [
+    {
+     "label": "A",
+     "text": "the majority brings about social change"
+    },
+    {
+     "label": "B",
+     "text": "the minority tones down its voice"
+    },
+    {
+     "label": "C",
+     "text": "the minority cooperates with the majority"
+    },
+    {
+     "label": "D",
+     "text": "the majority cultivates the minority"
+    },
+    {
+     "label": "E",
+     "text": "the minority gets its point across 8 6"
+    }
+   ]
+  },
+  {
+   "id": "2019#33",
+   "passage": "material artefacts, mythologies, memories and traditions become resources for the present. The contents, interpretations and representations of the resource are selected according to the demands of the present; an imagined past provides resources for a heritage that is to be passed onto an imagined future. It follows too that the meanings and functions of memory and tradition are defined in the present. Further, heritage is more concerned with meanings than material artefacts. It is the former that give value, either cultural or financial, to the latter and explain why they have been selected from the near infinity of the past. In turn, they may later be discarded as the demands of present societies change, or even, as is presently occurring in the former Eastern Europe, when pasts have to be reinvented to reflect new presents. Thus heritage is .",
+   "choices": [
+    {
+     "label": "A",
+     "text": "as much about forgetting as remembering the past"
+    },
+    {
+     "label": "B",
+     "text": "about preserving universal cultural values"
+    },
+    {
+     "label": "C",
+     "text": "a collection of memories and traditions of a society"
+    },
+    {
+     "label": "D",
+     "text": "neither concerned with the present nor the future"
+    },
+    {
+     "label": "E",
+     "text": "a mirror reflecting the artefacts of the past"
+    }
+   ]
+  },
+  {
+   "id": "2019#34",
+   "passage": "functionality by inventing new cultural tools. Writing, arithmetic, science ― all are recent inventions. Our brains did not have enough time to evolve for them, but I reason that they were made possible because . When we learn to read, we recycle a specific region of our visual system known as the visual word-form area, enabling us to recognize strings of letters and connect them to language areas. Likewise, when we learn Arabic numerals we build a circuit to quickly convert those shapes into quantities ― a fast connection from bilateral visual areas to the parietal quantity area. Even an invention as elementary as finger-counting changes our cognitive abilities dramatically. Amazonian people who have not invented counting are unable to make exact calculations as simple as, say, 6—2. This “cultural recycling” implies that the functional architecture of the human brain results from a complex mixture of biological and cultural constraints. * bilateral: 양측의 ** parietal: 정수리(부분)의 *** constrain",
+   "choices": [
+    {
+     "label": "A",
+     "text": "our brain regions operate in an isolated manner"
+    },
+    {
+     "label": "B",
+     "text": "we can mobilize our old areas in novel ways"
+    },
+    {
+     "label": "C",
+     "text": "our brains put a limit on cultural diversity"
+    },
+    {
+     "label": "D",
+     "text": "cultural tools stabilize our brain functionality"
+    },
+    {
+     "label": "E",
+     "text": "we cannot adapt ourselves to natural challenges 6"
+    }
+   ]
+  },
+  {
+   "id": "2020#31",
+   "passage": "advocates slipping into scientism. Scientism is the view that the scientific description of reality is the only truth there is. With the advance of science, there has been a tendency to slip into scientism, and assume that any factual claim can be authenticated if and only if the term ‘scientific’ can correctly be ascribed to it. The consequence is that non-scientific approaches to reality ― and that can include all the arts, religion, and personal, emotional and value-laden ways of encountering the world ― may become labelled as merely subjective, and therefore of little in terms of describing the way the world is. The philosophy of science seeks to avoid crude scientism and get a balanced view on what the scientific method can and cannot achieve. * ascribe: 속하는 것으로 생각하다 ** crude: 투박한",
+   "choices": [
+    {
+     "label": "A",
+     "text": "account"
+    },
+    {
+     "label": "B",
+     "text": "bias"
+    },
+    {
+     "label": "C",
+     "text": "variation"
+    },
+    {
+     "label": "D",
+     "text": "controversy"
+    },
+    {
+     "label": "E",
+     "text": "question"
+    }
+   ]
+  },
+  {
+   "id": "2020#32",
+   "passage": "children’s conception of time via their ability to compare or estimate the time taken by pairs of events. In a typical experiment, two toy cars were shown running synchronously on parallel tracks, . The children were then asked to judge whether the cars had run for the same time and to justify their judgment. Preschoolers and young school-age children confuse temporal and spatial dimensions: Starting times are judged by starting points, stopping times by stopping points and durations by distance, though each of these errors does not necessitate the others. Hence, a child may claim that the cars started and 5 stopped running together (correct) and that the car which stopped further ahead, ran for more time (incorrect). * synchronously: 같은 시간에",
+   "choices": [
+    {
+     "label": "A",
+     "text": "both slowing their speed and reaching the identical spot"
+    },
+    {
+     "label": "B",
+     "text": "both alternating their speed but arriving at the same end"
+    },
+    {
+     "label": "C",
+     "text": "both stopping at the same point further than expected"
+    },
+    {
+     "label": "D",
+     "text": "one running faster and stopping further down the track 8 6"
+    },
+    {
+     "label": "E",
+     "text": "one keeping the same speed as the other to the end"
+    }
+   ]
+  },
+  {
+   "id": "2020#33",
+   "passage": "of our minds, but in . In previous eras, such as the Iron Age and the Bronze Age, the discovery of new elements brought forth seemingly unending numbers of new inventions. Now the combinations may truly be unending. We are now witnessing a fundamental shift in our resource demands. At no point in human history have we used more elements, in more combinations, and in increasingly refined amounts. Our ingenuity will soon outpace our material supplies. This situation comes at a defining moment when the world is struggling to reduce its reliance on fossil fuels. Fortunately, rare metals are key ingredients in green technologies such as electric cars, wind turbines, and solar panels. They help to convert free natural resources like the sun and wind into the power that fuels our lives. But without increasing today’s limited supplies, we have no chance of developing the alternative green technologies we need to slow climate change. * ingenuity: 창",
+   "choices": [
+    {
+     "label": "A",
+     "text": "governmental policies not to limit resource supplies"
+    },
+    {
+     "label": "B",
+     "text": "our ability to secure the ingredients to produce them"
+    },
+    {
+     "label": "C",
+     "text": "our effort to make them as eco-friendly as possible"
+    },
+    {
+     "label": "D",
+     "text": "the wider distribution of innovative technologies"
+    },
+    {
+     "label": "E",
+     "text": "the constant update and improvement of their functions"
+    }
+   ]
+  },
+  {
+   "id": "2020#34",
+   "passage": "terms of the specific attributes of musical sounds. The famous nineteenth-century critic Eduard Hanslick regarded ‘the measurable tone’ as ‘the primary and essential condition of all music’. Musical sounds, he was saying, can be distinguished from those of nature by the fact that they involve the use of fixed pitches, whereas virtually all natural sounds consist of constantly fluctuating frequencies. And a number of twentieth-century writers have assumed, like Hanslick, that fixed pitches are among the defining features of music. Now it is true that in most of the world’s musical cultures, pitches are . However this is a generalization about music and not a definition of it, for it is easy to put forward counter-examples. Japanese shakuhachi music and the sanjo music of Korea, for instance, fluctuate constantly around the notional pitches in terms of which the music is organized.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "not so much artificially fixed as naturally fluctuating"
+    },
+    {
+     "label": "B",
+     "text": "not only fixed, but organized into a series of discrete steps"
+    },
+    {
+     "label": "C",
+     "text": "highly diverse and complicated, and thus are immeasurable"
+    },
+    {
+     "label": "D",
+     "text": "a vehicle for carrying unique and various cultural features"
+    },
+    {
+     "label": "E",
+     "text": "hardly considered a primary compositional element of music"
+    }
+   ]
+  },
+  {
+   "id": "2021#31",
+   "passage": "functioned as an administrative authority governing commodity production, collection, and redistribution. The discovery of administrative tablets from the temple complexes at Uruk suggests that token use and consequently writing evolved as a tool of centralized economic governance. Given the lack of archaeological evidence from Uruk-period domestic sites, it is not clear whether individuals also used the system for . For that matter, it is not clear how widespread literacy was at its beginnings. The use of identifiable symbols and pictograms on the early tablets is consistent with administrators needing a lexicon that was mutually intelligible by literate and nonliterate parties. As cuneiform script became more abstract, literacy must have become increasingly important to ensure one understood what he or she had agreed to. * archaeological: 고고학적인 ** lexicon: 어휘 목록 *** cuneiform script: 쐐기 문자",
+   "choices": [
+    {
+     "label": "A",
+     "text": "personal agreements"
+    },
+    {
+     "label": "B",
+     "text": "power shifts"
+    },
+    {
+     "label": "C",
+     "text": "religious events"
+    },
+    {
+     "label": "D",
+     "text": "historical records"
+    },
+    {
+     "label": "E",
+     "text": "communal responsibilities"
+    }
+   ]
+  },
+  {
+   "id": "2021#32",
+   "passage": "the survivability of an environment can be risky (if an environment turns out to be deadly, for instance, it might be too late by the time you found out), so humans have evolved the desire to associate with similar individuals as a way to perform this function efficiently. This is especially useful to a species that lives in so many different sorts of environments. However, the carrying capacity of a given environment . If resources are very limited, the individuals who live in a particular place cannot all do the exact same thing (for example, if there are few trees, people cannot all live in tree houses, or if mangoes are in short supply, people cannot all live solely on a diet of mangoes). A rational strategy would therefore sometimes be to avoid similar members of one’s species.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "is decreased by diverse means of survival"
+    },
+    {
+     "label": "B",
+     "text": "places a limit on this strategy"
+    },
+    {
+     "label": "C",
+     "text": "prevents social ties to dissimilar members K 6"
+    },
+    {
+     "label": "D",
+     "text": "makes the world suitable for individuals"
+    },
+    {
+     "label": "E",
+     "text": "exceeds the expected demands of a community"
+    }
+   ]
+  },
+  {
+   "id": "2021#33",
+   "passage": "now have access to the specific brain changes that occur during learning. Even though all of our brains contain the same basic structures, our neural networks are as unique as our fingerprints. The latest developmental neuroscience research has shown that the brain is much more malleable throughout life than previously assumed; it develops in response to its own processes, to its immediate and distant “environments,” and to its past and current situations. The brain seeks to create meaning through establishing or refining existing neural networks. When we learn a new fact or skill, our neurons communicate to form networks of connected information. Using this knowledge or skill results in structural changes to allow similar future impulses to travel more quickly and efficiently than others. High-activity synaptic connections are stabilized and strengthened, while connections with relatively low use are weakened and eventually pruned. In this way, our brains are . [3점 * malleable: 순응성이 있는 ** prune: 잘라 내다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "geared toward strengthening recent memories"
+    },
+    {
+     "label": "B",
+     "text": "sculpted by our own history of experiences"
+    },
+    {
+     "label": "C",
+     "text": "designed to maintain their initial structures"
+    },
+    {
+     "label": "D",
+     "text": "portrayed as the seat of logical and creative thinking"
+    },
+    {
+     "label": "E",
+     "text": "twinned with the development of other organs"
+    }
+   ]
+  },
+  {
+   "id": "2021#34",
+   "passage": "marked by that technology being regarded by users as an unobtrusive facilitator of learning, instruction, or performance. When the focus shifts from the technology being used to the educational purpose that technology serves, then that technology is becoming a comfortable and trusted element, and can be regarded as being successfully integrated. Few people give a second thought to the use of a ball-point pen although the mechanisms involved vary ― some use a twist mechanism and some use a push button on top, and there are other variations as well. Personal computers have reached a similar level of familiarity for a great many users, but certainly not for all. New and emerging technologies often introduce both fascination and frustration with users. As long as promoting learning, instruction, or performance, then one ought not to conclude that the technology has been successfully integrated ― at least for that user. * unobtrusive: 눈에 띄지 않는",
+   "choices": [
+    {
+     "label": "A",
+     "text": "the user’s preference for interaction with other users persists"
+    },
+    {
+     "label": "B",
+     "text": "the user’s focus is on the technology itself rather than its use 68"
+    },
+    {
+     "label": "C",
+     "text": "the user continues to employ outdated educational techniques"
+    },
+    {
+     "label": "D",
+     "text": "the user involuntarily gets used to the misuse of the technology"
+    },
+    {
+     "label": "E",
+     "text": "the user successfully achieves familiarity with the technology"
+    }
+   ]
+  },
+  {
+   "id": "2022#32",
+   "passage": "only by its choice of topics and stories but by its . Presentational styles have been subject to a tension between an informational-educational purpose and the need to engage us entertainingly. While current affairs programmes are often ‘serious’ in tone sticking to the ‘rules’ of balance, more popular programmes adopt a friendly, lighter, idiom in which we are invited to consider the impact of particular news items from the perspective of the ‘average person in the street’. Indeed, contemporary news construction has come to rely on an increased use of faster editing tempos and ‘flashier’ presentational styles including the use of logos, sound-bites, rapid visual cuts and the ‘star quality’ of news readers. Popular formats can be said to enhance understanding by engaging an audience unwilling to endure the longer verbal orientation of older news formats. However, they arguably work to reduce understanding by failing to provide the structural contexts for news events.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "prompt and full coverage of the latest issues"
+    },
+    {
+     "label": "B",
+     "text": "educational media contents favoured by producers"
+    },
+    {
+     "label": "C",
+     "text": "coordination with traditional display techniques K 6"
+    },
+    {
+     "label": "D",
+     "text": "verbal and visual idioms or modes of address"
+    },
+    {
+     "label": "E",
+     "text": "commitment to long-lasting news standards 식물"
+    }
+   ]
+  },
+  {
+   "id": "2022#33",
+   "passage": "bringing about stable institutional solutions to the problem of the commons. She pointed out, for instance, that the actors affected by the rules for the use and care of resources must have the right to . For that reason, the people who monitor and control the behavior of users should also be users and/or have been given a mandate by all users. This is a significant insight, as it show that prospects are poor for a centrally directed solution to the problem of the commons coming from a state power in comparison with a local solution for which users assume personal responsibility. Ostrom also emphasizes the importance of democratic decision processes and that all users must be given access to local forums for solving problems and conflicts among themselves. Political institutions at central, regional, and local levels must allow users to devise their own regulations and independently ensure observance. * commons: 공유지 ** mandate: 위임",
+   "choices": [
+    {
+     "label": "A",
+     "text": "use those resources to maximize their profits"
+    },
+    {
+     "label": "B",
+     "text": "claim individual ownership of the resources"
+    },
+    {
+     "label": "C",
+     "text": "demand free access to the communal resources"
+    },
+    {
+     "label": "D",
+     "text": "participate in decisions to change the rules"
+    },
+    {
+     "label": "E",
+     "text": "request proper distribution based on their merits"
+    }
+   ]
+  },
+  {
+   "id": "2022#34",
+   "passage": "all meaningful scientific debate, and progress in the sciences is, to a large extent, the ongoing process of achieving ever greater precision. But historical representation puts a premium on a proliferation of representations, hence not on the refinement of one representation but on the production of an ever more varied set of representations. Historical insight is not a matter of a continuous “narrowing down” of previous options, not of an approximation of the truth, but, on the contrary, is an “explosion” of possible points of view. It therefore aims at the unmasking of previous illusions of determinacy and precision by the production of new and alternative representations, rather than at achieving truth by a careful analysis of what was right and wrong in those previous representations. And from this perspective, the development of historical insight may indeed be regarded by the outsider as a process of creating ever more confusion, a continuo questioning of , rather than, as in the sciences, an ever greater approximation to the truth. * proliferation: 증식",
+   "choices": [
+    {
+     "label": "A",
+     "text": "possibilities of alternative interpretations of an event"
+    },
+    {
+     "label": "B",
+     "text": "certainty and precision seemingly achieved already"
+    },
+    {
+     "label": "C",
+     "text": "correctness and reliability of historical evidence collected 6"
+    },
+    {
+     "label": "D",
+     "text": "criteria for evaluating historical representations"
+    },
+    {
+     "label": "E",
+     "text": "coexistence of multiple viewpoints in historical writing"
+    }
+   ]
+  },
+  {
+   "id": "2023#32",
+   "passage": "to learn from them. Cities have long been dynamos of social possibility, foundries of art, music, and fashion. Slang, or, if you prefer, “lexical innovation,” has always started in cities ― an outgrowth of all those different people so frequently exposed to one another. It spreads outward, in a manner not unlike transmissible disease, which itself typically “takes off” in cities. If, as the noted linguist Leonard Bloomfield argued, the way a person talks is a “composite result of what he has heard before,” then language innovation would happen where the most people heard and talked to the most other people. Cities drive taste change because they , who not surprisingly are often the creative people cities seem to attract. Media, ever more global, ever more far-reaching, spread language faster to more people. * foundry: 주물 공장 ** lexical: 어휘의",
+   "choices": [
+    {
+     "label": "A",
+     "text": "present ideal research environments to linguists"
+    },
+    {
+     "label": "B",
+     "text": "cause cultural conflicts among users of slang"
+    },
+    {
+     "label": "C",
+     "text": "reduce the social mobility of ambitious outsiders K 6"
+    },
+    {
+     "label": "D",
+     "text": "offer the greatest exposure to other people"
+    },
+    {
+     "label": "E",
+     "text": "provide rich source materials for artists"
+    }
+   ]
+  },
+  {
+   "id": "2023#33",
+   "passage": "the dancefloor, is a market place for information about the state of the colony and the environment outside the hive. Studying interactions on the dancefloor provides us with a number of illustrative examples of how individuals changing their own behavior in response to local information . example, upon returning to their hive honeybees that have collected water search out a receiver bee to unload their water to within the hive. If this search time is short then the returning bee is more likely to perform a waggle dance to recruit others to the water source. Conversely, if this search time is long then the bee is more likely to give up collecting water. Since receiver bees will only accept water if they require it, either for themselves or to pass on to other bees and brood, this unloading time is correlated with the colony’s overall need of water. Thus the individual water forager’s response to unloading time (up or down) regulates water collection in response to the colony’s need. * brood: 애벌레 ** forager: 조달자",
+   "choices": [
+    {
+     "label": "A",
+     "text": "train workers to acquire basic communication patterns"
+    },
+    {
+     "label": "B",
+     "text": "allow the colony to regulate its workforce"
+    },
+    {
+     "label": "C",
+     "text": "search for water sources by measuring distance"
+    },
+    {
+     "label": "D",
+     "text": "decrease the colony’s workload when necessary"
+    },
+    {
+     "label": "E",
+     "text": "divide tasks according to their respective talents"
+    }
+   ]
+  },
+  {
+   "id": "2023#34",
+   "passage": "into present, past, and future is both a fiction and an oddly self-referential framework; your present was part of your mother’s future, and your children’s past will be in part your present. Nothing is generally wrong with structuring our consciousness of time in this conventional manner, and it often works well enough. In the case of climate change, however, the sharp division of time into past, present, and future has been desperately misleading and has, most importantly, hidden from view the extent of the responsibility of those of us alive now. The narrowing of our consciousness of time smooths the way to divorcing ourselves from responsibility for developments in the past and the future with which our lives are in fact deeply intertwined. In the climate case, it is not that . I that the realities are obscured from view by the partitioning of time, and so questions of responsibility toward the past and future do not arise naturally. * segregation: 분리 ** intertwine: 뒤얽히게 하다 *** obscure: 흐릿하게 하다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "our ancestors maintained a different frame of time"
+    },
+    {
+     "label": "B",
+     "text": "sufficient scientific evidence has been provided to us"
+    },
+    {
+     "label": "C",
+     "text": "we face the facts but then deny our responsibility 68"
+    },
+    {
+     "label": "D",
+     "text": "future concerns are more urgent than present needs"
+    },
+    {
+     "label": "E",
+     "text": "all our efforts prove to be effective and are thus encouraged"
+    }
+   ]
+  },
+  {
+   "id": "2024#32",
+   "passage": "to the film text, which goes beyond simply imitating the action viewed. In films that tell of futuristic worlds, composers, much like sound designers, have added freedom to create a world that is unknown and new to the viewer. However, unlike sound designers, composers often shy away from creating unique pieces that reflect these new worlds and often present musical scores that possess familiar structures and cadences. While it is possible that this may interfere with creativity and a sense of space and time, it in fact . Through recognizable scores, visions of the future or a galaxy far, far away can be placed within a recognizable context. Such familiarity allows the viewer to be placed in a comfortable space so that the film may then lead the viewer to what is an unfamiliar, but acceptable vision of a world different from their own. * score: 악보 ** cadence: (율동적인) 박자",
+   "choices": [
+    {
+     "label": "A",
+     "text": "frees the plot of its familiarity"
+    },
+    {
+     "label": "B",
+     "text": "adds to an exotic musical experience"
+    },
+    {
+     "label": "C",
+     "text": "aids in viewer access to the film"
+    },
+    {
+     "label": "D",
+     "text": "inspires viewers to think more deeply K 6"
+    },
+    {
+     "label": "E",
+     "text": "orients audiences to the film’s theme"
+    }
+   ]
+  },
+  {
+   "id": "2024#33",
+   "passage": "were shown photographs of people’s faces and asked to identify the expression or state of mind evinced. The results are invariably very mixed. In the 17th century the French painter and theorist Charles Le Brun drew a series of faces illustrating the various emotions that painters could be called upon to represent. What is striking about them is that . What is missing in all this is any setting or context to make the emotion determinate. We must know who this person is, who these other people are, what their relationship is, what is at stake in the scene, and the like. In real life as well as in painting we do not come across just faces; we encounter people in particular situations and our understanding of people cannot somehow be precipitated and held isolated from the social and human circumstances in which they, and we, live and breathe and have our being. * evince: (감정 따위를) 분명히 나타내다 ** precipitate: 촉발하다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "any number of themcould be substituted for one another without loss"
+    },
+    {
+     "label": "B",
+     "text": "all of themcould be matched consistently withtheir intended emotions"
+    },
+    {
+     "label": "C",
+     "text": "each of them definitively displayed its own social narrative"
+    },
+    {
+     "label": "D",
+     "text": "most of them would be seen as representing unique characteristics"
+    },
+    {
+     "label": "E",
+     "text": "every one of them was illustrated with photographic precision"
+    }
+   ]
+  }
+ ]
+}

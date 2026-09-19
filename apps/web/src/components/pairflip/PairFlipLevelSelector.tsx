@@ -24,12 +24,13 @@ export function PairFlipLevelSelector({ selected, onChange }: LevelSelectorProps
         return (
           <button
             key={lvl.id}
+            data-design-card
             type="button"
             role="radio"
             aria-checked={isActive}
             aria-label={`${lvl.label} — ${lvl.description}, 카드 ${lvl.cardCount}장`}
             onClick={() => onChange(lvl.id)}
-            className={`group flex min-h-[100px] min-w-[100px] shrink-0 flex-col items-center justify-center gap-1 rounded-[12px] border-[1.5px] px-3 py-3 transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 active:scale-95 ${
+            className={`group flex min-h-[100px] min-w-[100px] shrink-0 flex-col items-center justify-center gap-1 rounded-[var(--r-2xl)] border-[1.5px] px-3 py-3 transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 active:scale-95 ${
               isActive
                 ? 'border-transparent text-[var(--ti)]'
                 : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:-translate-y-0.5 hover:border-[#F59E0B]/50 hover:shadow-md'
@@ -44,9 +45,10 @@ export function PairFlipLevelSelector({ selected, onChange }: LevelSelectorProps
                 : undefined
             }
           >
-            <span className="text-[24px] leading-none" aria-hidden="true">
-              {lvl.emoji}
-            </span>
+            {/* 이모지(🌱🎯🔥🚀👑)를 뺐다 — 난이도는 **장 수**가 이미 말하고 있고,
+                이모지는 다섯 칸에 서로 다른 정서를 얹어 조용한 선택을 시끄럽게 만들었다.
+                다섯 칸을 구분하는 것은 라벨(Easy~Master)과 장 수면 충분하다.
+                (형제 화면 어디에도 이모지가 없다 — 여기만 튀었다.) */}
             <span
               className="font-display text-[14px] font-[700] leading-none"
               style={isActive ? { color: PF_COLORS.goldLight } : undefined}
@@ -55,7 +57,7 @@ export function PairFlipLevelSelector({ selected, onChange }: LevelSelectorProps
             </span>
             <span
               className={`font-mono text-[11px] font-[600] tabular-nums ${
-                isActive ? 'opacity-90' : 'text-[var(--t3)]'
+                isActive ? 'opacity-90' : 'text-[var(--t2)]'
               }`}
             >
               {lvl.cardCount}장

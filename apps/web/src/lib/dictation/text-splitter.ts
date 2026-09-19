@@ -1,7 +1,5 @@
 // apps/web/src/lib/dictation/text-splitter.ts
-// 영어 텍스트를 문장/단락/전체 단위로 분리
-
-import type { DictationUnit } from './types';
+// 영어 텍스트를 문장으로 분리 + 문항 묶음(chunk) 구성
 
 const ABBREVIATIONS = [
   'Mr.',
@@ -24,17 +22,6 @@ const ABBREVIATIONS = [
 ];
 
 const ABBR_TOKEN = 'DOT';
-
-export function splitText(text: string, unit: DictationUnit): string[] {
-  switch (unit) {
-    case 'sentence':
-      return splitSentences(text);
-    case 'paragraph':
-      return splitParagraphs(text);
-    case 'whole':
-      return [text.trim()].filter((s) => s.length > 0);
-  }
-}
 
 export function splitSentences(text: string): string[] {
   let processed = text;

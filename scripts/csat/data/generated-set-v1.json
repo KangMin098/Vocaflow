@@ -1,0 +1,181 @@
+{
+ "note": "설계도만 보고 만든 문항. 지문은 library_articles(source=original, license_class=cc0, cefr B2) 에서 가져왔다 — 파이프라인 자체 산출물이라 파생 제약이 없다. 기출 지문은 한 편도 쓰지 않았다. ⚠️ 32·34 지문은 처음에 659·648자로 너무 짧게 잘랐다가 원 소스에서 되살려 늘렸다(채점 결과 백분위 1%). 소스 길이가 아니라 내 절단이 문제였다. 2026-08-26 2판: 24·29·37·26 도 원 소스 길이로 되살렸다(절단 요인 제거).",
+ "sources": [
+  {
+   "id": "ae655394-3511-47e1-88c4-4f88343f326f",
+   "title": "Why Old Streets Bend",
+   "chars": 1186
+  },
+  {
+   "id": "a4e15876-bb6a-4bf8-a888-c89fe197ff20",
+   "title": "When Paint Left the Studio",
+   "chars": 1093
+  },
+  {
+   "id": "8a7c9c3b-6ba6-45f0-a8e5-6fc6237bfbf6",
+   "title": "When a river runs low, a reactor goes quiet",
+   "chars": 1221
+  }
+ ],
+ "procedure": [
+  "D2 유형: E11 의 TYPE_BY_NO 를 그대로 따랐다 — 고를 것이 없다",
+  "D3 배점: E9 로 34·37 을 3점으로 두고, E7 로 빈칸 2·순서 1·삽입 1 을 맞췄다",
+  "D7 선지 언어: blueprint 의 choice_lang 을 따랐다",
+  "D4 정답 자리: I2(순서대응형 ① 회피)만 지키고 나머지는 자유롭게 골랐다",
+  "D5·D6 정답·오답: §6.15(정답은 한 층위 위) · §6.12(오답이 지문을 문다) · P3.13(어휘는 반의어 치환)을 참고했다",
+  "⚠️ D5·D6 을 규칙을 보고 만들었으므로 추상도·반향 측정은 **순환**이다. 그렇게 표시한다"
+ ],
+ "items": [
+  {
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 4,
+   "src": "Why Old Streets Bend",
+   "passage": "Walk through the oldest quarter of almost any town and the streets refuse to run straight. They bend, narrow without warning, and meet at angles that no planner would choose today. The newer districts nearby are laid out in clean squares, so the contrast is easy to observe. The reason is that those crooked lines were never drawn at all. They were worn. Before anyone owned a map, a track formed where feet and carts found the easiest ground, around a marsh, along the edge of a field, or down to a stream whose location is now hidden under stone. Later, houses were built facing the track, and the track became a street. Because a wall is expensive to move, each new building locked that curve in place, and the shape survived long after the marsh was drained and the field abandoned.",
+   "choices": [
+    "difficulties of moving walls in old quarters",
+    "methods of draining marshes for early building",
+    "reasons why modern planners prefer clean squares",
+    "street shape as a record of unplanned growth",
+    "the role of maps in the founding of towns"
+   ]
+  },
+  {
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 2,
+   "src": "When Paint Left the Studio",
+   "passage": "For a long time, painters ground their own colours and mixed them with oil indoors. A stone slab, a jar of oil, and heavy powders were not things an artist could carry, so most pictures of fields and skies were finished from memory or from a few quick sketches. Drawing outdoors was ordinary; completing a serious work there seemed abnormal. Then someone thought to seal freshly mixed paint inside a soft metal tube. That small container changed the working day. A painter could now locate a spot beside a river, open a folding stool, and finish a picture where the light actually fell. Because weather would not wait, brushwork grew faster and looser, and the surface kept the marks of that speed. The first reaction was harsh, and critics called the loose finish a flaw. Later the same looseness was praised as honesty, and studio landscapes looked stiff beside these lively outdoor scenes.",
+   "choices": [
+    "How Critics Learned to Praise Loose Brushwork",
+    "A Small Tube That Moved Painting Outdoors",
+    "Why Studio Landscapes Were Painted from Memory",
+    "Grinding Colours: The Lost Craft of the Painter",
+    "Weather, Light, and the Patience of the Artist"
+   ]
+  },
+  {
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "answer": 3,
+   "src": "Why Old Streets Bend",
+   "passage": "Walk through the oldest quarter of almost any town and the streets refuse ① to run straight. They bend, narrow without warning, and meet at angles ② that no planner would choose today. The newer districts nearby are laid out in clean squares, so the contrast is easy to observe. The reason is that those crooked lines ③ was never drawn at all. They were worn. Before anyone owned a map, a track formed where feet and carts found the easiest ground, around a marsh, along the edge of a field, or down to a stream whose location is now ④ hidden under stone. No standard width was ever agreed, so a cart could pass in one place and stick fast in the next. Later, houses were built facing the track, and the track became a street. Because a wall is expensive to move, each new building locked that curve in place, and the shape ⑤ survived long after the marsh was drained and the field abandoned.",
+   "grammarPoints": [
+    "G1 준동사 vs 정동사",
+    "G2 관계사·접속사",
+    "G3 수일치",
+    "G1 준동사 vs 정동사(분사)",
+    "G1 준동사 vs 정동사"
+   ],
+   "choices": [
+    "to run",
+    "that",
+    "was",
+    "hidden",
+    "survived"
+   ]
+  },
+  {
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "answer": 4,
+   "src": "When Paint Left the Studio",
+   "passage": "For a long time, painters ground their own colours and mixed them with oil indoors. A stone slab, a jar of oil, and heavy powders were not things an artist could ① carry, so most pictures of fields and skies were finished from memory. Drawing outdoors was ordinary; completing a serious work there seemed ② abnormal. Then someone thought to seal freshly mixed paint inside a soft metal tube. That small container ③ changed the working day. A painter could now locate a spot beside a river and finish a picture where the light actually fell. Because weather would not wait, brushwork grew faster and ④ tighter, and the surface kept the marks of that speed. The first reaction was harsh, and critics called the loose finish a ⑤ flaw.",
+   "vocabFormat": "underline",
+   "swapType": "antonym",
+   "intended": "looser",
+   "choices": [
+    "carry",
+    "abnormal",
+    "changed",
+    "tighter",
+    "flaw"
+   ]
+  },
+  {
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "src": "Why Old Streets Bend",
+   "passage": "Walk through the oldest quarter of almost any town and the streets refuse to run straight. They bend, narrow without warning, and meet at angles that no planner would choose today. The newer districts nearby are laid out in clean squares, so the contrast is easy to observe. The reason is that those crooked lines were never drawn at all. They were worn. Before anyone owned a map, a track formed where feet and carts found the easiest ground, around a marsh, along the edge of a field, or down to a stream whose location is now hidden under stone. No standard width was ever agreed, so a cart could pass in one place and stick fast in the next. Later, houses were built facing the track, and the track became a street. Because a wall is expensive to move, each new building locked that curve in place, and the shape survived long after the marsh was drained and the field abandoned. Such an origin turns a street plan into ______.",
+   "choices": [
+    "a map drawn long before the first houses appeared",
+    "a plan agreed at one moment by a single owner",
+    "a warning about ground that was never properly drained",
+    "a route worn by the feet and carts of early travellers",
+    "a record of choices no one meant to record"
+   ]
+  },
+  {
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 3,
+   "src": "When Paint Left the Studio",
+   "passage": "For a long time, painters ground their own colours and mixed them with oil indoors. A stone slab, a jar of oil, and heavy powders were not things an artist could carry, so most pictures of fields and skies were finished from memory or from a few quick sketches. Drawing outdoors was ordinary; completing a serious work there seemed abnormal. Then someone thought to seal freshly mixed paint inside a soft metal tube. A painter could now locate a spot beside a river, open a folding stool, and finish a picture where the light actually fell. Because weather would not wait, brushwork grew faster and looser, and the surface kept the marks of that speed. The first reaction was harsh, and critics called the loose finish a flaw. Later the same looseness was praised as honesty, and studio landscapes looked stiff beside these lively outdoor scenes. Within a generation, painting outdoors had become the standard. What the tube finally changed was ______.",
+   "choices": [
+    "the price of the powders that painters had to buy",
+    "the speed at which critics published their reviews",
+    "what counted as a finished work",
+    "the number of sketches an artist carried outdoors",
+    "the kind of weather that painters were willing to face"
+   ]
+  },
+  {
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "answer": 3,
+   "src": "Why Old Streets Bend",
+   "passage": "Walk through the oldest quarter of almost any town and the streets refuse to run straight. ① They bend, narrow without warning, and meet at angles that no planner would choose today. ② The reason is that those crooked lines were never drawn at all; they were worn. ③ Modern traffic engineers now use computer models to predict how many cars a junction can carry each hour. ④ Before anyone owned a map, a track formed where feet and carts found the easiest ground. ⑤ Later, houses were built facing the track, and because a wall is expensive to move, each new building locked that curve in place.",
+   "choices": [
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+   ]
+  },
+  {
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "answer": 2,
+   "src": "When Paint Left the Studio",
+   "passage": "For a long time, painters ground their own colours and mixed them with oil indoors. A stone slab, a jar of oil, and heavy powders were not things an artist could carry, so most pictures of fields and skies were finished from memory or from a few quick sketches. Drawing outdoors was ordinary; completing a serious work there seemed abnormal.",
+   "blocks": {
+    "A": "Because weather would not wait, brushwork grew faster and looser, and the surface kept the marks of that speed. Studio landscapes began to look stiff beside these lively outdoor scenes.",
+    "B": "Then someone thought to seal freshly mixed paint inside a soft metal tube. That small container changed the working day, for a painter could now locate a spot beside a river, open a folding stool, and finish a picture where the light actually fell.",
+    "C": "The first reaction was harsh, and critics called the loose finish a flaw. Later the same looseness was praised as honesty, and within a generation painting outdoors had become the standard."
+   },
+   "choices": [
+    "(A)-(C)-(B)",
+    "(B)-(A)-(C)",
+    "(B)-(C)-(A)",
+    "(C)-(A)-(B)",
+    "(C)-(B)-(A)"
+   ],
+   "orderAnswer": "(B)-(A)-(C)"
+  },
+  {
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "answer": 2,
+   "src": "When a river runs low, a reactor goes quiet",
+   "passage": "Romania operates a single nuclear power station, and the building stands on the bank of the Danube. The station draws all of the cooling water for its reactors from that one river. In August a long stretch of hot, dry weather pushed the river far below its usual level. The operator had already idled one of the plant's two reactors during the previous month. On Thursday it powered down the second reactor as well, leaving the station silent. The station normally supplies about a fifth of all the electricity used in Romania. Its director said that no restart was expected within the following ten days. A shutdown of that length forces an immediate rearrangement of the national supply. The government therefore turned to wind generation and to imported power in order to cover the gap. The same shrinking river now presses on neighboring Hungary, whose reactors also draw their cooling water directly from the Danube.",
+   "choices": [
+    "루마니아의 원자력 발전소는 한 곳이다.",
+    "두 원자로는 같은 날 함께 가동을 멈췄다.",
+    "발전소는 다뉴브강에서 냉각수를 얻는다.",
+    "이 발전소는 루마니아 전력의 약 5분의 1을 공급한다.",
+    "정부는 부족분을 풍력과 수입 전력으로 메웠다."
+   ]
+  }
+ ]
+}

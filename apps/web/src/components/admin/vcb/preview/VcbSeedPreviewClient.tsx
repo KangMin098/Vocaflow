@@ -1,3 +1,5 @@
+// apps/web/src/components/admin/vcb/preview/VcbSeedPreviewClient.tsx
+
 'use client'
 
 import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
@@ -5,6 +7,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CheckCircle2, Eye, AlertTriangle, RefreshCcw, RefreshCw, XCircle } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import {
   importSeedList,
   deleteSeedListArtifacts,
@@ -295,7 +298,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
               type="button"
               onClick={handleRegenerate}
               disabled={isPending}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border disabled:opacity-50"
               style={{
                 color: 'var(--warning)',
                 borderColor: 'var(--warning)',
@@ -308,7 +311,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
             </button>
             <Link
               href={`/admin/vocab/runs/${runId}/seed`}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+              className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
               style={{
                 color: 'var(--t2)',
                 borderColor: 'var(--bd)',
@@ -321,6 +324,11 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           </div>
         }
       />
+
+      {/* 이 화면은 되돌릴 수 없는 동작 둘(재생성·적재)을 쥐고 있는데 VCB 11개 화면 중
+          유일하게 도움말이 없었다. 라벨이 말하지 않는 것 — 거부 표시가 탭 안에만 산다는
+          사실과 재생성이 복구 불가라는 사실 — 이 여기 있다. */}
+      <AdminScreenHelp screen="vocab-seed-preview" />
 
       {warning && (
         <div
@@ -358,7 +366,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           <button
             type="button"
             onClick={rejectFiltered}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
             style={{
               background: 'var(--error-light)',
               color: 'var(--error)',
@@ -373,7 +381,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           <button
             type="button"
             onClick={rejectSpecOutsiders}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
             style={{
               background: 'var(--warning-light)',
               color: 'var(--warning)',
@@ -388,7 +396,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           <button
             type="button"
             onClick={clearRejections}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display border ml-auto"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border ml-auto"
             style={{
               background: 'var(--bg)',
               color: 'var(--t2)',

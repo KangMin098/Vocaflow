@@ -1,0 +1,57 @@
+  ↻ 창 좁힘 probe 재시도 1/3 (1s) — canceling statement due to statement timeout
+  ↻ 창 좁힘 probe 재시도 2/3 (3s) — canceling statement due to statement timeout
+  ↻ 창 좁힘 probe 재시도 1/3 (1s) — canceling statement due to statement timeout
+  ↻ 창 좁힘 probe 재시도 1/3 (1s) — canceling statement due to statement timeout
+  ↻ 창 좁힘 probe 재시도 1/3 (1s) — canceling statement due to statement timeout
+  ↻ 창 좁힘 probe 재시도 1/3 (1s) — canceling statement due to statement timeout
+  ↻ 창 좁힘 probe 재시도 1/3 (1s) — canceling statement due to statement timeout
+교집합 창으로 좁혔을 때 잃는 재고
+  대상 427,592문항 (장문·문장·초등 유형 제외)
+
+  밴드 버킷  지금 창      교집합 창    적격(지금)  적격(교집합)   잃는 몫
+  ──────────────────────────────────────────────────────────────────────────────
+  V2   초6   44~125      44~125         1053  84.7%    1053  84.7%       0 (0.0%)
+  V3   중1   90~152      90~152         1012  77.2%    1012  77.2%       0 (0.0%)
+  V4   중1   46~152      46~152         2964  71.3%    2964  71.3%       0 (0.0%)
+  V5   고1   47~200      49~160        34154  84.2%   29284  72.2%    4870 (14.3%)
+  V6   고2   90~188      90~184        81314  69.8%   79739  68.5%    1575 (1.9%)
+  V7   고2   43~188      43~184        24490  72.0%   23987  70.6%     503 (2.1%)
+  V8   고2   90~188      90~184          179  59.3%     177  58.6%       2 (1.1%)
+  V9   고2   43~188      43~184            6  54.5%       6  54.5%       0 (0.0%)
+  ──────────────────────────────────────────────────────────────────────────────
+  V5 잃는 유형 — vocab_choice 2132 · unit_vocab 1061 · grammar_choice 867 · insert 595 · irrelevant 73 · unit_grammar 47
+       출판사 창: NE능률 43~160 | EBS 47~234 | 쎄듀 49~250
+  V6 잃는 유형 — insert 1155 · vocab_choice 279 · grammar_choice 123 · irrelevant 10 · blank 5 · topic 1
+       출판사 창: NE능률 43~188 | EBS 43~184
+  V7 잃는 유형 — insert 326 · vocab_choice 121 · grammar_choice 44 · topic 4 · blank 3 · title 2
+       출판사 창: NE능률 43~188 | EBS 43~184
+  V8 잃는 유형 — vocab_choice 1 · insert 1
+       출판사 창: NE능률 43~188 | EBS 43~184
+
+  유형별 잔량 (교집합으로 좁힌 뒤) — 마르는 유형이 있는가
+  ──────────────────────────────────────────────────────────────────────────────
+  V2 — 좁혀도 줄어드는 유형이 없다
+  V3 — 좁혀도 줄어드는 유형이 없다
+  V4 — 좁혀도 줄어드는 유형이 없다
+  V5 줄어드는 16종: main_point 9→0(-100%) · purpose 5→0(-100%) · summary 5→0(-100%) · topic 6→0(-100%) · mood 23→0(-100%) · implication 10→0(-100%)
+     ⛔ V5 main_point — 9개 → **0개**. 이 유형이 통째로 사라진다
+     ⛔ V5 purpose — 5개 → **0개**. 이 유형이 통째로 사라진다
+     ⛔ V5 summary — 5개 → **0개**. 이 유형이 통째로 사라진다
+     ⛔ V5 topic — 6개 → **0개**. 이 유형이 통째로 사라진다
+     ⛔ V5 mood — 23개 → **0개**. 이 유형이 통째로 사라진다
+     ⛔ V5 implication — 10개 → **0개**. 이 유형이 통째로 사라진다
+     ⛔ V5 title — 7개 → **0개**. 이 유형이 통째로 사라진다
+     ⛔ V5 content_match — 5개 → **0개**. 이 유형이 통째로 사라진다
+     ⛔ V5 claim — 1개 → **0개**. 이 유형이 통째로 사라진다
+     ⛔ V5 blank — 28개 → **4개**. 한 권에 20개가 필요한데 못 채운다
+  V6 줄어드는 8종: blank 15→10(-33%) · main_point 4→3(-25%) · topic 8→7(-13%) · grammar_choice 1122→999(-11%) · title 11→10(-9%) · vocab_choice 4357→4078(-6%)
+  V7 줄어드는 8종: main_point 4→2(-50%) · topic 9→5(-44%) · blank 13→10(-23%) · title 11→9(-18%) · grammar_choice 351→307(-13%) · vocab_choice 2105→1984(-6%)
+  V8 줄어드는 2종: vocab_choice 4→3(-25%) · insert 160→159(-1%)
+  V9 — 좁혀도 줄어드는 유형이 없다
+  ──────────────────────────────────────────────────────────────────────────────
+  ⛔ 좁히면 **권에서 사라지는 유형**이 있다 — 그대로 좁히면 안 된다:
+     V5 10종 — main_point · purpose · summary · topic · mood · implication · title · content_match · claim · blank
+     지수 한 축(A6)을 올리려고 **유형 다양성(A5)을 깎는 맞바꿈**이다. 한 지표를 좋게 만들면
+     대개 다른 지표를 판다 — 여기서는 그 대가가 명시적으로 보인다.
+
+  ⓘ "잃는 몫" 은 지금 창에는 맞지만 교집합에는 안 맞는 재고다 — 좁히면 어느 권에도 못 실린다.

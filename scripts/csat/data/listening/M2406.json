@@ -1,0 +1,789 @@
+[
+ {
+  "exam": "M2406",
+  "no": 1,
+  "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Visitors, may I have your attention please? This is Anderson Thompson, manager of Benjiville Aquarium. While enjoying your time at our aquarium, we kindly request that you not hit the glass walls of the aquarium tanks. Even light knocking can be quite loud for the fish in the water. The vibrations from the knocking can make the fish stressed, and they might become sick. So, to keep our fish healthy, we ask you not to hit the glass walls of the aquarium tanks. Thank you for your cooperation."
+   }
+  ],
+  "script": "Visitors, may I have your attention please? This is Anderson Thompson, manager of Benjiville Aquarium. While enjoying your time at our aquarium, we kindly request that you not hit the glass walls of the aquarium tanks. Even light knocking can be quite loud for the fish in the water. The vibrations from the knocking can make the fish stressed, and they might become sick. So, to keep our fish healthy, we ask you not to hit the glass walls of the aquarium tanks. Thank you for your cooperation.",
+  "words": 88,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-PURPOSE",
+  "typeGuessAll": [
+   "L-PURPOSE"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 2,
+  "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hey, Laura. Mom asked me what we’re going to buy for our newborn baby cousin."
+   },
+   {
+    "who": "W",
+    "text": "Oh, yeah. What should we get? Did Mom suggest anything?"
+   },
+   {
+    "who": "M",
+    "text": "She said a hat might be a good choice."
+   },
+   {
+    "who": "W",
+    "text": "That sounds good. As far as I know, wearing a hat helps maintain babies’ body temperature."
+   },
+   {
+    "who": "M",
+    "text": "It’s the beginning of summer, though. Do you think the baby will really need one?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. Without a hat on, the baby might get cold when the air conditioning is on."
+   },
+   {
+    "who": "M",
+    "text": "I didn’t consider that. Now I understand why I’ve seen so many babies wearing hats indoors in the summer."
+   },
+   {
+    "who": "W",
+    "text": "Right. Hats help to keep babies’ body temperature steady."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Let’s find the cutest hat in the world for our baby cousin!"
+   },
+   {
+    "who": "W",
+    "text": "Absolutely."
+   }
+  ],
+  "script": "Hey, Laura. Mom asked me what we’re going to buy for our newborn baby cousin. Oh, yeah. What should we get? Did Mom suggest anything? She said a hat might be a good choice. That sounds good. As far as I know, wearing a hat helps maintain babies’ body temperature. It’s the beginning of summer, though. Do you think the baby will really need one? Yes. Without a hat on, the baby might get cold when the air conditioning is on. I didn’t consider that. Now I understand why I’ve seen so many babies wearing hats indoors in the summer. Right. Hats help to keep babies’ body temperature steady. Okay. Let’s find the cutest hat in the world for our baby cousin! Absolutely.",
+  "words": 123,
+  "nTurns": 10,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-OPINION",
+  "typeGuessAll": [
+   "L-OPINION"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 3,
+  "stem": "다음을 듣고, 남자가 하는 말의 요지로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, listeners. This is Claude’s Radio Advice Show. One of our listeners sent me a message. It says that she’s having a hard time these days because she has a lot on her mind. I think many of you may be having a similar problem. If this is true for you, you need a hobby that can help clear your mind. For example, you can try going camping, gardening, or playing a musical instrument. And any kind of exercise, such as hiking, can also be good. How about clearing your mind with one of these hobbies? We’ll be right back after the break with more tips. Stay tuned!"
+   }
+  ],
+  "script": "Hello, listeners. This is Claude’s Radio Advice Show. One of our listeners sent me a message. It says that she’s having a hard time these days because she has a lot on her mind. I think many of you may be having a similar problem. If this is true for you, you need a hobby that can help clear your mind. For example, you can try going camping, gardening, or playing a musical instrument. And any kind of exercise, such as hiking, can also be good. How about clearing your mind with one of these hobbies? We’ll be right back after the break with more tips. Stay tuned!",
+  "words": 108,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-MAIN",
+  "typeGuessAll": [
+   "L-MAIN"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 4,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Arthur, how did the rehearsal for your drama club go?"
+   },
+   {
+    "who": "M",
+    "text": "It went well. Oh, I have a picture of it on my smartphone. Do you want to see it?"
+   },
+   {
+    "who": "W",
+    "text": "Sure. Let me have a look. [Pause] You must be the knight in front of the window."
+   },
+   {
+    "who": "M",
+    "text": "Yeah. That’s me."
+   },
+   {
+    "who": "W",
+    "text": "You look so cool in the costume."
+   },
+   {
+    "who": "M",
+    "text": "Thanks. Do you see the two paintings on the wall? I painted them myself."
+   },
+   {
+    "who": "W",
+    "text": "Wow, they look great. I also like the tea pot on the table. Where did you get that?"
+   },
+   {
+    "who": "M",
+    "text": "I bought it at a flea market. I also got the flower-patterned rug at the market."
+   },
+   {
+    "who": "W",
+    "text": "They all fit the setting well. Oh, there’s a cat under the chair. I think it’s so cute."
+   },
+   {
+    "who": "M",
+    "text": "I agree. By the way, you’re going to come and see my play, right?"
+   },
+   {
+    "who": "W",
+    "text": "Of course! I’m looking forward to seeing you perform."
+   }
+  ],
+  "script": "Arthur, how did the rehearsal for your drama club go? It went well. Oh, I have a picture of it on my smartphone. Do you want to see it? Sure. Let me have a look. [Pause] You must be the knight in front of the window. Yeah. That’s me. You look so cool in the costume. Thanks. Do you see the two paintings on the wall? I painted them myself. Wow, they look great. I also like the tea pot on the table. Where did you get that? I bought it at a flea market. I also got the flower-patterned rug at the market. They all fit the setting well. Oh, there’s a cat under the chair. I think it’s so cute. I agree. By the way, you’re going to come and see my play, right? Of course! I’m looking forward to seeing you perform.",
+  "words": 145,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-PICTURE",
+  "typeGuessAll": [
+   "L-PICTURE"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 5,
+  "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey, our moving day is coming up in two weeks."
+   },
+   {
+    "who": "M",
+    "text": "Yeah. I think we need to check our to-do list again."
+   },
+   {
+    "who": "W",
+    "text": "Okay. We got the confirmation from the moving company for the date, right?"
+   },
+   {
+    "who": "M",
+    "text": "Yes, we did. Did you sign up for the Internet at our new place?"
+   },
+   {
+    "who": "W",
+    "text": "Uh-huh, I did. It should be connected by the move-in date. And I already put stickers on the chairs we will throw away."
+   },
+   {
+    "who": "M",
+    "text": "Great. Oh, I still have to wrap the crystal vases."
+   },
+   {
+    "who": "W",
+    "text": "That’s okay. You have time. Did you call our son’s new school? Did they tell you what he needs to take with him on his first day?"
+   },
+   {
+    "who": "M",
+    "text": "Yes, he has to bring the uniform for his gym class. Oh, we forgot to make a reservation with the cleaning company."
+   },
+   {
+    "who": "W",
+    "text": "No worries. I’ll do it right now."
+   },
+   {
+    "who": "M",
+    "text": "Thanks."
+   }
+  ],
+  "script": "Honey, our moving day is coming up in two weeks. Yeah. I think we need to check our to-do list again. Okay. We got the confirmation from the moving company for the date, right? Yes, we did. Did you sign up for the Internet at our new place? Uh-huh, I did. It should be connected by the move-in date. And I already put stickers on the chairs we will throw away. Great. Oh, I still have to wrap the crystal vases. That’s okay. You have time. Did you call our son’s new school? Did they tell you what he needs to take with him on his first day? Yes, he has to bring the uniform for his gym class. Oh, we forgot to make a reservation with the cleaning company. No worries. I’ll do it right now. Thanks.",
+  "words": 138,
+  "nTurns": 10,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TODO",
+  "typeGuessAll": [
+   "L-TODO"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 6,
+  "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Welcome to the Fresh Salad Store. What would you like to have?"
+   },
+   {
+    "who": "M",
+    "text": "Hi. I’m not sure. What do you recommend?"
+   },
+   {
+    "who": "W",
+    "text": "The beef salad is pretty popular. And some people like the chicken salad too."
+   },
+   {
+    "who": "M",
+    "text": "Okay. How much are they?"
+   },
+   {
+    "who": "W",
+    "text": "It’s $20 for the beef salad and $15 for the chicken salad."
+   },
+   {
+    "who": "M",
+    "text": "Then, I’ll take one beef salad and two chicken salads."
+   },
+   {
+    "who": "W",
+    "text": "Good choice."
+   },
+   {
+    "who": "M",
+    "text": "Is dressing included with the salads?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. All salads come with lemon dressing for free. But if you want a different kind of dressing, you need to pay $5 extra for each."
+   },
+   {
+    "who": "M",
+    "text": "I’ll just take the lemon dressing. Can I use this 10% discount coupon?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, you can. So, that’s one beef salad and two chicken salads. Will that be all?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. Here’s my coupon and credit card."
+   }
+  ],
+  "script": "Welcome to the Fresh Salad Store. What would you like to have? Hi. I’m not sure. What do you recommend? The beef salad is pretty popular. And some people like the chicken salad too. Okay. How much are they? It’s $20 for the beef salad and $15 for the chicken salad. Then, I’ll take one beef salad and two chicken salads. Good choice. Is dressing included with the salads? Yes. All salads come with lemon dressing for free. But if you want a different kind of dressing, you need to pay $5 extra for each. I’ll just take the lemon dressing. Can I use this 10% discount coupon? Yes, you can. So, that’s one beef salad and two chicken salads. Will that be all? Yes. Here’s my coupon and credit card.",
+  "words": 127,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-MONEY",
+  "typeGuessAll": [
+   "L-MONEY"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 7,
+  "stem": "대화를 듣고, 여자가 독서 모임에 참석하지 못한 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Sandra, I didn’t see you at the company book club meeting yesterday."
+   },
+   {
+    "who": "W",
+    "text": "Yeah, I really wanted to go, but I couldn’t make it."
+   },
+   {
+    "who": "M",
+    "text": "You missed a really interesting discussion about our science fiction novel. That’s your favorite genre."
+   },
+   {
+    "who": "W",
+    "text": "It is. But I had to take care of something."
+   },
+   {
+    "who": "M",
+    "text": "What was that? You couldn’t find a babysitter for your son like last time?"
+   },
+   {
+    "who": "W",
+    "text": "No. My husband was with him."
+   },
+   {
+    "who": "M",
+    "text": "Well, then was it because your department launched a new product online yesterday?"
+   },
+   {
+    "who": "W",
+    "text": "No, I wasn’t involved with that."
+   },
+   {
+    "who": "M",
+    "text": "Then, why couldn’t you come to the meeting?"
+   },
+   {
+    "who": "W",
+    "text": "A conversation with a client took longer than I had planned."
+   },
+   {
+    "who": "M",
+    "text": "Oh, I see. I was worried about you. I hope everything went well."
+   },
+   {
+    "who": "W",
+    "text": "Yes, it did. Thanks for asking."
+   }
+  ],
+  "script": "Sandra, I didn’t see you at the company book club meeting yesterday. Yeah, I really wanted to go, but I couldn’t make it. You missed a really interesting discussion about our science fiction novel. That’s your favorite genre. It is. But I had to take care of something. What was that? You couldn’t find a babysitter for your son like last time? No. My husband was with him. Well, then was it because your department launched a new product online yesterday? No, I wasn’t involved with that. Then, why couldn’t you come to the meeting? A conversation with a client took longer than I had planned. Oh, I see. I was worried about you. I hope everything went well. Yes, it did. Thanks for asking.",
+  "words": 125,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-REASON",
+  "typeGuessAll": [
+   "L-REASON"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 8,
+  "stem": "대화를 듣고, Now-and-Then Tech Showcase에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hannah, I saw a poster at the library that you might be interested in."
+   },
+   {
+    "who": "W",
+    "text": "What’s it about, Dad?"
+   },
+   {
+    "who": "M",
+    "text": "It says the Now-and-Then Tech Showcase is coming to our city soon. The purpose of the showcase is to introduce social robot technologies that local companies have developed."
+   },
+   {
+    "who": "W",
+    "text": "Great! When does it start?"
+   },
+   {
+    "who": "M",
+    "text": "It’ll open from Saturday, June 24th."
+   },
+   {
+    "who": "W",
+    "text": "Good! I think I can go then. Do you remember where it’s going to be held?"
+   },
+   {
+    "who": "M",
+    "text": "Yes, at Golden Maples Field Stadium."
+   },
+   {
+    "who": "W",
+    "text": "That’s awesome! I can walk there. Is there an admission fee?"
+   },
+   {
+    "who": "M",
+    "text": "Um... I don’t remember. Maybe you can check that online."
+   },
+   {
+    "who": "W",
+    "text": "Yeah. Just a second. [Tapping sounds] Oh, the admission fee is $12 per person."
+   },
+   {
+    "who": "M",
+    "text": "Sounds good. You should go."
+   },
+   {
+    "who": "W",
+    "text": "Definitely. Thanks for telling me about it."
+   }
+  ],
+  "script": "Hannah, I saw a poster at the library that you might be interested in. What’s it about, Dad? It says the Now-and-Then Tech Showcase is coming to our city soon. The purpose of the showcase is to introduce social robot technologies that local companies have developed. Great! When does it start? It’ll open from Saturday, June 24th. Good! I think I can go then. Do you remember where it’s going to be held? Yes, at Golden Maples Field Stadium. That’s awesome! I can walk there. Is there an admission fee? Um... I don’t remember. Maybe you can check that online. Yeah. Just a second. [Tapping sounds] Oh, the admission fee is $12 per person. Sounds good. You should go. Definitely. Thanks for telling me about it.",
+  "words": 125,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-NOTMENTION",
+  "typeGuessAll": [
+   "L-NOTMENTION"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 9,
+  "stem": "Found 211에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Attention, H-rail train passengers. We would like to introduce a new website called Found 211 to help you find your lost items. Found 211 provides information about items you’ve lost on H-rail trains. To use Found 211, you first have to be a member of the website. Then, you need to post the details of your lost items to the website. If your lost items are found, Found 211 will inform you by a text message. In addition, foreign language services are provided in various languages, including French, Spanish and Chinese. You can also use Found 211 through our mobile application. We hope you have a pleasant trip to your destination. Thank you."
+   }
+  ],
+  "script": "Attention, H-rail train passengers. We would like to introduce a new website called Found 211 to help you find your lost items. Found 211 provides information about items you’ve lost on H-rail trains. To use Found 211, you first have to be a member of the website. Then, you need to post the details of your lost items to the website. If your lost items are found, Found 211 will inform you by a text message. In addition, foreign language services are provided in various languages, including French, Spanish and Chinese. You can also use Found 211 through our mobile application. We hope you have a pleasant trip to your destination. Thank you.",
+  "words": 108,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-ANNOUNCE",
+  "typeGuessAll": [
+   "L-ANNOUNCE"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 10,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 쿠키 커터 세트를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Ellie, what are you looking at on your tablet PC?"
+   },
+   {
+    "who": "W",
+    "text": "I’m looking for a set of new cookie cutters. Can you help me pick a new set out from among these five?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. There are many shapes to choose from. Do you have one in mind?"
+   },
+   {
+    "who": "W",
+    "text": "The star-shaped cutters look cool."
+   },
+   {
+    "who": "M",
+    "text": "They do, but I’ve heard it’s difficult to take the dough out of them."
+   },
+   {
+    "who": "W",
+    "text": "Really? Then, I don’t want to get the star-shaped ones."
+   },
+   {
+    "who": "M",
+    "text": "That makes sense. How much do you want to spend?"
+   },
+   {
+    "who": "W",
+    "text": "I’d like to spend less than $20."
+   },
+   {
+    "who": "M",
+    "text": "I see. Which material do you prefer?"
+   },
+   {
+    "who": "W",
+    "text": "I’ve been using metal cutters. But I want to use a different kind this time."
+   },
+   {
+    "who": "M",
+    "text": "Okay, then you have two options left."
+   },
+   {
+    "who": "W",
+    "text": "Yellow is my favorite color, so I’ll buy the yellow set."
+   }
+  ],
+  "script": "Ellie, what are you looking at on your tablet PC? I’m looking for a set of new cookie cutters. Can you help me pick a new set out from among these five? Sure. There are many shapes to choose from. Do you have one in mind? The star-shaped cutters look cool. They do, but I’ve heard it’s difficult to take the dough out of them. Really? Then, I don’t want to get the star-shaped ones. That makes sense. How much do you want to spend? I’d like to spend less than $20. I see. Which material do you prefer? I’ve been using metal cutters. But I want to use a different kind this time. Okay, then you have two options left. Yellow is my favorite color, so I’ll buy the yellow set.",
+  "words": 131,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TABLE",
+  "typeGuessAll": [
+   "L-TABLE"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 11,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Grandpa, I took some pictures at your birthday party last week. And your best friend Mr. Williams was in a few of them."
+   },
+   {
+    "who": "M",
+    "text": "Oh, really? That’s great. I’m meeting him today, and he might want those pictures."
+   },
+   {
+    "who": "W",
+    "text": "Well, I can print out the pictures now. Would you like to take them to him?"
+   }
+  ],
+  "script": "Grandpa, I took some pictures at your birthday party last week. And your best friend Mr. Williams was in a few of them. Oh, really? That’s great. I’m meeting him today, and he might want those pictures. Well, I can print out the pictures now. Would you like to take them to him?",
+  "words": 53,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 12,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hello, Ms. Davis. This is Kevin’s father. His class is visiting the Pop Art Culture Festival tomorrow, right?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. We’re going to go as scheduled. Is there anything wrong?"
+   },
+   {
+    "who": "M",
+    "text": "Actually, Kevin has a fever, so I don’t think he can go tomorrow."
+   }
+  ],
+  "script": "[Cell phone rings.] Hello, Ms. Davis. This is Kevin’s father. His class is visiting the Pop Art Culture Festival tomorrow, right? Yes. We’re going to go as scheduled. Is there anything wrong? Actually, Kevin has a fever, so I don’t think he can go tomorrow.",
+  "words": 45,
+  "nTurns": 4,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 13,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "W",
+    "text": "Liam, have you decided what you want to study at college?"
+   },
+   {
+    "who": "M",
+    "text": "Not yet, Mom. Yesterday, some former graduates came to our school and gave us some tips on choosing a major."
+   },
+   {
+    "who": "W",
+    "text": "Great. What did they say?"
+   },
+   {
+    "who": "M",
+    "text": "They told us that we should first think about what we are most interested in."
+   },
+   {
+    "who": "W",
+    "text": "That’s good advice. Are there any particular subjects that you like?"
+   },
+   {
+    "who": "M",
+    "text": "I like children very much, so I’d like to study something related to children."
+   },
+   {
+    "who": "W",
+    "text": "How about studying early childhood education?"
+   },
+   {
+    "who": "M",
+    "text": "That sounds interesting, but I’m also interested in psychology."
+   },
+   {
+    "who": "W",
+    "text": "Then, you might want to major in psychology and become a counselor for children."
+   },
+   {
+    "who": "M",
+    "text": "I’ve never thought of that. But I’m not sure about which colleges have a psychology major."
+   },
+   {
+    "who": "W",
+    "text": "Me, neither. But your teacher, Mr. Scott, might be able to help you find out more about that."
+   }
+  ],
+  "script": "[3점] Liam, have you decided what you want to study at college? Not yet, Mom. Yesterday, some former graduates came to our school and gave us some tips on choosing a major. Great. What did they say? They told us that we should first think about what we are most interested in. That’s good advice. Are there any particular subjects that you like? I like children very much, so I’d like to study something related to children. How about studying early childhood education? That sounds interesting, but I’m also interested in psychology. Then, you might want to major in psychology and become a counselor for children. I’ve never thought of that. But I’m not sure about which colleges have a psychology major. Me, neither. But your teacher, Mr. Scott, might be able to help you find out more about that.",
+  "words": 139,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 14,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hello, Claire."
+   },
+   {
+    "who": "W",
+    "text": "Hi, Uncle Louis. How are you doing?"
+   },
+   {
+    "who": "M",
+    "text": "I’m good. Are you busy this weekend?"
+   },
+   {
+    "who": "W",
+    "text": "Not really. I’ll be home doing my assignment. Do you need anything?"
+   },
+   {
+    "who": "M",
+    "text": "Yeah, I was wondering if you could take care of my dog for the weekend."
+   },
+   {
+    "who": "W",
+    "text": "Sure. He’s such a good dog. Are you going somewhere?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. I have an unexpected business trip."
+   },
+   {
+    "who": "W",
+    "text": "I see. Are you going to drop him off at my house tomorrow?"
+   },
+   {
+    "who": "M",
+    "text": "Sorry, I can’t. I have a few things to do before the trip. Could you come and get him this evening?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, I can. Is there anything I need to know to take care of him?"
+   },
+   {
+    "who": "M",
+    "text": "Actually, he’s on a diet. Do you think you can take him for a walk once a day?"
+   }
+  ],
+  "script": "[Cell phone rings.] Hello, Claire. Hi, Uncle Louis. How are you doing? I’m good. Are you busy this weekend? Not really. I’ll be home doing my assignment. Do you need anything? Yeah, I was wondering if you could take care of my dog for the weekend. Sure. He’s such a good dog. Are you going somewhere? Yes. I have an unexpected business trip. I see. Are you going to drop him off at my house tomorrow? Sorry, I can’t. I have a few things to do before the trip. Could you come and get him this evening? Yes, I can. Is there anything I need to know to take care of him? Actually, he’s on a diet. Do you think you can take him for a walk once a day?",
+  "words": 130,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Kate가 Professor Lee에게 할 말로 가장 적절한 것을",
+  "turns": [
+   {
+    "who": "?",
+    "text": "고르시오. [3점]"
+   },
+   {
+    "who": "M",
+    "text": "Kate is taking Professor Lee’s East Asian history class. She is given an assignment to make an individual presentation on Monday of the following week. However, she finds out that she won the first prize in a national essay writing contest, and she is asked to attend the awards ceremony. She’s happy to hear the good news and really wants to go to the ceremony to receive her award. But she’s not sure about whether she can go because the awards ceremony and the presentation are both scheduled for the same time. So, she wants to ask Professor Lee if it is possible for her to change the date of the presentation with another student in the class. In this situation, what would Kate most likely say to Professor Lee? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "고르시오. [3점] Kate is taking Professor Lee’s East Asian history class. She is given an assignment to make an individual presentation on Monday of the following week. However, she finds out that she won the first prize in a national essay writing contest, and she is asked to attend the awards ceremony. She’s happy to hear the good news and really wants to go to the ceremony to receive her award. But she’s not sure about whether she can go because the awards ceremony and the presentation are both scheduled for the same time. So, she wants to ask Professor Lee if it is possible for her to change the date of the presentation with another student in the class. In this situation, what would Kate most likely say to Professor Lee? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 130,
+  "nTurns": 2,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SITUATION",
+  "typeGuessAll": [
+   "L-SITUATION"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 16,
+  "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. Have you ever thought about what’s happening in the insect world when it’s raining? Today, we’re going to talk about what insects do on a rainy day. Some insects come outside from their home. For example, cockroaches living in drains have to escape from there to survive when it rains. It’s because their homes get flooded easily. They leave, so they will not drown. To give another example, mosquitos come out in the rain to lay eggs. Rainy days are the best time since newborn mosquitos need water to grow. However, other insects have to hide to stay alive. For instance, some types of ants hide themselves to get away from the rain because their body temperature drops when it rains. If they get cold during a rainy day, their bodies can freeze and they could die. Also, some kinds of flies go underground to avoid the rain. When their wings get wet, they can’t fly, so they have to find some place to stay dry. As we can see, the rain affects various insects’ behavior in different ways. Now, let’s watch a video."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Have you ever thought about what’s happening in the insect world when it’s raining? Today, we’re going to talk about what insects do on a rainy day. Some insects come outside from their home. For example, cockroaches living in drains have to escape from there to survive when it rains. It’s because their homes get flooded easily. They leave, so they will not drown. To give another example, mosquitos come out in the rain to lay eggs. Rainy days are the best time since newborn mosquitos need water to grow. However, other insects have to hide to stay alive. For instance, some types of ants hide themselves to get away from the rain because their body temperature drops when it rains. If they get cold during a rainy day, their bodies can freeze and they could die. Also, some kinds of flies go underground to avoid the rain. When their wings get wet, they can’t fly, so they have to find some place to stay dry. As we can see, the rain affects various insects’ behavior in different ways. Now, let’s watch a video.",
+  "words": 186,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-TOPIC",
+  "typeGuessAll": [
+   "L-SET-TOPIC"
+  ]
+ },
+ {
+  "exam": "M2406",
+  "no": 17,
+  "stem": "언급된 곤충이 아닌 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. Have you ever thought about what’s happening in the insect world when it’s raining? Today, we’re going to talk about what insects do on a rainy day. Some insects come outside from their home. For example, cockroaches living in drains have to escape from there to survive when it rains. It’s because their homes get flooded easily. They leave, so they will not drown. To give another example, mosquitos come out in the rain to lay eggs. Rainy days are the best time since newborn mosquitos need water to grow. However, other insects have to hide to stay alive. For instance, some types of ants hide themselves to get away from the rain because their body temperature drops when it rains. If they get cold during a rainy day, their bodies can freeze and they could die. Also, some kinds of flies go underground to avoid the rain. When their wings get wet, they can’t fly, so they have to find some place to stay dry. As we can see, the rain affects various insects’ behavior in different ways. Now, let’s watch a video."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Have you ever thought about what’s happening in the insect world when it’s raining? Today, we’re going to talk about what insects do on a rainy day. Some insects come outside from their home. For example, cockroaches living in drains have to escape from there to survive when it rains. It’s because their homes get flooded easily. They leave, so they will not drown. To give another example, mosquitos come out in the rain to lay eggs. Rainy days are the best time since newborn mosquitos need water to grow. However, other insects have to hide to stay alive. For instance, some types of ants hide themselves to get away from the rain because their body temperature drops when it rains. If they get cold during a rainy day, their bodies can freeze and they could die. Also, some kinds of flies go underground to avoid the rain. When their wings get wet, they can’t fly, so they have to find some place to stay dry. As we can see, the rain affects various insects’ behavior in different ways. Now, let’s watch a video.",
+  "words": 186,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-NOT",
+  "typeGuessAll": [
+   "L-SET-NOT"
+  ]
+ }
+]

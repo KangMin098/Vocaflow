@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-09-07T15:26:12.503Z",
+  "totals": {
+    "destinations": 61,
+    "soldByShell": 38,
+    "screenGaps": 0,
+    "sessionsFromHub": 23
+  },
+  "screenGaps": [],
+  "sessionsNotSoldByShell": [
+    "/play/${slug}",
+    "/wordvault/browse",
+    "/wordvault/review",
+    "/wordvault/study",
+    "/play/cascade",
+    "/play/connections",
+    "/play/daily-blitz",
+    "/play/ghost-race",
+    "/play/glyph-tongue",
+    "/play/letter-forge",
+    "/play/lexicon-detective",
+    "/play/lexicon-estate",
+    "/play/lexicon-hands",
+    "/play/morpheme-rules",
+    "/play/morphmerge",
+    "/play/pirate-quest",
+    "/play/silent-rule",
+    "/play/word-customs",
+    "/play/word-economy",
+    "/play/word-orrery",
+    "/play/wordblitz",
+    "/play/wordfall-cadence",
+    "/play/wordsmith-vigil"
+  ]
+}

@@ -1,0 +1,353 @@
+{
+  "measured_at": "2026-08-21T13:19:34.608Z",
+  "results": [
+    {
+      "gap": "argumentative",
+      "id": "plos:essay",
+      "kind": "api",
+      "license": "CC BY (PLOS 전 논문)",
+      "label": "PLOS Essay·Perspective·Opinion (기배선 소스의 미사용 유형)",
+      "url": "https://api.plos.org/search?q=*:*&fq=doc_type:full%20AND%20article_type:(%22Essay%22%20OR%20%22Perspective%22%20OR%20%22Opinion%22%20OR%20%22Unsolved%20Mystery%22)&rows=5&fl=id,title_display,article_type,publication_date&sort=publication_date%20desc&wt=json",
+      "total": 2783,
+      "sample": [
+        "Essay: Co-design rationales as living documents for reporting the exchange of experiential, professional and scientific perspectives in mental health care innovation",
+        "Essay: Extreme events and habitats as comparative tools for assessing scaled ecosystem responses to stressors in aquatic systems",
+        "Essay: Encrypted immunity mediated by peptides"
+      ],
+      "verdict": "api"
+    },
+    {
+      "gap": "argumentative",
+      "id": "futurity",
+      "kind": "feed",
+      "license": "CC BY 4.0 (사이트 명시 주장 — 확인 필요)",
+      "label": "Futurity — 대학 컨소시엄 연구 기사",
+      "url": "https://www.futurity.org/feed/",
+      "licenseUrl": "https://www.futurity.org/about/",
+      "sample": [
+        "Small schedule change has big health benefits for night-shift docs",
+        "Listen: The key to treating cancer may be in your gut",
+        "Your ideas about antibiotics are probably outdated"
+      ],
+      "verdict": "rss",
+      "items": 10,
+      "note": null,
+      "licenseHits": [],
+      "licensePageHits": [
+        "\"All rights reserved\""
+      ]
+    },
+    {
+      "gap": "argumentative",
+      "id": "worldbank-blogs",
+      "kind": "discover",
+      "license": "CC BY 3.0 IGO 주장",
+      "label": "World Bank Blogs — 개발·경제 논증",
+      "url": "https://blogs.worldbank.org/",
+      "verdict": "dead",
+      "note": "피드 알림 없음 · 목록 파싱 0건",
+      "licenseHits": [
+        "\"All rights reserved\""
+      ]
+    },
+    {
+      "gap": "argumentative",
+      "id": "un-news",
+      "kind": "feed",
+      "license": "UN 저작물 — 확인 필요",
+      "label": "UN News — 국제 이슈",
+      "url": "https://news.un.org/feed/subscribe/en/news/all/rss.xml",
+      "sample": [
+        "As elections near, South Sudan risks new atrocity crimes, warns rights probe",
+        "The clean energy transition needs land. Can it help restore it too?",
+        "Raising alarm over new illegal Israeli outposts, UN condemns attacks, incitement against Palestinians"
+      ],
+      "verdict": "rss",
+      "items": 30,
+      "note": null,
+      "licenseHits": []
+    },
+    {
+      "gap": "argumentative",
+      "id": "unesco-courier",
+      "kind": "discover",
+      "license": "CC BY-SA 3.0 IGO 주장",
+      "label": "UNESCO Courier — 문화·교육 논설",
+      "url": "https://courier.unesco.org/en",
+      "verdict": "dead",
+      "note": "피드 알림 없음 · 목록 파싱 0건",
+      "licenseHits": []
+    },
+    {
+      "gap": "argumentative",
+      "id": "escholarship-collabra",
+      "kind": "discover",
+      "license": "CC BY (UC Press OA)",
+      "label": "Collabra: Psychology — 심리 (수능 최빈출 소재)",
+      "url": "https://online.ucpress.edu/collabra",
+      "verdict": "blocked",
+      "note": "HTTP 403 — UA 위장 대신 뺀다"
+    },
+    {
+      "gap": "lowlevel",
+      "id": "nasa-spaceplace",
+      "kind": "discover",
+      "license": "PD (미 연방정부)",
+      "label": "NASA Space Place — 초등 대상 우주 설명",
+      "url": "https://spaceplace.nasa.gov/",
+      "verdict": "dead",
+      "note": "피드 알림 없음 · 목록 파싱 0건",
+      "licenseHits": []
+    },
+    {
+      "gap": "lowlevel",
+      "id": "nasa-climatekids",
+      "kind": "discover",
+      "license": "PD (미 연방정부)",
+      "label": "NASA Climate Kids — 초등 기후",
+      "url": "https://climatekids.nasa.gov/",
+      "sample": [
+        "APOD: 2026 August 21 – Time-Lapse of the Star S301 Orbiting the Black Hole in the Center of the Galaxy",
+        "Europe’s Scorching Summer",
+        "Space Weather Living History: Dr. Richard Fisher"
+      ],
+      "verdict": "rss",
+      "items": 10,
+      "found": "https://science.nasa.gov/feed/",
+      "licenseHits": []
+    },
+    {
+      "gap": "lowlevel",
+      "id": "standard-ebooks",
+      "kind": "feed",
+      "license": "PD 본문 + CC0 편집분",
+      "label": "Standard Ebooks — 정제된 PD 고전 (서사)",
+      "url": "https://standardebooks.org/feeds/atom/new-releases",
+      "sample": [
+        "Racundra’s First Cruise",
+        "The Man from the Clouds",
+        "The Chink in the Armour"
+      ],
+      "verdict": "rss",
+      "items": 15,
+      "note": null,
+      "licenseHits": [
+        "\"public domain\" 문구"
+      ]
+    },
+    {
+      "gap": "lowlevel",
+      "id": "gutenberg-latest",
+      "kind": "feed",
+      "license": "PD (미국 기준)",
+      "label": "Project Gutenberg — 최근 등록",
+      "url": "https://www.gutenberg.org/cache/epub/feeds/today.rss",
+      "verdict": "dead",
+      "note": "fetch failed"
+    },
+    {
+      "gap": "lowlevel",
+      "id": "wikibooks-wikijunior",
+      "kind": "api",
+      "license": "CC BY-SA",
+      "label": "Wikijunior (Wikibooks) — 아동용 논픽션",
+      "url": "https://en.wikibooks.org/w/api.php?action=query&prop=categoryinfo&titles=Category:Wikijunior&format=json",
+      "total": null,
+      "sample": [],
+      "verdict": "api"
+    },
+    {
+      "gap": "lowlevel",
+      "id": "simple-wp-all",
+      "kind": "api",
+      "license": "CC BY-SA",
+      "label": "Simple English Wikipedia — 전체 문서 수 (품질 카테고리 밖 상류)",
+      "url": "https://simple.wikipedia.org/w/api.php?action=query&meta=siteinfo&siprop=statistics&format=json",
+      "total": 284352,
+      "sample": [],
+      "verdict": "api"
+    },
+    {
+      "gap": "lowlevel",
+      "id": "ck12",
+      "kind": "discover",
+      "license": "CC BY-NC (NC = 상업 불가 주의)",
+      "label": "CK-12 — 중고교 과목 교재",
+      "url": "https://www.ck12.org/",
+      "verdict": "dead",
+      "note": "피드 알림 없음 · 목록 파싱 0건",
+      "licenseHits": []
+    },
+    {
+      "gap": "dead",
+      "id": "pmc-oa",
+      "kind": "api",
+      "license": "OA subset 만 CC — 논문별 확인 필요",
+      "label": "PubMed Central OA subset — nih 대체",
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=open+access[filter]&retmode=json&retmax=3",
+      "total": 8162305,
+      "sample": [],
+      "verdict": "api"
+    },
+    {
+      "gap": "dead",
+      "id": "medlineplus-alt",
+      "kind": "feed",
+      "license": "PD (미 연방정부)",
+      "label": "MedlinePlus — 건강 주제 XML (whatsnew 대신)",
+      "url": "https://medlineplus.gov/feeds/topics_en.xml",
+      "verdict": "dead",
+      "note": "HTTP 404"
+    },
+    {
+      "gap": "dead",
+      "id": "cdc",
+      "kind": "discover",
+      "license": "PD (미 연방정부)",
+      "label": "CDC — 감염·공중보건",
+      "url": "https://www.cdc.gov/",
+      "verdict": "dead",
+      "note": "피드 알림 없음 · 목록 파싱 0건",
+      "licenseHits": []
+    },
+    {
+      "gap": "dead",
+      "id": "nps",
+      "kind": "discover",
+      "license": "PD (미 연방정부)",
+      "label": "National Park Service — 자연·역사 서사",
+      "url": "https://www.nps.gov/",
+      "verdict": "dead",
+      "note": "피드 알림 없음 · 목록 파싱 0건",
+      "licenseHits": [
+        "\"All rights reserved\""
+      ]
+    },
+    {
+      "gap": "depth",
+      "id": "doaj",
+      "kind": "api",
+      "license": "논문별 CC 표기",
+      "label": "DOAJ — OA 저널 색인",
+      "url": "https://doaj.org/api/search/articles/*?pageSize=1",
+      "total": 13469982,
+      "sample": [],
+      "verdict": "api"
+    },
+    {
+      "gap": "depth",
+      "id": "openalex",
+      "kind": "api",
+      "license": "메타데이터 CC0 (본문 아님)",
+      "label": "OpenAlex — 학술 인덱스",
+      "url": "https://api.openalex.org/works?filter=open_access.is_oa:true&per-page=1",
+      "total": 121153125,
+      "sample": [],
+      "verdict": "api"
+    },
+    {
+      "gap": "depth",
+      "id": "doab",
+      "kind": "api",
+      "license": "OA 단행본 — 책별 CC",
+      "label": "DOAB — OA 학술 단행본 (수능 A층 대체 후보)",
+      "url": "https://directory.doabooks.org/rest/search?query=*&expand=metadata&limit=1",
+      "total": 1,
+      "sample": [],
+      "verdict": "api"
+    },
+    {
+      "gap": "depth",
+      "id": "peerj",
+      "kind": "discover",
+      "license": "CC BY",
+      "label": "PeerJ — 생물·의학 OA",
+      "url": "https://peerj.com/articles/",
+      "verdict": "blocked",
+      "note": "HTTP 403 — UA 위장 대신 뺀다"
+    },
+    {
+      "gap": "depth",
+      "id": "openstax",
+      "kind": "discover",
+      "license": "CC BY (모듈은 저장소에 이미 있음)",
+      "label": "OpenStax — 대학 교재 (ingestFromPressbooks 경로 존재)",
+      "url": "https://openstax.org/",
+      "verdict": "dead",
+      "note": "피드 알림 없음 · 목록 파싱 0건",
+      "licenseHits": []
+    },
+    {
+      "gap": "verify",
+      "id": "knowable",
+      "kind": "discover",
+      "license": "CC BY-ND 주장 → ND 면 the_conversation 과 같은 운명",
+      "label": "Knowable Magazine",
+      "url": "https://knowablemagazine.org/",
+      "verdict": "blocked",
+      "note": "HTTP 403 — UA 위장 대신 뺀다"
+    },
+    {
+      "gap": "verify",
+      "id": "quanta",
+      "kind": "feed",
+      "license": "CC BY-NC-ND 주장 → NC+ND 이면 불가",
+      "label": "Quanta Magazine",
+      "url": "https://api.quantamagazine.org/feed/",
+      "sample": [
+        "Are We Thinking Correctly About AI Intelligence?",
+        "Building a Quantum Computer, One Fragile Qubit at a Time",
+        "Theory of Fluids Enters the 21st Century"
+      ],
+      "verdict": "rss",
+      "items": 5,
+      "note": null,
+      "licenseHits": []
+    },
+    {
+      "gap": "verify",
+      "id": "eurekalert",
+      "kind": "discover",
+      "license": "보도자료 — AAAS 이용약관 확인 필요",
+      "label": "EurekAlert!",
+      "url": "https://www.eurekalert.org/",
+      "verdict": "dead",
+      "note": "피드 알림 없음 · 목록 파싱 0건",
+      "licenseHits": []
+    },
+    {
+      "gap": "verify",
+      "id": "sciencedaily",
+      "kind": "feed",
+      "license": "집계 매체 — 대개 ©",
+      "label": "ScienceDaily",
+      "url": "https://www.sciencedaily.com/rss/all.xml",
+      "sample": [
+        "3 minutes of sprinting does something 90 minutes of exercise does not",
+        "2,200-year-old Roman shipwreck reveals ancient waterproofing secrets",
+        "Scientists catch a hidden electronic state forming in just 30 femtoseconds"
+      ],
+      "verdict": "rss",
+      "items": 60,
+      "note": null,
+      "licenseHits": []
+    },
+    {
+      "gap": "verify",
+      "id": "phys-org",
+      "kind": "feed",
+      "license": "집계 매체 — 대개 ©",
+      "label": "Phys.org",
+      "url": "https://phys.org/rss-feed/",
+      "sample": [
+        "What dandelions and bees can teach us about our responsibilities to the natural world",
+        "Interplanetary spacecraft capture a coronal mass ejection component hidden from Earth",
+        "Forest service detects emerald ash borer in 5 additional counties"
+      ],
+      "verdict": "rss",
+      "items": 30,
+      "note": null,
+      "licenseHits": []
+    }
+  ]
+}

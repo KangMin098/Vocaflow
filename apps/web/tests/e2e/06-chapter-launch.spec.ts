@@ -12,14 +12,14 @@ import { ensureWordSetPlanItem, ensureWordSetSubscription, userIdByEmail } from 
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
-  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? (() => { throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local (CI: 저장소 시크릿)') })(),
 };
 
 /** 교육과정 기본어휘 (고등) — 25 내부챕터(shared_words.chapter) 보유 세트 */
 const CHAPTERED_SET_ID = 'bcb61429-6261-4f7e-a7b4-5bd5f5e6a72f';
 
 /** 로그인은 파일당 1회만 (auth rate-limit 회피) — storageState 로 각 테스트에 주입 */
-const STATE_PATH = 'test-results/.auth-runtime-user.json';
+const STATE_PATH = 'playwright-auth/.auth-runtime-user.json';
 
 async function loginRuntimeUser(page: Page) {
   await page.goto('/login', { waitUntil: 'networkidle' });

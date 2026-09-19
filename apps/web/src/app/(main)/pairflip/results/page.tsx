@@ -31,7 +31,7 @@ export default function PairFlipResultsPage() {
   if (!result) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <p className="font-body text-[14px] text-[var(--t3)]">결과 불러오는 중...</p>
+        <p className="font-body text-[14px] text-[var(--t2)]">결과 불러오는 중...</p>
       </div>
     )
   }

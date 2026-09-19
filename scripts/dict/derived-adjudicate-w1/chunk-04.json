@@ -1,0 +1,566 @@
+[
+ {
+  "word": "principle",
+  "meaning_ko": "원칙",
+  "pos": "noun",
+  "candidates": [
+   "principled"
+  ]
+ },
+ {
+  "word": "prize",
+  "meaning_ko": "상, 상품",
+  "pos": "noun",
+  "candidates": [
+   "prizefight"
+  ]
+ },
+ {
+  "word": "rainbow",
+  "meaning_ko": "무지개",
+  "pos": "noun",
+  "candidates": [
+   "rainbow trout"
+  ]
+ },
+ {
+  "word": "request",
+  "meaning_ko": "요청, 부탁하다",
+  "pos": "verb",
+  "candidates": [
+   "request stop"
+  ]
+ },
+ {
+  "word": "soon",
+  "meaning_ko": "곧, 머지않아",
+  "pos": "adverb",
+  "candidates": [
+   "sooner"
+  ]
+ },
+ {
+  "word": "source",
+  "meaning_ko": "출처, 원천, 근원",
+  "pos": "noun",
+  "candidates": [
+   "source code"
+  ]
+ },
+ {
+  "word": "studio",
+  "meaning_ko": "스튜디오, 작업실",
+  "pos": "noun",
+  "candidates": [
+   "studious",
+   "studiously"
+  ]
+ },
+ {
+  "word": "super",
+  "meaning_ko": "훌륭한; 아주",
+  "pos": "adjective",
+  "candidates": [
+   "super bowl™",
+   "super over",
+   "superalloy",
+   "superb",
+   "superbly",
+   "superbowl",
+   "supercell",
+   "supercenter",
+   "supercharge"
+  ]
+ },
+ {
+  "word": "then",
+  "meaning_ko": "그때, 그러고 나서",
+  "pos": "adverb",
+  "candidates": [
+   "thence"
+  ]
+ },
+ {
+  "word": "tool",
+  "meaning_ko": "도구; 연장",
+  "pos": "noun",
+  "candidates": [
+   "toolbar",
+   "toolbox",
+   "toolkit",
+   "toolmaker",
+   "toolmaking",
+   "toolshed"
+  ]
+ },
+ {
+  "word": "upper",
+  "meaning_ko": "위쪽의, 상위의",
+  "pos": "adjective",
+  "candidates": [
+   "upper class",
+   "upper house",
+   "uppercase",
+   "uppercut",
+   "uppermost",
+   "uppers"
+  ]
+ },
+ {
+  "word": "villa",
+  "meaning_ko": "별장",
+  "pos": "noun",
+  "candidates": [
+   "village",
+   "villagers",
+   "villain",
+   "villainous",
+   "villainy"
+  ]
+ },
+ {
+  "word": "would",
+  "meaning_ko": "~할 것이다 (과거 추측·정중 요청)",
+  "pos": "verb",
+  "candidates": [
+   "wouldst"
+  ]
+ },
+ {
+  "word": "zero",
+  "meaning_ko": "영, 0",
+  "pos": "noun",
+  "candidates": [
+   "zero-hours"
+  ]
+ },
+ {
+  "word": "arctic",
+  "meaning_ko": "북극의, 북극 지방의",
+  "pos": "adjective",
+  "candidates": [
+   "arctic tern"
+  ]
+ },
+ {
+  "word": "asset",
+  "meaning_ko": "자산",
+  "pos": "noun",
+  "candidates": [
+   "asset base"
+  ]
+ },
+ {
+  "word": "banner",
+  "meaning_ko": "현수막, (인터넷) 배너",
+  "pos": "noun",
+  "candidates": [
+   "banner ad",
+   "banner year",
+   "banneret"
+  ]
+ },
+ {
+  "word": "barrel",
+  "meaning_ko": "통, 배럴",
+  "pos": "noun",
+  "candidates": [
+   "barrel organ",
+   "barrelled"
+  ]
+ },
+ {
+  "word": "behavior",
+  "meaning_ko": "행동",
+  "pos": "noun",
+  "candidates": [
+   "behavioral",
+   "behaviorist"
+  ]
+ },
+ {
+  "word": "bias",
+  "meaning_ko": "편견; 편견을 갖게 하다",
+  "pos": "noun",
+  "candidates": [
+   "biased"
+  ]
+ },
+ {
+  "word": "bulletin",
+  "meaning_ko": "공고, 뉴스 속보",
+  "pos": "noun",
+  "candidates": [
+   "bulletin board"
+  ]
+ },
+ {
+  "word": "cabin",
+  "meaning_ko": "오두막",
+  "pos": "noun",
+  "candidates": [
+   "cabin boy",
+   "cabin crew",
+   "cabinet"
+  ]
+ },
+ {
+  "word": "chore",
+  "meaning_ko": "잡일",
+  "pos": "noun",
+  "candidates": [
+   "chorea",
+   "choreograph"
+  ]
+ },
+ {
+  "word": "closet",
+  "meaning_ko": "벽장, 붙박이장",
+  "pos": "noun",
+  "candidates": [
+   "closeted"
+  ]
+ },
+ {
+  "word": "core",
+  "meaning_ko": "핵심, 중심부",
+  "pos": "noun",
+  "candidates": [
+   "coreceptor",
+   "coreopsis"
+  ]
+ },
+ {
+  "word": "counterpart",
+  "meaning_ko": "상대방, 대응 인물",
+  "pos": "noun",
+  "candidates": [
+   "counterparty"
+  ]
+ },
+ {
+  "word": "crew",
+  "meaning_ko": "선원",
+  "pos": "noun",
+  "candidates": [
+   "crew chief",
+   "crew cut",
+   "crew neck",
+   "crew-cut",
+   "crewcut",
+   "crewel"
+  ]
+ },
+ {
+  "word": "dental",
+  "meaning_ko": "치아의, 치과의",
+  "pos": "adjective",
+  "candidates": [
+   "dental floss"
+  ]
+ },
+ {
+  "word": "domain",
+  "meaning_ko": "영역",
+  "pos": "noun",
+  "candidates": [
+   "domain name",
+   "domaine"
+  ]
+ },
+ {
+  "word": "doom",
+  "meaning_ko": "파멸, 죽음, 파국",
+  "pos": "noun",
+  "candidates": [
+   "doomsday"
+  ]
+ },
+ {
+  "word": "enable",
+  "meaning_ko": "가능하게 하다",
+  "pos": "verb",
+  "candidates": [
+   "enablers"
+  ]
+ },
+ {
+  "word": "feat",
+  "meaning_ko": "위업, 뛰어난 업적",
+  "pos": "noun",
+  "candidates": [
+   "feather",
+   "featherbed",
+   "feathery",
+   "feature"
+  ]
+ },
+ {
+  "word": "fountain",
+  "meaning_ko": "분수, 샘",
+  "pos": "noun",
+  "candidates": [
+   "fountainhead"
+  ]
+ },
+ {
+  "word": "frown",
+  "meaning_ko": "얼굴을 찌푸리다, 눈살을 찌푸리다",
+  "pos": "verb",
+  "candidates": [
+   "frowning"
+  ]
+ },
+ {
+  "word": "gaze",
+  "meaning_ko": "응시, 응시하다",
+  "pos": "verb",
+  "candidates": [
+   "gazebo",
+   "gazelle",
+   "gazers",
+   "gazette"
+  ]
+ },
+ {
+  "word": "habitat",
+  "meaning_ko": "서식지",
+  "pos": "noun",
+  "candidates": [
+   "habitation"
+  ]
+ },
+ {
+  "word": "hail",
+  "meaning_ko": "우박이 내리다; 환호하다, 일컫다; 부르다",
+  "pos": "verb",
+  "candidates": [
+   "hailstone"
+  ]
+ },
+ {
+  "word": "hence",
+  "meaning_ko": "따라서",
+  "pos": "adverb",
+  "candidates": [
+   "henceforth"
+  ]
+ },
+ {
+  "word": "inner",
+  "meaning_ko": "내적인",
+  "pos": "adjective",
+  "candidates": [
+   "inner-city",
+   "innermost",
+   "innervate",
+   "innervated",
+   "innervation"
+  ]
+ },
+ {
+  "word": "limb",
+  "meaning_ko": "팔다리, 사지",
+  "pos": "noun",
+  "candidates": [
+   "limba",
+   "limber",
+   "limbic",
+   "limbo"
+  ]
+ },
+ {
+  "word": "martial",
+  "meaning_ko": "전쟁의, 군사의",
+  "pos": "adjective",
+  "candidates": [
+   "martial art"
+  ]
+ },
+ {
+  "word": "meadow",
+  "meaning_ko": "초원",
+  "pos": "noun",
+  "candidates": [
+   "meadowlark",
+   "meadowsweet"
+  ]
+ },
+ {
+  "word": "monotonous",
+  "meaning_ko": "단조로운",
+  "pos": "adjective",
+  "candidates": [
+   "monotonously"
+  ]
+ },
+ {
+  "word": "multitask",
+  "meaning_ko": "여러 일을 동시에 하다, 다중 작업하다",
+  "pos": "verb",
+  "candidates": [
+   "multitasking"
+  ]
+ },
+ {
+  "word": "pinch",
+  "meaning_ko": "꼬집다",
+  "pos": "verb",
+  "candidates": [
+   "pinch point",
+   "pinch-hit",
+   "pinchbeck",
+   "pinche"
+  ]
+ },
+ {
+  "word": "plea",
+  "meaning_ko": "탄원, 간청",
+  "pos": "noun",
+  "candidates": [
+   "plead",
+   "pleader",
+   "pleadingly",
+   "pleasance",
+   "pleasant",
+   "pleasanter",
+   "pleasantly",
+   "pleasantry",
+   "pleasaunce",
+   "please",
+   "pleased",
+   "pleasing",
+   "pleasure",
+   "pleat"
+  ]
+ },
+ {
+  "word": "poise",
+  "meaning_ko": "침착함, 균형",
+  "pos": "noun",
+  "candidates": [
+   "poised"
+  ]
+ },
+ {
+  "word": "poverty",
+  "meaning_ko": "가난",
+  "pos": "noun",
+  "candidates": [
+   "poverty trap"
+  ]
+ },
+ {
+  "word": "ratio",
+  "meaning_ko": "비율; 비례",
+  "pos": "noun",
+  "candidates": [
+   "ration",
+   "rational",
+   "rationale",
+   "rationalise",
+   "rationalism",
+   "rationalist",
+   "rationality",
+   "rationalize",
+   "rationally"
+  ]
+ },
+ {
+  "word": "recess",
+  "meaning_ko": "쉬는 시간, 휴식 시간",
+  "pos": "noun",
+  "candidates": [
+   "recession",
+   "recessionary",
+   "recessive"
+  ]
+ },
+ {
+  "word": "regime",
+  "meaning_ko": "체제; 제도; 식이요법",
+  "pos": "noun",
+  "candidates": [
+   "regimen",
+   "regiment",
+   "regimental"
+  ]
+ },
+ {
+  "word": "skull",
+  "meaning_ko": "두개골",
+  "pos": "noun",
+  "candidates": [
+   "skullcap"
+  ]
+ },
+ {
+  "word": "spear",
+  "meaning_ko": "창",
+  "pos": "noun",
+  "candidates": [
+   "spearhead",
+   "spearmint"
+  ]
+ },
+ {
+  "word": "status",
+  "meaning_ko": "지위",
+  "pos": "noun",
+  "candidates": [
+   "status bar"
+  ]
+ },
+ {
+  "word": "arrow",
+  "meaning_ko": "화살",
+  "pos": "noun",
+  "candidates": [
+   "arrowhead",
+   "arrowroot"
+  ]
+ },
+ {
+  "word": "knack",
+  "meaning_ko": "요령, 재주",
+  "pos": "noun",
+  "candidates": [
+   "knacker",
+   "knackwurst"
+  ]
+ },
+ {
+  "word": "tablet",
+  "meaning_ko": "태블릿 (휴대용 컴퓨터)",
+  "pos": "noun",
+  "candidates": [
+   "tabletop"
+  ]
+ },
+ {
+  "word": "tread",
+  "meaning_ko": "밟다, 디디다",
+  "pos": "noun",
+  "candidates": [
+   "treaders",
+   "treadle",
+   "treadmill"
+  ]
+ },
+ {
+  "word": "tribute",
+  "meaning_ko": "헌사, 경의의 표시; (과거) 공물, 조공",
+  "pos": "noun",
+  "candidates": [
+   "tribute band"
+  ]
+ },
+ {
+  "word": "undergo",
+  "meaning_ko": "겪다, 받다",
+  "pos": "verb",
+  "candidates": [
+   "undergone"
+  ]
+ }
+]

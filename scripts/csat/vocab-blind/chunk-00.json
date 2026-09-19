@@ -1,0 +1,192 @@
+{
+ "rubric": {
+  "note": "자료를 보기 전에 고정한 규칙표. 표시어 다섯 각각에 두 값을 매긴다. 정답이 무엇인지 모르는 채로 매겨야 한다.",
+  "contextFit": "1~5. 이 낱말이 문맥에 맞는가. 1 = 문맥과 정면으로 어긋난다. 3 = 어색하지만 읽힌다. 5 = 자연스럽다. (대조 항목 — 내 판독이 문항을 실제로 풀 수 있는지 본다)",
+  "antonymFits": "true/false. **이 낱말을 반의어로 바꾸면 문맥이 나아지는가.** 형태가 닮은 다른 낱말(effect/affect 류)이나 무관한 낱말로 바꿔야 나아지는 경우는 false 다. 낱말이 이미 맞으면 false."
+ },
+ "fillInstruction": "각 words 원소에 contextFit(1~5) · antonymFits(true/false) 두 키를 더해 chunk-NN.out.json 으로 저장할 것.",
+ "items": [
+  {
+   "id": "2014B#28",
+   "passage": "When people started to plant stored seed stock deliberately, they also began protecting their plants. This changed the evolutionary ① pressure that these food plants experienced, as they no longer had to survive in a natural environment. Instead, people created a new environment for them, and selected for other characteristics than nature previously had. Seeds recovered at archaeological sites clearly show that farmers selected for larger seeds and ② thinner seed coats. Thick seed coats are often ③ essential for seeds to survive in a natural environment because the seeds of many wild plants remain dormant for months until winter is over and rain sets in. But under human management thick seed coats are unnecessary, as farmers ④ evade responsibility for storing seeds away from moisture and predators. In fact, seeds with thinner coats were ⑤ preferred as they are easier to eat or process into flour, and they allow seedlings to sprout more quickly when sown. 홀수형",
+   "words": [
+    {
+     "marker": "①",
+     "word": "pressure"
+    },
+    {
+     "marker": "②",
+     "word": "thinner"
+    },
+    {
+     "marker": "③",
+     "word": "essential"
+    },
+    {
+     "marker": "④",
+     "word": "evade"
+    },
+    {
+     "marker": "⑤",
+     "word": "preferred"
+    }
+   ]
+  },
+  {
+   "id": "2018#29",
+   "passage": "Some prominent journalists say that archaeologists should work with treasure hunters because treasure hunters have accumulated valuable historical artifacts that can reveal much about the past. But archaeologists are not asked to cooperate with tomb robbers, who also have valuable historical artifacts. The quest for profit and the search for knowledge cannot coexist in archaeology because of the ① time factor. Rather incredibly, one archaeologist employed by a treasure hunting firm said that as long as archaeologists are given six months to study shipwrecked artifacts before they are sold, no historical knowledge is ② found! On the contrary, archaeologists and assistants from the INA (Institute of Nautical Archaeology) needed more than a decade of year-round conservation before they could even ③ catalog all the finds from an eleventh-century AD wreck they had excavated. Then, to interpret those finds, they had to ④ learn Russian, Bulgarian, and Romanian, without which they would never have learned the true nature of the site. Could a “commercial archaeologist” have ⑤ waited more than a decade or so before selling the finds? * prominent : 저명한 ** excavate : 발굴하다",
+   "words": [
+    {
+     "marker": "①",
+     "word": "time"
+    },
+    {
+     "marker": "②",
+     "word": "found"
+    },
+    {
+     "marker": "③",
+     "word": "catalog"
+    },
+    {
+     "marker": "④",
+     "word": "learn"
+    },
+    {
+     "marker": "⑤",
+     "word": "waited"
+    }
+   ]
+  },
+  {
+   "id": "2019#30",
+   "passage": "Europe’s first Homo sapiens lived primarily on large game, particularly reindeer. Even under ideal circumstances, hunting these fast animals with spear or bow and arrow is an ① uncertain task. The reindeer, however, had a ② weakness that mankind would mercilessly exploit: it swam poorly. While afloat, it is uniquely ③ vulnerable, moving slowly with its antlers held high as it struggles to keep its nose above water. At some point, a Stone Age genius realized the enormous hunting ④ advantage he would gain by being able to glide over the water’s surface, and built the first boat. Once the ⑤ laboriously overtaken and killed prey had been hauled aboard, getting its body back to the tribal camp would have been far easier by boat than on land. It would not have taken long for mankind to apply this advantage to other goods. * exploit: 이용하다 ** haul: 끌어당기다 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "uncertain"
+    },
+    {
+     "marker": "②",
+     "word": "weakness"
+    },
+    {
+     "marker": "③",
+     "word": "vulnerable"
+    },
+    {
+     "marker": "④",
+     "word": "advantage"
+    },
+    {
+     "marker": "⑤",
+     "word": "laboriously"
+    }
+   ]
+  },
+  {
+   "id": "2020#30",
+   "passage": "Suppose we know that Paula suffers from a severe phobia. If we reason that Paula is afraid either of snakes or spiders, and then ① establish that she is not afraid of snakes, we will conclude that Paula is afraid of spiders. However, our conclusion is reasonable only if Paula’s fear really does concern either snakes or spiders. If we know only that Paula has a phobia, then the fact that she’s not afraid of snakes is entirely ② consistent with her being afraid of heights, water, dogs or the number thirteen. More generally, when we are presented with a list of alternative explanations for some phenomenon, and are then persuaded that all but one of those explanations are ③ unsatisfactory, we should pause to reflect. Before ④ denying that the remaining explanation is the correct one, consider whether other plausible options are being ignored or overlooked. The fallacy of false choice misleads when we’re insufficiently attentive to an important hidden assumption, that the choices which have been made explicit exhaust the ⑤ sensible alternatives. * plausible: 그럴듯한 ** fallacy: 오류 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "establish"
+    },
+    {
+     "marker": "②",
+     "word": "consistent"
+    },
+    {
+     "marker": "③",
+     "word": "unsatisfactory"
+    },
+    {
+     "marker": "④",
+     "word": "denying"
+    },
+    {
+     "marker": "⑤",
+     "word": "sensible"
+    }
+   ]
+  },
+  {
+   "id": "2021#30",
+   "passage": "How the bandwagon effect occurs is demonstrated by the history of measurements of the speed of light. Because this speed is the basis of the theory of relativity, it’s one of the most frequently and carefully measured ① quantities in science. As far as we know, the speed hasn’t changed over time. However, from 1870 to 1900, all the experiments found speeds that were too high. Then, from 1900 to 1950, the ② opposite happened ― all the experiments found speeds that were too low! This kind of error, where results are always on one side of the real value, is called “bias.” It probably happened because over time, experimenters subconsciously adjusted their results to ③ match what they expected to find. If a result fit what they expected, they kept it. If a result didn’t fit, they threw it out. They weren’t being intentionally dishonest, just ④ influenced by the conventional wisdom. The pattern only changed when someone ⑤ lacked the courage to report what was actually measured instead of what was expected. * bandwagon effect: 편승 효과 58 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "quantities"
+    },
+    {
+     "marker": "②",
+     "word": "opposite"
+    },
+    {
+     "marker": "③",
+     "word": "match"
+    },
+    {
+     "marker": "④",
+     "word": "influenced"
+    },
+    {
+     "marker": "⑤",
+     "word": "lacked"
+    }
+   ]
+  },
+  {
+   "id": "2022#30",
+   "passage": "It has been suggested that “organic” methods, defined as those in which only natural products can be used as inputs, would be less damaging to the biosphere. Large-scale adoption of “organic” farming methods, however, would ① reduce yields and increase production costs for many major crops. Inorganic nitrogen supplies are ② essential for maintaining moderate to high levels of productivity for many of the non-leguminous crop species, because organic supplies of nitrogenous materials often are either limited or more expensive than inorganic nitrogen fertilizers. In addition, there are ③ benefits to the extensive use of either manure or legumes as “green manure” crops. In many cases, weed control can be very difficult or require much hand labor if chemicals cannot be used, and ④ fewer people are willing to do this work as societies become wealthier. Some methods used in “organic” farming, however, such as the sensible use of crop rotations and specific combinations of cropping and livestock enterprises, can make important ⑤ contributions to the sustainability of rural ecosystems. * nitrogen fertilizer: 질소 비료 ** manure: 거름 *** legume: 콩과(科) 58 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "reduce"
+    },
+    {
+     "marker": "②",
+     "word": "essential"
+    },
+    {
+     "marker": "③",
+     "word": "benefits"
+    },
+    {
+     "marker": "④",
+     "word": "fewer"
+    },
+    {
+     "marker": "⑤",
+     "word": "contributions"
+    }
+   ]
+  },
+  {
+   "id": "2023#30",
+   "passage": "Everywhere we turn we hear about almighty “cyberspace”! The hype promises that we will leave our boring lives, put on goggles and body suits, and enter some metallic, three-dimensional, multimedia otherworld. When the Industrial Revolution arrived with its great innovation, the motor, we didn’t leave our world to go to some ① remote motorspace! On the contrary, we brought the motors into our lives, as automobiles, refrigerators, drill presses, and pencil sharpeners. This ② absorption has been so complete that we refer to all these tools with names that declare their usage, not their “motorness.” These innovations led to a major socioeconomic movement precisely because they entered and ③ affected profoundly our everyday lives. People have not changed fundamentally in thousands of years. Technology changes constantly. It’s the one that must ④ adapt to us. That’s exactly what will happen with information technology and its devices under human-centric computing. The longer we continue to believe that computers will take us to a magical new world, the longer we will ⑤ maintain their natural fusion with our lives, the hallmark of every major movement that aspires to be called a socioeconomic revolution. * hype: 과대광고 ** hallmark: 특징 58 5",
+   "words": [
+    {
+     "marker": "①",
+     "word": "remote"
+    },
+    {
+     "marker": "②",
+     "word": "absorption"
+    },
+    {
+     "marker": "③",
+     "word": "affected"
+    },
+    {
+     "marker": "④",
+     "word": "adapt"
+    },
+    {
+     "marker": "⑤",
+     "word": "maintain"
+    }
+   ]
+  }
+ ]
+}

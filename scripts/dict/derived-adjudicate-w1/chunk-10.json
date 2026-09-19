@@ -1,0 +1,599 @@
+[
+ {
+  "word": "moat",
+  "meaning_ko": "해자 (성 주위 도랑)",
+  "pos": "noun",
+  "candidates": [
+   "moated"
+  ]
+ },
+ {
+  "word": "nave",
+  "meaning_ko": "네이브 (교회 본당 회중석)",
+  "pos": "noun",
+  "candidates": [
+   "navel"
+  ]
+ },
+ {
+  "word": "outdoor",
+  "meaning_ko": "야외의",
+  "pos": "adjective",
+  "candidates": [
+   "outdoors"
+  ]
+ },
+ {
+  "word": "picket",
+  "meaning_ko": "파업 농성자; 그 시위; 말뚝",
+  "pos": "noun",
+  "candidates": [
+   "picket line",
+   "picketing"
+  ]
+ },
+ {
+  "word": "pond",
+  "meaning_ko": "연못",
+  "pos": "noun",
+  "candidates": [
+   "ponder",
+   "ponderous"
+  ]
+ },
+ {
+  "word": "winkle",
+  "meaning_ko": "경단고둥, 식용 바다고둥",
+  "pos": "noun",
+  "candidates": [
+   "winklepicker"
+  ]
+ },
+ {
+  "word": "wren",
+  "meaning_ko": "굴뚝새",
+  "pos": "noun",
+  "candidates": [
+   "wrench"
+  ]
+ },
+ {
+  "word": "altar",
+  "meaning_ko": "제단",
+  "pos": "noun",
+  "candidates": [
+   "altarpiece"
+  ]
+ },
+ {
+  "word": "bloc",
+  "meaning_ko": "블록",
+  "pos": "noun",
+  "candidates": [
+   "block",
+   "block in",
+   "blockade",
+   "blockage",
+   "blockchain",
+   "blockhead",
+   "blockhouse"
+  ]
+ },
+ {
+  "word": "bonfire",
+  "meaning_ko": "모닥불",
+  "pos": "noun",
+  "candidates": [
+   "bonfire night"
+  ]
+ },
+ {
+  "word": "caste",
+  "meaning_ko": "카스트 (인도 등의 세습 신분 계급)",
+  "pos": "noun",
+  "candidates": [
+   "castellated",
+   "caster"
+  ]
+ },
+ {
+  "word": "civic",
+  "meaning_ko": "시민의",
+  "pos": "adjective",
+  "candidates": [
+   "civics"
+  ]
+ },
+ {
+  "word": "commons",
+  "meaning_ko": "공유지 — 마을이 함께 쓰도록 정해 둔 공용 땅",
+  "pos": "noun",
+  "candidates": [
+   "commonsense"
+  ]
+ },
+ {
+  "word": "font",
+  "meaning_ko": "(인쇄·컴퓨터) 글꼴, 폰트",
+  "pos": "noun",
+  "candidates": [
+   "fontanelle",
+   "fontina"
+  ]
+ },
+ {
+  "word": "handcuff",
+  "meaning_ko": "수갑을 채우다",
+  "pos": "verb",
+  "candidates": [
+   "handcuffs"
+  ]
+ },
+ {
+  "word": "heroin",
+  "meaning_ko": "헤로인",
+  "pos": "noun",
+  "candidates": [
+   "heroine"
+  ]
+ },
+ {
+  "word": "hetero",
+  "meaning_ko": "이성애의",
+  "pos": "adjective",
+  "candidates": [
+   "heteroclite",
+   "heterocyclic",
+   "heterodox",
+   "heterodoxy",
+   "heteronomous",
+   "heteronomy",
+   "heteronym",
+   "heterosexism",
+   "heterosexual",
+   "heterosocial",
+   "heterotopic",
+   "heterotroph"
+  ]
+ },
+ {
+  "word": "jobless",
+  "meaning_ko": "실직한",
+  "pos": "adjective",
+  "candidates": [
+   "joblessness"
+  ]
+ },
+ {
+  "word": "marquis",
+  "meaning_ko": "후작 (대륙 유럽)",
+  "pos": "noun",
+  "candidates": [
+   "marquise",
+   "marquisette"
+  ]
+ },
+ {
+  "word": "multilateral",
+  "meaning_ko": "다자간의",
+  "pos": "adjective",
+  "candidates": [
+   "multilateralism"
+  ]
+ },
+ {
+  "word": "nick",
+  "meaning_ko": "감옥, 경찰서 (영국 구어); 작은 흠",
+  "pos": "noun",
+  "candidates": [
+   "nickel",
+   "nicker",
+   "nickle",
+   "nickname"
+  ]
+ },
+ {
+  "word": "rota",
+  "meaning_ko": "근무·당번 순번표",
+  "pos": "noun",
+  "candidates": [
+   "rotarian",
+   "rotary",
+   "rotate",
+   "rotation",
+   "rotational",
+   "rotavirus"
+  ]
+ },
+ {
+  "word": "shack",
+  "meaning_ko": "오두막, 판잣집",
+  "pos": "noun",
+  "candidates": [
+   "shackle"
+  ]
+ },
+ {
+  "word": "stove",
+  "meaning_ko": "(요리용) 가스레인지, 화덕, 쿠커",
+  "pos": "noun",
+  "candidates": [
+   "stovepipe",
+   "stover",
+   "stovetop"
+  ]
+ },
+ {
+  "word": "tomb",
+  "meaning_ko": "무덤",
+  "pos": "noun",
+  "candidates": [
+   "tombola",
+   "tomboy",
+   "tombstone"
+  ]
+ },
+ {
+  "word": "vase",
+  "meaning_ko": "꽃병",
+  "pos": "noun",
+  "candidates": [
+   "vasectomy",
+   "vaseline"
+  ]
+ },
+ {
+  "word": "abseil",
+  "meaning_ko": "현수 하강하다, 로프로 하강하다",
+  "pos": "verb",
+  "candidates": [
+   "abseiling"
+  ]
+ },
+ {
+  "word": "arena",
+  "meaning_ko": "경기장",
+  "pos": "noun",
+  "candidates": [
+   "arenaria"
+  ]
+ },
+ {
+  "word": "bodyboard",
+  "meaning_ko": "바디 보드",
+  "pos": "noun",
+  "candidates": [
+   "bodyboarding"
+  ]
+ },
+ {
+  "word": "bout",
+  "meaning_ko": "한 차례",
+  "pos": "noun",
+  "candidates": [
+   "boutique"
+  ]
+ },
+ {
+  "word": "candy",
+  "meaning_ko": "사탕, 캔디",
+  "pos": "noun",
+  "candidates": [
+   "candy cane",
+   "candyfloss"
+  ]
+ },
+ {
+  "word": "clothes",
+  "meaning_ko": "옷",
+  "pos": "noun",
+  "candidates": [
+   "clothes line",
+   "clotheshorse",
+   "clothesline",
+   "clothespin"
+  ]
+ },
+ {
+  "word": "dash",
+  "meaning_ko": "급히 달려가다, 돌진하다",
+  "pos": "verb",
+  "candidates": [
+   "dashboard",
+   "dashi",
+   "dashiki",
+   "dashing",
+   "dashpot"
+  ]
+ },
+ {
+  "word": "derby",
+  "meaning_ko": "더비 — 같은 지역 라이벌 팀 간의 경기",
+  "pos": "noun",
+  "candidates": [
+   "derbys"
+  ]
+ },
+ {
+  "word": "dialog",
+  "meaning_ko": "대화 (미국식 철자; 영국식 dialogue)",
+  "pos": "noun",
+  "candidates": [
+   "dialog box",
+   "dialogue"
+  ]
+ },
+ {
+  "word": "discus",
+  "meaning_ko": "(육상) 원반 — 던지기 종목에 쓰는 둥근 판 모양 기구",
+  "pos": "noun",
+  "candidates": [
+   "discuss",
+   "discussion"
+  ]
+ },
+ {
+  "word": "gala",
+  "meaning_ko": "갈라 — 공연·만찬을 곁들인 화려한 축하 행사",
+  "pos": "noun",
+  "candidates": [
+   "galactic",
+   "galactose",
+   "galatea",
+   "galaxy"
+  ]
+ },
+ {
+  "word": "laser",
+  "meaning_ko": "레이저",
+  "pos": "noun",
+  "candidates": [
+   "laserdisc",
+   "laserjet"
+  ]
+ },
+ {
+  "word": "left",
+  "meaning_ko": "왼쪽",
+  "pos": "noun",
+  "candidates": [
+   "left field",
+   "left wing",
+   "left-wing",
+   "leftie",
+   "leftism",
+   "leftist",
+   "leftmost",
+   "leftover",
+   "leftward",
+   "leftwing"
+  ]
+ },
+ {
+  "word": "middle",
+  "meaning_ko": "중간, 가운데",
+  "pos": "noun",
+  "candidates": [
+   "middle age",
+   "middle ages",
+   "middle class",
+   "middle name",
+   "middle-aged",
+   "middle-class",
+   "middlebrow",
+   "middlegame",
+   "middleware",
+   "middleweight"
+  ]
+ },
+ {
+  "word": "next",
+  "meaning_ko": "다음의",
+  "pos": "adjective",
+  "candidates": [
+   "next door",
+   "next up",
+   "next-door"
+  ]
+ },
+ {
+  "word": "pencil",
+  "meaning_ko": "연필",
+  "pos": "noun",
+  "candidates": [
+   "pencil in"
+  ]
+ },
+ {
+  "word": "people",
+  "meaning_ko": "사람들",
+  "pos": "noun",
+  "candidates": [
+   "people power"
+  ]
+ },
+ {
+  "word": "spaghetti",
+  "meaning_ko": "스파게티 — 길고 가는 국수 모양의 파스타; 그 요리",
+  "pos": "noun",
+  "candidates": [
+   "spaghettini"
+  ]
+ },
+ {
+  "word": "squad",
+  "meaning_ko": "분대",
+  "pos": "noun",
+  "candidates": [
+   "squad car",
+   "squadron"
+  ]
+ },
+ {
+  "word": "transsexual",
+  "meaning_ko": "성전환자, 트랜스섹슈얼",
+  "pos": "noun",
+  "candidates": [
+   "transsexualism"
+  ]
+ },
+ {
+  "word": "when",
+  "meaning_ko": "언제",
+  "pos": "adverb",
+  "candidates": [
+   "whenas",
+   "whence",
+   "whenever",
+   "whensoever"
+  ]
+ },
+ {
+  "word": "where",
+  "meaning_ko": "어디에",
+  "pos": "adverb",
+  "candidates": [
+   "whereabouts",
+   "whereafter",
+   "whereas",
+   "whereat",
+   "whereby",
+   "wherefore",
+   "wherefrom",
+   "wherein",
+   "whereof",
+   "whereon",
+   "wheresoever",
+   "whereto",
+   "whereunto",
+   "whereupon",
+   "wherever",
+   "wherewith",
+   "wherewithal"
+  ]
+ },
+ {
+  "word": "writ",
+  "meaning_ko": "(법원의) 영장, 명령서 — 어떤 행위를 명하거나 금지하는 공식 문서",
+  "pos": "noun",
+  "candidates": [
+   "write",
+   "write in",
+   "write into",
+   "write off",
+   "write-off",
+   "write-up",
+   "writer",
+   "writhe",
+   "writing",
+   "written"
+  ]
+ },
+ {
+  "word": "bangla",
+  "meaning_ko": "벵골어",
+  "pos": "noun",
+  "candidates": [
+   "bangladesh"
+  ]
+ },
+ {
+  "word": "here",
+  "meaning_ko": "여기에, 여기서",
+  "pos": "adverb",
+  "candidates": [
+   "here's",
+   "hereabout",
+   "hereabouts",
+   "hereafter",
+   "hereby",
+   "hereditary",
+   "heredity",
+   "herein",
+   "hereof",
+   "heresy",
+   "heretic",
+   "heretical",
+   "hereto",
+   "heretofore",
+   "hereupon",
+   "herewith"
+  ]
+ },
+ {
+  "word": "javelin",
+  "meaning_ko": "창; 창던지기",
+  "pos": "noun",
+  "candidates": [
+   "javelina"
+  ]
+ },
+ {
+  "word": "lido",
+  "meaning_ko": "야외 수영장 (영국·이탈리아 휴양지)",
+  "pos": "noun",
+  "candidates": [
+   "lidocaine"
+  ]
+ },
+ {
+  "word": "madison",
+  "meaning_ko": "매디슨 (사이클 2인조 계주 종목)",
+  "pos": "noun",
+  "candidates": [
+   "madisonian"
+  ]
+ },
+ {
+  "word": "paddleboard",
+  "meaning_ko": "패들보드",
+  "pos": "noun",
+  "candidates": [
+   "paddleboarding"
+  ]
+ },
+ {
+  "word": "polo",
+  "meaning_ko": "폴로 (말을 타고 긴 채로 공을 쳐 골에 넣는 단체 경기)",
+  "pos": "noun",
+  "candidates": [
+   "polo neck",
+   "polonaise",
+   "polonium"
+  ]
+ },
+ {
+  "word": "racquet",
+  "meaning_ko": "라켓",
+  "pos": "noun",
+  "candidates": [
+   "racquetball"
+  ]
+ },
+ {
+  "word": "ruck",
+  "meaning_ko": "(럭비) 럭 — 넘어진 공을 두고 양 팀 선수가 엉겨 붙어 다투는 상태",
+  "pos": "noun",
+  "candidates": [
+   "rucksack",
+   "ruckus"
+  ]
+ },
+ {
+  "word": "rugby",
+  "meaning_ko": "럭비",
+  "pos": "noun",
+  "candidates": [
+   "rugby union"
+  ]
+ },
+ {
+  "word": "safety",
+  "meaning_ko": "안전",
+  "pos": "noun",
+  "candidates": [
+   "safety belt",
+   "safety valve"
+  ]
+ }
+]

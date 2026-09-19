@@ -1,0 +1,874 @@
+[
+ {
+  "exam": "M2206",
+  "no": 1,
+  "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Good afternoon, students of Robinson High School. This is Mr. Anderson, coach of the school dance club. I’d like to announce that we’ll be recruiting additional new members for our school dance club. Previously we were looking for 10 new club members, and many students showed interest in joining. Luckily, we’ve been assigned to a bigger room than expected. Now we’re allowed to accept five additional new members to make a total of 15 students. Once again, I’m happy to inform you that our school dance club has increased the number of new members to recruit. Thank you for your interest."
+   }
+  ],
+  "script": "Good afternoon, students of Robinson High School. This is Mr. Anderson, coach of the school dance club. I’d like to announce that we’ll be recruiting additional new members for our school dance club. Previously we were looking for 10 new club members, and many students showed interest in joining. Luckily, we’ve been assigned to a bigger room than expected. Now we’re allowed to accept five additional new members to make a total of 15 students. Once again, I’m happy to inform you that our school dance club has increased the number of new members to recruit. Thank you for your interest.",
+  "words": 99,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-PURPOSE",
+  "typeGuessAll": [
+   "L-PURPOSE"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 2,
+  "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hey, Connor. What are you doing with all of these gift boxes?"
+   },
+   {
+    "who": "M",
+    "text": "Mom, I’m wrapping a scarf for Grandma. You know, her birthday is in a week."
+   },
+   {
+    "who": "W",
+    "text": "Great. But do you really need these three boxes for just one scarf?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. The boxes are all different sizes, and I’ll put each one inside the other."
+   },
+   {
+    "who": "W",
+    "text": "Well, don’t you feel bad about wasting all of those boxes?"
+   },
+   {
+    "who": "M",
+    "text": "What do you mean? I just wanted the gift to look fancy and interesting."
+   },
+   {
+    "who": "W",
+    "text": "I understand. However, the boxes will end up being thrown away, right?"
+   },
+   {
+    "who": "M",
+    "text": "So, you mean it’s overpackaging? Oh, I didn’t know I was wasting boxes."
+   },
+   {
+    "who": "W",
+    "text": "Yeah. I think we should avoid overpackaging to reduce unnecessary waste."
+   },
+   {
+    "who": "M",
+    "text": "You’re right. I’ll use one box for now and save the others for later."
+   },
+   {
+    "who": "W",
+    "text": "Good idea. No matter how it looks, Grandma will love your gift."
+   }
+  ],
+  "script": "Hey, Connor. What are you doing with all of these gift boxes? Mom, I’m wrapping a scarf for Grandma. You know, her birthday is in a week. Great. But do you really need these three boxes for just one scarf? Yes. The boxes are all different sizes, and I’ll put each one inside the other. Well, don’t you feel bad about wasting all of those boxes? What do you mean? I just wanted the gift to look fancy and interesting. I understand. However, the boxes will end up being thrown away, right? So, you mean it’s overpackaging? Oh, I didn’t know I was wasting boxes. Yeah. I think we should avoid overpackaging to reduce unnecessary waste. You’re right. I’ll use one box for now and save the others for later. Good idea. No matter how it looks, Grandma will love your gift.",
+  "words": 142,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-OPINION",
+  "typeGuessAll": [
+   "L-OPINION"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 3,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, Ms. Lee. It’s an honor to meet you in person."
+   },
+   {
+    "who": "W",
+    "text": "Oh, thank you for interviewing me, Mr. Wilson. I’m a big fan of your magazine."
+   },
+   {
+    "who": "M",
+    "text": "Thanks. People love your movie Short Days. I was wondering who picked out the title."
+   },
+   {
+    "who": "W",
+    "text": "Well, it was basically my idea and the movie director agreed."
+   },
+   {
+    "who": "M",
+    "text": "It really catches the theme of the movie. Why do you think people love your stories?"
+   },
+   {
+    "who": "W",
+    "text": "When writing film scripts, I always try to make the characters as realistic as possible."
+   },
+   {
+    "who": "M",
+    "text": "Maybe that’s why people feel stronger connections to them. What inspires you when you write your scripts?"
+   },
+   {
+    "who": "W",
+    "text": "Often, my own life experiences help create many of the scenes in my scripts."
+   },
+   {
+    "who": "M",
+    "text": "I see. Thank you. The readers of our magazine will appreciate you sharing your time with us."
+   },
+   {
+    "who": "W",
+    "text": "My pleasure. Could you please email me the article?"
+   },
+   {
+    "who": "M",
+    "text": "No problem."
+   }
+  ],
+  "script": "Hello, Ms. Lee. It’s an honor to meet you in person. Oh, thank you for interviewing me, Mr. Wilson. I’m a big fan of your magazine. Thanks. People love your movie Short Days. I was wondering who picked out the title. Well, it was basically my idea and the movie director agreed. It really catches the theme of the movie. Why do you think people love your stories? When writing film scripts, I always try to make the characters as realistic as possible. Maybe that’s why people feel stronger connections to them. What inspires you when you write your scripts? Often, my own life experiences help create many of the scenes in my scripts. I see. Thank you. The readers of our magazine will appreciate you sharing your time with us. My pleasure. Could you please email me the article? No problem.",
+  "words": 142,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RELATION",
+  "typeGuessAll": [
+   "L-RELATION"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 4,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey, today I went to the house we’ll be moving in to. I really liked the bathroom renovations."
+   },
+   {
+    "who": "M",
+    "text": "Oh, really? Did you take a picture of the bathroom?"
+   },
+   {
+    "who": "W",
+    "text": "Of course. Here it is. How’s the plant in the corner? I bought it on the way to the house."
+   },
+   {
+    "who": "M",
+    "text": "Excellent choice. The cabinet next to the clock is perfect for our family."
+   },
+   {
+    "who": "W",
+    "text": "Yeah, it’ll be useful for storing all of our towels."
+   },
+   {
+    "who": "M",
+    "text": "You’re right. And look at this round mirror over the bathroom sink. It’s very modern."
+   },
+   {
+    "who": "W",
+    "text": "Yes. That’s my favorite part. And I also like the two lights on the wall."
+   },
+   {
+    "who": "M",
+    "text": "Me, too. Aren’t they unique?"
+   },
+   {
+    "who": "W",
+    "text": "Absolutely. What do you think about the shower curtain with the heart pattern?"
+   },
+   {
+    "who": "M",
+    "text": "The kids will definitely love it."
+   },
+   {
+    "who": "W",
+    "text": "I agree. I’m excited to move in to our new house this weekend."
+   }
+  ],
+  "script": "Honey, today I went to the house we’ll be moving in to. I really liked the bathroom renovations. Oh, really? Did you take a picture of the bathroom? Of course. Here it is. How’s the plant in the corner? I bought it on the way to the house. Excellent choice. The cabinet next to the clock is perfect for our family. Yeah, it’ll be useful for storing all of our towels. You’re right. And look at this round mirror over the bathroom sink. It’s very modern. Yes. That’s my favorite part. And I also like the two lights on the wall. Me, too. Aren’t they unique? Absolutely. What do you think about the shower curtain with the heart pattern? The kids will definitely love it. I agree. I’m excited to move in to our new house this weekend.",
+  "words": 138,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-PICTURE",
+  "typeGuessAll": [
+   "L-PICTURE"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 5,
+  "stem": "대화를 듣고, 여자가 남자를 위해 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hey, Brandon. Have you seen this poster?"
+   },
+   {
+    "who": "M",
+    "text": "What’s this? Oh, it’s the Earth Hour Marathon."
+   },
+   {
+    "who": "W",
+    "text": "Yeah, it’s to raise students’ awareness about protecting the environment."
+   },
+   {
+    "who": "M",
+    "text": "That sounds like a great campaign. Are you participating in it?"
+   },
+   {
+    "who": "W",
+    "text": "Actually, I’m a staff member of the event and I’m looking for volunteers."
+   },
+   {
+    "who": "M",
+    "text": "Oh, is that so? Then, what’s the role of a volunteer?"
+   },
+   {
+    "who": "W",
+    "text": "A volunteer hands out water to the runners during the race."
+   },
+   {
+    "who": "M",
+    "text": "That sounds good. When does it take place?"
+   },
+   {
+    "who": "W",
+    "text": "It’s next Saturday at City Hall. Are you interested?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. How do I apply to be a volunteer?"
+   },
+   {
+    "who": "W",
+    "text": "Here. You must submit this application form to the student center by 5 o’clock today."
+   },
+   {
+    "who": "M",
+    "text": "Oh! I have economics class in 10 minutes, and it finishes at 6 o’clock."
+   },
+   {
+    "who": "W",
+    "text": "Just write your name and phone number. I’ll submit your application form for you."
+   },
+   {
+    "who": "M",
+    "text": "Thanks. [Writing sound] Here you go."
+   }
+  ],
+  "script": "Hey, Brandon. Have you seen this poster? What’s this? Oh, it’s the Earth Hour Marathon. Yeah, it’s to raise students’ awareness about protecting the environment. That sounds like a great campaign. Are you participating in it? Actually, I’m a staff member of the event and I’m looking for volunteers. Oh, is that so? Then, what’s the role of a volunteer? A volunteer hands out water to the runners during the race. That sounds good. When does it take place? It’s next Saturday at City Hall. Are you interested? Sure. How do I apply to be a volunteer? Here. You must submit this application form to the student center by 5 o’clock today. Oh! I have economics class in 10 minutes, and it finishes at 6 o’clock. Just write your name and phone number. I’ll submit your application form for you. Thanks. [Writing sound] Here you go.",
+  "words": 143,
+  "nTurns": 14,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TODO",
+  "typeGuessAll": [
+   "L-TODO"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 6,
+  "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome to Family Pet Shop. May I help you?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, I’m looking for dog food."
+   },
+   {
+    "who": "M",
+    "text": "Let me show you."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. How much is it for a bag of dog food?"
+   },
+   {
+    "who": "M",
+    "text": "That depends on your dog’s age."
+   },
+   {
+    "who": "W",
+    "text": "Oh, does it make a difference?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. It costs $15 per bag for little puppies and $20 per bag for adult dogs."
+   },
+   {
+    "who": "W",
+    "text": "My dogs are all grown up. So, I’ll get two bags of dog food for adult dogs."
+   },
+   {
+    "who": "M",
+    "text": "All right. Do you need anything else?"
+   },
+   {
+    "who": "W",
+    "text": "Well, can you recommend a good brush?"
+   },
+   {
+    "who": "M",
+    "text": "Oh, how about this one? It’s very popular among our customers and only costs $10."
+   },
+   {
+    "who": "W",
+    "text": "Perfect. I’ll take one."
+   },
+   {
+    "who": "M",
+    "text": "Good. So you want two bags of dog food for adult dogs and one brush, right?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. Can I use this discount coupon?"
+   },
+   {
+    "who": "M",
+    "text": "Let me see. [Pause] Yes, you can get 10% off the total with this coupon."
+   },
+   {
+    "who": "W",
+    "text": "Great. I’ll pay in cash."
+   }
+  ],
+  "script": "Welcome to Family Pet Shop. May I help you? Hi, I’m looking for dog food. Let me show you. Thanks. How much is it for a bag of dog food? That depends on your dog’s age. Oh, does it make a difference? Yes. It costs $15 per bag for little puppies and $20 per bag for adult dogs. My dogs are all grown up. So, I’ll get two bags of dog food for adult dogs. All right. Do you need anything else? Well, can you recommend a good brush? Oh, how about this one? It’s very popular among our customers and only costs $10. Perfect. I’ll take one. Good. So you want two bags of dog food for adult dogs and one brush, right? Yes. Can I use this discount coupon? Let me see. [Pause] Yes, you can get 10% off the total with this coupon. Great. I’ll pay in cash.",
+  "words": 147,
+  "nTurns": 16,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-MONEY",
+  "typeGuessAll": [
+   "L-MONEY"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 7,
+  "stem": "대화를 듣고, 남자가 컴퓨터 프로그래밍 강좌를 신청하지 않은 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hey, Blake. It’s the last day of the class. Did you sign up for the next computer programming class?"
+   },
+   {
+    "who": "M",
+    "text": "No, Angela. I cannot take the class anymore."
+   },
+   {
+    "who": "W",
+    "text": "Oh, I thought you enjoyed the programming class."
+   },
+   {
+    "who": "M",
+    "text": "Yeah. I found it really helpful for my career, too."
+   },
+   {
+    "who": "W",
+    "text": "Then, what’s the reason? Are you too tired to attend the class after work?"
+   },
+   {
+    "who": "M",
+    "text": "Not at all. The class is quite exciting."
+   },
+   {
+    "who": "W",
+    "text": "Is it because the new class starts 30 minutes earlier?"
+   },
+   {
+    "who": "M",
+    "text": "No. That’s actually better for my schedule. The problem is that I have to move to another city."
+   },
+   {
+    "who": "W",
+    "text": "Oh, you’re moving?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. So, I don’t think I can make it."
+   },
+   {
+    "who": "W",
+    "text": "I’m sorry to hear that. It was nice taking the class with you."
+   },
+   {
+    "who": "M",
+    "text": "Same here. Let’s keep in touch."
+   }
+  ],
+  "script": "Hey, Blake. It’s the last day of the class. Did you sign up for the next computer programming class? No, Angela. I cannot take the class anymore. Oh, I thought you enjoyed the programming class. Yeah. I found it really helpful for my career, too. Then, what’s the reason? Are you too tired to attend the class after work? Not at all. The class is quite exciting. Is it because the new class starts 30 minutes earlier? No. That’s actually better for my schedule. The problem is that I have to move to another city. Oh, you’re moving? Yes. So, I don’t think I can make it. I’m sorry to hear that. It was nice taking the class with you. Same here. Let’s keep in touch.",
+  "words": 125,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-REASON",
+  "typeGuessAll": [
+   "L-REASON"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 8,
+  "stem": "대화를 듣고, Samuel’s Woodworking Class에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Gina, come check out this flyer."
+   },
+   {
+    "who": "W",
+    "text": "What’s this, Ted? [Pause] Oh, Samuel’s Woodworking Class. Looks interesting."
+   },
+   {
+    "who": "M",
+    "text": "It’s a one-time class in the art studio of the community center. I think you’d like it, too."
+   },
+   {
+    "who": "W",
+    "text": "Absolutely! Look, we can get some hands-on practice making a pencil case or a wooden plate."
+   },
+   {
+    "who": "M",
+    "text": "Yes! The class will be held from 7 p.m. to 9 p.m. next Friday."
+   },
+   {
+    "who": "W",
+    "text": "I’ll be available then. Do you want to take the class together?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. I think I’m going to make a pencil case. What about you?"
+   },
+   {
+    "who": "W",
+    "text": "I’d like to make a wooden plate. How much is the registration fee?"
+   },
+   {
+    "who": "M",
+    "text": "It’s only $40 per person."
+   },
+   {
+    "who": "W",
+    "text": "That’s a good price. Does it say how we can register?"
+   },
+   {
+    "who": "M",
+    "text": "Here. We can register on the community center website."
+   },
+   {
+    "who": "W",
+    "text": "Yes, and look. Only 12 people can register. We’d better hurry."
+   },
+   {
+    "who": "M",
+    "text": "Let’s sign up now."
+   }
+  ],
+  "script": "Gina, come check out this flyer. What’s this, Ted? [Pause] Oh, Samuel’s Woodworking Class. Looks interesting. It’s a one-time class in the art studio of the community center. I think you’d like it, too. Absolutely! Look, we can get some hands-on practice making a pencil case or a wooden plate. Yes! The class will be held from 7 p.m. to 9 p.m. next Friday. I’ll be available then. Do you want to take the class together? Sure. I think I’m going to make a pencil case. What about you? I’d like to make a wooden plate. How much is the registration fee? It’s only $40 per person. That’s a good price. Does it say how we can register? Here. We can register on the community center website. Yes, and look. Only 12 people can register. We’d better hurry. Let’s sign up now.",
+  "words": 140,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-NOTMENTION",
+  "typeGuessAll": [
+   "L-NOTMENTION"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 9,
+  "stem": "2021 Lakeside Essay Contest에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Okay, class. Before I let you go, I’d like to remind you about the 2021 Lakeside Essay Contest. As you know, the theme of this year is “messages from summer.” Last year, the contest was only open to freshmen. But this year, all students at Lakeside High School can participate. You can submit your essay to me by email. Don’t forget your essay should be no longer than three pages. Please start writing your essay today because the deadline is next Wednesday. You can check the results of the contest on July 3rd. The top 10 essays will be posted on our school website. I hope many of you participate in this contest! All right, everyone. See you next time."
+   }
+  ],
+  "script": "Okay, class. Before I let you go, I’d like to remind you about the 2021 Lakeside Essay Contest. As you know, the theme of this year is “messages from summer.” Last year, the contest was only open to freshmen. But this year, all students at Lakeside High School can participate. You can submit your essay to me by email. Don’t forget your essay should be no longer than three pages. Please start writing your essay today because the deadline is next Wednesday. You can check the results of the contest on July 3rd. The top 10 essays will be posted on our school website. I hope many of you participate in this contest! All right, everyone. See you next time.",
+  "words": 118,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-ANNOUNCE",
+  "typeGuessAll": [
+   "L-ANNOUNCE"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 10,
+  "stem": "다음 표를 보면서 대화를 듣고, 남자가 주문할 자전거를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hey, Olivia. You know a lot about bicycles. Would you help me choose one from this list?"
+   },
+   {
+    "who": "W",
+    "text": "Sure. Let me see. [Pause] Oh, you’re looking at bicycles for commuters. Well, I don’t recommend the black one for your safety at night."
+   },
+   {
+    "who": "M",
+    "text": "You’re right. It won’t be safe when it’s dark. Then I’ll go for the other colors."
+   },
+   {
+    "who": "W",
+    "text": "Good idea. What’s your budget?"
+   },
+   {
+    "who": "M",
+    "text": "I can spend up to $300."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Now you need to choose a frame size."
+   },
+   {
+    "who": "M",
+    "text": "Should I choose a medium-sized frame?"
+   },
+   {
+    "who": "W",
+    "text": "No. Because you’re tall, you’ll need a bigger one."
+   },
+   {
+    "who": "M",
+    "text": "Okay. I’ll get one of these then. Do you think I need a foldable bicycle?"
+   },
+   {
+    "who": "W",
+    "text": "Hmm, it depends on how often you use public transportation."
+   },
+   {
+    "who": "M",
+    "text": "I rarely use public transportation, so I guess I don’t need a foldable one."
+   },
+   {
+    "who": "W",
+    "text": "Then, this model is the best choice for you."
+   },
+   {
+    "who": "M",
+    "text": "Great. I’ll order it now. Thanks."
+   }
+  ],
+  "script": "Hey, Olivia. You know a lot about bicycles. Would you help me choose one from this list? Sure. Let me see. [Pause] Oh, you’re looking at bicycles for commuters. Well, I don’t recommend the black one for your safety at night. You’re right. It won’t be safe when it’s dark. Then I’ll go for the other colors. Good idea. What’s your budget? I can spend up to $300. Okay. Now you need to choose a frame size. Should I choose a medium-sized frame? No. Because you’re tall, you’ll need a bigger one. Okay. I’ll get one of these then. Do you think I need a foldable bicycle? Hmm, it depends on how often you use public transportation. I rarely use public transportation, so I guess I don’t need a foldable one. Then, this model is the best choice for you. Great. I’ll order it now. Thanks.",
+  "words": 145,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-TABLE",
+  "typeGuessAll": [
+   "L-TABLE"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 11,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey, your hair’s getting pretty long."
+   },
+   {
+    "who": "M",
+    "text": "Yeah. I was thinking about getting a haircut today. What about the hairstylist you talked about?"
+   },
+   {
+    "who": "W",
+    "text": "He’s good, but you should call him first and check if he’s available. Do you want the phone number?"
+   }
+  ],
+  "script": "Honey, your hair’s getting pretty long. Yeah. I was thinking about getting a haircut today. What about the hairstylist you talked about? He’s good, but you should call him first and check if he’s available. Do you want the phone number?",
+  "words": 41,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 12,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hey, Lauren. Are you still looking for a band to play drums in?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, but I haven’t found one yet. Your band is still my first choice, but I know you already have a drummer."
+   },
+   {
+    "who": "M",
+    "text": "Actually, our drummer had to quit for personal reasons. We want you to play drums in our band."
+   }
+  ],
+  "script": "Hey, Lauren. Are you still looking for a band to play drums in? Yes, but I haven’t found one yet. Your band is still my first choice, but I know you already have a drummer. Actually, our drummer had to quit for personal reasons. We want you to play drums in our band.",
+  "words": 53,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 13,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점] [Cell phone rings.]"
+   },
+   {
+    "who": "W",
+    "text": "Hello."
+   },
+   {
+    "who": "M",
+    "text": "Good afternoon. This is S&G Clothing Company. Can I speak to Ms. Thompson, please?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, speaking."
+   },
+   {
+    "who": "M",
+    "text": "I’m calling to tell you about the order you placed."
+   },
+   {
+    "who": "W",
+    "text": "Oh, is there a problem?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. Unfortunately, the black skirt you ordered is out of stock at the moment."
+   },
+   {
+    "who": "W",
+    "text": "Oh, no. I need it for my graduation ceremony this weekend."
+   },
+   {
+    "who": "M",
+    "text": "We’re very sorry for the inconvenience."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Then, what are my options?"
+   },
+   {
+    "who": "M",
+    "text": "You may cancel your order and get a full refund. Or we could send you the same skirt, but in a different color."
+   },
+   {
+    "who": "W",
+    "text": "Hmm... What colors do you have?"
+   },
+   {
+    "who": "M",
+    "text": "We currently have only gray in stock. If we send it out today, it’ll arrive by Thursday."
+   },
+   {
+    "who": "W",
+    "text": "Well, I like the design of the skirt, so gray’s fine."
+   }
+  ],
+  "script": "[3점] [Cell phone rings.] Hello. Good afternoon. This is S&G Clothing Company. Can I speak to Ms. Thompson, please? Yes, speaking. I’m calling to tell you about the order you placed. Oh, is there a problem? Yes. Unfortunately, the black skirt you ordered is out of stock at the moment. Oh, no. I need it for my graduation ceremony this weekend. We’re very sorry for the inconvenience. Okay. Then, what are my options? You may cancel your order and get a full refund. Or we could send you the same skirt, but in a different color. Hmm... What colors do you have? We currently have only gray in stock. If we send it out today, it’ll arrive by Thursday. Well, I like the design of the skirt, so gray’s fine.",
+  "words": 130,
+  "nTurns": 14,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 14,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "W",
+    "text": "Hi, honey. What’s up?"
+   },
+   {
+    "who": "M",
+    "text": "Where are you right now?"
+   },
+   {
+    "who": "W",
+    "text": "I just parked my car. I’ll be home in a minute. How about you?"
+   },
+   {
+    "who": "M",
+    "text": "I’m at the grocery store, but I’ve just realized one of my credit cards is missing."
+   },
+   {
+    "who": "W",
+    "text": "Really? You should call the credit card company and cancel your card right away."
+   },
+   {
+    "who": "M",
+    "text": "I will. But before I do that, can you check the pockets of my jacket, please?"
+   },
+   {
+    "who": "W",
+    "text": "Okay. Which jacket do you want me to check?"
+   },
+   {
+    "who": "M",
+    "text": "It’s the brown one. I wore it yesterday."
+   },
+   {
+    "who": "W",
+    "text": "You mean the one I bought for you last spring?"
+   },
+   {
+    "who": "M",
+    "text": "That’s right. It’s in the living room. Meanwhile, I’ll look around the grocery store just in case I dropped the card."
+   }
+  ],
+  "script": "[Cell phone rings.] Hi, honey. What’s up? Where are you right now? I just parked my car. I’ll be home in a minute. How about you? I’m at the grocery store, but I’ve just realized one of my credit cards is missing. Really? You should call the credit card company and cancel your card right away. I will. But before I do that, can you check the pockets of my jacket, please? Okay. Which jacket do you want me to check? It’s the brown one. I wore it yesterday. You mean the one I bought for you last spring? That’s right. It’s in the living room. Meanwhile, I’ll look around the grocery store just in case I dropped the card.",
+  "words": 120,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true,
+  "typeGuess": "L-RESPONSE",
+  "typeGuessAll": [
+   "L-RESPONSE"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Rachel이 Kevin에게 할 말로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "M",
+    "text": "Kevin is looking for a place to work out every day. He has found two fitness centers with good facilities. The first one is a 5-minute walk from home, and the second one is a 30-minute walk. Kevin likes the first fitness center because it’s closer to home. However, he also thinks that the second fitness center can be a good choice because it offers a great discount for new members. Kevin cannot decide which one to choose and asks his sister, Rachel, for advice. Rachel remembers that he quit exercising in the past because the fitness centers were far from home. She thinks that Kevin should choose a fitness center based on distance, not cost. So, Rachel wants to suggest to Kevin that he should choose the fitness center near home. In this situation, what would Rachel most likely say to Kevin? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "[3점] Kevin is looking for a place to work out every day. He has found two fitness centers with good facilities. The first one is a 5-minute walk from home, and the second one is a 30-minute walk. Kevin likes the first fitness center because it’s closer to home. However, he also thinks that the second fitness center can be a good choice because it offers a great discount for new members. Kevin cannot decide which one to choose and asks his sister, Rachel, for advice. Rachel remembers that he quit exercising in the past because the fitness centers were far from home. She thinks that Kevin should choose a fitness center based on distance, not cost. So, Rachel wants to suggest to Kevin that he should choose the fitness center near home. In this situation, what would Rachel most likely say to Kevin? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 143,
+  "nTurns": 2,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SITUATION",
+  "typeGuessAll": [
+   "L-SITUATION"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 16,
+  "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. Last time, you learned about the people who invented drones. As technology develops, drones are being used more frequently around the world. So, today, we’ll talk about how they’re used in different jobs. First, drones help farmers grow crops more efficiently. For example, drones are used to spread seeds that may be difficult to plant. They also spray chemicals to protect plants from harmful insects. Second, photographers use drones to easily access areas that are hard to reach. Specifically, nature and wildlife photographers no longer need to go through dangerous jungles and rainforests. Next, drones are useful for police officers when they control traffic. Drones could provide updates on traffic flow and accidents, and even help identify anyone driving dangerously. Last, drones aid firefighters. Firefighters use drones that drop tanks of special chemicals to prevent the spread of fire. Now, let’s watch an incredible video of drones in action."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Last time, you learned about the people who invented drones. As technology develops, drones are being used more frequently around the world. So, today, we’ll talk about how they’re used in different jobs. First, drones help farmers grow crops more efficiently. For example, drones are used to spread seeds that may be difficult to plant. They also spray chemicals to protect plants from harmful insects. Second, photographers use drones to easily access areas that are hard to reach. Specifically, nature and wildlife photographers no longer need to go through dangerous jungles and rainforests. Next, drones are useful for police officers when they control traffic. Drones could provide updates on traffic flow and accidents, and even help identify anyone driving dangerously. Last, drones aid firefighters. Firefighters use drones that drop tanks of special chemicals to prevent the spread of fire. Now, let’s watch an incredible video of drones in action.",
+  "words": 151,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-TOPIC",
+  "typeGuessAll": [
+   "L-SET-TOPIC"
+  ]
+ },
+ {
+  "exam": "M2206",
+  "no": 17,
+  "stem": "언급된 직업이 아닌 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. Last time, you learned about the people who invented drones. As technology develops, drones are being used more frequently around the world. So, today, we’ll talk about how they’re used in different jobs. First, drones help farmers grow crops more efficiently. For example, drones are used to spread seeds that may be difficult to plant. They also spray chemicals to protect plants from harmful insects. Second, photographers use drones to easily access areas that are hard to reach. Specifically, nature and wildlife photographers no longer need to go through dangerous jungles and rainforests. Next, drones are useful for police officers when they control traffic. Drones could provide updates on traffic flow and accidents, and even help identify anyone driving dangerously. Last, drones aid firefighters. Firefighters use drones that drop tanks of special chemicals to prevent the spread of fire. Now, let’s watch an incredible video of drones in action."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Last time, you learned about the people who invented drones. As technology develops, drones are being used more frequently around the world. So, today, we’ll talk about how they’re used in different jobs. First, drones help farmers grow crops more efficiently. For example, drones are used to spread seeds that may be difficult to plant. They also spray chemicals to protect plants from harmful insects. Second, photographers use drones to easily access areas that are hard to reach. Specifically, nature and wildlife photographers no longer need to go through dangerous jungles and rainforests. Next, drones are useful for police officers when they control traffic. Drones could provide updates on traffic flow and accidents, and even help identify anyone driving dangerously. Last, drones aid firefighters. Firefighters use drones that drop tanks of special chemicals to prevent the spread of fire. Now, let’s watch an incredible video of drones in action.",
+  "words": 151,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false,
+  "typeGuess": "L-SET-NOT",
+  "typeGuessAll": [
+   "L-SET-NOT"
+  ]
+ }
+]

@@ -1,0 +1,886 @@
+{
+ "items": [
+  {
+   "id": "2024#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? Even those with average talent can produce notable work in the various sciences, so long as they do not try to embrace all of them at once. Instead, they should concentrate attention on one subject after another (that is, in different periods of time), although later work will weaken earlier attainments in the other spheres. This amounts to saying that the brain adapts to universal science in time but not in space. In fact, even those with great abilities proceed in this way. Thus, when we are astonished by someone with publications in different scientific fields, realize that each topic was explored during a specific period of time. Knowledge gained earlier certainly will not have disappeared from the mind of the author, but it will have become simplified by condensing into formulas or greatly abbreviated symbols. Thus, sufficient space remains for the perception and learning of new images on the cerebral blackboard. * condense: 응축하다 ** cerebral: 대뇌의 ������ Exploring one scientific subject after another (A) remarkable work across the sciences, as the previously gained knowledge is retained in simplified forms within 입증 the brain, which (B) room for new learning. (A) (B) (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "delays …… creates",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "invites …… diminishes K 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "enables …… leaves",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "challenges …… spares",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "requires …… removes",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2025#21",
+   "type": "R-IMPLY",
+   "passage": "의미하는 바로 가장 적절한 것은? The position of the architect rose during the Roman Empire, as architecture symbolically became a particularly important political statement. Cicero classed the architect with the physician and the teacher and Vitruvius spoke of “so great a profession as this.” Marcus Vitruvius Pollio, a practicing architect during the rule of Augustus Caesar, recognized that architecture requires both practical and theoretical knowledge, and he listed the disciplines he felt the aspiring architect should master: literature and writing, draftsmanship, mathematics, history, philosophy, music, medicine, law, and astronomy ― a curriculum that still has much to recommend it. All of this study was necessary, he argued, because architects who have aimed at acquiring manual skill without scholarship have never been able to reach a position of authority to correspond to their plans, while those who have relied only upon theories and scholarship were obviously “hunting the shadow, not the substance.”",
+   "choices": [
+    {
+     "label": "A",
+     "text": "seeking abstract knowledge emphasized by architectural tradition",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "following historical precedents without regard to current standards",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "pursuing the ideals of architecture without the practical skills",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "prioritizing architecture’s material aspects over its artistic ones",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "discounting the subjects necessary to achieve architectural goals",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2025#23",
+   "type": "R-TOPIC",
+   "passage": "The arrival of the Industrial Age changed the relationship among time, labor, and capital. Factories could produce around the clock, and they could do so with greater speed and volume than ever before. A machine that runs twelve hours a day will produce more widgets than one that runs for only eight hours per day ― and a machine that runs twenty-four hours per day will produce the most widgets of all. As such, at many factories, the workday is divided into eight-hour shifts, so that there will always be people on hand to keep the widget machines humming. Industrialization raised the potential value of every single work hour ― the more hours you worked, the more widgets you produced, and the more money you made ― and thus wages became tied to effort and production. Labor, previously guided by harvest cycles, became clock-oriented, and society started to reorganize around new principles of productivity. * widget: 제품",
+   "choices": [
+    {
+     "label": "A",
+     "text": "efficient ways to increase the value of time in the Industrial Age",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "effects of standardizing production procedures on labor markets",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "shift in the work-time paradigm brought about by industrialization",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "influence of industrialization on the machine-human relationship",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "problems that excessive work hours have caused for laborers",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2025#24",
+   "type": "R-TITLE",
+   "passage": "The selfie resonates not because it is new, but because it expresses, develops, expands, and intensifies the long history of the self-portrait. The self-portrait showed to others the status of the person depicted. In this sense, what we have come to call our own “image” ― the interface of the way we think we look and the way others see us ― is the first and fundamental object of global visual culture. The selfie depicts the drama of our own daily performance of ourselves in tension with our inner emotions that may or may not be expressed as we wish. At each stage of the self-portrait’s expansion, more and more people have been able to depict themselves. Today’s young, urban, networked majority has reworked the history of the self-portrait to make the selfie into the first visual signature of the new era. * resonate: 공명(共鳴)하다 ** depict: 그리다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Selfies, the Latest Innovation in Representing Ourselves K 4",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Are Selfies Just a Temporary Trend in Art History?",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "The End of Self-portraits: How Selfies Are Taking Over",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "The Selfie: A Symbol of Self-oriented Global Culture",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Fantasy or Reality: Your Selfie Is Not the Real You",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2025#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? People often assume that synthetic food ingredients are more harmful than natural ones, but this is not always the case. Typically, synthetic ingredients can be made in a precisely controlled fashion and have well-defined compositions and properties, allowing careful evaluation of their potential toxicity. On the other hand, natural ingredients often vary appreciably in their composition and properties depending on their origin, the time of year they were harvested, the climate they experienced throughout their lifetime, the soil quality, and how they were isolated and stored. These variations can make testing their safety extremely difficult ― one is never sure about the potential toxicity of minor components that may vary from time to time. In some cases, a natural food component has been consumed for hundreds or thousands of years without causing any obvious health problems and can, therefore, be assumed to be safe. However, one must still be very careful. * synthetic: 합성의 ������ The (A) of the production process for synthetic food ingredients and the variability of natural food ingredients may (B) people’s commonly held assumption that the natural ingredients are more secure. ent: 곤경 (A) (B) (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "affordability …… reverse",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "accessibility …… question 78 K 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "predictability …… support",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "manageability …… intensify",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "controllability …… challenge",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2026#21",
+   "type": "R-IMPLY",
+   "passage": "바로 가장 적절한 것은? Digital platforms have made a lot of work less sticky. As work becomes ever more modularised, commoditised and standardised, and as markets for digital work are created, ties between service work and particular places can be disconnected. While the business process of outsourcing that emerged in the 1990s allowed large companies to take advantage of a ‘global reserve army’ by moving their call centres to cheap and distant labour markets, cloudwork changes the volume and granularity at which geographically non-proximate work can take place. A small business in New York can hire a freelance transcriber in Nairobi one day and New Delhi the next. No offices or factories need to be built, no local regulations are observed, and ― in most cases ― no local taxes are paid. The switch in the production network of work happens by simply sending some emails or clicking some buttons on a digital work platform. And, in this way, the employer leaves behind no material traces in the places where it was once an employer. * commoditise: 상품화하다 ** granularity: 과립상(顆粒狀)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "weakened the geographical expansion of local business",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "allowed business to be less complicated in its hiring process",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "settled the locational dilemma of the global markets",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "relieved the strict legal processes of regional outsourcing",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "elevated the spatial flexibility in conducting business",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2026#23",
+   "type": "R-TOPIC",
+   "passage": "Emphasizing speed over frequency can make sense in contexts where everyone is expected to plan around the timetable, including peak-only commute services and very long trips with low demand. In all other contexts, though, it seems to be a common motorist’s error. Roads are there all the time, so their speed is the most important fact that distinguishes them. But transit is only there if it’s coming soon. If you have a car, you can use a road whenever you want and experience its speed. But transit has to exist when you need it (span), and it needs to be coming soon (frequency). Otherwise, waiting time will wipe out any time savings from a faster service. Unless you’re comfortable planning your life around a particular scheduled trip, speed is worthless without frequency, so a transit map that screams about speed and whispers about frequency may simply be planting confusion. * commute: 통근",
+   "choices": [
+    {
+     "label": "A",
+     "text": "importance of valuing frequency in public transportation",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "consequences of adjusting frequency of transit",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "methods to improve speed and frequency of commute services",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "impact of creating high-speed public transportation systems",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "significance of designing an accurate transit map",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2026#24",
+   "type": "R-TITLE",
+   "passage": "The economic benefit of culturtainment makes it attractive to politicians and policy makers alike. A potential increase in inbound visitor numbers coupled with their demand for related goods and services (travel, accommodation, retail) is an incentive for those within governments and authorities to work with cultural groups in order to develop celebrations and commemorations into larger and more high-profile events. However, such commercialization risks culturtainment becoming homogeneous and losing its original ‘message’ that could lead to a dilution of audiences. This could also lead to smaller non-commercial independent events being set up that would only serve to divide audiences further. This is something that planners and stakeholders will need to balance against potential financial gain. Changing political, social and religious landscapes will lead to the emergence of new cultures, and with them new culturtainment experiences. Overall this is a healthy growth sector of the entertainment industry, but one that by its very nature is delicate in the face of exploitation. * homogeneous: 동종의 ** dilution: 희석 *** exploitation: 착취",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Cash or Soul? When Culture Couples with Entertainment",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "The Commercialization of Culture and Its Unexpected Benefits",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Culturtainment: An Ambition of Entertainment to Be a Culture",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "New Cultures! The Poisonous Fruit of Culturtainment",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Why Balanced Investments Matter in the Entertainment Industry 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다. 3 4",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2026#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? In modern societies, the performing arts form a distinct category of public entertainment in opposition to the mass distribution through the media of expertly staged performances which have been recorded and edited. By contrast, theater, ballet, circus, concert, rodeo, storytelling, etc., unfold their signs in real space and time, and engage audiences who respond cognitively and emotionally on the spot. Performers and audiences are involved in shared enjoyment. But sometimes frustration occurs within the boundaries of such ritualistic events. In industrialized and computerized cultures, the performing arts become economically unstable because the institutions which sustain them increasingly depend on public and corporate funding. However, they retain their power of fascination for large, if not massive audiences, who prize the experiential, risk-loaded and one-time event quality they afford. In traditional and local cultures, performances still survive and provide their audiences with a unique fulfillment in smaller scale, economically sustainable institutional settings. * ritualistic: 의식의 ������ In a situation of financial (A) due to reliance on external funding, the performing arts, which provide unique and live experiences, (B) audiences who value those experiences. (A) (B) (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "challenges …… secure",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "imbalance …… split",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "advantages …… support 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다. 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "uncertainty …… lose",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "stability …… reach 7",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2606#21",
+   "type": "R-IMPLY",
+   "passage": "하는 바로 가장 적절한 것은? Basing your self-worth on climbing performance puts you at the whim of external factors. These factors may be random and misleading. Comparison is one source of illusion. Perhaps you felt that you performed well on a certain climb because your partner was having an off day and found the climbing very difficult. You found it only slightly difficult and conclude that you were climbing quite well, when in fact you were climbing no better than usual. Or, your partner was at the top of his game. You felt weak in comparison, when in fact, objectively, you put in a very strong performance. Environmental factors may be involved. Perhaps you mastered your day’s objective due to especially favorable conditions, such as low humidity, when in fact, you really didn’t climb particularly well. In all these cases, the good or bad feelings you have are not based on something you can take credit for. If the performances boost your self-worth, the boost is grounded in fiction. * whim: 변덕 ** illusion: 착각 *** humidity: 습도",
+   "choices": [
+    {
+     "label": "A",
+     "text": "perceptions of self-growth vary from person to person",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "performance comparison to partners is demotivating",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "your self-confidence is an outcome of constant effort",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "the pride you take in your achievement is unreliable",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "ambitious goals help you improve performance",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2606#23",
+   "type": "R-TOPIC",
+   "passage": "The purpose of class discussions is to encourage you to be an active participant, not a passive recorder. Much of the emphasis in a discussion is on getting students involved in thinking, reacting, and responding. These are important intellectual activities in the learning process, for through them you are supposed to discover and express your opinions. Writing is an invaluable tool for accomplishing these tasks. Unfortunately, too many times, when class discussion begins, pens and pencils go down. Admittedly, it is considerably more difficult to take notes from discussions than from lectures, for, unlike lectures, discussions tend to be disorganized and difficult to follow. Also, students usually don’t know how much of what other students are saying is important. And if you are an active participant, it is not easy to take notes and formulate what you want to say. But note taking in discussions is not only manageable, it is also important. Note taking helps to keep you active and alert; it allows you to impose some organization on the discussion; and it can prepare you to speak. * impose: 부과하다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "strategies to improve note-taking skills for public speaking",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "effectiveness of summarizing and reviewing notes after class",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "reasons to standardize procedures for class discussions",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "significance of note taking for active engagement in discussion",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "benefits of brainstorming to generate ideas for writing tasks",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2606#24",
+   "type": "R-TITLE",
+   "passage": "Food, as we all know, is essential for human life. It also is the basis for several major industries found in many countries around the world such as in agriculture, food processing, food retailing and food service. For millennia, the focus of those involved with food as a human and economic phenomenon was on its production, preservation, distribution, pricing and other practical concerns. But in the late 18th century this began to change. Food became more than just a life necessity. Restaurants began to be developed, initially in France but eventually in other nations, as a distinct institution offering people dining choices and table service, the opportunity for socialization and, over time, a finer and finer atmosphere. The rise of restaurants eventually led to a class of diners who prided themselves on being critics of taste, food and cooking. Brillat-Savarin is probably the best known of the ‘culinary philosophers’ or, in today’s parlance, a ‘foodie’. One of : 정교한 Brillat-Savarin’s better known sayings was, ‘[t]ell me what you eat, and I’ll tell you who you are.’ * culinary: 요리의 ** parlance: 용어",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Beyond Mere Necessity: The Rise of Food Culture",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Why Table Manners Matter: Food and Class Identity",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "How Industrialization Is Taking Over Food Production 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다. 4",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "Changing Appetites: The Return of Fine Dining",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "Tips for Choosing Restaurants for Social Occasions 3",
+     "abstractness": 1,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2606#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? A serious deterioration in people’s working lives would be deeply disturbing to the social order. Indeed, few consequences of technological change would be as dangerous. Today, the world of work is the main way that we share out the fruits of growth: for most people, their job is their main, if not their only, source of income. Technological unemployment would weaken that longstanding arrangement, encouraging an even more extreme version of inequality in which some people receive more income than others and many receive nothing at all. Nor would the disturbance be only economic. For many people, their work is both a source of income and of meaning. And with that in mind, the threat is even broader: not only that the labor market might be hollowed out, leaving some unable to find a good job and a reliable income, but that this sense of fulfilment that some people are fortunate to feel in their jobs might be hollowed out as well, leaving them unable to find purpose and live a satisfying life. * deterioration: 악화 ** hollow: 속이 비게 하다 ������ By creating unemployment, technology would upset the social order, affecting the (A) of wealth and possibly eliminating the emotional (B) that some 7 discover in work. (A) (B) (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "investment …… challenges",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "distribution …… emptiness",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "concentration…… conflicts",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "investment …… growth 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다. 8",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "distribution…… rewards",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2609#21",
+   "type": "R-IMPLY",
+   "passage": "가장 적절한 것은? Here is a fundamental quality of music. Note names repeat because of a perceptual phenomenon that corresponds to the doubling and halving of frequencies. When we double or halve a frequency, we end up with a note that sounds remarkably similar to the one we started out with. This relationship, a frequency ratio of 2:1 or 1:2, is called the octave. It is so important that, in spite of the large differences that exist between musical cultures, every culture we know of has the octave as the basis for its music, even if it has little else in common with other musical traditions. This phenomenon leads to the notion of circularity in pitch perception, and is similar to circularity in colors. Although red and violet fall at opposite ends of the continuum of visible frequencies of electromagnetic energy, we see them as perceptually similar. The same is true in music, and music is often described as having two dimensions, one that accounts for tones going up in frequency and another that accounts for the perceptual sense that we’ve come back home again each time we double a tone’s frequency.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "returned to the original note with an identical frequency",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "constructed frequency patterns from notes with the same name",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "restored musical sensitivity by adapting to various octaves",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "identified tonal differences within the same octave",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "reached a note named the same but with a different pitch",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2609#23",
+   "type": "R-TOPIC",
+   "passage": "In writing a life, the life narrator and the biographer engage different kinds of evidence. Most biographers incorporate multiple forms of evidence, including historical documents, interviews, and family archives, which they evaluate for validity. Relatively few biographers use their personal memories of their subject as reliable evidence, unless they had a personal relationship to the subject of the biography (as a relative, child, friend, or colleague). For life narrators, by contrast, personal memories are the primary archival source. They may have recourse to other kinds of sources ― letters, journals, photographs, conversations ― and to their knowledge of a historical moment. But the usefulness of such evidence for their stories lies in the ways in which they employ that evidence to support, supplement, or offer commentary on their personalized acts of remembering. In autobiographical narratives, imaginative acts of remembering always overlap with such rhetorical acts as assertion, justification, judgment, conviction, and questioning. * archive: 기록 ** recourse: 의지 *** rhetorical: 수사적인",
+   "choices": [
+    {
+     "label": "A",
+     "text": "advantages of documenting evidence-based family histories",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "similarity of data sources in describing a person’s life",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "crucial conditions for the success of life narrators",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "role of personal memories in different types of life storytelling",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "influence of the source types on the quality of life narratives",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2609#24",
+   "type": "R-TITLE",
+   "passage": "Monasteries were the engine rooms of the Middle Ages. At the height of their activities and influence, monasteries provided intellectual leadership for the institutions of Church and civil governments, innovation in religious thought and practice, medical provision, education, visual culture and agricultural development. They did all this while apparently observing self-imposed isolation from the wider community. For monasteries were intended to function as places set apart from the world, in which monks devoted their lives to a permanent rhythm of religious observance, prayer and study. Religious prayer and praise lay at the heart of monasticism. Both those following this life and those outside believed that monastic lives were led for the benefit of wider society, and that the sacrifices made by monks in separating themselves from ‘normal’ human contact functioned as penances on behalf of the community as well as for their own deliverance. Monks were regarded as leading parallel lives that had the ise: 전제 power to save themselves and others. * monastery: 수도원 ** monk: 수도사 *** penance: 참회",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Mystery of Power: The Politics of Peace and Solitude 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다. 4",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "Why the Middle Ages Demanded Religious Figures Be Isolated",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "No Sacrificial Leaders, No Flowering of Civilization 3",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "The Grace of Solitude: Detached from but Attached to Society",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "How to Gain Religious and Social Benefits from Monastery Life",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2609#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? In most fiction, characters’ lives are limited to the individual work. Readers may disagree on the characteristics and traits of fictional figures, and in drama there is room for different interpretations of characters. However, it is less common for characters in literary fiction to reappear in subsequent works than in genre fiction, where series featuring the same central characters are common. This is even more pronounced in comics, which are typically serialized in newspaper strips or comic books. Thus characters introduced in the 1930s, like Superman and Batman, may still enjoy new adventures decades later. During these characters’ long histories, they change in various ways for a variety of reasons. If a character is created by a single author, like Sherlock Holmes, the character’s core traits may change little from story to story, but readers learn more about him with each successive story. On the other hand, if characters are the work of several hands over decades, they may change considerably. ������ While characters in most literary fiction hardly ever (A) in successive works, those in genre fiction ce: 노화 and comics often do so, and may undergo (B) in their traits especially when written about by different authors 7 over time. (A) (B) (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "endure …… degradation",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "resurface …… simplification",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "fade …… variation",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "feature …… transformation",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "disappear…… fossilization 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다. 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2706#21",
+   "type": "R-IMPLY",
+   "passage": "것은? In fact, scientists attributing consciousness to any animal is so recent that the internet is older. In 1976 a zoologist named Donald Griffin published The Question of Animal Awareness, a book arguing that animal cognition ought to be taken seriously. He and a colleague had been responsible in 1944 for discovering that bats navigate by echolocation. Now, after a lifetime spent watching those creatures, he became convinced they had inner worlds. They had flexible behavior, he said, or the ability to change their behavior as external circumstances changed, a hallmark of true intelligence. He’d watched bats develop clever techniques for finding food; they could clearly make decisions on the fly, and exhibited many of the same problem-solving abilities as humans did. Animal thought and reason ought to be seriously studied, he argued. After all, despite the flourishing of neuroscience, no one had yet found any part of the brain unique to humans that might be responsible for this hallowed “consciousness.” Wasn’t it time to give up the ghost? * hallow: 신성하게 하",
+   "choices": [
+    {
+     "label": "A",
+     "text": "the idea that human cognition is superior to that of animals",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "the claim that animal consciousness should be studied",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "the belief that consciousness is a quality exclusive to humans",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "the concept that humans and animals are essentially alike",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "the illusion that animals possess truly conscious inner worlds",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2706#23",
+   "type": "R-TOPIC",
+   "passage": "A telescoping of time correlates with size. Small animals’ reflexes must be quicker in order to control much smaller limbs and respond to rapid locomotor feedback. Further, decision making must be streamlined in small species because their high metabolic rates and minimal energy reserves offer few choices in food-searching activities, defending against predators, or mating behaviors. And, perhaps most important, a short lifetime offers little time for learning from experience. As a result, being short-lived puts a premium on the effectiveness of preprogrammed behavior patterns that require little in the way of environmental fine-tuning. Large animals, in comparison, can get by with rather slower reflexes, can afford to vary their mating and food-searching behaviors in an effort to better optimize their behaviors, and may have a considerable opportunity to learn by observation and trial and error. Being longer-lived puts a greater premium on learning and memory, and less on automatic preprogrammed behaviors. In addition, living a long time or having the capacity to travel for long distances is more likely to expose an animal to significant changes in the environment. 다 * limb: (사람･동물의) 수족 ** locomotor: 운동 기관의 *** metabolic: 신진대사의",
+   "choices": [
+    {
+     "label": "A",
+     "text": "chances of survival for animals with different time perceptions",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "significance of animal size in life spans and survival skills",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "limits of animals’ decision making according to body size",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "influences of predetermined behavior patterns on animal survival",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "benefits of energy reserves in animals’environmental adaptation",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2706#24",
+   "type": "R-TITLE",
+   "passage": "Before the 1950s, tourism was very much an industry which was fragmented; hotels, transport operators, travel agents, and tour operators all tended to work independently of each other. Hotels were largely in the business of selling bed nights. Airlines and railways were in the business of selling seats. Travel agents, of course, were selling travel and holidays, but in each case they tended to operate very much as individual businesses. From the mid-1950s onwards, particularly in the UK, the growth of tour operators began to change the nature of the industry from essentially individual business activities to more integrated activities. Hotels, for example, were beginning to see customers as wanting a range of services rather than simply buying accommodation. So hotels began to develop shopping arcades and later to offer secretarial centres to try to increase the spend of guests within the hotel complex. Transport operators, particularly in the airline business, saw the sale of transport services as being integral to a much wider need. Airlines offered insurance and accommodation booking for travellers. * fragment: 파편이 되게 하다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "Separate to Combined: Changes in the Tourism Business",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "The Bright and Dark Sides of Collapsing Tour Resources",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "Reduced Roles of Tour Operators in the Tourism Industry",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "Integration’s Failure: Not Meeting Customers’ Various Needs",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "New Challenges Facing Service Providers in Modern Tourism 3 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다. 4",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "M2706#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? In the pharmaceutical industry, algorithms are being employed to find treatments and drugs for rare diseases that to date haven’t received much attention. The hard truth has always been that pharma devotes more research and development resources to diseases that affect the rich. The definition of rare has too often been associated with poor ― that is, even if a disease is quite prevalent in a population that cannot aﬀord to pay for it (for example, people living in the developing world), the disease has been neglected compared to First World illnesses. By lowering the cost of data collection, mining, and analysis in drug development and clinical trials, AI can help oﬀset imbalances in the pharmaceutical industry that direct attention to diseases that “pay,” whether because the disease is more common or because it is prevalent among demographics that can pay more. We see the democratizing power of AI to broaden the attention of the medical and research communities to find cures to traditionally neglected health issues and among traditionally neglected populations. * offset: 상쇄하다 ** demographic: 인구 집단 ������ By lowering the cost of pharmaceutical research and development, AI can help reduce the imbalance in investment that has led to the (A) of less profitable diseases, thereby broadening the focus of medical research to include (B) populations. (A) (B) (A) (B)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "spread …… general 7",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "overlook …… native",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "prevention …… marginalized",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "disregard …… underserved 8 이 문제지에 관한 저작권은 한국교육과정평가원에 있습니다. 8",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "ignorance …… wealthy",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  }
+ ]
+}

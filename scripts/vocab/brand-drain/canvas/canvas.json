@@ -1,0 +1,65 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 560,
+      "h": 640
+    },
+    {
+      "file": "Grid.dc.html",
+      "x": 660,
+      "y": 0,
+      "w": 560,
+      "h": 640
+    },
+    {
+      "file": "List.dc.html",
+      "x": 0,
+      "y": 780,
+      "w": 480,
+      "h": 640
+    },
+    {
+      "file": "Structure.dc.html",
+      "x": 560,
+      "y": 780,
+      "w": 480,
+      "h": 640
+    },
+    {
+      "file": "Corpus.dc.html",
+      "x": 1120,
+      "y": 780,
+      "w": 480,
+      "h": 640
+    },
+    {
+      "file": "Delivery.dc.html",
+      "x": 1680,
+      "y": 780,
+      "w": 480,
+      "h": 640
+    },
+    {
+      "file": "Unique.dc.html",
+      "x": 2240,
+      "y": 780,
+      "w": 480,
+      "h": 640
+    }
+  ],
+  "annotations": [
+    {
+      "id": "token-rule",
+      "x": 0,
+      "y": -150,
+      "w": 560,
+      "text": "색은 규격에 적지 않는다 — 역할 이름(ink · paper · accent)만 싣고 값은 디자인 토큰이 정본이다.\n이 판의 색은 토큰에서 읽어 칠한 것이라, 토큰이 바뀌면 아트보드를 다시 내면 따라온다."
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}

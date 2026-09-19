@@ -1,0 +1,1492 @@
+[
+  {
+    "book": "B.o.B Presents: The Adventures of Bobby Ray (도입부)",
+    "url": "https://simple.wikipedia.org/wiki/B.o.B_Presents%3A_The_Adventures_of_Bobby_Ray",
+    "source": "simple_wikipedia",
+    "v_level": 3,
+    "words": 139,
+    "rows": 1,
+    "excerpts": [
+      "B.o.B Presents: The Adventures of Bobby Ray (also known simply as The Adventures of Bobby Ray) is the first studio album by American rapper and producer B.o.B. It was released on April 27, 2010, by Grand Hustle Records, Rebel Rock Entertainment and Atlantic Records. Production for the album took place from 2008 to 2010. The album debuted at number one on the US Billboard 200 chart and sold 84,000 copies in its first "
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "발매일·레이블·차트 순위 등 음반 제원 나열이다"
+  },
+  {
+    "book": "The Ache That Arrives Late",
+    "url": "",
+    "source": "original",
+    "v_level": 4,
+    "words": 188,
+    "rows": 1,
+    "excerpts": [
+      "Anyone returning to exertion after a long break knows a strange pattern. The session feels fine, and the evening is comfortable too. The ache arrives on the second morning, when the exertion is already a memory. Many people conclude that they slept badly or caught a chill. The real cause lies in the muscle fibre and the tendon, not the lungs. Eccentric contraction, the slow lowering of a weight, leaves microtears in ",
+      "the tendon, not the lungs. Eccentric contraction, the slow lowering of a weight, leaves microtears in the tissue. Repair cannot begin until the inflammation locates that damage and clears it. A capillary widens to carry the work in, and lactate has nothing to do with it. New collagen is laid down, and this collagen synthesis makes the area tender. Because the synthesis takes a day or more, ache and cause never meet. "
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "지연성 근육통의 원인을 조직 수복 과정으로 설명한다"
+  },
+  {
+    "book": "Tuberculosis bacteria 'play dead' to beat vaccines",
+    "url": "https://www.futurity.org/how-tuberculosis-bacteria-evade-vaccines-3287172/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 700,
+    "rows": 1,
+    "excerpts": [
+      "New research finds that tuberculosis bacteria play possum to evade vaccines. A vaccine protects more than 100 million infants each year from severe tuberculosis (TB), including the fatal brain swelling it can cause in babies and toddlers. But the vaccine doesn’t prevent adults from developing the more common form of TB that attacks the lungs. This allows TB to persist as the world’s deadliest infectious disease, kill",
+      "q, to identify which genes were essential for bacterial survival in four groups of mice. The first group of mice was vaccinated with the current vaccine, which was developed more than 100 years ago from the type of TB seen in cows. The second group was given an experimental vaccine based on the TB seen in humans, which generated a stronger immune response than the only currently approved vaccine in a preclinical stud"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "결핵균이 백신을 피하는 기작을 실험으로 규명한다"
+  },
+  {
+    "book": "What will hurricane season bring this year?",
+    "url": "https://www.futurity.org/2026-hurricane-season-3331812/",
+    "source": "futurity",
+    "v_level": 3,
+    "words": 313,
+    "rows": 1,
+    "excerpts": [
+      "For the second year in a row, researchers predict a hurricane season that will be in line with recent averages, with 12 to 15 named storms, six to nine hurricanes, and two to three major hurricanes forming in the Atlantic basin. The Atlantic basin includes the entire Atlantic Ocean, the Gulf of Mexico, and the Caribbean Sea. The number of named storms predicted is in line with recent averages, according to Lian Xie, ",
+      " is four). The Caribbean Sea is expected to be slightly below recent averages, whereas the Gulf of Mexico is forecast to be near recent averages. Of the 12 to 15 named storms predicted across the entire Atlantic basin, Xie’s data indicate the likelihood of two to five named storms forming in the Gulf of Mexico, with one to two of them becoming hurricanes, and the potential for one to become a major hurricane. Recent "
+    ],
+    "verdict": "use",
+    "genre": "climate",
+    "why": "대서양 허리케인 시즌 전망을 근거와 함께 설명한다"
+  },
+  {
+    "book": "Post-Wildfire Debris Flow Awareness",
+    "url": "https://www.usgs.gov/news/featured-story/post-wildfire-debris-flow-awareness",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 634,
+    "rows": 1,
+    "excerpts": [
+      "This year, tens of thousands of fires burned more than 8.75 million acres across the West, which is about 2 million more acres than the 10-year average. Sadly, more than 80% of these wildfires were human-caused. Colorado was hit particularly hard by wildfires with the East Troublesome and Cameron Peak fires impacting numerous residents and Department of the Interior-managed lands such as Rocky Mountain National Park.",
+      "owing the fire, rains above Manitou Springs generated a debris flood that swept through town destroying an access road to I-70 as well as numerous businesses and homes. At the U.S. Geological Survey, the research arm of the Department of the Interior, our mission is to utilize science to safeguard all communities from natural disasters. We support emergency responders who work to keep people and communities safe, pro"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "산불 뒤 토석류가 왜 생기는지 사례로 설명한다"
+  },
+  {
+    "book": "How alcohol use disrupts the brain's ability to adapt",
+    "url": "https://www.futurity.org/alcohol-use-disorder-cognitive-flexibility-3262742-2/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 485,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have shed new light on how chronic alcohol use alters brain signaling pathways, specifically focusing on how it impairs cognitive flexibility. Alcohol use disorder (AUD) affects about 400 million people worldwide and is a leading cause of serious illnesses such as cancer, cardiovascular disease, liver disease, and stroke. Beyond these physical impacts, AUD profoundly disrupts brain functions critical for ",
+      "ol exposure. Normally, CINs fire in a “burst-pause” pattern: a quick burst of activity followed by a pause, which is essential for learning new behaviors and adapting to change. However, in alcohol-exposed models, this firing pattern was significantly disrupted, with shorter and weaker pauses, impairing critical learning process such as reversal leaning. “Reversal learning is a cornerstone of cognitive flexibility,” "
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "만성 음주가 인지 유연성을 해치는 신경 기작을 설명한다"
+  },
+  {
+    "book": "UN: Violence Is Harming Haiti’s Schools",
+    "url": "https://learningenglish.voanews.com/a/un-violence-is-harming-haiti-s-schools/7736685.html",
+    "source": "voa",
+    "v_level": 4,
+    "words": 653,
+    "rows": 1,
+    "excerpts": [
+      "Schools in Haiti are operating without enough chairs, blackboards, and even bathrooms. Violent criminal groups limit basic government services and deepen poverty while the state education system faces a $23 million deficit. Yasmine Sherif is the executive director of the U.N. organization Education Cannot Wait. “The country needs help,” Sherif said during her three-day visit to the Caribbean country in July. Sherif s",
+      "rious problems. Luckerno said that when classes end for the day, people left homeless by gang violence enter the school and sleep on its ground. Although that creates health problems, Luckerno still lets them stay. He said, \"We are human. We cannot throw them out.\" Not enough chairs Williamson Bissainthe is a 22-year-old high school student who is preparing to take his final exam to graduate. He described the sad sta"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "아이티 학교가 겪는 폭력과 재정난을 취재로 보도한다"
+  },
+  {
+    "book": "Busy Ants",
+    "url": "https://storyweaver.org.in/stories/1052-busy-ants",
+    "source": "storyweaver",
+    "v_level": 2,
+    "words": 192,
+    "rows": 1,
+    "excerpts": [
+      "Hello, I am the fourth one in the line. Can you see me? Left, right, left, right. We walk silently in a line. I just got an idea. I am going to get a set of WHEELS to move faster! We are not noisy like other animals. Ours is a language of smells. One kind of smell says, “Follow me this way for a feast.” Another smell says, “Danger! Do not go there.” I love cakes and all kinds of sweets, just like you. Want to see my ",
+      "ays, “Follow me this way for a feast.” Another smell says, “Danger! Do not go there.” I love cakes and all kinds of sweets, just like you. Want to see my muscles at work? I may look very tiny to you, but I am very strong. Never mind if the door is shut. I can slip through the smallest crack. Believe it or not, hundreds of us live happily in a colony. LET US LEARN SOME NEW WORDS. Small - Big Slow - Fast Short - Tall T"
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "개미가 화자로 말하는 그림책 이야기다"
+  },
+  {
+    "book": "Most people who use cannabis for sleep ditch sleeping pills",
+    "url": "https://www.futurity.org/sleep-cannabis-sleeping-pills-2999702/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 610,
+    "rows": 1,
+    "excerpts": [
+      "Most people who report using cannabis to get a good night’s rest have quit using over-the-counter or prescription sleep aids all together, according to a new study. More than 80% of the 1,255 cannabis users surveyed for the new analysis reported no longer using over-the-counter or prescription sleep aids such as melatonin and benzodiazepines. Instead, they had a strong preference for inhaling high-THC cannabis by smo",
+      "encing fewer headaches and less nausea compared to when they were using traditional sleep aids. However, cannabis users also reported feeling sleepier, as well as more anxious and irritable in the morning after using cannabis compared to other aids. They were also more likely to report experiencing dry mouth and red eyes after using cannabis. “In general, the use of cannabis for sleep-related issues was perceived as "
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "수면용 대마 사용자의 수면제 대체 실태를 조사로 설명한다"
+  },
+  {
+    "book": "Combo workout cuts heart disease risks",
+    "url": "https://www.futurity.org/cardio-strength-training-heart-disease-3167002/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 1038,
+    "rows": 1,
+    "excerpts": [
+      "Splitting your workouts into half-cardio and half-strength training reduces cardiovascular disease risks, new research suggests. Approximately one in three deaths in the US is caused by cardiovascular disease, according to the US Centers for Disease Control and Prevention. A robust body of evidence shows aerobic exercise can reduce risks, especially for people who are overweight or obese. But few studies have compare",
+      ", as well. All participants, including those in the no exercise group, wore pedometers to measure daily steps. They met every three months with registered dietitians at Iowa State for “Dietary Approaches to Stop Hypertension” education, which is promoted by the National Institutes of Health. On three random days per month, participants were asked to record what they had consumed in the last 24 hours with an online di"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "유산소와 근력을 반씩 섞은 운동의 효과를 비교 실험한다"
+  },
+  {
+    "book": "Team prints robotic hand with bones, ligaments, tendons",
+    "url": "https://www.futurity.org/robotic-hands-polymers-3d-printing-3002152-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 506,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have, for the first time, printed a robotic hand with bones, ligaments, and tendons made of different polymers using a new laser scanning technique. 3D printing is advancing rapidly, and the range of materials that can be used has expanded considerably. While the technology was previously limited to fast-curing plastics, it is now suitable for slow-curing plastics as well. These have decisive advantages a",
+      "l to meet the requirements of soft robots. “Robots made of soft materials, such as the hand we developed, have advantages over conventional robots made of metal. Because they’re soft, there is less risk of injury when they work with humans, and they are better suited to handling fragile goods,” Katzschmann says. 3D printers typically produce objects layer by layer: nozzles deposit a given material in viscous form at "
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "뼈·인대·힘줄을 함께 인쇄한 로봇 손 기술을 설명한다"
+  },
+  {
+    "book": "Synthetic platelets stop bleeding in animal models",
+    "url": "https://www.futurity.org/synthetic-platelets-bleeding-wound-healing-3205632/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 756,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have developed synthetic platelets that can be used to stop bleeding and enhance healing at the site of an injury. The researchers have demonstrated that the synthetic platelets work well in animal models but have not yet begun clinical trials in humans. A number of medical situations require platelet transfusions—such as cases of severe bleeding, or for patients who are going into surgery or receiving ch",
+      " and the synthetic platelets expedite the clotting process.” In addition to forming a clot within the fibrin network, the synthetic platelets act to contract the clot over time—just like normal platelets. “This expedites the process of healing, allowing the body to move forward with tissue repair and recovery,” Brown says. The researchers initially demonstrated the efficacy of the antibody fragments via in vitro test"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "합성 혈소판이 지혈을 앞당기는 원리를 동물 실험으로 설명한다"
+  },
+  {
+    "book": "Millions of diabetes and heart disease cases tied to sugary drinks",
+    "url": "https://www.futurity.org/diabetes-heart-disease-sugary-drinks-health-3263512-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 472,
+    "rows": 1,
+    "excerpts": [
+      "A new study estimates that 2.2 million new cases of type 2 diabetes and 1.2 million new cases of cardiovascular disease occur each year globally due to consumption of sugar-sweetened beverages. In developing countries, the case count is particularly sobering. In Sub-Saharan Africa, the study found that sugar-sweetened beverages contributed to more than 21% of all new diabetes cases. In Latin America and the Caribbean",
+      "hese communities consuming harmful products, but they are also often less well equipped to deal with the long-term health consequences,” says Dariush Mozaffarian, senior author on the paper and director of the Food is Medicine Institute at the Gerald J. and Dorothy R. Friedman School of Nutrition Science and Policy at Tufts University. As countries develop and incomes rise, sugary drinks become more accessible and de"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "가당 음료가 유발하는 당뇨·심혈관 질환 부담을 추정한다"
+  },
+  {
+    "book": "The Shelf That Had Been Cleared",
+    "url": "",
+    "source": "original",
+    "v_level": 4,
+    "words": 336,
+    "rows": 1,
+    "excerpts": [
+      "Arno had not climbed the narrow stair above the repair shop for nine years. Peder waited at the bottom, patient, with the shop key in his hand. The two men had built their first radio on a board in that room, and the pride of it never left them. Arno remembered a low ceiling, a table under the window, and a shelf of every broken piece they kept. He asked whether the room was the same, and his voice was not calm. Pede",
+      " long shelf below it held nothing. Even the table had gone, replaced by a neat desk with a hard, cold surface. He felt the private, unfair anger of a man who had left and expected nothing to move. Peder said the roof had leaked one winter and soaked half of it. The next morning Arno came back alone, before the shop opened. In the lowest drawer of the desk he found a wooden box. It was tied shut with a length of grey "
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "옛 작업실을 다시 찾은 두 사람의 이야기다"
+  },
+  {
+    "book": "COVID virus is widespread in Virginia animals",
+    "url": "https://www.futurity.org/sars-cov-2-covid-virus-wildlife-3242612/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 890,
+    "rows": 1,
+    "excerpts": [
+      "SARS-CoV-2, the virus responsible for COVID-19, is widespread among wildlife species, according to new research. Researchers detected the virus in six common backyard species in Virginia and antibodies indicating prior exposure to the virus were found in five species with rates of exposure ranging from 40 to 60% depending on the species. Genetic tracking in wild animals confirmed both the presence of SARS-CoV-2 and t",
+      "act for cross-species transmission. “This study was really motivated by seeing a large, important gap in our knowledge about SARS-CoV-2 transmission in a broader wildlife community,” says corresponding author Joseph Hoyt, assistant professor of biological sciences in Virginia Tech’s College of Science. “A lot of studies to date have focused on white-tailed deer while what is happening in much of our common backyard w"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "야생동물에서 코로나 바이러스가 퍼진 실태를 조사한다"
+  },
+  {
+    "book": "Compassion helps people deal with broken promises at work",
+    "url": "https://www.futurity.org/compassion-work-resilience-3282222/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 761,
+    "rows": 1,
+    "excerpts": [
+      "New research finds that the more compassionate people are, the better able they are to deal with broken promises in the workplace. Specifically, the study suggests that compassion makes employees tougher: more emotionally resilient, higher performing, and less likely to seek new work when they feel their employer has broken a promise to them. “People often equate compassion with weakness or softness, but this work un",
+      "rs responded to the first survey; 382 of those workers completed the second survey; and 330 workers completed all three surveys. The first survey was designed to determine the degree to which study participants experienced PCBs in the previous month. The second survey was designed to capture “violation feelings,” meaning negative feelings that employees had toward their employer—such as feelings of anger, betrayal, o"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "연민이 약속 파기에 대한 회복력을 높인다는 연구다"
+  },
+  {
+    "book": "What's behind the rise in ADHD diagnoses?",
+    "url": "https://www.futurity.org/rise-in-adhd-diagnoses-3253702/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 988,
+    "rows": 1,
+    "excerpts": [
+      "In recognition of October being ADHD Awareness Month, psychology professor Kevin Antshel provides expert insights on the rising ADHD diagnosis rates and the key signs to consider when thinking about seeking an evaluation. Attention-deficit/hyperactivity disorder (ADHD) is the most commonly diagnosed behavioral disorder in children, and the numbers are only expected to rise. The CDC reported that in 2022, over 7 milli",
+      "l, sports practice, etc.). In addition, for a child to meet criteria for ADHD, these core symptoms of ADHD must negatively impact the child’s functioning. Thus, a child’s functioning, not simply their symptoms, should be the primary variable driving any evaluation considerations. Q Why is it important to diagnose and treat ADHD in children? A In children, untreated moderate to severe ADHD is associated with academic,"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "ADHD 진단 증가의 배경을 전문가 문답으로 설명한다"
+  },
+  {
+    "book": "Black hole",
+    "url": "https://en.wikipedia.org/wiki/Black_hole",
+    "source": "wikipedia",
+    "v_level": 6,
+    "words": 11098,
+    "rows": 2,
+    "excerpts": [
+      "A black hole is an astronomical body so compact that its gravity prevents anything, including light, from escaping. Albert Einstein's theory of general relativity, which describes gravitation as the curvature of spacetime, predicts that any sufficiently compact mass will form a black hole. The boundary of no escape is called the event horizon. In general relativity, crossing a black hole's event horizon traps an obje",
+      "r to a vortex. The rotating spacetime will drag any matter and light into rotation around the spinning black hole. This effect of general relativity, called frame dragging, gets stronger closer to the spinning mass. The region of spacetime in which it is impossible to stay still is called the ergosphere. The ergosphere of a black hole is a volume bounded by the black hole's event horizon and the ergosurface or statio"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "블랙홀의 형성과 사건 지평선을 이론으로 설명한다"
+  },
+  {
+    "book": "The Cost of Living Beside Noise",
+    "url": "",
+    "source": "original",
+    "v_level": 3,
+    "words": 201,
+    "rows": 1,
+    "excerpts": [
+      "A city that measures noise usually records how loud a street is, and that number explains less than it appears to. Two streets can show the same reading while the people living on them sleep very differently. What separates them is the pattern rather than the level. A steady sound is mostly ignored after a few weeks, because the body treats an unchanging sound as background. A sudden noise repeated at odd times is ne",
+      "eats an unchanging sound as background. A sudden noise repeated at odd times is never treated that way, and it continues to wake people for years. This is why one truck at three in the morning costs more sleep than an hour of constant traffic. Sleep researchers now measure the number of events rather than the average sound level. The change matters for anyone deciding where to build a screen or a window. A screen tha"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "소음의 크기보다 사건 빈도가 수면을 해친다고 논증한다"
+  },
+  {
+    "book": "Europe's environmental policies deepen racial inequalities",
+    "url": "https://www.futurity.org/europes-sustainability-policies-deepen-racial-inequalities-3310772/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 749,
+    "rows": 1,
+    "excerpts": [
+      "A new book offers a rare, ground-level view of how sustainability policies unfold in the daily lives of some of Europe’s most marginalized communities. Environmental sustainability is often framed as universally beneficial—a shared global mission to curb climate change, reduce waste, and build greener futures. But what if some of these well-intentioned policies deepen the very inequalities they aim to solve? That que",
+      "joke.” Through her fieldwork, Resnick developed what she calls the waste-race nexus—the idea that people treated as disposable and the waste they handle become mutually reinforcing categories. In Bulgaria’s case, EU membership required dramatic upgrades to waste systems, recycling practices and environmental standards. Ironically, Roma communities—long stigmatized as “social waste”—became essential to performing the "
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "환경 정책의 부담이 소수 집단에 전가되는 구조를 논증한다"
+  },
+  {
+    "book": "What Is a Black Hole? (앞부분 발췌)",
+    "url": "https://spaceplace.nasa.gov/black-holes/en/",
+    "source": "space_place",
+    "v_level": 5,
+    "words": 119,
+    "rows": 1,
+    "excerpts": [
+      "You are using an outdated browser. For a faster, safer, and more beautiful web upgrade for free today. Click here to download this video (1920x1080, 116 MB, video/mp4). Space is a pretty dark place. Even so, some areas are darker than others. Nothing is darker than a black hole. A black hole is an area of such immense gravity that nothing—not even light—can escape from it. Black holes form at the end of some stars’ l"
+    ],
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "브라우저 안내·영상 내려받기 문구가 본문을 대신한다"
+  },
+  {
+    "book": "'Space snowman' explains how distant objects become ice bombs",
+    "url": "https://www.futurity.org/space-snowman-ice-comets-3199322/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 682,
+    "rows": 1,
+    "excerpts": [
+      "A new study is shaking up what scientists thought they knew about distant space objects in the far reaches of the solar system, starting with an object called the “space snowman.” Researchers from Brown University and the SETI Institute found that the double-lobed object, which is officially named Kuiper Belt Object 486958 Arrokoth and resembles a snowman, may have ancient ices stored deep within it from when the obj",
+      "sically saying that Arrokoth is so super cold that for more ice to sublimate—or go directly from solid to a gas, skipping the liquid phase within it—that the gas it sublimates into first has to have travel outwards through its porous, sponge-like interior,” Birch says. “The trick is that to move the gas, you also have to sublimate the ice, so what you get is a domino effect: it gets colder within Arrokoth, less ice s"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "아로코스 내부에 얼음이 남은 이유를 승화 모형으로 설명한다"
+  },
+  {
+    "book": "Most US parents plan to vaccinate kids against 'tripledemic'",
+    "url": "https://www.futurity.org/tripledemic-vaccines-rsv-covid-19-influenza-3008542/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 537,
+    "rows": 1,
+    "excerpts": [
+      "Most parents of infants and young children in the United States plan to have their children vaccinated against this year’s “tripledemic,” according to a new study. In addition, 40% percent of parents intend to have their children vaccinated against COVID-19. For the study, published in the journal Vaccine, the researchers asked parents about their intention to vaccinate their children against COVID-19, influenza, and",
+      "igned with the results of our survey of pet owners, although those were not as politically polarizing,” Haeder says. “In this case, parents made the decision because they were concerned about these diseases, they trusted health providers and their children were previously vaccinated. Those who were opposed said they were concerned about vaccine safety and necessity, and believed they lacked information about the vacc"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "부모의 3종 백신 접종 의향을 설문으로 분석한다"
+  },
+  {
+    "book": "Companies accidentally fund online misinformation via ads",
+    "url": "https://www.futurity.org/companies-inadvertently-finance-online-misinformation-3231702/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 740,
+    "rows": 1,
+    "excerpts": [
+      "A new study suggests ways to reduce corporate financing of misinformation online. Companies and digital platforms contribute to financially sustaining misinformation outlets via advertising. Despite attempts to reduce misinformation, ads from well-known firms and organizations continue to appear on misinformation websites, thereby financing such outlets. The supply of falsehoods is expected to rise with artificial in",
+      "companies whose ads appeared on misinformation outlets, reducing the demand for those firms’ products. The switching effect persisted even when consumers were informed about the role played by digital ad platforms in placing companies’ ads on misinformation websites and the role played by other advertising companies in financing misinformation. Consumers also voiced concerns about the practice, signing petitions advo"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "기업 광고가 허위정보 매체를 먹여 살리는 구조를 분석한다"
+  },
+  {
+    "book": "200 types of misfolded proteins may be tied to cognitive decline",
+    "url": "https://www.futurity.org/misfolded-proteins-alzheimers-dementia-3286362/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 534,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have identified more than 200 types of misfolded proteins in rats that could be associated with age-related cognitive decline. For decades, the story of Alzheimer’s research has been dominated by a battle between A-beta and tau amyloids, both of which can kill neurons and impact the brain’s ability to function. The new study suggests, however, that these sticky brain plaques may not be operating alone. Th",
+      " tests and were considered cognitively impaired, while 10 performed as well as 6-month-old rats. The researchers then measured more than 2,500 types of protein in the hippocampus, the part of the brain associated with spatial learning and memory. For the first time, scientists were able to determine for a large number of proteins whether individual proteins were misshapen or folded incorrectly, allowing the researche"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "노화한 쥐 뇌에서 잘못 접힌 단백질 200여 종을 찾아낸다"
+  },
+  {
+    "book": "Tiny invasive ant makes hunting harder for lions",
+    "url": "https://www.futurity.org/invasive-ants-lions-3171412/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 672,
+    "rows": 1,
+    "excerpts": [
+      "A tiny and seemingly innocuous invasive ant species is changing tree cover in an East African wildlife area, making it harder for lions, the world’s most iconic predator, to hunt their preferred prey, zebra. “These tiny invaders are cryptically pulling on the ties that bind an African ecosystem together, determining who is eaten and where,” says Todd Palmer, an ecologist and professor in the biology department at the",
+      "ious hunters of insects, destroying colonies of the tree-protecting ants but not defending the trees from the larger animals. Having lost their bodyguards, the acacia trees are being obliterated by elephants. The lions, which are ambush predators, rely on the tree cover to stalk and hide before pouncing on zebras. Less tree cover means lions are not as successful at ambushing their prey. “Oftentimes, we find it’s the"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "침입 개미가 나무 덮개를 줄여 사자 사냥을 바꾼다고 설명한다"
+  },
+  {
+    "book": "The Shutter at Five",
+    "url": "",
+    "source": "original",
+    "v_level": 5,
+    "words": 199,
+    "rows": 1,
+    "excerpts": [
+      "That winter I delivered bread before school, and my round began at the kiosk on the flagstones before five. The owner was there first, lifting the shutter on the kerb with one steady pull. She kept a stool by the till but never sat on it. Every morning she wiped the counter twice, once quickly and once gently. Then she sorted the crate, turning each plum so the bruise faced the wall. Her hands moved without hurry, an",
+      "nce gently. Then she sorted the crate, turning each plum so the bruise faced the wall. Her hands moved without hurry, and the crate was empty while I still counted loaves. By six the lantern came on above the shelves, the crate and the till, and the first customers found her ready. She asked one man about his knee and cut his ham thinner than he had asked. A child came in short of a coin at the counter, and she let t"
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "새벽 가판대 주인을 회상하는 1인칭 서사다"
+  },
+  {
+    "book": "Fabric that mimics skin gives robots sense of touch",
+    "url": "https://www.futurity.org/fabric-mimics-skin-robots-touch-3289992/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 547,
+    "rows": 1,
+    "excerpts": [
+      "A new electronic textile under development aims to improve robots’ sense of touch. Robots excel at many things, but having a good sense of touch is not among them. Whether dropping items or pinching them too tightly which crushes the object, many robots struggle with these basic skills that humans have mastered. Over the years scientists have equipped robots with cameras and other tools that enable the machines to be",
+      "hD candidate in the Liu research group and first author of the study. “It’s like giving machines a real sense of touch and grip, and this breakthrough could transform how robots, prosthetics, and human-machine interaction systems interact with the world around them.” Researchers integrated the sensing system onto a pair of 3D-printed robotic fingers, which are mounted to a compliant robotic gripper developed by Esfah"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "피부를 흉내 낸 전자 직물의 촉각 감지 원리를 설명한다"
+  },
+  {
+    "book": "Roman Space Telescope Plaque Install - NASA",
+    "url": "https://www.nasa.gov/image-detail/afs-8-101-1303/",
+    "source": "nasa",
+    "v_level": 9,
+    "words": 64,
+    "rows": 2,
+    "excerpts": [
+      "Roman Space Telescope Plaque Install Technicians inside the Payload Hazardous Servicing Facility at NASA’s Kennedy Space Center complete installation of a commemorative plaque on the agency’s Nancy Grace Roman Space Telescope, as photographed on Tuesday, July 28, 2026. Image Credit: NASA/Jolearra Tshiteya Read More Facebook Pinterest X LinkedIn Email https://www.nasa.gov/image-detail/afs-8-101-1303/Copy URL to clipbo"
+    ],
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "기념 명판 설치 사진의 촬영 정보와 공유 링크뿐이다"
+  },
+  {
+    "book": "Can a 'subway map' reveal new Lyme disease treatments?",
+    "url": "https://www.futurity.org/lyme-disease-drug-targets-metabolic-activity-2989182/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 673,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have developed a genome-scale metabolic model or “subway map” of key metabolic activities of the bacterium that causes Lyme disease. Using this map, they have successfully identified two compounds that selectively target routes only used by Lyme disease to infect a host. While neither medication is a viable treatment for Lyme because they have numerous side effects, the successful use of the computational",
+      "eating patients with broad spectrum antibiotics that wipe out the microbiome and cause antibiotic resistance.” The two compounds identified using the “subway map” computational model are an anticancer drug with significant side effects that make it impractical to use in treating Lyme, and an asthma medication taken off the market because of its side effects. The researchers tested both drugs identified by the model i"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "대사 지도로 라임병 표적 약물을 찾는 과정을 설명한다"
+  },
+  {
+    "book": "What's the secret of the longevity of crocodile relatives?",
+    "url": "https://www.futurity.org/crocodylians-longevity-evolution-crocodile-relatives-3277642/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 1100,
+    "rows": 1,
+    "excerpts": [
+      "The ancestors of today’s crocodylians survived two mass extinction events. A new study uncovered a secret to their longevity, which could help conservationists better protect our planet’s most vulnerable species. Most people think of crocodylians as living fossils— stubbornly unchanged, prehistoric relics that have ruled the world’s swampiest corners for millions of years. But their evolutionary history tells a diffe",
+      "1.4 Ma) Pseudosuchia, a broader evolutionary group that includes early crocodylomorphs and many other extinct lineages, ruled the land. The earliest crocodylomorphs were small-to-medium-sized creatures that were rare in their ecosystems, and were carnivores that mostly ate small animals. In contrast, other pseudosuchian groups dominated on land, occupied a wide range of ecological roles and exhibited a dizzying diver"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "악어류 조상이 대멸종을 견딘 요인을 계통 분석으로 설명한다"
+  },
+  {
+    "book": "Model clarifies a type of fatal seizures in epilepsy",
+    "url": "https://www.futurity.org/sudep-epilepsy-2983082-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 696,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have developed a model for studying one type of familial epilepsy, opening the door to understanding—and eventually targeting—the mechanisms that lead to the disorder and its associated fatalities. The research, published in the journal Annals of Neurology, reveals insights into interactions among breathing, heart rate, and brain activity during fatal seizures. Mutations in a gene called DEPDC5 are a comm",
+      "epsy,” says Li, a faculty member at the university’s Life Sciences Institute and assistant professor of molecular and integrative physiology at the University of Michigan Medical School. “It will help us to really zero in on the cell types that are affected and then to figure out—and ultimately target—the molecular pathways causing these changes.” With the model, the team has identified a unique pattern in DEPDC5-rel"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "유전성 뇌전증의 치명적 발작을 재현한 모델을 설명한다"
+  },
+  {
+    "book": "How does cancer hide from the immune system?",
+    "url": "https://www.futurity.org/cancer-lipids-immune-system-3250712/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 724,
+    "rows": 1,
+    "excerpts": [
+      "Cancer cells may be using lipids to hide from the immune system, researchers report. Cancer cells seldom start off stealthy. Quite to the contrary, they announce their presence to the immune system by planting chemical red flags right on their membranes. Once alerted, the body’s defenses can swoop in, destroying rogue cells before they can do much damage. Lying at the heart of this early warning system are lipids, fa",
+      "sphingolipids.” Discovered in the late 1800s by German chemist Johann Ludwig Wilhelm Thudichum, sphingolipids were named after the enigmatic Sphinx of Greek lore because of their puzzling structure and function. Two centuries later, sphingolipids are less of a mystery. “We know that sphingolipids aren’t really used for energy,” Soula says. “They’re mainly in the cell membrane to create scaffolding for signaling prote"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "암세포가 지질로 면역 감시를 피하는 기작을 설명한다"
+  },
+  {
+    "book": "How gut bacteria can kickstart autoimmune diseases like lupus",
+    "url": "https://www.futurity.org/gut-bacteria-autoimmune-diseases-lupus-3269802/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 435,
+    "rows": 1,
+    "excerpts": [
+      "In a new study, researchers show how a gut bacterium called Enterococcus gallinarum can travel outside of the gastrointestinal system and trigger an autoimmune response. Bacteria in the gut have been implicated in autoimmune diseases, like lupus, that don’t primarily affect the gastrointestinal system. But how those bacteria affect the human immune system remains unclear. The new findings, the researchers say, may in",
+      "essor adjunct at YSM, aimed to determine how E. gallinarum has these immune effects. Using both human cellular and mouse model approaches, the researchers found that after E. gallinarum leaves the gut (its home base) it is able to travel to lymph nodes and the liver before finally reaching the spleen. The lymph nodes and spleen are what are known as secondary lymphoid organs, which are part of the immune system and h"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "장내 세균이 자가면역을 촉발하는 경로를 추적한다"
+  },
+  {
+    "book": "The USGS collects critical information about storm tides, one of the most serious hurricane threats to people and infrastructure",
+    "url": "https://www.usgs.gov/news/featured-story/usgs-collects-critical-information-about-storm-tides-one-most-serious-hurricane",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 434,
+    "rows": 1,
+    "excerpts": [
+      "As a hurricane approaches land, the storm tide it produces is one of the most serious hurricane threats to people and infrastructure. Storm tide is ocean water that’s pushed onshore by a tropical storm or hurricane’s strong sustained winds, combined with the changes in water elevation caused by tidal cycles. Storm tide can cause water levels to rise and flood large areas very quickly and poses a major risk for drowni",
+      " If deployed, USGS crews will attach the sensors to sturdy coastal infrastructure like bridges and piers that are less likely to be washed away by strong waves. Once conditions allow scientists to return to the field, crews collect the sensors so the data they recorded can be downloaded. The value of storm-tide sensor data continues long after a storm passes. The information can be used to design structures to better"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "폭풍해일 관측 센서의 설치와 자료 활용을 설명한다"
+  },
+  {
+    "book": "The Galaxy with a Dark Band",
+    "url": "https://www.nasa.gov/image-detail/55158722798-9bb0f41f19-o/",
+    "source": "nasa",
+    "v_level": 1,
+    "words": 124,
+    "rows": 1,
+    "excerpts": [
+      "Far away in space there is a galaxy. A galaxy is a huge group of stars. People call this one the Black Eye Galaxy. The middle of the galaxy is very bright. A wide band of dark dust sits in front of the middle. The dark dust looks like a big eye. That is why people gave the galaxy this name. The dust hides part of the bright light. Big telescopes in space take pictures of the galaxy. The pictures show the dark dust we"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "검은눈 은하의 먼지 띠를 쉬운 문장으로 설명한다"
+  },
+  {
+    "book": "Glowing protein reveals how oxygen moves through brains",
+    "url": "https://www.futurity.org/imaging-oxygen-brains-3200632/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 882,
+    "rows": 1,
+    "excerpts": [
+      "A new bioluminescence imaging technique has created highly detailed, and visually striking, images of the movement of oxygen in the brains of mice. The human brain consumes vast amounts of energy, which is almost exclusively generated from a form of metabolism that requires oxygen. While the efficient and timely delivery of oxygen is known to be critical to healthy brain function, the precise mechanics of this proces",
+      " identified by a fluctuating intensity of bioluminescence, something that the researchers suspected, and would later confirm, reflected the presence and concentration of oxygen. “The chemical reaction in this instance was oxygen dependent, so when there is the enzyme, the substrate, and oxygen, the system starts to glow,” says Beinlich. While existing oxygen monitoring techniques provide information about a very smal"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "발광 단백질로 뇌 속 산소 이동을 촬영한 기법을 설명한다"
+  },
+  {
+    "book": "US poverty has declined in recent years, even with the pandemic",
+    "url": "https://www.futurity.org/us-poverty-decline-3135672/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 638,
+    "rows": 1,
+    "excerpts": [
+      "Poverty has fallen by 27 percentage points since 1980, according to new research. This change is in sharp contrast with official US Census Bureau numbers indicating that poverty has fallen a mere 1.5 percentage points in that time. Using consumption poverty instead of income poverty as their measurement tool, the researchers found that poverty rates declined steadily between 2020 and 2022, a period when income-based ",
+      "nrelated to well-being.” The researchers’ report further disputes the notion of a sharp decline in poverty in 2021 followed by a substantial rise in 2022. Consumption poverty patterns did not exhibit such fluctuations. Instead, consumption poverty declined steadily during recent years while income poverty fluctuated dramatically, the coauthors note, reiterating that the patterns for income poverty overstate changes i"
+    ],
+    "verdict": "use",
+    "genre": "economics",
+    "why": "소비 기준 빈곤율이 소득 기준과 다른 이유를 논증한다"
+  },
+  {
+    "book": "Commodore Nutt",
+    "url": "https://simple.wikipedia.org/wiki/Commodore_Nutt",
+    "source": "simple_wikipedia",
+    "v_level": 5,
+    "words": 2832,
+    "rows": 1,
+    "excerpts": [
+      "Commodore Nutt (April 1, 1848 – May 25, 1881) was an American entertainer. He was born with the name George Washington Morrison Nutt in New Hampshire. He was very short. In 1861, he was touring New England with a circus when P. T. Barnum hired him to appear at the American Museum in New York City. Barnum gave Nutt the stage name Commodore Nutt, a wardrobe that included naval uniforms, and a miniature carriage in the ",
+      "nships Lavinia Warren Mercy Lavinia Warren Bump was a little person who taught school in her hometown of Marlboro, Massachusetts. She was traveling on a showboat-museum in the Midwest however when Barnum learned of her. He hired her in 1862. Her name was shortened to Lavinia Warren. She first appeared at the Museum in 1863. Warren was 21 years old, 32 inches (81 cm) tall, and weighed 29 pounds (13 kg). Barnum billed "
+    ],
+    "verdict": "use",
+    "genre": "history",
+    "why": "19세기 흥행사 밑에서 활동한 연예인의 생애를 서술한다"
+  },
+  {
+    "book": "A Wall That Must Let Water Through",
+    "url": "",
+    "source": "original",
+    "v_level": 2,
+    "words": 169,
+    "rows": 1,
+    "excerpts": [
+      "A stream that runs beside a field is useful in summer and dangerous in spring. The first answer people tried was the simple one: build a wall across the water and hold it back. A solid wall does hold, but only until the day it does not. Water that cannot pass rises instead, and when it finally goes over the top, it takes the wall with it. So the second attempt gave the water somewhere to go. A low opening was left ne"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "물을 통과시키는 둑이 더 안전한 이유를 설명한다"
+  },
+  {
+    "book": "Nature Detectives: How Scientists Find New Medicines Through Ethnopharmacology",
+    "url": "https://doi.org/10.3389/frym.2026.1689800",
+    "source": "frym",
+    "v_level": 4,
+    "words": 141,
+    "rows": 1,
+    "excerpts": [
+      "Have you ever wondered how scientists develop new medicines? Ethnopharmacology is one of the many fields of science that does exactly that! Ethnopharmacologists are like nature detectives—they study how communities around the world use plants, fungi, and other natural resources to stay healthy. By learning from these communities’ healing practices, ethnopharmacologists uncover new medicines that could eventually help",
+      "s to stay healthy. By learning from these communities’ healing practices, ethnopharmacologists uncover new medicines that could eventually help people around the world get better. But ethnopharmacology is not just about science—it is also about respect, fairness, and working together to share knowledge responsibly. As ethnopharmacologists often collaborate with people from many different backgrounds, they must make s"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "민족약리학이 전통 지식에서 신약을 찾는 방식을 설명한다"
+  },
+  {
+    "book": "Team finds gene that calms the mind and boosts attention in mice",
+    "url": "https://www.futurity.org/adhd-attention-gene-3315892/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 827,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have identified a gene that calms the mind and improves attention in mice. Attention disorders such as ADHD involve a breakdown in our ability to separate signal from noise. As the brain is constantly bombarded with information, focus depends on its ability to filter out distractions and detect what matters. Currently used stimulant medications improve attention by boosting activity in prefrontal circuits",
+      "for that, this is a sizeable effect.” Digging deeper, they showed that specifically the versions of Homer1 known as Homer1a and Ania3 were causing the difference. Mice that performed well on attention tasks had naturally lower levels of these shorter versions of the gene, but not any of the other long isoforms of the gene, in their prefrontal cortex. Subsequent experiments showed that dialing down these versions in a"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "주의력을 높이는 유전자를 쥐 실험으로 규명한다"
+  },
+  {
+    "book": "Why constipation is common in astronauts",
+    "url": "https://www.futurity.org/constipation-astronauts-3342882/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 604,
+    "rows": 1,
+    "excerpts": [
+      "A new study provides an idea of why constipation is a well-known problem for astronauts in space. The researchers have examined blood samples from 52 astronauts who have participated in months long missions to the International Space Station. The study results identified gastrointestinal changes that occur shortly after the astronauts leave Earth and gravity behind. “We see changes in astronauts’ blood samples that i",
+      "gestion but can have consequences for the rest of the body—including the brain. Studies of blood metabolites are often difficult to interpret given a number of factors, including variability in findings between individuals. The nature of the spaceflight research helped to reduce that variability, and increase confidence in the findings. “The samples we have analyzed come from a total of 52 different astronauts, on di"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "무중력에서 소화 기능이 바뀌는 이유를 혈액 분석으로 설명한다"
+  },
+  {
+    "book": "Artemis II Crew and Apollo 14 Moon Tree - NASA",
+    "url": "https://www.nasa.gov/image-article/artemis-ii-crew-and-apollo-14-moon-tree/",
+    "source": "nasa",
+    "v_level": 5,
+    "words": 112,
+    "rows": 2,
+    "excerpts": [
+      "1 min read Artemis II Crew and Apollo 14 Moon Tree HQ Web Team Jul 07, 2026 Image Article In this photograph, the Artemis II crew participates in the dedication of the Apollo 14 Moon tree at the Lunar Receiving Park at NASA’s Johnson Space Center on June 25, 2026. This tree is a second-generation Apollo Moon tree of the loblolly pine species. The original Apollo Moon trees were grown from seeds carried aboard Apollo "
+    ],
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "기념식수 사진의 설명과 크레딧만 있고 본문이 없다"
+  },
+  {
+    "book": "Saying ‘No’ at Work Can Be Good for Your Health",
+    "url": "https://learningenglish.voanews.com/a/saying-no-at-work-can-be-good-for-your-health/7945653.html",
+    "source": "voa",
+    "v_level": 2,
+    "words": 891,
+    "rows": 1,
+    "excerpts": [
+      "From VOA Learning English, this is the Health & Lifestyle report. People might find it hard to set work limits or say “no” before taking on too many responsibilities. But experts say it is important for workers to learn to set such limits, or boundaries. These limits can be important in helping workers protect their physical and mental health. And as with any new skill, setting boundaries gets easier with practice. J",
+      "unch. Practice “no” responses If workers have a hard time saying no, they can write down what to say beforehand. And it can also help to say it out loud. Cara Houser is a workplace engagement coach. She says workers do not always have to explain themselves when turning down a request. They can simply explain they are not available, thank the person for asking, and suggest when they might be available. Amber Krasinski"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "업무 경계를 긋는 법을 전문가 조언으로 설명한다"
+  },
+  {
+    "book": "Prescription opioids tied to heart disease",
+    "url": "https://www.futurity.org/prescription-opioids-heart-disease-3168522/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 538,
+    "rows": 1,
+    "excerpts": [
+      "The known harms of opioid addiction and overdose may be just the beginning of opioids’ known risks, a new study suggests. Prescribed opioids also may have cardiovascular consequences, researchers report. “Beyond the harms of opioids that we are more aware of, there are others we are still uncovering,” says Minhee Sung, instructor of medicine (general medicine and addiction medicine) at Yale University School of Medic",
+      " many patients are of older age, experience chronic pain, have taken opioids, or are already at risk for cardiovascular disease,” says Sung. The study’s cohort included patients receiving prescribed opioids for both short- [less than 90 days] and long-term [90 days or more] durations, ranging from three to 23 days for most patients. In future studies, “we are interested in learning more about how taking prescribed op"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "처방 오피오이드와 심혈관 위험의 연관을 분석한다"
+  },
+  {
+    "book": "Expert: Your humidifier could do more harm than good",
+    "url": "https://www.futurity.org/humidifier-indoor-air-quality-3275552/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 591,
+    "rows": 1,
+    "excerpts": [
+      "An environmental engineering expert warns that improper use of humidifiers could do more harm than good. With allergy season here and this year’s flu season being the worst in more than a decade, those experiencing symptoms are looking for relief. Many turn to humidifiers to manage symptoms like a stuffy nose or dry throat. How do ultrasonic humidifiers release toxic heavy metals? “Ultrasonic humidifiers create a fin",
+      "sorb a layer of water, which is then evaporated by a fan.” Regardless of the type of humidifier, Dietrich stresses the importance of regular cleaning and maintenance to prevent microbial growth. “Avoiding chemical disinfectants is also important, as they can become airborne and cause harm,” she says. Why is tap water use in humidifiers problematic? “When safe to drink, tap water can contain dissolved minerals like ca"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "가습기 오용이 일으키는 금속·미생물 위험을 설명한다"
+  },
+  {
+    "book": "The clothing industry is an overlooked plastic pollution source",
+    "url": "https://www.futurity.org/clothing-industry-plastic-pollution-3261312/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 703,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have discovered that waste from the global apparel industry is leaking millions of tons of plastic into the environment each year and may be getting worse over time. We don’t often think of our clothing as plastic, but much of it is. Polyester, nylon, acrylic, and other synthetic fibers are commonplace in the blended fabrics we wear every day. As a result, textiles have become an overlooked source of plas",
+      "of in a responsible manner,” Geyer says. “There is also waste from manufacturing, packaging, and even from tire abrasion during transport,” Venditti adds, “as well as microplastics which get pulled into the water when we wash our clothes.” The researchers found that synthetic apparel was by far the largest source of plastic waste. The synthetic value chain accounted for 18 million tons of waste in 2019, making up 89%"
+    ],
+    "verdict": "use",
+    "genre": "climate",
+    "why": "의류 산업이 배출하는 플라스틱 폐기물 규모를 추산한다"
+  },
+  {
+    "book": "Can 'nanoflowers' recharge cells to fight aging?",
+    "url": "https://www.futurity.org/recharging-cells-aging-disease-3252142/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 444,
+    "rows": 1,
+    "excerpts": [
+      "Researchers are using nanotechnology to recharge the “powerhouse of the cell” to fight against disease and aging. The ability to recharge cells diminishes as humans age or face diseases. Mitochondria, often called the powerhouse of the cell, are central to energy production. When mitochondrial function declines, it leads to fatigue, tissue degeneration, and accelerated aging. Activities that once required minimal rec",
+      "h Gaharwar, a professor and fellow in the biomedical engineering department at Texas A&M. According to Gaharwar, the nanoflowers could offer new treatments for diseases like muscle dystrophy, diabetes, and neurodegenerative disorders by increasing ATP production, mitochondrial DNA, and cellular respiration. The researchers discovered that the atomic vacancies in the nanoflowers stimulate the molecular pathways involv"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "나노꽃으로 미토콘드리아 기능을 회복시키는 시도를 설명한다"
+  },
+  {
+    "book": "Team calls for research on potential nanoplastic, Parkinson's link",
+    "url": "https://www.futurity.org/nanoplastics-parkinsons-brains-3001742-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 455,
+    "rows": 1,
+    "excerpts": [
+      "Nanoplastics interact with a particular protein that is naturally found in the brain, creating changes linked to Parkinson’s disease and some types of dementia, a new study shows. As reported in the journal Science Advances, the findings create a foundation for a new area of investigation, fueled by the timely impact of environmental factors on human biology. “Parkinson’s disease has been called the fastest growing n",
+      "eagues found that nanoparticles of the plastic polystyrene—typically found in single use items such as disposable drinking cups and cutlery—attract the accumulation of the protein known as alpha-synuclein. The study’s most surprising findings, West says, are the tight bonds formed between the plastic and the protein within the area of the neuron where these accumulations are congregating, the lysosome. Researchers sa"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "나노플라스틱과 파킨슨병 단백질의 결합을 보고한다"
+  },
+  {
+    "book": "Chronic Wasting Disease: Can Science Save Our Dear Deer?",
+    "url": "https://www.usgs.gov/news/featured-story/chronic-wasting-disease-can-science-save-our-dear-deer",
+    "source": "usgs",
+    "v_level": 5,
+    "words": 1731,
+    "rows": 1,
+    "excerpts": [
+      "What’s in a name? Chronic wasting disease, or CWD, sounds ominous, too descriptive for comfort, almost impolite in its directness. It is, in fact, a truthful name for a disease and a real threat to North America’s cervids. Cervids encompass animals in the deer family, including white-tailed deer, mule deer, reindeer, elk and moose. CWD is an always-fatal wildlife disease that is contagious among free-ranging and capt",
+      "death in Wind Cave National Park’s elk population. Now, USGS scientists are studying the relationship between elk population density and CWD prevalence and evaluating the effectiveness of the park’s elk population-control efforts in curtailing disease spread. Findings can help guide CWD-related management decisions in other parks and preserves with high-density elk populations. Further work by USGS scientists and par"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "만성소모성질환의 확산과 방역 연구를 설명한다"
+  },
+  {
+    "book": "What's the best way to store leftovers?",
+    "url": "https://www.futurity.org/whats-the-best-way-to-store-leftovers-3258262/",
+    "source": "futurity",
+    "v_level": 4,
+    "words": 687,
+    "rows": 1,
+    "excerpts": [
+      "One of the joys of any big meal is the leftovers. But what should you do to make sure your future turkey sandwich doesn’t make you sick? Here, North Carolina State University food safety expert Savana Everhart Nunn explains how to reduce the risk of foodborne illness when putting away Thanksgiving leftovers: Q After a big meal, it’s easy to put off dealing with leftovers so you can socialize with guests (or just lie ",
+      "eezer too. Plus, once all the leftovers are put away, you can continue with your Thanksgiving traditions guilt free. Q What’s the best way to cool down Thanksgiving dishes before I put them in the fridge? Are there other things I need to think about in terms of storing foods safely? A Use shallow dishes and smaller containers, if you have them, and remember that it is okay for hot foods to be added to the refrigerato"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "남은 음식의 안전한 보관법을 전문가 문답으로 설명한다"
+  },
+  {
+    "book": "How sleep deprivation affects evidence in court",
+    "url": "https://www.futurity.org/courts-sleep-deprivation-evidence-confessions-3325172/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 1180,
+    "rows": 1,
+    "excerpts": [
+      "New research digs into why US courts need to recognize the risks of trusting sleep-deprived statements and confessions. It’s late at night inside a cramped interrogation room. The suspect being questioned may have come straight from working a double shift or maybe they’ve been sitting at the police station for hours. Exhausted, it’s hard to think clearly, and they just want this conversation to end. Scenarios like th",
+      "lated fatigue can distort statements at various points: 1) before reporting what happened, as fatigue can weaken the memory; 2) during initial contact with police, when tiredness can affect how engaged, clear, or cooperative a person is; and 3) during questioning while in custody, as fatigue can make someone more vulnerable to pressure and more likely to give a false confession. “Sleep loss can weaken eyewitness reca"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "수면 부족이 진술과 자백의 신빙성을 떨어뜨린다고 논증한다"
+  },
+  {
+    "book": "Your attention shifts multiple times every second",
+    "url": "https://www.futurity.org/attention-shifts-brains-3323852/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 502,
+    "rows": 1,
+    "excerpts": [
+      "Scientists may have new answers to why pop-ups or notifications grab your attention. Turns out your attention is on a cycle, shifting seven to ten times per second. This rhythmic occurrence may be crucial for survival, as it prevents us from becoming overly focused on one thing in our environment. It could help us to see a car backing up in a parking lot while we search for where we parked, or to duck to avoid a low-",
+      "re also associated with increased susceptibility to distracting information.” These shifts in attention can occur hundreds of thousands of times each day. Zach Redding, a postdoctoral fellow in the Fiebelkorn lab and the first author of the study, used an electroencephalogram (EEG) to monitor brain signals. The 40 participants were asked to focus on a dim grey square at the center of a computer screen, while colored "
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "주의가 초당 7~10회 옮겨 다니는 리듬을 뇌파로 측정한다"
+  },
+  {
+    "book": "Can your DNA predict your income, education, and love life?",
+    "url": "https://www.futurity.org/can-your-dna-predict-your-future-3277472/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 166,
+    "rows": 1,
+    "excerpts": [
+      "What if a single number, derived from your DNA, could predict your income, education level, or even who you’re likely to marry? In his new book The Social Genome (WW Norton, 2025), Princeton University sociologist Dalton Conley explores the science behind how our genes are shaping our society in ways that are both profound and unsettling. Conley explains how our genes, and the genes of those around us, are influencin",
+      "hat are both profound and unsettling. Conley explains how our genes, and the genes of those around us, are influencing our lives in ways we barely understand—from fertility clinics selecting embryos based on genetic traits to the rise of “genetic sorting” in everything from dating to zip codes. He also debunks the idea of nature versus nurture, revealing how deeply intertwined they truly are. Are we heading toward a "
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "유전자가 사회적 선택에 미치는 영향을 다룬 책을 소개한다"
+  },
+  {
+    "book": "Electric bandages could heal wounds faster",
+    "url": "https://www.futurity.org/electric-bandages-chronic-wounds-3244262/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 855,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have developed an inexpensive bandage that uses an electric field to promote healing in chronic wounds. In animal testing, wounds that were treated with these electric bandages healed 30% faster than wounds treated with conventional bandages. Chronic wounds are open wounds that heal slowly, if they heal at all. For example, sores that occur in some patients with diabetes are chronic wounds. These wounds a",
+      "e directed from the periphery of the wound toward the wound’s center,” says Kaveti. “In order to focus the electric field effectively, you want electrodes to be in contact with the patient at both the periphery and center of the wound itself. And since these wounds can be asymmetrical and deep, you need to have electrodes that can conform to a wide variety of surface features.” “We tested the wound dressings in diabe"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "전기장을 쓰는 저가 밴드가 상처를 빨리 아물린다고 설명한다"
+  },
+  {
+    "book": "To sleep better, you should move more",
+    "url": "https://www.futurity.org/exercise-sleep-better-3200882/",
+    "source": "futurity",
+    "v_level": 4,
+    "words": 590,
+    "rows": 1,
+    "excerpts": [
+      "A new study provides the most reliable validation to date of the connection between physical activity, sleep quality, and psychological health. The study found that physical activity lengthened REM latency—that is, the time it takes to enter the REM stage. This may indicate that exercise helps consolidate deeper sleep stages before transitioning into REM sleep, which is when we tend to have vivid dreams and our brain",
+      "pproach to how health care data are collected while also engaging communities and participants in the research process. This more wide-reaching study successfully replicated many of the findings previously conducted in sleep labs: namely, that engaging in both low-intensity and moderate-to-vigorous physical activity was linked to deeper, more restorative sleep, and that better sleep was in turn associated with more e"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "신체 활동이 수면의 질을 높이는 관계를 검증한다"
+  },
+  {
+    "book": "Blood tests can detect cancer 3 years before diagnosis",
+    "url": "https://www.futurity.org/cancer-blood-test-3284652-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 453,
+    "rows": 1,
+    "excerpts": [
+      "Genetic material shed by tumors can be detected in the bloodstream three years prior to cancer diagnosis, according to a study. Investigators were surprised they could detect cancer-derived mutations in the blood so much earlier, says lead study author Yuxuan Wang, an assistant professor of oncology at the Johns Hopkins University School of Medicine. “Three years earlier provides time for intervention. The tumors are",
+      "in four months following blood collection. For six of the eight individuals, investigators also were able to assess additional blood samples collected 3.1–3.5 years prior to diagnosis, and in four of these cases, tumor-derived mutations could also be identified in samples taken at the earlier timepoint. “This study shows the promise of MCED tests in detecting cancers very early, and sets the benchmark sensitivities r"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "혈액에서 암 변이를 3년 앞서 찾아낸 연구를 설명한다"
+  },
+  {
+    "book": "Unraveling the impact of congenital deafness on individual brain organization",
+    "url": "https://elifesciences.org/articles/96944",
+    "source": "elife",
+    "v_level": 5,
+    "words": 380,
+    "rows": 1,
+    "excerpts": [
+      "Our brains have an amazing ability to adapt to changes in our environment or bodies, sometimes even ‘rewiring’ themselves as a result. This ‘rewiring’ is called plasticity, and it is especially important when one or more of our senses – such as sight or hearing – do not work. In people born with deafness, a condition termed ‘congenital deafness’, the part of the brain that normally processes sounds (called the audito",
+      "er parts of the brain. They also tested if exposure to sign language early in life affected those connections. To do this, Amaral, Wang et al. used a brain imaging technique called fMRI to scan the brains of both congenitally deaf participants and people with healthy hearing. This showed that most of the hearing participants had similar connections between the auditory cortex and other parts of the brain. In contrast"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "선천성 난청이 청각 피질 연결을 바꾸는 양상을 설명한다"
+  },
+  {
+    "book": "These invasive lizards get more agressive when it's hot out",
+    "url": "https://www.futurity.org/invasive-lizards-brown-anoles-temperatures-3313732/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 448,
+    "rows": 1,
+    "excerpts": [
+      "A new study finds that invasive brown anoles become more aggressive toward native green anoles as temperatures rise. The finding suggests that warming conditions could tip the competitive balance between the two species. The study appears in the Journal of Thermal Biology Earlier Tulane University research revealed record-high levels of lead in brown anoles collected in New Orleans, prompting questions about whether ",
+      "te for the same habitat in the southeastern United States. The invasive brown anoles displace the native green anoles from their preferred habitats in the wild, and behavioral aggression is one potential reason. “Invasive species cause a lot of ecological and economic damage, so biologists are really interested in understanding what makes these species so successful,” Rej says. The team found that brown anoles are co"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "기온이 오르면 침입 도마뱀이 공격적으로 변한다고 밝힌다"
+  },
+  {
+    "book": "AI reveals clues about which songs win Grammy awards",
+    "url": "https://www.futurity.org/grammy-awards-songs-artificial-intelligence-3243692-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 784,
+    "rows": 1,
+    "excerpts": [
+      "New research uses artificial intelligence to identify traits of Grammy award-winning songs. Whether it’s the Oscars, the Tonys, or the Grammys, observers annually make predictions as to which actor, film, musical, or song will win these coveted awards—with forecasts based on what experts say impresses the voters. “Grammy voters love to give Record of the Year to a carefully crafted throwback jam,” the Los Angeles Tim",
+      "ents or sounds) Danceability: How suitable a track is for dancing Energy: A perceptual measure of intensity and activity Instrumentalness: A measure of the lack of vocals in a track Speechiness: The presence of spoken words in a track Finally, the AI tool included a song’s lyrics, using commonly deployed Natural Language Processing algorithms to capture words and the sentiments these words conveyed. The calculations "
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "AI로 수상곡의 음향 특징을 분석한 연구를 설명한다"
+  },
+  {
+    "book": "Kobold to Commodity, a Halloween Minerals Story",
+    "url": "https://www.usgs.gov/news/science-snippet/kobold-commodity-a-halloween-minerals-story",
+    "source": "usgs",
+    "v_level": 6,
+    "words": 636,
+    "rows": 1,
+    "excerpts": [
+      "Deep in the dark mines and forests of Germany, in the days long before electricity when flickering torchlight made shadows come to life, whispers told of mysterious and ominous creatures waiting to prey on the hapless and unaware. One of these, the Kobold, was a particular bane of German silver miners, poisoning their silver ore so that the metal that emerged was mere powder, not the lustrous ingots they sought. The ",
+      "tial production of primary metals as well as increasing our focus on revisiting mine waste. Mining produces a lot of waste. Ore, the part of the rock that contains a potentially profitable concentration of a particular mineral commodity, is usually a relatively small percentage of the overall rock that is mined. The leftovers are called tailings and are frequently discarded and stored at the mine site, while the ore "
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "광물 이름의 유래에서 광미 재활용 문제로 이어 설명한다"
+  },
+  {
+    "book": "Beta waves in the brain can predict stuttering in advance",
+    "url": "https://www.futurity.org/beta-brain-waves-predict-stuttering-3181802/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 425,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have discovered that brain waves related to stopping body movements can predict stuttering. Beta waves are brain waves associated with thought, actions, and reactions; for example, beta waves affect how you would react to a cyclist speeding toward you as you cross the street. The new research finds that they can also predict when a person will stutter. A team of speech and psychology researchers recruited",
+      " Culture, Education, and Human Development. “Because stutterers are typically averse to stuttering due to a lifetime of negative reactions from listeners, their initial reaction involves inhibition or a ‘freezing-like’ response.” The study says that the beta activity is likely occurring in the right pre-supplementary motor area, an area of the brain critical in pausing or stopping movements or actions. The authors no"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "베타파로 말더듬을 미리 예측할 수 있다고 설명한다"
+  },
+  {
+    "book": "'Supergene' helps butterflies mimic wing patterns to stay safe",
+    "url": "https://www.futurity.org/supergene-butterflies-wings-mimic-3319242/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 716,
+    "rows": 1,
+    "excerpts": [
+      "New research dissects how a single genetic switch helps butterflies mimic wing patterns of other species to protect themselves from predators. Many butterflies develop wing patterns that mimic other species to protect themselves from predators. While growing complex body parts like wings involves many genes, the difference between two versions of the same thing—like wings in different colors—is often controlled by va",
+      "ndard white patches on a black background. “This female-limited polymorphism in Papilio alphenor is a classic example of a supergene,” says Marcus Kronforst, professor of ecology and evolution and senior author of the new study. “That’s why we got interested in studying this so we can figure out what is responsible molecularly for creating a supergene. Historically, the problem of how they evolved has been kind of in"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "나비 의태를 만드는 초유전자의 작동을 규명한다"
+  },
+  {
+    "book": "Brain Surgery to Treat Seizures",
+    "url": "https://doi.org/10.3389/frym.2020.557949",
+    "source": "frym",
+    "v_level": 4,
+    "words": 140,
+    "rows": 1,
+    "excerpts": [
+      "Seizures can happen when the electricity in the brain is not working properly. Seizures can cause people to shake and lose awareness, which can be very scary and prevent people from living normal lives. When medications do not work to take away the seizures, sometimes brain surgery can be done to treat them. This procedure starts when doctors take a special picture of the brain to see the area causing the seizures. T"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "발작을 치료하는 뇌수술 절차를 쉬운 문장으로 설명한다"
+  },
+  {
+    "book": "How to train your brain to manifest your goals",
+    "url": "https://www.futurity.org/neuroscience-goals-3215392/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 206,
+    "rows": 1,
+    "excerpts": [
+      "In this episode of the Big Brains podcast, James Doty explains the scientific research on how to train our brain to achieve our goals. We’ve all heard the phrase “Manifest Your Destiny” when it comes to wanting that new promotion, figuring out a new career path, or just trying to achieve that long-term goal. It turns out that the act of manifestation is not merely pseudoscience—it actually has a body of research in n",
+      " research in neuroscience to back it up. Doty has been exploring this topic throughout his career; and offers scientific research as well as tools on how to manifest your goals in his new book, Mind Magic: The Neuroscience of Manifestation and How It Changes Everything (Avery, 2024). Doty is a clinical professor of neurosurgery at Stanford University, where he is also the founder and director of the Center for Compas"
+    ],
+    "verdict": "reject",
+    "genre": "pseudoscience",
+    "why": "현실화(manifestation)를 신경과학으로 정당화하는 홍보 글이다"
+  },
+  {
+    "book": "Is virtual learning bad for school attendance?",
+    "url": "https://www.futurity.org/virtual-learning-school-attendance-3250502-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 921,
+    "rows": 1,
+    "excerpts": [
+      "Virtual learning is detrimental to school attendance, especially in districts with higher poverty rates, a new study finds. Since the COVID-19 pandemic, rates of chronic absenteeism have nearly doubled across the nation for students in kindergarten through grade 12. This increase was tied to the mode of instruction during the early years of the pandemic. In particular, schools that employed virtual learning as the pr",
+      "y in person.” Muchnick adds, “The shift in student motivation after online learning [back to in-person] was palpable.” The research also indicated that chronic absenteeism rates hit at-risk students and school districts with the highest levels of poverty the hardest. Those school districts saw chronic absenteeism soar more than 10 percentage points higher among students who had participated in fully remote instructio"
+    ],
+    "verdict": "use",
+    "genre": "education",
+    "why": "원격 수업이 결석률을 높였다는 분석을 설명한다"
+  },
+  {
+    "book": "How to ditch your bad sleep habits",
+    "url": "https://www.futurity.org/how-to-ditch-your-bad-sleep-habits-3303682/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 688,
+    "rows": 1,
+    "excerpts": [
+      "A sleep expert has tips for you to help improve your sleep hygiene and do away with bad habits. Our addiction to electronic devices, everyday worries, excessive uses of stimulants and alcohol are all contributors to a persistent problem among Americans. A lack of sleep. About one in three adults do not get the recommended amount of sleep, according to the Centers for Disease Control and Prevention. These folks sleep ",
+      "antly bought and sold. So put your phone away. Q What about alcohol and caffeine? How do they affect sleep? A Alcohol is terrible for sleep. Alcohol can help you not be awake, but this is not the same as being asleep. Alcohol might turn off the part of the brain that keeps you awake, but it makes it very difficult for the brain to achieve restorative sleep. Caffeine promotes wakefulness. While caffeine is active in y"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "수면 위생을 해치는 습관과 대처를 문답으로 설명한다"
+  },
+  {
+    "book": "Team recreates rare, healthier sugar substitute in the lab",
+    "url": "https://www.futurity.org/healthier-sugar-substitute-tagatose-3314572/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 618,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have developed a way to make a healthier sugar substitute. From saccharin in the 19th century to stevia and monk fruit in the 21st, researchers and the food industry have long sought a sweetener that delivers the taste of sugar without its drawbacks—excess calories, tooth decay, and heightened risk for obesity, insulin resistance, and diabetes. Now, in a study in Cell Reports Physical Science, Tufts Unive",
+      " enzyme from slime mold called galactose-1-phosphate-selective phosphatase (Gal1P), which can help make galactose directly from glucose. A second enzyme expressed by the bacteria called arabinose isomerase completes the conversion of galactose to tagatose. The yield of tagatose from glucose generated by the bacteria could reach up to 95%, significantly greater and more cheaply attained than conventional manufacturing"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "효소로 희귀 당 대체감미료를 합성한 방법을 설명한다"
+  },
+  {
+    "book": "Can wastewater alert schools about COVID spread?",
+    "url": "https://www.futurity.org/wastewater-surveillance-schools-covid-19-3167212/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 432,
+    "rows": 1,
+    "excerpts": [
+      "Wastewater surveillance is a potent tool in understanding COVID-19 transmission within school settings, according to a new study. The research in PLOS Global Public Health establishes the pivotal role of wastewater analysis in managing the public health response to COVID-19 at schools. The study focused on a middle and high school campus in Jefferson County, New York, serving 600 students and compared results from wa",
+      "icality of wastewater surveillance as an early warning tool heavily relies on timely reporting and swift actions following a positive sample,” says Kappus-Kron. “Nevertheless, in the absence of mass asymptomatic testing, wastewater surveillance presents an appealing and cost-effective approach to understand disease trends within school environments.” While wastewater surveillance would not prevent all transmission, i"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "학교 하수 감시가 감염을 조기 경보하는 원리를 설명한다"
+  },
+  {
+    "book": "'Power bars' could keep bees thriving without pollen",
+    "url": "https://www.futurity.org/bees-food-pollen-3277682/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 687,
+    "rows": 1,
+    "excerpts": [
+      "Scientists have unveiled a new food source designed to sustain honey bee colonies indefinitely without natural pollen. Published in the journal Proceedings of the Royal Society B, the research from Washington State University and APIX Biosciences NV in Belgium details successful trials where nutritionally stressed colonies, deployed for commercial crop pollination in Washington state, thrived on the new food source. ",
+      "tion of over a decade of work, involved extensive collaboration. “The newly published work is the result of a herculean scientific effort of three teams,” says Thierry Bogaert, lead author and chairman of APIX Biosciences. “First, the founders and scientists of APIX Biosciences who tested thousands of combinations of ingredients on honey bees over more than 10 years to create this feed. Second, the WSU team with lead"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "꽃가루 없이 꿀벌을 먹이는 인공 먹이를 설명한다"
+  },
+  {
+    "book": "56 million Americans unknowingly exposed to secondhand smoke",
+    "url": "https://www.futurity.org/secondhand-smoke-heart-disease-cancer-2976682/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 419,
+    "rows": 1,
+    "excerpts": [
+      "More than half of American adults have recently been exposed to secondhand tobacco smoke—and the vast majority of them are unaware of it, according to a new study. Nationwide, the findings suggest that 56 million Americans are unknowingly and routinely exposed to toxic secondhand smoke. “There is no safe level of secondhand smoke exposure, and long term exposure can increase the risk of many chronic conditions, such ",
+      "ll demographics significantly underreported their exposure to smoke, but Black individuals had the highest rates of both exposure and underreporting. “We think this report will inform targeted interventions for at-risk groups,” says Wang, who is pursuing her doctorate in health services research. Wang, Jennifer LeLaurin, Christopher Cogle, and others in the UF Colleges of Medicine and Public Health and Health Profess"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "간접흡연 노출을 스스로 모르는 실태를 조사로 밝힌다"
+  },
+  {
+    "book": "Team finds protein that could help failing hearts recover",
+    "url": "https://www.futurity.org/protein-heart-failure-recovery-3337792/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 623,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have identified a key protein that may help failing hearts regain function, offering new insight into why some hearts recover while others do not. The discovery comes from studying patients treated with left ventricular assist devices, or LVADs, which are mechanical pumps that reduce strain on the heart and allow it to rest and recover. While these devices can stabilize patients with advanced heart failur",
+      " improvements in heart function. Before treatment, PERM1 levels were reduced in all patients. After LVAD support, levels were restored to near-normal only in those whose hearts recovered, while remaining suppressed in non-responders. “This study begins to explain why some patients recover heart function with LVAD support while others do not,” says Drakos, professor of cardiology at the University of Utah and co-corre"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "심장이 회복되는 환자에서 늘어난 단백질을 찾아낸다"
+  },
+  {
+    "book": "Your yard may exceed EPA's new lead guidelines",
+    "url": "https://www.futurity.org/soil-lead-guidelines-yards-3237822-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 775,
+    "rows": 1,
+    "excerpts": [
+      "A new study has found that almost a quarter of US households have soil exceeding the Environmental Protection Agency’s new lead screening levels of 200 parts per million. For households with lead exposure from multiple sources, the EPA lowered the guidance to 100 parts per million; nearly 40% of households exceed that level. The study was led by Gabriel Filippelli, a professor at Indiana University Indianapolis and e",
+      "ious 400 parts per million level. Extrapolating across the country, that equates to roughly 29 million households above the current recommended level. Indianapolis and Chicago were among Midwestern cities with higher lead levels in household soil. In Indianapolis, 37% of soil sampled was above the 200 parts per million recommendation. In Chicago, 53% of soil sampled was above the recommended level. The EPA issued sep"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "가정 토양의 납 농도가 기준을 넘는 실태를 조사한다"
+  },
+  {
+    "book": "The Cheapest Piece Should Go First",
+    "url": "",
+    "source": "original",
+    "v_level": 2,
+    "words": 198,
+    "rows": 1,
+    "excerpts": [
+      "Every machine meets a force one day that is larger than its designer planned. If nothing gives way, the load travels through the whole machine until it finds the weakest part. That part is chosen by accident, and it is often the costliest one to reach and repair. The first answer was to make everything stronger, but the machine then grew heavy and cost too much. It also failed in the same rude way, only at a higher l",
+      "hing stronger, but the machine then grew heavy and cost too much. It also failed in the same rude way, only at a higher load. The better answer came from turning the question around: which piece do we want to lose? Designers began to build one small part on purpose to be the weakest in the line. A soft piece, a thin bar, or a length of wire will break first and carry the load away with it. Because the part is chosen "
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "일부러 약한 부품을 두는 설계 원리를 설명한다"
+  },
+  {
+    "book": "Pupils shed light on the brain during sleep",
+    "url": "https://www.futurity.org/pupils-brain-during-sleep-3273132/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 733,
+    "rows": 1,
+    "excerpts": [
+      "For the first time, researchers have been able to observe how the pupils react during sleep over a period of several hours. A look under the eyelids showed them that more happens in the brain during sleep than was previously assumed. Our eyes are typically closed when we sleep. However, there is a flurry of activity taking place beneath our closed eyelids: a team of researchers, led by principal investigators Carolin",
+      "he eyes of the test subjects open for several hours. “Our main concern was that the test subjects would be unable to sleep with their eyes open. But in a dark room, most people forget that their eyes are still open and they are able to sleep,” explains the study’s lead author, Manuel Carro Domínguez, who developed the technique. Analysis of the data showed that pupil dynamics is related not just to the different stag"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "수면 중 동공 변화로 뇌 상태를 읽는 관찰을 설명한다"
+  },
+  {
+    "book": "Intervention could help young women avoid criminal justice system",
+    "url": "https://www.futurity.org/intervention-criminal-justice-system-jail-prison-adolescence-3207432/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 606,
+    "rows": 1,
+    "excerpts": [
+      "Adolescence is the prime time to help young women who’ve had repeated run-ins with the US juvenile justice system find a different path, a new study shows. In one of the longest ongoing intervention studies focused on delinquency in women, researchers followed the same group of women over two decades, to their mid-30s. The women were in their mid-teens and heavily involved in Oregon’s juvenile justice system when the",
+      "el to end the incarceration of young females and those whose gender expression falls outside the binary forms. Also, the states of Hawaii and Maine each have had times in recent years when no females under age 18 were incarcerated in their correctional facilities. The length of the research, now going on 27 years, provides a unique opportunity to watch the lives of women in the study unfold. “If we had ended the stud"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "청소년기 개입이 여성의 재범을 줄인다는 장기 추적 연구다"
+  },
+  {
+    "book": "Scientists Link Gene to Human Speech",
+    "url": "https://learningenglish.voanews.com/a/scientists-link-gene-to-human-speech/7985890.html",
+    "source": "voa",
+    "v_level": 4,
+    "words": 633,
+    "rows": 1,
+    "excerpts": [
+      "A new study suggests the beginnings of human speech are linked to genetics. The research identifies a protein – found only in people – that may have helped early humans develop spoken communication. Scientists involved in the study say this new speaking ability became important for humans’ survival. For example, speech permitted individuals to share information, organize activities and pass down knowledge. These abil",
+      "ere near a female they wanted to mate with. Darnell said both of these situations gave the mice a reason to speak. Those with the human variant \"spoke differently,\" demonstrating the gene’s influence in speech, he added. This is not the first time a gene has been linked to speech. In 2001, British scientists said they had discovered the first gene tied to a language and speech disorder. Researchers called this human "
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "인간에게만 있는 단백질과 말하기의 관계를 설명한다"
+  },
+  {
+    "book": "Good Morning, Earth! - NASA",
+    "url": "https://www.nasa.gov/image-article/good-morning-earth/",
+    "source": "nasa",
+    "v_level": 4,
+    "words": 54,
+    "rows": 2,
+    "excerpts": [
+      "1 min read Good Morning, Earth! HQ Web Team Jul 02, 2026 Image Article NASA astronaut Chris Williams took this photo of an orbital sunrise from the International Space Station on June 26, 2026. In 24 hours, the space station makes 16 orbits of Earth, traveling through 16 sunrises and sunsets. Learn more about the orbiting laboratory. Image credit: NASA/Chris Williams"
+    ],
+    "verdict": "reject",
+    "genre": "fragmentary",
+    "why": "궤도 일출 사진의 촬영 정보만 있고 본문이 없다"
+  },
+  {
+    "book": "Why are more women choosing not to have kids?",
+    "url": "https://www.futurity.org/why-are-more-women-childfree-3247282/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 205,
+    "rows": 1,
+    "excerpts": [
+      "A new book examines the complicated history of motherhood and choosing to be childfree. More and more women in the United States are saying no to motherhood; in 2023, the US fertility rate reached the lowest number on record. But the idea of non-motherhood is actually not a new phenomenon—nor did it come out of the modern feminist movement. For centuries, women have made choices about limiting births and whether to b",
+      "r to become mothers at all. This history is documented in a new book, Without Children: The Long History of Not Being a Mother (Seal Press, 2023), by University of Chicago scholar Peggy O’Donnell Heffington. Heffington writes about the historic trends of non-motherhood as well as the modern factors that are playing a role in women’s choices to not have children today—from a lack of structural support in the workplace"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "비출산 선택의 역사와 현대적 요인을 다룬 책을 소개한다"
+  },
+  {
+    "book": "Repurposed small molecule toxin inhibitors neutralise a diversity of venoms from the Neotropical viperid snake genus Bothrops",
+    "url": "https://elifesciences.org/articles/110419",
+    "source": "elife",
+    "v_level": 5,
+    "words": 445,
+    "rows": 1,
+    "excerpts": [
+      "Snakebites are a major health problem, particularly in rural parts of tropical countries. Every year, millions of people are bitten by venomous snakes, causing more than 100,000 deaths and leaving many others with permanent disabilities. The World Health Organization classifies snakebite as a neglected tropical disease because, despite its devastating impact, it has received relatively little attention and investment",
+      "tat and DMPS – have already shown promise because they can block two major groups of venom toxins responsible for much of the damage caused by snakebites. Clare et al. wanted to further evaluate the suitability of these drugs, together with another drug called nafamostat, against venom from seven species of Bothrops snakes. Bothrops snakes are responsible for most serious snakebites in Latin America, and their venoms"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "기존 약물로 뱀독 독소를 중화하는 실험을 설명한다"
+  },
+  {
+    "book": "Genomic basis for drought resistance in European beech forests threatened by climate change",
+    "url": "https://elifesciences.org/articles/65532",
+    "source": "elife",
+    "v_level": 5,
+    "words": 265,
+    "rows": 1,
+    "excerpts": [
+      "Climate change is having a serious impact on many ecosystems. In the summer of 2018 and 2019, around two thirds of European beech trees were damaged or killed by extreme drought. It is critical to keep these beech woods healthy, as they are central to the survival of over 6,000 other species of animals and plants. The level of damage caused by the drought varied between forests. However, not all the trees in each for",
+      "well it can adapt to drought rather than its local environment. To investigate this further, Pfenninger et al. studied the genome of over 400 European beech trees from the Hesse region in Germany. The samples came from pairs of neighbouring trees that had responded differently to the droughts. The analysis found more than 80 parts of the genome that differed between healthy and damaged trees. Pfenninger et al. then u"
+    ],
+    "verdict": "use",
+    "genre": "climate",
+    "why": "가뭄에 견디는 너도밤나무의 유전적 근거를 밝힌다"
+  },
+  {
+    "book": "New method removes 98% of nanoplastics from water",
+    "url": "https://www.futurity.org/removing-nanoplastics-from-water-3245722/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 470,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have achieved more than 98% efficiency in removing nanoplastics from water. Much smaller in size than the diameter of an average human hair, nanoplastics are invisible to the naked eye. Linked to cardiovascular and respiratory diseases in people, nanoplastics continue to build up, largely unnoticed, in the world’s bodies of water. The challenge remains to develop a cost-effective solution to get rid of na",
+      "volume of water,” says Gary Baker, an associate professor in the University of Missouri chemistry department and the study’s corresponding author. “Currently, the capacity of these solvents is not well understood. In future work, we aim to determine the maximum capacity of the solvent. Additionally, we will explore methods to recycle the solvents, enabling their reuse multiple times if necessary.” Initially, the solv"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "물속 나노플라스틱을 98% 걸러내는 용매 기술을 설명한다"
+  },
+  {
+    "book": "Anand",
+    "url": "https://storyweaver.org.in/stories/51955-anand",
+    "source": "storyweaver",
+    "v_level": 2,
+    "words": 81,
+    "rows": 1,
+    "excerpts": [
+      "Hi! I'm Anand. I collect trash from all these houses. When I'm late, Mrs Mascarenhas gets very angry. Unni Uncle makes sure I collect every last piece of trash. Anitha Aunty has such a sensitive nose! The new people on 4th cross are friendly, but their dog is NOT! Oh no! This will take forever to clean up. I like visiting Salim's street. Salim and I are friends. He likes to play drums. I like dancing. It's soon time "
+    ],
+    "verdict": "narrative",
+    "genre": "fiction",
+    "why": "쓰레기를 모으는 아이가 화자인 그림책 이야기다"
+  },
+  {
+    "book": "Drug may offer relief from cancer-related fatigue",
+    "url": "https://www.futurity.org/cancer-related-fatigue-2982382/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 300,
+    "rows": 1,
+    "excerpts": [
+      "A metabolism-targeting drug helped alleviate cancer-related fatigue in mice without interfering with treatments, a study shows. Cancer-related fatigue (CRF) is a debilitating yet all-too-common condition, which can severely affect quality of life for patients undergoing treatment. For those struggling with CRF, there have been no effective pharmaceutical treatments for the constellation of symptoms that together defi",
+      "r of medicine (endocrinology) and of cellular and molecular physiology at Yale School of Medicine. The researchers used tumor-bearing mouse models to investigate the effectiveness of DCA in treating cancer-related fatigue for patients living with melanoma. The group found that DCA did not affect the rates of tumor growth or compromise the effectiveness of immunotherapy or chemotherapy in two mouse cancer models. The "
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "대사 표적 약물이 암 관련 피로를 줄인 실험을 설명한다"
+  },
+  {
+    "book": "Certain behavior may signal autism risk in the first year of life",
+    "url": "https://www.futurity.org/early-signs-autism-3278002/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 561,
+    "rows": 1,
+    "excerpts": [
+      "Autism is typically diagnosed in children ages 3 to 5 years old, but researchers are exploring whether signs of autism could be detected as early as the first year of life. In the first report from their longitudinal study, researchers Erin Andres and Stephen Sheinkopf of the University of Missouri’s Thompson Center for Autism and Neurodevelopment found that behavior at 9 months old can indicate the likelihood that a",
+      "l autism diagnosis, the findings could help identify infants who may benefit from early intervention and provide pediatricians with a barometer to use when assessing infant development, allowing for more timely and tailored support. “Whether it’s helping infants develop language skills closer to their age-expected levels or developing early social skills that will help them thrive in preschool, we want all kids to fl"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "생후 9개월 행동으로 자폐 가능성을 가늠하는 연구다"
+  },
+  {
+    "book": "Why a Cold Makes Food Flat",
+    "url": "",
+    "source": "original",
+    "v_level": 4,
+    "words": 189,
+    "rows": 1,
+    "excerpts": [
+      "A heavy cold makes dinner bland. The cook has changed nothing, yet soup tastes only of salt and a ripe pear only of sugar. Even a pungent cheese turns bland. The tongue has not failed. Its receptors report five plain things: sweet, salty, sour, bitter and umami. That is why salt still works and aroma does not. Everything past those receptors reaches the brain as aroma through the nasal passage. A little aroma enters ",
+      ". That is why salt still works and aroma does not. Everything past those receptors reaches the brain as aroma through the nasal passage. A little aroma enters at the nostril. Most rises from the back of the palate while we chew, so the olfactory nerve works when we are not sniffing. A cold swells the nasal membrane, mucus coats the palate, congestion shuts that passage, and the aroma signal stops. Sinus swelling does"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "감기 때 맛이 사라지는 이유를 후각 경로로 설명한다"
+  },
+  {
+    "book": "Is it ethical to eradicate certain harmful species?",
+    "url": "https://www.futurity.org/ethics-eradication-harmful-species-3284882/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 769,
+    "rows": 1,
+    "excerpts": [
+      "Using screwworms, mosquitoes, and invasive rodents as case studies, a team of researchers argues that deliberate full extinction of harmful species is acceptable, but only rarely. Under what conditions would it be right—or is it never acceptable—to eliminate a harmful species from our planet? That’s what researchers, including Clare Palmer, a professor of philosophy from Texas A&M University, explore in a study in Sc",
+      "d their offspring inherit a gene that kills female larvae unless they are exposed to a specific substance (like tetracycline). This reduces the population over time. This method could be coupled with a Gene Drive that would push rapidly through a population, ensuring that nearly all offspring inherit the modification. This can lead to population suppression or full extinction; this method has been proposed to eradica"
+    ],
+    "verdict": "use",
+    "genre": "essay",
+    "why": "해로운 종의 의도적 절멸이 정당한 조건을 논증한다"
+  },
+  {
+    "book": "The Moon Turns Red",
+    "url": "https://learningenglish.voanews.com/a/total-lunar-eclipse-to-turn-moon-red/8005741.html",
+    "source": "voa",
+    "v_level": 1,
+    "words": 116,
+    "rows": 1,
+    "excerpts": [
+      "Sometimes the moon turns red at night. People call this a blood moon. It happens when the sun, the Earth, and the moon make a line. The Earth sits between the sun and the moon. The Earth blocks the sunlight. The Earth makes a shadow. The shadow falls on the moon. The moon goes dark. Then the moon turns a red color. A little sunlight bends around the Earth. That light is red. The red light reaches the moon. So the moo"
+    ],
+    "verdict": "use",
+    "genre": "space",
+    "why": "달이 붉어지는 이유를 쉬운 문장으로 설명한다"
+  },
+  {
+    "book": "Clownfish are disappearing due to climate change",
+    "url": "https://www.futurity.org/clownfish-anemones-climate-change-3295982/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 1256,
+    "rows": 1,
+    "excerpts": [
+      "A new study reveals that heat waves are threatening the future of the fish made famous by Finding Nemo. The Red Sea, circled by desert landscapes, is home to marine life accustomed to the water’s bathtub-like temperatures—often reaching 85 to 90 degrees Fahrenheit in the summer. But in the past three years, marine heat waves have made the Red Sea even hotter. Rising ocean temperatures, there and around the world, hav",
+      "ls, but now we’re getting up to levels where the anemones are bleaching, and that results in a catastrophic breakdown in the mutualism with the anemonefishes that everybody knows and loves,” says Peter Buston, an associate professor of biology and one of the senior authors on the paper. “We’re seeing nearly a 100% die-off in a population of fish in response to a heating event,” says Buston, who leads the Marine Evolu"
+    ],
+    "verdict": "use",
+    "genre": "climate",
+    "why": "해양 폭염이 흰동가리 개체군을 무너뜨린다고 설명한다"
+  },
+  {
+    "book": "Large Chilean Frog at Risk from Climate Change",
+    "url": "https://learningenglish.voanews.com/a/large-chilean-frog-at-risk-from-climate-change/7907273.html",
+    "source": "voa",
+    "v_level": 5,
+    "words": 330,
+    "rows": 1,
+    "excerpts": [
+      "A large frog species that lived alongside dinosaurs and is considered a \"living fossil\" is now losing ground in its native Chile. Climate change and human actions are damaging the creature's living environment, or habitat. The Helmeted Water Toad is one of the largest frogs in the world, growing up to over 30 centimeters in length and weighing up to one kilogram. The amphibian has experienced little genetic change fo",
+      "ge part of the country, but its population is suspected to have decreased by at least 30 percent since 1990. The creature is identified as \"vulnerable\" on the International Union for Conservation of Nature's (IUCN) Red List. Climate change, habitat changes, environmental decline and pollution have all caused the Helmeted Water Toad's numbers to decline, Cancino said. Poor water and waste management have also threaten"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "칠레 큰개구리가 서식지 변화로 줄어든 이유를 설명한다"
+  },
+  {
+    "book": "Kids in child care aren't significant spreaders of COVID",
+    "url": "https://www.futurity.org/child-care-covid-2991182/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 649,
+    "rows": 1,
+    "excerpts": [
+      "Children in child care centers don’t spread COVID-19 at significant rates to caregivers or other children at the center, nor to their households, according to a new study. The findings suggest that recommendations to test symptomatic children for SARS-CoV-2, the virus that causes COVID-19, and keep positive children home from child care for prolonged periods can be revised to align with those for other serious respir",
+      "g and completed symptom diaries. Child care center directors reported weekly, de-identified, self-reported COVID-19 cases for all care providers (402) and children (1,154) at their center. The researchers found that SARS-CoV-2 transmission rates within child care centers was low, about 2% to 3%, indicating that neither children nor caregivers were often spreading COVID-19 to others in the centers. Child care attendan"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "어린이집이 감염 확산의 주요 경로가 아님을 자료로 밝힌다"
+  },
+  {
+    "book": "Leave No Trace This Summer as You Explore the Outdoors",
+    "url": "https://www.usgs.gov/news/featured-story/leave-no-trace-summer-you-explore-outdoors-0",
+    "source": "usgs",
+    "v_level": 6,
+    "words": 917,
+    "rows": 1,
+    "excerpts": [
+      "Land managers are faced with protecting the environment while supporting recreational opportunities including camping, hiking, ATV riding, fishing and wildlife viewing. These activities can lead to negative impacts such as trampled vegetation, soil erosion, water contamination, tree cutting and displacement of wildlife from their habitat. “USGS scientists are studying how visitors are impacting protected natural area",
+      " snow, dry and grassy areas and places with little to no vegetation, such as sandy shorelines. Campsites on sloped terrain with sufficient flat areas for tents should also be considered. Campsites in large, flat areas are frequently expanded by campers, which can cause more water runoff with soil and pollutants into lakes and creeks. This can degrade aquatic environments, leading to impacts such as decreased water cl"
+    ],
+    "verdict": "use",
+    "genre": "nature",
+    "why": "야외 활동이 자연에 남기는 영향과 대처를 설명한다"
+  },
+  {
+    "book": "Prague",
+    "url": "https://en.wikivoyage.org/wiki/Prague",
+    "source": "wikivoyage",
+    "v_level": 5,
+    "words": 13942,
+    "rows": 1,
+    "excerpts": [
+      "Prague (Czech: Praha) is the capital and largest city of the Czech Republic. The city's historic buildings and narrow, winding streets are testament to its centuries-old role as capital of the historic region of Bohemia. Prague lies on the banks of the beautiful, meandering Vltava River that reflects the city's golden spires and 9th century castle that dominates the skyline. This historic atmosphere is combined with ",
+      " Synagogue, Old Jewish Cemetery, Klausen Synagogue, Ceremonial Hall. The ticket is valid for 7 days from first entry. 1390 Kč. (updated Aug 2018) National Gallery Gift Ticket. If you are an art lover and you are staying in Prague for a longer time, a dárková vstupenka (gift ticket) for National Gallery may save you money. The ticket is valid for a year and is valid in all exhibitions (both permanent and non-permanent"
+    ],
+    "verdict": "reject",
+    "genre": "reference",
+    "why": "입장권 요금·유효기간 등 관광 목록 정보가 본문을 이룬다"
+  },
+  {
+    "book": "Kidney disease discovery could lead to new therapies for African Americans",
+    "url": "https://www.futurity.org/kidney-disease-new-therapies-african-americans-3186462/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 329,
+    "rows": 1,
+    "excerpts": [
+      "New research details how two common gene variants among African Americans can cause kidney failure. The finding could help reduce the racial disparity in kidney disease and point to new treatment approaches and advance investigational therapies that block the gene. “African Americans develop end stage kidney disease at four times the rate of white Americans and represent more than 30% of people on dialysis,” says stu",
+      " disease. These variants arose 5,000 years ago among people in West Africa to provide immunity against African sleeping sickness. Today, 13% of African Americans carry these two APOL1 gene variants. Approximately 20% of them will develop kidney disease in their lifetime, making APOL1 the most common genetic driver of racial kidney health disparity in the US. Using mice and human cell lines, Olabisi and colleagues fou"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "특정 유전 변이가 신장병 격차를 만드는 기작을 설명한다"
+  },
+  {
+    "book": "Lake Erie creates 'forbidden soup' of potential toxins",
+    "url": "https://www.futurity.org/lake-erie-potential-toxins-3337332/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 718,
+    "rows": 1,
+    "excerpts": [
+      "Municipalities and federal agencies monitor US waters for microcystins, a toxin produced by harmful algal blooms in Lake Erie, but a new study shows that the blooms produce a greater range of potentially toxic compounds than previously known. The researchers found that these compounds, called bioactive cyanopeptides, may overlap and interact with each other in ways that amplify their toxicity throughout the season. N",
+      " produce,” says Dick, who is also director of the Cooperative Institute for Great Lakes Research. Lauren Hart, a UM graduate student at the time and lead author of the study, found that the blooms occurred in three phases, beginning in the early spring when runoff and rain carry nitrogen into the lake. The toxin microcystin dominates the first phase of blooms. Then, once nitrogen becomes depleted in the lake, other m"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "녹조가 만드는 여러 독성 물질의 계절 변화를 분석한다"
+  },
+  {
+    "book": "Why are nurses quitting health care?",
+    "url": "https://www.futurity.org/nurses-jobs-stress-burnout-working-conditions-3204162-2/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 377,
+    "rows": 1,
+    "excerpts": [
+      "Aside from retirements, poor working conditions are the leading reasons nurses leave health care employment, according to a new study. The findings come at a time when hospital executives cite staffing problems as their most pressing concern. “Prior studies evaluate nurses’ intentions to leave their job. Our study is one of the few evaluating why nurses actually left health care employment entirely,” says K. Jane Mui",
+      "t, and poor work-life balance topped the list. Among retired nurses in the study, only 59% stated their retirement was planned, suggesting nearly half of nurse retirements are premature exits due to poor working conditions. “Nurses are not principally leaving for personal reasons, like going back to school or because they lack resilience. They are working in chronically poorly staffed conditions which is an ongoing p"
+    ],
+    "verdict": "use",
+    "genre": "social",
+    "why": "간호사가 현장을 떠나는 이유를 근무 조건에서 찾는다"
+  },
+  {
+    "book": "NFL players are 4X more likely to die of neurodegenerative diseases",
+    "url": "https://www.futurity.org/nfl-players-diseases-als-dementia-parkinsons-3340272/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 790,
+    "rows": 1,
+    "excerpts": [
+      "A study of nearly 20,000 National Football League players has found they are four times more likely than the general population to die of neurodegenerative diseases, including ALS, dementia, and Parkinson’s disease. The study, led by researchers at Boston University, Mass General Brigham, and the Concussion & CTE Foundation, is the largest of its kind to date of mortality in pro football players. Although National Fo",
+      "ers, 178 had died of neurodegenerative disease, 106 of dementia, 39 from Parkinson’s disease, and 33 of amyotrophic lateral sclerosis (ALS). The researchers found those who died of neurodegenerative disease were older and had longer careers, starting and playing in more games. Players who stayed in the NFL for more than five years had double the risk of dying of neurodegenerative disease than those who bounced out af"
+    ],
+    "verdict": "use",
+    "genre": "health",
+    "why": "미식축구 선수의 신경퇴행성 질환 사망 위험을 비교한다"
+  },
+  {
+    "book": "Picking this exoskeleton's settings is a lot like using Pandora music",
+    "url": "https://www.futurity.org/exoskeleton-settings-algorithms-2990052/",
+    "source": "futurity",
+    "v_level": 5,
+    "words": 732,
+    "rows": 1,
+    "excerpts": [
+      "Taking inspiration from music streaming services, engineers have designed the simplest way for users to program their own exoskeleton assistance settings. Of course, what’s simple for the users is more complex underneath, as a machine learning algorithm repeatedly offers pairs of assistance profiles that are most likely to be comfortable for the wearer. The user then selects one of these two, and the predictor offers",
+      "I’m excited that this approach will make wearable robots comfortable and easy to use, bringing them closer to becoming a normal part of our day-to-day life.” The control algorithm manages four exoskeleton settings: how much assistance to give (peak torque), how long to go between peaks (timing), and how the exoskeleton both ramps up and reduces the assistance on either side of each peak. This assistance approach is b"
+    ],
+    "verdict": "use",
+    "genre": "technology",
+    "why": "사용자가 직접 고르는 외골격 보조 설정 방식을 설명한다"
+  },
+  {
+    "book": "Method could interrupt key process in neurodegenerative disease",
+    "url": "https://www.futurity.org/misfolding-tau-protein-neurodegenerative-disease-3203542/",
+    "source": "futurity",
+    "v_level": 6,
+    "words": 762,
+    "rows": 1,
+    "excerpts": [
+      "Researchers have uncovered a potential method for interrupting the misfolding of tau protein that underlies neurodegenerative disease. A spectrum of neurodegenerative diseases, including frontotemporal dementia (FTD), progressive supranuclear palsy (PSP), and corticobasal degeneration (CBD) are due to the accumulation of abnormal, misfolded tau proteins in the brain. A team of researchers has found potential ways to ",
+      "h pertain to diseases that accumulate 4R tau. Merging advanced techniques such as transmission electron microscopy and molecular dynamics simulations with in-vitro experiments involving cell cultures, the research team was able to get a sense of the conditions under which pathological 4R tau begins to misfold, template other tau proteins, and aggregate. “Tau folds in a unique way in each of these diseases,” Kosik exp"
+    ],
+    "verdict": "use",
+    "genre": "science",
+    "why": "타우 단백질의 잘못된 접힘을 막는 방법을 탐색한다"
+  }
+]

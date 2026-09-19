@@ -1,0 +1,5 @@
+{
+  "//": "원료(work/)가 없을 때만 scripts/typecheck.mjs 가 쓴다 — Remotion 루트는 원료 JSON 을 번들 시점에 import 하므로 뺀다(이슈 #101).",
+  "extends": "./tsconfig.json",
+  "exclude": ["src/remotion/Root.tsx", "src/remotion/index.ts"]
+}

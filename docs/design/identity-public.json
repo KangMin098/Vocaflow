@@ -1,0 +1,67 @@
+{
+  "at": "2026-09-15T21:20:15.291Z",
+  "width": 390,
+  "rows": [
+    {
+      "route": "/",
+      "korean": 33,
+      "koreanWebfont": 33,
+      "emoji": 0,
+      "inkTotal": 105,
+      "topInkShare": 0.7238095238095238,
+      "distinctRadii": 2,
+      "maxRadius": 4,
+      "juElements": 1,
+      "juAreaPct": 0.9749972579701668
+    },
+    {
+      "route": "/fit",
+      "korean": 93,
+      "koreanWebfont": 92,
+      "emoji": 0,
+      "inkTotal": 172,
+      "topInkShare": 0.36046511627906974,
+      "distinctRadii": 2,
+      "maxRadius": 4,
+      "juElements": 4,
+      "juAreaPct": 0.6698792055728472
+    },
+    {
+      "route": "/signup",
+      "korean": 18,
+      "koreanWebfont": 18,
+      "emoji": 0,
+      "inkTotal": 23,
+      "topInkShare": 0.30434782608695654,
+      "distinctRadii": 3,
+      "maxRadius": 5,
+      "juElements": 1,
+      "juAreaPct": 0.19200156735973353
+    },
+    {
+      "route": "/pricing",
+      "korean": 63,
+      "koreanWebfont": 63,
+      "emoji": 0,
+      "inkTotal": 81,
+      "topInkShare": 0.43209876543209874,
+      "distinctRadii": 4,
+      "maxRadius": 6,
+      "juElements": 5,
+      "juAreaPct": 1.1281756702731591
+    },
+    {
+      "route": "/about",
+      "korean": 68,
+      "koreanWebfont": 68,
+      "emoji": 16,
+      "inkTotal": 126,
+      "topInkShare": 0.4603174603174603,
+      "distinctRadii": 2,
+      "maxRadius": 4,
+      "juElements": 3,
+      "juAreaPct": 0.172434999640882
+    }
+  ],
+  "skipped": []
+}

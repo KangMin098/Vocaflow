@@ -1,0 +1,416 @@
+{
+ "rubric": {
+  "note": "자료를 보기 전에 고정한 규칙표. 선지마다 세 값을 매긴다. 정답이 무엇인지 모르는 채로 매겨야 한다.",
+  "abstractness": "1~5. 이 선지가 얼마나 추상적인가. 1 = 구체 사건·사례·수치·행위 서술. 3 = 일반 진술. 5 = 상위 개념을 가리키는 추상 명사구(예: the limits of perception). 길이를 보지 말고 지시 대상의 층위만 볼 것.",
+  "passageEcho": "0~2. 이 선지가 지문의 표현을 얼마나 그대로 쓰는가. 0 = 지문에 없는 낱말로 다시 썼다. 1 = 지문의 핵심어 한둘을 그대로 가져왔다. 2 = 지문의 구절을 거의 그대로 옮겼다. **낱말 겹침이 아니라 표현을 그대로 쓰는가**를 볼 것 — 같은 뜻 다른 낱말은 0 이다.",
+  "concreteMarker": "true/false. 구체 표지(고유명사·숫자·예시 도입어·시제 있는 사건 서술)가 하나라도 있는가. 이건 abstractness 와 따로 매긴다 — 내 추상도 판단이 길이만 따라간 것인지 검사하는 대조 항목이다."
+ },
+ "fillInstruction": "각 choices 원소에 abstractness(1~5) · passageEcho(0~2) · concreteMarker(true/false) 세 키를 더해 chunk-NN.out.json 으로 저장할 것. 다른 키는 건드리지 말 것.",
+ "items": [
+  {
+   "id": "2014B#23",
+   "type": "R-GIST",
+   "passage": "In our efforts to be the good child, the uncomplaining employee, or the cooperative patient, many of us fall into the trap of trying to please people by going along with whatever they want us to do. At times, we lose track of our own boundaries and needs, and the cost of this could be our life, both symbolically and literally. When we are unable to set healthy limits, it causes distress in our relationships. But when we learn to say no to what we don’t feel like doing in order to say yes to our true self, we feel empowered, and our relationships with others improve. So don’t be afraid to say no. Try to catch yourself in the moment and use your true voice to say what you really want to say.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "항상 타인의 입장을 먼저 고려해야 한다."
+    },
+    {
+     "label": "B",
+     "text": "난관을 극복할 때 성취감이 생긴다."
+    },
+    {
+     "label": "C",
+     "text": "제안을 승낙하기 전에는 그 의도를 파악해야 한다."
+    },
+    {
+     "label": "D",
+     "text": "자신이 원하지 않는 일은 거절할 필요가 있다."
+    },
+    {
+     "label": "E",
+     "text": "자신의 의견을 고집하면 대인 관계가 악화된다."
+    }
+   ]
+  },
+  {
+   "id": "2014A#24",
+   "type": "R-GIST",
+   "passage": "In our efforts to be the good child, the uncomplaining employee, or the cooperative patient, many of us fall into the trap of trying to please people by going along with whatever they want us to do. At times, we lose track of our own boundaries and needs, and the cost of this could be our life, both symbolically and literally. When we are unable to set healthy limits, it causes distress in our relationships. But when we learn to say no to what we don’t feel like doing in order to say yes to our true self, we feel empowered, and our relationships with others improve. So don’t be afraid to say no. Try to catch yourself in the moment and use your true voice to say what you really want to say.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "항상 타인의 입장을 먼저 고려해야 한다."
+    },
+    {
+     "label": "B",
+     "text": "난관을 극복할 때 성취감이 생긴다."
+    },
+    {
+     "label": "C",
+     "text": "제안을 승낙하기 전에는 그 의도를 파악해야 한다. 3"
+    },
+    {
+     "label": "D",
+     "text": "자신이 원하지 않는 일은 거절할 필요가 있다."
+    },
+    {
+     "label": "E",
+     "text": "자신의 의견을 고집하면 대인 관계가 악화된다."
+    }
+   ]
+  },
+  {
+   "id": "2015#18",
+   "type": "R-GIST",
+   "passage": "One difference between winners and losers is how they handle losing. Even for the best companies and most accomplished professionals, long track records of success are punctuated by slips, slides, and mini-turnarounds. Even the team that wins the game might make mistakes and lag behind for part of it. That’s why the ability to recover quickly is so important. Troubles are ubiquitous. Surprises can fall from the sky like volcanic ash and appear to change everything. That’s why one prominent scholar said, “Anything can look like a failure in the middle.” Thus, a key factor in high achievement is bouncing back from the low points.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "합리적 소비는 필요와 욕구의 구분에서 비롯된다."
+    },
+    {
+     "label": "B",
+     "text": "위기 관리에는 전문가의 조언이 필요하다."
+    },
+    {
+     "label": "C",
+     "text": "폭넓은 인간 관계는 성공의 필수 요소이다."
+    },
+    {
+     "label": "D",
+     "text": "경영의 전문화는 일류 기업의 조건이다."
+    },
+    {
+     "label": "E",
+     "text": "실패를 빨리 극복하는 것이 성공의 열쇠이다."
+    }
+   ]
+  },
+  {
+   "id": "2016#20",
+   "type": "R-CLAIM",
+   "passage": "Assertiveness may seem to some people to be uncharacteristic of counselors. If your picture of a counselor is someone who never disagrees, always “goes along,” wants everything to be nice all the time, and only does what other people want him or her to do, this is not a picture of an assertive counselor. Being assertive does not have to mean being disagreeable. Being a counselor does not mean that you should simply be silent when someone tells a racist joke. An assertive counselor would find a way to call that person’s attention to the fact that the joke is racist, explaining how it offended the hearer, and suggesting ways similar jokes could be avoided. Being assertive is a highly developed skill ― it should fit nicely in the counselor’s repertoire of techniques.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "상담사는 항상 친절한 태도로 상담을 진행해야 한다."
+    },
+    {
+     "label": "B",
+     "text": "상담사는 정기적으로 상담 기술 교육을 받아야 한다."
+    },
+    {
+     "label": "C",
+     "text": "상담사는 상담 기록을 철저히 관리해야 한다. 8"
+    },
+    {
+     "label": "D",
+     "text": "상담사는 상대방의 감정을 해치는 농담을 하지 말아야 한다."
+    },
+    {
+     "label": "E",
+     "text": "상담사는 자기 생각을 분명하게 드러낼 줄도 알아야 한다."
+    }
+   ]
+  },
+  {
+   "id": "2016#21",
+   "type": "R-GIST",
+   "passage": "The negative effects of extrinsic motivators such as grades have been documented with students from different cultures. Although this matter is more complex than simply regarding all extrinsic rewards as controlling or diminishing learning, we agree with Richard Ryan and his colleagues that people across different cultures are likely to express more satisfaction with their lives when their primary goals are intrinsic rather than extrinsic. Another consistent research finding is that when a learning activity is undertaken explicitly to attain some extrinsic reward, people respond by seeking the least demanding way of ensuring the reward. Since there are three decades of evidence that dominating instruction with a system of controlling external rewards may contribute to inferior learning, using a pedagogy based on theories of intrinsic motivation appears to be a more reasonable and effective approach to enhancing learning among culturally diverse students. * pedagogy",
+   "choices": [
+    {
+     "label": "A",
+     "text": "학습자의 외적 동기와 내적 동기의 균형이 필요하다."
+    },
+    {
+     "label": "B",
+     "text": "내적 동기의 교육적 기능에 대한 실질적인 연구가 시급하다."
+    },
+    {
+     "label": "C",
+     "text": "문화적 다양성을 고려한 교육 이론의 확립이 중요하다."
+    },
+    {
+     "label": "D",
+     "text": "적절한 외적 보상이 삶의 만족도를 향상시킨다."
+    },
+    {
+     "label": "E",
+     "text": "내적 동기 부여가 문화적 배경이 다른 학생들의 교육에 효과적이다."
+    }
+   ]
+  },
+  {
+   "id": "2017#20",
+   "type": "R-GIST",
+   "passage": "Many present efforts to guard and maintain human progress, to meet human needs, and to realize human ambitions are simply unsustainable ─ in both the rich and poor nations. They draw too heavily, too quickly, on already overdrawn environmental resource accounts to be affordable far into the future without bankrupting those accounts. They may show profit on the balance sheets of our generation, but our children will inherit the losses. We borrow environmental capital from future generations with no intention or prospect of repaying. They may blame us for our wasteful ways, but they can never collect on our debt to them. We act as we do because we can get away with it: future generations do not vote; they have no political or financial power; they cannot challenge our decisions.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "현세대는 미래 세대에 대한 고려 없이 환경 자원을 남용하고 있다."
+    },
+    {
+     "label": "B",
+     "text": "환경 문제를 해결하기 위한 세대 간 협력이 중요하다. 2"
+    },
+    {
+     "label": "C",
+     "text": "선진국들은 경제력을 기반으로 환경 자원을 선점하고 있다."
+    },
+    {
+     "label": "D",
+     "text": "미래의 환경 문제에 대비한 국제 사회의 공조가 필요하다."
+    },
+    {
+     "label": "E",
+     "text": "인류의 발전은 다양한 환경 자원의 개발에 달려 있다. 8"
+    }
+   ]
+  },
+  {
+   "id": "2018#20",
+   "type": "R-CLAIM",
+   "passage": "At the 2015 Fortune Most Powerful Women Summit, Ginni Rometty offered this advice: “When did you ever learn the most in your life? What experience? I guarantee you’ll tell me it was a time you felt at risk.” To become a better leader, you have to step out of your comfort zone. You have to challenge the conventional ways of doing things and search for opportunities to innovate. Exercising leadership not only requires you to challenge the organizational status quo but also requires you to challenge your internal status quo. You have to challenge yourself. You have to venture beyond the boundaries of your current experience and explore new territory. Those are the places where there are opportunities to improve, innovate, experiment, and grow. Growth is always at the edges, just outside the boundaries of where you are right now. * status quo : 현재 상태",
+   "choices": [
+    {
+     "label": "A",
+     "text": "지도자는 실현 가능한 목표를 설정해야 한다. 8"
+    },
+    {
+     "label": "B",
+     "text": "지도자는 기존의 방식과 새로운 방식을 조화시켜야 한다."
+    },
+    {
+     "label": "C",
+     "text": "지도자는 새로운 제도를 적극적으로 도입해야 한다."
+    },
+    {
+     "label": "D",
+     "text": "지도자는 조직의 현재 상태를 철저히 분석해야 한다."
+    },
+    {
+     "label": "E",
+     "text": "지도자는 현재의 자신을 넘어서는 도전을 해야 한다."
+    }
+   ]
+  },
+  {
+   "id": "2018#21",
+   "type": "R-GIST",
+   "passage": "One exercise in teamwork I do at a company retreat is to put the group in a circle. At one particular retreat, there were eight people in the circle, and I slowly handed tennis balls to one person to start throwing around the circle. If N equals the number of people in the circle, then the maximum number of balls you can have in motion is N minus 1. Why? Because it’s almost impossible to throw and catch at the same time. The purpose of the exercise is to demonstrate the importance of an individual’s action. People are much more concerned about catching the ball than throwing it. What this demonstrates is that it’s equally important to the success of the exercise that the person you’re throwing to catches the ball as that you are able to catch the ball. If you’re less concerned about how you deliver information than with how you receive it, you’ll ultimately fail at delegation. You have to be equally skilled at both. * delegat",
+   "choices": [
+    {
+     "label": "A",
+     "text": "협업에서는 정보를 전달하는 방식에도 능숙할 필요가 있다."
+    },
+    {
+     "label": "B",
+     "text": "여가 활동을 함께하는 것도 협업의 효율성을 증가시킨다."
+    },
+    {
+     "label": "C",
+     "text": "정확한 정보 이해는 신속한 업무 수행을 가능하게 한다."
+    },
+    {
+     "label": "D",
+     "text": "자유로운 의사소통 문화는 직무 만족도 향상에 기여한다."
+    },
+    {
+     "label": "E",
+     "text": "구성원 간의 공통된 목표 의식이 협업의 필수 조건이다."
+    }
+   ]
+  },
+  {
+   "id": "2019#20",
+   "type": "R-CLAIM",
+   "passage": "r. War is inconceivable without some image, or concept, of the enemy. It is the presence of the enemy that gives meaning and justification to war. ‘War follows from feelings of hatred’, wrote Carl Schmitt. ‘War has its own strategic, tactical, and other rules and points of view, but they all presuppose that the political decision has already been made as to who the enemy is’. The concept of the enemy is fundamental to the moral assessment of war: ‘The basic aim of a nation at war in establishing an image of the enemy is to distinguish as sharply as possible the act of killing from the act of murder’. However, we need to be cautious about thinking of war and the image of the enemy that informs it in an abstract and uniform way. Rather, both must be seen for the cultural and contingent phenomena that they are. * contingent: 불확정적인",
+   "choices": [
+    {
+     "label": "A",
+     "text": "적에 따라 다양한 전략과 전술을 수립하고 적용해야 한다."
+    },
+    {
+     "label": "B",
+     "text": "전쟁과 적을 추상적이고 획일적으로 개념화하는 것을 경계해야 한다."
+    },
+    {
+     "label": "C",
+     "text": "보편적 윤리관에 기초하여 적의 개념을 정의해야 한다."
+    },
+    {
+     "label": "D",
+     "text": "전쟁 예방에 도움이 되는 정치적 결정을 해야 한다."
+    },
+    {
+     "label": "E",
+     "text": "어떠한 경우에도 전쟁을 정당화하지 말아야 한다. K"
+    }
+   ]
+  },
+  {
+   "id": "2019#22",
+   "type": "R-GIST",
+   "passage": "With the industrial society evolving into an information-based society, the concept of information as a product, a commodity with its own value, has emerged. As a consequence, those people, organizations, and countries that possess the highest-quality information are likely to prosper economically, socially, and politically. Investigations into the economics of information encompass a variety of categories including the costs of information and information services; the effects of information on decision making; the savings from effective information acquisition; the effects of information on productivity; and the effects of specific agencies (such as corporate, technical, or medical libraries) on the productivity of organizations. Obviously many of these areas overlap, but it is clear that information has taken on a life of its own outside the medium in which it is contained. Information has become a recognized entity to be measured, evaluated, and priced. * enti",
+   "choices": [
+    {
+     "label": "A",
+     "text": "정보 기반 사회에서 정보는 독자적 상품 가치를 지닌다."
+    },
+    {
+     "label": "B",
+     "text": "정보 기반 사회에서는 정보를 전달하는 방식이 중요하다."
+    },
+    {
+     "label": "C",
+     "text": "정보 처리의 단순화는 신속한 의사 결정에 도움이 된다."
+    },
+    {
+     "label": "D",
+     "text": "정보의 효율적 교환은 조직의 생산성을 향상시킨다."
+    },
+    {
+     "label": "E",
+     "text": "정보화된 사회일수록 개인 정보 보호가 필요하다. 3"
+    }
+   ]
+  },
+  {
+   "id": "2020#20",
+   "type": "R-CLAIM",
+   "passage": "Probably the biggest roadblock to play for adults is the worry that they will look silly, improper, or dumb if they allow themselves to truly play. Or they think that it is irresponsible, immature, and childish to give themselves regularly over to play. Nonsense and silliness come naturally to kids, but they get pounded out by norms that look down on “frivolity.” This is particularly true for people who have been valued for performance standards set by parents or the educational system, or measured by other cultural norms that are internalized and no longer questioned. If someone has spent his adult life worried about always appearing respectable, competent, and knowledgeable, it can be hard to let go sometimes and become physically and emotionally free. The thing is this: You have to give yourself permission to improvise, to mimic, to take on a long-hidden identity. * frivolity: 경박함 ** improvise: 즉흥적으로 하다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "어른도 규범에 얽매이지 말고 자유롭게 놀이를 즐겨야 한다."
+    },
+    {
+     "label": "B",
+     "text": "개인의 창의성을 극대화할 수 있는 놀이 문화를 조성해야 한다."
+    },
+    {
+     "label": "C",
+     "text": "아동에게 사회 규범을 내면화할 수 있는 놀이를 제공해야 한다."
+    },
+    {
+     "label": "D",
+     "text": "어른을 위한 잠재력 계발 프로그램에서 놀이의 비중을 늘려야 한다. 2 8"
+    },
+    {
+     "label": "E",
+     "text": "타인의 시선을 의식하지 않고 자신의 목표 달성에 매진해야 한다."
+    }
+   ]
+  },
+  {
+   "id": "2020#22",
+   "type": "R-GIST",
+   "passage": "In retrospect, it might seem surprising that something as mundane as the desire to count sheep was the driving force for an advance as fundamental as written language. But the desire for written records has always accompanied economic activity, since transactions are meaningless unless you can clearly keep track of who owns what. As such, early human writing is dominated by wheeling and dealing: a collection of bets, bills, and contracts. Long before we had the writings of the prophets, we had the writings of the profits. In fact, many civilizations never got to the stage of recording and leaving behind the kinds of great literary works that we often associate with the history of culture. What survives these ancient societies is, for the most part, a pile of receipts. If it weren’t for the commercial enterprises that produced those records, we would know far, far less about the cultures that they came from. * mundane: 세속의 ** prophet: 예언자",
+   "choices": [
+    {
+     "label": "A",
+     "text": "모든 문명이 위대한 작가를 배출한 것은 아니다."
+    },
+    {
+     "label": "B",
+     "text": "경제 발전의 정도가 문명의 발달 수준을 결정한다."
+    },
+    {
+     "label": "C",
+     "text": "종교의 역사는 상업의 역사보다 먼저 시작되었다."
+    },
+    {
+     "label": "D",
+     "text": "고대 사회에서 경제 활동은 문자 기록의 원동력이었다. 3"
+    },
+    {
+     "label": "E",
+     "text": "고전 문학을 통해 당대의 경제 활동을 파악할 수 있다."
+    }
+   ]
+  },
+  {
+   "id": "2021#20",
+   "type": "R-CLAIM",
+   "passage": "Developing expertise carries costs of its own. We can become experts in some areas, like speaking a language or knowing our favorite foods, simply by living our lives, but in many other domains expertise requires considerable training and effort. What’s more, expertise is domain specific. The expertise that we work hard to acquire in one domain will carry over only imperfectly to related ones, and not at all to unrelated ones. In the end, as much as we may want to become experts on everything in our lives, there simply isn’t enough time to do so. Even in areas where we could, it won’t necessarily be worth the effort. It’s clear that we should concentrate our own expertise on those domains of choice that are most common and/or important to our lives, and those we actively enjoy learning about and choosing from.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "전문성을 기르기 위해서는 구체적인 계획과 실천이 필수적이다."
+    },
+    {
+     "label": "B",
+     "text": "전문가는 일의 우선순위를 결정해서 업무를 수행해야 한다."
+    },
+    {
+     "label": "C",
+     "text": "자신에게 의미 있는 영역을 정해서 전문성을 키워야 한다."
+    },
+    {
+     "label": "D",
+     "text": "전문가가 되기 위해서는 다양한 분야에 관심을 가져야 한다. K"
+    },
+    {
+     "label": "E",
+     "text": "전문성 함양에는 타고난 재능보다 노력과 훈련이 중요하다."
+    }
+   ]
+  },
+  {
+   "id": "2021#22",
+   "type": "R-GIST",
+   "passage": "Prior to file-sharing services, music albums landed exclusively in the hands of music critics before their release. These critics would listen to them well before the general public could and preview them for the rest of the world in their reviews. Once the internet made music easily accessible and allowed even advanced releases to spread through online social networks, availability of new music became democratized, which meant critics no longer had unique access. That is, critics and laypeople alike could obtain new music simultaneously. Social media services also enabled people to publicize their views on new songs, list their new favorite bands in their social media bios, and argue over new music endlessly on message boards. The result was that critics now could access the opinions of the masses on a particular album before writing their reviews. Thus, instead of music reviews guiding popular opinion toward art (as they did in preinternet times), music reviews began to reflect ― consciously or subconsciously ― public opinion. * laypeople: 비",
+   "choices": [
+    {
+     "label": "A",
+     "text": "인터넷의 발달로 다양한 장르의 음악을 접하는 것이 가능해졌다."
+    },
+    {
+     "label": "B",
+     "text": "오늘날 새로운 음악은 대중의 기호를 확인한 후에 공개된다."
+    },
+    {
+     "label": "C",
+     "text": "비평가의 음악 비평은 자신의 주관적인 경험을 기반으로 한다."
+    },
+    {
+     "label": "D",
+     "text": "온라인 환경의 대두로 음악 비평의 질이 전반적으로 상승하였다. 38 3"
+    },
+    {
+     "label": "E",
+     "text": "미디어 환경의 변화로 음악 비평이 대중의 영향을 받게 되었다."
+    }
+   ]
+  },
+  {
+   "id": "2022#20",
+   "type": "R-CLAIM",
+   "passage": "One of the most common mistakes made by organizations when they first consider experimenting with social media is that they focus too much on social media tools and platforms and not enough on their business objectives. The reality of success in the social web for businesses is that creating a social media program begins not with insight into the latest social media tools and channels but with a thorough understanding of the organization’s own goals and objectives. A social media program is not merely the fulfillment of a vague need to manage a “presence” on popular social networks because “everyone else is doing it.” “Being in social media” serves no purpose in and of itself. In order to serve any purpose at all, a social media presence must either solve a problem for the organization and its customers or result in an improvement of some sort (preferably a measurable one). In all things, purpose drives success. The world of social media is no different.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "기업 이미지에 부합하는 소셜 미디어를 직접 개발하여 운영해야 한다."
+    },
+    {
+     "label": "B",
+     "text": "기업은 소셜 미디어를 활용할 때 사업 목표를 토대로 해야 한다. K"
+    },
+    {
+     "label": "C",
+     "text": "소비자의 의견을 수렴하기 위해 소셜 미디어를 적극 활용해야 한다."
+    },
+    {
+     "label": "D",
+     "text": "기업은 사회적 가치와 요구를 반영하여 사업 목표를 수립해야 한다."
+    },
+    {
+     "label": "E",
+     "text": "소셜 미디어로 제품을 홍보할 때는 구체적인 정보를 제공해야 한다."
+    }
+   ]
+  }
+ ]
+}

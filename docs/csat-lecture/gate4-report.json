@@ -1,0 +1,236 @@
+{
+  "gate": 4,
+  "measuredAt": "2026-09-17T08:31:20.491Z",
+  "generated": "792/802",
+  "meanScore": 88.7,
+  "F3": {
+    "pass": true,
+    "invalid": []
+  },
+  "F4": {
+    "pass": true,
+    "eightWordHits": 0,
+    "note": "원문 대조는 이 실행 안에서만 — 겹친 구절은 남기지 않는다"
+  },
+  "F5": {
+    "pass": true,
+    "ge80": 792,
+    "ratio": 98.8,
+    "failedCount": 10,
+    "note": "비율의 분모는 802 — 적재 못 한 문항은 ≥ 80 에 들지 않는다"
+  },
+  "failed": {
+    "2023#31": {
+      "chunk": "R-BLANK-04",
+      "attempt": 1,
+      "score": 88,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2024#37": {
+      "chunk": "R-ORDER-02",
+      "attempt": 1,
+      "score": 87,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2409#36": {
+      "chunk": "R-ORDER-02",
+      "attempt": 1,
+      "score": 81,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2606#20": {
+      "chunk": "R-CLAIM-01",
+      "attempt": 1,
+      "score": 91,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2406#20": {
+      "chunk": "R-CLAIM-01",
+      "attempt": 1,
+      "score": 87,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M2409#25": {
+      "chunk": "R-CHART-01",
+      "attempt": 1,
+      "score": 79,
+      "reasons": [
+        "score: 루브릭 79 < 80"
+      ]
+    },
+    "2018#22": {
+      "chunk": "R-TOPIC-02",
+      "attempt": 1,
+      "score": 83,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "M1809#24": {
+      "chunk": "R-CHART-02",
+      "attempt": 1,
+      "score": 75,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2017#28": {
+      "chunk": "R-GRAMMAR-03",
+      "attempt": 1,
+      "score": 90,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    },
+    "2026#41": {
+      "chunk": "X-TITLE-01",
+      "attempt": 1,
+      "score": 80,
+      "reasons": [
+        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
+      ]
+    }
+  },
+  "byType": {
+    "R-BLANK": {
+      "n": 114,
+      "meanSec": 218,
+      "meanScore": 88.7
+    },
+    "R-BLANK2": {
+      "n": 4,
+      "meanSec": 232,
+      "meanScore": 89.3
+    },
+    "R-CHART": {
+      "n": 27,
+      "meanSec": 208,
+      "meanScore": 86.5
+    },
+    "R-CLAIM": {
+      "n": 23,
+      "meanSec": 214,
+      "meanScore": 88.7
+    },
+    "R-FACT": {
+      "n": 28,
+      "meanSec": 220,
+      "meanScore": 88.3
+    },
+    "R-GIST": {
+      "n": 29,
+      "meanSec": 213,
+      "meanScore": 87.1
+    },
+    "R-GRAMMAR": {
+      "n": 28,
+      "meanSec": 213,
+      "meanScore": 91
+    },
+    "R-IMPLY": {
+      "n": 22,
+      "meanSec": 226,
+      "meanScore": 88.1
+    },
+    "R-INSERT": {
+      "n": 56,
+      "meanSec": 205,
+      "meanScore": 88.6
+    },
+    "R-IRRELEVANT": {
+      "n": 28,
+      "meanSec": 225,
+      "meanScore": 85.8
+    },
+    "R-MOOD": {
+      "n": 28,
+      "meanSec": 226,
+      "meanScore": 88.6
+    },
+    "R-NOTICE": {
+      "n": 57,
+      "meanSec": 213,
+      "meanScore": 89.4
+    },
+    "R-ORDER": {
+      "n": 54,
+      "meanSec": 220,
+      "meanScore": 89.2
+    },
+    "R-PURPOSE": {
+      "n": 27,
+      "meanSec": 218,
+      "meanScore": 90.5
+    },
+    "R-REFER": {
+      "n": 6,
+      "meanSec": 217,
+      "meanScore": 88
+    },
+    "R-SUMMARY": {
+      "n": 28,
+      "meanSec": 222,
+      "meanScore": 89.1
+    },
+    "R-TITLE": {
+      "n": 31,
+      "meanSec": 216,
+      "meanScore": 88.4
+    },
+    "R-TOPIC": {
+      "n": 29,
+      "meanSec": 228,
+      "meanScore": 88.9
+    },
+    "R-VOCAB": {
+      "n": 29,
+      "meanSec": 221,
+      "meanScore": 89.2
+    },
+    "X-BLANK": {
+      "n": 6,
+      "meanSec": 218,
+      "meanScore": 87.7
+    },
+    "X-BLANK2": {
+      "n": 1,
+      "meanSec": 250,
+      "meanScore": 93
+    },
+    "X-FACT": {
+      "n": 29,
+      "meanSec": 200,
+      "meanScore": 91.2
+    },
+    "X-ORDER": {
+      "n": 29,
+      "meanSec": 225,
+      "meanScore": 90.1
+    },
+    "X-REFER": {
+      "n": 29,
+      "meanSec": 207,
+      "meanScore": 88.6
+    },
+    "X-TITLE": {
+      "n": 28,
+      "meanSec": 224,
+      "meanScore": 87.2
+    },
+    "X-VOCAB": {
+      "n": 22,
+      "meanSec": 220,
+      "meanScore": 86.6
+    }
+  }
+}

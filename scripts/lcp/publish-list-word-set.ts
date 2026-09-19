@@ -1,5 +1,12 @@
 // scripts/lcp/publish-list-word-set.ts
 //
+// ⚠️ SUPERSEDED (2026-08-15) — 컴포저가 같은 세트를 만든다:
+//     pnpm vcb:compose --blueprint curriculum-grade --tag kcurr2022_2 [--commit]
+//     pnpm vcb:compose --blueprint exam-list --tag csat-prep-core-2k --count 2000 [--commit]
+//   차이: 컴포저는 레시피·7지표 점수를 curation_query 에 남기고 통과선 미달이면 발행을 막는다.
+//   `--chapter-size N` 처럼 순서를 N개씩 끊는 목차는 `day-pacing` blueprint 가 담당한다.
+//   새 유형은 이 파일 복사가 아니라 blueprints.ts 한 항목으로 (docs/VCB_REDESIGN.md §0).
+//
 // list_tags 필터 → 공용단어장 발행기 (범용 · 세트 1개 안에 내부 챕터 구성).
 //
 // shared_dictionary.list_tags 에 특정 태그(예: kcurr2022_1)가 붙은 단어들을 뽑아

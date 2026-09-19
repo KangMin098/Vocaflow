@@ -1,0 +1,637 @@
+{
+  "book": {
+    "id": "608f08b7-7aeb-4411-9c10-35576122d97a",
+    "title": "Antony and Cleopatra",
+    "book_v_level": 8
+  },
+  "target_per_chapter": 8,
+  "chapters": [
+    {
+      "chapter_idx": 1,
+      "chapter_title": "Scene I",
+      "word_count": 562,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 1. Scene I\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/antony-and-cleopatra/text/act-1#scene-1-1\n\nAlexandria. A room in Cleopatra's palace.\n\nEnter Demetrius and Philo.\n\nPhilo\n\nNay, but this dotage of our general's\n\nO'erflows the measure: those his goodly eyes,\n\nThat o'er the files and musters of the war\n\nHave glow'd like plated Mars, now bend, now turn,\n\nThe office and devotion of their view\n\nUpon a tawny front: his captain's heart,\n\nWhich in the scuffles of great fights hath burst\n\nThe buckles on his breast, reneges all temper,\n\nAnd is become the bellows and the fan\n\nTo cool a gipsy's lust.\n\nFlourish. Enter Antony, Cleopatra, her Ladies, the Train, with Eunuchs fanning her.\n\nLook, where they come:\n\nTake but good note, and you shall see in him.\n\nThe triple pillar of the world transform'd\n\nInto a strumpet's fool: behold and see.\n\nCleopatra If it be love indeed, tell me how much.\n\nAntony There's beggary in the love that can be reckon'd.\n\nCleopatra I'll set a bourn how far to be beloved.\n\nAntony Then must thou needs find out new heaven, new earth.\n\nEnter an Attendant.\n\nAttendant News, my good lord, from Rome.\n\nAntony Grates me: the sum.\n\nCleopatra\n\nNay, hear them, Antony:\n\nFulvia perchance is angry; or, who knows\n\nIf the scarce-bearded Caesar have not sent\n\nHis powerful mandate to you, \"Do this, or this;\n\nTake in that kingdom, and enfranchise that;\n\nPerform't, or else we damn thee.\"\n\nAntony How, my love!\n\nCleopatra\n\nPerchance! nay, and most like:\n\nYou must not stay here longer, your dismission\n\nIs come from Caesar; therefore hear it, Antony.\n\nWhere's Fulvia's process? Caesar's I would say? both?\n\nCall in the messengers. As I am Egypt's queen,\n\nThou blushest, Antony; and that blood of thine\n\nIs Caesar's homager: else so thy cheek pays shame\n\nWhen shrill-tongued Fulvia scolds. The messengers!\n\nAntony\n\nLet Rome in Tiber melt, and the wide arch\n\nOf the ranged empire fall! Here is my space.\n\nKingdoms are clay: our dungy earth alike\n\nFeeds beast as man: the nobleness of life\n\nIs to do thus; when such a mutual pair Embracing.\n\nAnd such a twain can do't, in which I bind,\n\nOn pain of punishment, the world to weet\n\nWe stand up peerless.\n\nCleopatra\n\nExcellent falsehood!\n\nWhy did he marry Fulvia, and not love her?\n\nI'll seem the fool I am not; Antony\n\nWill be himself.\n\nAntony\n\nBut stirr'd by Cleopatra.\n\nNow, for the love of Love and her soft hours,\n\nLet's not confound the time with conference harsh:\n\nThere's not a minute of our lives should stretch\n\nWithout some pleasure now. What sport to-night?\n\nCleopatra Hear the ambassadors.\n\nAntony\n\nFie, wrangling queen!\n\nWhom every thing becomes, to chide, to laugh,\n\nTo weep; whose every passion fully strives\n\nTo make itself, in thee, fair and admired!\n\nNo messenger, but thine; and all alone\n\nTo-night we'll wander through the streets and note\n\nThe qualities of people. Come, my queen;\n\nLast night you did desire it: speak not to us. Exeunt Antony and Cleopatra with their train.\n\nDemetrius Is Caesar with Antonius prized so slight?\n\nPhilo\n\nSir, sometimes, when he is not Antony,\n\nHe comes too short of that great property\n\nWhich still should go with Antony.\n\nDemetrius\n\nI am full sorry\n\nThat he approves the common liar, who\n\nThus speaks of him at Rome: but I will hope\n\nOf better deeds to-morrow. Rest you happy! Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What complaint does Philo make about his general in the opening speech?",
+          "questionKo": "첫 대사에서 필로가 자기 장군에 대해 늘어놓는 불평은?",
+          "options": [
+            {
+              "text": "His dotage o’erflows the measure — eyes that glowed like plated Mars over the musters of war now bend their devotion elsewhere.",
+              "textKo": "그의 홀림이 도를 넘었다고 — 전쟁의 사열을 굽어보며 갑주 입은 마르스처럼 빛나던 눈이 이제 다른 데로 향한다고."
+            },
+            {
+              "text": "That he has lost every battle since coming to Egypt.",
+              "textKo": "이집트에 온 뒤로 싸움마다 졌다고."
+            },
+            {
+              "text": "That he refuses to pay his soldiers.",
+              "textKo": "병사들에게 삯을 주지 않는다고."
+            },
+            {
+              "text": "That he has quarrelled openly with Caesar.",
+              "textKo": "카이사르와 공공연히 다투었다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "this dotage of our general’s O’erflows the measure"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Antony answer Cleopatra’s \"tell me how much\" you love me?",
+          "questionKo": "\"얼마나 사랑하는지 말해 보라\" 는 클레오파트라에게 안토니는 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "He measures it by the kingdoms he has conquered.",
+              "textKo": "정복한 왕국의 수로 잰다고."
+            },
+            {
+              "text": "There’s beggary in the love that can be reckoned — and if she sets a bound, he must find out new heaven, new earth.",
+              "textKo": "헤아릴 수 있는 사랑에는 거지 근성이 있다고 — 그녀가 경계를 정한다면 새 하늘과 새 땅을 찾아야 하리라고."
+            },
+            {
+              "text": "He says love is not a fit subject before messengers.",
+              "textKo": "전령들 앞에서 할 이야기가 아니라고."
+            },
+            {
+              "text": "He refuses to answer and calls for wine.",
+              "textKo": "답하기를 거부하고 술을 청한다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "There’s beggary in the love that can be reckon’d."
+        },
+        {
+          "type": "multiple",
+          "question": "How does Cleopatra provoke Antony when news arrives from Rome?",
+          "questionKo": "로마에서 소식이 오자 클레오파트라는 안토니를 어떻게 자극하는가?",
+          "options": [
+            {
+              "text": "She tears up the letter before he can read it.",
+              "textKo": "그가 읽기 전에 편지를 찢어 버린다."
+            },
+            {
+              "text": "She orders the messengers to be turned away.",
+              "textKo": "전령들을 돌려보내라 명한다."
+            },
+            {
+              "text": "She guesses Fulvia is angry, or that the scarce-bearded Caesar has sent a mandate — \"Do this, or this… perform’t, or else we damn thee.\"",
+              "textKo": "풀비아가 화가 났거나, 수염도 안 난 카이사르가 명령을 보냈으리라 넘겨짚는다 — \"이것을 하라, 저것을 하라… 해내라, 아니면 벌하리라.\""
+            },
+            {
+              "text": "She weeps and begs him not to open it.",
+              "textKo": "울며 열어 보지 말라 애원한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "If the scarce-bearded Caesar have not sent His powerful mandate to you"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Antony declare rather than hear the messengers?",
+          "questionKo": "전령을 듣느니 안토니는 무엇이라 선언하는가?",
+          "options": [
+            {
+              "text": "That he will sail for Rome at dawn.",
+              "textKo": "새벽에 로마로 배를 띄우겠다고."
+            },
+            {
+              "text": "That Caesar may keep the east and he the west.",
+              "textKo": "카이사르가 동방을 갖고 자기는 서방을 갖겠다고."
+            },
+            {
+              "text": "That Fulvia may govern in his name.",
+              "textKo": "풀비아가 제 이름으로 다스리라고."
+            },
+            {
+              "text": "Let Rome in Tiber melt and the wide arch of the ranged empire fall — here is his space; kingdoms are clay.",
+              "textKo": "로마가 티베르강에 녹고 늘어선 제국의 넓은 아치가 무너지라고 — 여기가 그의 자리이며, 왕국은 진흙이라고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Let Rome in Tiber melt, and the wide arch Of the ranged empire fall!"
+        },
+        {
+          "type": "multiple",
+          "question": "What sharp question does Cleopatra put after calling his speech \"excellent falsehood\"?",
+          "questionKo": "그의 말을 \"훌륭한 거짓\" 이라 부른 뒤 클레오파트라가 던지는 날카로운 물음은?",
+          "options": [
+            {
+              "text": "Why did he marry Fulvia, and not love her?",
+              "textKo": "어째서 풀비아와 결혼하고는 사랑하지 않았는가?"
+            },
+            {
+              "text": "Why has he never brought her to Rome?",
+              "textKo": "어째서 한 번도 자기를 로마에 데려가지 않았는가?"
+            },
+            {
+              "text": "Why does he fear a beardless boy like Caesar?",
+              "textKo": "어째서 카이사르 같은 애송이를 두려워하는가?"
+            },
+            {
+              "text": "Why did he leave his legions in Syria?",
+              "textKo": "어째서 군단을 시리아에 두고 왔는가?"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Why did he marry Fulvia, and not love her?"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Antony praise Cleopatra when he calls her a \"wrangling queen\"?",
+          "questionKo": "안토니가 그녀를 \"싸움 잘하는 여왕\" 이라 부르며 하는 칭찬은?",
+          "options": [
+            {
+              "text": "That she is wiser in council than any Roman senator.",
+              "textKo": "어떤 로마 원로원 의원보다 지혜롭다고."
+            },
+            {
+              "text": "Everything becomes her — to chide, to laugh, to weep; every passion strives to make itself fair and admired in her.",
+              "textKo": "꾸짖든 웃든 울든 무엇이나 그녀에게 어울린다고 — 어떤 정념이든 그녀 안에서는 곱고 감탄스러워지려 애쓴다고."
+            },
+            {
+              "text": "That she alone never lies to him.",
+              "textKo": "오직 그녀만이 그에게 거짓을 말하지 않는다고."
+            },
+            {
+              "text": "That her beauty will outlast the empire.",
+              "textKo": "그 아름다움이 제국보다 오래가리라고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Whom every thing becomes, to chide, to laugh, To weep"
+        },
+        {
+          "type": "multiple",
+          "question": "What do Antony and Cleopatra plan for that night instead of hearing the ambassadors?",
+          "questionKo": "사절을 만나는 대신 두 사람이 그날 밤 하려는 것은?",
+          "options": [
+            {
+              "text": "To hold a banquet for the Roman envoys.",
+              "textKo": "로마 사절을 위한 연회를 여는 것."
+            },
+            {
+              "text": "To sail up the Nile with her ladies.",
+              "textKo": "시녀들과 나일강을 거슬러 오르는 것."
+            },
+            {
+              "text": "To wander alone through the streets and note the qualities of people — as she had desired the night before.",
+              "textKo": "단둘이 거리를 거닐며 사람들의 됨됨이를 살펴보는 것 — 전날 밤 그녀가 바라던 대로."
+            },
+            {
+              "text": "To consult the soothsayer about their fortunes.",
+              "textKo": "점쟁이에게 운수를 묻는 것."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "To-night we’ll wander through the streets and note The qualities of people"
+        },
+        {
+          "type": "multiple",
+          "question": "How do Demetrius and Philo judge Antony after the pair leave?",
+          "questionKo": "두 사람이 퇴장한 뒤 데메트리우스와 필로의 평가는?",
+          "options": [
+            {
+              "text": "That he is unchanged and the rumours are false.",
+              "textKo": "그는 그대로이며 소문이 거짓이라고."
+            },
+            {
+              "text": "That they will report him to Caesar at once.",
+              "textKo": "즉시 카이사르에게 고하겠다고."
+            },
+            {
+              "text": "That Cleopatra alone is to blame.",
+              "textKo": "오직 클레오파트라의 탓이라고."
+            },
+            {
+              "text": "Sometimes, when he is not Antony, he comes too short of that great property that should go with the name — and Demetrius is sorry he confirms what Rome’s gossips say.",
+              "textKo": "때로 안토니답지 않을 때 그 이름에 마땅히 따라야 할 큰 자질에 크게 못 미친다고 — 데메트리우스는 그가 로마의 험담을 사실로 만들어 안타깝다고 한다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "He comes too short of that great property Which still should go with Antony"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 2,
+      "chapter_title": "Scene II",
+      "word_count": 1564,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 2. Scene II\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/antony-and-cleopatra/text/act-1#scene-1-2\n\nThe same. Another room.\n\nEnter Charmian, Iras, Alexas, and a Soothsayer.\n\nCharmian Lord Alexas, sweet Alexas, most any thing Alexas, almost most absolute Alexas, where's the soothsayer that you praised so to the queen? O, that I knew this husband, which, you say, must charge his horns with garlands!\n\nAlexas Soothsayer!\n\nSoothsayer Your will?\n\nCharmian Is this the man? Is't you, sir, that know things?\n\nSoothsayer\n\nIn nature's infinite book of secrecy\n\nA little I can read.\n\nAlexas Show him your hand.\n\nEnter Enobarbas.\n\nEnobarbas\n\nBring in the banquet quickly; wine enough\n\nCleopatra's health to drink.\n\nCharmian Good sir, give me good fortune.\n\nSoothsayer I make not, but foresee.\n\nCharmian Pray, then, foresee me one.\n\nSoothsayer You shall be yet far fairer than you are.\n\nCharmian He means in flesh.\n\nIras No, you shall paint when you are old.\n\nCharmian Wrinkles forbid!\n\nAlexas Vex not his prescience; be attentive.\n\nCharmian Hush!\n\nSoothsayer You shall be more beloving than beloved.\n\nCharmian I had rather heat my liver with drinking.\n\nAlexas Nay, hear him.\n\nCharmian Good now, some excellent fortune! Let me be married to three kings in a forenoon, and widow them all: let me have a child at fifty, to whom Herod of Jewry may do homage: find me to marry me with Octavius Caesar, and companion me with my mistress.\n\nSoothsayer You shall outlive the lady whom you serve.\n\nCharmian O excellent! I love long life better than figs.\n\nSoothsayer\n\nYou have seen and proved a fairer former fortune\n\nThan that which is to approach.\n\nCharmian Then belike my children shall have no names: prithee, how many boys and wenches must I have?\n\nSoothsayer\n\nIf every of your wishes had a womb,\n\nAnd fertile every wish, a million.\n\nCharmian Out, fool! I forgive thee for a witch.\n\nAlexas You think none but your sheets are privy to your wishes.\n\nCharmian Nay, come, tell Iras hers.\n\nAlexas We'll know all our fortunes.\n\nEnobarbas Mine, and most of our fortunes, to-night, shall be⁠--drunk to bed.\n\nIras There's a palm presages chastity, if nothing else.\n\nCharmian E'en as the o'erflowing Nilus presageth famine.\n\nIras Go, you wild bedfellow, you cannot soothsay.\n\nCharmian Nay, if an oily palm be not a fruitful prognostication, I cannot scratch mine ear. Prithee, tell her but a worky-day fortune.\n\nSoothsayer Your fortunes are alike.\n\nIras But how, but how? give me particulars.\n\nSoothsayer I have said.\n\nIras Am I not an inch of fortune better than she?\n\nCharmian Well, if you were but an inch of fortune better than I, where would you choose it?\n\nIras Not in my husband's nose.\n\nCharmian Our worser thoughts heavens mend! Alexas⁠--come, his fortune, his fortune! O, let him marry a woman that cannot go, sweet Isis, I beseech thee! and let her die too, and give him a worse! and let worst follow worse, till the worst of all follow him laughing to his grave, fifty-fold a cuckold! Good Isis, hear me this prayer, though thou deny me a matter of more weight; good Isis, I beseech thee!\n\nIras Amen. Dear goddess, hear that prayer of the people! for, as it is a heartbreaking to see a handsome man loose-wived, so it is a deadly sorrow to behold a foul knave uncuckolded: therefore, dear Isis, keep decorum, and fortune him accordingly!\n\nCharmian Amen.\n\nAlexas Lo, now, if it lay in their hands to make me a cuckold, they would make themselves whores, but they'ld do't!\n\nEnobarbas Hush! here comes Antony.\n\nCharmian Not he; the queen.\n\nEnter Cleopatra.\n\nCleopatra Saw you my lord?\n\nEnobarbas No, lady.\n\nCleopatra Was he not here?\n\nCharmian No, madam.\n\nCleopatra\n\nHe was disposed to mirth; but on the sudden\n\nA Roman thought hath struck him. Enobarbus!\n\nEnobarbas Madam?\n\nCleopatra Seek him, and bring him hither. Where's Alexas?\n\nAlexas Here, at your service. My lord approaches.\n\nCleopatra We will not look upon him: go with us. Exeunt.\n\nEnter Antony with a Messenger and Attendants.\n\nMessenger Fulvia thy wife first came into the field.\n\nAntony Against my brother Lucius?\n\nMessenger\n\nAy:\n\nBut soon that war had end, and the time's state\n\nMade friends of them, joining their force 'gainst Caesar;\n\nWhose better issue in the war, from Italy,\n\nUpon the first encounter, drave them.\n\nAntony Well, what worst?\n\nMessenger The nature of bad news infects the teller.\n\nAntony\n\nWhen it concerns the fool or coward. On:\n\nThings that are past are done with me. 'Tis thus;\n\nWho tells me true, though in his tale lie death,\n\nI hear him as he flatter'd.\n\nMessenger\n\nLabienus⁠--\n\nThis is stiff news⁠--hath, with his Parthian force,\n\nExtended Asia from Euphrates;\n\nHis conquering banner shook from Syria\n\nTo Lydia and to Ionia;\n\nWhilst⁠--\n\nAntony Antony, thou wouldst say⁠--\n\nMessenger O, my lord!\n\nAntony\n\nSpeak to me home, mince not the general tongue:\n\nName Cleopatra as she is call'd in Rome;\n\nRail thou in Fulvia's phrase; and taunt my faults\n\nWith such full license as both truth and malice\n\nHave power to utter. O, then we bring forth weeds,\n\nWhen our quick minds lie still; and our ills told us\n\nIs as our earing. Fare thee well awhile.\n\nMessenger At your noble pleasure. Exit.\n\nAntony From Sicyon, ho, the news! Speak there!\n\nFirst Attendant The man from Sicyon⁠--is there such an one?\n\nSecond Attendant He stays upon your will.\n\nAntony\n\nLet him appear.\n\nThese strong Egyptian fetters I must break,\n\nOr lose myself in dotage.\n\nEnter another Messenger.\n\nWhat are you?\n\nSecond Messenger Fulvia thy wife is dead.\n\nAntony Where died she?\n\nSecond Messenger\n\nIn Sicyon:\n\nHer length of sickness, with what else more serious\n\nImporteth thee to know, this bears. Gives a letter.\n\nAntony\n\nForbear me. Exit Second Messenger.\n\nThere's a great spirit gone! Thus did I desire it:\n\nWhat our contempt doth often hurl from us,\n\nWe wish it ours again; the present pleasure,\n\nBy revolution lowering, does become\n\nThe opposite of itself: she's good, being gone;\n\nThe hand could pluck her back that shoved her on.\n\nI must from this enchanting queen break off:\n\nTen thousand harms, more than the ills I know,\n\nMy idleness doth hatch. How now! Enobarbus!\n\nReenter Enobarbas.\n\nEnobarbas What's your pleasure, sir?\n\nAntony I must with haste from hence.\n\nEnobarbas Why, then, we kill all our women: we see how mortal an unkindness is to them; if they suffer our departure, death's the word.\n\nAntony I must be gone.\n\nEnobarbas Under a compelling occasion, let women die: it were pity to cast them away for nothing; though, between them and a great cause, they should be esteemed nothing. Cleopatra, catching but the least noise of this, dies instantly; I have seen her die twenty times upon far poorer moment: I do think there is mettle in death, which commits some loving act upon her, she hath such a celerity in dying.\n\nAntony She is cunning past man's thought.\n\nEnobarbas Alack, sir, no; her passions are made of nothing but the finest part of pure love: we cannot call her winds and waters sighs and tears; they are greater storms and tempests than almanacs can report: this cannot be cunning in her; if it be, she makes a shower of rain as well as Jove.\n\nAntony Would I had never seen her!\n\nEnobarbas O, sir, you had then left unseen a wonderful piece of work; which not to have been blest withal would have discredited your travel.\n\nAntony Fulvia is dead.\n\nEnobarbas Sir?\n\nAntony Fulvia is dead.\n\nEnobarbas Fulvia!\n\nAntony Dead.\n\nEnobarbas Why, sir, give the gods a thankful sacrifice. When it pleaseth their deities to take the wife of a man from him, it shows to man the tailors of the earth; comforting therein, that when old robes are worn out, there are members to make new. If there were no more women but Fulvia, then had you indeed a cut, and the case to be lamented: this grief is crowned with consolation; your old smock brings forth a new petticoat: and indeed the tears live in an onion that should water this sorrow.\n\nAntony\n\nThe business she hath broached in the state\n\nCannot endure my absence.\n\nEnobarbas And the business you have broached here cannot be without you; especially that of Cleopatra's, which wholly depends on your abode.\n\nAntony\n\nNo more light answers. Let our officers\n\nHave notice what we purpose. I shall break\n\nThe cause of our expedience to the queen,\n\nAnd get her leave to part. For not alone\n\nThe death of Fulvia, with more urgent touches,\n\nDo strongly speak to us; but the letters too\n\nOf many our contriving friends in Rome\n\nPetition us at home: Sextus Pompeius\n\nHath given the dare to Caesar, and commands\n\nThe empire of the sea: our slippery people,\n\nWhose love is never link'd to the deserver\n\nTill his deserts are past, begin to throw\n\nPompey the Great and all his dignities\n\nUpon his son; who, high in name and power,\n\nHigher than both in blood and life, stands up\n\nFor the main soldier: whose quality, going on,\n\nThe sides o' the world may danger: much is breeding,\n\nWhich, like the courser's hair, hath yet but life,\n\nAnd not a serpent's poison. Say, our pleasure,\n\nTo such whose place is under us, requires\n\nOur quick remove from hence.\n\nEnobarbas I shall do't. Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the Soothsayer describe what he can do?",
+          "questionKo": "점쟁이는 제가 할 수 있는 일을 어떻게 말하는가?",
+          "options": [
+            {
+              "text": "In nature’s infinite book of secrecy he can read a little — he makes not, but foresees.",
+              "textKo": "자연의 끝없는 비밀의 책을 조금 읽을 수 있다고 — 만드는 것이 아니라 미리 볼 뿐이라고."
+            },
+            {
+              "text": "That he can change any fortune he is paid to change.",
+              "textKo": "삯을 받으면 어떤 운수든 바꿀 수 있다고."
+            },
+            {
+              "text": "That he reads only the fortunes of queens.",
+              "textKo": "오직 여왕의 운수만 읽는다고."
+            },
+            {
+              "text": "That the gods speak to him in dreams alone.",
+              "textKo": "신들은 오직 꿈에서만 그에게 말한다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "In nature’s infinite book of secrecy A little I can read."
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Soothsayer foretell to Charmian?",
+          "questionKo": "점쟁이가 카미안에게 예언하는 것은?",
+          "options": [
+            {
+              "text": "That she shall marry three kings in one morning.",
+              "textKo": "한나절에 왕 셋과 결혼하리라는 것."
+            },
+            {
+              "text": "She shall be more beloving than beloved, and shall outlive the lady whom she serves — her fairer fortune is already past.",
+              "textKo": "사랑받기보다 더 사랑하게 되리라는 것, 그리고 섬기는 여주인보다 오래 살리라는 것 — 더 나은 운수는 이미 지나갔다고."
+            },
+            {
+              "text": "That she shall be queen after Cleopatra.",
+              "textKo": "클레오파트라 다음으로 여왕이 되리라는 것."
+            },
+            {
+              "text": "That she shall die before her mistress.",
+              "textKo": "여주인보다 먼저 죽으리라는 것."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "You shall outlive the lady whom you serve."
+        },
+        {
+          "type": "multiple",
+          "question": "What does Cleopatra say has changed Antony’s mood?",
+          "questionKo": "클레오파트라는 안토니의 기분을 무엇이 바꿨다고 하는가?",
+          "options": [
+            {
+              "text": "The soothsayer’s prophecy has frightened him.",
+              "textKo": "점쟁이의 예언이 그를 겁먹게 했다고."
+            },
+            {
+              "text": "He has heard that Caesar is at the gates.",
+              "textKo": "카이사르가 성문에 왔다는 말을 들었다고."
+            },
+            {
+              "text": "He was disposed to mirth, but on the sudden a Roman thought hath struck him.",
+              "textKo": "흥겨워하다가 갑자기 로마 생각이 그를 쳤다고."
+            },
+            {
+              "text": "He quarrelled with Enobarbus over the banquet.",
+              "textKo": "연회 일로 에노바버스와 다투었다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "on the sudden A Roman thought hath struck him"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Antony answer the messenger who fears to give bad news?",
+          "questionKo": "나쁜 소식 전하기를 꺼리는 전령에게 안토니는 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "That he will hear nothing until the banquet is over.",
+              "textKo": "연회가 끝나기 전에는 아무것도 듣지 않겠다고."
+            },
+            {
+              "text": "That messengers who bring bad news are whipped in Rome.",
+              "textKo": "로마에서는 나쁜 소식을 가져온 전령이 매를 맞는다고."
+            },
+            {
+              "text": "That he already knows everything the man will say.",
+              "textKo": "그가 할 말을 이미 다 안다고."
+            },
+            {
+              "text": "Bad news infects the teller only when it concerns the fool or coward — whoever tells him true, though the tale hold death, he hears as though flattered.",
+              "textKo": "나쁜 소식이 전하는 이를 물들이는 것은 어리석은 자나 겁쟁이일 때뿐이라고 — 참을 말하는 자라면 그 말에 죽음이 들었어도 아첨처럼 듣는다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Who tells me true, though in his tale lie death, I hear him as he flatter’d"
+        },
+        {
+          "type": "multiple",
+          "question": "What news does the messenger bring about Labienus?",
+          "questionKo": "전령이 라비에누스에 대해 전하는 소식은?",
+          "options": [
+            {
+              "text": "With his Parthian force he has extended Asia from Euphrates, his banner shaking from Syria to Lydia and Ionia.",
+              "textKo": "파르티아 군을 이끌고 유프라테스에서부터 아시아를 넓혔으며, 그 깃발이 시리아에서 리디아와 이오니아까지 흔들렸다고."
+            },
+            {
+              "text": "That he has been defeated and taken prisoner.",
+              "textKo": "패해 사로잡혔다고."
+            },
+            {
+              "text": "That he has joined Antony’s brother Lucius.",
+              "textKo": "안토니의 아우 루키우스에게 합류했다고."
+            },
+            {
+              "text": "That he has sued to Caesar for peace.",
+              "textKo": "카이사르에게 화친을 청했다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "hath, with his Parthian force, Extended Asia from Euphrates"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Antony receive the news of Fulvia’s death?",
+          "questionKo": "안토니는 풀비아의 죽음을 어떻게 받아들이는가?",
+          "options": [
+            {
+              "text": "He orders a public mourning throughout Egypt.",
+              "textKo": "이집트 전역에 국상을 명한다."
+            },
+            {
+              "text": "What our contempt often hurls from us we wish ours again — she’s good, being gone; the hand could pluck her back that shoved her on.",
+              "textKo": "경멸로 내던진 것을 도로 갖고 싶어진다며 — 떠나고 나니 그녀가 좋고, 그녀를 밀어냈던 손이 도로 끌어당길 수 있겠다고."
+            },
+            {
+              "text": "He says he feels nothing and calls for music.",
+              "textKo": "아무 느낌도 없다며 음악을 청한다."
+            },
+            {
+              "text": "He blames Cleopatra for the news.",
+              "textKo": "그 소식을 클레오파트라 탓으로 돌린다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "she’s good, being gone; The hand could pluck her back that shoved her on"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Antony resolve about Egypt after reading the letter?",
+          "questionKo": "편지를 읽은 뒤 안토니가 이집트에 대해 내리는 결심은?",
+          "options": [
+            {
+              "text": "That he will send for his legions and hold Alexandria.",
+              "textKo": "군단을 불러 알렉산드리아를 지키겠다고."
+            },
+            {
+              "text": "That he will marry Cleopatra at once.",
+              "textKo": "당장 클레오파트라와 혼인하겠다고."
+            },
+            {
+              "text": "He must break these strong Egyptian fetters or lose himself in dotage — ten thousand harms his idleness doth hatch.",
+              "textKo": "이 단단한 이집트의 족쇄를 끊지 않으면 홀림 속에 자신을 잃으리라고 — 제 나태가 만 가지 해악을 부화시킨다고."
+            },
+            {
+              "text": "That he will let Enobarbus govern in his place.",
+              "textKo": "에노바버스에게 대신 다스리게 하겠다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "These strong Egyptian fetters I must break, Or lose myself in dotage"
+        },
+        {
+          "type": "multiple",
+          "question": "What threat besides Fulvia’s death calls Antony home?",
+          "questionKo": "풀비아의 죽음 말고 안토니를 불러들이는 위협은?",
+          "options": [
+            {
+              "text": "A revolt of the legions in Gaul.",
+              "textKo": "갈리아 군단의 반란."
+            },
+            {
+              "text": "A famine that has emptied the Roman granaries.",
+              "textKo": "로마 곳간을 비운 기근."
+            },
+            {
+              "text": "Caesar’s marriage to Fulvia’s daughter.",
+              "textKo": "카이사르와 풀비아의 딸의 혼인."
+            },
+            {
+              "text": "Sextus Pompeius has given the dare to Caesar and commands the empire of the sea, the people throwing Pompey the Great’s dignities upon his son.",
+              "textKo": "섹스투스 폼페이우스가 카이사르에게 도전하고 바다의 제국을 호령하며, 백성이 폼페이우스 대왕의 영예를 그 아들에게 얹고 있다는 것."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Sextus Pompeius Hath given the dare to Caesar, and commands The empire of the sea"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 3,
+      "chapter_title": "Scene III",
+      "word_count": 919,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 3. Scene III\u001fAct I\u001ehttps://standardebooks.org/ebooks/william-shakespeare/antony-and-cleopatra/text/act-1#scene-1-3\n\nThe same. Another room.\n\nEnter Cleopatra, Charmian, Iras, and Alexas.\n\nCleopatra Where is he?\n\nCharmian I did not see him since.\n\nCleopatra\n\nSee where he is, who's with him, what he does:\n\nI did not send you: if you find him sad,\n\nSay I am dancing; if in mirth, report\n\nThat I am sudden sick: quick, and return. Exit Alexas.\n\nCharmian\n\nMadam, methinks, if you did love him dearly,\n\nYou do not hold the method to enforce\n\nThe like from him.\n\nCleopatra What should I do, I do not?\n\nCharmian In each thing give him way, cross him nothing.\n\nCleopatra Thou teachest like a fool; the way to lose him.\n\nCharmian\n\nTempt him not so too far; I wish, forbear:\n\nIn time we hate that which we often fear.\n\nBut here comes Antony.\n\nEnter Antony.\n\nCleopatra I am sick and sullen.\n\nAntony I am sorry to give breathing to my purpose⁠--\n\nCleopatra\n\nHelp me away, dear Charmian; I shall fall:\n\nIt cannot be thus long, the sides of nature\n\nWill not sustain it.\n\nAntony Now, my dearest queen⁠--\n\nCleopatra Pray you, stand farther from me.\n\nAntony What's the matter?\n\nCleopatra\n\nI know, by that same eye, there's some good news.\n\nWhat says the married woman? You may go:\n\nWould she had never given you leave to come!\n\nLet her not say 'tis I that keep you here:\n\nI have no power upon you; hers you are.\n\nAntony The gods best know⁠--\n\nCleopatra\n\nO, never was there queen\n\nSo mightily betray'd! yet at the first\n\nI saw the treasons planted.\n\nAntony Cleopatra⁠--\n\nCleopatra\n\nWhy should I think you can be mine and true,\n\nThough you in swearing shake the throned gods,\n\nWho have been false to Fulvia? Riotous madness,\n\nTo be entangled with those mouth-made vows,\n\nWhich break themselves in swearing!\n\nAntony Most sweet queen⁠--\n\nCleopatra\n\nNay, pray you, seek no colour for your going,\n\nBut bid farewell, and go: when you sued staying,\n\nThen was the time for words: no going then;\n\nEternity was in our lips and eyes,\n\nBliss in our brows' bent; none our parts so poor,\n\nBut was a race of heaven: they are so still,\n\nOr thou, the greatest soldier of the world,\n\nArt turn'd the greatest liar.\n\nAntony How now, lady!\n\nCleopatra\n\nI would I had thy inches; thou shouldst know\n\nThere were a heart in Egypt.\n\nAntony\n\nHear me, queen:\n\nThe strong necessity of time commands\n\nOur services awhile; but my full heart\n\nRemains in use with you. Our Italy\n\nShines o'er with civil swords: Sextus Pompeius\n\nMakes his approaches to the port of Rome:\n\nEquality of two domestic powers\n\nBreed scrupulous faction: the hated, grown to strength,\n\nAre newly grown to love: the condemn'd Pompey,\n\nRich in his father's honour, creeps apace\n\nInto the hearts of such as have not thrived\n\nUpon the present state, whose numbers threaten;\n\nAnd quietness, grown sick of rest, would purge\n\nBy any desperate change: my more particular,\n\nAnd that which most with you should safe my going,\n\nIs Fulvia's death.\n\nCleopatra\n\nThough age from folly could not give me freedom,\n\nIt does from childishness: can Fulvia die?\n\nAntony\n\nShe's dead, my queen:\n\nLook here, and at thy sovereign leisure read\n\nThe garboils she awaked; at the last, best:\n\nSee when and where she died.\n\nCleopatra\n\nO most false love!\n\nWhere be the sacred vials thou shouldst fill\n\nWith sorrowful water? Now I see, I see,\n\nIn Fulvia's death, how mine received shall be.\n\nAntony\n\nQuarrel no more, but be prepared to know\n\nThe purposes I bear; which are, or cease,\n\nAs you shall give the advice. By the fire\n\nThat quickens Nilus' slime, I go from hence\n\nThy soldier, servant; making peace or war\n\nAs thou affect'st.\n\nCleopatra\n\nCut my lace, Charmian, come;\n\nBut let it be: I am quickly ill, and well,\n\nSo Antony loves.\n\nAntony\n\nMy precious queen, forbear;\n\nAnd give true evidence to his love, which stands\n\nAn honourable trial.\n\nCleopatra\n\nSo Fulvia told me.\n\nI prithee, turn aside and weep for her;\n\nThen bid adieu to me, and say the tears\n\nBelong to Egypt: good now, play one scene\n\nOf excellent dissembling; and let it look\n\nLife perfect honour.\n\nAntony You'll heat my blood: no more.\n\nCleopatra You can do better yet; but this is meetly.\n\nAntony Now, by my sword⁠--\n\nCleopatra\n\nAnd target. Still he mends;\n\nBut this is not the best. Look, prithee, Charmian,\n\nHow this Herculean Roman does become\n\nThe carriage of his chafe.\n\nAntony I'll leave you, lady.\n\nCleopatra\n\nCourteous lord, one word.\n\nSir, you and I must part, but that's not it:\n\nSir, you and I have loved, but there's not it;\n\nThat you know well: something it is I would⁠--\n\nO, my oblivion is a very Antony,\n\nAnd I am all forgotten.\n\nAntony\n\nBut that your royalty\n\nHolds idleness your subject, I should take you\n\nFor idleness itself.\n\nCleopatra\n\n'Tis sweating labour\n\nTo bear such idleness so near the heart\n\nAs Cleopatra this. But, sir, forgive me;\n\nSince my becomings kill me, when they do not\n\nEye well to you: your honour calls you hence;\n\nTherefore be deaf to my unpitied folly,\n\nAnd all the gods go with you! upon your sword\n\nSit laurel victory! and smooth success\n\nBe strew'd before your feet!\n\nAntony\n\nLet us go. Come;\n\nOur separation so abides, and flies,\n\nThat thou, residing here, go'st yet with me,\n\nAnd I, hence fleeting, here remain with thee.\n\nAway! Exeunt.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What instruction does Cleopatra give Alexas about finding Antony?",
+          "questionKo": "클레오파트라가 안토니를 찾으러 가는 알렉사스에게 내리는 지시는?",
+          "options": [
+            {
+              "text": "If he is found sad, say she is dancing; if in mirth, report that she is suddenly sick — and say she did not send him.",
+              "textKo": "그가 침울하거든 자기는 춤추고 있다 하고, 흥겨워하거든 갑자기 앓아누웠다 전하라고 — 자기가 보낸 것이 아니라 하라고."
+            },
+            {
+              "text": "To bring him back by force if he refuses.",
+              "textKo": "거절하면 힘으로라도 데려오라고."
+            },
+            {
+              "text": "To say nothing at all and only observe.",
+              "textKo": "아무 말도 말고 지켜보기만 하라고."
+            },
+            {
+              "text": "To tell him the Roman messengers are waiting.",
+              "textKo": "로마 전령들이 기다린다고 전하라고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "if you find him sad, Say I am dancing; if in mirth, report That I am sudden sick"
+        },
+        {
+          "type": "multiple",
+          "question": "What advice does Charmian give, and how does Cleopatra answer it?",
+          "questionKo": "카미안의 조언과 그에 대한 클레오파트라의 답은?",
+          "options": [
+            {
+              "text": "Charmian urges her to send Antony away first; she agrees.",
+              "textKo": "카미안이 먼저 안토니를 보내라 권하고 그녀가 동의한다."
+            },
+            {
+              "text": "Charmian says give him way in each thing and cross him nothing; Cleopatra answers that this teaches like a fool — it is the way to lose him.",
+              "textKo": "카미안은 무엇이든 그의 뜻대로 두고 거스르지 말라 하고, 클레오파트라는 그것이 바보의 가르침이며 그를 잃는 길이라 답한다."
+            },
+            {
+              "text": "Charmian advises silence; Cleopatra says she has already tried it.",
+              "textKo": "카미안이 침묵을 권하자 이미 해 보았다고 한다."
+            },
+            {
+              "text": "Charmian says to summon the soothsayer; she refuses.",
+              "textKo": "카미안이 점쟁이를 부르라 하자 거절한다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Thou teachest like a fool; the way to lose him."
+        },
+        {
+          "type": "multiple",
+          "question": "On what ground does Cleopatra doubt Antony’s oaths?",
+          "questionKo": "클레오파트라는 무슨 근거로 안토니의 맹세를 의심하는가?",
+          "options": [
+            {
+              "text": "Because the soothsayer warned her against him.",
+              "textKo": "점쟁이가 그를 조심하라 일렀기 때문에."
+            },
+            {
+              "text": "Because Caesar has written to her privately.",
+              "textKo": "카이사르가 그녀에게 몰래 편지했기 때문에."
+            },
+            {
+              "text": "He has been false to Fulvia — so it is riotous madness to be entangled with mouth-made vows which break themselves in the swearing.",
+              "textKo": "그가 풀비아를 저버렸으므로 — 맹세하는 그 순간 스스로 깨지는 입발림 서약에 얽매이는 것은 방자한 광기라고."
+            },
+            {
+              "text": "Because Charmian overheard him plotting.",
+              "textKo": "카미안이 그가 꾸미는 말을 엿들었기 때문에."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "Who have been false to Fulvia? Riotous madness, To be entangled with those mouth-made vows"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Cleopatra recall the time when Antony sued to stay?",
+          "questionKo": "안토니가 머물게 해 달라 청하던 때를 클레오파트라는 어떻게 회상하는가?",
+          "options": [
+            {
+              "text": "That he then spoke only of Rome and duty.",
+              "textKo": "그때도 그는 로마와 의무만 말했다고."
+            },
+            {
+              "text": "That she had already foreseen this parting.",
+              "textKo": "이 이별을 그때 이미 내다보았다고."
+            },
+            {
+              "text": "That Fulvia’s letters came even then.",
+              "textKo": "그때도 풀비아의 편지가 왔다고."
+            },
+            {
+              "text": "Eternity was in their lips and eyes, bliss in their brows’ bent; none of their parts so poor but was a race of heaven.",
+              "textKo": "입술과 눈에 영원이 있었고 눈썹의 굽이에 지복이 있었으며, 그들의 어느 부분도 하늘의 혈통이 아닌 것이 없었다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Eternity was in our lips and eyes, Bliss in our brows’ bent"
+        },
+        {
+          "type": "multiple",
+          "question": "What state of Italy does Antony give as the reason he must go?",
+          "questionKo": "안토니가 떠나야 하는 까닭으로 드는 이탈리아의 정세는?",
+          "options": [
+            {
+              "text": "Italy shines o’er with civil swords; Sextus Pompeius makes his approaches to the port of Rome, and quietness grown sick of rest would purge by any desperate change.",
+              "textKo": "이탈리아가 내전의 칼로 번쩍이고, 섹스투스 폼페이우스가 로마 항구로 다가오며, 안식에 지친 평온이 어떤 무모한 변화로든 몸을 비우려 한다고."
+            },
+            {
+              "text": "That Parthia has crossed into Greece.",
+              "textKo": "파르티아가 그리스로 넘어왔다고."
+            },
+            {
+              "text": "That Caesar has been assassinated in the senate.",
+              "textKo": "카이사르가 원로원에서 암살되었다고."
+            },
+            {
+              "text": "That his legions have refused their oath.",
+              "textKo": "그의 군단이 충성 서약을 거부했다고."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Our Italy Shines o’er with civil swords"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Cleopatra conclude from how Antony reports Fulvia’s death?",
+          "questionKo": "풀비아의 죽음을 전하는 안토니의 태도에서 클레오파트라가 끌어내는 결론은?",
+          "options": [
+            {
+              "text": "That the letter must be a forgery.",
+              "textKo": "그 편지가 위조임이 틀림없다고."
+            },
+            {
+              "text": "Where are the sacred vials of sorrowful water? In Fulvia’s death she sees how her own shall be received.",
+              "textKo": "슬픔의 물을 채울 성스러운 병은 어디 있느냐고 — 풀비아의 죽음에서 제 죽음이 어떻게 받아들여질지 본다고."
+            },
+            {
+              "text": "That Antony killed Fulvia himself.",
+              "textKo": "안토니가 직접 풀비아를 죽였다고."
+            },
+            {
+              "text": "That he will now marry her instead.",
+              "textKo": "이제 자기와 혼인하리라고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "In Fulvia’s death, how mine received shall be"
+        },
+        {
+          "type": "multiple",
+          "question": "What oath does Antony swear about how he leaves?",
+          "questionKo": "안토니는 어떤 마음으로 떠나는지 무엇을 걸고 맹세하는가?",
+          "options": [
+            {
+              "text": "By his sword, that he will return within the month.",
+              "textKo": "제 칼을 걸고 한 달 안에 돌아오겠다고."
+            },
+            {
+              "text": "By Rome, that he will never see Egypt again.",
+              "textKo": "로마를 걸고 다시는 이집트를 보지 않겠다고."
+            },
+            {
+              "text": "By the fire that quickens Nilus’ slime, he goes hence her soldier and servant, making peace or war as she chooses.",
+              "textKo": "나일의 진흙에 생명을 불어넣는 불을 걸고, 그녀의 병사이자 종으로서 떠나며 그녀의 뜻대로 화친하거나 싸우겠다고."
+            },
+            {
+              "text": "By Isis, that he will bring Caesar’s head back.",
+              "textKo": "이시스를 걸고 카이사르의 목을 가져오겠다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "By the fire That quickens Nilus’ slime, I go from hence Thy soldier, servant"
+        },
+        {
+          "type": "multiple",
+          "question": "How does Antony describe their separation in his parting lines?",
+          "questionKo": "작별의 대사에서 안토니는 두 사람의 이별을 어떻게 말하는가?",
+          "options": [
+            {
+              "text": "That the sea between them is only a night’s sail.",
+              "textKo": "두 사람 사이의 바다는 하룻밤 항해거리일 뿐이라고."
+            },
+            {
+              "text": "That parting is a small price for an empire.",
+              "textKo": "제국을 얻는 데 이별은 작은 값이라고."
+            },
+            {
+              "text": "That he will forget her the moment Rome is in sight.",
+              "textKo": "로마가 보이는 순간 그녀를 잊으리라고."
+            },
+            {
+              "text": "Their separation so abides and flies that she, residing here, goes yet with him, and he, fleeting hence, remains with her.",
+              "textKo": "이별이 머무르면서 동시에 날아가므로, 여기 남는 그녀가 그와 함께 가고, 떠나는 그가 그녀와 함께 남는다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "That thou, residing here, go’st yet with me, And I, hence fleeting, here remain with thee"
+        }
+      ]
+    }
+  ]
+}

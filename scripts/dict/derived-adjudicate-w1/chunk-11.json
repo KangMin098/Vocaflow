@@ -1,0 +1,577 @@
+[
+ {
+  "word": "scrum",
+  "meaning_ko": "(럭비) 스크럼 — 양 팀 포워드들이 어깨를 맞대고 공을 다투는 대형",
+  "pos": "noun",
+  "candidates": [
+   "scrum half",
+   "scrummage",
+   "scrump",
+   "scrumptious",
+   "scrumpy"
+  ]
+ },
+ {
+  "word": "skiff",
+  "meaning_ko": "스키프, 작은 보트",
+  "pos": "noun",
+  "candidates": [
+   "skiffle"
+  ]
+ },
+ {
+  "word": "sledge",
+  "meaning_ko": "썰매",
+  "pos": "noun",
+  "candidates": [
+   "sledgehammer"
+  ]
+ },
+ {
+  "word": "sleigh",
+  "meaning_ko": "썰매 — 말·순록이 끄는, 눈·얼음 위를 활주하는 큰 썰매 (sled보다 큼)",
+  "pos": "noun",
+  "candidates": [
+   "sleight"
+  ]
+ },
+ {
+  "word": "slope",
+  "meaning_ko": "경사; 경사지다",
+  "pos": "noun",
+  "candidates": [
+   "slopestyle"
+  ]
+ },
+ {
+  "word": "stake",
+  "meaning_ko": "지분",
+  "pos": "noun",
+  "candidates": [
+   "stake out",
+   "stake-out",
+   "stakeholder"
+  ]
+ },
+ {
+  "word": "steeplechase",
+  "meaning_ko": "장애물 경마 — 들판이나 장애물 코스를 달리는 경마",
+  "pos": "noun",
+  "candidates": [
+   "steeplechaser"
+  ]
+ },
+ {
+  "word": "trolley",
+  "meaning_ko": "수레, 카트; 쇼핑 카트",
+  "pos": "noun",
+  "candidates": [
+   "trolleybus"
+  ]
+ },
+ {
+  "word": "turf",
+  "meaning_ko": "잔디, 잔디밭 (흙째 떠 낸 잔디 조각)",
+  "pos": "noun",
+  "candidates": [
+   "turf war"
+  ]
+ },
+ {
+  "word": "volley",
+  "meaning_ko": "(테니스·축구) 발리 — 공이 땅에 닿기 전에 치거나 차는 것",
+  "pos": "noun",
+  "candidates": [
+   "volleyball"
+  ]
+ },
+ {
+  "word": "wakeboard",
+  "meaning_ko": "웨이크보드를 타다",
+  "pos": "verb",
+  "candidates": [
+   "wakeboarding"
+  ]
+ },
+ {
+  "word": "waterski",
+  "meaning_ko": "수상스키를 타다",
+  "pos": "verb",
+  "candidates": [
+   "waterskiing"
+  ]
+ },
+ {
+  "word": "wicket",
+  "meaning_ko": "(크리켓) 위켓 — 세 개의 기둥과 두 개의 가로 막대로 된 표적",
+  "pos": "noun",
+  "candidates": [
+   "wicketkeeper"
+  ]
+ },
+ {
+  "word": "windsurf",
+  "meaning_ko": "윈드서핑하다",
+  "pos": "verb",
+  "candidates": [
+   "windsurfer",
+   "windsurfing"
+  ]
+ },
+ {
+  "word": "carib",
+  "meaning_ko": "카리브 원주민",
+  "pos": "noun",
+  "candidates": [
+   "caribe",
+   "caribou"
+  ]
+ },
+ {
+  "word": "collar",
+  "meaning_ko": "(옷의) 옷깃, 칼라",
+  "pos": "noun",
+  "candidates": [
+   "collarbone",
+   "collard"
+  ]
+ },
+ {
+  "word": "coupon",
+  "meaning_ko": "쿠폰, 할인권",
+  "pos": "noun",
+  "candidates": [
+   "couponing"
+  ]
+ },
+ {
+  "word": "danish",
+  "meaning_ko": "덴마크의, 덴마크인의",
+  "pos": "adjective",
+  "candidates": [
+   "danish blue"
+  ]
+ },
+ {
+  "word": "dial",
+  "meaning_ko": "다이얼, 문자판",
+  "pos": "noun",
+  "candidates": [
+   "dial in",
+   "dial into",
+   "dial up",
+   "dial-up",
+   "dialect",
+   "dialectic",
+   "dialog",
+   "dialog box",
+   "dialogue",
+   "dialyse",
+   "dialysis"
+  ]
+ },
+ {
+  "word": "environ",
+  "meaning_ko": "둘러싸다, 에워싸다",
+  "pos": "verb",
+  "candidates": [
+   "environment",
+   "environmental",
+   "environs"
+  ]
+ },
+ {
+  "word": "gulf",
+  "meaning_ko": "만(큰 만); 큰 격차, 간극",
+  "pos": "noun",
+  "candidates": [
+   "gulfstream",
+   "gulfweed"
+  ]
+ },
+ {
+  "word": "heir",
+  "meaning_ko": "상속인",
+  "pos": "noun",
+  "candidates": [
+   "heiress",
+   "heirloom"
+  ]
+ },
+ {
+  "word": "inarticulate",
+  "meaning_ko": "생각·감정을 말로 분명히 표현하지 못하는",
+  "pos": "adjective",
+  "candidates": [
+   "inarticulately"
+  ]
+ },
+ {
+  "word": "million",
+  "meaning_ko": "백만",
+  "pos": "noun",
+  "candidates": [
+   "millionaire"
+  ]
+ },
+ {
+  "word": "parse",
+  "meaning_ko": "문법적으로 분석하다; (컴퓨터) 파싱하다",
+  "pos": "verb",
+  "candidates": [
+   "parsec",
+   "parsee"
+  ]
+ },
+ {
+  "word": "spoof",
+  "meaning_ko": "(가볍게) 패러디하다, 풍자하다",
+  "pos": "verb",
+  "candidates": [
+   "spoofing"
+  ]
+ },
+ {
+  "word": "trill",
+  "meaning_ko": "(음악) 트릴 — 인접한 두 음을 빠르게 번갈아 내는 꾸밈음",
+  "pos": "noun",
+  "candidates": [
+   "trillion",
+   "trillium"
+  ]
+ },
+ {
+  "word": "barber",
+  "meaning_ko": "이발사",
+  "pos": "noun",
+  "candidates": [
+   "barberry",
+   "barbershop"
+  ]
+ },
+ {
+  "word": "bingo",
+  "meaning_ko": "빙고",
+  "pos": "noun",
+  "candidates": [
+   "bingo wings"
+  ]
+ },
+ {
+  "word": "boule",
+  "meaning_ko": "불(boules) 게임에 쓰는 쇠공",
+  "pos": "noun",
+  "candidates": [
+   "boulevard"
+  ]
+ },
+ {
+  "word": "collage",
+  "meaning_ko": "콜라주 — 여러 그림·사진을 오려 붙여 만든 작품",
+  "pos": "noun",
+  "candidates": [
+   "collagen",
+   "collagenase"
+  ]
+ },
+ {
+  "word": "compass",
+  "meaning_ko": "나침반",
+  "pos": "noun",
+  "candidates": [
+   "compassion",
+   "compassionate"
+  ]
+ },
+ {
+  "word": "confectioner",
+  "meaning_ko": "제과업자",
+  "pos": "noun",
+  "candidates": [
+   "confectionery"
+  ]
+ },
+ {
+  "word": "croquet",
+  "meaning_ko": "크로케",
+  "pos": "noun",
+  "candidates": [
+   "croquette"
+  ]
+ },
+ {
+  "word": "deli",
+  "meaning_ko": "조제 식품점",
+  "pos": "noun",
+  "candidates": [
+   "deliberate",
+   "delicacy",
+   "delicate",
+   "delicately",
+   "delicious",
+   "delict",
+   "delight",
+   "delighted",
+   "delightful",
+   "delimit",
+   "delineate"
+  ]
+ },
+ {
+  "word": "draper",
+  "meaning_ko": "포목상",
+  "pos": "noun",
+  "candidates": [
+   "drapery"
+  ]
+ },
+ {
+  "word": "frag",
+  "meaning_ko": "(게임) 적을 처치하다; 수류탄으로 살해하다",
+  "pos": "verb",
+  "candidates": [
+   "fragile",
+   "fragility",
+   "fragment",
+   "fragrance",
+   "fragrant"
+  ]
+ },
+ {
+  "word": "handicraft",
+  "meaning_ko": "수공예품, 수공예",
+  "pos": "noun",
+  "candidates": [
+   "handicraftsmen"
+  ]
+ },
+ {
+  "word": "ironmonger",
+  "meaning_ko": "철물상 (영국)",
+  "pos": "noun",
+  "candidates": [
+   "ironmongery"
+  ]
+ },
+ {
+  "word": "jack",
+  "meaning_ko": "잭 (들어 올리는 기구); 카드 잭; 콘센트 잭",
+  "pos": "noun",
+  "candidates": [
+   "jack up",
+   "jackal",
+   "jackalope",
+   "jackanapes",
+   "jackaroo",
+   "jackass",
+   "jackboot",
+   "jackdaw",
+   "jacked",
+   "jacket",
+   "jackfruit",
+   "jackhammer",
+   "jackknife",
+   "jackleg",
+   "jackpot",
+   "jackrabbit"
+  ]
+ },
+ {
+  "word": "oversea",
+  "meaning_ko": "해외의 (overseas 변형)",
+  "pos": "adjective",
+  "candidates": [
+   "overseas"
+  ]
+ },
+ {
+  "word": "pawn",
+  "meaning_ko": "(체스) 폰, 졸 — 가장 작고 수가 많은 말",
+  "pos": "noun",
+  "candidates": [
+   "pawnbroker",
+   "pawnee",
+   "pawnshop"
+  ]
+ },
+ {
+  "word": "platform",
+  "meaning_ko": "플랫폼, 발판, 기반",
+  "pos": "noun",
+  "candidates": [
+   "platform game"
+  ]
+ },
+ {
+  "word": "sigh",
+  "meaning_ko": "한숨 쉬다; 한숨",
+  "pos": "verb",
+  "candidates": [
+   "sight",
+   "sighted",
+   "sightless",
+   "sightsee",
+   "sightseer"
+  ]
+ },
+ {
+  "word": "spark",
+  "meaning_ko": "불꽃, 불똥; 계기",
+  "pos": "noun",
+  "candidates": [
+   "spark plug",
+   "spark up",
+   "sparkle",
+   "sparkling",
+   "sparkly"
+  ]
+ },
+ {
+  "word": "talent",
+  "meaning_ko": "재능, 소질",
+  "pos": "noun",
+  "candidates": [
+   "talented"
+  ]
+ },
+ {
+  "word": "undermine",
+  "meaning_ko": "(서서히) 약화시키다, (자신감·권위를) 떨어뜨리다",
+  "pos": "verb",
+  "candidates": [
+   "underminers"
+  ]
+ },
+ {
+  "word": "bolt",
+  "meaning_ko": "볼트",
+  "pos": "noun",
+  "candidates": [
+   "bolt-on"
+  ]
+ },
+ {
+  "word": "cache",
+  "meaning_ko": "(컴퓨터) 캐시 — 자주 쓰는 정보를 담아 두는 빠른 임시 저장 공간",
+  "pos": "verb",
+  "candidates": [
+   "cachepot",
+   "cachet",
+   "cachexia"
+  ]
+ },
+ {
+  "word": "electrode",
+  "meaning_ko": "전극",
+  "pos": "noun",
+  "candidates": [
+   "electrodermal"
+  ]
+ },
+ {
+  "word": "experimental",
+  "meaning_ko": "실험적인",
+  "pos": "adjective",
+  "candidates": [
+   "experimentally"
+  ]
+ },
+ {
+  "word": "lathe",
+  "meaning_ko": "선반 (공작 기계)",
+  "pos": "noun",
+  "candidates": [
+   "lather",
+   "lathery"
+  ]
+ },
+ {
+  "word": "macro",
+  "meaning_ko": "(컴퓨터) 매크로 — 여러 명령을 하나로 묶어 한 번에 실행하게 하는 자동화 명령",
+  "pos": "noun",
+  "candidates": [
+   "macrobiotic",
+   "macrocosm",
+   "macrocosmos",
+   "macron",
+   "macrophage",
+   "macrophyte",
+   "macros",
+   "macroscopic"
+  ]
+ },
+ {
+  "word": "nought",
+  "meaning_ko": "영, 0 (영국식); 아무것도 아닌 것, 무(無) (come to nought 수포로 돌아가다)",
+  "pos": "noun",
+  "candidates": [
+   "noughties"
+  ]
+ },
+ {
+  "word": "ozone",
+  "meaning_ko": "오존",
+  "pos": "noun",
+  "candidates": [
+   "ozone hole",
+   "ozone layer"
+  ]
+ },
+ {
+  "word": "photoelectric",
+  "meaning_ko": "광전 효과의",
+  "pos": "adjective",
+  "candidates": [
+   "photoelectric cell"
+  ]
+ },
+ {
+  "word": "pint",
+  "meaning_ko": "파인트 (부피 단위)",
+  "pos": "noun",
+  "candidates": [
+   "pinta",
+   "pintail",
+   "pinto"
+  ]
+ },
+ {
+  "word": "quart",
+  "meaning_ko": "쿼트",
+  "pos": "noun",
+  "candidates": [
+   "quarte",
+   "quarter",
+   "quarterback",
+   "quarterdeck",
+   "quarterings",
+   "quarterly",
+   "quartern",
+   "quartet",
+   "quartic",
+   "quartier",
+   "quartile",
+   "quarto",
+   "quartz",
+   "quartzite"
+  ]
+ },
+ {
+  "word": "silicon",
+  "meaning_ko": "규소",
+  "pos": "noun",
+  "candidates": [
+   "silicon chip"
+  ]
+ },
+ {
+  "word": "sine",
+  "meaning_ko": "사인",
+  "pos": "noun",
+  "candidates": [
+   "sinecure",
+   "sinew",
+   "sinewy"
+  ]
+ }
+]

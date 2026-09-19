@@ -1,0 +1,96 @@
+{
+ "total": 127,
+ "byStatus": {
+  "SOFT": 51,
+  "REJECTED": 47,
+  "HARD": 24,
+  "HARD_CAND": 4,
+  "UNTESTED": 1
+ },
+ "coverageDecided": 99.2,
+ "coverageFullExam": 65.4,
+ "coverageRule": 22,
+ "bySec": {
+  "0": {
+   "total": 8,
+   "decided": 8,
+   "stale": 0,
+   "untested": 0,
+   "full": 1
+  },
+  "1": {
+   "total": 7,
+   "decided": 7,
+   "stale": 0,
+   "untested": 0,
+   "full": 4
+  },
+  "2": {
+   "total": 5,
+   "decided": 5,
+   "stale": 0,
+   "untested": 0,
+   "full": 5
+  },
+  "3": {
+   "total": 15,
+   "decided": 15,
+   "stale": 0,
+   "untested": 0,
+   "full": 9
+  },
+  "4": {
+   "total": 16,
+   "decided": 16,
+   "stale": 0,
+   "untested": 0,
+   "full": 14
+  },
+  "5": {
+   "total": 17,
+   "decided": 17,
+   "stale": 0,
+   "untested": 0,
+   "full": 15
+  },
+  "6": {
+   "total": 9,
+   "decided": 9,
+   "stale": 0,
+   "untested": 0,
+   "full": 5
+  },
+  "7": {
+   "total": 7,
+   "decided": 6,
+   "stale": 0,
+   "untested": 1,
+   "full": 2
+  },
+  "8": {
+   "total": 18,
+   "decided": 18,
+   "stale": 0,
+   "untested": 0,
+   "full": 10
+  },
+  "9": {
+   "total": 6,
+   "decided": 6,
+   "stale": 0,
+   "untested": 0,
+   "full": 4
+  },
+  "10": {
+   "total": 19,
+   "decided": 19,
+   "stale": 0,
+   "untested": 0,
+   "full": 14
+  }
+ },
+ "stale": [],
+ "untested": [
+  "P7.5"
+ ]
+}

@@ -1,0 +1,65 @@
+{
+  "measured_at": "2026-08-21T14:06:09.858Z",
+  "dict": 32694,
+  "byBand": [
+    {
+      "band": 5,
+      "sentences": 10482,
+      "blank": 5640,
+      "fix": 1770
+    },
+    {
+      "band": 3,
+      "sentences": 3281,
+      "blank": 2318,
+      "fix": 787
+    },
+    {
+      "band": 4,
+      "sentences": 6918,
+      "blank": 4141,
+      "fix": 1403
+    },
+    {
+      "band": 6,
+      "sentences": 10197,
+      "blank": 4877,
+      "fix": 1605
+    },
+    {
+      "band": 2,
+      "sentences": 2391,
+      "blank": 1772,
+      "fix": 661
+    },
+    {
+      "band": 8,
+      "sentences": 180,
+      "blank": 62,
+      "fix": 20
+    },
+    {
+      "band": 7,
+      "sentences": 842,
+      "blank": 353,
+      "fix": 125
+    },
+    {
+      "band": 9,
+      "sentences": 33,
+      "blank": 2,
+      "fix": 0
+    },
+    {
+      "band": 1,
+      "sentences": 13,
+      "blank": 12,
+      "fix": 2
+    }
+  ],
+  "total": {
+    "sentences": 34337,
+    "blank": 19177,
+    "fix": 6373
+  }
+}

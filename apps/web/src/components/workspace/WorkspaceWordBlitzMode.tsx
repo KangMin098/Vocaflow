@@ -102,11 +102,11 @@ export function WorkspaceWordBlitzMode({
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
           WordBlitz 시작 불가
         </h2>
-        <p className="max-w-md font-body text-[13px] text-[var(--t3)]">{error}</p>
+        <p className="max-w-md font-body text-[13px] text-[var(--t2)]">{error}</p>
         <button
           type="button"
           onClick={handleExit}
-          className="mt-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="mt-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           읽기로 돌아가기
         </button>

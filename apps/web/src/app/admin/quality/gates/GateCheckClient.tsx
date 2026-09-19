@@ -115,7 +115,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                 setKind(k)
                 setRows(null)
               }}
-              className={`rounded-[var(--r-md)] border px-3 py-2 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
+              className={`min-h-[44px] rounded-[var(--r-md)] border px-3 py-2 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
                 kind === k
                   ? 'border-[#8B5CF6] bg-[#8B5CF6]/10 text-[#8B5CF6]'
                   : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:text-[var(--t1)]'
@@ -132,7 +132,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
               setBookId(e.target.value)
               setRows(null)
             }}
-            className="min-w-[240px] flex-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            className="min-h-[44px] min-w-[240px] flex-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
           >
             {books.map((b) => (
               <option key={b.id} value={b.id}>
@@ -148,7 +148,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
               setArticleId(e.target.value)
               setRows(null)
             }}
-            className="min-w-[240px] flex-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            className="min-h-[44px] min-w-[240px] flex-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
           >
             {articles.map((a) => (
               <option key={a.id} value={a.id}>
@@ -162,7 +162,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
           type="button"
           onClick={run}
           disabled={loading || (kind === 'book' ? !bookId : !articleId)}
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <ShieldCheck size={14} />}
           게이트 실행
@@ -178,7 +178,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
       {rows !== null && (
         <div className="space-y-2">
           <p
-            className={`rounded-[var(--r-md)] px-4 py-2.5 font-display text-[14px] font-[700] ${
+            className={`rounded-[var(--r-md)] px-4 py-3 font-display text-[14px] font-[700] ${
               safe ? 'bg-[#2E7D5A]/10 text-[#2E7D5A]' : 'bg-[#9C3A30]/10 text-[#9C3A30]'
             }`}
           >
@@ -192,16 +192,16 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
               .map((r) => (
                 <li
                   key={r.pipeline + r.invariant}
-                  className="flex items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2"
+                  className="flex items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className={`rounded-[var(--r-sm)] px-2 py-0.5 font-mono text-[10px] font-[700] ${V[r.verdict].bg} ${V[r.verdict].fg}`}>
+                  <div className="flex items-center gap-3">
+                    <span className={`rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700] ${V[r.verdict].bg} ${V[r.verdict].fg}`}>
                       {r.verdict}
                     </span>
-                    <span className="font-mono text-[10px] text-[var(--t3)]">{r.pipeline}</span>
+                    <span className="font-mono text-[10px] text-[var(--t2)]">{r.pipeline}</span>
                     <span className="font-body text-[13px] text-[var(--t1)]">{r.invariant}</span>
                   </div>
-                  <span className="font-mono text-[11px] text-[var(--t3)]">
+                  <span className="font-mono text-[11px] text-[var(--t2)]">
                     {r.verdict === 'PASS' ? '0' : `${r.fail_count}건`}
                   </span>
                 </li>
@@ -216,13 +216,13 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                   type="button"
                   onClick={loadDetails}
                   disabled={detailsLoading}
-                  className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[#9C3A30]/40 bg-[#9C3A30]/8 px-3 py-1.5 font-display text-[12px] font-[600] text-[#9C3A30] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#9C3A30]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9C3A30] disabled:opacity-50"
+                  className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[#9C3A30]/40 bg-[#9C3A30]/8 px-3 py-2 font-display text-[12px] font-[600] text-[#9C3A30] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#9C3A30]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9C3A30] disabled:opacity-50"
                 >
                   {detailsLoading ? <Loader2 size={13} className="animate-spin" /> : null}
                   상세 원인 보기 (문제 단어)
                 </button>
               ) : details.length === 0 ? (
-                <p className="font-body text-[12px] text-[var(--t3)]">
+                <p className="font-body text-[12px] text-[var(--t2)]">
                   단어 레벨 상세 없음 — 파이프라인 레벨 FAIL(레벨·register·드리프트)은 상단 요약과
                   §5 대응표(런북) 참조.
                 </p>
@@ -231,7 +231,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                   {details.map((d, i) => (
                     <li key={`${d.invariant}-${d.word}-${i}`} className="rounded-[var(--r-sm)] bg-[#9C3A30]/6 px-3 py-2">
                       <div className="flex items-baseline gap-2">
-                        <span className="rounded-[var(--r-sm)] bg-[#9C3A30]/12 px-1.5 py-0.5 font-mono text-[10px] text-[#9C3A30]">
+                        <span className="rounded-[var(--r-sm)] bg-[#9C3A30]/12 px-2 py-1 font-mono text-[10px] text-[#9C3A30]">
                           {d.invariant}
                         </span>
                         <span className="font-display text-[14px] font-[700] text-[var(--t1)]">{d.word}</span>
@@ -241,7 +241,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                       </div>
                       <p className="mt-0.5 font-body text-[12px] text-[#9C3A30]">{d.issue}</p>
                       {d.fix_hint && (
-                        <p className="font-mono text-[10px] text-[var(--t3)]">→ 고침: {d.fix_hint}</p>
+                        <p className="font-mono text-[10px] text-[var(--t2)]">→ 고침: {d.fix_hint}</p>
                       )}
                     </li>
                   ))}

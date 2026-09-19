@@ -1,0 +1,33 @@
+# 코퍼스 표본 (export-corpus.ts 생성 · git 미추적)
+
+- elife-1-mouthparts-of-the-bumblebee-bombus-terrestris-ex.txt — elife · CC-BY-4.0 · V5 · 2042자
+- elife-2-intermittent-fasting-promotes-type-3-innate-lymp.txt — elife · CC-BY-4.0 · V6 · 2018자
+- factbook-1-saudi-arabia.txt — factbook · Public Domain (US Government) · V6 · 3848자
+- factbook-2-south-korea.txt — factbook · Public Domain (US Government) · V6 · 3818자
+- factbook-3-south-africa.txt — factbook · Public Domain (US Government) · V6 · 2397자
+- nasa-1-world-cup-fever-in-guadalajara---nasa-science.txt — nasa · PD-Government · V6 · 8434자
+- nasa-2-nasas-chandra-discovers-possible-supernova-remna.txt — nasa · PD-Government · V6 · 7896자
+- nasa-3-expedition-73-crew-reflects-on-science-teamwork-.txt — nasa · PD-Government · V5 · 7712자
+- noaa-1-climate-change-incoming-sunlight.txt — noaa · Public Domain (US Government) · V5 · 12000자
+- noaa-2-climate-change-global-temperature.txt — noaa · Public Domain (US Government) · V5 · 7427자
+- noaa-3-climate-change-atmospheric-carbon-dioxide.txt — noaa · Public Domain (US Government) · V5 · 6546자
+- owid-1-most-people-care-about-farm-animals-our-food-sys.txt — owid · CC-BY-4.0 · V5 · 12000자
+- owid-2-childhood-stunting-fell-dramatically-over-the-20.txt — owid · CC-BY-4.0 · V5 · 12000자
+- owid-3-south-koreas-population-is-set-to-shrink-what-wo.txt — owid · CC-BY-4.0 · V5 · 9210자
+- plos-1-influence-of-public-external-debt-on-government-.txt — plos · CC-BY-4.0 · V6 · 12000자
+- plos-2-the-relationship-between-esports-and-cognitive-f.txt — plos · CC-BY-4.0 · V6 · 12000자
+- plos-3-sepsis-neonatorum-bacterial-profile-antimicrobia.txt — plos · CC-BY-4.0 · V7 · 12000자
+- simple_wikipedia-1-evolution.txt — simple_wikipedia · CC-BY-SA-4.0 · V6 · 12000자
+- simple_wikipedia-2-lawrence-kansas.txt — simple_wikipedia · CC-BY-SA-4.0 · V5 · 12000자
+- simple_wikipedia-3-bird.txt — simple_wikipedia · CC-BY-SA-4.0 · V6 · 12000자
+- usgs-1-usgs-geologic-mapping-project-supports-critical-.txt — usgs · Public Domain (US Government) · V6 · 5581자
+- usgs-2-what-a-solar-superstorm-could-mean-for-the-us.txt — usgs · Public Domain (US Government) · V5 · 5443자
+- usgs-3-seeing-water-from-space.txt — usgs · Public Domain (US Government) · V5 · 4780자
+- voa-1-the-open-boat-by-stephen-crane-part-two.txt — voa · PD-Government · V3 · 8258자
+- voa-2-common-adverbs-in-conversation-amplifiers-downto.txt — voa · PD-Government · V4 · 6781자
+- voa-3-images-can-help-you-retain-vocabulary.txt — voa · PD-Government · V4 · 5943자
+- wikipedia-1-black-hole.txt — wikipedia · CC-BY-SA-4.0 · V6 · 12000자
+- wikipedia-2-photosynthesis.txt — wikipedia · CC-BY-SA-4.0 · V6 · 12000자
+- wikivoyage-1-prague.txt — wikivoyage · CC-BY-SA-4.0 · V5 · 12000자
+- wikivoyage-2-walt-disney-worldmagic-kingdom.txt — wikivoyage · CC-BY-SA-4.0 · V6 · 12000자
+- wikivoyage-3-kyoto.txt — wikivoyage · CC-BY-SA-4.0 · V5 · 12000자

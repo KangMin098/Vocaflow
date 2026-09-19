@@ -1,6 +1,9 @@
+// apps/web/src/app/admin/vocab/collections/page.tsx
+
 import Link from 'next/link'
 import { Layers, ExternalLink, ArrowLeft, AlertTriangle, CheckCircle2 } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { fetchVcbCollections } from '@/lib/vcb/server/runs'
 
 export const dynamic = 'force-dynamic'
@@ -13,11 +16,11 @@ export default async function VcbCollectionsPage() {
       <AdminPageHeader
         icon={Layers}
         title="발행 컬렉션"
-        description="VCB 파이프라인으로 발행된 공용 단어장"
+        description="VCB 가 발행한 공용 단어장 — 8-step run 산출물 + 단어장 Studio 산출물"
         actions={
           <Link
             href="/admin/vocab/runs"
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
             style={{ color: 'var(--t2)', borderColor: 'var(--bd)', background: 'var(--bg)' }}
           >
             <ArrowLeft className="w-4 h-4" />
@@ -25,6 +28,8 @@ export default async function VcbCollectionsPage() {
           </Link>
         }
       />
+
+      <AdminScreenHelp screen="vocab-collections" className="mb-6" />
 
       {collections.length > 0 ? (
         <div className="flex flex-col gap-3 mt-8">
@@ -36,28 +41,49 @@ export default async function VcbCollectionsPage() {
                 className="flex items-start gap-4 p-4 rounded-[var(--r-lg)] border"
                 style={{ background: 'var(--bg)', borderColor: 'var(--bd)' }}
               >
-                <div
-                  className="w-10 h-10 rounded-[var(--r-md)] flex items-center justify-center shrink-0"
-                  style={{
-                    background: c.is_published ? 'var(--success-light)' : 'var(--bg3)',
-                    color: c.is_published ? 'var(--success)' : 'var(--t3)',
-                  }}
-                >
-                  {c.is_published ? <CheckCircle2 className="w-5 h-5" /> : <Layers className="w-5 h-5" />}
-                </div>
+                {/*
+                  표지 썸네일 — 관리자가 **학습자가 볼 그림을 그대로** 확인하는 자리.
+                  이게 없으면 표지가 엉뚱해도(검색으로 붙이므로 반드시 생긴다) 어드민에서는
+                  알 수 없고, 학습자 카탈로그를 열어 봐야만 발견된다.
+                  표지가 없는 세트는 종전 상태 아이콘을 그대로 쓴다.
+                */}
+                {c.cover_image_url ? (
+                  <img
+                    src={c.cover_image_url}
+                    alt=""
+                    className="w-10 h-[52px] rounded-[var(--r-sm)] object-cover shrink-0 border"
+                    style={{ borderColor: 'var(--bd)' }}
+                  />
+                ) : (
+                  <div
+                    className="w-10 h-10 rounded-[var(--r-md)] flex items-center justify-center shrink-0"
+                    style={{
+                      background: c.is_published ? 'var(--success-light)' : 'var(--bg3)',
+                      color: c.is_published ? 'var(--success)' : 'var(--t3)',
+                    }}
+                  >
+                    {c.is_published ? <CheckCircle2 className="w-5 h-5" /> : <Layers className="w-5 h-5" />}
+                  </div>
+                )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-display font-semibold text-base" style={{ color: 'var(--t1)' }}>
                       {c.title}
                     </span>
                     <span
-                      className="text-[11px] font-mono px-2 py-0.5 rounded-[var(--r-full)]"
+                      className="text-[11px] font-mono px-2 py-1 rounded-[var(--r-full)]"
                       style={{ background: 'var(--bg3)', color: 'var(--t3)' }}
                     >
                       {c.category}
                     </span>
                     <span
-                      className="text-[11px] font-display font-medium px-2 py-0.5 rounded-[var(--r-full)]"
+                      className="text-[11px] font-display font-medium px-2 py-1 rounded-[var(--r-full)]"
+                      style={{ background: 'var(--bg2)', color: 'var(--t2)' }}
+                    >
+                      {c.producer === 'run' ? 'run' : 'Studio'}
+                    </span>
+                    <span
+                      className="text-[11px] font-display font-medium px-2 py-1 rounded-[var(--r-full)]"
                       style={{
                         background: c.is_published ? 'var(--success-light)' : 'var(--bg2)',
                         color: c.is_published ? 'var(--success)' : 'var(--t3)',
@@ -79,19 +105,29 @@ export default async function VcbCollectionsPage() {
                       </span>
                     )}
                     <span>·</span>
-                    <Link
-                      href={`/admin/vocab/runs/${c.source_run_id}`}
-                      className="font-display underline-offset-2 hover:underline"
-                      style={{ color: 'var(--p)' }}
-                    >
-                      Run #{c.source_run_id}
-                    </Link>
+                    {c.producer === 'run' ? (
+                      <Link
+                        href={`/admin/vocab/runs/${c.source_run_id}`}
+                        className="font-display underline-offset-2 hover:underline"
+                        style={{ color: 'var(--p)' }}
+                      >
+                        Run #{c.source_run_id}
+                      </Link>
+                    ) : (
+                      <Link
+                        href="/admin/vocab/studio"
+                        className="font-display underline-offset-2 hover:underline"
+                        style={{ color: 'var(--p)' }}
+                      >
+                        Studio · {c.blueprint}
+                      </Link>
+                    )}
                   </div>
                 </div>
                 <Link
                   href={`/library/vocab#set-${c.set_id}`}
                   target="_blank"
-                  className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0"
+                  className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0"
                   style={{ borderColor: 'var(--bd)', color: 'var(--p)', background: 'var(--bg)' }}
                 >
                   라이브러리에서 보기

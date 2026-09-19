@@ -1,0 +1,144 @@
+{
+  "gate": 1,
+  "at": "2026-09-17T09:06:38.595Z",
+  "sample_exams": [
+    "2026",
+    "M2706"
+  ],
+  "pass": true,
+  "criteria": {
+    "boundary": "≥ 0.95",
+    "sentence_anchor": "≥ 0.95"
+  },
+  "sample": {
+    "items": 56,
+    "boundary": 1,
+    "text_mean": 0.9950535714285714,
+    "choices_ok": 0.9090909090909091,
+    "choices_ok_reflow": 1,
+    "choice_mismatch": {
+      "db_noise": 4,
+      "reflow": []
+    },
+    "sentence_anchor": 0.9942418426103646,
+    "quote_found": 0.9941520467836257
+  },
+  "exams": [
+    {
+      "exam": "2026",
+      "items": 28,
+      "ms": 10,
+      "boundary": 1,
+      "text_mean": 0.9954285714285714,
+      "text_ge_95": 0.9285714285714286,
+      "choices_ok": 1,
+      "sentence_anchor": 0.9961240310077519,
+      "quote_found": 1,
+      "weak": [
+        {
+          "no": 38,
+          "type": "R-INSERT",
+          "reason": null,
+          "text": 0.947,
+          "choices": null,
+          "blame": null,
+          "sent": "8/8",
+          "quotes": "5/5"
+        },
+        {
+          "no": 39,
+          "type": "R-INSERT",
+          "reason": null,
+          "text": 0.945,
+          "choices": null,
+          "blame": null,
+          "sent": "7/7",
+          "quotes": "5/5"
+        },
+        {
+          "no": 40,
+          "type": "R-SUMMARY",
+          "reason": null,
+          "text": 1,
+          "choices": 1,
+          "blame": null,
+          "sent": "7/8",
+          "quotes": "5/5"
+        }
+      ]
+    },
+    {
+      "exam": "M2706",
+      "items": 28,
+      "ms": 5,
+      "boundary": 1,
+      "text_mean": 0.9946785714285715,
+      "text_ge_95": 1,
+      "choices_ok": 0.8181818181818182,
+      "sentence_anchor": 0.9923954372623575,
+      "quote_found": 0.9873417721518988,
+      "weak": [
+        {
+          "no": 24,
+          "type": "R-TITLE",
+          "reason": null,
+          "text": 1,
+          "choices": 0.889,
+          "blame": "db-noise",
+          "sent": "9/9",
+          "quotes": "3/3"
+        },
+        {
+          "no": 27,
+          "type": "R-NOTICE",
+          "reason": null,
+          "text": 1,
+          "choices": 1,
+          "blame": null,
+          "sent": "3/4",
+          "quotes": "0/1"
+        },
+        {
+          "no": 28,
+          "type": "R-NOTICE",
+          "reason": null,
+          "text": 1,
+          "choices": 1,
+          "blame": null,
+          "sent": "6/7",
+          "quotes": "5/5"
+        },
+        {
+          "no": 32,
+          "type": "R-BLANK",
+          "reason": null,
+          "text": 1,
+          "choices": 0.857,
+          "blame": "db-noise",
+          "sent": "8/8",
+          "quotes": "3/3"
+        },
+        {
+          "no": 36,
+          "type": "R-ORDER",
+          "reason": null,
+          "text": 1,
+          "choices": 0.75,
+          "blame": "db-noise",
+          "sent": "9/9",
+          "quotes": "5/5"
+        },
+        {
+          "no": 40,
+          "type": "R-SUMMARY",
+          "reason": null,
+          "text": 0.968,
+          "choices": 0.667,
+          "blame": "db-noise",
+          "sent": "0/0",
+          "quotes": "0/0"
+        }
+      ]
+    }
+  ]
+}

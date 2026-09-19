@@ -34,40 +34,40 @@ function posMeta(pos: string): PosMeta {
     .replace(/\.$/, '')
   switch (p) {
     case 'noun':
-      return { Icon: Box, label: 'n.', color: '#6366F1' }
+      return { Icon: Box, label: 'n.', color: 'var(--learn-fresh)' }
     case 'verb':
-      return { Icon: Zap, label: 'v.', color: '#F59E0B' }
+      return { Icon: Zap, label: 'v.', color: 'var(--memory-shaky)' }
     case 'adjective':
     case 'adj':
-      return { Icon: Palette, label: 'adj.', color: '#10B981' }
+      return { Icon: Palette, label: 'adj.', color: 'var(--memory-stable)' }
     case 'adverb':
     case 'adv':
-      return { Icon: Gauge, label: 'adv.', color: '#06B6D4' }
+      return { Icon: Gauge, label: 'adv.', color: 'var(--learn-progress)' }
     case 'pronoun':
-      return { Icon: User, label: 'pron.', color: '#8B5CF6' }
+      return { Icon: User, label: 'pron.', color: 'var(--p)' }
     case 'preposition':
-      return { Icon: Link2, label: 'prep.', color: '#64748B' }
+      return { Icon: Link2, label: 'prep.', color: 'var(--memory-new-ink)' }
     case 'conjunction':
-      return { Icon: Link, label: 'conj.', color: '#64748B' }
+      return { Icon: Link, label: 'conj.', color: 'var(--memory-new-ink)' }
     case 'determiner':
     case 'article':
-      return { Icon: Hash, label: 'det.', color: '#64748B' }
+      return { Icon: Hash, label: 'det.', color: 'var(--memory-new-ink)' }
     case 'interjection':
-      return { Icon: MessageCircle, label: 'interj.', color: '#EC4899' }
+      return { Icon: MessageCircle, label: 'interj.', color: 'var(--accent-plum)' }
     case 'idiom':
-      return { Icon: Quote, label: '관용구', color: '#8B5CF6' }
+      return { Icon: Quote, label: '관용구', color: 'var(--p)' }
     case 'phrasal_verb':
-      return { Icon: Combine, label: '구동사', color: '#F59E0B' }
+      return { Icon: Combine, label: '구동사', color: 'var(--memory-shaky)' }
     case 'abbreviation':
-      return { Icon: Type, label: '약어', color: '#64748B' }
+      return { Icon: Type, label: '약어', color: 'var(--memory-new-ink)' }
     case 'numeral':
-      return { Icon: Hash, label: '수사', color: '#64748B' }
+      return { Icon: Hash, label: '수사', color: 'var(--memory-new-ink)' }
     case 'auxiliary':
-      return { Icon: Zap, label: '조동사', color: '#F59E0B' }
+      return { Icon: Zap, label: '조동사', color: 'var(--memory-shaky)' }
     case 'prefix':
-      return { Icon: Type, label: '접두', color: '#64748B' }
+      return { Icon: Type, label: '접두', color: 'var(--memory-new-ink)' }
     default:
-      return { Icon: Tag, label: pos, color: '#94A3B8' }
+      return { Icon: Tag, label: pos, color: 'var(--memory-new-ink)' }
   }
 }
 
@@ -83,7 +83,7 @@ export function PosBadge({
   return (
     <span
       title={`품사: ${pos}`}
-      className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-body text-[10px] font-[600] text-[var(--t2)] ${className}`}
+      className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-1 font-body text-[10px] font-[600] text-[var(--t2)] ${className}`}
     >
       <Icon size={10} strokeWidth={2.25} aria-hidden style={{ color }} />
       {label}

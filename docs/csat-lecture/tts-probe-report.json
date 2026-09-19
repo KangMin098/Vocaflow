@@ -1,0 +1,252 @@
+{
+  "gate": 0,
+  "measuredAt": "2026-09-17T04:26:55.542Z",
+  "pass": true,
+  "browsers": [
+    {
+      "browser": "chrome",
+      "muted": false,
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "supported": true,
+      "voices": 19,
+      "koVoices": [
+        "Google 한국의 (network)"
+      ],
+      "enVoices": 1,
+      "chosen": {
+        "ko": "Google 한국의 (network)",
+        "en": "Google US English"
+      },
+      "boundary": {
+        "events": 0,
+        "supported": false,
+        "error": null
+      },
+      "calibration": {
+        "koSyllablesPerSec": 4.68,
+        "enWordsPerSec": 2.92,
+        "samples": [
+          {
+            "lang": "ko",
+            "units": 12,
+            "ms": 2952.5
+          },
+          {
+            "lang": "ko",
+            "units": 14,
+            "ms": 2862.800000000745
+          },
+          {
+            "lang": "ko",
+            "units": 15,
+            "ms": 2936.5999999996275
+          },
+          {
+            "lang": "en",
+            "units": 8,
+            "ms": 2818.699999999255
+          },
+          {
+            "lang": "en",
+            "units": 6,
+            "ms": 1981.9000000003725
+          }
+        ]
+      },
+      "long40": {
+        "expectedMs": 48504,
+        "actualMs": 42185,
+        "error": null,
+        "cut": false
+      },
+      "sequence": {
+        "result": "ok",
+        "cues": 6,
+        "completed": 6,
+        "lost": [],
+        "utteranceErrors": [],
+        "interCueGapMs": [
+          77,
+          79,
+          -23,
+          104,
+          108
+        ],
+        "holdEndToSoundMs": [
+          376,
+          379,
+          277,
+          403,
+          408
+        ],
+        "leadMs": 300,
+        "maxInterCueGapMs": 108,
+        "langSwitches": 4
+      },
+      "elapsedMs": 96123,
+      "pass": true,
+      "reasons": []
+    },
+    {
+      "browser": "edge",
+      "muted": false,
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36 Edg/153.0.0.0",
+      "supported": true,
+      "voices": 321,
+      "koVoices": [
+        "Microsoft 선히 Online (Natural) - Korean (Korea) (network)",
+        "Microsoft 인준 Online (Natural) - Korean (Korea) (network)",
+        "Microsoft Hyunsu Multilingual Online (Natural) - Korean (Korea) (network)"
+      ],
+      "enVoices": 17,
+      "chosen": {
+        "ko": "Microsoft 선히 Online (Natural) - Korean (Korea) (network)",
+        "en": "Microsoft Ava Online (Natural) - English (United States)"
+      },
+      "boundary": {
+        "events": 6,
+        "supported": true,
+        "error": null
+      },
+      "calibration": {
+        "koSyllablesPerSec": 3.89,
+        "enWordsPerSec": 2.55,
+        "samples": [
+          {
+            "lang": "ko",
+            "units": 12,
+            "ms": 3454.5999999996275
+          },
+          {
+            "lang": "ko",
+            "units": 14,
+            "ms": 3417.5
+          },
+          {
+            "lang": "ko",
+            "units": 15,
+            "ms": 3668.199999999255
+          },
+          {
+            "lang": "en",
+            "units": 8,
+            "ms": 3169.4000000003725
+          },
+          {
+            "lang": "en",
+            "units": 6,
+            "ms": 2321.199999999255
+          }
+        ]
+      },
+      "long40": {
+        "expectedMs": 58355,
+        "actualMs": 47129,
+        "error": null,
+        "cut": false
+      },
+      "sequence": {
+        "result": "ok",
+        "cues": 6,
+        "completed": 6,
+        "lost": [],
+        "utteranceErrors": [],
+        "interCueGapMs": [
+          48,
+          62,
+          107,
+          64,
+          -14
+        ],
+        "holdEndToSoundMs": [
+          138,
+          150,
+          185,
+          143,
+          78
+        ],
+        "leadMs": 127,
+        "maxInterCueGapMs": 107,
+        "langSwitches": 4
+      },
+      "elapsedMs": 105864,
+      "pass": true,
+      "reasons": []
+    }
+  ],
+  "note": "본 결과는 소리를 켠 실행(--audible). 음소거 실행도 PASS — mutedRun 에 둔다. 음소거가 끊김을 가릴 수 있어 둘 다 잰다.",
+  "mutedRun": {
+    "measuredAt": "2026-09-17T04:23:16.977Z",
+    "pass": true,
+    "browsers": [
+      {
+        "browser": "chrome",
+        "pass": true,
+        "sequence": {
+          "result": "ok",
+          "cues": 6,
+          "completed": 6,
+          "lost": [],
+          "utteranceErrors": [],
+          "interCueGapMs": [
+            9,
+            -48,
+            13,
+            61,
+            50
+          ],
+          "holdEndToSoundMs": [
+            308,
+            252,
+            313,
+            360,
+            349
+          ],
+          "leadMs": 300,
+          "maxInterCueGapMs": 61,
+          "langSwitches": 4
+        },
+        "long40": {
+          "expectedMs": 48401,
+          "actualMs": 42204,
+          "error": null,
+          "cut": false
+        }
+      },
+      {
+        "browser": "edge",
+        "pass": true,
+        "sequence": {
+          "result": "ok",
+          "cues": 6,
+          "completed": 6,
+          "lost": [],
+          "utteranceErrors": [],
+          "interCueGapMs": [
+            133,
+            145,
+            32,
+            33,
+            77
+          ],
+          "holdEndToSoundMs": [
+            106,
+            124,
+            114,
+            123,
+            169
+          ],
+          "leadMs": 129,
+          "maxInterCueGapMs": 145,
+          "langSwitches": 4
+        },
+        "long40": {
+          "expectedMs": 58355,
+          "actualMs": 47126,
+          "error": null,
+          "cut": false
+        }
+      }
+    ]
+  }
+}

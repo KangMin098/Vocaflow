@@ -101,7 +101,7 @@ export function QualityBars({
     <div className="space-y-2">
       {/* Header — 종합 점수 */}
       <div className="mb-2 flex items-baseline justify-between">
-        <span className="font-display text-[12px] font-[600] text-[var(--t3)]">
+        <span className="font-display text-[12px] font-[600] text-[var(--t2)]">
           평가 점수
         </span>
         <CompositeScore score={composite} />
@@ -111,7 +111,7 @@ export function QualityBars({
       <div
         className={
           compact
-            ? 'grid grid-cols-2 gap-x-3 gap-y-1.5'
+            ? 'grid grid-cols-2 gap-x-3 gap-y-2'
             : 'space-y-1.5'
         }
         role="group"
@@ -136,7 +136,7 @@ function QualityBar({ label, score }: { label: string; score: number }) {
   return (
     <div className="flex items-center gap-2">
       <span
-        className="w-14 shrink-0 font-mono text-[10px] text-[var(--t3)]"
+        className="w-14 shrink-0 font-mono text-[10px] text-[var(--t2)]"
         aria-hidden
       >
         {label}
@@ -179,7 +179,7 @@ function CompositeScore({ score }: { score: number }) {
 
   return (
     <div
-      className="flex items-center gap-1.5"
+      className="flex items-center gap-2"
       aria-label={`종합 점수 ${display} / 5.0`}
     >
       <span

@@ -1,0 +1,91 @@
+{
+  "type_id": "R-CLAIM",
+  "name": "필자 주장",
+  "n_analyzed": 25,
+  "time_budget_sec": 85,
+  "detected_markers": [
+    "청크"
+  ],
+  "current_answer_locus_pattern": "1문항 표본이나 앞 두 청크와 같은 자리다 — 근거는 마지막 문장의 당위 표현(should fit nicely in the counselor 의 repertoire of techniques)이다. 이 문항이 더한 것은 당위 표지가 둘인데 하나가 부정절 안에 갇힌 첫 사례라는 점이다: 넷째 문장 Being a counselor does not mean that you should simply be silent 의 should 는 요구가 아니다. 앞 두 청크의 절차(should·must 가 든 문장에 전부 번호를 매긴다)는 이 지문에서 후보를 둘 남기고, 갇힌 쪽을 요구로 읽으면 ③(항상 친절)으로 끌려간다. 표지 수집 뒤에 부정어 안에 갇힌 표지를 지우는 단계를 반드시 붙여야 한다.\n\n12문항 전부에서 근거는 저자 목소리의 당위 문장에 몰린다 — 10/12(2021 should · 2020 have to · M2006 should · 2019 need to · 2018 have to · M1809 it's time to · M2209 have to · M2206 need · M2109 need to, 그리고 2022 는 must 가 있으나 근거는 not A but B 대체 구문). 당위 표현이 지문에 0건인 것은 M2106 과 M2306 둘뿐이고, 그때는 각각 부정 판정 문장(are not useful / the absence of directness)과 분열문(What can make the difference is drive)이 그 자리를 대신했다. 위치보다 표지가 안정적이다 — 12문항 전부에서 근거 문장은 당위 표현·대체 구문(not A but B)·부정 판정·분열문 넷 중 하나를 달고 있었다.\n\n12문항 중 11문항에서 근거가 당위 표현이 붙은 문장에 있다 — must(6: M2706·2026·M2609·2024·M2309) · It is critical/crucial that(2: M2509·M2506) · it is desirable that(1: 2025) · It is worth ~ing(1: M2606) · What should therefore be optimal(1: M2406). 유일한 예외가 2023#20 이다. 새로 채운 셋 중 M2409#20 은 당위 표지(demands)와 근거 내용이 두 문장 벌어진 사례로, 당위 문장만 옮기면 오답 ④로 간다 — 곧 '당위 문장을 찾는다'와 '그 요구의 내용이 어디서 구체화되는가'는 다른 물음이다. 위치는 마지막 문장 또는 마지막에서 두 번째 문장이 12문항 중 10건이다.",
+  "context": {
+    "procedure_steps": [
+      {
+        "step": "선지 다섯을 먼저 읽고 각 선지를 주체(누가)·행동(무엇을) 두 자리로 쪼개 적는다 — 주장 유형의 한국어 선지는 예외 없이 '~는 ~해야 한다' 두 자리다",
+        "on_fail": "주체가 다섯 다 같으면 행동 자리의 서술어만 다섯 개 나열하고, 목적을 따로 단 선지가 있으면 목적 자리를 하나 더 만든다"
+      },
+      {
+        "step": "지문에서 should·must·need to·have to·명령형이 든 문장에 전부 번호를 매긴다. 하나도 없으면 not A but B 같은 대체 구문, 그것도 없으면 are not useful 같은 부정 판정 문장을 찾는다",
+        "on_fail": "셋 다 없으면 마지막 문장과 역접(But, However, Rather) 뒤 첫 문장 두 개를 후보로 삼는다"
+      },
+      {
+        "step": "번호를 매긴 문장의 **주어**를 확인해 그 주어와 다른 주체를 내세운 선지를 지운다",
+        "on_fail": "주어가 we·you 로 열려 있으면 첫 문장에서 그 we·you 가 누구인지(어른·지도자·부모와 교사) 찾아 채운다"
+      },
+      {
+        "step": "인용문(따옴표·wrote·said), 연구 소개(One study showed, A study found), 사례(Consider, For example, 인명·숫자)를 괄호로 묶어 대조에서 뺀다 — 12문항 전부에서 이 부분은 근거가 아니었다",
+        "on_fail": "괄호 친 부분의 낱말이 선지에 그대로 있으면 그 선지를 의심 목록에 올린다"
+      },
+      {
+        "step": "당위 문장에 붙은 한정어(that 절, and/or 조건, 전치사구)를 따로 적는다 — 오답 다수가 이 한정어를 떼어 낸 것이다",
+        "on_fail": "한정어가 길면 앞 세 낱말만 옮기고, 대명사면 앞 문장의 명사로 바꿔 적는다"
+      },
+      {
+        "step": "1단계의 두 자리와 2·5단계에서 적은 것을 맞춰 두 자리가 **모두** 겹치는 선지를 고른다. 한 자리만 겹치는 것은 남기지 않는다",
+        "on_fail": "두 자리를 다 담은 선지가 없으면 부정 표현(only, not at all, more than, opposite of)이 든 문장을 찾아 그 방향과 어긋나는 선지부터 버린다"
+      }
+    ],
+    "recurring_traps": [
+      {
+        "trap": "반대 진술",
+        "count": 19,
+        "signature": "필자가 this is not a picture of an assertive counselor 로 밀어낸 그림(wants everything to be nice all the time)을 그대로 처방으로 되돌린다(2016 ③). 부정 주절 하나만 확인하면 걸린다."
+      },
+      {
+        "trap": "무관",
+        "count": 18,
+        "signature": "소재어(상담사)만 유지하고 지문에 축이 없는 활동(기록 관리)을 요구한다(2016 ⑤)."
+      },
+      {
+        "trap": "어휘 함정",
+        "count": 17,
+        "signature": "근거 문장 안에 있는 명사(skill · repertoire of techniques)를 가져오되 술어를 바꾼다 — fit nicely in the repertoire(갖춰라)를 「교육을 받아라」로(2016 ④). 명사가 인용문·부정절이 아니라 근거 문장 자체에 있다는 점에서 앞 청크의 어휘 함정보다 한 단계 위험하다."
+      },
+      {
+        "trap": "부분 사실",
+        "count": 14,
+        "signature": "열거·예시 항목 하나를 필자의 요구로 승격시킨다(watching videos, condescending, 타인의 시선, innovate, training and effort, mental·physical 병행, including moral education, humanities). 여덟 건 전부 승격된 낱말이 열거의 한 항목이거나 원인 진단 자리에 있었고, 요구를 담은 당위 문장에는 그 낱말이 없었다"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 13,
+        "signature": "화제에 붙는 관용 결론을 가져온다 — 전문성→계획과 실천, 놀이→창의성, 리더십→실현 가능한 목표, 소셜 미디어→자체 플랫폼 개발, 칭찬→감정 표현 교육, 과학 학습→기본 개념 숙지, 전쟁→예방, 계획→꾸준한 수정, 대학→취업 준비. 아홉 건 모두 선지의 핵심 명사에 대응하는 영어 표현이 지문에 0건이라, '이 선지의 핵심 명사가 지문에 있는가' 한 번만 물으면 걸러진다"
+      },
+      {
+        "trap": "주체 역전",
+        "count": 10,
+        "signature": "행위(인종차별 농담)는 지문에 있는 그대로인데 그 행위를 하는 사람이 someone/that person 에서 상담사로 바뀐다(2016 ①). 다섯째 문장에서 상담사가 그 농담을 지적하는 쪽임을 확인하면 걸린다. 앞 두 청크 4+3 을 더해 누적 8건."
+      },
+      {
+        "trap": "범위 과대",
+        "count": 5,
+        "signature": "개인 차원의 요구를 제도 처방으로 키우거나 설명을 절대 금지로 키운다. 두 건 모두 선지에 '어떠한 경우에도·프로그램' 같은 강한 한정어가 붙어 있어 표시로 잡힌다"
+      },
+      {
+        "trap": "범위 과소",
+        "count": 2,
+        "signature": "요구 대상을 둘에서 하나로 줄인다 — M2206#20 ④는 screenplays and novels 둘 중 영화만 남기고, 요구의 방향(in a positive light)까지 등장 여부로 축소한다"
+      }
+    ],
+    "failure_modes": [
+      "당위 표지를 세기만 하고 그 표지가 부정어 안에 있는지 안 본다 — 2016#20 은 should 가 둘이고 하나가 does not mean that 안에 있다. 갇힌 쪽을 요구로 읽으면 「상담사는 침묵해야 한다」가 되어 통념형 오답 ③으로 간다",
+      "부정 서술이 지문 대부분을 차지할 때 「아니라고 한 것」만 모으고 「하라고 한 것」을 못 찾는다 — 이 지문은 여섯 문장 중 넷이 부정형이고 긍정 요구는 마지막 한 문장뿐이다",
+      "근거 문장 안의 명사(skill · techniques)를 보고 술어를 확인하지 않는다 — ④가 정확히 그 자리에 놓여 있다",
+      "행위는 맞는데 하는 사람을 안 본다 — ①은 racist joke 를 그대로 품고 배역만 바꾼다",
+      "당위 문장을 찾고도 그 문장의 **주어**를 안 본다 — 주체 역전 4건이 전부 여기서 나온다. M2109 는 근거 문단의 주어(직장 동료·동문)와 처방 문장의 주어(대학)가 아예 다르고, 2021 은 we(아직 전문가가 아닌 우리)를 '전문가'로 바꾼 선지가 놓여 있다",
+      "인용문 안 어휘를 필자의 주장으로 읽는다 — 2019 는 본문 7문장 중 3문장이 인용이고 오답 넷 중 셋의 재료가 그 인용 안에 있다. 2018 의 Rometty 인용도 같은 자리다",
+      "당위 표현이 없는 지문에서 멈춘다 — M2106(0건)·M2306(0건)은 부정 판정이나 개념 정의 반복으로 주장을 나른다. 표지를 찾다 못 찾으면 마지막 문장으로 가는 대체 경로가 필요하다",
+      "한정어를 떼고 명사만 맞춘다 — 2021 의 '흔하고 중요한 영역', M2006 의 '여러 번 + 다양한 맥락' 두 조건, 2020 의 '규범에 매이지 말고'가 모두 한정어 자리이고, 그것을 뗀 선지가 각각 놓여 있다"
+    ]
+  },
+  "instructions_ref": "scripts/csat/locus-refold/_PROMPT.md"
+}

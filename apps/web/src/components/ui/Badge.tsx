@@ -34,16 +34,16 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 // ══════════════════════════════════════════════════════════════
 const variantStyles: Record<BadgeVariant, string> = {
   blue: "bg-p-light text-p",
-  green: "bg-success-light text-success",
+  green: "bg-success-light text-[var(--success-ink)]",
   gray: "bg-bg3 text-t2",
   yellow: "bg-warning-light text-warning",
-  red: "bg-error-light text-error",
+  red: "bg-error-light text-[var(--error-ink)]",
   purple: "bg-[var(--combo)]/15 text-[var(--combo)]",
 };
 
 const sizeStyles: Record<BadgeSize, string> = {
-  sm: "text-[10px] px-s-2 py-[2px] gap-s-1",
-  md: "text-[11px] px-s-3 py-[2px] gap-s-1",
+  sm: "text-[10px] px-s-2 py-[4px] gap-s-1",
+  md: "text-[11px] px-s-3 py-[4px] gap-s-1",
   lg: "text-xs px-s-3 py-s-1 gap-s-2",
 };
 

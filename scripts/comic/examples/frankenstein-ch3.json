@@ -1,0 +1,635 @@
+{
+  "book": {
+    "id": "shelley-frankenstein-ch3",
+    "title": "Frankenstein · Chapter 3 — The Day That Decided My Fate",
+    "author": "Mary Shelley, Frankenstein (1818), Chapter 3",
+    "source": "gutenberg",
+    "ref": "84",
+    "total_words": 75000
+  },
+  "adaptation": {
+    "style": "gonick",
+    "panel_count": 16,
+    "default_tier": "teen",
+    "tiers": [
+      "child",
+      "teen",
+      "adult"
+    ],
+    "target_v_level": 10,
+    "source_span": [
+      0,
+      15238
+    ],
+    "original_words": 2673,
+    "art_shared_across_tiers": true,
+    "seed": 84
+  },
+  "cast": [
+    {
+      "id": "victor",
+      "name": "Victor",
+      "role": "young protagonist",
+      "variant": "young-man",
+      "canonical": "a lean earnest young man of seventeen with untidy dark hair and round glasses, intense eyes",
+      "anchor": "a young man with round glasses and intense eyes",
+      "seed_role": 84
+    },
+    {
+      "id": "elizabeth",
+      "name": "Elizabeth",
+      "role": "youth",
+      "variant": "youth",
+      "canonical": "a gentle young woman with bright fair GOLDEN hair in a long braid",
+      "anchor": "bright fair golden hair in a long braid",
+      "seed_role": 84
+    },
+    {
+      "id": "caroline",
+      "name": "Caroline",
+      "role": "dying mother",
+      "canonical": "a graceful woman with dark hair in a neat centre-parted bun, a small cross necklace and a high-collar dark dress, warm careworn face",
+      "anchor": "dark hair in a centre-parted bun, a cross necklace and a high-collar dark dress",
+      "seed_role": 84
+    },
+    {
+      "id": "alphonse",
+      "name": "Alphonse",
+      "role": "father",
+      "variant": "middle-aged",
+      "canonical": "a tall slender dignified gentleman with a neat trimmed grey beard, no glasses, in a long dark coat",
+      "anchor": "a neat grey beard and a long dark coat (dignified, slender)",
+      "seed_role": 84
+    },
+    {
+      "id": "clerval",
+      "name": "Clerval",
+      "role": "youth friend",
+      "variant": "youth",
+      "canonical": "a lively young man in a small black top hat and a travel scarf, bright and adventurous",
+      "anchor": "a small top hat and a travel scarf",
+      "seed_role": 84
+    },
+    {
+      "id": "krempe",
+      "name": "Krempe",
+      "role": "gruff professor",
+      "canonical": "a short squat gruff professor in a curly powdered wig, permanent scowl, a jabbing pointed finger",
+      "anchor": "a curly powdered wig, squat build and a jabbing finger",
+      "seed_role": 84
+    },
+    {
+      "id": "waldman",
+      "name": "Waldman",
+      "role": "kindly professor",
+      "canonical": "a benevolent bald old professor with half-moon spectacles and a scholar's gown, warm open-handed gesture, clean-shaven",
+      "anchor": "a bald head with half-moon spectacles and a scholar's gown",
+      "seed_role": 84
+    }
+  ],
+  "panels": [
+    {
+      "n": 1,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        0,
+        952
+      ],
+      "scene": "a lean bespectacled young man and his slender bearded father discussing over papers in a Geneva study, a travelling trunk half-packed",
+      "composition": "wide two-shot, quiet resolve",
+      "characters": [
+        "victor",
+        "alphonse"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AT SEVENTEEN, VICTOR IS TO LEAVE FOR THE UNIVERSITY OF <b>INGOLSTADT</b>.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "When I had attained the age of seventeen my parents resolved that I should become a student at the university of Ingolstadt.",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "the first misfortune of my life occurred-an omen, as it were, of my future misery",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 2,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        952,
+        1904
+      ],
+      "scene": "a woman with a bun tenderly nursing a fevered golden-haired girl in a sickbed, cool cloths and medicine",
+      "composition": "medium, tender sickroom",
+      "characters": [
+        "caroline",
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "BUT FIRST, TRAGEDY: <b>ELIZABETH</b> FALLS ILL WITH SCARLET FEVER, AND CAROLINE INSISTS ON NURSING HER.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "when she heard that the life of her favourite was menaced, she could no longer control her anxiety. She attended her sickbed",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "her illness was severe, and she was in the greatest danger",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 3,
+      "wide": false,
+      "cap_zone": "top",
+      "beat_offset": [
+        1904,
+        2856
+      ],
+      "scene": "the golden-haired girl recovering and sitting up, while the bun-haired mother now sways, pale and feverish herself",
+      "composition": "medium, dread turning",
+      "characters": [
+        "elizabeth",
+        "caroline"
+      ],
+      "text": {
+        "teen": {
+          "narration": "ELIZABETH IS SAVED &mdash; BUT AT A TERRIBLE PRICE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Elizabeth was saved, but the consequences of this imprudence were fatal to her preserver.",
+              "pos": "tr",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 4,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        2856,
+        3808
+      ],
+      "scene": "a tender candlelit deathbed: three hands clasped together upon a white bedcover in the foreground center, a woman with a cross necklace uniting a golden-haired young woman's hand with another's, bowed heads in solemn grief, the dying mother among them, quiet mourning chamber",
+      "composition": "wide deathbed, three figures, tender and grave",
+      "characters": [
+        "caroline",
+        "elizabeth",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "ON HER DEATHBED, CAROLINE JOINS VICTOR&rsquo;S AND ELIZABETH&rsquo;S HANDS &mdash; HER LAST WISH.",
+          "bubbles": [
+            {
+              "speaker": "caroline",
+              "text": "My children... my firmest hopes of future happiness were placed on the prospect of your union. This expectation will now be the consolation of your father. Elizabeth, my love, you must supply my place to my younger children.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "CAROLINE / SHELLEY 1818"
+            }
+          ]
+        }
+      },
+      "shot": "medium"
+    },
+    {
+      "n": 5,
+      "wide": false,
+      "cap_zone": "tl",
+      "beat_offset": [
+        3808,
+        4760
+      ],
+      "scene": "the mother lying peacefully still, a serene expression, the family bowed in grief around the bed",
+      "composition": "medium, quiet death",
+      "characters": [
+        "caroline"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AND THEN SHE IS GONE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "She died calmly, and her countenance expressed affection even in death.",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 6,
+      "wide": false,
+      "cap_zone": "top",
+      "beat_offset": [
+        4760,
+        5712
+      ],
+      "scene": "an empty chair and a shrouded portrait in a darkened house of mourning, a heavy stillness",
+      "composition": "medium still-life of grief, no figures",
+      "characters": [],
+      "text": {
+        "teen": {
+          "narration": "THE HOUSE FILLS WITH THE UNBEARABLE EMPTINESS OF LOSS.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "It is so long before the mind can persuade itself that she whom we saw every day and whose very existence appeared a part of our own can have departed for ever",
+              "pos": "tc",
+              "kind": "whisper",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 7,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        5712,
+        6664
+      ],
+      "scene": "the golden-haired young woman gently comforting the grieving family, veiling her own sorrow with a brave warm smile",
+      "composition": "medium, brave tenderness",
+      "characters": [
+        "elizabeth"
+      ],
+      "text": {
+        "teen": {
+          "narration": "ELIZABETH HIDES HER OWN GRIEF TO COMFORT THEM ALL.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "She indeed veiled her grief and strove to act the comforter to us all.",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 8,
+      "wide": false,
+      "cap_zone": "tl",
+      "beat_offset": [
+        6664,
+        7616
+      ],
+      "scene": "two young men clasping hands in a lamplit farewell, one in a small top hat and scarf, both moved",
+      "composition": "medium two-shot, farewell",
+      "characters": [
+        "clerval",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "CLERVAL &mdash; FORBIDDEN BY HIS FATHER TO JOIN &mdash; SAYS A HARD GOODBYE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "We could not tear ourselves away from each other nor persuade ourselves to say the word",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 9,
+      "wide": false,
+      "cap_zone": "top",
+      "beat_offset": [
+        7616,
+        8568
+      ],
+      "scene": "a bespectacled young man alone in a horse chaise on an open road, gazing back, melancholy",
+      "composition": "medium, lonely departure",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "FOR THE FIRST TIME IN HIS LIFE, VICTOR IS TRULY <b>ALONE</b>.",
+          "bubbles": [
+            {
+              "speaker": "victor",
+              "text": "I was now alone.",
+              "pos": "tr",
+              "kind": "whisper",
+              "verbatim": true,
+              "by": "VICTOR / SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 10,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        8568,
+        9520
+      ],
+      "scene": "a bespectacled young traveller arriving before a town crowned by a tall high white steeple",
+      "composition": "wide establishing, arrival",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AT LAST HE REACHES INGOLSTADT.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "the high white steeple of the town met my eyes",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 11,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        9520,
+        10472
+      ],
+      "scene": "a squat scowling professor in a powdered wig jabbing a finger scornfully at the young man, dismissing his old books",
+      "composition": "medium two-shot, scorn",
+      "characters": [
+        "krempe",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "PROFESSOR <b>KREMPE</b> MOCKS THE ALCHEMISTS VICTOR LOVED.",
+          "bubbles": [
+            {
+              "speaker": "krempe",
+              "text": "every instant that you have wasted on those books is utterly and entirely lost. You have burdened your memory with exploded systems and useless names.",
+              "pos": "tl",
+              "kind": "shout",
+              "verbatim": true,
+              "by": "KREMPE / SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "Good God! In what desert land have you lived, where no one was kind enough to inform you that these fancies which you have so greedily imbibed are a thousand years old",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "every instant that you have wasted on those books is utterly and entirely lost. You have burdened your memory with exploded systems and useless names",
+              "pos": "tr",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 12,
+      "wide": false,
+      "cap_zone": "tl",
+      "beat_offset": [
+        10472,
+        11424
+      ],
+      "scene": "a close unflattering portrait of the short squat gruff professor in his powdered wig, repellent and pompous",
+      "composition": "medium, unflattering portrait",
+      "characters": [
+        "krempe"
+      ],
+      "text": {
+        "teen": {
+          "narration": "VICTOR IS NOT WON OVER &mdash; KREMPE IS TOO GRUFF AND REPELLENT.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "M. Krempe was a little squat man with a gruff voice and a repulsive countenance",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 13,
+      "wide": false,
+      "cap_zone": "top",
+      "beat_offset": [
+        11424,
+        12376
+      ],
+      "scene": "a benevolent short erect bald professor with half-moon spectacles and a gown beginning a lecture at a podium, warm and dignified",
+      "composition": "medium, dignified lecturer",
+      "characters": [
+        "waldman"
+      ],
+      "text": {
+        "teen": {
+          "narration": "THEN HE HEARS <b>WALDMAN</b> LECTURE ON CHEMISTRY &mdash; SO UNLIKE KREMPE.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "his voice the sweetest I had ever heard",
+              "pos": "tr",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "This professor was very unlike his colleague",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 14,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        12376,
+        13328
+      ],
+      "scene": "the bald spectacled professor speaking with fervour, sweeping his hand toward glowing images of stars, lightning and the human heart",
+      "composition": "wide, inspiring lecture",
+      "characters": [
+        "waldman"
+      ],
+      "text": {
+        "teen": {
+          "narration": "AND WALDMAN&rsquo;S WORDS STRIKE VICTOR LIKE LIGHTNING.",
+          "bubbles": [
+            {
+              "speaker": "waldman",
+              "text": "these philosophers, whose hands seem only made to dabble in dirt, and their eyes to pore over the microscope or crucible, have indeed performed miracles. They penetrate into the recesses of nature and show how she works in her hiding-places. They ascend into the heavens; they have discovered how the blood circulates, and the nature of the air we breathe. They have acquired new and almost unlimited powers; they can command the thunders of heaven, mimic the earthquake, and even mock the invisible world with its own shadows.",
+              "pos": "tc",
+              "kind": "speech",
+              "verbatim": true,
+              "by": "WALDMAN / SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 15,
+      "wide": false,
+      "cap_zone": "tr",
+      "beat_offset": [
+        13328,
+        14280
+      ],
+      "scene": "the bespectacled young man alight with feverish ambition, eyes blazing, a storm of ideas around his head",
+      "composition": "medium, ignition of ambition",
+      "characters": [
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "SOMETHING IGNITES IN HIM &mdash; A HUNGER TO GO FURTHER THAN ANYONE.",
+          "bubbles": [
+            {
+              "speaker": "victor",
+              "text": "So much has been done... more, far more, will I achieve... I will pioneer a new way, explore unknown powers, and unfold to the world the deepest mysteries of creation.",
+              "pos": "tl",
+              "kind": "thought",
+              "verbatim": true,
+              "by": "VICTOR / SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "Such were the professor's words-rather let me say such the words of the fate-enounced to destroy me",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "So much has been done, exclaimed the soul of Frankenstein-more, far more, will I achieve",
+              "pos": "tc",
+              "kind": "thought",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 16,
+      "wide": true,
+      "cap_zone": "top",
+      "beat_offset": [
+        14280,
+        15238
+      ],
+      "scene": "the kindly bald professor showing the eager young man his laboratory of gleaming instruments, a fateful handshake",
+      "composition": "wide, a fateful mentorship",
+      "characters": [
+        "waldman",
+        "victor"
+      ],
+      "text": {
+        "teen": {
+          "narration": "WALDMAN TAKES HIM ON AS A DISCIPLE AND OPENS HIS LABORATORY. THE ROAD TO THE CREATURE HAS BEGUN.",
+          "bubbles": [
+            {
+              "speaker": "",
+              "text": "Thus ended a day memorable to me; it decided my future destiny.",
+              "pos": "tc",
+              "kind": "whisper",
+              "verbatim": true,
+              "by": "VICTOR / SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "Thus ended a day memorable to me; it decided my future destiny",
+              "pos": "tc",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            },
+            {
+              "speaker": "",
+              "text": "I closed not my eyes that night. My internal being was in a state of insurrection and turmoil",
+              "pos": "bl",
+              "kind": "caption",
+              "verbatim": true,
+              "by": "SHELLEY 1818"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

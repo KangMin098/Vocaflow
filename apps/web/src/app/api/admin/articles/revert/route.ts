@@ -3,13 +3,13 @@
 // POST /api/admin/articles/revert   { article_id }
 //   admin_revert_published_article 동등 로직 (서버사이드).
 //
-// v06.57 force-publish 와 동일 패턴 — requireAdmin + service_role + 동등 로직 직접 실행.
+// v06.57 force-publish 와 동일 패턴 — requireAdminApi + service_role + 동등 로직 직접 실행.
 //   (브라우저 client.rpc() 는 DEV_ADMIN_BYPASS=1 환경에서 auth.uid()=NULL → Forbidden.)
 
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -19,7 +19,8 @@ interface Body {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-  await requireAdmin('/admin/articles')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   let body: Body
   try {

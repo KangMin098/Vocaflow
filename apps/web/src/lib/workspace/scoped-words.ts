@@ -9,9 +9,17 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import type { ContentRef } from '@/lib/content/content-ref'
+
 export interface ScopedWord {
   id: string
   word: string
+  /**
+   * 사전 표제어. `word` 는 본문에 나온 **표면형**(abated·leaves)이라 사전 조회 키로 쓰면 안 된다 —
+   * 2026-08-25 실측으로 발행 단어장 표면형 3,005종이 정확일치 조인에서 탈락하고 있었다.
+   * 사전(shared_dictionary)을 찾을 때는 반드시 이 값을 쓴다. 표면형뿐이면 표면형이 들어온다.
+   */
+  lemma: string
   meaning: string
   pronunciation: string
   pos: string
@@ -44,7 +52,7 @@ function buildIllustrationMatcher(
 }
 
 /** lemma 목록 → shared_dictionary.inflected_forms 일괄 조회 (lemma → forms 맵) */
-async function loadInflectedForms(
+export async function loadInflectedForms(
   client: SupabaseClient,
   lemmas: string[],
 ): Promise<Map<string, string[]>> {
@@ -77,6 +85,66 @@ export async function fetchScopedWords(
   if (scope.set) return fetchBySet(client, scope.set, scope.chapter ?? null)
   if (scope.text && scope.userId) return fetchByText(client, scope.text, scope.userId)
   return null
+}
+
+/**
+ * 콘텐츠 참조 → 단어. **Phase 2 의 "어댑터 1개" 진입점.**
+ *
+ * `{set,text,chapter}` 는 스코프의 **한 표현**일 뿐인데 그것이 곧 계약이 돼 있어서,
+ * 콘텐츠 유형이 늘 때마다 스코프를 받는 곳마다 파라미터가 늘었다(설계안 §6 — 유형 추가
+ * 비용이 7곳에 흩어진 원인). 표현을 `ContentRef` 하나로 모으면 유형 추가는 여기 분기 하나다.
+ *
+ * 결정 1(C안 — 콘텐츠는 자유, 콘텐츠 안에서는 경로)의 선행 조건이기도 하다:
+ * "콘텐츠 하나를 고르면 그 안에서 할 수 있는 활동이 도출된다" 가 성립하려면
+ * 콘텐츠가 **한 가지 방식으로** 표현돼야 한다(`registry.activitiesForContent` 와 같은 타입).
+ *
+ * `book` 은 enroll 없이도 열린다 — 큐레이션 챕터 단어장을 직접 찾는다.
+ * (지금까지 도서 챕터로 노는 유일한 길은 enroll 해서 texts 로 들어가는 것이었다.)
+ */
+export async function fetchWordsForContent(
+  client: SupabaseClient,
+  ref: ContentRef,
+  userId: string | null,
+): Promise<ScopedWordsResult | null> {
+  switch (ref.type) {
+    case 'set':
+      return ref.id ? fetchBySet(client, ref.id, ref.chapter ?? null) : null
+    case 'text':
+      return ref.id && userId ? fetchByText(client, ref.id, userId) : null
+    case 'book':
+      return ref.id ? fetchByBookChapter(client, ref.id, ref.chapter ?? null) : null
+    // article·comic·mine 은 아직 단어 스코프를 갖지 않는다 — 생기면 여기 한 줄이다.
+    default:
+      return null
+  }
+}
+
+/**
+ * 도서(+챕터) → 그 챕터의 큐레이션 단어장.
+ * 챕터를 지정하지 않으면 그 도서의 **첫 챕터** 세트를 쓴다 — "도서로 논다" 의 자연스러운 시작점.
+ */
+async function fetchByBookChapter(
+  client: SupabaseClient,
+  bookId: string,
+  chapter: number | null,
+): Promise<ScopedWordsResult | null> {
+  const { data } = await client
+    .from('shared_word_sets')
+    .select('id, curation_query')
+    .eq('category', 'library_book')
+    .eq('is_published', true)
+    .filter('curation_query->>book_id', 'eq', bookId)
+
+  const rows = (data ?? []) as Array<{ id: string; curation_query: Record<string, unknown> | null }>
+  if (rows.length === 0) return null
+
+  const withIdx = rows
+    .map((r) => ({ id: r.id, idx: Number(r.curation_query?.['chapter_idx'] ?? 0) }))
+    .sort((a, b) => a.idx - b.idx)
+
+  const picked = chapter != null ? withIdx.find((r) => r.idx === chapter) : withIdx[0]
+  if (!picked) return null
+  return fetchBySet(client, picked.id, null)
 }
 
 async function fetchBySet(
@@ -142,6 +210,7 @@ async function fetchBySet(
     return {
       id: r.id,
       word: r.word,
+      lemma: (r.lemma ?? r.word).toLowerCase(),
       meaning: r.meaning_ko ?? '',
       pronunciation: r.pronunciation ?? '',
       pos: r.part_of_speech ?? '',
@@ -198,6 +267,7 @@ async function fetchByText(
   const words: ScopedWord[] = rows.map((r) => ({
     id: r.id,
     word: r.word,
+    lemma: (r.lemma ?? r.word).toLowerCase(),
     meaning: r.meaning ?? '',
     pronunciation: r.pronunciation ?? '',
     pos: r.pos ?? '',

@@ -1,0 +1,136 @@
+{
+  "measured_at": "2026-08-21T15:43:52.082Z",
+  "health": {
+    "total": 30515,
+    "byType": [
+      {
+        "type": "blank_word",
+        "count": 17988,
+        "answerBias": null,
+        "outOfSpecPassage": null,
+        "byLevel": {
+          "V5": 5236,
+          "V3": 2167,
+          "V4": 3844,
+          "V6": 4656,
+          "V2": 1670,
+          "V8": 61,
+          "V7": 341,
+          "V9": 2,
+          "V1": 11
+        },
+        "observed": 0,
+        "degenerate": 0
+      },
+      {
+        "type": "grammar_fix",
+        "count": 6067,
+        "answerBias": null,
+        "outOfSpecPassage": null,
+        "byLevel": {
+          "V5": 1663,
+          "V3": 756,
+          "V4": 1310,
+          "V6": 1554,
+          "V2": 642,
+          "V8": 19,
+          "V7": 121,
+          "V1": 2
+        },
+        "observed": 0,
+        "degenerate": 0
+      },
+      {
+        "type": "unit_vocab",
+        "count": 4355,
+        "answerBias": {
+          "counts": [
+            1073,
+            1023,
+            1129,
+            1130
+          ],
+          "total": 4355,
+          "maxShare": 0.25947187141216993,
+          "chi2": 7.249368541905855,
+          "df": 3,
+          "biased": false
+        },
+        "outOfSpecPassage": 0,
+        "byLevel": {
+          "V5": 1419,
+          "V3": 455,
+          "V4": 755,
+          "V6": 1269,
+          "V2": 332,
+          "V8": 16,
+          "V7": 108,
+          "V9": 1
+        },
+        "observed": 0,
+        "degenerate": 0
+      },
+      {
+        "type": "unit_grammar",
+        "count": 1523,
+        "answerBias": {
+          "counts": [
+            409,
+            372,
+            364,
+            378
+          ],
+          "total": 1523,
+          "maxShare": 0.2685489166119501,
+          "chi2": 3.0538411030860146,
+          "df": 3,
+          "biased": false
+        },
+        "outOfSpecPassage": 0,
+        "byLevel": {
+          "V5": 373,
+          "V4": 272,
+          "V6": 351,
+          "V2": 225,
+          "V3": 262,
+          "V7": 40
+        },
+        "observed": 0,
+        "degenerate": 0
+      },
+      {
+        "type": "listen_choose",
+        "count": 582,
+        "answerBias": {
+          "counts": [
+            161,
+            132,
+            135,
+            154
+          ],
+          "total": 582,
+          "maxShare": 0.2766323024054983,
+          "chi2": 4.15807560137457,
+          "df": 3,
+          "biased": false
+        },
+        "outOfSpecPassage": null,
+        "byLevel": {
+          "V2": 582
+        },
+        "observed": 0,
+        "degenerate": 0
+      }
+    ],
+    "noObservations": true
+  },
+  "blank": {
+    "total": 17988,
+    "ambiguous": 0,
+    "samples": []
+  },
+  "listen": {
+    "pool": 582,
+    "made": 582
+  }
+}

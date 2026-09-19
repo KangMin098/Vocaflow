@@ -1,0 +1,624 @@
+[
+ {
+  "word": "cage",
+  "meaning_ko": "우리, 새장",
+  "pos": "noun",
+  "candidates": [
+   "cage-free",
+   "cagey"
+  ]
+ },
+ {
+  "word": "cake",
+  "meaning_ko": "케이크",
+  "pos": "noun",
+  "candidates": [
+   "caked",
+   "cakewalk"
+  ]
+ },
+ {
+  "word": "camera",
+  "meaning_ko": "카메라",
+  "pos": "noun",
+  "candidates": [
+   "cameraman",
+   "camerawoman",
+   "camerawork"
+  ]
+ },
+ {
+  "word": "cape",
+  "meaning_ko": "망토",
+  "pos": "noun",
+  "candidates": [
+   "capelin",
+   "capella",
+   "capellini",
+   "caper",
+   "capeskin",
+   "capetian"
+  ]
+ },
+ {
+  "word": "card",
+  "meaning_ko": "카드",
+  "pos": "noun",
+  "candidates": [
+   "card game",
+   "card key",
+   "cardamom",
+   "cardboard",
+   "carded",
+   "cardia",
+   "cardiac",
+   "cardie",
+   "cardigan",
+   "cardinal",
+   "cardio",
+   "cardiogram",
+   "cardiology"
+  ]
+ },
+ {
+  "word": "cent",
+  "meaning_ko": "센트",
+  "pos": "noun",
+  "candidates": [
+   "cental",
+   "centaur",
+   "centaurus",
+   "centaury",
+   "centavo",
+   "centenary",
+   "centennial",
+   "center",
+   "center ice",
+   "centesimal",
+   "centigrade",
+   "centigram",
+   "centile",
+   "centilitre",
+   "centime",
+   "centimetre",
+   "centimo",
+   "centipede"
+  ]
+ },
+ {
+  "word": "chair",
+  "meaning_ko": "의자; (회의의) 의장, 의장직",
+  "pos": "noun",
+  "candidates": [
+   "chaired",
+   "chairlift",
+   "chairman",
+   "chairperson",
+   "chairwoman"
+  ]
+ },
+ {
+  "word": "chapter",
+  "meaning_ko": "장, 챕터",
+  "pos": "noun",
+  "candidates": [
+   "chapter house"
+  ]
+ },
+ {
+  "word": "chicken",
+  "meaning_ko": "닭; 닭고기",
+  "pos": "noun",
+  "candidates": [
+   "chicken flu",
+   "chicken out",
+   "chicken rice",
+   "chickenpox"
+  ]
+ },
+ {
+  "word": "coffee",
+  "meaning_ko": "커피",
+  "pos": "noun",
+  "candidates": [
+   "coffee shop",
+   "coffee table",
+   "coffeecake",
+   "coffeehouse",
+   "coffeepot"
+  ]
+ },
+ {
+  "word": "concern",
+  "meaning_ko": "걱정",
+  "pos": "noun",
+  "candidates": [
+   "concerned"
+  ]
+ },
+ {
+  "word": "corner",
+  "meaning_ko": "모퉁이, 구석",
+  "pos": "noun",
+  "candidates": [
+   "corner kick",
+   "corner shop",
+   "cornerback",
+   "cornerstone"
+  ]
+ },
+ {
+  "word": "country",
+  "meaning_ko": "나라",
+  "pos": "noun",
+  "candidates": [
+   "country house",
+   "country music",
+   "countryman",
+   "countrymen",
+   "countrypeople",
+   "countryside",
+   "countrywoman"
+  ]
+ },
+ {
+  "word": "deck",
+  "meaning_ko": "(배의) 갑판; (버스·건물의) 층",
+  "pos": "noun",
+  "candidates": [
+   "deck shoe",
+   "deckchair",
+   "decked",
+   "deckhand",
+   "deckhouse",
+   "decking"
+  ]
+ },
+ {
+  "word": "desk",
+  "meaning_ko": "책상",
+  "pos": "noun",
+  "candidates": [
+   "desk clerk",
+   "deskill",
+   "desktop"
+  ]
+ },
+ {
+  "word": "disease",
+  "meaning_ko": "질병",
+  "pos": "noun",
+  "candidates": [
+   "diseased"
+  ]
+ },
+ {
+  "word": "district",
+  "meaning_ko": "지구; 지역; 구역",
+  "pos": "noun",
+  "candidates": [
+   "district nurse"
+  ]
+ },
+ {
+  "word": "elephant",
+  "meaning_ko": "코끼리",
+  "pos": "noun",
+  "candidates": [
+   "elephantiasis",
+   "elephantine"
+  ]
+ },
+ {
+  "word": "estate",
+  "meaning_ko": "사유지",
+  "pos": "noun",
+  "candidates": [
+   "estate agent",
+   "estate car"
+  ]
+ },
+ {
+  "word": "evening",
+  "meaning_ko": "저녁",
+  "pos": "noun",
+  "candidates": [
+   "evening class",
+   "evening paper"
+  ]
+ },
+ {
+  "word": "exam",
+  "meaning_ko": "시험",
+  "pos": "noun",
+  "candidates": [
+   "examen",
+   "examine",
+   "examinee",
+   "example"
+  ]
+ },
+ {
+  "word": "extra",
+  "meaning_ko": "추가",
+  "pos": "noun",
+  "candidates": [
+   "extra-large",
+   "extra-sized",
+   "extract",
+   "extractable",
+   "extraction",
+   "extractive",
+   "extractor",
+   "extradite",
+   "extradition",
+   "extrados",
+   "extralegal",
+   "extralocal"
+  ]
+ },
+ {
+  "word": "floor",
+  "meaning_ko": "바닥",
+  "pos": "noun",
+  "candidates": [
+   "floor plan",
+   "flooring"
+  ]
+ },
+ {
+  "word": "frog",
+  "meaning_ko": "개구리",
+  "pos": "noun",
+  "candidates": [
+   "froglet",
+   "frogman",
+   "frogmarch",
+   "frogspawn"
+  ]
+ },
+ {
+  "word": "garage",
+  "meaning_ko": "차고",
+  "pos": "noun",
+  "candidates": [
+   "garage band"
+  ]
+ },
+ {
+  "word": "gear",
+  "meaning_ko": "기어",
+  "pos": "noun",
+  "candidates": [
+   "gear lever",
+   "gearbox",
+   "geared",
+   "gearing",
+   "gearshift"
+  ]
+ },
+ {
+  "word": "gift",
+  "meaning_ko": "선물",
+  "pos": "noun",
+  "candidates": [
+   "gift aid",
+   "gift card"
+  ]
+ },
+ {
+  "word": "grab",
+  "meaning_ko": "움켜잡다, 낚아채다; 얻다, 차지하다",
+  "pos": "verb",
+  "candidates": [
+   "grabbled",
+   "graben"
+  ]
+ },
+ {
+  "word": "guest",
+  "meaning_ko": "손님, 게스트",
+  "pos": "noun",
+  "candidates": [
+   "guest house",
+   "guestimate"
+  ]
+ },
+ {
+  "word": "half",
+  "meaning_ko": "절반, 반",
+  "pos": "noun",
+  "candidates": [
+   "half back",
+   "half board",
+   "half hour",
+   "half-day",
+   "half-moon",
+   "half-term",
+   "half-time",
+   "halfback",
+   "halfbeak",
+   "halfgrown"
+  ]
+ },
+ {
+  "word": "hall",
+  "meaning_ko": "복도",
+  "pos": "noun",
+  "candidates": [
+   "halleluia",
+   "hallelujah",
+   "halliard",
+   "hallmark",
+   "halloo",
+   "halloumi™",
+   "hallow",
+   "halloween",
+   "hallway"
+  ]
+ },
+ {
+  "word": "height",
+  "meaning_ko": "높이; 키",
+  "pos": "noun",
+  "candidates": [
+   "heighten"
+  ]
+ },
+ {
+  "word": "holiday",
+  "meaning_ko": "휴일, 휴가",
+  "pos": "noun",
+  "candidates": [
+   "holiday camp",
+   "holiday club",
+   "holidaymaker"
+  ]
+ },
+ {
+  "word": "honey",
+  "meaning_ko": "꿀, 벌꿀",
+  "pos": "noun",
+  "candidates": [
+   "honeybee",
+   "honeycomb",
+   "honeydew",
+   "honeyed",
+   "honeymoon",
+   "honeypot",
+   "honeysuckle"
+  ]
+ },
+ {
+  "word": "inch",
+  "meaning_ko": "인치; 조금씩 움직이다",
+  "pos": "noun",
+  "candidates": [
+   "inchased",
+   "inchoate"
+  ]
+ },
+ {
+  "word": "income",
+  "meaning_ko": "소득",
+  "pos": "noun",
+  "candidates": [
+   "income tax",
+   "incomer"
+  ]
+ },
+ {
+  "word": "increase",
+  "meaning_ko": "증가하다, 늘리다",
+  "pos": "verb",
+  "candidates": [
+   "increased",
+   "increasers"
+  ]
+ },
+ {
+  "word": "kitchen",
+  "meaning_ko": "부엌",
+  "pos": "noun",
+  "candidates": [
+   "kitchenette"
+  ]
+ },
+ {
+  "word": "knee",
+  "meaning_ko": "무릎",
+  "pos": "noun",
+  "candidates": [
+   "knee-jerk",
+   "kneecap",
+   "kneel"
+  ]
+ },
+ {
+  "word": "lake",
+  "meaning_ko": "호수",
+  "pos": "noun",
+  "candidates": [
+   "lakefront",
+   "lakeside"
+  ]
+ },
+ {
+  "word": "lamb",
+  "meaning_ko": "새끼 양, 어린 양",
+  "pos": "noun",
+  "candidates": [
+   "lambada",
+   "lambasted",
+   "lambda",
+   "lambent",
+   "lambkin",
+   "lambrusco"
+  ]
+ },
+ {
+  "word": "lane",
+  "meaning_ko": "차선",
+  "pos": "noun",
+  "candidates": [
+   "laneway"
+  ]
+ },
+ {
+  "word": "lawn",
+  "meaning_ko": "잔디밭",
+  "pos": "noun",
+  "candidates": [
+   "lawnmower"
+  ]
+ },
+ {
+  "word": "league",
+  "meaning_ko": "리그; 동맹; 수준",
+  "pos": "noun",
+  "candidates": [
+   "league table",
+   "leaguered"
+  ]
+ },
+ {
+  "word": "loan",
+  "meaning_ko": "대출; 빌려주다",
+  "pos": "noun",
+  "candidates": [
+   "loanword"
+  ]
+ },
+ {
+  "word": "minus",
+  "meaning_ko": "마이너스의, 음(陰)의",
+  "pos": "adjective",
+  "candidates": [
+   "minuscule"
+  ]
+ },
+ {
+  "word": "mirror",
+  "meaning_ko": "거울",
+  "pos": "noun",
+  "candidates": [
+   "mirror site"
+  ]
+ },
+ {
+  "word": "monkey",
+  "meaning_ko": "원숭이",
+  "pos": "noun",
+  "candidates": [
+   "monkeyshine"
+  ]
+ },
+ {
+  "word": "movie",
+  "meaning_ko": "영화",
+  "pos": "noun",
+  "candidates": [
+   "movie star",
+   "moviegoer",
+   "moviemaking"
+  ]
+ },
+ {
+  "word": "nanny",
+  "meaning_ko": "보모, 유모",
+  "pos": "noun",
+  "candidates": [
+   "nanny goat"
+  ]
+ },
+ {
+  "word": "never",
+  "meaning_ko": "결코 ~않다",
+  "pos": "adverb",
+  "candidates": [
+   "nevermore"
+  ]
+ },
+ {
+  "word": "often",
+  "meaning_ko": "자주",
+  "pos": "adverb",
+  "candidates": [
+   "oftentimes"
+  ]
+ },
+ {
+  "word": "organized",
+  "meaning_ko": "체계적인, 잘 정돈된",
+  "pos": "adjective",
+  "candidates": [
+   "organized crime"
+  ]
+ },
+ {
+  "word": "oven",
+  "meaning_ko": "오븐",
+  "pos": "noun",
+  "candidates": [
+   "ovenware"
+  ]
+ },
+ {
+  "word": "party",
+  "meaning_ko": "파티, 모임",
+  "pos": "noun",
+  "candidates": [
+   "party line",
+   "party list"
+  ]
+ },
+ {
+  "word": "pattern",
+  "meaning_ko": "양식, 패턴; 무늬",
+  "pos": "noun",
+  "candidates": [
+   "patterned"
+  ]
+ },
+ {
+  "word": "piece",
+  "meaning_ko": "조각, 부분",
+  "pos": "noun",
+  "candidates": [
+   "piecemeal",
+   "piecework"
+  ]
+ },
+ {
+  "word": "plus",
+  "meaning_ko": "(수치 뒤) 이상의; 플러스의",
+  "pos": "adjective",
+  "candidates": [
+   "plus-one",
+   "plush",
+   "plush toy",
+   "plusses"
+  ]
+ },
+ {
+  "word": "police",
+  "meaning_ko": "경찰",
+  "pos": "noun",
+  "candidates": [
+   "police dog",
+   "police force",
+   "police state",
+   "policeman",
+   "policewoman"
+  ]
+ },
+ {
+  "word": "policy",
+  "meaning_ko": "정책, 방침",
+  "pos": "noun",
+  "candidates": [
+   "policymaker",
+   "policymaking"
+  ]
+ }
+]

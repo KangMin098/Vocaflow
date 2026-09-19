@@ -1,183 +1,5086 @@
 [
-  {"root":"spec","origin":"latin","meaning_en":"to look, see","gloss_ko":"보다","variants":["spect","spic"],"notes":"root"},
-  {"root":"port","origin":"latin","meaning_en":"to carry","gloss_ko":"나르다, 운반하다","variants":[],"notes":"root"},
-  {"root":"dict","origin":"latin","meaning_en":"to say, tell","gloss_ko":"말하다","variants":["dic"],"notes":"root"},
-  {"root":"ject","origin":"latin","meaning_en":"to throw","gloss_ko":"던지다","variants":["jac"],"notes":"root"},
-  {"root":"tract","origin":"latin","meaning_en":"to pull, drag","gloss_ko":"끌다","variants":["trah"],"notes":"root"},
-  {"root":"scrib","origin":"latin","meaning_en":"to write","gloss_ko":"쓰다","variants":["script"],"notes":"root"},
-  {"root":"duc","origin":"latin","meaning_en":"to lead","gloss_ko":"이끌다","variants":["duct"],"notes":"root"},
-  {"root":"mit","origin":"latin","meaning_en":"to send","gloss_ko":"보내다","variants":["miss"],"notes":"root"},
-  {"root":"fer","origin":"latin","meaning_en":"to carry, bring","gloss_ko":"나르다, 가져오다","variants":[],"notes":"root"},
-  {"root":"vert","origin":"latin","meaning_en":"to turn","gloss_ko":"돌리다, 향하다","variants":["vers"],"notes":"root"},
-  {"root":"cap","origin":"latin","meaning_en":"to take, seize","gloss_ko":"잡다, 취하다","variants":["cip","cept","capt"],"notes":"root"},
-  {"root":"ten","origin":"latin","meaning_en":"to hold","gloss_ko":"쥐다, 유지하다","variants":["tain","tin"],"notes":"root"},
-  {"root":"pon","origin":"latin","meaning_en":"to place, put","gloss_ko":"놓다, 두다","variants":["pos","posit"],"notes":"root"},
-  {"root":"grad","origin":"latin","meaning_en":"to step, go","gloss_ko":"걷다, 나아가다","variants":["gress"],"notes":"root"},
-  {"root":"struct","origin":"latin","meaning_en":"to build","gloss_ko":"세우다, 짓다","variants":["stru"],"notes":"root"},
-  {"root":"rupt","origin":"latin","meaning_en":"to break","gloss_ko":"깨뜨리다","variants":[],"notes":"root"},
-  {"root":"flect","origin":"latin","meaning_en":"to bend","gloss_ko":"구부리다","variants":["flex"],"notes":"root"},
-  {"root":"ced","origin":"latin","meaning_en":"to go, yield","gloss_ko":"가다, 양보하다","variants":["cess","ceed"],"notes":"root"},
-  {"root":"cur","origin":"latin","meaning_en":"to run","gloss_ko":"달리다","variants":["curs","cour"],"notes":"root"},
-  {"root":"val","origin":"latin","meaning_en":"to be strong, worth","gloss_ko":"강하다, 가치있다","variants":["vail"],"notes":"root"},
-  {"root":"ven","origin":"latin","meaning_en":"to come","gloss_ko":"오다","variants":["vent"],"notes":"root"},
-  {"root":"vid","origin":"latin","meaning_en":"to see","gloss_ko":"보다","variants":["vis"],"notes":"root"},
-  {"root":"aud","origin":"latin","meaning_en":"to hear","gloss_ko":"듣다","variants":["audit"],"notes":"root"},
-  {"root":"sent","origin":"latin","meaning_en":"to feel","gloss_ko":"느끼다","variants":["sens"],"notes":"root"},
-  {"root":"sign","origin":"latin","meaning_en":"mark, sign","gloss_ko":"표시, 기호","variants":[],"notes":"root"},
-  {"root":"form","origin":"latin","meaning_en":"shape, form","gloss_ko":"모양, 형태","variants":[],"notes":"root"},
-  {"root":"fac","origin":"latin","meaning_en":"to make, do","gloss_ko":"만들다, 하다","variants":["fic","fect","fy"],"notes":"root"},
-  {"root":"mot","origin":"latin","meaning_en":"to move","gloss_ko":"움직이다","variants":["mov","mob"],"notes":"root"},
-  {"root":"press","origin":"latin","meaning_en":"to press","gloss_ko":"누르다","variants":[],"notes":"root"},
-  {"root":"pel","origin":"latin","meaning_en":"to drive, push","gloss_ko":"몰다, 밀다","variants":["puls"],"notes":"root"},
-  {"root":"tend","origin":"latin","meaning_en":"to stretch","gloss_ko":"뻗다, 늘이다","variants":["tens","tent"],"notes":"root"},
-  {"root":"fus","origin":"latin","meaning_en":"to pour","gloss_ko":"붓다, 쏟다","variants":["fund","found"],"notes":"root"},
-  {"root":"junct","origin":"latin","meaning_en":"to join","gloss_ko":"잇다, 결합하다","variants":["jug"],"notes":"root"},
-  {"root":"lig","origin":"latin","meaning_en":"to bind, tie","gloss_ko":"묶다","variants":["leg","lect"],"notes":"root; also 'to choose/read' (leg/lect)"},
-  {"root":"loc","origin":"latin","meaning_en":"place","gloss_ko":"장소","variants":["loci"],"notes":"root"},
-  {"root":"man","origin":"latin","meaning_en":"hand","gloss_ko":"손","variants":["manu"],"notes":"root"},
-  {"root":"mort","origin":"latin","meaning_en":"death","gloss_ko":"죽음","variants":["mor"],"notes":"root"},
-  {"root":"nat","origin":"latin","meaning_en":"to be born","gloss_ko":"태어나다","variants":["nasc"],"notes":"root"},
-  {"root":"nov","origin":"latin","meaning_en":"new","gloss_ko":"새로운","variants":[],"notes":"root"},
-  {"root":"pend","origin":"latin","meaning_en":"to hang, weigh, pay","gloss_ko":"매달다, 무게달다, 지불하다","variants":["pens"],"notes":"root"},
-  {"root":"plic","origin":"latin","meaning_en":"to fold","gloss_ko":"접다","variants":["ple","ply","plex"],"notes":"root"},
-  {"root":"sci","origin":"latin","meaning_en":"to know","gloss_ko":"알다","variants":[],"notes":"root"},
-  {"root":"sequ","origin":"latin","meaning_en":"to follow","gloss_ko":"따르다","variants":["secut"],"notes":"root"},
-  {"root":"solv","origin":"latin","meaning_en":"to loosen, free","gloss_ko":"풀다","variants":["solu","solut"],"notes":"root"},
-  {"root":"son","origin":"latin","meaning_en":"sound","gloss_ko":"소리","variants":[],"notes":"root"},
-  {"root":"spir","origin":"latin","meaning_en":"to breathe","gloss_ko":"숨쉬다","variants":[],"notes":"root"},
-  {"root":"sta","origin":"latin","meaning_en":"to stand","gloss_ko":"서다","variants":["stat","sist","stit"],"notes":"root"},
-  {"root":"string","origin":"latin","meaning_en":"to bind tight","gloss_ko":"바짝 묶다","variants":["strict","strain"],"notes":"root"},
-  {"root":"tang","origin":"latin","meaning_en":"to touch","gloss_ko":"닿다, 만지다","variants":["tact","ting"],"notes":"root"},
-  {"root":"term","origin":"latin","meaning_en":"end, boundary","gloss_ko":"끝, 경계","variants":["termin"],"notes":"root"},
-  {"root":"text","origin":"latin","meaning_en":"to weave","gloss_ko":"짜다, 엮다","variants":[],"notes":"root"},
-  {"root":"tort","origin":"latin","meaning_en":"to twist","gloss_ko":"비틀다","variants":["torqu"],"notes":"root"},
-  {"root":"vac","origin":"latin","meaning_en":"empty","gloss_ko":"빈","variants":["van","void"],"notes":"root"},
-  {"root":"vor","origin":"latin","meaning_en":"to eat, devour","gloss_ko":"먹다, 삼키다","variants":[],"notes":"root"},
-  {"root":"volv","origin":"latin","meaning_en":"to roll, turn","gloss_ko":"구르다, 돌다","variants":["volut","volt"],"notes":"root"},
-  {"root":"cred","origin":"latin","meaning_en":"to believe, trust","gloss_ko":"믿다","variants":[],"notes":"root"},
-  {"root":"grat","origin":"latin","meaning_en":"pleasing, thankful","gloss_ko":"기쁜, 감사하는","variants":["grac"],"notes":"root"},
-  {"root":"greg","origin":"latin","meaning_en":"flock, group","gloss_ko":"무리","variants":[],"notes":"root"},
-  {"root":"jud","origin":"latin","meaning_en":"to judge","gloss_ko":"판단하다","variants":["jur","just"],"notes":"root; jur='law/swear'"},
-  {"root":"labor","origin":"latin","meaning_en":"work","gloss_ko":"일, 노동","variants":["labr"],"notes":"root"},
-  {"root":"liber","origin":"latin","meaning_en":"free","gloss_ko":"자유로운","variants":["liver"],"notes":"root"},
-  {"root":"lud","origin":"latin","meaning_en":"to play","gloss_ko":"놀다","variants":["lus"],"notes":"root"},
-  {"root":"magn","origin":"latin","meaning_en":"great, large","gloss_ko":"큰, 위대한","variants":["maj","max"],"notes":"root"},
-  {"root":"mem","origin":"latin","meaning_en":"mindful, to remember","gloss_ko":"기억하는","variants":["memor"],"notes":"root"},
-  {"root":"migr","origin":"latin","meaning_en":"to move, wander","gloss_ko":"이주하다","variants":[],"notes":"root"},
-  {"root":"nom","origin":"latin","meaning_en":"name","gloss_ko":"이름","variants":["nomin","noun"],"notes":"root"},
-  {"root":"pac","origin":"latin","meaning_en":"peace","gloss_ko":"평화","variants":["peas"],"notes":"root"},
-  {"root":"part","origin":"latin","meaning_en":"part","gloss_ko":"부분","variants":["parti"],"notes":"root"},
-  {"root":"pass","origin":"latin","meaning_en":"to suffer, feel","gloss_ko":"겪다, 느끼다","variants":["pati","path-lat"],"notes":"root; Latin pass/pati"},
-  {"root":"ped","origin":"latin","meaning_en":"foot","gloss_ko":"발","variants":["pod-lat"],"notes":"root; Latin ped = foot"},
-  {"root":"pet","origin":"latin","meaning_en":"to seek, strive","gloss_ko":"구하다, 추구하다","variants":["peat"],"notes":"root"},
-  {"root":"plac","origin":"latin","meaning_en":"to please","gloss_ko":"기쁘게 하다","variants":["pleas"],"notes":"root"},
-  {"root":"pot","origin":"latin","meaning_en":"power","gloss_ko":"힘, 능력","variants":["poss"],"notes":"root"},
-  {"root":"prehend","origin":"latin","meaning_en":"to seize, grasp","gloss_ko":"붙잡다, 파악하다","variants":["prehens","pris"],"notes":"root"},
-  {"root":"prob","origin":"latin","meaning_en":"to test, prove","gloss_ko":"시험하다, 증명하다","variants":["prov"],"notes":"root"},
-  {"root":"quir","origin":"latin","meaning_en":"to ask, seek","gloss_ko":"묻다, 구하다","variants":["quis","quest","quer"],"notes":"root"},
-  {"root":"reg","origin":"latin","meaning_en":"to rule, guide","gloss_ko":"다스리다","variants":["rect","rig"],"notes":"root"},
-  {"root":"rog","origin":"latin","meaning_en":"to ask","gloss_ko":"묻다, 청하다","variants":[],"notes":"root"},
-  {"root":"scend","origin":"latin","meaning_en":"to climb","gloss_ko":"오르다","variants":["scens","scent"],"notes":"root"},
-  {"root":"sed","origin":"latin","meaning_en":"to sit, settle","gloss_ko":"앉다, 가라앉다","variants":["sid","sess"],"notes":"root"},
-  {"root":"serv","origin":"latin","meaning_en":"to keep, serve","gloss_ko":"지키다, 섬기다","variants":[],"notes":"root"},
-  {"root":"solus","origin":"latin","meaning_en":"alone","gloss_ko":"홀로","variants":["sol","soli"],"notes":"root"},
-  {"root":"spond","origin":"latin","meaning_en":"to pledge, answer","gloss_ko":"약속하다, 응답하다","variants":["spons"],"notes":"root"},
-  {"root":"tempor","origin":"latin","meaning_en":"time","gloss_ko":"시간","variants":["tempo"],"notes":"root"},
-  {"root":"terr","origin":"latin","meaning_en":"earth, land","gloss_ko":"땅","variants":[],"notes":"root"},
-  {"root":"vac-ill","origin":"latin","meaning_en":"to waver","gloss_ko":"흔들리다","variants":["vacill"],"notes":"root"},
-  {"root":"ver","origin":"latin","meaning_en":"true","gloss_ko":"참된","variants":["veri"],"notes":"root"},
-  {"root":"via","origin":"latin","meaning_en":"way, road","gloss_ko":"길","variants":["voy","vey"],"notes":"root"},
-  {"root":"viv","origin":"latin","meaning_en":"to live","gloss_ko":"살다","variants":["vit"],"notes":"root"},
-  {"root":"voc","origin":"latin","meaning_en":"voice, to call","gloss_ko":"목소리, 부르다","variants":["vok"],"notes":"root"},
-  {"root":"volu","origin":"latin","meaning_en":"to wish, will","gloss_ko":"원하다, 의지","variants":["volunt"],"notes":"root"},
-  {"root":"chron","origin":"greek","meaning_en":"time","gloss_ko":"시간","variants":[],"notes":"root"},
-  {"root":"phon","origin":"greek","meaning_en":"sound, voice","gloss_ko":"소리","variants":[],"notes":"root"},
-  {"root":"graph","origin":"greek","meaning_en":"to write, draw","gloss_ko":"쓰다, 그리다","variants":["gram"],"notes":"root"},
-  {"root":"log","origin":"greek","meaning_en":"word, study, reason","gloss_ko":"말, 학문","variants":["logue","logy"],"notes":"root"},
-  {"root":"scop","origin":"greek","meaning_en":"to look at, examine","gloss_ko":"보다, 관찰하다","variants":["scope"],"notes":"root"},
-  {"root":"tele","origin":"greek","meaning_en":"far, distant","gloss_ko":"멀리","variants":[],"notes":"prefix/root"},
-  {"root":"therm","origin":"greek","meaning_en":"heat","gloss_ko":"열","variants":[],"notes":"root"},
-  {"root":"path","origin":"greek","meaning_en":"feeling, disease","gloss_ko":"감정, 질병","variants":["pathy"],"notes":"root"},
-  {"root":"phil","origin":"greek","meaning_en":"loving","gloss_ko":"사랑하는","variants":["phile"],"notes":"root"},
-  {"root":"phob","origin":"greek","meaning_en":"fear","gloss_ko":"두려움","variants":["phobia"],"notes":"root"},
-  {"root":"bio","origin":"greek","meaning_en":"life","gloss_ko":"생명","variants":[],"notes":"root"},
-  {"root":"geo","origin":"greek","meaning_en":"earth","gloss_ko":"땅, 지구","variants":[],"notes":"root"},
-  {"root":"auto","origin":"greek","meaning_en":"self","gloss_ko":"스스로","variants":[],"notes":"prefix/root"},
-  {"root":"hydr","origin":"greek","meaning_en":"water","gloss_ko":"물","variants":["hydro"],"notes":"root"},
-  {"root":"psych","origin":"greek","meaning_en":"mind, soul","gloss_ko":"마음, 정신","variants":[],"notes":"root"},
-  {"root":"micro","origin":"greek","meaning_en":"small","gloss_ko":"작은","variants":[],"notes":"prefix/root"},
-  {"root":"macro","origin":"greek","meaning_en":"large, long","gloss_ko":"큰, 긴","variants":[],"notes":"prefix/root"},
-  {"root":"poly","origin":"greek","meaning_en":"many","gloss_ko":"많은","variants":[],"notes":"prefix/root"},
-  {"root":"mono","origin":"greek","meaning_en":"one, single","gloss_ko":"하나의","variants":[],"notes":"prefix/root"},
-  {"root":"metr","origin":"greek","meaning_en":"measure","gloss_ko":"측정","variants":["meter"],"notes":"root"},
-  {"root":"morph","origin":"greek","meaning_en":"form, shape","gloss_ko":"형태","variants":[],"notes":"root"},
-  {"root":"gen","origin":"greek","meaning_en":"birth, kind, produce","gloss_ko":"발생, 종류","variants":["gene"],"notes":"root"},
-  {"root":"dyn","origin":"greek","meaning_en":"power","gloss_ko":"힘","variants":["dynam"],"notes":"root"},
-  {"root":"phys","origin":"greek","meaning_en":"nature","gloss_ko":"자연","variants":[],"notes":"root"},
-  {"root":"techn","origin":"greek","meaning_en":"art, skill","gloss_ko":"기술","variants":[],"notes":"root"},
-  {"root":"arch","origin":"greek","meaning_en":"chief, rule, ancient","gloss_ko":"우두머리, 최초의","variants":[],"notes":"root"},
-  {"root":"dem","origin":"greek","meaning_en":"people","gloss_ko":"민중, 사람들","variants":["demo"],"notes":"root"},
-  {"root":"theo","origin":"greek","meaning_en":"god","gloss_ko":"신","variants":["the"],"notes":"root"},
-  {"root":"anthrop","origin":"greek","meaning_en":"human","gloss_ko":"인간","variants":[],"notes":"root"},
-  {"root":"chrom","origin":"greek","meaning_en":"color","gloss_ko":"색","variants":["chromat"],"notes":"root"},
-  {"root":"cycl","origin":"greek","meaning_en":"circle, wheel","gloss_ko":"원, 순환","variants":[],"notes":"root"},
-  {"root":"cosm","origin":"greek","meaning_en":"universe, order","gloss_ko":"우주, 질서","variants":["cosmo"],"notes":"root"},
-  {"root":"crat","origin":"greek","meaning_en":"rule, power","gloss_ko":"지배","variants":["cracy"],"notes":"root"},
-  {"root":"derm","origin":"greek","meaning_en":"skin","gloss_ko":"피부","variants":[],"notes":"root"},
-  {"root":"neur","origin":"greek","meaning_en":"nerve","gloss_ko":"신경","variants":["neuro"],"notes":"root"},
-  {"root":"onym","origin":"greek","meaning_en":"name","gloss_ko":"이름","variants":["onom"],"notes":"root"},
-  {"root":"orth","origin":"greek","meaning_en":"straight, correct","gloss_ko":"바른, 곧은","variants":["ortho"],"notes":"root"},
-  {"root":"pan","origin":"greek","meaning_en":"all","gloss_ko":"모든","variants":["pant"],"notes":"prefix/root"},
-  {"root":"pod","origin":"greek","meaning_en":"foot","gloss_ko":"발","variants":["pus"],"notes":"root; Greek"},
-  {"root":"syn","origin":"greek","meaning_en":"together, with","gloss_ko":"함께","variants":["sym","syl","sys"],"notes":"prefix"},
-  {"root":"tax","origin":"greek","meaning_en":"arrangement, order","gloss_ko":"배열, 질서","variants":["tact-gr"],"notes":"root"},
-  {"root":"zo","origin":"greek","meaning_en":"animal","gloss_ko":"동물","variants":["zoo"],"notes":"root"},
-  {"root":"a","origin":"greek","meaning_en":"not, without","gloss_ko":"~아닌, ~없는","variants":["an"],"notes":"prefix"},
-  {"root":"ab","origin":"latin","meaning_en":"away from","gloss_ko":"~로부터 떨어져","variants":["abs"],"notes":"prefix"},
-  {"root":"ad","origin":"latin","meaning_en":"to, toward","gloss_ko":"~쪽으로","variants":["ac","af","ag","al","ap","as","at"],"notes":"prefix"},
-  {"root":"ante","origin":"latin","meaning_en":"before","gloss_ko":"~전에","variants":["anti-lat"],"notes":"prefix"},
-  {"root":"anti","origin":"greek","meaning_en":"against, opposite","gloss_ko":"반대의","variants":["ant"],"notes":"prefix"},
-  {"root":"bene","origin":"latin","meaning_en":"good, well","gloss_ko":"좋은","variants":["bon"],"notes":"prefix"},
-  {"root":"circum","origin":"latin","meaning_en":"around","gloss_ko":"둘레에","variants":["circu"],"notes":"prefix"},
-  {"root":"con","origin":"latin","meaning_en":"together, with","gloss_ko":"함께","variants":["com","co","col","cor"],"notes":"prefix"},
-  {"root":"contra","origin":"latin","meaning_en":"against","gloss_ko":"반대의","variants":["counter","contro"],"notes":"prefix"},
-  {"root":"de","origin":"latin","meaning_en":"down, away, off","gloss_ko":"아래로, 떨어져","variants":[],"notes":"prefix"},
-  {"root":"dis","origin":"latin","meaning_en":"apart, not","gloss_ko":"분리, 부정","variants":["dif","di"],"notes":"prefix"},
-  {"root":"ex","origin":"latin","meaning_en":"out, out of","gloss_ko":"밖으로","variants":["e","ef","ec"],"notes":"prefix"},
-  {"root":"extra","origin":"latin","meaning_en":"beyond, outside","gloss_ko":"~밖의, 넘어서","variants":["extro"],"notes":"prefix"},
-  {"root":"in-neg","origin":"latin","meaning_en":"not","gloss_ko":"~아닌","variants":["im","il","ir"],"notes":"prefix; negation"},
-  {"root":"in-into","origin":"latin","meaning_en":"in, into","gloss_ko":"안으로","variants":["im-in","en","em"],"notes":"prefix; direction"},
-  {"root":"inter","origin":"latin","meaning_en":"between, among","gloss_ko":"~사이에","variants":["intel"],"notes":"prefix"},
-  {"root":"intra","origin":"latin","meaning_en":"within","gloss_ko":"~안에","variants":["intro"],"notes":"prefix"},
-  {"root":"mal","origin":"latin","meaning_en":"bad, badly","gloss_ko":"나쁜","variants":["male"],"notes":"prefix"},
-  {"root":"mis","origin":"latin","meaning_en":"wrong, badly","gloss_ko":"잘못","variants":[],"notes":"prefix"},
-  {"root":"ob","origin":"latin","meaning_en":"against, toward","gloss_ko":"맞서, ~쪽으로","variants":["oc","of","op"],"notes":"prefix"},
-  {"root":"per","origin":"latin","meaning_en":"through, thoroughly","gloss_ko":"관통하여, 완전히","variants":[],"notes":"prefix"},
-  {"root":"post","origin":"latin","meaning_en":"after, behind","gloss_ko":"~후에, 뒤에","variants":[],"notes":"prefix"},
-  {"root":"pre","origin":"latin","meaning_en":"before","gloss_ko":"~전에, 미리","variants":["prae"],"notes":"prefix"},
-  {"root":"pro","origin":"latin","meaning_en":"forward, for","gloss_ko":"앞으로, ~을 위해","variants":[],"notes":"prefix"},
-  {"root":"re","origin":"latin","meaning_en":"back, again","gloss_ko":"다시, 뒤로","variants":["red"],"notes":"prefix"},
-  {"root":"retro","origin":"latin","meaning_en":"backward","gloss_ko":"뒤로, 거꾸로","variants":[],"notes":"prefix"},
-  {"root":"se","origin":"latin","meaning_en":"apart, aside","gloss_ko":"떨어져","variants":["sed-se"],"notes":"prefix"},
-  {"root":"sub","origin":"latin","meaning_en":"under, below","gloss_ko":"아래에","variants":["suc","suf","sug","sup","sus"],"notes":"prefix"},
-  {"root":"super","origin":"latin","meaning_en":"above, over","gloss_ko":"위에, 넘어","variants":["sur","supra"],"notes":"prefix"},
-  {"root":"trans","origin":"latin","meaning_en":"across, beyond","gloss_ko":"가로질러, 넘어","variants":["tra"],"notes":"prefix"},
-  {"root":"ultra","origin":"latin","meaning_en":"beyond, extreme","gloss_ko":"극도로, 넘어","variants":[],"notes":"prefix"},
-  {"root":"un","origin":"other","meaning_en":"not, reverse","gloss_ko":"~아닌, 반대로","variants":[],"notes":"prefix; Old English"},
-  {"root":"uni","origin":"latin","meaning_en":"one","gloss_ko":"하나의","variants":[],"notes":"prefix"},
-  {"root":"bi","origin":"latin","meaning_en":"two","gloss_ko":"둘의","variants":["bin"],"notes":"prefix"},
-  {"root":"tri","origin":"latin","meaning_en":"three","gloss_ko":"셋의","variants":[],"notes":"prefix"},
-  {"root":"multi","origin":"latin","meaning_en":"many","gloss_ko":"많은","variants":[],"notes":"prefix"},
-  {"root":"omni","origin":"latin","meaning_en":"all","gloss_ko":"모든","variants":[],"notes":"prefix"},
-  {"root":"hyper","origin":"greek","meaning_en":"over, excessive","gloss_ko":"과도한","variants":[],"notes":"prefix"},
-  {"root":"hypo","origin":"greek","meaning_en":"under, below","gloss_ko":"아래, 부족한","variants":["hyp"],"notes":"prefix"},
-  {"root":"epi","origin":"greek","meaning_en":"upon, over","gloss_ko":"위에","variants":["ep"],"notes":"prefix"},
-  {"root":"dia","origin":"greek","meaning_en":"through, across","gloss_ko":"관통하여","variants":[],"notes":"prefix"},
-  {"root":"peri","origin":"greek","meaning_en":"around","gloss_ko":"둘레에","variants":[],"notes":"prefix"},
-  {"root":"eu","origin":"greek","meaning_en":"good, well","gloss_ko":"좋은","variants":[],"notes":"prefix"},
-  {"root":"dys","origin":"greek","meaning_en":"bad, difficult","gloss_ko":"나쁜, 어려운","variants":[],"notes":"prefix"},
-  {"root":"neo","origin":"greek","meaning_en":"new","gloss_ko":"새로운","variants":[],"notes":"prefix"},
-  {"root":"proto","origin":"greek","meaning_en":"first","gloss_ko":"최초의","variants":["prot"],"notes":"prefix"},
-  {"root":"homo","origin":"greek","meaning_en":"same","gloss_ko":"같은","variants":[],"notes":"prefix"},
-  {"root":"hetero","origin":"greek","meaning_en":"different","gloss_ko":"다른","variants":[],"notes":"prefix"}
+ {
+  "root": "spec",
+  "origin": "latin",
+  "meaning_en": "to look, see",
+  "gloss_ko": "보다",
+  "variants": [
+   "spect",
+   "spic"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "port",
+  "origin": "latin",
+  "meaning_en": "to carry",
+  "gloss_ko": "나르다, 운반하다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "dict",
+  "origin": "latin",
+  "meaning_en": "to say, tell",
+  "gloss_ko": "말하다",
+  "variants": [
+   "dic"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ject",
+  "origin": "latin",
+  "meaning_en": "to throw",
+  "gloss_ko": "던지다",
+  "variants": [
+   "jac"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tract",
+  "origin": "latin",
+  "meaning_en": "to pull, drag",
+  "gloss_ko": "끌다",
+  "variants": [
+   "trah"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "scrib",
+  "origin": "latin",
+  "meaning_en": "to write",
+  "gloss_ko": "쓰다",
+  "variants": [
+   "script"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "duc",
+  "origin": "latin",
+  "meaning_en": "to lead",
+  "gloss_ko": "이끌다",
+  "variants": [
+   "duct"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mit",
+  "origin": "latin",
+  "meaning_en": "to send",
+  "gloss_ko": "보내다",
+  "variants": [
+   "miss"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "fer",
+  "origin": "latin",
+  "meaning_en": "to carry, bring",
+  "gloss_ko": "나르다, 가져오다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "vert",
+  "origin": "latin",
+  "meaning_en": "to turn",
+  "gloss_ko": "돌리다, 향하다",
+  "variants": [
+   "vers"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cap",
+  "origin": "latin",
+  "meaning_en": "to take, seize",
+  "gloss_ko": "잡다, 취하다",
+  "variants": [
+   "cip",
+   "cept",
+   "capt"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ten",
+  "origin": "latin",
+  "meaning_en": "to hold",
+  "gloss_ko": "쥐다, 유지하다",
+  "variants": [
+   "tain",
+   "tin"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pon",
+  "origin": "latin",
+  "meaning_en": "to place, put",
+  "gloss_ko": "놓다, 두다",
+  "variants": [
+   "pos",
+   "posit"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "grad",
+  "origin": "latin",
+  "meaning_en": "to step, go",
+  "gloss_ko": "걷다, 나아가다",
+  "variants": [
+   "gress"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "struct",
+  "origin": "latin",
+  "meaning_en": "to build",
+  "gloss_ko": "세우다, 짓다",
+  "variants": [
+   "stru"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "rupt",
+  "origin": "latin",
+  "meaning_en": "to break",
+  "gloss_ko": "깨뜨리다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "flect",
+  "origin": "latin",
+  "meaning_en": "to bend",
+  "gloss_ko": "구부리다",
+  "variants": [
+   "flex"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ced",
+  "origin": "latin",
+  "meaning_en": "to go, yield",
+  "gloss_ko": "가다, 양보하다",
+  "variants": [
+   "cess",
+   "ceed"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cur",
+  "origin": "latin",
+  "meaning_en": "to run",
+  "gloss_ko": "달리다",
+  "variants": [
+   "curs",
+   "cour"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "val",
+  "origin": "latin",
+  "meaning_en": "to be strong, worth",
+  "gloss_ko": "강하다, 가치있다",
+  "variants": [
+   "vail"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ven",
+  "origin": "latin",
+  "meaning_en": "to come",
+  "gloss_ko": "오다",
+  "variants": [
+   "vent"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "vid",
+  "origin": "latin",
+  "meaning_en": "to see",
+  "gloss_ko": "보다",
+  "variants": [
+   "vis"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "aud",
+  "origin": "latin",
+  "meaning_en": "to hear",
+  "gloss_ko": "듣다",
+  "variants": [
+   "audit"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "sent",
+  "origin": "latin",
+  "meaning_en": "to feel",
+  "gloss_ko": "느끼다",
+  "variants": [
+   "sens"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "sign",
+  "origin": "latin",
+  "meaning_en": "mark, sign",
+  "gloss_ko": "표시, 기호",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "form",
+  "origin": "latin",
+  "meaning_en": "shape, form",
+  "gloss_ko": "모양, 형태",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "fac",
+  "origin": "latin",
+  "meaning_en": "to make, do",
+  "gloss_ko": "만들다, 하다",
+  "variants": [
+   "fic",
+   "fect",
+   "fy"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mot",
+  "origin": "latin",
+  "meaning_en": "to move",
+  "gloss_ko": "움직이다",
+  "variants": [
+   "mov",
+   "mob"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "press",
+  "origin": "latin",
+  "meaning_en": "to press",
+  "gloss_ko": "누르다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "pel",
+  "origin": "latin",
+  "meaning_en": "to drive, push",
+  "gloss_ko": "몰다, 밀다",
+  "variants": [
+   "puls"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tend",
+  "origin": "latin",
+  "meaning_en": "to stretch",
+  "gloss_ko": "뻗다, 늘이다",
+  "variants": [
+   "tens",
+   "tent"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "fus",
+  "origin": "latin",
+  "meaning_en": "to pour",
+  "gloss_ko": "붓다, 쏟다",
+  "variants": [
+   "fund",
+   "found"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "junct",
+  "origin": "latin",
+  "meaning_en": "to join",
+  "gloss_ko": "잇다, 결합하다",
+  "variants": [
+   "jug"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "lig",
+  "origin": "latin",
+  "meaning_en": "to bind, tie",
+  "gloss_ko": "묶다",
+  "variants": [
+   "leg",
+   "lect"
+  ],
+  "notes": "root; also 'to choose/read' (leg/lect)"
+ },
+ {
+  "root": "loc",
+  "origin": "latin",
+  "meaning_en": "place",
+  "gloss_ko": "장소",
+  "variants": [
+   "loci"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "man",
+  "origin": "latin",
+  "meaning_en": "hand",
+  "gloss_ko": "손",
+  "variants": [
+   "manu"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mort",
+  "origin": "latin",
+  "meaning_en": "death",
+  "gloss_ko": "죽음",
+  "variants": [
+   "mor"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "nat",
+  "origin": "latin",
+  "meaning_en": "to be born",
+  "gloss_ko": "태어나다",
+  "variants": [
+   "nasc"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "nov",
+  "origin": "latin",
+  "meaning_en": "new",
+  "gloss_ko": "새로운",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "pend",
+  "origin": "latin",
+  "meaning_en": "to hang, weigh, pay",
+  "gloss_ko": "매달다, 무게달다, 지불하다",
+  "variants": [
+   "pens"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "plic",
+  "origin": "latin",
+  "meaning_en": "to fold",
+  "gloss_ko": "접다",
+  "variants": [
+   "ple",
+   "ply",
+   "plex"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "sci",
+  "origin": "latin",
+  "meaning_en": "to know",
+  "gloss_ko": "알다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "sequ",
+  "origin": "latin",
+  "meaning_en": "to follow",
+  "gloss_ko": "따르다",
+  "variants": [
+   "secut"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "solv",
+  "origin": "latin",
+  "meaning_en": "to loosen, free",
+  "gloss_ko": "풀다",
+  "variants": [
+   "solu",
+   "solut"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "son",
+  "origin": "latin",
+  "meaning_en": "sound",
+  "gloss_ko": "소리",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "spir",
+  "origin": "latin",
+  "meaning_en": "to breathe",
+  "gloss_ko": "숨쉬다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "sta",
+  "origin": "latin",
+  "meaning_en": "to stand",
+  "gloss_ko": "서다",
+  "variants": [
+   "stat",
+   "sist",
+   "stit"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "string",
+  "origin": "latin",
+  "meaning_en": "to bind tight",
+  "gloss_ko": "바짝 묶다",
+  "variants": [
+   "strict",
+   "strain"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tang",
+  "origin": "latin",
+  "meaning_en": "to touch",
+  "gloss_ko": "닿다, 만지다",
+  "variants": [
+   "tact",
+   "ting"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "term",
+  "origin": "latin",
+  "meaning_en": "end, boundary",
+  "gloss_ko": "끝, 경계",
+  "variants": [
+   "termin"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "text",
+  "origin": "latin",
+  "meaning_en": "to weave",
+  "gloss_ko": "짜다, 엮다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "tort",
+  "origin": "latin",
+  "meaning_en": "to twist",
+  "gloss_ko": "비틀다",
+  "variants": [
+   "torqu"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "vac",
+  "origin": "latin",
+  "meaning_en": "empty",
+  "gloss_ko": "빈",
+  "variants": [
+   "van",
+   "void"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "vor",
+  "origin": "latin",
+  "meaning_en": "to eat, devour",
+  "gloss_ko": "먹다, 삼키다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "volv",
+  "origin": "latin",
+  "meaning_en": "to roll, turn",
+  "gloss_ko": "구르다, 돌다",
+  "variants": [
+   "volut",
+   "volt"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cred",
+  "origin": "latin",
+  "meaning_en": "to believe, trust",
+  "gloss_ko": "믿다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "grat",
+  "origin": "latin",
+  "meaning_en": "pleasing, thankful",
+  "gloss_ko": "기쁜, 감사하는",
+  "variants": [
+   "grac"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "greg",
+  "origin": "latin",
+  "meaning_en": "flock, group",
+  "gloss_ko": "무리",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "jud",
+  "origin": "latin",
+  "meaning_en": "to judge",
+  "gloss_ko": "판단하다",
+  "variants": [
+   "jur",
+   "just"
+  ],
+  "notes": "root; jur='law/swear'"
+ },
+ {
+  "root": "labor",
+  "origin": "latin",
+  "meaning_en": "work",
+  "gloss_ko": "일, 노동",
+  "variants": [
+   "labr"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "liber",
+  "origin": "latin",
+  "meaning_en": "free",
+  "gloss_ko": "자유로운",
+  "variants": [
+   "liver"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "lud",
+  "origin": "latin",
+  "meaning_en": "to play",
+  "gloss_ko": "놀다",
+  "variants": [
+   "lus"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "magn",
+  "origin": "latin",
+  "meaning_en": "great, large",
+  "gloss_ko": "큰, 위대한",
+  "variants": [
+   "maj",
+   "max"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mem",
+  "origin": "latin",
+  "meaning_en": "mindful, to remember",
+  "gloss_ko": "기억하는",
+  "variants": [
+   "memor"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "migr",
+  "origin": "latin",
+  "meaning_en": "to move, wander",
+  "gloss_ko": "이주하다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "nom",
+  "origin": "latin",
+  "meaning_en": "name",
+  "gloss_ko": "이름",
+  "variants": [
+   "nomin",
+   "noun"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pac",
+  "origin": "latin",
+  "meaning_en": "peace",
+  "gloss_ko": "평화",
+  "variants": [
+   "peas"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "part",
+  "origin": "latin",
+  "meaning_en": "part",
+  "gloss_ko": "부분",
+  "variants": [
+   "parti"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pass",
+  "origin": "latin",
+  "meaning_en": "to suffer, feel",
+  "gloss_ko": "겪다, 느끼다",
+  "variants": [
+   "pati",
+   "path-lat"
+  ],
+  "notes": "root; Latin pass/pati"
+ },
+ {
+  "root": "ped",
+  "origin": "latin",
+  "meaning_en": "foot",
+  "gloss_ko": "발",
+  "variants": [
+   "pod-lat"
+  ],
+  "notes": "root; Latin ped = foot"
+ },
+ {
+  "root": "pet",
+  "origin": "latin",
+  "meaning_en": "to seek, strive",
+  "gloss_ko": "구하다, 추구하다",
+  "variants": [
+   "peat"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "plac",
+  "origin": "latin",
+  "meaning_en": "to please",
+  "gloss_ko": "기쁘게 하다",
+  "variants": [
+   "pleas"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pot",
+  "origin": "latin",
+  "meaning_en": "power",
+  "gloss_ko": "힘, 능력",
+  "variants": [
+   "poss"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "prehend",
+  "origin": "latin",
+  "meaning_en": "to seize, grasp",
+  "gloss_ko": "붙잡다, 파악하다",
+  "variants": [
+   "prehens",
+   "pris"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "prob",
+  "origin": "latin",
+  "meaning_en": "to test, prove",
+  "gloss_ko": "시험하다, 증명하다",
+  "variants": [
+   "prov"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "quir",
+  "origin": "latin",
+  "meaning_en": "to ask, seek",
+  "gloss_ko": "묻다, 구하다",
+  "variants": [
+   "quis",
+   "quest",
+   "quer"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "reg",
+  "origin": "latin",
+  "meaning_en": "to rule, guide",
+  "gloss_ko": "다스리다",
+  "variants": [
+   "rect",
+   "rig"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "rog",
+  "origin": "latin",
+  "meaning_en": "to ask",
+  "gloss_ko": "묻다, 청하다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "scend",
+  "origin": "latin",
+  "meaning_en": "to climb",
+  "gloss_ko": "오르다",
+  "variants": [
+   "scens",
+   "scent"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "sed",
+  "origin": "latin",
+  "meaning_en": "to sit, settle",
+  "gloss_ko": "앉다, 가라앉다",
+  "variants": [
+   "sid",
+   "sess"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "serv",
+  "origin": "latin",
+  "meaning_en": "to keep, serve",
+  "gloss_ko": "지키다, 섬기다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "solus",
+  "origin": "latin",
+  "meaning_en": "alone",
+  "gloss_ko": "홀로",
+  "variants": [
+   "sol",
+   "soli"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "spond",
+  "origin": "latin",
+  "meaning_en": "to pledge, answer",
+  "gloss_ko": "약속하다, 응답하다",
+  "variants": [
+   "spons"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tempor",
+  "origin": "latin",
+  "meaning_en": "time",
+  "gloss_ko": "시간",
+  "variants": [
+   "tempo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "terr",
+  "origin": "latin",
+  "meaning_en": "earth, land",
+  "gloss_ko": "땅",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "vac-ill",
+  "origin": "latin",
+  "meaning_en": "to waver",
+  "gloss_ko": "흔들리다",
+  "variants": [
+   "vacill"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ver",
+  "origin": "latin",
+  "meaning_en": "true",
+  "gloss_ko": "참된",
+  "variants": [
+   "veri"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "via",
+  "origin": "latin",
+  "meaning_en": "way, road",
+  "gloss_ko": "길",
+  "variants": [
+   "voy",
+   "vey"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "viv",
+  "origin": "latin",
+  "meaning_en": "to live",
+  "gloss_ko": "살다",
+  "variants": [
+   "vit"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "voc",
+  "origin": "latin",
+  "meaning_en": "voice, to call",
+  "gloss_ko": "목소리, 부르다",
+  "variants": [
+   "vok"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "volu",
+  "origin": "latin",
+  "meaning_en": "to wish, will",
+  "gloss_ko": "원하다, 의지",
+  "variants": [
+   "volunt"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "chron",
+  "origin": "greek",
+  "meaning_en": "time",
+  "gloss_ko": "시간",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "phon",
+  "origin": "greek",
+  "meaning_en": "sound, voice",
+  "gloss_ko": "소리",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "graph",
+  "origin": "greek",
+  "meaning_en": "to write, draw",
+  "gloss_ko": "쓰다, 그리다",
+  "variants": [
+   "gram"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "log",
+  "origin": "greek",
+  "meaning_en": "word, study, reason",
+  "gloss_ko": "말, 학문",
+  "variants": [
+   "logue",
+   "logy"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "scop",
+  "origin": "greek",
+  "meaning_en": "to look at, examine",
+  "gloss_ko": "보다, 관찰하다",
+  "variants": [
+   "scope"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tele",
+  "origin": "greek",
+  "meaning_en": "far, distant",
+  "gloss_ko": "멀리",
+  "variants": [],
+  "notes": "prefix/root"
+ },
+ {
+  "root": "therm",
+  "origin": "greek",
+  "meaning_en": "heat",
+  "gloss_ko": "열",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "path",
+  "origin": "greek",
+  "meaning_en": "feeling, disease",
+  "gloss_ko": "감정, 질병",
+  "variants": [
+   "pathy"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phil",
+  "origin": "greek",
+  "meaning_en": "loving",
+  "gloss_ko": "사랑하는",
+  "variants": [
+   "phile"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phob",
+  "origin": "greek",
+  "meaning_en": "fear",
+  "gloss_ko": "두려움",
+  "variants": [
+   "phobia"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "bio",
+  "origin": "greek",
+  "meaning_en": "life",
+  "gloss_ko": "생명",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "geo",
+  "origin": "greek",
+  "meaning_en": "earth",
+  "gloss_ko": "땅, 지구",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "auto",
+  "origin": "greek",
+  "meaning_en": "self",
+  "gloss_ko": "스스로",
+  "variants": [],
+  "notes": "prefix/root"
+ },
+ {
+  "root": "hydr",
+  "origin": "greek",
+  "meaning_en": "water",
+  "gloss_ko": "물",
+  "variants": [
+   "hydro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "psych",
+  "origin": "greek",
+  "meaning_en": "mind, soul",
+  "gloss_ko": "마음, 정신",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "micro",
+  "origin": "greek",
+  "meaning_en": "small",
+  "gloss_ko": "작은",
+  "variants": [],
+  "notes": "prefix/root"
+ },
+ {
+  "root": "macro",
+  "origin": "greek",
+  "meaning_en": "large, long",
+  "gloss_ko": "큰, 긴",
+  "variants": [],
+  "notes": "prefix/root"
+ },
+ {
+  "root": "poly",
+  "origin": "greek",
+  "meaning_en": "many",
+  "gloss_ko": "많은",
+  "variants": [],
+  "notes": "prefix/root"
+ },
+ {
+  "root": "mono",
+  "origin": "greek",
+  "meaning_en": "one, single",
+  "gloss_ko": "하나의",
+  "variants": [],
+  "notes": "prefix/root"
+ },
+ {
+  "root": "metr",
+  "origin": "greek",
+  "meaning_en": "measure",
+  "gloss_ko": "측정",
+  "variants": [
+   "meter"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "morph",
+  "origin": "greek",
+  "meaning_en": "form, shape",
+  "gloss_ko": "형태",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "gen",
+  "origin": "greek",
+  "meaning_en": "birth, kind, produce",
+  "gloss_ko": "발생, 종류",
+  "variants": [
+   "gene"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "dyn",
+  "origin": "greek",
+  "meaning_en": "power",
+  "gloss_ko": "힘",
+  "variants": [
+   "dynam"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phys",
+  "origin": "greek",
+  "meaning_en": "nature",
+  "gloss_ko": "자연",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "techn",
+  "origin": "greek",
+  "meaning_en": "art, skill",
+  "gloss_ko": "기술",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "arch",
+  "origin": "greek",
+  "meaning_en": "chief, rule, ancient",
+  "gloss_ko": "우두머리, 최초의",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "dem",
+  "origin": "greek",
+  "meaning_en": "people",
+  "gloss_ko": "민중, 사람들",
+  "variants": [
+   "demo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "theo",
+  "origin": "greek",
+  "meaning_en": "god",
+  "gloss_ko": "신",
+  "variants": [
+   "the"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "anthrop",
+  "origin": "greek",
+  "meaning_en": "human",
+  "gloss_ko": "인간",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "chrom",
+  "origin": "greek",
+  "meaning_en": "color",
+  "gloss_ko": "색",
+  "variants": [
+   "chromat"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cycl",
+  "origin": "greek",
+  "meaning_en": "circle, wheel",
+  "gloss_ko": "원, 순환",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "cosm",
+  "origin": "greek",
+  "meaning_en": "universe, order",
+  "gloss_ko": "우주, 질서",
+  "variants": [
+   "cosmo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "crat",
+  "origin": "greek",
+  "meaning_en": "rule, power",
+  "gloss_ko": "지배",
+  "variants": [
+   "cracy"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "derm",
+  "origin": "greek",
+  "meaning_en": "skin",
+  "gloss_ko": "피부",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "neur",
+  "origin": "greek",
+  "meaning_en": "nerve",
+  "gloss_ko": "신경",
+  "variants": [
+   "neuro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "onym",
+  "origin": "greek",
+  "meaning_en": "name",
+  "gloss_ko": "이름",
+  "variants": [
+   "onom"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "orth",
+  "origin": "greek",
+  "meaning_en": "straight, correct",
+  "gloss_ko": "바른, 곧은",
+  "variants": [
+   "ortho"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pan",
+  "origin": "greek",
+  "meaning_en": "all",
+  "gloss_ko": "모든",
+  "variants": [
+   "pant"
+  ],
+  "notes": "prefix/root"
+ },
+ {
+  "root": "pod",
+  "origin": "greek",
+  "meaning_en": "foot",
+  "gloss_ko": "발",
+  "variants": [
+   "pus"
+  ],
+  "notes": "root; Greek"
+ },
+ {
+  "root": "syn",
+  "origin": "greek",
+  "meaning_en": "together, with",
+  "gloss_ko": "함께",
+  "variants": [
+   "sym",
+   "syl",
+   "sys"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "tax",
+  "origin": "greek",
+  "meaning_en": "arrangement, order",
+  "gloss_ko": "배열, 질서",
+  "variants": [
+   "tact-gr"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "zo",
+  "origin": "greek",
+  "meaning_en": "animal",
+  "gloss_ko": "동물",
+  "variants": [
+   "zoo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "a",
+  "origin": "greek",
+  "meaning_en": "not, without",
+  "gloss_ko": "~아닌, ~없는",
+  "variants": [
+   "an"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "ab",
+  "origin": "latin",
+  "meaning_en": "away from",
+  "gloss_ko": "~로부터 떨어져",
+  "variants": [
+   "abs"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "ad",
+  "origin": "latin",
+  "meaning_en": "to, toward",
+  "gloss_ko": "~쪽으로",
+  "variants": [
+   "ac",
+   "af",
+   "ag",
+   "al",
+   "ap",
+   "as",
+   "at"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "ante",
+  "origin": "latin",
+  "meaning_en": "before",
+  "gloss_ko": "~전에",
+  "variants": [
+   "anti-lat"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "anti",
+  "origin": "greek",
+  "meaning_en": "against, opposite",
+  "gloss_ko": "반대의",
+  "variants": [
+   "ant"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "bene",
+  "origin": "latin",
+  "meaning_en": "good, well",
+  "gloss_ko": "좋은",
+  "variants": [
+   "bon"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "circum",
+  "origin": "latin",
+  "meaning_en": "around",
+  "gloss_ko": "둘레에",
+  "variants": [
+   "circu"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "con",
+  "origin": "latin",
+  "meaning_en": "together, with",
+  "gloss_ko": "함께",
+  "variants": [
+   "com",
+   "co",
+   "col",
+   "cor"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "contra",
+  "origin": "latin",
+  "meaning_en": "against",
+  "gloss_ko": "반대의",
+  "variants": [
+   "counter",
+   "contro"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "de",
+  "origin": "latin",
+  "meaning_en": "down, away, off",
+  "gloss_ko": "아래로, 떨어져",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "dis",
+  "origin": "latin",
+  "meaning_en": "apart, not",
+  "gloss_ko": "분리, 부정",
+  "variants": [
+   "dif",
+   "di"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "ex",
+  "origin": "latin",
+  "meaning_en": "out, out of",
+  "gloss_ko": "밖으로",
+  "variants": [
+   "e",
+   "ef",
+   "ec"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "extra",
+  "origin": "latin",
+  "meaning_en": "beyond, outside",
+  "gloss_ko": "~밖의, 넘어서",
+  "variants": [
+   "extro"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "in-neg",
+  "origin": "latin",
+  "meaning_en": "not",
+  "gloss_ko": "~아닌",
+  "variants": [
+   "im",
+   "il",
+   "ir"
+  ],
+  "notes": "prefix; negation"
+ },
+ {
+  "root": "in-into",
+  "origin": "latin",
+  "meaning_en": "in, into",
+  "gloss_ko": "안으로",
+  "variants": [
+   "im-in",
+   "en",
+   "em"
+  ],
+  "notes": "prefix; direction"
+ },
+ {
+  "root": "inter",
+  "origin": "latin",
+  "meaning_en": "between, among",
+  "gloss_ko": "~사이에",
+  "variants": [
+   "intel"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "intra",
+  "origin": "latin",
+  "meaning_en": "within",
+  "gloss_ko": "~안에",
+  "variants": [
+   "intro"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "mal",
+  "origin": "latin",
+  "meaning_en": "bad, badly",
+  "gloss_ko": "나쁜",
+  "variants": [
+   "male"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "mis",
+  "origin": "latin",
+  "meaning_en": "wrong, badly",
+  "gloss_ko": "잘못",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "ob",
+  "origin": "latin",
+  "meaning_en": "against, toward",
+  "gloss_ko": "맞서, ~쪽으로",
+  "variants": [
+   "oc",
+   "of",
+   "op"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "per",
+  "origin": "latin",
+  "meaning_en": "through, thoroughly",
+  "gloss_ko": "관통하여, 완전히",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "post",
+  "origin": "latin",
+  "meaning_en": "after, behind",
+  "gloss_ko": "~후에, 뒤에",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "pre",
+  "origin": "latin",
+  "meaning_en": "before",
+  "gloss_ko": "~전에, 미리",
+  "variants": [
+   "prae"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "pro",
+  "origin": "latin",
+  "meaning_en": "forward, for",
+  "gloss_ko": "앞으로, ~을 위해",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "re",
+  "origin": "latin",
+  "meaning_en": "back, again",
+  "gloss_ko": "다시, 뒤로",
+  "variants": [
+   "red"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "retro",
+  "origin": "latin",
+  "meaning_en": "backward",
+  "gloss_ko": "뒤로, 거꾸로",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "se",
+  "origin": "latin",
+  "meaning_en": "apart, aside",
+  "gloss_ko": "떨어져",
+  "variants": [
+   "sed-se"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "sub",
+  "origin": "latin",
+  "meaning_en": "under, below",
+  "gloss_ko": "아래에",
+  "variants": [
+   "suc",
+   "suf",
+   "sug",
+   "sup",
+   "sus"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "super",
+  "origin": "latin",
+  "meaning_en": "above, over",
+  "gloss_ko": "위에, 넘어",
+  "variants": [
+   "sur",
+   "supra"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "trans",
+  "origin": "latin",
+  "meaning_en": "across, beyond",
+  "gloss_ko": "가로질러, 넘어",
+  "variants": [
+   "tra"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "ultra",
+  "origin": "latin",
+  "meaning_en": "beyond, extreme",
+  "gloss_ko": "극도로, 넘어",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "un",
+  "origin": "other",
+  "meaning_en": "not, reverse",
+  "gloss_ko": "~아닌, 반대로",
+  "variants": [],
+  "notes": "prefix; Old English"
+ },
+ {
+  "root": "uni",
+  "origin": "latin",
+  "meaning_en": "one",
+  "gloss_ko": "하나의",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "bi",
+  "origin": "latin",
+  "meaning_en": "two",
+  "gloss_ko": "둘의",
+  "variants": [
+   "bin"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "tri",
+  "origin": "latin",
+  "meaning_en": "three",
+  "gloss_ko": "셋의",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "multi",
+  "origin": "latin",
+  "meaning_en": "many",
+  "gloss_ko": "많은",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "omni",
+  "origin": "latin",
+  "meaning_en": "all",
+  "gloss_ko": "모든",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "hyper",
+  "origin": "greek",
+  "meaning_en": "over, excessive",
+  "gloss_ko": "과도한",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "hypo",
+  "origin": "greek",
+  "meaning_en": "under, below",
+  "gloss_ko": "아래, 부족한",
+  "variants": [
+   "hyp"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "epi",
+  "origin": "greek",
+  "meaning_en": "upon, over",
+  "gloss_ko": "위에",
+  "variants": [
+   "ep"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "dia",
+  "origin": "greek",
+  "meaning_en": "through, across",
+  "gloss_ko": "관통하여",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "peri",
+  "origin": "greek",
+  "meaning_en": "around",
+  "gloss_ko": "둘레에",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "eu",
+  "origin": "greek",
+  "meaning_en": "good, well",
+  "gloss_ko": "좋은",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "dys",
+  "origin": "greek",
+  "meaning_en": "bad, difficult",
+  "gloss_ko": "나쁜, 어려운",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "neo",
+  "origin": "greek",
+  "meaning_en": "new",
+  "gloss_ko": "새로운",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "proto",
+  "origin": "greek",
+  "meaning_en": "first",
+  "gloss_ko": "최초의",
+  "variants": [
+   "prot"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "homo",
+  "origin": "greek",
+  "meaning_en": "same",
+  "gloss_ko": "같은",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "hetero",
+  "origin": "greek",
+  "meaning_en": "different",
+  "gloss_ko": "다른",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "am",
+  "origin": "latin",
+  "meaning_en": "to love",
+  "gloss_ko": "사랑",
+  "variants": [
+   "amor",
+   "amat"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "acr",
+  "origin": "latin",
+  "meaning_en": "sharp, bitter",
+  "gloss_ko": "날카로운",
+  "variants": [
+   "acu",
+   "acerb"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "alter",
+  "origin": "latin",
+  "meaning_en": "other, to change",
+  "gloss_ko": "다른, 바꾸다",
+  "variants": [
+   "altr"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "anim",
+  "origin": "latin",
+  "meaning_en": "breath, mind, life",
+  "gloss_ko": "마음, 숨",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "ann",
+  "origin": "latin",
+  "meaning_en": "year",
+  "gloss_ko": "해, 년",
+  "variants": [
+   "enn"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "apt",
+  "origin": "latin",
+  "meaning_en": "fit, suitable",
+  "gloss_ko": "알맞은",
+  "variants": [
+   "ept"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "aqu",
+  "origin": "latin",
+  "meaning_en": "water",
+  "gloss_ko": "물",
+  "variants": [
+   "aqua"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "arm",
+  "origin": "latin",
+  "meaning_en": "weapon, arms",
+  "gloss_ko": "무기",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "art",
+  "origin": "latin",
+  "meaning_en": "skill, craft",
+  "gloss_ko": "기술",
+  "variants": [
+   "artif"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "aug",
+  "origin": "latin",
+  "meaning_en": "to increase",
+  "gloss_ko": "늘리다",
+  "variants": [
+   "auct",
+   "aux"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "bell",
+  "origin": "latin",
+  "meaning_en": "war",
+  "gloss_ko": "전쟁",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "brev",
+  "origin": "latin",
+  "meaning_en": "short",
+  "gloss_ko": "짧은",
+  "variants": [
+   "brief",
+   "bridg"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cad",
+  "origin": "latin",
+  "meaning_en": "to fall",
+  "gloss_ko": "떨어지다",
+  "variants": [
+   "cid",
+   "cas"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cand",
+  "origin": "latin",
+  "meaning_en": "to glow, be white",
+  "gloss_ko": "빛나다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "cant",
+  "origin": "latin",
+  "meaning_en": "to sing",
+  "gloss_ko": "노래하다",
+  "variants": [
+   "chant"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "capit",
+  "origin": "latin",
+  "meaning_en": "head",
+  "gloss_ko": "머리",
+  "variants": [
+   "cipit"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "carn",
+  "origin": "latin",
+  "meaning_en": "flesh, meat",
+  "gloss_ko": "살, 고기",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "caus",
+  "origin": "latin",
+  "meaning_en": "cause, reason, lawsuit",
+  "gloss_ko": "원인",
+  "variants": [
+   "cus"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cern",
+  "origin": "latin",
+  "meaning_en": "to sift, separate, perceive",
+  "gloss_ko": "가려내다",
+  "variants": [
+   "cret"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cis",
+  "origin": "latin",
+  "meaning_en": "to cut, kill",
+  "gloss_ko": "자르다",
+  "variants": [
+   "cide",
+   "caed"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cit",
+  "origin": "latin",
+  "meaning_en": "to rouse, call, summon",
+  "gloss_ko": "불러내다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "civ",
+  "origin": "latin",
+  "meaning_en": "citizen",
+  "gloss_ko": "시민",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "clam",
+  "origin": "latin",
+  "meaning_en": "to shout, cry out",
+  "gloss_ko": "외치다",
+  "variants": [
+   "claim"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "clar",
+  "origin": "latin",
+  "meaning_en": "clear, bright",
+  "gloss_ko": "맑은",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "claud",
+  "origin": "latin",
+  "meaning_en": "to close, shut",
+  "gloss_ko": "닫다",
+  "variants": [
+   "clud",
+   "clus",
+   "clos"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "clin",
+  "origin": "latin",
+  "meaning_en": "to lean, bend",
+  "gloss_ko": "기울다",
+  "variants": [
+   "cliv"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cogn",
+  "origin": "latin",
+  "meaning_en": "to know",
+  "gloss_ko": "알다",
+  "variants": [
+   "cognit",
+   "gnor"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cord",
+  "origin": "latin",
+  "meaning_en": "heart",
+  "gloss_ko": "마음, 심장",
+  "variants": [
+   "cordi"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "corp",
+  "origin": "latin",
+  "meaning_en": "body",
+  "gloss_ko": "몸",
+  "variants": [
+   "corpor"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "crea",
+  "origin": "latin",
+  "meaning_en": "to make, bring forth",
+  "gloss_ko": "만들다",
+  "variants": [
+   "creat"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cresc",
+  "origin": "latin",
+  "meaning_en": "to grow, increase",
+  "gloss_ko": "자라다",
+  "variants": [
+   "cru"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "crim",
+  "origin": "latin",
+  "meaning_en": "charge, offense",
+  "gloss_ko": "죄, 고발",
+  "variants": [
+   "crimin"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cruc",
+  "origin": "latin",
+  "meaning_en": "cross",
+  "gloss_ko": "십자",
+  "variants": [
+   "crus"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "culp",
+  "origin": "latin",
+  "meaning_en": "fault, blame",
+  "gloss_ko": "잘못",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "cult",
+  "origin": "latin",
+  "meaning_en": "to till, tend, worship",
+  "gloss_ko": "가꾸다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "cumb",
+  "origin": "latin",
+  "meaning_en": "to lie down, recline",
+  "gloss_ko": "눕다",
+  "variants": [
+   "cub"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cura",
+  "origin": "latin",
+  "meaning_en": "care, concern",
+  "gloss_ko": "돌봄",
+  "variants": [
+   "cure",
+   "curat"
+  ],
+  "notes": "root; distinct from cur='to run'"
+ },
+ {
+  "root": "dent",
+  "origin": "latin",
+  "meaning_en": "tooth",
+  "gloss_ko": "이, 치아",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "dign",
+  "origin": "latin",
+  "meaning_en": "worthy",
+  "gloss_ko": "가치있는",
+  "variants": [
+   "dain"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "doc",
+  "origin": "latin",
+  "meaning_en": "to teach",
+  "gloss_ko": "가르치다",
+  "variants": [
+   "doct"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "dol",
+  "origin": "latin",
+  "meaning_en": "pain, grief",
+  "gloss_ko": "고통, 슬픔",
+  "variants": [
+   "dolor"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "dom",
+  "origin": "latin",
+  "meaning_en": "house, master, to rule",
+  "gloss_ko": "집, 지배",
+  "variants": [
+   "domin"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "don",
+  "origin": "latin",
+  "meaning_en": "to give",
+  "gloss_ko": "주다",
+  "variants": [
+   "dat"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "dorm",
+  "origin": "latin",
+  "meaning_en": "to sleep",
+  "gloss_ko": "잠자다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "dub",
+  "origin": "latin",
+  "meaning_en": "doubt, two-fold",
+  "gloss_ko": "의심",
+  "variants": [
+   "doubt"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "dur",
+  "origin": "latin",
+  "meaning_en": "hard, lasting",
+  "gloss_ko": "단단한, 지속",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "equ",
+  "origin": "latin",
+  "meaning_en": "equal, even",
+  "gloss_ko": "같은",
+  "variants": [
+   "iqu"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "err",
+  "origin": "latin",
+  "meaning_en": "to wander, stray",
+  "gloss_ko": "헤매다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "fall",
+  "origin": "latin",
+  "meaning_en": "to deceive",
+  "gloss_ko": "속이다",
+  "variants": [
+   "fals"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "fam",
+  "origin": "latin",
+  "meaning_en": "report, fame",
+  "gloss_ko": "소문, 명성",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "fend",
+  "origin": "latin",
+  "meaning_en": "to strike, ward off",
+  "gloss_ko": "치다",
+  "variants": [
+   "fens"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "fess",
+  "origin": "latin",
+  "meaning_en": "to declare, confess",
+  "gloss_ko": "밝히다",
+  "variants": [
+   "fat"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "fid",
+  "origin": "latin",
+  "meaning_en": "faith, trust",
+  "gloss_ko": "믿음",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "fig",
+  "origin": "latin",
+  "meaning_en": "to shape, form",
+  "gloss_ko": "빚다, 모양",
+  "variants": [
+   "fict",
+   "feign"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "fin",
+  "origin": "latin",
+  "meaning_en": "end, limit",
+  "gloss_ko": "끝, 한계",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "firm",
+  "origin": "latin",
+  "meaning_en": "firm, strong",
+  "gloss_ko": "굳은",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "flam",
+  "origin": "latin",
+  "meaning_en": "flame, to burn",
+  "gloss_ko": "불꽃",
+  "variants": [
+   "flagr"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "flat",
+  "origin": "latin",
+  "meaning_en": "to blow",
+  "gloss_ko": "불다",
+  "variants": [
+   "fla"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "flig",
+  "origin": "latin",
+  "meaning_en": "to strike, dash",
+  "gloss_ko": "치다",
+  "variants": [
+   "flict"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "flor",
+  "origin": "latin",
+  "meaning_en": "flower",
+  "gloss_ko": "꽃",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "flu",
+  "origin": "latin",
+  "meaning_en": "to flow",
+  "gloss_ko": "흐르다",
+  "variants": [
+   "flux",
+   "fluct"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "fort",
+  "origin": "latin",
+  "meaning_en": "strong",
+  "gloss_ko": "강한",
+  "variants": [
+   "forc"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "frag",
+  "origin": "latin",
+  "meaning_en": "to break",
+  "gloss_ko": "부수다",
+  "variants": [
+   "fract",
+   "fring"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "frater",
+  "origin": "latin",
+  "meaning_en": "brother",
+  "gloss_ko": "형제",
+  "variants": [
+   "fratr"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "front",
+  "origin": "latin",
+  "meaning_en": "forehead, front",
+  "gloss_ko": "앞, 이마",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "fug",
+  "origin": "latin",
+  "meaning_en": "to flee, drive away",
+  "gloss_ko": "달아나다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "gener",
+  "origin": "latin",
+  "meaning_en": "birth, kind, race",
+  "gloss_ko": "출생, 종류",
+  "variants": [
+   "genit"
+  ],
+  "notes": "root; Latin genus (cf. Greek gen-)"
+ },
+ {
+  "root": "gest",
+  "origin": "latin",
+  "meaning_en": "to carry, bear",
+  "gloss_ko": "나르다",
+  "variants": [
+   "ger"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "grav",
+  "origin": "latin",
+  "meaning_en": "heavy, serious",
+  "gloss_ko": "무거운",
+  "variants": [
+   "griev"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "hab",
+  "origin": "latin",
+  "meaning_en": "to have, hold",
+  "gloss_ko": "가지다",
+  "variants": [
+   "hib"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "her",
+  "origin": "latin",
+  "meaning_en": "to stick, cling",
+  "gloss_ko": "붙다",
+  "variants": [
+   "hes"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "hered",
+  "origin": "latin",
+  "meaning_en": "heir, inheritance",
+  "gloss_ko": "상속",
+  "variants": [
+   "herit",
+   "heir"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "hum",
+  "origin": "latin",
+  "meaning_en": "ground, earth, low",
+  "gloss_ko": "땅, 낮은",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "ign",
+  "origin": "latin",
+  "meaning_en": "fire",
+  "gloss_ko": "불",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "insul",
+  "origin": "latin",
+  "meaning_en": "island",
+  "gloss_ko": "섬",
+  "variants": [
+   "isol"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "integr",
+  "origin": "latin",
+  "meaning_en": "whole, untouched",
+  "gloss_ko": "온전한",
+  "variants": [
+   "entir"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "it",
+  "origin": "latin",
+  "meaning_en": "to go",
+  "gloss_ko": "가다",
+  "variants": [
+   "itin"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "laps",
+  "origin": "latin",
+  "meaning_en": "to slip, fall",
+  "gloss_ko": "미끄러지다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "lat",
+  "origin": "latin",
+  "meaning_en": "to carry, bear",
+  "gloss_ko": "나르다",
+  "variants": [],
+  "notes": "root; suppletive stem of ferre"
+ },
+ {
+  "root": "lav",
+  "origin": "latin",
+  "meaning_en": "to wash",
+  "gloss_ko": "씻다",
+  "variants": [
+   "lut"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "lev",
+  "origin": "latin",
+  "meaning_en": "light, to raise",
+  "gloss_ko": "가벼운, 올리다",
+  "variants": [
+   "liev"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "lex",
+  "origin": "latin",
+  "meaning_en": "law",
+  "gloss_ko": "법",
+  "variants": [
+   "legis",
+   "legit"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "lim",
+  "origin": "latin",
+  "meaning_en": "threshold, boundary",
+  "gloss_ko": "문턱, 경계",
+  "variants": [
+   "limin"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "lingu",
+  "origin": "latin",
+  "meaning_en": "tongue, language",
+  "gloss_ko": "혀, 말",
+  "variants": [
+   "langu"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "liter",
+  "origin": "latin",
+  "meaning_en": "letter",
+  "gloss_ko": "글자",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "long",
+  "origin": "latin",
+  "meaning_en": "long",
+  "gloss_ko": "긴",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "loqu",
+  "origin": "latin",
+  "meaning_en": "to speak",
+  "gloss_ko": "말하다",
+  "variants": [
+   "locut"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "luc",
+  "origin": "latin",
+  "meaning_en": "light",
+  "gloss_ko": "빛",
+  "variants": [
+   "lum",
+   "lumin",
+   "lustr"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mand",
+  "origin": "latin",
+  "meaning_en": "to order, entrust",
+  "gloss_ko": "명하다, 맡기다",
+  "variants": [
+   "mend"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mar",
+  "origin": "latin",
+  "meaning_en": "sea",
+  "gloss_ko": "바다",
+  "variants": [
+   "mer"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mater",
+  "origin": "latin",
+  "meaning_en": "mother",
+  "gloss_ko": "어머니",
+  "variants": [
+   "matr"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "med",
+  "origin": "latin",
+  "meaning_en": "middle",
+  "gloss_ko": "가운데",
+  "variants": [
+   "medi"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mens",
+  "origin": "latin",
+  "meaning_en": "to measure",
+  "gloss_ko": "재다",
+  "variants": [
+   "meas"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ment",
+  "origin": "latin",
+  "meaning_en": "mind",
+  "gloss_ko": "마음, 정신",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "merc",
+  "origin": "latin",
+  "meaning_en": "trade, wages",
+  "gloss_ko": "거래, 삯",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "merg",
+  "origin": "latin",
+  "meaning_en": "to dip, plunge",
+  "gloss_ko": "담그다",
+  "variants": [
+   "mers"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "min",
+  "origin": "latin",
+  "meaning_en": "small, less",
+  "gloss_ko": "작은",
+  "variants": [
+   "minu",
+   "mini"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mir",
+  "origin": "latin",
+  "meaning_en": "to wonder at",
+  "gloss_ko": "놀라다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "misc",
+  "origin": "latin",
+  "meaning_en": "to mix",
+  "gloss_ko": "섞다",
+  "variants": [
+   "mix",
+   "mist"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mod",
+  "origin": "latin",
+  "meaning_en": "measure, manner",
+  "gloss_ko": "방식, 척도",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "mon",
+  "origin": "latin",
+  "meaning_en": "to warn, advise",
+  "gloss_ko": "경고하다",
+  "variants": [
+   "monit"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mun",
+  "origin": "latin",
+  "meaning_en": "duty, service, gift",
+  "gloss_ko": "의무, 봉사",
+  "variants": [
+   "muner"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mut",
+  "origin": "latin",
+  "meaning_en": "to change",
+  "gloss_ko": "바꾸다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "nect",
+  "origin": "latin",
+  "meaning_en": "to bind, tie",
+  "gloss_ko": "잇다, 묶다",
+  "variants": [
+   "nex"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "neg",
+  "origin": "latin",
+  "meaning_en": "to deny",
+  "gloss_ko": "부정하다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "noc",
+  "origin": "latin",
+  "meaning_en": "to harm",
+  "gloss_ko": "해치다",
+  "variants": [
+   "nox",
+   "nic"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "noct",
+  "origin": "latin",
+  "meaning_en": "night",
+  "gloss_ko": "밤",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "norm",
+  "origin": "latin",
+  "meaning_en": "rule, pattern",
+  "gloss_ko": "규범",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "not",
+  "origin": "latin",
+  "meaning_en": "to mark, note, know",
+  "gloss_ko": "표하다, 알다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "numer",
+  "origin": "latin",
+  "meaning_en": "number",
+  "gloss_ko": "수",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "nunc",
+  "origin": "latin",
+  "meaning_en": "to announce, report",
+  "gloss_ko": "알리다",
+  "variants": [
+   "nunci"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ocul",
+  "origin": "latin",
+  "meaning_en": "eye",
+  "gloss_ko": "눈",
+  "variants": [
+   "ocle"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "oper",
+  "origin": "latin",
+  "meaning_en": "work",
+  "gloss_ko": "일",
+  "variants": [
+   "opus"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "opt",
+  "origin": "latin",
+  "meaning_en": "to choose, wish",
+  "gloss_ko": "고르다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "or",
+  "origin": "latin",
+  "meaning_en": "mouth, to speak, pray",
+  "gloss_ko": "입, 말하다",
+  "variants": [
+   "ora",
+   "orat"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ord",
+  "origin": "latin",
+  "meaning_en": "order, rank",
+  "gloss_ko": "순서, 질서",
+  "variants": [
+   "ordin"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ori",
+  "origin": "latin",
+  "meaning_en": "to rise, begin",
+  "gloss_ko": "일어나다, 시작",
+  "variants": [
+   "ort"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "par",
+  "origin": "latin",
+  "meaning_en": "to prepare, make ready",
+  "gloss_ko": "준비하다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "pater",
+  "origin": "latin",
+  "meaning_en": "father",
+  "gloss_ko": "아버지",
+  "variants": [
+   "patr"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pen",
+  "origin": "latin",
+  "meaning_en": "punishment, penalty",
+  "gloss_ko": "벌",
+  "variants": [
+   "pun",
+   "penit"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pict",
+  "origin": "latin",
+  "meaning_en": "to paint",
+  "gloss_ko": "그리다",
+  "variants": [
+   "pig"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "plaud",
+  "origin": "latin",
+  "meaning_en": "to clap, strike",
+  "gloss_ko": "손뼉치다",
+  "variants": [
+   "plaus",
+   "plod",
+   "plos"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "plen",
+  "origin": "latin",
+  "meaning_en": "full",
+  "gloss_ko": "가득한",
+  "variants": [
+   "plet"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "popul",
+  "origin": "latin",
+  "meaning_en": "people",
+  "gloss_ko": "사람들",
+  "variants": [
+   "publ"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "preci",
+  "origin": "latin",
+  "meaning_en": "price, value",
+  "gloss_ko": "값",
+  "variants": [
+   "prais",
+   "pric"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "prim",
+  "origin": "latin",
+  "meaning_en": "first, foremost",
+  "gloss_ko": "첫째",
+  "variants": [
+   "prin",
+   "prem"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "priv",
+  "origin": "latin",
+  "meaning_en": "separate, one's own",
+  "gloss_ko": "사적인",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "propr",
+  "origin": "latin",
+  "meaning_en": "one's own, fitting",
+  "gloss_ko": "자기의",
+  "variants": [
+   "proper"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "proxim",
+  "origin": "latin",
+  "meaning_en": "near, next",
+  "gloss_ko": "가까운",
+  "variants": [
+   "proach"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pug",
+  "origin": "latin",
+  "meaning_en": "to fight",
+  "gloss_ko": "싸우다",
+  "variants": [
+   "pugn"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pung",
+  "origin": "latin",
+  "meaning_en": "to prick, point",
+  "gloss_ko": "찌르다",
+  "variants": [
+   "punct",
+   "point"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pur",
+  "origin": "latin",
+  "meaning_en": "pure, clean",
+  "gloss_ko": "깨끗한",
+  "variants": [
+   "purg"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "put",
+  "origin": "latin",
+  "meaning_en": "to think, reckon, prune",
+  "gloss_ko": "헤아리다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "quadr",
+  "origin": "latin",
+  "meaning_en": "four",
+  "gloss_ko": "넷",
+  "variants": [
+   "quart",
+   "quadri"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "quiet",
+  "origin": "latin",
+  "meaning_en": "rest, calm",
+  "gloss_ko": "고요, 쉼",
+  "variants": [
+   "quiesc"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "radi",
+  "origin": "latin",
+  "meaning_en": "ray, spoke",
+  "gloss_ko": "빛살",
+  "variants": [
+   "ray"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "rap",
+  "origin": "latin",
+  "meaning_en": "to seize, snatch",
+  "gloss_ko": "낚아채다",
+  "variants": [
+   "rapt",
+   "rav"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "rat",
+  "origin": "latin",
+  "meaning_en": "to reckon, reason",
+  "gloss_ko": "셈하다",
+  "variants": [
+   "ratio",
+   "reas"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "rid",
+  "origin": "latin",
+  "meaning_en": "to laugh",
+  "gloss_ko": "웃다",
+  "variants": [
+   "ris"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "rot",
+  "origin": "latin",
+  "meaning_en": "wheel, to turn",
+  "gloss_ko": "바퀴",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "sacr",
+  "origin": "latin",
+  "meaning_en": "holy, sacred",
+  "gloss_ko": "거룩한",
+  "variants": [
+   "secr",
+   "sacer"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "salt",
+  "origin": "latin",
+  "meaning_en": "to leap, jump",
+  "gloss_ko": "뛰다",
+  "variants": [
+   "sult",
+   "sil"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "salv",
+  "origin": "latin",
+  "meaning_en": "to save, health",
+  "gloss_ko": "구하다, 건강",
+  "variants": [
+   "salu",
+   "sav"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "sat",
+  "origin": "latin",
+  "meaning_en": "enough, full",
+  "gloss_ko": "충분한",
+  "variants": [
+   "satis"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "sect",
+  "origin": "latin",
+  "meaning_en": "to cut",
+  "gloss_ko": "자르다",
+  "variants": [
+   "seg"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "sen",
+  "origin": "latin",
+  "meaning_en": "old",
+  "gloss_ko": "늙은",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "simil",
+  "origin": "latin",
+  "meaning_en": "like, same",
+  "gloss_ko": "비슷한",
+  "variants": [
+   "simul",
+   "sembl"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "soci",
+  "origin": "latin",
+  "meaning_en": "companion, ally",
+  "gloss_ko": "동료",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "sol-sun",
+  "origin": "latin",
+  "meaning_en": "sun",
+  "gloss_ko": "해, 태양",
+  "variants": [],
+  "notes": "root; distinct from sol='alone'"
+ },
+ {
+  "root": "sper",
+  "origin": "latin",
+  "meaning_en": "hope",
+  "gloss_ko": "희망",
+  "variants": [
+   "spair"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "spers",
+  "origin": "latin",
+  "meaning_en": "to scatter, strew",
+  "gloss_ko": "흩뿌리다",
+  "variants": [
+   "spars"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "stell",
+  "origin": "latin",
+  "meaning_en": "star",
+  "gloss_ko": "별",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "stinct",
+  "origin": "latin",
+  "meaning_en": "to prick, mark off",
+  "gloss_ko": "찌르다, 가르다",
+  "variants": [
+   "stingu"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "stud",
+  "origin": "latin",
+  "meaning_en": "zeal, eagerness",
+  "gloss_ko": "열심",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "suad",
+  "origin": "latin",
+  "meaning_en": "to urge, advise",
+  "gloss_ko": "권하다",
+  "variants": [
+   "suas"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "sum",
+  "origin": "latin",
+  "meaning_en": "to take",
+  "gloss_ko": "취하다",
+  "variants": [
+   "sumpt"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "summ",
+  "origin": "latin",
+  "meaning_en": "highest, total",
+  "gloss_ko": "맨 위, 합",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "surg",
+  "origin": "latin",
+  "meaning_en": "to rise",
+  "gloss_ko": "솟다",
+  "variants": [
+   "surrect"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tac",
+  "origin": "latin",
+  "meaning_en": "silent",
+  "gloss_ko": "조용한",
+  "variants": [
+   "tic"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "temper",
+  "origin": "latin",
+  "meaning_en": "to moderate, mix",
+  "gloss_ko": "알맞게 하다",
+  "variants": [
+   "tempr"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tempt",
+  "origin": "latin",
+  "meaning_en": "to try, test",
+  "gloss_ko": "시도하다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "test",
+  "origin": "latin",
+  "meaning_en": "witness",
+  "gloss_ko": "증인",
+  "variants": [
+   "testi"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tim",
+  "origin": "latin",
+  "meaning_en": "fear",
+  "gloss_ko": "두려움",
+  "variants": [
+   "timor"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "toler",
+  "origin": "latin",
+  "meaning_en": "to bear, endure",
+  "gloss_ko": "견디다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "trib",
+  "origin": "latin",
+  "meaning_en": "to give, pay, allot",
+  "gloss_ko": "바치다, 주다",
+  "variants": [
+   "tribut"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "trud",
+  "origin": "latin",
+  "meaning_en": "to thrust, push",
+  "gloss_ko": "밀다",
+  "variants": [
+   "trus"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "turb",
+  "origin": "latin",
+  "meaning_en": "to stir up, disturb",
+  "gloss_ko": "휘젓다",
+  "variants": [
+   "troubl"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "und",
+  "origin": "latin",
+  "meaning_en": "wave, to flow",
+  "gloss_ko": "물결",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "urb",
+  "origin": "latin",
+  "meaning_en": "city",
+  "gloss_ko": "도시",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "ut",
+  "origin": "latin",
+  "meaning_en": "to use",
+  "gloss_ko": "쓰다",
+  "variants": [
+   "us",
+   "util"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "vad",
+  "origin": "latin",
+  "meaning_en": "to go, walk",
+  "gloss_ko": "가다",
+  "variants": [
+   "vas"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "vag",
+  "origin": "latin",
+  "meaning_en": "to wander",
+  "gloss_ko": "떠돌다",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "vari",
+  "origin": "latin",
+  "meaning_en": "changing, different",
+  "gloss_ko": "다양한",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "veh",
+  "origin": "latin",
+  "meaning_en": "to carry, convey",
+  "gloss_ko": "나르다",
+  "variants": [
+   "vect"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "verb",
+  "origin": "latin",
+  "meaning_en": "word",
+  "gloss_ko": "말, 단어",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "vice",
+  "origin": "latin",
+  "meaning_en": "in place of, change",
+  "gloss_ko": "대신",
+  "variants": [
+   "vicar",
+   "vic"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "vict",
+  "origin": "latin",
+  "meaning_en": "to conquer",
+  "gloss_ko": "이기다",
+  "variants": [
+   "vinc"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "vig",
+  "origin": "latin",
+  "meaning_en": "lively, awake",
+  "gloss_ko": "생기, 깨어있는",
+  "variants": [
+   "veg"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "viol",
+  "origin": "latin",
+  "meaning_en": "force, violence",
+  "gloss_ko": "힘, 폭력",
+  "variants": [],
+  "notes": "root"
+ },
+ {
+  "root": "virt",
+  "origin": "latin",
+  "meaning_en": "strength, excellence",
+  "gloss_ko": "힘, 덕",
+  "variants": [
+   "vir"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "vuln",
+  "origin": "latin",
+  "meaning_en": "to wound",
+  "gloss_ko": "상처입히다",
+  "variants": [
+   "vulner"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "alg",
+  "origin": "greek",
+  "meaning_en": "pain",
+  "gloss_ko": "고통",
+  "variants": [
+   "algia",
+   "algesi"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "angi",
+  "origin": "greek",
+  "meaning_en": "vessel, container",
+  "gloss_ko": "혈관, 그릇",
+  "variants": [
+   "angio"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "arthr",
+  "origin": "greek",
+  "meaning_en": "joint",
+  "gloss_ko": "관절",
+  "variants": [
+   "arthro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "blast",
+  "origin": "greek",
+  "meaning_en": "germ, sprout, immature cell",
+  "gloss_ko": "싹, 미성숙 세포",
+  "variants": [
+   "blasto"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "card",
+  "origin": "greek",
+  "meaning_en": "heart",
+  "gloss_ko": "심장",
+  "variants": [
+   "cardi",
+   "cardio"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "carcin",
+  "origin": "greek",
+  "meaning_en": "cancer, crab",
+  "gloss_ko": "암",
+  "variants": [
+   "carcino"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cephal",
+  "origin": "greek",
+  "meaning_en": "head",
+  "gloss_ko": "머리",
+  "variants": [
+   "cephalo",
+   "ceph"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "clast",
+  "origin": "greek",
+  "meaning_en": "to break",
+  "gloss_ko": "부수다",
+  "variants": [
+   "clas",
+   "clasis"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cyt",
+  "origin": "greek",
+  "meaning_en": "cell, hollow vessel",
+  "gloss_ko": "세포",
+  "variants": [
+   "cyte",
+   "cyto"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "dactyl",
+  "origin": "greek",
+  "meaning_en": "finger, toe",
+  "gloss_ko": "손가락, 발가락",
+  "variants": [
+   "dactylo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "enter",
+  "origin": "greek",
+  "meaning_en": "intestine",
+  "gloss_ko": "장, 창자",
+  "variants": [
+   "entero"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "esthe",
+  "origin": "greek",
+  "meaning_en": "to feel, perceive",
+  "gloss_ko": "느끼다, 지각하다",
+  "variants": [
+   "aesthe",
+   "esthes",
+   "esthesia"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "gastr",
+  "origin": "greek",
+  "meaning_en": "stomach, belly",
+  "gloss_ko": "위, 배",
+  "variants": [
+   "gastro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "gloss",
+  "origin": "greek",
+  "meaning_en": "tongue, language",
+  "gloss_ko": "혀, 말",
+  "variants": [
+   "glott",
+   "glot",
+   "glosso"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "gyn",
+  "origin": "greek",
+  "meaning_en": "woman, female",
+  "gloss_ko": "여자",
+  "variants": [
+   "gynec",
+   "gyno",
+   "gynae"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "hem",
+  "origin": "greek",
+  "meaning_en": "blood",
+  "gloss_ko": "피",
+  "variants": [
+   "haem",
+   "hemat",
+   "emia"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "hepat",
+  "origin": "greek",
+  "meaning_en": "liver",
+  "gloss_ko": "간",
+  "variants": [
+   "hepato"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "lys",
+  "origin": "greek",
+  "meaning_en": "to loosen, dissolve",
+  "gloss_ko": "풀다, 분해하다",
+  "variants": [
+   "lyt",
+   "lyz",
+   "lysis"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mania",
+  "origin": "greek",
+  "meaning_en": "madness, obsession",
+  "gloss_ko": "광기, 집착",
+  "variants": [
+   "maniac"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "myo",
+  "origin": "greek",
+  "meaning_en": "muscle",
+  "gloss_ko": "근육",
+  "variants": [
+   "mys",
+   "myos"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "narc",
+  "origin": "greek",
+  "meaning_en": "numbness, stupor",
+  "gloss_ko": "마비, 혼미",
+  "variants": [
+   "narco"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "necr",
+  "origin": "greek",
+  "meaning_en": "dead body, death",
+  "gloss_ko": "시체, 죽음",
+  "variants": [
+   "necro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "nephr",
+  "origin": "greek",
+  "meaning_en": "kidney",
+  "gloss_ko": "콩팥",
+  "variants": [
+   "nephro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "odont",
+  "origin": "greek",
+  "meaning_en": "tooth",
+  "gloss_ko": "이, 치아",
+  "variants": [
+   "odonto"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "onc",
+  "origin": "greek",
+  "meaning_en": "tumor, mass",
+  "gloss_ko": "종양",
+  "variants": [
+   "onco"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ophthalm",
+  "origin": "greek",
+  "meaning_en": "eye",
+  "gloss_ko": "눈",
+  "variants": [
+   "ophthalmo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ost",
+  "origin": "greek",
+  "meaning_en": "bone",
+  "gloss_ko": "뼈",
+  "variants": [
+   "oste",
+   "osteo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pept",
+  "origin": "greek",
+  "meaning_en": "to digest, cook",
+  "gloss_ko": "소화하다",
+  "variants": [
+   "peps",
+   "pepsia",
+   "peptic"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phag",
+  "origin": "greek",
+  "meaning_en": "to eat, devour",
+  "gloss_ko": "먹다",
+  "variants": [
+   "phage",
+   "phagia",
+   "phago"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pharmac",
+  "origin": "greek",
+  "meaning_en": "drug, medicine",
+  "gloss_ko": "약",
+  "variants": [
+   "pharmaco",
+   "pharma"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phren",
+  "origin": "greek",
+  "meaning_en": "mind, diaphragm",
+  "gloss_ko": "정신, 횡격막",
+  "variants": [
+   "phrenia",
+   "phreno"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "plas",
+  "origin": "greek",
+  "meaning_en": "to mold, form",
+  "gloss_ko": "빚다, 형성하다",
+  "variants": [
+   "plast",
+   "plasm",
+   "plasia"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pneum",
+  "origin": "greek",
+  "meaning_en": "breath, air, lung",
+  "gloss_ko": "숨, 공기, 폐",
+  "variants": [
+   "pneumon",
+   "pneumo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "rhin",
+  "origin": "greek",
+  "meaning_en": "nose",
+  "gloss_ko": "코",
+  "variants": [
+   "rhino"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "sarc",
+  "origin": "greek",
+  "meaning_en": "flesh",
+  "gloss_ko": "살, 육체",
+  "variants": [
+   "sarco"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "scler",
+  "origin": "greek",
+  "meaning_en": "hard",
+  "gloss_ko": "단단한",
+  "variants": [
+   "sclero",
+   "sclerosis"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "som",
+  "origin": "greek",
+  "meaning_en": "body",
+  "gloss_ko": "몸",
+  "variants": [
+   "soma",
+   "somat",
+   "somato"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "stom",
+  "origin": "greek",
+  "meaning_en": "mouth, opening",
+  "gloss_ko": "입, 구멍",
+  "variants": [
+   "stoma",
+   "stomat"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tom",
+  "origin": "greek",
+  "meaning_en": "to cut",
+  "gloss_ko": "자르다",
+  "variants": [
+   "tome",
+   "tomy",
+   "ectomy"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "troph",
+  "origin": "greek",
+  "meaning_en": "to nourish, grow",
+  "gloss_ko": "기르다, 영양",
+  "variants": [
+   "trophy",
+   "trophic",
+   "tropho"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ur",
+  "origin": "greek",
+  "meaning_en": "urine",
+  "gloss_ko": "오줌",
+  "variants": [
+   "uro",
+   "uria"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "aer",
+  "origin": "greek",
+  "meaning_en": "air",
+  "gloss_ko": "공기",
+  "variants": [
+   "aero"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "astr",
+  "origin": "greek",
+  "meaning_en": "star",
+  "gloss_ko": "별",
+  "variants": [
+   "aster",
+   "astro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "bacter",
+  "origin": "greek",
+  "meaning_en": "rod, bacterium",
+  "gloss_ko": "막대, 세균",
+  "variants": [
+   "bacteri",
+   "bacterio"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "bar",
+  "origin": "greek",
+  "meaning_en": "weight, pressure",
+  "gloss_ko": "무게, 압력",
+  "variants": [
+   "baro",
+   "bary"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "chlor",
+  "origin": "greek",
+  "meaning_en": "green, chlorine",
+  "gloss_ko": "초록, 염소",
+  "variants": [
+   "chloro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "cry",
+  "origin": "greek",
+  "meaning_en": "cold, frost",
+  "gloss_ko": "차가움, 얼음",
+  "variants": [
+   "cryo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "electr",
+  "origin": "greek",
+  "meaning_en": "amber, electricity",
+  "gloss_ko": "전기, 호박",
+  "variants": [
+   "electro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "erg",
+  "origin": "greek",
+  "meaning_en": "work, energy",
+  "gloss_ko": "일, 에너지",
+  "variants": [
+   "urg",
+   "ergo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "glyc",
+  "origin": "greek",
+  "meaning_en": "sweet, sugar",
+  "gloss_ko": "단맛, 당",
+  "variants": [
+   "gluc",
+   "glyco",
+   "gluco"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "gyr",
+  "origin": "greek",
+  "meaning_en": "ring, to turn",
+  "gloss_ko": "고리, 회전",
+  "variants": [
+   "gyro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "helio",
+  "origin": "greek",
+  "meaning_en": "sun",
+  "gloss_ko": "태양",
+  "variants": [
+   "heli"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "hipp",
+  "origin": "greek",
+  "meaning_en": "horse",
+  "gloss_ko": "말",
+  "variants": [
+   "hippo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ichthy",
+  "origin": "greek",
+  "meaning_en": "fish",
+  "gloss_ko": "물고기",
+  "variants": [
+   "ichthyo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "leuc",
+  "origin": "greek",
+  "meaning_en": "white",
+  "gloss_ko": "흰색",
+  "variants": [
+   "leuk",
+   "leuko",
+   "leuco"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "lith",
+  "origin": "greek",
+  "meaning_en": "stone",
+  "gloss_ko": "돌",
+  "variants": [
+   "litho",
+   "lite"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mech",
+  "origin": "greek",
+  "meaning_en": "machine, contrivance",
+  "gloss_ko": "기계, 장치",
+  "variants": [
+   "mechan",
+   "mechano"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "melan",
+  "origin": "greek",
+  "meaning_en": "black, dark",
+  "gloss_ko": "검은",
+  "variants": [
+   "melano"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "naut",
+  "origin": "greek",
+  "meaning_en": "sailor, ship",
+  "gloss_ko": "뱃사람, 항해",
+  "variants": [
+   "nauti",
+   "naus"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "organ",
+  "origin": "greek",
+  "meaning_en": "tool, bodily organ",
+  "gloss_ko": "기관, 도구",
+  "variants": [
+   "organo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "oxy",
+  "origin": "greek",
+  "meaning_en": "sharp, keen, acid",
+  "gloss_ko": "날카로운, 산",
+  "variants": [
+   "ox"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "petr",
+  "origin": "greek",
+  "meaning_en": "rock, stone",
+  "gloss_ko": "바위",
+  "variants": [
+   "petro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phot",
+  "origin": "greek",
+  "meaning_en": "light",
+  "gloss_ko": "빛",
+  "variants": [
+   "photo",
+   "phos"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phyll",
+  "origin": "greek",
+  "meaning_en": "leaf",
+  "gloss_ko": "잎",
+  "variants": [
+   "phyllo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phyt",
+  "origin": "greek",
+  "meaning_en": "plant",
+  "gloss_ko": "식물",
+  "variants": [
+   "phyto",
+   "phyte"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pter",
+  "origin": "greek",
+  "meaning_en": "wing, feather",
+  "gloss_ko": "날개",
+  "variants": [
+   "ptero",
+   "ptera"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pyr",
+  "origin": "greek",
+  "meaning_en": "fire, heat",
+  "gloss_ko": "불",
+  "variants": [
+   "pyro"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "seism",
+  "origin": "greek",
+  "meaning_en": "earthquake, shaking",
+  "gloss_ko": "지진, 진동",
+  "variants": [
+   "seismo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "spher",
+  "origin": "greek",
+  "meaning_en": "ball, globe",
+  "gloss_ko": "구, 구체",
+  "variants": [
+   "sphere",
+   "sphaer"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "spor",
+  "origin": "greek",
+  "meaning_en": "seed, to scatter",
+  "gloss_ko": "씨앗, 흩뿌리다",
+  "variants": [
+   "spore",
+   "sporo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tox",
+  "origin": "greek",
+  "meaning_en": "poison",
+  "gloss_ko": "독",
+  "variants": [
+   "toxic",
+   "toxo",
+   "toxi"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "xyl",
+  "origin": "greek",
+  "meaning_en": "wood",
+  "gloss_ko": "나무, 목재",
+  "variants": [
+   "xylo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "zym",
+  "origin": "greek",
+  "meaning_en": "ferment, leaven",
+  "gloss_ko": "발효, 효소",
+  "variants": [
+   "zyme",
+   "zymo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "agog",
+  "origin": "greek",
+  "meaning_en": "to lead, guide",
+  "gloss_ko": "이끌다",
+  "variants": [
+   "agogue",
+   "agogy"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "andr",
+  "origin": "greek",
+  "meaning_en": "man, male",
+  "gloss_ko": "남자",
+  "variants": [
+   "andro",
+   "andry"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "bibl",
+  "origin": "greek",
+  "meaning_en": "book",
+  "gloss_ko": "책",
+  "variants": [
+   "biblio"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "crit",
+  "origin": "greek",
+  "meaning_en": "to judge, separate",
+  "gloss_ko": "판단하다, 가르다",
+  "variants": [
+   "cris",
+   "criteri",
+   "crisy"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "dox",
+  "origin": "greek",
+  "meaning_en": "opinion, belief",
+  "gloss_ko": "의견, 믿음",
+  "variants": [
+   "dog",
+   "dogm"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "eco",
+  "origin": "greek",
+  "meaning_en": "house, household, environment",
+  "gloss_ko": "집, 환경",
+  "variants": [
+   "oik",
+   "oeco"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ethn",
+  "origin": "greek",
+  "meaning_en": "nation, people",
+  "gloss_ko": "민족",
+  "variants": [
+   "ethno"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "gam",
+  "origin": "greek",
+  "meaning_en": "marriage, union",
+  "gloss_ko": "결혼, 결합",
+  "variants": [
+   "gamy",
+   "gamo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ger",
+  "origin": "greek",
+  "meaning_en": "old age",
+  "gloss_ko": "노년",
+  "variants": [
+   "geront",
+   "geri",
+   "gero"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "gno",
+  "origin": "greek",
+  "meaning_en": "to know",
+  "gloss_ko": "알다",
+  "variants": [
+   "gnos",
+   "gnom",
+   "gnosis"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "hier",
+  "origin": "greek",
+  "meaning_en": "sacred, holy",
+  "gloss_ko": "성스러운",
+  "variants": [
+   "hiero"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "icon",
+  "origin": "greek",
+  "meaning_en": "image, likeness",
+  "gloss_ko": "상, 이미지",
+  "variants": [
+   "icono"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "idio",
+  "origin": "greek",
+  "meaning_en": "one's own, peculiar",
+  "gloss_ko": "고유한, 특유의",
+  "variants": [
+   "idi"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "mnem",
+  "origin": "greek",
+  "meaning_en": "memory, to remember",
+  "gloss_ko": "기억",
+  "variants": [
+   "mnes",
+   "mnesia",
+   "mnemon"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "myth",
+  "origin": "greek",
+  "meaning_en": "story, myth",
+  "gloss_ko": "이야기, 신화",
+  "variants": [
+   "mytho"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "nomo",
+  "origin": "greek",
+  "meaning_en": "law, custom, management",
+  "gloss_ko": "법, 관리",
+  "variants": [
+   "nomy",
+   "nomic"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "ont",
+  "origin": "greek",
+  "meaning_en": "being, existence",
+  "gloss_ko": "존재",
+  "variants": [
+   "onto"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "paed",
+  "origin": "greek",
+  "meaning_en": "child",
+  "gloss_ko": "아이",
+  "variants": [
+   "paid",
+   "pedia",
+   "paedo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "pale",
+  "origin": "greek",
+  "meaning_en": "old, ancient",
+  "gloss_ko": "오래된, 고대의",
+  "variants": [
+   "paleo",
+   "palae",
+   "palaeo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phan",
+  "origin": "greek",
+  "meaning_en": "to appear, show",
+  "gloss_ko": "나타나다",
+  "variants": [
+   "phen",
+   "phant",
+   "phas"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phem",
+  "origin": "greek",
+  "meaning_en": "speech, saying",
+  "gloss_ko": "말, 발언",
+  "variants": [
+   "phemi",
+   "pheme"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "poie",
+  "origin": "greek",
+  "meaning_en": "to make, create",
+  "gloss_ko": "만들다",
+  "variants": [
+   "poet",
+   "poiesis",
+   "poeia"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "polis",
+  "origin": "greek",
+  "meaning_en": "city, state",
+  "gloss_ko": "도시, 국가",
+  "variants": [
+   "poli",
+   "polit",
+   "polic"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "rhet",
+  "origin": "greek",
+  "meaning_en": "speaker, orator",
+  "gloss_ko": "연설가, 웅변",
+  "variants": [
+   "rhetor"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "sem",
+  "origin": "greek",
+  "meaning_en": "sign, meaning",
+  "gloss_ko": "기호, 의미",
+  "variants": [
+   "semat",
+   "semio",
+   "seme"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "soph",
+  "origin": "greek",
+  "meaning_en": "wisdom, wise",
+  "gloss_ko": "지혜",
+  "variants": [
+   "sophist",
+   "sophy"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "strat",
+  "origin": "greek",
+  "meaning_en": "army, general",
+  "gloss_ko": "군대, 장군",
+  "variants": [
+   "strateg"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "taph",
+  "origin": "greek",
+  "meaning_en": "tomb, burial",
+  "gloss_ko": "무덤",
+  "variants": [
+   "tapho"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tect",
+  "origin": "greek",
+  "meaning_en": "builder, carpenter",
+  "gloss_ko": "짓는 사람, 구조",
+  "variants": [
+   "tecton",
+   "tectur"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "thanat",
+  "origin": "greek",
+  "meaning_en": "death",
+  "gloss_ko": "죽음",
+  "variants": [
+   "thanato",
+   "thanas"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "thes",
+  "origin": "greek",
+  "meaning_en": "to put, place",
+  "gloss_ko": "놓다, 두다",
+  "variants": [
+   "thet",
+   "them",
+   "thesis"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "typ",
+  "origin": "greek",
+  "meaning_en": "impression, model, type",
+  "gloss_ko": "본, 유형",
+  "variants": [
+   "typo",
+   "type"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "xen",
+  "origin": "greek",
+  "meaning_en": "stranger, foreign, guest",
+  "gloss_ko": "낯선, 이방의",
+  "variants": [
+   "xeno"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "bal",
+  "origin": "greek",
+  "meaning_en": "to throw, cast",
+  "gloss_ko": "던지다",
+  "variants": [
+   "bol",
+   "blem",
+   "bolism"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "bas",
+  "origin": "greek",
+  "meaning_en": "to step, go; base",
+  "gloss_ko": "밟다, 기초",
+  "variants": [
+   "bat",
+   "bet",
+   "basi"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "brady",
+  "origin": "greek",
+  "meaning_en": "slow",
+  "gloss_ko": "느린",
+  "variants": [
+   "brad"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "drom",
+  "origin": "greek",
+  "meaning_en": "to run, course",
+  "gloss_ko": "달리다, 경로",
+  "variants": [
+   "drome",
+   "dromo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "gon",
+  "origin": "greek",
+  "meaning_en": "angle, corner",
+  "gloss_ko": "각, 모서리",
+  "variants": [
+   "gonal"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "hedr",
+  "origin": "greek",
+  "meaning_en": "seat, face, side",
+  "gloss_ko": "자리, 면",
+  "variants": [
+   "hedron",
+   "hedral"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "hod",
+  "origin": "greek",
+  "meaning_en": "way, road, journey",
+  "gloss_ko": "길",
+  "variants": [
+   "hodo",
+   "odo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "kine",
+  "origin": "greek",
+  "meaning_en": "to move, motion",
+  "gloss_ko": "움직이다",
+  "variants": [
+   "kinet",
+   "kinesi",
+   "cine"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "phor",
+  "origin": "greek",
+  "meaning_en": "to carry, bear",
+  "gloss_ko": "나르다",
+  "variants": [
+   "phore",
+   "pher",
+   "phoresis"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "rhe",
+  "origin": "greek",
+  "meaning_en": "to flow",
+  "gloss_ko": "흐르다",
+  "variants": [
+   "rrhea",
+   "rrhoea",
+   "rheo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "schis",
+  "origin": "greek",
+  "meaning_en": "to split, cleave",
+  "gloss_ko": "쪼개다",
+  "variants": [
+   "schiz",
+   "schism",
+   "schisto"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "stas",
+  "origin": "greek",
+  "meaning_en": "standing, stopping",
+  "gloss_ko": "멈춰 서다",
+  "variants": [
+   "stasis",
+   "stat-gr",
+   "stal"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "stroph",
+  "origin": "greek",
+  "meaning_en": "to turn, twist",
+  "gloss_ko": "돌다, 비틀다",
+  "variants": [
+   "streph",
+   "strophe"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "tach",
+  "origin": "greek",
+  "meaning_en": "swift, speed",
+  "gloss_ko": "빠른, 속도",
+  "variants": [
+   "tachy"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "top",
+  "origin": "greek",
+  "meaning_en": "place, region",
+  "gloss_ko": "장소",
+  "variants": [
+   "topo"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "trop",
+  "origin": "greek",
+  "meaning_en": "to turn, change",
+  "gloss_ko": "돌다, 바뀌다",
+  "variants": [
+   "tropo",
+   "tropy",
+   "tropic"
+  ],
+  "notes": "root"
+ },
+ {
+  "root": "acro",
+  "origin": "greek",
+  "meaning_en": "height, tip, extreme",
+  "gloss_ko": "높은 곳, 끝",
+  "variants": [
+   "acr"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "deca",
+  "origin": "greek",
+  "meaning_en": "ten",
+  "gloss_ko": "열, 10",
+  "variants": [
+   "dec",
+   "deka"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "hemi",
+  "origin": "greek",
+  "meaning_en": "half",
+  "gloss_ko": "반, 절반",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "hexa",
+  "origin": "greek",
+  "meaning_en": "six",
+  "gloss_ko": "여섯, 6",
+  "variants": [
+   "hex"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "holo",
+  "origin": "greek",
+  "meaning_en": "whole, entire",
+  "gloss_ko": "전체의",
+  "variants": [
+   "hol"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "iso",
+  "origin": "greek",
+  "meaning_en": "equal, same",
+  "gloss_ko": "같은, 동등한",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "meg",
+  "origin": "greek",
+  "meaning_en": "great, large, million",
+  "gloss_ko": "큰, 거대한",
+  "variants": [
+   "mega",
+   "megal",
+   "megalo"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "nano",
+  "origin": "greek",
+  "meaning_en": "dwarf, billionth",
+  "gloss_ko": "난쟁이, 10억분의 1",
+  "variants": [
+   "nan"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "olig",
+  "origin": "greek",
+  "meaning_en": "few, little",
+  "gloss_ko": "적은, 소수의",
+  "variants": [
+   "oligo"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "penta",
+  "origin": "greek",
+  "meaning_en": "five",
+  "gloss_ko": "다섯, 5",
+  "variants": [
+   "pent"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "tetra",
+  "origin": "greek",
+  "meaning_en": "four",
+  "gloss_ko": "넷, 4",
+  "variants": [
+   "tetr"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "amphi",
+  "origin": "greek",
+  "meaning_en": "both, around",
+  "gloss_ko": "양쪽의, 둘레의",
+  "variants": [
+   "ampho",
+   "amph"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "ana",
+  "origin": "greek",
+  "meaning_en": "up, back, again",
+  "gloss_ko": "위로, 다시",
+  "variants": [
+   "ano"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "apo",
+  "origin": "greek",
+  "meaning_en": "away from, off",
+  "gloss_ko": "~에서 떨어져",
+  "variants": [
+   "aph",
+   "apho"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "cata",
+  "origin": "greek",
+  "meaning_en": "down, against, completely",
+  "gloss_ko": "아래로, 반대로",
+  "variants": [
+   "cat",
+   "cath",
+   "kata"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "ecto",
+  "origin": "greek",
+  "meaning_en": "outside, external",
+  "gloss_ko": "바깥의",
+  "variants": [
+   "ect"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "endo",
+  "origin": "greek",
+  "meaning_en": "within, inner",
+  "gloss_ko": "안의, 내부의",
+  "variants": [
+   "end",
+   "ento"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "exo",
+  "origin": "greek",
+  "meaning_en": "outside, external",
+  "gloss_ko": "바깥의, 외부의",
+  "variants": [],
+  "notes": "prefix"
+ },
+ {
+  "root": "meso",
+  "origin": "greek",
+  "meaning_en": "middle",
+  "gloss_ko": "중간의",
+  "variants": [
+   "mes"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "meta",
+  "origin": "greek",
+  "meaning_en": "beyond, change, after",
+  "gloss_ko": "넘어서, 변화",
+  "variants": [
+   "met",
+   "meth"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "para",
+  "origin": "greek",
+  "meaning_en": "beside, beyond, abnormal",
+  "gloss_ko": "곁에, 벗어난",
+  "variants": [
+   "par-gr"
+  ],
+  "notes": "prefix"
+ },
+ {
+  "root": "ism",
+  "origin": "greek",
+  "meaning_en": "doctrine, practice, condition",
+  "gloss_ko": "주의, 상태",
+  "variants": [
+   "ismus"
+  ],
+  "notes": "suffix"
+ },
+ {
+  "root": "itis",
+  "origin": "greek",
+  "meaning_en": "inflammation",
+  "gloss_ko": "염증",
+  "variants": [
+   "itid"
+  ],
+  "notes": "suffix"
+ },
+ {
+  "root": "oid",
+  "origin": "greek",
+  "meaning_en": "resembling, like",
+  "gloss_ko": "~같은, 닮은",
+  "variants": [
+   "eid",
+   "oidal"
+  ],
+  "notes": "suffix"
+ },
+ {
+  "root": "oma",
+  "origin": "greek",
+  "meaning_en": "tumor, swelling, mass",
+  "gloss_ko": "종양, 덩어리",
+  "variants": [
+   "omat",
+   "omas"
+  ],
+  "notes": "suffix"
+ },
+ {
+  "root": "osis",
+  "origin": "greek",
+  "meaning_en": "condition, abnormal process",
+  "gloss_ko": "상태, 병적 과정",
+  "variants": [
+   "oses",
+   "otic"
+  ],
+  "notes": "suffix"
+ }
 ]

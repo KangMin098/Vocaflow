@@ -20,7 +20,8 @@ export const colorsLight = {
   pDark: '#051428',
 
   // 시그니처 모먼트 ONLY — Linear single-accent 원칙
-  active: '#B0843A',     // muted gold (적용 면적 5% 미만)
+  active: '#B0843A',     // muted gold (적용 면적 5% 미만) — 면/아이콘용
+  activeInk: '#7E5A1B',  // 골드를 작은 글자로 쓸 때 (종이 5.97 · 앰버 tint 5.13 · AA)
   activeLight: '#F4EAD3',
 
   // semantic — sophisticated muted
@@ -30,7 +31,7 @@ export const colorsLight = {
   errorLight: '#F4E0DC',
   warning: '#B5803A',    // deeper warm amber
   warningLight: '#F2E8D2',
-  info: '#5B7A98',
+  info: '#50697F',
   infoLight: '#E1E8EF',
 
   // surface — Apple Books 정합 (less yellow, more modern)
@@ -40,12 +41,13 @@ export const colorsLight = {
 
   // text — ink (deeper, more refined)
   t1: '#1A1714',
-  t2: 'rgba(26, 23, 20, 0.62)',
-  t3: 'rgba(26, 23, 20, 0.38)',
+  t2: 'rgba(26, 23, 20, 0.74)',
+  t3: 'rgba(26, 23, 20, 0.62)',
   t4: 'rgba(26, 23, 20, 0.20)',
   ti: '#FBFAF6',
 
   bd: '#E0DBD0',         // subtler hairline (Linear 정합)
+  gridLine: '#F0EEE7',   // 모눈 무대 — 웹은 color-mix(--bd 40%, transparent). RN 은 --bg 위 합성값
   bdf: '#0F2540',
   bde: '#9C3A30',
 } as const;
@@ -59,10 +61,11 @@ export const colorsDark = {
   pDark: '#4F84BC',
 
   active: '#D4A856',
+  activeInk: '#D4A856',  // 다크는 원색 그대로 AA (on --bg 4.93:1)
   activeLight: 'rgba(212, 168, 86, 0.18)',
   success: '#5BA47D',
   successLight: 'rgba(91, 164, 125, 0.18)',
-  error: '#C25E54',
+  error: '#A8443A',
   errorLight: 'rgba(194, 94, 84, 0.18)',
   warning: '#CEA254',
   warningLight: 'rgba(206, 162, 84, 0.18)',
@@ -74,12 +77,13 @@ export const colorsDark = {
   bg3: '#2D261F',        // fill
 
   t1: '#F0EAE0',
-  t2: 'rgba(240, 234, 224, 0.62)',
-  t3: 'rgba(240, 234, 224, 0.38)',
+  t2: 'rgba(240, 234, 224, 0.74)',
+  t3: 'rgba(240, 234, 224, 0.62)',
   t4: 'rgba(240, 234, 224, 0.20)',
   ti: '#F0EAE0',
 
   bd: '#3D362D',
+  gridLine: '#312B23',   // 모눈 무대 — 웹은 color-mix(--bd 55%, transparent). --bg 위 합성값
   bdf: '#6B9BD1',
 } as const;
 

@@ -1,0 +1,107 @@
+{
+  "gate": 3,
+  "measuredAt": "2026-09-17T05:16:25.301Z",
+  "criteria": "학습자 역할(정답표 없음)이 강의만 듣고 쓴 설명을, 별도 심사 호출이 루브릭 항목별 0~100 채점 — 평균 ≥ 85",
+  "method": "① 학습자 역할: 지문·들리는 말·켜지는 자리만 받음(gate3-input.mts) ② 심사 역할: 정답표·분석·지문과 대조. 두 호출은 서로의 파일을 보지 않았다(학습자 쪽).",
+  "answersCorrect": "6/6",
+  "overall_mean": 86.1,
+  "pass": true,
+  "margin": "통과선 85 에 1.1점 — 얇다. 구멍은 작성 지침(WRITER.md)에 옮겨 Gate 4 에 반영",
+  "disagreement": "M2706#34 ④ — 2차 대본 심사관은 「첫 문장이 시장을 밀어낸다」를 오독이라 했고, 이 심사관은 그것을 더 강한 근거라 했다. 판정하지 않고 남긴다(분석 원고와 같은 해석이다).",
+  "dataDefects": [
+    "M2706#32 빈칸 표시가 여덟 번째가 아니라 네 번째 문장에 있음",
+    "M2706#36 여섯 번째 문장에 떠돌이 빈칸 표시",
+    "일부 선지 끝의 깨진 문자"
+  ],
+  "items": {
+    "M2706#31": {
+      "answer_correct": true,
+      "why": 80,
+      "eliminate": 78,
+      "trap": 92,
+      "strategy": 88,
+      "formula": 90,
+      "mean": 85.6,
+      "lecture_holes": [
+        "2번째 문장은 '현재 상태(present state) 유지'를 말하는데 왜 그것이 '원하는(desired)' 상태가 되는지의 연결이 약하다 — 핵심은 상태에 목적(for contemplation, research, display, use)이 붙어 있다는 점인데, 강의는 3번째 문장의 '되돌리기'에 기대어 설명해 학습자가 긴장을 스스로 풀지 못했다",
+        "⑤ 소거 이유가 '연약함은 원하는 상태가 아니다'로 순환적이다 — deteriorated 가 preservationists 쪽 상태라는 편 구분이 결정적 이유임을 분명히 말해야 했다",
+        "도입의 '되돌아가기를 재는 문제'가 무엇을 뜻하는지(빈칸 근처가 아니라 문단 앞머리 정의로 돌아가기) 풀어 주지 않았다"
+      ],
+      "learner_reported_gaps": true
+    },
+    "M2706#32": {
+      "answer_correct": true,
+      "why": 90,
+      "eliminate": 78,
+      "trap": 90,
+      "strategy": 88,
+      "formula": 88,
+      "mean": 86.8,
+      "lecture_holes": [
+        "① 소거가 '범위에 없다'는 약한 이유뿐이다 — 인용이 말하는 것은 속마음의 누출이고 '척하기(가장)'는 그 누출로 오히려 들킬 행위라는 식의 결정적 논리가 없다",
+        "'근거는 바로 앞 문장'이라고 해 놓고 실제로는 6~7번째 두 문장(인용 전체)을 근거로 써서 근거 범위가 한 번 흔들렸다",
+        "'화제가 말하는 사람 쪽으로 넘어간다'는 지도 설명이 1~5번째(듣는 사람의 조언)와 어떻게 대비되는지 짧게만 말했다"
+      ],
+      "learner_reported_gaps": true
+    },
+    "M2706#34": {
+      "answer_correct": true,
+      "why": 78,
+      "eliminate": 82,
+      "trap": 90,
+      "strategy": 88,
+      "formula": 90,
+      "mean": 85.6,
+      "lecture_holes": [
+        "3번째 문장의 핵심 대응(belief ↔ conviction, future presence ↔ where art is going, art as a whole ↔ art)을 낱말 단위로 짚지 않아, 5번째 문장에서 '미술이 갈 곳을 내다본다'로 넘어가는 연결이 결론만 전달됐다",
+        "④ 소거에서 1번째 문장이 시장 가치를 not only on the market 으로 한쪽에 밀어 놓는다는 결정적 근거를 쓰지 않았다",
+        "도입의 '틀이 한 선지를 곧장 지운다'가 ⑤라는 것을 뒤에서야 밝혀 초반 절차 학습이 늦어졌다"
+      ],
+      "learner_reported_gaps": true
+    },
+    "M2706#36": {
+      "answer_correct": true,
+      "why": 85,
+      "eliminate": 90,
+      "trap": 92,
+      "strategy": 88,
+      "formula": 75,
+      "mean": 86,
+      "lecture_holes": [
+        "9번째 문장 Nor 로 시작하는 부정 도치가 '앞의 방어에 더해, 개별 식물도 혼자가 아니다'라는 추가 예고가 되는 원리를 설명하지 않았다 — 이 문항의 결정적 단서다",
+        "정리의 '단락 첫 문장의 지시어로 첫 자리를 거른다'가 이 문항과 어긋난다 — (C)가 첫 자리인 이유는 지시어가 아니라 주어진 글의 방어 열거(Some ...)와 Structural defenses 의 짝이고, 지시어로 걸러지는 것은 (A)의 The back-and-forth 뿐이다. 공식이 이 문항에서 검증되지 않은 채 전달됐다"
+      ],
+      "learner_reported_gaps": true
+    },
+    "M2706#37": {
+      "answer_correct": true,
+      "why": 82,
+      "eliminate": 84,
+      "trap": 90,
+      "strategy": 88,
+      "formula": 88,
+      "mean": 86.4,
+      "lecture_holes": [
+        "In saying that 이 왜 주어진 글만 가리킬 수 있는지(보편적 표현이 아니라 전략이라는 (C)의 진술이 '문화의 틀 안에서 작동한다'를 되받는 내용 관계)를 말하지 않고 결론만 주었다",
+        "(A)의 blending the innovative with the established 가 (C) 끝 문학 비유의 두 축(규칙·전통 / 독창성)을 그대로 옮긴 말이라는 대응을 짚지 않아 By extension 연결이 짧게 전달됐다",
+        "⑤ 소거의 '풀리지 않은 단서로 끝난다'가 (A) 끝의 imitation is not enough 라는 것을 명시하지 않았고, Thus 의 역할도 언급이 없다"
+      ],
+      "learner_reported_gaps": true
+    },
+    "2026#36": {
+      "answer_correct": true,
+      "why": 84,
+      "eliminate": 86,
+      "trap": 90,
+      "strategy": 86,
+      "formula": 86,
+      "mean": 86.4,
+      "lecture_holes": [
+        "주어진 글 끝의 repetitive 를 (C) 첫 문장의 정의(반복하는 과정이면 무엇이든 시계)가 일반 규정으로 편다는, 주어진 글 → (C) 직접 이음매를 짚지 않았다",
+        "도입에서 '(B)의 두 표현이 순서를 정한다'고 했으나 실제로는 (A)의 Indeed 와 (C)의 정의문도 필요해, 첫머리 예고와 풀이 절차가 어긋났다",
+        "(A)의 양초가 '유일한 예외처럼 보이는 사례'라서 일반 규정·평범한 예시((C)) 뒤에 와야 한다는 논리를 명시하지 않았다"
+      ],
+      "learner_reported_gaps": true
+    }
+  }
+}

@@ -69,6 +69,15 @@ export interface LearningRecordPayload {
   rating: number; // FSRS 1~4
   is_correct: boolean; // 호환용 — rating ≥ 3이면 true
   attempted_at: string;
+  /**
+   * 인출 맥락. 지금 담는 것은 `chosen` 하나 — **오답일 때 학습자가 대신 고른 단어**다.
+   *
+   * 왜 필요한가: 오답 기록이 "무엇을 틀렸나" 만 남기면 남은 것은 난이도뿐이다.
+   * "무엇과 헷갈렸나" 가 있어야 그 학습자의 실제 혼동 짝을 만들 수 있고, 그건
+   * 인쇄된 단어장이 원리적으로 못 하는 것이다(오답은 인쇄 뒤에 생긴다).
+   * 값이 없으면 키 자체를 넣지 않는다 — `{}` 는 "선택지가 없었다" 와 구별되지 않는다.
+   */
+  metadata?: { chosen: string };
 }
 
 /**
@@ -76,17 +85,25 @@ export interface LearningRecordPayload {
  *
  * @param result applyReview의 결과
  * @param userId 현재 사용자 ID (RLS auth.uid())
+ * @param chosen 오답일 때 학습자가 대신 고른 단어 (선택지가 있는 모듈만)
  */
 export function resultToRecordPayload(
   result: ReviewResult,
   userId: string,
+  chosen?: string,
 ): LearningRecordPayload {
+  const isCorrect = result.log.rating >= 3; // Good or Easy
   return {
     user_id: userId,
     vocabulary_id: result.log.cardId,
     module: result.log.module,
     rating: result.log.rating,
-    is_correct: result.log.rating >= 3, // Good or Easy
+    is_correct: isCorrect,
     attempted_at: result.log.reviewedAt.toISOString(),
+    // 정답일 때의 `chosen` 은 정답 자신이므로 담지 않는다 — 담으면 혼동 짝 집계에서
+    // 자기 자신과 짝지어진 행이 절반을 차지한다.
+    ...(!isCorrect && chosen && chosen.trim().length > 0
+      ? { metadata: { chosen: chosen.trim() } }
+      : {}),
   };
 }

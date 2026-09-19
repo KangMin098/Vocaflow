@@ -7,7 +7,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, BookPlus, Loader2, AlertCircle } from 'lucide-react';
-import type { ChapterListItem } from '@/lib/library/reader-queries';
+import type { ChapterContent, ChapterListItem } from '@/lib/library/reader-queries';
+import type { BookComposerSet } from '@/lib/library/books/queries';
 import { createClient } from '@/lib/supabase/client';
 import { enrollBook } from '@/lib/library/enroll';
 import { BookContentReader } from '@/components/library/reader/BookContentReader';
@@ -15,6 +16,8 @@ import {
   BookDetailClient,
   type ChapterSet,
 } from '@/components/library/books/BookDetailClient';
+import { BookSupportVocabPanel } from '@/components/library/books/BookSupportVocabPanel';
+import { formatReadingTime } from '@/lib/library/reading-time'
 
 interface Props {
   bookId: string;
@@ -33,8 +36,12 @@ interface Props {
   totalWordCount: number;
   readingMinutes: number;
   chapters: ChapterListItem[];
+  /** 서버가 미리 읽은 1장 본문 — 초기 HTML 에 들어가야 검색엔진이 본문을 본다. */
+  initialContent: ChapterContent | null;
   /** v06.31 — 챕터 단어장 grid (도서 컨텍스트 안에서만 노출) */
   chapterSets: ChapterSet[];
+  /** v06.35 — 이 책으로 만든 컴포저 단어장 (해금·재등장 등). Tier 2 자리를 채운다 */
+  composerSets?: BookComposerSet[];
   subscribedIds: string[];
   isLoggedIn: boolean;
 }
@@ -55,7 +62,9 @@ export function UserPreviewClient({
   totalWordCount,
   readingMinutes,
   chapters,
+  initialContent,
   chapterSets,
+  composerSets = [],
   subscribedIds,
   isLoggedIn,
 }: Props) {
@@ -82,14 +91,14 @@ export function UserPreviewClient({
       <div className="flex items-center justify-between">
         <Link
           href="/library/books"
-          className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden />
           도서로
         </Link>
-        {readingMinutes > 0 && (
-          <span className="font-mono text-[11px] text-[var(--t3)]">
-            예상 학습 시간 약 {Math.round(readingMinutes / 60)}시간
+        {formatReadingTime(readingMinutes) !== null && (
+          <span className="font-mono text-[11px] text-[var(--t2)]">
+            예상 학습 시간 {formatReadingTime(readingMinutes)}
           </span>
         )}
       </div>
@@ -112,10 +121,15 @@ export function UserPreviewClient({
           bookId={bookId}
           bookVLevel={bookVLevel}
           chapterSets={chapterSets}
+          composerSets={composerSets}
           subscribedIds={subscribedIds}
           isLoggedIn={isLoggedIn}
         />
       )}
+
+      {/* ADR 0004 D5 — 이 책의 고유 어휘(항해어 등). 챕터 단어장 아래, 본문 위.
+          외울 목록(위)과 읽기 참고 목록(여기)을 나란히 두되 접어서 자극을 줄인다. */}
+      <BookSupportVocabPanel bookId={bookId} />
 
       <BookContentReader
         libraryBookId={bookId}
@@ -124,15 +138,17 @@ export function UserPreviewClient({
         cefrLevel={cefrLevel}
         totalWordCount={totalWordCount}
         chapters={chapters}
+        initialContent={initialContent}
+        isLoggedIn={isLoggedIn}
         mode="user-preview"
         footerSlot={
           <div className="flex flex-wrap items-center justify-between gap-3">
             {error ? (
-              <span className="inline-flex items-center gap-1.5 font-body text-[12px] text-[var(--learn-error)]">
+              <span className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--learn-error)]">
                 <AlertCircle size={12} aria-hidden /> {error}
               </span>
             ) : (
-              <span className="font-body text-[12px] text-[var(--t3)]">
+              <span className="font-body text-[12px] text-[var(--t2)]">
                 내 학습에 추가하면 모든 장을 chapter 단위로 학습할 수 있어요.
               </span>
             )}
@@ -140,7 +156,7 @@ export function UserPreviewClient({
               type="button"
               onClick={handleEnroll}
               disabled={enrolling}
-              className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {enrolling ? (
                 <Loader2 size={14} className="animate-spin" aria-hidden />
@@ -196,11 +212,11 @@ function DifficultyCard({
       className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4"
     >
       <header className="mb-3 flex items-baseline justify-between gap-2">
-        <h2 className="font-display text-[12px] font-[700] uppercase tracking-wider text-[var(--t3)]">
+        <h2 className="font-display text-[12px] font-[700] uppercase tracking-wider text-[var(--t2)]">
           난이도 지수
         </h2>
         <span
-          className="font-mono text-[10px] text-[var(--t3)]"
+          className="font-mono text-[10px] text-[var(--t2)]"
           title="네 가지 지수가 책의 서로 다른 측면을 잡아냅니다."
         >
           4축
@@ -235,7 +251,7 @@ function DifficultyCard({
       </div>
 
       {lemmaCoveragePct != null && (
-        <p className="mt-3 font-body text-[11px] text-[var(--t3)]">
+        <p className="mt-3 font-body text-[11px] text-[var(--t2)]">
           어휘 매칭 {lemmaCoveragePct}% · 외부 표준: CEFR-J Wordlist v1.6 (© Tono Lab, Tokyo University of Foreign Studies)
         </p>
       )}
@@ -253,15 +269,15 @@ function Stat({
   sub?: string;
 }) {
   return (
-    <div className="flex flex-col gap-0.5">
-      <span className="font-display text-[10px] font-[600] uppercase tracking-wide text-[var(--t3)]">
+    <div className="flex flex-col gap-1">
+      <span className="font-display text-[10px] font-[600] uppercase tracking-wide text-[var(--t2)]">
         {label}
       </span>
       <span className="font-display text-[18px] font-[700] tabular-nums text-[var(--t1)]">
         {value}
       </span>
       {sub && (
-        <span className="font-mono text-[10px] text-[var(--t3)]">{sub}</span>
+        <span className="font-mono text-[10px] text-[var(--t2)]">{sub}</span>
       )}
     </div>
   );

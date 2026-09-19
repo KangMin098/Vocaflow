@@ -1,0 +1,1254 @@
+[
+ {
+  "id": "2014B#39",
+  "points": 2,
+  "ansIdx": 2,
+  "sents": [
+   "It s important that the media provide us with diverse and, opposing views, so we can choose the best available options., Let s take the example of going to war.",
+   "War should be, a last resort, obviously, undertaken when all other options, have failed.",
+   "So, when someone is threatening to go to war, or trying to convince us and mounting a huge public relations campaign to justify it, the news media have a responsibility to question everything.",
+   "They should be providing the most intense, scrutiny on our behalf, so the public can see the other side of, things.",
+   "Otherwise, we may be drawn into unnecessary, wars, or wars fought for reasons other than those presented, by governments and generals.",
+   "Most of the time, the, media fail to perform this crucial role.",
+   "Even the large, , so-called liberal American media have admitted that they, have not always been watchdogs for the public interest, and, that their own coverage on some major issues looks, strikingly one-sided at times."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… the best available options., Let s take the example of going to war.",
+    "after": "So, when someone is threatening to go to war, or trying to convince …",
+    "removed": "War should be, a last resort, obviously, undertaken when all other options, have failed."
+   },
+   {
+    "i": 2,
+    "isAnswer": true,
+    "before": "… should be, a last resort, obviously, undertaken when all other options, have failed.",
+    "after": "They should be providing the most intense, scrutiny on our behalf, so the …",
+    "removed": "So, when someone is threatening to go to war, or trying to convince us and mounting a huge public relations campaign to justify it, the news media have a responsibility to question everything."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… campaign to justify it, the news media have a responsibility to question everything.",
+    "after": "Otherwise, we may be drawn into unnecessary, wars, or wars fought for reasons …",
+    "removed": "They should be providing the most intense, scrutiny on our behalf, so the public can see the other side of, things."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "… on our behalf, so the public can see the other side of, things.",
+    "after": "Most of the time, the, media fail to perform this crucial role.",
+    "removed": "Otherwise, we may be drawn into unnecessary, wars, or wars fought for reasons other than those presented, by governments and generals."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… or wars fought for reasons other than those presented, by governments and generals.",
+    "after": "Even the large, , so-called liberal American media have admitted that they, have …",
+    "removed": "Most of the time, the, media fail to perform this crucial role."
+   }
+  ],
+  "pool": 5
+ },
+ {
+  "id": "2015#38",
+  "points": 2,
+  "ansIdx": 4,
+  "sents": [
+   "Exactly how cicadas keep track of time has always intrigued, researchers, and it has always been assumed that the insects, must rely on an internal clock.",
+   "Recently, however, one group, of scientists working with the 17-year cicada in California, have suggested that the nymphs use an external cue and that, they can count.",
+   "For their experiments they took, 15-year-old nymphs and moved them to an experimental, enclosure.",
+   "These nymphs should have taken a further, two years to emerge as adults, but in fact they took just one, year.",
+   "The researchers had made this happen by lengthening the period of daylight to which the peach trees on whose roots the insects fed were exposed.",
+   "By doing this, the trees were tricked into, flowering twice during the year rather than the usual once., Flowering in trees coincides with a peak in amino acid, concentrations in the sap that the insects feed on.",
+   "So it, seems that the cicadas keep track of time by counting the, peaks."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… has always been assumed that the insects, must rely on an internal clock.",
+    "after": "For their experiments they took, 15-year-old nymphs and moved them to an experimental, …",
+    "removed": "Recently, however, one group, of scientists working with the 17-year cicada in California, have suggested that the nymphs use an external cue and that, they can count."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… suggested that the nymphs use an external cue and that, they can count.",
+    "after": "These nymphs should have taken a further, two years to emerge as adults, …",
+    "removed": "For their experiments they took, 15-year-old nymphs and moved them to an experimental, enclosure."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… their experiments they took, 15-year-old nymphs and moved them to an experimental, enclosure.",
+    "after": "The researchers had made this happen by lengthening the period of daylight to …",
+    "removed": "These nymphs should have taken a further, two years to emerge as adults, but in fact they took just one, year."
+   },
+   {
+    "i": 4,
+    "isAnswer": true,
+    "before": "… years to emerge as adults, but in fact they took just one, year.",
+    "after": "By doing this, the trees were tricked into, flowering twice during the year …",
+    "removed": "The researchers had made this happen by lengthening the period of daylight to which the peach trees on whose roots the insects fed were exposed."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… to which the peach trees on whose roots the insects fed were exposed.",
+    "after": "So it, seems that the cicadas keep track of time by counting the, …",
+    "removed": "By doing this, the trees were tricked into, flowering twice during the year rather than the usual once., Flowering in trees coincides with a peak in amino acid, concentrations in the sap that the insects feed on."
+   }
+  ],
+  "pool": 5
+ },
+ {
+  "id": "2015#39",
+  "points": 3,
+  "ansIdx": 2,
+  "sents": [
+   "Some years ago, a psychologist named Richard Lippa called, a group of introverts to his lab and asked them to act like, extroverts while pretending to teach a math class.",
+   "Then, he and his team, with video cameras in hand, measured the, length of their strides, the amount of eye contact they made, with their students, the percentage of time they spent, talking, and the volume of their speech.",
+   "They also rated how generally extroverted those fake extroverts appeared, based on their recorded voices and body language.",
+   "Then Lippa, did the same thing with actual extroverts and compared the, results.",
+   "He found that although the latter group came, across as more extroverted, some of the fake extroverts were, surprisingly convincing.",
+   "It seems that most of us, know how to fake it to some extent.",
+   "Whether or not, we re aware that the length of our strides and the amount of, time we spend talking and smiling mark us as introverts and, extroverts, we know it unconsciously. [3 ]"
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… asked them to act like, extroverts while pretending to teach a math class.",
+    "after": "They also rated how generally extroverted those fake extroverts appeared, based on their …",
+    "removed": "Then, he and his team, with video cameras in hand, measured the, length of their strides, the amount of eye contact they made, with their students, the percentage of time they spent, talking, and the volume of their speech."
+   },
+   {
+    "i": 2,
+    "isAnswer": true,
+    "before": "… the percentage of time they spent, talking, and the volume of their speech.",
+    "after": "Then Lippa, did the same thing with actual extroverts and compared the, results.",
+    "removed": "They also rated how generally extroverted those fake extroverts appeared, based on their recorded voices and body language."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… extroverted those fake extroverts appeared, based on their recorded voices and body language.",
+    "after": "He found that although the latter group came, across as more extroverted, some …",
+    "removed": "Then Lippa, did the same thing with actual extroverts and compared the, results."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "Then Lippa, did the same thing with actual extroverts and compared the, results.",
+    "after": "It seems that most of us, know how to fake it to some …",
+    "removed": "He found that although the latter group came, across as more extroverted, some of the fake extroverts were, surprisingly convincing."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… came, across as more extroverted, some of the fake extroverts were, surprisingly convincing.",
+    "after": "Whether or not, we re aware that the length of our strides and …",
+    "removed": "It seems that most of us, know how to fake it to some extent."
+   }
+  ],
+  "pool": 5
+ },
+ {
+  "id": "2016#37",
+  "points": 2,
+  "ansIdx": 6,
+  "sents": [
+   "Remember when you were little and you imagined that, adults had infinite power?",
+   "Surely someone who could drive, the car, open the juice container, and reach the sink could, make it stop raining.",
+   "I think that s the same expectation, that we have with respect to our dogs and their ability to, smell.",
+   "Because they are so good at using their noses, , we assume that they can smell anything, anytime.",
+   "But, dogs use other senses, too, and the brains of both humans, and dogs tend to intensify one sense at a time.",
+   "Many, owners have been snapped at by their dogs when they, returned home with a new hairdo or a new coat.",
+   "Surprised by the vision of an unfamiliar silhouette pushing into the house, these dogs were using their eyes instead of their noses.",
+   "Their, noses may be remarkable, but they re not always switched on."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "Remember when you were little and you imagined that, adults had infinite power?",
+    "after": "I think that s the same expectation, that we have with respect to …",
+    "removed": "Surely someone who could drive, the car, open the juice container, and reach the sink could, make it stop raining."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… open the juice container, and reach the sink could, make it stop raining.",
+    "after": "Because they are so good at using their noses, , we assume that …",
+    "removed": "I think that s the same expectation, that we have with respect to our dogs and their ability to, smell."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… that we have with respect to our dogs and their ability to, smell.",
+    "after": "But, dogs use other senses, too, and the brains of both humans, and …",
+    "removed": "Because they are so good at using their noses, , we assume that they can smell anything, anytime."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "… at using their noses, , we assume that they can smell anything, anytime.",
+    "after": "Many, owners have been snapped at by their dogs when they, returned home …",
+    "removed": "But, dogs use other senses, too, and the brains of both humans, and dogs tend to intensify one sense at a time."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… of both humans, and dogs tend to intensify one sense at a time.",
+    "after": "Surprised by the vision of an unfamiliar silhouette pushing into the house, these …",
+    "removed": "Many, owners have been snapped at by their dogs when they, returned home with a new hairdo or a new coat."
+   },
+   {
+    "i": 6,
+    "isAnswer": true,
+    "before": "… dogs when they, returned home with a new hairdo or a new coat.",
+    "after": "Their, noses may be remarkable, but they re not always switched on.",
+    "removed": "Surprised by the vision of an unfamiliar silhouette pushing into the house, these dogs were using their eyes instead of their noses."
+   }
+  ],
+  "pool": 6
+ },
+ {
+  "id": "2016#38",
+  "points": 3,
+  "ansIdx": 6,
+  "sents": [
+   "Money beyond the bare minimum necessary for food and, shelter is nothing more than a means to an end.",
+   "Yet so, often we confuse means with ends, and sacrifice happiness, (end) for money (means).",
+   "It is easy to do this when material, wealth is elevated to the position of the ultimate end, as it so, often is in our society.",
+   "This is not to say that the, accumulation and production of material wealth is in itself, wrong.",
+   "Material prosperity can help individuals, as well, as society, attain higher levels of happiness.",
+   "Financial, security can liberate us from work we do not find meaningful, and from having to worry about the next paycheck. , Moreover, the desire to make money can challenge and inspire, us.",
+   "Even so, it is not the money per se that is valuable, but the fact that it can potentially yield more positive experiences.",
+   "Material wealth in and of itself does not necessarily, generate meaning or lead to emotional wealth. [3 ]"
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… for food and, shelter is nothing more than a means to an end.",
+    "after": "It is easy to do this when material, wealth is elevated to the …",
+    "removed": "Yet so, often we confuse means with ends, and sacrifice happiness, (end) for money (means)."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… often we confuse means with ends, and sacrifice happiness, (end) for money (means).",
+    "after": "This is not to say that the, accumulation and production of material wealth …",
+    "removed": "It is easy to do this when material, wealth is elevated to the position of the ultimate end, as it so, often is in our society."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… position of the ultimate end, as it so, often is in our society.",
+    "after": "Material prosperity can help individuals, as well, as society, attain higher levels of …",
+    "removed": "This is not to say that the, accumulation and production of material wealth is in itself, wrong."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "… say that the, accumulation and production of material wealth is in itself, wrong.",
+    "after": "Financial, security can liberate us from work we do not find meaningful, and …",
+    "removed": "Material prosperity can help individuals, as well, as society, attain higher levels of happiness."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… prosperity can help individuals, as well, as society, attain higher levels of happiness.",
+    "after": "Even so, it is not the money per se that is valuable, but …",
+    "removed": "Financial, security can liberate us from work we do not find meaningful, and from having to worry about the next paycheck. , Moreover, the desire to make money can challenge and inspire, us."
+   },
+   {
+    "i": 6,
+    "isAnswer": true,
+    "before": "… paycheck. , Moreover, the desire to make money can challenge and inspire, us.",
+    "after": "Material wealth in and of itself does not necessarily, generate meaning or lead …",
+    "removed": "Even so, it is not the money per se that is valuable, but the fact that it can potentially yield more positive experiences."
+   }
+  ],
+  "pool": 6
+ },
+ {
+  "id": "2017#38",
+  "points": 2,
+  "ansIdx": 4,
+  "sents": [
+   "What is the best order for a report, paper or other technical, document?",
+   "Of course, it must be logical; but that means, simply that the paper must have connection and sequence, , and a variety of orders is possible under this heading.",
+   "Too, many writers interpret the term logical to mean chronological, , and it has become habitual to begin reports and papers with, careful reviews of previous work.",
+   "Usually, this is, tactically weak.",
+   "Most readers of reports and papers are reading the documents because they are interested in, and know something about, the subject.",
+   "Therefore, to rehearse to them the, findings of previous work is simply to bore them with, unnecessary reminders.",
+   "The interesting thing for them, is the new information the new findings and conclusions., So it is usually best to start with those pieces of, information.",
+   "To give a long chronological account of, work or procedures is normally appropriate only when the, essential point of the paper is the chronological sequence."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "What is the best order for a report, paper or other technical, document?",
+    "after": "Too, many writers interpret the term logical to mean chronological, , and it …",
+    "removed": "Of course, it must be logical; but that means, simply that the paper must have connection and sequence, , and a variety of orders is possible under this heading."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… and sequence, , and a variety of orders is possible under this heading.",
+    "after": "Usually, this is, tactically weak.",
+    "removed": "Too, many writers interpret the term logical to mean chronological, , and it has become habitual to begin reports and papers with, careful reviews of previous work."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… become habitual to begin reports and papers with, careful reviews of previous work.",
+    "after": "Most readers of reports and papers are reading the documents because they are …",
+    "removed": "Usually, this is, tactically weak."
+   },
+   {
+    "i": 4,
+    "isAnswer": true,
+    "before": "Usually, this is, tactically weak.",
+    "after": "Therefore, to rehearse to them the, findings of previous work is simply to …",
+    "removed": "Most readers of reports and papers are reading the documents because they are interested in, and know something about, the subject."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… the documents because they are interested in, and know something about, the subject.",
+    "after": "The interesting thing for them, is the new information the new findings and …",
+    "removed": "Therefore, to rehearse to them the, findings of previous work is simply to bore them with, unnecessary reminders."
+   },
+   {
+    "i": 6,
+    "isAnswer": false,
+    "before": "… the, findings of previous work is simply to bore them with, unnecessary reminders.",
+    "after": "To give a long chronological account of, work or procedures is normally appropriate …",
+    "removed": "The interesting thing for them, is the new information the new findings and conclusions., So it is usually best to start with those pieces of, information."
+   }
+  ],
+  "pool": 6
+ },
+ {
+  "id": "2017#39",
+  "points": 2,
+  "ansIdx": 4,
+  "sents": [
+   "I expect that global society will increase annual investments, from 24% today to 36% of the GDP in 2052.",
+   "Much of this, investment will be in energy-efficient goods that are more, expensive than old-fashioned stuff designed for an era of, cheap energy.",
+   "Another share will be invested in the shift, from coal to more expensive fuels, like conventional gas. , Some will go into the construction of new renewable energy, supply, even during the years before it becomes competitive., And a lot will go into repair of climate damage or, adaptation to future climate damage for example, investing, in new protective walls along the coast to keep the rising, ocean back.",
+   "These huge increases in investment would, not come about if investment was left to the market.",
+   "Rather, they will happen only through state intervention, based on parliamentary decision.",
+   "It, will be either direct, when the government invests the tax, dollars in whatever capacity it considers to be most necessary, , or indirect, when the government passes legislation that makes, the desired activity more profitable."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… increase annual investments, from 24% today to 36% of the GDP in 2052.",
+    "after": "Another share will be invested in the shift, from coal to more expensive …",
+    "removed": "Much of this, investment will be in energy-efficient goods that are more, expensive than old-fashioned stuff designed for an era of, cheap energy."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… are more, expensive than old-fashioned stuff designed for an era of, cheap energy.",
+    "after": "These huge increases in investment would, not come about if investment was left …",
+    "removed": "Another share will be invested in the shift, from coal to more expensive fuels, like conventional gas. , Some will go into the construction of new renewable energy, supply, even during the years before it becomes competitive., And a lot will go into repair of climate damage or, adaptation to future climate damage for example, investing, in new protective walls along the coast to keep the rising, ocean back."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… in new protective walls along the coast to keep the rising, ocean back.",
+    "after": "Rather, they will happen only through state intervention, based on parliamentary decision.",
+    "removed": "These huge increases in investment would, not come about if investment was left to the market."
+   },
+   {
+    "i": 4,
+    "isAnswer": true,
+    "before": "… in investment would, not come about if investment was left to the market.",
+    "after": "It, will be either direct, when the government invests the tax, dollars in …",
+    "removed": "Rather, they will happen only through state intervention, based on parliamentary decision."
+   }
+  ],
+  "pool": 4
+ },
+ {
+  "id": "2018#38",
+  "points": 2,
+  "ansIdx": 5,
+  "sents": [
+   "Both humans and rats have evolved taste preferences for, sweet foods, which provide rich sources of calories.",
+   "A study, of food preferences among the Hadza hunter-gatherers of, Tanzania found that honey was the most highly preferred food, item, an item that has the highest caloric value.",
+   "Human, newborn infants also show a strong preference for sweet, liquids.",
+   "Both humans and rats dislike bitter and sour, foods, which tend to contain toxins.",
+   "They also, adaptively adjust their eating behavior in response to deficits, in water, calories, and salt.",
+   "Experiments show that rats display an immediate liking for salt the first time they experience a salt deficiency.",
+   "They likewise increase, their intake of sweets and water when their energy and f luids, become depleted.",
+   "These appear to be specific evolved, mechanisms, designed to deal with the adaptive problem of, food selection, and coordinate consumption patterns with, physical needs."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… have evolved taste preferences for, sweet foods, which provide rich sources of calories.",
+    "after": "Human, newborn infants also show a strong preference for sweet, liquids.",
+    "removed": "A study, of food preferences among the Hadza hunter-gatherers of, Tanzania found that honey was the most highly preferred food, item, an item that has the highest caloric value."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… most highly preferred food, item, an item that has the highest caloric value.",
+    "after": "Both humans and rats dislike bitter and sour, foods, which tend to contain …",
+    "removed": "Human, newborn infants also show a strong preference for sweet, liquids."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "Human, newborn infants also show a strong preference for sweet, liquids.",
+    "after": "They also, adaptively adjust their eating behavior in response to deficits, in water, …",
+    "removed": "Both humans and rats dislike bitter and sour, foods, which tend to contain toxins."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "… humans and rats dislike bitter and sour, foods, which tend to contain toxins.",
+    "after": "Experiments show that rats display an immediate liking for salt the first time …",
+    "removed": "They also, adaptively adjust their eating behavior in response to deficits, in water, calories, and salt."
+   },
+   {
+    "i": 5,
+    "isAnswer": true,
+    "before": "… adjust their eating behavior in response to deficits, in water, calories, and salt.",
+    "after": "They likewise increase, their intake of sweets and water when their energy and …",
+    "removed": "Experiments show that rats display an immediate liking for salt the first time they experience a salt deficiency."
+   },
+   {
+    "i": 6,
+    "isAnswer": false,
+    "before": "… an immediate liking for salt the first time they experience a salt deficiency.",
+    "after": "These appear to be specific evolved, mechanisms, designed to deal with the adaptive …",
+    "removed": "They likewise increase, their intake of sweets and water when their energy and f luids, become depleted."
+   }
+  ],
+  "pool": 6
+ },
+ {
+  "id": "2018#39",
+  "points": 2,
+  "ansIdx": 6,
+  "sents": [
+   "An incident in Japan in the 1950s alerted the world to the, potential problems of organic mercury in fish.",
+   "Factories were, discharging mercury into the waters of Minamata Bay, which, also harbored a commercial fishing industry.",
+   "Mercury was being, bioaccumulated in the fish tissue and severe mercury poisoning, occurred in many people who consumed the fish.",
+   "The, disabling neurological symptoms were subsequently called, Minamata disease.",
+   "Control over direct discharge of, mercury from industrial operations is clearly needed for, prevention.",
+   "However, it is now recognized that traces of, mercury can appear in lakes far removed from any such, industrial discharge.",
+   "It is postulated that such contamination may result from airborne transport from remote power plants or municipal incinerators.",
+   "Strictly controlled emission standards, for such sources are needed to minimize this problem. , Fish advisories have been issued for many lakes in the United, States; these recommend limits on the number of times per, month particular species of fish should be consumed."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… 1950s alerted the world to the, potential problems of organic mercury in fish.",
+    "after": "Mercury was being, bioaccumulated in the fish tissue and severe mercury poisoning, occurred …",
+    "removed": "Factories were, discharging mercury into the waters of Minamata Bay, which, also harbored a commercial fishing industry."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… into the waters of Minamata Bay, which, also harbored a commercial fishing industry.",
+    "after": "The, disabling neurological symptoms were subsequently called, Minamata disease.",
+    "removed": "Mercury was being, bioaccumulated in the fish tissue and severe mercury poisoning, occurred in many people who consumed the fish."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… tissue and severe mercury poisoning, occurred in many people who consumed the fish.",
+    "after": "Control over direct discharge of, mercury from industrial operations is clearly needed for, …",
+    "removed": "The, disabling neurological symptoms were subsequently called, Minamata disease."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "The, disabling neurological symptoms were subsequently called, Minamata disease.",
+    "after": "However, it is now recognized that traces of, mercury can appear in lakes …",
+    "removed": "Control over direct discharge of, mercury from industrial operations is clearly needed for, prevention."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… over direct discharge of, mercury from industrial operations is clearly needed for, prevention.",
+    "after": "It is postulated that such contamination may result from airborne transport from remote …",
+    "removed": "However, it is now recognized that traces of, mercury can appear in lakes far removed from any such, industrial discharge."
+   },
+   {
+    "i": 6,
+    "isAnswer": true,
+    "before": "… of, mercury can appear in lakes far removed from any such, industrial discharge.",
+    "after": "Strictly controlled emission standards, for such sources are needed to minimize this problem. …",
+    "removed": "It is postulated that such contamination may result from airborne transport from remote power plants or municipal incinerators."
+   }
+  ],
+  "pool": 6
+ },
+ {
+  "id": "2019#38",
+  "points": 2,
+  "ansIdx": 4,
+  "sents": [
+   "The printing press boosted the power of ideas to copy, themselves.",
+   "Prior to low-cost printing, ideas could and did, spread by word of mouth.",
+   "While this was tremendously, powerful, it limited the complexity of the ideas that could be, propagated to those that a single person could remember. , It also added a certain amount of guaranteed error.",
+   "The, spread of ideas by word of mouth was equivalent to a game of, telephone on a global scale.",
+   "The advent of literacy and the creation of handwritten scrolls and, eventually, handwritten books strengthened the ability of large and complex ideas to spread with high fidelity.",
+   "But the incredible amount, of time required to copy a scroll or book by hand limited the, speed with which information could spread this way.",
+   "A, well-trained monk could transcribe around four pages of text, per day.",
+   "A printing press could copy information, thousands of times faster, allowing knowledge to spread far, more quickly, with full fidelity, than ever before."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "The printing press boosted the power of ideas to copy, themselves.",
+    "after": "While this was tremendously, powerful, it limited the complexity of the ideas that …",
+    "removed": "Prior to low-cost printing, ideas could and did, spread by word of mouth."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "Prior to low-cost printing, ideas could and did, spread by word of mouth.",
+    "after": "The, spread of ideas by word of mouth was equivalent to a game …",
+    "removed": "While this was tremendously, powerful, it limited the complexity of the ideas that could be, propagated to those that a single person could remember. , It also added a certain amount of guaranteed error."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… person could remember. , It also added a certain amount of guaranteed error.",
+    "after": "The advent of literacy and the creation of handwritten scrolls and, eventually, handwritten …",
+    "removed": "The, spread of ideas by word of mouth was equivalent to a game of, telephone on a global scale."
+   },
+   {
+    "i": 4,
+    "isAnswer": true,
+    "before": "… of mouth was equivalent to a game of, telephone on a global scale.",
+    "after": "But the incredible amount, of time required to copy a scroll or book …",
+    "removed": "The advent of literacy and the creation of handwritten scrolls and, eventually, handwritten books strengthened the ability of large and complex ideas to spread with high fidelity."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… strengthened the ability of large and complex ideas to spread with high fidelity.",
+    "after": "A, well-trained monk could transcribe around four pages of text, per day.",
+    "removed": "But the incredible amount, of time required to copy a scroll or book by hand limited the, speed with which information could spread this way."
+   },
+   {
+    "i": 6,
+    "isAnswer": false,
+    "before": "… book by hand limited the, speed with which information could spread this way.",
+    "after": "A printing press could copy information, thousands of times faster, allowing knowledge to …",
+    "removed": "A, well-trained monk could transcribe around four pages of text, per day."
+   }
+  ],
+  "pool": 6
+ },
+ {
+  "id": "2019#39",
+  "points": 3,
+  "ansIdx": 4,
+  "sents": [
+   "A major challenge for map-makers is the depiction of hills and, valleys, slopes and flatlands collectively called the topography., This can be done in various ways.",
+   "One is to create an image of, sunlight and shadow so that wrinkles of the topography are, alternately lit and shaded, creating a visual representation of the, shape of the land.",
+   "Another, technically more accurate, way is to draw contour lines.",
+   "A contour line connects all, points that lie at the same elevation.",
+   "A round hill rising above a plain, therefore, would appear on the map as a set of concentric circles, the largest at the base and the smallest near the top.",
+   "When the contour, lines are positioned closely together, the hill s slope is steep; if, they lie farther apart, the slope is gentler.",
+   "Contour lines, can represent scarps, hollows, and valleys of the local, topography.",
+   "At a glance, they reveal whether the relief in, the mapped area is great or small: a busy contour map means, lots of high relief. [3 ]"
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… and flatlands collectively called the topography., This can be done in various ways.",
+    "after": "Another, technically more accurate, way is to draw contour lines.",
+    "removed": "One is to create an image of, sunlight and shadow so that wrinkles of the topography are, alternately lit and shaded, creating a visual representation of the, shape of the land."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… lit and shaded, creating a visual representation of the, shape of the land.",
+    "after": "A contour line connects all, points that lie at the same elevation.",
+    "removed": "Another, technically more accurate, way is to draw contour lines."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "Another, technically more accurate, way is to draw contour lines.",
+    "after": "A round hill rising above a plain, therefore, would appear on the map …",
+    "removed": "A contour line connects all, points that lie at the same elevation."
+   },
+   {
+    "i": 4,
+    "isAnswer": true,
+    "before": "A contour line connects all, points that lie at the same elevation.",
+    "after": "When the contour, lines are positioned closely together, the hill s slope is …",
+    "removed": "A round hill rising above a plain, therefore, would appear on the map as a set of concentric circles, the largest at the base and the smallest near the top."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… concentric circles, the largest at the base and the smallest near the top.",
+    "after": "Contour lines, can represent scarps, hollows, and valleys of the local, topography.",
+    "removed": "When the contour, lines are positioned closely together, the hill s slope is steep; if, they lie farther apart, the slope is gentler."
+   },
+   {
+    "i": 6,
+    "isAnswer": false,
+    "before": "… s slope is steep; if, they lie farther apart, the slope is gentler.",
+    "after": "At a glance, they reveal whether the relief in, the mapped area is …",
+    "removed": "Contour lines, can represent scarps, hollows, and valleys of the local, topography."
+   }
+  ],
+  "pool": 6
+ },
+ {
+  "id": "2020#38",
+  "points": 2,
+  "ansIdx": 4,
+  "sents": [
+   "Resident-bird habitat selection is seemingly a straightforward, process in which a young dispersing individual moves until it, finds a place where it can compete successfully to satisfy its, needs.",
+   "Initially, these needs include only food and, shelter.",
+   "However, eventually, the young must locate, , identify, and settle in a habitat that satisfies not only survivorship, but reproductive needs as well.",
+   "In some cases, the, habitat that provides the best opportunity for survival may not be, the same habitat as the one that provides for highest reproductive, capacity because of requirements specific to the reproductive, period.",
+   "Thus, individuals of many resident species, confronted with the fitness benefits of control over a productive breeding site, may be forced to balance costs in the form of lower nonbreeding survivorship by remaining in the specific habitat where highest breeding success occurs.",
+   "Migrants, however, are free to choose the, optimal habitat for survival during the nonbreeding season and, for reproduction during the breeding season.",
+   "Thus, , habitat selection during these different periods can be quite, different for migrants as opposed to residents, even among, closely related species."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… it, finds a place where it can compete successfully to satisfy its, needs.",
+    "after": "However, eventually, the young must locate, , identify, and settle in a habitat …",
+    "removed": "Initially, these needs include only food and, shelter."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "Initially, these needs include only food and, shelter.",
+    "after": "In some cases, the, habitat that provides the best opportunity for survival may …",
+    "removed": "However, eventually, the young must locate, , identify, and settle in a habitat that satisfies not only survivorship, but reproductive needs as well."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… in a habitat that satisfies not only survivorship, but reproductive needs as well.",
+    "after": "Thus, individuals of many resident species, confronted with the fitness benefits of control …",
+    "removed": "In some cases, the, habitat that provides the best opportunity for survival may not be, the same habitat as the one that provides for highest reproductive, capacity because of requirements specific to the reproductive, period."
+   },
+   {
+    "i": 4,
+    "isAnswer": true,
+    "before": "… provides for highest reproductive, capacity because of requirements specific to the reproductive, period.",
+    "after": "Migrants, however, are free to choose the, optimal habitat for survival during the …",
+    "removed": "Thus, individuals of many resident species, confronted with the fitness benefits of control over a productive breeding site, may be forced to balance costs in the form of lower nonbreeding survivorship by remaining in the specific habitat where highest breeding success occurs."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… nonbreeding survivorship by remaining in the specific habitat where highest breeding success occurs.",
+    "after": "Thus, , habitat selection during these different periods can be quite, different for …",
+    "removed": "Migrants, however, are free to choose the, optimal habitat for survival during the nonbreeding season and, for reproduction during the breeding season."
+   }
+  ],
+  "pool": 5
+ },
+ {
+  "id": "2020#39",
+  "points": 3,
+  "ansIdx": 3,
+  "sents": [
+   "The fragmentation of television audiences during recent, decades, which has happened throughout the globe as new, channels have been launched everywhere, has caused advertisers, much concern.",
+   "Advertisers look back nostalgically to the, years when a single spot transmission would be seen by the, majority of the population at one fell swoop.",
+   "This made, the television advertising of mass consumer products relatively, straightforward not to say easy whereas today it is necessary, for advertisers to build up coverage of their target markets over, time, by advertising on a host of channels with separate, audiences.",
+   "Still, it is arguable that advertisers worry rather too much about this problem, as advertising in other media has always been fragmented.",
+   "Moreover, advertisers gain considerable, benefits from the price competition between the numerous, broadcasting stations.",
+   "And television remains much the, fastest way to build up public awareness of a new brand or a new, campaign.",
+   "Seldom does a new brand or new campaign, that solely uses other media, without using television, reach high, levels of public awareness very quickly. [3 ]"
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… globe as new, channels have been launched everywhere, has caused advertisers, much concern.",
+    "after": "This made, the television advertising of mass consumer products relatively, straightforward not to …",
+    "removed": "Advertisers look back nostalgically to the, years when a single spot transmission would be seen by the, majority of the population at one fell swoop."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… would be seen by the, majority of the population at one fell swoop.",
+    "after": "Still, it is arguable that advertisers worry rather too much about this problem, …",
+    "removed": "This made, the television advertising of mass consumer products relatively, straightforward not to say easy whereas today it is necessary, for advertisers to build up coverage of their target markets over, time, by advertising on a host of channels with separate, audiences."
+   },
+   {
+    "i": 3,
+    "isAnswer": true,
+    "before": "… markets over, time, by advertising on a host of channels with separate, audiences.",
+    "after": "Moreover, advertisers gain considerable, benefits from the price competition between the numerous, broadcasting …",
+    "removed": "Still, it is arguable that advertisers worry rather too much about this problem, as advertising in other media has always been fragmented."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "… much about this problem, as advertising in other media has always been fragmented.",
+    "after": "And television remains much the, fastest way to build up public awareness of …",
+    "removed": "Moreover, advertisers gain considerable, benefits from the price competition between the numerous, broadcasting stations."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… advertisers gain considerable, benefits from the price competition between the numerous, broadcasting stations.",
+    "after": "Seldom does a new brand or new campaign, that solely uses other media, …",
+    "removed": "And television remains much the, fastest way to build up public awareness of a new brand or a new, campaign."
+   }
+  ],
+  "pool": 5
+ },
+ {
+  "id": "2021#38",
+  "points": 2,
+  "ansIdx": 6,
+  "sents": [
+   "Imagine I tell you that Maddy is bad.",
+   "Perhaps you infer from, my intonation, or the context in which we are talking, that I, mean morally bad.",
+   "Additionally, you will probably infer that I, am disapproving of Maddy, or saying that I think you should, disapprove of her, or similar, given typical linguistic conventions, and assuming I am sincere.",
+   "However, you might not, get a more detailed sense of the particular sorts of way in, which Maddy is bad, her typical character traits, and the like, , since people can be bad in many ways.",
+   "In contrast, if I, say that Maddy is wicked, then you get more of a sense of her, typical actions and attitudes to others.",
+   "The word wicked, is more specific than bad .",
+   "I have still not exactly pinpointed Maddy s character since wickedness takes many forms.",
+   "But there is more detail, nevertheless, perhaps a stronger connotation of the sort of, person Maddy is.",
+   "In addition, and again assuming, typical linguistic conventions, you should also get a sense that, I am disapproving of Maddy, or saying that you should, disapprove of her, or similar, assuming that we are still, discussing her moral character."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "Imagine I tell you that Maddy is bad.",
+    "after": "Additionally, you will probably infer that I, am disapproving of Maddy, or saying …",
+    "removed": "Perhaps you infer from, my intonation, or the context in which we are talking, that I, mean morally bad."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… or the context in which we are talking, that I, mean morally bad.",
+    "after": "However, you might not, get a more detailed sense of the particular sorts …",
+    "removed": "Additionally, you will probably infer that I, am disapproving of Maddy, or saying that I think you should, disapprove of her, or similar, given typical linguistic conventions, and assuming I am sincere."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… of her, or similar, given typical linguistic conventions, and assuming I am sincere.",
+    "after": "In contrast, if I, say that Maddy is wicked, then you get more …",
+    "removed": "However, you might not, get a more detailed sense of the particular sorts of way in, which Maddy is bad, her typical character traits, and the like, , since people can be bad in many ways."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "… traits, and the like, , since people can be bad in many ways.",
+    "after": "The word wicked, is more specific than bad .",
+    "removed": "In contrast, if I, say that Maddy is wicked, then you get more of a sense of her, typical actions and attitudes to others."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… get more of a sense of her, typical actions and attitudes to others.",
+    "after": "I have still not exactly pinpointed Maddy s character since wickedness takes many …",
+    "removed": "The word wicked, is more specific than bad ."
+   },
+   {
+    "i": 6,
+    "isAnswer": true,
+    "before": "The word wicked, is more specific than bad .",
+    "after": "But there is more detail, nevertheless, perhaps a stronger connotation of the sort …",
+    "removed": "I have still not exactly pinpointed Maddy s character since wickedness takes many forms."
+   },
+   {
+    "i": 7,
+    "isAnswer": false,
+    "before": "… have still not exactly pinpointed Maddy s character since wickedness takes many forms.",
+    "after": "In addition, and again assuming, typical linguistic conventions, you should also get a …",
+    "removed": "But there is more detail, nevertheless, perhaps a stronger connotation of the sort of, person Maddy is."
+   }
+  ],
+  "pool": 7
+ },
+ {
+  "id": "2021#39",
+  "points": 3,
+  "ansIdx": 5,
+  "sents": [
+   "Designers draw on their experience of design when approaching, a new project.",
+   "This includes the use of previous designs that they, know work both designs that they have created themselves and, those that others have created.",
+   "Others creations often spark, inspiration that also leads to new ideas and innovation.",
+   "This, is well known and understood.",
+   "However, the expression, of an idea is protected by copyright, and people who infringe on, that copyright can be taken to court and prosecuted.",
+   "Note that copyright covers the expression of an idea and not the idea itself.",
+   "This, means, for example, that while there are numerous smartphones, all with similar functionality, this does not represent an, infringement of copyright as the idea has been expressed in, different ways and it is the expression that has been, copyrighted.",
+   "Copyright is free and is automatically, invested in the author, for instance, the writer of a book or a, programmer who develops a program, unless they sign the, copyright over to someone else. [3 ]"
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "Designers draw on their experience of design when approaching, a new project.",
+    "after": "Others creations often spark, inspiration that also leads to new ideas and innovation.",
+    "removed": "This includes the use of previous designs that they, know work both designs that they have created themselves and, those that others have created."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… both designs that they have created themselves and, those that others have created.",
+    "after": "This, is well known and understood.",
+    "removed": "Others creations often spark, inspiration that also leads to new ideas and innovation."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "Others creations often spark, inspiration that also leads to new ideas and innovation.",
+    "after": "However, the expression, of an idea is protected by copyright, and people who …",
+    "removed": "This, is well known and understood."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "This, is well known and understood.",
+    "after": "Note that copyright covers the expression of an idea and not the idea …",
+    "removed": "However, the expression, of an idea is protected by copyright, and people who infringe on, that copyright can be taken to court and prosecuted."
+   },
+   {
+    "i": 5,
+    "isAnswer": true,
+    "before": "… people who infringe on, that copyright can be taken to court and prosecuted.",
+    "after": "This, means, for example, that while there are numerous smartphones, all with similar …",
+    "removed": "Note that copyright covers the expression of an idea and not the idea itself."
+   },
+   {
+    "i": 6,
+    "isAnswer": false,
+    "before": "… that copyright covers the expression of an idea and not the idea itself.",
+    "after": "Copyright is free and is automatically, invested in the author, for instance, the …",
+    "removed": "This, means, for example, that while there are numerous smartphones, all with similar functionality, this does not represent an, infringement of copyright as the idea has been expressed in, different ways and it is the expression that has been, copyrighted."
+   }
+  ],
+  "pool": 6
+ },
+ {
+  "id": "2023#38",
+  "points": 2,
+  "ansIdx": 6,
+  "sents": [
+   "Parks take the shape demanded by the cultural concerns of, their time.",
+   "Once parks are in place, they are no inert stage, their purposes and meanings are made and remade by planners, and by park users.",
+   "Moments of park creation are particularly, telling, however, for they reveal and actualize ideas about, nature and its relationship to urban society.",
+   "Indeed, what, distinguishes a park from the broader category of public space, is the representation of nature that parks are meant to embody., Public spaces include parks, concrete plazas, sidewalks, , even indoor atriums.",
+   "Parks typically have trees, grass, , and other plants as their central features.",
+   "When entering, a city park, people often imagine a sharp separation from, streets, cars, and buildings.",
+   "There s a reason for that: traditionally, park designers attempted to create such a feeling by planting tall trees at park boundaries, building stone walls, and constructing other means of partition.",
+   "What s behind this idea is, not only landscape architects desire to design aesthetically, suggestive park spaces, but a much longer history of Western, thought that envisions cities and nature as antithetical spaces, and oppositional forces."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "Parks take the shape demanded by the cultural concerns of, their time.",
+    "after": "Moments of park creation are particularly, telling, however, for they reveal and actualize …",
+    "removed": "Once parks are in place, they are no inert stage, their purposes and meanings are made and remade by planners, and by park users."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… purposes and meanings are made and remade by planners, and by park users.",
+    "after": "Indeed, what, distinguishes a park from the broader category of public space, is …",
+    "removed": "Moments of park creation are particularly, telling, however, for they reveal and actualize ideas about, nature and its relationship to urban society."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… they reveal and actualize ideas about, nature and its relationship to urban society.",
+    "after": "Parks typically have trees, grass, , and other plants as their central features.",
+    "removed": "Indeed, what, distinguishes a park from the broader category of public space, is the representation of nature that parks are meant to embody., Public spaces include parks, concrete plazas, sidewalks, , even indoor atriums."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "… to embody., Public spaces include parks, concrete plazas, sidewalks, , even indoor atriums.",
+    "after": "When entering, a city park, people often imagine a sharp separation from, streets, …",
+    "removed": "Parks typically have trees, grass, , and other plants as their central features."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "Parks typically have trees, grass, , and other plants as their central features.",
+    "after": "There s a reason for that: traditionally, park designers attempted to create such …",
+    "removed": "When entering, a city park, people often imagine a sharp separation from, streets, cars, and buildings."
+   },
+   {
+    "i": 6,
+    "isAnswer": true,
+    "before": "… city park, people often imagine a sharp separation from, streets, cars, and buildings.",
+    "after": "What s behind this idea is, not only landscape architects desire to design …",
+    "removed": "There s a reason for that: traditionally, park designers attempted to create such a feeling by planting tall trees at park boundaries, building stone walls, and constructing other means of partition."
+   }
+  ],
+  "pool": 6
+ },
+ {
+  "id": "2023#39",
+  "points": 3,
+  "ansIdx": 4,
+  "sents": [
+   "Negotiators should try to find ways to slice a large issue into, smaller pieces, known as using salami tactics.",
+   "Issues, that can be expressed in quantitative, measurable units are easy, to slice.",
+   "For example, compensation demands can be, divided into cents-per-hour increments or lease rates can be, quoted as dollars per square foot.",
+   "When working to, fractionate issues of principle or precedent, parties may use the, time horizon (when the principle goes into effect or how long it, will last) as a way to fractionate the issue.",
+   "It may be easier to reach an agreement when settlement terms don t have to be implemented until months in the future.",
+   "Another, approach is to vary the number of ways that the principle may, be applied.",
+   "For example, a company may devise a, family emergency leave plan that allows employees the, opportunity to be away from the company for a period of no, longer than three hours, and no more than once a month, for, illness in the employee s immediate family. [3 ]"
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… to slice a large issue into, smaller pieces, known as using salami tactics.",
+    "after": "For example, compensation demands can be, divided into cents-per-hour increments or lease rates …",
+    "removed": "Issues, that can be expressed in quantitative, measurable units are easy, to slice."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "Issues, that can be expressed in quantitative, measurable units are easy, to slice.",
+    "after": "When working to, fractionate issues of principle or precedent, parties may use the, …",
+    "removed": "For example, compensation demands can be, divided into cents-per-hour increments or lease rates can be, quoted as dollars per square foot."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… cents-per-hour increments or lease rates can be, quoted as dollars per square foot.",
+    "after": "It may be easier to reach an agreement when settlement terms don t …",
+    "removed": "When working to, fractionate issues of principle or precedent, parties may use the, time horizon (when the principle goes into effect or how long it, will last) as a way to fractionate the issue."
+   },
+   {
+    "i": 4,
+    "isAnswer": true,
+    "before": "… or how long it, will last) as a way to fractionate the issue.",
+    "after": "Another, approach is to vary the number of ways that the principle may, …",
+    "removed": "It may be easier to reach an agreement when settlement terms don t have to be implemented until months in the future."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… settlement terms don t have to be implemented until months in the future.",
+    "after": "For example, a company may devise a, family emergency leave plan that allows …",
+    "removed": "Another, approach is to vary the number of ways that the principle may, be applied."
+   }
+  ],
+  "pool": 5
+ },
+ {
+  "id": "2024#38",
+  "points": 2,
+  "ansIdx": 2,
+  "sents": [
+   "Science is sometimes described as a winner-take-all contest, , meaning that there are no rewards for being second or third., This is an extreme view of the nature of scientific contests., Even those who describe scientific contests in such a, way note that it is a somewhat inaccurate description, given, that replication and verification have social value and are, common in science.",
+   "It is also inaccurate to the extent, that it suggests that only a handful of contests exist.",
+   "Yes, some contests are seen as world class, such as identification of the Higgs particle or the development of high temperature superconductors.",
+   "But, many other contests have multiple parts, and the number of, such contests may be increasing.",
+   "By way of example, , for many years it was thought that there would be one cure, for cancer, but it is now realized that cancer takes multiple, forms and that multiple approaches are needed to provide a, cure.",
+   "There won t be one winner there will be many."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… given, that replication and verification have social value and are, common in science.",
+    "after": "Yes, some contests are seen as world class, such as identification of the …",
+    "removed": "It is also inaccurate to the extent, that it suggests that only a handful of contests exist."
+   },
+   {
+    "i": 2,
+    "isAnswer": true,
+    "before": "… to the extent, that it suggests that only a handful of contests exist.",
+    "after": "But, many other contests have multiple parts, and the number of, such contests …",
+    "removed": "Yes, some contests are seen as world class, such as identification of the Higgs particle or the development of high temperature superconductors."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… as identification of the Higgs particle or the development of high temperature superconductors.",
+    "after": "By way of example, , for many years it was thought that there …",
+    "removed": "But, many other contests have multiple parts, and the number of, such contests may be increasing."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "… contests have multiple parts, and the number of, such contests may be increasing.",
+    "after": "There won t be one winner there will be many.",
+    "removed": "By way of example, , for many years it was thought that there would be one cure, for cancer, but it is now realized that cancer takes multiple, forms and that multiple approaches are needed to provide a, cure."
+   }
+  ],
+  "pool": 4
+ },
+ {
+  "id": "2024#39",
+  "points": 3,
+  "ansIdx": 2,
+  "sents": [
+   "Misprints in a book or in any written message usually have a, negative impact on the content, sometimes (literally) fatally., The displacement of a comma, for instance, may be a, matter of life and death.",
+   "Similarly most mutations have, harmful consequences for the organism in which they occur, , meaning that they reduce its reproductive fitness. , Occasionally, however, a mutation may occur that increases, the fitness of the organism, just as an accidental failure to, reproduce the text of the first edition might provide more, accurate or updated information.",
+   "At the next step in the argument, however, the analogy breaks down.",
+   "A favorable mutation, is going to be more heavily represented in the next generation, , since the organism in which it occurred will have more offspring, and mutations are transmitted to the offspring.",
+   "By, contrast, there is no mechanism by which a book that, accidentally corrects the mistakes of the first edition will tend, to sell better. [3 ]"
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… of a comma, for instance, may be a, matter of life and death.",
+    "after": "At the next step in the argument, however, the analogy breaks down.",
+    "removed": "Similarly most mutations have, harmful consequences for the organism in which they occur, , meaning that they reduce its reproductive fitness. , Occasionally, however, a mutation may occur that increases, the fitness of the organism, just as an accidental failure to, reproduce the text of the first edition might provide more, accurate or updated information."
+   },
+   {
+    "i": 2,
+    "isAnswer": true,
+    "before": "… the text of the first edition might provide more, accurate or updated information.",
+    "after": "A favorable mutation, is going to be more heavily represented in the next …",
+    "removed": "At the next step in the argument, however, the analogy breaks down."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "At the next step in the argument, however, the analogy breaks down.",
+    "after": "By, contrast, there is no mechanism by which a book that, accidentally corrects …",
+    "removed": "A favorable mutation, is going to be more heavily represented in the next generation, , since the organism in which it occurred will have more offspring, and mutations are transmitted to the offspring."
+   }
+  ],
+  "pool": 3
+ },
+ {
+  "id": "2025#38",
+  "points": 3,
+  "ansIdx": 4,
+  "sents": [
+   "Trade secret law aims to promote innovation, although it, accomplishes this objective in a very different manner than, patent protection.",
+   "Notwithstanding the advantages of, obtaining a patent, many innovators prefer to protect their, innovation through secrecy.",
+   "They may believe that the, cost and delay of seeking a patent are too great or that, secrecy better protects their investment and increases their, profit.",
+   "They might also believe that the invention can, best be utilized over a longer period of time than a patent, would allow.",
+   "Without any special legal protection for trade secrets, however, the secretive inventor risks that an employee or contractor will disclose the proprietary information.",
+   "Once the idea is released, it will be free, as the air under the background norms of a free market, economy.",
+   "Such a predicament would lead any inventor, seeking to rely upon secrecy to spend an inordinate amount of, resources building high and impassable fences around their, research facilities and greatly limiting the number of people, with access to the proprietary information. [3 ]"
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… although it, accomplishes this objective in a very different manner than, patent protection.",
+    "after": "They may believe that the, cost and delay of seeking a patent are …",
+    "removed": "Notwithstanding the advantages of, obtaining a patent, many innovators prefer to protect their, innovation through secrecy."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… of, obtaining a patent, many innovators prefer to protect their, innovation through secrecy.",
+    "after": "They might also believe that the invention can, best be utilized over a …",
+    "removed": "They may believe that the, cost and delay of seeking a patent are too great or that, secrecy better protects their investment and increases their, profit."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… too great or that, secrecy better protects their investment and increases their, profit.",
+    "after": "Without any special legal protection for trade secrets, however, the secretive inventor risks …",
+    "removed": "They might also believe that the invention can, best be utilized over a longer period of time than a patent, would allow."
+   },
+   {
+    "i": 4,
+    "isAnswer": true,
+    "before": "… be utilized over a longer period of time than a patent, would allow.",
+    "after": "Once the idea is released, it will be free, as the air under …",
+    "removed": "Without any special legal protection for trade secrets, however, the secretive inventor risks that an employee or contractor will disclose the proprietary information."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… secretive inventor risks that an employee or contractor will disclose the proprietary information.",
+    "after": "Such a predicament would lead any inventor, seeking to rely upon secrecy to …",
+    "removed": "Once the idea is released, it will be free, as the air under the background norms of a free market, economy."
+   }
+  ],
+  "pool": 5
+ },
+ {
+  "id": "2025#39",
+  "points": 2,
+  "ansIdx": 4,
+  "sents": [
+   "By their very nature, the concepts of maintenance and repair, are predominantly examined from a process-oriented, perspective.",
+   "The focus in related scholarly discourse, often revolves around the lifespan or lifecycle of objects and, technologies.",
+   "In this context, maintenance and repair, are considered practices that have the potential to prolong the, existence of objects, ensuring their sustained utilization over, an extended period.",
+   "Krebs and Weber critically engage, with anthropomorphic metaphors that imply a biography of, things, appropriately highlighting that conventional understanding, of the lifecycle of a technology, from its acquisition to its, disposal from the household, provides an incomplete, definition.",
+   "In reality, objects do not conform to a linear lifecycle model; instead, they undergo breakdowns, await repairs, are stored away, or find themselves relegated to the basement, only to be rediscovered and repurposed later.",
+   "Additionally, objects may enter recycling or, second-hand cycles, leading to a dynamic afterlife marked by, diverse applications.",
+   "As such, the life of an object, exhibits a far more complicated and adaptive path than a, simplistic linear progression."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… the concepts of maintenance and repair, are predominantly examined from a process-oriented, perspective.",
+    "after": "In this context, maintenance and repair, are considered practices that have the potential …",
+    "removed": "The focus in related scholarly discourse, often revolves around the lifespan or lifecycle of objects and, technologies."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… scholarly discourse, often revolves around the lifespan or lifecycle of objects and, technologies.",
+    "after": "Krebs and Weber critically engage, with anthropomorphic metaphors that imply a biography of, …",
+    "removed": "In this context, maintenance and repair, are considered practices that have the potential to prolong the, existence of objects, ensuring their sustained utilization over, an extended period."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… prolong the, existence of objects, ensuring their sustained utilization over, an extended period.",
+    "after": "In reality, objects do not conform to a linear lifecycle model; instead, they …",
+    "removed": "Krebs and Weber critically engage, with anthropomorphic metaphors that imply a biography of, things, appropriately highlighting that conventional understanding, of the lifecycle of a technology, from its acquisition to its, disposal from the household, provides an incomplete, definition."
+   },
+   {
+    "i": 4,
+    "isAnswer": true,
+    "before": "… from its acquisition to its, disposal from the household, provides an incomplete, definition.",
+    "after": "Additionally, objects may enter recycling or, second-hand cycles, leading to a dynamic afterlife …",
+    "removed": "In reality, objects do not conform to a linear lifecycle model; instead, they undergo breakdowns, await repairs, are stored away, or find themselves relegated to the basement, only to be rediscovered and repurposed later."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… find themselves relegated to the basement, only to be rediscovered and repurposed later.",
+    "after": "As such, the life of an object, exhibits a far more complicated and …",
+    "removed": "Additionally, objects may enter recycling or, second-hand cycles, leading to a dynamic afterlife marked by, diverse applications."
+   }
+  ],
+  "pool": 5
+ },
+ {
+  "id": "2026#38",
+  "points": 2,
+  "ansIdx": 6,
+  "sents": [
+   "While stories clearly dominate statistics from both memorability, and persuasiveness perspectives, it s rarely a battle between, facts and anecdotes or even facts and other facts.",
+   "The real, clash is actually between stories: the predominant incumbent, and a new challenger.",
+   "As storytelling creatures, we, routinely form narratives to help us understand the world, around us.",
+   "When we experience different events or, encounter various facts, our minds seek to make sense of them, by forming stories around them.",
+   "For example, if you, have had some bad experiences with graduates from a particular, university, you may create a negative narrative in your mind, about people who went to that school.",
+   "Suddenly, you, judge everyone from the university by what you ve, experienced on just a few unfortunate occasions.",
+   "Sometimes these internal narratives we form not only shape our beliefs and opinions but also become deeply rooted in our identity.",
+   "For, example, the narratives you have formed around gun control, or climate change are most likely related with your political, ideology who you are as an individual."
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… rarely a battle between, facts and anecdotes or even facts and other facts.",
+    "after": "As storytelling creatures, we, routinely form narratives to help us understand the world, …",
+    "removed": "The real, clash is actually between stories: the predominant incumbent, and a new challenger."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… real, clash is actually between stories: the predominant incumbent, and a new challenger.",
+    "after": "When we experience different events or, encounter various facts, our minds seek to …",
+    "removed": "As storytelling creatures, we, routinely form narratives to help us understand the world, around us."
+   },
+   {
+    "i": 3,
+    "isAnswer": false,
+    "before": "… creatures, we, routinely form narratives to help us understand the world, around us.",
+    "after": "For example, if you, have had some bad experiences with graduates from a …",
+    "removed": "When we experience different events or, encounter various facts, our minds seek to make sense of them, by forming stories around them."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "… our minds seek to make sense of them, by forming stories around them.",
+    "after": "Suddenly, you, judge everyone from the university by what you ve, experienced on …",
+    "removed": "For example, if you, have had some bad experiences with graduates from a particular, university, you may create a negative narrative in your mind, about people who went to that school."
+   },
+   {
+    "i": 5,
+    "isAnswer": false,
+    "before": "… a negative narrative in your mind, about people who went to that school.",
+    "after": "Sometimes these internal narratives we form not only shape our beliefs and opinions …",
+    "removed": "Suddenly, you, judge everyone from the university by what you ve, experienced on just a few unfortunate occasions."
+   },
+   {
+    "i": 6,
+    "isAnswer": true,
+    "before": "… the university by what you ve, experienced on just a few unfortunate occasions.",
+    "after": "For, example, the narratives you have formed around gun control, or climate change …",
+    "removed": "Sometimes these internal narratives we form not only shape our beliefs and opinions but also become deeply rooted in our identity."
+   }
+  ],
+  "pool": 6
+ },
+ {
+  "id": "2026#39",
+  "points": 3,
+  "ansIdx": 3,
+  "sents": [
+   "A video game has its own model of reality, internal to itself, and separate from the player s external reality, the player s, bodily space and the avatar s bodily space.",
+   "The avatar s, bodily space, the potential actions of the avatar in the game, world, is the only way in which the reality of the external, reality of the game world can be perceived.",
+   "As in the, real world, perception requires action.",
+   "The difference is that the action in the game world can only be explored through the virtual bodily space of the avatar.",
+   "Players extend, their perceptual field into the game, encompassing the available, actions of the avatar.",
+   "The feedback loop of perception, and action that enables you to navigate the world around you is, now one step removed: instead of perceiving primarily through, interaction of your own body with the external world, you re, perceiving the game world through interaction of the avatar., The entire perceptual system has been extended into, the game world. [3 ]"
+  ],
+  "seams": [
+   {
+    "i": 1,
+    "isAnswer": false,
+    "before": "… external reality, the player s, bodily space and the avatar s bodily space.",
+    "after": "As in the, real world, perception requires action.",
+    "removed": "The avatar s, bodily space, the potential actions of the avatar in the game, world, is the only way in which the reality of the external, reality of the game world can be perceived."
+   },
+   {
+    "i": 2,
+    "isAnswer": false,
+    "before": "… the reality of the external, reality of the game world can be perceived.",
+    "after": "The difference is that the action in the game world can only be …",
+    "removed": "As in the, real world, perception requires action."
+   },
+   {
+    "i": 3,
+    "isAnswer": true,
+    "before": "As in the, real world, perception requires action.",
+    "after": "Players extend, their perceptual field into the game, encompassing the available, actions of …",
+    "removed": "The difference is that the action in the game world can only be explored through the virtual bodily space of the avatar."
+   },
+   {
+    "i": 4,
+    "isAnswer": false,
+    "before": "… world can only be explored through the virtual bodily space of the avatar.",
+    "after": "The feedback loop of perception, and action that enables you to navigate the …",
+    "removed": "Players extend, their perceptual field into the game, encompassing the available, actions of the avatar."
+   }
+  ],
+  "pool": 4
+ }
+]

@@ -1,0 +1,720 @@
+{
+ "_": "유형별 설계도 검증 문항 — verify-blueprint-items.mjs 가 잰다",
+ "_src": "초기 8유형은 generated-set-v6.json 에서 옮겼다",
+ "types": {
+  "R-TOPIC": {
+   "from": "generated-set-v6",
+   "no": 23,
+   "points": 2,
+   "answer": 2,
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss. What replaced local judgement was a rule that strangers could check without trusting each other. Checking at a distance is exactly what allowed trade to reach beyond people one already knew.",
+   "choices": [
+    "the condition under which early inspectors judged a container",
+    "a fixed measure as the condition for dealing among strangers",
+    "differences among the containers that each town once held",
+    "reasons why trade among strangers stayed rare in every period",
+    "methods by which a container was measured before the reform"
+   ]
+  },
+  "R-TITLE": {
+   "from": "generated-set-v6",
+   "no": 24,
+   "points": 2,
+   "answer": 5,
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians often treat that skill as a casualty of progress, yet the exchange was no simple loss. What replaced local judgement was a rule that strangers could check without trusting each other. A market that runs on shared rules can therefore include partners who will never meet, while a market that runs on reputation stays as small as the circle of people who know one another.",
+   "choices": [
+    "The Forgotten Craft of the Market Inspector",
+    "How Containers Were Made Before the Modern Age",
+    "Why Local Reputation Still Governs Small Markets",
+    "Progress and Its Casualties: A History of Trade",
+    "A Measure That Made Strangers Possible"
+   ]
+  },
+  "R-GRAMMAR": {
+   "from": "generated-set-v6",
+   "no": 29,
+   "points": 2,
+   "answer": 3,
+   "passage": "A standard measure is usually ① treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held, and every such dispute ② had to be reopened in the next town he entered. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes ③ were disappearing with it. Historians of trade often treat that skill as a casualty of progress, ④ yet the exchange was never a simple loss. What replaced local judgement was a rule that strangers could check without ⑤ trusting each other, and checking at a distance is exactly what allowed trade to reach beyond people one already knew.",
+   "choices": [
+    "treated",
+    "were settled",
+    "were disappearing",
+    "yet",
+    "trusting"
+   ]
+  },
+  "R-VOCAB": {
+   "from": "generated-set-v6",
+   "no": 30,
+   "points": 3,
+   "answer": 4,
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was ① social. Before a measure was fixed, every trade needed an argument about the quantity itself, and such arguments were settled by local ② standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a dispute about what a container held. Every such dispute had to be reopened in the next town he entered. The cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute ③ disappeared, and the special skill of the people who had settled such disputes ④ spread with it. Historians often treat that skill as a casualty of progress, yet the exchange was no simple loss. What replaced local judgement was a rule that strangers could ⑤ check without trusting each other, and checking at a distance is exactly what allowed trade to reach beyond people one already knew.",
+   "choices": [
+    "social",
+    "standing",
+    "disappeared",
+    "spread",
+    "check"
+   ]
+  },
+  "R-BLANK": {
+   "from": "generated-set-v6",
+   "no": 32,
+   "points": 3,
+   "answer": 2,
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss. What replaced local judgement was ______.",
+   "choices": [
+    "a container whose size no trader was allowed to question",
+    "a rule strangers could check without trusting each other",
+    "an office that inherited the authority of the old inspectors",
+    "a market in which reputation counted for more than before",
+    "a written record of every dispute that had ever been settled"
+   ]
+  },
+  "R-IRRELEVANT": {
+   "from": "generated-set-v6",
+   "no": 35,
+   "points": 2,
+   "answer": 4,
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. ① Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. ② A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. ③ Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. ④ The metals used for coins were chosen mainly for their resistance to corrosion in damp storage conditions. ⑤ Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. What replaced local judgement was a rule that strangers could check without trusting each other.",
+   "choices": [
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+   ]
+  },
+  "R-ORDER": {
+   "from": "generated-set-v6",
+   "no": 37,
+   "points": 3,
+   "answer": 2,
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule.",
+   "blocks": {
+    "A": "Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians often treat that skill as a casualty of progress, yet the exchange was no simple loss.",
+    "B": "A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves.",
+    "C": "What replaced local judgement was a rule that strangers could check without trusting each other. Checking at a distance is exactly what allowed trade to reach beyond people one already knew. Towns that resisted the measure longest found their markets shrinking to the neighbours they could still argue with."
+   },
+   "choices": [
+    "(A)-(C)-(B)",
+    "(B)-(A)-(C)",
+    "(B)-(C)-(A)",
+    "(C)-(A)-(B)",
+    "(C)-(B)-(A)"
+   ]
+  },
+  "R-FACT": {
+   "from": "generated-set-v6",
+   "no": 26,
+   "points": 2,
+   "answer": 3,
+   "passage": "The first fixed measures were kept as physical objects in a public building. A bar of metal or a carved stone served as the object against which officials compared local containers. A copy of that object was then sent to each market town for daily use. The copies drifted a little every year, because metal wore down and stone chipped at the edges. Inspectors travelled between the towns to correct the drift in those copies. That work was slow, and the corrections were often disputed. A single worn copy could shift the price of grain across a whole region. Later the measure was tied to a natural constant rather than to any object. A wavelength of light does not wear down and needs no inspector. Any laboratory can reproduce the measure without a visit from an official. The metal bar became a museum piece rather than a working authority.",
+   "choices": [
+    "최초의 고정 도량형은 실물로 보관되었다.",
+    "각 시장 도시로 사본이 보내졌다.",
+    "사본의 오차는 검사관이 오기 전에 스스로 사라졌다.",
+    "닳은 사본 하나가 곡물 가격을 지역 전체에서 바꿀 수 있었다.",
+    "빛의 파장은 검사관 없이도 어디서나 재현된다."
+   ]
+  },
+  "R-PURPOSE": {
+   "from": "설계도 R-PURPOSE 절차",
+   "no": 18,
+   "points": 2,
+   "answer": 3,
+   "passage": "Dear Community Centre Manager, I am writing for the Riverside Book Club. We booked the small meeting room for our monthly meeting on the third Friday. The centre has been generous to our club for three years. Our club has grown quickly since the spring reading drive. Twenty-eight people have now told us that they will come to the meeting. The small room holds only sixteen chairs. I would like to ask whether the main hall could be available to us on that evening instead. We are happy to keep the same hour and to pay the higher room fee. Please let me know soon whether this change can be arranged. Thank you for your continued help. Sincerely, Daniel Cho",
+   "choices": [
+    "독서 모임의 새 회원을 모집하려고",
+    "모임 시간의 연기를 미리 통보하려고",
+    "예약한 모임 장소의 변경을 요청하려고",
+    "회의실 사용료의 인하를 문의하려고",
+    "지역 문화 행사 참여를 제안하려고"
+   ],
+   "design": {
+    "정답원리": "요청 행위 한 문장",
+    "오답": [
+     "배경 화제",
+     "인접 행위",
+     "수신자 뒤집기",
+     "범위 과장"
+    ]
+   }
+  },
+  "R-GIST": {
+   "from": "설계도 R-GIST 절차",
+   "no": 22,
+   "points": 2,
+   "answer": 1,
+   "passage": "Advice from an expert is often repeated as if it were a rule that holds everywhere. Yet every piece of expert advice was formed inside a particular set of conditions, and those conditions are rarely stated when the advice is passed on. A surgeon who insists on a long recovery period is speaking about the patients she has actually seen, most of whom were older than the person now reading her words. A coach who warns against early specialisation is describing the athletes who came through his own programme, not every child who picks up a racket. When the advice travels, the conditions stay behind, and what arrives is a confident sentence with its supports removed. The reader then applies it to a case the expert never examined and blames the expert when it fails. Advice is therefore worth as much as the description of the situation it came from, and no more.",
+   "choices": [
+    "조언은 그것이 만들어진 조건과 함께 전해져야 쓸모가 있다",
+    "전문가의 조언은 일반인의 경험보다 신뢰할 만하다",
+    "조언을 구할 때는 여러 전문가의 의견을 비교해야 한다",
+    "전문가는 자신의 경험을 넘어서는 조언을 삼가야 한다",
+    "조언을 따르기 전에 실패의 책임 소재를 분명히 해야 한다"
+   ],
+   "design": {
+    "정답원리": "주제문 재진술",
+    "오답": [
+     "구체진술 승격",
+     "과잉 일반화",
+     "태도 뒤집기",
+     "역접 앞 문장"
+    ]
+   }
+  },
+  "R-CLAIM": {
+   "from": "설계도 R-CLAIM 절차",
+   "no": 20,
+   "points": 2,
+   "answer": 5,
+   "passage": "Schools record what students get right and almost nothing about what they got wrong on the way there. A test score marks the end of a process and hides every step that led to it. Teachers know that the useful part of learning happens in those hidden steps, yet the record keeps none of them. When a student cannot see her own wrong turns, she cannot tell a careless error from a real misunderstanding, and she repeats both. Schools should therefore ask students to keep a record of their own failed attempts alongside their results. The record need not be graded, and grading it would defeat the purpose. A workbook of dead ends is more informative than a page of correct answers. It only has to exist, so that a student can read her own past reasoning and see exactly where it bent.",
+   "choices": [
+    "평가 방식을 다양화하여 시험의 비중을 낮추어야 한다",
+    "교사는 학생의 오답을 수업 중에 함께 검토해야 한다",
+    "학습 부진의 원인을 조기에 진단하는 체계를 갖추어야 한다",
+    "성적 기록을 학생 본인에게 모두 공개해야 한다",
+    "학생이 자신의 실패한 시도를 스스로 기록하게 해야 한다"
+   ],
+   "design": {
+    "정답원리": "유일한 당위 표현",
+    "오답": [
+     "통념 당위화",
+     "수단·목적 뒤바꿈",
+     "정도 과장",
+     "대상 바꾸기"
+    ]
+   }
+  },
+  "R-MOOD": {
+   "from": "설계도 R-MOOD 절차",
+   "no": 19,
+   "points": 2,
+   "answer": 1,
+   "passage": "Mina stood at the edge of the stage and looked at the rows of empty seats. In twenty minutes they would all be full. Her hands were cold and her mouth had gone dry. She checked the strings of her violin for the fourth time. Each note sounded thinner than the last one. She could hear her own heart in her ears. The hall smelled of dust and fresh varnish. Then the door at the back opened and her old teacher walked in. He gave her the small nod he always gave before a lesson. Mina felt her shoulders drop and her breath go slow. The seats were still empty, but they no longer looked like a wall. She lifted the bow and the first note came out warm and full.",
+   "choices": [
+    "nervous → relieved",
+    "indifferent → curious",
+    "hopeful → disappointed",
+    "calm → frightened",
+    "proud → ashamed"
+   ],
+   "design": {
+    "정답원리": "전환점 앞뒤 감정 쌍",
+    "오답": [
+     "앞만 맞는 쌍",
+     "뒤만 맞는 쌍",
+     "강도 어긋남",
+     "무전환 쌍"
+    ]
+   }
+  },
+  "R-IMPLY": {
+   "from": "설계도 R-IMPLY 절차",
+   "no": 21,
+   "points": 3,
+   "answer": 2,
+   "passage": "Every large organisation eventually produces a written document that describes how its work is supposed to proceed. The document is written by people whose job is to see the whole, which means their view is assembled from reports rather than from the work itself. Whatever reaches them has already been simplified twice: once by the person who did the work and once by the person who summarised it. The result is a description that is internally consistent and quietly wrong about the parts that resist tidy description. Those parts are exactly where the real difficulty of the work lives. When the document is then used to judge performance, the people doing the work are measured against a picture that was never taken from where they stand. They learn to produce the reports that the picture expects of them. In this way the map is drawn by the people who never walk the ground, and the ground gradually rearranges itself to resemble the map.",
+   "choices": [
+    "those who design a system are shielded from the effort it takes to run it",
+    "records made for oversight come to replace the reality they were meant to record",
+    "organisations grow too large for any single document to describe them fully",
+    "workers resist documentation because it exposes the mistakes they have made",
+    "accurate description requires direct experience of the work being described"
+   ],
+   "design": {
+    "정답원리": "논지로의 번역",
+    "오답": [
+     "문자적 독해",
+     "인접 문장 요약",
+     "논지 반대",
+     "상투적 교훈"
+    ]
+   }
+  },
+  "R-SUMMARY": {
+   "from": "설계도 R-SUMMARY 절차",
+   "no": 40,
+   "points": 2,
+   "answer": 1,
+   "passage": "In a series of experiments, participants were asked to estimate how long a set of household tasks would take them. Half of them made their estimates in the room where the tasks would later be carried out; the other half made theirs in a neutral office. The estimates produced in the task room were substantially longer, and they were also substantially closer to the times the participants actually recorded. Interviews conducted afterwards suggested a straightforward explanation. Participants standing in the room mentioned obstacles that the office group never raised: a cupboard that sticks, a cord that has to be unplugged, a surface that must be cleared before anything else can begin. These small interruptions are invisible when a task is imagined as a single action. The physical setting did not make the participants more careful; it made the interruptions available to them. The difference persisted across participants of different ages and occupations. Estimating a task in the place where it will be done produced longer and closer predictions, because the setting made the (A) steps of the task visible rather than making the estimator more (B).",
+   "choices": [
+    "overlooked … careful",
+    "routine … confident",
+    "repeated … experienced",
+    "essential … cautious",
+    "difficult … skilled"
+   ],
+   "design": {
+    "정답원리": "(A)(B) 독립 판정 (최근 3회 형식)",
+    "오답": [
+     "(A) 적중·(B) 이탈",
+     "(B) 적중·(A) 이탈",
+     "둘 다 인접",
+     "지문 어휘 그대로"
+    ]
+   }
+  },
+  "X-TITLE": {
+   "from": "설계도 X-TITLE 절차",
+   "no": 41,
+   "points": 2,
+   "answer": 1,
+   "passage": "A weather forecast can be judged in two different ways, and the two rarely agree. The first way asks how often the forecast matches what the sky later does. The second way asks how often the forecast changes what a person actually decides to do. A forecast can score very well on the first measure and score nothing at all on the second measure. In a city where it rains on four days out of five, a forecast that predicts rain every single day will be right eighty percent of the time. That forecast is (a) accurate, and it is simultaneously useless, because nobody who reads it will behave differently on any day of the week. The forecast that earns its keep is the one that (b) separates the days on which a decision would actually change. Such a forecast will be (c) wrong more often, because the days it tries to separate are exactly the days that are genuinely ambiguous. Forecasters who are rewarded for accuracy therefore learn to predict the (d) exceptional, and forecasters who are rewarded for usefulness learn to accept a worse score. Most public forecasting is judged by accuracy, since accuracy is easily counted and usefulness is not. The result is a service that reports the obvious with great (e) precision and falls silent exactly where a reader most needs it to speak. A forecast is not a description of the future but an instrument for choosing, and an instrument is worth whatever it changes.",
+   "choices": [
+    "Why an Accurate Forecast Can Still Be Worthless",
+    "The Long Road to Reliable Weather Prediction",
+    "Counting Rain: A Short History of Records",
+    "Precision and Trust: The Forecaster’s Dilemma",
+    "How Cities Learn to Live with Uncertain Skies"
+   ],
+   "design": {
+    "정답원리": "결론 단락 주제의 대조 표제",
+    "오답": [
+     "단락 요약",
+     "도입 화제",
+     "반대 함의",
+     "상투 표제"
+    ]
+   }
+  },
+  "X-VOCAB": {
+   "from": "설계도 X-VOCAB 절차 · 41번과 지문 공유",
+   "no": 42,
+   "points": 3,
+   "answer": 4,
+   "passage": "A weather forecast can be judged in two different ways, and the two rarely agree. The first way asks how often the forecast matches what the sky later does. The second way asks how often the forecast changes what a person actually decides to do. A forecast can score very well on the first measure and score nothing at all on the second measure. In a city where it rains on four days out of five, a forecast that predicts rain every single day will be right eighty percent of the time. That forecast is (a) accurate, and it is simultaneously useless, because nobody who reads it will behave differently on any day of the week. The forecast that earns its keep is the one that (b) separates the days on which a decision would actually change. Such a forecast will be (c) wrong more often, because the days it tries to separate are exactly the days that are genuinely ambiguous. Forecasters who are rewarded for accuracy therefore learn to predict the (d) exceptional, and forecasters who are rewarded for usefulness learn to accept a worse score. Most public forecasting is judged by accuracy, since accuracy is easily counted and usefulness is not. The result is a service that reports the obvious with great (e) precision and falls silent exactly where a reader most needs it to speak. A forecast is not a description of the future but an instrument for choosing, and an instrument is worth whatever it changes.",
+   "choices": [
+    "(a) accurate",
+    "(b) separates",
+    "(c) wrong",
+    "(d) exceptional",
+    "(e) precision"
+   ],
+   "design": {
+    "정답원리": "전개 단락에서 반의어 치환 — (d) ordinary → exceptional",
+    "오답": [
+     "어려운 정답 낱말",
+     "유의어 치환",
+     "먼 단락 미끼",
+     "중립 낱말"
+    ]
+   }
+  },
+  "X-ORDER": {
+   "from": "설계도 X-ORDER 절차",
+   "no": 43,
+   "points": 2,
+   "answer": 3,
+   "passage": "(A) Nora had spent the whole summer at her grandfather’s cottage beside the lake. On the last morning (a) she found him out on the dock with a wooden box in his weathered hands. Inside the box was a small brass compass, worn smooth around the edges from years of handling. \"This one belonged to my own father,\" (b) he said quietly. \"He carried it on every trip he ever took, and he never lost his way.\" Nora turned the compass over and watched the slender needle settle toward the distant shoreline. (c) She wanted to ask whether she could keep it, but the words simply would not emerge. (C) On the long drive home she kept thinking about the box on the dock. She thought about the needle that had settled so quickly. (d) She had said nothing at all, and the compass had gone back into the box before she left. Her mother noticed that she was quiet and asked her twice what was troubling her. Nora merely shook her head and stared out at the flat brown farmland. By the time they reached the city outskirts she had decided that the opportunity had vanished for good. (B) Two weeks later a small parcel arrived at the apartment with her name printed on the label. (e) She opened it at the kitchen table while her mother watched from the doorway. The compass lay inside on a folded square of soft grey flannel. Under the compass was a brief handwritten note in her grandfather’s careful handwriting. The note said that a compass is no use to anyone inside a box. It said that he had carried it long enough for one man. (D) Nora took the compass up to her room and positioned it on the windowsill above her desk. The needle swung once and then held steady. It pointed past the rooftops toward the distant water. She remembered the dock again, and about how she had not been able to ask. Then she wrote him a letter. She kept it deliberately short, because he had never liked lengthy ones. She told him exactly where the needle pointed from her window.",
+   "choices": [
+    "(B) - (C) - (D)",
+    "(B) - (D) - (C)",
+    "(C) - (B) - (D)",
+    "(C) - (D) - (B)",
+    "(D) - (B) - (C)"
+   ],
+   "design": {
+    "정답원리": "사건 시간 순서 — 귀가 → 소포 → 답장",
+    "오답": [
+     "인접 두 토막 교환",
+     "(B) 선행 배열",
+     "결말 선행",
+     "역순 배열"
+    ]
+   }
+  },
+  "X-REFER": {
+   "from": "설계도 X-REFER 절차 · 43번과 지문 공유",
+   "no": 44,
+   "points": 2,
+   "answer": 2,
+   "passage": "(A) Nora had spent the whole summer at her grandfather’s cottage beside the lake. On the last morning (a) she found him out on the dock with a wooden box in his weathered hands. Inside the box was a small brass compass, worn smooth around the edges from years of handling. \"This one belonged to my own father,\" (b) he said quietly. \"He carried it on every trip he ever took, and he never lost his way.\" Nora turned the compass over and watched the slender needle settle toward the distant shoreline. (c) She wanted to ask whether she could keep it, but the words simply would not emerge. (C) On the long drive home she kept thinking about the box on the dock. She thought about the needle that had settled so quickly. (d) She had said nothing at all, and the compass had gone back into the box before she left. Her mother noticed that she was quiet and asked her twice what was troubling her. Nora merely shook her head and stared out at the flat brown farmland. By the time they reached the city outskirts she had decided that the opportunity had vanished for good. (B) Two weeks later a small parcel arrived at the apartment with her name printed on the label. (e) She opened it at the kitchen table while her mother watched from the doorway. The compass lay inside on a folded square of soft grey flannel. Under the compass was a brief handwritten note in her grandfather’s careful handwriting. The note said that a compass is no use to anyone inside a box. It said that he had carried it long enough for one man. (D) Nora took the compass up to her room and positioned it on the windowsill above her desk. The needle swung once and then held steady. It pointed past the rooftops toward the distant water. She remembered the dock again, and about how she had not been able to ask. Then she wrote him a letter. She kept it deliberately short, because he had never liked lengthy ones. She told him exactly where the needle pointed from her window.",
+   "choices": [
+    "(a) she found him",
+    "(b) he said quietly",
+    "(c) She wanted to ask",
+    "(d) She had said nothing",
+    "(e) She opened it"
+   ],
+   "design": {
+    "정답원리": "넷은 Nora · (b)만 할아버지",
+    "오답": [
+     "직전 명사 일치",
+     "문장 주어 일치",
+     "토막 경계",
+     "대화 안 지칭"
+    ]
+   }
+  },
+  "X-FACT": {
+   "from": "설계도 X-FACT 절차 · 43번과 지문 공유",
+   "no": 45,
+   "points": 2,
+   "answer": 3,
+   "passage": "(A) Nora had spent the whole summer at her grandfather’s cottage beside the lake. On the last morning (a) she found him out on the dock with a wooden box in his weathered hands. Inside the box was a small brass compass, worn smooth around the edges from years of handling. \"This one belonged to my own father,\" (b) he said quietly. \"He carried it on every trip he ever took, and he never lost his way.\" Nora turned the compass over and watched the slender needle settle toward the distant shoreline. (c) She wanted to ask whether she could keep it, but the words simply would not emerge. (C) On the long drive home she kept thinking about the box on the dock. She thought about the needle that had settled so quickly. (d) She had said nothing at all, and the compass had gone back into the box before she left. Her mother noticed that she was quiet and asked her twice what was troubling her. Nora merely shook her head and stared out at the flat brown farmland. By the time they reached the city outskirts she had decided that the opportunity had vanished for good. (B) Two weeks later a small parcel arrived at the apartment with her name printed on the label. (e) She opened it at the kitchen table while her mother watched from the doorway. The compass lay inside on a folded square of soft grey flannel. Under the compass was a brief handwritten note in her grandfather’s careful handwriting. The note said that a compass is no use to anyone inside a box. It said that he had carried it long enough for one man. (D) Nora took the compass up to her room and positioned it on the windowsill above her desk. The needle swung once and then held steady. It pointed past the rooftops toward the distant water. She remembered the dock again, and about how she had not been able to ask. Then she wrote him a letter. She kept it deliberately short, because he had never liked lengthy ones. She told him exactly where the needle pointed from her window.",
+   "choices": [
+    "Nora는 여름 내내 할아버지의 호숫가 집에서 지냈다.",
+    "나침반은 할아버지의 아버지가 쓰던 것이다.",
+    "Nora는 그 자리에서 나침반을 달라고 말했다.",
+    "소포는 두 주 뒤에 Nora의 이름으로 도착했다.",
+    "Nora는 할아버지에게 짧은 편지를 썼다."
+   ],
+   "design": {
+    "정답원리": "③ 이 사건과 어긋난다 — 묻지 못했다",
+    "오답": [
+     "동의 재진술",
+     "결과 요약",
+     "심리 서술",
+     "주체 바꾸기"
+    ]
+   }
+  },
+  "R-CHART": {
+   "from": "설계도 R-CHART 절차",
+   "no": 25,
+   "points": 2,
+   "answer": 3,
+   "chart": {
+    "2019": [
+     78,
+     55,
+     44,
+     39,
+     20
+    ],
+    "2024": [
+     74,
+     49,
+     41,
+     36,
+     22
+    ],
+    "항목": [
+     "Norway",
+     "Poland",
+     "Japan",
+     "Spain",
+     "Chile"
+    ]
+   },
+   "passage": "The above graph shows the percentage of adults in five countries who reported reading at least one book for pleasure in 2019 and in 2024. ① In 2024, the percentage of adults who read at least one book for pleasure was highest in Norway and lowest in Chile. ② In both years, the percentage in Norway was higher than the percentage in Poland, and the percentage in Poland was higher than the percentage in Japan. ③ The percentage in Japan in 2024 was more than twice the percentage in Chile in 2024. ④ In Spain, the percentage in 2024 was lower than the percentage in 2019, and the same was true in Japan. ⑤ Among the five countries, Chile was the only country whose percentage in 2024 was higher than its percentage in 2019.",
+   "choices": [
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+   ],
+   "design": {
+    "정답원리": "관계어 한 곳만 어긋남 — 41 은 22 의 두 배가 아니다",
+    "오답": [
+     "단순 확인 참",
+     "순위 참",
+     "증감 참",
+     "계산 필요 참"
+    ]
+   }
+  },
+  "R-NOTICE": {
+   "from": "설계도 R-NOTICE 절차",
+   "no": 27,
+   "points": 2,
+   "answer": 4,
+   "passage": "Riverside Autumn Night Market. The market returns to the South Lawn for a single evening. Local growers, bakers, and craftspeople will occupy forty stalls along the riverside. A stage beside the boathouse will host three short performances. Admission is free and advance tickets are unnecessary. The lawn gates open at five and close at half past nine. The park parking area closes at four, so please use the Elm Street garage. Leashed dogs are welcome on the lawn but not inside the refreshment tent. The market continues in light rain and is cancelled only during storms.",
+   "choices": [
+    "South Lawn에서 하루 저녁만 열린다.",
+    "노점은 모두 마흔 개가 마련된다.",
+    "입장에는 표가 필요하지 않다.",
+    "공원 주차장은 아홉 시 반에 문을 닫는다.",
+    "가벼운 비가 와도 행사는 진행된다."
+   ],
+   "design": {
+    "정답원리": "항목 하나의 값만 바꿈 — 주차장은 네 시",
+    "오답": [
+     "항목 그대로",
+     "단위 환산",
+     "조건부 참",
+     "값 바꾸기"
+    ]
+   }
+  },
+  "R-INSERT": {
+   "from": "설계도 R-INSERT 절차",
+   "no": 38,
+   "points": 2,
+   "answer": 5,
+   "passage": "This is why such rules are almost always written after an accident rather than before one. Every safety rule in a workplace began as a description of something that had already gone wrong. ( ① ) Before the event, the hazard is one of a thousand hazards that could in principle materialise, and no organisation can afford to write a separate rule for each of them. ( ② ) After the event, the hazard is no longer one possibility among many; it is the thing that actually happened, and it now has a cost attached to it. ( ③ ) The rule that follows is therefore cheap to justify, because the accident has already paid for the argument. ( ④ ) A rule written before an accident has to compete for attention with every other imagined danger, and it usually loses the competition. ( ⑤ ) The pattern leaves an uncomfortable conclusion for anyone designing a system: the rules you have are a record of your failures, and the failures you have not yet had are the rules you do not have.",
+   "choices": [
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+   ],
+   "design": {
+    "정답원리": "지시어 This 의 해소 지점 = 비용 비대칭이 완성된 뒤",
+    "오답": [
+     "지시어 해소 전 자리",
+     "새 개념 수용 후 자리",
+     "표지 인접 자리",
+     "문단 경계"
+    ]
+   }
+  },
+  "L-PURPOSE": {
+   "from": "설계도 L-PURPOSE 절차",
+   "no": 1,
+   "points": 2,
+   "answer": 2,
+   "turns": 1,
+   "speakers": 1,
+   "passage": "Good morning, Westbrook students, this is Ms Reyes from the science office. Our science fair opens in three weeks. Many of you have picked a topic and others are still picking one. I want to remind you about the equipment room. The equipment room is open on Tuesday and Thursday. You may borrow scales, timers, and simple science tools there, and please return them within one week so that others can use them. Please sign the borrowing sheet at the front desk before you leave the room. The room is closed on the day of the fair. Thank you, and good luck with your science projects.",
+   "choices": [
+    "과학 전시회 일정 변경을 알리려고",
+    "실험 기자재 대여 방법을 안내하려고",
+    "과학 전시회 참가 신청을 독려하려고",
+    "실험실 안전 수칙을 강조하려고",
+    "과학 동아리 신입 부원을 모집하려고"
+   ]
+  },
+  "L-OPINION": {
+   "from": "설계도 L-OPINION 절차",
+   "no": 2,
+   "points": 2,
+   "answer": 1,
+   "turns": 10,
+   "speakers": 2,
+   "passage": "Dad, I abandoned my running plan again. That is the third failure this spring. I know. I exercise hard for a week and then I quit. Did you record anything about it? Not really. I simply ran. That is the part I would change. Recording it is the thing that keeps me going. Sounds like additional work. It takes one minute, and I put the date and the distance on a card. Then I can see the entire week on paper. And that helps? It does. On a difficult day I look at the card and I see nine successful days. So I go outside for a shorter run. Perhaps I will try a card this week. Keep it simple, since one line a day is enough. I keep every card in a small box beside the front door. The box is the record.",
+   "choices": [
+    "운동은 기록을 남겨야 꾸준히 할 수 있다",
+    "달리기는 짧게 자주 하는 것이 좋다",
+    "운동은 가족과 함께 해야 오래간다",
+    "몸이 힘든 날에는 쉬는 것이 낫다",
+    "목표 거리를 미리 정해 두어야 한다"
+   ]
+  },
+  "L-RELATION": {
+   "from": "설계도 L-RELATION 절차",
+   "no": 3,
+   "points": 2,
+   "answer": 3,
+   "turns": 10,
+   "speakers": 2,
+   "passage": "Good, you are early. I wanted to walk the stage before the cast arrives. The back wall is still too dark in the second scene. I can add a warm wash from the left bar. How warm? The script calls for late afternoon. Then I will hold it at amber and pull the blue down. Do that, and give me a gradual fade at the end. Over how many counts? Make it eight. The actors need time to cross. I will mark it in the board tonight. One more thing. When the girl kneels, keep the follow light off her face. You want the shadow. I want the shadow. Save that cue as the last one. The second scene needs the same light at the end. Copy the first cue. Keep the amber steady. Hold it through the whole scene. I will set the scene folder tonight.",
+   "choices": [
+    "사진작가 — 모델",
+    "음악 감독 — 연주자",
+    "연극 연출가 — 조명 기사",
+    "방송 작가 — 성우",
+    "무용 강사 — 수강생"
+   ]
+  },
+  "L-MAIN": {
+   "from": "설계도 L-MAIN 절차 (대역은 L-PURPOSE 대리)",
+   "no": 3,
+   "points": 2,
+   "answer": 5,
+   "turns": 1,
+   "speakers": 1,
+   "passage": "Hello, everyone, and welcome back to our weekly practice session. Today I want to talk about how you change your form. Most of you try to fix three things in the same week. You raise your elbow, you shorten your step, and you breathe later. Then the whole stroke falls apart and you cannot tell why. The reason is simple enough once you see it. When two things change at once, the water gives you one answer. You cannot say which change produced it, so you guess wrongly. Change one thing and swim with it for a full week. Then the next change tells you something you can actually trust. That is the only honest way to learn a stroke.",
+   "choices": [
+    "연습 시간을 규칙적으로 확보해야 한다",
+    "기본기를 갖춘 뒤에 속도를 올려야 한다",
+    "자세는 코치의 관찰에 맡기는 편이 낫다",
+    "호흡법을 가장 먼저 교정해야 한다",
+    "동작은 한 번에 하나씩만 바꾸어야 한다"
+   ]
+  },
+  "L-PICTURE": {
+   "from": "설계도 L-PICTURE 절차",
+   "no": 4,
+   "points": 2,
+   "answer": 5,
+   "turns": 10,
+   "speakers": 2,
+   "passage": "Is this the photo of the new reading corner? Yes, it is. It came out well. I like the round rug under the low table. The rug was my idea. And look at the shelf on the left wall. There are four books lying flat on it. Five, I think. Let me look again. You are right, there are five. What about the lamp by the window? The low one with the striped shade? That is the one. It arrived from the old office. There is a small cat sleeping on the chair. That is my cat. She naps there every afternoon. And the clock above the door is round and quite plain. And the shelf is the one we painted last spring. The shelf looks bright in the photo. The books are all the same size. They line up neatly. Everything looks ready for Monday.",
+   "choices": [
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+   ],
+   "design": {
+    "그림": "① 둥근 러그 ② 왼쪽 선반의 책 5권 ③ 줄무늬 갓의 낮은 램프 ④ 의자 위의 고양이 ⑤ 문 위 네모난 시계",
+    "정답원리": "⑤ 대화는 round 인데 그림은 네모난 시계"
+   }
+  },
+  "L-TODO": {
+   "from": "설계도 L-TODO 절차 (대역은 L-REASON 대리)",
+   "no": 5,
+   "points": 2,
+   "answer": 1,
+   "turns": 10,
+   "speakers": 2,
+   "passage": "The club room is a mess before the open day. I know. I already moved the boxes out this morning. Thank you. What is left? The posters are still rolled up on the desk. I can put those on the wall. Wait, I did the posters at lunch. Then the chairs need to come in from the hall. I will bring the chairs. Are you sure? There are twenty of them. I can use the cart. What about the snacks? My brother is picking those up after school. Then we are almost done. Do you want me to bring the cart from the storage room? Yes, the cart will make the chairs easy. I will get the cart first. I will wash the cups once the chairs are in.",
+   "choices": [
+    "의자 옮겨 오기",
+    "상자 옮기기",
+    "포스터 붙이기",
+    "간식 사 오기",
+    "컵 씻기"
+   ]
+  },
+  "L-MONEY": {
+   "from": "설계도 L-MONEY 절차",
+   "no": 6,
+   "points": 3,
+   "answer": 2,
+   "turns": 11,
+   "speakers": 2,
+   "passage": "Welcome to the garden supply shop. What can I bring you? I need two of the small clay pots and one large one. The small ones cost ten dollars apiece. The large one is thirty. So that comes to fifty altogether. It is. Do you need potting soil with that? Yes, one bag please. How much is it? A bag of potting soil costs twenty dollars. Actually, make it two small planters and two large ones instead. That changes the total order. And I am a registered member here. Members receive ten percent off the entire order. Are the large containers heavy? The large ones are heavy, but I can manage them. Do you want a carton for the small ones? Yes, one box is fine. The carton is free. Then here is my membership card.",
+   "choices": [
+    "$81",
+    "$90",
+    "$99",
+    "$100",
+    "$110"
+   ],
+   "design": {
+    "계산": "소형 10×2 + 대형 30×2 + 흙 20 = 100, 회원 10% 할인 → 90",
+    "정답": "②? — 아래 answer 참조"
+   }
+  },
+  "L-REASON": {
+   "from": "설계도 L-REASON 절차",
+   "no": 7,
+   "points": 2,
+   "answer": 5,
+   "turns": 10,
+   "speakers": 2,
+   "passage": "You look exhausted today. Did you stay up late again? Not this time. I was in bed by ten. Then why the gloomy face? I missed the morning bus. Was it your alarm clock? The alarm rang normally. I woke up on schedule. Did the bus arrive early again? No, it was perfectly on time. Then what happened? I had to return for my art folder. It was still lying on the kitchen table. And by then the bus was gone. Exactly. I waited twenty minutes for the following bus. You should place the folder beside the door tonight. The art folder was the only thing I forgot this morning. I ran all the way back to the kitchen for the folder. That is what I plan to do.",
+   "choices": [
+    "늦잠을 자서",
+    "알람이 울리지 않아서",
+    "버스가 일찍 와서",
+    "길이 막혀서",
+    "두고 온 물건을 가지러 되돌아가서"
+   ]
+  },
+  "L-NOTMENTION": {
+   "from": "설계도 L-NOTMENTION 절차",
+   "no": 8,
+   "points": 2,
+   "answer": 4,
+   "turns": 10,
+   "speakers": 2,
+   "passage": "Have you decided on the summer camp for your daughter? Almost. I am looking at the one by the river. Where is it exactly? It is in Pine Valley, about an hour north of here. How long does it run? Five days, from Monday to Friday. That is a good length. What does it cost? The fee is two hundred dollars for the week. Is food included in that? Lunch is, but not dinner. And what do the children actually do there? Mostly canoeing and simple map reading. My daughter would like the canoes. She already asked about the canoes twice. Is the river close to the camp? The camp is right beside the river. That is why the camp uses the canoes.",
+   "choices": [
+    "장소",
+    "기간",
+    "참가비",
+    "준비물",
+    "활동 내용"
+   ]
+  },
+  "L-ANNOUNCE": {
+   "from": "설계도 L-ANNOUNCE 절차",
+   "no": 9,
+   "points": 2,
+   "answer": 4,
+   "turns": 1,
+   "speakers": 1,
+   "passage": "Attention, all visitors to the Harbour Wildlife Centre. The seal feeding session begins in fifteen minutes at the lower pool. Our keeper will explain how each animal is trained before the feeding starts. The session lasts about thirty minutes and there is no extra charge. Seating around the pool is limited to one hundred visitors. Please note that flash photography is not allowed near the water. Visitors with young children should use the ramp on the east side. The gift shop beside the exit will remain open until six. The lower pool is easy to find from the main gate. Just follow the signs for the lower pool. The keeper will be waiting by the pool. We hope you enjoy the rest of your day with us.",
+   "choices": [
+    "하부 수조에서 진행된다",
+    "사육사의 설명이 함께 있다",
+    "추가 요금은 없다",
+    "사진 촬영이 전면 금지된다",
+    "기념품 가게는 여섯 시까지 연다"
+   ]
+  },
+  "L-TABLE": {
+   "from": "설계도 L-TABLE 절차",
+   "no": 10,
+   "points": 2,
+   "answer": 4,
+   "turns": 10,
+   "speakers": 2,
+   "passage": "Here is the list of weekend cooking classes. Let us pick one. I can only do Saturday. That takes out the two on Sunday. Right. And I want to stay under fifty dollars. Then the last one is out. It is sixty. What about the length? Anything over three hours is too long for me. That leaves two of them. One is Italian and one is bread baking. I made bread all last winter. Then let us take the other one. How many people are in each class? The first two take twelve people. The others take eight people. That is fine for us. And where are the classes held? All of the classes are at the community kitchen. Good, I will sign us up tonight.",
+   "choices": [
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+   ],
+   "design": {
+    "표": "① 일요일/40달러/2시간/Italian ② 일요일/45달러/3시간/Bread ③ 토요일/45달러/4시간/Italian ④ 토요일/40달러/2시간/Italian ⑤ 토요일/60달러/2시간/Bread",
+    "조건": "요일 → 가격 → 길이 → 종류"
+   }
+  },
+  "L-RESPONSE": {
+   "from": "설계도 L-RESPONSE 절차 (긴형)",
+   "no": 13,
+   "points": 3,
+   "answer": 2,
+   "turns": 12,
+   "speakers": 2,
+   "passage": "You have been quiet since the meeting ended. I keep going over what I said. About the schedule? Yes. I told them we could finish the report by Friday. And now you think you cannot. I think I can, but only if nothing else comes up. Something always comes up. That is what worries me. Why did you give them a date at all? Everyone was waiting and the room went silent. So you filled the silence. I filled the silence. And now the date is in the notes. You could send a short message tonight. Saying what? That the date holds if the survey data arrives on time. That is not backing out. It is naming the condition. I suppose the condition was always there. It was. You just did not say it out loud.",
+   "choices": [
+    "Then let us cancel the meeting and start over.",
+    "Right, so put the condition in writing tonight.",
+    "You should never promise anything in a meeting.",
+    "I will ask them to move the report to Monday.",
+    "The survey data has nothing to do with the report."
+   ]
+  },
+  "L-SITUATION": {
+   "from": "설계도 L-SITUATION 절차",
+   "no": 15,
+   "points": 3,
+   "answer": 1,
+   "turns": 2,
+   "speakers": 1,
+   "passage": "Daniel and Rosa are members of the same volunteer group at the community garden. Rosa has been leading the group for almost two years. Last week Rosa organised a plant sale that raised money for new tools. Daniel arrived late on the day of the sale and left before the clean-up. Rosa did not say anything about it at the time. Since the sale Daniel has noticed that Rosa gives him the smallest tasks. Daniel believes Rosa is still upset about the sale and has never told him. Daniel does not want the group to feel awkward for the rest of the season. Daniel decides to raise the sale with Rosa rather than wait for Rosa. In this situation, what would Daniel most likely say to Rosa?",
+   "choices": [
+    "I left early that day, and I would like to talk about it.",
+    "I think you should give the small tasks to someone else.",
+    "Thank you for organising the plant sale on your own.",
+    "Could you tell the group that the sale went well?",
+    "You seem tired, so let me lead the meeting this week."
+   ]
+  },
+  "L-SET-TOPIC": {
+   "from": "설계도 L-SET-TOPIC 절차",
+   "no": 16,
+   "points": 2,
+   "answer": 5,
+   "turns": 1,
+   "speakers": 1,
+   "passage": "Good afternoon, class. Yesterday we talked about how animals find their way over long distances. Today I want to look at four animals that use very different instruments for the same navigation task. First, the monarch butterfly reads the position of the sun and corrects for the hour. Without that correction its path would bend further west every hour. Second, the loggerhead turtle senses the magnetic field of the earth and treats it as a map. A young turtle can hold a heading for weeks with nothing else to guide it. Third, the homing pigeon appears to use smell, building a rough map of smells carried on the wind. Fourth, the desert ant counts its own steps and keeps a running total of distance. When the ant turns for home it walks almost straight back to its nest. Four animals, four different instruments, and one navigation problem shared among them all. Each animal solves the same problem with a different instrument. Next week we will look at what happens when two instruments disagree.",
+   "choices": [
+    "dangers that migrating animals face on long journeys",
+    "reasons why some animals travel farther than others",
+    "how scientists track animals across great distances",
+    "changes in animal routes caused by a warming climate",
+    "different natural tools animals use to find their way"
+   ]
+  },
+  "L-SET-NOT": {
+   "from": "설계도 L-SET-NOT 절차 · 16번과 대본 공유",
+   "no": 17,
+   "points": 2,
+   "answer": 4,
+   "turns": 1,
+   "speakers": 1,
+   "passage": "Good afternoon, class. Yesterday we talked about how animals find their way over long distances. Today I want to look at four animals that use very different instruments for the same navigation task. First, the monarch butterfly reads the position of the sun and corrects for the hour. Without that correction its path would bend further west every hour. Second, the loggerhead turtle senses the magnetic field of the earth and treats it as a map. A young turtle can hold a heading for weeks with nothing else to guide it. Third, the homing pigeon appears to use smell, building a rough map of smells carried on the wind. Fourth, the desert ant counts its own steps and keeps a running total of distance. When the ant turns for home it walks almost straight back to its nest. Four animals, four different instruments, and one navigation problem shared among them all. Each animal solves the same problem with a different instrument. Next week we will look at what happens when two instruments disagree.",
+   "choices": [
+    "butterfly",
+    "turtle",
+    "pigeon",
+    "salmon",
+    "ant"
+   ]
+  }
+ }
+}

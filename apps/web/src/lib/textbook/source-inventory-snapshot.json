@@ -1,0 +1,767 @@
+{
+  "measuredAt": "2026-09-15T16:23:26.391Z",
+  "elapsedSeconds": 9,
+  "scope": "전체 상태 (status 필터 없음) — 관리 뷰는 보관·실패까지 본다",
+  "scanned": 108953,
+  "sources": [
+    {
+      "source": "plos",
+      "total": 47939,
+      "byStatus": {
+        "ready": 45081,
+        "archived": 2843,
+        "published": 15
+      },
+      "judged": 16392,
+      "rawPurpose": 36337,
+      "levelled": 47938,
+      "legalBlocked": 1,
+      "blockedBy": {
+        "oversize-raw": 36337,
+        "reference": 1608,
+        "fragmentary": 1103,
+        "mixed": 99,
+        "obsolete-fact": 18,
+        "pseudoscience": 5,
+        "bias": 6,
+        "poetry-drama": 1,
+        "polemic": 3
+      },
+      "firstGet": "2026-07-09T22:42:25.689611+00:00",
+      "lastGet": "2026-09-06T00:19:03.952794+00:00",
+      "byVLevel": {
+        "2": 2,
+        "3": 4,
+        "4": 274,
+        "5": 6064,
+        "6": 33720,
+        "7": 7701,
+        "8": 168,
+        "9": 5
+      },
+      "topBlocked": [
+        {
+          "reason": "oversize-raw",
+          "count": 36337
+        },
+        {
+          "reason": "reference",
+          "count": 1608
+        },
+        {
+          "reason": "fragmentary",
+          "count": 1103
+        }
+      ]
+    },
+    {
+      "source": "gutenberg",
+      "total": 40519,
+      "byStatus": {
+        "archived": 16894,
+        "ready": 23618,
+        "queued": 4,
+        "failed": 2,
+        "analyzing": 1
+      },
+      "judged": 36635,
+      "rawPurpose": 0,
+      "levelled": 23845,
+      "legalBlocked": 10,
+      "blockedBy": {
+        "bias": 3020,
+        "reference": 1100,
+        "fragmentary": 4456,
+        "doc-page": 1017,
+        "poetry-drama": 794,
+        "obsolete-fact": 1295,
+        "not-selfcontained": 243,
+        "doctrine": 1390,
+        "pseudoscience": 1327,
+        "doc-markup": 664,
+        "doc-figure": 522,
+        "mixed": 270,
+        "lex-list": 127,
+        "doc-footnote": 346,
+        "polemic": 139,
+        "ref-reader": 52,
+        "doc-caption": 74,
+        "doc-glyph": 2,
+        "ref-crossref": 54,
+        "doc-verse": 2
+      },
+      "firstGet": "2026-09-04T10:18:10.223173+00:00",
+      "lastGet": "2026-09-07T13:48:14.376547+00:00",
+      "byVLevel": {
+        "1": 159,
+        "2": 1257,
+        "3": 1378,
+        "4": 2776,
+        "5": 7614,
+        "6": 8043,
+        "7": 2354,
+        "8": 246,
+        "9": 18
+      },
+      "topBlocked": [
+        {
+          "reason": "fragmentary",
+          "count": 4456
+        },
+        {
+          "reason": "bias",
+          "count": 3020
+        },
+        {
+          "reason": "doctrine",
+          "count": 1390
+        }
+      ]
+    },
+    {
+      "source": "voa",
+      "total": 10663,
+      "byStatus": {
+        "ready": 10620,
+        "queued": 7,
+        "published": 29,
+        "archived": 7
+      },
+      "judged": 266,
+      "rawPurpose": 0,
+      "levelled": 10654,
+      "legalBlocked": 17,
+      "blockedBy": {
+        "reference": 7
+      },
+      "firstGet": "2026-06-14T01:30:00.030653+00:00",
+      "lastGet": "2026-09-08T07:25:25.511377+00:00",
+      "byVLevel": {
+        "1": 10,
+        "2": 1160,
+        "3": 1949,
+        "4": 6114,
+        "5": 1391,
+        "6": 25,
+        "7": 5
+      },
+      "topBlocked": [
+        {
+          "reason": "reference",
+          "count": 7
+        }
+      ]
+    },
+    {
+      "source": "futurity",
+      "total": 2885,
+      "byStatus": {
+        "ready": 2781,
+        "published": 72,
+        "archived": 32
+      },
+      "judged": 2883,
+      "rawPurpose": 0,
+      "levelled": 2885,
+      "legalBlocked": 6,
+      "blockedBy": {
+        "fragmentary": 21,
+        "polemic": 1,
+        "pseudoscience": 1,
+        "reference": 6,
+        "doc-verse": 2,
+        "mixed": 1
+      },
+      "firstGet": "2026-08-29T17:25:40.901005+00:00",
+      "lastGet": "2026-09-05T05:34:37.909572+00:00",
+      "byVLevel": {
+        "2": 2,
+        "3": 2,
+        "4": 225,
+        "5": 1902,
+        "6": 732,
+        "7": 22
+      },
+      "topBlocked": [
+        {
+          "reason": "fragmentary",
+          "count": 21
+        },
+        {
+          "reason": "reference",
+          "count": 6
+        },
+        {
+          "reason": "doc-verse",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "source": "frontiers",
+      "total": 1961,
+      "byStatus": {
+        "ready": 1958,
+        "queued": 3
+      },
+      "judged": 0,
+      "rawPurpose": 0,
+      "levelled": 1958,
+      "legalBlocked": 0,
+      "blockedBy": {},
+      "firstGet": "2026-09-07T15:20:04.663306+00:00",
+      "lastGet": "2026-09-08T07:08:06.989148+00:00",
+      "byVLevel": {
+        "5": 542,
+        "6": 1390,
+        "7": 26
+      },
+      "topBlocked": []
+    },
+    {
+      "source": "original",
+      "total": 1429,
+      "byStatus": {
+        "queued": 888,
+        "ready": 541
+      },
+      "judged": 531,
+      "rawPurpose": 0,
+      "levelled": 541,
+      "legalBlocked": 0,
+      "blockedBy": {},
+      "firstGet": "2026-08-18T03:40:45.743105+00:00",
+      "lastGet": "2026-09-08T08:52:04.709174+00:00",
+      "byVLevel": {
+        "2": 160,
+        "3": 151,
+        "4": 144,
+        "5": 79,
+        "6": 4,
+        "7": 3
+      },
+      "topBlocked": []
+    },
+    {
+      "source": "europe_pmc",
+      "total": 1300,
+      "byStatus": {
+        "ready": 1299,
+        "failed": 1
+      },
+      "judged": 0,
+      "rawPurpose": 0,
+      "levelled": 1299,
+      "legalBlocked": 0,
+      "blockedBy": {},
+      "firstGet": "2026-09-13T08:10:45.058603+00:00",
+      "lastGet": "2026-09-13T08:38:58.1758+00:00",
+      "byVLevel": {
+        "4": 2,
+        "5": 167,
+        "6": 776,
+        "7": 301,
+        "8": 51,
+        "9": 2
+      },
+      "topBlocked": []
+    },
+    {
+      "source": "usgs",
+      "total": 738,
+      "byStatus": {
+        "ready": 530,
+        "published": 28,
+        "archived": 180
+      },
+      "judged": 715,
+      "rawPurpose": 0,
+      "levelled": 738,
+      "legalBlocked": 10,
+      "blockedBy": {
+        "reference": 132,
+        "lex-list": 16,
+        "doc-verse": 8,
+        "mixed": 3,
+        "fragmentary": 20,
+        "polemic": 1
+      },
+      "firstGet": "2026-07-11T01:19:02.735078+00:00",
+      "lastGet": "2026-09-05T07:41:40.524437+00:00",
+      "byVLevel": {
+        "1": 2,
+        "2": 3,
+        "3": 2,
+        "4": 76,
+        "5": 492,
+        "6": 161,
+        "7": 1,
+        "9": 1
+      },
+      "topBlocked": [
+        {
+          "reason": "reference",
+          "count": 132
+        },
+        {
+          "reason": "fragmentary",
+          "count": 20
+        },
+        {
+          "reason": "lex-list",
+          "count": 16
+        }
+      ]
+    },
+    {
+      "source": "nasa",
+      "total": 422,
+      "byStatus": {
+        "ready": 202,
+        "archived": 201,
+        "published": 19
+      },
+      "judged": 407,
+      "rawPurpose": 0,
+      "levelled": 422,
+      "legalBlocked": 19,
+      "blockedBy": {
+        "fragmentary": 143,
+        "reference": 43,
+        "lex-list": 12,
+        "doc-verse": 3
+      },
+      "firstGet": "2026-05-19T15:24:33.246351+00:00",
+      "lastGet": "2026-09-05T10:16:59.240511+00:00",
+      "byVLevel": {
+        "1": 3,
+        "2": 6,
+        "3": 6,
+        "4": 40,
+        "5": 181,
+        "6": 151,
+        "7": 18,
+        "8": 9,
+        "9": 8
+      },
+      "topBlocked": [
+        {
+          "reason": "fragmentary",
+          "count": 143
+        },
+        {
+          "reason": "reference",
+          "count": 43
+        },
+        {
+          "reason": "lex-list",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "source": "elife",
+      "total": 301,
+      "byStatus": {
+        "published": 8,
+        "ready": 293
+      },
+      "judged": 301,
+      "rawPurpose": 0,
+      "levelled": 301,
+      "legalBlocked": 6,
+      "blockedBy": {},
+      "firstGet": "2026-07-09T14:40:08.396526+00:00",
+      "lastGet": "2026-09-05T05:34:37.909572+00:00",
+      "byVLevel": {
+        "2": 1,
+        "3": 2,
+        "4": 10,
+        "5": 153,
+        "6": 128,
+        "7": 7
+      },
+      "topBlocked": []
+    },
+    {
+      "source": "frym",
+      "total": 153,
+      "byStatus": {
+        "ready": 119,
+        "archived": 34
+      },
+      "judged": 153,
+      "rawPurpose": 0,
+      "levelled": 153,
+      "legalBlocked": 1,
+      "blockedBy": {
+        "fragmentary": 34
+      },
+      "firstGet": "2026-09-05T02:30:37.025615+00:00",
+      "lastGet": "2026-09-05T10:16:59.240511+00:00",
+      "byVLevel": {
+        "1": 1,
+        "2": 21,
+        "3": 13,
+        "4": 88,
+        "5": 29,
+        "6": 1
+      },
+      "topBlocked": [
+        {
+          "reason": "fragmentary",
+          "count": 34
+        }
+      ]
+    },
+    {
+      "source": "storyweaver",
+      "total": 136,
+      "byStatus": {
+        "ready": 119,
+        "archived": 17
+      },
+      "judged": 134,
+      "rawPurpose": 0,
+      "levelled": 136,
+      "legalBlocked": 4,
+      "blockedBy": {
+        "fragmentary": 13,
+        "lex-list": 2,
+        "reference": 2
+      },
+      "firstGet": "2026-09-02T06:55:56.00418+00:00",
+      "lastGet": "2026-09-05T10:16:59.240511+00:00",
+      "byVLevel": {
+        "1": 18,
+        "2": 45,
+        "3": 22,
+        "4": 25,
+        "5": 14,
+        "6": 6,
+        "7": 2,
+        "8": 4
+      },
+      "topBlocked": [
+        {
+          "reason": "fragmentary",
+          "count": 13
+        },
+        {
+          "reason": "lex-list",
+          "count": 2
+        },
+        {
+          "reason": "reference",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "source": "noaa",
+      "total": 135,
+      "byStatus": {
+        "published": 15,
+        "archived": 67,
+        "ready": 35,
+        "queued": 18
+      },
+      "judged": 116,
+      "rawPurpose": 0,
+      "levelled": 117,
+      "legalBlocked": 2,
+      "blockedBy": {
+        "reference": 66,
+        "lex-list": 1
+      },
+      "firstGet": "2026-07-11T11:26:01.072769+00:00",
+      "lastGet": "2026-09-07T12:20:26.338916+00:00",
+      "byVLevel": {
+        "2": 1,
+        "3": 1,
+        "4": 14,
+        "5": 93,
+        "6": 8
+      },
+      "topBlocked": [
+        {
+          "reason": "reference",
+          "count": 66
+        },
+        {
+          "reason": "lex-list",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "source": "simple_wikipedia",
+      "total": 99,
+      "byStatus": {
+        "archived": 43,
+        "ready": 30,
+        "published": 25,
+        "failed": 1
+      },
+      "judged": 94,
+      "rawPurpose": 0,
+      "levelled": 99,
+      "legalBlocked": 0,
+      "blockedBy": {
+        "reference": 33,
+        "fragmentary": 6,
+        "doc-verse": 2,
+        "lex-list": 2
+      },
+      "firstGet": "2026-06-14T15:57:12.622922+00:00",
+      "lastGet": "2026-09-05T06:27:26.982974+00:00",
+      "byVLevel": {
+        "1": 1,
+        "2": 17,
+        "3": 20,
+        "4": 30,
+        "5": 25,
+        "6": 6
+      },
+      "topBlocked": [
+        {
+          "reason": "reference",
+          "count": 33
+        },
+        {
+          "reason": "fragmentary",
+          "count": 6
+        },
+        {
+          "reason": "doc-verse",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "source": "wikipedia",
+      "total": 92,
+      "byStatus": {
+        "ready": 57,
+        "archived": 29,
+        "published": 2,
+        "queued": 4
+      },
+      "judged": 72,
+      "rawPurpose": 0,
+      "levelled": 87,
+      "legalBlocked": 0,
+      "blockedBy": {
+        "lex-list": 13,
+        "reference": 13,
+        "doc-verse": 3
+      },
+      "firstGet": "2026-07-09T21:51:08.1266+00:00",
+      "lastGet": "2026-08-29T16:12:05.998029+00:00",
+      "byVLevel": {
+        "4": 1,
+        "5": 19,
+        "6": 62,
+        "7": 5
+      },
+      "topBlocked": [
+        {
+          "reason": "lex-list",
+          "count": 13
+        },
+        {
+          "reason": "reference",
+          "count": 13
+        },
+        {
+          "reason": "doc-verse",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "source": "the_conversation",
+      "total": 71,
+      "byStatus": {
+        "published": 25,
+        "ready": 45,
+        "archived": 1
+      },
+      "judged": 70,
+      "rawPurpose": 0,
+      "levelled": 71,
+      "legalBlocked": 71,
+      "blockedBy": {
+        "lex-list": 1
+      },
+      "firstGet": "2026-06-28T14:44:42.107606+00:00",
+      "lastGet": "2026-08-19T15:49:49.946549+00:00",
+      "byVLevel": {
+        "4": 5,
+        "5": 50,
+        "6": 16
+      },
+      "topBlocked": [
+        {
+          "reason": "lex-list",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "source": "space_place",
+      "total": 59,
+      "byStatus": {
+        "ready": 37,
+        "archived": 22
+      },
+      "judged": 59,
+      "rawPurpose": 0,
+      "levelled": 59,
+      "legalBlocked": 6,
+      "blockedBy": {
+        "fragmentary": 20,
+        "mixed": 1,
+        "reference": 1
+      },
+      "firstGet": "2026-09-03T11:43:25.424291+00:00",
+      "lastGet": "2026-09-05T10:16:59.240511+00:00",
+      "byVLevel": {
+        "1": 1,
+        "2": 9,
+        "3": 6,
+        "4": 20,
+        "5": 21,
+        "6": 2
+      },
+      "topBlocked": [
+        {
+          "reason": "fragmentary",
+          "count": 20
+        },
+        {
+          "reason": "mixed",
+          "count": 1
+        },
+        {
+          "reason": "reference",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "source": "nist",
+      "total": 23,
+      "byStatus": {
+        "ready": 10,
+        "queued": 13
+      },
+      "judged": 0,
+      "rawPurpose": 0,
+      "levelled": 10,
+      "legalBlocked": 0,
+      "blockedBy": {},
+      "firstGet": "2026-09-08T04:28:07.641071+00:00",
+      "lastGet": "2026-09-08T04:37:00.356259+00:00",
+      "byVLevel": {
+        "4": 1,
+        "5": 5,
+        "6": 4
+      },
+      "topBlocked": []
+    },
+    {
+      "source": "owid",
+      "total": 13,
+      "byStatus": {
+        "archived": 4,
+        "published": 8,
+        "ready": 1
+      },
+      "judged": 13,
+      "rawPurpose": 0,
+      "levelled": 13,
+      "legalBlocked": 0,
+      "blockedBy": {
+        "reference": 2,
+        "fragmentary": 2
+      },
+      "firstGet": "2026-07-08T22:37:58.947741+00:00",
+      "lastGet": "2026-08-19T15:51:00.127357+00:00",
+      "byVLevel": {
+        "4": 3,
+        "5": 10
+      },
+      "topBlocked": [
+        {
+          "reason": "reference",
+          "count": 2
+        },
+        {
+          "reason": "fragmentary",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "source": "wikivoyage",
+      "total": 8,
+      "byStatus": {
+        "archived": 8
+      },
+      "judged": 5,
+      "rawPurpose": 0,
+      "levelled": 8,
+      "legalBlocked": 0,
+      "blockedBy": {
+        "reference": 5,
+        "doc-verse": 3
+      },
+      "firstGet": "2026-07-11T00:27:35.474492+00:00",
+      "lastGet": "2026-08-19T15:50:10.190335+00:00",
+      "byVLevel": {
+        "4": 1,
+        "5": 5,
+        "6": 2
+      },
+      "topBlocked": [
+        {
+          "reason": "reference",
+          "count": 5
+        },
+        {
+          "reason": "doc-verse",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "source": "factbook",
+      "total": 7,
+      "byStatus": {
+        "archived": 3,
+        "published": 4
+      },
+      "judged": 7,
+      "rawPurpose": 0,
+      "levelled": 7,
+      "legalBlocked": 0,
+      "blockedBy": {
+        "reference": 3
+      },
+      "firstGet": "2026-07-09T13:48:26.660048+00:00",
+      "lastGet": "2026-07-11T15:23:57.695607+00:00",
+      "byVLevel": {
+        "5": 2,
+        "6": 4,
+        "7": 1
+      },
+      "topBlocked": [
+        {
+          "reason": "reference",
+          "count": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,351 @@
+{
+  "measuredAt": "2026-09-15T16:23:26.135Z",
+  "specVersion": 2,
+  "elapsedSeconds": 76.3,
+  "scope": "status in ('ready','published')",
+  "articlesWithItems": 38515,
+  "extractBacklog": {
+    "feed": "plos-extract",
+    "total": 11601,
+    "analyzed": 11600,
+    "byStatus": [
+      {
+        "status": "ready",
+        "count": 8758
+      },
+      {
+        "status": "archived",
+        "count": 2843
+      }
+    ]
+  },
+  "total": {
+    "total": 87626,
+    "byGrade": {
+      "usable": 9454,
+      "excerpt": 21054,
+      "excerpt-blind": 7671,
+      "unjudged": 48811,
+      "unknown": 15,
+      "blocked": 621
+    },
+    "byBlockedAxis": {
+      "safety": 378,
+      "judgement": 48811,
+      "format": 7764,
+      "analysis": 15,
+      "legal": 150
+    },
+    "composable": 30508,
+    "composablePct": 34.8,
+    "judged": 38815,
+    "composablePctOfJudged": 78.6,
+    "structurallyUnjudged": 31367
+  },
+  "byBand": [
+    {
+      "vLevel": null,
+      "total": 3,
+      "byGrade": {
+        "usable": 0,
+        "excerpt": 0,
+        "excerpt-blind": 0,
+        "unjudged": 0,
+        "unknown": 3,
+        "blocked": 0
+      },
+      "byBlockedAxis": {
+        "analysis": 3
+      },
+      "composable": 0,
+      "composablePct": 0,
+      "judged": 3,
+      "composablePctOfJudged": 0,
+      "structurallyUnjudged": 0
+    },
+    {
+      "vLevel": 1,
+      "total": 188,
+      "byGrade": {
+        "usable": 161,
+        "excerpt": 0,
+        "excerpt-blind": 0,
+        "unjudged": 9,
+        "unknown": 1,
+        "blocked": 17
+      },
+      "byBlockedAxis": {
+        "judgement": 9,
+        "legal": 6,
+        "format": 11,
+        "analysis": 1
+      },
+      "composable": 161,
+      "composablePct": 85.6,
+      "judged": 179,
+      "composablePctOfJudged": 89.9,
+      "structurallyUnjudged": 0
+    },
+    {
+      "vLevel": 2,
+      "total": 2644,
+      "byGrade": {
+        "usable": 1384,
+        "excerpt": 72,
+        "excerpt-blind": 5,
+        "unjudged": 1130,
+        "unknown": 1,
+        "blocked": 52
+      },
+      "byBlockedAxis": {
+        "judgement": 1130,
+        "format": 35,
+        "legal": 22,
+        "analysis": 1
+      },
+      "composable": 1456,
+      "composablePct": 55.1,
+      "judged": 1514,
+      "composablePctOfJudged": 96.2,
+      "structurallyUnjudged": 0
+    },
+    {
+      "vLevel": 3,
+      "total": 3494,
+      "byGrade": {
+        "usable": 1455,
+        "excerpt": 75,
+        "excerpt-blind": 18,
+        "unjudged": 1911,
+        "unknown": 1,
+        "blocked": 34
+      },
+      "byBlockedAxis": {
+        "judgement": 1911,
+        "format": 30,
+        "legal": 20,
+        "safety": 2,
+        "analysis": 1
+      },
+      "composable": 1530,
+      "composablePct": 43.8,
+      "judged": 1583,
+      "composablePctOfJudged": 96.7,
+      "structurallyUnjudged": 0
+    },
+    {
+      "vLevel": 4,
+      "total": 9611,
+      "byGrade": {
+        "usable": 2326,
+        "excerpt": 870,
+        "excerpt-blind": 228,
+        "unjudged": 6119,
+        "unknown": 0,
+        "blocked": 68
+      },
+      "byBlockedAxis": {
+        "judgement": 6119,
+        "format": 244,
+        "legal": 29,
+        "safety": 23
+      },
+      "composable": 3196,
+      "composablePct": 33.3,
+      "judged": 3492,
+      "composablePctOfJudged": 91.5,
+      "structurallyUnjudged": 0
+    },
+    {
+      "vLevel": 5,
+      "total": 17456,
+      "byGrade": {
+        "usable": 2761,
+        "excerpt": 8212,
+        "excerpt-blind": 1706,
+        "unjudged": 4607,
+        "unknown": 4,
+        "blocked": 166
+      },
+      "byBlockedAxis": {
+        "judgement": 4607,
+        "format": 1719,
+        "safety": 97,
+        "analysis": 4,
+        "legal": 56
+      },
+      "composable": 10973,
+      "composablePct": 62.9,
+      "judged": 12849,
+      "composablePctOfJudged": 85.4,
+      "structurallyUnjudged": 1377
+    },
+    {
+      "vLevel": 6,
+      "total": 43594,
+      "byGrade": {
+        "usable": 1051,
+        "excerpt": 9820,
+        "excerpt-blind": 4926,
+        "unjudged": 27542,
+        "unknown": 4,
+        "blocked": 251
+      },
+      "byBlockedAxis": {
+        "safety": 228,
+        "judgement": 27542,
+        "format": 4932,
+        "analysis": 4,
+        "legal": 17
+      },
+      "composable": 10871,
+      "composablePct": 24.9,
+      "judged": 16052,
+      "composablePctOfJudged": 67.7,
+      "structurallyUnjudged": 23609
+    },
+    {
+      "vLevel": 7,
+      "total": 10169,
+      "byGrade": {
+        "usable": 282,
+        "excerpt": 1846,
+        "excerpt-blind": 732,
+        "unjudged": 7277,
+        "unknown": 1,
+        "blocked": 31
+      },
+      "byBlockedAxis": {
+        "judgement": 7277,
+        "format": 735,
+        "safety": 28,
+        "analysis": 1
+      },
+      "composable": 2128,
+      "composablePct": 20.9,
+      "judged": 2892,
+      "composablePctOfJudged": 73.6,
+      "structurallyUnjudged": 6317
+    },
+    {
+      "vLevel": 8,
+      "total": 442,
+      "byGrade": {
+        "usable": 26,
+        "excerpt": 152,
+        "excerpt-blind": 53,
+        "unjudged": 209,
+        "unknown": 0,
+        "blocked": 2
+      },
+      "byBlockedAxis": {
+        "judgement": 209,
+        "format": 55
+      },
+      "composable": 178,
+      "composablePct": 40.3,
+      "judged": 233,
+      "composablePctOfJudged": 76.4,
+      "structurallyUnjudged": 64
+    },
+    {
+      "vLevel": 9,
+      "total": 25,
+      "byGrade": {
+        "usable": 8,
+        "excerpt": 7,
+        "excerpt-blind": 3,
+        "unjudged": 7,
+        "unknown": 0,
+        "blocked": 0
+      },
+      "byBlockedAxis": {
+        "format": 3,
+        "judgement": 7
+      },
+      "composable": 15,
+      "composablePct": 60,
+      "judged": 18,
+      "composablePctOfJudged": 83.3,
+      "structurallyUnjudged": 0
+    }
+  ],
+  "blockedBySource": [
+    {
+      "source": "plos",
+      "count": 34991
+    },
+    {
+      "source": "voa",
+      "count": 10407
+    },
+    {
+      "source": "gutenberg",
+      "count": 7904
+    },
+    {
+      "source": "frontiers",
+      "count": 1958
+    },
+    {
+      "source": "europe_pmc",
+      "count": 1299
+    },
+    {
+      "source": "futurity",
+      "count": 322
+    },
+    {
+      "source": "storyweaver",
+      "count": 70
+    },
+    {
+      "source": "the_conversation",
+      "count": 70
+    },
+    {
+      "source": "elife",
+      "count": 24
+    },
+    {
+      "source": "nasa",
+      "count": 23
+    },
+    {
+      "source": "usgs",
+      "count": 12
+    },
+    {
+      "source": "original",
+      "count": 12
+    },
+    {
+      "source": "nist",
+      "count": 10
+    },
+    {
+      "source": "space_place",
+      "count": 6
+    },
+    {
+      "source": "simple_wikipedia",
+      "count": 4
+    },
+    {
+      "source": "noaa",
+      "count": 2
+    },
+    {
+      "source": "frym",
+      "count": 2
+    },
+    {
+      "source": "wikipedia",
+      "count": 1
+    },
+    {
+      "source": "factbook",
+      "count": 1
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 
 export const TEST_USER = {
   email: process.env.PLAYWRIGHT_TEST_EMAIL || 'lexicon-test@vocaflow.local',
-  password: process.env.PLAYWRIGHT_TEST_PASSWORD || 'lexicon-test-pw-2026',
+  password: process.env.PLAYWRIGHT_TEST_PASSWORD ?? (() => { throw new Error('PLAYWRIGHT_TEST_PASSWORD 가 없다 — apps/web/.env.local (design/DECISIONS DD-48)') })(),
 };
 
 // seed 8개 (test 계정 lexicon-test@vocaflow.local 에 주입됨)

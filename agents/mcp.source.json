@@ -1,0 +1,14 @@
+{
+  "$comment": "agents/mcp.source.json — MCP 서버 정의의 단일 출처. `node agents/scripts/sync.mjs` 가 .mcp.json(Claude)과 .codex/config.toml [mcp_servers](Codex)를 만든다. 비밀값은 적지 않는다: envFromShell 에 변수 이름만 둔다(Claude 는 ${VAR} 치환, Codex 는 env_vars 로 셸 환경을 통과시킨다 — Codex config.toml 은 ${VAR} 를 치환하지 않는다).",
+  "servers": {
+    "supabase": {
+      "command": "node",
+      "args": [
+        "node_modules/@supabase/mcp-server-supabase/dist/transports/stdio.js",
+        "--project-ref=jajenrevcbmrpaliomxv"
+      ],
+      "env": {},
+      "envFromShell": ["SUPABASE_ACCESS_TOKEN"]
+    }
+  }
+}

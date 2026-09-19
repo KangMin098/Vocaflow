@@ -4,7 +4,8 @@
 'use client'
 
 import { cn } from '@/lib/utils/cn'
-import { BookOpen, Mic, Newspaper, Sparkles, Zap } from 'lucide-react'
+import { BookOpen, Mic, Newspaper, Zap } from 'lucide-react'
+import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 export interface Sample {
   id: string
@@ -13,7 +14,7 @@ export interface Sample {
   difficulty: '쉬움' | '보통' | '어려움'
   wordCount: number
   text: string
-  icon: typeof Sparkles
+  icon: typeof Gwonjeom
   color: string
 }
 
@@ -25,7 +26,7 @@ const samples: Sample[] = [
     difficulty: '보통',
     wordCount: 280,
     icon: Mic,
-    color: '#3B82F6',
+    color: 'var(--learn-fresh)',
     text: `Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma, which is living with the results of other people's thinking. Don't let the noise of others' opinions drown out your own inner voice.`,
   },
   {
@@ -35,7 +36,7 @@ const samples: Sample[] = [
     difficulty: '어려움',
     wordCount: 320,
     icon: Newspaper,
-    color: '#EC4899',
+    color: 'var(--accent-plum)',
     text: `Scientists have warned that the world is on track for catastrophic global warming, with current policies likely to result in a temperature rise of nearly three degrees Celsius by the end of the century.`,
   },
   {
@@ -44,8 +45,8 @@ const samples: Sample[] = [
     source: 'TED Talk · Charles Duhigg',
     difficulty: '쉬움',
     wordCount: 220,
-    icon: Sparkles,
-    color: '#10B981',
+    icon: Gwonjeom,
+    color: 'var(--memory-stable)',
     text: `Every habit has three components: a cue, a routine, and a reward. Once you understand this loop, you can change any behavior. The key is to identify your cue and reward, then experiment with different routines.`,
   },
   {
@@ -55,7 +56,7 @@ const samples: Sample[] = [
     difficulty: '어려움',
     wordCount: 410,
     icon: BookOpen,
-    color: '#8B5CF6',
+    color: 'var(--p)',
     text: `The Renaissance was a fervent period of European cultural, artistic, political and economic rebirth following the Middle Ages. Generally described as taking place from the 14th century to the 17th century.`,
   },
   {
@@ -124,10 +125,10 @@ export function SampleScripts({ onSelect }: SampleScriptsProps) {
               <div className="mt-auto flex w-full items-center gap-s-1 pt-s-1">
                 <span
                   className={cn(
-                    'rounded px-s-1 py-[1px] font-mono text-[9px] uppercase tracking-wider',
-                    sample.difficulty === '쉬움' && 'bg-success-light text-success',
-                    sample.difficulty === '보통' && 'bg-warning-light text-warning',
-                    sample.difficulty === '어려움' && 'bg-error-light text-error'
+                    'rounded px-s-1 py-[4px] font-mono text-[9px] uppercase tracking-wider',
+                    sample.difficulty === '쉬움' && 'bg-success-light text-[var(--success-ink)]',
+                    sample.difficulty === '보통' && 'bg-warning-light text-[var(--warning-ink)]',
+                    sample.difficulty === '어려움' && 'bg-error-light text-[var(--error-ink)]'
                   )}
                 >
                   {sample.difficulty}

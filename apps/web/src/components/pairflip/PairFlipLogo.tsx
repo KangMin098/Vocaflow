@@ -19,7 +19,7 @@ export function PairFlipLogo() {
   return (
     <div className="flex flex-col items-center gap-2">
       <h1
-        className="group flex font-display font-[900] leading-none"
+        className="group flex font-editorial font-[900] leading-none"
         style={{
           fontSize: 'clamp(44px, 11vw, 64px)',
           letterSpacing: '-0.03em',

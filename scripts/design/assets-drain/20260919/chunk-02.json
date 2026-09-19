@@ -1,0 +1,38 @@
+{
+  "rule": "docs/design/03-system.md §3-9",
+  "golden": "docs/design/golden/illustrations",
+  "items": [
+    {
+      "id": "illo-15-fit-grade",
+      "dict": 15,
+      "concept": "이 글의 적정 학년",
+      "verb": "맞춘다",
+      "family": "시험지",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/fit",
+        "component": "apps/web/src/app/(marketing)/fit/page.tsx"
+      },
+      "note": "도구 아래 섹션 「어떻게 재나요」 머리 — 골든 1호 판면 밖",
+      "object": "학년 눈금 8칸 자 위에 종이 한 장이 정렬됨",
+      "accent": "맞는 눈금 도장"
+    },
+    {
+      "id": "illo-30-no-review-today",
+      "dict": 30,
+      "concept": "오늘 복습할 것이 없다",
+      "verb": "기다린다",
+      "family": "망각",
+      "size": "E",
+      "viewBox": "320x200",
+      "target": {
+        "route": "/wordvault/review",
+        "component": "apps/web/src/components/wordvault/WordVaultStudyClient.tsx"
+      },
+      "note": null,
+      "object": "7칸 달력 — 오늘 칸 비고 다음 복습일 칸에 표식",
+      "accent": "다음 날 칸 권점"
+    }
+  ]
+}

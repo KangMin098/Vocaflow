@@ -1,0 +1,835 @@
+{
+  "chunk": 12,
+  "type_id": "R-GIST",
+  "type_name": "요지",
+  "analyses": [
+    {
+      "item_id": "2017#20",
+      "measured_ability": "회계 은유(overdrawn accounts, balance sheets, capital, debt, collect)로 덮인 글에서 은유가 가리키는 실제 명제를 은유 밖 평서문으로 환원하고, 글이 다루는 대립축이 국가 축(rich/poor)이 아니라 세대 축(we/future generations)임을 주어 반복으로 확정하는 능력",
+      "design_intent": "경제·회계 낱말을 지문 전체에 깔아 두어 '경제력', '국제 공조' 같은 경제·정치 선지가 소재상 자연스럽게 붙게 만들어 놓고, 실제 주어는 여섯 문장 내내 We(현세대)와 They(미래 세대) 둘뿐임을 마지막 문장의 콜론 뒤 삼중 나열에서만 못 박는다. 첫 문장의 in both the rich and poor nations 는 부유국 한정을 미리 차단하는 장치인데 오히려 ④의 미끼로 재활용된다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          6
+        ],
+        "quote": "We borrow environmental capital from future generations with no intention or prospect of repaying.",
+        "reasoning": "이 한 문장이 정답 선지의 세 성분을 모두 담는다 — 주어 We(현세대), 대상 environmental capital(환경 자원), 미래 세대에 대한 태도 with no intention or prospect of repaying(고려 없음). '남용'의 정도는 2번 문장 too heavily, too quickly ... already overdrawn 이 보태고, '고려 없음'의 이유는 6번 문장 future generations do not vote 이하 세 나열이 보탠다. 반대로 이 문장은 협력·공조·선점 중 어느 것도 말하지 않아, 나머지 네 선지를 동시에 배제하는 자리이기도 하다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "'세대'와 '환경'이 지문의 핵심어 그대로라 소재 대조로는 완전히 겹치고, 환경 글의 결론으로 '세대 간 협력'이 가장 흔한 형태다",
+          "how_to_reject": "마지막 문장 'future generations do not vote; they have no political or financial power; they cannot challenge our decisions' 가 미래 세대에게 협력 주체가 될 수단이 없음을 셋으로 나열한다. 5번 문장의 they can never collect on our debt to them 도 같은 방향이라, 지문은 협력의 중요성이 아니라 협력의 불가능을 말한다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "첫 문장에 in both the rich and poor nations 라는 국가 표현이 있고, 환경 문제에 '국제 사회의 공조'가 붙는 것이 관용적 결론이라 소재가 맞는 것처럼 읽힌다",
+          "how_to_reject": "국가 표현은 첫 문장에서 '남용이 어디서 일어나는가'라는 범위 표시로 한 번 쓰이고 끝난다. 2~6번 문장의 주어는 They(=efforts)·We·our children·future generations 뿐이고, 지문에 국가 간 합의·대비·공조에 해당하는 술어가 하나도 없다"
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "선지 ③ '현세대는 미래 세대에 대한 고려 없이 환경 자원을 남용하고 있다.' 의 세 성분이 4번 문장 'We borrow environmental capital from future generations with no intention or prospect of repaying' 에 그대로 있다 — 주어 'We'=현세대, 'environmental capital from future generations'=미래 세대의 환경 자원, 'with no intention or prospect of repaying'=고려 없이. '남용'의 정도는 2번 문장 'too heavily, too quickly, on already overdrawn environmental resource accounts' 가 보탠다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "profit, balance sheets, financial power 같은 경제 낱말이 이어져 '경제력'이 지문의 축처럼 보이고, environmental resource accounts 가 '환경 자원'과 문자 그대로 대응한다",
+          "how_to_reject": "첫 문장 끝 'in both the rich and poor nations' 이 부유국 한정을 명시적으로 부정한다. 남용의 주체는 현세대 전체이고 피해자는 개도국이 아니라 our children·future generations 다(3·4번 문장) — 행위는 같고 주체와 피해자만 바꿔 놓은 선지다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "human progress 와 environmental resource 가 둘 다 첫 두 문장에 있어, 두 낱말을 이으면 그럴듯한 명제가 만들어진다",
+          "how_to_reject": "첫 문장의 술어가 'are simply unsustainable' 이다 — 발전을 위한 노력이 자원을 고갈시킨다는 부정 평가이지, 자원 개발이 발전의 조건이라는 긍정 조건문이 아니다. 화살표 방향(발전 노력 → 자원 손실)과 가치 부호가 둘 다 뒤집혀 있다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯의 서술어만 세로로 적어 사실 진술(남용하고 있다·선점하고 있다·달려 있다)과 처방(중요하다·필요하다)으로 가른다",
+          "on_fail": "서술어가 안 갈리면 각 선지의 주어(세대 간 협력·국제 사회·현세대·선진국·인류의 발전)를 대신 적는다"
+        },
+        {
+          "step": "지문 여섯 문장의 주어만 훑어 적는다 — 대명사면 바로 앞 문장의 명사구로 바꿔 적는다",
+          "on_fail": "주어가 They 로 반복되면 그 They 가 efforts 인지 future generations 인지 문장마다 표시한다"
+        },
+        {
+          "step": "지문에 나오는 대립 쌍이 '우리 세대 대 미래 세대'인지 '부유국 대 빈국'인지 등장 횟수로 센다",
+          "on_fail": "둘 다 나오면 국가 표현이 몇 번 나오는지 세어 한 번뿐이면 그 축을 후보에서 뺀다"
+        },
+        {
+          "step": "마지막 문장의 콜론 뒤 나열을 읽고 미래 세대가 '할 수 없는 것' 세 가지를 적는다",
+          "on_fail": "나열이 부정문이면 그 부정이 어떤 선지의 전제(협력·항의·요구)를 무너뜨리는지 선지 번호로 표시한다"
+        },
+        {
+          "step": "1단계에서 사실 진술로 분류한 선지의 주어를 첫 문장의 범위 표현(both the rich and poor nations)과 맞춰 한정이 어긋나는 것을 버린다",
+          "on_fail": "둘 다 남으면 borrow ... from future generations 문장이 누가 누구에게 하는 행위인지로 주어를 확정한다"
+        }
+      ],
+      "time_budget_sec": 80,
+      "difficulty": {
+        "predicted": 0.86,
+        "drivers": [
+          "회계 은유가 지문 전체를 덮어 경제 소재 선지 둘이 붙어 있다",
+          "정답 근거 문장은 명확하나 '남용'의 강도는 다른 문장에서 보충해야 한다",
+          "오답 넷 모두 지문의 핵심 명사를 담고 있어 소재 대조로는 하나도 걸러지지 않는다"
+        ]
+      },
+      "required_vocab": [
+        "unsustainable",
+        "overdrawn",
+        "inherit",
+        "repaying",
+        "get away with"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "answer_locus.quote 를 코퍼스 지문에서 문자열로 대조했고 4번 문장 전체와 일치한다",
+            "요지 유형 정의(필자의 핵심 명제 한 줄)에 맞게 근거를 사례가 아닌 일반 명제 문장에 두었다",
+            "design_intent 가 유형 일반론이 아니라 이 지문 고유의 장치(회계 은유 · 첫 문장의 both the rich and poor nations)를 지목한다",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
+          ],
+          "checked": [
+            "quote 를 corpus.json 2017#20 passage 에 문자열 대조",
+            "요지 유형 정의와 근거 문장의 성격(사례/인용/일반 명제) 대조",
+            "정답 ③의 세 성분이 인용 문장에서 각각 어느 어구에 대응하는지 표시",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안에서 ④를 '범위 과소'로 달았으나 반려했다 — 선지는 주체를 좁힌 것이 아니라 남용의 주체를 선진국으로, 피해자를 개도국으로 통째로 바꾼 것이고 첫 문장이 그 한정을 명시적으로 부정한다. '주체 역전'으로 교체했다(revised)",
+            "교체 후 오답 넷의 라벨이 반대 진술·지문 밖 상식·주체 역전·인과 역전 4종으로 전부 다르다",
+            "how_to_reject 넷이 모두 문장 번호나 인용 어구로 위치를 지목한다",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
+          ],
+          "checked": [
+            "오답 4개의 trap 라벨 중복 여부 확인",
+            "why_tempting 이 선지 한국어 텍스트의 실제 낱말(세대·국제 사회·경제력·인류의 발전)에 근거하는지 대조",
+            "how_to_reject 마다 지문 위치(문장 번호 또는 인용 어구)가 있는지 확인",
+            "④ 라벨을 범위 과소에서 주체 역전으로 교체한 뒤 재검수",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1~3단계는 지문을 읽기 전 또는 훑는 중에 실행 가능하고, 각 단계가 세거나 적는 물리적 동작으로 끝난다",
+            "80초 안에 5단계가 끝나는지 확인했다 — 선지 서술어 적기 15초, 주어 훑기 20초, 대립축 세기 10초, 마지막 문장 15초, 대조 20초",
+            "required_vocab 다섯 낱말은 모두 정답 판단에 직접 쓰인다(unsustainable=첫 문장의 부정 평가, overdrawn/repaying=남용, inherit=피해자 지목, get away with=태도)",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
+          ],
+          "checked": [
+            "solve_procedure 각 단계에 금지 표현(흐름을 파악하면 등)이 없는지 대조",
+            "단계별 소요 시간 합산과 time_budget_sec 비교",
+            "required_vocab 낱말이 지문에 실제로 있는지 문자열 확인",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2016#21",
+      "measured_ability": "Since·Although·when 으로 열리는 종속절을 주절에서 떼어 내고, 마지막 문장의 주절 하나만 결론으로 남기는 능력. 그 앞 세 문장이 전부 연구 보고(documented, we agree with, Another consistent research finding, three decades of evidence)임을 알아보고 근거를 결론으로 승격시키지 않는 능력",
+      "design_intent": "결론은 마지막 문장의 주절 단 하나에만 있고, 앞 세 문장은 모두 그 결론을 떠받치는 보고문이다. 출제자는 ①에 2번 문장의 '삶의 만족'을, ④에 지문 표층에 세 번 반복되는 '연구'라는 낱말을, ③에 마지막 문장의 '문화적 다양성 · 이론'을 각각 심어 두어, 근거 문장이나 결론 문장의 부속 성분을 결론으로 착각하게 만든다. 결론 술어가 appears to be 로 완화돼 있어 단정적인 처방형 오답이 오히려 더 강해 보인다.",
+      "answer_locus": {
+        "sentence_index": [
+          4
+        ],
+        "quote": "using a pedagogy based on theories of intrinsic motivation appears to be a more reasonable and effective approach to enhancing learning among culturally diverse students",
+        "reasoning": "이 주절 하나에 정답 선지의 세 성분이 모두 있다 — 주어부 using a pedagogy based on theories of intrinsic motivation(내적 동기 부여), 대상 among culturally diverse students(문화적 배경이 다른 학생), 서술부 a more reasonable and effective approach to enhancing learning(교육에 효과적이다). 같은 문장의 Since 절(three decades of evidence ... may contribute to inferior learning)은 근거이지 주장이 아니므로, 종속절과 주절을 가르는 것만으로 결론이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "'삶의 만족도'가 2번 문장의 satisfaction with their lives 에 문자 그대로 대응하고, '적절한'이라는 한정어가 2번 문장 앞의 유보(this matter is more complex)를 흡수한 것처럼 보인다",
+          "how_to_reject": "2번 문장 끝의 조건절 'when their primary goals are intrinsic rather than extrinsic' 이 만족의 조건을 내적 목표 쪽으로 못 박는다. 만족을 높이는 것은 외적 보상이 아니라 내적 목표이므로 방향이 정반대다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "2번 문장의 양보절 'Although this matter is more complex than simply regarding all extrinsic rewards as controlling or diminishing learning' 이 외적 보상을 무조건 배척하지는 않는다고 읽혀, '균형'이라는 절충 결론으로 이어진다",
+          "how_to_reject": "그 절은 Although 로 열린 양보절이고, 같은 문장의 주절은 we agree with ... intrinsic rather than extrinsic 으로 내적 쪽 손을 든다. 지문에 두 동기를 함께 쓰라거나 비율을 맞추라는 표현(balance, combine, both)이 한 번도 없다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "'문화적 다양성'(culturally diverse)과 '교육 이론'(theories, pedagogy)이 둘 다 마지막 문장 안에 있어 명사 대조로는 정답보다도 겹침이 커 보인다",
+          "how_to_reject": "마지막 문장의 술어는 using a pedagogy based on theories of intrinsic motivation — 이론은 이미 존재하고 그것을 '쓰는 것'이 효과적이라는 진술이다. 이론을 새로 세우라는 술어(establish, develop, build)가 지문에 없다. 명사는 맞고 서술어가 다른 형태다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "documented, Another consistent research finding, three decades of evidence 로 '연구'가 세 번 반복돼 지문의 화제가 연구인 것처럼 읽히고, '내적 동기'도 그대로 들어 있다",
+          "how_to_reject": "4번 문장의 there are three decades of evidence 는 증거가 이미 30년치 쌓였다는 진술이라 '연구가 시급하다'의 전제와 맞지 않는다. 지문이 다루는 축은 연구 정책이 아니라 어떤 교수법이 효과적인가이고, 시급성·부족을 말하는 표현이 한 곳도 없다"
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "근거 주절의 세 성분이 선지의 세 성분과 그대로 맞물린다 — ‘using a pedagogy based on theories of intrinsic motivation’ 이 ‘내적 동기 부여’와, ‘among culturally diverse students’ 가 ‘문화적 배경이 다른 학생들’과, ‘a more reasonable and effective approach to enhancing learning’ 이 ‘교육에 효과적이다’와 대응한다. 같은 문장의 Since 절(there are three decades of evidence …)은 근거이므로, 종속절을 떼고 주절만 남기면 선지 문장이 그대로 나온다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "앞 세 문장은 documented · we agree with · Another consistent research finding 으로 열리는 보고문이라 결론이 아니다 — 결론은 마지막 문장 주절 하나뿐이다"
+          }
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯의 어미를 보고 사실 진술(향상시킨다·효과적이다)과 처방(필요하다·중요하다·시급하다)으로 나눠 표시한다",
+          "on_fail": "어미가 갈리지 않으면 각 선지의 주어(외적 보상·균형·교육 이론·연구·내적 동기 부여)를 대신 적는다"
+        },
+        {
+          "step": "지문의 마지막 문장에서 Since·Although·When 으로 열리는 종속절을 통째로 괄호 치고 주절만 남긴다",
+          "on_fail": "접속사가 여러 개면 주어와 정동사가 짝을 이루는 절 하나를 찾아 그것만 남기고 나머지를 괄호 친다"
+        },
+        {
+          "step": "남긴 주절의 주어와 보어를 한국어 한 낱말씩으로 적는다 — 주어가 동명사구면 그 동명사의 목적어를 주어 자리에 적는다",
+          "on_fail": "보어가 길면 형용사 하나(effective)만 떼어 적는다"
+        },
+        {
+          "step": "지문 마지막 두 문장에 명령문이나 must·should·need to 가 있는지 확인하고, 없으면 1단계에서 처방으로 표시한 선지를 전부 내린다",
+          "on_fail": "당위 표현이 있으면 처방형 선지를 남기고 그 당위의 목적어가 무엇인지 적는다"
+        },
+        {
+          "step": "남은 선지의 주어와 서술어를 3단계에서 적은 두 낱말과 맞춰 둘 다 일치하는 하나를 고른다",
+          "on_fail": "둘 이상 남으면 각 선지의 명사가 2단계에서 괄호 친 종속절 안에서만 나온 것인지 확인해 그쪽을 버린다"
+        }
+      ],
+      "time_budget_sec": 85,
+      "difficulty": {
+        "predicted": 0.8,
+        "drivers": [
+          "네 문장 전부가 종속절을 앞세운 복문이라 주절 찾기가 곧 문항의 난이도다",
+          "결론 술어가 appears to be 로 완화돼 있어 단정형 오답이 더 강해 보인다",
+          "오답 ③이 마지막 문장의 명사 둘을 그대로 쓴다"
+        ]
+      },
+      "required_vocab": [
+        "extrinsic",
+        "intrinsic",
+        "pedagogy",
+        "diminishing",
+        "inferior"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 마지막 문장의 주절과 정확히 일치하고 종속절을 포함하지 않는다 — 요지 유형에서 근거로 삼아야 할 자리를 정확히 잘랐다",
+            "근거 문장 하나로 정답 선지의 세 성분이 모두 채워지는 드문 경우이고, 그 사실을 reasoning 에 명시했다",
+            "마지막 문장 주절의 세 성분이 선지의 세 성분과 각각 대응하고, 세 어구 모두 지문에 문자 그대로 있다"
+          ],
+          "checked": [
+            "quote 를 corpus.json 2016#21 passage 에 문자열 대조 (Since 절을 뺀 주절만 인용됐는지 확인)",
+            "정답 ⑤의 성분 셋과 인용 어구의 1:1 대응 확인",
+            "요지 유형 정의(필자 결론 명제) 대조",
+            "why_correct 안의 영어 어구를 corpus.json 2016#21 의 passage·choices 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지 5 의 대응을 낱말 단위로 짝지어 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 라벨 4종이 서로 다르다(반대 진술·부분 사실·어휘 함정·무관)",
+            "④를 '반대 진술'로도 볼 수 있으나(연구 시급 대 30년 증거) ①이 이미 반대 진술이고 ④는 축 자체가 연구 정책으로 옮겨 간 형태이므로 무관으로 두었다 — 배제 근거는 three decades of evidence 로 명시했다",
+            "why_tempting 넷 모두 선지 한국어 텍스트의 실제 어구를 지목한다",
+            "종속절(Since …)을 떼는 절차가 근거이지 ①~④를 지운 결과가 아니다"
+          ],
+          "checked": [
+            "trap 라벨 중복 확인",
+            "④의 라벨 선택 근거를 무관과 반대 진술 두 정의에 각각 대 보고 판정",
+            "how_to_reject 마다 문장 번호 또는 인용 어구가 있는지 확인",
+            "why_correct 가 소거법(나머지가 틀리므로)에 기대지 않고 정답 선지 자체의 근거로 서 있는지 확인",
+            "정답 선지에 오답용 필드(why_tempting·how_to_reject·trap)가 남아 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "초안 절차에는 종속절 괄호 치기와 주절 대조만 있어 처방형 선지 셋(②③④)을 내릴 근거가 절차 안에 없었다 — 반려하고 '지문에 명령문·must·should 가 있는지 확인' 단계를 4단계로 넣었다(revised)",
+            "추가한 단계는 같은 청크의 2014 문항에서 정답이 처방형이었으므로 무조건 배제가 아니라 조건부 배제로 썼다",
+            "85초 배분을 단계별로 확인했다 — 선지 분류 15초, 주절 분리 20초, 낱말 적기 15초, 당위 확인 10초, 대조 25초",
+            "「종속절을 떼고 주절만 남긴다」는 동작이 학생이 실행할 수 있는 형태로 적혀 있다"
+          ],
+          "checked": [
+            "절차만 보고 문항을 다시 풀어 정답에 도달하는지 재현",
+            "금지 표현 목록 대조",
+            "처방형 선지 배제 규칙이 이 청크의 다른 문항에서도 안전한지 교차 확인",
+            "지문을 아직 안 읽은 학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "근거와 정답 자리 사이의 거리(몇 문장)가 서술에 적혀 있는지 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2015#18",
+      "measured_ability": "That's why · Thus 같은 귀결 표지를 세어 명제 문장을 골라내고, 비유(volcanic ash)와 학자 인용을 근거에서 제외하는 능력. 앞부분에 깔린 경영 소재어(companies, professionals, team)가 화제일 뿐 결론이 아님을 마지막 문장으로 확정하는 능력",
+      "design_intent": "글은 기업·전문가·팀이라는 경영 소재로 문을 열고 결론은 '실패 후 회복'이라는 일반 명제로 닫는다. ①②는 그 앞부분 소재어만 가져가고 ④는 결론의 절반(성공)만 가져간다. 특히 ③은 지문과 소재가 전혀 겹치지 않는 채움 선지라, 오답 넷 사이에 난이도 격차를 크게 벌려 놓은 옛 회차형 설계다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          8
+        ],
+        "quote": "Thus, a key factor in high achievement is bouncing back from the low points.",
+        "reasoning": "Thus 로 열리는 마지막 문장이 'A는 B다' 꼴의 완결 등식이라, 주어부 bouncing back from the low points(실패에서 되돌아오는 것)와 서술부 a key factor in high achievement(성공의 열쇠)가 한 문장에서 모두 확인된다. 정답 선지의 수식어 '빨리'만 이 문장에 없고 4번 문장 the ability to recover quickly is so important 가 보충하므로, 두 문장을 함께 근거로 잡았다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "2번 문장에 the best companies and most accomplished professionals 가 그대로 있어 '일류 기업'과 '전문화'가 지문 낱말처럼 보인다",
+          "how_to_reject": "2번 문장의 술어는 long track records of success are punctuated by slips, slides, and mini-turnarounds 이다 — 최고 기업도 미끄러진다는 양보 예시이지 일류 기업의 조건을 말하는 문장이 아니다. 이 문장은 Even for 로 열려 예시임이 표시돼 있다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "5번 문장의 Troubles are ubiquitous 가 '위기'로, 7번 문장의 one prominent scholar 가 '전문가'로 각각 대응해 보여 두 낱말이 다 지문에 있는 것처럼 읽힌다",
+          "how_to_reject": "7번 문장에서 학자는 조언자가 아니라 인용문(Anything can look like a failure in the middle)의 출처로만 등장한다. 지문 여덟 문장 어디에도 조언을 구하라거나 도움을 받으라는 술어가 없다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "요지형 한국어 선지는 대개 격언 꼴이라, 그 자체로 옳은 말처럼 보이면 지문을 대조하지 않고 고르는 일이 생긴다",
+          "how_to_reject": "선지의 핵심 명사 셋(소비·필요·욕구)에 대응하는 표현이 지문 여덟 문장에 하나도 없다. 이 청크에서 소재 대조 한 번으로 걸러지는 유일한 오답이다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "'성공'이 지문의 success·high achievement 와 곧바로 대응해 서술부 절반이 맞아 보이고, winners 라는 낱말이 첫 문장에 있어 성공 담론이라는 인상을 준다",
+          "how_to_reject": "마지막 문장에서 high achievement 에 붙은 요인은 bouncing back from the low points 하나뿐이다. '인간 관계'에 대응하는 표현(relationship, network, people)이 지문에 없다 — 명사 절반만 맞고 나머지 절반과 서술어가 지문에 없는 형태다"
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "마지막 문장 'a key factor in high achievement is bouncing back from the low points' 의 두 항이 선지 ⑤ '실패를 빨리 극복하는 것이 성공의 열쇠이다.' 의 두 항과 자리만 바꿔 대응한다 — 'bouncing back from the low points'=실패를 극복하는 것, 'a key factor in high achievement'=성공의 열쇠. 선지에만 있는 수식어 '빨리'는 4번 문장 'the ability to recover quickly is so important' 의 'quickly' 가 채운다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯에서 '성공·성취'가 든 것을 표시한다 — 요지형 선지는 서술부에 결론 낱말을 공유하는 일이 잦다",
+          "on_fail": "공유 낱말이 없으면 각 선지의 주어부만 다섯 줄로 적는다"
+        },
+        {
+          "step": "지문에서 That's why · Thus · So 로 시작하는 문장을 전부 찾아 번호를 적는다 — 명제 후보는 이 문장들뿐이다",
+          "on_fail": "표지가 하나도 없으면 마지막 문장 하나만 후보로 삼는다"
+        },
+        {
+          "step": "큰따옴표 인용과 직유(like ~)가 든 문장을 괄호로 묶어 후보에서 뺀다",
+          "on_fail": "인용이 결론처럼 보이면 그 인용을 소개한 주어가 필자인지 타인인지(one prominent scholar said) 확인한다"
+        },
+        {
+          "step": "남은 귀결 문장에서 'A는 B다' 꼴로 주어와 보어를 뽑아 한국어 두 낱말로 적는다",
+          "on_fail": "주어가 동명사면 그 회복이 무엇으로부터의 회복인지(from the low points) 함께 적는다"
+        },
+        {
+          "step": "4단계에서 적은 두 낱말이 주어부와 서술부 양쪽에 다 들어 있는 선지 하나를 고른다",
+          "on_fail": "둘이 남으면 그 선지의 명사가 Even for 로 열린 예시 문장(2·3번)에서만 나온 것인지 확인해 그쪽을 버린다"
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.92,
+        "drivers": [
+          "결론이 Thus 로 표지된 완결 등식 문장이라 근거 위치가 노출돼 있다",
+          "오답 하나(③)는 소재조차 겹치지 않아 사실상 3지선다로 줄어든다",
+          "문장이 짧고 종속 구조가 얕다"
+        ]
+      },
+      "required_vocab": [
+        "punctuated",
+        "lag behind",
+        "ubiquitous",
+        "prominent",
+        "bouncing back"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "초안은 answer_locus 를 4번 문장 'That's why the ability to recover quickly is so important.' 하나로 잡았다 — 반려했다. 그 문장은 '중요하다'까지만 말하고 정답 선지의 서술부 '성공의 열쇠'를 담지 않아 ①②④를 배제하지 못한다",
+            "8번 문장(Thus, a key factor in high achievement is bouncing back from the low points.)으로 인용을 교체하고, 수식어 '빨리'의 출처로 4번 문장을 reasoning 에 남겼다(revised)",
+            "교체한 인용을 코퍼스 지문에서 문자열로 다시 대조했다",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
+          ],
+          "checked": [
+            "quote 를 corpus.json 2015#18 passage 에 문자열 대조",
+            "인용 문장 하나가 정답 선지의 주어부·서술부를 모두 확정하는지 성분별 확인",
+            "교체 전후 인용의 배제력 비교(오답 ①②④에 대해)",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "라벨 4종이 서로 다르다(부분 사실·지문 밖 상식·무관·어휘 함정)",
+            "③은 이 유형 누적 관찰에서 처음 나온 '소재어가 하나도 겹치지 않는 오답'이다 — 앞 청크의 '오답 36/36 이 지문 소재어를 포함한다'에 대한 반례로 type_report 에 등재했다",
+            "④의 배제 근거를 '성공은 겹치지만 인간 관계에 대응 표현이 없다'로 명시해 명사 절반 일치 형태임을 드러냈다",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
+          ],
+          "checked": [
+            "오답 4개의 소재어가 지문에 대응하는지 낱말 단위로 대조(③에서 소비·필요·욕구 세 낱말 모두 부재 확인)",
+            "trap 라벨 중복 확인",
+            "how_to_reject 마다 문장 번호 표기 확인",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계(That's why·Thus 찾기)가 이 지문에서 세 문장을 잡아 주고 3단계가 그중 인용 문장을 걸러 내므로, 학생이 표지만으로 후보를 두 개로 줄일 수 있다",
+            "70초 배분이 충분하다 — 표지 찾기 15초, 인용 괄호 10초, 낱말 적기 15초, 대조 20초",
+            "required_vocab 다섯이 모두 판단에 쓰인다(punctuated·lag behind 는 예시 문장을 예시로 알아보는 데, ubiquitous·prominent 는 오답 ②의 미끼를 알아보는 데, bouncing back 은 정답 대조에)",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
+          ],
+          "checked": [
+            "절차만으로 정답 도달 재현",
+            "금지 표현 목록 대조",
+            "required_vocab 이 지문에 실제로 있는지 문자열 확인",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2014B#23",
+      "measured_ability": "역접 But 이 여는 문장이 앞 세 문장의 서술을 뒤집는 자리임을 잡아내고, 그 뒤에 이어지는 명령문 두 개를 필자의 처방으로 읽어 '~할 필요가 있다' 꼴의 한국어 선지로 옮기는 능력",
+      "design_intent": "앞 세 문장이 '남을 기쁘게 하려다 겪는 손실'을 서술해 관계 중심 오답(②④)에 재료를 준다. 요지 유형인데도 마지막 두 문장이 명령문(So don't be afraid to say no. / Try to catch yourself in the moment ...)이라 필자 주장 유형과 구조가 같고, 그래서 처방형 선지가 정답이 된다. 요지에서 처방형 선지를 기계적으로 내리는 습관이 정확히 여기서 실점하도록 설계돼 있다. 이 문항은 2014학년도 수능 A형 24번과 지문·선지·정답이 완전히 동일하다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          5
+        ],
+        "quote": "But when we learn to say no to what we don't feel like doing in order to say yes to our true self, we feel empowered, and our relationships with others improve.",
+        "reasoning": "이 문장이 정답 선지의 대상 성분을 준다 — say no to what we don't feel like doing(자신이 원하지 않는 일을 거절하는 것). 다만 이 문장의 술어는 we feel empowered ... improve 라는 이익 서술이라 '필요가 있다'는 당위가 아직 없다. 당위는 바로 다음 문장 So don't be afraid to say no. 와 그다음 Try to catch yourself ... 두 명령문이 준다. 즉 정답을 확정하려면 역접 문장(대상)과 명령문(당위)을 붙여 읽어야 하고, 어느 한쪽만으로는 선지 하나로 좁혀지지 않는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "4번 문장의 we feel empowered 가 '성취감'으로 옮겨지고, 1번 문장의 fall into the trap 이 '난관'처럼 읽혀 두 성분이 다 지문에 있는 것처럼 보인다",
+          "how_to_reject": "4번 문장에서 empowered 앞에 놓인 조건은 난관 극복이 아니라 say no to what we don't feel like doing 이다. 1번 문장의 trap 은 극복해야 할 난관이 아니라 '남을 기쁘게 하려고 따라가는 태도' 자체를 가리키는 말이다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "1번 문장의 the good child, the uncomplaining employee, or the cooperative patient 나열이 곧바로 '타인의 입장을 먼저 고려'로 읽힌다",
+          "how_to_reject": "그 나열은 fall into the trap of trying to please people 의 앞자리에 놓여 필자가 비판하는 대상이다. 5번 문장 So don't be afraid to say no. 가 정반대 처방을 명령문으로 준다"
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "4번 문장의 ‘learn to say no to what we don’t feel like doing’ 에서 say no 가 선지의 ‘거절’과, what we don’t feel like doing 이 ‘자신이 원하지 않는 일’과 대응한다. 당위는 5번 명령문 ‘So don’t be afraid to say no’ 가 주므로, 대상과 당위가 인접한 두 문장에서 각각 나온다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4,
+              5
+            ],
+            "note": "4번 문장은 조건과 효과(we feel empowered)를, 5번 명령문은 당위를 맡는다 — 둘을 합쳐야 요지 문장이 된다"
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "3번 문장 it causes distress in our relationships 가 '대인 관계가 악화된다'와 문자 그대로 대응해, 오답 넷 중 지문과 낱말이 가장 많이 겹친다",
+          "how_to_reject": "3번 문장에서 distress 의 원인은 we are unable to set healthy limits(한계를 못 정하는 것)이지 자기 의견을 고집하는 것이 아니다. 4번 문장은 거절을 배우면 our relationships with others improve 라고 해 관계 개선의 조건을 정반대로 놓는다 — 원인 자리에 들어간 항이 뒤바뀐 형태다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "6번 문장의 Try to catch yourself 의 catch 가 '파악'으로, say yes/say no 축이 '승낙/거절'로 각각 대응해 두 낱말이 겹친다",
+          "how_to_reject": "6번 문장에서 catch 의 목적어는 yourself 이고 파악할 것은 what you really want to say 다 — 파악 대상이 상대의 의도가 아니라 자기 자신이다. 지문에 상대의 의도(intention, motive)를 살피라는 표현이 없다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯을 처방형(~해야 한다·~할 필요가 있다)과 사실형(~생긴다·~악화된다)으로 나눠 표시한다",
+          "on_fail": "어미가 애매하면 그 선지가 독자에게 행동을 시키는지 여부만 O/X로 적는다"
+        },
+        {
+          "step": "지문의 마지막 두 문장이 명령문인지(Don't 또는 동사원형으로 시작) 확인한다 — 명령문이 있으면 처방형 선지를 후보로 남기고, 없으면 사실형만 남긴다",
+          "on_fail": "명령문이 없으면 must·should·need to·have to 가 본문에 있는지 다시 훑는다"
+        },
+        {
+          "step": "But 또는 However 로 시작하는 문장을 찾아 그 앞뒤에서 필자의 평가가 바뀌는 지점을 표시한다",
+          "on_fail": "역접이 없으면 마지막 명령문의 동사를 요지의 서술어로 삼는다"
+        },
+        {
+          "step": "역접 문장에서 '무엇을 하면 무엇이 좋아지는가'를 두 조각으로 뽑아 적는다",
+          "on_fail": "조건절이 길면 in order to 로 시작하는 목적 표현을 지우고 남은 동사구만 적는다"
+        },
+        {
+          "step": "2단계에서 남긴 선지 중 4단계의 앞 조각(무엇을 하면)이 그대로 들어간 것을 고른다",
+          "on_fail": "둘 이상 남으면 첫 문장의 나열이 fall into the trap of 의 앞자리인지 확인해 그 나열을 권장으로 읽은 선지를 버린다"
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.9,
+        "drivers": [
+          "결론이 명령문 두 개로 명시돼 있다",
+          "오답 ④가 3번 문장과 낱말이 거의 같아 부분 대조로는 갈리지 않는다",
+          "요지 유형에서 드물게 정답이 처방형 선지다"
+        ]
+      },
+      "required_vocab": [
+        "uncomplaining",
+        "boundaries",
+        "set healthy limits",
+        "distress",
+        "empowered"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용을 코퍼스 지문에 문자열로 대조했고 4번 문장 전체와 일치한다(어포스트로피는 게이트가 정규화한다)",
+            "이 문항은 요지 유형이면서 결론이 명령문이라, 근거를 역접 문장 하나로 끝내면 '거절하면 좋다'까지만 나오고 '필요가 있다'가 안 나온다 — reasoning 에 명령문 두 문장을 당위의 출처로 명시했다",
+            "2014A#24 와 지문·선지·정답이 동일한 문항임을 design_intent 에 적어 두었다",
+            "learn to say no to what we don’t feel like doing 과 So don’t be afraid to say no 가 지문에 그대로 있고, say no↔거절 · what we don’t feel like doing↔원하지 않는 일 이 대응한다",
+            "setter revise — 기존 why_correct 가 「4번 문장이 대상을, 5·6번 명령문이 당위를 준다」라고만 적어 지문 표현이 하나도 없었다. 대응이 낱말 단위로 확인되지 않으므로 영어 어구를 넣어 다시 썼다"
+          ],
+          "checked": [
+            "quote 를 corpus.json 2014B#23 passage 에 문자열 대조",
+            "정답 선지의 두 성분(대상·당위)이 각각 어느 문장에서 나오는지 분리 확인",
+            "2014A#24 와 passage·choices·answer 문자열 동일성 확인",
+            "why_correct 안의 영어 어구를 corpus.json 2014B#23 의 passage·choices 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지 3 의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 why_correct 를 같은 자로 재검수해 pass 로 확정"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안에서 ⑤를 '무관'으로 달았으나 반려했다 — Try to catch yourself 의 catch 와 say yes/say no 축이 실제 미끼로 작동하므로 소재가 없는 것이 아니라 겹치는 낱말의 대상이 바뀐 형태다. '어휘 함정'으로 교체했다(revised)",
+            "교체 후 라벨 4종이 전부 다르다(지문 밖 상식·반대 진술·인과 역전·어휘 함정)",
+            "④의 배제 근거를 '원인 자리에 들어간 항'으로 특정해 인과 역전 라벨과 서술을 일치시켰다",
+            "대상과 당위가 서로 다른 두 문장에서 나온다는 점을 밝혀, 요지 선지의 두 성분을 각각 확정한다"
+          ],
+          "checked": [
+            "trap 라벨 중복 확인 및 ⑤ 라벨 교체 후 재검수",
+            "오답 4개가 지문 소재어를 담는지 낱말 단위 대조(①의 '난관'은 대응 표현 없음 · '성취감'만 empowered 에 대응 — 절반 겹침으로 기록)",
+            "why_tempting 이 선지 한국어 텍스트에 근거하는지 확인",
+            "why_correct 가 소거법(나머지가 틀리므로)에 기대지 않고 정답 선지 자체의 근거로 서 있는지 확인",
+            "정답 선지에 오답용 필드(why_tempting·how_to_reject·trap)가 남아 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계가 이 문항의 갈림목이다 — 명령문 확인을 먼저 하지 않으면 1단계에서 처방형 셋을 내려 정답까지 함께 지운다. 순서를 그대로 지키면 안전하다",
+            "70초 배분 확인 — 선지 분류 15초, 명령문 확인 10초, 역접 찾기 10초, 두 조각 적기 15초, 대조 20초",
+            "required_vocab 다섯이 모두 판단에 쓰인다(uncomplaining 은 ②의 미끼 나열, boundaries·set healthy limits·distress 는 ④의 인과 확인, empowered 는 ①의 미끼 확인)",
+            "인접한 두 문장이라 학생이 한 번에 짚을 수 있다"
+          ],
+          "checked": [
+            "절차만으로 정답 도달 재현",
+            "1·2단계 순서를 바꿔 실행했을 때 정답이 지워지는지 확인",
+            "금지 표현 목록 대조",
+            "지문을 아직 안 읽은 학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "근거와 정답 자리 사이의 거리(몇 문장)가 서술에 적혀 있는지 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2014A#24",
+      "measured_ability": "앞부분의 서술(남을 기쁘게 하려다 겪는 손실)과 뒷부분의 처방(거절하라)을 역접 But 에서 갈라 읽고, 마지막 두 명령문을 요지의 서술어로 옮기는 능력. 지문에 명령문이 있을 때는 처방형 한국어 선지가 정답이 될 수 있음을 아는 것이 이 문항의 실질 능력이다",
+      "design_intent": "2014학년도 수능 A형은 듣기가 22번까지라 독해가 23번에서 시작하고 요지는 24번에 놓였다. 문항 자체는 같은 해 B형 23번과 지문·선지·정답이 완전히 동일하다. 설계의 핵심은 오답 ④에 있다 — 3번 문장 it causes distress in our relationships 를 거의 그대로 옮기되 원인 자리만 바꿔 놓아, 낱말 대조로 푸는 학생이 정확히 걸리게 만든다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          5
+        ],
+        "quote": "So don't be afraid to say no.",
+        "reasoning": "이 명령문이 정답 선지의 당위 성분('~할 필요가 있다')을 직접 준다. 거절의 대상이 무엇인지는 바로 앞 문장 when we learn to say no to what we don't feel like doing 이 지정하므로, 두 문장을 붙이면 '원하지 않는 일을 거절하라'가 되어 선지 ③과 성분이 일치한다. 명령문이 So 로 열려 앞 문장의 귀결임이 표시돼 있어, 이 자리가 서술의 끝이 아니라 필자의 처방임을 문장 부호 수준에서 확인할 수 있다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "'성취감'이 4번 문장의 we feel empowered 와 겹치고, 자기계발 글의 결론으로 '난관 극복 뒤의 성취감'이 흔한 형태다",
+          "how_to_reject": "4번 문장에서 empowered 를 낳는 조건은 say no to what we don't feel like doing 이다. 지문에 극복해야 할 난관(hardship, obstacle)에 해당하는 표현이 없고, 1번 문장의 trap 은 극복 대상이 아니라 비판 대상이다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "1번 문장이 좋은 아이·불평 없는 직원·협조적인 환자를 나열해 '타인 입장을 먼저 고려'가 지문의 태도처럼 읽힌다",
+          "how_to_reject": "그 나열은 fall into the trap of trying to please people by going along with whatever they want us to do 로 이어지는 비판 대상이고, 5번 문장 So don't be afraid to say no. 가 반대 방향의 처방을 준다"
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "선지 ③ '자신이 원하지 않는 일은 거절할 필요가 있다.' 의 두 성분이 이웃한 두 문장에서 하나씩 나온다 — 당위 '거절할 필요가 있다'는 5번 명령문 'So don’t be afraid to say no.' 가, 거절의 대상 '자신이 원하지 않는 일'은 4번 문장의 'say no to what we don’t feel like doing' 이 준다. 'So' 가 앞 문장의 귀결임을 표시하므로 이 명령문이 서술이 아니라 필자의 처방이다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "3번 문장의 causes distress in our relationships 가 '대인 관계가 악화된다'와 그대로 대응해, 지문 한 문장을 통째로 옮긴 것처럼 보인다",
+          "how_to_reject": "3번 문장의 원인은 When we are unable to set healthy limits 이고, 4번 문장은 거절을 배우면 relationships with others improve 라고 한다. 선지는 관계 악화의 원인을 '자기 의견 고집'으로 바꿔 지문이 개선 조건으로 제시한 것을 악화 원인으로 돌려놓았다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "'승낙/거절'이 지문의 say yes/say no 와 같은 축이고 '파악'이 6번 문장 Try to catch yourself 의 catch 와 겹쳐, 선지 전체가 지문 낱말로 조립된 것처럼 보인다",
+          "how_to_reject": "6번 문장의 catch 목적어는 yourself 이며 확인 대상은 what you really want to say 다. 상대의 의도를 살피라는 진술은 지문에 없고, 지문의 say yes 는 to our true self 로 방향이 자기 쪽이다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯의 어미를 훑어 처방형(~해야 한다·~할 필요가 있다)과 사실형(~생긴다·~악화된다)으로 나눈다",
+          "on_fail": "어미가 갈리지 않으면 각 선지가 독자에게 시키는 행동이 있는지 O/X로만 적는다"
+        },
+        {
+          "step": "지문의 마지막 두 문장이 Don't 또는 동사원형으로 시작하는지 확인해 처방형 선지를 살릴지 정한다",
+          "on_fail": "명령문이 없으면 must·should·need to 를 본문에서 찾고, 그것도 없으면 처방형 선지를 전부 내린다"
+        },
+        {
+          "step": "But 으로 시작하는 문장에 표시하고, 그 앞은 문제 서술 그 뒤는 해법 서술로 지문을 두 덩이로 나눈다",
+          "on_fail": "역접이 없으면 So 나 Thus 로 시작하는 문장을 해법의 시작점으로 삼는다"
+        },
+        {
+          "step": "뒤 덩이에서 필자가 시키는 행동의 목적어를 그대로 적는다(say no 의 대상이 무엇인지)",
+          "on_fail": "목적어가 대명사나 what절이면 그 안의 동사구(don't feel like doing)를 적는다"
+        },
+        {
+          "step": "2단계에서 남긴 처방형 선지 중 4단계에서 적은 목적어가 들어간 것을 고른다",
+          "on_fail": "둘 이상이면 앞 덩이(문제 서술)에서만 나온 낱말로 만들어진 선지를 먼저 버린다"
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.91,
+        "drivers": [
+          "명령문 두 개로 결론이 표면에 드러나 있다",
+          "오답 ④가 3번 문장과 낱말이 거의 같다",
+          "A형 문항이라 지문 길이와 구문 난도가 낮다"
+        ]
+      },
+      "required_vocab": [
+        "uncomplaining",
+        "cooperative",
+        "boundaries",
+        "distress",
+        "empowered"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용 So don't be afraid to say no. 를 코퍼스 지문에서 문자열로 대조했다",
+            "같은 문항의 B형(2014B#23)에서는 역접 문장을 인용해 대상 성분을 잡았고 여기서는 명령문을 인용해 당위 성분을 잡았다 — 두 자리가 함께 있어야 정답이 확정된다는 점은 양쪽 reasoning 에 동일하게 적혀 있다",
+            "요지 유형인데 근거가 명령문이라는 점이 유형 정의에서 벗어나 보일 수 있으나, 필자의 결론이 명령문으로 표현된 지문이므로 유형과 어긋나지 않는다",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
+          ],
+          "checked": [
+            "quote 를 corpus.json 2014A#24 passage 에 문자열 대조",
+            "요지 유형에서 명령문을 근거로 삼는 것이 정당한지 유형 정의와 대조",
+            "B형 동일 문항과의 인용 자리 차이 및 결론 일치 확인",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "라벨 4종이 서로 다르다(지문 밖 상식·반대 진술·인과 역전·어휘 함정)",
+            "④는 이 청크 오답 20개 중 지문 문장과 낱말 겹침이 가장 큰 오답이다 — 소재어 대조로 푸는 학생이 정확히 여기로 간다는 점을 why_tempting 에 남겼다",
+            "①은 '성취감'만 empowered 에 대응하고 '난관'에는 대응 표현이 없어 소재어 겹침이 절반뿐이다. 앞 청크의 '오답 전부가 소재어를 포함한다'에 대한 경계 사례로 기록했다",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
+          ],
+          "checked": [
+            "trap 라벨 중복 확인",
+            "오답 4개의 소재어 대응 여부를 낱말 단위로 대조",
+            "how_to_reject 마다 문장 번호 또는 인용 어구 확인",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "초안 절차는 1단계에서 처방형 선지를 곧바로 내리도록 돼 있었다 — 반려했다. 이 문항의 정답이 처방형이라 그 순서대로 하면 정답을 먼저 지운다",
+            "2단계를 '명령문 확인'으로 두어 처방형 선지의 존폐를 지문 근거로 결정하게 고쳤다(revised). 이 순서는 같은 청크의 2017·2016·2015 세 문항에서도 안전하다 — 그 셋은 명령문이 없어 2단계가 처방형 선지를 전부 내린다",
+            "70초 배분 확인 — 선지 분류 15초, 명령문 확인 10초, 두 덩이 나누기 10초, 목적어 적기 15초, 대조 20초",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
+          ],
+          "checked": [
+            "절차만으로 정답 도달 재현",
+            "고친 절차를 이 청크의 나머지 네 문항에 적용해 정답이 지워지지 않는지 교차 확인",
+            "금지 표현 목록 대조",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
+          ]
+        }
+      ]
+    }
+  ],
+  "type_report": {
+    "type_id": "R-GIST",
+    "n_analyzed": 5,
+    "note_on_duplicate": "2014A#24 와 2014B#23 은 지문·선지·정답이 문자열까지 완전히 동일한 한 문항이다(2014학년도 수능 A형·B형 공통 출제). 아래 수치는 문항 단위(5문항·오답 20개)와 고유 문항 단위(4문항·오답 16개)를 함께 적는다 — 중복을 세면 함정 분포가 부풀려진다.",
+    "recurring_traps": [
+      {
+        "trap": "지문 밖 상식",
+        "count": 4,
+        "signature": "고유 3건. 소재에 붙는 관용 결론을 가져온다 — 환경 글에 국제 공조(2017 ②), 위기 글에 전문가 조언(2015 ②), 자기계발 글에 난관 극복 뒤의 성취감(2014 ①). 셋 다 지문에 그 술어(공조·조언·극복)에 해당하는 동사가 한 번도 없다는 것이 공통이다"
+      },
+      {
+        "trap": "반대 진술",
+        "count": 4,
+        "signature": "고유 3건. 지문이 비판 대상으로 놓은 것을 결론으로 되돌린다 — 협력 불가를 협력 중요로(2017 ①), 내적 목표 우위를 외적 보상 효과로(2016 ①), fall into the trap 의 목적어 나열을 권장 태도로(2014 ②). 셋 모두 뒤집는 근거 문장이 지문에 한 문장으로 명시돼 있다"
+      },
+      {
+        "trap": "어휘 함정",
+        "count": 4,
+        "signature": "고유 3건. 명사는 지문에 있고 서술어나 그 대상이 바뀐다 — 이론을 '쓴다'가 '확립한다'로(2016 ③), '성공'은 맞고 '인간 관계'가 없음(2015 ④), catch 의 목적어가 yourself 인데 '상대의 의도'로(2014 ⑤). 한국어 선지라 문자 겹침이 아니라 개념어 겹침으로 일어난다"
+      },
+      {
+        "trap": "인과 역전",
+        "count": 3,
+        "signature": "고유 2건. 화살표를 뒤집는다 — 발전 노력이 자원을 고갈시킨다를 자원 개발이 발전을 낳는다로(2017 ⑤), 한계 설정 실패가 관계 고통을 낳는다를 의견 고집이 관계 악화를 낳는다로(2014 ④). 2014 ④는 이 청크에서 지문과 낱말 겹침이 가장 큰 오답이다"
+      },
+      {
+        "trap": "무관",
+        "count": 2,
+        "signature": "고유 2건. 축 자체가 다르다 — 연구 정책(2016 ④), 소비 행동(2015 ③). 2015 ③은 지문 소재어를 하나도 포함하지 않는 이 유형 누적 첫 사례다"
+      },
+      {
+        "trap": "부분 사실",
+        "count": 2,
+        "signature": "고유 2건. 양보절이나 예시 문장을 결론으로 승격시킨다 — Although 절의 유보를 '균형'으로(2016 ②), Even for 로 열린 예시 문장의 주어를 '일류 기업의 조건'으로(2015 ①)"
+      },
+      {
+        "trap": "주체 역전",
+        "count": 1,
+        "signature": "고유 1건. 행위는 지문과 같은데 하는 쪽과 당하는 쪽이 바뀐다(2017 ④ 현세대→선진국, 미래 세대→개도국). 앞 청크(M2706)에서 0건이었던 라벨이 여기서 1건 나왔다 — 첫 문장에 both the rich and poor nations 라는 명시적 한정 부정이 있는 지문에서만 성립하는 형태다"
+      }
+    ],
+    "claim_checks": {
+      "claim_1_single_thesis_sentence": {
+        "claim": "주제문 한 문장이면 정답 선지가 확정된다 — 요지 누적 2/9",
+        "yardstick": "정답 선지의 주어부와 서술부가 모두 그 한 문장에서 확인되는가(지시어를 앞 문장으로 푸는 것은 허용하지 않는다)",
+        "per_item": [
+          "2017#20 = 예. 4번 문장 We borrow environmental capital from future generations with no intention or prospect of repaying. 하나에 주어(현세대)·대상(환경 자원)·태도(미래 세대 고려 없음)가 다 있다. 다만 '남용'의 강도는 2번 문장 too heavily, too quickly 가 보태므로 경계 사례로 표시한다",
+          "2016#21 = 예. 마지막 문장 주절 하나에 내적 동기 부여·문화적으로 다양한 학생·효과적 세 성분이 모두 있다. 이 청크에서 가장 깨끗한 한 문장 확정 사례다",
+          "2015#18 = 예. Thus 로 열리는 마지막 문장이 'A는 B다' 완결 등식이라 주어부와 서술부가 함께 있다. 수식어 '빨리'만 4번 문장 recover quickly 에서 온다",
+          "2014B#23 = 아니오. 대상(원하지 않는 일)은 4번 문장에, 당위(필요가 있다)는 5번 명령문에 나뉘어 있다",
+          "2014A#24 = 아니오. 같은 문항이므로 같은 판정"
+        ],
+        "count": "3/5 (문항 단위) · 3/4 (고유 문항 단위). 누적 2/9 와 합치면 5/14",
+        "verdict_on_prior_explanation": "반증에 가깝다. 앞 청크는 요지의 낮은 비율을 '한국어 선지가 A는 B를 C한다 꼴의 3성분 명제라서'로 설명했는데, 이 청크가 그 설명을 두 방향에서 깬다. (1) 2016#21 의 정답 선지는 3성분(내적 동기 부여 / 문화 배경이 다른 학생 교육 / 효과적)인데도 한 문장으로 확정된다. (2) 2014 의 정답 선지는 2성분(원하지 않는 일 / 거절할 필요가 있다)인데도 한 문장으로 확정되지 않는다. 즉 성분 수는 예측하지 못한다.",
+        "alternative_hypothesis": "결정하는 것은 선지 쪽 성분 수가 아니라 지문 쪽 결론 문장의 문형이다. 결론이 'X is Y' 꼴의 완결 등식(2016 appears to be · 2015 a key factor ... is)이면 한 문장으로 확정되고, 결론이 명령문(2014 So don't be afraid to say no.)이면 주어가 생략되고 목적어가 축약돼 성분이 앞 문장으로 새어 나가 확정되지 않는다. 이 가설은 다음 청크에서 '결론 문장이 be동사 등식인가 / 명령문인가 / 지시어를 주어로 쓰는가' 세 갈래로 세면 그대로 재현 검증된다. 옛 회차(2014~2017) 3/4 대 최근 회차(2023~2026) 2/9 라는 격차도 선지 언어로는 설명되지 않는다 — 선지가 한국어인 것은 양쪽이 같기 때문이다"
+      },
+      "claim_2_distractors_share_topic_words": {
+        "claim": "오답 36/36 이 지문 소재어를 포함한다(소재 대조로는 오답이 하나도 걸러지지 않는다)",
+        "count_here": "20개 중 19개 포함(고유 16개 중 15개). 명백한 예외 1건",
+        "exception": "2015#18 ③ '합리적 소비는 필요와 욕구의 구분에서 비롯된다.' — 핵심 명사 셋(소비·필요·욕구) 어느 것도 지문 여덟 문장에 대응 표현이 없다. winners/losers/companies/professionals/troubles/failure 로 이뤄진 지문과 소재가 통째로 다르다. 이 오답은 지문을 한 줄도 안 읽어도 선지만 다섯 개 나란히 놓고 소재를 견주면 걸러진다",
+        "borderline": "2014A#24 ①·2014B#23 ① '난관을 극복할 때 성취감이 생긴다.' — '성취감'은 we feel empowered 에 대응하나 '난관 극복'에는 대응 표현이 없어 겹침이 절반이다. 완전 예외로는 세지 않았다",
+        "implication": "소재 대조는 최근 회차에서는 0개를 걸러 내지만 옛 회차에서는 20개 중 1개를 3초 만에 걸러 낸다. 따라서 절차에서 빼지 말고 '비용이 거의 없는 1차 필터'로 남기되, 그것으로 안 걸러지는 나머지를 서술어 대조로 넘긴다. 소재 대조만 믿는 것과 소재 대조를 버리는 것은 둘 다 틀리다"
+      },
+      "claim_3_deontic_expressions": {
+        "claim": "요지 지문에는 당위 표현이 0건이고, 처방형 선지는 전부 오답이다",
+        "result": "이 청크에서 반증된다. 5문항 중 2문항(2014A#24 · 2014B#23, 동일 지문)의 마지막 두 문장이 명령문이다 — So don't be afraid to say no. / Try to catch yourself in the moment and use your true voice to say what you really want to say. 그리고 그 두 문항의 정답이 처방형 선지 ③ '자신이 원하지 않는 일은 거절할 필요가 있다.' 다",
+        "supporting_side": "나머지 3문항(2017#20 · 2016#21 · 2015#18)은 지문에 명령문·must·should 가 0건이고, 그 세 문항의 처방형 선지 6개(2017 ①②, 2016 ②③④, 2015 ②)는 전부 오답이다. 즉 규칙 자체는 조건부로 살아 있다",
+        "revised_rule": "'처방형 선지를 내린다'를 무조건 규칙으로 쓰면 안 된다. 순서를 바꿔 쓴다 — (1) 지문 마지막 두세 문장에 명령문(Don't·동사원형 시작)이나 must·should·need to·have to 가 있는지 먼저 본다. (2) 없으면 처방형 선지를 전부 내린다(이 청크에서 6개가 한꺼번에 걸린다). (3) 있으면 반대로 처방형 선지만 남기고 그 당위의 목적어가 무엇인지로 하나를 고른다. 이 순서를 지키지 않으면 2014 두 문항에서 정답을 가장 먼저 지운다"
+      },
+      "item_number_note": "이 청크의 파일명이 R-GIST-2017-20 이지만 요지가 20번이었던 회차는 2017 하나뿐이다. 실측 — 2017 수능 20번=요지, 2016 수능 20번=필자 주장이고 요지는 21번, 2015 수능은 18번이 요지이고 20·21번이 주제, 2014 수능은 듣기가 22번까지라 독해가 23번에서 시작해 A형은 24번(23번=글의 목적) B형은 23번이 요지다. 따라서 '20번이 요지 자리'라는 전제로 절차를 만들면 옛 회차에서 어긋난다. 발문(다음 글의 요지로 가장 적절한 것은?)으로 확인하는 것이 유일하게 안전하다"
+    },
+    "answer_locus_pattern": "5문항 모두 근거가 지문의 마지막 세 문장 안에 있다(2017 4·6번 중 4번은 여섯 문장 중 넷째, 2016 4/4, 2015 8/8과 4/8, 2014 4·5/6). 앞 청크의 '뒤쪽 세 문장 8/9'와 합치면 14문항 중 13문항이다. 더 중요한 것은 근거 문장에 붙은 표지다 — 이 청크에서는 귀결 표지 Thus(2015) · So(2014) · 인과 접속 Since 의 주절(2016) · 은유의 평서문(2017) 넷이고, 앞 청크의 조동사·귀결 표지 관찰과 어긋나지 않는다. 다만 옛 회차는 결론 문장이 완결 등식이거나 명령문이라 표면에 드러나 있고, 최근 회차는 지시어(This, These)를 주어로 쓰는 축약 결론이 많다 — 근거 위치는 같고 근거 문장의 문형이 다르다는 것이 이 청크의 핵심 관찰이다",
+    "procedure": [
+      {
+        "step": "선지 다섯을 먼저 읽고 서술어 어미로 처방형(~해야 한다·~필요하다·~중요하다·~시급하다)과 사실형(~하고 있다·~효과적이다·~열쇠이다)으로 나눠 표시한다",
+        "on_fail": "어미가 갈리지 않으면 각 선지가 독자에게 행동을 시키는지 O/X로만 적는다"
+      },
+      {
+        "step": "선지 다섯의 핵심 명사를 훑고, 다섯 중 소재가 혼자 동떨어진 것이 있는지 본다 — 옛 회차에는 지문 소재어를 하나도 안 쓴 채움 오답이 섞여 있다(2015#18 ③)",
+        "on_fail": "다섯이 다 비슷한 소재면 이 단계를 3초에 끊고 넘어간다. 최근 회차에서는 이 필터로 걸러지는 오답이 0개다"
+      },
+      {
+        "step": "지문의 마지막 두세 문장에 명령문(Don't·동사원형 시작)이나 must·should·need to·have to 가 있는지 확인한다. 없으면 1단계의 처방형 선지를 전부 내리고, 있으면 반대로 처방형만 남긴다",
+        "on_fail": "판정이 안 서면 마지막 문장의 주어가 있는지 본다 — 주어가 없으면 명령문이다"
+      },
+      {
+        "step": "귀결 표지(Thus · So · That's why · Since 절의 주절)나 역접(But · However)이 붙은 문장을 찾아 번호를 적고, 그 문장이 'A는 B다' 등식인지 명령문인지 표시한다. 등식이면 주어와 보어를 한국어 한 낱말씩 적고, 명령문이면 시키는 동사와 그 목적어를 적는다",
+        "on_fail": "표지가 없으면 마지막 문장과 첫 문장을 후보로 잡고, 예시 표지(Even for · for example · 고유명사 · 큰따옴표 인용)가 든 문장은 후보에서 뺀다"
+      },
+      {
+        "step": "4단계에서 적은 두 낱말이 주어부와 서술부에 모두 들어 있는 선지를 고른다. 명령문이 근거인 경우에는 목적어가 앞 문장의 관계절(what we don't feel like doing)에 있으므로 한 문장 더 앞을 붙여 읽는다",
+        "on_fail": "둘 이상 남으면 (a) 양보절(Although)·예시 문장(Even for)에서만 나온 명사를 주어로 삼은 선지, (b) 명사는 맞고 서술어의 영어 대응 표현이 지문에 없는 선지(확립·시급·조언·파악) 순으로 버린다"
+      }
+    ],
+    "failure_modes": [
+      "처방형 선지를 무조건 내린다 — 이 청크의 2014 두 문항은 지문이 명령문으로 끝나고 정답이 처방형이다. 지문의 당위 표현 유무를 먼저 확인하지 않으면 정답을 가장 먼저 지운다",
+      "소재 대조를 완전히 버린다 — 최근 회차 기준으로는 옳은 판단이지만 옛 회차에는 소재가 통째로 다른 채움 오답이 있다(2015#18 ③). 비용 3초짜리 필터를 버릴 이유가 없다",
+      "종속절을 결론으로 읽는다 — 2016#21 은 네 문장 전부가 종속절을 앞세운 복문이고, Although 절(→②)·Since 절(→④)·when 절(→①)이 각각 오답 하나씩과 짝을 이룬다. 주절만 남기지 않으면 오답 셋이 동시에 살아난다",
+      "은유를 은유대로 읽는다 — 2017#20 은 profit·balance sheets·capital·debt 로 덮여 있어 경제·국가 축 선지(②④)가 소재상 맞아 보인다. 회계 낱말을 '자원 사용'으로 환원하지 않으면 축을 잘못 잡는다",
+      "낱말 겹침이 가장 큰 선지를 고른다 — 2014 ④는 3번 문장 causes distress in our relationships 를 거의 그대로 옮기되 원인 자리만 바꾼 것이라, 이 청크에서 지문과 겹침이 가장 크면서 오답이다",
+      "예시 문장의 주어를 요지의 주어로 삼는다 — 2015#18 ①의 '일류 기업'은 Even for 로 열린 양보 예시의 주어이고, 2016#21 ③의 '교육 이론'은 결론 문장 안의 수식 성분이다"
+    ],
+    "time_budget_sec": 75,
+    "open_questions": [
+      "표본이 5(고유 4)뿐이라 '한 문장 확정 3/4'가 옛 회차의 성질인지 이 네 문항의 우연인지 못 가른다. 대안 가설(결론 문장이 완결 등식이면 확정되고 명령문·지시어 주어면 안 된다)을 다음 청크에서 문형별로 세어야 결론이 난다. 세는 법은 정해 두었다 — 결론 문장을 'X is Y 등식' · '명령문' · '지시어 주어' 셋으로 분류하고 각각의 한 문장 확정 비율을 낸다",
+      "요지 지문에 당위 표현이 나오는 것이 옛 회차 고유인지 확인이 필요하다. 이 청크에서 명령문 지문은 2014 하나(A·B형 중복)뿐이고, 그 지문은 구조상 필자 주장(R-CLAIM)과 구별되지 않는다. 요지와 주장을 발문 없이 지문만으로 가를 수 있는지는 R-CLAIM 청크와 교차 대조해야 한다",
+      "2014A#24 와 2014B#23 이 완전 동일 문항이라 코퍼스가 같은 문항을 두 번 센다. 함정 분포·정답률 통계를 낼 때 중복 제거가 필요하고, 다른 유형에도 2014 A/B 공통 문항이 얼마나 있는지 드레인 소유자가 확인할 값이다",
+      "'무관'과 '지문 밖 상식'의 경계가 여기서도 흐렸다. 2015#18 ③은 소재조차 없어 무관으로 두었고 ②는 소재는 있으나 통념을 얹어 지문 밖 상식으로 두었는데, 판단자에 따라 2016#21 ④(연구 시급)가 둘 사이를 오갈 수 있다. 앞 청크(M2706)가 같은 경계 문제를 보고했으므로 라벨 정의에 '소재어 유무'를 기준으로 명시할 것을 제안한다",
+      "반려는 5건 나왔다 — 2017#20 analyst(④ 라벨을 범위 과소에서 주체 역전으로 교체) · 2016#21 tutor(명령문 확인 단계 누락) · 2015#18 setter(근거 문장을 4번에서 8번으로 교체) · 2014B#23 analyst(⑤ 라벨을 무관에서 어휘 함정으로 교체) · 2014A#24 tutor(처방형 선지 일괄 배제 순서가 정답을 지움). 세 페르소나가 서로 다른 것을 잡았다(setter 는 인용의 배제력, analyst 는 라벨 정확도, tutor 는 절차 순서). 다만 tutor 반려 2건이 모두 '처방형 선지 처리 순서'라는 같은 원인이었으므로, 다음 청크에서는 그 점검을 절차 초안 단계에 미리 넣어야 반려가 정보를 갖는다"
+    ]
+  }
+}

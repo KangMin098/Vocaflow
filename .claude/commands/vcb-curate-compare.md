@@ -58,10 +58,24 @@ Reference format guide: `scripts/vcb/data/reference-formats.md`.
 ls exports/vcb-jobs/ | grep -E "^<JOB_SLUG>-enriched(-[0-9]+of[0-9]+)?\.jsonl$"
 ```
 
-Build the **work list**:
-- Include chunks matching `--chunks` filter (if given)
-- **Skip** chunks whose comparison output already exists, UNLESS `--force`:
-  - `<output-dir>/chunk-NNofMM.compare.jsonl`
+Build the **work list** by claiming chunks with the shared tool — do NOT hand-roll
+this. The workspace is shared by concurrent sessions and file-based drains have no
+`SKIP LOCKED` equivalent (measured 2026-08-26 on the `pending_words` fan-out: two
+subagents found another session's output already written into their chunk):
+
+```bash
+node scripts/lib/claim-chunks.mjs --dir exports/vcb-jobs \
+     --in "${JOB_SLUG}-enriched*.jsonl" --done "${JOB_SLUG}-enriched:chunk" \
+     --done '.jsonl:.compare.jsonl' --done-dir <output-dir> \
+     --max <wave-size> [--force]
+```
+
+Spawn **only** what prints as `CLAIM`. `SKIP … 남이-잡음` = another session is on it;
+`SKIP … 이미-완료` = the comparison output already exists. Claims older than 30
+minutes are reclaimed automatically (`STALE`).
+
+Release when the wave ends, **including failed chunks**:
+`node scripts/lib/claim-chunks.mjs --release <chunk paths>`
 
 Print the discovery summary:
 

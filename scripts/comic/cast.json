@@ -1,0 +1,206 @@
+{
+  "_doc": "Character bible — single source of truth across ALL chapters. Chapters sync from here (evaluate.mjs --sync-cast).",
+  "_strategy": "ICONIC TRAIT SILHOUETTE. Each character is lightweight (few clean shapes, reproducible on prompt-only FLUX) yet (a) reflects their novel character/role and (b) is unmistakably distinct for readability. Design on 3 ORTHOGONAL axes so no two characters share the same distinguishing value: (1) SILHOUETTE = build+height, read first at a glance; (2) HEAD = a unique hat/hair signature (the most reproducible tag); (3) TRAIT-MARK = one prop/feature that encodes their defining trait or arc. Plus a default EXPRESSION for temperament. Rule: distinguish by the PRESENCE of a unique signature, never by hairstyle alone or the absence of a feature; keep signatures shape-based (grayscale-readable).",
+  "book": "Mary Shelley, Frankenstein (1818)",
+  "characters": {
+    "victor": {
+      "name": "Victor",
+      "role": "protagonist — brilliant, obsessive, guilt-ridden, sickly",
+      "silhouette": "lean, slightly hunched",
+      "head": "untidy dark hair + round glasses",
+      "trait_mark": "a stained lab apron and dark feverish shadowed eyes (obsession & guilt)",
+      "expression": "anxious, intense",
+      "canonical": "a lean, slightly hunched young man with untidy dark hair, round glasses, dark shadowed feverish eyes, wearing a stained lab apron",
+      "anchor": "round glasses, a stained lab apron and dark shadowed eyes",
+      "consistency": "the ONLY one with round glasses + apron; bare-headed; tired shadowed eyes show his obsession/guilt; never a hat.",
+      "appears_in": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "creature": {
+      "name": "the Creature",
+      "role": "the made being — intelligent, eloquent, desperately lonely, then vengeful",
+      "silhouette": "the tallest, gaunt, looming",
+      "head": "bald with one bold forehead stitch-seam",
+      "trait_mark": "a bolt at the neck and a few heavy seams on the arms (assembled from parts), with deep sorrowful hollow eyes (his tragedy, not mere horror)",
+      "expression": "sorrowful, haunted",
+      "canonical": "a very tall gaunt figure, chalk-white skin, bald head with one bold black stitch-seam across the brow, a bolt at the neck, heavy seams on the arms, deep sorrowful hollow eyes, sharp teeth, ragged shirt",
+      "anchor": "tallest gaunt bald body, a brow stitch-seam, a neck bolt and sorrowful hollow eyes",
+      "consistency": "always the TALLEST, gaunt; bald with a single bold brow seam + neck bolt (made of parts); eyes read as sorrowful, not just scary.",
+      "appears_in": [
+        5,
+        7,
+        10
+      ]
+    },
+    "clerval": {
+      "name": "Clerval",
+      "role": "loyal friend — cheerful, adventurous, poetic dreamer",
+      "silhouette": "upright, buoyant",
+      "head": "a black top hat",
+      "trait_mark": "a long travel scarf and a book of poems tucked under one arm (the wandering poet)",
+      "expression": "bright, cheerful",
+      "canonical": "a cheerful upright young man in a black top hat and a long travel scarf, a book of poems under his arm, bright smiling face",
+      "anchor": "a black top hat, a long scarf and a book under the arm",
+      "consistency": "the ONLY one in a top hat; buoyant and smiling; scarf + book mark the wandering poet.",
+      "appears_in": [
+        2,
+        3,
+        5,
+        6,
+        7
+      ]
+    },
+    "elizabeth": {
+      "name": "Elizabeth",
+      "role": "cousin & beloved — gentle, devoted, the family's moral heart",
+      "silhouette": "graceful, upright",
+      "head": "a white bonnet over a long braid",
+      "trait_mark": "bright fair GOLDEN hair (her defining beauty, all ages), an oval locket at her throat and a shoulder shawl",
+      "expression": "serene, tender",
+      "canonical": "a gentle graceful young woman with bright fair golden hair in a long braid under a white bonnet, an oval locket at her throat and a shoulder shawl",
+      "anchor": "bright fair golden hair, a white bonnet, an oval locket and a shawl",
+      "consistency": "ALWAYS bright fair/golden hair (her defining trait across every age); a bonnet as an adult; braid + shawl; never glasses, never an apron.",
+      "appears_in": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "alphonse": {
+      "name": "Alphonse",
+      "role": "father — wise, loving patriarch and magistrate",
+      "silhouette": "tall but stooped, elderly",
+      "head": "balding grey hair, no hat",
+      "trait_mark": "a long white beard and a walking cane, in a long coat",
+      "expression": "grave, kindly",
+      "canonical": "a tall stooped elderly gentleman, balding grey hair, a long white beard, leaning on a walking cane, in a long coat",
+      "anchor": "a long white beard and a walking cane (elderly, stooped)",
+      "consistency": "the ONLY bearded elder with a cane; stooped; no hat, no gown (distinct from Waldman).",
+      "appears_in": [
+        1,
+        2,
+        3,
+        7,
+        9
+      ]
+    },
+    "ernest": {
+      "name": "Ernest",
+      "role": "younger brother — lively, outdoorsy, not studious",
+      "silhouette": "wiry teenager",
+      "head": "a flat newsboy cap",
+      "trait_mark": "an open-collar shirt, sleeves rolled, an easy outdoorsy stance",
+      "expression": "eager, restless",
+      "canonical": "a wiry teenage boy in a flat newsboy cap, open-collar shirt with rolled sleeves, no glasses, eager restless look",
+      "anchor": "a flat newsboy cap and rolled-sleeve open collar",
+      "consistency": "the ONLY one in a flat cap; a lean teen; no glasses, no apron.",
+      "appears_in": [
+        7
+      ]
+    },
+    "justine": {
+      "name": "Justine",
+      "role": "servant girl — sweet, devoted, tragically wronged",
+      "silhouette": "slight, modest",
+      "head": "a white servant's cap",
+      "trait_mark": "a plain apron-dress and gently clasped hands (humble, devout)",
+      "expression": "sweet, anxious",
+      "canonical": "a slight sweet-faced young servant girl in a white servant's cap and a plain apron-dress, hands gently clasped, anxious gentle face",
+      "anchor": "a white servant's cap and clasped hands",
+      "consistency": "the ONLY one in a small white servant's cap; modest and gentle.",
+      "appears_in": [
+        6,
+        8
+      ]
+    },
+    "william": {
+      "name": "William",
+      "role": "little brother — innocent child, the first victim",
+      "silhouette": "tiny child",
+      "head": "a little sailor cap",
+      "trait_mark": "a sailor collar, dimples, and the same oval locket (links him to Elizabeth and the plot)",
+      "expression": "giggling, innocent",
+      "canonical": "a tiny cherubic boy in a little sailor cap and sailor collar, dimples, wearing an oval locket, giggling",
+      "anchor": "a little sailor cap, sailor collar and an oval locket",
+      "consistency": "the only small child; sailor cap + locket (the locket ties to Elizabeth/the murder plot).",
+      "appears_in": [
+        6
+      ]
+    },
+    "waldman": {
+      "name": "Waldman",
+      "role": "kindly mentor professor — encouraging",
+      "silhouette": "comfortable, upright elder",
+      "head": "bald dome + half-moon spectacles",
+      "trait_mark": "a scholar's gown and a warm open-handed gesture (encouraging)",
+      "expression": "warm, benevolent",
+      "canonical": "a benevolent bald old professor with half-moon spectacles and a scholar's gown, warm open-handed gesture, clean-shaven",
+      "anchor": "a bald head with half-moon spectacles and a scholar's gown",
+      "consistency": "kindly professor: bald + half-moon specs + gown, clean-shaven (distinct from bearded Alphonse and wigged Krempe).",
+      "appears_in": [
+        3,
+        6
+      ]
+    },
+    "krempe": {
+      "name": "Krempe",
+      "role": "gruff professor — dismissive, pompous",
+      "silhouette": "short, squat",
+      "head": "a curly powdered wig",
+      "trait_mark": "a jabbing pointed finger and a permanent scowl (pompous, dismissive)",
+      "expression": "scowling, brusque",
+      "canonical": "a short squat gruff professor in a curly powdered wig, permanent scowl, a jabbing pointed finger",
+      "anchor": "a curly powdered wig, squat build and a jabbing finger",
+      "consistency": "short + squat + powdered wig + scowl (distinct from tall bald professors).",
+      "appears_in": [
+        3,
+        4,
+        6
+      ]
+    },
+    "caroline": {
+      "name": "Caroline",
+      "role": "Victor's mother — devoted daughter, then gentle benevolent mother",
+      "silhouette": "graceful, upright woman",
+      "head": "dark hair in a neat centre-parted bun, no hat",
+      "trait_mark": "a small cross necklace and a high-collar dark dress (devout, careworn tenderness)",
+      "expression": "warm, gently careworn",
+      "canonical": "a graceful woman with dark hair in a neat centre-parted bun, a small cross necklace and a high-collar dark dress, warm careworn face",
+      "anchor": "dark hair in a centre-parted bun, a cross necklace and a high-collar dark dress",
+      "consistency": "the ONLY grown woman with a bun + cross necklace; no bonnet (that is Elizabeth), no servant cap.",
+      "appears_in": [
+        1,
+        3
+      ]
+    },
+    "beaufort": {
+      "name": "Beaufort",
+      "role": "Caroline's father — a proud merchant ruined into poverty, dies",
+      "silhouette": "gaunt, sunken, sickly",
+      "head": "balding grey, no hat, no beard",
+      "trait_mark": "a threadbare once-fine coat and a proud broken bearing (fallen gentleman)",
+      "expression": "proud but despairing",
+      "canonical": "a gaunt sunken balding grey man, clean-shaven, in a threadbare but once-fine coat, a proud broken bearing",
+      "anchor": "gaunt balding grey, clean-shaven, in a threadbare fine coat",
+      "consistency": "gaunt sick fallen gentleman; balding, clean-shaven, no cane (distinct from bearded Alphonse).",
+      "appears_in": [
+        1
+      ]
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "judged_at": "2026-08-30 (2차 — 발행 316권 완료 후 재스캔)",
+  "judged_by": "Claude Code",
+  "criterion": "저장소 기존 결정(slur-not-published.integration.test.ts 주석)과 동일 — 주된 뜻이 집단 멸칭이면 학습 카드에서 뺀다. 경멸 뉘앙스가 있어도 등재된 뜻이 중립이면(chink=좁은 틈) 남긴다. 어느 쪽이든 사전에서 지우지 않는다 — 원문을 읽다 눌렀을 때 뜻은 떠야 한다.",
+  "slurs": [
+    {
+      "surface": "darky",
+      "headword": true,
+      "reason": "흑인 멸칭. 등재 뜻 자체가 '시대 어휘 — 모욕적'."
+    },
+    {
+      "surface": "darkies",
+      "headword": true,
+      "reason": "darky 복수. 등재 뜻이 모욕적이라 명시."
+    },
+    {
+      "surface": "dago",
+      "headword": true,
+      "reason": "이탈리아·스페인·포르투갈인 인종 멸칭. 등재 뜻에 '사용 금지' 명시."
+    },
+    {
+      "surface": "coon",
+      "headword": true,
+      "reason": "등재 뜻이 '너구리'와 '흑인 비하 멸칭'을 병기. raccoon 이 따로 있어 독해상 대체 가능."
+    },
+    {
+      "surface": "coons",
+      "headword": false,
+      "lemma": "coon",
+      "meaning_ko": "너구리들 (raccoon 축약형 coon 의 복수) — 흑인을 비하하는 인종 멸칭으로도 쓰였다. 현재는 쓰지 않는다.",
+      "pos": "noun",
+      "reason": "coon 과 같은 판정. 표면형이 사전에 없어 lemma 로만 판정되던 경로."
+    },
+    {
+      "surface": "slut",
+      "headword": true,
+      "reason": "등재 뜻이 '문란하다고 비난하는 모욕적 호칭'. 주된 뜻이 멸칭."
+    },
+    {
+      "surface": "sluts",
+      "headword": false,
+      "lemma": "slut",
+      "meaning_ko": "slut 의 복수 — 여성을 문란하다고 비난하는 모욕적 호칭(비속어). 현재는 쓰지 않는다.",
+      "pos": "noun",
+      "reason": "slut 과 같은 판정."
+    },
+    {
+      "surface": "trollop",
+      "headword": true,
+      "reason": "여성을 행실로 비하하는 호칭이 주된 뜻."
+    },
+    {
+      "surface": "moron",
+      "headword": true,
+      "reason": "지적장애 옛 의학용어에서 온 멸칭. 등재 뜻에 '(모욕적 표현)' 명시."
+    },
+    {
+      "surface": "morons",
+      "headword": false,
+      "lemma": "moron",
+      "meaning_ko": "moron 의 복수 — 지적장애를 뜻하던 옛 의학용어에서 온 모욕적 표현. 현재는 쓰지 않는다.",
+      "pos": "noun",
+      "reason": "moron 과 같은 판정."
+    },
+    {
+      "surface": "papist",
+      "headword": true,
+      "reason": "가톨릭교도를 낮잡는 종교 집단 멸칭. 등재 뜻에 '경멸적 호칭' 명시."
+    },
+    {
+      "surface": "papists",
+      "headword": false,
+      "lemma": "papist",
+      "meaning_ko": "papist 의 복수 — 가톨릭교도를 낮잡아 부르던 경멸적 호칭(종교개혁기 논쟁 어휘).",
+      "pos": "noun",
+      "reason": "papist 와 같은 판정."
+    },
+    {
+      "surface": "savages",
+      "headword": false,
+      "lemma": "savage",
+      "meaning_ko": "야만인들 (savage 의 복수) — 비서구 민족을 미개하다고 낮잡아 부르던 시대적 멸칭. 형용사 savage(흉포한)와 달리 사람을 가리키는 이 용법은 현재 쓰지 않는다.",
+      "pos": "noun",
+      "reason": "회귀 테스트 SLUR_FORMS 에 명시. lemma savage(흉포한)는 문학 독해에 필요해 그대로 두고 복수 명사형만 뺀다."
+    },
+    {
+      "surface": "retarded",
+      "headword": false,
+      "lemma": "retard",
+      "meaning_ko": "① 지연된, 더디게 된 (retard 의 과거분사) ② (옛 의학용어) 지적장애의 — 사람에게 쓰면 현재는 심한 모욕어라 쓰지 않는다.",
+      "pos": "adjective",
+      "reason": "회귀 테스트 SLUR_FORMS 에 명시. lemma retard(지연시키다)는 학술 문헌에 필요해 그대로 두고 이 형태만 뺀다. 뜻은 두 갈래를 모두 적어 Hume·Cicero 처럼 '지연된'으로 쓰인 원문도 읽히게 한다."
+    },
+    {
+      "surface": "orientals",
+      "headword": false,
+      "lemma": "oriental",
+      "meaning_ko": "동양인들 (oriental 의 복수 명사) — 사람을 가리키는 이 용법은 타자화하는 표현이라 현재 쓰지 않는다. 형용사 oriental(동양의)과 구분된다.",
+      "pos": "noun",
+      "reason": "형용사 oriental(동양의)은 중립이라 남기고, 사람을 가리키는 복수 명사형만 뺀다."
+    },
+    {
+      "surface": "gook",
+      "headword": true,
+      "reason": "등재 뜻이 '(강한 인종 차별어) 동아시아·동남아시아인을 비하하는 멸칭'. 주된 뜻이 멸칭이다. 복수 gooks 는 lemma 가 gook 이라 이 재분류로 함께 걸린다."
+    },
+    {
+      "surface": "kaffir",
+      "headword": true,
+      "reason": "등재 뜻에 '★심각한 모욕어 — 사용 금지' 가 이미 적혀 있었다. 복수 kaffirs 도 lemma 경로로 함께 걸린다."
+    },
+    {
+      "surface": "cretin",
+      "headword": true,
+      "reason": "지적장애를 뜻하던 옛 의학용어에서 온 멸칭. 등재 뜻에 '(모욕적 표현)' 명시 — moron 과 같은 판정."
+    }
+  ],
+  "kept_notes": [
+    "어근 오탐(무관한 낱말): snigger/sniggered/sniggering · chinks/chinked · raccoon · cocoon · tycoon · charlotte · twopence(s) · squawk(ed/ing) · pedagogue/pedagogy/pedagogic(s/al) · infidelity/infidelities · retardation · orientalist · niggard/niggardly/niggardliness(어원이 nigger 와 무관한 고어 '구두쇠')",
+    "문학 독해에 필요해 남긴 것: lunatic(s) · idiot/idiotic(ally) · imbecile(s) · bastard(s)/bastardly · wench(es)/wenching · spinster(s)/spinsterish · effeminate(s/d) · cripple(s)/crippled · dwarf(s/ed/ing/ish) · savage/savagely/savagery/savageness · barbarian(s) · vagabond(s/ing) · beggarly · infidel(s) · aborigine(s) · concubine(s) · eunuch(s) · catamite(s) · oriental/orientally",
+    "다음 판단 필요(이번 기준 밖): niggardly 는 어원상 멸칭과 무관하지만 표면형 오인 위험이 실질적이다. catamite 는 집단 멸칭이 아니라 성적 내용이라 이 기준으로는 걸러지지 않는다. 둘 다 별도 결정 사안.",
+    "2차 재스캔(발행 316권)에서 새로 걸린 24종 중 유지 20: heathens · chinking · retards(동사 3인칭, 등재 뜻 중립) · japonica/jape(s)/japer/japing/japed('jap' 어근 오탐) · pedagogues · cocoons · squawks · idiots · niggarding/niggards · effeminately · wencher · eunuches · savaged · moorish(moor=황야 — 오탐)",
+    "굴절형을 따로 등재해야 하는 것은 lemma 가 중립일 때뿐이다(savage/savages · retard/retarded · oriental/orientals). lemma 자체가 멸칭이면(gook · kaffir · coon · moron · slut · papist) 표제어 재분류만으로 복수형까지 걸린다 — 추출 RPC 가 표면형이 표제어가 아닐 때 lemma 로 내려가기 때문이다."
+  ]
+}

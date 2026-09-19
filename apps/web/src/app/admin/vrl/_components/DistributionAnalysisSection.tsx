@@ -11,12 +11,19 @@
 //   6. Source
 //
 // 데이터: snapshot.raw.categorical (dict_categorical_distributions RPC)
+//
+// ⚠️ 2026-09-05 — 막대 **바로 위** 캡션이 `C2 56.2%` · `noun 66.1% dominant` · `NGSL 31K`
+//   로 고정돼 있었다. 막대는 DB 를 따라 움직이는데 캡션은 안 움직이니, 분포가 바뀐 뒤에도
+//   관리자는 옛 진단을 읽는다(그리고 그 옛 수치를 근거로 결함을 판단한다).
+//   지금 설정에는 **수치가 없다** — 성격 설명(note)만 두고, 최다값·비율·행수는
+//   `distributionCaption()` 이 그 자리의 실데이터에서 만든다.
 
 import { BarChart3 } from 'lucide-react'
 import type {
   DictCategoricalDistributions,
   DictHealthSnapshot,
 } from '@/lib/admin/dict/types'
+import { distributionCaption, distributionFacts } from '@/lib/admin/vrl/derive'
 
 interface DistributionAnalysisSectionProps {
   snapshot: DictHealthSnapshot
@@ -33,7 +40,11 @@ interface ChartConfig {
     | 'by_source'
   >
   label: string
-  description: string
+  /**
+   * 수치가 아닌 성격 설명만 적는다. **여기에 숫자를 쓰지 말 것** — 이 문자열은 DB 를
+   * 따라 움직이지 않는다. 수치는 distributionCaption() 이 실데이터에서 만든다.
+   */
+  note: string
   accent: string
   /** 표시할 최대 항목 수 (나머지는 합산하여 'others') */
   maxItems: number
@@ -48,7 +59,7 @@ const CHARTS: ChartConfig[] = [
   {
     key: 'by_cefr_level',
     label: 'CEFR Distribution',
-    description: '학습자 수준 — C2 56.2% (역피라미드, P2 결함)',
+    note: '상위 등급으로 쏠리면 역피라미드(P2 결함)',
     accent: 'var(--p)',
     maxItems: 6,
     keyOrder: (a, b) =>
@@ -58,7 +69,7 @@ const CHARTS: ChartConfig[] = [
   {
     key: 'by_v_level',
     label: 'VRL V-Level (current)',
-    description: '한국 학습자 12 단계 — V5-V7 peak',
+    note: '한국 학습자 12 단계 — 중간 밴드가 두꺼운 것이 정상',
     accent: '#8B5CF6',
     maxItems: 12,
     keyOrder: NUMERIC_KEY_ORDER,
@@ -66,7 +77,7 @@ const CHARTS: ChartConfig[] = [
   {
     key: 'by_v_level_rule_v1',
     label: 'rule_v1 (Day 3 baseline)',
-    description: 'Round 1-6 reclassification 비교 baseline',
+    note: 'Round 1-6 재분류 비교 baseline (현재 v_level 과 대조)',
     accent: 'var(--t3)',
     maxItems: 12,
     keyOrder: NUMERIC_KEY_ORDER,
@@ -74,21 +85,21 @@ const CHARTS: ChartConfig[] = [
   {
     key: 'by_primary_pos',
     label: 'Primary POS',
-    description: 'noun 66.1% dominant (P2 결함)',
+    note: '한 품사가 지나치게 지배하면 P2 결함',
     accent: 'var(--active)',
     maxItems: 7,
   },
   {
     key: 'by_frequency_band',
     label: 'Frequency Band',
-    description: 'NGSL 31K — phrase/compound 포함',
+    note: 'NGSL 밴드 — phrase/compound 포함',
     accent: 'var(--info)',
     maxItems: 8,
   },
   {
     key: 'by_source',
     label: 'Source',
-    description: 'imported / ai-generated / kice-orphan',
+    note: 'imported / ai-generated / kice-orphan 등 적재 경로',
     accent: 'var(--success)',
     maxItems: 5,
   },
@@ -103,10 +114,10 @@ export function DistributionAnalysisSection({
   if (!categorical) {
     return (
       <section
-        className="flex items-center gap-2.5 rounded-[var(--r-xl)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-5"
+        className="flex items-center gap-3 rounded-[var(--r-xl)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-5"
         aria-label="distribution analysis unavailable"
       >
-        <BarChart3 size={18} className="text-[var(--t3)]" aria-hidden />
+        <BarChart3 size={18} className="text-[var(--t2)]" aria-hidden />
         <p className="font-body text-[12px] text-[var(--t2)]">
           dict_categorical_distributions RPC 결과 없음 — Distribution Analysis 표시 불가.
         </p>
@@ -117,7 +128,7 @@ export function DistributionAnalysisSection({
   return (
     <section aria-label="Distribution Analysis" className="flex flex-col gap-4">
       {/* ── 섹션 헤더 ── */}
-      <header className="flex items-center gap-2.5">
+      <header className="flex items-center gap-3">
         <span
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
           style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -129,7 +140,7 @@ export function DistributionAnalysisSection({
           <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
             Distribution Analysis
           </h2>
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             6 차원 분포 — Critical Defects P2 evidence + 학습자 분포 통찰
           </p>
         </div>
@@ -160,11 +171,28 @@ function DistributionChart({
   total,
 }: {
   cfg: ChartConfig
-  data: Record<string, number>
+  /**
+   * ⚠️ **`null` 이 올 수 있다.** 타입은 `Record<string, number>` 라고 말하지만 거짓말이었다.
+   *
+   * RPC 본문의 `jsonb_object_agg` 는 **그룹이 0행이면 SQL NULL** 을 돌려준다.
+   * 그래서 다음 두 경우에 이 자리가 통째로 null 이 된다:
+   *   ① 그 컬럼에 비-NULL 값이 하나도 없을 때 (정상적으로 가능하다)
+   *   ② 호출자 역할이 RLS 로 0행을 보게 될 때 — **dev admin 우회가 정확히 이 경우다.**
+   *      우회는 합성 admin 이라 실제 Supabase 세션이 없어 `anon` 으로 질의하는데,
+   *      `shared_dictionary` 의 정책은 `authenticated`·`service_role` 뿐이고
+   *      **`anon` 정책이 없다** → 7개 집계 전부 NULL.
+   *
+   * 2026-08-27 이전에는 이 크래시가 **숨어 있었다.** RPC 가 7회 전체 스캔이라 anon 의
+   * `statement_timeout=3s` 를 넘겨 **항상 먼저 죽었고**, 상위 `!categorical` 가드가
+   * 그것을 받아 빈 상태를 그렸다. RPC 를 1회 스캔으로 고쳐 성공하기 시작하자
+   * `Object.entries(null)` 로 터졌다 — 성능 수정이 **가려져 있던 결함을 드러낸 것**이다.
+   */
+  data: Record<string, number> | null | undefined
   total: number
 }) {
   const sortedEntries = (() => {
-    const entries = Object.entries(data)
+    // 없는 분포를 0개 항목으로 다룬다 — 화면 전체를 에러 경계로 떨어뜨리지 않는다.
+    const entries = Object.entries(data ?? {})
     if (cfg.keyOrder) {
       return entries.sort(([a], [b]) => cfg.keyOrder!(a, b))
     }
@@ -183,6 +211,9 @@ function DistributionChart({
   const maxCount = display.reduce((m, [, n]) => Math.max(m, n), 0)
   const sumCount = display.reduce((s, [, n]) => s + n, 0)
 
+  // 캡션은 **이 자리의 실데이터**에서 만든다 — 'others' 로 접기 전 원본을 쓴다.
+  const caption = distributionCaption(distributionFacts(data), cfg.note)
+
   return (
     <article
       className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]"
@@ -192,10 +223,21 @@ function DistributionChart({
         <h3 className="font-display text-[12px] font-[700] text-[var(--t1)]">
           {cfg.label}
         </h3>
-        <p className="font-body text-[10px] text-[var(--t3)]">{cfg.description}</p>
+        <p className="font-body text-[10px] text-[var(--t2)]">{caption}</p>
       </header>
 
-      <ul className="flex flex-col gap-1.5" aria-label={`${cfg.label} bars`}>
+      {/*
+        빈 차트를 **말없이** 그리지 않는다. 막대가 0개인 상자는 "분포가 균일하다" 로도
+        "데이터가 없다" 로도 읽혀서, 관리자가 어느 쪽인지 알 수 없다.
+        분포 자체가 없으면(= RPC 가 그 키에 null 을 준 경우) 그렇다고 적는다.
+      */}
+      {display.length === 0 ? (
+        <p className="font-body text-[11px] text-[var(--t2)]">
+          이 분포는 비어 있어요 — 해당 값을 가진 낱말이 없거나, 지금 계정 권한으로는 사전 행이
+          보이지 않습니다.
+        </p>
+      ) : (
+      <ul className="flex flex-col gap-2" aria-label={`${cfg.label} bars`}>
         {display.map(([k, n]) => {
           const pct = maxCount > 0 ? (n / maxCount) * 100 : 0
           const sharePct = sumCount > 0 ? ((n / sumCount) * 100).toFixed(1) : '0.0'
@@ -217,16 +259,17 @@ function DistributionChart({
                   aria-hidden
                 />
               </div>
-              <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+              <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">
                 {n.toLocaleString()}
-                <span className="ml-1 text-[var(--t4)]">({sharePct}%)</span>
+                <span className="ml-1 text-[var(--t2)]">({sharePct}%)</span>
               </span>
             </li>
           )
         })}
       </ul>
+      )}
 
-      <footer className="border-t border-[var(--bd)] pt-1.5 font-mono text-[9px] text-[var(--t3)]">
+      <footer className="border-t border-[var(--bd)] pt-2 font-mono text-[9px] text-[var(--t2)]">
         sum: {sumCount.toLocaleString()} / total {total.toLocaleString()}
       </footer>
     </article>

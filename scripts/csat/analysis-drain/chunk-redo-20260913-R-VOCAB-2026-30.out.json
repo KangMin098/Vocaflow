@@ -1,0 +1,722 @@
+{
+  "chunk": 1,
+  "type_id": "R-VOCAB",
+  "type_name": "어휘(문맥)",
+  "analyses": [
+    {
+      "item_id": "2026#30",
+      "measured_ability": "목적을 나타내는 to부정사가 앞 동사구의 이해관계와 같은 부호(+/−)여야 한다는 것을 보고, 밑줄 낱말의 극성이 그 부호와 맞는지 판정하는 능력",
+      "design_intent": "상황윤리 글에서 '규칙을 피해 최대한 많은 행동을 하려 한다'는 행위의 목적절 하나만 부호를 뒤집어 놓았다. 나머지 넷(absolute·justifies·keep playing·concern)은 친선 경기와 심판 있는 경기의 사례 대조에서 곧바로 확인되지만, 마지막 to부정사만은 문장 안에서 수단-목적 관계를 스스로 계산해야 한다.",
+      "answer_locus": {
+        "sentence_index": [8],
+        "quote": "trying to get away with as many actions on the field or court as possible to ⑤ abandon competitive advantages",
+        "reasoning": "to부정사는 바로 앞 'get away with as many actions ... as possible'(들키지 않고 최대한 많은 행동을 하기)의 목적을 받는다. 규칙을 피해 행동 범위를 늘리는 쪽이 노리는 것은 경쟁상의 이익이므로 목적절은 +부호여야 하는데, 밑줄은 그 이익을 버린다(−)고 적는다. 같은 단락 앞 문장이 '이기는 것이 경쟁자에 대한 배려보다 중요하다'로 이익 추구를 이미 못 박아, 목적절의 부호가 +임이 문장 밖에서도 확인된다."
+      },
+      "choices": [
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "근거의 'trying to get away with as many actions ... as possible' 이 목적 to부정사에 요구하는 부호는 +(이익을 얻는다)인데, 선지 ⑤ 'abandon competitive advantages' 의 abandon 은 −(버린다)여서 수단과 목적이 서로 부딪친다. gain/secure 로 바꾸면 앞 문장의 'the end goal of winning is more important' 와 부호가 같아진다.",
+          "confirmed_at": {
+            "sentence_index": [7, 8],
+            "note": "7번 문장(이기는 것이 더 중요하다)이 부호를 +로 고정하고, 8번 문장 자신의 수단-목적 구조가 그 부호를 그대로 요구한다. 5·6번의 친선 경기 사례는 반대 부호의 사례라 여기서는 확정력이 없다"
+          }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "상식 선점",
+          "why_tempting": "'윤리 이론의 지지자'가 'absolute moral standards' 를 'casting aside'(내던지기) 한다는 조합이 윤리라면 절대 기준을 지킬 것이라는 상식과 충돌해, relative 같은 낱말로 바꾸고 싶어진다.",
+          "how_to_reject": "바로 다음 문장 'In the absence of a universal standard or law' 가 보편 기준의 부재를 그대로 되풀이한다. 첫 문장의 'takes into account the context' 도 같은 방향이므로 내던지는 대상이 absolute 인 것이 맞다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "관용구 의존",
+          "why_tempting": "'the end justifies the means' 는 굳은 표현이어서 문장 안 논리를 확인하지 않고 지나치거나, 반대로 외운 형태와 순서가 다른지 의심하게 된다.",
+          "how_to_reject": "같은 문장 앞부분 'what matters is the outcome or consequences; so,' 가 결과 우선을 선언하고 so 로 귀결을 잇는다. 결과(the end)가 수단을 정당화한다는 방향이 세미콜론 앞 절에서 이미 정해진다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "대조 축 혼동",
+          "why_tempting": "파울을 스스로 선언하면 경기가 끊기므로 '계속 경기하기'가 아니라 stop playing 쪽이 결과처럼 느껴진다. 뒤에 나오는 심판 있는 경기(위반을 인정하지 않는 쪽) 사례와 축을 헷갈리면 이 사례의 동기도 부정적으로 읽힌다.",
+          "how_to_reject": "밑줄 앞 'Caring about one's friends and maybe getting to' 가 동기를 +부호로 묶어 두었고, 같은 사례 문장 'everyone is expected to call his or her own fouls' 는 그 집단에 계속 끼기 위한 행동임을 말한다. 부정 사례는 다음 문장의 'But, once an organized game' 부터 시작한다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "비교급 기준 오판",
+          "why_tempting": "'will not admit to the same fouls' 라는 부정 서술 뒤라서 expressing 의 목적어도 부정어(contempt 류)여야 할 것처럼 보인다. more important than 의 비교 기준이 '무엇보다 덜 중요해졌는가'임을 놓치면 밑줄 낱말의 부호를 뒤집어 읽는다.",
+          "how_to_reject": "than 뒤는 이기는 것에 밀려난 쪽이므로 +부호여야 한다. 앞 문장 'Caring about one's friends' 가 바로 그 밀려난 항목이고, ④는 그것을 competitors 로 옮겨 되풀이한 자리다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯 개의 밑줄 낱말만 먼저 종이에 적고, 각 낱말이 든 문장을 하나씩 떼어 읽는다 (앞뒤 문장은 아직 보지 않는다)",
+          "on_fail": "밑줄 낱말이 명사구면 그 구를 지배하는 동사까지 함께 적는다 — 판정 단위는 낱말이 아니라 '동사+목적어' 다"
+        },
+        {
+          "step": "떼어 읽은 문장 안에서 부호를 지정하는 구조 표지를 표시한다 — 목적 to부정사, so, more ~ than, 부정어(not), 세미콜론·콜론",
+          "on_fail": "표지가 없으면 그 문장은 보류로 두고 다음 밑줄로 넘어간다 (다섯 개를 한 번에 정하려 하지 않는다)"
+        },
+        {
+          "step": "표지가 요구하는 부호를 +/− 로 먼저 적고, 그다음에 밑줄 낱말의 부호를 적어 두 부호가 어긋나는 것만 남긴다",
+          "on_fail": "낱말의 부호가 애매하면 사전적 뜻 대신 '이 낱말이 행위자에게 이익인가 손해인가'로 정한다"
+        },
+        {
+          "step": "보류로 둔 문장은 앞뒤 문장의 접속어(But · so · 사례 도입부)를 보고 그 문장이 친선 경기 쪽 사례인지 심판 있는 경기 쪽 사례인지 표시한 뒤, 같은 쪽 사례끼리 부호가 같은지 대조한다",
+          "on_fail": "어느 쪽 사례인지 안 갈리면 But 이 나온 위치를 경계선으로 삼는다"
+        },
+        {
+          "step": "부호가 어긋난 낱말 자리에 반대말을 넣어 그 문장만 다시 읽는다 — 반대말이 들어맞으면 그것이 답이다",
+          "on_fail": "반대말을 넣어도 어색하면 남은 후보로 같은 검사를 반복한다"
+        }
+      ],
+      "time_budget_sec": 105,
+      "difficulty": {
+        "predicted": 0.7,
+        "drivers": [
+          "정답이 마지막 문장에 있어 시간에 쫓기면 못 본다",
+          "판정 근거가 목적 to부정사 하나뿐이라 구조를 보면 짧게 끝난다",
+          "나머지 넷이 모두 사례 대조로 확인되어 후보가 잘 좁혀진다"
+        ]
+      },
+      "required_vocab": ["get away with", "abandon", "competitive advantages", "justifies the means", "casting aside"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 에 밑줄 기호 ⑤ 가 포함되지만 지문 문자열과 동일하다",
+            "why_correct 의 대응이 abandon(−) ↔ get away with as many actions as possible(+) 로 낱말 단위에서 성립한다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 의 2026#30 passage 와 문자열 대조",
+            "why_correct 안의 'abandon competitive advantages' 가 코퍼스 선지 5 문자열에 있는지 대조",
+            "R-VOCAB 정의(밑줄 문장 자신의 종속 구조가 극성을 고정) 대조 — 목적 to부정사가 그 구조에 해당"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초판에서 ③과 ④에 모두 '대조 축 혼동' 을 달아 라벨이 겹쳤다 — ④는 than 의 비교 기준을 잘못 잡는 함정이므로 '비교급 기준 오판' 으로 고쳤다 (revised)",
+            "네 오답의 함정이 상식 선점 · 관용구 의존 · 대조 축 혼동 · 비교급 기준 오판 4종으로 갈린다"
+          ],
+          "checked": [
+            "오답 4개의 trap 라벨 중복 여부 확인",
+            "why_tempting 이 각 선지의 실제 밑줄 낱말(absolute · justifies · keep playing · concern)에 근거하는지 확인",
+            "how_to_reject 4개에 위치 표현(다음 문장 · 같은 문장 앞부분 · 밑줄 앞 · than 뒤)이 있는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계가 '밑줄 낱말만 적고 앞뒤는 보지 않는다' 로 시작해 지문을 안 본 학생도 실행할 수 있다",
+            "5단계 × 20초면 105초 안에 끝난다"
+          ],
+          "checked": [
+            "solve_procedure 5단계를 금지 표현 목록(흐름을 파악하면 · 문맥을 파악한다 등)과 대조",
+            "각 단계가 정답을 전제하지 않는지 확인 — 사례 경계선(But)까지만 지시한다",
+            "required_vocab 5개가 정답 판정에 실제로 쓰이는 표현인지 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2506#30",
+      "measured_ability": "접속 부사(Consequently · Thus · Alternatively)로 이어진 단락에서, 접속어가 없는 독립 문장의 서술어 부호를 앞 결론과 뒤 대조 문장으로부터 역산하는 능력",
+      "design_intent": "자율성 지지와 외적 통제를 대비한 글에서, 오직 '외적 통제의 두드러짐' 을 주어로 한 한 문장만 부호를 뒤집어 놓았다. 그 문장은 접속 부사가 없고 길이도 짧아 앞 단락의 결론을 스스로 이어 붙여야 하며, 바로 다음 문장이 Alternatively 로 반대 사례를 열기 때문에 짝지어 읽지 않으면 그냥 요약문처럼 지나간다.",
+      "answer_locus": {
+        "sentence_index": [5, 7],
+        "quote": "the person does not ③ develop a value or investment in the behaviors, but instead remains dependent on external controls",
+        "reasoning": "이 문장이 외적 통제의 귀결을 '자신의 가치를 기르지 못하고 외적 통제에 계속 의존한다'로 못 박는다. 자기책임(self-responsibility)은 바로 이 '스스로의 가치·투자' 쪽에 속하므로, 같은 인과의 주어인 The salience of external controls 가 취할 서술어는 −부호여야 한다. 뒤이어 Alternatively 가 여는 문장이 '외적 유인을 최소로 쓰는 부모가 자발성을 기른다'로 +부호를 반대편에 배치하는 것도 같은 배치를 확인해 준다."
+      },
+      "choices": [
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "근거의 'does not develop a value or investment' 와 'remains dependent on external controls' 가 외적 통제의 귀결을 −부호로 고정했는데, 선지 ④ 'drives the acquisition of self-responsibility' 는 같은 주어에 +부호(촉진)를 붙인다. undermines/thwarts 로 바꾸면 직전 문장의 '보상·강요로 시킨 아이는 보상받을 때만 한다' 와 부호가 일치하고, 다음 문장 Alternatively 의 대조도 성립한다.",
+          "confirmed_at": {
+            "sentence_index": [6, 8],
+            "note": "6번 문장(보상·강요로 키운 아이)이 −부호 사례, 8번 문장(Alternatively 로 열리는 최소 유인 부모)이 +부호 사례다. 두 사례 사이에 끼인 7번이 +부호일 수 없다"
+          }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "비교급 기준 오판",
+          "why_tempting": "'salient rewards and punishments' 는 행동을 실제로 잘 끌어내는 수단이라는 상식이 있어 least 대신 most 를 넣고 싶어진다. likely 의 비교 대상이 '행동을 만드는 것' 이 아니라 '활동을 자기 것으로 여기게 하는 것' 임을 놓치면 최상급 방향을 반대로 잡는다.",
+          "how_to_reject": "같은 문장 뒷부분 'to lead people to value activities as their own' 이 비교 기준이고, 1번 문장 'Internalization depends on supports for autonomy' 가 통제 전략은 그 기준에서 불리하다고 미리 밝혔다. 5번 문장의 'does not develop a value' 도 같은 방향이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "극성 반전 착시",
+          "why_tempting": "'This is not to say that controls don't work' 는 부정이 두 겹(not to say + don't)이어서 어느 쪽이 긍정인지 뒤집혀 보이고, 앞 문장이 통제를 깎았으므로 work 도 부정어로 바꿔야 할 것처럼 느껴진다.",
+          "how_to_reject": "같은 문장 뒤쪽 'decades of operant psychology prove that they can' 의 can 이 앞의 동사구를 그대로 받는다 — 조작적 심리학이 증명한 것은 '통제가 행동을 만들어 낸다' 는 쪽이다. 다음 문장이 'It is rather that' 으로 양보 뒤의 본론을 여는 것도 2번이 양보임을 보여 준다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "대조 축 혼동",
+          "why_tempting": "앞에 does not 이 있고 뒤에 but instead 가 있어 부정·대조가 겹치므로, develop 대신 lose 처럼 −부호 낱말을 넣어야 문장이 맞을 것처럼 보인다.",
+          "how_to_reject": "but instead 가 잇는 두 항이 '자기 안의 가치' 대 '외적 통제에 대한 의존' 이다. 뒤 항이 external controls 쪽이므로 앞 항은 내면화 쪽(+부호)이어야 하고, does not 이 이미 부정을 담당한다. 2번 문장의 'value activities as their own' 이 같은 항의 앞선 표현이다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "상식 선점",
+          "why_tempting": "유인(incentives)은 많을수록 아이를 움직인다는 상식 때문에, 좋은 결과(자발성을 기른다)를 낳는 부모가 유인을 '최소' 로 쓴다는 조합이 어긋나 보인다. Alternatively 뒤라서 앞 문장과 반대라는 것만 잡고 minimum 을 maximum 으로 고치고 싶어진다.",
+          "how_to_reject": "같은 문장의 나머지 두 항 'supply reasons' 와 'show an emotional understanding' 이 모두 통제가 아닌 지지 쪽이므로 셋째 항도 통제를 줄이는 쪽이어야 한다. 2번 문장이 'salient rewards and punishments' 를 least likely 로 못 박은 것과도 같은 방향이다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "지문을 읽기 전에 첫 문장 하나만 읽고 이 글이 밀고 있는 쪽을 +로, 그 반대쪽을 −로 정해 종이에 두 칸을 만든다",
+          "on_fail": "첫 문장이 정의문이라 방향이 안 보이면 마지막 문장을 읽어 +칸을 정한다"
+        },
+        {
+          "step": "각 밑줄 낱말이 든 문장의 주어를 적고, 그 주어가 +칸인지 −칸인지 분류한다",
+          "on_fail": "주어가 대명사(the person · they)면 직전 문장의 명사구로 바꿔 적는다"
+        },
+        {
+          "step": "주어가 −칸이면 서술어도 −부호여야 하므로, 밑줄 낱말이 그 칸과 같은 부호인지 대조한다 (부정어 not 이 문장에 있으면 부호를 한 번 뒤집어 센다)",
+          "on_fail": "not 이 몇 겹인지 헷갈리면 부정어를 지우고 뜻을 적은 다음 지운 개수만큼 부호를 뒤집는다"
+        },
+        {
+          "step": "접속 부사(Consequently · Thus · Alternatively · It is rather that)가 붙은 문장은 앞 문장의 부호를 그대로 물려받는지, 뒤집는지 표시해 둔 뒤 접속 부사가 없는 문장을 따로 모은다 — 그 문장이 앞뒤 어느 쪽 부호에도 안 맞으면 답이다",
+          "on_fail": "접속 부사 없는 문장이 둘 이상이면 각각에 반대말을 넣고 바로 앞 문장과 이어 읽는다"
+        },
+        {
+          "step": "고른 낱말 자리에 반대말을 넣어 앞 문장과 다음 문장을 함께 읽고, 다음 문장의 대조 표지(Alternatively)가 제자리를 찾는지 확인한다",
+          "on_fail": "대조 표지가 여전히 어색하면 남은 후보로 같은 검사를 반복한다"
+        }
+      ],
+      "time_budget_sec": 110,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "3점 문항 · 자기결정성 이론 용어(internalization · introjected · salience)가 추상적이다",
+          "정답 문장이 짧고 접속 부사가 없어 요약문처럼 보인다",
+          "부정어가 겹친 오답 ②가 정답 후보로 오래 남는다"
+        ]
+      },
+      "required_vocab": ["salience", "drives", "acquisition", "self-responsibility", "cajole"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 밑줄 ③을 품은 문장이지만 정답 ④의 근거로 쓰인 것이다 — 같은 인과의 귀결을 못 박은 자리이므로 유형 정의에 어긋나지 않는다",
+            "why_correct 가 'drives the acquisition of self-responsibility' 를 그대로 인용해 대응이 낱말 단위로 확인된다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 의 M2506#30 passage 와 문자열 대조",
+            "why_correct 안의 선지 4 표현을 코퍼스 선지 문자열과 대조",
+            "정답 번호 4 를 코퍼스 answer 와 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초판에서 ⑤의 how_to_reject 가 '상식과 다르다' 로만 적혀 위치가 없었다 — 같은 문장의 나머지 두 항(supply reasons · show an emotional understanding)과 2번 문장을 지목하도록 고쳤다 (revised)",
+            "오답 4개가 비교급 기준 오판 · 극성 반전 착시 · 대조 축 혼동 · 상식 선점 4종으로 갈린다"
+          ],
+          "checked": [
+            "오답 4개의 trap 라벨 중복 여부 확인",
+            "how_to_reject 4개에 문장 번호 또는 영어 인용이 있는지 확인",
+            "why_tempting 이 실제 밑줄 낱말(least · work · develop · minimum)에 근거하는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계에서 두 칸(+/−)을 먼저 만드는 절차가 이 글처럼 대비 구조인 지문에 그대로 통한다",
+            "3단계의 '부정어 개수만큼 부호를 뒤집는다' 가 오답 ②를 빠르게 처리한다"
+          ],
+          "checked": [
+            "solve_procedure 5단계를 금지 표현 목록과 대조",
+            "각 단계가 밑줄 위치만 알고도 실행 가능한지 확인",
+            "time_budget 110초 안에 5단계가 끝나는지 단계별 배분 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2020#30",
+      "measured_ability": "명령문에서 주절이 지시하는 행위로부터 Before 절이 가리켜야 하는 행위를 역산해, 밑줄 동사가 그 자리에 맞는지 판정하는 능력",
+      "design_intent": "거짓 선택의 오류를 설명하는 글에서, 앞선 예시(Paula)가 '남은 하나를 결론으로 삼는' 추론임을 충분히 깔아 둔 뒤 Before 절의 동사만 그 반대로 바꿨다. 나머지 넷(establish · consistent · unsatisfactory · sensible)은 예시와 일반화의 대응으로 검증되지만 ④만은 같은 문장 주절과의 관계로 정해지고, 논리학 어휘가 많아 학습자가 낱말의 어려움 쪽으로 시선을 빼앗기게 설계돼 있다.",
+      "answer_locus": {
+        "sentence_index": [5, 6],
+        "quote": "consider whether other plausible options are being ignored or overlooked",
+        "reasoning": "주절의 명령은 '다른 그럴듯한 선택지가 무시되고 있는지 살펴라' 다. 이 경고가 필요한 시점은 남은 설명 하나를 옳다고 받아들이려는 순간이므로, Before 절에는 '남은 설명을 정답으로 삼는' 행위가 와야 한다. 밑줄은 그 반대(부정하기)를 적어, 남은 하나를 부정하기 전에 다른 선택지를 살피라는 뜻이 되어 앞 문장 'all but one of those explanations are unsatisfactory' 로 좁혀 온 상황과 어긋난다."
+      },
+      "choices": [
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "근거인 주절 'consider whether other plausible options are being ignored or overlooked' 는 결론을 서두르지 말라는 경고인데, 선지 ④ 'denying that the remaining explanation is the correct one' 은 그 결론을 이미 물리는 행위다. concluding/accepting 으로 바꾸면 2번 문장의 'we will conclude that Paula is afraid of spiders' 와 같은 행위를 가리켜 경고의 대상이 맞아떨어진다.",
+          "confirmed_at": {
+            "sentence_index": [6],
+            "note": "같은 문장 주절에서 확정된다. 7번 문장(exhaust the sensible alternatives)은 오류의 정체를 밝히지만 Before 절의 동사 방향까지 정하지는 않는다"
+          }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "논증 단계 오판",
+          "why_tempting": "뒤따르는 내용이 'she is not afraid of snakes' 라는 부정 사실이라, 긍정적으로 입증한다는 뜻의 establish 가 어색해 보인다. 이 글이 오류를 다루는 글이니 전제도 가정(assume)에 불과할 것이라고 낮춰 읽게 된다.",
+          "how_to_reject": "같은 문장 끝 'we will conclude that Paula is afraid of spiders' 가 결론을 낳으려면 둘째 전제가 확정돼야 한다. 3번 문장 'our conclusion is reasonable only if' 도 의심의 대상을 결론 쪽에 두고 전제는 주어진 것으로 둔다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "반박 문맥 과잉 적용",
+          "why_tempting": "글 전체가 잘못된 추론을 반박하므로 밑줄 낱말도 부정어(inconsistent · irrelevant)여야 할 것처럼 보인다. entirely 라는 강조 부사가 붙어 있어 부정 방향이 더 그럴듯해진다.",
+          "how_to_reject": "같은 문장이 말하는 것은 '뱀이 무섭지 않다' 는 사실과 '높은 곳·물·개·13이 무섭다' 가 양립한다는 것이다. 3번 문장 'only if Paula's fear really does concern either snakes or spiders' 가 그 양립을 가능하게 만드는 조건을 앞서 밝힌다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "극성 반전 착시",
+          "why_tempting": "바로 앞의 persuaded 가 긍정적인 낱말이어서 뒤에 오는 보어도 긍정어(convincing · satisfactory)여야 할 듯 보인다. all but one 을 '하나만 빼고 전부' 가 아니라 '전부 아닌 하나' 로 잘못 세면 부호가 뒤집힌다.",
+          "how_to_reject": "같은 문장 뒤쪽 'we should pause to reflect' 가 성립하려면 나머지가 이미 배제된 상태여야 한다. 2번 문장의 Paula 예시에서 뱀이 배제되고 거미 하나가 남는 구조가 이 일반화의 원형이다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "되받는 표현 오판",
+          "why_tempting": "exhaust(다 써 버린다)가 부정적으로 느껴져 목적어도 부정어(senseless · impossible)여야 할 것처럼 보인다. 이 문장이 앞 문장의 어느 표현을 되받는지 보지 않으면 낱말 어감만 남는다.",
+          "how_to_reject": "6번 문장의 'other plausible options' 가 이 자리에서 sensible alternatives 로 되받아진다 — 무시되고 있는 것이 곧 '그럴듯한·합당한' 선택지다. 각주가 plausible 을 '그럴듯한' 으로 풀어 준 것도 같은 짝을 가리킨다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 낱말이 든 문장이 명령문·조건문·비교문인지 먼저 표시한다 — 이 세 구조는 문장 안에서 부호가 정해지므로 먼저 처리한다",
+          "on_fail": "구조가 안 잡히면 문장의 주동사를 찾아 그 문장이 사실 진술인지 지시인지만 적는다"
+        },
+        {
+          "step": "명령문이면 주절의 명령이 무엇을 하라는 것인지 우리말로 한 줄 적고, Before·After·Unless 절이 가리켜야 하는 행위를 그 명령에서 거꾸로 세운다",
+          "on_fail": "역산이 안 되면 명령의 반대 상황(경고가 필요 없는 상황)을 적어 보고 Before 절이 그 반대 상황을 여는지 본다"
+        },
+        {
+          "step": "예시가 앞에 있는 일반화 문장이면 예시의 대응 성분을 짝지어 적는다 (여기서는 뱀·거미가 alternative explanations 에 대응한다)",
+          "on_fail": "대응이 안 잡히면 예시에서 '배제된 것' 과 '남은 것' 이 각각 무엇인지만 표시한다"
+        },
+        {
+          "step": "마지막 문장이 앞 문장의 어느 표현을 다른 낱말로 되받는지 선을 그어 둔다 — 되받는 자리는 부호가 같아야 한다",
+          "on_fail": "되받는 짝이 안 보이면 각주로 풀이된 낱말을 단서로 삼는다"
+        },
+        {
+          "step": "부호가 어긋난 한 자리에 반대말을 넣어 그 문장만 다시 읽고, 주절의 명령과 앞뒤가 맞는지 확인한다",
+          "on_fail": "여전히 후보가 둘이면 예시 문장에서 확인되는 쪽을 살리고 남은 하나를 답으로 한다"
+        }
+      ],
+      "time_budget_sec": 110,
+      "difficulty": {
+        "predicted": 0.5,
+        "drivers": [
+          "3점 문항 · 논리학 어휘(establish · consistent · exhaust · fallacy)가 밑줄 다섯 자리에 몰려 있다",
+          "정답이 부정어 denying 이라 반박하는 글이라는 인상과 맞아떨어져 그대로 넘어가기 쉽다",
+          "판정이 Before 절과 주절의 관계 하나로만 정해진다"
+        ]
+      },
+      "required_vocab": ["denying", "exhaust", "plausible", "unsatisfactory", "consistent"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "초판 quote 는 'we should pause to reflect' 였다 — 그 자리는 ③의 근거일 뿐 ④의 방향을 정하지 못하므로, 주절 'consider whether other plausible options are being ignored or overlooked' 로 바꿨다 (revised)",
+            "why_correct 가 선지 ④의 표현을 그대로 인용해 대응이 성립한다"
+          ],
+          "checked": [
+            "바꾼 quote 를 corpus.json 의 2020#30 passage 와 문자열 대조",
+            "why_correct 안의 'denying that the remaining explanation is the correct one' 을 코퍼스 선지 4 와 대조",
+            "R-VOCAB 정의 대조 — 정답이 같은 문장 주절에서 닫힌다"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개가 논증 단계 오판 · 반박 문맥 과잉 적용 · 극성 반전 착시 · 되받는 표현 오판 4종으로 갈린다",
+            "②와 ③이 모두 '부정어를 기대한다' 는 심리를 공유하지만, ②는 글 전체 논조에서, ③은 바로 앞 낱말 persuaded 에서 온다는 점이 달라 라벨을 분리했다"
+          ],
+          "checked": [
+            "오답 4개의 trap 라벨 중복 여부 확인",
+            "how_to_reject 4개에 문장 번호 또는 영어 인용이 있는지 확인",
+            "⑤의 배제 근거가 6번 문장 'other plausible options' 와 실제로 짝지어지는지 코퍼스 문자열로 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 '주절에서 거꾸로 세운다' 가 이 문항의 핵심 조작을 그대로 겨냥한다",
+            "논리학 어휘가 많아 110초를 배정했고, 3점 배점에 맞는다"
+          ],
+          "checked": [
+            "solve_procedure 5단계를 금지 표현 목록과 대조",
+            "1·2단계가 정답 위치를 모르는 상태에서 실행 가능한지 확인",
+            "required_vocab 5개가 밑줄 낱말 판정에 직접 쓰이는지 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2006#30",
+      "measured_ability": "첫 문장이 세운 인과의 방향(불신 → 자기 성찰의 동기)을 뒤 문장의 결과절에 이어 붙여, 결과절 동사의 부호가 그 방향과 맞는지 판정하는 능력",
+      "design_intent": "불신의 두 얼굴 — 성찰의 계기가 되는 경우와 정체성을 훼손하는 경우 — 을 전반부·후반부로 나눈 글에서, 전반부의 긍정적 귀결 자리 하나만 금지 동사로 바꿨다. 후반부가 suspicious · distrustful · deceit · betrayal 로 온통 부정어라 학습자는 부정어를 이 글의 기본 색으로 받아들이고, 그래서 전반부에서만 요구되는 +부호를 놓치게 된다.",
+      "answer_locus": {
+        "sentence_index": [1, 3],
+        "quote": "Sometimes the awareness that one is distrusted can provide the necessary incentive for self-reflection.",
+        "reasoning": "첫 문장이 '불신을 자각하는 것이 자기 성찰의 동기가 될 수 있다'로 전반부의 인과를 +부호로 정해 놓았다. 3번 문장은 might then 으로 그 인과의 결과 단계를 잇는 자리이고, 그 결과는 2번 문장에서 부족한 점을 알아본 직원이 '신뢰받을 만하게 제 몫을 하는' 쪽으로 가는 것이다. 따라서 그 동사는 incentive 와 같은 +부호여야 하는데 밑줄은 금지(−)를 적는다."
+      },
+      "choices": [
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "근거의 'can provide the necessary incentive for self-reflection' 이 전반부의 부호를 +로 정했는데, 선지 ② 'forbid her to perform her share of the duties in a way that makes her more worthy of their trust' 는 신뢰받을 만해지는 행동 자체를 막는 −부호다. prompt/motivate 로 바꾸면 might then 이 잇는 결과가 2번 문장의 'identify areas where she has consistently let others down' 다음 단계가 된다.",
+          "confirmed_at": {
+            "sentence_index": [1],
+            "note": "1번 문장이 방향을 정하고 3번 문장의 might then 이 그 방향의 결과 단계임을 보인다. 4번 문장의 But 은 여기서 전반부가 끝났음을 사후에 확인해 준다"
+          }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "'realizes she isn't being trusted by her co-workers' 는 수동태에 부정이 얹혀 있어 누가 누구를 불신하는지 주체가 헷갈린다. 뒤에 이어지는 'let others down' 을 직원의 잘못으로 읽으면 자각 대신 부인(denies)이 어울려 보인다.",
+          "how_to_reject": "1번 문장의 'the awareness that one is distrusted' 가 같은 행위를 명사로 먼저 적어 두었다. 같은 문장 뒤쪽 'upon reflection, identify areas' 도 자각에서 성찰로 이어지는 순서를 보여 준다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "대조 축 혼동",
+          "why_tempting": "'distrust of one who is ~ can be disorienting' 에서 불신이 해롭다는 진술만 보면, 불신을 받는 사람이 실제로 문제였다고(insincere) 읽어도 문장이 굴러가는 듯하다. 전반부의 직원(실제로 약속을 지키지 못한 사람)과 후반부의 사람을 같은 인물로 묶으면 축이 어긋난다.",
+          "how_to_reject": "문장 머리의 But 이 전반부와 축을 갈랐고, 같은 문장 안에 'in her efforts to be a trustworthy and dependable person' 이 그 사람의 노력을 +부호로 적는다. 뒤 예시의 'she has been forthright about her plans' 도 같은 쪽이다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "상식 선점",
+          "why_tempting": "밤에 나가는 딸을 둔 부모라면 걱정한다(concerned · worried)는 상식이 먼저 떠올라, 의심이라는 강한 낱말이 과해 보인다. 이어지는 'even if she has been forthright' 를 부모에게 유리한 정보로 잘못 읽으면 더 온건한 낱말을 찾게 된다.",
+          "how_to_reject": "같은 문장 끝 'a pervasive parental attitude that expects deceit and betrayal' 이 부모의 태도를 기만과 배신을 예상하는 것으로 못 박는다. and 로 묶인 distrustful 과 등위라는 점도 같은 부호를 요구한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "극성 반전 착시",
+          "why_tempting": "'even if ~ is not' 처럼 양보와 부정이 겹쳐 있어, breaking 자리에 following 을 넣어 '규칙을 따르지 않더라도' 로 읽어도 말이 되는 듯하다. 양보절이 누구에게 유리한 사실을 담는지 보지 않으면 부호가 뒤집힌다.",
+          "how_to_reject": "같은 양보절의 앞 항 'she has been forthright about her plans' 가 딸에게 유리한 사실이므로 뒤 항도 유리한 사실(규칙을 어기지 않았다)이어야 한다. 주절 'her identity as a respectable moral subject is undermined' 가 억울함을 말하는 것도 같은 방향이다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "첫 문장만 읽고 이 글이 무엇에서 무엇으로 가는 인과를 세웠는지 화살표 하나로 적는다 (예: 불신 자각 → 성찰)",
+          "on_fail": "첫 문장에 인과가 없으면 can · might 같은 조동사가 붙은 문장을 찾아 거기서 화살표를 뽑는다"
+        },
+        {
+          "step": "글에서 But · On the contrary 가 나온 자리를 찾아 지문을 두 덩어리로 가르고, 밑줄 다섯 개가 각각 어느 덩어리에 있는지 번호 옆에 표시한다",
+          "on_fail": "역접 표지가 없으면 사례 도입 표현(Consider, for instance)을 경계로 삼는다"
+        },
+        {
+          "step": "앞 덩어리의 밑줄은 1단계 화살표와 같은 부호인지, 뒤 덩어리의 밑줄은 반대 부호인지 각각 대조한다",
+          "on_fail": "부호가 애매한 낱말은 '그 사람에게 이익인가 손해인가' 로 바꿔 판정한다"
+        },
+        {
+          "step": "양보절(even if)·부정어가 겹친 자리는 부정어를 지우고 뜻을 적은 뒤 지운 개수만큼 부호를 뒤집어 다시 대조한다",
+          "on_fail": "겹친 부정이 셋 이상이면 그 절의 주어에게 유리한 사실인지 불리한 사실인지만 판정한다"
+        },
+        {
+          "step": "부호가 어긋난 자리에 반대말을 넣어 그 문장과 첫 문장을 이어 읽고, 화살표가 끊기지 않는지 확인한다",
+          "on_fail": "끊기면 두 덩어리 표시가 틀렸을 수 있으므로 경계선을 다시 잡는다"
+        }
+      ],
+      "time_budget_sec": 95,
+      "difficulty": {
+        "predicted": 0.72,
+        "drivers": [
+          "2점 문항 · 정답 forbid 가 부정 동사라 첫 문장과 부호 차이가 크게 드러난다",
+          "후반부가 부정어로 가득해 앞뒤 덩어리를 안 가르면 정답 문장이 자연스럽게 읽힌다",
+          "밑줄 낱말 자체는 평이하다"
+        ]
+      },
+      "required_vocab": ["forbid", "distrust", "worthy", "disorienting", "forthright"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 첫 문장 전체이지만 3번 문장의 might then 이 그것을 잇는 구조라 정답 확정에 직접 쓰인다",
+            "why_correct 가 선지 ②의 긴 표현을 그대로 인용해 forbid 와 incentive 의 부호 충돌이 낱말 단위로 확인된다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 의 M2006#30 passage 와 문자열 대조",
+            "why_correct 안의 'forbid her to perform her share of the duties' 를 코퍼스 선지 2 와 대조",
+            "정답 번호 2 를 코퍼스 answer 와 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초판에서 ①에 '되받는 표현 오판' 을 달았으나, 학습자가 실제로 틀리는 지점은 수동태 안에서 불신의 주체를 뒤집는 것이므로 '주체 역전' 으로 고쳤다 (revised)",
+            "④와 ⑤가 같은 문장에 있으나 함정층이 달라(상식 · 겹부정) 라벨이 갈린다"
+          ],
+          "checked": [
+            "오답 4개의 trap 라벨 중복 여부 확인",
+            "why_tempting 이 실제 밑줄 낱말(realizes · sincere · suspicious · breaking)에 근거하는지 확인",
+            "how_to_reject 4개에 위치·영어 인용이 있는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계(But 으로 지문을 두 덩어리로 가르기)가 이 문항에서 가장 값이 크고, 지문을 안 본 학생도 표지 검색으로 실행할 수 있다",
+            "2점 문항이라 95초로 줄였고 5단계가 그 안에 들어간다"
+          ],
+          "checked": [
+            "solve_procedure 5단계를 금지 표현 목록과 대조",
+            "3단계가 정답 위치를 전제하지 않는지 확인",
+            "required_vocab 5개가 지문에 실제로 있는 표현인지 문자열 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2018#29",
+      "measured_ability": "인용된 주장의 조건절(as long as)이 보장하려는 귀결이 그 화자에게 유리한 쪽이어야 함을 알고, 다음 문장의 On the contrary 가 반박하는 대상으로 그 귀결의 낱말을 확정하는 능력",
+      "design_intent": "보물 사냥꾼과의 협업을 놓고 다투는 글에서 상대편 주장('여섯 달만 주면 된다')을 인용해 두고 그 귀결어만 뒤집었다. 인용 앞의 Rather incredibly 와 문장 끝 감탄부호가 글쓴이의 비꼼을 분명히 하므로 학습자는 그 문장에 부정적 낱말이 오는 것을 자연스럽게 받아들이는데, 비꼼의 대상은 '조건이 충분하다' 는 주장이지 귀결어 자체가 아니다.",
+      "answer_locus": {
+        "sentence_index": [4, 5],
+        "quote": "as long as archaeologists are given six months to study shipwrecked artifacts before they are sold",
+        "reasoning": "as long as 절은 화자가 충분하다고 내세우는 조건이므로 그 귀결은 화자에게 유리한 결과여야 한다 — 즉 '역사적 지식이 하나도 사라지지 않는다' 여야 한다. 밑줄은 '발견되지 않는다' 로 적어 스스로의 주장을 깎는 진술이 된다. 다음 문장이 On the contrary 로 시작해 '십 년 넘는 보존 작업이 필요했다'를 대는 것도 '여섯 달로 지식 손실이 없다'는 주장을 겨냥한 반박이다."
+      },
+      "choices": [
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "근거의 as long as 조건절은 여섯 달을 충분하다고 내세우는 쪽의 말이므로 귀결은 +부호여야 하는데, 선지 ②는 'found! On the contrary' 로 이어지며 '어떤 역사적 지식도 발견되지 않는다' 는 −부호를 적어 조건절과 부딪친다. found 를 lost 로 바꾸면 조건-귀결이 맞물리고, 뒤이어 십 년 넘는 보존을 대는 반박의 표적도 제자리를 찾는다.",
+          "confirmed_at": {
+            "sentence_index": [5],
+            "note": "5번 문장의 On the contrary 가 반박 대상을 '여섯 달이면 손실이 없다' 로 특정한다. 4번 문장 안의 as long as 구조만으로도 부호는 정해지지만, 반박 문장이 그것을 한 번 더 잠근다"
+          }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 반복 유인",
+          "why_tempting": "같은 문장에 'The quest for profit' 이 있어 공존 불가의 이유도 이익·돈 쪽 낱말일 것으로 기대된다. 앞 두 문장이 보물 사냥꾼·도굴꾼의 이익 동기를 다룬 것도 그 기대를 키운다.",
+          "how_to_reject": "이 문장 뒤의 단락 전체가 시간을 다룬다 — 4번 문장의 'six months', 5번 문장의 'more than a decade of year-round conservation', 마지막 문장의 'more than a decade or so'. 제시된 이유가 시간임을 그 세 자리가 확인한다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "되받는 표현 오판",
+          "why_tempting": "'before they could even' 의 even 이 더 어려운 작업을 기대하게 하고, 다음 문장에 interpret 이 나오므로 그 낱말을 앞으로 끌어와 catalog 자리에 넣고 싶어진다.",
+          "how_to_reject": "다음 문장이 'Then, to interpret those finds' 로 해석을 그다음 단계로 따로 적는다. even 은 목록 작성조차 못 했다는 뜻이라 가장 기초적인 작업이 와야 하고, 그 순서가 Then 으로 표시돼 있다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "상식 선점",
+          "why_tempting": "수중 발굴 유물을 해석하려고 러시아어·불가리아어·루마니아어를 배운다는 것이 상식에 안 맞아 보여, 번역을 맡겼다(translate)거나 다른 낱말이어야 할 것처럼 느껴진다. 뒤에 learned 가 또 나와 동어 반복처럼 보이는 것도 의심을 키운다.",
+          "how_to_reject": "이어지는 'without which they would never have learned the true nature of the site' 의 which 가 세 언어를 받아 그것을 수단으로 만든다 — 수단을 갖추는 행위는 배우는 것이다. 5번 문장의 'an eleventh-century AD wreck' 이 그 언어권 연구 문헌과 이어진다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "극성 반전 착시",
+          "why_tempting": "수사의문문이라 답이 '아니다' 인데, 밑줄만 보면 상업 고고학자가 실제로 기다렸다는 진술로 읽혀 sold 나 survived 같은 낱말을 넣고 싶어진다. Could ~ have p.p. 의 뜻이 '과연 그럴 수 있었겠는가' 임을 놓치면 부호가 뒤집힌다.",
+          "how_to_reject": "같은 문장 뒤쪽 'before selling the finds' 가 판매를 따로 적으므로 밑줄 자리는 판매 이전의 대기여야 한다. 5번 문장의 'needed more than a decade of year-round conservation' 이 그 대기 기간의 근거다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 낱말이 든 문장 중 인용·전언 동사(said that · argue that)가 있는 것을 먼저 찾아, 그 문장이 글쓴이의 말이 아니라 남의 주장임을 표시한다",
+          "on_fail": "전언 동사가 없으면 감탄부호·따옴표·Rather incredibly 같은 태도 표현이 붙은 문장을 같은 방식으로 표시한다"
+        },
+        {
+          "step": "표시한 주장 문장에서 조건절(as long as · if · unless)을 찾고, 그 조건이 화자에게 유리한 조건인지 적는다 — 유리하면 귀결도 유리해야 한다",
+          "on_fail": "조건절이 없으면 그 문장의 주절만 떼어 화자에게 유리한 진술인지 판정한다"
+        },
+        {
+          "step": "다음 문장의 반박 표지(On the contrary · But · However)를 찾아 그 반박이 무엇을 겨냥하는지 한 줄로 적고, 앞 문장의 귀결과 정반대인지 대조한다",
+          "on_fail": "반박 대상이 안 잡히면 반박 문장에 나온 수치·기간을 앞 문장의 수치와 짝지어 본다"
+        },
+        {
+          "step": "남은 밑줄은 그 문장 안의 관계절(without which)·순서 표지(Then · even)가 그 낱말을 수단·기초 단계로 묶는지 확인해 부호를 정한다",
+          "on_fail": "관계절이 무엇을 받는지 안 보이면 which 앞의 명사구를 소리 내어 대입해 읽는다"
+        },
+        {
+          "step": "부호가 어긋난 한 자리에 반대말을 넣어 앞 문장과 반박 문장을 이어 읽고, 반박이 겨냥할 것이 생기는지 확인한다",
+          "on_fail": "반박 대상이 여전히 없으면 1단계에서 주장 문장을 잘못 표시했을 수 있으므로 전언 동사를 다시 찾는다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.6,
+        "drivers": [
+          "정답 문장이 인용문이라 글쓴이의 태도(Rather incredibly · 감탄부호)와 화자의 주장을 갈라 읽어야 한다",
+          "밑줄 found 가 짧고 평범해 눈에 덜 걸린다",
+          "오답 ④가 배경지식(흑해 난파선 연구 문헌)이 없으면 오래 남는다"
+        ]
+      },
+      "required_vocab": ["as long as", "conservation", "catalog", "excavated", "on the contrary"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 를 as long as 조건절로 잡아 정답의 부호가 문장 안에서 닫히는 것을 보였고, confirmed_at 에 반박 문장을 따로 두었다",
+            "why_correct 가 'found! On the contrary' 를 인용해 정답 선지 문자열과 맞물린다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 의 2018#29 passage 와 문자열 대조",
+            "why_correct 안의 'found! On the contrary' 를 코퍼스 선지 2 문자열과 대조",
+            "정답 번호 2 를 코퍼스 answer 와 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개가 어휘 반복 유인 · 되받는 표현 오판 · 상식 선점 · 극성 반전 착시 4종으로 갈린다",
+            "④의 배제 근거를 배경지식이 아니라 'without which' 관계절로 잡아, 지식 없는 학습자도 확인할 수 있게 했다"
+          ],
+          "checked": [
+            "오답 4개의 trap 라벨 중복 여부 확인",
+            "how_to_reject 4개에 문장 번호 또는 영어 인용이 있는지 확인",
+            "why_tempting 이 실제 밑줄 낱말(time factor · catalog · learn · waited)에 근거하는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "초판 4단계가 '첫 문장(주제문)과 부호를 대조한다' 였는데 이 글의 첫 문장은 journalists 의 주장이라 주제문이 아니다 — 학습자를 반대로 몰 수 있어 관계절·순서 표지로 판정하는 단계로 바꿨다 (revised)",
+            "1단계에서 인용문을 먼저 표시하는 절차가 이 문항의 조작을 곧바로 겨냥한다"
+          ],
+          "checked": [
+            "solve_procedure 5단계를 금지 표현 목록과 대조",
+            "1단계를 지문 첫 문장만 본 상태에서 실행할 수 있는지 확인",
+            "time_budget 100초 안에 5단계가 끝나는지 단계별 배분 확인"
+          ]
+        }
+      ]
+    }
+  ],
+  "type_report": {
+    "type_id": "R-VOCAB",
+    "n_analyzed": 5,
+    "recurring_traps": [
+      {
+        "trap": "상식 선점",
+        "count": 4,
+        "signature": "일상 상식(윤리는 절대 기준을 지킨다 · 유인은 많을수록 좋다 · 부모는 걱정한다 · 유물 해석에 슬라브어는 필요 없다)이 지문 논리를 덮어, 문맥상 맞는 낱말이 어긋나 보인다"
+      },
+      {
+        "trap": "극성 반전 착시",
+        "count": 4,
+        "signature": "부정어·이중부정·양보절(even if ~ is not · is not to say that ~ don't · Could ~ have p.p.)이 겹쳐 밑줄 낱말의 부호가 뒤집혀 보인다"
+      },
+      {
+        "trap": "대조 축 혼동",
+        "count": 3,
+        "signature": "두 사례·두 집단이 대비되는 글에서 밑줄 문장이 어느 쪽 사례인지 잘못 잡아, 반대편 사례의 부호를 가져다 댄다"
+      },
+      {
+        "trap": "비교급 기준 오판",
+        "count": 2,
+        "signature": "more ~ than · least likely 의 비교 기준(무엇에 비해 덜/더인가)을 놓쳐 최상급·비교급의 방향을 반대로 센다"
+      },
+      {
+        "trap": "되받는 표현 오판",
+        "count": 2,
+        "signature": "앞뒤 문장이 다른 낱말로 같은 것을 되받는 짝(other plausible options ↔ sensible alternatives · catalog ↔ interpret)을 못 보고 낱말 어감만으로 판정한다"
+      },
+      {
+        "trap": "관용구 의존",
+        "count": 1,
+        "signature": "the end justifies the means 처럼 굳은 표현이라 문장 안 논리(so 앞 절)를 확인하지 않고 지나친다"
+      },
+      {
+        "trap": "논증 단계 오판",
+        "count": 1,
+        "signature": "삼단논법의 전제를 확립하는 동사(establish)를 가정(assume)으로 낮춰 읽는다"
+      },
+      {
+        "trap": "반박 문맥 과잉 적용",
+        "count": 1,
+        "signature": "글 전체가 오류를 반박하므로 밑줄 낱말도 부정어여야 한다고 보아, 양립 가능성을 말하는 consistent 를 뒤집는다"
+      },
+      {
+        "trap": "주체 역전",
+        "count": 1,
+        "signature": "수동태 안에서 누가 누구를 불신하는지 주체를 뒤집어 잡고, 그에 맞춰 밑줄 동사를 바꾸려 한다"
+      },
+      {
+        "trap": "어휘 반복 유인",
+        "count": 1,
+        "signature": "같은 문장에 있는 눈에 띄는 낱말(profit)이 이유를 대는 낱말이어야 할 것처럼 보이지만, 근거는 뒤 단락이 반복하는 시간 표현에 있다"
+      }
+    ],
+    "answer_locus_pattern": "5개 중 3개(2026#30 · 2020#30 · 2018#29)가 밑줄 문장 자신의 종속 구조에서 닫힌다 — 목적 to부정사 · Before 절과 주절의 관계 · as long as 조건절. 나머지 2개(M2506#30 · M2006#30)는 바로 앞 한두 문장의 접속 연결(Consequently·Thus / might then)에서 닫힌다. 밑줄 문장에서 세 문장 이상 떨어진 근거로만 정해지는 문항은 이 5개에 없다. 그리고 5개 모두 정답 낱말의 반대말이 한 낱말로 존재한다(abandon↔gain · drives↔undermines · denying↔concluding · forbid↔prompt · found↔lost) — 반대말 대입 검사가 다섯 번 다 통한다.",
+    "procedure": [
+      {
+        "step": "밑줄 낱말 다섯 개만 먼저 옮겨 적고, 각 낱말이 든 문장을 앞뒤와 떼어 하나씩 읽는다",
+        "on_fail": "밑줄이 명사구면 그것을 지배하는 동사까지 함께 적는다 — 판정 단위는 '동사+목적어' 다"
+      },
+      {
+        "step": "그 문장 안에서 부호를 지정하는 구조 표지를 표시한다 — 목적 to부정사 · 조건절(as long as · if) · 양보절(even if) · 비교(more ~ than · least likely) · 부정어 · so · 세미콜론·콜론 · 관계절(without which)",
+        "on_fail": "표지가 없는 문장은 보류로 두고 다음 밑줄로 넘어간다. 다섯 개를 한 번에 정하려 하지 않는다"
+      },
+      {
+        "step": "표지가 요구하는 부호를 +/− 로 먼저 적고 그다음에 밑줄 낱말의 부호를 적는다. 부정어가 몇 겹인지 세어 그만큼 부호를 뒤집는다",
+        "on_fail": "낱말의 부호가 애매하면 사전 뜻 대신 '이 행위자에게 이익인가 손해인가' 로 정한다"
+      },
+      {
+        "step": "보류한 문장은 역접·결과 표지(But · On the contrary · Consequently · Thus · Alternatively · might then)로 지문을 덩어리로 가른 뒤, 같은 덩어리의 확정된 부호를 옮겨 적는다",
+        "on_fail": "표지가 없으면 사례 도입 표현(Consider, for instance · In a pickup game)을 경계로 삼는다"
+      },
+      {
+        "step": "인용·전언(said that)이 있는 문장은 글쓴이의 말이 아니라 남의 주장으로 표시하고, 그 화자에게 유리한 귀결이 오는지로 부호를 정한다",
+        "on_fail": "전언 동사가 없으면 감탄부호·따옴표·Rather incredibly 같은 태도 표현을 같은 신호로 쓴다"
+      },
+      {
+        "step": "부호가 어긋난 한 자리에 반대말을 한 낱말로 넣어 그 문장과 이웃 문장을 이어 읽는다 — 반대말이 들어맞으면 답이고, 어색하면 남은 후보로 같은 검사를 반복한다",
+        "on_fail": "반대말이 떠오르지 않는 후보는 후순위로 미룬다. 이 유형의 정답은 반대말이 한 낱말로 존재하는 자리에 놓인다"
+      }
+    ],
+    "failure_modes": [
+      "글 전체의 논조(부정적 글·반박하는 글)를 밑줄 낱말 하나하나에 그대로 적용해, 정작 +부호가 요구되는 자리(M2006#30 전반부 · 2018#29 인용의 귀결)를 놓친다",
+      "낱말의 어려움에 시선을 빼앗겨 뜻풀이를 하다 시간을 쓴다 — 정답 판정에 필요한 것은 뜻이 아니라 부호이고, 부호는 문장 구조가 정한다(2020#30 논리학 어휘 다섯 자리)",
+      "부정어를 세지 않고 느낌으로 극성을 정한다. is not to say that controls don't work · even if she is not breaking 처럼 겹친 자리에서 정확히 반대로 간다",
+      "대비 구조 글에서 사례 경계(But · Alternatively)를 표시하지 않아, 반대편 사례의 부호를 가져다 댄다(2026#30 ③ · M2506#30 ⑤)",
+      "밑줄을 문장에서 떼지 않고 단락째 읽어, 문장 안에서 이미 닫히는 근거(목적 to부정사 · 조건절)를 지나친다",
+      "후보를 고른 뒤 반대말 대입 검사를 하지 않아, 두 후보 사이에서 근거 없이 찍는다"
+    ],
+    "time_budget_sec": 104,
+    "open_questions": [
+      "함정 라벨 등재 제안 — R-VOCAB 에는 _PROMPT.md §1-b (A)·(B) 표의 라벨이 거의 맞지 않았다(20개 오답 중 (A)표에서 그대로 쓴 것은 '주체 역전' 1개, (B)표에서 쓴 것은 '어휘 반복 유인' 1개뿐). 이 유형의 오답은 문맥상 옳은 낱말인데 틀려 보이는 자리라, 함정이 '선지가 지문과 어긋난다' 층이 아니라 '학습자가 부호를 뒤집는' 층에 걸린다. 새로 쓴 7종(상식 선점 · 극성 반전 착시 · 대조 축 혼동 · 비교급 기준 오판 · 되받는 표현 오판 · 논증 단계 오판 · 반박 문맥 과잉 적용)을 (C)군 전용 라벨로 등재 제안한다. 분모 5문항 20오답.",
+      "선지 번호 분포는 청크의 type_answer_distribution(in_scope 29 · keyed 29)을 분모로 본다 — ①이 정답인 적은 0회지만 균등 가정에서 0.8^29 = 1.55e-3 이고 이 저장소의 Bonferroni 문턱(가족 130 · 3.85e-4)을 넘지 못한다. 유의하지 않으므로 절차에 넣지 않았다. ④+⑤가 23/29(79%)인 것도 같은 이유로 절차에서 제외했다.",
+      "recurring_traps 의 count 는 문항당 한 번씩만 셌다(5문항 × 오답 4개 = 20, 라벨 합계 20으로 일치). 같은 문항에서 같은 라벨을 두 번 쓴 곳은 없다.",
+      "_PROMPT.md §1-c 의 R-VOCAB 항은 '14중 12가 문장 안에서 닫힌다' 고 적었는데, 이 5문항에서는 3/5 만 문장 안에서 닫히고 2/5 는 앞 한두 문장의 접속 연결이 필요했다. 분모가 작아 표를 고칠 근거는 아니지만, 남은 24문항에서 '문장 안에서 닫힌다' 비율을 다시 세어 볼 값이다(R-VOCAB 사정권 29).",
+      "이 청크의 세 자(setter·analyst·tutor)가 잡은 것이 서로 달랐다 — setter 1건(2020#30 quote 가 ③의 근거였다) · analyst 3건(2026#30 라벨 중복 · M2506#30 배제 근거에 위치 없음 · M2006#30 라벨 오배정) · tutor 1건(2018#29 절차가 '첫 문장=주제문' 을 전제했는데 그 글의 첫 문장은 남의 주장이다). 다섯 문항 모두 revised: true 이고 반려 0건이 아니므로 자를 고칠 필요는 보이지 않는다.",
+      "이 청크는 재분석이다 — 이전 분석은 파서가 지문을 첫 ① 앞에서 끊은 상태(예: 2020#30 은 1,058자 중 128자)에서 쓰였다. 이번 것은 온전한 전문을 보고 처음부터 다시 썼고, 옛 분석은 참고하지 않았다."
+    ]
+  }
+}

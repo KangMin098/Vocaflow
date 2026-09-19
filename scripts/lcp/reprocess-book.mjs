@@ -42,7 +42,7 @@ const { createClient } = await import('@supabase/supabase-js')
 const pipeline = await import('@vocaflow/library-pipeline')
 const {
   ingestFromGutenberg,
-  ingestFromStandardEbooks,
+  ingestFromStandardEbooksResilient,
   ingestFromWikibooks,
   ingestFromWikisource,
   ingestFromLibriVox,
@@ -64,7 +64,7 @@ const db = createClient(url, key, { auth: { persistSession: false, autoRefreshTo
 
 const INGEST = {
   gutenberg: ingestFromGutenberg,
-  standard_ebooks: ingestFromStandardEbooks,
+  standard_ebooks: ingestFromStandardEbooksResilient,
   wikibooks: ingestFromWikibooks,
   wikisource: ingestFromWikisource,
   librivox: ingestFromLibriVox,

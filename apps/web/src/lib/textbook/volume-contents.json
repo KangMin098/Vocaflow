@@ -1,0 +1,3726 @@
+{
+  "generatedAt": "2026-09-13T14:32:04.604Z",
+  "unitsPerVolume": 10,
+  "bands": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "volumes": {
+    "1": {
+      "band": 1,
+      "step": 1,
+      "title": "Vocaflow Reading Starter",
+      "schoolBand": "초등 저학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "add",
+            "about",
+            "act",
+            "afternoon",
+            "across",
+            "age"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "ago",
+            "address",
+            "all",
+            "back",
+            "adult",
+            "and"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "bad",
+            "afraid",
+            "any",
+            "bake",
+            "after",
+            "apartment"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "ball",
+            "against",
+            "arm",
+            "bank",
+            "airplane",
+            "art"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "bat",
+            "album",
+            "as",
+            "be",
+            "almost",
+            "ask"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "bear",
+            "already",
+            "at",
+            "bed",
+            "also",
+            "badminton"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "bee",
+            "always",
+            "bag",
+            "big",
+            "animal",
+            "basketball"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "bike",
+            "answer",
+            "bath",
+            "bird",
+            "apple",
+            "belt"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "boat",
+            "area",
+            "both",
+            "bone",
+            "aunt",
+            "breakfast"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "rhyme",
+            "spell_blank",
+            "word_meaning"
+          ],
+          "items": 6,
+          "minutes": 20,
+          "words": null,
+          "passages": [
+            "box",
+            "autumn",
+            "brush",
+            "boy",
+            "baby",
+            "chocolate"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 200,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 0,
+        "proofClean": 0,
+        "byType": {
+          "rhyme": {
+            "items": 20,
+            "renderable": 20,
+            "explained": 20
+          },
+          "spell_blank": {
+            "items": 20,
+            "renderable": 20,
+            "explained": 20
+          },
+          "word_meaning": {
+            "items": 20,
+            "renderable": 20,
+            "explained": 20
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 20,
+        "vocabulary": [
+          {
+            "word": "add",
+            "meaningKo": "더하다, 추가하다"
+          },
+          {
+            "word": "about",
+            "meaningKo": "~에 관하여, 대략"
+          },
+          {
+            "word": "act",
+            "meaningKo": "행동하다, 행하다"
+          },
+          {
+            "word": "afternoon",
+            "meaningKo": "오후"
+          },
+          {
+            "word": "across",
+            "meaningKo": "~을 가로질러, 건너편에"
+          },
+          {
+            "word": "age",
+            "meaningKo": "나이, 연령"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "rhyme",
+            "kind": "elementary",
+            "stem": "다음 중 \"add\" 와 끝소리가 같은 낱말은?",
+            "shown": "add",
+            "choices": [
+              "ice",
+              "glad",
+              "face",
+              "want"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "정답은 ② \"glad\" 다. \"add\" 와 끝소리가 같다 — 소리를 맞추는 문제이므로 철자가 아니라 **끝소리**를 본다. 나머지 ① \"ice\" · ③ \"face\" · ④ \"want\" 는 끝소리가 다르다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 2,
+            "type": "spell_blank",
+            "kind": "elementary",
+            "stem": "뜻을 보고 빈칸을 채우세요 — ~에 관하여",
+            "shown": "a _ o u t",
+            "choices": [],
+            "answerText": "about",
+            "explanation": {
+              "text": "빈칸을 채우면 \"about\" 가 된다. 주어진 꼴 \"a _ o u t\" 에서 빠진 글자를 넣는 문제다 — 같은 꼴로 만들 수 있는 낱말이 하나뿐이라 답이 정해진다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 3,
+            "type": "word_meaning",
+            "kind": "elementary",
+            "stem": "\"act\" 의 뜻은?",
+            "shown": "act",
+            "choices": [
+              "앞쪽",
+              "느끼다",
+              "에너지",
+              "행동하다"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "\"act\" 의 뜻은 ④ \"행동하다\"다. 나머지 ① \"앞쪽\" · ② \"느끼다\" · ③ \"에너지\" 는 같은 교육과정 낱말 목록에 있는 **다른 낱말**의 뜻이다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 4,
+            "type": "rhyme",
+            "kind": "elementary",
+            "stem": "다음 중 \"afternoon\" 와 끝소리가 같은 낱말은?",
+            "shown": "afternoon",
+            "choices": [
+              "danger",
+              "catch",
+              "moon",
+              "difficult"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "정답은 ③ \"moon\" 다. \"afternoon\" 와 끝소리가 같다 — 소리를 맞추는 문제이므로 철자가 아니라 **끝소리**를 본다. 나머지 ① \"danger\" · ② \"catch\" · ④ \"difficult\" 는 끝소리가 다르다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 5,
+            "type": "spell_blank",
+            "kind": "elementary",
+            "stem": "뜻을 보고 빈칸을 채우세요 — ~을 가로질러",
+            "shown": "a _ r o s s",
+            "choices": [],
+            "answerText": "across",
+            "explanation": {
+              "text": "빈칸을 채우면 \"across\" 가 된다. 주어진 꼴 \"a _ r o s s\" 에서 빠진 글자를 넣는 문제다 — 같은 꼴로 만들 수 있는 낱말이 하나뿐이라 답이 정해진다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          },
+          {
+            "no": 6,
+            "type": "word_meaning",
+            "kind": "elementary",
+            "stem": "\"age\" 의 뜻은?",
+            "shown": "age",
+            "choices": [
+              "나이",
+              "주말",
+              "노래하다",
+              "선로"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "\"age\" 의 뜻은 ① \"나이\"다. 나머지 ② \"주말\" · ③ \"노래하다\" · ④ \"선로\" 는 같은 교육과정 낱말 목록에 있는 **다른 낱말**의 뜻이다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          }
+        ]
+      }
+    },
+    "2": {
+      "band": 2,
+      "step": 2,
+      "title": "Vocaflow Reading 1",
+      "schoolBand": "초등 고학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "irrelevant",
+            "content_match",
+            "topic",
+            "blank",
+            "title",
+            "rhyme"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            96,
+            115
+          ],
+          "passages": [
+            "US Schools Use Money, Fun, Support to Get Students to Class",
+            "The Water-Babies: A Fairy Tale for a Land-Baby (발췌)",
+            "OCLC (도입부)",
+            "Lake Mud Tells the Surprising Story of Human Impacts on Seabirds",
+            "The tale of old Mr. Crow (발췌)",
+            "add"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "irrelevant",
+            "content_match",
+            "topic",
+            "blank",
+            "title",
+            "rhyme"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            108,
+            118
+          ],
+          "passages": [
+            "How Nature Can Help Cities Breathe and Stay Cool",
+            "Marjorie's Busy Days (발췌)",
+            "Sam's Christmas Present",
+            "A Road Trip Down Memory Lane: Mapping the Brain’s Pathways With Diffusion MRI",
+            "Tom Slade on Mystery Trail (발췌)",
+            "afternoon"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "irrelevant",
+            "content_match",
+            "topic",
+            "blank",
+            "title",
+            "unit_vocab"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            107,
+            115
+          ],
+          "passages": [
+            "The Children of Wilton Chase (발췌)",
+            "The Railway Children (발췌)",
+            "O. Henry Award (도입부 발췌)",
+            "The Soil That Walks Away",
+            "The Adventures of Buster Bear (발췌)",
+            "Bunny Brown and His Sister Sue at Camp Rest-A-While (발췌)"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "irrelevant",
+            "content_match",
+            "topic",
+            "blank",
+            "title",
+            "spell_blank"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            102,
+            117
+          ],
+          "passages": [
+            "The book of wonders (발췌)",
+            "The tale of Bobby Bobolink (발췌)",
+            "Grateful People Are Happy and Healthy—But Why?",
+            "Following Feathers: Adventures with Bird Experts",
+            "The Crofton Boys (발췌)",
+            "about"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "blank_word",
+            "irrelevant",
+            "content_match",
+            "blank",
+            "topic",
+            "title"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            106,
+            116
+          ],
+          "passages": [
+            "The tale of Master Meadow Mouse (발췌)",
+            "Where We Live (발췌)",
+            "Aunt Madge's Story (발췌)",
+            "All About Venus (4문단부터 발췌)",
+            "The Moon and The Cap",
+            "The Railway Children (발췌)"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "word_order",
+            "word_meaning",
+            "blank_word",
+            "irrelevant",
+            "content_match",
+            "blank"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            110,
+            116
+          ],
+          "passages": [
+            "The Adventures of Buster Bear (발췌)",
+            "act",
+            "The Story of Young Abraham Lincoln (발췌)",
+            "How International Students Should Think about Writing, AI",
+            "Mansfield Park (발췌)",
+            "Bunty and Bubbly"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "rhyme",
+            "unit_vocab",
+            "spell_blank",
+            "word_order",
+            "word_meaning",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "ago",
+            "A Little Princess (발췌)",
+            "across",
+            "Little Brother (발췌)",
+            "age",
+            "Heidi (발췌)"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "rhyme",
+            "unit_vocab",
+            "spell_blank",
+            "word_order",
+            "word_meaning",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "back",
+            "Aunt Madge's Story (발췌)",
+            "address",
+            "The tale of Grumpy Weasel (발췌)",
+            "all",
+            "English Fairy Tales (발췌)"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "rhyme",
+            "unit_vocab",
+            "spell_blank",
+            "word_order",
+            "word_meaning",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "bad",
+            "A Little Girl of Long Ago; Or, Hannah Ann (발췌)",
+            "adult",
+            "The Curlytops and Their Pets; Or, Uncle Toby's Strange Collection (발췌)",
+            "and",
+            "The Water-Babies: A Fairy Tale for a Land-Baby (발췌)"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "rhyme",
+            "unit_vocab",
+            "spell_blank",
+            "word_order",
+            "word_meaning",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "bake",
+            "A Little Maid of Ticonderoga (발췌)",
+            "afraid",
+            "Little Mr. Thimblefinger and His Queer Country (발췌)",
+            "any",
+            "Travels to Discover the Source of the Nile, Volume 3 (of 5) (발췌)"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 11,
+        "proofClean": 11,
+        "byType": {
+          "irrelevant": {
+            "items": 6,
+            "renderable": 6,
+            "explained": 6
+          },
+          "content_match": {
+            "items": 6,
+            "renderable": 6,
+            "explained": 6
+          },
+          "topic": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "blank": {
+            "items": 6,
+            "renderable": 6,
+            "explained": 6
+          },
+          "title": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "rhyme": {
+            "items": 6,
+            "renderable": 6,
+            "explained": 6
+          },
+          "unit_vocab": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "spell_blank": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "blank_word": {
+            "items": 6,
+            "renderable": 6,
+            "explained": 6
+          },
+          "word_order": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "word_meaning": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "school",
+            "meaningKo": "학교"
+          },
+          {
+            "word": "year",
+            "meaningKo": "해, 1년"
+          },
+          {
+            "word": "absent",
+            "meaningKo": "결석한, 부재의"
+          },
+          {
+            "word": "percent",
+            "meaningKo": "퍼센트, 백분율"
+          },
+          {
+            "word": "miss",
+            "meaningKo": "놓치다, (기회·차 등을) 잡지 못하다"
+          },
+          {
+            "word": "day",
+            "meaningKo": "날"
+          },
+          {
+            "word": "number",
+            "meaningKo": "숫자, 수"
+          },
+          {
+            "word": "say",
+            "meaningKo": "말하다, 이야기하다"
+          },
+          {
+            "word": "problem",
+            "meaningKo": "문제, 어려움"
+          },
+          {
+            "word": "like",
+            "meaningKo": "좋아하다, 마음에 들다"
+          },
+          {
+            "word": "child",
+            "meaningKo": "아이, 어린이"
+          },
+          {
+            "word": "class",
+            "meaningKo": "수업, 강의; 학급, 반"
+          },
+          {
+            "word": "state",
+            "meaningKo": "상태"
+          },
+          {
+            "word": "feel",
+            "meaningKo": "느끼다, 감각하다"
+          },
+          {
+            "word": "high",
+            "meaningKo": "황홀감, 들뜬 기분; 최고 기록·최고치; (형용사) 높은"
+          },
+          {
+            "word": "money",
+            "meaningKo": "돈"
+          },
+          {
+            "word": "study",
+            "meaningKo": "공부하다, 배우다"
+          },
+          {
+            "word": "big",
+            "meaningKo": "큰"
+          },
+          {
+            "word": "came",
+            "meaningKo": "왔다, come의 과거형"
+          },
+          {
+            "word": "help",
+            "meaningKo": "도움"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "irrelevant",
+            "kind": "irrelevant",
+            "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+            "intro": "Still, the problem appears to have passed its highest point; almost every state saw absenteeism go down at least a little during the two full school years ending in 2023.",
+            "sentences": [
+              "Schools are trying to identify students with attendance problems so they can help.",
+              "They are also trying to communicate better with parents.",
+              "Some parents might not know their child is missing a lot of school or its effects on their performance.",
+              "\"But you must never tell anyone I told you this.\" \"The wife of a very important person needs help.",
+              "Experts say schools must get creative to meet their students’ needs."
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "이 글은 \"Still, the problem appears to have passed its highest point; almost every state saw absenteeism go…\" 로 시작한다. 정답은 ④ \"\"But you must never tell anyone I told you this.\" \"The wife of a very important person needs help.\" 다. 나머지 문장은 \"school\" 처럼 도입부의 낱말을 그대로 이어받는데, 이 문장만 \"tell\" · \"anyone\" · \"told\" 처럼 앞뒤 어디에도 없는 낱말로 다른 화제를 꺼낸다. 한 문단은 한 화제를 이어 가야 하므로, 낱말이 끊기는 이 문장이 전체 흐름과 관계 없는 문장이다.",
+              "from": "rule"
+            },
+            "source": "US Schools Use Money, Fun, Support to Get Students to Class"
+          },
+          {
+            "no": 2,
+            "type": "content_match",
+            "stem": "글의 내용과 일치하지 않는 것은?",
+            "passage": "Tom walked towards this great building, wondering what it was, and having a strange fancy that he might find Mr. Grimes inside it, till he saw running toward him, and shouting \"Stop!\" three or four people, who, when they came nearer, were nothing else than policemen’s truncheons, running along without legs or arms. Tom was not astonished. He was long past that. Besides, he had seen the naviculæ in the water move nobody knows how, a hundred times, without arms, or legs, or anything to stand in their stead. Neither was he frightened; for he had been doing no harm.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "톰은 팔다리 없이 달려오는 것들을 보고 몹시 놀랐다.",
+              "톰은 그 큰 건물이 무엇인지 궁금해하며 그쪽으로 걸어갔다.",
+              "톰은 건물 안에서 그라임스 씨를 만날지도 모른다고 생각했다.",
+              "가까이 다가온 것들은 사람이 아니라 경찰의 곤봉이었다.",
+              "톰은 잘못한 일이 없었기에 무서워하지도 않았다."
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "달려온 것이 “nothing else than policemen truncheons” 였지만 지문은 “Tom was not astonished” 라고 하므로 ①이 어긋난다. 나머지 넷은 그대로 확인된다.",
+              "from": "batch"
+            },
+            "source": "The Water-Babies: A Fairy Tale for a Land-Baby (발췌)"
+          },
+          {
+            "no": 3,
+            "type": "topic",
+            "stem": "글의 주제로 가장 알맞은 것은?",
+            "passage": "OCLC, Inc. is a library service and research organization. It helps people find more information and helps libraries work. It was started on July 6, 1967 as the not-for-profit Ohio College Library Center. Later its name changed to Online Computer Library Center as it grew. In 2017, its name changed to OCLC, Inc. 30,000+ libraries in 100+ countries are members of OCLC. The organization was started by Fred Kilgour. Its head office is in Dublin, Ohio, U.S.A. It makes WorldCat, a very big online catalog (a list of books and things like books). == OCLC control numbers == OCLC gives a special number (called \"OCN\" for \"OCLC Control Number\") to every new record in WorldCat.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "the OCLC control number",
+              "what OCLC is and how it has grown",
+              "libraries in more than 100 countries",
+              "the founding work of Fred Kilgour",
+              "how WorldCat lists books online"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "글은 \"OCLC, Inc. is a library service and research organization\" 로 정체를 밝힌 뒤 1967년 설립부터 이름이 두 번 바뀐 과정, 회원 수, WorldCat 까지 이어 간다. 무엇이고 어떻게 커졌는가가 대상이자 각도다. ①·③·④·⑤는 그 서술에 한 번씩 나오는 세부이며, 어느 하나도 글 전체를 덮지 못한다.",
+              "from": "batch"
+            },
+            "source": "OCLC (도입부)"
+          },
+          {
+            "no": 4,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 알맞은 것은?",
+            "passage": "Seabirds, which are the birds that you might see diving for fish in the ocean, are in trouble. Since the 1950s, their numbers have dropped by about 70%, mostly because of things people have done. To figure out how to best protect seabirds, scientists need to understand what seabird colonies were like before people began to pollute and change their world. In our study, we acted like detectives. We looked at clues buried in the mud at the bottom of a lake to learn ____ or so. For most of that time, the colony naturally grew and shrank.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "how the colony changed over 5,800 years",
+              "why seabirds dive for fish in the ocean",
+              "which lakes in the world are deepest",
+              "how much pollution people have made",
+              "when scientists first studied the lake"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "바닷새는 1950년대 이후 \"their numbers have dropped by about 70%\" 이고, 연구진은 사람이 바꾸기 **전**의 모습을 알려고 \"we acted like detectives\" 하며 호수 바닥 진흙을 뒤졌다. 그러니 알아낸 것은 오랜 기간에 걸친 군집의 변화다. ②는 첫 문장의 설명이고, ③·④·⑤는 호수·오염·연구 시점이라 진흙에서 읽어 낸 대상이 아니다.",
+              "from": "batch"
+            },
+            "source": "Lake Mud Tells the Surprising Story of Human Impacts on Seabirds"
+          },
+          {
+            "no": 5,
+            "type": "title",
+            "stem": "글의 제목으로 가장 알맞은 것은?",
+            "passage": "At last there came a day when something happened that made Mr. Crow feel prouder than ever. He had gone down to the village, wearing his bright red coat. And a little way beyond the furthest house he perched in a tree by the side of the railroad and waited for the train to pass. He had heard it snorting at the station and he knew it was about to start. Pretty soon the train came thundering up the track. And as soon as it reached him Mr. Crow started to race with it. He had no trouble in beating it, as he always did. And then he did something he had never done before.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "Mr. Crow Races the Train Again",
+              "A Crow Who Lost Every Race",
+              "The Red Coat That Was Stolen",
+              "Waiting for a Train That Never Came",
+              "Mr. Crow Hides from the Village"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "까마귀는 붉은 외투를 입고 철길 옆 나무에서 기다리다 \"the train came thundering up the track\" 하자 경주를 시작해 늘 그랬듯 가볍게 이긴다. 나머지는 늘 졌다거나 기차가 오지 않았다고 하여 이겼다는 결론과 반대다.",
+              "from": "batch"
+            },
+            "source": "The tale of old Mr. Crow (발췌)"
+          },
+          {
+            "no": 6,
+            "type": "rhyme",
+            "kind": "elementary",
+            "stem": "다음 중 \"add\" 와 끝소리가 같은 낱말은?",
+            "shown": "add",
+            "choices": [
+              "ice",
+              "glad",
+              "face",
+              "want"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "정답은 ② \"glad\" 다. \"add\" 와 끝소리가 같다 — 소리를 맞추는 문제이므로 철자가 아니라 **끝소리**를 본다. 나머지 ① \"ice\" · ③ \"face\" · ④ \"want\" 는 끝소리가 다르다.",
+              "from": "batch"
+            },
+            "source": "2022 개정 교육과정 별표 어휘"
+          }
+        ]
+      }
+    },
+    "3": {
+      "band": 3,
+      "step": 3,
+      "title": "Vocaflow Reading 2",
+      "schoolBand": "중학 1-2학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "content_match",
+            "irrelevant",
+            "blank",
+            "topic",
+            "insert",
+            "title"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            99,
+            139
+          ],
+          "passages": [
+            "Fairy Prince and Other Stories (발췌)",
+            "Grimms' Fairy Tales (발췌)",
+            "Choosing Where It Gives Way",
+            "The Birthday Menu (3쪽부터 발췌)",
+            "Islands That Were Never There",
+            "Saving the Seas: What Works (and Why it Matters)"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "content_match",
+            "irrelevant",
+            "blank",
+            "topic",
+            "insert",
+            "title"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            109,
+            153
+          ],
+          "passages": [
+            "The strange house (발췌)",
+            "How the Animals Lost Their Tails by Carl Sandburg",
+            "When Ships Stopped Waiting for Wind",
+            "'The Open Boat' by Stephen Crane, Part One",
+            "Two Ways to Slow the Water",
+            "'The Fall of the House of Usher,' by Edgar Allan Poe, Part One"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "content_match",
+            "irrelevant",
+            "blank",
+            "topic",
+            "insert",
+            "title"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            119,
+            145
+          ],
+          "passages": [
+            "Christmas Every Day and Other Stories (발췌)",
+            "Three Years after Pandemic, Students Still Far Behind",
+            "The Edge That Tells You to Look",
+            "Lincoln's Cottage: a Country House for the President",
+            "The Weight That Moves on a Rest Day",
+            "'The Fall of the House of Usher,' by Edgar Allan Poe, Part Two"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "content_match",
+            "irrelevant",
+            "blank",
+            "topic",
+            "insert",
+            "title"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            99,
+            151
+          ],
+          "passages": [
+            "Little Folks (September 1884) (발췌)",
+            "Where We Live (발췌)",
+            "How a Sunlit Stage Made Night",
+            "Researchers Hope to Bring Back American Chestnuts",
+            "Listening to a Machine Before It Stops",
+            "US Educators Increasingly Urge Total Phone Bans in Schools"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "content_match",
+            "irrelevant",
+            "blank",
+            "vocab_choice",
+            "topic",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            112,
+            129
+          ],
+          "passages": [
+            "Grimms' Fairy Tales (발췌)",
+            "The experience of persons with disabilities as beneficiaries of Ghana’s District Assemblies Common Fund — 발췌",
+            "Saving Sea Turtles on Northeastern US Coast",
+            "Girls of the Forest (발췌)",
+            "Cleaning and Sanitizing: Keeping Your Food and Environment Safe",
+            "What an Abandoned City Leaves"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "word_order",
+            "unit_vocab",
+            "grammar_fix",
+            "word_meaning",
+            "blank_word",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The Puppet Show of Memory (발췌)",
+            "Adam Bede (발췌)",
+            "The Voyages of Doctor Dolittle (발췌)",
+            "able",
+            "Roy Blakeley's Adventures in Camp (발췌)",
+            "The Adventures of Fleet Foot and Her Fawns (발췌)"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "word_order",
+            "unit_vocab",
+            "grammar_fix",
+            "word_meaning",
+            "blank_word",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Travels to Discover the Source of the Nile, Volume 3 (of 5) (발췌)",
+            "Play the Game! (발췌)",
+            "The Flag-Raising (발췌)",
+            "absolute",
+            "The Young Visiters or, Mr. Salteena's Plan (발췌)",
+            "The Book of Nature Myths (발췌)"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "word_order",
+            "unit_vocab",
+            "grammar_fix",
+            "word_meaning",
+            "blank_word",
+            "title"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            107,
+            107
+          ],
+          "passages": [
+            "Rollo in Scotland (발췌)",
+            "A Christmas Carol in Prose; Being a Ghost Story of Christmas (발췌)",
+            "The Adventures of Poor Mrs. Quack (발췌)",
+            "accent",
+            "Audubon and His Journals, Volume 1 (발췌)",
+            "Haru (11쪽부터 발췌)"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "unit_vocab",
+            "grammar_fix",
+            "word_meaning",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Grimm's Fairy Tales (발췌)",
+            "Tom Swift Among the Diamond Makers; Or, The Secret of Phantom Mountain (발췌)",
+            "The Brighton Boys in the Radio Service (발췌)",
+            "The Old Tobacco Shop (발췌)",
+            "accept",
+            "The Little Gold Miners of the Sierras and Other Stories (발췌)"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "vocab_choice",
+            "word_order",
+            "unit_vocab",
+            "grammar_fix",
+            "word_meaning",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Russian Fairy Tales: A Choice Collection of Muscovite Folk-lore (발췌)",
+            "Rollo in Scotland (발췌)",
+            "A Christmas Carol (발췌)",
+            "The tale of Tommy Fox (발췌)",
+            "access",
+            "Aunt Jo's scrap-bag, Volume 6 (발췌)"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 15,
+        "proofClean": 14,
+        "byType": {
+          "content_match": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "irrelevant": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "blank": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "topic": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "insert": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "title": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "vocab_choice": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "word_order": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "unit_vocab": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "grammar_fix": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "word_meaning": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "blank_word": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "ocean",
+            "meaningKo": "대양"
+          },
+          {
+            "word": "post",
+            "meaningKo": "우편"
+          },
+          {
+            "word": "glad",
+            "meaningKo": "기쁜"
+          },
+          {
+            "word": "suddenly",
+            "meaningKo": "갑자기"
+          },
+          {
+            "word": "base",
+            "meaningKo": "기초, 토대; 기지"
+          },
+          {
+            "word": "lid",
+            "meaningKo": "뚜껑"
+          },
+          {
+            "word": "piece",
+            "meaningKo": "조각, 부분"
+          },
+          {
+            "word": "rice",
+            "meaningKo": "쌀"
+          },
+          {
+            "word": "clock",
+            "meaningKo": "시계"
+          },
+          {
+            "word": "coast",
+            "meaningKo": "해안; 타력으로 가다"
+          },
+          {
+            "word": "drawn",
+            "meaningKo": "초췌한, 핼쑥한"
+          },
+          {
+            "word": "ship",
+            "meaningKo": "배, 선박"
+          },
+          {
+            "word": "ache",
+            "meaningKo": "아프다, 쑤시다"
+          },
+          {
+            "word": "afraid",
+            "meaningKo": "두려운"
+          },
+          {
+            "word": "bore",
+            "meaningKo": "지루하게 하다; 구멍 뚫다; bear의 과거"
+          },
+          {
+            "word": "catching",
+            "meaningKo": "전염성 있는"
+          },
+          {
+            "word": "cheerful",
+            "meaningKo": "쾌활한"
+          },
+          {
+            "word": "gentle",
+            "meaningKo": "온화한; 완만한; 점잖은"
+          },
+          {
+            "word": "banana",
+            "meaningKo": "바나나"
+          },
+          {
+            "word": "butter",
+            "meaningKo": "버터"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "content_match",
+            "stem": "다음 글의 내용과 일치하지 않는 것은?",
+            "passage": "Carol and I got excused from school one day because we were afraid our heads might ache, and went to see what it was all about. But after we’d walked all around Annie Halliway twice and looked at her all we could and asked how old she was and found out that she was nineteen, we felt suddenly very glad about something.--We felt suddenly very glad that if she really was obliged to lose anything out of her face, it was her mind that she lost! Instead of her eyes! Or her nose! Or her red, red mouth! Or her cunning little ears! She was so pretty!",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "두 아이는 머리가 아플까 걱정된다는 이유로 학교에서 빠져나왔다.",
+              "그들은 Annie Halliway의 둘레를 두 바퀴 돌며 실컷 바라다보았다.",
+              "물어본 끝에 그가 열다섯 살이라는 사실을 알아내게 되었다고 한다.",
+              "두 아이는 그가 잃은 것이 얼굴이 아니라 정신이어서 다행이라 여겼다.",
+              "그들이 보기에 그의 눈과 코, 붉은 입과 앙증맞은 귀는 그대로였다."
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "지문은 \"asked how old she was and found out that she was nineteen\"이라 하여 열아홉 살이라고 적는다. 열다섯이라 한 ③이 어긋난다. 나머지는 \"afraid our heads might ache\", \"walked all around Annie Halliway twice\", \"it was her mind that she lost\", \"her red, red mouth\"로 확인되어 오답이다.",
+              "from": "batch"
+            },
+            "source": "Fairy Prince and Other Stories (발췌)"
+          },
+          {
+            "no": 2,
+            "type": "irrelevant",
+            "kind": "irrelevant",
+            "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+            "intro": "There was once a poor widow who lived in a lonely cottage.",
+            "sentences": [
+              "In front of the cottage was a garden wherein stood two rose-trees, one of which bore white and the other red roses.",
+              "Dounia stopped in the doorway, not knowing what she was called to look upon, but Svidrigaïlov hastened to explain.",
+              "She had two children who were like the two rose-trees, and one was called Snow-white, and the other Rose-red.",
+              "They were as good and happy, as busy and cheerful as ever two children in the world were, only Snow-white was more quiet and gentle than Rose-red.",
+              "Rose-red liked better to run about in the meadows and fields seeking flowers and catching butterflies; but Snow-white sat at home with her mother, and helped her with her housework, or read to her when there was nothing to do."
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "이 글은 \"There was once a poor widow who lived in a lonely cottage.\" 로 시작한다. 정답은 ② \"Dounia stopped in the doorway, not knowing what she was called to look upon, but Svidrigaïlov hastened to explain.\" 다. 나머지 문장은 \"cottage\" 처럼 도입부의 낱말을 그대로 이어받는데, 이 문장만 \"dounia\" · \"stopped\" · \"doorway\" 처럼 앞뒤 어디에도 없는 낱말로 다른 화제를 꺼낸다. 한 문단은 한 화제를 이어 가야 하므로, 낱말이 끊기는 이 문장이 전체 흐름과 관계 없는 문장이다.",
+              "from": "rule"
+            },
+            "source": "Grimms' Fairy Tales (발췌)"
+          },
+          {
+            "no": 3,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+            "passage": "Good design does not only ask how strong a part should be. It also asks which part should give way first, because something gives way in the end. If every piece is made equally strong, the break comes somewhere nobody planned, and the damage spreads from there. So engineers pick one cheap piece, make it the weakest, and ____. A road sign on a tall post shows the idea. The post is joined to its base through a bolt that is meant to snap, so a car that leaves the road lifts the whole post up and over instead of stopping dead against it. The sign is ruined and the base must be replaced, yet the people in the car walk away.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "hide it from view",
+              "test it once a year",
+              "let it take the blow",
+              "replace it every season",
+              "make the rest stronger too"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "\"If every piece is made equally strong, the break comes somewhere nobody planned\" 이므로, 일부러 가장 약한 곳을 정해 거기서 무너지게 한다. 표지판 기둥의 \"a bolt that is meant to snap\" 이 그 예다. ⑤는 모두를 강하게 하자는 쪽이라 글이 물리친 방식이고, ①·②·④는 관리 방법일 뿐 왜 약하게 만드는지를 말하지 않는다.",
+              "from": "batch"
+            },
+            "source": "Choosing Where It Gives Way"
+          },
+          {
+            "no": 4,
+            "type": "topic",
+            "stem": "다음 글의 주제로 가장 적절한 것은?",
+            "passage": "“I am tired of staying inside. I want to eat Patil Bandhu’s vada pao. I want to go to Swaad Bhavan.” Mummy and Papa let her be. But Kanchi’s screams stirred up the otherwise quiet Sunrise Society. “What do you like eating at Swaad Bhavan, dear?” asked Janaki Ajji. Kanchi felt shy but said, “I like their chowmein, lemon rice, aloo paratha, butter chicken and paper dosa”. “That’s a lot of different delicacies at one place,” said Janaki Ajji. “Wait! I can make you akki roti, with ghee and coconut chutney. I will make it on a banana leaf. I have the rice flour dough ready with me.”",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "the quiet of the Sunrise Society",
+              "how akki roti is made on a fresh banana leaf",
+              "the menu at Swaad Bhavan restaurant",
+              "a girl’s craving and a neighbour’s offer",
+              "why parents let their children shout"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "Kanchi 가 \"I want to go to Swaad Bhavan\" 하고 조르자 Janaki Ajji 가 \"I can make you akki roti\" 하고 나선다. 아이의 조름과 이웃의 제안이 맞물리는 것이 대상이다. ①·⑤는 그 소동의 배경이고, ②·③은 양쪽이 말한 음식 목록의 한 조각씩이다.",
+              "from": "batch"
+            },
+            "source": "The Birthday Menu (3쪽부터 발췌)"
+          },
+          {
+            "no": 5,
+            "type": "insert",
+            "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+            "given": "An island reported once, perhaps a bank of cloud on a far edge, was copied for hundreds of years.",
+            "body": [
+              {
+                "text": "Early maps of the world were drawn from reports carried home by sailors and traders.",
+                "slot": 0
+              },
+              {
+                "text": "A coast that sailors had seen clearly was drawn well, while the land behind it was a guess.",
+                "slot": 1
+              },
+              {
+                "text": "Open space, however, was rarely left open, since an empty sheet looked like a failure of knowledge.",
+                "slot": 2
+              },
+              {
+                "text": "Mapmakers filled it with mountains, rivers and creatures that no one had ever met.",
+                "slot": 3
+              },
+              {
+                "text": "Some errors were stranger than that, because a copied map could invent land out of nothing.",
+                "slot": 4
+              }
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "주어진 문장은 있지도 않은 섬이 수백 년 동안 베껴졌다는 이야기이므로, a copied map could invent land out of nothing 이라는 일반 진술의 실례에 해당한다. 그 진술이 놓인 자리가 ⑤ 앞 문장이니 답은 ⑤ 다. ①~④ 는 해안은 잘 그리고 그 너머는 짐작으로 채웠다는 빈칸 메우기 이야기라, 베껴 그리다 없던 땅이 생긴다는 다른 갈래가 아직 열리지 않았다. 특히 ④ 에 넣으면 Some errors were stranger than that 의 that 이 받을 앞말이 사라져 비교가 무너진다.",
+              "from": "batch"
+            },
+            "source": "Islands That Were Never There"
+          },
+          {
+            "no": 6,
+            "type": "title",
+            "stem": "다음 글의 제목으로 가장 적절한 것은?",
+            "passage": "The ocean is full of life, but it is also in trouble. From plastic pollution to disappearing coral reefs, many things have harmed the ocean and its inhabitants over the last centuries. But is there still hope? Yes! Around the world—from local towns and villages to scientists and politicians—people are working hard to help the ocean heal. We looked at more than 200 happy-ending stories from all around the globe, where things got better for many different species. For example, in some areas, there are now more animals and plants living in the ocean than there were in years past, or species that had completely disappeared from a region “returned home” as the waters became cleaner. These success stories show that there is hope for the ocean to bounce back—with a little help from all of us.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "Why Coral Reefs Are Gone for Good",
+              "Plastic: The Ocean’s Newest Enemy",
+              "How Scientists Count Fish at Sea",
+              "Signs the Ocean Can Still Recover",
+              "Two Hundred Ways Humans Harmed the Sea"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "\"We looked at more than 200 happy-ending stories\" 를 살펴 \"there is hope for the ocean to bounce back\" 라 맺는다. 회복의 증거가 요지다. ①·②·⑤는 피해 쪽 소재만 남기고 결론을 반대로 돌렸고 — 특히 ⑤는 200건이 **성공** 사례라는 사실을 뒤집었다 — ③은 본문에 없는 방법론이다.",
+              "from": "batch"
+            },
+            "source": "Saving the Seas: What Works (and Why it Matters)"
+          }
+        ]
+      }
+    },
+    "4": {
+      "band": 4,
+      "step": 4,
+      "title": "Vocaflow Reading 3",
+      "schoolBand": "중학 3학년",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "blank",
+            "topic",
+            "content_match",
+            "title",
+            "irrelevant",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            90,
+            135
+          ],
+          "passages": [
+            "La-Bools, Mysterious Fungi that Deserve Your Attention",
+            "Germany Aims to Increase Educational Choices for Its Youth",
+            "Dave Porter and His Rivals; or, The Chums and Foes of Oak Hall (발췌)",
+            "Study Shows How Earth’s Orbit Affects Ice Ages",
+            "Rollo in Scotland (발췌)",
+            "The Order Sleep Will Not Give Back"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "blank",
+            "topic",
+            "content_match",
+            "title",
+            "irrelevant",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            100,
+            145
+          ],
+          "passages": [
+            "Chalk on the Station Board",
+            "The Shelf of Lost Things",
+            "Little Women (발췌)",
+            "'The Blue Hotel,' by Stephen Crane, Part Four",
+            "For Many Reasons, Fewer Chinese Students Attend US Schools",
+            "Two Words at the Door"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "blank",
+            "topic",
+            "content_match",
+            "title",
+            "irrelevant",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            98,
+            151
+          ],
+          "passages": [
+            "The Line Across the Brown Water",
+            "Citizen Scientist Making a Difference",
+            "The Boy With the U. S. Fisheries (발췌)",
+            "A Short History of Spacecraft Landings on the Moon",
+            "US States Push for Cell Phone Ban in High Schools",
+            "Snow on the Errand Road"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "blank",
+            "topic",
+            "content_match",
+            "title",
+            "irrelevant",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            99,
+            148
+          ],
+          "passages": [
+            "The Title Does Its Work First",
+            "Dartmouth Will Again Require Standardized Tests",
+            "The strange house (발췌)",
+            "The Sound That Has No Address",
+            "Scientists Discover Stonehenge-like Circle in Denmark",
+            "Half the Fence Was White"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "blank",
+            "title",
+            "content_match",
+            "irrelevant",
+            "grammar_choice",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            92,
+            150
+          ],
+          "passages": [
+            "Climate Extremes Continue, Bringing Floods to Spain",
+            "Images Can Help You Retain Vocabulary",
+            "The Boy's Book of New Inventions (발췌)",
+            "Study: Asteroid Hit Created Two ‘Grand Canyons’ on Moon",
+            "N95 (도입부 발췌)",
+            "Two Black Stones on a Tray"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "grammar_fix",
+            "blank_word",
+            "grammar_choice",
+            "vocab_choice",
+            "unit_grammar",
+            "word_order"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The Heiress of Wyvern Court (발췌)",
+            "At Aboukir and Acre: A Story of Napoleon's Invasion of Egypt (발췌)",
+            "Irish Fairy Tales (발췌)",
+            "The Golden Shoemaker (발췌)",
+            "Little Brother (발췌)",
+            "Dave Darrin on Mediterranean Service; or, With Dan Dalzell on European Duty (발췌)"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "unit_vocab",
+            "grammar_fix",
+            "blank_word",
+            "grammar_choice",
+            "vocab_choice",
+            "unit_grammar"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The Olive Fairy Book (발췌)",
+            "Daddy-Long-Legs (발췌)",
+            "The Little Colonel: Maid of Honor (발췌)",
+            "The Young Treasure Hunter; Or, Fred Stanley's Trip to Alaska (발췌)",
+            "The Dash for Khartoum: A Tale of the Nile Expedition (발췌)",
+            "The Book of Dragons (발췌)"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "word_order",
+            "unit_vocab",
+            "grammar_fix",
+            "blank_word",
+            "grammar_choice",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The book of one syllable (발췌)",
+            "Heidi (발췌)",
+            "The Adventures of a Three-Guinea Watch (발췌)",
+            "Journeys Through Bookland, Vol. 7 (발췌)",
+            "The life of Jean Henri Fabre, the entomologist, 1823-1910 (발췌)",
+            "The Little Gold Miners of the Sierras and Other Stories (발췌)"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "unit_grammar",
+            "word_order",
+            "unit_vocab",
+            "grammar_fix",
+            "blank_word",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Howards End (발췌)",
+            "Bleak House (발췌)",
+            "The Little Gold Miners of the Sierras and Other Stories (발췌)",
+            "The Lilac Lady (발췌)",
+            "The Magic World (발췌)",
+            "Pathfinder; or, The Missing Tenderfoot (발췌)"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "vocab_choice",
+            "unit_grammar",
+            "word_order",
+            "unit_vocab",
+            "grammar_fix",
+            "blank_word"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "At the Back of the North Wind (발췌)",
+            "Frank Merriwell's Pursuit; Or, How to Win (발췌)",
+            "Bunny Brown and His Sister Sue at Christmas Tree Cove (발췌)",
+            "Fifty-Two Stories For Girls (발췌)",
+            "Audubon and His Journals, Volume 1 (발췌)",
+            "Bleak House (발췌)"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 22,
+        "proofClean": 21,
+        "byType": {
+          "blank": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "topic": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "content_match": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "title": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "irrelevant": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "insert": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "grammar_choice": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "grammar_fix": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "blank_word": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "vocab_choice": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "unit_grammar": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "word_order": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "unit_vocab": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "career",
+            "meaningKo": "경력"
+          },
+          {
+            "word": "cycle",
+            "meaningKo": "주기"
+          },
+          {
+            "word": "stage",
+            "meaningKo": "단계; 무대"
+          },
+          {
+            "word": "affect",
+            "meaningKo": "영향을 미치다"
+          },
+          {
+            "word": "grade",
+            "meaningKo": "성적; 학년; 등급"
+          },
+          {
+            "word": "path",
+            "meaningKo": "길; 경로"
+          },
+          {
+            "word": "warm",
+            "meaningKo": "따뜻한"
+          },
+          {
+            "word": "ground",
+            "meaningKo": "땅, 지면, 바닥"
+          },
+          {
+            "word": "rock",
+            "meaningKo": "바위, 암석; 록 음악"
+          },
+          {
+            "word": "academic",
+            "meaningKo": "학문의; 학자"
+          },
+          {
+            "word": "ranch",
+            "meaningKo": "목장"
+          },
+          {
+            "word": "factor",
+            "meaningKo": "요인"
+          },
+          {
+            "word": "bill",
+            "meaningKo": "청구서; 법안; 지폐"
+          },
+          {
+            "word": "risk",
+            "meaningKo": "위험, 위험 요소"
+          },
+          {
+            "word": "shortage",
+            "meaningKo": "부족, 결핍"
+          },
+          {
+            "word": "deserve",
+            "meaningKo": "받을 만하다"
+          },
+          {
+            "word": "explore",
+            "meaningKo": "탐험하다"
+          },
+          {
+            "word": "fully",
+            "meaningKo": "완전히, 충분히"
+          },
+          {
+            "word": "mysterious",
+            "meaningKo": "신비한, 알 수 없는"
+          },
+          {
+            "word": "failure",
+            "meaningKo": "실패"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+            "passage": "Laboulbeniales—most scientists just call them “la-bools”!—are microscopic fungi that live as parasites on arthropods, such as insects, and are unlike any other fungi you have ever heard of. What makes la-bools so special? Well, they look like they are from another world; they cannot live without the creatures they live on, and even scientists do not fully understand them yet. Join us to explore what la-bools look like, how they live, how they are studied and how you can help scientists learn more about them. These mysterious fungi teach us something important: ____.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "a parasite is always more dangerous than the host it lives on",
+              "insects would certainly live much longer without any fungi",
+              "the microscope has now revealed everything about these fungi",
+              "the species we cannot even see still matter and need protecting",
+              "the smallest living things are the easiest ones for us to study"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "글은 라불이 \"microscopic\" 이고 \"even scientists do not fully understand them yet\" 이라 해 놓고 마지막 문장에서 그 사실을 교훈으로 바꾼다. 보이지 않아도 중요하다는 방향을 담은 것은 ④다. ③·⑤ 는 글이 말한 것과 정반대다 — 아직 다 알지 못한다. ①·② 는 글에 없는 비약이다.",
+              "from": "batch"
+            },
+            "source": "La-Bools, Mysterious Fungi that Deserve Your Attention"
+          },
+          {
+            "no": 2,
+            "type": "topic",
+            "stem": "다음 글의 주제로 가장 적절한 것은?",
+            "passage": "Many European countries have programs that help place students in careers at a young age. In Germany, some students move into education programs at the age of 10. The goal is to prepare them for a lifelong job. They continue their education but also take classes that will help them learn about their job. By the age of 16, those students are placed into work experience programs called apprenticeships. The system helps keep unemployment among young people low. Groups in the U.S. have expressed interest in the system. They are concerned that the American university system does not prepare young people to enter the workforce.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "why German students start school at age ten",
+              "how apprenticeships are paid across Europe",
+              "an early career track and why others watch it",
+              "the number of unemployed young Americans",
+              "how universities prepare students for work"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "글은 제도를 설명하고 왜 밖에서 관심을 갖는지로 닫는다 — \"The system helps keep unemployment among young people low\" 이고 \"Groups in the U.S. have expressed interest in the system\" 이다. 그래서 ③이다. ④⑤는 미국 쪽 사정 한 줄이고 ①②는 글이 말하지 않는다.",
+              "from": "batch"
+            },
+            "source": "Germany Aims to Increase Educational Choices for Its Youth"
+          },
+          {
+            "no": 3,
+            "type": "content_match",
+            "stem": "다음 글의 내용과 일치하지 않는 것은?",
+            "passage": "The Endicott ranch was located next to one owned by Link Merwell’s father, and, as was to be expected, it was not long before there was a clash between Dave and his party on one side and Merwell and his followers on the other. Link Merwell, as usual, did all in his power to injure Dave, and make the outing for the others a failure, but he was caught in his own trap, and it was proved that he had, to a certain extent, aided some horse-thieves in their nefarious work. Mr. Merwell had to pay Mr. Endicott for the animals that were missing, and, in order to hush the matter up, he agreed to sell his ranch and move to some other part of the country.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "Endicott의 목장은 Link Merwell 아버지의 목장과 이웃해 있었다.",
+              "오래지 않아 Dave 일행과 Merwell 무리 사이에 충돌이 일어나고 말았다.",
+              "Link Merwell은 말 도둑들을 앞장서서 붙잡은 공을 인정받게 되었다.",
+              "Merwell 씨는 없어진 가축 값을 Endicott 씨에게 물어 주어야 하였다.",
+              "그는 일을 덮으려고 목장을 팔고 다른 고장으로 옮기기로 하였다."
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "지문은 Link Merwell이 \"aided some horse-thieves in their nefarious work\"라 하여 말 도둑을 도왔음이 드러났다고 적는다. 붙잡은 공을 인정받았다는 ③이 어긋난다. 나머지는 \"located next to one owned by Link Merwell's father\", \"there was a clash\", \"pay Mr. Endicott for the animals\", \"agreed to sell his ranch\"로 확인된다.",
+              "from": "batch"
+            },
+            "source": "Dave Porter and His Rivals; or, The Chums and Foes of Oak Hall (발췌)"
+          },
+          {
+            "no": 4,
+            "type": "title",
+            "stem": "다음 글의 제목으로 가장 적절한 것은?",
+            "passage": "A recent study suggests the next ice age will likely begin in about 11,000 years unless emissions change the effects of natural climate cycles. An ice age is a period of reduced temperatures causing ice to cover large areas of the northern and southern parts of the world. A group of scientists studied changes in the shape of the Earth’s orbit around the sun, the tilt of the Earth’s axis and the movement of the axis itself, called a wobble. These three motions are believed to happen in cycles. The Serbian scientist Milutin Milankovitch developed a theory about 100 years ago that these cycles affected Earth’s long-term climate. The team noted that small changes in Earth’s orbit around the Sun caused predictable cycles of warming and cooling over a period of about 100,000 years.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "An Ice Age Beginning Within Decades",
+              "Orbital Cycles That Time the Ice Ages",
+              "How Milankovitch Measured the Wobble",
+              "Emissions That Cool the Whole Planet",
+              "Why Ice Covers the Southern Ocean"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "핵심은 궤도 주기다 — \"changes in the shape of the Earth’s orbit\" 이 \"predictable cycles of warming and cooling\" 을 낳는다. ②가 그것이다. 나머지는 시점이나 인물처럼 세부만 본 오답이다.",
+              "from": "batch"
+            },
+            "source": "Study Shows How Earth’s Orbit Affects Ice Ages"
+          },
+          {
+            "no": 5,
+            "type": "irrelevant",
+            "kind": "irrelevant",
+            "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+            "intro": "The level place was an ancient tilting ground; that is, a ground where, in ancient times, they used to have tilts and tournaments, for the amusement of the people of the palace, and of the guests who came to visit them.",
+            "sentences": [
+              "The ladies used to stand on the top of the rock to witness the tournaments.",
+              "There was a large, flat area there, with room enough upon it for twenty or thirty ladies to stand and see.",
+              "The rock was called the Lady’s Rock.",
+              "The tournaments and tiltings have long since ceased, but it retains the name of the Lady’s Rock to the present day.",
+              "After four hours of waiting, he had called to Pant, and together they had entered the mine."
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "이 글은 \"The level place was an ancient tilting ground; that is, a ground where, in ancient times, they used…\" 로 시작한다. 정답은 ⑤ \"After four hours of waiting, he had called to Pant, and together they had entered the mine.\" 다. 나머지 문장은 \"tournaments\" 처럼 도입부의 낱말을 그대로 이어받는데, 이 문장만 \"four\" · \"hours\" · \"waiting\" 처럼 앞뒤 어디에도 없는 낱말로 다른 화제를 꺼낸다. 한 문단은 한 화제를 이어 가야 하므로, 낱말이 끊기는 이 문장이 전체 흐름과 관계 없는 문장이다.",
+              "from": "rule"
+            },
+            "source": "Rollo in Scotland (발췌)"
+          },
+          {
+            "no": 6,
+            "type": "insert",
+            "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+            "given": "Its speed is poor, since the hours arrive days after they were needed.",
+            "body": [
+              {
+                "text": "The other repair is a long morning of sleep at the end of the week.",
+                "slot": 0
+              },
+              {
+                "text": "Here the extra time is added at the far end, where the dream stage lives.",
+                "slot": 1
+              },
+              {
+                "text": "The cost lands on the clock instead, for a late rising shifts the body’s timing.",
+                "slot": 2
+              },
+              {
+                "text": "The following working night then starts late and ends early, and the shortage returns.",
+                "slot": 3
+              },
+              {
+                "text": "The risk here is a slow drift rather than a single bad night, and few notice it.",
+                "slot": 4
+              }
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "정답은 ② 다 — 주어진 문장은 원래 \"… at the far end, where the dream stage lives.\" 뒤에 있었다. 거기 넣으면 \"…where the dream stage lives.\" → \"Its speed is poor, since the hours arrive…\" → \"The cost lands on the clock…\" 로 이어진다. ① 는 \"…at the end of the week.\" 와 \"Here the extra time is…\" 사이를 가른다; ③ 는 \"…shifts the body's timing.\" 와 \"The following working night…\" 사이를 가른다 — 원문에서 이 둘은 붙어 있다.",
+              "from": "batch"
+            },
+            "source": "The Order Sleep Will Not Give Back"
+          }
+        ]
+      }
+    },
+    "5": {
+      "band": 5,
+      "step": 5,
+      "title": "Vocaflow Reading 4",
+      "schoolBand": "고1",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "claim",
+            "title",
+            "topic",
+            "implication",
+            "purpose",
+            "long_reference"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            104,
+            337
+          ],
+          "passages": [
+            "The Will to Power: An Attempted Transvaluation of All Values. Book III and IV",
+            "USGS Installs Storm-Tide Sensors in Puerto Rico for Hurricane Irma",
+            "A bunch of exoplanets may be bigger than scientists' thought",
+            "Laboulaye's Fairy Book (발췌)",
+            "History of Tom Jones, a Foundling",
+            "The Case on the Last Bus"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "claim",
+            "title",
+            "topic",
+            "content_match",
+            "blank",
+            "purpose"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            182,
+            199
+          ],
+          "passages": [
+            "The positive outcome of philosophy",
+            "Hair shows banning lead in gas worked",
+            "Fruits and veggies could help you sleep better",
+            "Talks To Teachers On Psychology; And To Students On Some Of Life's Ideals",
+            "A Patriotic Schoolgirl (발췌)",
+            "An Enquiry Concerning Human Understanding"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "title",
+            "topic",
+            "content_match",
+            "main_point",
+            "summary",
+            "blank"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            121,
+            198
+          ],
+          "passages": [
+            "Alzheimer's caregivers face faster cellular aging",
+            "Team finds one of the most ancient stars from another galaxy",
+            "Children of the Whirlwind",
+            "Ruth Fielding on the St. Lawrence; Or, The Queer Old Man of the Thousand Islands (발췌)",
+            "The mysterious Mr. Quin",
+            "Laboulaye's Fairy Book (발췌)"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "title",
+            "implication",
+            "blank",
+            "mood",
+            "topic",
+            "content_match"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            144,
+            194
+          ],
+          "passages": [
+            "New device delivers antibiotics via mist",
+            "What has driven deforestation in the 21st century?",
+            "The golden spears, and other fairy tales (발췌)",
+            "Children of the Whirlwind",
+            "COVID, flu, allergies, or something else? Tips for virus season",
+            "Dorothy's Travels (발췌)"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "blank",
+            "title",
+            "long_reference",
+            "purpose",
+            "main_point",
+            "summary"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            134,
+            338
+          ],
+          "passages": [
+            "Little Folks (September 1884) (발췌)",
+            "Magnitude 6.5 Earthquake Felt in Central Idaho",
+            "Two Envelopes Came Back",
+            "The Essays of Arthur Schopenhauer; Studies in Pessimism",
+            "King Arthur's Knights (발췌)",
+            "Children of the Whirlwind"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "order",
+            "vocab_choice",
+            "grammar_fix",
+            "blank",
+            "mood",
+            "content_match"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            95,
+            199
+          ],
+          "passages": [
+            "Should you accept internet cookies?",
+            "Historic Boys: Their Endeavours, Their Achievements, and Their Times (발췌)",
+            "Estimation of health-related and economic impacts of PM2.5 in Arak, Iran, using BenMAP-CE — 발췌",
+            "Laboulaye's Fairy Book (발췌)",
+            "The Green Umbrella on the Steps",
+            "Baseball Joe Around the World; or, Pitching on a Grand Tour (발췌)"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "order",
+            "vocab_choice",
+            "grammar_fix",
+            "blank",
+            "insert",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            93,
+            143
+          ],
+          "passages": [
+            "Smoke Streams Across Eastern Washington - NASA Science",
+            "The Religion of the Ancient Celts",
+            "A Christmas Carol in Prose; Being a Ghost Story of Christmas (발췌)",
+            "Anne's House of Dreams (발췌)",
+            "APOD: 2026 July 6 - Dueling Bands over the Atacama Desert - NASA Science",
+            "The regulatory effect of herd structure on pig production under the environmental regulation — 발췌"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "order",
+            "vocab_choice",
+            "grammar_fix",
+            "blank",
+            "insert",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            90,
+            173
+          ],
+          "passages": [
+            "What is COP?",
+            "The life of Jean Henri Fabre, the entomologist, 1823-1910 (발췌)",
+            "The Young Treasure Hunter; Or, Fred Stanley's Trip to Alaska (발췌)",
+            "Wood Magic: A Fable (발췌)",
+            "The Summer Triangle's Hidden Treasures - NASA Science",
+            "USGS Crews Work Fast to Capture Critical Flooding Measurements in the Mid-Atlantic"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "order",
+            "vocab_choice",
+            "word_order",
+            "grammar_fix",
+            "blank",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            102,
+            153
+          ],
+          "passages": [
+            "Your brain doesn't predict what words come next like AI",
+            "Six Imprisoned Health-Care Workers in Libya Are Pawns in a Far Larger Strategic Game — 발췌",
+            "Queensland Cousins (발췌)",
+            "Byzantine Constantinople, the walls of the city and adjoining historical sites",
+            "The book of wonders (발췌)",
+            "APOD: 2026 July 19 - Flying Saucer Crash Lands in Utah Desert - NASA Science"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "order",
+            "irrelevant",
+            "grammar_choice",
+            "vocab_choice",
+            "word_order",
+            "grammar_fix"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            108,
+            108
+          ],
+          "passages": [
+            "There's mostly no benefit from grouping English learners together",
+            "Low landslide risk after tragic Smokies fires",
+            "Kant's Critique of Judgement",
+            "Mansfield Park (발췌)",
+            "G-2 and the climate crisis: How global exports to China and the U.S. drive carbon emissions, 2000&ndash;2022 — 발췌",
+            "The Girl on the Boat (발췌)"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 9,
+        "proofClean": 9,
+        "byType": {
+          "claim": {
+            "items": 2,
+            "renderable": 2,
+            "explained": 2
+          },
+          "title": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "topic": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "implication": {
+            "items": 2,
+            "renderable": 2,
+            "explained": 2
+          },
+          "purpose": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "long_reference": {
+            "items": 2,
+            "renderable": 2,
+            "explained": 2
+          },
+          "content_match": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "blank": {
+            "items": 8,
+            "renderable": 8,
+            "explained": 8
+          },
+          "main_point": {
+            "items": 2,
+            "renderable": 2,
+            "explained": 2
+          },
+          "summary": {
+            "items": 2,
+            "renderable": 2,
+            "explained": 2
+          },
+          "mood": {
+            "items": 2,
+            "renderable": 2,
+            "explained": 2
+          },
+          "order": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "vocab_choice": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "grammar_fix": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "insert": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "irrelevant": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "word_order": {
+            "items": 2,
+            "renderable": 2,
+            "explained": 2
+          },
+          "grammar_choice": {
+            "items": 1,
+            "renderable": 1,
+            "explained": 1
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "sensor",
+            "meaningKo": "센서"
+          },
+          {
+            "word": "response",
+            "meaningKo": "응답, 반응"
+          },
+          {
+            "word": "belief",
+            "meaningKo": "믿음"
+          },
+          {
+            "word": "judgment",
+            "meaningKo": "판단, 판결"
+          },
+          {
+            "word": "measure",
+            "meaningKo": "측정하다"
+          },
+          {
+            "word": "found",
+            "meaningKo": "설립하다, 창건하다; find의 과거·과거분사형"
+          },
+          {
+            "word": "flash",
+            "meaningKo": "번쩍이다; 휙 비치다; 섬광; 플래시"
+          },
+          {
+            "word": "regard",
+            "meaningKo": "~로 여기다, 관심"
+          },
+          {
+            "word": "coastal",
+            "meaningKo": "해안의"
+          },
+          {
+            "word": "damage",
+            "meaningKo": "손상, 피해"
+          },
+          {
+            "word": "affect",
+            "meaningKo": "영향을 미치다"
+          },
+          {
+            "word": "distant",
+            "meaningKo": "멀리 있는"
+          },
+          {
+            "word": "estimate",
+            "meaningKo": "추정하다"
+          },
+          {
+            "word": "attack",
+            "meaningKo": "공격; (병의) 발작"
+          },
+          {
+            "word": "bark",
+            "meaningKo": "나무껍질, 수피"
+          },
+          {
+            "word": "foam",
+            "meaningKo": "거품; 폼(스펀지 소재)"
+          },
+          {
+            "word": "furious",
+            "meaningKo": "격분한"
+          },
+          {
+            "word": "absence",
+            "meaningKo": "부재, 결석"
+          },
+          {
+            "word": "admit",
+            "meaningKo": "인정하다"
+          },
+          {
+            "word": "behalf",
+            "meaningKo": "~을 대신하여, ~을 위하여"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "claim",
+            "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+            "passage": "Mathematics is possible under conditions which are not allowed to metaphysics. All human knowledge is either experience or mathematics. A judgment is synthetic--that is to say, it co-ordinates various ideas. It is a priori--that is to say, this co-ordination is universally true and necessary, and is arrived at, not by sensual experience, but by pure reason. If there are such things as a priori judgments, then reason must be able to co-ordinate: co-ordination is a form. Reason must _possess a formative faculty._ Judging is our oldest faith; it is our habit of believing this to be true or false, of asserting or denying, our certainty that something is thus and not otherwise, our belief that we really \"know\"--what is believed to be true in all judgments? What are attributes?--We did not regard changes in ourselves merely as such, but as \"things in themselves,\" which are strange to us, and which we only \"perceive\"; and we did not class them as phenomena, but as Being, as \"attributes\"; and in addition we invented a creature to which they attach themselves--that is to say, we made the effect the working cause, and the latter we made Being.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "수학에 허용된 조건을 형이상학에도 그대로 허용해야 한다.",
+              "선험적 판단은 감각의 경험에서 끌어내야 한다.",
+              "사람의 앎은 경험과 수학 밖에서 찾아야 한다.",
+              "우리 안의 변화를 사물 자체로 놓고 설명해야 한다.",
+              "참이라 믿어 온 판단의 습관을 의심해 보아야 한다."
+            ],
+            "answer": 5,
+            "explanation": {
+              "text": "⑤가 필자가 미는 바다. 글은 Judging is our oldest faith; it is our habit of believing this to be true or false 라며 판단을 믿음의 습관으로 되돌려 놓고, 그 습관이 we made the effect the working cause 라는 뒤집힘을 낳았다고 짚는다. 나머지는 글이 부정한 쪽이다 — ①은 Mathematics is possible under conditions which are not allowed to metaphysics 와 반대이고, ②는 선험이 not by sensual experience 라는 정의와 어긋난다. ③은 앎이 경험 아니면 수학이라는 서술과, ④는 필자가 지어낸 것이라 비판한 대목과 어긋나는 오답이다.",
+              "from": "batch"
+            },
+            "source": "The Will to Power: An Attempted Transvaluation of All Values. Book III and IV"
+          },
+          {
+            "no": 2,
+            "type": "title",
+            "stem": "다음 글의 제목으로 가장 적절한 것은?",
+            "passage": "Hurricane response crews from the U.S. Geological Survey have installed storm-tide sensors at key locations along the northeast shores of Puerto Rico in advance of Hurricane Irma. Under a mission assignment from the Federal Emergency Management Agency, the USGS deployed nine sensors. These storm-tide sensors, housed in vented steel pipes a few inches wide and about a foot long, were installed on bridges, piers, and other structures that have a good chance of surviving a storm surge during a hurricane. The information they collect will help define the depth and duration of a storm-surge, as well as the time of its arrival and retreat. That information will help public officials assess storm damage, discern between wind and flood damage, and improve computer models used to forecast future floods. As the storm approaches and passes the island, information on the storm-tide sensor deployment and the incoming data will be available on the USGS “Flood Event Viewer” at http://water.usgs.gov/floods/FEV/. Storm-surges are increases in ocean water levels generated at sea by extreme storms and can have devastating coastal impacts.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "Sensors Set Before Landfall to Record a Storm Surge",
+              "How FEMA Decides Which Islands Get Warning Systems",
+              "A Flood Viewer That Replaces Computer Flood Models",
+              "Why Puerto Rico’s Northeast Shore Floods Every Year",
+              "Rebuilding the Bridges and Piers a Hurricane Destroys"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "글은 상륙 전에 센서를 달아 해일을 기록한다는 이야기다 — \"installed storm-tide sensors at key locations ... in advance of Hurricane Irma\" 이고 그 자료가 \"help define the depth and duration of a storm-surge\" 다. 그래서 ①이 제목이다. ⑤는 다리와 부두가 나오지만 복구가 아니라 설치 장소이고, ③은 모델을 대체하는 것이 아니라 개선한다. 나머지도 소재만 같고 결론이 다르다.",
+              "from": "batch"
+            },
+            "source": "USGS Installs Storm-Tide Sensors in Puerto Rico for Hurricane Irma"
+          },
+          {
+            "no": 3,
+            "type": "topic",
+            "stem": "다음 글의 주제로 가장 적절한 것은?",
+            "passage": "In new research, astronomers describe how more than 200 known exoplanets are likely much larger than previously thought. It’s a finding that could change which distant worlds researchers consider potential harbors for extraterrestrial life. “We found that hundreds of exoplanets are larger than they appear, and that shifts our understanding of exoplanets on a large scale,” says Te Han, a doctoral student at University of California, Irvine and lead author of the new Astrophysical Journal Letters study. “This means we may have actually found fewer Earth-like planets so far than we thought.” Astronomers can’t observe exoplanets directly. They have to wait for a planet to pass in front of its host star, and then they measure the very subtle drop in light emanating from a star. “We’re basically measuring the shadow of the planet,” says Paul Robertson, UC Irvine professor of astronomy and study coauthor. Han’s team studied observations of hundreds of exoplanets observed by NASA’s Transiting Exoplanet Survey Satellite, and they found that light from neighboring stars can “contaminate” the light of a star an astronomer is studying.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "the method of measuring a planet as a shadow on its star",
+              "the mission history of NASA’s exoplanet survey satellite",
+              "the finding that many known exoplanets are larger than thought",
+              "the odds of finding extraterrestrial life on distant worlds",
+              "the problem of stray light coming from neighboring stars"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "글의 중심은 \"more than 200 known exoplanets are likely much larger than previously thought\" 라는 결과와, 그 때문에 지구를 닮은 행성을 실제보다 많이 세어 왔다는 함의다. ③이 대상과 각도를 함께 담는다. ①⑤는 그 결과에 이른 방법과 원인으로 한 번씩 나온 세부이고, 나머지는 글이 스치듯 언급한 전망이라 오답이다.",
+              "from": "batch"
+            },
+            "source": "A bunch of exoplanets may be bigger than scientists' thought"
+          },
+          {
+            "no": 4,
+            "type": "implication",
+            "stem": "밑줄 친 부분이 다음 글에서 의미하는 바로 가장 적절한 것은?",
+            "passage": "Alas! there was neither bark nor ship. The fugitives were lost. Yvon, always brave, picked up stones to attack the giant and to sell his life dearly. Finette, trembling with fear, threw one of the silver bullets into the sea, saying, Scarcely had she spoken the magic words when a beautiful ship rose from the waves like a swan spreading its white wings. Yvon and Finette plunged into the sea; a rope was thrown them by an invisible hand, and when the furious giant reached the shore the ship was receding rapidly at full sail, leaving behind it a long furrow of shining foam.",
+            "underline": "to sell his life dearly",
+            "given": null,
+            "choices": [
+              "to trade what he owned for a safe passage from the shore",
+              "to ask a high price for the silver bullets Finette held",
+              "to give up the fight at once so that Finette could flee",
+              "to make the giant pay a heavy price before he was beaten",
+              "to wait until an invisible hand threw a rope down to him"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "배가 없는 상황에서 Yvon은 돌을 주워 거인에게 맞서고 Finette는 \"silver bullets\" 하나를 바다에 던진다. 밑줄은 무엇을 팔아 값을 받는다는 뜻이 아니라 거인에게 큰 대가를 치르게 하고 죽겠다는 각오이므로 ④가 적절하다. ①·②는 sell의 사전적 뜻으로 만든 오답이고 ③은 방향이 정반대이며 ⑤는 뒤에 나오는 다른 장면이다.",
+              "from": "batch"
+            },
+            "source": "Laboulaye's Fairy Book (발췌)"
+          },
+          {
+            "no": 5,
+            "type": "purpose",
+            "stem": "다음 글의 목적으로 가장 적절한 것은?",
+            "passage": "By her conversation and instructions, Sophia was perfectly well bred, though perhaps she wanted a little of that ease in her behaviour which is to be acquired only by habit, and living within what is called the polite circle. But this, to say the truth, is often too dearly purchased; and though it hath charms so inexpressible, that the French, perhaps, among other qualities, mean to express this, when they declare they know not what it is; yet its absence is well compensated by innocence; nor can good sense and a natural gentility ever stand in need of it. Wherein the history goes back to commemorate a trifling incident that happened some years since; but which, trifling as it was, had some future consequences. The amiable Sophia was now in her eighteenth year, when she is introduced into this history. Her father, as hath been said, was fonder of her than of any other human creature. To her, therefore, Tom Jones applied, in order to engage her interest on the behalf of his friend the gamekeeper. But before we proceed to this business, a short recapitulation of some previous matters may be necessary.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "프랑스식 예법이 어째서 더 우월한지 논증하려고",
+              "본격적인 사건에 앞서 소피아라는 인물을 소개하려고",
+              "사냥터지기가 처한 딱한 사정을 세상에 고발하려고",
+              "소피아 아버지가 재산을 어떻게 모았는지 밝히려고",
+              "상류 사회의 자녀 교육 방식을 정면으로 비판하려고"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "글은 소피아의 교양과 순진함을 설명한 뒤 \"The amiable Sophia was now in her eighteenth year, when she is introduced into this history\" 라고 못 박고, 톰이 그녀에게 부탁하러 오는 장면 앞에서 \"a short recapitulation of some previous matters may be necessary\" 로 멈춘다. 사건에 들어가기 전 인물을 세우는 대목이므로 ②다. ①③④⑤는 글에 이름만 나온 소재(프랑스·사냥터지기·아버지·예법)를 목적으로 부풀린 오답이다.",
+              "from": "batch"
+            },
+            "source": "History of Tom Jones, a Foundling"
+          },
+          {
+            "no": 6,
+            "type": "long_reference",
+            "stem": "밑줄 친 (a)~(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+            "passage": "Nell lost the leather case on the last bus and did not notice until her stop. Inside it lay the flute her mother had played, worn smooth at the mouthpiece. She ran back along the lane, but the tail lights had already turned the corner. Ivo was locking the shop on that corner and caught her blank stare. He asked her what she had lost, and she could barely shape the answer. Her hands were shaking, and a bitter wind off the awning made it worse.\n\nThat night Ivo wrote the bus number on a receipt and pushed it into his coat. Nell went to the depot in the morning and found the lost property window shut. She waited on a bench until noon, watching each bus crawl in and stall. Nobody had handed in a leather case, and the clerk told her this gently. She walked home the long way, past his shop, with a lonely, steady step. He saw her pass and did not call out, because he had already begun.\n\nThe next afternoon Ivo rode the whole route from end to end. He asked each driver about a case with a brass hook on the strap. On the second run a driver remembered a woman who had carried one off. Ivo found her three streets away, sweeping the step of a narrow house. She had meant to bring it back, but shame had fixed her in place. He took the case, thanked her, and said nothing about the delay.\n\nTwo evenings later Nell opened her door and found the case on the step. There was no note, no name, and no request of any kind. She carried it in and sat with it on her knees, uncertain what to feel. The next week she played again in the front room, with the window open a crack. Ivo heard the thin sound from the corner and kept walking with a private smile. He never told her, and she never asked, and the music went on.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "She ran back along the lane",
+              "She waited on a bench until noon",
+              "She walked home the long way",
+              "She had meant to bring it back",
+              "The next week she played again"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "(d) 의 She 는 Nell 이 아니라 가방을 가져간 여자다. 바로 앞에 'a driver remembered a woman who had carried one off' 와 'Ivo found her three streets away, sweeping the step of a narrow house' 가 놓여 있고, 뒤이어 'shame had fixed her in place' 로 같은 인물이 이어진다. 나머지 넷의 She/she 는 모두 Nell 이다 — (a) 는 버스를 놓치고 골목을 되짚어 뛴 Nell, (b) 와 (c) 는 차고지에서 정오까지 기다리다 먼 길로 돌아온 Nell, (e) 는 창을 조금 열고 다시 플루트를 분 Nell 이다.",
+              "from": "batch"
+            },
+            "source": "The Case on the Last Bus"
+          }
+        ]
+      }
+    },
+    "6": {
+      "band": 6,
+      "step": 6,
+      "title": "Vocaflow Reading 5",
+      "schoolBand": "고2",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "title",
+            "blank",
+            "long_reference",
+            "purpose",
+            "claim",
+            "implication"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            120,
+            333
+          ],
+          "passages": [
+            "Exploring the role of meaning in non-Māori speakers&rsquo; &lsquo;proto-lexicon&rsquo;",
+            "Bird",
+            "The Night Coach to the Coast",
+            "The Essays of Adam Smith",
+            "Gene discovery could lead to resilient 'pixie' corn",
+            "Wood Magic: A Fable (발췌)"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "long_reference",
+            "purpose",
+            "claim",
+            "content_match",
+            "summary",
+            "implication"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            122,
+            305
+          ],
+          "passages": [
+            "Three Days of Rain",
+            "On Heroes, Hero-Worship, and the Heroic in History",
+            "Problems of Conduct: An Introductory Survey of Ethics",
+            "Fairy dreams (발췌)",
+            "The Will to Power: An Attempted Transvaluation of All Values. Book III and IV",
+            "Baseball Joe Around the World; or, Pitching on a Grand Tour (발췌)"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "purpose",
+            "content_match",
+            "summary",
+            "order",
+            "mood",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            90,
+            197
+          ],
+          "passages": [
+            "The History of Education",
+            "Principles of literary criticism",
+            "A Room with a View",
+            "Someone else flirting with your partner can tank attraction",
+            "A Christmas Carol in Prose; Being a Ghost Story of Christmas (발췌)",
+            "Ivan the Terrible (1945 film)"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "content_match",
+            "order",
+            "mood",
+            "insert",
+            "vocab_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            110,
+            195
+          ],
+          "passages": [
+            "Essays of Schopenhauer",
+            "The mechanism of mammalian proton-coupled peptide transporters",
+            "The Prince and the Pauper (발췌)",
+            "Herbert and Katherine Jacobs First House",
+            "Text book of veterinary medicine, Volume 3 (of 5) (발췌)",
+            "Dynamics of organizational culture: Individual beliefs vs. social conformity — 발췌"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "content_match",
+            "order",
+            "insert",
+            "vocab_choice",
+            "irrelevant",
+            "grammar_fix"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            160,
+            200
+          ],
+          "passages": [
+            "History of the Franks",
+            "Die with a Smile",
+            "Believe (Staind song)",
+            "Adam Bede (발췌)",
+            "Posterior Probability Matching and Human Perceptual Decision Making — 발췌",
+            "Bert Lloyd's Boyhood: A Story from Nova Scotia (발췌)"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "order",
+            "vocab_choice",
+            "irrelevant",
+            "grammar_fix",
+            "word_order",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            97,
+            97
+          ],
+          "passages": [
+            "Training Season",
+            "The Children of Wilton Chase (발췌)",
+            "Dark eyes in female sand gobies indicate readiness to spawn — 발췌",
+            "The Silver Lining: A Guernsey Story (발췌)",
+            "Towards food security: Exploring the spatio-temporal dynamics of soybean in India — 발췌",
+            "A Rescorla-Wagner drift-diffusion model of conditioning and timing — 발췌"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "order",
+            "vocab_choice",
+            "grammar_fix",
+            "word_order",
+            "blank_word",
+            "claim"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            180,
+            184
+          ],
+          "passages": [
+            "Henry II of England",
+            "In Beaver World (발췌)",
+            "A Campfire Girl's Test of Friendship (발췌)",
+            "In the Catskills: Selections from the Writings of John Burroughs (발췌)",
+            "The Brighton Boys in the Radio Service (발췌)",
+            "Thomas Davis, selections from his prose and poetry"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "vocab_choice",
+            "grammar_fix",
+            "content_match",
+            "grammar_choice",
+            "implication",
+            "insert"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            108,
+            196
+          ],
+          "passages": [
+            "Hodge and His Masters (발췌)",
+            "Aunt Jo's scrap-bag, Volume 5 (발췌)",
+            "Diet and exercise reverse liver damage",
+            "Exploring the impact of college graduates’ place attachment on entrepreneurial intention upon returning to hometowns: A  — 발췌",
+            "The Scarlet Letter (발췌)",
+            "Wives and children of Hugh O'Neill, Earl of Tyrone"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "grammar_fix",
+            "irrelevant",
+            "mood",
+            "order",
+            "summary",
+            "vocab_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            105,
+            187
+          ],
+          "passages": [
+            "An efficient and compromise-resilient image encryption scheme for resource-constrained environments — 발췌",
+            "Category-specific neuronal activity in left and right auditory cortex and in medial geniculate body of monkeys — 발췌",
+            "The Blue Fairy Book (발췌)",
+            "Hongwu Emperor",
+            "The Boy With the U. S. Fisheries (발췌)",
+            "Forests of Maine (발췌)"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "grammar_fix",
+            "word_order",
+            "blank_word",
+            "grammar_choice",
+            "vocab_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Christie's old organ (발췌)",
+            "The Corner House Girls at School (발췌)",
+            "The Book of Dragons (발췌)",
+            "Mindfulness meditation, time judgment and time experience: Importance of the time scale considered (seconds or minutes) — 발췌",
+            "The Japanese Twins (발췌)",
+            "Signage as a tool for behavioral change: Direct and indirect routes to understanding the meaning of a sign — 발췌"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 15,
+        "proofClean": 15,
+        "byType": {
+          "title": {
+            "items": 1,
+            "renderable": 1,
+            "explained": 1
+          },
+          "blank": {
+            "items": 1,
+            "renderable": 1,
+            "explained": 1
+          },
+          "long_reference": {
+            "items": 2,
+            "renderable": 2,
+            "explained": 2
+          },
+          "purpose": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "claim": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "implication": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "content_match": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "summary": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "order": {
+            "items": 6,
+            "renderable": 6,
+            "explained": 6
+          },
+          "mood": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "insert": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "vocab_choice": {
+            "items": 7,
+            "renderable": 7,
+            "explained": 7
+          },
+          "irrelevant": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "grammar_fix": {
+            "items": 6,
+            "renderable": 6,
+            "explained": 6
+          },
+          "word_order": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "grammar_choice": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "blank_word": {
+            "items": 2,
+            "renderable": 2,
+            "explained": 2
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "participant",
+            "meaningKo": "참가자"
+          },
+          {
+            "word": "stimulus",
+            "meaningKo": "자극"
+          },
+          {
+            "word": "nest",
+            "meaningKo": "둥지"
+          },
+          {
+            "word": "feather",
+            "meaningKo": "깃털"
+          },
+          {
+            "word": "select",
+            "meaningKo": "선택하다; 엄선된"
+          },
+          {
+            "word": "phase",
+            "meaningKo": "단계, 국면"
+          },
+          {
+            "word": "mate",
+            "meaningKo": "친구; 짝"
+          },
+          {
+            "word": "inherit",
+            "meaningKo": "물려받다"
+          },
+          {
+            "word": "virtue",
+            "meaningKo": "미덕"
+          },
+          {
+            "word": "gene",
+            "meaningKo": "유전자"
+          },
+          {
+            "word": "consist",
+            "meaningKo": "이루어지다, 구성되다"
+          },
+          {
+            "word": "aim",
+            "meaningKo": "목표하다; 겨누다; 목표"
+          },
+          {
+            "word": "cottage",
+            "meaningKo": "오두막"
+          },
+          {
+            "word": "benevolence",
+            "meaningKo": "자비, 선의"
+          },
+          {
+            "word": "breeding",
+            "meaningKo": "사육"
+          },
+          {
+            "word": "characterize",
+            "meaningKo": "특징짓다"
+          },
+          {
+            "word": "genetic",
+            "meaningKo": "유전의"
+          },
+          {
+            "word": "abandoned",
+            "meaningKo": "버려진; 방치된"
+          },
+          {
+            "word": "aboard",
+            "meaningKo": "(배·기차·비행기에) 탑승하여, 승선하여"
+          },
+          {
+            "word": "accent",
+            "meaningKo": "억양"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "title",
+            "stem": "다음 글의 제목으로 가장 적절한 것은?",
+            "passage": "Previous work has demonstrated that New Zealanders who do not speak Māori but are regularly exposed to the language develop implicit knowledge of it. The core of this knowledge, it has been argued, is the ‘proto-lexicon’—a set of stored word-forms, without associated meaning, which yields subsequent Māori phonotactic and morphological knowledge. Previous research shows that having a proto-lexicon gives learners a head start in learning Māori word meanings in formal education. We investigate experimentally whether the proto-lexicon confers an advantage for attaching meanings to words. In Experiment 1, non-Māori-speaking New Zealanders were tested on their ability to identify meanings of Māori words in a forced-choice definition task, and they did this relatively well. Then, words with low accuracy were selected for Experiment 2, where non-Māori-speaking New Zealanders and non-New Zealanders were asked to learn meanings for Māori words and nonwords. New Zealanders performed better, indicating that familiarity with Māori word shapes confers an advantage. However, they showed no greater advantage for real words over nonwords. If these words are definitely in the proto-lexicon, then this would suggest that knowledge of individual word-forms does not, in fact, confer an advantage.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "Teaching Maori in New Zealand Primary Schools",
+              "How Children Acquire Their First Vocabulary",
+              "Hearing a Language Without Learning to Speak It",
+              "The Decline and Revival of Indigenous Tongues",
+              "Why Word Order Differs Across the World’s Language Families"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "글의 대상은 말하지 못하지만 노출만으로 지식이 쌓인 사람들이다 — \"New Zealanders who do not speak Maori but are regularly exposed to the language develop implicit knowledge of it\". 그래서 ③이 제목이다. ①은 정규 교육을 다루는데 글은 그것을 비교 대상으로만 언급하고, ②④⑤는 소재가 인접할 뿐이다.",
+              "from": "batch"
+            },
+            "source": "Exploring the role of meaning in non-Māori speakers&rsquo; &lsquo;proto-lexicon&rsquo;"
+          },
+          {
+            "no": 2,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+            "passage": "Birds (Aves) are a group of animals with backbones. Birds are the only dinosaurs that survived the Cretaceous–Paleogene extinction, and are part of the theropod group of dinosaurs. The word for \"bird-like\" is avian, from Latin language avis, bird. Birds are warm blooded. Their feathers help prevent loss of body heat. Modern birds do not have teeth. They have beaked jaws. Birds lay hard-shelled eggs. They have a high metabolic rate and a strong but lightweight skeleton. Their hearts have four chambers. Birds live all over the world. They range in size from the 5 cm (2 in) bee hummingbird to the 2.70 m (9 ft) ostrich. There are about ten thousand species of birds. More than half of these are passerines, or perching birds. Birds have wings. The wings develop differently in different species. The only known groups of birds without wings are the extinct moa and the elephant birds. Wings evolved from the forelimbs of birds. They give birds the ability to fly. Over time, many groups of birds evolved with smaller wings. These include ratites, penguins and many island species of birds. The digestive and respiratory systems of birds are also ____.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "shaped by the demands of flight",
+              "simplified by the loss of teeth",
+              "unusual among warm-blooded animals",
+              "inherited from theropod dinosaurs",
+              "linked to their great range of size"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "마지막 문장의 \"also\" 는 앞서 나온 기준을 이어받는 표시인데, 그 기준은 \"a strong but lightweight skeleton\", \"a high metabolic rate\", 그리고 날개가 \"give birds the ability to fly\" 로 이어지는 비행이다. 그러므로 ① 이 정답이다. ② 의 이빨 없음과 ③ 의 온혈성은 지문에 나오지만 소화계·호흡계를 설명하는 기준이 아니고, ④ 의 수각류 계통은 기원을 말할 뿐 구조의 이유가 되지 못한다. ⑤ 의 크기 편차는 벌새와 타조를 든 대목의 소재일 뿐 두 기관과 연결되지 않는다.",
+              "from": "batch"
+            },
+            "source": "Bird"
+          },
+          {
+            "no": 3,
+            "type": "long_reference",
+            "stem": "밑줄 친 (a)~(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+            "passage": "Ines had never ventured beyond her own district until the autumn she turned nineteen. Her cousin Talia, four years older and benevolent in a fussy way, bought the ticket. The night coach waited beyond the fishery gate at the end of a brick corridor. Talia turned up her collar and pressed a folded map into her hand. Ines nodded without absorbing a word, because she was counting the coins in her coat. She watched Talia dwindle behind the glass, and then the town was gone.\n\nTwice before dawn the coach stopped, and each time Ines woke aboard in the dark. She had folded the map so tightly that the road names had fractured apart. At the second stop a plump woman with a shrill accent asked where she was going. Ines said the coast, though she did not know how far it still lay. She thought of Talia, and of how quickly she would have asked the driver. Talia would have handled it with diplomacy, and indeed her voice would not have shaken.\n\nTalia walked home past the leafless market square under a leaky wooden shelter. In her coat pocket she found the small brass key that Ines had forgotten. It opened the cottage they had never once abandoned in ten summers. Talia turned back at once, furious with herself, but the coach had departed. She wrote a letter instead and left it on the counter for the post. In it she promised to keep the key until Ines came for it herself.\n\nInes reached the coast a day late, and her spirits had begun to plummet. The letter was waiting at a homely boarding house, sodden and unopened. She read it twice on the step, and then briefly once more aloud. Talia had written nothing about the fare or the inconvenience she had caused. She had written only that the cottage door would stay shut until August. Ines put the letter where the coins had been and felt her own independence settle.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "Talia turned up her collar",
+              "she would have asked the driver",
+              "her voice would not have shaken",
+              "she was counting the coins",
+              "She wrote a letter instead"
+            ],
+            "answer": 4,
+            "explanation": {
+              "text": "①②③⑤는 모두 Talia 를 가리킨다 — \"Talia turned up her collar and pressed a folded map into her hand\"(①) · \"She thought of Talia, and of how quickly she would have asked the driver\"(②) · \"Talia would have handled it with diplomacy, and indeed her voice would not have shaken\"(③) · \"She wrote a letter instead and left it on the counter for the post\"(⑤, 앞 문장의 주어가 Talia 다). ④만 Ines 다 — \"Ines nodded without absorbing a word, because she was counting the coins in her coat\" 로, 고개를 끄덕인 사람과 동전을 세는 사람이 같다. 그래서 가리키는 대상이 나머지 넷과 다른 것은 ④다.",
+              "from": "batch"
+            },
+            "source": "The Night Coach to the Coast"
+          },
+          {
+            "no": 4,
+            "type": "purpose",
+            "stem": "다음 글의 목적으로 가장 적절한 것은?",
+            "passage": "SEC. II.--OF THE DIFFERENT ACCOUNTS WHICH HAVE BEEN GIVEN OF THE NATURE OF VIRTUE. INTRODUCTION. The different accounts which have been given of the nature of virtue, or of the temper of mind which constitutes the excellent and praise-worthy character, may be reduced to three different classes. According to some, the virtuous temper of mind does not consist in any one species of affections, but in the proper government and direction of all our affections, which may be either virtuous or vicious according to the objects which they pursue, and the degree of vehemence with which they pursue them. According to these authors, therefore, virtue consists in propriety. According to others, virtue consists in the judicious pursuit of our own private interest and happiness, or in the proper government and direction of those selfish affections which aim solely at this end. In the opinion of these, therefore, virtue consists in prudence. Another set of authors make virtue consist in those affections only which aim at the happiness of others, not in those which aim at our own. According to them, therefore, disinterested benevolence is the only motive which can stamp upon actions the character of virtue.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "사려가 덕의 전부라는 견해를 근거를 들어 옹호하려고",
+              "덕의 본성을 설명해 온 세 갈래 견해를 갈라 보이려고",
+              "사욕을 억누르는 구체적인 수양 방법을 일러 주려고",
+              "남을 위하는 마음만이 참된 덕임을 증명해 보이려고",
+              "덕이라는 말이 언제부터 쓰였는지 그 유래를 캐 보려고"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "②가 글의 목적이다. 첫 문단이 \"may be reduced to three different classes\" 라 선언하고, 뒤가 propriety · prudence · benevolence 셋을 차례로 갈라 놓는다. 나머지는 목적이 아니다: ①과 ④는 그 셋 가운데 하나를 글 전체의 주장으로 오해한 것이고, ③의 수양 방법과 ⑤의 낱말 유래는 글에 없다.",
+              "from": "batch"
+            },
+            "source": "The Essays of Adam Smith"
+          },
+          {
+            "no": 5,
+            "type": "claim",
+            "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+            "passage": "Researchers have identified a widely found gene in plants as a key transporter of a hormone that influences the size of corn. The discovery offers plant breeders a new tool to develop desirable dwarf varieties that could enhance the crop’s resilience and profitability. A team of scientists spent years working to pinpoint the functions of the gene ZmPILS6. Now, they have been able to characterize it as an important driver of plant size and architecture, a carrier for an auxin hormone that helps govern growth in roots below ground and shoots, or stalks, above ground. Their findings are published in the Proceedings of the National Academy of Sciences. “A hallmark of the current age of science is that we have all this high-quality genome data, whether for corn or humans or other organisms, and now we have the task of figuring out what the genes actually do,” says Dior Kelley, assistant professor of genetics, development and cell biology at Iowa State University, who led the research team. The group used “reverse genetic screening” (from the gene to traits expressed in the plant), combined with other techniques, as they tracked their gene’s role in corn development.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "옥수수는 키가 작은 품종으로 모두 바꾸어 심어야 한다",
+              "육종가는 호르몬을 직접 뿌려 작물의 키를 조절해야 한다",
+              "쌓인 유전체 자료를 두고 유전자가 하는 일을 밝혀야 한다",
+              "뿌리보다 줄기의 생장을 앞세워 연구 자원을 써야 한다",
+              "역유전학보다 정유전학을 먼저 쓰는 것을 원칙으로 삼아야 한다"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "필자가 독자에게 요구하는 것은 연구 책임자의 말에 담겨 있다 — \"we have all this high-quality genome data … and now we have the task of figuring out what the genes actually do\". ③이다. ① 은 발견의 쓰임(왜성 품종)을 당위로 부풀린 것이고, ④ 는 글이 뿌리와 줄기를 함께 든 것을 좁혔다. ②·⑤ 는 글에 없다.",
+              "from": "batch"
+            },
+            "source": "Gene discovery could lead to resilient 'pixie' corn"
+          },
+          {
+            "no": 6,
+            "type": "implication",
+            "stem": "밑줄 친 부분이 다음 글에서 의미하는 바로 가장 적절한 것은?",
+            "passage": "One morning as little \"Sir\" Bevis [such was his pet name] was digging in the farmhouse garden, he saw a daisy, and throwing aside his spade, he sat down on the grass to pick the flower to pieces. He pulled the pink-tipped petals off one by one, and as they dropped they were lost. Next he gathered a bright dandelion, and squeezed the white juice from the hollow stem, which drying presently, left his fingers stained with brown spots. Then he drew forth a bennet from its sheath, and bit and sucked it till his teeth were green from the sap. Lying at full length, he drummed the earth with his toes, while the tall grass blades tickled his cheeks.",
+            "underline": "he drew forth a bennet from its sheath",
+            "given": null,
+            "choices": [
+              "he unsheathed a small blade that he carried",
+              "he tore the dandelion loose from its hollow stem",
+              "he pulled a grass stalk out of its leafy wrapper",
+              "he drew the spade back out of the garden soil",
+              "he stripped the pink-tipped petals from the daisy"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "밑줄 뒤에 bit and sucked it till his teeth were green from the sap 이 이어지므로 뽑아낸 것은 칼이 아니라 풀대다. 따라서 ③이 맞고, 나머지는 sheath 를 칼집이라는 사전적 뜻으로 읽거나(①) 글의 다른 대목을 옮긴 것(②④⑤)이라 적절하지 않다.",
+              "from": "batch"
+            },
+            "source": "Wood Magic: A Fable (발췌)"
+          }
+        ]
+      }
+    },
+    "7": {
+      "band": 7,
+      "step": 7,
+      "title": "Vocaflow Reading 6",
+      "schoolBand": "고3 / 수능 상위",
+      "units": [
+        {
+          "no": 1,
+          "types": [
+            "blank",
+            "order",
+            "insert",
+            "claim",
+            "mood",
+            "purpose"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            94,
+            171
+          ],
+          "passages": [
+            "Anne of Avonlea (발췌)",
+            "Shahrokh Khan Afshar",
+            "Lacy (song)",
+            "Historic Boys: Their Endeavours, Their Achievements, and Their Times (발췌)",
+            "In Doublet and Hose: A Story for Girls (발췌)",
+            "Democracy in America — Volume 2"
+          ]
+        },
+        {
+          "no": 2,
+          "types": [
+            "blank",
+            "mood",
+            "summary",
+            "irrelevant",
+            "purpose",
+            "topic"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            108,
+            172
+          ],
+          "passages": [
+            "On Heroes, Hero-Worship, and the Heroic in History",
+            "Japan",
+            "Skippy Bedelle (발췌)",
+            "In Beaver World (발췌)",
+            "Amenities of Literature",
+            "The Evolution of Modern Orchestration"
+          ]
+        },
+        {
+          "no": 3,
+          "types": [
+            "implication",
+            "mood",
+            "content_match",
+            "irrelevant",
+            "topic",
+            "summary"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            111,
+            169
+          ],
+          "passages": [
+            "Dorothy's Travels (발췌)",
+            "The Little Gold Miners of the Sierras and Other Stories (발췌)",
+            "The American Republic: Its Constitution, Tendencies, and Destiny",
+            "The Evolution of Modern Orchestration",
+            "The decline of the West, Volume 1",
+            "Hero-Myths & Legends of the British Race"
+          ]
+        },
+        {
+          "no": 4,
+          "types": [
+            "content_match",
+            "topic",
+            "irrelevant",
+            "implication",
+            "purpose",
+            "summary"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            171,
+            175
+          ],
+          "passages": [
+            "Literary values, and other papers",
+            "The World as Will and Idea (Vol. 3 of 3)",
+            "Experimental and numerical investigation on the reinforced concrete boundary beam-wall system subjected to axial compres — 발췌",
+            "The art of music, Vol. 07 (of 14)",
+            "Americanisms and Briticisms; with other essays on other isms",
+            "The Religion of the Ancient Celts"
+          ]
+        },
+        {
+          "no": 5,
+          "types": [
+            "vocab_choice",
+            "grammar_fix",
+            "content_match",
+            "topic",
+            "irrelevant",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            133,
+            160
+          ],
+          "passages": [
+            "Variations",
+            "The Essays of Adam Smith",
+            "The Joyful Wisdom (\"La Gaya Scienza\")",
+            "The History of Modern Painting, Volume 1 (of 4)",
+            "Field physical model tests on the mechanism of river blocking by debris flow in the middle reaches of the Dadu River, So — 발췌",
+            "Frank Merriwell's Bravery (발췌)"
+          ]
+        },
+        {
+          "no": 6,
+          "types": [
+            "vocab_choice",
+            "grammar_fix",
+            "content_match",
+            "word_order",
+            "blank_word",
+            "grammar_choice"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            174,
+            174
+          ],
+          "passages": [
+            "The golden spears, and other fairy tales (발췌)",
+            "All Adrift; Or, The Goldwing Club (발췌)",
+            "What Is Art?",
+            "Problems of Conduct: An Introductory Survey of Ethics",
+            "Camp-fire and Wigwam (발췌)",
+            "The Rover Boys at School; Or, The Cadets of Putnam Hall (발췌)"
+          ]
+        },
+        {
+          "no": 7,
+          "types": [
+            "vocab_choice",
+            "grammar_fix",
+            "word_order",
+            "content_match",
+            "implication",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            119,
+            169
+          ],
+          "passages": [
+            "Yr Ynys Unyg; or, The lonely island (발췌)",
+            "The History of Modern Painting, Volume 1 (of 4)",
+            "The History of Freedom, and Other Essays",
+            "Wood Magic: A Fable (발췌)",
+            "Byzantine Constantinople, the walls of the city and adjoining historical sites",
+            "Numerical simulation of rock blasting under different in-situ stresses and joint conditions — 발췌"
+          ]
+        },
+        {
+          "no": 8,
+          "types": [
+            "vocab_choice",
+            "grammar_fix",
+            "mood",
+            "purpose",
+            "summary",
+            "topic"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": [
+            107,
+            174
+          ],
+          "passages": [
+            "The History of Modern Painting, Volume 1 (of 4)",
+            "The Scarlet Letter (발췌)",
+            "Winning His Way (발췌)",
+            "In The Boyhood of Lincoln (발췌)",
+            "The Ocean Wireless Boys and the Naval Code (발췌)",
+            "The positive outcome of philosophy"
+          ]
+        },
+        {
+          "no": 9,
+          "types": [
+            "vocab_choice",
+            "grammar_fix",
+            "word_order",
+            "blank_word",
+            "grammar_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "The Boy Scout Treasure Hunters; Or, The Lost Treasure of Buffalo Hollow (발췌)",
+            "Japan",
+            "The Religion of the Ancient Celts",
+            "Ruth Fielding on the St. Lawrence; Or, The Queer Old Man of the Thousand Islands (발췌)",
+            "Fighting for fortune (발췌)",
+            "Numerical simulation of rock blasting under different in-situ stresses and joint conditions — 발췌"
+          ]
+        },
+        {
+          "no": 10,
+          "types": [
+            "vocab_choice",
+            "grammar_fix",
+            "blank_word",
+            "word_order",
+            "grammar_choice",
+            "irrelevant"
+          ],
+          "items": 6,
+          "minutes": 23,
+          "words": null,
+          "passages": [
+            "Boy Scouts in the Canal Zone; Or, The Plot Against Uncle Sam (발췌)",
+            "Hero-Myths & Legends of the British Race",
+            "The History of Education",
+            "Fine prints",
+            "What Is Art?",
+            "Risk correlation identification of futures market based on wavelet transform and quantile Granger causality test — 발췌"
+          ]
+        }
+      ],
+      "totalItems": 60,
+      "totalMinutes": 230,
+      "stoppedBecause": null,
+      "readiness": {
+        "items": 60,
+        "renderable": 60,
+        "explained": 60,
+        "proofChecked": 17,
+        "proofClean": 17,
+        "byType": {
+          "blank": {
+            "items": 2,
+            "renderable": 2,
+            "explained": 2
+          },
+          "order": {
+            "items": 1,
+            "renderable": 1,
+            "explained": 1
+          },
+          "insert": {
+            "items": 1,
+            "renderable": 1,
+            "explained": 1
+          },
+          "claim": {
+            "items": 1,
+            "renderable": 1,
+            "explained": 1
+          },
+          "mood": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "purpose": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "summary": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "irrelevant": {
+            "items": 7,
+            "renderable": 7,
+            "explained": 7
+          },
+          "topic": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "implication": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          },
+          "content_match": {
+            "items": 5,
+            "renderable": 5,
+            "explained": 5
+          },
+          "vocab_choice": {
+            "items": 6,
+            "renderable": 6,
+            "explained": 6
+          },
+          "grammar_fix": {
+            "items": 6,
+            "renderable": 6,
+            "explained": 6
+          },
+          "grammar_choice": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "word_order": {
+            "items": 4,
+            "renderable": 4,
+            "explained": 4
+          },
+          "blank_word": {
+            "items": 3,
+            "renderable": 3,
+            "explained": 3
+          }
+        }
+      },
+      "sample": {
+        "no": 1,
+        "minutes": 23,
+        "vocabulary": [
+          {
+            "word": "lyric",
+            "meaningKo": "(노래) 가사; 서정시"
+          },
+          {
+            "word": "vocal",
+            "meaningKo": "목소리의, 음성의; 거리낌 없이 말하는"
+          },
+          {
+            "word": "acoustic",
+            "meaningKo": "음향의"
+          },
+          {
+            "word": "governor",
+            "meaningKo": "주지사"
+          },
+          {
+            "word": "envy",
+            "meaningKo": "부러움, 선망, 시기, 질투"
+          },
+          {
+            "word": "dynasty",
+            "meaningKo": "(같은 가문의) 왕조"
+          },
+          {
+            "word": "raid",
+            "meaningKo": "급습"
+          },
+          {
+            "word": "seize",
+            "meaningKo": "붙잡다, 움켜잡다"
+          },
+          {
+            "word": "sympathy",
+            "meaningKo": "동정, 연민"
+          },
+          {
+            "word": "aristocratic",
+            "meaningKo": "귀족의, 귀족적인"
+          },
+          {
+            "word": "mutual",
+            "meaningKo": "상호의, 서로의"
+          },
+          {
+            "word": "blacksmith",
+            "meaningKo": "대장장이"
+          },
+          {
+            "word": "disorganized",
+            "meaningKo": "체계가 없는, 무질서한, 정리되지 않은"
+          },
+          {
+            "word": "forge",
+            "meaningKo": "위조하다, 가짜로 만들다; (관계·동맹을) 구축하다, 다져 나가다"
+          },
+          {
+            "word": "impassable",
+            "meaningKo": "(길·지형이) 지나갈 수 없는, 통행 불가능한"
+          },
+          {
+            "word": "deed",
+            "meaningKo": "행위, 행동 (good deed 선행)"
+          },
+          {
+            "word": "destiny",
+            "meaningKo": "운명, 숙명"
+          },
+          {
+            "word": "elegant",
+            "meaningKo": "우아한, 세련된"
+          },
+          {
+            "word": "fisherman",
+            "meaningKo": "어부"
+          },
+          {
+            "word": "boldly",
+            "meaningKo": "대담하게"
+          }
+        ],
+        "items": [
+          {
+            "no": 1,
+            "type": "blank",
+            "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+            "passage": "Avonlea folks did nothing the next day but visit each other and compare damages. The roads were impassable for wheels by reason of the hailstones, so they walked or rode on horseback. The mail came late with ill tidings from all over the province. Houses had been struck, people killed and injured; the whole telephone and telegraph system had been disorganized, and any number of young stock exposed in the fields had perished. Uncle Abe waded out to the blacksmith’s forge early in the morning and spent the whole day there. It was ____ and he enjoyed it to the full. It would be doing Uncle Abe an injustice to say that he was glad the storm had happened; but since it had to be he was very glad he had predicted it. to the very day, too. Uncle Abe forgot that he had ever denied setting the day. As for the trifling discrepancy in the hour, that was nothing.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "the worst morning of his whole long life",
+              "a day that the village would soon forget",
+              "the hour in which Uncle Abe stood vindicated",
+              "the blacksmith’s busiest working hour of all",
+              "a warning that worse storms were still coming"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "빈칸 뒤 문장이 그 자리를 못 박는다 — \"he was very glad he had predicted it . to the very day, too\". 예언이 맞아떨어진 사람의 자리이므로 ③이다. ①·②·⑤ 는 방향이 정반대이고, ④ 는 그가 하루를 보낸 장소를 자리 이름으로 잘못 읽은 것이다.",
+              "from": "batch"
+            },
+            "source": "Anne of Avonlea (발췌)"
+          },
+          {
+            "no": 2,
+            "type": "order",
+            "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+            "intro": "Religion Toward the end of Nader Shah’s reign, the Nizari Hasan ibn Ali moved to Shahr-i-Babak for his summer residence, which came under Shahrokh Khan’s rule.",
+            "blocks": [
+              {
+                "label": "A",
+                "text": "Hasan gathered large properties in Shahr-i-Babak, and was consequential enough to betroth his daughter to Shahrokh Khan’s son, Lutf Ali Khan."
+              },
+              {
+                "label": "B",
+                "text": "Shahrokh treated the imam well, and allowed him to use the location as a means of proximity to his followers who largely did pilgrimage from India."
+              },
+              {
+                "label": "C",
+                "text": "His winter residence was Kerman itsself, and he became the region’s beglerbegi shortly after the Zand conquest."
+              }
+            ],
+            "choices": [
+              "(A) - (C) - (B)",
+              "(B) - (A) - (C)",
+              "(B) - (C) - (A)",
+              "(C) - (A) - (B)",
+              "(C) - (B) - (A)"
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "정답은 ③ (B)-(C)-(A) 다. 도입문이 \"…which came under Shahrokh Khan's rule.\" 로 끝나고 (B)의 첫 문장 \"Shahrokh treated the imam well, and allowed…\" 이 그 뒤를 잇는다. (B)의 끝 \"…who largely did pilgrimage from India.\" → (C)의 첫 \"Hasan gathered large properties in…\". (C)의 끝 \"…to Shahrokh Khan's son, Lutf Ali Khan.\" → (A)의 첫 \"His winter residence was Kerman…\". 반면 ① 는 도입문 다음에 (A)의 \"His winter residence was Kerman…\" 를 붙인다; ② 는 (B)의 끝 다음에 (A)의 \"His winter residence was Kerman…\" 를 붙인다 — 원문의 이음매와 다르다.",
+              "from": "batch"
+            },
+            "source": "Shahrokh Khan Afshar"
+          },
+          {
+            "no": 3,
+            "type": "insert",
+            "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+            "given": "\"Lacy\" received a gold certification in the United Kingdom from the British Phonographic Industry, and the Official Charts declared it her 19th-biggest song in the country as of February 2024.",
+            "body": [
+              {
+                "text": "Commercial performance \"Lacy\" debuted at number 23 on the US Billboard Hot 100 issued for September 23, 2023.",
+                "slot": 0
+              },
+              {
+                "text": "In Canada, the song entered at number 24 on the Canadian Hot 100 chart for the same date and was certified platinum by Music Canada.",
+                "slot": -1
+              },
+              {
+                "text": "In the United Kingdom, it debuted at number 26 on the Official Audio Streaming Chart and number 24 on Billboard.",
+                "slot": 1
+              },
+              {
+                "text": "In Australia, \"Lacy\" entered at number 25 and received a platinum certification from the Australian Recording Industry Association.",
+                "slot": -1
+              },
+              {
+                "text": "The song debuted at number 16 in New Zealand and was certified platinum by Recorded Music NZ.",
+                "slot": 2
+              },
+              {
+                "text": "It also charted at number 20 on the Billboard Global 200.",
+                "slot": 3
+              },
+              {
+                "text": "\"Lacy\" reached national record charts at number 18 in Ireland, number 52 in Portugal, and number 65 in Greece.",
+                "slot": -1
+              },
+              {
+                "text": "The song received a gold certification in Brazil.",
+                "slot": 4
+              }
+            ],
+            "answer": 2,
+            "explanation": {
+              "text": "정답은 ② 다 — 주어진 문장은 원래 \"…Streaming Chart and number 24 on Billboard.\" 뒤에 있었다. 거기 넣으면 \"…and number 24 on Billboard.\" → \"\"Lacy\" received a gold certification in the…\" → \"In Australia, \"Lacy\" entered…\" 로 이어진다. ① 는 \"…for September 23, 2023.\" 와 \"In Canada, the song entered…\" 사이를 가른다; ③ 는 \"…by Recorded Music NZ.\" 와 \"It also charted at number…\" 사이를 가른다 — 원문에서 이 둘은 붙어 있다.",
+              "from": "batch"
+            },
+            "source": "Lacy (song)"
+          },
+          {
+            "no": 4,
+            "type": "claim",
+            "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+            "passage": "A Story of the South Pacific. By HARRY COLLINGWOOD. Illustrated by 8 full-page Pictures by C. J. STANILAND and J. R. WELLS, in black and tint. Crown 8vo, cloth elegant, 5s. This story details the adventures of a lad who was found in his infancy on board a wreck, and is adopted by a fisherman. By a deed of true gallantry his whole destiny is changed, and, going to sea, he forms one of a party who, after being burned out of their ship in the South Pacific, and experiencing great hardship and suffering in their boats, are picked up by a pirate brig and taken to the \"Pirate Island.\" After many thrilling adventures, they ultimately succeed in effecting their escape. The story depicts both the Christian and the manly virtues in such colours as will cause them to be admired--and therefore imitated.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "바다로 나가는 소년은 난파에 대비한 훈련을 미리 받아야 한다",
+              "모험 소설에는 인물의 됨됨이를 드러내는 삽화를 반드시 곁들여야 한다",
+              "소년에게는 용기와 덕성을 흠모하고 본받게 하는 이야기를 읽혀야 한다",
+              "버려진 아이를 거두는 일은 어부들이 앞장서서 맡아야 한다",
+              "해적에게 붙잡힌 사람들은 스스로 탈출할 방법을 찾아야 한다"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "\"The story depicts both the Christian and the manly virtues in such colours as will cause them to be admired--and therefore imitated\" 가 글이 독자에게 요구하는 바다. 나머지 넷은 난파·삽화·입양·탈출처럼 줄거리로 서술된 사실을 당위로 바꿔 놓은 오답이다.",
+              "from": "batch"
+            },
+            "source": "Historic Boys: Their Endeavours, Their Achievements, and Their Times (발췌)"
+          },
+          {
+            "no": 5,
+            "type": "mood",
+            "stem": "다음 글에 드러난 인물의 심경 변화로 가장 적절한 것은?",
+            "passage": "Francis’ young nature was filled with scorn for the vanity of the woman before her, queen though she was. Her mother’s face arose before her with its delicate complexion guiltless of the powder and the rouge affected by the ladies of the court. Her tresses were streaked somewhat with gray, but they were still her own. Her eyes were as blue as periwinkles and full of tenderness and love. The girl’s eyes swept the painted face above her, and her heart grew hot within her breast at the queen’s question. Amazed at her own audacity she arose and said boldly:",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "indignant → emboldened",
+              "cheerful → resentful",
+              "frightened → grateful",
+              "envious → sympathetic",
+              "bored → astonished"
+            ],
+            "answer": 1,
+            "explanation": {
+              "text": "앞부분은 \"filled with scorn for the vanity of the woman\" 로 분노를 드러내고, 끝에서 \"Amazed at her own audacity she arose and said boldly\" 로 대담하게 나선다. 분개에서 담대함으로 가는 방향이므로 ①이다. 나머지는 방향을 뒤집었거나 한쪽만 맞다.",
+              "from": "batch"
+            },
+            "source": "In Doublet and Hose: A Story for Girls (발췌)"
+          },
+          {
+            "no": 6,
+            "type": "purpose",
+            "stem": "다음 글의 목적으로 가장 적절한 것은?",
+            "passage": "These services were not supposed to be due from man to man, but to the vassal or to the lord. Feudal institutions awakened a lively sympathy for the sufferings of certain men, but none at all for the miseries of mankind. They infused generosity rather than mildness into the manners of the time, and although they prompted men to great acts of self-devotion, they engendered no real sympathies; for real sympathies can only exist between those who are alike; and in aristocratic ages men acknowledge none but the members of their own caste to be like themselves. When the chroniclers of the Middle Ages, who all belonged to the aristocracy by birth or education, relate the tragical end of a noble, their grief flows apace; whereas they tell you at a breath, and without wincing, of massacres and tortures inflicted on the common sort of people. Not that these writers felt habitual hatred or systematic disdain for the people; war between the several classes of the community was not yet declared.",
+            "underline": null,
+            "given": null,
+            "choices": [
+              "봉건 제도가 사람들의 성정을 온화하게 만들었다고 말하려고",
+              "중세 연대기 작가들이 쓴 문장의 특징을 분석해 보이려고",
+              "귀족 시대의 연민이 같은 계급 안에서만 생겼음을 보이려고",
+              "귀족과 평민 사이의 전쟁이 이미 시작됐음을 알리려고",
+              "중세에 벌어진 학살과 고문의 잔혹함을 고발해 두려고"
+            ],
+            "answer": 3,
+            "explanation": {
+              "text": "글이 세우는 것은 하나다 — \"real sympathies can only exist between those who are alike; and in aristocratic ages men acknowledge none but the members of their own caste to be like themselves\". ③이다. ① 은 정반대다(\"They infused generosity rather than mildness\"). ④ 도 반대이고(\"war between the several classes … was not yet declared\"), ②·⑤ 는 그 논지를 세우려 든 예다.",
+              "from": "batch"
+            },
+            "source": "Democracy in America — Volume 2"
+          }
+        ]
+      }
+    }
+  },
+  "problems": []
+}

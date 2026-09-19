@@ -69,7 +69,7 @@ export function PairFlipStartScreen() {
           type="button"
           onClick={handleStart}
           aria-label="게임 시작"
-          className="group mt-2 w-full max-w-[340px] rounded-[14px] py-5 font-display text-[18px] font-[800] tracking-[0.02em] transition-transform duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:-translate-y-0.5 active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2"
+          className="group mt-2 w-full max-w-[340px] rounded-[var(--r-2xl)] py-5 font-display text-[18px] font-[800] tracking-[0.02em] transition-transform duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:-translate-y-0.5 active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2"
           style={{
             background: 'linear-gradient(135deg, #1E3A8A 0%, #1E1B4B 60%, #0F172A 100%)',
             color: '#FCD34D',

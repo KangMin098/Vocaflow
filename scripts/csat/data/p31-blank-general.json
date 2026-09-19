@@ -1,0 +1,617 @@
+{
+ "n": 52,
+ "hit": 43,
+ "baseMean": 0.838456255283178,
+ "rows": [
+  {
+   "exam": "2014B",
+   "no": 31,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 0.8571428571428571,
+   "points": 2
+  },
+  {
+   "exam": "2014B",
+   "no": 32,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 0.5714285714285714,
+   "points": 3
+  },
+  {
+   "exam": "2014B",
+   "no": 33,
+   "ok": true,
+   "nSent": 9,
+   "bi": 8,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2014B",
+   "no": 34,
+   "ok": true,
+   "nSent": 6,
+   "bi": 5,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2014B",
+   "no": 35,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2014A",
+   "no": 33,
+   "ok": true,
+   "nSent": 7,
+   "bi": 0,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2014A",
+   "no": 34,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2014A",
+   "no": 35,
+   "ok": true,
+   "nSent": 6,
+   "bi": 5,
+   "blankGeneral": true,
+   "baseGeneral": 0.8333333333333334,
+   "points": 3
+  },
+  {
+   "exam": "2015",
+   "no": 31,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2015",
+   "no": 32,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2015",
+   "no": 33,
+   "ok": true,
+   "nSent": 8,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 0.875,
+   "points": 3
+  },
+  {
+   "exam": "2016",
+   "no": 31,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2016",
+   "no": 32,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": false,
+   "baseGeneral": 0.8571428571428571,
+   "points": 3
+  },
+  {
+   "exam": "2016",
+   "no": 33,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2016",
+   "no": 34,
+   "ok": true,
+   "nSent": 10,
+   "bi": 9,
+   "blankGeneral": false,
+   "baseGeneral": 0.7,
+   "points": 3
+  },
+  {
+   "exam": "2017",
+   "no": 31,
+   "ok": true,
+   "nSent": 8,
+   "bi": 7,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2017",
+   "no": 32,
+   "ok": true,
+   "nSent": 7,
+   "bi": 5,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2017",
+   "no": 33,
+   "ok": true,
+   "nSent": 7,
+   "bi": 5,
+   "blankGeneral": true,
+   "baseGeneral": 0.7142857142857143,
+   "points": 3
+  },
+  {
+   "exam": "2017",
+   "no": 34,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 0.8571428571428571,
+   "points": 3
+  },
+  {
+   "exam": "2018",
+   "no": 31,
+   "ok": true,
+   "nSent": 6,
+   "bi": 5,
+   "blankGeneral": false,
+   "baseGeneral": 0,
+   "points": 3
+  },
+  {
+   "exam": "2018",
+   "no": 32,
+   "ok": true,
+   "nSent": 13,
+   "bi": 10,
+   "blankGeneral": false,
+   "baseGeneral": 0.8461538461538461,
+   "points": 3
+  },
+  {
+   "exam": "2018",
+   "no": 33,
+   "ok": true,
+   "nSent": 6,
+   "bi": 2,
+   "blankGeneral": true,
+   "baseGeneral": 0.6666666666666666,
+   "points": 3
+  },
+  {
+   "exam": "2018",
+   "no": 34,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2019",
+   "no": 31,
+   "ok": true,
+   "nSent": 10,
+   "bi": 9,
+   "blankGeneral": true,
+   "baseGeneral": 0.8,
+   "points": 2
+  },
+  {
+   "exam": "2019",
+   "no": 32,
+   "ok": true,
+   "nSent": 8,
+   "bi": 2,
+   "blankGeneral": false,
+   "baseGeneral": 0.75,
+   "points": 2
+  },
+  {
+   "exam": "2019",
+   "no": 33,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2019",
+   "no": 34,
+   "ok": true,
+   "nSent": 8,
+   "bi": 7,
+   "blankGeneral": false,
+   "baseGeneral": 0.75,
+   "points": 3
+  },
+  {
+   "exam": "2020",
+   "no": 31,
+   "ok": true,
+   "nSent": 6,
+   "bi": 5,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 2
+  },
+  {
+   "exam": "2020",
+   "no": 32,
+   "ok": true,
+   "nSent": 6,
+   "bi": 5,
+   "blankGeneral": true,
+   "baseGeneral": 0.8333333333333334,
+   "points": 2
+  },
+  {
+   "exam": "2020",
+   "no": 33,
+   "ok": true,
+   "nSent": 10,
+   "bi": 9,
+   "blankGeneral": true,
+   "baseGeneral": 0.8,
+   "points": 3
+  },
+  {
+   "exam": "2020",
+   "no": 34,
+   "ok": true,
+   "nSent": 7,
+   "bi": 4,
+   "blankGeneral": true,
+   "baseGeneral": 0.5714285714285714,
+   "points": 3
+  },
+  {
+   "exam": "2021",
+   "no": 31,
+   "ok": true,
+   "nSent": 6,
+   "bi": 2,
+   "blankGeneral": false,
+   "baseGeneral": 0.6666666666666666,
+   "points": 2
+  },
+  {
+   "exam": "2021",
+   "no": 32,
+   "ok": true,
+   "nSent": 5,
+   "bi": 2,
+   "blankGeneral": true,
+   "baseGeneral": 0.6,
+   "points": 2
+  },
+  {
+   "exam": "2021",
+   "no": 33,
+   "ok": true,
+   "nSent": 8,
+   "bi": 7,
+   "blankGeneral": true,
+   "baseGeneral": 0.875,
+   "points": 3
+  },
+  {
+   "exam": "2021",
+   "no": 34,
+   "ok": true,
+   "nSent": 6,
+   "bi": 5,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2022",
+   "no": 31,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2022",
+   "no": 32,
+   "ok": true,
+   "nSent": 6,
+   "bi": 0,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 2
+  },
+  {
+   "exam": "2022",
+   "no": 33,
+   "ok": true,
+   "nSent": 6,
+   "bi": 5,
+   "blankGeneral": true,
+   "baseGeneral": 0.8333333333333334,
+   "points": 3
+  },
+  {
+   "exam": "2022",
+   "no": 34,
+   "ok": true,
+   "nSent": 5,
+   "bi": 4,
+   "blankGeneral": true,
+   "baseGeneral": 0.8,
+   "points": 3
+  },
+  {
+   "exam": "2023",
+   "no": 31,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2023",
+   "no": 32,
+   "ok": true,
+   "nSent": 8,
+   "bi": 7,
+   "blankGeneral": true,
+   "baseGeneral": 0.75,
+   "points": 2
+  },
+  {
+   "exam": "2023",
+   "no": 33,
+   "ok": true,
+   "nSent": 6,
+   "bi": 1,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2023",
+   "no": 34,
+   "ok": true,
+   "nSent": 6,
+   "bi": 4,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2024",
+   "no": 31,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2024",
+   "no": 32,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 2
+  },
+  {
+   "exam": "2024",
+   "no": 33,
+   "ok": true,
+   "nSent": 7,
+   "bi": 3,
+   "blankGeneral": true,
+   "baseGeneral": 0.8571428571428571,
+   "points": 3
+  },
+  {
+   "exam": "2024",
+   "no": 34,
+   "ok": true,
+   "nSent": 8,
+   "bi": 1,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2025",
+   "no": 31,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2025",
+   "no": 32,
+   "ok": true,
+   "nSent": 8,
+   "bi": 4,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 2
+  },
+  {
+   "exam": "2025",
+   "no": 33,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2025",
+   "no": 34,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 0.8571428571428571,
+   "points": 3
+  },
+  {
+   "exam": "2026",
+   "no": 31,
+   "ok": true,
+   "nSent": 7,
+   "bi": 1,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 2
+  },
+  {
+   "exam": "2026",
+   "no": 32,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "2026",
+   "no": 33,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "2026",
+   "no": 34,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 0.8571428571428571,
+   "points": 3
+  },
+  {
+   "exam": "M2606",
+   "no": 31,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "M2606",
+   "no": 32,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": false,
+   "baseGeneral": 0.5714285714285714,
+   "points": 3
+  },
+  {
+   "exam": "M2606",
+   "no": 33,
+   "ok": true,
+   "nSent": 10,
+   "bi": 9,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 2
+  },
+  {
+   "exam": "M2606",
+   "no": 34,
+   "ok": true,
+   "nSent": 7,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 0.8571428571428571,
+   "points": 3
+  },
+  {
+   "exam": "M2609",
+   "no": 31,
+   "ok": true,
+   "nSent": 9,
+   "bi": 1,
+   "blankGeneral": false,
+   "baseGeneral": 0.6666666666666666,
+   "points": 2
+  },
+  {
+   "exam": "M2609",
+   "no": 32,
+   "ok": true,
+   "nSent": 9,
+   "bi": 5,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "M2609",
+   "no": 33,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "M2609",
+   "no": 34,
+   "ok": true,
+   "nSent": 6,
+   "bi": 0,
+   "blankGeneral": true,
+   "baseGeneral": 0.5,
+   "points": 3
+  },
+  {
+   "exam": "M2706",
+   "no": 31,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  },
+  {
+   "exam": "M2706",
+   "no": 32,
+   "ok": true,
+   "nSent": 8,
+   "bi": 7,
+   "blankGeneral": true,
+   "baseGeneral": 0.625,
+   "points": 2
+  },
+  {
+   "exam": "M2706",
+   "no": 33,
+   "ok": true,
+   "nSent": 9,
+   "bi": 6,
+   "blankGeneral": true,
+   "baseGeneral": 1,
+   "points": 3
+  },
+  {
+   "exam": "M2706",
+   "no": 34,
+   "ok": false,
+   "why": "빈칸 자리 못 찾음"
+  }
+ ]
+}

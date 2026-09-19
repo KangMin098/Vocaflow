@@ -81,7 +81,7 @@ export function WordCard({ word, selected, onToggle, onHover, onPlayAudio }: Wor
         {/* 난이도 chip */}
         <span
           className={cn(
-            'rounded border px-s-2 py-[1px] font-mono text-[10px] font-bold uppercase tracking-wider',
+            'rounded border px-s-2 py-[4px] font-mono text-[10px] font-bold uppercase tracking-wider',
             levelStyle.bg,
             levelStyle.text,
             levelStyle.border

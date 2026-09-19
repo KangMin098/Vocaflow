@@ -36,6 +36,9 @@ import { fileURLToPath } from 'node:url'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { config as loadDotenv } from 'dotenv'
 
+// @ts-expect-error — .mjs 공통 게이트(타입 선언 없음). scripts/dict/headword-gate.mjs
+import { gateHeadwords, writeHold } from '../dict/headword-gate.mjs'
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 loadDotenv({ path: resolve(__dirname, '../../.env.local') })
@@ -276,12 +279,33 @@ async function main(): Promise<void> {
     for (const e of orphanedEnriched.slice(0, 10)) console.warn(`    ${e.word}`)
   }
 
+  // ── ⛔ 표제어 유효성 게이트 (2026-08-17) ──
+  //   이 경로는 lbv/lav 미해소 토큰을 사전으로 승격시킨다 — **파편이 표제어가 되는 역류로**다.
+  //   추출 단계를 고쳐도 여기로 들어오므로 INSERT 직전에 막는다.
+  //   UPDATE(기존 표제어 보강)는 대상이 아니다 — 새 표제어를 만드는 INSERT 만 검사한다.
+  //   공통 게이트: scripts/dict/headword-gate.mjs
+  const insertWords = targets.filter((t) => t.action === 'insert').map((t) => t.word)
+  const heldWords = new Set<string>()
+  if (insertWords.length) {
+    const { hold } = await gateHeadwords(sb, insertWords)
+    for (const h of hold) heldWords.add(String(h.word).toLowerCase())
+    if (hold.length) {
+      const holdPath = resolve(__dirname, '../../data/lexicon/oov-orphan-import.hold.json')
+      writeHold(fs, holdPath, hold, { script: 'oov-orphan-import', at: new Date().toISOString() })
+      const by = hold.reduce<Record<string, number>>((m, h) => ((m[h.reason] = (m[h.reason] ?? 0) + 1), m), {})
+      console.warn(`\n⛔ 표제어 게이트 보류 ${hold.length} ${JSON.stringify(by)} → ${holdPath}`)
+      console.warn('   (자동 삭제 안 함 — 사람 검토 후 재실행)')
+    }
+  }
+
   // ── 적용 ──
   let orphanUpdated = 0
   let oovInserted = 0
+  let oovHeld = 0
   for (const t of targets) {
     const e = enrichedByWord.get(t.word)
     if (!e) continue
+    if (t.action === 'insert' && heldWords.has(String(t.word).toLowerCase())) { oovHeld += 1; continue }
     if (t.action === 'update') {
       const r = await applyOrphanUpdate(sb, e, opts.apply)
       orphanUpdated += r.updated
@@ -294,6 +318,7 @@ async function main(): Promise<void> {
   console.log(`\n=== Apply result (${mode}) ===`)
   console.log(`  kice-orphan UPDATE rows-affected: ${orphanUpdated}`)
   console.log(`  OOV INSERT executed:              ${oovInserted}`)
+  console.log(`  OOV 표제어 게이트 보류:            ${oovHeld}`)
 
   // ── lemma backfill ──
   const backfill = await lemmaBackfill(sb, opts.apply)

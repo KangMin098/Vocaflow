@@ -1,0 +1,28 @@
+{
+  "gate": 4,
+  "at": "2026-09-17T10:23:32.838Z",
+  "base": "http://localhost:3100",
+  "facts": {
+    "home": {
+      "controls": 4,
+      "chars": 80
+    },
+    "solve": {
+      "controls": 7,
+      "chars": 704
+    },
+    "understand": {
+      "controls": 14,
+      "chars": 931
+    },
+    "progress": {
+      "controls": 0,
+      "chars": 46
+    }
+  },
+  "shots": [
+    "apps/web/test-results-csat-learner/final-1-home.png",
+    "apps/web/test-results-csat-learner/final-2-session.png",
+    "apps/web/test-results-csat-learner/final-3-progress.png"
+  ]
+}
