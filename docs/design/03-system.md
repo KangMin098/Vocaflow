@@ -324,6 +324,13 @@ CLAUDE.md §모션 예산을 그대로 따른다(마이크로 100–200ms · 표
 | 접근성 | `role="img"` + `<title>`(개념 한 줄) 필수 · 옆 문장이 같은 말을 하면 `aria-hidden` 으로 바꾸고 `<title>` 은 남긴다 | |
 | 다크 | 토큰이 뒤집는다 — 삽화 안 hex 0 이면 자동 | 검증: `data-theme="dark"` 캡처 |
 
+### 골든 · 이야기 선 규범 (DD-35)
+
+골든 3점 = [golden/illustrations/](golden/illustrations/README.md) — E #2 첫 글 · S #7 내가 아는 비율 · B #9 다시 보면 버틴다.
+**이야기 선 규범 예시** = [#10 근거가 정답을 가리킨다](golden/illustrations/norm/illo-10-evidence-points.svg)(골든 아님): 이후 생성물의 이야기 선은 이것을 따른다 —
+근거 → 목적지 관계를 그릴 때만 주묵 실선+화살표(F2 「지지」) **한 획**이고 그 획이 곧 액센트다. 관계가 없는 삽화의 이야기 선은 `--t1` 1px.
+스타일 게이트(`scripts/design/style-gate.mjs --ref docs/design/golden/illustrations`)의 기준 입력은 이 4점뿐이다.
+
 ### 규격 4종
 
 | 규격 | viewBox | 자리 | 무대 칸 수 |
@@ -339,6 +346,11 @@ CLAUDE.md §모션 예산을 그대로 따른다(마이크로 100–200ms · 표
 - 섹션 간격: `--s-40` 160px(1280+) · `--s-24` 96px(390).
 - 바탕 교대: 섹션을 번갈아 `--bg` / `--bg2` **한 톤만**. `--bg2` 는 `--bg` 에 잉크를 채널당 3.1~5.8%(다크 3.5~5.4%) 섞은 값이다(2026-09-19 계산) — 사용자 결정 「잉크 4~6% 이내」 창. 틴트 색 순환은 쓰지 않는다(단일 액센트 · DD-24).
 - 제목/본문 크기 비율(공개 화면 h1): 1280+ **3.5**(56/16) · 390 **2.3**(34/15) — 굵기 600 · 서체는 §3-1 그대로. 적용은 이미지 체계 Gate 6.
+
+### 구현 · 드레인 (DD-36)
+
+앱 쪽 = `apps/web/src/components/illustrations/Illustration.tsx`(인라인 SVG — `<img>` 로는 토큰을 못 받는다) + `generated/<id>.ts`.
+새 삽화는 드레인 3단으로만 들어간다: `scripts/design/assets-drain-export.mjs` → `docs/design/trial/20260919/fill.mjs`(그리기 함수) → `scripts/design/assets-drain-import.mjs --commit`(style-gate `--ref` 골든 통과분만 · 재실행 안전 · 빈 값 거부 · 건너뜀 수 출력). 고칠 때는 export `--redo <id>`.
 
 ### 검사 (Gate 5·6 `style-gate`)
 

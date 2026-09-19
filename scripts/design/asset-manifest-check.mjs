@@ -81,7 +81,8 @@ for (const it of manifest.items) {
   if (!page) { fails.push(`${it.id}: route 가 page.tsx 로 안 풀린다 ${t.route}`); rows.push([it.id, 'FAIL', 'route']); continue }
   if (!/\.tsx?$/.test(t.component)) { rows.push([it.id, 'ok', 'file']); continue }
   // layout.tsx · opengraph-image.tsx 처럼 page 가 import 하지 않는 라우트 파일은 같은 라우트 폴더(또는 상위)에 있으면 통과
-  const routeFile = /\/app\/.*\/(layout|opengraph-image)\.tsx$|\/app\/layout\.tsx$/.test(norm(comp))
+  // 앱 루트의 opengraph-image.tsx 도 라우트 파일이다(첫 판 정규식은 루트를 못 잡았다 — og-root 추가 때 발견)
+  const routeFile = /\/app\/(?:.*\/)?(layout|opengraph-image)\.tsx$/.test(norm(comp))
   if (routeFile) {
     const ok = norm(dirname(page)).startsWith(norm(dirname(comp)))
     if (!ok) fails.push(`${it.id}: 라우트 파일이 ${t.route} 의 조상 폴더가 아니다`)

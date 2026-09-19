@@ -1,0 +1,22 @@
+{
+  "rule": "docs/design/03-system.md §3-9",
+  "golden": "docs/design/golden/illustrations",
+  "items": [
+    {
+      "id": "illo-15-fit-grade",
+      "dict": 15,
+      "concept": "이 글의 적정 학년",
+      "verb": "맞춘다",
+      "family": "시험지",
+      "size": "S",
+      "viewBox": "240x240",
+      "target": {
+        "route": "/fit",
+        "component": "apps/web/src/app/(marketing)/fit/page.tsx"
+      },
+      "note": "도구 아래 섹션 「어떻게 재나요」 머리 — 골든 1호 판면 밖",
+      "object": "학년 눈금 8칸 자 위에 종이 한 장이 정렬됨",
+      "accent": "맞는 눈금 도장"
+    }
+  ]
+}

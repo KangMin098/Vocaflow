@@ -17,9 +17,10 @@
         "component": "apps/web/src/components/wordvault/hub/WordVaultEmptyState.tsx"
       },
       "format": "svg",
-      "status": "trial",
+      "status": "done",
       "version": 1,
-      "source": "docs/design/explore/20260919 A (재사용)"
+      "source": "docs/design/explore/20260919 A (재사용)",
+      "applied": "/dev/components 검수대 390·1280 캡처 · 비평 통과(가장 나쁜 것은 기존 그라디언트 CTA — A5 범위 밖)"
     },
     {
       "id": "illo-02-text-hub-first",
@@ -35,8 +36,9 @@
         "component": "apps/web/src/components/textviewer/EmptyState.tsx"
       },
       "format": "svg",
-      "status": "trial",
-      "version": 1
+      "status": "done",
+      "version": 1,
+      "applied": "골든 E · 검수대 캡처 390·1280·다크"
     },
     {
       "id": "illo-03-shelf-filter-zero",
@@ -52,9 +54,10 @@
         "component": "apps/web/src/components/library/shared/ShelfEmptyState.tsx"
       },
       "format": "svg",
-      "status": "trial",
+      "status": "done",
       "version": 1,
-      "note": "빈 서가 톤만 — 조회 실패는 아이콘 유지"
+      "note": "ShelfEmptyState filtered 톤만(빈 서가·오류 톤은 그대로)",
+      "applied": "filtered 톤만 · 검수대 캡처"
     },
     {
       "id": "illo-04-dictation-choose",
@@ -70,9 +73,10 @@
         "component": "apps/web/src/components/dictation/DictationSetupClient.tsx"
       },
       "format": "svg",
-      "status": "trial",
+      "status": "done",
       "version": 1,
-      "note": "현 문구 「받아쓸 만한 문장이 없어요」 — 다른 글로 가는 한 걸음"
+      "note": "받아쓰기 준비의 막다른 상태 3곳이 쓰는 로컬 EmptyState",
+      "applied": "받아쓰기 로컬 빈 상태(DictationEmptyState) · 검수대 캡처"
     },
     {
       "id": "illo-05-portfolio-empty",
@@ -83,13 +87,15 @@
       "kind": "illustration",
       "size": "E",
       "viewBox": "320x200",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/wordvault",
         "component": "apps/web/src/components/wordvault/hub/ResourcePortfolio.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "자리가 Frame 안 한 줄 안내(<p>) — 320×200 규격이 들어갈 자리 없음. 넣으려면 레이아웃 변경(A5 범위 밖)"
     },
     {
       "id": "illo-06-text-list-empty",
@@ -100,13 +106,15 @@
       "kind": "illustration",
       "size": "E",
       "viewBox": "320x200",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/text",
         "component": "apps/web/src/components/textviewer/TextHubContent.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "같은 빈 상태(TextHubContent → textviewer/EmptyState)에 #2 골든이 들어간다 — 한 자리 한 삽화"
     },
     {
       "id": "illo-07-coverage",
@@ -118,13 +126,15 @@
       "size": "S",
       "viewBox": "240x240",
       "target": {
-        "route": "/",
-        "component": "apps/web/src/app/page.tsx"
+        "route": "/pricing",
+        "component": "apps/web/src/components/marketing/PricingClient.tsx"
       },
       "format": "svg",
-      "status": "trial",
+      "status": "done",
       "version": 1,
-      "source": "docs/design/explore/20260919 A (재사용)"
+      "source": "docs/design/explore/20260919 A (재사용)",
+      "note": "섹션 머리 「읽기 전에, 이 글이 나에게 맞는지 먼저 알려줍니다」 — 랜딩의 커버리지 자리는 서명(CoverageHero)이 이미 증명해 옆에 두면 DD-25 ① 위반",
+      "applied": "/pricing 섹션 머리 캡처"
     },
     {
       "id": "illo-08-decay-per-word",
@@ -136,12 +146,14 @@
       "size": "S",
       "viewBox": "240x240",
       "target": {
-        "route": "/",
-        "component": "apps/web/src/app/page.tsx"
+        "route": "/about",
+        "component": "apps/web/src/app/(marketing)/about/page.tsx"
       },
       "format": "svg",
-      "status": "trial",
-      "version": 1
+      "status": "done",
+      "version": 1,
+      "note": "섹션 머리 「인지심리학이 입증한 7가지 원칙」",
+      "applied": "/about 학습 과학 섹션 머리 캡처"
     },
     {
       "id": "illo-09-review-holds",
@@ -157,9 +169,11 @@
         "component": "apps/web/src/app/page.tsx"
       },
       "format": "svg",
-      "status": "trial",
+      "status": "done",
       "version": 1,
-      "source": "docs/design/explore/20260919 A (재사용)"
+      "source": "docs/design/explore/20260919 A (재사용)",
+      "note": "「다른 점」 섹션 머리 띠 — 1280 이상만(§3-9 B 규격)",
+      "applied": "랜딩 「다른 점」 머리 띠 — 1280 만(390 숨김 확인)"
     },
     {
       "id": "illo-10-evidence-points",
@@ -170,13 +184,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/about",
         "component": "apps/web/src/app/(marketing)/about/page.tsx"
       },
-      "format": "svg",
-      "status": "trial",
-      "version": 1
+      "note": "적용 자리 없음(/about 에 근거→정답 섹션 0) — 이야기 선 규범 예시로만 쓰인다(DD-35)"
     },
     {
       "id": "illo-11-distractor-excluded",
@@ -187,13 +203,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/about",
         "component": "apps/web/src/app/(marketing)/about/page.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "/about 에 해당 주제 섹션 없음 — 섹션 신설은 A5 범위 밖"
     },
     {
       "id": "illo-12-trap-pulls",
@@ -204,13 +222,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/about",
         "component": "apps/web/src/app/(marketing)/about/page.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "/about 에 해당 주제 섹션 없음 — 섹션 신설은 A5 범위 밖"
     },
     {
       "id": "illo-13-same-pattern",
@@ -221,13 +241,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/about",
         "component": "apps/web/src/app/(marketing)/about/page.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "/about 에 해당 주제 섹션 없음 — 섹션 신설은 A5 범위 밖"
     },
     {
       "id": "illo-14-class-sheet",
@@ -243,9 +265,10 @@
         "component": "apps/web/src/app/(marketing)/fit/page.tsx"
       },
       "format": "svg",
-      "status": "trial",
+      "status": "done",
       "version": 1,
-      "note": "판면 아래 섹션만 — 골든 1호 판면은 건드리지 않는다"
+      "note": "도구 아래 섹션 「이럴 때 씁니다」 머리 — 골든 1호 판면 밖",
+      "applied": "/fit 「이럴 때 씁니다」 캡처"
     },
     {
       "id": "illo-15-fit-grade",
@@ -261,8 +284,10 @@
         "component": "apps/web/src/app/(marketing)/fit/page.tsx"
       },
       "format": "svg",
-      "status": "planned",
-      "version": 1
+      "status": "done",
+      "version": 2,
+      "note": "도구 아래 섹션 「어떻게 재나요」 머리 — 골든 1호 판면 밖",
+      "applied": "/fit 「어떻게 재나요」 캡처 · 루프 1회(도장 위치)"
     },
     {
       "id": "illo-16-off-curriculum",
@@ -273,13 +298,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/fit",
         "component": "apps/web/src/app/(marketing)/fit/page.tsx"
       },
-      "format": "svg",
-      "status": "trial",
-      "version": 1
+      "note": "자리(CurriculumPanel)가 /fit 도구 결과 판면 안 — 골든 1호를 바꾼다"
     },
     {
       "id": "illo-17-stuck-sentence",
@@ -290,13 +317,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/about",
         "component": "apps/web/src/app/(marketing)/about/page.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "/about 에 해당 주제 섹션 없음 — 섹션 신설은 A5 범위 밖"
     },
     {
       "id": "illo-18-reread-count",
@@ -307,13 +336,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/pricing",
         "component": "apps/web/src/app/(marketing)/pricing/page.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "/pricing 에 회독 섹션 없음 — 섹션 신설은 A5 범위 밖"
     },
     {
       "id": "illo-19-shelf-fills",
@@ -324,13 +355,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/",
         "component": "apps/web/src/app/page.tsx"
       },
-      "format": "svg",
-      "status": "trial",
-      "version": 1
+      "note": "랜딩에 서가·성장 섹션 없음 — 섹션 신설은 A5 범위 밖"
     },
     {
       "id": "illo-20-long-lasting",
@@ -341,13 +374,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/",
         "component": "apps/web/src/app/page.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "랜딩에 버티는 낱말 섹션 없음 — 섹션 신설은 A5 범위 밖"
     },
     {
       "id": "illo-21-done-today",
@@ -378,9 +413,10 @@
         "component": "apps/web/src/app/(marketing)/fit/s/[payload]/opengraph-image.tsx"
       },
       "format": "svg",
-      "status": "planned",
+      "status": "done",
       "version": 1,
-      "note": "무대만(사물 없이 모눈 + 제목 조판)"
+      "note": "/fit/s 공유 카드 — 무대(모눈)만, 사물 없이",
+      "applied": "/fit/s 공유 카드 무대 + 각인 · 루프 1회(각인)"
     },
     {
       "id": "illo-23-print-cut",
@@ -391,13 +427,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/fit",
         "component": "apps/web/src/app/(marketing)/fit/page.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "인쇄 영역(「수업에 쓰기」)에 제목이 없고 /fit 도구 판면 안 — 골든 1호를 바꾼다"
     },
     {
       "id": "illo-24-paste-text",
@@ -408,14 +446,15 @@
       "kind": "illustration",
       "size": "E",
       "viewBox": "320x200",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "note": "같은 빈 상태(textviewer/EmptyState)에 #2 골든이 들어간다 — 한 자리 한 삽화",
+      "blockedTarget": {
         "route": "/text",
         "component": "apps/web/src/components/textviewer/EmptyState.tsx"
-      },
-      "format": "svg",
-      "status": "planned",
-      "version": 1,
-      "note": "#2 와 짝 — 직접 입력 갈래"
+      }
     },
     {
       "id": "illo-25-move-level",
@@ -426,13 +465,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/",
         "component": "apps/web/src/app/page.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "랜딩의 수준 슬라이더 자리는 서명(CoverageHero)이 증명 — DD-25 ①"
     },
     {
       "id": "illo-26-past-years",
@@ -443,13 +484,15 @@
       "kind": "illustration",
       "size": "B",
       "viewBox": "640x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/about",
         "component": "apps/web/src/app/(marketing)/about/page.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "/about 에 기출 연도 섹션 없음 — 섹션 신설은 A5 범위 밖"
     },
     {
       "id": "illo-27-margin-note",
@@ -460,13 +503,15 @@
       "kind": "illustration",
       "size": "S",
       "viewBox": "240x240",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "blockedTarget": {
         "route": "/about",
         "component": "apps/web/src/app/(marketing)/about/page.tsx"
       },
-      "format": "svg",
-      "status": "planned",
-      "version": 1
+      "note": "/about 에 해설 섹션 없음 — 섹션 신설은 A5 범위 밖"
     },
     {
       "id": "illo-28-dictation-hear",
@@ -477,14 +522,15 @@
       "kind": "illustration",
       "size": "E",
       "viewBox": "320x200",
-      "target": {
+      "target": null,
+      "format": "svg",
+      "status": "blocked",
+      "version": 1,
+      "note": "같은 빈 상태(DictationSetupClient 로컬 EmptyState)에 #4 가 들어간다 — 한 자리 한 삽화",
+      "blockedTarget": {
         "route": "/dictate/setup",
         "component": "apps/web/src/components/dictation/DictationSetupClient.tsx"
-      },
-      "format": "svg",
-      "status": "planned",
-      "version": 1,
-      "note": "#4 와 짝"
+      }
     },
     {
       "id": "illo-29-search-zero",
@@ -515,8 +561,9 @@
         "component": "apps/web/src/components/wordvault/WordVaultStudyClient.tsx"
       },
       "format": "svg",
-      "status": "trial",
-      "version": 1
+      "status": "done",
+      "version": 1,
+      "applied": "review 모드만 · 검수대 캡처 390·1280·다크"
     },
     {
       "id": "icon-apple-touch",
@@ -596,12 +643,13 @@
       "viewBox": "1200x630",
       "target": {
         "route": "/",
-        "component": "apps/web/src/app/layout.tsx"
+        "component": "apps/web/src/app/opengraph-image.tsx"
       },
       "format": "png",
-      "status": "planned",
+      "status": "done",
       "version": 1,
-      "note": "layout.tsx openGraph 에 images 가 없다 — 모눈 무대 + 제목 조판"
+      "note": "layout.tsx openGraph 에 images 가 없다 — 모눈 무대 + 제목 조판",
+      "applied": "app/opengraph-image.tsx 신설 · 루프 1회(빈 발 → 사실 표식 2)"
     },
     {
       "id": "og-card-stage",
@@ -617,9 +665,10 @@
         "file": "apps/web/src/lib/seo/og-card.tsx"
       },
       "format": "png",
-      "status": "planned",
+      "status": "done",
       "version": 1,
-      "note": "og-card 공용 4라우트 — 무대만 입힌다"
+      "note": "og-card 공용 4라우트 — 무대만 입힌다",
+      "applied": "og-card 무대 + 각인(주묵 · 모서리 2) · 도서 OG 확인"
     }
   ]
 }
