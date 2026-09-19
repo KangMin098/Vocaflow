@@ -47,13 +47,13 @@
 | unlock | 해금 Pride and Prejudice (61장) | 200 | 7 | 0.97 | ✅ | ✅ | impossible · know · want · conversation · family · manner · like · love |  |
 | recycle | 재등장 Pride and Prejudice (61장) | 80 | 6 | 0.97 | ✅ | ✅ | say · know · think · good · come · little · man · day |  |
 | book-companion | 도서 Pinocchio (36장) | 300 | 36 | 0.98 | ✅ | ✅ | like · moment · see · room · poor · door · mouth · laugh |  |
-| unlock | 해금 Pinocchio (36장) | 200 | 7 | 0.97 | ✅ | ✅ | capable · little · puppet · good · like · man · fish · school |  |
+| unlock | 해금 Pinocchio (36장) | 200 | 7 | 0.97 | ✅ | ✅ | finish · little · puppet · good · tell · school · moment · come |  |
 | recycle | 재등장 Pinocchio (36장) | 80 | 6 | 0.97 | ✅ | ✅ | say · little · come · like · see · time · find · take |  |
-| book-companion | 도서 Twenty Years After (90장) | 300 | 46 | 0.98 | ✅ | ✅ | reply · year · escape · say · come · time · good · horse |  |
-| unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.98 | ✅ | ✅ | time · say · king · reply · little · escape · make · man |  |
+| book-companion | 도서 Twenty Years After (90장) | 300 | 55 | 0.98 | ✅ | ✅ | year · escape · say · come · good · like · tell · cardinal |  |
+| unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.97 | ✅ | ✅ | say · king · like · little · year · escape · know · come |  |
 | recycle | 재등장 Twenty Years After (90장) | 80 | 5 | 0.97 | ✅ | ✅ | say · man · know · come · king · queen · reply · think |  |
-| book-companion | 도서 Intro to Sociology (23장) | 300 | 24 | 0.98 | ✅ | ✅ | culture · different · world · man · term · school · think · crime |  |
-| unlock | 해금 Intro to Sociology (23장) | 200 | 7 | 0.97 | ✅ | ✅ | culture · different · world · man · term · school · think · crime |  |
+| book-companion | 도서 Intro to Sociology (23장) | 300 | 24 | 0.98 | ✅ | ✅ | see · explain · culture · life · cultural · term · think · crime |  |
+| unlock | 해금 Intro to Sociology (23장) | 200 | 7 | 0.97 | ✅ | ✅ | see · explain · aboriginal · straight · culture · life · change · cultural |  |
 | recycle | 재등장 Intro to Sociology (23장) | 80 | 4 | 0.97 | ✅ | ✅ | life · family · child · culture · way · work · like · retrieve |  |
 | level-band | 레벨 V1-V3 | 400 | 15 | 0.97 | ✅ | ✅ | come · say · know · get · like · think · make · time |  |
 | level-band | 레벨 V4-V7 | 400 | 16 | 0.97 | ✅ | ✅ | reasoning · parenting · claim · relationship · range · quality · project · rounders |  |

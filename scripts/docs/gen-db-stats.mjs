@@ -19,7 +19,7 @@
 //   분기 진단이 날짜와 함께 기록한다(docs/PLATFORM_AUDIT.md §6-2).
 //
 // 실행:
-//   node scripts/docs/gen-db-stats.mjs            # CLAUDE.md 블록 갱신
+//   node scripts/docs/gen-db-stats.mjs            # AGENTS.md 블록 갱신
 //   node scripts/docs/gen-db-stats.mjs --check    # 낡았으면 exit 1 (CI·훅용, 파일 안 고침)
 //   node scripts/docs/gen-db-stats.mjs --print    # stdout 에만 출력
 //
@@ -28,7 +28,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const DOC = path.resolve('CLAUDE.md')
+// 2026-09-17: 블록이 CLAUDE.md 에서 AGENTS.md(두 에이전트 공용 단일 출처)로 옮겨졌다.
+const DOC = path.resolve('AGENTS.md')
 const START = '<!-- db-stats:start -->'
 const END = '<!-- db-stats:end -->'
 
@@ -287,7 +288,7 @@ const eol = raw.includes('\r\n') ? '\r\n' : '\n'
 const i = raw.indexOf(START)
 const j = raw.indexOf(END)
 if (i === -1 || j === -1 || j < i) {
-  console.error(`CLAUDE.md 에 마커가 없다 — ${START} … ${END} 를 먼저 넣을 것.`)
+  console.error(`AGENTS.md 에 마커가 없다 — ${START} … ${END} 를 먼저 넣을 것.`)
   process.exit(2)
 }
 
@@ -296,14 +297,14 @@ const after = raw.slice(j + END.length)
 const next = before + block.split('\n').join(eol) + after
 
 if (next === raw) {
-  console.log('CLAUDE.md DB 통계 — 변경 없음 (최신).')
+  console.log('AGENTS.md DB 통계 — 변경 없음 (최신).')
   process.exit(0)
 }
 
 if (MODE === 'check') {
-  console.error('CLAUDE.md DB 통계가 낡았다. `node scripts/docs/gen-db-stats.mjs` 로 갱신할 것.')
+  console.error('AGENTS.md DB 통계가 낡았다. `node scripts/docs/gen-db-stats.mjs` 로 갱신할 것.')
   process.exit(1)
 }
 
 fs.writeFileSync(DOC, next)
-console.log(`CLAUDE.md DB 통계 갱신 — 가입 ${stats.users} · 학습기록 ${stats.records} · 발행 도서 ${stats.bookStatus.get('published') ?? 0}/${stats.books}`)
+console.log(`AGENTS.md DB 통계 갱신 — 가입 ${stats.users} · 학습기록 ${stats.records} · 발행 도서 ${stats.bookStatus.get('published') ?? 0}/${stats.books}`)
