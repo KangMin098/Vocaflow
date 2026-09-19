@@ -142,6 +142,16 @@ export type PublicEvent =
    * DB 허용 목록은 승인 대기(`supabase/migrations/_pending_funnel_allow_hub_curve.sql`) — 적용 전에는 DB 가 거부한다.
    */
   | { name: 'hub_curve_interacted'; props: { count: number; words: number } }
+  /**
+   * `/dashboard` 「기억의 지층」에서 층 하나를 펼쳤다(2026-09-19 재설계 — DD-29). 접을 때는 보내지 않는다.
+   * `rung` = 층(닫힌 열거형) · `words` = 그 층의 낱말 수. 낱말은 싣지 않는다.
+   * 회고의 서명(층 안의 내 낱말)이 쓰이는지 재는 유일한 관측 — 진입은 screen_viewed(dashboard)가 센다.
+   * DB 허용 목록은 승인 대기(`supabase/migrations/_pending_funnel_allow_hub_curve.sql` 에 한 줄 더함).
+   */
+  | {
+      name: 'retrospect_layer_opened'
+      props: { rung: 'day' | 'few' | 'week' | 'month' | 'season'; words: number }
+    }
   // 은퇴(2026-09-17) — `csat_overlay_loaded` · `_located` · `_answered` · `_revealed` ·
   // `csat_drill_answered` · `_finished`. 보내던 화면(`/csat/overlay` · `/csat/drill`)을 학습자 재설계로
   // 걷었다(docs/csat-learner/DECISIONS.md D8). 같은 질문은 `csat_paper_read` · `csat_session_*` 이 받는다.
@@ -433,6 +443,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   wayfinder_opened: true,
   wayfinder_cta_clicked: true,
   hub_curve_interacted: true,
+  retrospect_layer_opened: true,
   csat_evidence_opened: true,
   csat_atlas_scoped: true,
   csat_plan_speed_set: true,

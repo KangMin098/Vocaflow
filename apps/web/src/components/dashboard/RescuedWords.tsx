@@ -26,10 +26,8 @@ export function RescuedWords({ rescued }: { rescued: RescuedWordsData }) {
   return (
     <section
       aria-label="이번 주에 다시 만난 단어"
-      // 캡처 하네스(91-hub-design-capture)의 균질성 계측에 참여한다 — 오른쪽
-      // `ActivityTrace` 와 한 줄에 서는 형제라 높이가 갈리면 곧바로 보인다.
-      data-design-card=""
-      className="flex min-w-0 flex-col rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-6"
+      // 2026-09-19 (DD-29) — 흰 카드(큰 모서리 + 그림자)를 걷고 판면 위 한 구획으로. 구획은 번호 괘선(Rule)이 가른다.
+      className="flex min-w-0 flex-col"
     >
       <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
         이번 주에 다시 만난 단어

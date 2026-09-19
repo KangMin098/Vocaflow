@@ -40,7 +40,7 @@ import type {
 // `packages/types` 의 module_id 는 25종인데 DB enum 은 28종이라(2026-08-13 실측) 타입이
 // 실제 값을 다 담지 못한다 — 실데이터가 쓰는 `'pirate-quest'`(하이픈)는 타입에 아예 없다.
 // 타입 재생성(`pnpm db:types`)이 근본 해결이고, 그 전까지는 문자열 키로 정직하게 둔다.
-// v07 「주묵 판면」 — 원색(보라 #8B5CF6 · 핑크 #EC4899 · 시안 #06B6D4)을 지면 팔레트로.
+// v07 「주묵 판면」 — 원색(보라 · 핑크 · 시안 하드코딩)을 지면 팔레트로.
 // 보라는 `/admin` 전용 액센트라 학습자 화면에 있으면 두 제품이 섞여 보이고,
 // 형광 핑크·시안은 크림 지면 위에서 혼자 튄다. 단계 구분은 유지하되 같은 종이 위 색으로.
 const MODULE_COLOR: Record<string, string> = {
@@ -87,7 +87,7 @@ export function RecentActivity({ data }: { data: RecentActivityData }) {
       <section
         role="alert"
         aria-label="최근 학습 활동을 불러오지 못했어요"
-        className="flex flex-col gap-3 rounded-ios-xl border border-[var(--bde)] bg-[var(--error-light)] px-4 py-3 shadow-ios-1 sm:flex-row sm:items-center"
+        className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] px-4 py-3 sm:flex-row sm:items-center"
       >
         <p className="flex-1 break-keep font-body text-[13px] leading-relaxed text-[var(--error-ink)]">
           지금은 최근 학습 활동을 불러오지 못했어요. 연결이 끊겼거나 잠시 응답이 없었어요.
@@ -111,7 +111,7 @@ export function RecentActivity({ data }: { data: RecentActivityData }) {
   return (
     <section
       aria-label={`최근 학습 활동 ${activities.length}건`}
-      className="flex items-center gap-3 rounded-ios-xl bg-[var(--bg)] px-4 py-3 shadow-ios-1"
+      className="flex items-center gap-3 border-y border-[var(--bd)] py-3"
     >
       {/* Header */}
       <header className="flex shrink-0 items-center gap-2 border-r border-[var(--bd)] pr-3">

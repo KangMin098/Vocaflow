@@ -34,16 +34,20 @@ function mondayOf(d: Date): string {
   return monday.toISOString().slice(0, 10)
 }
 
-/** 격려형 코멘트(§철학3 Empathetic · Lora italic 렌더). 압박/비난 금지. */
-function composeNote(total_reviews: number, total_minutes: number, total_words: number): string {
-  if (total_reviews === 0 && total_minutes === 0) {
+/**
+ * 격려형 코멘트(§철학3 Empathetic). 압박/비난 금지.
+ *
+ * ⚠️ **분(分)을 말하지 않는다**(2026-09-19 · DD-29). `daily_activity.total_minutes` 는 60초 미만 세션을
+ *    0 으로 반올림해 버리는 칸이라 `/dashboard` 는 분을 아예 쓰지 않는다(`memory-horizon.ts` 머리주석 ②).
+ *    같은 원천을 이 화면만 "N분" 으로 말하면 두 회고가 서로 다른 한 주를 말한다. 복습 수(`total_reviews`)가 정본.
+ *    `total_minutes` 는 행에 계속 적는다(스키마 유지) — 읽지 않을 뿐이다.
+ */
+function composeNote(total_reviews: number, total_words: number): string {
+  if (total_reviews === 0 && total_words === 0) {
     return '이번 주는 잠시 숨을 골랐네요. 다음 주에 다시 가볍게 만나요.'
   }
   if (total_reviews < 20) {
     return `이번 주 ${total_words}개의 단어와 함께했어요. 작은 걸음도 분명한 전진이에요.`
-  }
-  if (total_minutes >= 90) {
-    return `이번 주 ${total_minutes}분, ${total_reviews}번의 복습을 쌓았어요. 꾸준함이 기억을 단단하게 만들고 있어요.`
   }
   return `이번 주 ${total_words}개의 단어를 ${total_reviews}번 만났어요. 이 리듬이 실력이 돼요.`
 }
@@ -98,7 +102,7 @@ export async function generateWeeklyReport(
       total_words: words,
       total_reviews: reviews,
       by_module: byModule,
-      empathetic_note: composeNote(reviews, mins, words),
+      empathetic_note: composeNote(reviews, words),
       generated_at: new Date().toISOString(),
     },
     { onConflict: 'user_id,week_start' },
@@ -107,19 +111,28 @@ export async function generateWeeklyReport(
   return { ok: true }
 }
 
-/** 최근 주간 리포트 N개 (최신순). */
-export async function fetchRecentReports(limit = 8): Promise<WeeklyReport[]> {
+/**
+ * 최근 주간 리포트 N개 (최신순).
+ *
+ * ⚠️ **조회 실패를 빈 목록으로 돌려주지 않는다**(2026-09-19 · DD-29). 이전에는 `error` 를 버리고
+ *    `data ?? []` 를 돌려줘서, 연결이 끊긴 날 화면이 "아직 리포트가 없어요" 라고 말했다 —
+ *    쌓아 온 한 주들이 사라진 것처럼 보인다. 실패는 실패로 넘기고 화면이 [다시 시도] 를 준다.
+ */
+export async function fetchRecentReports(
+  limit = 8,
+): Promise<{ ok: true; reports: WeeklyReport[] } | { ok: false }> {
   const client = await createClient()
   const {
     data: { user },
   } = await client.auth.getUser()
-  if (!user) return []
+  if (!user) return { ok: true, reports: [] }
 
-  const { data } = await loose(client)
+  const { data, error } = await loose(client)
     .from('weekly_reports')
     .select('week_start, total_minutes, total_words, total_reviews, by_module, empathetic_note, generated_at')
     .eq('user_id', user.id)
     .order('week_start', { ascending: false })
     .limit(limit)
-  return (data ?? []) as WeeklyReport[]
+  if (error) return { ok: false }
+  return { ok: true, reports: (data ?? []) as WeeklyReport[] }
 }

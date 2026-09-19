@@ -1,0 +1,20 @@
+/* apps/web/src/components/dashboard/strata.module.css
+ *
+ * `/dashboard` 「기억의 지층」(DD-29)의 권점 — 이번 주에 다시 만나 맞힌 낱말.
+ * `/hub` 「오늘 다시 볼 낱말」 과 **같은 표식**(open circle · 주묵)이다. 허브의 모듈을 import 하지 않고
+ * 같은 값을 여기 둔다 — 남의 라우트 전용 CSS 를 끌어오면 그 화면을 고칠 때 이 화면이 조용히 바뀐다.
+ * 모션 0 — 층을 펼칠 때 색 전환만(`--dur-normal`).
+ */
+
+.week {
+  text-emphasis: open circle;
+  text-emphasis-position: over right;
+  text-emphasis-color: var(--ju);
+  -webkit-text-emphasis: open circle;
+  -webkit-text-emphasis-position: over right;
+  -webkit-text-emphasis-color: var(--ju);
+}
+
+.band {
+  transition: background-color var(--dur-normal) var(--ease);
+}

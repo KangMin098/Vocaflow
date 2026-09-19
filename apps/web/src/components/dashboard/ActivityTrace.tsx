@@ -70,8 +70,8 @@ export function ActivityTrace({
   return (
     <section
       aria-label="학습 흐름 — 지난 28일"
-      data-design-card=""
-      className="flex min-w-0 flex-col rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-6"
+      // 2026-09-19 (DD-29) — 흰 카드(큰 모서리 + 그림자)를 걷고 판면 위 한 구획으로. 구획은 번호 괘선(Rule)이 가른다.
+      className="flex min-w-0 flex-col"
     >
       <header className="flex items-center justify-between gap-3">
         <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">

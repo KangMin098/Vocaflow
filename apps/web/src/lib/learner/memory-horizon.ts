@@ -56,6 +56,7 @@ import { fetchGrowthStats } from './growth-stats'
 // 서버 전용 코드를 끌어오지 않도록 나눠 뒀다(그 파일 머리주석 참조).
 import {
   RUNGS,
+  buildStrata,
   median,
   rungFor,
   type Champion,
@@ -213,6 +214,13 @@ export const fetchMemoryHorizon = cache(async (): Promise<MemoryHorizon | null> 
         }
       : null
 
+  // 이번 주에 다시 만나 맞힌 낱말 — 지층의 권점과 `RescuedWords` 가 **같은 집합**을 쓴다
+  const rescuedIds = new Set(
+    ((weekRows ?? []) as Array<{ vocabulary_id: string | null }>)
+      .map((r) => r.vocabulary_id)
+      .filter((id): id is string => !!id),
+  )
+
   const ladder: Ladder = {
     counts,
     unseen,
@@ -220,6 +228,8 @@ export const fetchMemoryHorizon = cache(async (): Promise<MemoryHorizon | null> 
     medianDays: median(stabilities),
     topDays: stabilities.length > 0 ? stabilities[stabilities.length - 1] : null,
     champion,
+    // 2026-09-19 「기억의 지층」(DD-29) — 이미 읽은 행에서 층별 낱말을 싣는다(추가 조회 0)
+    strata: buildStrata(vocab, rescuedIds),
   }
 
   // ── 28일 실제 흐름 (리뷰 기준) ──
@@ -248,12 +258,7 @@ export const fetchMemoryHorizon = cache(async (): Promise<MemoryHorizon | null> 
   const streak = (await fetchGrowthStats())?.streak ?? 0
   const activeDays = days28.filter((d) => d.reviews > 0).length
 
-  // ── 되찾은 단어 ──
-  const rescuedIds = new Set(
-    ((weekRows ?? []) as Array<{ vocabulary_id: string | null }>)
-      .map((r) => r.vocabulary_id)
-      .filter((id): id is string => !!id),
-  )
+  // ── 되찾은 단어 (`rescuedIds` 는 위 지층과 같은 집합) ──
   const byId = new Map(vocab.map((v) => [v.id, v]))
   const sample: RescuedWords['sample'] = []
   for (const id of rescuedIds) {

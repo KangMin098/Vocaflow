@@ -143,6 +143,59 @@ export interface Ladder {
   topDays: number | null
   /** 그 단어 자체. 뜻이 비어 있으면 세우지 않는다(반쪽짜리 카드 방지) */
   champion: Champion | null
+  /**
+   * 층마다 **실제 낱말**(버티는 기간 긴 순, 층당 최대 `STRATUM_CAP`개) — 2026-09-19 「기억의 지층」(DD-29).
+   * 이전 사다리는 층마다 개수만 냈다 — 어휘 앱의 회고에 낱말이 없었다.
+   * 없으면(옛 호출부·테스트) 층은 개수만으로 선다.
+   */
+  strata?: Record<RungKey, StratumWord[]>
+}
+
+/** 한 층에 싣는 낱말 수 상한 — 펼친 층이 한 화면을 넘지 않게. 개수(`counts`)는 상한과 무관하게 전량이다. */
+export const STRATUM_CAP = 48
+
+/** 지층 안의 낱말 하나. */
+export interface StratumWord {
+  word: string
+  meaning: string | null
+  /** 지속 시간(일) */
+  days: number
+  /** 최근 7일 안에 다시 만나 **맞혔다** — 화면에서 권점. `RescuedWords` 와 같은 집합 */
+  thisWeek: boolean
+}
+
+/**
+ * 층별 낱말 — **이번 주에 되찾은 낱말 먼저**, 그다음 버티는 기간 긴 순으로 층당 `cap` 개.
+ * 순수 함수로 둔 이유: 정렬·상한이 틀려도 화면은 멀쩡히 뜨고 **다른 낱말이 조용히** 선다.
+ *
+ * ⚠️ 이번 주 낱말을 먼저 세우는 이유(2026-09-19 첫 캡처): 기간 순만으로 자르면 한 층에 130개가 있는
+ *    학습자의 권점 낱말(되찾은 지 얼마 안 돼 S 가 작다)이 상한 밖으로 밀려 **권점이 하나도 안 보였다** —
+ *    이 화면의 서명이 데이터가 많은 학습자에게서 먼저 사라진다.
+ */
+export function buildStrata(
+  rows: ReadonlyArray<{ id: string; word: string | null; meaning: string | null; stability: number | null }>,
+  thisWeekIds: ReadonlySet<string>,
+  cap = STRATUM_CAP,
+): Record<RungKey, StratumWord[]> {
+  const out = Object.fromEntries(RUNGS.map((r) => [r.key, [] as StratumWord[]])) as Record<RungKey, StratumWord[]>
+  const sorted = [...rows]
+    .filter((r) => !!r.word && (r.stability ?? 0) > 0)
+    .sort(
+      (a, b) =>
+        Number(thisWeekIds.has(b.id)) - Number(thisWeekIds.has(a.id)) ||
+        (b.stability ?? 0) - (a.stability ?? 0),
+    )
+  for (const r of sorted) {
+    const rung = rungFor(r.stability ?? 0)
+    if (!rung || out[rung].length >= cap) continue
+    out[rung].push({
+      word: r.word as string,
+      meaning: r.meaning,
+      days: r.stability ?? 0,
+      thisWeek: thisWeekIds.has(r.id),
+    })
+  }
+  return out
 }
 
 export interface RescuedWords {

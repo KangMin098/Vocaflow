@@ -24,7 +24,8 @@ export function LexicalReach({ reach }: { reach: Reach }) {
   return (
     <section
       aria-label="어휘의 무게중심"
-      className="flex flex-col rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-6"
+      // 2026-09-19 (DD-29) — 흰 카드(큰 모서리 + 그림자)를 걷고 판면 위 한 구획으로. 구획은 번호 괘선(Rule)이 가른다.
+      className="flex flex-col"
     >
       <header className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">

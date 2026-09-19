@@ -1,5 +1,9 @@
 // apps/web/src/app/(main)/dashboard/page.tsx
-// @form: 환경 변형 — 단어가 버티는 기간의 사다리 층 (DurabilityLadder)
+// @form: 환경 변형 — 기억의 지층: 버티는 기간별 층 안에 내 낱말, 이번 주에 되찾은 낱말엔 권점 (DurabilityLadder)
+//
+// 2026-09-19 화면 재설계(DD-29 · docs/design/compare/retrospect.md 발산 A 「기억의 지층」):
+//   선언한 골격이 렌더되지 않았다 — 흰 카드 7장 · 12px 막대 · 5칸 숫자(빈 칸은 0 세 개).
+//   지금은 판면(bg) 위 번호 괘선 구획, 히어로는 층 안에 실제 낱말이 선 단면. 카드 그림자·3열 카드를 걷었다.
 //
 // Growth (Reflect, L7) — "나 어떻게 하고 있나" 단일 표면.
 //
@@ -80,7 +84,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
+    <Screen width="wide" background="bg" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
         {/* 1. 헤더 — 날짜와 이름만. 오늘 진행·연속일은 셸 상태 띠가 이미 판다.
             v07 — 이름을 `--p`(딥 잉크)로 칠하던 것을 주묵 표식으로 바꿨다. 한 화면에서
@@ -143,9 +147,6 @@ export default async function DashboardPage() {
         <footer className="mt-4 pb-20 text-center md:pb-4">
           <p className="font-english text-[14px] italic leading-relaxed text-[var(--t2)]">
             “Slow is smooth, smooth is fast.”
-          </p>
-          <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
-            오늘도 차분한 페이스로 잘 해내고 있어요.
           </p>
         </footer>
       </div>

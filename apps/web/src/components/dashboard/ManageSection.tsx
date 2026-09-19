@@ -2,6 +2,7 @@
 // Growth(/dashboard) 의 "학습 관리" 섹션 — Level(수준 측정)·Plan(계획)·Report(리포트) 3 카드.
 // /manage 라우트 흡수(v06.108). fetchManageOverview 재사용. 미측정 시 Level 카드 1순위 강조.
 // 보기(성장)와 이동(관리)을 분리 — 시각 무게 낮춤 (Calm UI · Cognitive Load).
+// 2026-09-19 (DD-29) — 같은 폭 카드 3장(3열 균등 · 그림자)을 괘선 세 줄로. 조작이라 회고보다 가볍게.
 
 import { ArrowRight, CalendarRange, Compass, Target } from 'lucide-react'
 import Link from 'next/link'
@@ -33,7 +34,7 @@ export function ManageSection({ overview }: { overview: ManageOverview }) {
       <h2 className="font-display text-[13px] font-[800] uppercase tracking-[0.06em] text-[var(--t2)]">
         학습 관리
       </h2>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="flex flex-col border-t border-[var(--bd)]">
         {/* Level — 수준 미측정이면 1순위 강조(alert) */}
         <ManageCard
           icon={<Compass size={16} strokeWidth={1.75} />}
@@ -126,16 +127,12 @@ function ManageCard({
 }) {
   return (
     <section
-      data-design-card
-      className={`flex flex-col gap-2 rounded-[var(--r-lg)] border bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-colors duration-[var(--dur-normal)] ${
-        alert ? 'border-[var(--p)] ring-1 ring-[var(--p)]' : 'border-[var(--bd)]'
-      }`}
+      data-alert={alert ? 'true' : undefined}
+      // 미측정(alert)은 테두리 고리 대신 왼쪽 주묵 괘선 — 한 줄만 무게가 다르다
+      className={`flex flex-col gap-1 border-b border-[var(--bd)] py-3 ${alert ? 'border-l-2 border-l-[var(--ju)] pl-3' : ''}`}
     >
       <header className="flex items-center gap-2">
-        <span
-          className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
-          aria-hidden
-        >
+        <span className="inline-flex text-[var(--t2)]" aria-hidden>
           {icon}
         </span>
         <h3 className="font-display text-[14px] font-[800] text-[var(--t1)]">{title}</h3>

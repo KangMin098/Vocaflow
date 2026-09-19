@@ -9,7 +9,11 @@
 --   props: { count: 고른 수, words: 슬라이더 최대 } — 둘 다 숫자. 낱말은 싣지 않는다.
 --   허브의 서명(곡선 들어 올리기)이 쓰이는가를 재는 유일한 관측이다. 진입은 screen_viewed(hub)가 이미 센다.
 --
--- ⚠️ 목록은 파일이 아니라 **작성 시점의 DB 제약**(`pg_get_constraintdef`, 2026-09-19)에서 옮겼다 — 기존 40개 + 새 1개.
+-- `retrospect_layer_opened` — (2026-09-19 추가 · `/dashboard` 「기억의 지층」 DD-29) 층 하나를 펼쳤다.
+--   props: { rung: 닫힌 열거형 5, words: 그 층의 낱말 수 } — 낱말은 싣지 않는다.
+--   같은 세션의 관측이라 파일을 나누지 않고 한 번에 승인받는다.
+--
+-- ⚠️ 목록은 파일이 아니라 **작성 시점의 DB 제약**(`pg_get_constraintdef`, 2026-09-19)에서 옮겼다 — 기존 40개 + 새 2개.
 --    적용 직전에 다시 읽어 그 사이 늘어난 값이 있으면 합친다(덮으면 남의 이벤트가 거부된다).
 -- ⚠️ 적용 전에는 `lib/analytics/__tests__/db-allowlist.integration.test.ts` 가 이 1종에서 실패한다 — 그것이 맞다.
 --    그동안 클라이언트 track 은 DB 가 거부해도 화면에 영향이 없다(관측만 빠진다).
@@ -45,6 +49,8 @@ ALTER TABLE public.funnel_events
         'wayfinder_cta_clicked',
         -- 허브 (2026-09-19 · 승인 대기)
         'hub_curve_interacted',
+        -- 회고 (2026-09-19 · 승인 대기)
+        'retrospect_layer_opened',
         'screen_viewed',
         -- 구성요소 영상
         'video_started',
