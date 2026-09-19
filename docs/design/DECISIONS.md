@@ -123,3 +123,11 @@
 | # | 결정 | 근거 · 한 일 |
 |---|---|---|
 | **DD-20** | AGENTS.md · DESIGN.md · CLAUDE.md 는 **(b) 경로** — 임시 워크트리에서 HEAD 기준으로 이 세션의 변경만 다시 적용해 커밋. 작업 트리의 혼합 파일은 그대로 둔다 | 다른 세션 변경(두 에이전트 전환: CLAUDE.md 495→44줄 · AGENTS.md 신설 · Codex 입구 DESIGN.md)은 이해되지만 **저장소 안에서 완결되지 않는다** — 가리키는 `agents/` · `docs/agents/CONTEXT_DETAIL.md` · `.claude/settings.json` · `.codex/` 가 전부 미추적이라 파일째 커밋하면 CLAUDE.md 의 규칙 485줄이 없는 파일로 옮겨지고 `doc-path-drift` 가 CI 에서 깨진다. 그래서 AGENTS.md 에 넣었던 이 세션의 규칙(DESIGN.md 필독 · 활성 스킬 2 · 평균 금지 · Admin 액센트)은 HEAD 의 CLAUDE.md 같은 자리에 적용했고, DESIGN.md 는 이 세션이 쓴 절만으로 만들었다(미추적 파일을 가리키지 않게). **함께 고친 구조 결함**: 라쳇 기준선을 처음에 다른 세션의 미커밋 변경이 섞인 작업 트리에서 재서 **커밋된 트리에서 실패**했다 — 기준선을 커밋된 트리로 재측정(화면 기준선 csat/progress·session ↔ dissect·formulas · learner.grid-3eq 60 · admin.ai-purple 326), DESIGN_SYSTEM 의 미추적 경로 참조 제거. 그 결과 **미커밋 CSAT 작업이 있는 작업 트리에서는 두 라쳇이 "기준선을 갱신하라" 로 떨어진다** — 그 세션이 커밋할 때 기준선을 함께 내린다(라쳇의 의도된 동작) |
+
+## Lazyweb 스킬 사용 범위 (2026-09-19) — DD-21
+
+> Lazyweb 스킬 팩 v0.15.13 을 사용자 전역(`~/.claude/skills/` 9개)에 설치한 뒤 정한 범위. 설치 위치가 저장소 밖이라 이 저장소에서는 이 항목이 유일한 제약이다.
+
+| # | 결정 | 근거 · 한 일 |
+|---|---|---|
+| **DD-21** | ① **허용**: `lazyweb-search-screens` · `lazyweb-search-flows` 만. 용도는 Gate 4 층 1(평균의 정의)과 Gate 6 사후 검증(닮은 화면 유무)뿐. ② **금지**: `lazyweb-apply-design-best-practices` 와 리포트·적용 계열 스킬 전부(`lazyweb-growth-report` · `-growth-score` · `-growth-backlog` · `-search-experiments` · 라우터 `lazyweb` 로의 우회 포함). ③ **세션 분리**: Lazyweb MCP 는 감사·검증 세션에서만 쓴다. Gate 5 브리프 작성 · 발산 · 골든 고정 · 구현 세션에서는 Lazyweb 도구를 호출하지 않는다. ④ **결과 처리**: 이미지는 저장소에 넣지 않는다. 레퍼런스 인덱스(references.md — 아직 미추적, 다른 세션 작업) 에 링크 · 첫 시선 골격 분류 · 평균 신호 수만 적는다. Lazyweb 결과를 G1 축 후보의 근거로 인용하지 않는다. ⑤ **예외 — 카테고리 밖 이식**: R(t) · 커버리지와 같은 데이터 구조를 가진 비교육 도메인(finance · health · utilities) 검색 결과는 형태 후보로 쓸 수 있되, 브리프에 「이식 출처」를 명시한다 | 사용자 결정. `lazyweb-apply-design-best-practices` 는 외부 취향 스킬의 SKILL.md 를 받아 그대로 적용한다 — AGENTS.md 의 활성 외부 취향 스킬 2개 제한과 vocaflow-design 판정 우선 원칙을 우회한다. 검색 결과는 「이미 있는 평균」을 정의하는 데 쓰여야지 형태의 출처가 되면 평균으로 수렴한다(§G 발명 목표와 충돌) — 그래서 발명 세션과 분리한다. 같은 업종 밖, 같은 데이터 구조의 화면은 평균이 아니라 이식이라 ⑤로 열어 둔다 |
