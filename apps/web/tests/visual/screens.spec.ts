@@ -8,10 +8,12 @@ import { assertNoOverflow, assertScreen, measureOverflow } from './checks'
 const stylePath = path.join(__dirname, 'capture.css')
 const style = fs.readFileSync(stylePath, 'utf8')
 
-const screens = [
+const screens: { path: string; heading: string | RegExp; auth: boolean }[] = [
   { path: '/fit', heading: '이 지문, 우리 반에 맞을까?', auth: false },
   { path: '/csat', heading: '다른 지문, 같은 설계.', auth: true },
   { path: '/csat/formulas', heading: '내 공식', auth: true },
+  // 화면 재설계 실행(2026-09-19) — h1 이 오늘의 단어·문장이라 형태만 확인한다.
+  { path: '/hub', heading: /.+/, auth: true },
 ]
 const requested = (process.env.DESIGN_ROUTES ?? '/fit').split(',').map(value => value.trim())
 const unknown = requested.filter(value => !screens.some(screen => screen.path === value))
@@ -20,7 +22,7 @@ const selected = screens.filter(screen => requested.includes(screen.path))
 const mode = process.env.DESIGN_MODE ?? 'capture'
 if (!['capture', 'compare'].includes(mode)) throw new Error('DESIGN_MODE는 capture 또는 compare')
 if (selected.some(screen => screen.auth) && !process.env.DESIGN_STORAGE_STATE) {
-  throw new Error('CSAT 검증에는 DESIGN_STORAGE_STATE로 playwright-auth/의 인증 상태를 지정하세요.')
+  throw new Error('로그인 화면 검증에는 DESIGN_STORAGE_STATE로 playwright-auth/의 인증 상태를 지정하세요.')
 }
 
 for (const screen of selected) test.describe(screen.path, () => {
