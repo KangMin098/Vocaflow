@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- `/signup` 골든 6호(발산 A 「칠해진 지문 옆의 가입」) — 그림자 카드 폼을 걷고 랜딩 데모 지문을 `/fit` 과 같은 `PaintedPassage` 로 폼 옆에(모바일 두 줄). 1차 행동이 1280·390 모두 폴드 안 · 가입↔로그인 링크의 `next` 보존. `page.tsx`(서버) / `SignupForm.tsx`(클라이언트) 분리. `docs/design/golden/signup.md` · DD-26.
 - `/fit/s/[payload]` 골든 5호(발산 A 「가장 어려운 낱말 줄」) — 공유 링크엔 원문이 없어 빈 입력칸이 결과보다 먼저 서던 것을, `/fit/s` 전용 `SharedFitView`(같은 `PaintedPassage`·`ClassSheet`)로 결과 먼저 · 1차 「내 지문으로 해 보기」. 감사 판정 보류 → 서명 있음. `docs/design/golden/fit-s.md` · DD-25.
 - `/flashcard/play` 골든 4호(발산 A 「이 단어의 기억선」) — 카드 아래 R(t) 시간축, 평가에 손을 얹으면 다음 곡선·다음 만남. 평가 버튼 날짜를 SM-2 간격에서 **FSRS 미리보기**(세션이 적용하는 스케줄러)로 바로잡음 · 완료 화면 ✨·1s 회전·3열 통계·그라디언트 → 7일 곡선 + 한 문장. `lib/flashcard/memory-line.ts` · 0바이트 `ForgettingCurve.tsx` 구현. 정적 신호 12→4 · 라쳇 4종 하향. `docs/design/golden/flashcard-play.md` · DD-24.
 - `/diagnostic` 골든 3호(발산 A 「답할수록 칠해지는 지문」) — 데모 지문이 답마다 서버와 같은 규칙의 중간 추정(`lib/diagnostic/interim-level.ts`)으로 칠해지고, 결과 h1 이 「지금 N권을 읽을 수 있어요」(셸 사정권 분포 재사용 — 새 쿼리 0). 그라디언트 헤더 2 · 모달 glass 2 제거, 빈 상태 D5. 정적 신호 6→1 · 390 카드형 4→0. `docs/design/golden/diagnostic.md` · DD-23.

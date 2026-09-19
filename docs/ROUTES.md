@@ -149,7 +149,7 @@
 | 경로 | 비고 |
 |---|---|
 | `/login` | 로그인 |
-| `/signup` | 회원가입 |
+| `/signup` | 회원가입 — 2026-09-19 `page.tsx`(서버, 데모 지문) + `SignupForm.tsx`(클라이언트) · 칠해진 지문 옆의 폼 · `next` 보존(로그인 링크 양쪽) |
 | `/reset-password` | 비밀번호 재설정 |
 | `/verify-email` | 이메일 인증 |
 
