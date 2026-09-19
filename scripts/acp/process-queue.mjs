@@ -23,6 +23,11 @@
 //   pnpm dlx tsx scripts/acp/process-queue.mjs --commit [--limit 10]
 //   pnpm dlx tsx scripts/acp/process-queue.mjs --source gutenberg --narrative --commit --limit 200
 //   pnpm dlx tsx scripts/acp/process-queue.mjs --shard 0/4 --commit --limit 200   # 4갈래 중 1갈래
+// Scoped original pilot (dry-run unless --commit): --source original --feed compose-drain
+//   --ids-file <one-uuid-per-line.txt> --skip-llm --limit 10
+// CSAT slot-fill originals always disable paid LLM calls, even without --skip-llm.
+// Analysis commit requires 20260919023610_acp_atomic_analysis.sql (approved application).
+// Claim -> preview -> atomic vocabulary/VRL/syntax/ready commit; no body rewrite.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -81,6 +86,66 @@ export function parseShardArg(argv) {
   return { index, count }
 }
 
+// compose-drain-import requires a batch for provenance, but it does not create the
+// publisher/fact sources that scripts/compose/drain-process requires. Only this
+// completed slot-fill format belongs here; other compose jobs keep their owner.
+export const QUEUE_OWNERSHIP_FILTER = 'compose_batch_id.is.null,and(source.eq.original,feed_id.eq.compose-drain,composed_spec->>kind.eq.csat-slot-fill)'
+export function isCsatComposeDrain(row) {
+  return row.source === 'original' && row.feed_id === 'compose-drain' && row.composed_spec?.kind === 'csat-slot-fill'
+}
+export function ownsQueuedArticle(row) {
+  return row.status === 'queued' && (row.compose_batch_id == null || isCsatComposeDrain(row)) &&
+    typeof row.content === 'string' && row.content.trim().length > 0
+}
+export function analysisOptionsFor(row, skipLlm = false) {
+  // Preview writes neither article nor its vocabulary. Optional dictionary
+  // enrichment is independent of the article claim; CSAT originals disable it.
+  return { skipLlm: skipLlm || isCsatComposeDrain(row), preview: true }
+}
+export function parsePilotIds(text) {
+  const ids = [...new Set(text.split(/\r?\n/).map(x => x.trim()).filter(Boolean))]
+  if (!ids.length || ids.length > 100 || ids.some(id => !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id))) {
+    throw new Error('--ids-file requires 1..100 valid UUIDs; invalid entries are not silently dropped')
+  }
+  return ids
+}
+export async function claimQueuedArticle(db, row) {
+  if (!ownsQueuedArticle(row)) return false
+  if (!row.updated_at) throw new Error(`Missing source revision: ${row.id}`)
+  const { data, error } = await db.from('library_articles')
+    .update({ status: 'analyzing', status_message: null })
+    .eq('id', row.id).eq('status', 'queued').eq('updated_at', row.updated_at)
+    .or(QUEUE_OWNERSHIP_FILTER).select('id,updated_at').maybeSingle()
+  if (error) throw new Error(`Queue claim failed: ${error.message}`)
+  if (data && !data.updated_at) throw new Error('Queue claim returned no revision')
+  return data ?? false
+}
+
+export async function assertAtomicAnalysisAvailable(db) {
+  const { data, error } = await db.rpc('commit_article_analysis', {
+    p_article_id: null, p_claimed_revision: null, p_source_content: null, p_analysis: null,
+  })
+  if (error || data?.version !== 1) throw new Error(`Atomic analysis migration required: ${error?.message ?? 'unsupported RPC version'}`)
+}
+
+export async function commitClaimedAnalysis(db, row, claim, analysis) {
+  const { data, error } = await db.rpc('commit_article_analysis', {
+    p_article_id: row.id, p_claimed_revision: claim.updated_at,
+    p_source_content: row.content, p_analysis: analysis,
+  })
+  if (error) throw new Error(`Atomic analysis commit failed: ${error.message}`)
+  if (data?.committed !== true) throw new Error('Atomic analysis commit returned no confirmation')
+  return data
+}
+
+export async function failClaimedAnalysis(db, row, claim, message) {
+  // A replaced body, archived row, or new worker claim must remain untouched.
+  const { error } = await db.from('library_articles')
+    .update({ status: 'failed', status_message: message.slice(0, 500) })
+    .eq('id', row.id).eq('status', 'analyzing').eq('updated_at', claim.updated_at)
+  if (error) throw new Error(`Failure status update failed: ${error.message}`)
+}
+
 async function main() {
   for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
     const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -93,7 +158,12 @@ async function main() {
   }
   const commit = process.argv.includes('--commit')
   const LIMIT = Number(arg('limit') ?? 8)
+  if (!Number.isInteger(LIMIT) || LIMIT < 1) throw new Error('--limit must be a positive integer')
   const shard = parseShardArg(process.argv)
+  const skipLlm = process.argv.includes('--skip-llm')
+  const idsFile = arg('ids-file')
+  if (process.argv.includes('--ids-file') && (!idsFile || idsFile.startsWith('--'))) throw new Error('--ids-file requires a path')
+  const pilotIds = idsFile ? parsePilotIds(fs.readFileSync(idsFile, 'utf8')) : null
 
   const { createClient } = await import('@supabase/supabase-js')
   const {
@@ -182,9 +252,10 @@ async function main() {
   const queued = await fetchAllPaged(db, (q0) => {
     let q = q0
       .from('library_articles')
-      .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id, created_at')
+      .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id, created_at,updated_at,status,compose_batch_id,composed_spec')
       .eq('status', 'queued')
-      .is('compose_batch_id', null)
+      .or(QUEUE_OWNERSHIP_FILTER)
+    if (pilotIds) q = q.in('id', pilotIds)
     if (onlySources.length) q = q.in('source', onlySources)
     if (onlyFeeds.length) q = q.in('feed_id', onlyFeeds)
     if (fitOnly) q = q.gt('csat_fit->>pass', '0')
@@ -204,7 +275,9 @@ async function main() {
     await new Promise((r) => setTimeout(r, 100))
     process.exit(code)
   }
-  let list = queued ?? []
+  let list = (queued ?? []).filter(ownsQueuedArticle)
+  if (pilotIds) console.log(`--ids-file — ${pilotIds.length} IDs, queued/owned/nonempty ${list.length}`)
+  console.log(skipLlm ? 'LLM 호출 없음 (--skip-llm)' : 'CSAT compose-drain은 LLM 호출 없이 분석한다.')
   if (narrativeOnly) {
     const before = list.length
     list = list.filter((a) => looksNarrative(String(a.content ?? '')))
@@ -233,18 +306,21 @@ async function main() {
   if (list.length > 12) console.log(`  … 그리고 ${list.length - 12}편`)
 
   if (!commit) {
-    console.log('\n--commit 을 붙이면 처리한다. 분석은 LLM 비용이 든다.')
+    console.log('\n--commit 을 붙이면 처리한다. --skip-llm 또는 CSAT compose-drain은 LLM 호출이 없다.')
     await finish(0)
   }
 
+  // Probe before the first claim: an unapplied migration must leave the queue intact.
+  await assertAtomicAnalysisAvailable(db)
   let ok = 0
+  let skippedClaim = 0
   const failures = []
 
   for (const a of list.slice(0, LIMIT)) {
-    const setStatus = (s, msg) =>
-      db.from('library_articles').update({ status: s, status_message: msg ?? null }).eq('id', a.id)
+    let claimed = false
     try {
-      await setStatus('normalizing')
+      claimed = await claimQueuedArticle(db, a)
+      if (!claimed) { skippedClaim++; continue }
       // 정규화는 라우트와 같은 두 단계 — 구두점 통일 + 소프트하이픈 되돌리기.
       // ⚠️ 기사는 HTML 이라 줄바꿈 하이픈이 없다(322편 전수 실측 0건). 켜 두면 표가 납작해진
       //   자리에서 bio-+life = biolife 같은 없는 낱말이 생긴다 — reflow.ts 주석 참조.
@@ -269,20 +345,11 @@ async function main() {
         body_hash: sha256(bodyText),
       }
 
-      await setStatus('analyzing')
-      const result = await analyzeArticle(a.id, norm)
-
-      // VRL·구문 산출 실패는 치명적이지 않다 — 라우트와 같은 판단이다.
-      //   article_v_level 이 NULL 이면 select_article_vocab 가 V4 로 되돌아간다.
-      const { error: vrlErr } = await db.rpc('compute_article_vrl', { p_article_id: a.id })
-      if (vrlErr) console.warn(`  ⚠ VRL 경고 (${a.id}): ${vrlErr.message}`)
-      const { error: synErr } = await db.rpc('compute_article_syntax', { p_article_id: a.id })
-      if (synErr) console.warn(`  ⚠ 구문 경고 (${a.id}): ${synErr.message}`)
+      const result = await analyzeArticle(a.id, norm, analysisOptionsFor(a, skipLlm))
 
       const noise = computeLexicalNoise(bodyText)
-      const { error: upErr } = await db
-        .from('library_articles')
-        .update({
+      await commitClaimedAnalysis(db, a, claimed, {
+          words: result.words,
           cefr_level: result.cefr_level,
           cefr_confidence: result.cefr_confidence,
           word_count: result.word_count,
@@ -290,7 +357,6 @@ async function main() {
           llm_cost_usd: result.llm_cost_usd,
           register: resolveArticleRegister(a.source, a.feed_id ?? null),
           lexical_noise: noise,
-          status: 'ready',
           // 표시할 것이 둘 이상일 수 있다 — 앞의 것만 남기면 뒤의 것이 조용히 사라진다.
           //   ① noise > 0.08 이면 발행 트리거가 단어세트를 건너뛴다(읽기용만).
           //   ② 발행분 p90 을 넘는 길이는 검수자에게 알린다(버리지 않는다 — 판단은 사람 몫).
@@ -304,22 +370,25 @@ async function main() {
               .join(' · ') || null,
           content_hash: norm.body_hash,
         })
-        .eq('id', a.id)
-      if (upErr) throw new Error(upErr.message)
 
       ok++
       console.log(`  ✓ ${String(a.source).padEnd(16)} ${result.cefr_level} · ${result.word_count}어 · 어휘 ${result.words.length}`)
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e)
       failures.push(`${a.source} ${a.id}: ${msg}`)
-      await setStatus('failed', msg.slice(0, 500))
+      // A failed/lost claim must never overwrite another worker's current state.
+      if (claimed) {
+        try { await failClaimedAnalysis(db, a, claimed, msg) }
+        catch (statusError) { console.warn(String(statusError)) }
+      }
       console.log(`  ✗ ${String(a.source).padEnd(16)} ${msg.slice(0, 70)}`)
     }
   }
 
-  console.log(`\n처리 ${ok} / ${Math.min(LIMIT, list.length)} · 남은 큐 ${list.length - ok}`)
+  console.log(`\n처리 ${ok} / ${Math.min(LIMIT, list.length)} · 다른 작업/원문 변경으로 건너뜀 ${skippedClaim}`)
   if (failures.length) {
-    console.log(`\n실패 ${failures.length} (status='failed' 로 남아 다시 집히지 않는다):`)
+    process.exitCode = 1
+    console.log(`\n실패 ${failures.length} (현재 claim만 failed 처리, 동시 변경된 원문·상태는 보존):`)
     for (const f of failures.slice(0, 8)) console.log(`  · ${f}`)
   }
   console.log('\n검수·발행은 Admin ⑦ 에서 사람이 한다 — 이 스크립트는 검수 대기까지만 올린다.')

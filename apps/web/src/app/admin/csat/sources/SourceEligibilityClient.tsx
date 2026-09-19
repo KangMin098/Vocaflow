@@ -15,6 +15,7 @@ import Link from 'next/link'
 import { SourceWorkspace } from './SourceWorkspace'
 import type { SourceWorkspaceState } from '@/lib/textbook/source-workspace'
 import type { SourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
+import type { CorpusCoverageData, SourceDiscoveryProfiles } from '@/lib/textbook/corpus-coverage'
 
 import { NextStepPipeline } from './NextStepPipeline'
 import type {
@@ -61,12 +62,14 @@ function SourceLink({ source, children }: { source: string; children: React.Reac
   )
 }
 
-export function SourceEligibilityClient({ panel, inventory, initialState }: {
+export function SourceEligibilityClient({ panel, inventory, initialState, coverage, discoveryProfiles }: {
   panel: SourceEligibilityPanel
   inventory: SourceInventoryPanel
   initialState?: SourceWorkspaceState
+  coverage?: CorpusCoverageData
+  discoveryProfiles?: SourceDiscoveryProfiles
 }) {
-  return <SourceWorkspace panel={panel} inventory={inventory} initialState={initialState}
+  return <SourceWorkspace panel={panel} inventory={inventory} initialState={initialState} coverage={coverage} discoveryProfiles={discoveryProfiles}
     eligibility={<>
       <GradeTable grades={panel.grades} total={panel.total.total} />
       <AxisTable axes={panel.axes} />

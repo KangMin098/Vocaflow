@@ -27,20 +27,47 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
+/** CLI mistakes must fail before reading credentials, fetching feeds or writing a cursor. */
+export function parseCollectionOptions(argv) {
+  const value = (name, fallback = null) => {
+    const index = argv.indexOf('--' + name)
+    if (index < 0) return fallback
+    const next = argv[index + 1]
+    if (!next || next.startsWith('--')) throw new Error('--' + name + ' requires a value')
+    return next
+  }
+  const integer = (name, fallback, minimum) => {
+    const raw = value(name, String(fallback))
+    const parsed = Number(raw)
+    if (!/^\d+$/.test(raw) || !Number.isSafeInteger(parsed) || parsed < minimum) {
+      throw new Error('--' + name + ' must be an integer >= ' + minimum)
+    }
+    return parsed
+  }
+  return {
+    commit: argv.includes('--commit'), fresh: argv.includes('--fresh'),
+    source: value('source'), feed: value('feed'),
+    limit: integer('limit', 3, 1), pages: integer('pages', 1, 0),
+    pageDelay: integer('page-delay', 350, 0),
+  }
+}
+
+/** Injected adapters make cursor/DB ordering testable without external requests. */
+export async function collectDaily({ argv = process.argv, library, database, sources } = {}) {
+const options = parseCollectionOptions(argv)
+
+
+if (!database) for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
 }
 
-const arg = (n) => {
-  const i = process.argv.indexOf(`--${n}`)
-  return i >= 0 ? process.argv[i + 1] : null
-}
-const commit = process.argv.includes('--commit')
-const onlySource = arg('source')
-const onlyFeed = arg('feed')
-const PER_FEED = Number(arg('limit') ?? 3)
+const commit = options.commit
+const onlySource = options.source
+const onlyFeed = options.feed
+const PER_FEED = options.limit
 
 /**
  * 카테고리를 몇 페이지까지 걸어 들어갈지 (continuation 지원 피드만).
@@ -52,20 +79,18 @@ const PER_FEED = Number(arg('limit') ?? 3)
  *   Featured Articles 6,993편 중 손에 닿는 것이 ~20편이었고, 그걸 다 담으면 "새 것 0" 이
  *   떠서 **소진처럼 보였다.** 페이지를 걸어야 나머지 99.7% 가 보인다.
  */
-const PAGES = Number(arg('pages') ?? 1)
+const PAGES = options.pages
 /** 페이지 사이 간격 — 기관 API 에 몰아치지 않는다. */
-const PAGE_DELAY_MS = Number(arg('page-delay') ?? 350)
+const PAGE_DELAY_MS = options.pageDelay
 /**
  * 저장된 커서를 무시하고 처음부터 훑는다.
  * (기본은 **이어서** — 실행마다 처음으로 돌아가던 것이 위키백과가 92편에서 멈춘 직접 원인이다.)
  */
-const FRESH = process.argv.includes('--fresh')
+const FRESH = options.fresh
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
-const { createClient } = await import('@supabase/supabase-js')
-const lib = await import('@vocaflow/library-pipeline')
-
-const db = createClient(
+const lib = library ?? await import('@vocaflow/library-pipeline')
+const db = database ?? (await import('@supabase/supabase-js')).createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY,
   { auth: { persistSession: false } },
@@ -85,7 +110,7 @@ const db = createClient(
  * ⚠️ 여기 적힌 것은 PD/CC 공급원(supply 역할)만이다. 상업 뉴스는 본문을 그대로 발행하는
  *   이 경로로 오면 안 되고, 그 경계는 `rolesOf` 가 코드로 지킨다.
  */
-const SOURCES = [
+const SOURCES = sources ?? [
   {
     // VOA 는 페이지가 아니라 **창 크기**가 파라미터다 — `?count=N`. 배선된 URL 이 전부
     //   count=20 이라 20편이 전부인 것처럼 보였다(실측: count=200 → 200건).
@@ -240,7 +265,11 @@ const SOURCES = [
 const targets = onlySource ? SOURCES.filter((s) => s.key === onlySource) : SOURCES
 if (!targets.length) {
   console.error(`알 수 없는 소스: ${onlySource}\n쓸 수 있는 것: ${SOURCES.map((s) => s.key).join(' · ')}`)
-  process.exit(2)
+  throw new Error(`Unknown source: ${onlySource}`)
+}
+
+if (onlyFeed && !targets.some((source) => source.feeds.some((feed) => feed.id === onlyFeed))) {
+  throw new Error('Unknown feed: ' + onlyFeed)
 }
 
 // 이미 담긴 것 — 재실행해도 늘지 않게 한다.
@@ -287,6 +316,7 @@ for (const s of targets) {
     // 소진 여부를 말로 구분한다 — 'exhausted' 만이 "정말 다 봤다" 이고,
     // 'capped' 는 `--pages` 예산이 먼저 끝난 것이다. 둘을 섞으면 상한을 소진으로 오해한다.
     let walk = null
+    let cursorToSave = null
     try {
       if (feed.runPage && PAGES !== 1) {
         const seen = new Set()
@@ -299,10 +329,10 @@ for (const s of targets) {
         //   `--fresh` 를 주면 저장된 위치를 무시하고 처음부터 훑는다.
         const cursorFile = lib.harvestCursorPath('acp', s.key, feed.id)
         const savedCursor = FRESH ? null : lib.readHarvestCursor(cursorFile, s.key, feed.id)
-        let cursor = savedCursor && !savedCursor.exhausted && savedCursor.token ? JSON.parse(savedCursor.token) : null
+        let cursor = savedCursor?.token != null ? JSON.parse(savedCursor.token) : null
         let pages = 0
         const budget = PAGES > 0 ? PAGES : Infinity
-        while (pages < budget) {
+        while (!savedCursor?.exhausted && pages < budget) {
           const page = await feed.runPage(cursor)
           pages++
           let added = 0
@@ -314,7 +344,7 @@ for (const s of targets) {
             }
           }
           cursor = page.cont
-          if (!cursor) break
+          if (cursor == null) break
           // ⚠️ 쪽번호 방식(USGS·NOAA)은 범위를 넘겨도 마지막 페이지를 200 으로 되돌려주는
           //   사이트가 있다. 토큰이 없으니 "새 항목이 하나도 안 늘었다" 를 끝으로 본다 —
           //   이 가드가 없으면 같은 페이지를 예산만큼 계속 친다(무해해 보이지만 남의 서버를 때린다).
@@ -324,14 +354,17 @@ for (const s of targets) {
           }
           if (pages < budget) await sleep(PAGE_DELAY_MS)
         }
-        walk = { pages, state: cursor ? 'capped' : 'exhausted', resumed: Boolean(savedCursor?.token) }
-        // 커서는 **본 뒤에** 쓴다. 소진했으면 그 사실을 적어 다음 실행이 처음부터
-        //   다시 돌지 않게 한다(`--fresh` 로만 되돌린다).
-        lib.writeHarvestCursor(cursorFile, {
-          ...(savedCursor ?? lib.emptyHarvestCursor(s.key, feed.id)),
-          token: cursor ? JSON.stringify(cursor) : null,
-          exhausted: !cursor,
-        })
+        walk = { pages, state: cursor != null && !savedCursor?.exhausted ? 'capped' : 'exhausted', resumed: savedCursor?.token != null }
+        // Listing is a proposal, not progress: retain the old cursor until every
+        // new candidate in these pages has actually been saved or confirmed present.
+        if (pages > 0) cursorToSave = {
+          file: cursorFile,
+          value: {
+            ...(savedCursor ?? lib.emptyHarvestCursor(s.key, feed.id)),
+            token: cursor != null ? JSON.stringify(cursor) : null,
+            exhausted: cursor == null,
+          },
+        }
       } else {
         items = await feed.run()
       }
@@ -348,7 +381,7 @@ for (const s of targets) {
     //   위키미디어 셋에 카테고리를 안 넘겨 API 가 빈 결과를 200 으로 돌려줬고, 표에는
     //   `· 0 0` 으로만 찍혀 "새 것이 없구나" 로 읽혔다. 초중급 공급이 멈춘 걸 아무도 몰랐다.
     //   그래서 둘을 말로 구분한다. 조용한 0건을 만들지 않는다.
-    if (items.length === 0) emptyFeeds.push(label)
+    if (items.length === 0 && walk?.state !== 'exhausted') emptyFeeds.push(label)
 
     // 학습 적합률 — 어느 피드를 켤지 정하는 근거. 비PD 쪽 계측기와 같은 분류기를 쓴다.
     const n = items.length || 1
@@ -369,6 +402,7 @@ for (const s of targets) {
 
     if (!commit) continue
 
+    let resolved = 0
     for (const item of fresh.slice(0, PER_FEED)) {
       try {
         const article = await s.ingest(item.url)
@@ -379,23 +413,28 @@ for (const s of targets) {
         //   RPC 가 하는 일은 `(source, source_id)` 중복 확인 후 `queued` 삽입뿐이라 같은
         //   의미를 여기서 수행한다 — 마이그레이션 없이. **중복 기준을 RPC 와 똑같이 맞추는
         //   것이 핵심이다**(주소가 아니라 source + source_id).
-        const { data: dup } = await db
+        const { data: dup, error: duplicateError } = await db
           .from('library_articles')
           .select('id')
           .eq('source', article.source)
           .eq('source_id', article.source_id)
           .maybeSingle()
+        if (duplicateError) throw new Error('Duplicate lookup failed: ' + duplicateError.message)
         if (dup) {
+          resolved++
           have.add(item.url)
           if (article.source_id) haveIds.add(article.source_id)
           continue
         }
+        const fetchedAt = new Date(article.fetched_at)
+        if (article.fetched_at == null || !Number.isFinite(fetchedAt.getTime())) throw new Error('Missing or invalid fetched_at')
         const { error } = await db.from('library_articles').insert({
           source: article.source,
           source_id: article.source_id,
           title: article.title,
           author: article.author ?? null,
           source_url: article.source_url,
+          source_fetched_at: fetchedAt.toISOString(),
           // Invalid Date 방어 — NaN 이면 toISOString() 이 throw 한다.
           published_at:
             article.published_at && !Number.isNaN(article.published_at.getTime())
@@ -415,12 +454,18 @@ for (const s of targets) {
         if (error) failures.push(`${label} ${item.url}: ${error.message}`)
         else {
           saved++
+          resolved++
           have.add(item.url)
           if (article.source_id) haveIds.add(article.source_id)
         }
       } catch (e) {
         failures.push(`${label} ${item.url}: ${e instanceof Error ? e.message : String(e)}`)
       }
+    }
+    if (cursorToSave && resolved === fresh.length) {
+      lib.writeHarvestCursor(cursorToSave.file, cursorToSave.value)
+    } else if (cursorToSave) {
+      console.log('  · ' + label + ': 미처리 ' + (fresh.length - resolved) + '건 — 커서 유지, 같은 명령으로 재실행')
     }
   }
 }
@@ -439,4 +484,12 @@ if (failures.length) {
 }
 if (!commit && totalNew > 0) {
   console.log('\n이 경로에는 48시간 보류도 독립 2계통도 없다 — 담으면 바로 검수·발행으로 간다.')
+}
+
+return { saved, totalNew, failures, emptyFeeds }
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]).toLowerCase() === fileURLToPath(import.meta.url).toLowerCase()) {
+  const result = await collectDaily()
+  if (result.failures.length > 0) process.exitCode = 1
 }

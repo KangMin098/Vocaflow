@@ -1,5 +1,17 @@
 # DB Schema
 
+## 원문 확장과 분석 보호 (2026-09-19 · 적용)
+
+다음 SQL 3개는 2026-09-19 사용자 승인 후 운영 DB에 적용했다. 파일명은 실제 적용 이력 version에 맞췄으며, 승인 당시 SQL에서 첫 줄 경로 주석만 바꿨다. 이미 적용된 SQL을 다시 실행하지 않는다.
+
+- `20260919023610_acp_atomic_analysis.sql`: service_role 전용 `commit_article_analysis(uuid,timestamptz,text,jsonb)`. 원문 행을 잠그고 점유 revision·본문·큐 소유권을 확인한 뒤 어휘 교체·VRL·구문·ready를 원자적으로 저장한다. 다른 작업에 의해 변경됐거나 분석이 불완전하면 롤백한다. 네 인수 NULL은 무쓰기 배포 확인이다.
+- `20260919023620_restore_syntax_score_calibration.sql`: `compute_syntax_score(text)`의 기존 저장소 보정 공식을 복구했다. 시그니처·IMMUTABLE·search_path를 유지하며 과거 원문·책·캐시 점수는 일괄 재계산하지 않았다.
+- `20260919023622_csat_discovery_profiles.sql`: live source CHECK 표현을 보존한 채 `african_storybook`을 추가하고 registry에 선택적 object JSONB `profile`을 뒀다. 신규 ASP와 재고에 이미 있는 Europe PMC/Frontiers/NIST의 누락 등록은 `active=false`, 충돌 시 기존 행 보존이다. 제공자별 역할·수치는 프로필의 측정일과 함께 다루며 active와 독립이다.
+
+원문·문항·정답을 삭제하는 SQL은 없다. CHECK 교체는 제약 정의만 확장한다. [전수 조사와 파일럿](./reports/csat-corpus-discovery-20260919.md).
+
+적용 후 ASP 4편의 원자 분석·현재 revision 적격 캐시를 검증했다: 모두 `ready`·`usable`, 품질 flag 0건, 어휘 166행이며 본문 SHA256은 보존됐다. 캐시 재적재는 변경 0·검증 4편이다. 발행은 수행하지 않았다. 2026-09-19 02:38:56 UTC 체크포인트 비교에서 접속 사용률 55%→53.3%, DB 크기 +0.1 MB를 관측했다. bloat 표본 교체와 누적 카운터 경과분 외 다른 건강 지표는 동일했다.
+
 ## CSAT 원문 판정 캐시 v3 (2026-09-18)
 
 사용자 승인 후 `20260918140224_csat_source_eligibility_cache.sql`, `20260918141948_csat_source_eligibility_consumers.sql` 적용.

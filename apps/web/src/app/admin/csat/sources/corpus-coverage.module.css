@@ -1,0 +1,240 @@
+/* apps/web/src/app/admin/csat/sources/corpus-coverage.module.css */
+.root {
+  color: var(--t1);
+  word-break: keep-all;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.root h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+.root h4 {
+  font-size: 16px;
+  font-weight: 700;
+}
+.root :is(button, a, select, summary) {
+  transition:
+    color var(--dur-normal) var(--ease),
+    background-color var(--dur-normal) var(--ease),
+    opacity var(--dur-normal) var(--ease);
+}
+.root :is(button, a, select, summary):focus-visible {
+  outline: 2px solid var(--p);
+  outline-offset: 3px;
+}
+.root :is(button, a, summary):hover {
+  background: var(--bg2);
+  color: var(--p);
+}
+.root :is(button, a, summary):active {
+  opacity: 0.75;
+}
+.root :is(button, select):disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.root button,
+.root summary,
+.root a {
+  min-height: 44px;
+}
+.root a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.intro {
+  padding-block: 20px 12px;
+}
+.intro p {
+  margin-top: 6px;
+  color: var(--t2);
+}
+.snapshot {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.filters label {
+  flex: 1 1 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.filters select {
+  min-height: 44px;
+  width: 100%;
+  padding: 8px;
+  color: var(--t1);
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-sm);
+}
+.caveat {
+  color: var(--t2);
+  font-size: 12px;
+  margin-block: 12px;
+}
+.result {
+  border-block: 1px solid var(--bd);
+  padding-block: 14px;
+}
+.result strong {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 600;
+}
+.result span {
+  display: inline-block;
+  margin-left: 20px;
+  color: var(--t2);
+}
+.topicSection {
+  margin-block: 18px;
+}
+.topicSection > p {
+  font-size: 12px;
+  color: var(--t2);
+  margin-bottom: 10px;
+}
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--bd);
+  border-left: 1px solid var(--bd);
+}
+.topics button {
+  flex: 0 0 20%;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--bd);
+  border-right: 1px solid var(--bd);
+}
+.topics button > span,
+.topics button > strong {
+  display: block;
+}
+.topics strong {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  font-weight: 500;
+}
+.topics small {
+  font-size: 11px;
+  margin-left: 4px;
+  color: var(--t2);
+}
+.topics button[data-empty='true'] {
+  border-bottom-style: dashed;
+}
+.topics button[aria-pressed='true'] {
+  box-shadow: inset 0 -2px var(--p);
+  background: var(--bg2);
+}
+.tableWrap {
+  overflow-x: auto;
+}
+.root table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.root caption {
+  text-align: left;
+  color: var(--t2);
+  padding-bottom: 8px;
+}
+.root th,
+.root td {
+  border-bottom: 1px solid var(--bd);
+  padding: 6px 10px;
+  text-align: right;
+}
+.root th:first-child {
+  text-align: left;
+}
+.root th button {
+  text-align: left;
+  width: 100%;
+}
+.root td {
+  font-family: var(--font-mono);
+}
+.root tr[data-selected='true'] {
+  background: var(--bg2);
+}
+.inspector {
+  border-block: 1px solid var(--p);
+  padding-block: 16px;
+  margin-top: 16px;
+}
+.detailHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.detailHeading button {
+  padding-inline: 12px;
+}
+.linkButton {
+  color: var(--p);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.root details {
+  border-top: 1px solid var(--bd);
+  margin-top: 12px;
+}
+.root summary {
+  display: list-item;
+  cursor: pointer;
+  padding: 10px 4px;
+}
+.root dl {
+  margin-block: 8px;
+}
+.root dt {
+  margin-top: 10px;
+  font-weight: 600;
+}
+.root dd {
+  color: var(--t2);
+}
+.sampleId {
+  display: block;
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono);
+  color: var(--t2);
+}
+.candidates {
+  margin-block: 20px;
+}
+@media (max-width: 600px) {
+  .filters label {
+    flex-basis: 42%;
+    min-width: 0;
+  }
+  .topics button {
+    flex-basis: 50%;
+  }
+  .result span {
+    display: block;
+    margin-left: 0;
+  }
+  .root th,
+  .root td {
+    padding-inline: 4px;
+    font-size: 12px;
+  }
+}
+
+.sampleTitle {
+  font-family: var(--font-serif), var(--font-ko-display), serif;
+}

@@ -6,6 +6,7 @@ import { articleConsoleQuery, type ArticleStatusFilter } from '@/lib/articles/co
 export const SOURCE_VIEWS = {
   sources: '원천 관리',
   eligibility: '적격 판정',
+  coverage: '코퍼스 분포',
   operations: '처리 안내',
 } as const
 export const SOURCE_ISSUES = {
@@ -25,6 +26,15 @@ export const SOURCE_SORTS = {
   name: '이름순',
 } as const
 export type SourceView = keyof typeof SOURCE_VIEWS
+export function sourceViewForKey(view: SourceView, key: string): SourceView | null {
+  const keys = Object.keys(SOURCE_VIEWS) as SourceView[]
+  const index = keys.indexOf(view)
+  if (key === 'Home') return keys[0]
+  if (key === 'End') return keys[keys.length - 1]
+  if (key === 'ArrowRight') return keys[(index + 1) % keys.length]
+  if (key === 'ArrowLeft') return keys[(index + keys.length - 1) % keys.length]
+  return null
+}
 export type SourceIssue = keyof typeof SOURCE_ISSUES
 export type SourceSort = keyof typeof SOURCE_SORTS
 export interface SourceWorkspaceState {

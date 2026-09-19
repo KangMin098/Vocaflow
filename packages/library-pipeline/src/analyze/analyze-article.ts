@@ -4,7 +4,8 @@
 // 책(analyzeBook)과 핵심 차이:
 //   1. chapter 분할 없음 — 단일 content unit
 //   2. content_chunks INSERT 없음 (article 은 통째 저장)
-//   3. trans actional insert RPC 없음 — service role 클라이언트로 직접 INSERT
+//   3. preview=true returns vocabulary for the queue's atomic commit RPC.
+//      Legacy callers still persist vocabulary here unless they request preview.
 //
 // 재사용 모듈: extractBookLemmas (chapter 1개로 wrap), lookupAndEnrich, detectBookCefr
 //   → extract-lemmas 의 chapter 단위 통계가 article 에 그대로 적용됨
@@ -18,6 +19,10 @@ import { detectBookCefr } from './cefr-detect'
 
 export interface AnalyzeArticleOptions {
   skipLlm?: boolean
+  /** Compute without article/vocabulary writes. The queue commits the result
+   * against its claimed source revision. Dictionary enrichment is separate;
+   * also set skipLlm for a fully read-only preview. */
+  preview?: boolean
 }
 
 /**
@@ -72,8 +77,11 @@ export async function analyzeArticle(
 
   // 6. library_article_vocabularies INSERT (chunk 분할 — 대용량 article 대비)
   //    재처리 멱등 — 기존 vocab 전량 삭제 후 재삽입 (재분석 시 중복 누적 방지).
-  await client.from('library_article_vocabularies').delete().eq('library_article_id', articleId)
-  if (words.length > 0) {
+  if (!options.preview) {
+    const { error } = await client.from('library_article_vocabularies').delete().eq('library_article_id', articleId)
+    if (error) throw new Error(`library_article_vocabularies delete failed: ${error.message}`)
+  }
+  if (!options.preview && words.length > 0) {
     const CHUNK = 500
     for (let i = 0; i < words.length; i += CHUNK) {
       const chunk = words.slice(i, i + CHUNK)

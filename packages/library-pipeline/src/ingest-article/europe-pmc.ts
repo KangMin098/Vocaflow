@@ -407,7 +407,12 @@ export async function ingestEuropePmcArticle(
     throw new Error(`Europe PMC 라이선스가 통과 목록 밖이다(${blocked}): ${pmcid}`)
   }
 
-  const code = epmcLicenseCode(candidates[0]!)
+  // Both values may be allowed while one adds ShareAlike. Preserve that duty
+  // regardless of whether it was found in the list or in the full-text XML.
+  const strongest = candidates.find((license) => epmcLicenseCode(license) === 'CC-BY-SA-4.0')
+    ?? candidates.find((license) => epmcLicenseCode(license) === 'CC-BY-4.0')
+    ?? candidates[0]!
+  const code = epmcLicenseCode(strongest)
   if (!code) throw new Error(`Europe PMC 라이선스 코드를 모른다(${candidates[0]}): ${pmcid}`)
 
   return {
