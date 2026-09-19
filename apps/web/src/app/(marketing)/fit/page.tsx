@@ -41,6 +41,9 @@ function readShareParam(sp: SearchParams | undefined): string | null {
  * 공유받은 결과는 `/fit/s/[payload]` 가 따로 담당한다(그쪽은 noindex + 결과 미리보기 이미지).
  */
 import { fetchPlatformFacts, formatCount } from '@/lib/marketing/trust-signals'
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_14_CLASS_SHEET } from '@/components/illustrations/generated/illo-14-class-sheet'
+import { ILLO_15_FIT_GRADE } from '@/components/illustrations/generated/illo-15-fit-grade'
 
 export const metadata: Metadata = {
   title: BASE_TITLE,
@@ -159,6 +162,8 @@ export default async function FitPage({ searchParams }: { searchParams?: SearchP
         <h2 className="m-0 font-display text-[18px] font-[750] tracking-[-0.02em] text-[var(--t1)]">
           이럴 때 씁니다
         </h2>
+        {/* 삽화(사전 #14) — 학급에 나눠 줄 한 장. 골든 1호 판면 밖, 제목 → 그림 → 본문(03-system §3-9) */}
+        <Illustration asset={ILLO_14_CLASS_SHEET} />
         <dl className="m-0 grid grid-cols-1 gap-3">
           {QUESTIONS.map(({ q, a }) => (
             <div
@@ -180,6 +185,8 @@ export default async function FitPage({ searchParams }: { searchParams?: SearchP
         <h2 className="m-0 font-display text-[15px] font-[750] tracking-[-0.02em] text-[var(--t1)]">
           어떻게 재나요
         </h2>
+        {/* 삽화(사전 #15) — 이 글의 적정 학년(학년 칸에 맞춰 놓고 도장). 제목 → 그림 → 본문 */}
+        <Illustration asset={ILLO_15_FIT_GRADE} className="mt-4" />
         <ul className="mt-3 flex list-disc flex-col gap-3 pl-5 font-body text-[13.5px] leading-[1.7] text-[var(--t2)]">
           <li>
             지문의 <b>러닝 워드</b>(기능어 포함) 대비, 해당 학년이 아는 어휘의 비율을 셉니다 — Hu &amp;

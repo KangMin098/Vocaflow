@@ -20,12 +20,39 @@ import type { ReactElement } from 'react'
 
 export const OG_SIZE = { width: 1200, height: 630 } as const
 
-const INK = '#161A18'
+// 값은 packages/design-tokens/src/tokens.css 라이트 값을 옮겼다(2026-09-19 — 이미지 체계 Gate 6 · DD-36).
+// 이전 값(종이 #F7F8F6 · 초록 각인 #2E7D5A · 모서리 10)은 v07 브랜드 각인(주묵 · Lora 「V」 · 앱 아이콘 DD-27)과 달랐다.
+const INK = '#1A1714' // --t1
 const MUTED = '#5D6560'
 const FAINT = '#8A928C'
-const PAPER = '#F7F8F6'
-const RULE = '#DDE3DE'
-const ACCENT = '#2E7D5A'
+const PAPER = '#FBFAF6' // --bg
+const RULE = '#E0DBD0' // --bd
+const ACCENT = '#C0392B' // --ju — 사이드바·앱 아이콘과 같은 각인
+const GRID = '#F0EEE7' // --grid-line 을 --bg 위에 합성한 값(colors.ts gridLine) — 03-system §3-9
+
+/**
+ * 모눈 무대(03-system §3-9 O 규격) — 1px 선 · 24px 간격, 카드 전체 바탕.
+ * SVG <pattern> 으로만 그린다(CSS 그라디언트는 평균 신호 라쳇 gradient 가 센다).
+ * 카드 루트가 position: relative 여야 한다. 공유 카드마다 첫 자식으로 둔다.
+ */
+export function OgStage(): ReactElement {
+  return (
+    <svg
+      width={OG_SIZE.width}
+      height={OG_SIZE.height}
+      viewBox={`0 0 ${OG_SIZE.width} ${OG_SIZE.height}`}
+      style={{ position: 'absolute', left: 0, top: 0 }}
+    >
+      <defs>
+        <pattern id="og-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+          <path d="M24 0H0V24" fill="none" stroke={GRID} strokeWidth="1" />
+        </pattern>
+      </defs>
+      <rect width={OG_SIZE.width} height={OG_SIZE.height} fill={PAPER} />
+      <rect width={OG_SIZE.width} height={OG_SIZE.height} fill="url(#og-grid)" />
+    </svg>
+  )
+}
 
 export interface OgCardProps {
   /** 어느 서가인지 — 머리에 브랜드 옆으로 붙는다 (`Dispatches` · `Books` · `Vintage Comics`). */
@@ -71,15 +98,17 @@ export function OgCard({ kind, title, subtitle, badges = [], source }: OgCardPro
         justifyContent: 'space-between',
         background: PAPER,
         padding: '64px 72px',
+        position: 'relative',
       }}
     >
+      <OgStage />
       {/* 머리 — 어느 서가의 것인지 */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
         <div
           style={{
             width: 40,
             height: 40,
-            borderRadius: 10,
+            borderRadius: 2,
             background: ACCENT,
             display: 'flex',
             alignItems: 'center',

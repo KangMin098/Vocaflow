@@ -44,6 +44,8 @@ import type {
   DictationOrder,
   ScoringMode,
 } from '@/lib/dictation/types'
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_04_DICTATION_CHOOSE } from '@/components/illustrations/generated/illo-04-dictation-choose'
 
 const DICTATION_ACCENT = '#0EA5E9'
 const FOCUS_RING =
@@ -279,7 +281,7 @@ export function DictationSetupClient() {
 
   if (loadState === 'missing' || !source) {
     return (
-      <EmptyState
+      <DictationEmptyState
         title={custom ? '붙여넣은 글이 사라졌어요' : '이 자료로는 받아쓸 수 없어요'}
         body={
           custom
@@ -293,7 +295,7 @@ export function DictationSetupClient() {
 
   if (source.sentences.length === 0) {
     return (
-      <EmptyState
+      <DictationEmptyState
         title="받아쓸 만한 문장이 없어요"
         body={
           source.kind === 'set'
@@ -651,7 +653,8 @@ function MiniButton({
   )
 }
 
-function EmptyState({
+/** 막다른 상태 공용. /dev/components 「삽화 빈 상태」 검수대가 그대로 렌더하려고 이름 붙여 내보낸다(동작 변화 0). */
+export function DictationEmptyState({
   title,
   body,
   onBack,
@@ -662,6 +665,8 @@ function EmptyState({
 }) {
   return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center">
+      {/* 삽화(사전 #4) — 「받아쓸 글을 고르자」. 막다른 상태에서 다음 한 걸음(D4)을 먼저 보여 준다 */}
+      <Illustration asset={ILLO_04_DICTATION_CHOOSE} />
       <div>
         <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">{title}</h2>
         <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">{body}</p>

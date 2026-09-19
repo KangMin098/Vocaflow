@@ -8,7 +8,8 @@
 'use client'
 
 import { ArrowRight, FileText, Library } from 'lucide-react'
-import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_01_WORDBOOK_EMPTY } from '@/components/illustrations/generated/illo-01-wordbook-empty'
 import Link from 'next/link'
 
 export function WordVaultEmptyState() {
@@ -17,11 +18,9 @@ export function WordVaultEmptyState() {
       aria-label="첫 단어 시작"
       className="relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-gradient-to-br from-[var(--p)]/10 to-[var(--bg2)] p-8 md:p-12"
     >
-      <div className="absolute right-6 top-6 opacity-20" aria-hidden="true">
-        <Gwonjeom size={64} className="text-[var(--p)]" />
-      </div>
-
       <div className="relative max-w-2xl">
+        {/* 삽화(사전 #1) — 빈 상태 문장 위. 옆 문장이 같은 말을 해서 decorative(03-system §3-9) */}
+        <Illustration asset={ILLO_01_WORDBOOK_EMPTY} decorative className="mb-6" />
         <p className="mb-3 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           — 단어장이 비어 있어요
         </p>

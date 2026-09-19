@@ -48,6 +48,9 @@ const TONE_ICON = {
   error: AlertTriangle,
 } as const
 
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_03_SHELF_FILTER_ZERO } from '@/components/illustrations/generated/illo-03-shelf-filter-zero'
+
 export function ShelfEmptyState({
   tone = 'empty',
   title,
@@ -66,6 +69,10 @@ export function ShelfEmptyState({
       role={isError ? 'alert' : 'status'}
       className="flex flex-col items-start gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] p-6"
     >
+      {tone === 'filtered' ? (
+        // 삽화(사전 #3) — 「이 조건의 책이 없다 → 범위를 넓힌다」. 빈 서가·오류 톤은 아이콘 그대로(03-system §3-9)
+        <Illustration asset={ILLO_03_SHELF_FILTER_ZERO} decorative />
+      ) : (
       <span
         aria-hidden
         className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-full)]"
@@ -77,6 +84,7 @@ export function ShelfEmptyState({
       >
         <Icon size={18} strokeWidth={2} />
       </span>
+      )}
       <h3 className="font-display text-[15px] font-[700] text-[var(--t1)] break-keep">{title}</h3>
       <p className="max-w-[46ch] font-body text-[13px] leading-[1.7] text-[var(--t2)] break-keep">
         {body}

@@ -323,6 +323,7 @@ mono      : … JetBrains Mono → … → var(--font-body) → monospace  ← �
 - **카드 + 보조 액션 = `.arc-slot`** — `<a>` 안에 `<button>` 금지. 형제로 두고 버튼은 우상단 44×44, 카드 상단 `padding-right: 44px`, DOM 순서 = 탭 순서.
 - **설명 오버레이는 세션 진입 전에만**(`components/game/brief/`) — `role="dialog"` + `aria-modal` · Esc · Tab 트랩 · 포커스 복귀 · ≤620px 바텀시트 · 상태는 색+아이콘+테두리 3중.
 - **아이콘 = lucide-react** 12–20px · `strokeWidth` 2 · `currentColor` · **둥근 컨테이너에 담지 않는다**. 세션 머리·채점 이모지 금지(→ `SealMark` · 채움 눈금 1~4칸).
+- **삽화 = `components/illustrations/Illustration`** + `generated/<id>.ts`(드레인 import 가 쓴다 — 손으로 고치지 않는다). 인라인 SVG 라 토큰·다크를 그대로 받는다. 자리는 공개 화면 섹션 머리 · 빈 상태만(학습 중 · `ModuleHero` 0). 규칙 [design/03-system.md §3-9](design/03-system.md) · 목록 `docs/design/asset-manifest.json`.
 - **폼**: 레이블 필수(placeholder 대체 금지) · 오류는 `--bde` 테두리 + 문구 · disabled 는 `opacity-50` + `cursor-not-allowed`.
 
 ## 화면 계측 훅

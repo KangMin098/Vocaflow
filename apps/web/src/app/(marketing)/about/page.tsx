@@ -22,6 +22,8 @@ import Link from 'next/link'
 
 import { ComponentVideo } from '@/components/video/ComponentVideo'
 import { introVideo, videosByKind } from '@/lib/video/catalog'
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_08_DECAY_PER_WORD } from '@/components/illustrations/generated/illo-08-decay-per-word'
 
 interface Principle {
   ko: string
@@ -265,6 +267,8 @@ export default function AboutPage() {
             <h2 className="mt-2 font-display text-[28px] font-[800] tracking-tight text-[var(--t1)] md:text-[34px]">
               인지심리학이 입증한 7가지 원칙
             </h2>
+            {/* 삽화(사전 #8) — 잊는 속도는 낱말마다 다르다(F1 밑줄 3/2/1px). 제목 → 그림 → 본문(03-system §3-9) */}
+            <Illustration asset={ILLO_08_DECAY_PER_WORD} className="mt-6" />
             <p className="mt-3 font-body text-[15px] leading-relaxed text-[var(--t2)]">
               모든 모듈은 최소 1개 이상의 학습 과학 원칙에 근거합니다. 토큰과 컬러는 이 원칙을 구현하기 위한 도구일 뿐.
             </p>

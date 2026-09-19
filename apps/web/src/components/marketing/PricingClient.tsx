@@ -33,6 +33,8 @@ import { ComponentVideo } from '@/components/video/ComponentVideo'
 import { curriculumVideo, videosByKind } from '@/lib/video/catalog'
 import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import type { TrustSignal } from '@/lib/marketing/trust-signals'
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_07_COVERAGE } from '@/components/illustrations/generated/illo-07-coverage'
 
 /** 문의 주소 — 유료 플랜·학교 도입 모두 지금은 사람이 받는다. */
 const CONTACT = 'hello@vocaflow.app'
@@ -299,6 +301,8 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
             <h2 className="mt-2 break-keep font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
               읽기 전에, 이 글이 나에게 맞는지 먼저 알려줍니다
             </h2>
+            {/* 삽화(사전 #7 · 골든 S) — 제목 → 그림 → 본문(03-system §3-9) */}
+            <Illustration asset={ILLO_07_COVERAGE} className="mt-6" />
             <p className="mt-3 break-keep font-body text-[14px] leading-[1.7] text-[var(--t2)]">
               교과서 지문이든 선생님이 준 프린트든 붙여넣으면, 지금 내 어휘로 몇 %가 읽히는지
               바로 나옵니다. 그리고 몇 개를 더 익히면 편하게 읽히는지까지.

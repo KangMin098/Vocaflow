@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Check } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_30_NO_REVIEW_TODAY } from '@/components/illustrations/generated/illo-30-no-review-today'
 
 import { StudyMode } from '@/components/wordvault/StudyMode'
 import type { WordItem } from '@/components/wordvault/types'
@@ -43,9 +45,14 @@ export function WordVaultStudyClient({
             h1 이 없으면 스크린리더로 "여기가 어디" 를 물을 방법이 없다(실측 2026-08-23).
             아래 h2 는 **상태 안내**지 화면 이름이 아니다 — 둘은 다른 것이다. */}
         <h1 className="sr-only">{screenName}</h1>
-        <div className="mb-s-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-bg2 text-t3">
-          <Gwonjeom size={22} aria-hidden />
-        </div>
+        {mode === 'review' ? (
+          // 삽화(사전 #30) — 「오늘 복습할 것이 없다 → 기다린다」(03-system §3-9). 학습 모드 빈 상태는 권점 그대로
+          <Illustration asset={ILLO_30_NO_REVIEW_TODAY} decorative className="mb-s-4" />
+        ) : (
+          <div className="mb-s-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-bg2 text-t3">
+            <Gwonjeom size={22} aria-hidden />
+          </div>
+        )}
         <h2 className="mb-s-2 font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">
           {mode === 'review' ? '지금 복습할 단어가 없어요' : '오늘 학습할 단어가 아직 없어요'}
         </h2>

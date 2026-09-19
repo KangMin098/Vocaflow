@@ -28,6 +28,11 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
+import { WordVaultEmptyState } from "@/components/wordvault/hub/WordVaultEmptyState";
+import { EmptyState as TextHubEmptyState } from "@/components/textviewer/EmptyState";
+import { ShelfEmptyState } from "@/components/library/shared/ShelfEmptyState";
+import { DictationEmptyState } from "@/components/dictation/DictationSetupClient";
+import { WordVaultStudyClient } from "@/components/wordvault/WordVaultStudyClient";
 import { Checkbox, CheckboxGroup } from "@/components/ui/Checkbox";
 import { RadioGroup } from "@/components/ui/Radio";
 import { Toggle } from "@/components/ui/Toggle";
@@ -159,6 +164,29 @@ export default function TokenTestPage() {
       </header>
 
       <div className="max-w-page mx-auto px-s-6 py-s-12 space-y-s-12">
+        {/* ── 삽화 빈 상태 검수대 — 이미지 체계 Gate 6(docs/design/image-system-brief.md).
+             검증 계정으로는 「단어 0개」 같은 빈 상태를 만들 수 없어, 실제 컴포넌트를 실제 문구로 여기서 렌더해 캡처한다. */}
+        <section id="illo-empty" aria-label="삽화 빈 상태 검수대" className="space-y-s-8">
+          <SectionTitle>0. 삽화 — 빈 상태 (사전 #1 · #2 · #3 · #4 · #30)</SectionTitle>
+          <div data-illo-case="01"><WordVaultEmptyState /></div>
+          <div data-illo-case="02"><TextHubEmptyState /></div>
+          <div data-illo-case="03">
+            <ShelfEmptyState
+              tone="filtered"
+              title="이 레벨의 만화가 아직 없어요"
+              body="고른 레벨에 맞는 편이 아직 없어요. 레벨을 풀면 전체가 다시 보이고, 조금 쉬운 편부터 그림으로 읽어도 좋아요."
+            />
+          </div>
+          <div data-illo-case="04">
+            <DictationEmptyState
+              title="받아쓸 만한 문장이 없어요"
+              body="본문이 없거나 접근할 수 없는 자료예요. 다른 자료를 골라 주세요."
+              onBack={() => undefined}
+            />
+          </div>
+          <div data-illo-case="30"><WordVaultStudyClient words={[]} mode="review" /></div>
+        </section>
+
         {/* ────────────────────────────────────────
              §1~9 디자인 토큰 (이전 단계 유지)
              ──────────────────────────────────────── */}

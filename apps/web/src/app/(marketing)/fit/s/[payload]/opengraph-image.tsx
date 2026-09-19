@@ -21,6 +21,7 @@
 
 import { ImageResponse } from 'next/og'
 
+import { OgStage } from '@/lib/seo/og-card'
 import { loadKoreanOgFont } from '@/lib/seo/og-font'
 import { BAND_THRESHOLDS } from '@/lib/textfit/coverage'
 import { LEVEL_LABEL } from '@/lib/textfit/profile'
@@ -96,19 +97,30 @@ export default async function Image({ params }: { params: { payload: string } })
           background: PAPER,
           padding: '64px 72px',
           fontFamily: koreanFont ? 'NotoSansKR' : 'sans-serif',
+          position: 'relative',
         }}
       >
+        {/* 모눈 무대(사전 #22 — 무대만, 사물 없이 · 03-system §3-9 O 규격) */}
+        <OgStage />
         {/* 머리 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          {/* 브랜드 각인 — 사이드바·앱 아이콘(DD-27)·공용 카드와 같은 주묵 「V」(DD-36). 주묵 #C0392B = --ju */}
           <div
             style={{
               display: 'flex',
               width: 34,
               height: 34,
-              borderRadius: 9,
-              background: INK,
+              borderRadius: 2,
+              background: '#C0392B',
+              color: PAPER,
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 20,
+              fontWeight: 700,
             }}
-          />
+          >
+            V
+          </div>
           <div style={{ display: 'flex', fontSize: 26, fontWeight: 700, color: INK }}>Vocaflow</div>
           <div style={{ display: 'flex', fontSize: 22, color: FAINT, marginLeft: 6 }}>
             지문 난이도 진단

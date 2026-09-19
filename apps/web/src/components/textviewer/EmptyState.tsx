@@ -6,7 +6,8 @@
 'use client'
 
 import { ArrowRight, FileText, Library } from 'lucide-react'
-import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_02_TEXT_HUB_FIRST } from '@/components/illustrations/generated/illo-02-text-hub-first'
 import Link from 'next/link'
 
 export function EmptyState() {
@@ -15,12 +16,9 @@ export function EmptyState() {
       aria-label="첫 스크립트 시작"
       className="relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-gradient-to-br from-[var(--p-light)]/40 to-[var(--bg2)] p-8 md:p-12"
     >
-      {/* Decorative sparkles */}
-      <div className="absolute right-6 top-6 opacity-20" aria-hidden="true">
-        <Gwonjeom size={64} className="text-[var(--p)]" />
-      </div>
-
       <div className="relative max-w-2xl">
+        {/* 삽화(사전 #2 · 골든 E) — 빈 상태 문장 위(03-system §3-9) */}
+        <Illustration asset={ILLO_02_TEXT_HUB_FIRST} decorative className="mb-6" />
         <p className="mb-3 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
           — 첫 스크립트을 시작해 보세요
         </p>

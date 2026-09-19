@@ -32,6 +32,8 @@ import { SectionBeacon } from '@/components/marketing/SectionBeacon'
 import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import { buildHeroDemo } from '@/lib/marketing/hero-demo'
 import { fetchTrustSignals } from '@/lib/marketing/trust-signals'
+import { Illustration } from '@/components/illustrations/Illustration'
+import { ILLO_09_REVIEW_HOLDS } from '@/components/illustrations/generated/illo-09-review-holds'
 
 export const metadata: Metadata = {
   // ⚠️ `absolute` — 루트 `title.template`("%s | Vocaflow")을 **거친다.**
@@ -91,6 +93,10 @@ export default async function LandingPage() {
         {/* ── 다른 점 — 후기가 아니라 검증 가능한 동작 ── */}
         <section aria-label="다른 점" className="border-y border-[var(--bd)] bg-[var(--bg2)]">
           <SectionBeacon section="differentiators" />
+          {/* 삽화 띠(사전 #9 · 골든 B) — 1280 이상만(§3-9 B 규격). 「숫자가 시간에 따라 변합니다」 의 뜻을 먼저 보여 준다 */}
+          <div className="mx-auto hidden max-w-5xl px-6 pt-16 xl:block">
+            <Illustration asset={ILLO_09_REVIEW_HOLDS} />
+          </div>
           <div className="mx-auto grid max-w-5xl gap-5 px-6 py-12 md:grid-cols-3 md:py-16">
             {DIFFERENTIATORS.map((d) => (
               <article key={d.title} className="flex flex-col">
