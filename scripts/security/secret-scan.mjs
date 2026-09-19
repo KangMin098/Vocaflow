@@ -1,7 +1,8 @@
 // scripts/security/secret-scan.mjs
 //
 // 추적 파일 전체 비밀값 패턴 검사 — 2026-09-19 검증 계정 비밀번호 평문 노출 대응(design/DECISIONS DD-48).
-// 실행: node scripts/security/secret-scan.mjs          (찾으면 exit 1 · 값은 출력하지 않는다 — 종류 · 파일:줄만)
+// 실행: node scripts/security/secret-scan.mjs              (추적 파일 · 찾으면 exit 1 · 값은 출력하지 않는다 — 종류 · 파일:줄만)
+//       node scripts/security/secret-scan.mjs --untracked  (미추적까지 — 커밋 전 새 파일 검사)
 // CI: apps/web/src/lib/__tests__/secret-scan.test.ts 가 같은 함수를 부른다(verify 잡 · turbo test).
 //
 // 규칙을 만든 사고: 옛 비밀번호가 문서 1곳 + 코드 56곳에 `process.env.X || '<값>'` 대체값으로 박혀 있었다.
@@ -33,7 +34,19 @@ export const RULES = {
 }
 
 export function scanTracked(root = ROOT) {
-  const files = execSync('git ls-files', { cwd: root, maxBuffer: 1e9 }).toString().split('\n').filter((f) => f && !BINARY.test(f))
+  return scanFiles(execSync('git ls-files', { cwd: root, maxBuffer: 1e9 }).toString().split('\n'), root)
+}
+
+/** 미추적 파일까지 — 커밋 **전에** 새 파일을 검사할 때(`--untracked`). CI 는 scanTracked 만 쓴다. */
+export function scanWorkingTree(root = ROOT) {
+  return scanFiles(
+    execSync('git ls-files -co --exclude-standard', { cwd: root, maxBuffer: 1e9 }).toString().split('\n'),
+    root,
+  )
+}
+
+export function scanFiles(list, root = ROOT) {
+  const files = list.filter((f) => f && !BINARY.test(f))
   const hits = []
   for (const f of files) {
     let text
@@ -48,6 +61,8 @@ export function scanTracked(root = ROOT) {
         if (value !== undefined && /^\$\{|^process\.env|^import\.meta/.test(value)) continue
         // 참조·경로·토큰 이름·예시는 값이 아니다: env(…)(supabase config) · var(--x)/--x(CSS 토큰) · ./ ../ /(경로) · … 가 든 예시
         if (value !== undefined && (/^(env\(|var\(|--|\.{1,2}\/|\/)/.test(value) || /\.\.\.|…/.test(value))) continue
+        // 예시 호스트(`db.example.co`)라고 통과시키지 않는다 — `agents/scripts/lib.mjs` 의 가드와 기준을 하나로 둔다.
+        // 검사기 자신의 테스트 픽스처는 값을 **런타임에 조립**해 소스에 리터럴을 남기지 않는다(check.test.mjs 의 기존 방식).
         hits.push({ kind, at: `${f}:${i + 1}` })
       }
     })
@@ -56,7 +71,8 @@ export function scanTracked(root = ROOT) {
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const { files, hits } = scanTracked()
+  const untracked = process.argv.includes('--untracked')
+  const { files, hits } = untracked ? scanWorkingTree() : scanTracked()
   console.log(`검사 파일 ${files} · 발견 ${hits.length}`)
   for (const h of hits) console.log(`  [${h.kind}] ${h.at}`)
   process.exit(hits.length ? 1 : 0)
