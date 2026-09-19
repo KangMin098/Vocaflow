@@ -61,7 +61,7 @@ const NON_ACTIVITY_FULL_SCREEN: ReadonlySet<string> = new Set([
   '/wordvault/browse',
   // 기출 세션 (2026-09-17) — 한 문항 = 한 화면. 셸 띠의 다른 모듈 CTA 가 세션의 주 행동과
   // 겨루지 않게 뗀다(docs/csat-learner-brief.md A2). 9 모듈 활동이 아니라 레지스트리에 없다.
-  '/csat/session',
+  '/csat/dissect',
 ])
 
 // 비포함 (의도적):

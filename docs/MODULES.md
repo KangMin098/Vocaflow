@@ -8,6 +8,14 @@
 
 ## 모듈 카탈로그
 
+<!-- csat-sources-workspace:start -->
+관리자 원문 작업 공간(`/admin/csat/sources`, 2026-09-18)은 `SourceWorkspace`가 보기·검색·필터·정렬·선택을,
+`SourceInventoryTable`과 `SourceDetail`이 원천 검토와 ACP 이동을 담당한다.
+`lib/textbook/source-workspace.ts`는 재고의 확인 항목과 URL만 계산하며 적격 판정을 복제하지 않는다.
+기존 `SourceEligibilityClient`의 7축·등급·학령·결함·문항 계획은 판정/처리 보기에 유지한다.
+학습 모듈·판정 정본·DB 스키마는 바꾸지 않는다.
+<!-- csat-sources-workspace:end -->
+
 | # | 모듈 | 계층 | 인지 유형 | 라우트 | 구현 상태 |
 |---|---|---|---|---|---|
 | 1 | **TextViewer** | L0~L2 | 획득·이해 | `/text`, `/text/new`, `/text/[id]` | ✅ v06.34 (책 모드 추가) |
@@ -1006,7 +1014,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ## 기출 해설 강의 — 하이라이트 동기 TTS (2026-09-17)
 
-`/admin/kice/item/[slug]`(분석 뷰)와 학습자 세션 ② 이해(`/csat/session`)에서 **강의 듣기**를 누르면 브라우저 목소리가 강의식 대본을 읽고, 대본이 지금 설명하는
+`/admin/kice/item/[slug]`(분석 뷰)와 기존 학습자 세션 ② 이해(현재 해부 흐름으로 대체)에서 **강의 듣기**를 누르면 브라우저 목소리가 강의식 대본을 읽고, 대본이 지금 설명하는
 분석 블록(또는 지문 지도의 문장 막대)만 진하게 빛난다. 대본은 화면에 글로 나오지 않는다 — **낭독이 아니라
 지목**이 강의를 만든다(원문은 「여기 세 번째 문장」처럼 자리로 가리킨다). 지시문
 [docs/csat-lecture-tts-brief.md](./csat-lecture-tts-brief.md) · 결정 [docs/csat-lecture/DECISIONS.md](./csat-lecture/DECISIONS.md).
@@ -1031,41 +1039,25 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ---
 
-## 기출 세션 루프 — 풀고 · 이해하고 · 한 줄 (2026-09-17)
+## 기출 해부 — 예측 · 대조 · 공식 (2026-09-17)
 
-학습자 `/csat` 은 **라우트 셋**(홈 · 세션 · 기록)이다. 지시문 [csat-learner-brief.md](./csat-learner-brief.md) ·
-결정 [csat-learner/DECISIONS.md](./csat-learner/DECISIONS.md) · 처분표 [csat-learner/gate0-routes.md](./csat-learner/gate0-routes.md).
+학습자 라우트는 /csat, /csat/dissect, /csat/formulas 세 개다. 정답을 처음부터 공개하고
+근거 문장 → 오답 제조법 → 출제 의도를 예측한 뒤 해당 분석을 인라인으로 렌더한다.
+같은 유형·다른 소재 두 문항을 대조하고 세 번째 문항에 전이한다. 설계도는 앞서 본 다섯 항목만 접는다.
 
-세 가지 지적(화면이 복잡하다 · 문제지가 너무 작다 · 분석이 원문과 따로 논다)은 한 원인에서 나왔다 —
-분석가의 사고 구조(모드 4 · 라우트 7 · 겹 6)를 학습자에게 그대로 펼친 것. 그래서 **고르는 화면**을
-**다음 버튼 하나로 굴러가는 루프**로 바꿨다. 페이지를 캔버스에 그리지 않고 **문항 글만 뽑아 큰 글자로
-다시 흘려 넣고**(reflow), 분석은 그 문장 **안**에서 열린다(좌우 2열 없음).
+- lib/csat/dissect.ts: 후보 검증, 낮은 계열 커버리지 우선 구성, 보기 셔플, 공식 중복 병합, 3일 뒤 다른 문항 전이.
+- dissect-catalog.ts: 공개 문항·published 최신 분석을 페이지 조회. 필수 자료 누락은 후보에서 제외하고 관리자 evidence에서 원인을 표시한다.
+- 기출 운영 Evidence: `evidence-operations.ts`가 실제 학습 후보 판정과 원천 결함을 분리하여 작업 우선순위·최초 제외 단계·URL 필터를 계산한다. `EvidenceInspector`는 분석·근거·버전 이력과 작업 대상 내보내기를 연결한다. 관리자 `evidence-operations-loader.ts`는 학습자 캐시를 재사용하지 않는다.
+- dissect-metadata.ts: 분석·강의 wrapup을 검토한 소재·형식·공식. 형식이 같은 실제 기출만 변형 가설의 근거로 제시한다.
+- dissect-anchors.json: 로컬 PDF 대조로 검증한 문장 길이·해시·위치·구간. 원문 문자열 없음. 공유 skeleton-data는 수정하지 않는다.
+- reflow/*, session/passage-model.ts, PaperDrop: 기존 브라우저 PDF 추출·문장 대응·bbox 폴백 재사용. PDF 업로드 API는 없다.
+- session/store.ts: 예측·공식·전이 큐는 IndexedDB dissection-v1 별도 키. 기존 풀이 기록/API 계약을 유지하며 두 정확도를 섞지 않는다. 새 기록은 기기 간 동기화되지 않는다.
+- components/csat/session/*: 홈 카드·문항 상태 흐름·두 문항 대조·내 공식. 풀기/타이머/점수/유형 필터 없음. 지표는 공식 수·최근 30예측 적중률·계열 커버리지다.
+- 기존 강의/관리자 분석, 풀이 모델과 /api/csat/session/{record,reveal}는 호환 경계로 유지한다. 강의 재생은 관리자에서 검수한다.
+- 계측: csat_session_started, csat_session_explained, csat_paper_read 기존 계약 사용. 이전 채점 이벤트는 새 학습 화면에서 발생하지 않는다.
+- 검증: tests/e2e/47-csat-session.spec.ts — 375/768/1440에서 3수 미렌더, 키보드 선택, 설계도 출처, 공식 저장, 전이, axe와 overflow.
 
-| | |
-|---|---|
-| reflow 코어 | [`lib/csat/reflow/reflow.ts`](../apps/web/src/lib/csat/reflow/reflow.ts)(순수) — 글자 조각 → 줄(쪽 → 단 → 위에서 아래) → 문항 영역(다음 번호·묶음 머리글에서 끊음) → 발문·지문·각주·선지. 경계는 **커밋된 좌표 색인**(sha256)으로, 선지 분리는 코퍼스 빌드 규칙(`choiceStart` · `INLINE_SYMBOL_TYPES`)을 옮겨 왔다 |
-| 모르는 파일 | [`reflow/detect.ts`](../apps/web/src/lib/csat/reflow/detect.ts) — 색인을 만든 규칙(단 여백 최빈값 · 번호 단조 증가 · 형 대칭)을 브라우저에서 · 첫 쪽 글자로 회차 식별(2014 A/B 는 학습자가 고름) |
-| 문장 대응 | [`reflow/align.ts`](../apps/web/src/lib/csat/reflow/align.ts) — 골격 문장 길이열 ↔ reflow 문장 길이열 **정렬**(DP). 강의 큐 `sentence:k` 와 골격 앵커가 reflow 문장에 붙는 길. DB 지문에 쪽 번호가 섞인 장문에서 순번 대조는 34 중 11 만 맞았다 |
-| 브라우저 파이프라인 | [`reflow/read-paper.ts`](../apps/web/src/lib/csat/reflow/read-paper.ts) — 파일 → SHA-256 → `/api/csat/paper`(좌표만) → PDF.js 조각 → reflow → 기기 저장. 추출 실패 문항은 단 조각을 **2.5배 크롭**(탭 메모리에만) |
-| 세션 규칙 | [`lib/csat/session/model.ts`](../apps/web/src/lib/csat/session/model.ts)(순수) — `composeSession`(약한 유형 = 최근 20문항 정확도 최하 · 다음 순서 = 최근 출제 순 · 복습 · 신규는 다른 유형) · `applyResult`(틀림/헷갈림 → 3일 → 10일 → 졸업) · `streak` · `weekCount` |
-| 문장 위 표식 | [`session/passage-model.ts`](../apps/web/src/lib/csat/session/passage-model.ts)(순수) — 인용을 reflow 지문에서 직접 찾고, 못 찾으면 골격 번호를 정렬로 옮긴다. 못 붙인 앵커는 `unplaced` 로 돌려준다 |
-| 짧게 내놓기 | [`session/text.ts`](../apps/web/src/lib/csat/session/text.ts) — 설명 ≤ 3문장 · 「한 줄」 = 유형 첫 절차의 첫 절(괄호는 걷고 자르지 않는다) |
-| 서버 | [`session/catalog.ts`](../apps/web/src/lib/csat/session/catalog.ts)(글자 없는 후보 589 · 프로세스 캐시 10분) · [`session/reveal.ts`](../apps/web/src/lib/csat/session/reveal.ts)(답 뒤에만) |
-| 기록 저장 | [`session/store.ts`](../apps/web/src/lib/csat/session/store.ts) — **기기 먼저, 서버 뒤.** IndexedDB `vocaflow-csat`(record · papers · 원본 바이트 없음 · 실패하면 메모리) → `POST /api/csat/session/record`. 읽을 때 서버와 합친다 · [`session/sync.ts`](../apps/web/src/lib/csat/session/sync.ts)(순수 — 풀이 합치기 · **복습 큐는 다시 돌려 계산** · API 입력 검사). 표 `csat_session_attempts` · `csat_review_queue`(마이그레이션 `20260917200000`) |
-| 화면 | [`components/csat/session/`](../apps/web/src/components/csat/session/) — `SessionHome`(카드 1 · 온보딩 1) · `PaperDrop`(받기/놓기 · 회차 고르기) · `SessionRunner`(순서 · 끝 화면) · `ItemScreen`(①②③) · `ReflowPassage`(문단을 열린 문장에서 쪼개 **바로 아래** 설명) · `ProgressView`(숫자 3 + 막대) · `session.module.css`(모션 2곳 · 150ms) |
-| 색 셋 | 정답 `--success` + ✓ · 고른 오답 `--learn-error`(흑연) + ✕ · 근거 `--ju` 밑줄(점선 = 오답 자리 · 물결 = 함정 자리는 무채색). 주 버튼은 먹색 채움 하나 |
-| 강의 | `LectureStage` 를 ② 이해에 그대로 — 타깃 `analysis:head/answer/reject:n/map/ability/intent/procedure/vocab` · `anchor:sentence:k`(정렬로 붙임) |
-| 계측 | `csat_session_started/answered/explained/marked/finished` · `csat_paper_read`(= reflow 실패율) — 허용 목록 마이그레이션 `20260917190000`(2026-09-17 적용). 옛 `csat_overlay_*` · `csat_drill_*` 는 은퇴(DB 목록엔 남김) |
-| 회귀 | 순수 35(`session/model` 20 · `text` 7 · `sync` 8) + reflow 합성 조각(`reflow.test.ts`) + 런타임 1(`tests/e2e/47-csat-session.spec.ts`) · 게이트 하네스 `scripts/csat-learner/gate{1,2,3}-*.mts` |
-
-**실측 (2026-09-17)** — Gate 1 전 회차 802문항: 경계 **100%** · 텍스트 99.5% · 문장 앵커 98.9% · 인용 자리 99.5% ·
-reflow 선지 100%(DB 쪽 잡음 68건 분리). Gate 2(375px): 제출 전 해설 DOM 0 · 본문 18px · 선지 ≥48px · 가로 넘침 0.
-Gate 3(프로덕션 · 3G): 열기 → 첫 문항 **탭 1 · 중앙값 1.3초** · Lighthouse 접근성 100/100/100 · axe 0 · 키보드 완주.
-
-옛 오버레이(`/csat/overlay` · 2026-09-13~16)의 기록: [docs/reports/csat-overlay-reveal-20260916.md](./reports/csat-overlay-reveal-20260916.md).
-겹 규칙(`lib/csat/overlay-reveal.ts`)과 좌표 색인(`lib/csat/overlay.ts` · `anchor-data/`)은 남았다 — 뒤쪽은 세션이 쓴다.
-
----
+상세 결정과 실측은 [DECISIONS](./csat-learner/DECISIONS.md)와 [해부 검증 기록](./csat-learner/dissection-report.md)을 따른다.
 
 ## 기출 분석 — 지문 지도 (v06.34 · 2026-09-15)
 
@@ -1152,3 +1144,16 @@ Gate 3(프로덕션 · 3G): 열기 → 첫 문항 **탭 1 · 중앙값 1.3초** 
 | EchoMatch (L4c) | TTS 청취 | 발화 (청각 재생산) | 음운 + 발화 쌍둥이 | shaky 견고화 |
 | ScriptQuiz (L5) | 스크립트 맥락 전체 | 4지선다 | 의미 통합 (Recognition + Transfer) | 텍스트 단위 검증 |
 | Dictation (L6) | TTS (청각) | 타이핑 (자유 재생산) | 음운+의미+문법+철자 통합 | 텍스트 단위 완성 |
+
+### CSAT 분석 읽기와 듣기 (2026-09-18)
+
+SessionHome은 추천 3문항과 유형별 탐색·이어하기를 제공한다. SessionRunner는 `?item=`에서 AnalysisReading을 열고 `?resume=1`에서 기기에 저장한 문항·예측 단계·선택값을 복원한다. analysis-sections의 동일 설명을 화면과 LecturePlayer/WebSpeechAdapter가 공유한다. 자동 스크롤 없이 현재 설명 위치로 이동하며 문항 변경은 발화를 취소한다. 분석을 먼저 읽은 문항은 새 예측 적중 통계에 넣지 않는다.
+
+### CSAT Learning Home (2026-09-18)
+
+SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를 비교한다. learning-home.ts는 기존 추천 결과의 이유와 원리별 기록 상태를 계산한다. 보관/예측/열람/재확인을 숙달로 표현하지 않는다. 홈에서 패턴 지도, 문항 필터, 기기 이어하기와 분석 듣기로 연결한다. PDF 사전 준비는 native details로 접고 시작을 먼저 노출한다.
+
+
+### CSAT 시각 분석 (2026-09-18)
+
+`QuestionArchitecture`는 실제 skeleton의 문장 길이·근거 위치에서 정답/오답 선지로 연결한다. 홈의 `PatternComparison`은 같은 공식 문항 두 개의 선택을 동기화하며 `PatternMap`은 공식 소속과 기기 기록을 표현한다. `AnalysisWorkbench`는 PDF 원문 선택 ↔ 구조도 ↔ 설명/TTS focus를 연결한다. `buildDissectionPassage`의 검증 구절 위치를 예측 화면과 분석 화면에서 공유한다. 데스크톱 학습 판면이며 새 API/저장 형식/패키지는 없다.

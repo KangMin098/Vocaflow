@@ -55,7 +55,7 @@ const MODULE_SESSION_META: Record<string, SessionMeta> = {
 const SESSION_META: Record<string, SessionMeta> = {
   ...MODULE_SESSION_META,
   // 기출 세션 — 닫으면 기출 홈(오늘의 세션)으로
-  '/csat/session': { title: '기출 세션', emoji: '', closeHref: '/csat' },
+  '/csat/dissect': { title: '기출 해부', emoji: '', closeHref: '/csat' },
   ...Object.fromEntries(
     GAME_CATALOG.map((g) => [
       `/play/${g.slug}`,

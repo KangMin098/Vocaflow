@@ -53,10 +53,24 @@ export interface PassageSkeleton {
   sentences: SkeletonSentence[]
 }
 
+/**
+ * 칠해진 자리가 **무엇을 가리키는가.**
+ *
+ * 오답 칩 하나에 지문 자리가 붙는 길은 둘인데 **같은 것을 뜻하지 않는다.**
+ *   · `reject` — 「지우는 근거」에서 왔다. 그 자리가 이 선지를 **버린다.**
+ *   · `tempt`  — 「끌리는 이유」에서 왔다. 그 자리가 이 선지로 **끌어당긴다.**
+ *
+ * 둘을 같은 말로 칠하면 조용한 거짓말이 된다 — 학습자는 «여기가 이걸 지우는 근거구나» 로
+ * 읽는데 실제로는 함정의 미끼 자리다. 그래서 출처를 데이터에 싣고 화면이 다르게 말한다.
+ */
+export type AnchorOrigin = 'answer' | 'reject' | 'tempt'
+
 /** 앵커 하나 — "이 인용문이 근거다". */
 export interface AnchorSpec {
   id: string
   quote: string
+  /** 없으면 예전 골격이다 — 읽는 쪽이 `answer`/`reject` 로 메운다. */
+  from?: AnchorOrigin
 }
 
 /** 앵커가 지문의 어디에 붙었는가. 못 붙으면 `sentences` 가 빈 배열이다. */
@@ -64,6 +78,7 @@ export interface AnchorPlacement {
   id: string
   /** 걸친 문장 번호들(0-기반). **우리가 센 번호다** — 분석의 sentence_index 와 무관. */
   sentences: number[]
+  from?: AnchorOrigin
 }
 
 /**
@@ -127,7 +142,7 @@ export function buildSkeleton(
   for (const a of anchors) {
     const hit = a.quote ? findQuote(passage, a.quote) : null
     if (!hit) {
-      placements.push({ id: a.id, sentences: [] })
+      placements.push({ id: a.id, sentences: [], from: a.from })
       continue
     }
 
@@ -145,7 +160,7 @@ export function buildSkeleton(
         text: passage.slice(from, to),
       })
     }
-    placements.push({ id: a.id, sentences: touched })
+    placements.push({ id: a.id, sentences: touched, from: a.from })
   }
 
   return {

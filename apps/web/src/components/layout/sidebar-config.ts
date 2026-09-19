@@ -312,7 +312,7 @@ export const FOOTER_ITEMS: NavItem[] = [
     label: 'CSAT',
     href: '/csat',
     icon: Scale,
-    ariaLabel: '기출 — 오늘의 세션: 평가원 수능·모의평가 독해 세 문항',
+    ariaLabel: 'CSAT — 출제자의 설계 읽기: 두 문항 대조와 전이',
   },
   {
     label: 'Class',

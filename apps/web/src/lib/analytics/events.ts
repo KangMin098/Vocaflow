@@ -169,29 +169,17 @@ export type PublicEvent =
       name: 'csat_session_started'
       props: { size: number; review: boolean; needed: number; cached: number }
     }
-  /** 한 문항에 답했다(또는 고르지 않고 넘겼다). `sec` 는 반올림한 초. */
-  | {
-      name: 'csat_session_answered'
-      props: { seq: number; correct: boolean; skipped: boolean; sec: number; review: boolean }
-    }
+
   /**
-   * ② 이해 단계에서 무엇을 열었나 — 인라인 설명이 실제로 쓰이는지의 유일한 관측.
-   * 한 번도 안 열리면 「문장을 탭하면 설명」이 발견되지 않는다는 뜻이다.
+   * 예측 제출 뒤 대조한 분석 종류. 기존 관리자 설명 이벤트와 같은 닫힌 계약을 쓴다.
+   * evidence = 근거 자리, reject = 오답 제조법, more = 출제 의도.
    */
   | {
       name: 'csat_session_explained'
       props: { kind: 'evidence' | 'reject' | 'tempt' | 'more' | 'lecture' }
     }
-  /** ③ 한 줄 — [알겠어요] / [헷갈려요]. 정답인데 헷갈린 수가 메타인지 신호다. */
-  | {
-      name: 'csat_session_marked'
-      props: { seq: number; confused: boolean; correct: boolean }
-    }
-  /** 세션을 끝까지 돌았다 — 완주율의 분자. */
-  | {
-      name: 'csat_session_finished'
-      props: { total: number; correct: number; confused: number; seconds: number }
-    }
+
+
   /**
    * 문제지를 읽었다. `known` 은 해시가 색인에 있었나, `failed` 는 글로 못 뽑아 **종이 그대로**
    * 보여 줘야 하는 문항 수 — 이것이 reflow 실패율이다(지시문 C6 · 관리자 evidence 쪽 수신처).
@@ -433,10 +421,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_lecture_played: true,
   csat_lecture_ended: true,
   csat_session_started: true,
-  csat_session_answered: true,
   csat_session_explained: true,
-  csat_session_marked: true,
-  csat_session_finished: true,
   csat_paper_read: true,
   screen_viewed: true,
   video_started: true,

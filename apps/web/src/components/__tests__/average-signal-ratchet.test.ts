@@ -78,13 +78,13 @@ const SIGNALS: Record<string, { re: RegExp; why: string }> = {
  */
 const BASELINE: Record<Surface, Record<string, number>> = {
   learner: {
-    'grid-3eq': 59,
+    'grid-3eq': 58,
     'shadow-heavy': 29,
     'rounded-big': 41,
-    gradient: 168,
+    gradient: 167,
     'ai-purple': 38,
-    glass: 52,
-    'float-hover': 65,
+    glass: 49,
+    'float-hover': 64,
     'infinite-anim': 12,
   },
   admin: {
@@ -92,7 +92,7 @@ const BASELINE: Record<Surface, Record<string, number>> = {
     'shadow-heavy': 0,
     'rounded-big': 4,
     gradient: 36,
-    'ai-purple': 326,
+    'ai-purple': 318,
     glass: 7,
     'float-hover': 8,
     'infinite-anim': 0,

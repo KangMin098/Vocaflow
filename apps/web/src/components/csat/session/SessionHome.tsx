@@ -1,217 +1,96 @@
+// apps/web/src/components/csat/session/SessionHome.tsx
 'use client'
 
-// apps/web/src/components/csat/session/SessionHome.tsx
-//
-// **홈 — 카드 한 장, 버튼 하나.**
-//
-//   ┌──────────────────────────────┐
-//   │ 오늘                          │
-//   │ 빈칸 1 + 순서 1 + 복습 1       │
-//   │ 약 9분                        │
-//   │ (PDF 가 없으면 받기/놓기 한 줄) │
-//   │ [ 시작 ]                      │
-//   └──────────────────────────────┘
-//   3일째 · 기록 보기
-//
-// 무엇을 할지는 **시스템이 고른다**(지시문 A2) — 유형·회차·모드를 고르는 칸이 없다.
-// 처음 온 사람에게는 그림 셋(풀고 → 이해하고 → 한 줄) 한 장을 한 번만 보여 준다.
-//
-// 기록은 기기(IndexedDB)에 있어 카드는 브라우저에서 짠다. 짜는 동안 카드 자리는 같은 크기로 비워 둔다
-// (자리가 뛰면 [시작]을 누르려던 손가락이 엉뚱한 곳을 누른다).
-
-import { ArrowRight, Lightbulb, PencilLine, Search } from 'lucide-react'
+import { ArrowRight, Headphones } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-
 import { track } from '@/lib/analytics/client'
+import { composeDissection, emptyDissectionRecord, type DissectionCatalog, type DissectionItem, type DissectionRecord } from '@/lib/csat/dissect'
+import { patternGroups, recommendationReason } from '@/lib/csat/learning-home'
 import { REFLOW_VERSION } from '@/lib/csat/reflow/reflow'
-import type { LearnerCatalog } from '@/lib/csat/session/catalog'
-import {
-  composeSession,
-  planLabel,
-  streak,
-  type LearnerRecord,
-  type SessionPlan,
-} from '@/lib/csat/session/model'
-import { cachedExamIds, loadRecord, saveRecord } from '@/lib/csat/session/store'
+import { cachedExamIds, loadDissectionRecord, saveDissectionRecord } from '@/lib/csat/session/store'
 import { toItemSlug } from '@/lib/csat/item-slug'
-
 import { PaperDrop } from './PaperDrop'
+import { PatternComparison } from './PatternComparison'
+import { PatternMap } from './PatternMap'
+import styles from './session.module.css'
+import home from './learning-home.module.css'
 
-export const PRIMARY =
-  'inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--t1)] bg-[var(--t1)] px-5 text-[17px] font-[600] text-[var(--bg)] transition-[opacity,background-color] duration-[var(--dur-normal)] ease-[var(--ease)] hover:opacity-90 active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ju)] disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none'
-
-/** 세션 주소 — 짠 문항을 그대로 싣는다(새로 고침해도 같은 세션) */
-export function sessionHref(plan: SessionPlan): string {
-  const set = plan.slots.map((s) => toItemSlug(s.item.id)).join(',')
-  const kinds = plan.slots.map((s) => s.kind).join(',')
-  return `/csat/session?set=${encodeURIComponent(set)}&k=${encodeURIComponent(kinds)}`
+export const PRIMARY = styles.primary
+export function dissectionHref(items: DissectionItem[]) {
+  return `/csat/dissect?set=${encodeURIComponent(items.map(i => toItemSlug(i.id)).join(','))}`
 }
-
-interface Ready {
-  record: LearnerRecord
-  plan: SessionPlan
-  cached: string[]
-}
-
-export function SessionHome({ catalog }: { catalog: LearnerCatalog }) {
+const itemHref = (item: DissectionItem, section?: string) => `/csat/dissect?item=${toItemSlug(item.id)}${section ? `#analysis-${section}` : ''}`
+export function SessionHome({ catalog }: { catalog: DissectionCatalog }) {
   const router = useRouter()
-  const [state, setState] = useState<Ready | null>(null)
-
+  const [state, setState] = useState<{ record: DissectionRecord; cached: string[]; plan: DissectionItem[]; now: number } | null>(null)
+  const [busy, setBusy] = useState(false)
+  const [pattern, setPattern] = useState(0)
+  const [filter, setFilter] = useState('all')
+  const groups = patternGroups(catalog.items)
+  const selected = groups[pattern] ?? groups[0]
   useEffect(() => {
     let alive = true
-    void (async () => {
-      const [record, cached] = await Promise.all([loadRecord(), cachedExamIds(REFLOW_VERSION)])
-      if (!alive) return
-      setState({ record, cached, plan: composeSession(catalog, record, new Date(), cached) })
-    })()
-    return () => {
-      alive = false
-    }
-  }, [catalog])
-
-  if (!state) {
-    return (
-      <div aria-busy="true" className="min-h-[260px] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
-        <p className="text-[15px] text-[var(--t3)]">오늘의 세션을 짜고 있어요…</p>
-      </div>
-    )
-  }
-
-  const { record, plan, cached } = state
-  const needed = plan.exams.filter((e) => !cached.includes(e))
-  const st = streak(record, new Date())
-  const href = sessionHref(plan)
-
-  const start = async () => {
-    track({
-      name: 'csat_session_started',
-      props: {
-        size: plan.slots.length,
-        review: plan.slots.some((s) => s.kind === 'review'),
-        needed: plan.exams.length,
-        cached: plan.exams.length - needed.length,
-      },
+    void Promise.all([loadDissectionRecord(), cachedExamIds(REFLOW_VERSION)]).then(([record, cached]) => {
+      const now = Date.now()
+      if (alive) setState({ record, cached, plan: composeDissection(catalog, record, now, cached), now })
     })
-    if (!record.onboarded) await saveRecord({ ...record, onboarded: true })
-    router.push(href)
+    return () => { alive = false }
+  }, [catalog])
+  // Real comparison survives SSR; private progress arrives after hydration.
+  const record = state?.record ?? emptyDissectionRecord(0)
+  const plan = state?.plan ?? []
+  const needed = [...new Set(plan.map(i => i.exam_id))].filter(e => !state?.cached.includes(e))
+  const type = catalog.types.find(t => t.id === plan[0]?.type_id)?.name ?? '기출 분석'
+  const active = record.active && record.active.index < record.active.items.length ? record.active : null
+  const start = async () => {
+    if (busy || !state || plan.length !== 3) return
+    setBusy(true)
+    await saveDissectionRecord({ ...record, onboarded: true })
+    track({ name: 'csat_session_started', props: { size: plan.length, review: record.queue.some(q => q.due <= state.now), needed: new Set(plan.map(i => i.exam_id)).size, cached: new Set(plan.map(i => i.exam_id).filter(e => state.cached.includes(e))).size } })
+    router.push(dissectionHref(plan))
   }
-
-  if (!record.onboarded) return <Onboarding onStart={start} />
-
-  if (!plan.slots.length) {
-    // 빈 상태 — 한 문장 + 버튼 하나(지시문 D5)
-    return (
-      <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
-        <p className="break-keep text-[17px] text-[var(--t1)]">오늘 풀 문항을 아직 못 골랐어요.</p>
-        <button type="button" className={`${PRIMARY} mt-4`} onClick={() => router.refresh()}>
-          다시 짜기
-        </button>
-      </div>
-    )
-  }
-
-  return (
-    <div className="flex flex-col gap-3">
-      <section
-        aria-labelledby="csat-today-h"
-        className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5"
-        data-testid="today-card"
-        data-need={needed.join(',')}
-      >
-        {/* 제목이 곧 오늘 할 일이다 — 「오늘」 한 낱말만 제목으로 두면 스크린리더가 할 일을 못 읽는다.
-            서체는 제목 기본값(세리프)을 그대로 둔다(v07 · `phase2-screens` 회귀). */}
-        <h1 id="csat-today-h" className="text-[var(--t1)]">
-          <span className="block text-[15px] font-[500] text-[var(--t3)]">오늘</span>
-          <span className="mt-1 block break-keep text-[24px] font-[700] leading-snug" data-testid="today-plan">
-            {planLabel(plan, catalog.types)}
-          </span>
-        </h1>
-        <p className="mt-1 text-[16px] text-[var(--t2)]">
-          약 <span className="font-mono tabular-nums">{plan.minutes}</span>분
-        </p>
-
-        {needed.length ? (
-          <div className="mt-4 border-t border-[var(--bd)] pt-4">
-            <PaperDrop
-              catalog={catalog}
-              needed={needed}
-              onLoaded={(p) =>
-                setState((s) =>
-                  s ? { ...s, cached: [...new Set([...s.cached, p.exam_id])] } : s,
-                )
-              }
-            />
-          </div>
-        ) : null}
-
-        <button type="button" onClick={start} className={`${PRIMARY} mt-5`} data-testid="start">
-          시작
-          <ArrowRight aria-hidden className="h-5 w-5" />
-        </button>
+  const filtered = catalog.items.filter(i => filter === 'all' || i.formulaTag === filter || filter === 'seen' && (record.inspected?.includes(i.id) || record.predictions.some(p => p.item === i.id)))
+  return <div className={home.home} data-csat-home>
+    <header className={home.masthead}><span>CSAT <span className={home.kicker}>출제자의 설계 읽기</span></span><Link className={styles.textButton} href="/csat/formulas">내 공식 <ArrowRight size={15} aria-hidden /></Link></header>
+    {active && <Link className={home.resume} href="/csat/dissect?resume=1"><span>하던 학습 이어가기</span><strong>{active.items[active.index].replace('#', ' · ')}번부터 <ArrowRight size={16} aria-hidden /></strong></Link>}
+    <div className={home.opening}>
+      <section className={home.proof} aria-labelledby="home-title" data-testid="pattern-proof">
+        <p className={home.kicker}>소재 너머의 공통점</p>
+        <h1 id="home-title">다른 지문, 같은 설계.</h1>
+        <p className={home.intro}>정답을 알고, 근거와 오답을 만든 설계를 읽어요.</p>
+        {selected ? <>
+          <div className={home.patternControls} role="group" aria-label="비교할 출제 패턴">{groups.map((group, index) => <button key={group.tag} aria-pressed={pattern === index} onClick={() => setPattern(index)}>{group.format}</button>)}</div>
+          <PatternComparison key={selected.tag} items={selected.items} />
+          <Link className={styles.textButton} href={itemHref(selected.items[0], 'evidence')}>실제 근거에서 확인하기 <ArrowRight size={16} aria-hidden /></Link>
+        </> : <p className={styles.quiet}>비교할 기출 분석을 준비하고 있어요.</p>}
       </section>
-
-      <p className="flex flex-wrap items-center justify-between gap-2 px-1 text-[15px] text-[var(--t2)]">
-        <span data-testid="streak">
-          {st.days > 0 ? (
-            <>
-              <span className="font-mono tabular-nums text-[var(--t1)]">{st.days}</span>일째
-            </>
-          ) : st.broken ? (
-            <span className="font-editorial">오늘 다시 시작해요</span>
-          ) : null /* Gate 4 — 「첫날이에요」를 뺐다. 아무 정보도 없는 위로였다 */}
-        </span>
-        <Link
-          href="/csat/progress"
-          className="inline-flex min-h-[44px] items-center text-[15px] text-[var(--t2)] underline decoration-[var(--bd)] underline-offset-4 transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] hover:decoration-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ju)] motion-reduce:transition-none"
-        >
-          기록 보기
-        </Link>
-      </p>
+      <section className={home.today} data-testid="today-card" aria-labelledby="today-title" aria-busy={!state}>
+        <p className={home.kicker}>오늘의 해부</p><h2 id="today-title">{type}</h2>
+        {plan.length === 3 ? <>
+          <p className={home.sessionKind}>{plan[0].formulaTag === plan[1].formulaTag ? '같은 설계, 다른 소재' : '같은 유형, 다른 설계'}</p>
+          <p className={home.reason} data-testid="recommendation-reason">{recommendationReason(catalog, plan, record, state!.now)}</p>
+          <div className={home.sessionMeta}><span>{plan.length}문항 · 예측 → 대조 → 전이</span><span>예상 {plan.length * 4}분</span></div>
+          <button className={`${PRIMARY} ${home.start}`} onClick={() => void start()} disabled={busy} data-testid="start">{busy ? '여는 중…' : '시작'}<ArrowRight size={18} aria-hidden /></button>
+          <ol className={home.itinerary}>{plan.map((item, index) => <li key={item.id}><span className={home.step}>{String(index + 1).padStart(2, '0')}</span><div><span className={home.reference}>{index === 2 ? '다른 문항에서 전이' : index === 0 ? '먼저 예측하기' : '설계 대조하기'} · {item.exam_id} {item.no}번</span><p>{item.format}</p></div></li>)}</ol>
+          {needed.length > 0 ? <details className={home.paper}><summary>PDF {needed.length}개 필요 · 미리 준비하기</summary><PaperDrop catalog={catalog} needed={needed} onLoaded={p => setState(s => s ? { ...s, cached: [...new Set([...s.cached, p.exam_id])] } : s)} /></details> : <p className={home.localNote}>이 기기의 문제지로 바로 시작할 수 있어요.</p>}
+        </> : <p className={styles.quiet}>{state ? '추천할 분석을 준비하고 있어요.' : '기기 기록을 확인하고 있어요…'}{state && <button className={styles.textButton} onClick={() => router.refresh()}>다시 확인</button>}</p>}
+      </section>
     </div>
-  )
-}
-
-/** 처음 한 번 — 그림 셋 + [시작]. 다시 안 보인다(기록의 `onboarded`). */
-function Onboarding({ onStart }: { onStart: () => void }) {
-  const steps = [
-    { Icon: PencilLine, title: '풀고', says: '평가원 기출 한 문항을 먼저 풀어요' },
-    { Icon: Search, title: '이해하고', says: '근거 문장을 누르면 설명이 그 자리에 열려요' },
-    { Icon: Lightbulb, title: '한 줄 남기기', says: '다음에 이 유형을 만나면 할 일 한 줄' },
-  ]
-  return (
-    <section
-      aria-labelledby="csat-onboard-h"
-      className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5"
-      data-testid="onboarding"
-    >
-      <h1 id="csat-onboard-h" className="font-editorial text-[22px] font-[600] text-[var(--t1)]">
-        하루 세 문항, 10분
-      </h1>
-      <ol className="mt-5 grid grid-cols-1 gap-4">
-        {steps.map(({ Icon, title, says }, i) => (
-          <li key={title} className="flex items-start gap-3">
-            <span
-              aria-hidden
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)]"
-            >
-              <Icon className="h-5 w-5" />
-            </span>
-            <span className="min-w-0">
-              <span className="block text-[17px] font-[600] text-[var(--t1)]">
-                <span className="mr-1.5 font-mono tabular-nums text-[var(--t3)]">{i + 1}</span>
-                {title}
-              </span>
-              <span className="mt-0.5 block break-keep text-[15px] leading-relaxed text-[var(--t2)]">{says}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
-      <button type="button" onClick={onStart} className={`${PRIMARY} mt-6`} data-testid="start">
-        시작
-        <ArrowRight aria-hidden className="h-5 w-5" />
-      </button>
+    <section className={home.learningPath} aria-labelledby="path-title">
+      <div><p className={home.kicker}>한 문항에서 다음 문항으로</p><h2 id="path-title">정답 다음에 남는 것</h2></div>
+      <ol>{[{ name: '예측', detail: '근거는 어디에 있을까', href: plan.length ? dissectionHref(plan) : '#explore-title' }, { name: '설계 읽기', detail: '근거 → 함정 → 의도', href: selected ? itemHref(selected.items[0], 'evidence') : '#explore-title' }, { name: '전이', detail: '소재가 바뀌어도 통할까', href: plan.length ? dissectionHref(plan) : '#explore-title' }, { name: '패턴 축적', detail: '내 언어로 남긴 공식', href: '/csat/formulas' }].map(step => <li key={step.name}><Link href={step.href}><strong>{step.name}</strong><span>{step.detail}</span></Link></li>)}</ol>
     </section>
-  )
+    <section className={home.patternMap} aria-labelledby="map-title">
+      <div className={home.sectionHead}><div><p className={home.kicker}>나의 탐색 지도</p><h2 id="map-title">어디까지 읽었나요?</h2></div><p>정답률 대신, 살펴본 원리의 흔적을 남겨요.</p></div>
+      <PatternMap items={catalog.items} record={record} />
+      <div className={home.mapFoot}><Link className={styles.textButton} href="/csat/formulas">내 공식에서 이어가기 →</Link>{record.queue.length > 0 && <span>{record.queue.length}개 원리를 다시 확인하려고 남겼어요.</span>}</div>
+    </section>
+    <section className={home.exploration} aria-labelledby="explore-title">
+      <div className={home.sectionHead}><div><p className={home.kicker}>자유롭게 읽기</p><h2 id="explore-title">궁금한 문항부터</h2></div><p><Headphones size={16} aria-hidden /> 분석을 읽고, 같은 설명을 들을 수 있어요.</p></div>
+      <label className={home.filter}>살펴볼 원리 <select value={filter} onChange={e => setFilter(e.target.value)}><option value="all">전체 문항</option><option value="seen">내가 살펴본 문항</option>{groups.map(group => <option key={group.tag} value={group.tag}>{group.format}</option>)}</select></label>
+      {filtered.length ? <ul className={home.index}>{filtered.map(item => <li key={item.id}><Link href={itemHref(item)}><span className={home.reference}>{item.exam_id} · {item.no}번</span><strong>{item.topic}</strong><span className={home.itemFormat}>{item.format}</span><ArrowRight size={16} aria-hidden /></Link></li>)}</ul> : <p className={home.empty}>아직 살펴본 문항이 없어요. <button className={styles.textButton} onClick={() => setFilter('all')}>전체 문항 보기</button></p>}
+    </section>
+  </div>
 }

@@ -129,10 +129,7 @@ describe('허용 이벤트 목록', () => {
     // 2026-09-17 — 기출 학습자 세션 루프 6종(docs/csat-learner-brief.md · 마이그레이션 `20260917190000`).
     // 시작 · 답 · 무엇을 열었나 · 한 줄 판정 · 완주 · 문제지 읽기(= reflow 실패율)
     'csat_session_started',
-    'csat_session_answered',
     'csat_session_explained',
-    'csat_session_marked',
-    'csat_session_finished',
     'csat_paper_read',
     // 기출 오답 지도 · 계획(관리자 뷰) — 훈련 2종은 2026-09-17 에 은퇴
     'csat_atlas_scoped',

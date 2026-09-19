@@ -1,0 +1,1235 @@
+{
+  "2026#31": {
+    "id": "2026#31",
+    "no": 31,
+    "type_id": "R-BLANK",
+    "chars": 1060,
+    "sentences": [
+      {
+        "chars": 178,
+        "hash": "c442128072d9960e39c8015b6e1ad34ae11c701f1064eb1e8311835fb4a3e83e",
+        "reveals": []
+      },
+      {
+        "chars": 140,
+        "hash": "2a2777f95da011d9ff6092bd3b72ffbcc6b4c7d80b501ac7bd0150c5d5e41a00",
+        "reveals": []
+      },
+      {
+        "chars": 145,
+        "hash": "59c641845155daf1c4a7e5ac52538e201963696000281a167450aa3f89dd3135",
+        "reveals": []
+      },
+      {
+        "chars": 137,
+        "hash": "71364b0e2b7bd50d2ccb164bcca6bff0a1b51a8b4792ab5376986c3381cbf2b5",
+        "reveals": []
+      },
+      {
+        "chars": 108,
+        "hash": "4b73070da0ffee53658858082f3c7aafe5c5ac3122a431ff66166854a1eb655f",
+        "reveals": []
+      },
+      {
+        "chars": 214,
+        "hash": "cc8faf3a2d58873f7335d2cc6c756e14c2f80dd06e48121f4498cd7b94417d49",
+        "reveals": []
+      },
+      {
+        "chars": 132,
+        "hash": "6d747d539e1d8eccdf9cabf1b0737ada13f54b23220cdc4b74b79c7d11a1b393",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          4
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 4,
+            "start": 0,
+            "end": 107
+          }
+        ]
+      },
+      {
+        "id": "reject:2",
+        "sentences": [
+          5
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 5,
+            "start": 46,
+            "end": 88
+          }
+        ]
+      },
+      {
+        "id": "reject:3",
+        "sentences": [
+          2
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 2,
+            "start": 38,
+            "end": 62
+          }
+        ]
+      },
+      {
+        "id": "reject:4",
+        "sentences": [
+          1
+        ],
+        "from": "tempt",
+        "spans": [
+          {
+            "sentence": 1,
+            "start": 108,
+            "end": 139
+          }
+        ]
+      }
+    ]
+  },
+  "2026#32": {
+    "id": "2026#32",
+    "no": 32,
+    "type_id": "R-BLANK",
+    "chars": 998,
+    "sentences": [
+      {
+        "chars": 104,
+        "hash": "ffcc39df377d87e138b7c870a1c71cfdebdabffd54c32cae1d0ff03c3a73eafc",
+        "reveals": []
+      },
+      {
+        "chars": 151,
+        "hash": "c972e4b59aa75b78e808c03a0059049537a62410a36a6973df48fce0d7a90bfd",
+        "reveals": []
+      },
+      {
+        "chars": 156,
+        "hash": "1c7fdb161a91bcfcab14d12b63de1d310719b2b1e6cbabccdecd9d15ce65c375",
+        "reveals": []
+      },
+      {
+        "chars": 174,
+        "hash": "bd666385c5dba55d855cb4434d0ee1c9177b101ef357ef15483280fe68b01dfe",
+        "reveals": []
+      },
+      {
+        "chars": 86,
+        "hash": "0603864cdad5baf5a98523a4dba15a6d04dad68c30786ee657919e2e3ba71179",
+        "reveals": []
+      },
+      {
+        "chars": 228,
+        "hash": "a26e3a75a340b17523494635dd16bdbaa6a596b12223f20dc25066a62ab0d712",
+        "reveals": []
+      },
+      {
+        "chars": 93,
+        "hash": "9b90ebac9842ffa606e03e6be610cdd5c729a35b51368ec0573e3000a144aea7",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          6
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 6,
+            "start": 25,
+            "end": 92
+          }
+        ]
+      },
+      {
+        "id": "reject:2",
+        "sentences": [
+          5
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 5,
+            "start": 9,
+            "end": 55
+          }
+        ]
+      },
+      {
+        "id": "reject:3",
+        "sentences": [
+          3
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 3,
+            "start": 80,
+            "end": 121
+          }
+        ]
+      }
+    ]
+  },
+  "2026#33": {
+    "id": "2026#33",
+    "no": 33,
+    "type_id": "R-BLANK",
+    "chars": 1104,
+    "sentences": [
+      {
+        "chars": 114,
+        "hash": "3de7ff83c8dd23a08609c9c044ea77533da93310c97b00d99d303099a7e486df",
+        "reveals": []
+      },
+      {
+        "chars": 105,
+        "hash": "ac9a6f33a004a7c9e021c8741e523df0b794fa1eb8bded98e7eebd59ac3090e9",
+        "reveals": []
+      },
+      {
+        "chars": 71,
+        "hash": "e4257535c151c2f98f7ffda368e6d65d21e00108df0daf8f5ad6a6a058a00088",
+        "reveals": []
+      },
+      {
+        "chars": 246,
+        "hash": "2756e8c9b5fa58392bde0be3b3a1a0561e817077a4fa314793cf94d4e6006013",
+        "reveals": []
+      },
+      {
+        "chars": 172,
+        "hash": "e6f14590643e14d16849f90dddfa882b809ecd75f659763cb3ae2a8a2d2cc391",
+        "reveals": []
+      },
+      {
+        "chars": 173,
+        "hash": "d7f0cee12623aa1813f4413f027ffdfcb53aa3b8c629c602d08892ca48f9ef82",
+        "reveals": []
+      },
+      {
+        "chars": 80,
+        "hash": "2936ab5bc91a72917995f2662029f76cd3f7a575c2d5d88299d670814824599d",
+        "reveals": []
+      },
+      {
+        "chars": 136,
+        "hash": "20fc26e9738d7beab85bfec7adad84d50d95b796d7597a462674464a6004d145",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          0
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 0,
+            "start": 0,
+            "end": 113
+          }
+        ]
+      },
+      {
+        "id": "reject:1",
+        "sentences": [
+          0
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 0,
+            "start": 0,
+            "end": 62
+          }
+        ]
+      },
+      {
+        "id": "reject:5",
+        "sentences": [
+          5
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 5,
+            "start": 0,
+            "end": 47
+          }
+        ]
+      }
+    ]
+  },
+  "2026#34": {
+    "id": "2026#34",
+    "no": 34,
+    "type_id": "R-BLANK",
+    "chars": 1032,
+    "sentences": [
+      {
+        "chars": 125,
+        "hash": "519e911adc550bdd358fecf7aaf5f69611a090e74bbd925a1fcdcc50f5ecb7c4",
+        "reveals": []
+      },
+      {
+        "chars": 218,
+        "hash": "43b825b93298c69362338351df25ef1b9bee95dcca64b9561c4679e5879cd4f8",
+        "reveals": []
+      },
+      {
+        "chars": 110,
+        "hash": "e34d70f5dd092aa82c50a0df7d2f5137db80b9aad4260dc8ccc8a080003f3e1c",
+        "reveals": []
+      },
+      {
+        "chars": 192,
+        "hash": "4a3a2dc58b3dd925212c38f99d7f68efa187d5af490ac361f852f934a4af6bc3",
+        "reveals": []
+      },
+      {
+        "chars": 154,
+        "hash": "61ee72ea0f7f1b9bf966ea02703e09e8b994932cf805e696a6390dd7e0a75499",
+        "reveals": []
+      },
+      {
+        "chars": 110,
+        "hash": "9623cde1c67bdda2bbd17397f6f604cf04a66f21bdd1c38e3052d3c9be92467c",
+        "reveals": []
+      },
+      {
+        "chars": 117,
+        "hash": "8ad77f425259298d0c03182e124bfac89d8b7f51d46a1c1c9c37c126d91a5755",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          5
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 5,
+            "start": 0,
+            "end": 109
+          }
+        ]
+      },
+      {
+        "id": "reject:2",
+        "sentences": [
+          0
+        ],
+        "from": "tempt",
+        "spans": [
+          {
+            "sentence": 0,
+            "start": 0,
+            "end": 26
+          }
+        ]
+      },
+      {
+        "id": "reject:4",
+        "sentences": [
+          4
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 4,
+            "start": 83,
+            "end": 153
+          }
+        ]
+      }
+    ]
+  },
+  "2025#31": {
+    "id": "2025#31",
+    "no": 31,
+    "type_id": "R-BLANK",
+    "chars": 1044,
+    "sentences": [
+      {
+        "chars": 96,
+        "hash": "2caec1ce29b49c37bb36dd1feba20a5772b57ea772473ec884096dc264512613",
+        "reveals": []
+      },
+      {
+        "chars": 135,
+        "hash": "9faafa7ec921eec98f68b284181aa678614a671f99e500c3f66c64a04f20c32e",
+        "reveals": []
+      },
+      {
+        "chars": 129,
+        "hash": "b81830618739fce3b129504bdcb7a41dc6439c4904d82897c6015d7a53de6dac",
+        "reveals": []
+      },
+      {
+        "chars": 160,
+        "hash": "10f7a204df90dc434de3e32969988b97ca3f1d02978f7331b5e1c60cd5bd4dfb",
+        "reveals": []
+      },
+      {
+        "chars": 128,
+        "hash": "4e4b8b9e66d6baa44cce1b1be5c0fc34c332ffbae22aa9f552e3a1e619eb1f19",
+        "reveals": []
+      },
+      {
+        "chars": 33,
+        "hash": "8c37117428edc0db3ce0956894678af27c797e7dce361dff501ff8dd9d62ba95",
+        "reveals": []
+      },
+      {
+        "chars": 120,
+        "hash": "145f26c330272219091ad90d59f029f3f5e41da77c8c9f10981b99fd5127d957",
+        "reveals": []
+      },
+      {
+        "chars": 144,
+        "hash": "1ab5892924213b16a20f71e7e9d7841ebe17be727592d35287685949d9154f07",
+        "reveals": []
+      },
+      {
+        "chars": 91,
+        "hash": "97865e96342c58ceea0f90fc5a2d7966be73ace6d705a6907a0666d69cec3a47",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          7
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 7,
+            "start": 63,
+            "end": 143
+          }
+        ]
+      },
+      {
+        "id": "reject:2",
+        "sentences": [
+          0
+        ],
+        "from": "tempt",
+        "spans": [
+          {
+            "sentence": 0,
+            "start": 18,
+            "end": 58
+          }
+        ]
+      },
+      {
+        "id": "reject:3",
+        "sentences": [
+          8
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 8,
+            "start": 55,
+            "end": 71
+          }
+        ]
+      },
+      {
+        "id": "reject:4",
+        "sentences": [
+          3
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 3,
+            "start": 59,
+            "end": 93
+          }
+        ]
+      },
+      {
+        "id": "reject:5",
+        "sentences": [
+          6
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 6,
+            "start": 0,
+            "end": 76
+          }
+        ]
+      }
+    ]
+  },
+  "2025#32": {
+    "id": "2025#32",
+    "no": 32,
+    "type_id": "R-BLANK",
+    "chars": 949,
+    "sentences": [
+      {
+        "chars": 57,
+        "hash": "53fc32bb4c966fb47be9d8da7049c4243c21a8fd0279fcec04fcb821794a9251",
+        "reveals": []
+      },
+      {
+        "chars": 118,
+        "hash": "e998f4d1d068e31f6efaf3af86a48f2f1c55a402e06f8896b2b5201473260352",
+        "reveals": []
+      },
+      {
+        "chars": 28,
+        "hash": "6af7da9b3599ff5e284e1efaa84efb6e74eee3e69f724e20c0f33c4e157554b3",
+        "reveals": []
+      },
+      {
+        "chars": 42,
+        "hash": "c1ce2bbc2ef2855be6b8c101b0cb2fc239bc290d2f822a736a050001e50a5f07",
+        "reveals": []
+      },
+      {
+        "chars": 68,
+        "hash": "24c9a87dde7a1341c2da023bb46a69b0f2fe9e485ee023866f8b4c73aed87418",
+        "reveals": []
+      },
+      {
+        "chars": 154,
+        "hash": "1bfd339790fff3f66c056bb8d881f31f058cf440db3398d74606cc4e1a0c4fc8",
+        "reveals": []
+      },
+      {
+        "chars": 179,
+        "hash": "f0e4146f1547c95d41ad8767389acac0a4e7c9d11ea0916b5eff510ab6a975ce",
+        "reveals": []
+      },
+      {
+        "chars": 133,
+        "hash": "42c09b72f0838aa32f61a31b86ce0aa25c774f7b4a2b1cd86f23ea615333999a",
+        "reveals": []
+      },
+      {
+        "chars": 162,
+        "hash": "7493b8a6de867f6fbbd858c77cf5db87bfd26fab128de95a1ea6484f70f57453",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          2,
+          3
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 2,
+            "start": 0,
+            "end": 28
+          },
+          {
+            "sentence": 3,
+            "start": 0,
+            "end": 42
+          }
+        ]
+      },
+      {
+        "id": "reject:1",
+        "sentences": [
+          3
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 3,
+            "start": 24,
+            "end": 41
+          }
+        ]
+      },
+      {
+        "id": "reject:3",
+        "sentences": [
+          5
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 5,
+            "start": 4,
+            "end": 35
+          }
+        ]
+      },
+      {
+        "id": "reject:5",
+        "sentences": [
+          6
+        ],
+        "from": "tempt",
+        "spans": [
+          {
+            "sentence": 6,
+            "start": 146,
+            "end": 178
+          }
+        ]
+      }
+    ]
+  },
+  "2025#33": {
+    "id": "2025#33",
+    "no": 33,
+    "type_id": "R-BLANK",
+    "chars": 870,
+    "sentences": [
+      {
+        "chars": 158,
+        "hash": "cc9a8c520e5ddf80a82af4fe4e25adcddf9222c5f97c7b9764d166cec52d578d",
+        "reveals": []
+      },
+      {
+        "chars": 125,
+        "hash": "9e085917972fd3abdd370b0fe883a6e1c2e047c52bd71adccf3d3051840e3b20",
+        "reveals": []
+      },
+      {
+        "chars": 218,
+        "hash": "eb43a268e3012d77fe09660b0635d9948c310bbc080bf2bf4949f35fb5981092",
+        "reveals": []
+      },
+      {
+        "chars": 366,
+        "hash": "78ebb5050b55ccfd023aea3d7154f55b6db19b7a7e8e50d9534eb0438facc648",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          1
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 1,
+            "start": 0,
+            "end": 125
+          }
+        ]
+      },
+      {
+        "id": "reject:1",
+        "sentences": [
+          2
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 2,
+            "start": 159,
+            "end": 172
+          }
+        ]
+      },
+      {
+        "id": "reject:3",
+        "sentences": [
+          1
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 1,
+            "start": 61,
+            "end": 91
+          }
+        ]
+      },
+      {
+        "id": "reject:4",
+        "sentences": [
+          1
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 1,
+            "start": 112,
+            "end": 124
+          }
+        ]
+      },
+      {
+        "id": "reject:5",
+        "sentences": [
+          3
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 3,
+            "start": 98,
+            "end": 128
+          }
+        ]
+      }
+    ]
+  },
+  "2025#34": {
+    "id": "2025#34",
+    "no": 34,
+    "type_id": "R-BLANK",
+    "chars": 1003,
+    "sentences": [
+      {
+        "chars": 31,
+        "hash": "a92afaef325df3c19050f127c9db9f6b9269fa9bbdc9727d0ce85dfeca94463d",
+        "reveals": []
+      },
+      {
+        "chars": 133,
+        "hash": "96afb1d1d91ce6406e5a857077d0e275f3429207e4b0839d33bbe4206214a1fd",
+        "reveals": []
+      },
+      {
+        "chars": 117,
+        "hash": "38c4bf79d9967c0daa7a9663ccb00d2232a9431677fefff0b0dd90cc8056f144",
+        "reveals": []
+      },
+      {
+        "chars": 110,
+        "hash": "a4439129060ffc7a441b567760a8dd05e5a6c160f0520bae1c3019e43c800c6e",
+        "reveals": []
+      },
+      {
+        "chars": 244,
+        "hash": "60cd09a5a3e879653fb5a2644e9fd4f9f3da1b0f6e819862f1b6753cfe7d227d",
+        "reveals": []
+      },
+      {
+        "chars": 137,
+        "hash": "f599e6fd91b1e631d9ce0bc5d89b93e5936d7bc71fc3c89b9ada60089537c3cd",
+        "reveals": []
+      },
+      {
+        "chars": 147,
+        "hash": "37ff33b9c2dd524c50177bc81b2f8edbf8ab64ac9ef001ba74faef5767ff017d",
+        "reveals": []
+      },
+      {
+        "chars": 77,
+        "hash": "91192892c0f7953cfe8b5091b8b90191e0d15fb81ec5d70586dcd00167a0bfa1",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          2
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 2,
+            "start": 0,
+            "end": 117
+          }
+        ]
+      },
+      {
+        "id": "reject:1",
+        "sentences": [
+          3
+        ],
+        "from": "tempt",
+        "spans": [
+          {
+            "sentence": 3,
+            "start": 52,
+            "end": 72
+          }
+        ]
+      },
+      {
+        "id": "reject:3",
+        "sentences": [
+          7
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 7,
+            "start": 42,
+            "end": 76
+          }
+        ]
+      },
+      {
+        "id": "reject:4",
+        "sentences": [
+          6
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 6,
+            "start": 104,
+            "end": 146
+          }
+        ]
+      }
+    ]
+  },
+  "2024#31": {
+    "id": "2024#31",
+    "no": 31,
+    "type_id": "R-BLANK",
+    "chars": 946,
+    "sentences": [
+      {
+        "chars": 199,
+        "hash": "cc15a5bcc0c54497fb0f66be7b6f700e4f1c241f02d76734187c9bd2d5f2149e",
+        "reveals": []
+      },
+      {
+        "chars": 180,
+        "hash": "09b722b9a97911bd1555851a0e88421ef2db052e72fd65b0d6b90ead0361381d",
+        "reveals": []
+      },
+      {
+        "chars": 184,
+        "hash": "2e9761cb6e807c89d5167f3e85d46498ade99d3ac7fd414228451ad7153091a2",
+        "reveals": []
+      },
+      {
+        "chars": 175,
+        "hash": "bb37ba86ca0371f7704e8366a900eb17c9b867c21547eee0520bbd3da958197d",
+        "reveals": []
+      },
+      {
+        "chars": 102,
+        "hash": "2fd6e889212f1a159394366cd60a3e29c84c3289bf8c421b661d1764b8911576",
+        "reveals": []
+      },
+      {
+        "chars": 23,
+        "hash": "8ced41367b129711845ed7072c8039f6410d61a8112287467489f942f236006f",
+        "reveals": []
+      },
+      {
+        "chars": 77,
+        "hash": "e3a00fa8a6d161855001963a4608ec50622208fd672fd68bed3297dbda9a135b",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          6
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 6,
+            "start": 0,
+            "end": 77
+          }
+        ]
+      },
+      {
+        "id": "reject:3",
+        "sentences": [
+          4
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 4,
+            "start": 44,
+            "end": 101
+          }
+        ]
+      },
+      {
+        "id": "reject:4",
+        "sentences": [
+          5
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 5,
+            "start": 0,
+            "end": 21
+          }
+        ]
+      },
+      {
+        "id": "reject:5",
+        "sentences": [
+          1
+        ],
+        "from": "tempt",
+        "spans": [
+          {
+            "sentence": 1,
+            "start": 98,
+            "end": 179
+          }
+        ]
+      }
+    ]
+  },
+  "2024#32": {
+    "id": "2024#32",
+    "no": 32,
+    "type_id": "R-BLANK",
+    "chars": 907,
+    "sentences": [
+      {
+        "chars": 131,
+        "hash": "feb4d616b2c93b36051195724e9ce0f1fa3773844301727905c45539467e771d",
+        "reveals": []
+      },
+      {
+        "chars": 154,
+        "hash": "440f57756082b11bdc11a23fe0500cda7e349f16c65ef2e3005a2ac0e0dbf4a3",
+        "reveals": []
+      },
+      {
+        "chars": 195,
+        "hash": "db7f25dedd8f19d05af8f137a8ebb5a6eb1d358e035c386b2e120c61e46bec77",
+        "reveals": []
+      },
+      {
+        "chars": 104,
+        "hash": "15c8642cace738de94fcfe4d2c8aa0248551ffa793f6bbd42d8776e5b8459b67",
+        "reveals": []
+      },
+      {
+        "chars": 121,
+        "hash": "aa7e63fcb38e607133cd9c5b8cf9014d13356c36a9a73ae8c04432ed14931c0c",
+        "reveals": []
+      },
+      {
+        "chars": 197,
+        "hash": "796914a8d6612e85917b60cb39fc5d8411b319e53a06491271ad73e0f2c35903",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          5
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 5,
+            "start": 0,
+            "end": 70
+          }
+        ]
+      },
+      {
+        "id": "reject:1",
+        "sentences": [
+          4
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 4,
+            "start": 77,
+            "end": 120
+          }
+        ]
+      },
+      {
+        "id": "reject:3",
+        "sentences": [
+          2
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 2,
+            "start": 162,
+            "end": 194
+          }
+        ]
+      },
+      {
+        "id": "reject:4",
+        "sentences": [
+          5
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 5,
+            "start": 51,
+            "end": 70
+          }
+        ]
+      }
+    ]
+  },
+  "2024#33": {
+    "id": "2024#33",
+    "no": 33,
+    "type_id": "R-BLANK",
+    "chars": 927,
+    "sentences": [
+      {
+        "chars": 159,
+        "hash": "e563ad7b74366eecb47e83e83d1300dcbc3d091ba2b220d1f4906c6260a3b392",
+        "reveals": []
+      },
+      {
+        "chars": 38,
+        "hash": "5a9f372cb8e63e8dfe51a0762efbf31c471514081e7e3a6edfc3c4d6a814487d",
+        "reveals": []
+      },
+      {
+        "chars": 173,
+        "hash": "9d620074954eae420f08403ebba6d1cfa5c19367b5e9b014ba90c3f98e0ddc55",
+        "reveals": []
+      },
+      {
+        "chars": 37,
+        "hash": "db9584c9fa8a07f42089fcd39fcc246ddd5ccb97e3df5e4fb6d75f5a2c0238e4",
+        "reveals": []
+      },
+      {
+        "chars": 86,
+        "hash": "bd0db8ab369b584f8ad70596bcbd2a9620097cd0e342ff316086817819fbd9e8",
+        "reveals": []
+      },
+      {
+        "chars": 133,
+        "hash": "1e048e149f1df3823d3978b88e1f2c9ff301352d24579729ce9c162f9c33298e",
+        "reveals": []
+      },
+      {
+        "chars": 295,
+        "hash": "5a86f67dedf464169a006852b63e9de7cd99d3360f9df4fd09103a66371bce3c",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          4
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 4,
+            "start": 0,
+            "end": 86
+          }
+        ]
+      },
+      {
+        "id": "reject:1",
+        "sentences": [
+          1
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 1,
+            "start": 0,
+            "end": 37
+          }
+        ]
+      },
+      {
+        "id": "reject:2",
+        "sentences": [
+          4
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 4,
+            "start": 35,
+            "end": 53
+          }
+        ]
+      },
+      {
+        "id": "reject:3",
+        "sentences": [
+          4
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 4,
+            "start": 28,
+            "end": 53
+          }
+        ]
+      },
+      {
+        "id": "reject:4",
+        "sentences": [
+          2
+        ],
+        "from": "tempt",
+        "spans": [
+          {
+            "sentence": 2,
+            "start": 104,
+            "end": 124
+          }
+        ]
+      }
+    ]
+  },
+  "2024#34": {
+    "id": "2024#34",
+    "no": 34,
+    "type_id": "R-BLANK",
+    "chars": 1078,
+    "sentences": [
+      {
+        "chars": 149,
+        "hash": "50ea1013350a742e374c804e2dd1e04c4e40536ff384a50983c3dbbdf78a07e4",
+        "reveals": []
+      },
+      {
+        "chars": 30,
+        "hash": "0badc87957512b2a66566f19c8c50b35a2059f7f1e22af1e58a56aac3e10ef64",
+        "reveals": []
+      },
+      {
+        "chars": 95,
+        "hash": "350d69fa60cec50a28a3e7b2b467952b72411edc5ddd016353a2a22e72e6dd6b",
+        "reveals": []
+      },
+      {
+        "chars": 234,
+        "hash": "ad3715f2e890fca7e668f107a1b5e3bab4a08efbe9b70851f43a87e0f75bf2c1",
+        "reveals": []
+      },
+      {
+        "chars": 74,
+        "hash": "6544778b274420182f12555f5cab79e70a350915db913f65aee1fa381302b9cf",
+        "reveals": []
+      },
+      {
+        "chars": 189,
+        "hash": "2480fcc7eb87ddd067211d618aa3b2df8f8c65a2076935c07f6b26d291e45b82",
+        "reveals": []
+      },
+      {
+        "chars": 76,
+        "hash": "7d30c57bfcc8009168a1719e0f41768d99b33287c4d8b5cf3feca0c133d5f83e",
+        "reveals": []
+      },
+      {
+        "chars": 224,
+        "hash": "2ffb476cb47c6c9940e34c6f622d6d52f3b2d678457fa929759599a5e5c0d025",
+        "reveals": []
+      }
+    ],
+    "anchors": [
+      {
+        "id": "answer",
+        "sentences": [
+          7
+        ],
+        "from": "answer",
+        "spans": [
+          {
+            "sentence": 7,
+            "start": 43,
+            "end": 141
+          }
+        ]
+      },
+      {
+        "id": "reject:1",
+        "sentences": [
+          2
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 2,
+            "start": 70,
+            "end": 94
+          }
+        ]
+      },
+      {
+        "id": "reject:2",
+        "sentences": [
+          5
+        ],
+        "from": "tempt",
+        "spans": [
+          {
+            "sentence": 5,
+            "start": 2,
+            "end": 17
+          }
+        ]
+      },
+      {
+        "id": "reject:3",
+        "sentences": [
+          0
+        ],
+        "from": "reject",
+        "spans": [
+          {
+            "sentence": 0,
+            "start": 13,
+            "end": 52
+          }
+        ]
+      }
+    ]
+  }
+}

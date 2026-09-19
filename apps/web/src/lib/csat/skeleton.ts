@@ -15,7 +15,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import type { SkeletonSentence } from './passage-skeleton'
+import type { AnchorOrigin, SkeletonSentence } from './passage-skeleton'
 
 const DATA_DIR = path.join(process.cwd(), 'src/lib/csat/skeleton-data')
 
@@ -29,7 +29,7 @@ export interface ItemSkeleton {
   chars: number
   sentences: SkeletonSentence[]
   /** 앵커가 어느 문장에 붙었는가. 빈 배열이면 «근거를 못 찾았다». */
-  anchors: { id: string; sentences: number[] }[]
+  anchors: { id: string; sentences: number[]; from?: AnchorOrigin }[]
 }
 
 interface ExamFile {

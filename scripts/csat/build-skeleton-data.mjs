@@ -22,7 +22,9 @@
 //
 // ── 앵커 ──────────────────────────────────────────────────────────────
 //   · `answer_locus.quote`            — 정답 근거. body_ok=true 589/589 로 찾힌다
-//   · `choice_analysis[].how_to_reject` 속 영어 조각 — 오답 배제 근거. 1,119개가 붙는다
+//   · `choice_analysis[].how_to_reject` 속 영어 조각 — 오답 **배제** 근거(`from: 'reject'`)
+//   · 못 찾으면 `why_tempting` 속 영어 조각 — 그 자리는 이 선지를 지우지 않고 **끌어당긴다**
+//     (`from: 'tempt'`). 화면이 다르게 말해야 하므로 출처를 함께 굽는다
 //   · `sentence_index` 는 **쓰지 않는다** — 일치율 65% 라 3문항 중 1문항이 틀린 문장을
 //     칠한다(`scripts/csat/anchor-inventory.mjs` 머리말 참조)
 //
@@ -100,7 +102,7 @@ function fragments(text) {
 //
 // 규칙은 하나다: **새 화면은 어느 지문에서도 지금보다 더 드러내지 않는다.**
 // 지금 배포 중인 화면(`learner.ts` 의 `evidence_quote` 단독)이 실제로 얼마나 드러내는지
-// 재서 그 최대치를 예산으로 쓴다 — 실측 2026-09-15: **전체 9.6% · 최대 37.1%(2022#25)**.
+// **매번 다시 재서**(1차 통과) 그 최대치를 예산으로 쓴다. 손으로 고른 수는 없다.
 //
 // 예산을 넘으면 **오답 조각부터 긴 것을 뺀다.** 정답 인용문은 손대지 않는다 — 그건 이미
 // 배포 중인 동작이고, 줄이면 기존 화면의 퇴행이다. 오답 조각은 «어디인지» 를 가리키는
@@ -109,7 +111,12 @@ function fragments(text) {
 // ⚠️ 예산이 없으면 평균 뒤에 최악이 숨는다. 실측: 전체 18.0% 인데 한 문항은 **59.5%** 였다
 //    (내용일치 유형은 선지 다섯이 각기 다른 줄에 대응하는 것이 설계라 다섯을 합치면 지문
 //     대부분이 덮인다). 평균만 보면 영영 안 보인다.
-const BUDGET = 0.371
+// ⚠️ **임계값을 손으로 박지 않는다 — 산출물에서 유도한다.**
+//    2026-09-15 에는 `0.371` 을 박아 두었는데, 그것은 그날 잰 값의 **스냅샷**이었다.
+//    기출이 늘고 지문이 복구되면서 실제 「answer 단독 최대」는 0.36786 으로 **내려갔고**,
+//    박아 둔 수는 그만큼 헐거워져 한 문항이 0.36882 로 상한을 넘었다. 회귀
+//    (`skeleton-data.test.ts`)는 같은 값을 **데이터에서 유도**하므로 그것이 잡아냈다 —
+//    즉 검사는 옳았고 **굽는 쪽만 옛날 숫자를 들고 있었다.** 그래서 여기서도 유도한다.
 const REJECT_MAX = 35
 
 /** 낱말 경계에서 자른다 — 말 중간에서 끊으면 표지 구실을 못 한다. */
@@ -124,8 +131,8 @@ function clip(quote, max) {
  * 예산 안으로 앵커를 줄인다. 정답은 그대로, 오답은 `REJECT_MAX` 로 자르고,
  * 그래도 넘으면 **긴 오답부터** 뺀다. 못 지키면 정답만 남긴다(= 현행과 같아진다).
  */
-function fitBudget(anchors, passageLen) {
-  const budget = Math.floor(passageLen * BUDGET)
+function fitBudget(anchors, passageLen, ceiling) {
+  const budget = Math.floor(passageLen * ceiling)
   const answer = anchors.filter((a) => a.id === 'answer')
   const rejects = anchors
     .filter((a) => a.id !== 'answer')
@@ -136,7 +143,15 @@ function fitBudget(anchors, passageLen) {
   const kept = []
   // 짧은 것부터 담아 **개수를 최대화**한다 — 앵커 하나가 선지 하나이므로,
   // 긴 것 하나보다 짧은 것 여럿이 학습자에게 낫다.
-  for (const r of [...rejects].reverse()) {
+  //
+  // ⚠️ **`reject` 를 먼저 다 담고 나서 `tempt` 를 담는다.** 섞어서 길이만으로 고르면
+  //    「끌리는 자리」가 「지우는 근거」를 예산에서 밀어낼 수 있고, 그건 새 기능이 기존
+  //    앵커를 조용히 빼앗는 것이다 — 화면은 멀쩡해 보이고 대응만 약해진다.
+  const shortestFirst = (xs) => [...xs].reverse()
+  for (const r of [
+    ...shortestFirst(rejects.filter((x) => x.from !== 'tempt')),
+    ...shortestFirst(rejects.filter((x) => x.from === 'tempt')),
+  ]) {
     if (used + r.quote.length > budget) continue
     kept.push(r)
     used += r.quote.length
@@ -149,6 +164,29 @@ function allStrings(v, out = []) {
   else if (Array.isArray(v)) for (const x of v) allStrings(x, out)
   else if (v && typeof v === 'object') for (const x of Object.values(v)) allStrings(x, out)
   return out
+}
+
+// ── 1차 통과: 상한을 잰다 ────────────────────────────────────────────
+//
+// 배포 중인 화면(`learner.ts` 의 `evidence_quote`)이 어느 지문에서 가장 많이 드러내는가.
+// **인용문 길이가 아니라 골격이 실제로 칠하는 글자 수**로 잰다 — 정규화 때문에 둘이 다르고,
+// 회귀도 칠해진 글자로 재기 때문이다(다르게 재면 상한이 미묘하게 어긋난다).
+let CEILING = 0
+let ceilingId = ''
+for (const it of items) {
+  const a = latest.get(it.id)
+  if (!a?.answer_locus?.quote || !it.passage || !it.body_ok) continue
+  const { skeleton } = buildSkeleton(it.passage, [{ id: 'answer', quote: a.answer_locus.quote, from: 'answer' }])
+  const shown = skeleton.sentences.reduce((b, sn) => b + sn.reveals.reduce((c, r) => c + r.text.length, 0), 0)
+  const ratio = shown / skeleton.chars
+  if (ratio > CEILING) {
+    CEILING = ratio
+    ceilingId = it.id
+  }
+}
+if (!(CEILING > 0)) {
+  console.error('상한을 못 쟀다 — answer 앵커가 붙는 문항이 하나도 없다. 아무것도 쓰지 않는다.')
+  process.exit(1)
 }
 
 const byExam = new Map()
@@ -173,18 +211,30 @@ for (const it of items) {
   }
 
   const anchors = []
-  if (a.answer_locus?.quote) anchors.push({ id: 'answer', quote: a.answer_locus.quote })
+  if (a.answer_locus?.quote) anchors.push({ id: 'answer', quote: a.answer_locus.quote, from: 'answer' })
   for (const ch of a.choice_analysis || []) {
-    if (!ch.how_to_reject || ch.n == null) continue
-    const fr = fragments(ch.how_to_reject).find((f) => findQuote(it.passage, f))
-    if (fr) anchors.push({ id: `reject:${ch.n}`, quote: fr })
+    if (ch.n == null) continue
+    // ① **「지우는 근거」가 먼저다.** 그 자리가 이 선지를 버린다 — 가장 강한 대응이다.
+    const fr = ch.how_to_reject ? fragments(ch.how_to_reject).find((f) => findQuote(it.passage, f)) : null
+    if (fr) {
+      anchors.push({ id: `reject:${ch.n}`, quote: fr, from: 'reject' })
+      continue
+    }
+    // ② 못 찾으면 **「끌리는 이유」**에서 찾는다. 그 자리는 이 선지를 지우지 않는다 —
+    //    이 선지로 **끌어당긴다.** 그래서 `from` 으로 갈라 두고 화면이 다르게 말한다.
+    //    (같은 말로 칠하면 학습자는 «여기가 지우는 근거» 로 읽는다. 조용한 거짓말이다.)
+    //
+    //    정답 선지에는 붙이지 않는다 — `reject:n` 은 «버릴 것» 의 id 다.
+    if (ch.verdict === 'correct') continue
+    const fr2 = ch.why_tempting ? fragments(ch.why_tempting).find((f) => findQuote(it.passage, f)) : null
+    if (fr2) anchors.push({ id: `reject:${ch.n}`, quote: fr2, from: 'tempt' })
   }
   if (!anchors.length) {
     skippedNoAnchor += 1
     continue
   }
 
-  const fitted = fitBudget(anchors, it.passage.length)
+  const fitted = fitBudget(anchors, it.passage.length, CEILING)
   const { skeleton, placements } = buildSkeleton(it.passage, fitted)
 
   // 유출 검사 — 정규화해서 견준다.
@@ -228,7 +278,7 @@ console.log(`\n골격 ${built}문항 · 앵커 ${anchorsTotal}개 · 회차 ${by
 console.log(`  지문 잘림(body_ok=false)으로 건너뜀   ${skippedNoBody}`)
 console.log(`  앵커가 하나도 안 붙어 건너뜀          ${skippedNoAnchor}`)
 console.log(`  드러난 글자 / 지문 글자               ${revealed} / ${passageChars} (${pct(revealed, passageChars)}%)`)
-console.log(`  한 문항 최대 노출                     ${(worstRatio * 100).toFixed(1)}% (${worstId})  [예산 ${(BUDGET * 100).toFixed(1)}%]`)
+console.log(`  한 문항 최대 노출                     ${(worstRatio * 100).toFixed(1)}% (${worstId})  [상한 ${(CEILING * 100).toFixed(2)}% — answer 단독 최대, ${ceilingId}]`)
 console.log(`  예산 때문에 뺀 오답 앵커              ${droppedByBudget}`)
 
 if (leaks.length) {

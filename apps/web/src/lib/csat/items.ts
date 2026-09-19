@@ -13,6 +13,9 @@ import 'server-only'
 
 import { createCsatClient, selectAllPages } from './client'
 import { auditAnalysis, summarizeAudit, type CsatItemAudit, type RawAnalysis } from './items-fold'
+import { loadItemSkeleton, type ItemSkeleton } from './skeleton'
+import verifiedAnchors from './dissect-anchors.json'
+import { DISSECTION_METADATA } from './dissect-metadata'
 
 export type { CsatItemAudit } from './items-fold'
 
@@ -88,6 +91,10 @@ export async function loadCsatItemAudit(): Promise<{ page: CsatItemAuditPage | n
 }
 
 export interface CsatItemFull {
+  anchors?: { id: string; sentences: number[] }[]
+  metadata?: { topic: string; format: string; formula: string } | null
+  history?: { version: number; status: string; created_at: string; updated_at: string }[]
+  historyError?: string | null
   item_id: string
   exam_label: string
   no: number
@@ -111,7 +118,7 @@ export interface CsatItemFull {
 export async function loadCsatItemFull(itemId: string): Promise<{ item: CsatItemFull | null; error: string | null }> {
   const db = createCsatClient()
 
-  const [itemRes, analysisRes] = await Promise.all([
+  const [itemRes, analysisRes, historyRes] = await Promise.all([
     db.from('csat_items').select('id, exam_id, no, type_id, points, answer').eq('id', itemId).maybeSingle(),
     db
       .from('csat_item_analyses')
@@ -122,6 +129,8 @@ export async function loadCsatItemFull(itemId: string): Promise<{ item: CsatItem
       .eq('status', 'published')
       .order('version', { ascending: false })
       .limit(1),
+    selectAllPages<{ version: number; status: string; created_at: string; updated_at: string }>((from, to) =>
+      db.from('csat_item_analyses').select('version, status, created_at, updated_at').eq('item_id', itemId).order('version', { ascending: false }).range(from, to)),
   ])
 
   if (itemRes.error) return { item: null, error: itemRes.error.message }
@@ -140,6 +149,10 @@ export async function loadCsatItemFull(itemId: string): Promise<{ item: CsatItem
 
   return {
     item: {
+      anchors: ((verifiedAnchors as Record<string, ItemSkeleton>)[itemId] ?? loadItemSkeleton(itemId))?.anchors.map(a => ({ id: a.id, sentences: a.sentences })) ?? [],
+      metadata: DISSECTION_METADATA[itemId] ?? null,
+      history: historyRes.rows,
+      historyError: historyRes.error,
       item_id: it.id,
       exam_label: (examRes.data as { label: string } | null)?.label ?? it.exam_id,
       no: it.no,

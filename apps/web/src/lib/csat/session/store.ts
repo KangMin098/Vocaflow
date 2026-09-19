@@ -12,12 +12,32 @@ import type { CachedPaper } from '@/lib/csat/reflow/types'
 
 import { EMPTY_RECORD, type Attempt, type LearnerRecord } from './model'
 import { mergeRecord, unsynced } from './sync'
+import { emptyDissectionRecord, type DissectionRecord } from '../dissect'
 
 const DB_NAME = 'vocaflow-csat'
 const DB_VERSION = 1
 const S_RECORD = 'record'
 const S_PAPERS = 'papers'
 const RECORD_KEY = 'me'
+const DISSECTION_KEY = 'dissection-v1'
+let dissectionMemory: DissectionRecord | null = null
+
+/** Separate key: old answer accuracy is never relabeled as prediction accuracy. */
+export async function loadDissectionRecord(): Promise<DissectionRecord> {
+  const stored = await run<DissectionRecord | undefined>(S_RECORD, 'readonly', s => s.get(DISSECTION_KEY))
+  if (stored?.version === 1) return stored
+  if (!dissectionMemory) {
+    const seed = globalThis.crypto?.getRandomValues(new Uint32Array(1))[0] ?? Math.floor(Math.random() * 4294967296)
+    dissectionMemory = emptyDissectionRecord(seed)
+  }
+  return dissectionMemory
+}
+
+export async function saveDissectionRecord(record: DissectionRecord): Promise<boolean> {
+  dissectionMemory = record
+  const result = await run(S_RECORD, 'readwrite', s => s.put(record, DISSECTION_KEY))
+  return result !== null
+}
 
 const memory = { record: null as LearnerRecord | null, papers: new Map<string, CachedPaper>() }
 
@@ -47,9 +67,10 @@ async function run<T>(store: string, mode: IDBTransactionMode, fn: (s: IDBObject
     try {
       const tx = db.transaction(store, mode)
       const req = fn(tx.objectStore(store))
-      req.onsuccess = () => resolve(req.result)
       req.onerror = () => resolve(null)
-      tx.oncomplete = () => db.close()
+      tx.oncomplete = () => { resolve(req.result); db.close() }
+      tx.onabort = () => { resolve(null); db.close() }
+      tx.onerror = () => resolve(null)
     } catch {
       resolve(null)
     }
@@ -136,6 +157,7 @@ export async function cachedExamIds(version: number): Promise<string[]> {
 
 /** 테스트·「기록 지우기」용 — 기기와 서버 둘 다 */
 export async function clearAll(): Promise<void> {
+  dissectionMemory = null
   memory.record = null
   memory.papers.clear()
   try {

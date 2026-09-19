@@ -1,246 +1,97 @@
+// apps/web/src/components/csat/session/SessionRunner.tsx
 'use client'
 
-// apps/web/src/components/csat/session/SessionRunner.tsx
-//
-// **세션 한 판 — 문항을 하나씩 넘기고, 끝나면 한 줄로 닫는다.**
-//
-//   문항 → (문제지가 기기에 없으면 그 자리에서 받기/놓기) → ①②③ → 기록 반영 → 다음 문항
-//   마지막 뒤: 「오늘 끝 · 2/3 정답 · 다음 복습 1문항 · 3일 뒤」 + [홈으로] [한 세트 더]
-//
-// 세션 구성은 URL(`?set=…&k=…`)에 실려 온다 — 새로 고침해도 같은 문항이다. 없으면 여기서 짠다.
-// 기록은 문항마다 곧바로 저장한다 — 중간에 닫아도 푼 것은 남는다.
-
-import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useRef, useState } from 'react'
-
+import { useEffect, useRef, useState } from 'react'
 import { track } from '@/lib/analytics/client'
+import { composeDissection, recordDecision, type DissectionCatalog, type DissectionItem, type DissectionRecord, type Prediction } from '@/lib/csat/dissect'
 import { cropOf } from '@/lib/csat/reflow/read-paper'
 import { REFLOW_VERSION } from '@/lib/csat/reflow/reflow'
 import type { CachedPaper } from '@/lib/csat/reflow/types'
-import type { LearnerCatalog } from '@/lib/csat/session/catalog'
-import {
-  applyResult,
-  composeSession,
-  type LearnerRecord,
-  type SessionSlot,
-  type SlotKind,
-} from '@/lib/csat/session/model'
-import { cachedExamIds, loadPaper, loadRecord, saveRecord } from '@/lib/csat/session/store'
-
-import { ItemScreen, type ItemResult } from './ItemScreen'
+import { cachedExamIds, loadDissectionRecord, saveDissectionRecord, loadPaper } from '@/lib/csat/session/store'
 import { PaperDrop } from './PaperDrop'
-import { PRIMARY, sessionHref } from './SessionHome'
+import { ItemScreen } from './ItemScreen'
+import { AnalysisReading } from './AnalysisReading'
+import { toItemSlug } from '@/lib/csat/item-slug'
+import styles from './session.module.css'
 
-const DAY = 86_400_000
-
-export function SessionRunner({
-  catalog,
-  initial,
-}: {
-  catalog: LearnerCatalog
-  /** URL 로 받은 세션 — 서버가 후보에 있는지 확인한 것만 온다 */
-  initial: { id: string; kind: SlotKind }[] | null
-}) {
-  const router = useRouter()
-  const [slots, setSlots] = useState<SessionSlot[] | null>(null)
+export function SessionRunner({ catalog, initial, formulaTag, explore, resume }: { catalog: DissectionCatalog; initial: string[]; formulaTag?: string; explore?: string; resume?: boolean }) {
+  const [reading, setReading] = useState(Boolean(explore))
+  const [record, setRecord] = useState<DissectionRecord | null>(null)
+  const recordRef = useRef<DissectionRecord | null>(null)
+  const [slots, setSlots] = useState<DissectionItem[]>([])
   const [index, setIndex] = useState(0)
-  const [record, setRecord] = useState<LearnerRecord | null>(null)
+  const [pairSeen, setPairSeen] = useState(false)
+  const [loci, setLoci] = useState<Record<string, string>>({})
   const [paper, setPaper] = useState<CachedPaper | null | 'missing'>(null)
-  const [results, setResults] = useState<ItemResult[]>([])
-  const started = useRef(Date.now())
-  const topRef = useRef<HTMLDivElement | null>(null)
-
-  // 세션 준비 — URL 세션 또는 여기서 짜기
+  const [memoryOnly, setMemoryOnly] = useState(false)
+  const startCounts = useRef({ predictions: 0, formulas: 0, families: new Set<string>() })
+  const saves = useRef(Promise.resolve())
   useEffect(() => {
     let alive = true
-    void (async () => {
-      const rec = await loadRecord()
+    void Promise.all([loadDissectionRecord(), cachedExamIds(REFLOW_VERSION)]).then(([rec, cached]) => {
       if (!alive) return
-      setRecord(rec)
-      const byId = new Map(catalog.items.map((i) => [i.id, i]))
-      const fromUrl = (initial ?? [])
-        .map((s) => ({ kind: s.kind, item: byId.get(s.id) }))
-        .filter((s): s is SessionSlot => Boolean(s.item))
-      if (fromUrl.length) {
-        setSlots(fromUrl)
-      } else {
-        const cached = await cachedExamIds(REFLOW_VERSION)
-        setSlots(composeSession(catalog, rec, new Date(), cached).slots)
-      }
-    })()
-    return () => {
-      alive = false
-    }
-  }, [catalog, initial])
-
-  const current = slots && index < slots.length ? slots[index] : null
-
-  // 지금 문항의 문제지
+      recordRef.current = rec; setRecord(rec)
+      startCounts.current = { predictions: rec.predictions.length, formulas: rec.formulas.length, families: new Set(rec.predictions.flatMap(p => p.family ? [p.family] : [])) }
+      if (explore) { const siblings = catalog.items.filter(i => i.type_id === catalog.items.find(i => i.id === explore)?.type_id); setSlots(siblings); setIndex(Math.max(0, siblings.findIndex(i => i.id === explore))); const inspected = { ...rec, inspected: [...new Set([...(rec.inspected ?? []), explore])] }; recordRef.current = inspected; setRecord(inspected); saves.current = saves.current.then(async () => { if (!await saveDissectionRecord(inspected)) setMemoryOnly(true) }); return }
+      const fromUrl = (resume && rec.active ? rec.active.items : initial).map(id => catalog.items.find(i => i.id === id)).filter((i): i is DissectionItem => Boolean(i))
+      const valid = fromUrl.length === 3 && new Set(fromUrl.map(i => i.id)).size === 3 && new Set(fromUrl.map(i => i.type_id)).size === 1 && fromUrl[0].topic !== fromUrl[1].topic
+      setSlots(valid ? fromUrl : composeDissection(catalog, rec, Date.now(), cached, formulaTag))
+      if (resume && rec.active && valid) { setIndex(rec.active.index); setPairSeen(rec.active.pairSeen); setLoci(rec.active.loci) }
+    })
+    return () => { alive = false }
+  }, [catalog, initial, formulaTag, explore, resume])
+  const current = slots[index]
   useEffect(() => {
     if (!current) return
-    let alive = true
-    setPaper(null)
-    void loadPaper(current.item.exam_id, REFLOW_VERSION).then((p) => {
-      if (alive) setPaper(p ?? 'missing')
-    })
-    return () => {
-      alive = false
-    }
+    let alive = true; setPaper(null)
+    void loadPaper(current.exam_id, REFLOW_VERSION).then(p => { if (alive) setPaper(p ?? 'missing') })
+    return () => { alive = false }
   }, [current])
-
-  const done = useCallback(
-    async (r: ItemResult) => {
-      if (!current || !record) return
-      const next = applyResult(record, { item: current.item, ...r }, new Date())
-      setRecord(next)
-      await saveRecord(next)
-      const all = [...results, r]
-      setResults(all)
-      if (slots && index + 1 >= slots.length) {
-        track({
-          name: 'csat_session_finished',
-          props: {
-            total: all.length,
-            correct: all.filter((x) => x.correct === true).length,
-            confused: all.filter((x) => x.confused).length,
-            seconds: Math.round((Date.now() - started.current) / 1000),
-          },
-        })
-      }
-      setIndex((i) => i + 1)
-      // 새 문항은 맨 위에서 — 포커스도 옮긴다(스크린리더가 새 문항을 읽게)
-      window.scrollTo({ top: 0 })
-      window.setTimeout(() => topRef.current?.focus(), 0)
-    },
-    [current, index, record, results, slots],
-  )
-
-  if (!slots || !record) {
-    return <p className="text-[15px] text-[var(--t3)]" aria-busy="true">세션을 준비하고 있어요…</p>
+  const persist = (next: DissectionRecord) => {
+    recordRef.current = next; setRecord(next)
+    saves.current = saves.current.then(async () => { if (!await saveDissectionRecord(next)) setMemoryOnly(true) })
   }
-
-  if (!slots.length) {
-    return (
-      <div className="flex flex-col gap-4">
-        <p className="break-keep text-[17px] text-[var(--t1)]">오늘 풀 문항을 아직 못 골랐어요.</p>
-        <Link href="/csat" className={PRIMARY}>
-          홈으로
-        </Link>
-      </div>
-    )
+  const predict = (p: Prediction) => {
+    if (!recordRef.current || recordRef.current.inspected?.includes(p.item)) return
+    persist({ ...recordRef.current, predictions: [...recordRef.current.predictions, p] })
+    track({ name: 'csat_session_explained', props: { kind: p.step === 1 ? 'evidence' : p.step === 2 ? 'reject' : 'more' } })
   }
-
+  useEffect(() => {
+    if (!recordRef.current || !slots.length || explore) return
+    const next = { ...recordRef.current, active: index < slots.length ? { items: slots.map(i => i.id), index, pairSeen, loci } : undefined }
+    recordRef.current = next
+    saves.current = saves.current.then(async () => { if (!await saveDissectionRecord(next)) setMemoryOnly(true) })
+  }, [index, slots, pairSeen, loci, explore])
+  if (!record) return <p aria-busy="true" className={styles.quiet}>해부할 문항을 여는 중…</p>
+  if (!slots.length) return <section className={styles.empty}><p>이 공식으로 대조할 문항을 준비하고 있어요.</p><Link className={styles.primary} href="/csat">홈으로</Link></section>
+  if (!explore && !reading && index === 2 && !pairSeen) return <section className={styles.pair} data-testid="pair-comparison"><p className={styles.eyebrow}>두 문항을 나란히 기억해 봅니다</p><h1>같은 유형,<br />어디가 달랐나요?</h1><dl><dt>같았던 것</dt><dd>{slots[0].formula === slots[1].formula ? slots[0].formula : '같은 유형에서도 근거를 연결하는 방식은 달랐어요.'}</dd><dt>달랐던 것</dt><dd>{slots[0].topic} / {slots[1].topic}<br />{slots[0].format} / {slots[1].format}<br />근거 자리 · {loci[slots[0].id]} / {loci[slots[1].id]}</dd></dl><p className={styles.quiet}>마지막 한 문항에서 직접 확인해 보세요.</p><button className={styles.primary} onClick={() => { setPairSeen(true); window.scrollTo(0, 0) }}>다른 지문에서 확인하기</button></section>
   if (!current) {
-    return (
-      <Finish
-        record={record}
-        results={results}
-        onMore={async () => {
-          const cached = await cachedExamIds(REFLOW_VERSION)
-          const plan = composeSession(catalog, record, new Date(), cached)
-          track({
-            name: 'csat_session_started',
-            props: {
-              size: plan.slots.length,
-              review: plan.slots.some((s) => s.kind === 'review'),
-              needed: plan.exams.length,
-              cached: plan.exams.filter((e) => cached.includes(e)).length,
-            },
-          })
-          setSlots(plan.slots)
-          setIndex(0)
-          setResults([])
-          started.current = Date.now()
-          router.replace(sessionHref(plan))
-        }}
-      />
-    )
+    const predictions = record.predictions.slice(startCounts.current.predictions)
+    const families = [...new Set(predictions.flatMap(p => p.family ? [p.family] : []))].filter(f => !startCounts.current.families.has(f))
+    return <section className={styles.finish} data-testid="finish"><p className={styles.eyebrow}>오늘의 해부</p><h1>출제자의 수를<br />한 번 더 읽었어요.</h1><p>예측 {predictions.filter(p => p.hit).length}/{predictions.length} 적중 · 공식 +{record.formulas.length - startCounts.current.formulas} · 새 계열 {families.length}</p>{memoryOnly && <p role="status">기기 저장이 막혀 이번 창을 닫으면 기록이 사라져요.</p>}<Link href="/csat" className={styles.primary}>홈으로</Link><Link href="/csat/dissect" className={styles.textButton} onClick={() => window.location.assign('/csat/dissect')}>한 유형 더</Link></section>
   }
-
-  const typeName = catalog.types.find((t) => t.id === current.item.type_id)?.name ?? current.item.type_id
-  const reflow = paper && paper !== 'missing' ? paper.items.find((i) => i.no === current.item.no) ?? null : null
-
-  return (
-    <div ref={topRef} tabIndex={-1} className="outline-none">
-      {paper === null ? (
-        <p className="text-[15px] text-[var(--t3)]" aria-busy="true">문제지를 여는 중…</p>
-      ) : paper === 'missing' || !reflow ? (
-        <section aria-labelledby="need-paper-h" className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
-          <p className="font-mono text-[14px] tabular-nums text-[var(--t3)]">
-            {index + 1} / {slots.length}
-          </p>
-          <h1 id="need-paper-h" className="break-keep text-[20px] font-[700] text-[var(--t1)]">
-            {catalog.exams[current.item.exam_id]?.label ?? current.item.exam_id} {current.item.no}번
-          </h1>
-          <PaperDrop
-            catalog={catalog}
-            needed={[current.item.exam_id]}
-            compact
-            onLoaded={(p) => {
-              if (p.exam_id === current.item.exam_id) setPaper(p)
-            }}
-          />
-        </section>
-      ) : (
-        <ItemScreen
-          key={current.item.id}
-          item={current.item}
-          typeName={typeName}
-          seq={index + 1}
-          total={slots.length}
-          paper={reflow}
-          crop={cropOf(current.item.exam_id, current.item.no)}
-          review={current.kind === 'review'}
-          onDone={(r) => void done(r)}
-        />
-      )}
-    </div>
-  )
-}
-
-function Finish({ record, results, onMore }: { record: LearnerRecord; results: ItemResult[]; onMore: () => void }) {
-  const correct = results.filter((r) => r.correct === true).length
-  const now = Date.now()
-  const upcoming = record.reviews
-    .map((r) => Date.parse(r.due))
-    .filter((t) => t > now)
-    .sort((a, b) => a - b)
-  const nextDays = upcoming.length ? Math.max(1, Math.round((upcoming[0] - now) / DAY)) : null
-  const nextCount = nextDays === null ? 0 : upcoming.filter((t) => Math.round((t - now) / DAY) <= nextDays).length
-
-  return (
-    <section aria-labelledby="finish-h" className="flex flex-col gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5" data-testid="finish">
-      <h1 id="finish-h" tabIndex={-1} className="font-editorial text-[24px] font-[600] text-[var(--t1)]">
-        오늘 끝
-      </h1>
-      <p className="break-keep text-[17px] text-[var(--t2)]">
-        <span className="font-mono tabular-nums text-[var(--t1)]">
-          {correct}/{results.length}
-        </span>{' '}
-        정답
-        {nextDays !== null ? (
-          <>
-            {' · '}다음 복습 <span className="font-mono tabular-nums text-[var(--t1)]">{nextCount}</span>문항 ·{' '}
-            {nextDays === 1 ? '내일' : `${nextDays}일 뒤`}
-          </>
-        ) : null}
-      </p>
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-        <Link href="/csat" className={PRIMARY} data-testid="home">
-          홈으로
-        </Link>
-        <button
-          type="button"
-          onClick={onMore}
-          className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 text-[17px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--t2)] active:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ju)] motion-reduce:transition-none"
-          data-testid="more-set"
-        >
-          한 세트 더
-          <ArrowRight aria-hidden className="h-5 w-5" />
-        </button>
-      </div>
-    </section>
-  )
+  const reflow = paper && paper !== 'missing' ? paper.items.find(i => i.no === current.no) : null
+  const transferSource = record.queue.find(q => q.due <= Date.now() && q.tag === current.formulaTag && q.source !== current.id)
+  const transferFormula = transferSource ? catalog.items.find(i => i.id === transferSource.source)?.formula : slots[0].formula
+  return <>
+    <nav className={styles.contextNav} aria-label="기출 학습 위치">
+      <Link className={styles.textButton} href="/csat">학습 허브</Link>
+      <span>{catalog.types.find(t => t.id === current.type_id)?.name} · {current.exam_id} {current.no}번</span>
+      <details className={styles.typeGroup}><summary>다른 문항 보기</summary>{catalog.items.map(other => <Link key={other.id} className={styles.exploreRow} aria-current={other.id === current.id ? 'page' : undefined} href={`/csat/dissect?item=${toItemSlug(other.id)}`}>{other.exam_id} · {other.no}번 · {other.topic}</Link>)}</details>
+      {index > 0 && <Link className={styles.textButton} href={`/csat/dissect?item=${toItemSlug(slots[index - 1].id)}`}>이전 문항</Link>}
+      {index + 1 < slots.length && <Link className={styles.textButton} href={`/csat/dissect?item=${toItemSlug(slots[index + 1].id)}`}>다음 문항</Link>}
+      {!reading && <button className={styles.textButton} onClick={() => { if (recordRef.current) persist({ ...recordRef.current, inspected: [...new Set([...(recordRef.current.inspected ?? []), current.id])] }); setReading(true) }}>분석 바로 읽고 듣기</button>}
+      {reading && !explore && <button className={styles.textButton} onClick={() => setReading(false)}>예측 학습으로 돌아가기</button>}
+    </nav>
+    {!reading && record.inspected?.includes(current.id) && <p className={styles.quiet}>분석을 먼저 읽은 문항이에요. 다시 예측할 수 있지만 적중 통계에는 넣지 않아요.</p>}
+    {memoryOnly && <p className={styles.quiet} role="status">기기 저장이 막혀 이번 창에서만 기록을 보관해요.</p>}
+    {paper === null ? <p aria-busy="true" className={styles.quiet}>문제지를 여는 중…</p> : !reflow ? <section className={styles.empty}><h1>{catalog.exams[current.exam_id]?.label} · {current.no}번</h1><PaperDrop catalog={catalog} needed={[current.exam_id]} compact onLoaded={p => { if (p.exam_id === current.exam_id) setPaper(p) }} /></section> : reading ? <AnalysisReading key={current.id} item={current} paper={reflow} onReadAgain={() => setPaper('missing')} /> : <ItemScreen key={current.id} draft={recordRef.current?.drafts?.[current.id]} onDraft={draft => { if (recordRef.current) persist({ ...recordRef.current, drafts: { ...recordRef.current.drafts, [current.id]: draft } }) }} item={current} seq={index + 1} paper={reflow} crop={cropOf(current.exam_id, current.no)} seed={record.seed} typeName={catalog.types.find(t => t.id === current.type_id)?.name ?? '기출'} transferFormula={transferFormula} onReadAgain={() => setPaper('missing')} onPrediction={predict} onDone={async (decision, evidenceLocus) => {
+      if (!recordRef.current) return
+      const next = recordDecision(recordRef.current, current, decision, Date.now(), catalog.items)
+      if (next.drafts) { next.drafts = { ...next.drafts }; delete next.drafts[current.id] }
+      setLoci(previous => ({ ...previous, [current.id]: evidenceLocus })); persist(next); await saves.current
+      setIndex(i => i + 1); window.scrollTo(0, 0)
+    }} />}
+  </>
 }

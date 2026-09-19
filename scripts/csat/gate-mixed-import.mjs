@@ -13,8 +13,10 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import crypto from 'node:crypto'
+import { isDeepStrictEqual } from 'node:util'
 
-import { hardReject, purposeOf, decide, PURPOSE_RULE } from './gate-rules.mjs'
+import { hardReject, purposeOf, decide, PURPOSE_RULE, RULES_VERSION, CODES_VERSION, HARMFUL, UNFIT } from './gate-rules.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -22,6 +24,55 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
 }
 const COMMIT = process.argv.includes('--commit')
+// Canonical scoped source judgment lane. Legacy title/book outputs remain readable,
+// but must be rebound to the reviewed UUID, revision and full-body digest to write.
+const inputIndex = process.argv.indexOf('--input')
+if (inputIndex >= 0) {
+  const file = process.argv[inputIndex + 1]
+  if (!file || file.startsWith('--')) throw new Error('Missing --input file')
+  const reviews = JSON.parse(fs.readFileSync(file, 'utf8'))
+  const blockedGenres = new Set([...HARMFUL, ...UNFIT, 'poetry-drama'])
+  if (!Array.isArray(reviews) || !reviews.length || reviews.length > 100) throw new Error('Scoped review requires 1..100 rows')
+  const seenIds = new Set()
+  for (const r of reviews) {
+    if (!/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(r.id ?? '') || seenIds.has(r.id)) throw new Error('Invalid or duplicate review ID')
+    seenIds.add(r.id)
+    if (!['use','narrative','reject'].includes(r.verdict) || typeof r.genre !== 'string' || typeof r.why !== 'string' || r.why.trim().length < 10) throw new Error('Incomplete content judgment')
+    if (r.verdict !== 'reject' && blockedGenres.has(r.genre)) throw new Error('Verdict/genre contradiction')
+    if (!Number.isFinite(Date.parse(r.source_updated_at)) || !/^[a-f0-9]{64}$/.test(r.body_sha256 ?? '')) throw new Error('Review must record revision and full-body SHA256')
+  }
+  const { createScriptClient } = await import('../lib/supabase-client.mjs')
+  const client = createScriptClient()
+  const response = await client.from('library_articles').select('id,content,updated_at,status,feed_id,source,csat_fit').in('id', [...seenIds])
+  if (response.error || response.data.length !== reviews.length) throw new Error('Cannot load every reviewed source')
+  const runId = new Date().toISOString().replace(/[:.]/g, '-')
+  const manifest = []
+  for (const row of response.data) {
+    const review = reviews.find(r => r.id === row.id)
+    if (crypto.createHash('sha256').update(row.content ?? '').digest('hex') !== review.body_sha256) throw new Error(`Reviewed body changed: ${row.id}`)
+    const purpose = purposeOf(row), codes = hardReject(row.content ?? '')
+    const decision = decide({ purpose, verdict: review.verdict, genre: review.genre, codes })
+    const gate = { v: 2, rv: RULES_VERSION, cv: CODES_VERSION, ...decision, purpose, verdict: review.verdict, genre: review.genre, why: review.why, codes, by: 'chunk-llm' }
+    const previous = row.csat_fit?.gate ?? null
+    const { at: ignored, ...comparable } = previous ?? {}
+    const unchanged = isDeepStrictEqual(comparable, gate)
+    // An identical replay may have our updated revision; all actual changes need CAS.
+    if (!unchanged && Date.parse(row.updated_at) !== Date.parse(review.source_updated_at)) throw new Error(`Review revision changed: ${row.id}`)
+    manifest.push({ runId, id: row.id, revision: row.updated_at, body_sha256: review.body_sha256, before: previous, after: unchanged ? previous : { ...gate, at: new Date().toISOString() }, changed: !unchanged, status: row.status, csat_fit: row.csat_fit })
+  }
+  const logPath = `${file}.${COMMIT ? 'commit' : 'plan'}-${runId}.json`
+  fs.writeFileSync(logPath, JSON.stringify(manifest, null, 2), { flag: 'wx' })
+  let changed = 0
+  for (const entry of manifest.filter(x => x.changed)) {
+    if (COMMIT) {
+      const result = await client.from('library_articles').update({ csat_fit: { ...(entry.csat_fit ?? {}), gate: entry.after } }).eq('id', entry.id).eq('updated_at', entry.revision).select('id,csat_fit,status')
+      if (result.error || result.data.length !== 1 || !isDeepStrictEqual(result.data[0].csat_fit, { ...(entry.csat_fit ?? {}), gate: entry.after }) || result.data[0].status !== entry.status) throw new Error(`CAS/verification failed: ${entry.id}; inspect ${logPath} before resume`)
+    }
+    changed++
+  }
+  console.log(JSON.stringify({ mode: COMMIT ? 'commit' : 'dry-run', requested: reviews.length, changed, skipped: reviews.length - changed, logPath, statusPreserved: true, next: 'Refresh affected source policy caches and re-audit' }))
+} else {
+if (COMMIT) throw new Error('Legacy mixed commit retired: use --input with UUID/revision/body-bound reviews; dry-run remains available')
 const DRAIN = path.resolve('scripts/csat/gate-mixed')
 
 const judged = new Map()
@@ -138,3 +189,4 @@ for (const [k, n] of Object.entries(byBlock).sort((a, b) => b[1] - a[1])) {
 }
 console.log(`\n  **격리에서 되살릴 것 ${restored.toLocaleString()}편** · 쓴 것 ${wrote.toLocaleString()}`)
 if (!COMMIT) console.log(`\n  예행이었다. 실제로 쓰려면 --commit`)
+}

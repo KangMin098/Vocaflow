@@ -37,6 +37,7 @@ const SCRIPTS_DIR = resolve(process.cwd(), '..', '..', 'scripts')
  * 키는 `src/app/api/` 기준 상대 경로(디렉터리), POSIX 구분자.
  */
 const EXTERNAL: ReadonlyArray<{ route: string; why: string }> = [
+  { route: 'csat/session/reveal', why: '기존 풀이 클라이언트 호환 API. /csat 해부는 정답 선공개지만 사용자 지시에 따라 기존 인증·API 계약은 보존한다. 신규 UI 호출은 없다.' },
   {
     route: 'auth/callback',
     why: 'Supabase OAuth 콜백 — 리다이렉트 URL 을 Supabase 대시보드가 들고 있다. 코드가 fetch 할 대상이 아니다',

@@ -1,6 +1,6 @@
 {
   "gate": 1,
-  "at": "2026-09-17T09:06:38.595Z",
+  "at": "2026-09-17T13:41:01.068Z",
   "sample_exams": [
     "2026",
     "M2706"
@@ -23,11 +23,21 @@
     "sentence_anchor": 0.9942418426103646,
     "quote_found": 0.9941520467836257
   },
+  "unknown_file": {
+    "detect_boundary": 1,
+    "exam_id_ok": 2,
+    "exam_id_total": 2,
+    "exam_id_misses": []
+  },
   "exams": [
     {
       "exam": "2026",
       "items": 28,
-      "ms": 10,
+      "ms": 8,
+      "detect_boundary": 1,
+      "detect_form_pages_match": true,
+      "exam_id_from_text": "2026",
+      "exam_id_ok": true,
       "boundary": 1,
       "text_mean": 0.9954285714285714,
       "text_ge_95": 0.9285714285714286,
@@ -70,7 +80,11 @@
     {
       "exam": "M2706",
       "items": 28,
-      "ms": 5,
+      "ms": 4,
+      "detect_boundary": 1,
+      "detect_form_pages_match": true,
+      "exam_id_from_text": "M2706",
+      "exam_id_ok": true,
       "boundary": 1,
       "text_mean": 0.9946785714285715,
       "text_ge_95": 1,

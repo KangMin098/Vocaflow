@@ -41,16 +41,16 @@ export interface LearnerCatalog extends SessionCatalog {
 const CATALOG_TTL_MS = 10 * 60 * 1000
 let catalogCache: { at: number; catalog: LearnerCatalog } | null = null
 
-export async function loadSessionCatalog(): Promise<{ catalog: LearnerCatalog; error: string | null }> {
-  if (catalogCache && Date.now() - catalogCache.at < CATALOG_TTL_MS) {
+export async function loadSessionCatalog(options: { db?: SupabaseClient; fresh?: boolean } = {}): Promise<{ catalog: LearnerCatalog; error: string | null }> {
+  if (!options.db && !options.fresh && catalogCache && Date.now() - catalogCache.at < CATALOG_TTL_MS) {
     return { catalog: catalogCache.catalog, error: null }
   }
-  const res = await readSessionCatalog()
-  if (!res.error) catalogCache = { at: Date.now(), catalog: res.catalog }
+  const res = await readSessionCatalog(options.db)
+  if (!options.db && !res.error) catalogCache = { at: Date.now(), catalog: res.catalog }
   return res
 }
 
-async function readSessionCatalog(): Promise<{ catalog: LearnerCatalog; error: string | null }> {
+async function readSessionCatalog(client?: SupabaseClient): Promise<{ catalog: LearnerCatalog; error: string | null }> {
   const types = ATLAS_TYPES.filter((t) => t.status !== 'retired' && t.recent > 0)
   const exams = skeletonExams().map((e) => e.exam_id)
 
@@ -69,7 +69,7 @@ async function readSessionCatalog(): Promise<{ catalog: LearnerCatalog; error: s
   const budget = new Map<string, number | null>()
   try {
     // `Database` 타입에 `csat_*` 가 없다 — `learner.ts` 의 `csatDb()` 와 같은 완화(한 줄)
-    const db = (await createClient()) as unknown as SupabaseClient
+    const db = client ?? (await createClient()) as unknown as SupabaseClient
     const [pts, reps] = await Promise.all([
       pagedSelect<{ id: string; points: number | null }>(
         (from, to) => db.from('csat_items_public').select('id, points').eq('in_scope', true).range(from, to),
@@ -78,6 +78,7 @@ async function readSessionCatalog(): Promise<{ catalog: LearnerCatalog; error: s
       db.from('csat_type_reports').select('type_id, time_budget_sec'),
     ])
     const p = new Map(pts.map((r) => [r.id, r.points]))
+    if (reps.error) throw new Error(reps.error.message)
     for (const it of items) it.points = p.get(it.id) ?? null
     for (const r of (reps.data ?? []) as { type_id: string; time_budget_sec: number | null }[]) {
       budget.set(r.type_id, r.time_budget_sec)

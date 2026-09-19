@@ -29,6 +29,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import crypto from 'node:crypto'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -39,6 +40,22 @@ const arg = (k, d) => {
   const i = process.argv.indexOf(`--${k}`)
   return i > 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d
 }
+const idsFile = arg('ids-file', null)
+if (idsFile) {
+  const output = arg('output', null)
+  if (!output) throw new Error('Scoped export requires --output; existing files are never overwritten')
+  const ids = [...new Set(fs.readFileSync(idsFile, 'utf8').split(/\r?\n/).map(x => x.trim()).filter(Boolean))]
+  if (!ids.length || ids.length > 100 || ids.some(x => !/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(x))) throw new Error('Scoped export requires 1..100 UUIDs')
+  const { createScriptClient } = await import('../lib/supabase-client.mjs')
+  const db = createScriptClient()
+  const r = await db.from('library_articles').select('id,title,source,status,updated_at,content,gate:csat_fit->gate').in('id', ids).order('id')
+  if (r.error || r.data.length !== ids.length) throw new Error('Cannot load every requested source')
+  const pending = r.data.filter(x => !x.gate?.verdict && x.gate?.purpose !== 'raw' && ['ready','published'].includes(x.status))
+  const rows = pending.map(x => ({ id: x.id, title: x.title, source: x.source, source_updated_at: x.updated_at, body_sha256: crypto.createHash('sha256').update(x.content ?? '').digest('hex'), content: x.content ?? '', currentGate: x.gate }))
+  fs.mkdirSync(path.dirname(output), { recursive: true })
+  fs.writeFileSync(output, JSON.stringify(rows, null, 2), { flag: 'wx' })
+  console.log(JSON.stringify({ readOnly: true, requested: ids.length, exported: rows.length, skipped: ids.length - rows.length, output, next: 'Read full content; write separate reviews preserving id/revision/hash; gate-mixed-import --input previews them' }))
+} else {
 const WRITE = process.argv.includes('--write')
 const PER = Number(arg('per', 100))
 const MAX = Number(arg('max', 0)) // 0 = 제한 없음
@@ -342,3 +359,4 @@ for (let i = 0; i < pending.length; i += PER) {
 const left = Math.max(0, pending.length - made * PER)
 console.log(`\n  청크 ${made}개. 각 청크를 판정해 같은 이름 + .out.json 으로 저장할 것.`)
 if (left) console.log(`  아직 청크로 안 뽑은 기사 ${left.toLocaleString()}편 — 다시 돌리면 이어서 뽑는다.`)
+}

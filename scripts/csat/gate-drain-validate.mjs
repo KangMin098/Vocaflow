@@ -163,4 +163,4 @@ if (errors.length) {
   process.exit(1)
 }
 
-console.log('  ✅ 오류 없음 — gate-import.mjs 로 적재해도 된다.')
+  console.log('  ✅ 어휘·순서 검사 통과 — 적재 전 UUID/revision/본문 해시를 확인하고 scoped gate-mixed-import --input으로 미리볼 것.')

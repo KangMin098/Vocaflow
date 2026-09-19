@@ -9,7 +9,7 @@
 //
 // `server-only` 를 들이지 않는다 — 화면이 값으로 부른다.
 
-import type { SkeletonSentence } from './passage-skeleton'
+import type { AnchorOrigin, SkeletonSentence } from './passage-skeleton'
 
 export interface MapAnchor {
   /** 골격의 anchorId 와 같아야 한다. 'answer' · 'reject:2' */
@@ -20,6 +20,13 @@ export interface MapAnchor {
   detail?: string | null
   /** 이 오답이 왜 끌리는가. kind === 'reject' 일 때만. */
   tempting?: string | null
+  /**
+   * 칠해진 자리의 **출처**. `'tempt'` 면 그 자리는 이 선지를 **지우지 않는다** —
+   * 이 선지로 **끌어당긴다**(골격이 「지우는 근거」에서 위치를 못 찾아 「끌리는 이유」에서
+   * 찾은 경우). 없으면 예전 골격이라 `'reject'` 로 읽는다.
+   * 화면이 이 값을 무시하면 미끼 자리를 «지우는 근거» 라고 부르게 된다.
+   */
+  origin?: AnchorOrigin
 }
 
 export interface MapPlacement {

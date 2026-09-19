@@ -131,7 +131,11 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
                 {a.kind === 'answer' ? '✓' : a.label}
               </span>
               <span className="break-keep">
-                {a.kind === 'answer' ? `답이 왜 ${a.label}인가` : `${a.label} 아닌 이유`}
+                {a.kind === 'answer'
+                  ? `답이 왜 ${a.label}인가`
+                  : a.origin === 'tempt'
+                    ? `${a.label}에 끌린 자리`
+                    : `${a.label} 아닌 이유`}
               </span>
               {!has ? <span className="break-keep text-[10px] text-[var(--t3)]">위치 없음</span> : null}
             </button>
@@ -151,7 +155,13 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
               key={i}
               data-lecture-target={`anchor:sentence:${i}`}
               aria-label={`${i + 1}번째 문장${
-                isLit ? (followingSpeech ? ' — 강의가 지금 말하는 문장이에요' : ' — 지금 보는 근거가 여기 있어요') : ''
+                isLit
+                  ? followingSpeech
+                    ? ' — 강의가 지금 말하는 문장이에요'
+                    : active?.origin === 'tempt'
+                    ? ' — 이 선지로 끌어당기는 자리가 여기예요'
+                    : ' — 지금 보는 근거가 여기 있어요'
+                  : ''
               }`}
               className="flex items-center gap-2"
             >
@@ -200,6 +210,15 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
             // **막다른 화면을 만들지 않는다.** 못 찾았다는 사실을 말하고 설명은 그대로 준다.
             <p className="mb-2 break-keep text-sm leading-relaxed text-[var(--t2)]">
               이 근거는 지문에서 위치를 찾지 못했어요. 설명은 아래 그대로 읽을 수 있어요.
+            </p>
+          ) : null}
+          {active.origin === 'tempt' && !notFound ? (
+            // **칠한 자리가 무엇인지 먼저 밝힌다.** 이 칩은 「지우는 근거」의 위치를 못 찾아
+            // 「끌리는 이유」에서 찾았다 — 칠해진 곳은 함정의 **미끼**지 반증이 아니다.
+            // 말하지 않으면 학습자는 정확히 반대로 외운다.
+            <p className="mb-2 break-keep text-xs leading-relaxed text-[var(--t3)]">
+              칠해진 곳은 이 선지가 <strong className="font-bold">끌리는</strong> 자리예요 — 지우는
+              근거는 아래 글에 있습니다.
             </p>
           ) : null}
           {active.tempting ? (

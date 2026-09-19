@@ -1,5 +1,12 @@
 # Routes Map
 
+### CSAT 원문 운영 API (2026-09-18)
+
+`/api/admin/csat/sources` — 관리자/큐레이터 전용, no-store.
+GET `summary=1`: 판정별 집계, `queue/q/page`: 30개씩 원문 목록, `id`: 최신 원문·판정·연결·이력.
+POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 캐시만 갱신.
+`/admin/csat/sources`의 개별 원문 inspector에서 사용한다. 실패/누락 count는 0으로 표시하지 않는다.
+
 > Next.js 14 App Router. 모든 page.tsx · route.ts · layout.tsx 직접 파일 스캔으로 검증. 작성 시점: 2026-06-08.
 >
 > **카운트**: page.tsx 123 · route.ts 75 · layout.tsx 11 (2026-08-17 실측). 이 밖에 `robots.ts`·`sitemap.ts`·`opengraph-image.tsx` 메타 라우트 3.
@@ -7,6 +14,14 @@
 ---
 
 ## 라우트 그룹 구조
+
+<!-- csat-sources-workspace:start -->
+`/admin/csat/sources`는 기존 관리자 가드를 유지하는 단일 route다. 검색 상태를 서버에서 초기화하고
+브라우저 history로 복원한다. query: `view=sources|eligibility|operations`,
+`issue=all|attention|failed|legal|raw|analysis|unjudged|gate`,
+`sort=attention|total|recent|name`, `q=<원천 이름 또는 ID>`, `source=<선택한 원천 ID>`.
+기본값은 URL에서 생략하며, 알 수 없는 enum은 기본값으로 복원한다. 새 API·동적 상세 route는 추가하지 않았다.
+<!-- csat-sources-workspace:end -->
 
 | 그룹 | URL | 인증 | 레이아웃 |
 |---|---|---|---|
@@ -118,9 +133,9 @@
 
 | 라우트 | 파일 | 설명 |
 |---|---|---|
-| `/csat` | `(main)/csat/page.tsx` + `components/csat/session/SessionHome.tsx` | **오늘의 세션 카드 한 장** — 「빈칸 1 + 순서 1 + 복습 1 · 약 N분」 + [시작]. 세션 구성은 시스템이 한다(약한 유형 1 + 다음 순서 1 + 복습 1, 복습이 비면 신규 1 · `lib/csat/session/model.ts`). 필요한 문제지가 기기에 없으면 카드에 「받기/놓기」 한 줄만 더해진다. 첫 방문은 그림 셋 온보딩 한 장. 셸 띠(다른 모듈 CTA)를 숨긴다 |
-| `/csat/session` | `(main)/csat/session/page.tsx` + `SessionRunner.tsx` · `ItemScreen.tsx` · `ReflowPassage.tsx` | **한 문항 = 한 화면** — ① 풀기(reflow 지문 18px · 선지 카드 5 · 조용한 타이머) → ② 이해(근거 문장 밑줄 → 누르면 **바로 아래** 설명 · 오답 카드 → 한 줄 + 관련 문장으로 스크롤 · 함정 마커 1 · [강의 듣기] · [더 보기]) → ③ 한 줄 + [알겠어요]/[헷갈려요]. `?set=<슬러그,…>&k=<칸 종류>` 로 구성을 싣는다(후보에 있는 문항만 통과). 풀스크린(셸 걷음) · 해설은 답을 고른 뒤 API 로만 온다 |
-| `/csat/progress` | `(main)/csat/progress/page.tsx` + `ProgressView.tsx` | **기록** — 연속 일수 · 이번 주 문항 · 복습 대기 + 유형별 정확도 막대 한 열. 표 없음 |
+| `/csat` | `(main)/csat/page.tsx` + `SessionHome.tsx` | 오늘의 해부 카드 · 예측/대조/공식 온보딩 · 필요한 PDF 받기/놓기 · 낮은 계열 커버리지 우선 유형 구성 |
+| `/csat/dissect` | `(main)/csat/dissect/page.tsx` + `SessionRunner.tsx` · `ItemScreen.tsx` | 정답 선공개 · 예측 3수 후 분석 인라인 · 설계도 · 공식 저장/3일 뒤 재확인 · 두 문항 대조 후 전이. `?set=<슬러그,…>`와 `?formula=<태그>` 검증 |
+| `/csat/formulas` | `(main)/csat/formulas/page.tsx` + `ProgressView.tsx` | 기기에 모은 공식 · 최근 30예측 적중률 · 계열 커버리지. 유형별 펼치기와 해당 공식 다시 확인 |
 
 #### 기출 분석 뷰 (관리자 · `admin/kice/*` · 2026-09-17 학습자 `/csat` 에서 이전)
 
@@ -199,7 +214,8 @@
 | `/admin/csat` | `admin/csat/page.tsx` + `FactoryLineClient.tsx` + `FactoryLineDiagram.tsx` (+ `layout.tsx` 제목만) | **교재 공장 — 공정 현황판.** 시중 제작 공정 8칸(기출 원천·기획·설계·소재·집필·해설·검수·조판)을 **라인 도식 하나**로 그린다 — 상태는 색+모양+글자, 병목 뒤 연결선은 점선. **한 번에 한 칸만** 펼쳐 실측 눈금·게이트·**복사 가능한 다음 명령**을 낸다(기본 = 병목). 조작 버튼은 없다(생성은 Claude Code 드레인) |
 | `/admin/csat/new` | `admin/csat/new/page.tsx` + `OrderWizard.tsx` (모델 `lib/csat/order-model.ts` · 실측 `lib/csat/order-view.ts`) | **새 교재 만들기 — 한 권을 발주까지 네 걸음.** 공정 8칸이 「공장 전체가 어떤가」를 말한다면 여기는 **이 한 권**만 말한다. ① 시리즈·권 고르기 → ② 그 권이 쓰는 유형마다 재고·해설·**근거**(평가원 유형별 기출/분석/리포트, 없으면 「평가원 대응 없음 — 시중 교재 코퍼스 79종」) → ③ 브랜드·표지·학령·단원·문항 규격 → ④ 관문 4(문항→배합→해설→근거) 중 **처음 막힌 하나**의 채우기 명령, 전부 통과면 **인자가 다 채워진 조판 명령 한 줄**. 조작 버튼 없음 |
 | `/admin/csat/catalog` | `admin/csat/catalog/page.tsx` + `SeriesShelf.tsx` | **카탈로그 — 「어떤 시리즈를 파나」.** 행이 시리즈, 열이 학령이고 **한 칸이 한 권**(60문항). 2026-09-06 에 (유형 × 학령) 42칸 격자에서 바꿨다 — 시장이 파는 단위가 시리즈라서다(코퍼스 실측 22개). 행마다 조판기가 실제로 찍는 표지를 건다. 안 만드는 셋(기출·내신·개인 맞춤)은 칸이 아니라 이유로 |
-| `/admin/csat/evidence` | `admin/csat/evidence/page.tsx` + `EvidenceConsole.tsx` (+ `lib/csat/evidence.ts` 적재 · `evidence-fold.ts` 계산) | 공정 ① 기출 원천. **탭 0 · 축 8** — 행/열 축을 골라 802문항을 교차로 접는다(64 조합, 총합은 언제나 802). 맨 윗줄 = 문항×필드 커버리지 요약 + 막힌 문항 수 · 결함 6종 칩(막는 하류 공정 병기) · 문항 전문은 오른쪽 drawer 전용 · 조건은 URL 쿼리(`?defect=&type=&row=&col=&m=`) · 교재용 Markdown/JSON 내려받기 |
+| `/admin/csat/evidence` | `admin/csat/evidence/page.tsx` + `EvidenceConsole.tsx` · `EvidenceInspector.tsx` · `EvidenceMatrix.tsx` | 기출 운영: 운영 현황 → 작업 큐 → 문항 탐색·검토 패널. 실제 학습 후보 판정과 원천 결함을 구분하고 영향·우선순위·조치·재검증 연결. URL `view/status/issue/stage/q/sort/page/item/matrix`와 기존 8축·`row/col/m` 유지. 같은 축 교차 셀은 `cellAxis/cellRow/cellCol`로 AND 조건 보존. 전체 MD/JSON과 선택 대상 작업 묶음 내보내기 |
+| `GET /api/admin/csat/evidence` | `api/admin/csat/evidence/route.ts` · `lib/csat/evidence-operations-loader.ts` | 관리자 전용 읽기 재검증. 캐시를 재사용하지 않고 최신 DB·현재 배포된 앵커·메타데이터를 대조한다. 부분 조회 실패나 문항 범위 불일치는 503·판정 보류. DB 쓰기·작업 실행 없음 |
 | `/admin/csat/strategy` | `admin/csat/strategy/page.tsx` + `MarketClient.tsx` | 공정 ② 기획. 시중 7축 우위 지수를 **출판사별로** 낸다 — 판정은 합본 평균이 아니라 구속점. 「증거가 막는다/좁힐 수 있다」로 갈라 배치를 돌릴 곳인지 자료를 구할 곳인지 말한다. 창고/권 두 모드 |
 | `/admin/csat/blueprint` | `admin/csat/blueprint/page.tsx` + `BlueprintClient.tsx` | 공정 ③ 설계. **이원목적분류표** — 학령 7단 × 수준(V-Level) × 유형 재고 매트릭스 + 계단별 근거 + 단계 게이트 임계 9. 초등 3종은 「함수」로 표시(DB 에 없음 ≠ 재고 0) |
 | `/admin/csat/sourcing` | `admin/csat/sourcing/page.tsx` + `SourceClient.tsx` | 공정 ④ 소재. 단계 밴드(S1~S5) × 수준별 지문 재고 · 라이선스 등급 · **화면 전용 제외 실재고**. 게이트는 있는데 지문 0편인 밴드를 지목 |
@@ -276,7 +292,7 @@
 |---|---|
 | `POST /api/csat/paper` | 본문에 **SHA-256 64자만** 받아 회차를 찾고 **문항 번호 좌표만**(쪽·단·x·y) 돌려준다 — 글자도 분석도 없다. 모르는 해시면 `known:false`(오류 아님 — 브라우저가 그 자리에서 번호를 찾는다). POST 인 이유: 해시가 URL 에 남으면 「어느 회차를 열었는지」가 따라다닌다. 로그인 문턱(401) |
 | `GET · POST · DELETE /api/csat/session/record` | 본인 기출 세션 풀이 기록. GET = 최근 1,000건 · POST `{ attempts }` = 새 풀이 올리기(모양 검사 · 최대 200 · 겹치면 무시) 후 **복습 큐를 서버가 다시 계산**(`sync.ts#replayReviews`) · DELETE = 내 기록 지우기(게이트 하네스·초기화). 쓰기는 RLS(본인 행) · 로그인 문턱(401) |
-| `POST /api/csat/session/reveal` | 본문 `{ item: '<슬러그>' }` → 정답 · 근거 설명(≤3문장) · 오답별 한 줄 · 함정 · 「한 줄」 · 골격(문장 길이열 + 인용) · 강의 길이. **세션 화면이 답을 고른 뒤에만 부른다.** 고른 답은 받지 않는다(기록은 기기에). 로그인 문턱(401) · 슬러그 모양 검사 |
+| `POST /api/csat/session/reveal` | 본문 `{ item: '<슬러그>' }` → 정답 · 근거 설명(≤3문장) · 오답별 한 줄 · 함정 · 「한 줄」 · 골격(문장 길이열 + 인용) · 강의 길이. **기존 풀이 클라이언트 호환 API다. 새 해부 화면에서는 호출하지 않는다.** 고른 답은 받지 않는다(기록은 기기에). 로그인 문턱(401) · 슬러그 모양 검사 |
 | `GET /api/csat/lecture?item=<슬러그>` | 문항 해설 **강의 대본**(큐 목록). 해설 화면의 서버 렌더에는 길이(초)만 싣고, 학습자가 재생을 누른 뒤 여기서 받는다 — 대본이 화면 HTML 에 남지 않게. 로그인 문턱(401) · 슬러그 모양 검사(값이 파일 이름으로 흘러간다) · 커밋된 `lib/csat/lecture-data/*.json` 을 읽는다(DB 0) |
 
 ### `/api/srs/*` (1)
@@ -435,3 +451,12 @@
 - `(main)/library/scripts/[bookId]/page.tsx` 가 동일
 
 이전 mock 데이터 폴더 / 미사용 컴포넌트들은 모두 삭제됨 (v06.34 청소).
+
+### CSAT 탐색 query (2026-09-18)
+
+`/csat/dissect?item=2026-32`는 검토된 문항의 분석 읽기·듣기, `?resume=1`은 기기 내 진행 상태 복원이다. 기존 `?set=` 추천 3문항과 `?formula=` 전이 경로를 유지한다. 잘못된 item은 빈 상태에서 허브 복귀를 제공한다.
+
+CSAT 분석은 `#analysis-context`, `#analysis-evidence`, `#analysis-distractor`, `#analysis-intent`, `#analysis-pattern`에 안정적인 section ID를 제공한다. 최초 진입 때 요청한 section으로 이동하고 재생 중에는 사용자 스크롤을 유지한다.
+
+
+CSAT 데스크톱 판면(2026-09-18): `/csat`의 기출 구조 비교와 `/csat/dissect?item=...`의 원문·구조도 판면만 폭을 넓힌다. 예측 학습과 `/csat/formulas`의 읽기 폭은 유지한다. 기존 `#analysis-evidence` 등 deep link는 해당 관계를 선택하고 설명 위치로 연결한다.

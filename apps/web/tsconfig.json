@@ -42,7 +42,10 @@
     ".next-e2e/types/**/*.ts",
     ".next-dev2/types/**/*.ts",
     ".next-adminview/types/**/*.ts",
-    ".next-learner/types/**/*.ts"
+    ".next-learner/types/**/*.ts",
+    ".next-dev-3000/types/**/*.ts",
+    ".next-integrated-verify/types/**/*.ts",
+    ".next-csat-source-verify/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

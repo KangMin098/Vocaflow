@@ -30,6 +30,7 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
 }
 const COMMIT = process.argv.includes('--commit')
+if (COMMIT) throw new Error('Title-keyed gate commits retired: export reviewed UUID/revision/body hashes and use gate-mixed-import.mjs --input <reviews.json> --commit; this script remains a read-only legacy diagnostic')
 // ⚠️ **판 올림 뒤 재판정은 앞쪽이 전부 수렴해 있다.** 그런데도 매 회차가 처음부터 훑어
 //   이미 끝난 5만 행을 페이지로 다시 넘긴다 — 회차당 6,000편이 220편으로 떨어졌다.
 //   `--from` 으로 아직 안 된 첫 id 부터 시작하면 그 낭비가 사라진다.

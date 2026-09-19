@@ -72,7 +72,10 @@ const CANDIDATE =
 function currentDocs(): string[] {
   const docsDir = join(ROOT, 'docs')
   const list = [
+    'AGENTS.md',
     'CLAUDE.md',
+    'agents/router.md',
+    'docs/agents/CONTEXT_DETAIL.md',
     'apps/web/CLAUDE.md',
     'apps/mobile/CLAUDE.md',
     'packages/design-tokens/CLAUDE.md',
