@@ -43,7 +43,8 @@
 | `/diagnostic` | 채색 지문 | 「알아요 / 몰라요」 → 지금까지의 답으로 본 수준에서 지문 칠이 다시 갈림 · 200ms(`DiagnosticPassage`) · 결과 h1 = 지금 읽을 수 있는 책 수 | **서명 있음**(2026-09-19 골든 3호 [golden/diagnostic.md](docs/design/golden/diagnostic.md) · DD-23) |
 | `/wordvault` | 망각(목표) | — | **감사 판정 평균** — 링 게이지·4열 타일, 4색은 점·숫자 색뿐 · `/review` ≡ `/study` 픽셀 동일(우선순위 8위) |
 | `/library/books` 매대 | — | 표지 식별색(색상=갈래 · 명도=수준) | **다음 발산 대상**(`/fit` 골든 고정 후 착수 — DD-19) — 골격이 격자(평균). 발산 4안 [compare/library-books.md](docs/design/compare/library-books.md) → 사람이 고른다 |
-| `/flashcard` 등 학습 중 | 망각(목표) | 카드 뒤집기 0.55s(7종 안) | **감사 판정 평균** — 중앙 단일 카드, R(t)·망각 표시 0(Anki/Quizlet 와 같은 모양). `/flashcard/play` 우선순위 4위 · 학습 모듈 18화면 서명 0 |
+| `/flashcard/play` | 망각 | 평가에 손을 얹으면 이 단어의 다음 곡선과 다음 만남 눈금이 선다(모션 0 · 카드 뒤집기는 7종 안) · 완료 = 7일 곡선 | **서명 있음**(2026-09-19 골든 4호 [golden/flashcard-play.md](docs/design/golden/flashcard-play.md) · DD-24) |
+| `/flashcard` 등 다른 학습 모듈 | 망각(목표) | 카드 뒤집기 0.55s(7종 안) | **감사 판정 평균** — 학습 모듈 18화면 중 서명은 `/flashcard/play` 하나 |
 | `/admin/*` | 환경 변형 · 주묵 문법 중 화면별 선언 | — | 액센트 = Deep Ink `--p` 확정(DD-01). 옛 보라는 신규 금지·감소만 |
 
 ## 평균 금지 — 목표는 혁신뿐

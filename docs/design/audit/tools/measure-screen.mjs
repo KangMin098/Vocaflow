@@ -64,12 +64,22 @@ const pageAbs = join(WEB, PAGE)
 const own = tree(pageAbs)
 for (const l of layoutsFor(pageAbs)) for (const f of tree(l)) own.delete(f)
 const counts = Object.fromEntries(Object.keys(SIGNALS).map((k) => [k, 0]))
+const byFile = {}
 for (const f of own) {
   if (/__tests__|\.test\./.test(f)) continue
   const t = readFileSync(f, 'utf8')
-  for (const [k, re] of Object.entries(SIGNALS)) counts[k] += t.match(re)?.length ?? 0
+  for (const [k, re] of Object.entries(SIGNALS)) {
+    const n = t.match(re)?.length ?? 0
+    counts[k] += n
+    if (n) (byFile[f.slice(SRC.length + 1).split('\\').join('/')] ??= {})[k] = n
+  }
 }
 const staticTotal = Object.values(counts).reduce((a, b) => a + b, 0)
+// FILES=1 — 정적 신호를 파일별로 보고 끝낸다(렌더 계측 생략). 어느 파일이 화면 범위(A5) 안인지 가르는 데 쓴다.
+if (process.env.FILES) {
+  console.log(JSON.stringify({ static: staticTotal, byFile }, null, 1))
+  process.exit(0)
+}
 
 const METRICS = () => {
   const vh = innerHeight

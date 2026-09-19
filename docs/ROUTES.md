@@ -95,7 +95,7 @@
 
 | 모듈 | hub | play | 결과 | 비고 |
 |---|---|---|---|---|
-| **Flashcard** (L4a 재인) | `/flashcard` | `/flashcard/play` | — | SM-2/FSRS · 3D flip |
+| **Flashcard** (L4a 재인) | `/flashcard` | `/flashcard/play` | — | FSRS · 3D flip · 2026-09-19 카드 아래 「이 단어의 기억선」(평가별 다음 만남 = FSRS 미리보기) · 완료 = 7일 곡선 |
 | **SpellForge** (L4b 시각생성) | `/spellforge` | `/spellforge/play` | — | 타이핑 · IME 분리 |
 | **WordBlitz** (L4a 자동화) | `/wordblitz` | `(app)/play/wordblitz` | — | 풀스크린 2D 속사 인지 |
 | **PairFlip** (L4a 공간기억) | `/pairflip` | `/pairflip/play` | `/pairflip/results` | 5단계 (8~20장 · 2줄 고정) |
