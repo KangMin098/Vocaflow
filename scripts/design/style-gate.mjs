@@ -1,7 +1,10 @@
 // scripts/design/style-gate.mjs
 //
 // 이미지 체계 삽화 검사 — brief Gate 5 자동 검사 · Gate 6 style-gate 의 1판. 규칙 정본 docs/design/03-system.md §3-9.
-// 실행: node scripts/design/style-gate.mjs <svg 폴더> [--json <출력.json>]   (하나라도 FAIL 이면 exit 1)
+// 실행: node scripts/design/style-gate.mjs <svg 폴더> [--ref <골든 폴더>] [--json <출력.json>]   (하나라도 FAIL 이면 exit 1)
+//   --ref: 골든 3점 + 이야기 선 규범(docs/design/golden/illustrations, 하위 폴더 포함)이 **유일한 기준 입력**(DD-35).
+//          골든 대조 = 후보의 선 굵기 · 서체 · 토큰이 기준 집합의 부분집합(망각 계열 --memory-* 는 허용).
+//   규범 #10: 주묵(--ju) 선은 accent 층에만 — 관계를 그리는 한 획이 곧 액센트다(03-system §3-9).
 //
 // 삽화마다 재는 것:
 //   L1  팔레트 칸 ≤ 5(선 --t1 · 면 --bg · 면 --bg2 · 무대 --grid-line/--bd · 액센트 --ju/--ju-wash) — 망각 계열은 --memory-* 허용
@@ -13,7 +16,7 @@
 // 렌더는 저장소의 tokens.css + globals.css 를 읽는 임시 HTML 에서 한다(색 해석이 제품과 같다).
 
 import { createRequire } from 'node:module'
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { tmpdir } from 'node:os'
@@ -24,7 +27,10 @@ const { chromium } = req('@playwright/test')
 
 const dir = resolve(process.argv[2] ?? '')
 if (!process.argv[2] || !existsSync(dir)) { console.error('사용: node scripts/design/style-gate.mjs <svg 폴더> [--json out.json]'); process.exit(2) }
-const jsonOut = process.argv.includes('--json') ? process.argv[process.argv.indexOf('--json') + 1] : null
+const arg = (k) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : null)
+const jsonOut = arg('--json')
+const refDir = arg('--ref') ? resolve(arg('--ref')) : null
+const svgsIn = (d) => readdirSync(d).flatMap((n) => { const q = join(d, n); return statSync(q).isDirectory() ? svgsIn(q) : n.endsWith('.svg') ? [q] : [] })
 
 // docs/design/refs/tines/dna.md §10 — L3 목록(정확 일치 + ΔE2000 < 2)
 const TINES = ['#FCF9F5', '#F3EFEA', '#5D38AE', '#714BD0', '#6741BF', '#542F9C', '#7A56E0', '#3F2374', '#452985', '#E4EEE6', '#ECE8FD', '#F5F2FB', '#FFEEDD', '#FFF1D1', '#FFC7E5', '#BEE9E4', '#F1ECF4', '#007F4A', '#D15C07', '#008784']
@@ -61,12 +67,14 @@ const toHex = (s) => {
 }
 
 const files = readdirSync(dir).filter((f) => f.endsWith('.svg')).sort()
+// 측정은 후보 + 기준을 한 페이지에서 같이 한다. 기준(ref)은 판정에서 빠지고 골든 대조 집합만 만든다.
+const all = [...files.map((f) => ({ key: f, path: join(dir, f) })), ...(refDir ? svgsIn(refDir) : []).map((q, i) => ({ key: `ref${i}:${q}`, path: q }))]
 const html = `<!doctype html><html><head><meta charset="utf-8">
 <link rel="stylesheet" href="${pathToFileURL(join(ROOT, 'packages/design-tokens/src/tokens.css'))}">
 <link rel="stylesheet" href="${pathToFileURL(join(ROOT, 'apps/web/src/app/globals.css'))}">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&family=JetBrains+Mono&family=Lora:wght@500&display=block" rel="stylesheet">
 <style>body{margin:0;background:var(--bg)}div{padding:8px}</style></head><body>
-${files.map((f) => `<div data-file="${f}">${readFileSync(join(dir, f), 'utf8')}</div>`).join('\n')}</body></html>`
+${all.map((x, i) => `<div data-i="${i}">${readFileSync(x.path, 'utf8')}</div>`).join('\n')}</body></html>`
 const tmp = join(tmpdir(), `style-gate-${process.pid}.html`)
 writeFileSync(tmp, html)
 
@@ -75,9 +83,11 @@ const p = await b.newPage({ viewport: { width: 1400, height: 900 } })
 await p.goto(pathToFileURL(tmp).href, { waitUntil: 'networkidle' })
 await p.evaluate(() => document.fonts.ready)
 const results = []
-for (const f of files) {
-  const el = p.locator(`div[data-file="${f}"] > svg`)
-  const raw = readFileSync(join(dir, f), 'utf8')
+const refs = []
+for (const [idx, x] of all.entries()) {
+  const f = x.key
+  const el = p.locator(`div[data-i="${idx}"] > svg`)
+  const raw = readFileSync(x.path, 'utf8')
   const info = await el.evaluate((svg) => {
     const html = svg.outerHTML
     const vars = [...new Set([...html.matchAll(/var\((--[\w-]+)\)/g)].map((m) => m[1]))]
@@ -92,10 +102,11 @@ for (const f of files) {
     const cols = new Set()
     svg.querySelectorAll('*').forEach((e) => { if (e.closest('defs')) return; const c = getComputedStyle(e); for (const v of [c.fill, c.stroke]) if (v && v !== 'none' && !v.startsWith('url') && v !== 'rgb(0, 0, 0)') cols.add(v) })
     const texts = [...svg.querySelectorAll('text')].map((t) => t.textContent).join(' ')
+    const juOutside = [...svg.querySelectorAll('*')].filter((e) => /stroke:var\(--ju\)/.test(e.getAttribute('style') || '') && !e.closest('[data-layer=accent]')).length
     const fonts = [...new Set([...svg.querySelectorAll('text')].map((t) => getComputedStyle(t).fontFamily.split(',')[0].replace(/['"]/g, '')))]
     const vb = svg.viewBox.baseVal, main = svg.querySelector('[data-layer=main]')
     return {
-      title: svg.querySelector('title')?.textContent ?? '', vars, sw: [...sw], thick, cols: [...cols], texts, fonts,
+      title: svg.querySelector('title')?.textContent ?? '', vars, sw: [...sw], thick, cols: [...cols], texts, fonts, juOutside,
       stage: !!(pat && pat.getAttribute('width') === '24' && pat.getAttribute('height') === '24' && /var\(--grid-line\)/.test(pat.innerHTML) && stageRect && /var\(--bd\)/.test(stageRect.getAttribute('style')) && stageRect.getAttribute('rx') === '6'),
       mainRatio: main ? main.getBBox().width / vb.width : 0, size: `${vb.width}x${vb.height}`,
     }
@@ -125,8 +136,11 @@ for (const f of files) {
     forbidden: FORBIDDEN.test(info.title + ' ' + info.texts + ' ' + f), fonts: info.fonts, badFont: info.fonts.some((x) => /Roobert|Reckless/i.test(x)),
     exact: exact.length, nearNew: near.filter((n) => !n.exempt).length, nearExempt: near.filter((n) => n.exempt).map((n) => `${n.exempt}↔${n.tines} ${n.de}`),
   }
+  if (f.startsWith('ref')) { refs.push({ strokes: r.strokes, fonts: r.fonts, vars: info.vars }); continue }
+  r.vars = info.vars
+  r.juOutside = info.juOutside
   r.fails = [
-    !r.title && 'title', r.slots > 5 && 'slots>5', r.extraTokens.length && `token ${r.extraTokens}`, r.strokeKinds > 2 && 'strokes>2', r.thick && '2px+ line',
+    !r.title && 'title', r.juOutside && 'ju-outside-accent', r.slots > 5 && 'slots>5', r.extraTokens.length && `token ${r.extraTokens}`, r.strokeKinds > 2 && 'strokes>2', r.thick && '2px+ line',
     r.hex && 'hex', r.gradient && 'gradient', !r.stage && 'stage', (r.mainRatio < 60 || r.mainRatio > 85) && `main ${r.mainRatio}%`, r.accent > 10 && 'accent>10%',
     r.forbidden && 'forbidden', r.badFont && 'font', r.exact && 'hex=Tines', r.nearNew && 'ΔE<2',
   ].filter(Boolean)
@@ -134,10 +148,25 @@ for (const f of files) {
 }
 await b.close()
 
-console.log('| 파일 | 규격 | title | 칸 | 선 종류 | 액센트 % | 큰 도형 % | 무대 | hex | 그라디언트 | 금지 소재 | 서체 | Tines 정확 | ΔE<2(새 색) | 판정 |')
-console.log('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+// 골든 대조 — 후보가 기준 집합의 부분집합인가
+if (refs.length) {
+  const S = new Set(refs.flatMap((q) => q.strokes)), F = new Set(refs.flatMap((q) => q.fonts)), V = new Set(refs.flatMap((q) => q.vars))
+  for (const r of results) {
+    const bad = [
+      ...r.strokes.filter((x) => !S.has(x)).map((x) => `선 ${x}`),
+      ...r.fonts.filter((x) => !F.has(x)).map((x) => `서체 ${x}`),
+      ...r.vars.filter((v) => !V.has(v) && !/^--memory-/.test(v)).map((v) => `토큰 ${v}`),
+    ]
+    r.golden = bad.length ? bad.join('/') : 'ok'
+    if (bad.length) r.fails.push('golden:' + r.golden)
+  }
+  console.log(`골든 대조 기준 ${refs.length}점 — 선 {${[...S].join(', ')}} · 서체 {${[...F].join(', ')}} · 토큰 ${V.size}종\n`)
+}
+const G = refs.length ? ' 골든 |' : ''
+console.log(`| 파일 | 규격 | title | 칸 | 선 종류 | 액센트 % | 큰 도형 % | 무대 | hex | 그라디언트 | 금지 소재 | 서체 | Tines 정확 | ΔE<2(새 색) |${G} 판정 |`)
+console.log(`|---|---|---|---|---|---|---|---|---|---|---|---|---|---|${G ? '---|' : ''}---|`)
 for (const r of results) {
-  console.log(`| ${r.file.replace('.svg', '')} | ${r.size} | ${r.title ? '○' : '✗'} | ${r.slots}${r.memory ? '+memory' : ''} | ${r.strokeKinds} (${r.strokes.join('/')}) | ${r.accent} | ${r.mainRatio} | ${r.stage ? '○' : '✗'} | ${r.hex} | ${r.gradient ? '✗' : 0} | ${r.forbidden ? '✗' : 0} | ${r.fonts.join('·') || '—'} | ${r.exact} | ${r.nearNew} | ${r.fails.length ? 'FAIL ' + r.fails.join(',') : 'PASS'} |`)
+  console.log(`| ${r.file.replace('.svg', '')} | ${r.size} | ${r.title ? '○' : '✗'} | ${r.slots}${r.memory ? '+memory' : ''} | ${r.strokeKinds} (${r.strokes.join('/')}) | ${r.accent} | ${r.mainRatio} | ${r.stage ? '○' : '✗'} | ${r.hex} | ${r.gradient ? '✗' : 0} | ${r.forbidden ? '✗' : 0} | ${r.fonts.join('·') || '—'} | ${r.exact} | ${r.nearNew} |${G ? ` ${r.golden} |` : ''} ${r.fails.length ? 'FAIL ' + r.fails.join(',') : 'PASS'} |`)
 }
 const ex = [...new Set(results.flatMap((r) => r.nearExempt))]
 console.log(`\n예외 토큰 근접(허용): ${ex.join(' · ') || '없음'} · 경로 유사: Tines SVG 원본 없음(brief A1) — 비교 대상 0`)

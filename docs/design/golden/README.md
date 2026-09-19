@@ -1,6 +1,6 @@
 # 골든 스크린
 
-> **골든 1호: [`/fit`](fit.md)(2026-09-19 고정, 4장).** 채우는 절차는 vocaflow-design §G3 이다:
+> **골든 1호: [`/fit`](fit.md)(2026-09-19 고정, 4장).** · **삽화 골든 3점**(방향 A 원고지): [illustrations/](illustrations/README.md)(2026-09-19, DD-35). 채우는 절차는 vocaflow-design §G3 이다:
 > 발산 4안(골격 G1 축이 서로 다른 넷) → `compare.md` → **사람이 고른다** → 고른 안을 2회 수정 → 스크린샷 3장.
 
 ## 넣을 것

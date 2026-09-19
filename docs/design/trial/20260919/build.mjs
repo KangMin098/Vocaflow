@@ -10,7 +10,7 @@
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { A, O, I, IB, paper, line, path, txt, mono, gwon, wash, svg, decay } from '../../explore/20260919/build.mjs'
 
@@ -126,18 +126,36 @@ const NEW = {
     let g = `<g data-layer="main">${wongo(X, Y, 6, 6)}${paper(X + 6 * 24 + 12, Y, 44, 144, '--bg2')}</g><g data-layer="minor">`
     g += word(X, Y, 0, 0, 'the', 2) + cell(X, Y, 2, 0, 3) + word(X, Y, 0, 2, 'kept', 2) + cell(X, Y, 3, 2, 3) + word(X, Y, 0, 4, 'the', 2) + word(X, Y, 2, 4, 'town', 2)
     const M = X + 6 * 24 + 34
-    g += txt(M, Y + 28, 'pledge', { anchor: 'middle', size: 10.5 }) + txt(M, Y + 76, 'solemn', { anchor: 'middle', size: 10.5 })
+    g += txt(M + 4, Y + 32, 'pledge', { anchor: 'middle', size: 10.5 }) + txt(M, Y + 76, 'solemn', { anchor: 'middle', size: 10.5 })
     g += `</g><g data-layer="story">${line(X + 5 * 24, Y + 12, X + 6 * 24 + 12, Y + 24)}${line(X + 6 * 24, Y + 60, X + 6 * 24 + 12, Y + 72)}</g>`
-    g += gwon(M, Y + 12, 3.5)
+    g += gwon(M + 4, Y + 13, 3) // 낱말 위 — 글자와 4px 이상 떨어진다
     return svg(240, 240, t, g)
   },
 }
 
+// #15 이 글의 적정 학년 — 학년 칸 머리(V3~V10) 원고지 위에 글 한 장이 맞는 칸으로 정렬되고, 그 칸에 도장
+NEW['illo-15-fit-grade'] = (t) => {
+  const X = 24, Y = 40
+  let g = `<g data-layer="main">${wongo(X, Y, 8, 6)}`
+  ;['V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10'].forEach((v, i) => { g += mono(X + i * 24 + 12, Y + 15, v, { anchor: 'middle', size: 8.5 }) })
+  g += `</g><g data-layer="minor">${paper(X + 3 * 24 + 4, Y + 30, 64, 84, '--bg', 1)}`
+  for (let r = 0; r < 4; r++) g += line(X + 3 * 24 + 12, Y + 48 + r * 18, X + 5 * 24 - 4, Y + 48 + r * 18, IB)
+  g += txt(X + 4 * 24 + 4, Y + 46, 'river', { anchor: 'middle', size: 10.5 })
+  g += `</g><g data-layer="story">${line(X + 3 * 24 + 4, Y + 24, X + 3 * 24 + 4, Y + 30)}${line(X + 5 * 24 + 4, Y + 24, X + 5 * 24 + 4, Y + 30)}</g>`
+  g += `<g data-layer="accent"><rect x="${X + 3 * 24 + 22}" y="${Y + 118}" width="28" height="24" rx="2" style="${JU}"/>${ko(X + 3 * 24 + 36, Y + 135, '고2', { anchor: 'middle', size: 10.5, fill: '--ju' })}</g>`
+  return svg(240, 240, t, g)
+}
+
+// 시범 12점(Gate 5) — manifest 상태가 바뀌어도 시트는 같은 12점으로 다시 굽는다
+const TRIAL_IDS = ['illo-01-wordbook-empty', 'illo-02-text-hub-first', 'illo-03-shelf-filter-zero', 'illo-04-dictation-choose', 'illo-07-coverage', 'illo-08-decay-per-word', 'illo-09-review-holds', 'illo-10-evidence-points', 'illo-14-class-sheet', 'illo-16-off-curriculum', 'illo-19-shelf-fills', 'illo-30-no-review-today']
 const REUSE = { 'illo-07-coverage': () => A.S(), 'illo-01-wordbook-empty': () => A.E(), 'illo-09-review-holds': () => A.B() }
-const trial = MANIFEST.items.filter((i) => i.status === 'trial')
-mkdirSync(join(HERE, 'svg'), { recursive: true })
+export { NEW, REUSE }
+
+const isMain = import.meta.url === pathToFileURL(process.argv[1]).href
+const trial = isMain ? MANIFEST.items.filter((i) => ['trial'].includes(i.status) || (i.source && i.status !== 'blocked')) : []
+if (isMain) mkdirSync(join(HERE, 'svg'), { recursive: true })
 const made = []
-for (const it of trial) {
+for (const it of isMain ? TRIAL_IDS.map((id) => MANIFEST.items.find((x) => x.id === id)) : []) {
   const title = `${it.concept} — ${it.verb}`
   const fn = REUSE[it.id] ?? NEW[it.id]
   if (!fn) throw new Error(`그릴 함수 없음: ${it.id}`)
@@ -150,7 +168,7 @@ for (const it of trial) {
 // 240px 시트 — 12점을 폭 240 으로 맞춰 4열
 const T = '../../../../packages/design-tokens/src/tokens.css', G = '../../../../apps/web/src/app/globals.css'
 const cards = made.map(({ it, s }) => `<figure><div class="f">${s}</div><figcaption><b>#${it.dict}</b> ${it.concept}<br><span>${it.size} · ${it.id.replace(/^illo-\d+-/, '')}${it.source ? ' · A 재사용' : ''}</span></figcaption></figure>`).join('\n')
-writeFileSync(join(HERE, 'sheet.html'), `<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>시범 12점 — 240px 시트</title>
+if (isMain) writeFileSync(join(HERE, 'sheet.html'), `<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>시범 12점 — 240px 시트</title>
 <link rel="stylesheet" href="${T}"><link rel="stylesheet" href="${G}">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500&family=JetBrains+Mono:wght@400&family=Lora:wght@500&display=swap" rel="stylesheet">
 <style>body{margin:0;padding:24px;background:var(--bg2);color:var(--t1);font-family:'IBM Plex Sans KR',sans-serif;word-break:keep-all;width:${4 * 240 + 3 * 16}px}
@@ -158,4 +176,4 @@ h1{font:600 20px Hahmlet,serif;margin:0 0 16px}.g{display:grid;grid-template-col
 figure{margin:0}.f{width:240px;height:150px;display:flex;align-items:center;justify-content:center}.f svg{max-width:240px;max-height:150px;width:auto;height:auto}
 figcaption{font-size:12px;line-height:1.45;margin-top:6px}figcaption span{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t2)}</style></head>
 <body><h1>방향 A 「원고지」 — 시범 12점 (240px)</h1><div class="g">${cards}</div></body></html>`)
-console.log(`wrote ${made.length} svg + sheet.html`)
+if (isMain) console.log(`wrote ${made.length} svg + sheet.html`)

@@ -28,7 +28,17 @@
       "--bg↔#FCF9F5 1.01",
       "--bg2↔#F3EFEA 1"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-02-text-hub-first.svg",
@@ -59,7 +69,17 @@
       "--bg↔#FCF9F5 1.01",
       "--bg2↔#F3EFEA 1"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju-wash"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-03-shelf-filter-zero.svg",
@@ -90,7 +110,17 @@
       "--bg↔#FCF9F5 1.01",
       "--bg2↔#F3EFEA 1"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-04-dictation-choose.svg",
@@ -121,7 +151,17 @@
       "--bg↔#FCF9F5 1.01",
       "--bg2↔#F3EFEA 1"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-07-coverage.svg",
@@ -153,7 +193,18 @@
       "--bg↔#FCF9F5 1.01",
       "--bg2↔#F3EFEA 1"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju-wash",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-08-decay-per-word.svg",
@@ -185,7 +236,19 @@
     "nearExempt": [
       "--bg↔#FCF9F5 1.01"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--memory-risk",
+      "--memory-shaky",
+      "--memory-stable",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-09-review-holds.svg",
@@ -216,7 +279,19 @@
     "nearExempt": [
       "--bg↔#FCF9F5 1.01"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--memory-stable",
+      "--memory-shaky",
+      "--memory-risk",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-10-evidence-points.svg",
@@ -248,7 +323,16 @@
     "nearExempt": [
       "--bg↔#FCF9F5 1.01"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-14-class-sheet.svg",
@@ -281,7 +365,17 @@
       "--bg↔#FCF9F5 1.01",
       "--bg2↔#F3EFEA 1"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-16-off-curriculum.svg",
@@ -300,7 +394,7 @@
     "gradient": false,
     "stage": true,
     "mainRatio": 83,
-    "accent": 0.02,
+    "accent": 0.01,
     "forbidden": false,
     "fonts": [
       "Lora"
@@ -312,7 +406,17 @@
       "--bg↔#FCF9F5 1.01",
       "--bg2↔#F3EFEA 1"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-19-shelf-fills.svg",
@@ -344,7 +448,17 @@
       "--bg↔#FCF9F5 1.01",
       "--bg2↔#F3EFEA 1"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   },
   {
     "file": "illo-30-no-review-today.svg",
@@ -376,6 +490,16 @@
       "--bg↔#FCF9F5 1.01",
       "--bg2↔#F3EFEA 1"
     ],
-    "fails": []
+    "vars": [
+      "--grid-line",
+      "--bg",
+      "--bd",
+      "--t1",
+      "--bg2",
+      "--ju"
+    ],
+    "juOutside": 0,
+    "fails": [],
+    "golden": "ok"
   }
 ]
