@@ -32,6 +32,7 @@ import { volumeVideoId } from '@vocaflow/video-factory/ids'
 import { platformComponents, type PlatformComponent } from '@/lib/video/components'
 import { VIDEO_BUILT_AT, type VideoFormat, type VideoKind } from '@/lib/video/catalog'
 import manifestJson from '@/lib/video/manifest.json'
+import { pagedSelect } from '@/lib/supabase/paged-select'
 
 // 화면과 함께 쓰는 모양·상수는 `video-console-shape.ts` 에 있다 — 이 파일은 `server-only` 라
 // 화면이 직접 들여오면 빌드가 죽는다. 여기서는 다시 내보내 **서버 쪽 호출부의 import 경로는
@@ -108,17 +109,28 @@ async function liveObjects(db: AdminClient): Promise<{ names: Set<string> | null
 
 /** 영상 관측 집계. 계측이 아직 한 건도 없으면 **빈 객체**(0건)이고, 못 읽으면 null 이다. */
 async function readViews(db: AdminClient): Promise<VideoViews> {
-  const { data, error } = await db
-    .from('funnel_events')
-    .select('event, meta')
-    .in('event', ['video_started', 'video_completed'])
-    .limit(10000)
-  if (error || !data) return { started: null, completed: null, byId: null }
+  // ⚠️ `.limit(10000)` 이었다 — PostgREST 는 한 응답에 1,000행까지만 주므로(`db-max-rows`)
+  //    영상 계측이 1,000건을 넘는 순간 **조용히 잘려** 시작·완료 수가 적게 나왔다(오류 없음).
+  //    세는 조회라 전량이 필요하다 → `pagedSelect`(회귀 `row-cap-lies`).
+  let data: { event: string; meta: Record<string, unknown> | null }[]
+  try {
+    data = await pagedSelect<{ event: string; meta: Record<string, unknown> | null }>(
+      (lo, hi) =>
+        db
+          .from('funnel_events')
+          .select('event, meta')
+          .in('event', ['video_started', 'video_completed'])
+          .range(lo, hi),
+      'funnel_events(video)',
+    )
+  } catch {
+    return { started: null, completed: null, byId: null }
+  }
 
   const started: Record<string, number> = {}
   const completed: Record<string, number> = {}
   const byId: Record<string, number> = {}
-  for (const row of data as { event: string; meta: Record<string, unknown> | null }[]) {
+  for (const row of data) {
     const kind = typeof row.meta?.kind === 'string' ? row.meta.kind : '(미상)'
     const bucket = row.event === 'video_started' ? started : completed
     bucket[kind] = (bucket[kind] ?? 0) + 1

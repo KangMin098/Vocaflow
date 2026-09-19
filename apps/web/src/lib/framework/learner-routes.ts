@@ -281,7 +281,16 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     kind: 'screen',
   },
   {
-    path: '/library/textbooks/[step]',
+    // 2026-09-20: 계단 경로가 시리즈 아래로 한 겹 들어갔다(`[series]/[step]`) — 파일 시스템과 맞춘다.
+    path: '/library/textbooks/[series]',
+    screen: 'library-series',
+    label: '교재 한 시리즈',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+  },
+  {
+    path: '/library/textbooks/[series]/[step]',
     screen: 'library-step',
     label: '교재 한 계단',
     group: 'main',
@@ -289,8 +298,8 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     dynamic: true,
   },
   {
-    path: '/library/textbooks/[step]/practice',
-    // ⚠️ 경로를 그대로 접으면 31자라 `isSafeProps`(24자)에 걸린다 — 줄여서 못박는다.
+    path: '/library/textbooks/[series]/[step]/practice',
+    // ⚠️ 경로를 그대로 접으면 24자(`isSafeProps`) 를 넘는다 — 줄여서 못박는다.
     screen: 'library-step-practice',
     label: '교재 계단 연습',
     group: 'main',

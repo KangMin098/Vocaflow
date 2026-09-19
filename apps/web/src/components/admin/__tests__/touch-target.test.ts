@@ -14,7 +14,8 @@
 //      ① 스캔한 인터랙티브 요소 수의 **하한** (파서가 죽으면 여기서 걸린다)
 //      ② 판정기 자체의 **단위 테스트** (44px 미만을 실제로 위반이라 부르는지)
 
-import { resolve } from 'node:path'
+import { readFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { describe, expect, it } from 'vitest'
@@ -27,7 +28,7 @@ const REPO_ROOT = resolve(here, '../../../../../../')
 
 const findings = scanAdmin(WEB_SRC, REPO_ROOT)
 const violations = findings.filter((f) => f.verdict === 'violation')
-const undecidable = findings.filter((f) => f.verdict === 'undecidable')
+const allUndecidable = findings.filter((f) => f.verdict === 'undecidable')
 
 const CHECKBOX = 'input[checkbox|radio]'
 
@@ -69,6 +70,47 @@ const CHECKBOX_ALLOWLIST: { file: string; count: number; labelWrapped: number }[
  * 상한을 둔 이유는, 새 코드가 "높이 클래스 없는 버튼" 으로 규칙을 우회하는 것을 막기 위해서다.
  */
 const UNDECIDABLE_CAP = 70
+
+/**
+ * **CSS 모듈이 44px 을 일괄 보장하는 화면** — 상한 밖으로 센다(2026-09-20).
+ *
+ * 이 스캐너는 Tailwind 클래스 문자열만 읽는다. 그런데 CSAT 관리자 화면들은 클래스 대신
+ * **CSS 모듈**로 판면을 만들고, 그 모듈이 루트 아래 인터랙티브 요소 전체에
+ * `min-height: 44px` 을 건다. 즉 실제 탭 영역은 44px 인데 스캐너에는 "높이 클래스 없음"
+ * 으로 보여 **판정 불가가 78 → 150 으로 뛰었다**(통합 전후 실측).
+ *
+ * 상한을 150 으로 올리면 "높이 클래스 없는 버튼" 우회를 막던 장치가 헐거워지므로,
+ * 상한은 70 에 두고 **증거가 있는 파일만** 뺀다. 증거는 목록이 아니라 **CSS 파일 자체**다 —
+ * 아래 `guard` 규칙이 그 모듈에서 사라지면 이 목록이 먼저 실패한다(썩지 않는 예외).
+ */
+const CSS_MODULE_44PX: { file: string; module: string; guard: RegExp }[] = [
+  {
+    file: 'apps/web/src/app/admin/csat/evidence/EvidenceConsole.tsx',
+    module: 'apps/web/src/app/admin/csat/evidence/evidence.module.css',
+    guard: /\.console\s+button[^{]*\{[^}]*min-height:\s*44px/s,
+  },
+  {
+    file: 'apps/web/src/app/admin/csat/evidence/EvidenceInspector.tsx',
+    module: 'apps/web/src/app/admin/csat/evidence/evidence.module.css',
+    guard: /\.console\s+button[^{]*\{[^}]*min-height:\s*44px/s,
+  },
+  {
+    file: 'apps/web/src/app/admin/csat/sources/SourceOperations.tsx',
+    module: 'apps/web/src/app/admin/csat/sources/source-operations.module.css',
+    guard: /\.root\s+button[^{]*\{[^}]*min-height:\s*44px/s,
+  },
+  {
+    file: 'apps/web/src/app/admin/csat/sources/SourceWorkspace.tsx',
+    module: 'apps/web/src/app/admin/csat/sources/sources.module.css',
+    guard: /min-height:\s*44px/,
+  },
+  {
+    file: 'apps/web/src/app/admin/csat/sources/SourceInventoryTable.tsx',
+    module: 'apps/web/src/app/admin/csat/sources/sources.module.css',
+    guard: /min-height:\s*44px/,
+  },
+]
+const CSS_MODULE_FILES = new Set(CSS_MODULE_44PX.map((e) => e.file))
 
 /**
  * 스캔이 실제로 일어났다는 증거. 파서가 깨지면 위반도 0 이 되므로 이 하한이 없으면
@@ -143,7 +185,15 @@ describe('허용 목록 — 체크박스·라디오', () => {
 })
 
 describe('판정 불가는 늘지 않는다', () => {
-  it(`판정 불가 ≤ ${UNDECIDABLE_CAP}`, () => {
+  it('CSS 모듈 예외는 그 모듈이 실제로 44px 을 걸고 있다', () => {
+    for (const e of CSS_MODULE_44PX) {
+      const css = readFileSync(join(REPO_ROOT, e.module), 'utf8')
+      expect(e.guard.test(css), `${e.module} 에 44px 보장 규칙이 없다 — ${e.file} 예외를 지울 것`).toBe(true)
+    }
+  })
+
+  it(`판정 불가 ≤ ${UNDECIDABLE_CAP} (CSS 모듈이 44px 을 보장하는 화면 제외)`, () => {
+    const undecidable = allUndecidable.filter((f) => !CSS_MODULE_FILES.has(f.file))
     if (undecidable.length > UNDECIDABLE_CAP) {
       throw new Error(
         `판정 불가 ${undecidable.length}건 > 상한 ${UNDECIDABLE_CAP}\n` +
