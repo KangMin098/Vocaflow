@@ -1,5 +1,16 @@
 # DB Schema
 
+## CSAT 원문 판정 캐시 v3 (2026-09-18)
+
+사용자 승인 후 `20260918140000_csat_source_eligibility_cache.sql`, `20260918140100_csat_source_eligibility_consumers.sql` 적용.
+
+- `csat_source_eligibility`: article_id PK/FK, source_updated_at, policy_version, input/result JSONB, quality_flags, excerpt_evidence, linked_items, measured_at. 정본은 `library_articles`, 이 표는 재생성 가능한 캐시다.
+- `csat_source_eligibility_history`: revision·입력·판정이 바뀔 때 이전 캐시 보관. 품질 신호만 바뀐 배치는 별도 백업으로 추적한다. 두 표는 RLS 관리자/큐레이터 조회, service_role 쓰기. history의 기본 anon 테이블 권한은 남지만 RLS 정책이 없어 실조회 0행을 확인했다.
+- `csat_source_is_eligible(uuid)`: v3·원문 revision 일치·usable/excerpt·blocker 없음·ready/published 확인. excerpt는 실제 article 문항도 요구한다. 신규/변경 원문은 재검증까지 사용 대기다.
+- `textbook_practice_items`, `prescribe_today`의 article 연습 선택, `grade_dcp_item`의 article 채점이 위 함수를 사용한다. 독서 입력 후보와 비 article 문항은 기존 소비 정책을 유지한다.
+
+수치·검증·복구: [정상화 기록](./reports/csat-sources-normalization-20260918.md).
+
 > Supabase PostgreSQL — `project_id=jajenrevcbmrpaliomxv` (vocaflow-dev).
 > 본 문서의 모든 테이블·view·function·migration 카운트는 **DB direct query** 로 검증된 사실. 작성 시점: 2026-06-08.
 

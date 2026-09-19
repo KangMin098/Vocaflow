@@ -367,11 +367,11 @@ describe('조판이 적격 판정을 건다 (규격 v2)', () => {
     expect(POOL).toContain("g.gp === 'true'")
   })
 
-  it('강제는 스위치이고 기본은 경고다 — 편수는 항상 인쇄한다', () => {
+  it('원문 적격은 항상 강제한다 — 과거 우회 스위치도 오류로 막는다', () => {
     expect(POOL).toContain('VOCAFLOW_SOURCE_STRICT')
     expect(POOL).toContain('원문 적격')
-    // 강제일 때만 거른다.
-    expect(POOL).toMatch(/if \(STRICT && !isComposable\(/)
+    expect(POOL).toMatch(/if \(!isComposable\(/)
+    expect(POOL).toContain("if (process.env.VOCAFLOW_SOURCE_STRICT === '0') throw new Error")
   })
 
   it('집계를 부르는 쪽에 돌려준다 — 로그에만 남기면 HTML 과 함께 사라진다', () => {

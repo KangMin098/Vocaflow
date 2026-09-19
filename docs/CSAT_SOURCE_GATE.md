@@ -1,5 +1,7 @@
 # CSAT 원천 게시 게이트 — 검증 체계와 파이프라인 정보 설계 (v1, 2026-09-05)
 
+> **2026-09-19 실행 경로 갱신:** 아래 책/제목 기반 흐름은 역사와 판정 계층을 설명한다. 새 원문 판정 적재는 `gate-article-export.mjs --ids-file <UUID 목록> --output <새 JSON>` → 전체 본문 검토 → `gate-mixed-import.mjs --input <판정 JSON>` dry-run → checkpoint/소량 검증 후 `--commit` → 대상 캐시 재검증이다. UUID·revision·SHA256을 보존하며 발행 상태와 본문은 바꾸지 않는다. legacy mixed 무범위 commit은 중지한다. [현행 절차](./LIBRARY_PIPELINE.md), [자산 감사](./reports/csat-source-batch-discovery-20260919.md).
+
 > 확보한 원문은 **교재 생성 파이프라인을 거쳐 학습자에게 게시된다.** 그래서 이 문서가 정하는
 > 것은 "좋은 지문의 기준"이 아니라 **게시해도 되는지의 판정 절차**다. 판정이 느슨하면
 > 19세기 인종 서열이나 폐기된 의학이 학생 앞에 놓인다. 실제로 그런 책이 코퍼스에 있었다.
@@ -222,7 +224,7 @@
 | ① 규칙 검증 | `node scripts/csat/gate-screen.mjs` | ✅ 읽기 전용 |
 | ② 판정 자료 뽑기 | `node scripts/csat/gate-book-export.mjs` | ✅ 이미 판정한 책은 다시 안 뽑는다 |
 | ③ 판정 | Claude Code 서브에이전트가 `chunk-NN.out.json` 작성 | ✅ 파일 단위 |
-| ④ 적용 | `node scripts/csat/gate-import.mjs --commit` | ✅ 판정이 그대로면 쓰지 않는다 |
+| ④ 적용 | `node scripts/csat/gate-mixed-import.mjs --input <UUID/revision/hash 판정 JSON> --commit` | ✅ 같은 판정은 건너뜀; 먼저 dry-run과 소량 검증. 제목 기반 gate-import commit은 중지 |
 
 **④ 가 하는 일**: `csat_fit.gate` 를 더하고, 게시 불가면 `status='archived'` +
 `status_message` 를 남긴다.

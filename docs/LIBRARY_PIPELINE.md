@@ -1,5 +1,30 @@
 # Library Pipeline
 
+## CSAT 파생 콘텐츠의 원문 정책 v3 (2026-09-18)
+
+최종 판정은 `source-eligibility.ts:evaluateSource` 한 벌이다. `judgeSource`는 기존 7축 진단이며 사용 허가에는 쓰지 않는다.
+조판·감사·스냅샷·관리자 재검증은 같은 함수를 호출하고 학습자 RPC는 동일 판정의 DB 캐시와 revision을 검증한다.
+reject·분석 누락·CEFR 초과는 사용 차단. 발췌 위치만 있으면 후보이며 승인된 지문이 아니다.
+
+운영 순서(저장소 루트):
+
+1. `SELECT ref_id, count(*) AS items FROM csat_dcp_items WHERE kind='article' GROUP BY ref_id ORDER BY ref_id`를 JSON으로 내보낸다.
+2. `pnpm exec tsx scripts/textbook/source-policy-refresh.mjs --item-counts <JSON> --output <JSONL>` — 읽기 전용 dry run.
+3. `--plan <JSONL> --limit 100`으로 실제 캐시와 비교한 필드·전후 값·연결 문항 영향 manifest를 확인하고 DB checkpoint before를 남긴다. 좁은 대상은 `--ids-file <UUID 목록> --output <JSONL>`로 내보내면 문항 수도 실시간으로 센다(최대 100편).
+4. `--commit <JSONL> --limit 1`로 소량 검증 후 `--commit <JSONL> --limit 500 --all`로 적재한다. 유효한 과거 24시간 내 측정만 허용하며 최신 원문 revision·문항 수·canonical 입력을 대조한다. 동일 입력 재실행은 변경 0. 실패 시 출력된 nextOffset과 백업으로 범위를 확인한다. 동시 원문 갱신은 revision 불일치로 사용 차단되므로 최신 입력으로 다시 내보낸다.
+5. checkpoint after/diff, `source-eligibility-scan.mjs`, `source-inventory-scan.mjs`, `scripts/audit/csat-sources-audit.mjs --check`로 확인한다. 스캔은 DB 읽기만 하며 UI JSON을 갱신한다. 한 원문은 관리자 inspector에서 재검증할 수 있다.
+
+배치 전 캐시 백업은 `.agent-logs`에 기록한다. 복구는 해당 배치의 이전 값만 복원하며 원문/정답을 덮지 않는다.
+원문 수정은 별도 revision 조건·본문 해시·앵커 영향 검증이 필요하다. 캐시 재검증은 내용 AI 판정을 대신하지 않는다.
+VOA ingestion은 관측된 댓글 안내 문단 제거 후 최소 길이를 검사한다. 기존 450편은 문항 100개(4편)의 위치 영향 때문에 보존한다.
+미판정 raw 31,367편은 발췌 후 판정 경로, 나머지 17,444편은 내용 검토 대상이다.
+
+일일 읽기 전용 workflow `csat-source-audit.yml`은 DB/cache/snapshot drift와 모순을 exit 1로 알린다.
+기본 브랜치 반영 및 기존 Supabase secrets 설정 후 일정 실행이 활성화된다. 자동 데이터 수정은 없다.
+상세: [Gate 기록](./reports/csat-sources-normalization-20260918.md).
+
+2026-09-19 운영 보강: 전수 감사는 등급뿐 아니라 입력·결과 전체 계약과 고아 참조를 검증하고, `work`에 A–D 후보 ID·원인·우선순위를 남긴다. [기존 자산·실행 기록](./reports/csat-source-batch-discovery-20260919.md). 내용 판정은 `gate-mixed-import.mjs --input <JSON>`으로 UUID/revision/본문 SHA256을 검증한 후 `--commit`한다. JSON의 다른 키와 발행 상태를 보존하고 동일 판정은 건너뛴다. 과거 무범위 mixed `--commit`은 중지되며 dry-run과 결과 파일은 보존한다. 제목만 연결하는 legacy gate-import는 새 corpus 판정 적재에 사용하지 않는다.
+
 > 라이브러리 도서·짧은 글·공용 단어장·어휘 분류 — 4 개 큐레이션 파이프라인.
 > 작성 시점: 2026-06-08 (v06.34).
 

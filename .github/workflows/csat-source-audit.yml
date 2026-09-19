@@ -1,0 +1,39 @@
+# .github/workflows/csat-source-audit.yml
+name: CSAT source integrity
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '20 19 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: csat-source-read-only-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec tsx --test scripts/audit/__tests__/csat-*.test.mjs scripts/textbook/__tests__/source-policy-batch.test.mjs
+      - run: node --test scripts/csat/__tests__/gate-scoped-import.test.mjs
+      # Missing credentials fail visibly; this job never changes the DB or snapshots.
+      - run: pnpm exec tsx scripts/audit/csat-sources-audit.mjs --check
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: csat-source-integrity
+          path: .agent-logs/csat-sources-audit.json
+          include-hidden-files: true
+          retention-days: 14

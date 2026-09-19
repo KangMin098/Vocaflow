@@ -1,6 +1,6 @@
 {
-  "measuredAt": "2026-09-15T11:12:14.276Z",
-  "elapsedSeconds": 309.8,
+  "measuredAt": "2026-09-15T13:35:54.121Z",
+  "elapsedSeconds": 665.9,
   "totalItems": 841826,
   "orphanItems": 0,
   "bands": [
@@ -135,10 +135,10 @@
         {
           "type": "topic",
           "targetShare": 14.7,
-          "items": 89,
-          "articles": 89,
+          "items": 101,
+          "articles": 101,
           "needPerVolume": 18,
-          "volumes": 4
+          "volumes": 5
         },
         {
           "type": "irrelevant",
@@ -254,8 +254,8 @@
         },
         {
           "type": "topic",
-          "items": 89,
-          "articles": 89
+          "items": 101,
+          "articles": 101
         },
         {
           "type": "content_match",
@@ -277,7 +277,7 @@
       "missingShare": 0,
       "volumes": 1,
       "bindingType": "long_reference",
-      "totalItems": 4867
+      "totalItems": 4879
     },
     {
       "vLevel": 3,
@@ -285,8 +285,8 @@
         {
           "type": "unit_vocab",
           "targetShare": 20,
-          "items": 1759,
-          "articles": 1560,
+          "items": 1758,
+          "articles": 1559,
           "needPerVolume": 24,
           "volumes": 73
         },
@@ -371,8 +371,8 @@
         },
         {
           "type": "unit_vocab",
-          "items": 1759,
-          "articles": 1560
+          "items": 1758,
+          "articles": 1559
         },
         {
           "type": "grammar_fix",
@@ -479,7 +479,7 @@
       "missingShare": 0,
       "volumes": 5,
       "bindingType": "title",
-      "totalItems": 6036
+      "totalItems": 6035
     },
     {
       "vLevel": 4,
@@ -487,15 +487,15 @@
         {
           "type": "unit_vocab",
           "targetShare": 20,
-          "items": 4797,
-          "articles": 3210,
+          "items": 4796,
+          "articles": 3209,
           "needPerVolume": 24,
           "volumes": 199
         },
         {
           "type": "word_order",
           "targetShare": 20,
-          "items": 2480,
+          "items": 2476,
           "articles": 1952,
           "needPerVolume": 24,
           "volumes": 103
@@ -511,8 +511,8 @@
         {
           "type": "topic",
           "targetShare": 16.2,
-          "items": 101,
-          "articles": 101,
+          "items": 102,
+          "articles": 102,
           "needPerVolume": 19,
           "volumes": 5
         },
@@ -573,8 +573,8 @@
         },
         {
           "type": "unit_vocab",
-          "items": 4797,
-          "articles": 3210
+          "items": 4796,
+          "articles": 3209
         },
         {
           "type": "grammar_fix",
@@ -583,7 +583,7 @@
         },
         {
           "type": "word_order",
-          "items": 2480,
+          "items": 2476,
           "articles": 1952
         },
         {
@@ -623,8 +623,8 @@
         },
         {
           "type": "topic",
-          "items": 101,
-          "articles": 101
+          "items": 102,
+          "articles": 102
         },
         {
           "type": "blank",
@@ -676,7 +676,7 @@
       "missingShare": 0,
       "volumes": 5,
       "bindingType": "title",
-      "totalItems": 15035
+      "totalItems": 15031
     },
     {
       "vLevel": 5,
@@ -692,26 +692,26 @@
         {
           "type": "vocab_choice",
           "targetShare": 8.9,
-          "items": 10125,
-          "articles": 7042,
+          "items": 10123,
+          "articles": 7039,
           "needPerVolume": 11,
           "volumes": 920
         },
         {
           "type": "grammar_fix",
           "targetShare": 8.8,
-          "items": 27513,
-          "articles": 9979,
+          "items": 27498,
+          "articles": 9978,
           "needPerVolume": 11,
-          "volumes": 2501
+          "volumes": 2499
         },
         {
           "type": "order",
           "targetShare": 8,
-          "items": 4500,
-          "articles": 1707,
+          "items": 4496,
+          "articles": 1705,
           "needPerVolume": 10,
-          "volumes": 450
+          "volumes": 449
         },
         {
           "type": "title",
@@ -740,18 +740,18 @@
         {
           "type": "irrelevant",
           "targetShare": 5.7,
-          "items": 2903,
-          "articles": 2350,
+          "items": 2901,
+          "articles": 2348,
           "needPerVolume": 7,
           "volumes": 414
         },
         {
           "type": "insert",
           "targetShare": 5.4,
-          "items": 5653,
-          "articles": 1834,
+          "items": 5648,
+          "articles": 1832,
           "needPerVolume": 6,
-          "volumes": 942
+          "volumes": 941
         },
         {
           "type": "purpose",
@@ -788,10 +788,10 @@
         {
           "type": "claim",
           "targetShare": 2.8,
-          "items": 10,
-          "articles": 10,
+          "items": 15,
+          "articles": 15,
           "needPerVolume": 3,
-          "volumes": 3
+          "volumes": 5
         },
         {
           "type": "implication",
@@ -812,78 +812,78 @@
         {
           "type": "word_order",
           "targetShare": 2.6,
-          "items": 10013,
+          "items": 10017,
           "articles": 5952,
           "needPerVolume": 3,
-          "volumes": 3337
+          "volumes": 3339
         },
         {
           "type": "grammar_choice",
           "targetShare": 2.1,
-          "items": 4269,
-          "articles": 3687,
+          "items": 4265,
+          "articles": 3685,
           "needPerVolume": 2,
-          "volumes": 2134
+          "volumes": 2132
         },
         {
           "type": "blank_word",
           "targetShare": 0.7,
-          "items": 47259,
-          "articles": 10777,
+          "items": 47236,
+          "articles": 10776,
           "needPerVolume": 1,
-          "volumes": 47259
+          "volumes": 47236
         }
       ],
       "stock": [
         {
           "type": "blank_word",
-          "items": 47259,
-          "articles": 10777
+          "items": 47236,
+          "articles": 10776
         },
         {
           "type": "unit_vocab",
-          "items": 30259,
-          "articles": 10554
+          "items": 30242,
+          "articles": 10553
         },
         {
           "type": "grammar_fix",
-          "items": 27513,
-          "articles": 9979
+          "items": 27498,
+          "articles": 9978
         },
         {
           "type": "vocab_choice",
-          "items": 10125,
-          "articles": 7042
+          "items": 10123,
+          "articles": 7039
         },
         {
           "type": "word_order",
-          "items": 10013,
+          "items": 10017,
           "articles": 5952
         },
         {
           "type": "unit_grammar",
-          "items": 8115,
-          "articles": 5666
+          "items": 8110,
+          "articles": 5664
         },
         {
           "type": "insert",
-          "items": 5653,
-          "articles": 1834
+          "items": 5648,
+          "articles": 1832
         },
         {
           "type": "order",
-          "items": 4500,
-          "articles": 1707
+          "items": 4496,
+          "articles": 1705
         },
         {
           "type": "grammar_choice",
-          "items": 4269,
-          "articles": 3687
+          "items": 4265,
+          "articles": 3685
         },
         {
           "type": "irrelevant",
-          "items": 2903,
-          "articles": 2350
+          "items": 2901,
+          "articles": 2348
         },
         {
           "type": "blank",
@@ -957,15 +957,15 @@
         },
         {
           "type": "claim",
-          "items": 10,
-          "articles": 10
+          "items": 15,
+          "articles": 15
         }
       ],
       "missingTypes": [],
       "missingShare": 0,
-      "volumes": 3,
-      "bindingType": "claim",
-      "totalItems": 112610
+      "volumes": 5,
+      "bindingType": "blank",
+      "totalItems": 112564
     },
     {
       "vLevel": 6,
@@ -973,48 +973,48 @@
         {
           "type": "blank",
           "targetShare": 14,
-          "items": 74,
-          "articles": 74,
+          "items": 84,
+          "articles": 84,
           "needPerVolume": 17,
           "volumes": 4
         },
         {
           "type": "vocab_choice",
           "targetShare": 8.9,
-          "items": 15791,
-          "articles": 6724,
+          "items": 15764,
+          "articles": 6725,
           "needPerVolume": 11,
-          "volumes": 1435
+          "volumes": 1433
         },
         {
           "type": "grammar_fix",
           "targetShare": 8.8,
-          "items": 43711,
-          "articles": 7513,
+          "items": 43705,
+          "articles": 7515,
           "needPerVolume": 11,
           "volumes": 3973
         },
         {
           "type": "order",
           "targetShare": 8,
-          "items": 64609,
-          "articles": 10870,
+          "items": 64603,
+          "articles": 10873,
           "needPerVolume": 10,
           "volumes": 6460
         },
         {
           "type": "title",
           "targetShare": 7.9,
-          "items": 38,
-          "articles": 38,
+          "items": 43,
+          "articles": 43,
           "needPerVolume": 9,
           "volumes": 4
         },
         {
           "type": "topic",
           "targetShare": 6.3,
-          "items": 32,
-          "articles": 32,
+          "items": 38,
+          "articles": 38,
           "needPerVolume": 8,
           "volumes": 4
         },
@@ -1029,26 +1029,26 @@
         {
           "type": "irrelevant",
           "targetShare": 5.7,
-          "items": 5133,
-          "articles": 3104,
+          "items": 5138,
+          "articles": 3106,
           "needPerVolume": 7,
-          "volumes": 733
+          "volumes": 734
         },
         {
           "type": "insert",
           "targetShare": 5.4,
-          "items": 89411,
-          "articles": 11269,
+          "items": 89406,
+          "articles": 11270,
           "needPerVolume": 6,
           "volumes": 14901
         },
         {
           "type": "purpose",
           "targetShare": 4.3,
-          "items": 20,
-          "articles": 20,
+          "items": 19,
+          "articles": 19,
           "needPerVolume": 5,
-          "volumes": 4
+          "volumes": 3
         },
         {
           "type": "mood",
@@ -1061,18 +1061,18 @@
         {
           "type": "summary",
           "targetShare": 3.9,
-          "items": 26,
-          "articles": 26,
+          "items": 25,
+          "articles": 25,
           "needPerVolume": 5,
           "volumes": 5
         },
         {
           "type": "main_point",
           "targetShare": 2.9,
-          "items": 17,
-          "articles": 17,
+          "items": 23,
+          "articles": 23,
           "needPerVolume": 4,
-          "volumes": 4
+          "volumes": 5
         },
         {
           "type": "claim",
@@ -1101,83 +1101,88 @@
         {
           "type": "word_order",
           "targetShare": 2.6,
-          "items": 13224,
-          "articles": 4406,
+          "items": 13190,
+          "articles": 4407,
           "needPerVolume": 3,
-          "volumes": 4408
+          "volumes": 4396
         },
         {
           "type": "grammar_choice",
           "targetShare": 2.1,
           "items": 5921,
-          "articles": 3954,
+          "articles": 3955,
           "needPerVolume": 2,
           "volumes": 2960
         },
         {
           "type": "blank_word",
           "targetShare": 0.7,
-          "items": 72212,
-          "articles": 7881,
+          "items": 72114,
+          "articles": 7880,
           "needPerVolume": 1,
-          "volumes": 72212
+          "volumes": 72114
         }
       ],
       "stock": [
         {
           "type": "insert",
-          "items": 89411,
-          "articles": 11269
+          "items": 89406,
+          "articles": 11270
         },
         {
           "type": "blank_word",
-          "items": 72212,
-          "articles": 7881
+          "items": 72114,
+          "articles": 7880
         },
         {
           "type": "order",
-          "items": 64609,
-          "articles": 10870
+          "items": 64603,
+          "articles": 10873
         },
         {
           "type": "grammar_fix",
-          "items": 43711,
-          "articles": 7513
+          "items": 43705,
+          "articles": 7515
         },
         {
           "type": "unit_vocab",
-          "items": 36725,
-          "articles": 7580
+          "items": 36675,
+          "articles": 7583
         },
         {
           "type": "vocab_choice",
-          "items": 15791,
-          "articles": 6724
+          "items": 15764,
+          "articles": 6725
         },
         {
           "type": "word_order",
-          "items": 13224,
-          "articles": 4406
+          "items": 13190,
+          "articles": 4407
         },
         {
           "type": "unit_grammar",
-          "items": 11681,
-          "articles": 4918
+          "items": 11686,
+          "articles": 4921
         },
         {
           "type": "grammar_choice",
           "items": 5921,
-          "articles": 3954
+          "articles": 3955
         },
         {
           "type": "irrelevant",
-          "items": 5133,
-          "articles": 3104
+          "items": 5138,
+          "articles": 3106
         },
         {
           "type": "blank",
-          "items": 74,
-          "articles": 74
+          "items": 84,
+          "articles": 84
+        },
+        {
+          "type": "title",
+          "items": 43,
+          "articles": 43
         },
         {
           "type": "content_match",
@@ -1185,19 +1190,14 @@
           "articles": 39
         },
         {
-          "type": "title",
+          "type": "topic",
           "items": 38,
           "articles": 38
         },
         {
-          "type": "topic",
-          "items": 32,
-          "articles": 32
-        },
-        {
           "type": "summary",
-          "items": 26,
-          "articles": 26
+          "items": 25,
+          "articles": 25
         },
         {
           "type": "mood",
@@ -1205,19 +1205,19 @@
           "articles": 25
         },
         {
+          "type": "main_point",
+          "items": 23,
+          "articles": 23
+        },
+        {
           "type": "purpose",
-          "items": 20,
-          "articles": 20
+          "items": 19,
+          "articles": 19
         },
         {
           "type": "implication",
           "items": 18,
           "articles": 18
-        },
-        {
-          "type": "main_point",
-          "items": 17,
-          "articles": 17
         },
         {
           "type": "claim",
@@ -1233,8 +1233,8 @@
       "missingTypes": [],
       "missingShare": 0,
       "volumes": 3,
-      "bindingType": "long_reference",
-      "totalItems": 310325
+      "bindingType": "purpose",
+      "totalItems": 310179
     },
     {
       "vLevel": 7,
@@ -1242,42 +1242,42 @@
         {
           "type": "blank",
           "targetShare": 14,
-          "items": 71,
-          "articles": 71,
+          "items": 84,
+          "articles": 84,
           "needPerVolume": 17,
           "volumes": 4
         },
         {
           "type": "vocab_choice",
           "targetShare": 8.9,
-          "items": 20746,
-          "articles": 3547,
+          "items": 20753,
+          "articles": 3545,
           "needPerVolume": 11,
           "volumes": 1886
         },
         {
           "type": "grammar_fix",
           "targetShare": 8.8,
-          "items": 53376,
-          "articles": 3853,
+          "items": 53358,
+          "articles": 3850,
           "needPerVolume": 11,
-          "volumes": 4852
+          "volumes": 4850
         },
         {
           "type": "order",
           "targetShare": 8,
-          "items": 14434,
-          "articles": 2315,
+          "items": 14429,
+          "articles": 2313,
           "needPerVolume": 10,
-          "volumes": 1443
+          "volumes": 1442
         },
         {
           "type": "title",
           "targetShare": 7.9,
-          "items": 34,
-          "articles": 34,
+          "items": 42,
+          "articles": 42,
           "needPerVolume": 9,
-          "volumes": 3
+          "volumes": 4
         },
         {
           "type": "topic",
@@ -1298,18 +1298,18 @@
         {
           "type": "irrelevant",
           "targetShare": 5.7,
-          "items": 6425,
-          "articles": 2218,
+          "items": 6417,
+          "articles": 2216,
           "needPerVolume": 7,
-          "volumes": 917
+          "volumes": 916
         },
         {
           "type": "insert",
           "targetShare": 5.4,
-          "items": 21673,
-          "articles": 2400,
+          "items": 21658,
+          "articles": 2398,
           "needPerVolume": 6,
-          "volumes": 3612
+          "volumes": 3609
         },
         {
           "type": "purpose",
@@ -1322,10 +1322,10 @@
         {
           "type": "mood",
           "targetShare": 4.1,
-          "items": 8,
-          "articles": 8,
+          "items": 18,
+          "articles": 18,
           "needPerVolume": 5,
-          "volumes": 1
+          "volumes": 3
         },
         {
           "type": "summary",
@@ -1370,83 +1370,83 @@
         {
           "type": "word_order",
           "targetShare": 2.6,
-          "items": 16555,
-          "articles": 2936,
+          "items": 16561,
+          "articles": 2935,
           "needPerVolume": 3,
-          "volumes": 5518
+          "volumes": 5520
         },
         {
           "type": "grammar_choice",
           "targetShare": 2.1,
-          "items": 5302,
-          "articles": 2348,
+          "items": 5301,
+          "articles": 2346,
           "needPerVolume": 2,
-          "volumes": 2651
+          "volumes": 2650
         },
         {
           "type": "blank_word",
           "targetShare": 0.7,
-          "items": 90942,
+          "items": 90962,
           "articles": 4107,
           "needPerVolume": 1,
-          "volumes": 90942
+          "volumes": 90962
         }
       ],
       "stock": [
         {
           "type": "blank_word",
-          "items": 90942,
+          "items": 90962,
           "articles": 4107
         },
         {
           "type": "grammar_fix",
-          "items": 53376,
-          "articles": 3853
+          "items": 53358,
+          "articles": 3850
         },
         {
           "type": "unit_vocab",
-          "items": 47468,
-          "articles": 3881
+          "items": 47516,
+          "articles": 3879
         },
         {
           "type": "insert",
-          "items": 21673,
-          "articles": 2400
+          "items": 21658,
+          "articles": 2398
         },
         {
           "type": "vocab_choice",
-          "items": 20746,
-          "articles": 3547
+          "items": 20753,
+          "articles": 3545
         },
         {
           "type": "word_order",
-          "items": 16555,
-          "articles": 2936
+          "items": 16561,
+          "articles": 2935
         },
         {
           "type": "order",
-          "items": 14434,
-          "articles": 2315
+          "items": 14429,
+          "articles": 2313
         },
         {
           "type": "unit_grammar",
-          "items": 9571,
-          "articles": 2906
+          "items": 9568,
+          "articles": 2905
         },
         {
           "type": "irrelevant",
-          "items": 6425,
-          "articles": 2218
+          "items": 6417,
+          "articles": 2216
         },
         {
           "type": "grammar_choice",
-          "items": 5302,
-          "articles": 2348
+          "items": 5301,
+          "articles": 2346
         },
         {
           "type": "blank",
-          "items": 71,
-          "articles": 71
+          "items": 84,
+          "articles": 84
         },
         {
           "type": "topic",
@@ -1454,14 +1454,14 @@
           "articles": 49
         },
         {
-          "type": "content_match",
+          "type": "title",
           "items": 42,
           "articles": 42
         },
         {
-          "type": "title",
-          "items": 34,
-          "articles": 34
+          "type": "content_match",
+          "items": 42,
+          "articles": 42
         },
         {
           "type": "summary",
@@ -1479,6 +1479,11 @@
           "articles": 20
         },
         {
+          "type": "mood",
+          "items": 18,
+          "articles": 18
+        },
+        {
           "type": "claim",
           "items": 13,
           "articles": 13
@@ -1489,11 +1494,6 @@
           "articles": 13
         },
         {
-          "type": "mood",
-          "items": 8,
-          "articles": 8
-        },
-        {
           "type": "long_reference",
           "items": 4,
           "articles": 4
@@ -1502,8 +1502,8 @@
       "missingTypes": [],
       "missingShare": 0,
       "volumes": 1,
-      "bindingType": "mood",
-      "totalItems": 229755
+      "bindingType": "long_reference",
+      "totalItems": 229772
     }
   ]
 }

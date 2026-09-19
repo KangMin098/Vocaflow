@@ -19,6 +19,8 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
+import { ELIGIBILITY_SPEC_VERSION } from '../../packages/library-pipeline/src/textbook/source-eligibility.ts'
 
 import { ELEMENTARY_TYPES, SCHOOL_TYPES, loadEnv, loadVolume } from './volume-pool.mjs'
 
@@ -976,6 +978,15 @@ const html = renderVolumeDocument({
 })
 
 fs.writeFileSync(path.resolve(OUT), html, 'utf8')
+// Immutable sidecar survives replacement of the latest DB render record.
+const sourceManifest = {
+  policyVersion: ELIGIBILITY_SPEC_VERSION,
+  renderedAt: new Date().toISOString(),
+  htmlSha256: createHash('sha256').update(html).digest('hex'),
+  itemIds: [...new Set(printedItems.map(item => item.id))].sort(),
+  sourceIds: [...new Set(printedItems.map(item => item.ref_id).filter(id => /^[0-9a-f-]{36}$/i.test(id)))].sort(),
+}
+fs.writeFileSync(`${path.resolve(OUT)}.manifest-${sourceManifest.renderedAt.replace(/[:.]/g, '-')}.json`, JSON.stringify(sourceManifest, null, 2) + '\n', { flag: 'wx' })
 
 console.log(`V${BAND} — 원글 ${byId.size}편 · 문항 풀 ${pool.length}`)
 console.log(`조합 ${units.length}단원 · 인쇄 ${qNo}문항${stoppedBecause ? ` (${stoppedBecause})` : ''}`)
@@ -1130,6 +1141,7 @@ const record = {
   //   마이그레이션이 필요 없고, 통째로 덮지 않으므로 기존 판권 값도 그대로 산다.
   colophon: {
     ...colophon,
+    sourceManifest,
     review: {
       passageSpec: PASSAGE_CHIP,
       answerBias: bias

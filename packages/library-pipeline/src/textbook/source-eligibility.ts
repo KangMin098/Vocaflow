@@ -35,9 +35,10 @@
 import { hasSensitiveTopic } from './csat-format'
 import { CURRICULUM_GATE, type SchoolLevel } from './curriculum'
 import { PASSAGE_WORDS, READING_LEVEL_BANDS } from './readability'
+import { cefrFitsBand } from './assemble-unit'
 
 /** 판정 규격 버전. 자가 바뀌면 올린다 — 적재된 판정이 어느 자로 매겨졌는지 알아야 한다. */
-export const ELIGIBILITY_SPEC_VERSION = 2
+export const ELIGIBILITY_SPEC_VERSION = 3
 
 /**
  * 등급 — **다음에 할 일**로 가른다.
@@ -180,6 +181,7 @@ export interface SourceEligibilityInput {
   gateVerdict: string | null
   /** `csat_fit.gate.purpose` */
   gatePurpose: string | null
+  gateGenre?: string | null
   /**
    * `csat_fit.make.windows` 개수 — 긴 글에서 지문으로 자를 자리.
    *
@@ -202,6 +204,77 @@ export interface SourceEligibilityInput {
   hasItems?: boolean | null
   /** 교육과정 밖 % — 본문을 재야 나온다. 없으면 `null`(미측정). */
   outsidePct?: number | null
+}
+
+export type SourceEligibilityContext = 'textbook' | 'learner'
+export interface FinalSourceEligibility extends SourceEligibility {
+  context: SourceEligibilityContext
+  status: 'eligible' | 'conditional' | 'review' | 'rejected'
+  reasons: string[]
+  blockers: string[]
+  warnings: string[]
+  analysisStatus: 'complete' | 'missing' | 'invalid'
+  contentStatus: 'accepted' | 'unjudged' | 'rejected'
+  cefrStatus: 'within-band' | 'above-band' | 'unknown'
+  excerptStatus: 'not-required' | 'candidate' | 'item-linked' | 'missing'
+  sourceQuality: 'unreviewed'
+}
+
+/**
+ * Final source policy for every article consumer. judgeSource below is the legacy
+ * seven-axis diagnostic, not authorization. Item payload/anchor/review checks remain
+ * mandatory in the consumer; a linked item is not an approved excerpt range.
+ * Online practice intentionally uses its own item-length policy, not print maxima.
+ */
+export function evaluateSource(
+  row: SourceEligibilityInput,
+  context: SourceEligibilityContext = 'textbook',
+): FinalSourceEligibility {
+  const base = judgeSource(row)
+  const blockers: string[] = []
+  const warnings: string[] = ['source_quality_unreviewed']
+  const missing = row.articleVLevel == null || row.wordCount == null || !row.register || !row.cefrLevel || row.syntaxScore == null
+  const invalid = !missing && (!Number.isInteger(row.articleVLevel) || row.articleVLevel! < 0 || row.articleVLevel! > 11 ||
+    !Number.isFinite(row.wordCount) || row.wordCount! <= 0 || !Number.isFinite(row.syntaxScore) ||
+    !['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].includes(row.cefrLevel!))
+  const analysisStatus = missing ? 'missing' : invalid ? 'invalid' : 'complete'
+  const contentStatus = row.gateVerdict === 'reject' ? 'rejected' :
+    ['use', 'narrative'].includes(row.gateVerdict ?? '') ? 'accepted' : 'unjudged'
+  const cefrStatus = analysisStatus !== 'complete' ? 'unknown' :
+    cefrFitsBand(row.cefrLevel, row.articleVLevel) ? 'within-band' : 'above-band'
+  const excerptStatus = (row.wordCount ?? 0) <= PASSAGE_WORDS.max ? 'not-required' :
+    row.hasItems === true ? 'item-linked' : (row.excerptWindows ?? 0) > 0 ? 'candidate' : 'missing'
+  if (!['ready', 'published'].includes(row.status ?? '')) blockers.push('source_not_ready')
+  if (contentStatus === 'rejected') blockers.push('content_rejected')
+  if (['bias', 'doctrine', 'pseudoscience', 'obsolete-fact', 'polemic'].includes(row.gateGenre ?? '')) blockers.push('harmful_genre')
+  if (analysisStatus !== 'complete') blockers.push(`analysis_${analysisStatus}`)
+  if (contentStatus === 'unjudged') blockers.push(row.gatePurpose === 'raw' ? 'raw_content_unjudged' : 'content_unjudged')
+  if (cefrStatus === 'above-band') blockers.push('cefr_above_band')
+  if (excerptStatus === 'candidate' || excerptStatus === 'missing') blockers.push('excerpt_not_materialized')
+  if (!isComposable(base.grade)) blockers.push(`base_${base.blockedBy ?? base.grade}`)
+  if (row.gatePublishable == null) blockers.push('publication_gate_missing')
+  if (row.outsidePct == null) warnings.push('vocabulary_unmeasured')
+  if (!row.licenseClass) warnings.push('legacy_license_unrecorded')
+  if (excerptStatus === 'item-linked') warnings.push('item_integrity_required')
+  let grade = base.grade
+  let reason = base.reason
+  let blockedBy = base.blockedBy
+  if (contentStatus === 'rejected' || blockers.includes('harmful_genre')) {
+    grade = 'blocked'
+    blockedBy = 'judgement'
+    reason = blockers.join(' · ')
+  } else if (blockers.length && isComposable(grade)) {
+    grade = blockers.some(x => ['content_rejected', 'harmful_genre', 'cefr_above_band', 'source_not_ready'].includes(x)) ? 'blocked' :
+      analysisStatus !== 'complete' ? 'unknown' : contentStatus === 'unjudged' ? 'unjudged' :
+        blockers.includes('excerpt_not_materialized') ? 'excerpt-blind' : 'blocked'
+    blockedBy = grade === 'excerpt-blind' ? 'format' : grade === 'unknown' ? 'analysis' : 'judgement'
+    reason = blockers.join(' · ')
+  }
+  const status = blockers.length === 0 ? (grade === 'excerpt' ? 'conditional' : 'eligible') :
+    grade === 'blocked' ? 'rejected' : 'review'
+  return { ...base, grade, reason, blockedBy, context, status, blockers, warnings,
+    reasons: blockers.length ? [...blockers] : [grade === 'excerpt' ? 'source_pass_item_checks_required' : 'source_pass'],
+    analysisStatus, contentStatus, cefrStatus, excerptStatus, sourceQuality: 'unreviewed' }
 }
 
 export interface SourceEligibility {
@@ -399,7 +472,7 @@ export function judgeSource(row: SourceEligibilityInput): SourceEligibility {
 export const GRADE_LABEL: Record<EligibilityGrade, string> = {
   usable: '그대로 사용',
   excerpt: '발췌해 사용',
-  'excerpt-blind': '발췌 자리 없음',
+  'excerpt-blind': '발췌 준비 필요',
   unjudged: '내용 판정 없음',
   unknown: '분석 없음',
   blocked: '사용 불가',
@@ -409,7 +482,7 @@ export const GRADE_LABEL: Record<EligibilityGrade, string> = {
 export const GRADE_NEXT_STEP: Record<EligibilityGrade, string> = {
   usable: '조판에 넣는다',
   excerpt: '조판이 그 문항을 인쇄한다',
-  'excerpt-blind': 'scripts/textbook/store-new-types.mjs 로 문항을 만든다 — 그때 규격에 맞게 잘린다',
+  'excerpt-blind': '발췌 후보의 범위·본문을 검토한 뒤 규격에 맞는 문항을 만든다',
   unjudged:
     'scripts/csat/gate-book-export.mjs → Claude Code 가 청크를 채움 → gate-import.mjs (책 단위)',
   unknown: 'scripts/acp/process-queue.mjs 로 학령 분석을 붙인다',

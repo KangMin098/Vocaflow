@@ -1,8 +1,8 @@
 {
-  "measuredAt": "2026-09-15T16:23:26.391Z",
-  "elapsedSeconds": 9,
+  "measuredAt": "2026-09-19T02:32:50.290Z",
+  "elapsedSeconds": 29,
   "scope": "전체 상태 (status 필터 없음) — 관리 뷰는 보관·실패까지 본다",
-  "scanned": 108953,
+  "scanned": 109043,
   "sources": [
     {
       "source": "plos",
@@ -14,7 +14,7 @@
       },
       "judged": 16392,
       "rawPurpose": 36337,
-      "levelled": 47938,
+      "levelled": 47939,
       "legalBlocked": 1,
       "blockedBy": {
         "oversize-raw": 36337,
@@ -34,7 +34,7 @@
         "3": 4,
         "4": 274,
         "5": 6064,
-        "6": 33720,
+        "6": 33721,
         "7": 7701,
         "8": 168,
         "9": 5
@@ -64,16 +64,16 @@
         "failed": 2,
         "analyzing": 1
       },
-      "judged": 36635,
+      "judged": 36641,
       "rawPurpose": 0,
       "levelled": 23845,
       "legalBlocked": 10,
       "blockedBy": {
         "bias": 3020,
-        "reference": 1100,
-        "fragmentary": 4456,
+        "reference": 1101,
+        "fragmentary": 4457,
         "doc-page": 1017,
-        "poetry-drama": 794,
+        "poetry-drama": 795,
         "obsolete-fact": 1295,
         "not-selfcontained": 243,
         "doctrine": 1390,
@@ -88,6 +88,7 @@
         "doc-caption": 74,
         "doc-glyph": 2,
         "ref-crossref": 54,
+        "sensitive-violence": 1,
         "doc-verse": 2
       },
       "firstGet": "2026-09-04T10:18:10.223173+00:00",
@@ -106,7 +107,7 @@
       "topBlocked": [
         {
           "reason": "fragmentary",
-          "count": 4456
+          "count": 4457
         },
         {
           "reason": "bias",
@@ -127,12 +128,12 @@
         "published": 29,
         "archived": 7
       },
-      "judged": 266,
+      "judged": 268,
       "rawPurpose": 0,
       "levelled": 10654,
       "legalBlocked": 17,
       "blockedBy": {
-        "reference": 7
+        "reference": 9
       },
       "firstGet": "2026-06-14T01:30:00.030653+00:00",
       "lastGet": "2026-09-08T07:25:25.511377+00:00",
@@ -148,7 +149,7 @@
       "topBlocked": [
         {
           "reason": "reference",
-          "count": 7
+          "count": 9
         }
       ]
     },
@@ -220,25 +221,25 @@
     },
     {
       "source": "original",
-      "total": 1429,
+      "total": 1519,
       "byStatus": {
         "queued": 888,
-        "ready": 541
+        "ready": 631
       },
-      "judged": 531,
+      "judged": 629,
       "rawPurpose": 0,
-      "levelled": 541,
+      "levelled": 631,
       "legalBlocked": 0,
       "blockedBy": {},
       "firstGet": "2026-08-18T03:40:45.743105+00:00",
-      "lastGet": "2026-09-08T08:52:04.709174+00:00",
+      "lastGet": "2026-09-17T11:43:18.948689+00:00",
       "byVLevel": {
         "2": 160,
         "3": 151,
         "4": 144,
-        "5": 79,
-        "6": 4,
-        "7": 3
+        "5": 109,
+        "6": 34,
+        "7": 33
       },
       "topBlocked": []
     },

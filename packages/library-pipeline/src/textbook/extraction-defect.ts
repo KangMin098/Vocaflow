@@ -57,7 +57,8 @@ export const DEFECT_RULES: readonly DefectRule[] = [
     label: 'HTML 속성 혼입',
     why: '툴팁·링크 속성이 문장 한복판에 남았다 — 그대로 인쇄된다',
     test: (b) => {
-      const m = b.match(/[a-z-]+="[^"]{0,40}"\s*&?gt;|&lt;\/?[a-z]+&gt;|<\/?(?:div|span|p|a|img)\b/i)
+      // A complete tag is required: phonetic <p, t, k> and A3 <A1 are not HTML.
+      const m = b.match(/[a-z-]+="[^"]{0,40}"\s*&?gt;|&lt;\/?[a-z]+&gt;|<\/?(?:div|span|p|a|img)(?:\s+[^<>\n]{0,200})?\s*\/?>/i)
       return m ? m[0].slice(0, 60) : null
     },
   },
@@ -66,8 +67,14 @@ export const DEFECT_RULES: readonly DefectRule[] = [
     label: '위키 마크업 잔재',
     why: '`== 절 ==` · `[[링크]]` · `{{틀}}` 이 본문에 남았다',
     test: (b) => {
-      const m = b.match(/^={2,}[^=\n]{1,60}={2,}\s*$|\[\[[^\]\n]{1,60}\]\]|\{\{[^}\n]{1,60}\}\}/m)
-      return m ? m[0].slice(0, 60) : null
+      const matches = b.matchAll(/^={2,}[^=\n]{1,60}={2,}\s*$|\[\[[^\]\n]{1,60}\]\]|\{\{[^}\n]{1,60}\}\}/gm)
+      for (const m of matches) {
+        const inside = m[0].slice(2, -2).trim()
+        // Observed bibliography, score rehearsal marks and formal lists are not wiki links.
+        if (m[0].startsWith('[[') && (/^[\d\s,–-]+$/.test(inside) || /^[A-Z](?:-[A-Z])?$/.test(inside) || inside.includes(';'))) continue
+        return m[0].slice(0, 60)
+      }
+      return null
     },
   },
   {
@@ -91,7 +98,7 @@ export const DEFECT_RULES: readonly DefectRule[] = [
       for (const raw of b.split(/\n+/)) {
         const line = raw.trim()
         if (line.length < 80) continue
-        const key = line.slice(0, 120)
+        const key = line.replace(/\s+/g, ' ')
         if (seen.has(key)) return key.slice(0, 60)
         seen.add(key)
       }
@@ -111,9 +118,9 @@ export const DEFECT_RULES: readonly DefectRule[] = [
      */
     test: (b) => {
       const pats = [
-        /\b(?:of|by|for|with|to|from|than|between)\s+[.,;:)]/, // 전치사 뒤 바로 문장부호
+        /\b(?:of|by|for|with|to|from|than|between)\s+(?:\.(?!\.)|[,;:)])/, // ellipsis is not a missing formula
         /\b(?:Let|Assume|Suppose)\s+(?:be|is|are|denotes?|represents?),?\s/, // 주어가 빠졌다
-        /\bwhere\s+(?:is|are|denotes?|represents?)\s/, // where 뒤 주어 없음
+        /\bwhere\s+(?:is|are|denotes?|represents?)\s+(?!(?:our|your|my|his|her|their)\b)/, // possessive questions have a subject
         /\b(?:denotes?|represents?|equals?)\s+[.,;]/, // 목적어가 빠졌다
       ]
       for (const re of pats) {

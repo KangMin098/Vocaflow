@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-13T09:56:38.337Z",
+  "generatedAt": "2026-09-17T22:55:55.764Z",
   "totals": {
-    "pageRoutes": 151,
-    "learnerPages": 95,
-    "apiRoutes": 77,
-    "linkedLearnerPages": 64
+    "pageRoutes": 157,
+    "learnerPages": 93,
+    "apiRoutes": 80,
+    "linkedLearnerPages": 62
   },
   "deadLinks": [],
   "orphanLearnerPages": [
@@ -21,6 +21,7 @@
   "orphanApiRoutes": [
     "/api/acp/dev-enqueue",
     "/api/admin/library/backfill-covers",
+    "/api/csat/session/reveal",
     "/api/lcp/dev-enqueue-book",
     "/api/lcp/dev-ingest-preview",
     "/api/lcp/process",

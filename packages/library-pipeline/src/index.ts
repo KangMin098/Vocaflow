@@ -936,6 +936,9 @@ export {
   GRADE_NEXT_STEP,
   isComposable,
   judgeSource,
+  evaluateSource,
+  type FinalSourceEligibility,
+  type SourceEligibilityContext,
   schoolOfVLevel,
   tallyEligibility,
   type AxisVerdict,
@@ -946,6 +949,7 @@ export {
   type SourceEligibility,
   type SourceEligibilityInput,
 } from './textbook/source-eligibility'
+export { SOURCE_POLICY_SELECT, sourceEligibilityInput } from './textbook/source-eligibility-row'
 // 연령 × 유형별 원문 요건 — "이 지문을 왜 이 학년 이 유형에 썼나" 의 근거표.
 export {
   FAMILY_LABEL,
