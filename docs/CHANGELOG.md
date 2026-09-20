@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- 관리자 콘솔: 액센트 B 「주묵 도장」 확정(표식만·면 금지) + 커버리지 규격 한 줄(막힌 단계를 첫 뷰포트에 문장으로) · 판면은 Tailwind 통일 판정(CSS 모듈 3개는 토큰 위생만 통과, 주묵·판면 어휘 0) · Gate 1 발산 4안. CEFR 밴드 정책은 측정만(결정 보류) — 밴드만 걸린 글 11,242편·212,433문항. 결정 DD-55 · DD-56 · DD-57(초안).
+
 - CSAT 원문 판정 드레인(#104): 판정 하나로 열리는 raw PLOS 309편을 판정·적재해 **연습 가능 문항 105,294 → 119,559**(11.97% → 13.59%). 도구 3개 추가(`gate-raw-with-items-ids.mjs` · `gate-article-export --include-raw-with-items` · `gate-reviews-verify.mjs`) · 화면도움말 drain 단계 추가. 남은 미판정 12,123편은 `cefr_above_band` 라 밴드·V-Level 결정이 필요하다. 결정 DD-54.
 
 - CSAT 통합 인수(Codex 한도 폴백): 미커밋 175건을 8커밋으로 정리 — 에이전트 공용 도구(agents/scripts·.codex) 추적 시작 · 원문 적격 캐시 마이그레이션 2개(이미 DB 적용) · 관리자 근거 콘솔·원천 작업공간 · 기출 학습자 화면(/csat/dissect · /csat/formulas, 골격 선언 채움) · VOA 보일러플레이트 · 시각 회귀 4파일. 통합이 깨뜨린 회귀 4건 수정(화면도움말 도식 · 라우트 매니페스트) + 실제 결함 1건(video-console 의 .limit(10000) → pagedSelect). 라쳇은 내리기만(grid-3eq 58 · ai-purple 318). 결정 DD-50.
