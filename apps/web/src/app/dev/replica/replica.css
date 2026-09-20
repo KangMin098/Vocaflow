@@ -73,6 +73,12 @@
   height: auto;
 }
 
+/* 규격 L 장면은 띠를 **채우라고** 만든 것이라 320 상한을 받지 않는다(03-system §3-9 규격 5종). */
+.replica-scene > svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
 /* 측정 도구가 읽는 눈금 — 화면에는 영향이 없다. */
 .replica-meta {
   position: absolute;

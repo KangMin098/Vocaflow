@@ -11,14 +11,13 @@
 
 import { AppFrame, appNodeSlots } from '../AppFrame'
 import type { AppSubst } from '../AppFrame'
-import { colorMap, planMedia } from '../ours'
+import { colorFn, planMedia } from '../ours'
 
 export const dynamic = 'force-dynamic'
 
 function substFor(vpKey: string): AppSubst {
-  const map = colorMap()
   return {
-    color: (hex) => (hex ? (map.get(hex.toLowerCase()) ?? hex) : undefined),
+    color: colorFn(),
     media: planMedia(appNodeSlots(vpKey)),
   }
 }

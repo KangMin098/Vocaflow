@@ -5,10 +5,12 @@
 // "구조·수치 변경 0" 이 말뿐이 된다(BandStack 과 같은 이유).
 
 import { appMeasured } from './blueprint'
-import type { MediaAsset } from './ours'
+import type { ColorFn, MediaAsset } from './ours'
+import { fillRole } from './ours'
 
 export type AppSubst = {
-  color?: (hex?: string | null) => string | undefined
+  /** 역할(면/선/글자)이 인자다 — BandStack 과 같은 규칙(DD-55 면 금지). */
+  color?: ColorFn
   /** 노드(캔버스 위 카드) 자리 → 우리 자산. 없으면 회색 상자. */
   media?: Map<string, MediaAsset>
 }
@@ -38,7 +40,8 @@ export function AppFrame({ vpKey, subst }: { vpKey: string; subst?: AppSubst }) 
   if (!v || v.error) return <div data-app-frame={vpKey}>측정값 없음: {v?.error ?? vpKey}</div>
 
   const { frame, derived, grid, nodes, boxes } = v
-  const col = (hex?: string | null) => (subst?.color ? subst.color(hex) : (hex ?? undefined))
+  const col = (hex: string | null | undefined, role: '면' | '선' | '글자') =>
+    subst?.color ? subst.color(hex, role) : (hex ?? undefined)
   const nodeIndex = new Map(nodes.map((n, i) => [`${n.x}:${n.y}:${n.w}:${n.h}`, i]))
   // 점 격자는 치환하면 우리 모눈 토큰이 된다(03-system 「원고지」와 같은 자리다).
   const gridFill = subst ? 'var(--grid-line)' : undefined
@@ -61,7 +64,7 @@ export function AppFrame({ vpKey, subst }: { vpKey: string; subst?: AppSubst }) 
             top: derived.canvas.y,
             width: derived.canvas.w,
             height: derived.canvas.h,
-            background: col(derived.canvas.bg),
+            background: col(derived.canvas.bg, '면'),
             backgroundImage: dotTile(grid?.tile, gridFill),
             backgroundPosition: grid?.backgroundPosition,
           }}
@@ -101,9 +104,9 @@ export function AppFrame({ vpKey, subst }: { vpKey: string; subst?: AppSubst }) 
           top: b.y,
           width: b.w,
           height: b.h,
-          background: ni !== undefined && !asset ? undefined : col(b.bg),
+          background: ni !== undefined && !asset ? undefined : col(b.bg, fillRole(b.w, b.h)),
           borderRadius: b.radius,
-          border: b.borderWidth ? `${b.borderWidth}px solid ${col(b.borderColor) ?? outline}` : undefined,
+          border: b.borderWidth ? `${b.borderWidth}px solid ${col(b.borderColor, '선') ?? outline}` : undefined,
         }
         if (asset?.kind === 'illustration') {
           return (

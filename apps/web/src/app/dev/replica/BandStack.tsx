@@ -9,11 +9,13 @@
 
 import type { Band, BlueprintChild, ViewportBlueprint } from './blueprint'
 import { lorem } from './blueprint'
-import type { MediaAsset } from './ours'
+import type { ColorFn, ColorRole, MediaAsset } from './ours'
+import { fillRole } from './ours'
 
 export type Subst = {
-  /** ① 색 — 실측 hex → 우리 토큰 var(). 없으면 실측값 그대로. */
-  color?: (hex?: string) => string | undefined
+  /** ① 색 — 실측 hex **+ 역할**(면/선/글자) → 우리 토큰 var(). 없으면 실측값 그대로.
+   *  역할이 인자인 이유: 같은 값이 면이면 종이, 선이면 주묵, 글자면 잉크로 가야 한다(DD-55). */
+  color?: ColorFn
   /** ② 서체 — 자리의 역할·크기로 표제/본문을 고른다. 크기·행간·굵기·자간은 손대지 않는다. */
   font?: (c: BlueprintChild) => string
   /** ③ 그림 — 자리 key → 우리 자산. */
@@ -26,16 +28,17 @@ const isMedia = (c: BlueprintChild) =>
   c.role === 'media' || ['img', 'svg', 'video', 'canvas', 'picture'].includes(c.tag)
 
 function Child({ c, k, subst }: { c: BlueprintChild; k: string; subst?: Subst }) {
-  const col = (hex?: string) => (subst?.color ? subst.color(hex) : hex)
+  const col = (hex: string | undefined, role: ColorRole) => (subst?.color ? subst.color(hex, role) : hex)
   const base: React.CSSProperties = {
     left: c.x,
     top: c.y,
     width: c.w,
     height: c.h,
-    background: col(c.bg),
+    // 이 칠이 면인지 표식인지는 **면적**이 가른다 — 치환표를 만든 규칙과 같은 경계(MARK_AREA).
+    background: col(c.bg, fillRole(c.w, c.h)),
     borderRadius: c.radius,
     border: c.border && subst?.color
-      ? c.border.replace(/#[0-9a-fA-F]{6}/, (m) => col(m.toLowerCase()) ?? m)
+      ? c.border.replace(/#[0-9a-fA-F]{6}/, (m) => col(m.toLowerCase(), '선') ?? m)
       : c.border,
   }
 
@@ -45,7 +48,7 @@ function Child({ c, k, subst }: { c: BlueprintChild; k: string; subst?: Subst })
     if (asset?.kind === 'illustration') {
       return (
         <div
-          className="replica-box replica-illo"
+          className={`replica-box replica-illo${asset.scene ? ' replica-scene' : ''}`}
           data-role="media"
           data-asset={asset.id}
           style={{ ...base, background: undefined, overflow: 'hidden', display: 'grid', placeItems: 'center' }}
@@ -89,7 +92,7 @@ function Child({ c, k, subst }: { c: BlueprintChild; k: string; subst?: Subst })
           lineHeight: c.lineHeight,
           letterSpacing: c.letterSpacing,
           textAlign: c.textAlign as React.CSSProperties['textAlign'],
-          color: col(c.color),
+          color: col(c.color, '글자'),
           // 한글은 낱말이 쪼개지면 읽을 수 없다(AGENTS.md I7).
           wordBreak: subst ? 'keep-all' : undefined,
           overflowWrap: subst ? 'break-word' : undefined,
@@ -104,13 +107,13 @@ function Child({ c, k, subst }: { c: BlueprintChild; k: string; subst?: Subst })
 }
 
 function BandView({ band, gap, subst }: { band: Band; gap: number; subst?: Subst }) {
-  const col = (hex?: string) => (subst?.color ? subst.color(hex) : hex)
+  const col = (hex: string | undefined, role: ColorRole) => (subst?.color ? subst.color(hex, role) : hex)
   return (
     <section
       className="replica-band"
       data-band={band.index}
       data-cls={band.cls}
-      style={{ height: band.h, marginTop: gap, background: col(band.bg) }}
+      style={{ height: band.h, marginTop: gap, background: col(band.bg, '면') }}
     >
       {band.children.map((c, i) => (
         <Child key={i} c={c} k={slotKey('B', band.index, i)} subst={subst} />
@@ -150,7 +153,7 @@ export const textSlots = (vp: ViewportBlueprint) =>
 
 export function BandStack({ vp, subst }: { vp: ViewportBlueprint; subst?: Subst }) {
   const bands = vp.blueprint
-  const col = (hex?: string) => (subst?.color ? subst.color(hex) : hex)
+  const col = (hex: string | undefined, role: ColorRole) => (subst?.color ? subst.color(hex, role) : hex)
   // 간격은 **청사진 띠의 실측 top** 에서 계산한다.
   // `rhythm.sectionGaps` 는 다른 띠 목록(전폭·흐름 안·가장 안쪽)의 것이라 여기 쓰면 자리가 어긋난다.
   const gapBefore = (i: number) => {
@@ -163,7 +166,7 @@ export function BandStack({ vp, subst }: { vp: ViewportBlueprint; subst?: Subst 
       className="replica-vp"
       data-vp={vp.viewport.key}
       data-scrollheight={vp.scrollHeight}
-      style={{ minHeight: vp.scrollHeight, background: col(vp.pageBg) }}
+      style={{ minHeight: vp.scrollHeight, background: col(vp.pageBg, '면') }}
     >
       {/* 머리·바닥 — 띠 목록 밖(main 위·아래)이라 흐름이 아니라 실측 top 에 그대로 얹는다. */}
       {(vp.chrome ?? []).map((c) => (
@@ -171,7 +174,7 @@ export function BandStack({ vp, subst }: { vp: ViewportBlueprint; subst?: Subst 
           key={c.part}
           className="replica-box"
           data-part={c.part}
-          style={{ left: c.left, top: c.top, width: c.w, height: c.h, background: col(c.bg), zIndex: 2 }}
+          style={{ left: c.left, top: c.top, width: c.w, height: c.h, background: col(c.bg, '면'), zIndex: 2 }}
         >
           {c.children.map((ch, i) => (
             <Child key={i} c={ch} k={slotKey(c.part === 'header' ? 'H' : 'F', 0, i)} subst={subst} />
