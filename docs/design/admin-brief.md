@@ -1,5 +1,7 @@
 # 관리자 콘솔 재설계 — Gate 0 (전수 감사 + 액센트 3안)
 
+> **[동결]** 이 문서는 **실물 확인 전 초안**이다. Stage 5 에서 실물(실제 라우트 캡처) 기준으로 교체된다. **수정 금지** — 고칠 것이 보이면 화면을 먼저 고치고 그 화면에서 값을 다시 뽑는다(DD-62).
+
 > 2026-09-20 · 브랜치 `design/admin-evidence` · 작성 Claude Code · 절차 [06-workflow](06-workflow.md) · 발명 정본 [vocaflow-design](../../.claude/skills/vocaflow-design/SKILL.md)
 > **Gate 0 은 재는 단계다.** 화면 코드는 한 줄도 고치지 않았다 — 고르는 것은 사람이고, 고른 뒤 Gate 1(발산 4안)로 간다.
 > 수치는 전부 이 커밋 시점의 저장소·DB 실측이다. 문서에 적힌 값을 근거로 쓰지 않았다(AGENTS.md).

@@ -1,5 +1,7 @@
 # Vocaflow 디자인 — 방향 · 형태 · 골든
 
+> **[동결]** 이 문서는 **실물 확인 전 초안**이다. Stage 5 에서 실물(실제 라우트 캡처) 기준으로 교체된다. **수정 금지** — 고칠 것이 보이면 화면을 먼저 고치고 그 화면에서 값을 다시 뽑는다(DD-62).
+
 > 디자인 작업의 입구. 값은 [tokens.css](packages/design-tokens/src/tokens.css) · [globals.css](apps/web/src/app/globals.css) 에서 2026-09-18 에 읽었고,
 > 어긋나면 코드가 맞다. 형태를 만드는 절차는 [vocaflow-design](.claude/skills/vocaflow-design/SKILL.md) §G, 재료는 [DESIGN_SYSTEM](docs/DESIGN_SYSTEM.md).
 
