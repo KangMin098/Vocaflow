@@ -46,11 +46,33 @@ if (idsFile) {
   if (!output) throw new Error('Scoped export requires --output; existing files are never overwritten')
   const ids = [...new Set(fs.readFileSync(idsFile, 'utf8').split(/\r?\n/).map(x => x.trim()).filter(Boolean))]
   if (!ids.length || ids.length > 100 || ids.some(x => !/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(x))) throw new Error('Scoped export requires 1..100 UUIDs')
+  // `--include-raw-with-items` — **문항이 이미 붙어 있는 `purpose:'raw'` 원본만** 예외로 연다.
+  //
+  // 기본 제외는 「plos 원본은 잘리지 않은 논문 전문이라 어느 용도로도 게시할 수 없다」에서 왔고
+  // 지금도 맞다. 그런데 적격 정책 v3 에는 그때 없던 경로가 있다 — **문항이 붙은 원본은
+  // `excerpt`(item-linked)로 적격이 된다.** 실측(2026-09-20, 정본 평가기로 반례 확인):
+  //   raw · B2 · V6 · 5,507어 · 문항 있음 → 지금 `unjudged [raw_content_unjudged · base_judgement]`
+  //                                      → verdict='use' 를 넣으면 **`excerpt` · 차단 0**
+  // 즉 이 집합은 **판정 하나로 열리는데 export 질의에서 빠져 있었다**(기사 309편 · 문항 14,265개).
+  // 문항이 없는 raw 는 그대로 제외한다 — 그쪽은 판정이 아니라 추출(`plos-extract`)이 할 일이다.
+  const includeRawWithItems = process.argv.includes('--include-raw-with-items')
   const { createScriptClient } = await import('../lib/supabase-client.mjs')
   const db = createScriptClient()
   const r = await db.from('library_articles').select('id,title,source,status,updated_at,content,gate:csat_fit->gate').in('id', ids).order('id')
   if (r.error || r.data.length !== ids.length) throw new Error('Cannot load every requested source')
-  const pending = r.data.filter(x => !x.gate?.verdict && x.gate?.purpose !== 'raw' && ['ready','published'].includes(x.status))
+  const withItems = new Set()
+  if (includeRawWithItems) {
+    // ⚠️ **행을 받아 세지 않는다.** 한 원본에 문항이 평균 46개라 `.in(ref_id, 100개)` 는 PostgREST
+    //   한 응답 상한(1,000행)에 걸려 **앞쪽 20여 편만** 보인다 — 실측 2026-09-20 에 이 실수로
+    //   100편 중 21편만 export 됐다(오류 없음 · 나머지는 조용히 skip). 존재 여부만 필요하니 id 하나씩 `head` count.
+    for (const id of ids) {
+      const { count, error } = await db.from('csat_dcp_items').select('id', { count: 'exact', head: true }).eq('kind', 'article').eq('ref_id', id)
+      if (error || count == null) throw new Error(`Cannot count item references: ${id} — ${error?.message ?? 'count=null'}`)
+      if (count > 0) withItems.add(id)
+    }
+  }
+  const rawAllowed = (x) => includeRawWithItems && x.gate?.purpose === 'raw' && withItems.has(x.id)
+  const pending = r.data.filter(x => !x.gate?.verdict && (x.gate?.purpose !== 'raw' || rawAllowed(x)) && ['ready','published'].includes(x.status))
   const rows = pending.map(x => ({ id: x.id, title: x.title, source: x.source, source_updated_at: x.updated_at, body_sha256: crypto.createHash('sha256').update(x.content ?? '').digest('hex'), content: x.content ?? '', currentGate: x.gate }))
   fs.mkdirSync(path.dirname(output), { recursive: true })
   fs.writeFileSync(output, JSON.stringify(rows, null, 2), { flag: 'wx' })

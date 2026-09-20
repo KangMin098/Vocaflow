@@ -263,6 +263,12 @@ export const TBP_HELP: HelpRegistry = {
             done: '캐시가 규격·원문 revision과 일치하고 적격에 blocker가 없습니다.',
           },
           {
+            title: '판정 하나로 열리는 원본을 먼저 비운다',
+            detail:
+              '캐시 갱신만으로는 미판정이 줄지 않습니다(같은 입력 → 같은 판정 → 변경 0). 미판정 중 **차단 사유가 `raw_content_unjudged` + `base_judgement` 둘뿐이고 문항이 붙은 원본**만 내용 판정 한 번으로 적격이 됩니다. `gate-raw-with-items-ids.mjs`(읽기 전용)가 그 교집합을 100개씩 청크로 뽑고, `gate-article-export.mjs --ids-file <청크> --output <JSON> --include-raw-with-items`가 본문·revision·해시를 담아 냅니다. 에이전트가 판정을 쓴 뒤 `gate-reviews-verify.mjs <export> <reviews>`로 해시·리비전·모순을 먼저 대조하고, `gate-mixed-import.mjs --input <판정>` 예행 → `--commit` → **그 다음에** 같은 청크로 source-policy-refresh 감사 → --plan → --commit 순서입니다. 셋 다 재실행 안전이며 같은 판정을 다시 넣으면 변경 0입니다. ⚠️ 판정 적재가 원문 `updated_at`을 올리므로 **적재와 같은 호흡에 감사를 돌리면** 측정 시각이 리비전보다 이르러 거부됩니다(순서를 지키면 됩니다). 남은 미판정은 `cefr_above_band`가 섞인 것이라 판정으로 열리지 않습니다 — 밴드·V-Level 결정이 필요합니다.',
+            done: '`gate-raw-with-items-ids.mjs`의 withItems가 0이 되고, 그만큼 적격 문항 수가 늘어 있습니다(2026-09-20 실측: 기사 309편 → 문항 105,294 → 119,559 · 11.97% → 13.59%).',
+          },
+          {
             title: '스캔을 다시 돌린다',
             detail:
               '드레인은 DB 만 바꾸고 스냅샷은 안 바꾼다. **다시 재지 않으면 화면이 어제 값을 계속 보인다.** 전수 적격·재고 스캔을 다시 실행한다.',
