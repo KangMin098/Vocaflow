@@ -1094,3 +1094,29 @@ body.studying .sidebar:hover { opacity: 1; }
     transition: opacity var(--dur-fast) var(--ease);
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   관리자 콘솔 — 44px 터치 타깃을 **레이아웃 루트에서 일괄 보장**한다 (DD-58 A5)
+
+   왜 루트인가: 화면마다 `min-h-[44px]` 를 붙이는 방식은 관리자 화면 60개 · 245 파일에서
+   반드시 빠뜨린다(2026-09-06 실측 — 539개 중 382곳이 44px 미만이었다). 그리고 CSS 모듈로
+   만든 화면은 Tailwind 스캐너가 읽지 못해 「판정 불가」로 빠진다(DD-51).
+   루트에서 한 번 보장하면 두 문제가 같이 사라진다.
+
+   ⚠️ 인라인 요소(`display: inline`)는 `min-height` 를 무시한다 — 본문 속 링크가 44px 블록이
+   되지 않는다. 영향을 받는 것은 버튼·블록/플렉스 요소뿐이다(의도).
+   ⚠️ 체크박스·라디오는 replaced element 라 크기를 키우면 그림 자체가 커진다(표 정렬이 무너진다).
+   그래서 **감싸는 라벨**을 44px 로 키운다 — `touch-target` 회귀가 같은 결론을 적어 두었다.
+   ⚠️ 표 안의 조밀한 칸처럼 정말 예외가 필요하면 `data-dense` 를 그 자리에 단다(예외는 눈에 보이게).
+   ───────────────────────────────────────────────────────────────────────── */
+[data-admin-root] :is(button, summary, select, [role='button'], [role='tab']):not([data-dense]) {
+  min-height: 44px;
+}
+[data-admin-root] :is(input, textarea):not([type='checkbox']):not([type='radio']):not([data-dense]) {
+  min-height: 44px;
+}
+[data-admin-root] label:has(> input[type='checkbox'], > input[type='radio']) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}

@@ -205,9 +205,14 @@
   --combo: #8B5CF6;
   --streak: #EC4899;
 
-  /* ─────── Admin Console accent (관리자 콘솔 전용 보라 액센트) ─────── */
-  --admin: #8B5CF6;         /* accent — 활성 탭/단계·텍스트·focus ring */
-  --admin-strong: #6D28D9;  /* solid CTA 배경(흰 텍스트) / 활성 보더 */
+  /* ─────── Admin Console accent ───────
+     2026-09-20 (DD-55 · DD-59): **옛 보라를 잉크로 바꾼다.** 관리자 구분은 색이 아니라
+     주묵 표식 + ShieldCheck + 「Admin」 텍스트가 진다. 이름(--admin)은 72곳이 쓰고 있어 그대로 두고
+     **값만** 옮긴다 — 이름을 바꾸면 그 72곳을 한 번에 고쳐야 하고, 그러다 반드시 빠뜨린다.
+     ⚠️ 이 두 줄이 옛 보라의 마지막 자리였다: 코드의 리터럴을 전부 치웠는데도(라쳇 318→0)
+     화면이 보라였던 이유다. 라쳇은 apps/web/src 만 훑으므로 이 파일을 못 본다. */
+  --admin: var(--p);          /* accent — 활성 탭/단계·텍스트·focus ring */
+  --admin-strong: var(--p-hover); /* solid CTA 배경(글자는 --on-p) / 활성 보더 */
 
   /* ═══════════════════════════════════════════════════════════════════════
      v07 그림자 — **뜨지 않는다. 그어진다.**
@@ -460,9 +465,10 @@
   --info: #8AA8C0;
   --info-light: rgba(138, 168, 192, 0.18);
 
-  /* Admin Console accent — 다크 contrast 위해 밝은 변형 */
-  --admin: #A78BFA;
-  --admin-strong: #8B5CF6;
+  /* Admin Console accent — 다크에서도 잉크를 따른다(2026-09-20 · DD-55).
+     다크 --p 는 밝은 네이비(#6B9BD1)라 대비가 서고, 그 위 글자는 --on-p 가 뒤집어 준다. */
+  --admin: var(--p);
+  --admin-strong: var(--p-hover);
 
   /* v06.40 — 살짝 더 cool dark (덜 brown, 더 contemporary editorial dark) */
   --bg: #231D17;         /* card (warm dark paper, 살짝 lighter) */

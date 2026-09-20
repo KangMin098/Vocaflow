@@ -35,11 +35,14 @@ import {
 import { EvidenceAxisPanel } from './EvidenceAxisPanel'
 import { EvidenceMatrix } from './EvidenceMatrix'
 import { EvidenceInspector } from './EvidenceInspector'
-import s from './evidence.module.css'
+import { ACTIONS, ALERT, BACKDROP, BAD, BADGE, BLOCKED_LINE, BTN, BTN_PRIMARY, CHIPS, CODE, CONSOLE, COVERAGE, DISTRIBUTION, EMPTY, EYEBROW, FILTERS, GOOD, HEADER, HERO, ISSUE, LINE, MUTED, NAV, NUMBER, PAGINATION, PIPELINE_GRID, PRIORITY, QUEUE, RECOMMEND, ROW, ROW_NO, SECTION, SPLIT, TABLE, TABLE_WRAP, TECHNICAL, WARN } from './evidence-ui'
 
 const nf = new Intl.NumberFormat('ko-KR')
 const date = (value: string) =>
   new Date(value).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', hour12: false })
+/** 정오표의 번호 — 「번호는 순서다」(DD-58 A1). 스크린리더에는 읽히지 않는다(aria-hidden). */
+const ORDINALS = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧'] as const
+
 const PAGE_SIZE = 40
 
 export function downloadWork(value: unknown) {
@@ -174,7 +177,7 @@ export function EvidenceConsole({
     .slice(0, 4)
 
   return (
-    <div className={s.console} data-testid="evidence-operations">
+    <div className={CONSOLE} data-testid="evidence-operations">
       <div
         aria-hidden={selected ? true : undefined}
         ref={(node) => {
@@ -182,37 +185,52 @@ export function EvidenceConsole({
           else node?.removeAttribute('inert')
         }}
       >
-        <header className={s.header}>
+        <header className={HEADER}>
           <div>
-            <p className={s.eyebrow}>CSAT · EVIDENCE OPERATIONS</p>
+            <p className={EYEBROW}>CSAT · EVIDENCE OPERATIONS</p>
             <h2>기출 원천 관리</h2>
-            <p className={s.muted}>배포 상태를 확인하고, 근거가 필요한 문항부터 처리합니다.</p>
+            <p className={MUTED}>배포 상태를 확인하고, 근거가 필요한 문항부터 처리합니다.</p>
           </div>
-          <div className={s.actions}>
-            <button className={s.button} onClick={verify} disabled={busy}>
+          <div className={ACTIONS}>
+            <button className={BTN} onClick={verify} disabled={busy}>
               <RefreshCw size={16} aria-hidden />
               {busy ? '재검증 중…' : '지금 재검증'}
             </button>
             <AdminScreenHelp screen="csat-evidence" tab={VIEWS[state.view]} />
           </div>
         </header>
-        <p className={s.muted}>
+        <p className={MUTED}>
           검사 시각 {date(data.generatedAt)} KST · DB 최신 공개 분석 + 현재 배포된 앵커·메타데이터
         </p>
-        <p role="status" aria-live="polite" className={s.muted}>
+        <p role="status" aria-live="polite" className={MUTED}>
           {message}
         </p>
+        {/* A3(DD-58) — 가장 앞선 막힌 단계 한 줄. 색이 아니라 **문장 + 주묵 표식**으로 말하고,
+            막힌 것이 없으면 이 줄을 통째로 비운다(없는 것을 색으로 꾸미지 않는다). */}
+        {healthy && top ? (
+          <p className={BLOCKED_LINE} data-testid="evidence-blocked-line">
+            <span aria-hidden className="leading-none text-[var(--ju)]">
+              •
+            </span>
+            <span>
+              <strong>
+                P{top.priority} {top.label}
+              </strong>
+              이 가장 앞에서 막혀 있다 — {nf.format(top.count)}문항이 뒤 작업을 대기시킨다.
+            </span>
+          </p>
+        ) : null}
         {data.loadError || data.readinessError || verifyError ? (
-          <div role="alert" className={s.alert}>
+          <div role="alert" className={ALERT}>
             <strong>판정 보류 · 데이터를 확인하지 못했습니다</strong>
             <p>{data.loadError ?? data.readinessError ?? verifyError}</p>
-            <p className={s.muted}>
+            <p className={MUTED}>
               조회 실패를 문항 결함이나 정상 0건으로 처리하지 않습니다. 지금 재검증으로 다시
               확인하세요.
             </p>
           </div>
         ) : null}
-        <nav className={s.nav} aria-label="Evidence 작업 화면">
+        <nav className={NAV} aria-label="Evidence 작업 화면">
           {Object.entries(VIEWS).map(([key, label]) => (
             <button
               key={key}
@@ -229,7 +247,7 @@ export function EvidenceConsole({
         {state.view === 'overview' ? (
           <>
             <section
-              className={s.hero}
+              className={HERO}
               aria-labelledby="dissection-readiness-title"
               data-testid="dissection-readiness"
               data-total={data.readiness?.total}
@@ -237,25 +255,25 @@ export function EvidenceConsole({
             >
               <div>
                 <h3 id="dissection-readiness-title">학습자 해부 배포 준비도</h3>
-                <div className={s.number}>
+                <div className={NUMBER}>
                   {healthy ? nf.format(index.ready.size) : '—'}{' '}
                   <span>/ {nf.format(data.items.length)}문항</span>
                 </div>
-                <p className={s.muted}>
+                <p className={MUTED}>
                   {healthy
                     ? `${nf.format(index.missing.size)}문항이 학습 후보 기준을 충족하지 못했습니다.`
                     : '최신 판정을 확인한 뒤 배포를 판단하세요.'}
                 </p>
-                <div className={s.distribution} aria-hidden>
+                <div className={DISTRIBUTION} aria-hidden>
                   <span
                     style={{
                       width: `${healthy && data.items.length ? (index.ready.size / data.items.length) * 100 : 0}%`,
                     }}
                   />
                 </div>
-                <div className={s.actions}>
+                <div className={ACTIONS}>
                   <button
-                    className={s.button}
+                    className={BTN}
                     disabled={!healthy}
                     onClick={() => drill({ status: 'ready' })}
                   >
@@ -263,14 +281,14 @@ export function EvidenceConsole({
                     학습 준비 {healthy ? index.ready.size : '—'}
                   </button>
                   <button
-                    className={`${s.button} ${s.primary}`}
+                    className={`${BTN} ${BTN_PRIMARY}`}
                     disabled={!healthy}
                     onClick={() => drill({ status: 'blocked' })}
                   >
                     제외 문항 검토 <ArrowRight size={15} aria-hidden />
                   </button>
                 </div>
-                <p className={`${s.muted} mt-3`}>
+                <p className={`${MUTED} mt-3`}>
                   원천 품질은 별도 점검입니다.{' '}
                   <button
                     className="underline"
@@ -281,25 +299,25 @@ export function EvidenceConsole({
                   </button>
                 </p>
               </div>
-              <div className={s.recommend}>
-                <p className={s.eyebrow}>먼저 확인할 작업</p>
+              <div className={RECOMMEND}>
+                <p className={EYEBROW}>먼저 확인할 작업</p>
                 {top ? (
                   <>
                     <h4>{top.label}</h4>
-                    <p className={s.muted}>
+                    <p className={MUTED}>
                       P{top.priority} · {top.stage} · {top.count}문항
                     </p>
                     <p className="my-3 text-sm leading-7">{top.why}</p>
-                    <p className={s.muted}>{top.action}</p>
+                    <p className={MUTED}>{top.action}</p>
                     <button
-                      className={`${s.button} mt-4`}
+                      className={`${BTN} mt-4`}
                       onClick={() => navigate({ view: 'issues', issue: top.id })}
                     >
                       처리 방법과 대상 보기 <ArrowRight size={15} aria-hidden />
                     </button>
                   </>
                 ) : (
-                  <p className={s.muted}>
+                  <p className={MUTED}>
                     {healthy
                       ? '현재 확인된 작업이 없습니다. 준비 문항을 검토하세요.'
                       : '검증이 완료되면 우선 작업이 표시됩니다.'}
@@ -307,16 +325,26 @@ export function EvidenceConsole({
                 )}
               </div>
             </section>
-            <section className={`${s.section} ${s.split}`}>
+            <section className={`${SECTION} ${SPLIT}`}>
               <div>
                 <h3>영향이 큰 문제</h3>
-                <p className={s.muted}>
+                <p className={MUTED}>
                   문항은 중복될 수 있습니다. 영향 규모와 처리 순위는 다릅니다.
                 </p>
-                {causes.map((i) => (
-                  <button key={i.id} className={s.rowButton} onClick={() => drill({ issue: i.id })}>
+                {/* A1·A2(DD-58) — 번호 + 괘선 행. 가장 앞선 것(첫 행)에만 권점을 찍는다:
+                    여러 행에 찍으면 서명이 묽어진다(골든 목업에서 실제로 그렇게 보였다). */}
+                {causes.map((i, n) => (
+                  <button
+                    key={i.id}
+                    className={ROW}
+                    data-stuck={n === 0 ? 'true' : undefined}
+                    onClick={() => drill({ issue: i.id })}
+                  >
                     <span>
-                      {i.label} <small className={s.muted}>P{i.priority}</small>
+                      <span className={ROW_NO} aria-hidden>
+                        {ORDINALS[n] ?? n + 1}
+                      </span>
+                      {i.label} <small className={MUTED}>P{i.priority}</small>
                     </span>
                     <strong>
                       {i.count} <span aria-hidden>→</span>
@@ -326,14 +354,20 @@ export function EvidenceConsole({
               </div>
               <div>
                 <h3>학습 후보가 많이 제외된 유형</h3>
-                <p className={s.muted}>유형을 선택하면 같은 조건의 문항을 확인합니다.</p>
-                {blockedTypes.map((t) => (
+                <p className={MUTED}>유형을 선택하면 같은 조건의 문항을 확인합니다.</p>
+                {blockedTypes.map((t, n) => (
                   <button
                     key={t.id}
-                    className={s.rowButton}
+                    className={ROW}
+                    data-no={n}
                     onClick={() => drill({ filter: { type: [t.id] }, status: 'blocked' })}
                   >
-                    <span>{t.name}</span>
+                    <span>
+                      <span className={ROW_NO} aria-hidden>
+                        {ORDINALS[n] ?? n + 1}
+                      </span>
+                      {t.name}
+                    </span>
                     <strong>
                       {t.blocked} / {t.items} <span aria-hidden>→</span>
                     </strong>
@@ -341,14 +375,14 @@ export function EvidenceConsole({
                 ))}
               </div>
             </section>
-            <section className={s.section}>
+            <section className={SECTION}>
               <h3>학습 후보 검증 흐름</h3>
-              <p className={s.muted}>
+              <p className={MUTED}>
                 앞 단계를 통과한 문항만 다음 단계로 이어집니다. ‘제외’는 그 단계에서 처음 막힌
                 문항입니다. 원문 상태는 별도로 검토합니다.
               </p>
               {data.readiness ? (
-                <div className={s.pipeline}>
+                <div className={PIPELINE_GRID}>
                   {pipeline.map((p, n) => (
                     <button
                       key={p.id}
@@ -360,19 +394,19 @@ export function EvidenceConsole({
                       </span>
                       <strong>
                         {p.passed}
-                        <small className={s.muted}> 통과</small>
+                        <small className={MUTED}> 통과</small>
                       </strong>
                       <span>제외 {p.blocked} →</span>
                     </button>
                   ))}
                 </div>
               ) : (
-                <p className={s.muted}>학습자 판정 데이터를 다시 읽어 주세요.</p>
+                <p className={MUTED}>학습자 판정 데이터를 다시 읽어 주세요.</p>
               )}
             </section>
-            <details className={s.technical}>
+            <details className={TECHNICAL}>
               <summary>필수 필드 충족 상태</summary>
-              <div className={s.coverage}>
+              <div className={COVERAGE}>
                 {FIELD_GROUPS.map((group) => (
                   <section key={group.label}>
                     <h3 className="my-3 font-semibold">{group.label}</h3>
@@ -384,7 +418,7 @@ export function EvidenceConsole({
                           key={field}
                           data-field={field}
                           data-count={good}
-                          className={s.rowButton}
+                          className={ROW}
                           disabled={good === undefined}
                           onClick={() => drill({ issue: `field:${field}` })}
                         >
@@ -410,49 +444,49 @@ export function EvidenceConsole({
           </>
         ) : state.view === 'issues' ? (
           <>
-            <div className={s.line}>
+            <div className={LINE}>
               <h3 className="text-xl font-semibold">{scopeIssue ? `${scopeIssue.label} 처리` : `처리할 작업 ${queue.length}종`}</h3>
-              <button className={s.button} onClick={() => change({ issue: '' })}>
+              <button className={BTN} onClick={() => change({ issue: '' })}>
                 전체 작업 보기
               </button>
             </div>
-            <p className={s.muted}>
+            <p className={MUTED}>
               P1 원문·채점 → P2 분석·연결 → P3 학습 메타 → P4 보고서. 같은 우선순위에서는 영향
               문항이 많은 순서입니다.
             </p>
-            <ol className={s.queue}>
+            <ol className={QUEUE}>
               {queue
                 .filter((i) => !state.issue || i.id === state.issue)
                 .map((issue) => (
-                  <li className={s.issue} key={issue.id}>
-                    <div className={s.priority}>P{issue.priority}</div>
+                  <li className={ISSUE} key={issue.id}>
+                    <div className={PRIORITY}>P{issue.priority}</div>
                     <div>
                       <h3>{issue.label}</h3>
-                      <div className={s.line}>
+                      <div className={LINE}>
                         <span
-                          className={`${s.badge} ${issue.severity === '학습 후보 제외' ? s.bad : s.warn}`}
+                          className={`${BADGE} ${issue.severity === '학습 후보 제외' ? BAD : WARN}`}
                         >
                           <TriangleAlert size={14} aria-hidden />
                           {issue.severity}
                         </span>
-                        <span className={s.muted}>
+                        <span className={MUTED}>
                           {issue.stage} · {issue.count}문항
                         </span>
                       </div>
                       <p className="mt-2 text-sm leading-7">{issue.why}</p>
-                      <p className={s.muted}>권장 조치 · {issue.action}</p>
+                      <p className={MUTED}>권장 조치 · {issue.action}</p>
                       <details open={state.issue === issue.id}>
                         <summary>처리 방법 · 수정 위치</summary>
                         <p>{issue.technical}</p>
-                        <p className={`${s.code} mt-2`}>{issue.location}</p>
-                        <p className={s.muted}>
+                        <p className={`${CODE} mt-2`}>{issue.location}</p>
+                        <p className={MUTED}>
                           작업 대상 내보내기는 실행 예약이 아닙니다. 변경을 반영한 뒤 ‘지금
                           재검증’으로 결과를 확인하세요.
                         </p>
                       </details>
                     </div>
-                    <div className={s.actions}>
-                      <button className={s.button} onClick={() => drill({ issue: issue.id })}>
+                    <div className={ACTIONS}>
+                      <button className={BTN} onClick={() => drill({ issue: issue.id })}>
                         {issue.count}문항 보기 <ArrowRight size={15} aria-hidden />
                       </button>
                     </div>
@@ -460,9 +494,9 @@ export function EvidenceConsole({
                 ))}
             </ol>
             {!queue.length || (state.issue && !queue.some((i) => i.id === state.issue)) ? (
-              <div className={s.empty}>
+              <div className={EMPTY}>
                 현재 조건에 처리할 작업이 없습니다.{' '}
-                <button className={s.button} onClick={() => change({ issue: '' })}>
+                <button className={BTN} onClick={() => change({ issue: '' })}>
                   전체 작업 확인
                 </button>
               </div>
@@ -470,12 +504,12 @@ export function EvidenceConsole({
           </>
         ) : (
           <>
-            <div className={`${s.line} mb-4`}>
+            <div className={`${LINE} mb-4`}>
               <h3 className="text-xl font-semibold">
                 {scopeIssue?.label ?? '문항 탐색'} · {nf.format(shown.length)}문항
               </h3>
               <button
-                className={s.button}
+                className={BTN}
                 disabled={!shown.length || Boolean(data.loadError)}
                 onClick={exportShown}
               >
@@ -483,14 +517,14 @@ export function EvidenceConsole({
               </button>
             </div>
             {scopeIssue ? (
-              <div className={`${s.alert} ${s.muted}`}>
+              <div className={`${ALERT} ${MUTED}`}>
                 <strong>다음 조치</strong> · {scopeIssue.action}
-                <button className={`${s.button} ml-3`} onClick={() => navigate({ view: 'issues' })}>
+                <button className={`${BTN} ml-3`} onClick={() => navigate({ view: 'issues' })}>
                   처리 방법
                 </button>
               </div>
             ) : null}
-            <div className={s.filters}>
+            <div className={FILTERS}>
               <label>
                 문항 검색
                 <input
@@ -556,7 +590,7 @@ export function EvidenceConsole({
                 </select>
               </label>
             </div>
-            <div className={s.chips}>
+            <div className={CHIPS}>
               {Object.entries(state.filter).flatMap(([axis, values]) =>
                 values?.map((key) => (
                   <button
@@ -600,15 +634,15 @@ export function EvidenceConsole({
               </button>
             </div>
             <button
-              className={`${s.button} mb-4`}
+              className={`${BTN} mb-4`}
               aria-expanded={state.matrix}
               onClick={() => change({ matrix: !state.matrix })}
             >
               {state.matrix ? '교차 진단 닫기' : '교차 진단 · 매트릭스'}
             </button>
             {state.matrix ? (
-              <section className={`${s.section} mb-6`} aria-label="교차 진단">
-                <div className={s.filters}>
+              <section className={`${SECTION} mb-6`} aria-label="교차 진단">
+                <div className={FILTERS}>
                   <label>
                     행
                     <select
@@ -671,7 +705,7 @@ export function EvidenceConsole({
                   onRow={(r) => change({ filter: { ...state.filter, [state.row]: [r] } })}
                   onCol={(c) => change({ filter: { ...state.filter, [state.col]: [c] } })}
                 />
-                <details className={s.technical}>
+                <details className={TECHNICAL}>
                   <summary>유형 리포트·함정 계열 상세</summary>
                   <EvidenceAxisPanel
                     axis="type"
@@ -690,8 +724,8 @@ export function EvidenceConsole({
                 </details>
               </section>
             ) : null}
-            <div className={s.tableWrap}>
-              <table className={s.table}>
+            <div className={TABLE_WRAP}>
+              <table className={TABLE}>
                 <caption className="sr-only">
                   현재 조건의 문항. 문항을 선택하면 상세 패널이 열립니다.
                 </caption>
@@ -721,12 +755,12 @@ export function EvidenceConsole({
                       <td>{item.typeName}</td>
                       <td>
                         {index.ready.has(item.id) ? (
-                          <span className={`${s.badge} ${s.good}`}>
+                          <span className={`${BADGE} ${GOOD}`}>
                             <CheckCircle2 size={14} aria-hidden />
                             준비
                           </span>
                         ) : index.missing.has(item.id) ? (
-                          <span className={`${s.badge} ${s.bad}`}>
+                          <span className={`${BADGE} ${BAD}`}>
                             <TriangleAlert size={14} aria-hidden />
                             제외
                           </span>
@@ -767,16 +801,16 @@ export function EvidenceConsole({
               </table>
             </div>
             {!shown.length ? (
-              <div className={s.empty}>
+              <div className={EMPTY}>
                 <p>조건에 맞는 문항이 없습니다.</p>
-                <button className={s.button} onClick={() => drill({})}>
+                <button className={BTN} onClick={() => drill({})}>
                   전체 문항 보기
                 </button>
               </div>
             ) : (
-              <div className={s.pagination}>
+              <div className={PAGINATION}>
                 <button
-                  className={s.button}
+                  className={BTN}
                   disabled={page <= 1}
                   onClick={() => change({ page: page - 1 })}
                 >
@@ -786,7 +820,7 @@ export function EvidenceConsole({
                   {page} / {Math.ceil(shown.length / PAGE_SIZE)}
                 </span>
                 <button
-                  className={s.button}
+                  className={BTN}
                   disabled={page * PAGE_SIZE >= shown.length}
                   onClick={() => change({ page: page + 1 })}
                 >
@@ -797,32 +831,32 @@ export function EvidenceConsole({
           </>
         )}
         {state.item && !selected ? (
-          <div className={s.alert}>
+          <div className={ALERT}>
             문항을 찾지 못했습니다.{' '}
-            <button className={s.button} onClick={close}>
+            <button className={BTN} onClick={close}>
               선택 해제
             </button>
           </div>
         ) : null}
-        <details className={s.technical}>
+        <details className={TECHNICAL}>
           <summary>기술 상세 · 판정 기준과 전체 산출물</summary>
-          <p className={s.muted}>
+          <p className={MUTED}>
             학습 준비는 /csat/dissect의 실제 카탈로그 판정입니다. 원천 결함은 추출·인용·채점·유형
             리포트 품질 신호이며, 그 수만으로 학습 준비를 판정하지 않습니다. 검사 결과는 이 화면에
             보관되며 ‘지금 재검증’은 DB를 변경하지 않습니다.
           </p>
-          <div className={`${s.actions} mt-3`}>
-            <a className={s.button} href="/api/admin/csat/guide?format=md" download>
+          <div className={`${ACTIONS} mt-3`}>
+            <a className={BTN} href="/api/admin/csat/guide?format=md" download>
               전체 교재용 MD
             </a>
-            <a className={s.button} href="/api/admin/csat/guide?format=json&download=1" download>
+            <a className={BTN} href="/api/admin/csat/guide?format=json&download=1" download>
               전체 JSON
             </a>
-            <a className={s.button} href="/admin/csat/sources">
+            <a className={BTN} href="/admin/csat/sources">
               교재 재료 원문 적격
             </a>
           </div>
-          <p className={s.muted}>
+          <p className={MUTED}>
             전체 산출물은 현재 문항 필터를 적용하지 않습니다. 교재 재료 원문 적격은 평가원 문항의
             추출 상태와 별도입니다.
           </p>
@@ -831,7 +865,7 @@ export function EvidenceConsole({
       {selected ? (
         <>
           <button
-            className={s.backdrop}
+            className={BACKDROP}
             tabIndex={-1}
             aria-label="문항 검토 닫기 (배경)"
             onClick={close}

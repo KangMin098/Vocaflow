@@ -14,7 +14,7 @@ import {
   type ReadinessIndex,
   type WorkIssue,
 } from '@/lib/csat/evidence-operations'
-import s from './evidence.module.css'
+import { ACTIONS, ALERT, BAD, BADGE, BTN, CODE, EYEBROW, GOOD, INSPECTOR, INSPECTOR_BODY, MUTED, ROW, SECTION } from './evidence-ui'
 
 export function EvidenceInspector({
   item,
@@ -144,37 +144,37 @@ export function EvidenceInspector({
       role="dialog"
       aria-modal="true"
       aria-labelledby="evidence-inspector-title"
-      className={s.inspector}
+      className={INSPECTOR}
     >
       <header>
         <div>
-          <p className={s.eyebrow}>문항 검토 · {item.id}</p>
+          <p className={EYEBROW}>문항 검토 · {item.id}</p>
           <h2 id="evidence-inspector-title">
             {item.examLabel} {item.no}번
           </h2>
-          <p className={s.muted}>
+          <p className={MUTED}>
             {item.typeName} · {item.points}점 · 분석{' '}
             {item.analysisVersion ? `v${item.analysisVersion}` : '없음'}
           </p>
         </div>
-        <button ref={closeRef} className={s.button} onClick={onClose} aria-label="문항 검토 닫기">
+        <button ref={closeRef} className={BTN} onClick={onClose} aria-label="문항 검토 닫기">
           <X size={18} aria-hidden />
         </button>
       </header>
-      <div className={s.inspectorBody}>
+      <div className={INSPECTOR_BODY}>
         {verifyMessage ? (
-          <p role="status" className={s.muted}>
+          <p role="status" className={MUTED}>
             {verifyMessage}
           </p>
         ) : null}
         {verifyError ? (
-          <p role="alert" className={s.alert}>
+          <p role="alert" className={ALERT}>
             최신 판정 보류 · {verifyError}
           </p>
         ) : null}
-        <section className={s.section}>
+        <section className={SECTION}>
           <h3>현재 판단</h3>
-          <p className={`${s.badge} ${index.ready.has(item.id) ? s.good : s.bad}`}>
+          <p className={`${BADGE} ${index.ready.has(item.id) ? GOOD : BAD}`}>
             {index.ready.has(item.id) ? (
               <CheckCircle2 size={16} aria-hidden />
             ) : (
@@ -186,25 +186,25 @@ export function EvidenceInspector({
                 ? '학습 후보 제외'
                 : '학습 상태 미확인'}
           </p>
-          <p className={s.muted}>
+          <p className={MUTED}>
             {index.missing
               .get(item.id)
               ?.map((f) => LEARNER_FIELDS[f] ?? f)
               .join(' · ')}
           </p>
-          <p className={s.muted}>
+          <p className={MUTED}>
             원천 검토 {item.defects.length}건 · 최신 판 3인 검수{' '}
             {item.reviewed3 ? '통과' : '확인 필요'}
           </p>
           {issues.slice(0, 1).map((i) => (
             <div className="mt-3" key={i.id}>
-              <button className={s.rowButton} onClick={() => onRelated(i)}>
+              <button className={ROW} onClick={() => onRelated(i)}>
                 <span>
                   P{i.priority} · {i.label}
                 </span>
                 <span>관련 문항 →</span>
               </button>
-              <p className={s.muted}>{i.action}</p>
+              <p className={MUTED}>{i.action}</p>
             </div>
           ))}
           {issues.length > 1 ? (
@@ -212,13 +212,13 @@ export function EvidenceInspector({
               <summary>전체 문제 {issues.length}건과 영향</summary>
               {issues.slice(1).map((i) => (
                 <div key={i.id}>
-                  <button className={s.rowButton} onClick={() => onRelated(i)}>
+                  <button className={ROW} onClick={() => onRelated(i)}>
                     <span>
                       P{i.priority} · {i.label}
                     </span>
                     <span>관련 문항 →</span>
                   </button>
-                  <p className={s.muted}>{i.action}</p>
+                  <p className={MUTED}>{i.action}</p>
                 </div>
               ))}
             </details>
@@ -231,7 +231,7 @@ export function EvidenceInspector({
             {item.quoteLocated ? '인용 대조 일치' : '인용 대조 불일치'}
           </p>
           <a
-            className={s.button}
+            className={BTN}
             href={source.paperUrl ?? source.listUrl}
             target="_blank"
             rel="noreferrer"
@@ -240,17 +240,17 @@ export function EvidenceInspector({
             <ExternalLink size={14} aria-hidden />
           </a>
           {source.reason ? (
-            <p className={s.muted}>{source.reason} · 안내에서 해당 회차를 확인하세요.</p>
+            <p className={MUTED}>{source.reason} · 안내에서 해당 회차를 확인하세요.</p>
           ) : null}
-          <p className={s.muted}>
+          <p className={MUTED}>
             추출 정상은 원문의 재사용 허가를 뜻하지 않습니다. 원문 전문은 이 패널로 복제하지
             않습니다.
           </p>
         </details>
         {error ? (
-          <div role="alert" className={s.alert}>
+          <div role="alert" className={ALERT}>
             <p>{error}</p>
-            <button className={s.button} onClick={() => setAttempt((v) => v + 1)}>
+            <button className={BTN} onClick={() => setAttempt((v) => v + 1)}>
               분석 다시 읽기
             </button>
           </div>
@@ -290,7 +290,7 @@ export function EvidenceInspector({
                 <p>연결된 앵커가 없습니다.</p>
               )}
               <a
-                className={`${s.button} mt-3`}
+                className={`${BTN} mt-3`}
                 href={`/admin/kice/item/${encodeURIComponent(item.id.replace('#', '-'))}`}
                 target="_blank"
                 rel="noreferrer"
@@ -353,7 +353,7 @@ export function EvidenceInspector({
                   ))}
                 </ul>
               )}
-              <p className={s.muted}>
+              <p className={MUTED}>
                 DB에 남은 분석 버전 이력입니다. 정적 앵커·메타데이터 변경과 실행하지 않은 작업은
                 포함하지 않습니다.
               </p>
@@ -366,21 +366,21 @@ export function EvidenceInspector({
             <div key={i.id} className="my-3">
               <h4 className="font-semibold">{i.label}</h4>
               <p>{i.technical}</p>
-              <p className={s.code}>{i.location}</p>
+              <p className={CODE}>{i.location}</p>
             </div>
           ))}
-          <div className={`${s.actions} mt-3`}>
-            <button className={s.button} onClick={exportItem}>
+          <div className={`${ACTIONS} mt-3`}>
+            <button className={BTN} onClick={exportItem}>
               이 문항 작업 대상 내보내기
             </button>
-            <button className={s.button} disabled={busy} onClick={onVerify}>
+            <button className={BTN} disabled={busy} onClick={onVerify}>
               {busy ? '재검증 중…' : '지금 재검증'}
             </button>
           </div>
-          <p role="status" className={s.muted}>
+          <p role="status" className={MUTED}>
             {notice}
           </p>
-          <p className={s.muted}>
+          <p className={MUTED}>
             재검증은 현재 전체 기준을 다시 읽습니다. 재분석·DB 수정은 자동 실행하지 않습니다.
           </p>
         </details>

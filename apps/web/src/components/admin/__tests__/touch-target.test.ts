@@ -72,45 +72,44 @@ const CHECKBOX_ALLOWLIST: { file: string; count: number; labelWrapped: number }[
 const UNDECIDABLE_CAP = 70
 
 /**
- * **CSS 모듈이 44px 을 일괄 보장하는 화면** — 상한 밖으로 센다(2026-09-20).
+ * **44px 은 관리자 레이아웃 루트가 일괄 보장한다** (2026-09-20 · DD-58 A5 · Gate 4 (ii)).
  *
- * 이 스캐너는 Tailwind 클래스 문자열만 읽는다. 그런데 CSAT 관리자 화면들은 클래스 대신
- * **CSS 모듈**로 판면을 만들고, 그 모듈이 루트 아래 인터랙티브 요소 전체에
- * `min-height: 44px` 을 건다. 즉 실제 탭 영역은 44px 인데 스캐너에는 "높이 클래스 없음"
- * 으로 보여 **판정 불가가 78 → 150 으로 뛰었다**(통합 전후 실측).
+ * 전에는 화면마다 `min-h-[44px]` 를 붙였고, 그래서 **CSS 모듈로 만든 화면은 이 스캐너가 읽지 못해**
+ * 「판정 불가」가 78 → 150 으로 뛰었다(DD-51). 그때는 모듈마다 44px 규칙이 있는지 확인하는 예외를 뒀다.
+ * 지금은 근거가 하나다 — `globals.css` 의 `[data-admin-root]` 규칙과 `app/admin/layout.tsx` 의 속성.
+ * 그 둘이 있으면 **관리자 화면 전체**가 보장되므로, 화면 목록을 들고 다닐 이유가 없다.
  *
- * 상한을 150 으로 올리면 "높이 클래스 없는 버튼" 우회를 막던 장치가 헐거워지므로,
- * 상한은 70 에 두고 **증거가 있는 파일만** 뺀다. 증거는 목록이 아니라 **CSS 파일 자체**다 —
- * 아래 `guard` 규칙이 그 모듈에서 사라지면 이 목록이 먼저 실패한다(썩지 않는 예외).
+ * 이 예외가 썩지 않게 하는 것: 아래 검사가 **그 두 파일을 직접 읽는다.** 루트 보장이 사라지면
+ * 먼저 여기서 실패한다(목록이 아니라 근거를 검사한다).
  */
-const CSS_MODULE_44PX: { file: string; module: string; guard: RegExp }[] = [
-  {
-    file: 'apps/web/src/app/admin/csat/evidence/EvidenceConsole.tsx',
-    module: 'apps/web/src/app/admin/csat/evidence/evidence.module.css',
-    guard: /\.console\s+button[^{]*\{[^}]*min-height:\s*44px/s,
-  },
-  {
-    file: 'apps/web/src/app/admin/csat/evidence/EvidenceInspector.tsx',
-    module: 'apps/web/src/app/admin/csat/evidence/evidence.module.css',
-    guard: /\.console\s+button[^{]*\{[^}]*min-height:\s*44px/s,
-  },
-  {
-    file: 'apps/web/src/app/admin/csat/sources/SourceOperations.tsx',
-    module: 'apps/web/src/app/admin/csat/sources/source-operations.module.css',
-    guard: /\.root\s+button[^{]*\{[^}]*min-height:\s*44px/s,
-  },
-  {
-    file: 'apps/web/src/app/admin/csat/sources/SourceWorkspace.tsx',
-    module: 'apps/web/src/app/admin/csat/sources/sources.module.css',
-    guard: /min-height:\s*44px/,
-  },
-  {
-    file: 'apps/web/src/app/admin/csat/sources/SourceInventoryTable.tsx',
-    module: 'apps/web/src/app/admin/csat/sources/sources.module.css',
-    guard: /min-height:\s*44px/,
-  },
-]
-const CSS_MODULE_FILES = new Set(CSS_MODULE_44PX.map((e) => e.file))
+const ROOT_GUARANTEE = {
+  css: 'apps/web/src/app/globals.css',
+  layout: 'apps/web/src/app/admin/layout.tsx',
+  /** 루트 선택자 아래 인터랙티브 요소에 44px 을 거는 규칙. */
+  cssRule: /\[data-admin-root\][^{]*\{[^}]*min-height:\s*44px/s,
+  layoutAttr: /data-admin-root/,
+}
+
+/**
+ * **스캐너가 클래스 문자열로 못 읽는 화면.** 44px 은 위 루트 보장이 진다.
+ *
+ * 두 종류가 있고 원인은 같다 — 클래스가 **요소에 리터럴로 없다**:
+ *   ① CSS 모듈 판면(`sources.module.css` 계열)
+ *   ② Tailwind 를 **상수로 모아 둔** 화면(`evidence-ui.ts` — className={BTN})
+ * ⚠️ ②는 2026-09-20 이관에서 드러났다: 「Tailwind 로 옮기면 스캐너가 읽는다」(DD-56 의 전제)는
+ *    **클래스를 요소에 인라인으로 둘 때만** 참이다. 상수로 빼면 CSS 모듈과 똑같이 안 보인다.
+ *    그래서 안전장치를 스캐너가 아니라 **루트 보장**에 둔 것이다(DD-58 A5).
+ */
+const SCANNER_BLIND_FILES = new Set([
+  'apps/web/src/app/admin/csat/sources/SourceOperations.tsx',
+  'apps/web/src/app/admin/csat/sources/SourceWorkspace.tsx',
+  'apps/web/src/app/admin/csat/sources/SourceInventoryTable.tsx',
+  'apps/web/src/app/admin/csat/evidence/EvidenceConsole.tsx',
+  'apps/web/src/app/admin/csat/evidence/EvidenceInspector.tsx',
+  'apps/web/src/app/admin/csat/evidence/EvidenceMatrix.tsx',
+  'apps/web/src/app/admin/csat/evidence/EvidenceAxisPanel.tsx',
+])
+
 
 /**
  * 스캔이 실제로 일어났다는 증거. 파서가 깨지면 위반도 0 이 되므로 이 하한이 없으면
@@ -185,15 +184,21 @@ describe('허용 목록 — 체크박스·라디오', () => {
 })
 
 describe('판정 불가는 늘지 않는다', () => {
-  it('CSS 모듈 예외는 그 모듈이 실제로 44px 을 걸고 있다', () => {
-    for (const e of CSS_MODULE_44PX) {
-      const css = readFileSync(join(REPO_ROOT, e.module), 'utf8')
-      expect(e.guard.test(css), `${e.module} 에 44px 보장 규칙이 없다 — ${e.file} 예외를 지울 것`).toBe(true)
-    }
+  it('관리자 루트가 44px 을 실제로 보장한다 — 예외의 유일한 근거', () => {
+    const css = readFileSync(join(REPO_ROOT, ROOT_GUARANTEE.css), 'utf8')
+    const layout = readFileSync(join(REPO_ROOT, ROOT_GUARANTEE.layout), 'utf8')
+    expect(
+      ROOT_GUARANTEE.cssRule.test(css),
+      'globals.css 에 [data-admin-root] 44px 규칙이 없다 — 그러면 아래 예외가 근거를 잃는다',
+    ).toBe(true)
+    expect(
+      ROOT_GUARANTEE.layoutAttr.test(layout),
+      'admin/layout.tsx 에 data-admin-root 가 없다 — 규칙이 아무 화면에도 닿지 않는다',
+    ).toBe(true)
   })
 
-  it(`판정 불가 ≤ ${UNDECIDABLE_CAP} (CSS 모듈이 44px 을 보장하는 화면 제외)`, () => {
-    const undecidable = allUndecidable.filter((f) => !CSS_MODULE_FILES.has(f.file))
+  it(`판정 불가 ≤ ${UNDECIDABLE_CAP} (루트가 44px 을 보장하고 스캐너가 못 읽는 화면 제외)`, () => {
+    const undecidable = allUndecidable.filter((f) => !SCANNER_BLIND_FILES.has(f.file))
     if (undecidable.length > UNDECIDABLE_CAP) {
       throw new Error(
         `판정 불가 ${undecidable.length}건 > 상한 ${UNDECIDABLE_CAP}\n` +

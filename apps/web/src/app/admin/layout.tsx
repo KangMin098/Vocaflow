@@ -43,7 +43,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const reportsBadge = await fetchPendingReportsCount()
 
   return (
-    <div className="flex min-h-screen bg-[var(--bg2)]">
+    // data-admin-root — 44px 터치 타깃을 이 안에서 일괄 보장한다(globals.css · DD-58 A5).
+    <div data-admin-root className="flex min-h-screen bg-[var(--bg2)]">
       <AdminSidebar reportsBadge={reportsBadge} />
       <main className="flex min-w-0 flex-1 flex-col">
         <div className="flex-1">{children}</div>
