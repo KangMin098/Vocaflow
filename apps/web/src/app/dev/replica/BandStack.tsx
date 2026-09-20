@@ -24,6 +24,15 @@ export type Subst = {
   copy?: Map<string, string>
 }
 
+/** 한글은 라틴보다 글자 상자를 꽉 채운다 — 행간이 1.25 보다 좁으면 위아래가 잘린다. */
+function koLineHeight(c: BlueprintChild): string | undefined {
+  const size = parseFloat(c.fontSize ?? '0') || 0
+  const lh = parseFloat(c.lineHeight ?? '0') || 0
+  if (!size) return c.lineHeight
+  const MIN = 1.25
+  return lh / size >= MIN ? c.lineHeight : `${Math.round(size * MIN * 100) / 100}px`
+}
+
 const isMedia = (c: BlueprintChild) =>
   c.role === 'media' || ['img', 'svg', 'video', 'canvas', 'picture'].includes(c.tag)
 
@@ -37,6 +46,11 @@ function Child({ c, k, subst }: { c: BlueprintChild; k: string; subst?: Subst })
     // 이 칠이 면인지 표식인지는 **면적**이 가른다 — 치환표를 만든 규칙과 같은 경계(MARK_AREA).
     background: col(c.bg, fillRole(c.w, c.h)),
     borderRadius: c.radius,
+    // 덧칠 순서 — 절대 배치라 **문서 순서가 곧 앞뒤**다. 참조에서 제목 아래에 있던 면 상자가
+    // 나중에 그려지면 제목을 덮는다(실측 2026-09-20: 히어로 제목 둘째 줄이 통째로 잘렸다).
+    // 자리를 옮기지 않고 앞뒤만 세운다: 면 < 그림 < 글자. 복제(tines-*)는 건드리지 않는다 —
+    // Stage 2 의 픽셀 기준선이 그 순서로 재어져 있다.
+    zIndex: subst ? (isMedia(c) ? 1 : c.textLen > 0 ? 2 : 0) : undefined,
     border: c.border && subst?.color
       ? c.border.replace(/#[0-9a-fA-F]{6}/, (m) => col(m.toLowerCase(), '선') ?? m)
       : c.border,
@@ -75,6 +89,9 @@ function Child({ c, k, subst }: { c: BlueprintChild; k: string; subst?: Subst })
     if (asset?.kind === 'fill') {
       return <div className="replica-box" data-role="media" style={{ ...base, background: 'var(--bd)' }} />
     }
+    // 치환 중에 배정이 없는 그림 자리 = **겹쳐서 뺀 자리**다. 비운다.
+    // 회색 자리표시자를 남기면(복제의 기본값) 삽화 위에 커다란 회색 판이 덮인다 — 실측 2026-09-20.
+    if (subst) return <div className="replica-box" data-role="media" style={{ ...base, background: undefined }} />
     return <div className="replica-box replica-media" data-role="media" style={{ ...base, background: undefined }} />
   }
 
@@ -89,16 +106,23 @@ function Child({ c, k, subst }: { c: BlueprintChild; k: string; subst?: Subst })
           fontFamily: subst?.font ? subst.font(c) : undefined,
           fontSize: c.fontSize,
           fontWeight: c.fontWeight,
-          lineHeight: c.lineHeight,
+          // 행간만은 실측값을 **올린다**. 참조의 1.05 는 라틴 전용 값이라 한글 글리프가 잘린다(실측 2026-09-20).
+          // 크기·굵기·자간은 그대로다 — 치환 ② 가 바꾸는 것은 글꼴이고, 행간은 그 글꼴이 요구하는 최소치다.
+          lineHeight: subst ? koLineHeight(c) : c.lineHeight,
           letterSpacing: c.letterSpacing,
           textAlign: c.textAlign as React.CSSProperties['textAlign'],
           color: col(c.color, '글자'),
           // 한글은 낱말이 쪼개지면 읽을 수 없다(AGENTS.md I7).
           wordBreak: subst ? 'keep-all' : undefined,
           overflowWrap: subst ? 'break-word' : undefined,
+          // 자르지 않고 넘치게 둔다. 한글은 같은 크기에서 라틴보다 줄이 길고 높아 실측 상자를 넘는데,
+          // 잘라 버리면 「벼한니다」처럼 **읽을 수 없는 글자**가 남아 판단을 방해한다(실측 2026-09-20).
+          // 넘치는 양 자체가 판단 ① 의 재료다 — 참조 상자가 한글에 맞는지를 보여 준다.
+          overflow: subst ? 'visible' : undefined,
         }}
       >
-        {subst?.copy?.get(k) ?? lorem(c.textLen)}
+        {/* 치환 중에는 배정표가 정본이다 — 거기 없는 자리는 **비운다**(겹쳐서 뺀 자리에 lorem 이 다시 들어오면 안 된다). */}
+        {subst ? (subst.copy?.get(k) ?? '') : lorem(c.textLen)}
       </div>
     )
   }
@@ -143,13 +167,53 @@ export function slots(vp: ViewportBlueprint) {
   return out
 }
 
-export const mediaSlots = (vp: ViewportBlueprint) =>
-  slots(vp).filter(({ c }) => isMedia(c)).map(({ key, c }) => ({ key, w: c.w, h: c.h }))
+/** 두 상자가 겹치는 넓이 — 자리 중복을 재는 데만 쓴다. */
+const overlap = (a: BlueprintChild, b: BlueprintChild) =>
+  Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) *
+  Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y))
 
-export const textSlots = (vp: ViewportBlueprint) =>
-  slots(vp)
-    .filter(({ c }) => !isMedia(c) && c.textLen > 0)
-    .map(({ key, c }) => ({ key, role: c.role, textLen: c.textLen, fontSize: c.fontSize }))
+/**
+ * 그림 자리 — **겹치는 것은 바깥 하나만** 남긴다.
+ *
+ * 참조의 히어로는 SVG 가 겹겹이 들어앉아 있어 띠 하나에 그림 자리가 62개고 그중 **37개가 겹친다**(실측).
+ * 복제에서는 전부 회색이라 한 덩어리로 읽혔지만, 우리 삽화를 넣으면 그림 위에 그림이 쌓여 난장이 된다.
+ * 자리를 옮기거나 줄이는 게 아니라 **거기에 두 번째 그림을 놓지 않는** 것이다(구조·수치 변경 0).
+ */
+export const mediaSlots = (vp: ViewportBlueprint) => {
+  const all = slots(vp).filter(({ c }) => isMedia(c))
+  const kept: typeof all = []
+  for (const s of all) {
+    const mine = s.c.w * s.c.h
+    if (mine > 0 && kept.some((k) => overlap(s.c, k.c) / mine >= 0.6)) continue
+    kept.push(s)
+  }
+  return kept.map(({ key, c }) => ({ key, w: c.w, h: c.h }))
+}
+
+/**
+ * 글자 자리 — 그림과 같은 이유로 **겹치는 것은 바깥 하나만**.
+ * 머리띠에서 로고·내비·버튼 상자가 서로 물려 있어, 자리마다 다른 낱말을 넣으면 글자가 겹쳐 찍힌다(실측).
+ */
+export const textSlots = (vp: ViewportBlueprint) => {
+  const all = slots(vp).filter(({ c }) => !isMedia(c) && c.textLen > 0)
+  const kept: typeof all = []
+  for (const s of all) {
+    const mine = s.c.w * s.c.h
+    if (mine > 0 && kept.some((k) => overlap(s.c, k.c) / mine >= 0.6)) continue
+    kept.push(s)
+  }
+  return kept
+    .map(({ key, c }) => ({
+      key,
+      role: c.role,
+      textLen: c.textLen,
+      fontSize: c.fontSize,
+      x: c.x,
+      y: c.y,
+      w: c.w,
+      h: c.h,
+    }))
+}
 
 export function BandStack({ vp, subst }: { vp: ViewportBlueprint; subst?: Subst }) {
   const bands = vp.blueprint

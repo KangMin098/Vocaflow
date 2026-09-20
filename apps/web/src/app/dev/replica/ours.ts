@@ -219,7 +219,62 @@ const BASES = [
 const SHORTS = ['먼저 재 보기', '서가 둘러보기', '교사 허브', '무료로 시작', '학급 만들기', '요금제', '소개', '기출 분석', 'Vocaflow', '로그인']
 
 export type CopyPlan = Map<string, string>
-export type TextSlot = { key: string; role: string; textLen: number; fontSize?: string }
+export type TextSlot = {
+  key: string
+  role: string
+  textLen: number
+  fontSize?: string
+  x?: number
+  y?: number
+  w?: number
+  h?: number
+}
+
+/**
+ * **한 제목이 여러 줄로 쪼개져 있는 것**을 묶는다.
+ *
+ * 참조의 히어로 제목은 한 문장인데 굵기가 다른 두 줄(태그도 다르다)로 나뉘어 있다. 그걸 모르고
+ * 줄마다 **다른 문장**을 넣으면 두 문장이 한 자리에서 겹쳐 읽힌다 — 2026-09-20 1:1 캡처에서 드러난 결함.
+ * 세로로 잇닿아 있고 가로로 겹치며 글자 크기가 비슷하면 한 덩어리로 본다.
+ */
+function groupLines(slots: TextSlot[]): TextSlot[][] {
+  const size = (s: TextSlot) => parseFloat(s.fontSize ?? '0') || 0
+  const groups: TextSlot[][] = []
+  for (const s of slots) {
+    const last = groups[groups.length - 1]
+    const prev = last?.[last.length - 1]
+    const joinable =
+      prev &&
+      prev.y !== undefined && s.y !== undefined && prev.h !== undefined &&
+      prev.x !== undefined && s.x !== undefined && prev.w !== undefined && s.w !== undefined &&
+      // 세로로 잇닿아 있다(줄 사이 틈이 글자 크기의 60% 이내)
+      s.y >= prev.y && s.y - (prev.y + prev.h) <= size(s) * 0.6 &&
+      // 가로로 절반 이상 겹친다
+      Math.max(0, Math.min(prev.x + prev.w, s.x + s.w) - Math.max(prev.x, s.x)) >= Math.min(prev.w, s.w) * 0.5 &&
+      // 글자 크기가 비슷하다(굵기는 달라도 된다 — 참조가 그렇게 쓴다)
+      size(prev) > 0 && Math.abs(size(prev) - size(s)) / size(prev) <= 0.25 &&
+      // 제목급만 묶는다. 본문 문단이 이어지는 것을 한 문장으로 붙이면 안 된다.
+      s.textLen <= 60 && prev.textLen <= 60
+    if (joinable) last.push(s)
+    else groups.push([s])
+  }
+  return groups
+}
+
+/** 문장 하나를 낱말 단위로 n 줄에 나눈다 — 참조의 「굵기가 다른 두 줄」 장치를 우리 문장으로 재현한다. */
+function splitAcross(text: string, n: number): string[] {
+  if (n <= 1) return [text]
+  const words = text.split(/\s+/).filter(Boolean)
+  if (words.length <= 1) return [text, ...Array(n - 1).fill('')]
+  const out: string[] = []
+  let at = 0
+  for (let i = 0; i < n; i++) {
+    const take = Math.max(1, Math.round((words.length - at) / (n - i)))
+    out.push(words.slice(at, at + take).join(' '))
+    at += take
+  }
+  return out
+}
 
 /**
  * 문구 배정도 규칙이다 — 같은 순서면 같은 결과가 나온다.
@@ -245,19 +300,25 @@ export function planCopy(slots: TextSlot[], facts: Facts = null): CopyPlan {
   let body = 0
   let basis = 0
   let shortIdx = 0
-  for (const s of slots) {
+  // 자리 하나가 아니라 **덩어리 하나**에 문장 하나를 준다 — 쪼개진 제목 줄들이 서로 다른 말을 하지 않게.
+  for (const group of groupLines(slots)) {
+    const s = group[0]
     const rel = maxFs ? fs(s) / maxFs : 0
     // ⚠️ 크기 하나만 보면 안 된다. 자리들이 전부 같은 크기면 `rel` 이 모두 1 이 되어 **전부 표제**가 되고,
     //    본문(숫자가 든 문장이 사는 곳)이 한 줄도 안 들어간다 — 2026-09-20 회귀가 잡은 결함.
     //    120자짜리는 크기가 무엇이든 표제가 아니다. 길이로 한 번 더 거른다.
     const short = s.textLen <= 60
-    if ((rel >= 0.9 && short) || s.role === 'h1') plan.set(s.key, headline++ === 0 ? HEADLINE : SECTIONS[headline % SECTIONS.length])
-    else if ((rel >= 0.5 && short) || s.role === 'h2') plan.set(s.key, SECTIONS[section++ % SECTIONS.length])
-    else if ((rel >= 0.3 && s.textLen <= 40) || s.role === 'h3') plan.set(s.key, titles[title++ % titles.length])
-    else if (s.textLen >= 90) plan.set(s.key, body++ === 0 ? SUBHEAD : bodies[body % bodies.length])
-    else if (s.textLen >= 40) plan.set(s.key, bodies[body++ % bodies.length])
-    else if (s.textLen >= 18) plan.set(s.key, bases[basis++ % bases.length])
-    else plan.set(s.key, SHORTS[shortIdx++ % SHORTS.length])
+    let text: string
+    if ((rel >= 0.9 && short) || s.role === 'h1') text = headline++ === 0 ? HEADLINE : SECTIONS[headline % SECTIONS.length]
+    else if ((rel >= 0.5 && short) || s.role === 'h2') text = SECTIONS[section++ % SECTIONS.length]
+    else if ((rel >= 0.3 && s.textLen <= 40) || s.role === 'h3') text = titles[title++ % titles.length]
+    else if (s.textLen >= 90) text = body++ === 0 ? SUBHEAD : bodies[body % bodies.length]
+    else if (s.textLen >= 40) text = bodies[body++ % bodies.length]
+    else if (s.textLen >= 18) text = bases[basis++ % bases.length]
+    else text = SHORTS[shortIdx++ % SHORTS.length]
+
+    const lines = splitAcross(text, group.length)
+    group.forEach((slot, i) => plan.set(slot.key, lines[i] ?? ''))
   }
   return plan
 }
