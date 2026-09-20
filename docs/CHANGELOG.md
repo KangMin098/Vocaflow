@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- CSAT 원문 판정 드레인(#104): 판정 하나로 열리는 raw PLOS 309편을 판정·적재해 **연습 가능 문항 105,294 → 119,559**(11.97% → 13.59%). 도구 3개 추가( ·  · ) · 화면도움말 drain 단계 추가. 남은 미판정 12,123편은  라 밴드 결정이 필요하다. 결정 DD-54.
+
 - CSAT 통합 인수(Codex 한도 폴백): 미커밋 175건을 8커밋으로 정리 — 에이전트 공용 도구(agents/scripts·.codex) 추적 시작 · 원문 적격 캐시 마이그레이션 2개(이미 DB 적용) · 관리자 근거 콘솔·원천 작업공간 · 기출 학습자 화면(/csat/dissect · /csat/formulas, 골격 선언 채움) · VOA 보일러플레이트 · 시각 회귀 4파일. 통합이 깨뜨린 회귀 4건 수정(화면도움말 도식 · 라우트 매니페스트) + 실제 결함 1건(video-console 의 .limit(10000) → pagedSelect). 라쳇은 내리기만(grid-3eq 58 · ai-purple 318). 결정 DD-50.
 
 - DB 기본 권한 하드닝(발견 111) — 새 public 함수가 anon 에 자동 노출되던 **두 경로**를 닫았다: 스키마별 기본값의 명시 `anon=X` GRANT(`20260919231528`)와 전역 기본값의 `PUBLIC EXECUTE`(`20260919232557`, `extensions`·`pgmq` 는 명시 허용해 영향을 public 으로 한정). 스키마별 기본 권한은 전역을 대체하지 않고 **더해지므로** `IN SCHEMA public … REVOKE FROM PUBLIC` 은 무효다(`20260919231822` 에 무영향으로 기록). 기존 함수 302/84/398 불변. 양방향 가드 `pnpm db:anon-grants`(`scripts/db/check-anon-rpc-grants.mjs` + 기준선 84개) — 새로 열린 것과 **조용히 막힌 것**을 같이 잡는다.
