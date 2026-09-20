@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- 공개 지표가 **조용히 사라지던 결함** 수정(`trust-signals.ts`): `countOf` 가 `head: true`(HTTP HEAD)로 세고 있었는데 HEAD 응답에는 본문이 없어 PostgREST 500 이 `error: null · count: null` 로 돌아왔다. 실측 2026-09-20 — `csat_dcp_items` 정확 집계가 **8.2초에 타임아웃(57014)**, 그 탓에 `fetchPlatformFacts()` 가 null 이 되고 지표 절이 로그 한 줄 없이 숨겨졌다. `.limit(0)` GET 으로 바꿔 오류가 올라오게 했고, 수도 오류도 없는 응답도 기록한다. 항목별 `fetchPlatformFactsPartial()` 신설(공개 화면 「하나라도 못 읽으면 전부 숨김」 계약은 그대로). 회귀 8건. ⚠️ 근본 원인인 집계 비용은 **인덱스 마이그레이션 승인 대기** — `csat_dcp_items` 1,579MB · 880,670행, `type` 단독 인덱스 없음(계획 비용 75,397).
+
 - 실물 우선 Stage 3 **치환 2회차**(DD-62): 색 치환이 **역할(면/선/글자)을 먼저** 보게 고쳤다 — 참조 액센트의 면 용법 → `--bg2`(잉크 4~5% 톤, 실측) · 선·표식 → `--ju` · 글자 → `--t1`. 1회차는 역할을 안 봐서 참조의 면 20%가 주묵 벽이 됐다(DD-55 「면 금지」를 기계가 어긴 것). 반전 글자 규칙 추가(밝은 글자 L*≥80 → 잉크 — 우리 면 풀이 전부 밝아 그대로 두면 안 보인다). 03-system §3-9 에 **규격 L 장면 1000×400** 신설 + 기호 사전 기존 개념 2점(#19 서가가 차오른다 · #26 해마다의 기출)을 그 규격으로 생성(`scripts/design/scene-illustrations.mjs`, style-gate PASS 2/2). 문구는 반복되던 자리에 새 문장 22개 — 제품 사실만, 숫자는 DB 실측 마커이고 못 읽으면 문장을 버린다(회귀 `app/dev/replica/__tests__/ours-copy.test.ts` 10건). 랜딩 카피 정본 확장은 제안만 (`docs/design/proposals/landing-copy-expansion.md`).
 
 - 실물 우선 Stage 3 — 치환 4가지(DD-62): 치환표 생성기 `scripts/design/substitute.mjs`(CIEDE2000 최근접 · 액센트 `#714bd0` → `--ju` 고정 · 후보 풀에서 아케이드 팔레트와 옛 AI-보라 제외) → `docs/design/refs/substitution.json` 13색. `/dev/replica/ours-home` · `/dev/replica/ours-app` 는 복제와 **같은 렌더러**를 쓰고 색·서체(Hahmlet/Lora · IBM Plex Sans KR)·그림(골든 삽화 4점 + `/fit` 실캡처)·문구(`differentiators.ts`)만 바꾼다 — `replica-diff --ours` 가 띠·상자 자리 어긋남 **0** 을 기계로 확인. 잠금 결함 수정(DD-53 보완) · PR #115 폐기(archive 태그).
