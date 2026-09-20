@@ -1166,6 +1166,9 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 | 이력 | `voiced_at` · `rendered_at` · `packaged_at` · `published_at` |
 | RPC | `video_job_advance(video_id, kind, stage, metrics, error)` → service_role · `video_jobs_overview()` → service_role·authenticated |
 
+⚠️ **`video_job_advance` 의 「→ service_role」 은 2026-09-20 까지 문서에만 있었다**(`20260920014500` 에서 실제로 맞췄다). 그 전까지 anon·authenticated 가 EXECUTE 를 가졌고, 이 함수는 권한 가드 없이 `INSERT INTO video_jobs … ON CONFLICT DO NOTHING` 으로 시작한다 — **익명 사용자가 임의 `video_id` 행을 만들고 기존 편의 `stage`·`kind`·지표를 덮을 수 있었다**(발견 104, critical 7일). 검증은 anon 키 실호출로 했다(42501 · 탐침 행 0 · service_role 정상). 같은 표의 권한 표기를 볼 때 **문서가 곧 현실이라고 가정하지 말 것** — `has_function_privilege()` 로 확인한다.
+
+
 **왜 편당 한 행인가** — 단계는 여섯인데 관리자가 묻는 것은 「이 편이 어디까지 왔나」 하나다.
 단계마다 행을 만들면 73×6=438행을 훑어야 그 답이 나온다.
 
