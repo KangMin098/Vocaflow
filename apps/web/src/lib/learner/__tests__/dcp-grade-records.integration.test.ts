@@ -38,6 +38,30 @@ describe.skipIf(skip)('grade_dcp_item 이 관측을 남긴다 (integration)', ()
   let userId: string
   const created: string[] = []
 
+  /**
+   * 그 유형의 문항 중 **채점 가능한 원문**의 것 하나. 없으면 null.
+   *
+   * ⚠️ 전에는 `.limit(1)` 로 맨 앞 문항을 집었다. 그런데 원문에는 법적·안전·내용 반려 같은
+   *    차단 사유가 있을 수 있고, 그러면 채점이 정당하게 거부된다 — 그것을 「DB 가 이 유형을
+   *    못 채점한다」 로 읽어 2026-09-20 에 4유형이 거짓 실패했다. 판정은 DB 함수에 맡긴다
+   *    (`csat_source_is_gradeable` — 밴드만 무시하고 나머지 사유는 그대로 본다).
+   */
+  async function pickGradeableItem(type: string, limit = 200) {
+    const { data } = await admin
+      .from('csat_dcp_items')
+      .select('id, answer_key, ref_id')
+      .eq('kind', 'article')
+      .eq('type', type)
+      .limit(limit)
+    for (const item of data ?? []) {
+      const { data: ok, error } = await admin.rpc('csat_source_is_gradeable', {
+        p_article_id: item.ref_id as string,
+      })
+      if (!error && ok === true) return item as { id: string; answer_key: unknown; ref_id: string }
+    }
+    return null
+  }
+
   beforeAll(async () => {
     admin = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
     learner = createClient(SUPABASE_URL!, ANON_KEY!, { auth: { persistSession: false } })
@@ -56,14 +80,8 @@ describe.skipIf(skip)('grade_dcp_item 이 관측을 남긴다 (integration)', ()
   })
 
   it('삽입 유형을 채점하면 attempt 가 생기고 dcp_item_id 가 채워진다', async () => {
-    const { data: item } = await admin
-      .from('csat_dcp_items')
-      .select('id, answer_key')
-      .eq('kind', 'article')
-      .eq('type', 'insert')
-      .limit(1)
-      .single()
-    expect(item?.id).toBeTruthy()
+    const item = await pickGradeableItem('insert')
+    expect(item?.id, '채점 가능한 insert 문항이 없다').toBeTruthy()
 
     const position = (item!.answer_key as { position: number }).position
     const { data, error } = await learner.rpc('grade_dcp_item', {
@@ -90,22 +108,21 @@ describe.skipIf(skip)('grade_dcp_item 이 관측을 남긴다 (integration)', ()
   })
 
   it('선택지 9종도 채점된다 — 정답이면 answer_key 를 돌려주지 않는다', async () => {
-    const { data: item } = await admin
-      .from('csat_dcp_items')
-      .select('id, answer_key')
-      .eq('kind', 'article')
-      .eq('type', 'topic')
-      .limit(1)
-      .single()
-    expect(item?.id).toBeTruthy()
+    const item = await pickGradeableItem('topic')
+    expect(item?.id, '채점 가능한 topic 문항이 없다').toBeTruthy()
     const answer = (item!.answer_key as { answer: number }).answer
 
     const ok = await learner.rpc('grade_dcp_item', { p_item_id: item!.id, p_answer: { choice: answer } })
     expect(ok.error).toBeNull()
     const okRes = ok.data as { correct: boolean; attempt_id: string; answer_key: unknown }
     expect(okRes.correct).toBe(true)
-    // 정답일 때 정답 키를 돌려주면 다음 문항의 답까지 유추할 여지를 준다.
-    expect(okRes.answer_key).toBeNull()
+    // 정답일 때 **정답 번호·선택지는 주지 않는다** — 주면 다음 문항의 답까지 유추할 여지를 준다.
+    // 다만 해설 계열(explanation_ko · explanation_writer · rationale_ko)은 준다: 맞힌 뒤 읽는 것이
+    // 이 화면의 학습이다. 2026-09-20 정정 — 옛 단언은 `null` 을 기대했는데 함수는 그때 이미
+    // `jsonb_strip_nulls(해설 3키)` 를 돌려주고 있었다(정의 대조로 확인). 계약을 사실에 맞춘다.
+    const okKeys = Object.keys((okRes.answer_key ?? {}) as Record<string, unknown>)
+    expect(okKeys.filter((k) => /^(answer|choices)$/.test(k))).toEqual([])
+    expect(okKeys.every((k) => /^(explanation_ko|explanation_writer|rationale_ko)$/.test(k))).toBe(true)
     created.push(okRes.attempt_id)
 
     const wrong = await learner.rpc('grade_dcp_item', {
@@ -147,14 +164,9 @@ describe.skipIf(skip)('grade_dcp_item 이 관측을 남긴다 (integration)', ()
     // `Unknown type` 이 나오면 그 유형은 화면에서 "정답을 맞혀도 오답" 이 된다.
     const broken: string[] = []
     for (const type of CHOICE_DCP_TYPES) {
-      const { data: item } = await admin
-        .from('csat_dcp_items')
-        .select('id, answer_key')
-        .eq('kind', 'article')
-        .eq('type', type)
-        .limit(1)
-        .maybeSingle()
-      // 재고가 없는 유형은 건널 수밖에 없다 — 없는 것을 채점해 볼 수는 없다.
+      const item = await pickGradeableItem(type)
+      // 재고가 없거나 **채점 가능한 원문이 없는** 유형은 건널 수밖에 없다.
+      // (원문 차단은 이 테스트가 재는 것이 아니다 — 그것은 grade-band-is-fit 이 잰다.)
       if (!item?.id) continue
       const answer = (item.answer_key as { answer?: number } | null)?.answer ?? 1
       const { data, error } = await learner.rpc('grade_dcp_item', {
@@ -168,13 +180,9 @@ describe.skipIf(skip)('grade_dcp_item 이 관측을 남긴다 (integration)', ()
   })
 
   it('없는 선택지 번호는 거부한다 — 캐스트가 먼저 터지지 않는다', async () => {
-    const { data: item } = await admin
-      .from('csat_dcp_items')
-      .select('id')
-      .eq('kind', 'article')
-      .eq('type', 'topic')
-      .limit(1)
-      .single()
+    // 원문이 막힌 문항을 집으면 'Source is unavailable' 이 먼저 나서 이 단언이 가려진다.
+    const item = await pickGradeableItem('topic')
+    expect(item?.id, '채점 가능한 topic 문항이 없다').toBeTruthy()
     const { error } = await learner.rpc('grade_dcp_item', { p_item_id: item!.id, p_answer: { choice: 9 } })
     expect(error).not.toBeNull()
     expect(error!.message).toContain('Bad choice')

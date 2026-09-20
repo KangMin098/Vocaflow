@@ -33,13 +33,25 @@ const noEnv = !SUPABASE_URL || !ANON_KEY || !SERVICE_KEY
 const TEST_EMAIL = 'runtime-test-0705@vocaflow.dev'
 const TEST_PASSWORD = process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? ''
 
+/**
+ * ⚠️ **모듈 최상위에서 확인한다.**  는 **수집 시점**에 x 를 읽으므로
+ * beforeAll 에서 채운 값은 늦는다 — 2026-09-20 에 실제로 적용 뒤에도 2건이 skip 됐다.
+ */
+const migrated = await (async () => {
+  if (noEnv) return false
+  const probe = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
+  const { error } = await probe.rpc('csat_source_is_gradeable', {
+    p_article_id: '00000000-0000-0000-0000-000000000000',
+  })
+  return !error
+})()
+
 /** 채점 대상 하나 — 문항 id 와 그 원문의 차단 사유. */
 type Probe = { itemId: string; articleId: string; blockers: string[] }
 
 describe.skipIf(noEnv)('밴드는 적합이지 적격이 아니다 (integration)', () => {
   let admin: SupabaseClient
   let learner: SupabaseClient
-  let migrated = false
   let bandOnly: Probe | null = null
   let otherBlocked: Probe | null = null
   const attempts: string[] = []
@@ -48,11 +60,6 @@ describe.skipIf(noEnv)('밴드는 적합이지 적격이 아니다 (integration)
     admin = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
     learner = createClient(SUPABASE_URL!, ANON_KEY!, { auth: { persistSession: false } })
 
-    // 마이그레이션 적용 여부 — 함수가 있으면 돈다.
-    const probe = await admin.rpc('csat_source_is_gradeable', {
-      p_article_id: '00000000-0000-0000-0000-000000000000',
-    })
-    migrated = !probe.error
     if (!migrated) return
 
     const { error: signInError } = await learner.auth.signInWithPassword({
@@ -61,32 +68,44 @@ describe.skipIf(noEnv)('밴드는 적합이지 적격이 아니다 (integration)
     })
     if (signInError) throw new Error(`검증 계정 로그인 실패: ${signInError.message}`)
 
-    // 표본 둘을 DB 에서 고른다 — 고정 UUID 를 박지 않는다(드레인이 판정을 바꾸면 박은 값이 썩는다).
-    const pick = async (match: (blockers: string[]) => boolean): Promise<Probe | null> => {
-      const { data, error } = await admin
-        .from('csat_source_eligibility')
-        .select('article_id, result')
-        .limit(400)
-      if (error) throw new Error(error.message)
-      for (const row of data ?? []) {
-        const blockers = (row.result as { blockers?: unknown }).blockers
-        if (!Array.isArray(blockers) || !match(blockers as string[])) continue
-        const item = await admin
-          .from('csat_dcp_items')
-          .select('id')
-          .eq('kind', 'article')
-          .eq('ref_id', row.article_id)
-          .in('type', ['topic', 'blank', 'main_point', 'title', 'summary'])
-          .limit(1)
-          .maybeSingle()
-        if (item.error || !item.data) continue
-        return { itemId: item.data.id as string, articleId: row.article_id as string, blockers: blockers as string[] }
-      }
-      return null
-    }
+    // 표본을 **문항 쪽에서** 고른다 — 고정 UUID 를 박지 않는다(드레인이 판정을 바꾸면 박은 값이 썩는다).
+    //
+    // ⚠️ 적격 표에서 시작하면 안 된다: 109,043행 중 앞 400행에 **문항이 붙은 원문이 없을 수 있다**
+    //    (2026-09-20 실제로 표본 0 이었다). 학습자가 실제로 만나는 것은 문항이므로 문항에서 출발한다.
+    const { data: items, error: itemsError } = await admin
+      .from('csat_dcp_items')
+      .select('id, ref_id')
+      .eq('kind', 'article')
+      .in('type', ['topic', 'blank', 'main_point', 'title', 'summary'])
+      .limit(500)
+    if (itemsError) throw new Error(itemsError.message)
 
-    bandOnly = await pick((b) => b.length === 1 && b[0] === 'cefr_above_band')
-    otherBlocked = await pick((b) => b.length > 0 && b.some((x) => x !== 'cefr_above_band'))
+    // 원문별 첫 문항만 남긴다 — 같은 원문을 두 번 보지 않는다.
+    const firstItemOf = new Map<string, string>()
+    for (const row of items ?? []) {
+      const ref = row.ref_id as string
+      if (ref && !firstItemOf.has(ref)) firstItemOf.set(ref, row.id as string)
+    }
+    const ids = [...firstItemOf.keys()].slice(0, 300)
+    const { data: rows, error: rowsError } = await admin
+      .from('csat_source_eligibility')
+      .select('article_id, result')
+      .in('article_id', ids)
+    if (rowsError) throw new Error(rowsError.message)
+
+    for (const row of rows ?? []) {
+      const blockers = (row.result as { blockers?: unknown }).blockers
+      if (!Array.isArray(blockers)) continue
+      const list = blockers as string[]
+      const probe: Probe = {
+        itemId: firstItemOf.get(row.article_id as string)!,
+        articleId: row.article_id as string,
+        blockers: list,
+      }
+      if (!bandOnly && list.length === 1 && list[0] === 'cefr_above_band') bandOnly = probe
+      if (!otherBlocked && list.some((x) => x !== 'cefr_above_band')) otherBlocked = probe
+      if (bandOnly && otherBlocked) break
+    }
   }, 120_000)
 
   afterAll(async () => {
