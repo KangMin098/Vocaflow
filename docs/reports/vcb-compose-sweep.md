@@ -43,14 +43,14 @@
 | book-companion | 도서 Fables (143장) | 300 | 72 | 0.97 | ✅ | ✅ | man · day · think · good · get · find · away · like |  |
 | unlock | 해금 Fables (143장) | 200 | 7 | 0.97 | ✅ | ✅ | man · long · cat · make · pasture · crop · trade · day |  |
 | recycle | 재등장 Fables (143장) | 80 | 5 | 0.97 | ✅ | ✅ | man · day · good · see · get · find · think · away |  |
-| book-companion | 도서 Pride and Prejudice (61장) | 300 | 42 | 0.98 | ✅ | ✅ | know · want · good · like · visit · impossible · handsome · illustration |  |
-| unlock | 해금 Pride and Prejudice (61장) | 200 | 7 | 0.97 | ✅ | ✅ | know · want · manner · long · like · love · pleasure · present |  |
+| book-companion | 도서 Pride and Prejudice (61장) | 300 | 41 | 0.98 | ✅ | ✅ | impossible · know · want · like · handsome · illustration · high · sister |  |
+| unlock | 해금 Pride and Prejudice (61장) | 200 | 7 | 0.97 | ✅ | ✅ | impossible · know · want · conversation · family · manner · like · love |  |
 | recycle | 재등장 Pride and Prejudice (61장) | 80 | 6 | 0.97 | ✅ | ✅ | say · know · think · good · come · little · man · day |  |
-| book-companion | 도서 Pinocchio (36장) | 300 | 36 | 0.98 | ✅ | ✅ | moment · room · say · voice · mouth · laugh · open · door |  |
-| unlock | 해금 Pinocchio (36장) | 200 | 7 | 0.97 | ✅ | ✅ | capable · little · puppet · good · like · man · fish · school |  |
+| book-companion | 도서 Pinocchio (36장) | 300 | 36 | 0.98 | ✅ | ✅ | like · moment · see · room · poor · door · mouth · laugh |  |
+| unlock | 해금 Pinocchio (36장) | 200 | 7 | 0.97 | ✅ | ✅ | finish · little · puppet · good · tell · school · moment · come |  |
 | recycle | 재등장 Pinocchio (36장) | 80 | 6 | 0.97 | ✅ | ✅ | say · little · come · like · see · time · find · take |  |
-| book-companion | 도서 Twenty Years After (90장) | 300 | 47 | 0.98 | ✅ | ✅ | say · know · come · reply · time · good · horse · cardinal |  |
-| unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.97 | ✅ | ✅ | say · moment · little · man · come · king · out · reply |  |
+| book-companion | 도서 Twenty Years After (90장) | 300 | 55 | 0.98 | ✅ | ✅ | year · escape · say · come · good · like · tell · cardinal |  |
+| unlock | 해금 Twenty Years After (90장) | 200 | 7 | 0.98 | ✅ | ✅ | little · king · time · hand · like · cardinal · tell · great |  |
 | recycle | 재등장 Twenty Years After (90장) | 80 | 5 | 0.97 | ✅ | ✅ | say · man · know · come · king · queen · reply · think |  |
 | book-companion | 도서 Intro to Sociology (23장) | 300 | 24 | 0.98 | ✅ | ✅ | culture · different · world · man · term · school · think · crime |  |
 | unlock | 해금 Intro to Sociology (23장) | 200 | 7 | 0.97 | ✅ | ✅ | culture · different · world · man · term · school · think · crime |  |
