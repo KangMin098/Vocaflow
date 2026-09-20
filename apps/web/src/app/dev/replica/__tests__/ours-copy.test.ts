@@ -85,3 +85,22 @@ describe('문구 배정', () => {
     expect(new Set(titles).size).toBe(heads.length)
   })
 })
+
+describe('항목별 실측치', () => {
+  // 2026-09-20: 넷 중 `csatOrderInsert` 하나만 타임아웃으로 못 읽혔다.
+  // 그때 나머지 셋까지 버리면 화면에서 실측 문장이 통째로 사라진다 — 못 읽은 것이 든 문장만 빠져야 한다.
+  const PARTIAL: Facts = { headwords: 49_244, meaningKoPct: 100, bookVocabLinks: 1_678_399 }
+
+  it('읽힌 항목의 문장은 살고, 못 읽은 항목의 문장만 빠진다', () => {
+    expect(resolveMarkers('표제어 {headwords}개', PARTIAL)).toBe('표제어 49,244개')
+    expect(resolveMarkers('수능 유형 문항 {csatOrderInsert}개', PARTIAL)).toBeNull()
+  })
+
+  it('배정에도 읽힌 숫자만 들어간다', () => {
+    const slots = Array.from({ length: 24 }, (_, i) => slot(`B0:${i}`, '16px', 120))
+    const all = [...planCopy(slots, PARTIAL).values()].join('\n')
+    expect(all).toContain('49,244')
+    expect(all).toContain('1,678,399')
+    expect(all).not.toMatch(/\{\w+\}/)
+  })
+})

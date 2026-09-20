@@ -139,13 +139,19 @@ export function planMedia(slots: { key: string; w: number; h: number }[]): Map<s
 // 여기 쓴 문장은 **복제 시트용**이다. 랜딩 카피 정본(`lib/marketing/differentiators.ts`) 확장은
 // 별도 PR 제안으로 남겼다: `docs/design/proposals/landing-copy-expansion.md`.
 
-/** DB 실측치. 못 읽으면 null — 마커가 든 문장은 그때 통째로 빠진다. */
-export type Facts = {
+/**
+ * DB 실측치 — **항목별**이다.
+ *
+ * 전부 아니면 전무가 아닌 이유: 2026-09-20 실측에서 넷 중 `csatOrderInsert` 하나가 타임아웃 났는데,
+ * 전부를 버리니 읽히는 세 개(표제어 · 한국어 뜻 % · 도서–어휘 연결)까지 화면에서 사라졌다.
+ * 못 읽은 **항목이 든 문장만** 버린다. 상수로 대체하는 길은 여기에도 없다.
+ */
+export type Facts = Partial<{
   headwords: number
   meaningKoPct: number
   bookVocabLinks: number
   csatOrderInsert: number
-} | null
+}> | null
 
 const MARKER = /\{(\w+)\}/g
 const fmtNum = (n: number) => n.toLocaleString('en-US')

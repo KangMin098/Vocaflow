@@ -51,7 +51,13 @@ async function countOf(
   table: string,
   narrow?: (q: never) => never,
 ): Promise<number | null> {
-  const base = db.from(table).select('*', { count: 'exact', head: true })
+  // ⚠️ **HEAD 를 쓰지 않는다.** `head: true` 는 HTTP HEAD 를 보내고 HEAD 응답에는 본문이 없다.
+  //    그래서 PostgREST 가 500 을 내도(예: `57014 canceling statement due to statement timeout`)
+  //    supabase-js 가 읽을 오류 본문이 없어 **`error: null` · `count: null`** 로 돌아온다.
+  //    실측 2026-09-20: `csat_dcp_items` 집계가 8.2초에 타임아웃 → 오류가 조용히 사라지고
+  //    `fetchPlatformFacts()` 가 null → 공개 화면의 지표 절이 **아무 말 없이 통째로 숨겨졌다.**
+  //    `limit(0)` 짜리 GET 으로 바꾸면 본문이 있어 오류가 그대로 올라온다(행은 여전히 0줄).
+  const base = db.from(table).select('*', { count: 'exact' }).limit(0)
   const q = narrow ? narrow(base as never) : base
   const { count, error } = await (q as unknown as PromiseLike<{
     count: number | null
@@ -59,10 +65,16 @@ async function countOf(
   }>)
 
   if (error) {
-    console.error(`[trust-signals] ${table} 집계 실패`, (error as { message?: string }).message)
+    const e = error as { message?: string; code?: string }
+    console.error(`[trust-signals] ${table} 집계 실패`, e.code ?? '', e.message ?? error)
     return null
   }
-  return typeof count === 'number' ? count : null
+  if (typeof count !== 'number') {
+    // 오류도 없고 수도 없다 = 위 함정이 다른 모양으로 되살아난 것이다. 조용히 지나가지 않는다.
+    console.error(`[trust-signals] ${table} 집계가 오류 없이 비었다 — count 헤더가 없다`)
+    return null
+  }
+  return count
 }
 
 const fmt = (n: number): string => n.toLocaleString('en-US')
@@ -84,9 +96,26 @@ export interface PlatformFacts {
  *
  * 하나라도 못 읽으면 전체를 `null` 로 준다 — 부분만 보여주면 나머지가 0 으로 읽힌다.
  */
-export const fetchPlatformFacts = cache(async (): Promise<PlatformFacts | null> => {
+/**
+ * 읽힌 것만 담은 **부분 실측치** + 못 읽은 항목의 이름.
+ *
+ * 왜 나눴나: 공개 화면의 「하나라도 못 읽으면 전부 숨긴다」는 일부러 그렇게 둔 것이다(부분만 보이면
+ * 나머지가 0 으로 읽힌다). 그런데 그 규칙 때문에 **어느 것이 안 읽혔는지**가 밖에서 안 보였고,
+ * 2026-09-20 에 `csat_dcp_items` 하나가 타임아웃 나서 지표 절 전체가 조용히 사라졌다.
+ * 판정을 부르는 쪽이 하게 나눈다 — 공개 화면은 여전히 전부 아니면 전무(`fetchPlatformFacts`).
+ */
+export interface PartialPlatformFacts {
+  facts: Partial<PlatformFacts>
+  /** 못 읽은 항목 — 화면은 이 이름이 든 문장을 버린다. 상수로 대체하지 않는다. */
+  missing: (keyof PlatformFacts)[]
+}
+
+export const fetchPlatformFactsPartial = cache(async (): Promise<PartialPlatformFacts> => {
   const db = serviceClient()
-  if (!db) return null
+  if (!db) {
+    console.error('[trust-signals] service client 없음 — NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 확인')
+    return { facts: {}, missing: ['headwords', 'meaningKoPct', 'bookVocabLinks', 'csatOrderInsert'] }
+  }
 
   const [headwords, withKo, links, csat] = await Promise.all([
     countOf(db, 'shared_dictionary'),
@@ -97,19 +126,27 @@ export const fetchPlatformFacts = cache(async (): Promise<PlatformFacts | null> 
       q.in('type', CSAT_TYPES)) as never),
   ])
 
-  if (headwords === null || withKo === null || links === null || csat === null) return null
-  if (headwords === 0 || links === 0 || csat === 0) {
-    // 0 은 "자산이 없다" 가 아니라 대개 "못 읽었다" 다 — 그걸 공개 화면에 내보내지 않는다.
-    console.error('[trust-signals] 집계가 0 이다 — 권한을 의심한다', { headwords, links, csat })
-    return null
+  const facts: Partial<PlatformFacts> = {}
+  const missing: (keyof PlatformFacts)[] = []
+  // 0 은 "자산이 없다" 가 아니라 대개 "못 읽었다" 다 — 못 읽은 것으로 친다.
+  const take = <K extends keyof PlatformFacts>(k: K, v: number | null) => {
+    if (v === null || v === 0) missing.push(k)
+    else facts[k] = v as PlatformFacts[K]
   }
+  take('headwords', headwords)
+  take('bookVocabLinks', links)
+  take('csatOrderInsert', csat)
+  if (headwords && withKo !== null) facts.meaningKoPct = Math.floor((withKo / headwords) * 100)
+  else missing.push('meaningKoPct')
 
-  return {
-    headwords,
-    meaningKoPct: Math.floor((withKo / headwords) * 100),
-    bookVocabLinks: links,
-    csatOrderInsert: csat,
-  }
+  if (missing.length) console.error('[trust-signals] 못 읽은 지표', missing.join(', '))
+  return { facts, missing }
+})
+
+export const fetchPlatformFacts = cache(async (): Promise<PlatformFacts | null> => {
+  // 공개 화면 계약은 그대로 — **하나라도 못 읽으면 전부 숨긴다.**
+  const { facts, missing } = await fetchPlatformFactsPartial()
+  return missing.length ? null : (facts as PlatformFacts)
 })
 
 /** 요금제 화면의 신뢰 지표 3종. 포맷된 문자열까지 서버가 정한다. */
