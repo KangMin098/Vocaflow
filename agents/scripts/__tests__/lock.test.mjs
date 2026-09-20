@@ -32,6 +32,31 @@ test('살아 있는 잠금이 있으면 다른 에이전트의 acquire 는 exit 
   assert.equal(JSON.parse(fs.readFileSync(LOCK, 'utf8')).agent, 'claude')
 })
 
+// 2026-09-20 실측 결함: claude 세션 둘이 같은 워크트리를 동시에 썼는데 잠금이 막지 않았다
+// (pid 21452 의 잠금을 pid 5772 가 "같은 에이전트 — 갱신" 으로 가져갔다). DD-53 보완.
+test('이름이 같아도 살아 있는 **다른 세션**의 잠금은 가져가지 못한다', () => {
+  const r = run('acquire', 'claude', '--pid', String(process.pid))
+  assert.equal(r.status, 3, r.stdout)
+  assert.match(r.stderr, /다른 세션/)
+  assert.equal(JSON.parse(fs.readFileSync(LOCK, 'utf8')).pid, holder.pid, '잠금 주인이 바뀌면 안 된다')
+})
+
+test('같은 pid 의 재획득은 갱신이다', () => {
+  const r = run('acquire', 'claude', '--pid', String(holder.pid))
+  assert.equal(r.status, 0, r.stderr)
+  assert.match(r.stdout, /같은 세션 — 잠금 갱신/)
+})
+
+test('--force 는 사용자 지시가 있을 때 인수를 허용한다', () => {
+  const r = run('acquire', 'claude', '--pid', String(process.pid), '--force')
+  assert.equal(r.status, 0, r.stderr)
+  assert.match(r.stdout, /--force/)
+  assert.equal(JSON.parse(fs.readFileSync(LOCK, 'utf8')).pid, process.pid)
+  // 뒤 테스트가 기대하는 주인으로 되돌린다
+  run('release', 'claude')
+  assert.equal(run('acquire', 'claude', '--pid', String(holder.pid)).status, 0)
+})
+
 test('남의 잠금은 release 하지 않는다', () => {
   const r = run('release', 'codex')
   assert.equal(r.status, 3)
