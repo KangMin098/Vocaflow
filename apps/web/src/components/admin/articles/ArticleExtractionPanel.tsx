@@ -45,7 +45,7 @@ export function ArticleExtractionPanel({
     >
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Layers size={16} className="text-[#8B5CF6]" aria-hidden />
+          <Layers size={16} className="text-[var(--p)]" aria-hidden />
           <div>
             <h2
               id="article-extract-title"

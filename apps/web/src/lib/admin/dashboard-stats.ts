@@ -246,7 +246,9 @@ const JOB_TASK_KO: Record<string, string> = {
 const ACCENT = {
   lcp: 'var(--p)',
   acp: 'var(--info)',
-  vcb: '#8B5CF6',
+  // 2026-09-20: 옛 보라 대신 잉크 변형. lcp 와 같은 --p 를 쓰면 두 파이프라인이 한 색이 된다.
+  // (색만으로 구분하지 않는다 — 이름표가 뜻을 나른다. 색은 훑을 때의 보조다)
+  vcb: 'var(--p-hover)',
   ccp: 'var(--warning)',
   pdcp: 'var(--warning)',
   job: 'var(--success)',

@@ -161,7 +161,7 @@ export function VideoConsoleClient({
             aria-current={tab === t ? 'page' : undefined}
             className={`min-h-[44px] px-4 font-body text-[13px] font-[600] transition-colors duration-[var(--dur-normal)] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--p)] ${
               tab === t
-                ? 'border-b-2 border-[#8B5CF6] text-[var(--t1)]'
+                ? 'border-b-2 border-[var(--p)] text-[var(--t1)]'
                 : 'text-[var(--t3)] hover:text-[var(--t2)]'
             }`}
           >

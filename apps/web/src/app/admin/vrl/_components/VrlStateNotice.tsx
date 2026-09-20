@@ -66,7 +66,7 @@ export function VrlEmptyNotice({
 }) {
   return (
     <div className="flex flex-col items-center gap-2 rounded-[var(--r-xl)] border border-dashed border-[var(--bd)] px-4 py-14 text-center">
-      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#8B5CF6]/10 text-[#8B5CF6]">
+      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--p)]/10 text-[var(--p)]">
         <Icon size={18} strokeWidth={1.75} aria-hidden />
       </span>
       <p className="font-display text-[14px] font-[700] text-[var(--t1)]">{title}</p>
@@ -82,7 +82,7 @@ function NextStepLink({ href, label }: VrlNextStep) {
   return (
     <Link
       href={href}
-      className="mt-1 inline-flex min-h-[44px] items-center gap-2 self-center rounded-[var(--r-md)] border border-[#8B5CF6]/40 bg-[var(--bg)] px-4 font-display text-[12.5px] font-[700] text-[#6D28D9] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] active:scale-[0.98] motion-reduce:transition-none"
+      className="mt-1 inline-flex min-h-[44px] items-center gap-2 self-center rounded-[var(--r-md)] border border-[var(--p)]/40 bg-[var(--bg)] px-4 font-display text-[12.5px] font-[700] text-[var(--p-hover)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p)]/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.98] motion-reduce:transition-none"
     >
       {label}
       <ArrowRight size={13} strokeWidth={2} aria-hidden />

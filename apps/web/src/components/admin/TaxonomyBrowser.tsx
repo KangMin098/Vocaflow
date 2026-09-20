@@ -16,7 +16,7 @@ import { useMemo, useState } from 'react'
 
 import type { PdComicAdminRow } from '@/lib/pd-comic/model'
 
-const ACCENT = '#8B5CF6'
+const ACCENT = 'var(--p)'
 
 /** 학습자에게 도달한 상태 = published. 그 앞은 전부 "아직" 이다. */
 const DONE = 'published'

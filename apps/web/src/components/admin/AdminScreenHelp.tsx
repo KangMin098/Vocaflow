@@ -72,7 +72,7 @@ function DocRef({ label, doc }: { label: string; doc: string }) {
 
 function HelpLink({ href, label }: { href: string; label: string }) {
   const cls =
-    'inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[#6D28D9] underline decoration-[#8B5CF6]/40 underline-offset-2 hover:decoration-[#8B5CF6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]'
+    'inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--p-hover)] underline decoration-[var(--p)]/40 underline-offset-2 hover:decoration-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
   if (href.startsWith('/')) {
     return (
       <Link href={href} className={cls}>
@@ -182,7 +182,7 @@ function NodeCard({ n }: { n: HelpNode }) {
  */
 function Diagram({ d }: { d: HelpDiagram }) {
   return (
-    <figure className="m-0 mt-3 flex flex-col gap-2 rounded-[var(--r-md)] border border-[#8B5CF6]/20 bg-[var(--bg)]/60 p-3">
+    <figure className="m-0 mt-3 flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--p)]/20 bg-[var(--bg)]/60 p-3">
       <figcaption className="break-keep font-display text-[11.5px] font-[800] text-[var(--t2)]">
         {d.caption}
       </figcaption>
@@ -220,7 +220,7 @@ function Diagram({ d }: { d: HelpDiagram }) {
 
       {d.kind === 'flow' && d.loop && (
         <p className="flex items-start gap-1.5 break-keep font-body text-[11.5px] leading-[1.55] text-[var(--t2)]">
-          <span aria-hidden className="font-mono text-[12px] text-[#8B5CF6]">
+          <span aria-hidden className="font-mono text-[12px] text-[var(--p)]">
             ↺
           </span>
           {d.loop}
@@ -250,7 +250,7 @@ function Fold({
 }) {
   return (
     <details className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]/50">
-      <summary className="flex min-h-[44px] cursor-pointer list-none items-center gap-2 px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] motion-reduce:transition-none">
+      <summary className="flex min-h-[44px] cursor-pointer list-none items-center gap-2 px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-reduce:transition-none">
         <ChevronDown size={13} aria-hidden className="shrink-0" />
         {label}
         <span className="font-mono text-[10.5px] font-[400] text-[var(--t3)]">{count}</span>
@@ -290,7 +290,7 @@ export function HelpBody({ body }: { body: ScreenHelp }) {
             <li key={s.title} className="flex gap-3">
               <span
                 aria-hidden
-                className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[#8B5CF6] font-mono text-[11px] font-[800] text-white"
+                className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[var(--p)] font-mono text-[11px] font-[800] text-[var(--on-p)]"
               >
                 {i + 1}
               </span>
@@ -443,7 +443,7 @@ export function AdminScreenHelp({
         // min-h-[36px] 이었다 — 44px 미만 탭 대상(CLAUDE.md 절대 금지).
         // 이 버튼은 **모든 관리자 화면**에 있어서 하나 고치면 26곳이 함께 낫는다
         // (실측 2026-08-26 · 390px). 관리자가 폰에서 처음 누르는 것이 대개 이것이다.
-        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/8 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] active:scale-[0.97] disabled:opacity-50 motion-reduce:transition-none"
+        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p)]/8 hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.97] disabled:opacity-50 motion-reduce:transition-none"
       >
         <CircleHelp size={14} aria-hidden />
         화면 도움말
@@ -459,12 +459,12 @@ export function AdminScreenHelp({
           id={panelId}
           role="region"
           aria-label={`${entry.title} 화면 도움말`}
-          className="mt-2 rounded-[var(--r-lg)] border border-[#8B5CF6]/25 bg-[#8B5CF6]/[0.04] p-4"
+          className="mt-2 rounded-[var(--r-lg)] border border-[var(--p)]/25 bg-[var(--p)]/[0.04] p-4"
         >
           <div className="flex flex-wrap items-baseline gap-2">
             <h2 className="font-display text-[14px] font-[800] text-[var(--t1)]">{entry.title}</h2>
             {scoped && (
-              <span className="rounded-[var(--r-full)] bg-[#8B5CF6]/14 px-2 py-1 font-display text-[11px] font-[700] text-[#6D28D9]">
+              <span className="rounded-[var(--r-full)] bg-[var(--p)]/14 px-2 py-1 font-display text-[11px] font-[700] text-[var(--p-hover)]">
                 {tab}
               </span>
             )}
@@ -473,7 +473,7 @@ export function AdminScreenHelp({
           <HelpBody body={scoped ?? screenLevel} />
 
           {showScreenFooter && (
-            <section className="mt-4 border-t border-[#8B5CF6]/20 pt-3">
+            <section className="mt-4 border-t border-[var(--p)]/20 pt-3">
               <h3 className="font-display text-[11.5px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
                 이 화면 전체
               </h3>

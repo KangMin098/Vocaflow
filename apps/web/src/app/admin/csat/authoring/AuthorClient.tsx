@@ -95,9 +95,9 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
             type="button"
             onClick={() => setOnlyLadder(v)}
             aria-pressed={onlyLadder === v}
-            className={`min-h-[44px] rounded-[var(--r-md)] border px-3 font-display text-[13px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] ${
+            className={`min-h-[44px] rounded-[var(--r-md)] border px-3 font-display text-[13px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
               onlyLadder === v
-                ? 'border-[#8B5CF6] bg-[#8B5CF6]/10 font-[600] text-[var(--t1)]'
+                ? 'border-[var(--p)] bg-[var(--p)]/10 font-[600] text-[var(--t1)]'
                 : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
             }`}
           >
@@ -110,7 +110,7 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
         <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-body text-[11px] text-[var(--t3)]">
           <span className="inline-flex items-center gap-1.5">
             <span
-              className="inline-block h-3 w-4 rounded-[var(--r-sm)] border border-[#8B5CF6]/50"
+              className="inline-block h-3 w-4 rounded-[var(--r-sm)] border border-[var(--p)]/50"
               aria-hidden
             />
             사다리가 쓰는 칸
@@ -176,7 +176,7 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
                                 : '사다리 밖 — 만들어도 어느 권에도 안 실린다'
                             }
                             className={`inline-block min-w-[52px] rounded-[var(--r-sm)] px-1 py-1 font-mono text-[11px] tabular-nums ${
-                              ladder ? 'border border-[#8B5CF6]/50' : ''
+                              ladder ? 'border border-[var(--p)]/50' : ''
                             }`}
                             style={{
                               // 한 가지 색의 농도만 쓴다(발산·무지개 금지). 진할수록 재고가 많다.

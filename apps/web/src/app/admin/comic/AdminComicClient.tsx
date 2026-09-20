@@ -1,6 +1,6 @@
 // apps/web/src/app/admin/comic/AdminComicClient.tsx
 // CCP admin 콘솔 클라이언트 — Catalog(큐 적재) / Published(발행·회수).
-// 보라 액센트(#8B5CF6) · QC 게이트(panels_pass) 강제 발행.
+// 보라 액센트(var(--p)) · QC 게이트(panels_pass) 강제 발행.
 
 'use client'
 
@@ -15,7 +15,7 @@ import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { FORMAT_ORDER, formatMeta } from '@/lib/comic/format'
 import { ScrollText, BookOpen } from 'lucide-react'
 
-const ACCENT = '#8B5CF6'
+const ACCENT = 'var(--p)'
 type TabKey = 'catalog' | 'published' | 'tests' | 'models' | 'styles'
 /** 탭 라벨 — 화면 표시와 화면도움말 조회에 같은 문자열을 쓴다(라벨을 바꾸면 help/comic.ts 도 함께). */
 const TAB_LABEL: Record<TabKey, string> = {
@@ -105,7 +105,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
       <div className="flex items-center gap-3">
         <span
           className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] text-white"
-          style={{ background: `linear-gradient(135deg, #A78BFA, ${ACCENT})` }}
+          style={{ background: `linear-gradient(135deg, var(--p-light), ${ACCENT})` }}
           aria-hidden
         >
           <BookImage size={18} />
@@ -240,7 +240,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
                   <Td>
                 <Link
                   href={`/admin/comic/${r.bookId}`}
-                  className="font-display text-[13px] font-[600] text-[var(--t1)] underline-offset-2 hover:text-[#8B5CF6] hover:underline"
+                  className="font-display text-[13px] font-[600] text-[var(--t1)] underline-offset-2 hover:text-[var(--p)] hover:underline"
                 >
                   {r.title}
                 </Link>
@@ -692,13 +692,13 @@ function CatalogTable({
                   checked={selected.has(r.bookId)}
                   onChange={() => onToggle(r.bookId)}
                   aria-label={`${r.title} 선택`}
-                  className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'h-4 w-4 accent-[#8B5CF6]'}
+                  className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'h-4 w-4 accent-[var(--p)]'}
                 />
               </Td>
               <Td>
                 <Link
                   href={`/admin/comic/${r.bookId}`}
-                  className="font-display text-[13px] font-[600] text-[var(--t1)] underline-offset-2 hover:text-[#8B5CF6] hover:underline"
+                  className="font-display text-[13px] font-[600] text-[var(--t1)] underline-offset-2 hover:text-[var(--p)] hover:underline"
                 >
                   {r.title}
                 </Link>

@@ -27,13 +27,13 @@ export default function AdminNotFound() {
       <div className="mx-auto max-w-2xl rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)]">
         <div className="flex items-start gap-3">
           <span
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[#8B5CF6]/12 text-[#8B5CF6]"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--p)]/12 text-[var(--p)]"
             aria-hidden
           >
             <Compass size={16} strokeWidth={2} />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[#8B5CF6]">
+            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
               Admin Console · 404
             </p>
             <h1 className="font-display text-[20px] font-[800] tracking-tight text-[var(--t1)]">
@@ -50,7 +50,7 @@ export default function AdminNotFound() {
             <li key={s.href}>
               <Link
                 href={s.href}
-                className="flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] hover:shadow-[var(--sh-sm)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+                className="flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] hover:shadow-[var(--sh-sm)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
               >
                 {s.label}
               </Link>

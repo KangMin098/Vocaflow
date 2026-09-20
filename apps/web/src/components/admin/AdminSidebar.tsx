@@ -138,7 +138,7 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
     },
     {
       label: '교재',
-      color: '#8B5CF6',
+      color: 'var(--p)',
       items: [
         // 교재 공장 — 시중 제작 공정(기획→설계→소재→집필→해설→검수→조판)을 8칸으로 세운 라인.
         {
@@ -195,7 +195,7 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
     },
     {
       label: '콘텐츠 공급',
-      color: '#8B5CF6',
+      color: 'var(--p)',
       items: [
         { href: '/admin/library', label: '콘텐츠', Icon: Library },
         { href: '/admin/curation', label: '도서 수집', tag: 'LCP', Icon: Workflow },
@@ -211,7 +211,7 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
     },
     {
       label: '어휘',
-      color: '#8B5CF6',
+      color: 'var(--p)',
       items: [
         { href: '/admin/vocabulary', label: '단어장 마스터', Icon: BookMarked },
         { href: '/admin/vocab', label: '어휘 빌드', tag: 'VCB', Icon: Sparkles },
@@ -358,7 +358,7 @@ function ChildRow({ child, isActive, last }: { child: NavItem; isActive: boolean
         strokeWidth={1.75}
         aria-hidden="true"
         className={`shrink-0 transition-colors duration-[var(--dur-normal)] ${
-          isActive ? 'text-[#8B5CF6]' : 'text-[var(--t3)]'
+          isActive ? 'text-[var(--p)]' : 'text-[var(--t3)]'
         }`}
       />
       <span className="flex-1 truncate">{child.label}</span>
@@ -399,9 +399,9 @@ function ChildRow({ child, isActive, last }: { child: NavItem; isActive: boolean
         <Link
           href={child.href}
           aria-current={isActive ? 'page' : undefined}
-          className={`flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-2 font-display text-[13px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
+          className={`flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-2 font-display text-[13px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 ${
             isActive
-              ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[#8B5CF6]/35'
+              ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[var(--p)]/35'
               : 'font-[500] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--t1)] active:bg-[var(--bd)]'
           }`}
         >
@@ -459,7 +459,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
         className="flex h-[64px] shrink-0 items-center gap-3 border-b border-[var(--bd)] px-5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
       >
         <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A78BFA] to-[#8B5CF6] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_1px_4px_rgba(139,92,246,0.18)]"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p-light)] to-[var(--p)] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_1px_4px_rgba(139,92,246,0.18)]"
           aria-hidden="true"
         >
           <ShieldCheck size={16} strokeWidth={2.25} />
@@ -468,23 +468,23 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
           <span className="font-display text-[14px] font-[800] tracking-tight text-[var(--t1)]">
             Vocaflow
           </span>
-          <span className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[#8B5CF6]">
+          <span className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
             Admin
           </span>
         </div>
       </Link>
 
       {/* ── Mode 알림 ── */}
-      <div className="bg-[#8B5CF6]/8 mx-3 mb-2 mt-4 rounded-[var(--r-md)] border border-[#8B5CF6]/30 px-3 py-2">
+      <div className="bg-[var(--p)]/8 mx-3 mb-2 mt-4 rounded-[var(--r-md)] border border-[var(--p)]/30 px-3 py-2">
         <div className="flex items-start gap-2">
           <ShieldCheck
             size={13}
             strokeWidth={2}
-            className="mt-0.5 shrink-0 text-[#8B5CF6]"
+            className="mt-0.5 shrink-0 text-[var(--p)]"
             aria-hidden="true"
           />
           <p className="font-body text-[11px] leading-snug text-[var(--t2)]">
-            <span className="font-display font-[700] text-[#8B5CF6]">관리자 모드</span> · 시스템
+            <span className="font-display font-[700] text-[var(--p)]">관리자 모드</span> · 시스템
             데이터에 접근 중
           </p>
         </div>
@@ -547,7 +547,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                       {/* 접어 둔 채 그 안에 있을 때도 막대를 세운다 — 그것이 유일한 단서다. */}
                       {isActive || (inside && !open) ? (
                         <span
-                          className="absolute bottom-1.5 left-0 top-1.5 w-[2.5px] rounded-r-full bg-[#A78BFA]"
+                          className="absolute bottom-1.5 left-0 top-1.5 w-[2.5px] rounded-r-full bg-[var(--p-light)]"
                           aria-hidden="true"
                         />
                       ) : null}
@@ -556,7 +556,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                         aria-current={isActive ? 'page' : undefined}
                         className={`flex min-h-[44px] min-w-0 flex-1 items-center gap-3 rounded-[var(--r-md)] py-2 pl-3 ${
                           openable > 0 ? 'pr-1' : 'pr-2'
-                        } font-display text-[14px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
+                        } font-display text-[14px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 ${
                           lit
                             ? 'font-[600] text-[var(--t1)]'
                             : 'font-[500] text-[var(--t2)] group-hover:text-[var(--t1)]'
@@ -564,7 +564,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                       >
                         <span
                           className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] transition-colors duration-[var(--dur-normal)] ${
-                            lit ? 'bg-[#8B5CF6]/12' : 'bg-[var(--bg2)] group-hover:bg-[var(--bg3)]'
+                            lit ? 'bg-[var(--p)]/12' : 'bg-[var(--bg2)] group-hover:bg-[var(--bg3)]'
                           } `}
                         >
                           <item.Icon
@@ -572,7 +572,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                             strokeWidth={1.75}
                             aria-hidden="true"
                             className={`transition-colors duration-[var(--dur-normal)] ${
-                              lit ? 'text-[#8B5CF6]' : 'text-[var(--t3)] group-hover:text-[var(--t2)]'
+                              lit ? 'text-[var(--p)]' : 'text-[var(--t3)] group-hover:text-[var(--t2)]'
                             } `}
                           />
                         </span>
@@ -604,7 +604,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                           aria-expanded={open}
                           aria-controls={panelId(item.href)}
                           aria-label={`${item.label} 하위 ${openable}개 ${open ? '접기' : '펼치기'}`}
-                          className="flex min-h-[44px] w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 active:bg-[var(--bd)]"
+                          className="flex min-h-[44px] w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 active:bg-[var(--bd)]"
                         >
                           <ChevronRight
                             size={15}

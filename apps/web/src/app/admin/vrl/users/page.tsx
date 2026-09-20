@@ -46,7 +46,7 @@ const SOURCE_BADGE: Record<string, { label: string; color: string; bg: string }>
   system_default: { label: 'system', color: 'var(--t3)', bg: 'var(--bg3)' },
   self_declared: { label: '자가선언', color: 'var(--info)', bg: 'var(--info-light)' },
   diagnostic: { label: '진단', color: 'var(--success)', bg: 'var(--success-light)' },
-  learning_data: { label: '학습', color: '#8B5CF6', bg: '#8B5CF61A' },
+  learning_data: { label: '학습', color: 'var(--p)', bg: 'var(--p-light)' },
   manual_override: { label: '관리자', color: 'var(--error)', bg: 'var(--error-light)' },
 }
 
@@ -80,7 +80,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
     <div className="flex flex-col gap-4">
       {/* KPI */}
       <section className="grid grid-cols-3 gap-3">
-        <Stat icon={Users} label="총 사용자" value={data.total} accent="#8B5CF6" bg="#8B5CF61A" />
+        <Stat icon={Users} label="총 사용자" value={data.total} accent="var(--p)" bg="var(--p-light)" />
         <Stat
           icon={GraduationCap}
           label="진단 완료"
@@ -116,7 +116,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
               <div key={i} className="flex flex-col items-center gap-1">
                 <div className="relative flex h-[68px] w-full items-end justify-center">
                   <div
-                    className="w-full rounded-t-sm bg-gradient-to-t from-[#8B5CF6] to-[#A78BFA]"
+                    className="w-full rounded-t-sm bg-gradient-to-t from-[var(--p)] to-[var(--p-light)]"
                     style={{ height: `${h}px` }}
                     aria-label={`L${i}: ${n}명`}
                   />
@@ -164,7 +164,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
                   </td>
                   <td className="px-3 py-2 text-[var(--t2)]">{u.segment ?? '—'}</td>
                   <td className="px-3 py-2 text-center">
-                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#8B5CF6]/10 font-display text-[11px] font-[700] text-[#8B5CF6]">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--p)]/10 font-display text-[11px] font-[700] text-[var(--p)]">
                       {u.currentVLevel ?? '—'}
                     </span>
                   </td>

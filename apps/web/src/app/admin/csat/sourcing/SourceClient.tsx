@@ -90,7 +90,7 @@ export function SourceClient({
                 )
               })
             }
-            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-3 font-body text-[12px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[#8B5CF6] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] active:text-[#8B5CF6] disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-3 font-body text-[12px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:text-[var(--p)] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {pending ? '재는 중…' : '지금 다시 잰다'}
           </button>

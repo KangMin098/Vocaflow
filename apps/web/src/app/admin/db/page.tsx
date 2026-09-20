@@ -110,7 +110,7 @@ function Trend({ points }: { points: number[] }) {
       <polyline
         points={coords}
         fill="none"
-        stroke="#8B5CF6"
+        stroke="var(--p)"
         strokeWidth="2"
         strokeLinejoin="round"
         strokeLinecap="round"
@@ -298,7 +298,7 @@ export default async function AdminDbPage() {
       {/* ── 경보 분류 ────────────────────────────────────────────────────── */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
         <h2 className="mb-3 flex flex-wrap items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
-          <AlertTriangle size={15} className="text-[#8B5CF6]" aria-hidden="true" />
+          <AlertTriangle size={15} className="text-[var(--p)]" aria-hidden="true" />
           경보
           <InfoTip label="경보">
             판정은 이 화면이 아니라 Claude Code 의 <code className="font-mono">/db-health-audit</code> 이
@@ -326,7 +326,7 @@ export default async function AdminDbPage() {
       {/* ── 조치 기록 ────────────────────────────────────────────────────── */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
         <h2 className="mb-3 flex flex-wrap items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
-          <History size={15} className="text-[#8B5CF6]" aria-hidden="true" />
+          <History size={15} className="text-[var(--p)]" aria-hidden="true" />
           조치 기록
           <span className="font-mono text-[11px] font-[500] text-[var(--t2)]">{actionLog.length}건</span>
           <InfoTip label="조치 기록">
@@ -400,7 +400,7 @@ export default async function AdminDbPage() {
       {/* ── 추세 (스냅샷) ────────────────────────────────────────────────── */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
         <h2 className="mb-3 flex flex-wrap items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
-          <Activity size={15} className="text-[#8B5CF6]" aria-hidden="true" />
+          <Activity size={15} className="text-[var(--p)]" aria-hidden="true" />
           추세
           <InfoTip label="추세">
             일 1회 수집한 스냅샷이다 — 지금이 아니라 어제까지의 모양이다. 점 두 개를 이은 선은
@@ -420,7 +420,7 @@ export default async function AdminDbPage() {
             return (
               <div key={axis}>
                 <h3 className="mb-1.5 flex flex-wrap items-center gap-2">
-                  <span className="rounded-[var(--r-sm)] bg-[#8B5CF6]/10 px-1.5 py-0.5 font-mono text-[10px] font-[700] uppercase tracking-[0.06em] text-[#6D28D9]">
+                  <span className="rounded-[var(--r-sm)] bg-[var(--p)]/10 px-1.5 py-0.5 font-mono text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--p-hover)]">
                     {axis}
                   </span>
                   <span className="font-display text-[12px] font-[700] text-[var(--t1)]">
@@ -446,7 +446,7 @@ export default async function AdminDbPage() {
       {/* ── 이상 징후 ────────────────────────────────────────────────────── */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
         <h2 className="mb-3 flex flex-wrap items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
-          <Activity size={15} className="text-[#8B5CF6]" aria-hidden="true" />
+          <Activity size={15} className="text-[var(--p)]" aria-hidden="true" />
           이상 징후
           <InfoTip label="이상 징후">
             규칙이 미리 정해 둔 것이 아니라 <em className="font-editorial">평소와 다른 것</em>을 본다.
@@ -528,7 +528,7 @@ export default async function AdminDbPage() {
       {/* ── 용량 상위 테이블 ─────────────────────────────────────────────── */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
         <h2 className="mb-3 flex flex-wrap items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
-          <HardDrive size={15} className="text-[#8B5CF6]" aria-hidden="true" />
+          <HardDrive size={15} className="text-[var(--p)]" aria-hidden="true" />
           용량 상위 테이블
           <InfoTip label="용량 상위 테이블">
             증가분은 보관 창(최근 수집분) 안에서만 잰다 — 창 밖은 이 화면이 말하지 않는다.
@@ -585,7 +585,7 @@ export default async function AdminDbPage() {
       {/* ── 체크포인트 ───────────────────────────────────────────────────── */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
         <h2 className="mb-3 flex flex-wrap items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
-          <Flag size={15} className="text-[#8B5CF6]" aria-hidden="true" />
+          <Flag size={15} className="text-[var(--p)]" aria-hidden="true" />
           위험 작업 체크포인트
           <InfoTip label="위험 작업 체크포인트">
             마이그레이션·대량 발행·드레인 앞뒤로 찍어 두면 「이 변경이 무엇을 건드렸나」에 답할 수
@@ -648,7 +648,7 @@ export default async function AdminDbPage() {
       {excepted.length > 0 && (
         <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
           <details>
-            <summary className="cursor-pointer font-display text-[15px] font-[700] text-[var(--t1)] transition-colors duration-[var(--dur-fast)] ease-[var(--ease)] hover:text-[#6D28D9]">
+            <summary className="cursor-pointer font-display text-[15px] font-[700] text-[var(--t1)] transition-colors duration-[var(--dur-fast)] ease-[var(--ease)] hover:text-[var(--p-hover)]">
               {`면제 ${excepted.length}건 — 이미 결정된 것`}
             </summary>
             <p className="mt-2 max-w-[62ch] break-keep font-body text-[12px] leading-[1.7] text-[var(--t2)]">
@@ -664,7 +664,7 @@ export default async function AdminDbPage() {
 
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
         <h2 className="mb-2 inline-flex items-center gap-2 font-display text-[13px] font-[700] text-[var(--t2)]">
-          <Database size={14} className="text-[#8B5CF6]" aria-hidden="true" />
+          <Database size={14} className="text-[var(--p)]" aria-hidden="true" />
           이 화면에 대하여
           <Info size={12} aria-hidden="true" className="text-[var(--t2)]" />
         </h2>

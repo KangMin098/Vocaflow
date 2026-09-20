@@ -70,7 +70,7 @@ const CHARTS: ChartConfig[] = [
     key: 'by_v_level',
     label: 'VRL V-Level (current)',
     note: '한국 학습자 12 단계 — 중간 밴드가 두꺼운 것이 정상',
-    accent: '#8B5CF6',
+    accent: 'var(--p)',
     maxItems: 12,
     keyOrder: NUMERIC_KEY_ORDER,
   },
@@ -131,7 +131,7 @@ export function DistributionAnalysisSection({
       <header className="flex items-center gap-3">
         <span
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
-          style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
+          style={{ backgroundColor: 'var(--p-light)', color: 'var(--p)' }}
           aria-hidden
         >
           <BarChart3 size={17} strokeWidth={1.75} />

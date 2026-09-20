@@ -162,7 +162,7 @@ function PlatformGapPanel({ platform }: { platform: MarketView['platform'] }) {
       </p>
 
       <details className="group">
-        <summary className="flex min-h-[44px] cursor-pointer list-none items-center font-display text-[11.5px] font-[600] text-[#8B5CF6] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#A78BFA] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]">
+        <summary className="flex min-h-[44px] cursor-pointer list-none items-center font-display text-[11.5px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--p-light)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
           {MIN_ATTEMPTS_FOR_ACCURACY}회는 어디서 나온 수인가
         </summary>
         <p className="mt-1 break-keep font-body text-[11.5px] leading-relaxed text-[var(--t3)]">
@@ -221,9 +221,9 @@ export function MarketClient({ warehouse, volume, target, platform, loadError }:
               onClick={() => setMode(m)}
               aria-pressed={mode === m}
               title={MODE_KO[m].hint}
-              className={`min-h-[44px] rounded-[var(--r-md)] border px-3 font-display text-[13px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] disabled:cursor-not-allowed disabled:opacity-50 ${
+              className={`min-h-[44px] rounded-[var(--r-md)] border px-3 font-display text-[13px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50 ${
                 mode === m
-                  ? 'border-[#8B5CF6] bg-[#8B5CF6]/10 font-[600] text-[var(--t1)]'
+                  ? 'border-[var(--p)] bg-[var(--p)]/10 font-[600] text-[var(--t1)]'
                   : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
               }`}
             >

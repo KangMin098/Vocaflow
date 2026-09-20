@@ -58,8 +58,8 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
           label="Tests"
           value={data.totalTests}
           sub={`${data.activeTests} active`}
-          accent="#8B5CF6"
-          bg="#8B5CF61A"
+          accent="var(--p)"
+          bg="var(--p-light)"
         />
         <Stat
           icon={ClipboardList}
@@ -169,8 +169,8 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
       )}
 
       {/* 시드 가이드 (운영자 안내) */}
-      <section className="rounded-[var(--r-xl)] border border-dashed border-[#8B5CF6]/40 bg-[#8B5CF6]/4 p-5">
-        <h3 className="mb-2 font-display text-[13px] font-[700] text-[#8B5CF6]">
+      <section className="rounded-[var(--r-xl)] border border-dashed border-[var(--p)]/40 bg-[var(--p)]/4 p-5">
+        <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--p)]">
           시드 가이드
         </h3>
         <ul className="space-y-1.5 font-body text-[12px] text-[var(--t2)]">
@@ -198,7 +198,7 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
 function EmptyTests() {
   return (
     <div className="flex flex-col items-center gap-2 rounded-[var(--r-xl)] border border-dashed border-[var(--bd)] py-16 text-center">
-      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#8B5CF6]/10 text-[#8B5CF6]">
+      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--p)]/10 text-[var(--p)]">
         <FileText size={18} aria-hidden />
       </span>
       <p className="font-display text-[14px] font-[700] text-[var(--t1)]">

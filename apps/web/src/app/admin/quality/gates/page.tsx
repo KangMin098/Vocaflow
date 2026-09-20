@@ -45,7 +45,7 @@ export default async function AdminGatesPage() {
     <div className="mx-auto max-w-5xl space-y-8 p-8">
       <header>
         <h1 className="inline-flex items-center gap-3 font-display text-[28px] font-[800] text-[var(--t1)]">
-          <ShieldCheck size={26} className="text-[#8B5CF6]" aria-hidden="true" /> 품질 게이트
+          <ShieldCheck size={26} className="text-[var(--p)]" aria-hidden="true" /> 품질 게이트
         </h1>
         <p className="mt-2 max-w-2xl font-body text-[14px] leading-[1.6] text-[var(--t2)]">
           학습자에게 나갈 산출물이 <strong className="text-[var(--t1)]">맞는 단어·맞는 뜻·맞는 레벨</strong>로

@@ -108,7 +108,7 @@ function CommandRow({ cmd, why, writes, claudeCode }: StageState['nextCommands']
             )
           }}
           aria-label={`명령 복사: ${cmd}`}
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] active:bg-[var(--bd)]"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)]"
         >
           {copied ? (
             <ClipboardCheck size={15} strokeWidth={1.75} className="text-[#2E7D5A]" aria-hidden />
@@ -119,7 +119,7 @@ function CommandRow({ cmd, why, writes, claudeCode }: StageState['nextCommands']
       </div>
       <p className="font-body text-[11.5px] leading-snug text-[var(--t3)]">
         {claudeCode ? (
-          <span className="mr-1 inline-flex items-center gap-0.5 rounded bg-[#8B5CF6]/12 px-1 py-0.5 text-[10px] font-[600] text-[#8B5CF6]">
+          <span className="mr-1 inline-flex items-center gap-0.5 rounded bg-[var(--p)]/12 px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
             <Sparkles size={10} strokeWidth={2} aria-hidden />
             Claude Code
           </span>
@@ -150,7 +150,7 @@ function StageDetail({ s }: { s: StageState }) {
             {s.def.href ? (
               <a
                 href={s.def.href}
-                className="underline decoration-[var(--bd)] underline-offset-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+                className="underline decoration-[var(--bd)] underline-offset-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
               >
                 {s.def.name}
               </a>

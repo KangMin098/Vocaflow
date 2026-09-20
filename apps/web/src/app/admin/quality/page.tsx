@@ -112,7 +112,7 @@ function Sparkline({ points }: { points: number[] }) {
       <polyline
         points={coords}
         fill="none"
-        stroke="#8B5CF6"
+        stroke="var(--p)"
         strokeWidth="1.5"
         strokeLinejoin="round"
         strokeLinecap="round"
@@ -159,7 +159,7 @@ export default async function AdminQualityPage() {
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
           <h1 className="inline-flex items-center gap-3 font-display text-[28px] font-[800] text-[var(--t1)]">
-            <Gauge size={26} className="text-[#8B5CF6]" aria-hidden="true" /> 품질 지표
+            <Gauge size={26} className="text-[var(--p)]" aria-hidden="true" /> 품질 지표
           </h1>
           <p className="mt-2 font-body text-[14px] text-[var(--t2)]">
             콘텐츠 파이프라인 품질 스냅샷 — 매일 KST 03:10 자동 수집 (collect_quality_metrics)
@@ -197,7 +197,7 @@ export default async function AdminQualityPage() {
               className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6"
             >
               <h2 className="mb-4 flex items-center gap-3">
-                <span className="rounded-[var(--r-sm)] bg-[#8B5CF6]/10 px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[#8B5CF6]">
+                <span className="rounded-[var(--r-sm)] bg-[var(--p)]/10 px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
                   {stage}
                 </span>
                 <span className="font-display text-[16px] font-[700] text-[var(--t1)]">

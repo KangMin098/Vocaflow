@@ -74,6 +74,9 @@ const SIGNALS: Record<string, { re: RegExp; why: string }> = {
  * 섞인 작업 트리에서 재서 CI 와 어긋났다 — learner.grid-3eq 59→60 · admin.ai-purple 318→326). **내리기만 한다.**
  * learner 의 `infinite-anim` 는 `/text/[id]` risk 단어 `word-pulse` 제거(DD-06) 뒤의 값이다.
  * 2026-09-19 내림(커밋된 트리): grid-3eq 60→59(고아 MyTextsGrid 삭제 — DD-37) · gradient 171→168 · float-hover 66→65
+ * 2026-09-20 내림: **admin.ai-purple 318 → 0** — 옛 AI-보라를 토큰으로 일괄 교체(Gate 4 (i) · DD-55/59).
+ *   scripts/design/purple-to-token.mjs 가 정확 일치만 바꾼다(그라디언트 구조·Tailwind 팔레트 클래스는 손대지 않고 보고만).
+ *   학습자 표면(38)은 이 회차 범위가 아니다 — 남은 곳은 그 표면의 화면 작업에서 함께 지운다.
  * (빈 상태 CTA 3곳 그라디언트·떠오르는 hover 제거 — DD-39). 작업 트리에는 Codex 미커밋 CSAT 몫이 더 있다(grid-3eq 58 · admin.ai-purple 318 — DD-33).
  */
 const BASELINE: Record<Surface, Record<string, number>> = {
@@ -92,7 +95,7 @@ const BASELINE: Record<Surface, Record<string, number>> = {
     'shadow-heavy': 0,
     'rounded-big': 4,
     gradient: 36,
-    'ai-purple': 318,
+    'ai-purple': 0,
     glass: 7,
     'float-hover': 8,
     'infinite-anim': 0,

@@ -138,8 +138,8 @@ const PATTERN_META: Record<
   },
   'strong-under-leveling': {
     label: 'strong under-leveling',
-    bg: '#8B5CF61A',
-    fg: '#8B5CF6',
+    bg: 'var(--p-light)',
+    fg: 'var(--p)',
     icon: ArrowUp,
   },
 }
@@ -185,7 +185,7 @@ export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
         <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
-            style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
+            style={{ backgroundColor: 'var(--p-light)', color: 'var(--p)' }}
             aria-hidden
           >
             <History size={17} strokeWidth={1.75} />
@@ -232,7 +232,7 @@ export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
             style={{
               width: `${Math.max(0, Math.min(100, progress.pct))}%`,
               background:
-                'linear-gradient(90deg, var(--success) 0%, var(--info) 50%, #8B5CF6 100%)',
+                'linear-gradient(90deg, var(--success) 0%, var(--info) 50%, var(--p) 100%)',
             }}
             aria-hidden
           />

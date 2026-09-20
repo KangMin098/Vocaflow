@@ -63,7 +63,7 @@ export function GlobalGatesClient() {
             type="button"
             onClick={run}
             disabled={pending}
-            className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 font-display text-[13px] font-[700] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7C3AED] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] disabled:opacity-50"
+            className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:opacity-50"
           >
             {pending ? (
               <Loader2 size={14} className="animate-spin" aria-hidden />
@@ -133,7 +133,7 @@ export function GlobalGatesClient() {
           className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6"
         >
           <h2 className="mb-4 flex items-center gap-3">
-            <span className="rounded-[var(--r-sm)] bg-[#8B5CF6]/10 px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[#8B5CF6]">
+            <span className="rounded-[var(--r-sm)] bg-[var(--p)]/10 px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
               {pipeline}
             </span>
           </h2>

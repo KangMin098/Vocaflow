@@ -427,7 +427,7 @@ function ErrorNote({ error, onClose }: { error: string | null; onClose: () => vo
 const INPUT =
   'min-h-[44px] rounded-md border border-bd bg-bg px-s-3 py-s-2 font-body text-sm text-t1 transition-colors focus:border-p focus:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'
 const BTN =
-  'min-h-[44px] rounded-md border border-p bg-p px-s-3 py-s-2 font-display text-sm font-bold text-white transition-colors hover:brightness-110 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'
+  'min-h-[44px] rounded-md border border-p bg-p px-s-3 py-s-2 font-display text-sm font-bold text-[var(--on-p)] transition-colors hover:brightness-110 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'
 // 보조 버튼도 44px 아래로 내려가지 않는다 — 표 안의 작은 글씨 버튼이라도 손가락으로 눌린다.
 const BTN_GHOST =
   'inline-flex min-h-[44px] items-center rounded-md border border-bd bg-bg px-s-3 py-s-1 font-mono text-xs text-t2 transition-colors hover:text-t1 hover:border-t3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'

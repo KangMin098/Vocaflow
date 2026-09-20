@@ -69,7 +69,7 @@ export function ReviewStack({ layers }: { layers: ReviewLayer[] }) {
             <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
               <h3 className="flex items-center gap-1.5 font-display text-[13px] font-[700] text-[var(--t1)]">
                 <LayerGlyph done={done} measured={measured} />
-                <span className="font-mono text-[11px] text-[#8B5CF6]">{l.id}</span>
+                <span className="font-mono text-[11px] text-[var(--p)]">{l.id}</span>
                 {l.name}
               </h3>
               <span className="font-mono text-[13px] tabular-nums text-[var(--t1)]">
@@ -113,7 +113,7 @@ export function ReviewStack({ layers }: { layers: ReviewLayer[] }) {
             ) : null}
 
             <details className="mt-1">
-              <summary className="flex min-h-[44px] cursor-pointer list-none items-center font-display text-[11px] font-[600] text-[#8B5CF6] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#A78BFA] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]">
+              <summary className="flex min-h-[44px] cursor-pointer list-none items-center font-display text-[11px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--p-light)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
                 이 층을 돌리는 명령
               </summary>
               <code className="mt-1 block break-all rounded-[var(--r-sm)] bg-[var(--bg2)] p-1.5 font-mono text-[11px] text-[var(--t1)]">

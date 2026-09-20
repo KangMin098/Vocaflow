@@ -63,7 +63,7 @@ export function AxisBullet({ axis, target }: { axis: BenchAxis; target: number }
           {/* 목표 눈금 — 「이기고는 있지만 목표엔 못 미침」이 여기서 갈린다 */}
           <span
             aria-hidden
-            className="absolute -top-0.5 h-4 w-px bg-[#8B5CF6]"
+            className="absolute -top-0.5 h-4 w-px bg-[var(--p)]"
             style={{ left: `${posOf(target)}%` }}
           />
           <span
@@ -102,7 +102,7 @@ export function AxisBulletLegend({ target }: { target: number }) {
         대등 1.000
       </span>
       <span className="inline-flex items-center gap-1">
-        <span className="inline-block h-3 w-px bg-[#8B5CF6]" aria-hidden />
+        <span className="inline-block h-3 w-px bg-[var(--p)]" aria-hidden />
         목표 {target.toFixed(3)}
       </span>
     </p>

@@ -53,7 +53,7 @@ export function ChapterWordSetsAdminSection({ sets, bookId, bookVLevel }: Props)
     <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
       <header className="mb-4 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Layers size={16} className="text-[#8B5CF6]" aria-hidden />
+          <Layers size={16} className="text-[var(--p)]" aria-hidden />
           <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
             챕터 단어장 검수
           </h2>
@@ -130,7 +130,7 @@ export function ChapterWordSetsAdminSection({ sets, bookId, bookVLevel }: Props)
                           openModal(s)
                         }
                       }}
-                      className={`cursor-pointer border-b border-[var(--bd)]/40 transition-colors hover:bg-[var(--bg2)] focus-visible:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
+                      className={`cursor-pointer border-b border-[var(--bd)]/40 transition-colors hover:bg-[var(--bg2)] focus-visible:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                         isLow ? 'bg-[var(--warning-light)]/50' : ''
                       }`}
                     >

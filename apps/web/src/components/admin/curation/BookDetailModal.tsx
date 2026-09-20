@@ -838,7 +838,7 @@ function ActionButton({
 }) {
   const cls =
     tone === 'primary'
-      ? 'bg-[var(--p)] hover:bg-[var(--p-hover)] text-[var(--ti)]'
+      ? 'bg-[var(--p)] hover:bg-[var(--p-hover)] text-[var(--on-p)]'
       : tone === 'danger'
         ? 'border border-[var(--learn-error)] bg-[var(--learn-error-light)] hover:bg-[var(--learn-error)] hover:text-[var(--ti)] text-[var(--learn-error)]'
         : 'border border-[var(--bd)] bg-[var(--bg)] hover:bg-[var(--bg2)] text-[var(--t2)]';

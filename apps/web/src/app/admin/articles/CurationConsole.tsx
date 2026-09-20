@@ -387,7 +387,7 @@ function ModeButton({
         'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
         active
-          ? 'bg-[var(--p)] text-[var(--ti)]'
+          ? 'bg-[var(--p)] text-[var(--on-p)]'
           : 'border border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)]',
       ].join(' ')}
     >
