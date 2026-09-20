@@ -7,6 +7,7 @@
 - `csat_source_eligibility`: article_id PK/FK, source_updated_at, policy_version, input/result JSONB, quality_flags, excerpt_evidence, linked_items, measured_at. 정본은 `library_articles`, 이 표는 재생성 가능한 캐시다.
 - `csat_source_eligibility_history`: revision·입력·판정이 바뀔 때 이전 캐시 보관. 품질 신호만 바뀐 배치는 별도 백업으로 추적한다. 두 표는 RLS 관리자/큐레이터 조회, service_role 쓰기. history의 기본 anon 테이블 권한은 남지만 RLS 정책이 없어 실조회 0행을 확인했다.
 - `csat_source_is_eligible(uuid)`: v3·원문 revision 일치·usable/excerpt·blocker 없음·ready/published 확인. excerpt는 실제 article 문항도 요구한다. 신규/변경 원문은 재검증까지 사용 대기다.
+- `csat_source_is_gradeable(uuid)` (2026-09-20 · `20260920120000_grade_dcp_band_is_fit_not_eligibility`): **채점 허용** 판정. 적격과 같은 조건이되 **`cefr_above_band` 만 무시**한다(사유 배열에서 밴드 외 사유가 하나라도 있으면 거짓). `grade_dcp_item` 이 이것을 본다 — **밴드는 적합이지 적격이 아니다**: 학습자가 이미 받은 문항의 채점을 난이도 적합 판정이 막으면 답을 내고도 결과를 못 본다(이슈 #104). 서빙(`prescribe_today` · `textbook_practice_items`)은 그대로 `csat_source_is_eligible` 을 쓴다. 판정을 등급으로 못 가르는 이유: 사유가 `["cefr_above_band"]` 하나뿐인 원문 **11,276편**의 등급이 `blocked` 다(2026-09-20 실측).
 - `textbook_practice_items`, `prescribe_today`의 article 연습 선택, `grade_dcp_item`의 article 채점이 위 함수를 사용한다. 독서 입력 후보와 비 article 문항은 기존 소비 정책을 유지한다.
 
 수치·검증·복구: [정상화 기록](./reports/csat-sources-normalization-20260918.md).
