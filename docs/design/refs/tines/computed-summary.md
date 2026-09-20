@@ -111,8 +111,8 @@
 | `--green500` | `#25a871` | `#25a871` |
 | `--c-green1` | `color(display-p3 .9624 .969 .9592)` | `#f5f7f4` |
 | `--c-teal90` | `color(display-p3 .066 .1743 .1877)` | `#032d31` |
-| `--lime700` | `#718424` | `#718424` |
 | `--footerForegroundColor` | `color(display-p3 .4203 .3017 .7863)` | `#714bd0` |
+| `--lime700` | `#718424` | `#718424` |
 | `--c-purple99` | `color(display-p3 .0937 .0727 .1432)` | `#191226` |
 | `--c-magenta10` | `color(display-p3 .9678 .7914 1.0055)` | `#ffc8ff` |
 | `--c-purple45` | `color(display-p3 .505 .4021 .8893)` | `#8665eb` |
@@ -248,15 +248,15 @@
 |---|---|---|
 | `--c-green99` | `color(display-p3 .0564 .0994 .089)` | `#0b1a17` |
 | `--c-magenta45` | `color(display-p3 .6897 .3037 .7955)` | `#be45d1` |
-| `--red800` | `#772e2c` | `#772e2c` |
-| `--pink` | `#e269a4` | `#e269a4` |
 | `--blue900` | `#20304c` | `#20304c` |
+| `--pink` | `#e269a4` | `#e269a4` |
+| `--red800` | `#772e2c` | `#772e2c` |
 | `--c-coolGray40` | `color(display-p3 .5714 .5734 .6141)` | `#92929e` |
 | `--c-orange75` | `color(display-p3 .4275 .2103 .0929)` | `#75320d` |
 | `--c-teal99` | `color(display-p3 .0581 .0963 .1106)` | `#0c191d` |
 | `--lime800` | `#52601e` | `#52601e` |
-| `--c-lime5` | `color(display-p3 .9387 .9561 .731)` | `#eef4b4` |
 | `--lime600` | `#8aa028` | `#8aa028` |
+| `--c-lime5` | `color(display-p3 .9387 .9561 .731)` | `#eef4b4` |
 | `--c-pink1` | `color(display-p3 .9975 .9542 .9613)` | `#fff3f5` |
 | `--c-purple65` | `color(display-p3 .3454 .2253 .6586)` | `#5d38ae` |
 | `--purple900` | `#32274b` | `#32274b` |
@@ -271,17 +271,17 @@
 | `--green500` | `#25a871` | `#25a871` |
 | `--c-green1` | `color(display-p3 .9624 .969 .9592)` | `#f5f7f4` |
 | `--c-teal90` | `color(display-p3 .066 .1743 .1877)` | `#032d31` |
-| `--lime700` | `#718424` | `#718424` |
 | `--footerForegroundColor` | `color(display-p3 .4203 .3017 .7863)` | `#714bd0` |
-| `--c-magenta97` | `color(display-p3 .1229 .08 .1476)` | `#211427` |
-| `--acc55` | `color(display-p3 .4203 .3017 .7863)` | `#714bd0` |
-| `--c-purple45` | `color(display-p3 .505 .4021 .8893)` | `#8665eb` |
+| `--lime700` | `#718424` | `#718424` |
 | `--c-purple99` | `color(display-p3 .0937 .0727 .1432)` | `#191226` |
 | `--c-magenta10` | `color(display-p3 .9678 .7914 1.0055)` | `#ffc8ff` |
+| `--c-purple45` | `color(display-p3 .505 .4021 .8893)` | `#8665eb` |
+| `--c-magenta97` | `color(display-p3 .1229 .08 .1476)` | `#211427` |
+| `--acc55` | `color(display-p3 .4203 .3017 .7863)` | `#714bd0` |
 | `--c-green10` | `color(display-p3 .8115 .8907 .8359)` | `#cae4d4` |
 | `--c-coolGray65` | `color(display-p3 .35 .3476 .3938)` | `#595965` |
-| `--c-warmGray97` | `color(display-p3 .1246 .0904 .1152)` | `#21171e` |
 | `--yellow800` | `#7a4d16` | `#7a4d16` |
+| `--c-warmGray97` | `color(display-p3 .1246 .0904 .1152)` | `#21171e` |
 | `--c-purple50` | `color(display-p3 .4583 .3429 .848)` | `#7a56e0` |
 | `--green` | `#25a871` | `#25a871` |
 | `--gridColumnCount` | `4` | — |
@@ -290,34 +290,34 @@
 | `--widerPageMargin` | `1.8rem` | — |
 | `--c-sky50` | `color(display-p3 .0632 .4985 .6918)` | `#0082b5` |
 | `--c-red70` | `color(display-p3 .5046 .1583 .1355)` | `#8c1e1d` |
-| `--c-blue85` | `color(display-p3 .1067 .1531 .3908)` | `#182768` |
 | `--c-yellow10` | `color(display-p3 1.032 .8561 .5914)` | `#ffd88c` |
+| `--c-blue85` | `color(display-p3 .1067 .1531 .3908)` | `#182768` |
 | `--c-orange97` | `color(display-p3 .1431 .0866 .0709)` | `#271511` |
 | `--c-teal30` | `color(display-p3 .3756 .7558 .7327)` | `#2ac4bc` |
 | `--footerBackgroundColor` | `transparent` | — |
 | `--navBackdropRadius` | `99rem` | — |
 | `--c-lime97` | `color(display-p3 .0967 .1116 .0668)` | `#181d10` |
 | `--pink500` | `#e269a4` | `#e269a4` |
-| `--c-pink2` | `color(display-p3 1.0079 .9335 .9535)` | `#ffedf3` |
 | `--c-yellow65` | `color(display-p3 .529 .3103 .0107)` | `#904c00` |
+| `--c-pink2` | `color(display-p3 1.0079 .9335 .9535)` | `#ffedf3` |
 | `--c-green25` | `color(display-p3 .5235 .772 .6279)` | `#71c79d` |
 | `--blue50` | `#eceff6` | `#eceff6` |
 | `--c-yellow45` | `color(display-p3 .7553 .499 .0853)` | `#cc7b00` |
 | `--sidebarWidth` | `0rem` | — |
 | `--yellow300` | `#fdbd74` | `#fdbd74` |
-| `--c-lime2` | `color(display-p3 .9683 .9728 .8405)` | `#f7f8d3` |
 | `--c-magenta40` | `color(display-p3 .7432 .3436 .8504)` | `#cc50e0` |
+| `--c-lime2` | `color(display-p3 .9683 .9728 .8405)` | `#f7f8d3` |
 | `--c-orange20` | `color(display-p3 1.0455 .692 .4844)` | `#ffab70` |
 | `--c-warmGray90` | `color(display-p3 .1771 .1456 .167)` | `#2f252b` |
-| `--pink100` | `#ffdce8` | `#ffdce8` |
 | `--acc75` | `color(display-p3 .2712 .1627 .5198)` | `#4a288a` |
+| `--pink100` | `#ffdce8` | `#ffdce8` |
 | `--c-lime65` | `color(display-p3 .3547 .4022 .0509)` | `#576700` |
 | `--c-red97` | `color(display-p3 .1455 .0794 .0794)` | `#281314` |
 | `--c-orange1` | `color(display-p3 1.0082 .9574 .9207)` | `#fff4ea` |
 | `--wideGridGap` | `1.6rem` | — |
-| `--yellow25` | `#fdf4ea` | `#fdf4ea` |
-| `--c-teal50` | `color(display-p3 -.0737 .5684 .5556)` | `#00948f` |
 | `--c-lime15` | `color(display-p3 .8452 .8781 .5031)` | `#d6e071` |
+| `--c-teal50` | `color(display-p3 -.0737 .5684 .5556)` | `#00948f` |
+| `--yellow25` | `#fdf4ea` | `#fdf4ea` |
 | `--c-purple35` | `color(display-p3 .602 .5213 .9623)` | `#9e84fd` |
 | `--lime50` | `#f4f3e0` | `#f4f3e0` |
 | `--white` | `#fff` | — |

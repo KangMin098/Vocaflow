@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- 디자인 방식 전환 「실물 우선」(DD-62): 문서가 화면을 정하던 순서를 뒤집고 초안 9개를 동결. 참조 사이트 계산값 추출기 2종 신설(`scripts/design/extract-computed.mjs` · `extract-app.mjs` → `docs/design/refs/tines/computed.json` · `app-measured.json`, 참조 이미지 0). 내부 측정용 복제 라우트 `/dev/replica/tines-home` · `/dev/replica/tines-app`(프로덕션 `notFound()` + noindex)와 판정기 `replica-diff.mjs` 추가 — 실측 홈 픽셀 차이 **1440 0.34% · 375 0.96%**(기준 ≤2%, 문구·그림 마스킹 후), 앱 골격 상자 **9/9 항목 ±8px 안**.
+
 - 기출 분석 방법론: 「난이도는 소재가 아니라 형식(유형)」 실측 절 신설(CSAT_TYPE_ANALYSIS §1-1) — 802편 전수, 유형 간 격차 95포인트. 신호를 바꾸면 절대 수준은 바뀌어도 유형 순서는 유지된다는 대조를 함께.
 
 - 관리자 옛 AI-보라 전량 교체(Gate 4 (i) · DD-59): 66파일 318건 → 토큰(`--p` 계열), 평균 신호 라쳇 `admin.ai-purple` **318 → 0**. 코드모드 2개 신설(기본 예행 · 정확 일치만). 부작용으로 생긴 다크 AA 미달 20줄은 기준선을 올리지 않고 `text-[var(--on-p)]` 로 고쳤다. 화면도움말 「보라 테두리」 3곳 동기화.

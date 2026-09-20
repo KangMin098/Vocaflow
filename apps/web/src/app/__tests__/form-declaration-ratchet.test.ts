@@ -35,10 +35,20 @@ const PASS_THROUGH = '경유'
 
 const DECL = /^\/\/\s*@form:\s*([^—-]+?)\s*[—-]\s*(\S.{7,})$/m
 
+// `dev/replica/` 는 **화면이 아니라 자다.** 참조 사이트의 판면을 실측값에서 그대로 재현해
+// 우리 화면과 나란히 놓고 차이를 재는 내부 도구이고(DD-62 Stage 2), 배포는 layout.tsx 가 막는다.
+// 여기에 `@form` 축을 적으면 "우리가 발명한 골격" 이라고 거짓을 적는 것이 된다 — 그래서 규칙에서 뺀다.
+// (기준선에 넣지 않는 이유: 기준선은 "선언을 아직 못 붙인 빚" 이고, 이건 빚이 아니라 범위 밖이다.)
+const EXEMPT_DIRS = ['dev/replica']
+
 function pages(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
     const p = join(dir, name)
-    if (statSync(p).isDirectory()) return name === '__tests__' || name === 'api' ? [] : pages(p)
+    if (statSync(p).isDirectory()) {
+      if (name === '__tests__' || name === 'api') return []
+      if (EXEMPT_DIRS.some((d) => rel(p).endsWith(`src/app/${d}`))) return []
+      return pages(p)
+    }
     return name === 'page.tsx' ? [p] : []
   })
 }

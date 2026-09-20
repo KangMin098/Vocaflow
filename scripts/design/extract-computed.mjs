@@ -72,6 +72,13 @@ function collect(selectors) {
     return '#' + hex(m[1]) + hex(m[2]) + hex(m[3])
   }
   const norm = (v) => (typeof v === 'string' ? (p3ToHex(v) || rgbToHex(v) || v) : v)
+  // ⚠️ norm() 은 `rgba(0,0,0,0)` 을 `#000000` 으로 바꾼다 — 투명인지는 **변환 전 문자열**로 묻는다.
+  const isTransparent = (s) => {
+    if (!s || s === 'transparent') return true
+    const m = /^rgba?\([^)]*?,\s*([\d.]+)\s*\)$/.exec(s)
+    return !!m && +m[1] === 0
+  }
+  const bgOf = (cs) => (isTransparent(cs.backgroundColor) ? undefined : norm(cs.backgroundColor))
 
   // 1. :root 커스텀 속성
   const rootVars = {}
@@ -148,23 +155,51 @@ function collect(selectors) {
   })()
   // 래퍼의 직계 자식은 3개뿐이고 그 안에 여러 띠가 들어 있다(실측).
   // 띠 = 래퍼 안에서 **전폭이면서 다른 전폭 후보를 품지 않는** 가장 안쪽 블록.
-  // 장식(canvas · svg · figure · img)과 흐름 밖 요소(absolute · fixed)는 띠가 아니다 — 음수 간격을 만든다.
+  // 띠는 페이지의 **세로 분할**이어야 한다. "가장 안쪽 전폭 블록" 으로 잡으면 띠 사이에 틈이 생기고
+  // (실측: 1440 에서 477px) 그 틈에 있던 히어로 비주얼이 통째로 빠진다 — 복제에 흰 구멍이 남는다.
+  // 그래서 위에서부터 **겹치지 않게 덮어 나가며** 각 자리에서 가장 바깥/가장 큰 블록을 고른다.
   const BAND_TAGS = new Set(['div', 'section', 'header', 'footer', 'aside', 'article', 'main', 'nav', 'ul', 'ol'])
   const cands = Array.from(wrapper.querySelectorAll('*')).filter((el) => {
     if (!BAND_TAGS.has(el.tagName.toLowerCase())) return false
     const cs = getComputedStyle(el)
-    if (cs.position === 'absolute' || cs.position === 'fixed' || cs.position === 'sticky') return false
     if (cs.display === 'inline' || cs.display === 'none') return false
+    if (cs.visibility === 'hidden') return false
+    const r = el.getBoundingClientRect()
+    return r.width >= window.innerWidth * 0.6 && r.height >= 100
+  })
+  cands.sort((a, b) => {
+    const ra = a.getBoundingClientRect()
+    const rb = b.getBoundingClientRect()
+    return ra.top - rb.top || rb.height - ra.height
+  })
+  const coverBands = []
+  let cursor = -Infinity
+  for (const el of cands) {
+    const r = el.getBoundingClientRect()
+    const top = r.top + window.scrollY
+    if (top < cursor - 8) continue // 이미 덮인 자리 — 바깥 띠가 이 요소를 품고 있다
+    coverBands.push(el)
+    cursor = r.bottom + window.scrollY
+  }
+
+  // 리듬용 띠는 **다른 것**이다. 덮기용(coverBands)은 틈을 남기지 않는 대신 바깥 블록을 고르므로
+  // 섹션 사이 간격이 사라진다. 간격을 재려면 전폭 · 흐름 안 · 가장 안쪽 블록이어야 한다.
+  // 두 목록을 하나로 합치려다 2026-09-20 에 리듬(156·96)을 통째로 잃었다 — 나누어 둔다.
+  const rhythmCands = cands.filter((el) => {
+    const cs = getComputedStyle(el)
+    if (cs.position === 'absolute' || cs.position === 'fixed' || cs.position === 'sticky') return false
     const r = el.getBoundingClientRect()
     return r.width >= window.innerWidth - 24 && r.height >= 160
   })
-  const bands = cands.filter((el) => !cands.some((o) => o !== el && el.contains(o)))
+  const bands = rhythmCands.filter((el) => !rhythmCands.some((o) => o !== el && el.contains(o)))
   const boxes = bands
     .map((el) => {
       const r = el.getBoundingClientRect()
       return {
+        el, // 청사진에서 다시 찾아 들어가야 한다 — 직렬화 전에 뗀다.
         tag: el.tagName.toLowerCase(),
         cls: String(el.className || '').trim().split(/\s+/)[0]?.slice(0, 44) || '',
+        bg: bgOf(getComputedStyle(el)),
         top: round(r.top + window.scrollY),
         bottom: round(r.bottom + window.scrollY),
         h: round(r.height),
@@ -212,12 +247,94 @@ function collect(selectors) {
     if (gridFreq[key].samples.length < 3) gridFreq[key].samples.push({ template: cols.slice(0, 80), gap: cs.gap })
   }
 
+  // 4. 청사진 — 띠마다 그 안의 **눈에 보이는 상자**를 띠 기준 좌표로.
+  //
+  // 왜 필요한가: 선택자별 덤프(elements)에는 "무엇이 어디에 있는가"가 없다. 그것 없이 복제를 쓰면
+  // 사람이 눈으로 보고 JSX 를 옮겨 적게 되고, 그 순간 복제는 생성물이 아니라 손글씨가 된다(DD-62 ②).
+  // 청사진이 있으면 복제 화면은 이 배열을 **그리기만** 한다 — 추출을 다시 돌리면 복제도 따라온다.
+  const ROLE_TAGS = { h1: 'h1', h2: 'h2', h3: 'h3', h4: 'h3', p: 'p', img: 'img', svg: 'svg', video: 'video', canvas: 'canvas', button: 'button', a: 'a' }
+  const bandOf = (bandEl, bi) => {
+    const r0 = bandEl.getBoundingClientRect()
+    const band = {
+      tag: bandEl.tagName.toLowerCase(),
+      cls: String(bandEl.className || '').trim().split(/\s+/)[0]?.slice(0, 44) || '',
+      bg: bgOf(getComputedStyle(bandEl)),
+      top: round(r0.top + window.scrollY),
+      left: round(r0.left),
+      w: round(r0.width),
+      h: round(r0.height),
+    }
+    const children = []
+    {
+      const br = bandEl.getBoundingClientRect()
+      for (const el of Array.from(bandEl.querySelectorAll('*'))) {
+        const tag = el.tagName.toLowerCase()
+        if (['script', 'style', 'path', 'g', 'defs', 'clippath', 'use', 'circle', 'rect', 'line', 'polygon', 'stop', 'lineargradient'].includes(tag)) continue
+        // svg 안쪽은 건너뛴다 — svg 하나를 통째로 자리로 잡는다.
+        if (el.closest('svg') && tag !== 'svg') continue
+        const r = el.getBoundingClientRect()
+        if (r.width < 8 || r.height < 8) continue
+        const cs = getComputedStyle(el)
+        if (cs.visibility === 'hidden' || cs.opacity === '0') continue
+
+        const isMedia = ['img', 'svg', 'video', 'canvas', 'picture'].includes(tag)
+        const ownText = Array.from(el.childNodes).some((n) => n.nodeType === 3 && n.textContent.trim())
+        // ⚠️ norm() 은 `rgba(0,0,0,0)` 을 `#000000` 으로 바꾼다 — 투명 판정은 **변환 전 문자열**로 해야 한다.
+        //    안 그러면 모든 요소가 "칠해짐" 이 되어 청사진이 수천 개로 부푼다.
+        const painted = !isTransparent(cs.backgroundColor) || (parseFloat(cs.borderTopWidth) || 0) > 0
+        if (!isMedia && !ownText && !(painted && r.width >= 24 && r.height >= 24)) continue
+
+        const text = (el.textContent || '').trim()
+        children.push({
+          role: ROLE_TAGS[tag] || (isMedia ? 'media' : ownText ? 'text' : 'box'),
+          tag,
+          x: round(r.left - br.left), y: round(r.top - br.top), w: round(r.width), h: round(r.height),
+          textLen: ownText ? text.length : 0,
+          text: ownText ? text.slice(0, 40) : undefined,
+          fontSize: cs.fontSize, fontWeight: cs.fontWeight, lineHeight: cs.lineHeight,
+          letterSpacing: cs.letterSpacing === 'normal' ? undefined : cs.letterSpacing,
+          textAlign: cs.textAlign === 'start' ? undefined : cs.textAlign,
+          color: ownText ? norm(cs.color) : undefined,
+          bg: bgOf(cs),
+          radius: cs.borderRadius === '0px' ? undefined : cs.borderRadius,
+          border: (parseFloat(cs.borderTopWidth) || 0) > 0 ? `${cs.borderTopWidth} solid ${norm(cs.borderTopColor)}` : undefined,
+        })
+        if (children.length >= 400) break
+      }
+    }
+    // 겹치는 상자는 바깥 것을 남기고 뺀다 — 같은 글자를 두 번 그리면 diff 가 커진다.
+    const kept = children.filter((c, i) => !children.some((o, j) =>
+      j < i && o.role !== 'box' && c.role !== 'box' &&
+      o.x <= c.x + 1 && o.y <= c.y + 1 && o.x + o.w >= c.x + c.w - 1 && o.y + o.h >= c.y + c.h - 1 &&
+      o.textLen > 0 && c.textLen > 0))
+    return { index: bi, tag: band.tag, cls: band.cls, bg: band.bg, top: band.top, left: band.left, w: band.w, h: band.h, children: kept }
+  }
+  const blueprint = coverBands.map(bandOf)
+  // 직렬화 전에 DOM 참조를 뗀다 — 남기면 page.evaluate 가 구조화 복제에서 죽는다.
+  for (const b of stacked) delete b.el
+
+  // 페이지 바탕과 머리·바닥띠 — `main` 밖이라 띠 목록에 없는데 화면의 큰 몫을 칠한다.
+  // 이게 없으면 복제가 흰 바탕이 되어 픽셀 차이의 큰 몫이 배경에서 나온다(실측 1440: 42.7% → 1.35%).
+  const pageBg = bgOf(getComputedStyle(document.body)) || bgOf(getComputedStyle(document.documentElement))
+  const chrome = ['header', 'footer']
+    .map((sel, i) => {
+      const el = document.querySelector(sel)
+      if (!el) return null
+      const r = el.getBoundingClientRect()
+      if (r.width === 0 || r.height === 0) return null
+      return { part: sel, position: getComputedStyle(el).position, ...bandOf(el, i) }
+    })
+    .filter(Boolean)
+
   return {
     url: location.href,
     title: document.title,
     scrollHeight: document.documentElement.scrollHeight,
+    pageBg,
+    chrome,
     rootVars,
     rootVarsHex,
+    blueprint,
     elements,
     rhythm: {
       wrapperPath,

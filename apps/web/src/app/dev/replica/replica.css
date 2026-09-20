@@ -1,0 +1,73 @@
+/* apps/web/src/app/dev/replica/replica.css
+ *
+ * 복제 화면의 **유일한** 스타일 파일이다(DD-62 Stage 2 조건: 기존 컴포넌트 import 0 · CSS 변수 한 파일).
+ * 여기에는 구조 값만 둔다 — 요소별 실측값(크기·색·모서리)은 computed.json 에서 와서 인라인으로 붙는다.
+ * 서체는 system-ui 다: 참조 사이트의 Roobert · Reckless 는 상용이고 L3 금지 목록이라 **쓰지 않는다**.
+ * 구조 복제의 기준은 글자 모양이 아니라 **상자의 자리**이므로 diff 에서 글자 영역은 가린다.
+ */
+
+.replica-root {
+  --replica-placeholder: #d9d6d2; /* 그림·일러스트 자리 — 같은 크기의 회색 상자 */
+  --replica-text: #c9c4bd; /* 문구 자리(lorem) 위의 중성 글자색 */
+  --replica-outline: rgba(0, 0, 0, 0.08);
+
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* 뷰포트별 청사진 — 하나만 그린다. 768px 은 참조 사이트의 실제 분기점이 아니라
+ * 1440 · 375 두 측정값 사이를 가르는 이 복제의 경계다(추출은 그 두 폭에서만 했다). */
+.replica-vp {
+  display: none;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .replica-vp[data-vp='1440'] {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  .replica-vp[data-vp='375'] {
+    display: block;
+  }
+}
+
+/* 띠 — 흐름 안에서 쌓인다. 띠 사이 간격은 실측 gap 이 margin-top 으로 들어온다. */
+.replica-band {
+  position: relative;
+  width: 100%;
+}
+
+/* 띠 안의 상자 — 띠 기준 절대 좌표.
+ * 왜 절대인가: 자동 배치로 흉내 내면 "닮게 보이도록" 손으로 값을 만지게 되고, 그 순간 복제가
+ * 생성물이 아니라 손글씨가 된다. 자리는 실측 그대로 두고, 리듬(띠 간격·컨테이너 폭·타입 스케일)만
+ * Stage 3·4 가 템플릿으로 가져간다. */
+.replica-box {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.replica-media {
+  background: var(--replica-placeholder);
+}
+
+.replica-text {
+  color: var(--replica-text);
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 측정 도구가 읽는 눈금 — 화면에는 영향이 없다. */
+.replica-meta {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
