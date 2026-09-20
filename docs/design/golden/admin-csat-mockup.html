@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<title>골든 목업 — /admin/csat 「정오표」</title>
+<!--
+  docs/design/golden/admin-csat-mockup.html
+
+  Gate 3 골든 목업(캔버스 초안). **제품 코드가 아니다** — 구현은 Gate 4.
+  값은 정본에서 온다: 아래 @import 가 packages/design-tokens/src/tokens.css 를 그대로 읽는다.
+  그래서 이 목업에는 하드코딩 색이 없다(토큰 이름만 쓴다).
+
+  ⚠️ 글꼴은 목업 한정으로 시스템 폴백을 쓴다 — 제품은 next/font 로 Hahmlet · IBM Plex Sans KR ·
+     Lora · JetBrains Mono 를 싣는다. 목업의 글자 모양은 판정 대상이 아니다(판정은 골격·서명·규격).
+
+  렌더: node scripts/design/shoot-admin-mockup.mjs  → 1280×900 · 375×812 PNG
+-->
+<style>
+  @import url('../../../packages/design-tokens/src/tokens.css');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg2);
+    color: var(--t1);
+    font-family: 'Malgun Gothic', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    word-break: keep-all;
+  }
+  .shell { display: grid; grid-template-columns: 216px 1fr; min-height: 100vh; }
+  @media (max-width: 767px) { .shell { grid-template-columns: 1fr; } .rail { display: none; } }
+
+  /* ── 사이드바(맥락용 · 판정 대상 아님) ───────────────────────────── */
+  .rail { background: var(--bg); border-right: 1px solid var(--bd); padding: 16px 12px; }
+  .brand { display: flex; align-items: center; gap: 8px; min-height: 44px; }
+  .seal {           /* A4 — 주묵 도장. 면이 아니라 테두리 + 글자 */
+    width: 26px; height: 26px; display: grid; place-items: center;
+    border: 1.5px solid var(--ju); color: var(--ju);
+    border-radius: var(--r-sm); font-weight: 700; font-size: 13px;
+  }
+  .brand b { font-size: 15px; }
+  .badge {
+    font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: .04em;
+    color: var(--ju-ink); border: 1px solid var(--bd); border-radius: var(--r-sm); padding: 1px 5px;
+  }
+  .rail nav { margin-top: 18px; display: grid; gap: 2px; }
+  .rail a {
+    display: flex; align-items: center; min-height: 44px; padding: 0 8px;
+    color: var(--t2); text-decoration: none; border-radius: var(--r-sm); font-size: 13px;
+  }
+  .rail a[aria-current] { color: var(--t1); background: var(--ju-light); box-shadow: inset 2px 0 0 var(--ju); }
+
+  /* ── 본문 ─────────────────────────────────────────────────────────── */
+  main { padding: 20px 24px 40px; max-width: 980px; }
+  @media (max-width: 767px) { main { padding: 16px; } }
+  h1 { font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
+  .sub { color: var(--t2); font-size: 12.5px; margin-top: 2px; }
+
+  /* A3 — 가장 앞선 막힌 단계 한 줄. 색이 아니라 문장 + 주묵 표식 */
+  .blocked {
+    margin: 14px 0 18px; padding: 10px 12px 10px 10px;
+    border: 1px solid var(--bd); border-left: 2px solid var(--ju);
+    border-radius: var(--r-sm); background: var(--bg);
+    display: flex; gap: 8px; align-items: baseline;
+  }
+  .blocked .gwon { color: var(--ju); font-size: 15px; line-height: 1; }
+  .blocked strong { font-weight: 700; }
+  .blocked span { color: var(--t2); }
+
+  /* A1 — 정오표: 번호 + 괘선 행 */
+  table { width: 100%; border-collapse: collapse; background: var(--bg); }
+  caption { text-align: left; font-size: 11.5px; color: var(--t3); padding: 0 0 6px; }
+  th, td { text-align: left; padding: 0 8px; height: 44px; border-bottom: 1px solid var(--bd); font-size: 13px; }
+  thead th { font-size: 11px; color: var(--t3); font-weight: 600; height: 32px; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.n { width: 44px; color: var(--t2); font-variant-numeric: tabular-nums; position: relative; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; width: 92px; }
+  td.verdict { width: 108px; }
+  /* A2 — 서명: 막힌 행의 권점, 고른 행에서 실선으로 이어진다 */
+  tr.stuck td.n::before {
+    content: '•'; position: absolute; left: 2px; top: 50%; transform: translateY(-50%);
+    color: var(--ju); font-size: 18px; line-height: 1;
+  }
+  /* tint(--ju-light)는 토큰 정의상 「활성 행 배경」 자리다. 원색 --ju 는 점·선에만 쓴다(A4). */
+  tr.picked { background: var(--ju-light); }
+  tr.picked td.n::after {
+    content: ''; position: absolute; left: 10px; right: -8px; bottom: -1px; height: 1.5px;
+    background: var(--ju); transform-origin: left; /* 구현 시 200ms scaleX */
+  }
+  .mark { font-size: 11px; color: var(--t2); }
+  .mark b { color: var(--t1); font-weight: 600; }
+
+  /* 고른 칸 상세 */
+  .detail { margin-top: 16px; border: 1px solid var(--bd); border-radius: var(--r-sm); background: var(--bg); }
+  .detail h2 { font-size: 13px; padding: 10px 12px; border-bottom: 1px solid var(--bd); }
+  .detail h2 em { font-style: normal; color: var(--ju-ink); }
+  .gauges { display: flex; gap: 20px; padding: 12px; flex-wrap: wrap; }
+  .gauge { font-size: 12px; color: var(--t2); }
+  .gauge b { display: block; font-size: 17px; color: var(--t1); font-variant-numeric: tabular-nums; }
+  .cmd {
+    margin: 0 12px 12px; border: 1px solid var(--bd); border-left: 2px solid var(--ju);
+    border-radius: var(--r-sm); padding: 8px 10px; display: flex; gap: 10px; align-items: center;
+    background: var(--bg2);
+  }
+  .cmd code { font-family: ui-monospace, monospace; font-size: 12px; color: var(--t1); overflow-wrap: anywhere; }
+  .cmd button {
+    margin-left: auto; min-height: 44px; min-width: 44px; padding: 0 12px;
+    border: 1px solid var(--bd); border-radius: var(--r-sm); background: var(--bg);
+    color: var(--t1); font-size: 12px; cursor: pointer;
+  }
+  .foot { margin-top: 18px; font-size: 12px; color: var(--t3); }
+
+  /* 수정 1 (375) — 정오표를 두 줄 행으로 접는다.
+     5열을 375에 그대로 두면 「원문 / 수집」처럼 **공정 이름이 음절로 쪼개진다**(실측 2026-09-20).
+     골격은 그대로다 — 번호와 괘선이 여전히 행을 만든다. 접는 것은 열이지 형태가 아니다. */
+  @media (max-width: 767px) {
+    thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    table, tbody, tr, td { display: block; width: auto; }
+    /* 수정 2 (375) — caption 이 번호 칸 폭으로 눌려 낱말이 한 줄씩 쪼개졌다. block 으로 되돌린다. */
+    caption { display: block; width: 100%; }
+    tbody tr { position: relative; border-bottom: 1px solid var(--bd); padding: 8px 8px 8px 34px; min-height: 44px; }
+    tbody tr:last-child { border-bottom: 0; }
+    td { height: auto; border: 0; padding: 0; }
+    td.n { position: absolute; left: 6px; top: 10px; width: auto; }
+    tr.stuck td.n::before { left: -6px; }
+    tr.picked td.n::after { left: 0; right: -10px; bottom: -4px; }
+    td[data-label] + td[data-label] { margin-top: 2px; }
+    /* 둘째 줄: 눈금 · 판정 · 다음을 한 줄에 나란히 */
+    td.num, td.verdict, td.next { display: inline-block; margin-right: 12px; font-size: 12px; }
+    td.num { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="rail" aria-label="주 메뉴">
+    <div class="brand"><span class="seal" aria-hidden="true">V</span><b>Vocaflow</b><span class="badge">Admin</span></div>
+    <nav>
+      <a href="#">대시보드</a>
+      <a href="#" aria-current="page">교재 공장</a>
+      <a href="#">기출 원천</a>
+      <a href="#">어휘</a>
+      <a href="#">품질 · 시스템</a>
+    </nav>
+  </aside>
+
+  <main>
+    <h1>교재 공장 — 공정 현황판</h1>
+    <p class="sub">조작 버튼은 없다. 각 공정이 다음에 돌릴 명령을 들고 있다.</p>
+
+    <!-- A3 규격: 가장 앞선 막힌 단계 한 줄 -->
+    <p class="blocked">
+      <span class="gwon" aria-hidden="true">•</span>
+      <span><strong>③ 내용 판정</strong>이 가장 앞에서 막혀 있다 — 판정 없는 원문 <strong>12,123편</strong>이 뒤 공정을 전부 대기시킨다.</span>
+    </p>
+
+    <table>
+      <caption>공정 8칸 — 번호는 순서다. 판정은 색이 아니라 기호 + 글자가 말한다.</caption>
+      <thead>
+        <tr><th scope="col">#</th><th scope="col">공정</th><th scope="col">눈금</th><th scope="col">판정</th><th scope="col">다음</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="n">①</td><td>원문 수집</td><td class="num">109,043</td><td class="verdict"><span class="mark">✓ <b>통과</b></span></td><td class="next mark">—</td></tr>
+        <tr><td class="n">②</td><td>추출 · 조판</td><td class="num">87,466</td><td class="verdict"><span class="mark">✓ <b>통과</b></span></td><td class="next mark">—</td></tr>
+        <tr class="stuck picked"><td class="n">③</td><td>내용 판정</td><td class="num">12,123</td><td class="verdict"><span class="mark">✗ <b>막힘</b></span></td><td class="next mark">판정 드레인</td></tr>
+        <tr><td class="n">④</td><td>적격 캐시</td><td class="num">13,271</td><td class="verdict"><span class="mark">◐ <b>대기</b></span></td><td class="next mark">③ 이후</td></tr>
+        <tr><td class="n">⑤</td><td>문항 재고</td><td class="num">879,534</td><td class="verdict"><span class="mark">✓ <b>통과</b></span></td><td class="next mark">—</td></tr>
+        <tr><td class="n">⑥</td><td>해설 채움</td><td class="num">61%</td><td class="verdict"><span class="mark">◐ <b>대기</b></span></td><td class="next mark">해설 드레인</td></tr>
+        <tr><td class="n">⑦</td><td>권 조판</td><td class="num">312</td><td class="verdict"><span class="mark">✓ <b>통과</b></span></td><td class="next mark">—</td></tr>
+        <tr><td class="n">⑧</td><td>발행</td><td class="num">250</td><td class="verdict"><span class="mark">· <b>해당 없음</b></span></td><td class="next mark">—</td></tr>
+      </tbody>
+    </table>
+
+    <section class="detail" aria-label="고른 공정 상세">
+      <h2>③ <em>내용 판정</em> — 원문이 학습에 쓸 수 있는지 사람·에이전트가 판정한다</h2>
+      <div class="gauges">
+        <p class="gauge">판정 없음<b>12,123</b></p>
+        <p class="gauge">판정만으로 열리는 것<b>0</b></p>
+        <p class="gauge">밴드가 함께 막는 것<b>12,121</b></p>
+      </div>
+      <p class="cmd">
+        <code>node scripts/csat/gate-raw-with-items-ids.mjs --write .agent-logs/raw-judge --per 100</code>
+        <button type="button">복사</button>
+      </p>
+    </section>
+
+    <p class="foot">눈금은 전부 DB 실측이다. 상수는 없다.</p>
+  </main>
+</div>
+</body>
+</html>
