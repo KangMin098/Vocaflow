@@ -32,7 +32,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `admin/*` | `/admin/*` | admin/curator only | AdminSidebar |
 | `dev/*` | `/dev/components` | 개발 | 카탈로그 |
 | `dev/tts-probe` | `/dev/tts-probe` | 개발 | **강의 TTS 프로브(Gate 0)** — 강의 재생에 쓰는 어댑터·엔진을 그대로 돌려 음성 목록·경계 이벤트·40초 발화·큐 연속 재생·낭독 속도를 잰다. `?auto=1` 이면 열자마자 돌고 `window.__TTS_PROBE__` 에 남긴다(하네스 `scripts/csat-lecture/tts-probe.mts`) |
-| `dev/replica/*` | `/dev/replica/tines-home` · `/dev/replica/tines-app` | **개발 전용 · 배포 차단** | **실물 우선 전환(DD-62) Stage 2 의 자** — 참조 사이트의 판면을 `docs/design/refs/tines/computed.json` 실측값에서 그대로 재현한 내부 복제다. 제품 화면이 아니고 어떤 화면도 이것을 import 하지 않는다. 가드 2겹: `dev/replica/layout.tsx` 가 프로덕션에서 `notFound()`(`REPLICA_ROUTES=on` 일 때만 열린다) + robots `noindex`. 완료 판정은 `node scripts/design/replica-diff.mjs`(홈 픽셀 차이 ≤2% · 앱 상자 ±8px) |
+| `dev/replica/*` | `/dev/replica/tines-home` · `/dev/replica/tines-app` · `/dev/replica/ours-home` · `/dev/replica/ours-app` | **개발 전용 · 배포 차단** | **실물 우선 전환(DD-62) Stage 2 의 자** — 참조 사이트의 판면을 `docs/design/refs/tines/computed.json` 실측값에서 그대로 재현한 내부 복제다. 제품 화면이 아니고 어떤 화면도 이것을 import 하지 않는다. 가드 2겹: `dev/replica/layout.tsx` 가 프로덕션에서 `notFound()`(`REPLICA_ROUTES=on` 일 때만 열린다) + robots `noindex`. 완료 판정은 `node scripts/design/replica-diff.mjs`(홈 픽셀 차이 ≤2% · 앱 상자 ±8px). `ours-*` 는 같은 렌더러·같은 청사진에 **치환 네 가지만**(색·서체·그림·문구) 얹은 것이라 `--ours` 검사가 띠·상자 자리 어긋남 **0** 을 요구한다 |
 
 ---
 

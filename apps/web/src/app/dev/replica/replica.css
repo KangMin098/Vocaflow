@@ -63,6 +63,16 @@
   word-break: break-word;
 }
 
+/* 삽화 — 규격이 폭을 정한다(S 240 · E 320 · B 640 상한, 03-system §3-9).
+ * 이걸 안 걸면 골든 SVG 의 `width:100%` 가 1000px 짜리 자리에서 240 viewBox 를 4배로 늘려
+ * 삽화 안의 글자가 제목만 해진다 — 실측(2026-09-20 첫 ours 시트). 자리는 그대로 두고 그림만 가둔다. */
+.replica-illo > svg {
+  max-width: 320px;
+  max-height: 100%;
+  width: 100%;
+  height: auto;
+}
+
 /* 측정 도구가 읽는 눈금 — 화면에는 영향이 없다. */
 .replica-meta {
   position: absolute;

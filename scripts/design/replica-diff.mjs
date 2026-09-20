@@ -5,6 +5,7 @@
 //
 //   node scripts/design/replica-diff.mjs                     # 홈: 1440 · 375 픽셀 diff
 //   node scripts/design/replica-diff.mjs --app               # 앱: 상자 위치 ±8px
+//   node scripts/design/replica-diff.mjs --ours              # Stage 3: 3분할 시트 + 「구조·수치 변경 0」 검사
 //   node scripts/design/replica-diff.mjs --base http://localhost:3000
 //
 // 판정:
@@ -196,35 +197,41 @@ async function runHome(browser) {
   return results
 }
 
-/** 두 PNG 을 왼쪽·오른쪽으로 붙인 시트 하나를 만든다. */
-async function sheetOf(page, aDataUrl, bDataUrl, labels) {
+/** PNG 여러 장을 가로로 붙인 시트 하나. 한 칸의 최대 폭(maxPanel)을 넘으면 비율대로 줄인다. */
+async function sheetOfMany(page, dataUrls, labels, maxPanel = 0) {
   return page.evaluate(
-    async ({ aUrl, bUrl, labels }) => {
+    async ({ urls, labels, maxPanel }) => {
       const load = (src) => new Promise((res, rej) => {
         const im = new Image()
         im.onload = () => res(im)
         im.onerror = rej
         im.src = src
       })
-      const [A, B] = await Promise.all([load(aUrl), load(bUrl)])
-      const H = Math.max(A.height, B.height)
+      const imgs = await Promise.all(urls.map(load))
+      const scale = maxPanel ? Math.min(1, maxPanel / Math.max(...imgs.map((i) => i.width))) : 1
+      const W = imgs.map((i) => Math.round(i.width * scale))
+      const H = Math.max(...imgs.map((i) => Math.round(i.height * scale)))
+      const GAP = 24
       const c = document.createElement('canvas')
-      c.width = A.width + B.width + 24
+      c.width = W.reduce((a, b) => a + b, 0) + GAP * (imgs.length - 1)
       c.height = H + 28
       const x = c.getContext('2d')
       x.fillStyle = '#ffffff'
       x.fillRect(0, 0, c.width, c.height)
-      x.fillStyle = '#333333'
       x.font = '13px system-ui, sans-serif'
-      x.fillText(labels[0], 0, 18)
-      x.fillText(labels[1], A.width + 24, 18)
-      x.drawImage(A, 0, 28)
-      x.drawImage(B, A.width + 24, 28)
+      let left = 0
+      imgs.forEach((im, i) => {
+        x.fillStyle = '#333333'
+        x.fillText(labels[i] ?? '', left, 18)
+        x.drawImage(im, left, 28, W[i], Math.round(im.height * scale))
+        left += W[i] + GAP
+      })
       return c.toDataURL('image/png')
     },
-    { aUrl: aDataUrl, bUrl: bDataUrl, labels },
+    { urls: dataUrls, labels, maxPanel },
   )
 }
+const sheetOf = (page, a, b, labels) => sheetOfMany(page, [a, b], labels)
 
 // ── 앱 ─────────────────────────────────────────────────────────────────────
 async function runApp(browser) {
@@ -331,19 +338,135 @@ async function runApp(browser) {
   return results
 }
 
+// ── Stage 3 · 치환 시트 ────────────────────────────────────────────────────
+// 여기서는 픽셀 차이를 재지 않는다 — ours 는 색·서체·문구가 **일부러** 다르므로 숫자가 뜻을 잃는다.
+// 대신 기계가 검사할 수 있는 것을 검사한다: 「구조·수치 변경 0」. 띠·상자의 자리가 복제와 한 픽셀이라도
+// 다르면 그건 치환이 아니라 재설계다.
+const shot = async (browser, url, vp, opts = {}) => {
+  const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, deviceScaleFactor: 1, reducedMotion: 'reduce' })
+  const page = await ctx.newPage()
+  await page.goto(url, { waitUntil: 'networkidle', timeout: 120_000 })
+  await settle(page)
+  const target = opts.selector ? page.locator(opts.selector).first() : page
+  const png = (await target.screenshot(opts.selector ? {} : { fullPage: true })).toString('base64')
+  const geom = await page.evaluate((sel) => {
+    const root = sel ? document.querySelector(sel) : document
+    if (!root) return null
+    const scope = sel ? root : document
+    const rr = sel ? root.getBoundingClientRect() : { left: 0, top: -scrollY }
+    const pick = (el) => {
+      const r = el.getBoundingClientRect()
+      return {
+        id: el.dataset.band !== undefined ? `band:${el.dataset.band}` : `part:${el.dataset.part}`,
+        x: Math.round(r.left - rr.left), y: Math.round(r.top - rr.top),
+        w: Math.round(r.width), h: Math.round(r.height),
+      }
+    }
+    return {
+      docHeight: document.documentElement.scrollHeight,
+      boxes: Array.from(scope.querySelectorAll('[data-band],[data-part]')).map(pick),
+    }
+  }, opts.selector ?? null)
+  await ctx.close()
+  return { png, geom }
+}
+
+/** 두 기하 목록이 같은지 — 다르면 어디가 몇 px 다른지 돌려준다. */
+function geomDiff(a, b) {
+  if (!a || !b) return [{ id: '(측정 실패)', delta: null }]
+  const out = []
+  if (a.docHeight !== b.docHeight) out.push({ id: 'docHeight', want: a.docHeight, got: b.docHeight, delta: Math.abs(a.docHeight - b.docHeight) })
+  const n = Math.min(a.boxes.length, b.boxes.length)
+  if (a.boxes.length !== b.boxes.length) out.push({ id: 'boxCount', want: a.boxes.length, got: b.boxes.length, delta: Math.abs(a.boxes.length - b.boxes.length) })
+  for (let i = 0; i < n; i++) {
+    const p = a.boxes[i]
+    const q = b.boxes[i]
+    const d = Math.max(Math.abs(p.x - q.x), Math.abs(p.y - q.y), Math.abs(p.w - q.w), Math.abs(p.h - q.h))
+    if (d > 0) out.push({ id: p.id, want: p, got: q, delta: d })
+  }
+  return out
+}
+
+async function runOurs(browser) {
+  const results = []
+  const worker = await browser.newPage()
+
+  for (const vp of VIEWPORTS) {
+    const { ctx: rctx, page: rpage } = await openRef(browser, REF_HOME, vp)
+    const refPng = (await rpage.screenshot({ fullPage: true })).toString('base64')
+    await rctx.close()
+
+    const rep = await shot(browser, `${BASE}/dev/replica/tines-home`, vp)
+    const ours = await shot(browser, `${BASE}/dev/replica/ours-home`, vp)
+    const drift = geomDiff(rep.geom, ours.geom)
+
+    const sheet = savePng(
+      `ours-home-${vp.key}-sheet.png`,
+      await sheetOfMany(
+        worker,
+        [`data:image/png;base64,${refPng}`, `data:image/png;base64,${rep.png}`, `data:image/png;base64,${ours.png}`],
+        ['① 참조 (Tines)', '② 복제 (replica)', '③ 우리 것 (ours)'],
+        460,
+      ),
+    )
+    savePng(`ours-home-${vp.key}.png`, `data:image/png;base64,${ours.png}`)
+    results.push({ target: 'home', viewport: vp.key, sheet, structureDrift: drift, pass: drift.length === 0 })
+    console.log(`ours home ${vp.key}: 구조 어긋남 ${drift.length}건 → ${drift.length === 0 ? 'PASS (구조·수치 변경 0)' : 'FAIL'}`)
+    for (const d of drift.slice(0, 5)) console.log(`  ✗ ${d.id}: ${d.delta}px`)
+    console.log(`  시트 ${sheet}`)
+  }
+
+  // 앱 — 1440 만(375 는 접힌 구성이라 나란히 놓는 뜻이 없다)
+  const vp = VIEWPORTS[0]
+  let refAppPng = null
+  try {
+    const { ctx: rctx, page: rpage } = await openRef(browser, REF_APP, vp)
+    const anchor = rpage.locator(appMeasured.source.anchor).first()
+    if (await anchor.count()) {
+      const box = await anchor.evaluate((el) => {
+        let frame = el
+        const STOP = new Set(['MAIN', 'BODY', 'HTML'])
+        while (frame.parentElement && !STOP.has(frame.parentElement.tagName) &&
+          frame.getBoundingClientRect().width < Math.min(900, window.innerWidth * 0.95)) frame = frame.parentElement
+        const r = frame.getBoundingClientRect()
+        return { x: r.left + scrollX, y: r.top + scrollY, width: r.width, height: r.height }
+      })
+      refAppPng = (await rpage.screenshot({ clip: box })).toString('base64')
+    }
+    await rctx.close()
+  } catch { refAppPng = null }
+
+  const sel = '[data-app-frame="1440"]'
+  const repApp = await shot(browser, `${BASE}/dev/replica/tines-app`, vp, { selector: sel })
+  const oursApp = await shot(browser, `${BASE}/dev/replica/ours-app`, vp, { selector: sel })
+  const appDrift = geomDiff(repApp.geom, oursApp.geom)
+  const panels = [refAppPng && `data:image/png;base64,${refAppPng}`, `data:image/png;base64,${repApp.png}`, `data:image/png;base64,${oursApp.png}`].filter(Boolean)
+  const labels = [refAppPng ? '① 참조 (Tines)' : null, '② 복제 (replica)', '③ 우리 것 (ours)'].filter(Boolean)
+  const appSheet = savePng(`ours-app-${vp.key}-sheet.png`, await sheetOfMany(worker, panels, labels, 620))
+  results.push({ target: 'app', viewport: vp.key, sheet: appSheet, structureDrift: appDrift, pass: appDrift.length === 0 })
+  console.log(`ours app ${vp.key}: 구조 어긋남 ${appDrift.length}건 → ${appDrift.length === 0 ? 'PASS (구조·수치 변경 0)' : 'FAIL'}`)
+  for (const d of appDrift.slice(0, 5)) console.log(`  ✗ ${d.id}: ${d.delta}px`)
+  console.log(`  시트 ${appSheet}`)
+
+  await worker.close()
+  return results
+}
+
 // ── 실행 ───────────────────────────────────────────────────────────────────
 const browser = await chromium.launch()
 const report = { base: BASE, ref: { home: REF_HOME, app: REF_APP }, ranAt: new Date().toISOString(), thresholdPct: THRESHOLD_PCT, boxTolerance: BOX_TOLERANCE }
-if (has('--app')) report.app = await runApp(browser)
+if (has('--ours')) report.ours = await runOurs(browser)
+else if (has('--app')) report.app = await runApp(browser)
 else if (has('--home')) report.home = await runHome(browser)
 else {
   report.home = await runHome(browser)
   report.app = await runApp(browser)
+  report.ours = await runOurs(browser)
 }
 await browser.close()
 
 fs.writeFileSync(path.join(OUT, 'replica-diff.json'), JSON.stringify(report, null, 2) + '\n', 'utf8')
 console.log(`\n${path.relative(ROOT, path.join(OUT, 'replica-diff.json')).split(path.sep).join('/')}`)
 
-const failures = [...(report.home ?? []), ...(report.app ?? [])].filter((r) => !r.pass)
+const failures = [...(report.home ?? []), ...(report.app ?? []), ...(report.ours ?? [])].filter((r) => !r.pass)
 if (failures.length) process.exitCode = 1

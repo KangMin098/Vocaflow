@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- 실물 우선 Stage 3 — 치환 4가지(DD-62): 치환표 생성기 `scripts/design/substitute.mjs`(CIEDE2000 최근접 · 액센트 `#714bd0` → `--ju` 고정 · 후보 풀에서 아케이드 팔레트와 옛 AI-보라 제외) → `docs/design/refs/substitution.json` 13색. `/dev/replica/ours-home` · `/dev/replica/ours-app` 는 복제와 **같은 렌더러**를 쓰고 색·서체(Hahmlet/Lora · IBM Plex Sans KR)·그림(골든 삽화 4점 + `/fit` 실캡처)·문구(`differentiators.ts`)만 바꾼다 — `replica-diff --ours` 가 띠·상자 자리 어긋남 **0** 을 기계로 확인. 잠금 결함 수정(DD-53 보완) · PR #115 폐기(archive 태그).
+
 - 디자인 방식 전환 「실물 우선」(DD-62): 문서가 화면을 정하던 순서를 뒤집고 초안 9개를 동결. 참조 사이트 계산값 추출기 2종 신설(`scripts/design/extract-computed.mjs` · `extract-app.mjs` → `docs/design/refs/tines/computed.json` · `app-measured.json`, 참조 이미지 0). 내부 측정용 복제 라우트 `/dev/replica/tines-home` · `/dev/replica/tines-app`(프로덕션 `notFound()` + noindex)와 판정기 `replica-diff.mjs` 추가 — 실측 홈 픽셀 차이 **1440 0.34% · 375 0.96%**(기준 ≤2%, 문구·그림 마스킹 후), 앱 골격 상자 **9/9 항목 ±8px 안**.
 
 - 기출 분석 방법론: 「난이도는 소재가 아니라 형식(유형)」 실측 절 신설(CSAT_TYPE_ANALYSIS §1-1) — 802편 전수, 유형 간 격차 95포인트. 신호를 바꾸면 절대 수준은 바뀌어도 유형 순서는 유지된다는 대조를 함께.
