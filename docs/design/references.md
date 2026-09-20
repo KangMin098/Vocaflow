@@ -52,3 +52,11 @@
 | [Readlang](https://readlang.com/) (2026-09-18 열람) | 클릭하면 번역 → 저장 → **플래시카드** 복습 | 번역을 누르기 **전에** 이 글에서 내가 아는 비율을 칠해서 보여준다(커버리지 × V-Level, `/` · `/fit`) — 읽기 전 판단 |
 | Anki (일반 지식 — 이번에 열람하지 않음, 추정) | 카드 한 장 + 4단 평가 버튼 | 카드 뒤에 **망각 곡선**(S1) — 이 카드를 오늘 안 보면 언제 무엇을 잃는가 |
 
+## Tines (2026-09-20) — 판정 [tines-adaptation.md](tines-adaptation.md) · 결정 DD-61
+
+> 직접 열람은 세션 네트워크 정책에 차단 — WebSearch 2차 출처로만 확인. 값은 근사.
+
+| 출처 | 확인 | 참고하는 부분 | 적용하지 않을 요소 | 적용 화면 |
+|---|---|---|---|---|
+| [tines.com](https://www.tines.com/) · [Behance 브랜드 시스템](https://www.behance.net/gallery/183496103/Tines-Brand-System) · [Fonts In Use](https://fontsinuse.com/uses/57822/tines) · [Mobbin 팔레트](https://mobbin.com/colors/brand/tines-security-services-limited) | 2026-09-20 검색 요지(직접 열람 차단) | **방법만**: 제품 사물(점 격자·액션 필)을 브랜드 프레임으로 승격 — 우리 §G 와 같은 문장. 구체 적용은 모눈 무대(`--grid-line`)의 공개 표면 일관화(P1, 사람 결정 대기) | 보라 #5E4D9A(DD-01·DD-59 역행) · 필 버튼(모서리 2–6px 정본) · 장식 일러스트(I1·I5) · Roobert 류 산세리프(4종 고정) | `/` · `/fit` 증명 액자 · 공개 빈 상태(P1 승인 시) |
+
