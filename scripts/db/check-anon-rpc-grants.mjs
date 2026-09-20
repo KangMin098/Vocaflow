@@ -31,14 +31,36 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { execFileSync } from 'node:child_process'
 
 const BASELINE = path.resolve('scripts/db/anon-executable-functions.json')
 const UPDATE = process.argv.includes('--update')
 
+/**
+ * `apps/web/.env.local` 후보들. 앞의 것이 이기고, **이미 있는 process.env 는 안 덮는다.**
+ *
+ * ⚠️ **워크트리에는 `.env.local` 이 없다** (실측 2026-09-20). `scripts/worktree.mjs` 는 env 를
+ *   다루지 않고 `.env*` 는 gitignore 라, `pnpm wt new` 로 만든 트리에서 이 가드는 exit 2 로
+ *   "판정하지 않음" 이 된다. 판정을 거부하는 것 자체는 맞지만(조용히 통과하는 것보다 낫다),
+ *   AGENTS.md 가 장기 병행 작업을 워크트리로 밀고 있어서 **가드가 거기서 못 도는 건 가드가 없는 것과 같다.**
+ *   그래서 주 워크트리의 것을 fallback 으로 찾는다 — `--git-common-dir` 이 `<주 트리>/.git` 이다.
+ */
+function envCandidates() {
+  const here = path.resolve('apps/web/.env.local')
+  try {
+    const common = execFileSync('git', ['rev-parse', '--git-common-dir'], { encoding: 'utf8' }).trim()
+    const mainTree = path.dirname(path.resolve(common))
+    return [here, path.join(mainTree, 'apps/web/.env.local')]
+  } catch {
+    // git 이 없거나 저장소 밖이면 현재 트리만 본다. 여기서 죽을 이유는 없다.
+    return [here]
+  }
+}
+
 async function main() {
-  // --- 접속 (저장소 관례: apps/web/.env.local 을 직접 읽는다) ---
-  const envPath = path.resolve('apps/web/.env.local')
-  if (fs.existsSync(envPath)) {
+  // --- 접속 (저장소 관례: apps/web/.env.local 을 직접 읽는다 — 값은 출력하지 않는다) ---
+  for (const envPath of envCandidates()) {
+    if (!fs.existsSync(envPath)) continue
     for (const line of fs.readFileSync(envPath, 'utf8').split('\n')) {
       const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
       if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '').replace(/\r/g, '')
@@ -47,7 +69,8 @@ async function main() {
   const url = process.env['NEXT_PUBLIC_SUPABASE_URL']
   const key = process.env['SUPABASE_SERVICE_ROLE_KEY']
   if (!url || !key) {
-    console.error('NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 가 없다 (apps/web/.env.local).')
+    console.error('NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 가 없다.')
+    console.error(`  찾아본 곳: ${envCandidates().join(' · ')}`)
     return 2
   }
   const { createClient } = await import('@supabase/supabase-js')
