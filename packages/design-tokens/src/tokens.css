@@ -293,7 +293,6 @@
   --ios-teal: #30B0C7;
   --ios-cyan: #32ADE6;
   --ios-blue: #007AFF;
-  --ios-indigo: #5856D6;
   --ios-purple: #7A4A6B;   /* v07 — 원색 보라(#AF52DE) → 자두. 학습자 표면의 「연보라 포인트」 잔여 (docs/design/05-report §5-2) · 흰 글자 6.96:1 */
   --ios-pink: #FF2D55;
   --ios-brown: #A2845E;
@@ -312,7 +311,6 @@
   --ios-yellow-vivid: #FFD60A;
   --ios-green-vivid: #30D158;
   --ios-blue-vivid: #0A84FF;
-  --ios-indigo-vivid: #5E5CE6;
   --ios-purple-vivid: #C79AB6;  /* v07 — 다크 자두 (= --accent-plum 다크) · #1A1714 위 7.42:1 */
   --ios-pink-vivid: #FF375F;
 
@@ -503,7 +501,6 @@
   --ios-yellow: var(--ios-yellow-vivid);
   --ios-green: var(--ios-green-vivid);
   --ios-blue: var(--ios-blue-vivid);
-  --ios-indigo: var(--ios-indigo-vivid);
   --ios-purple: var(--ios-purple-vivid);
   --ios-pink: var(--ios-pink-vivid);
 

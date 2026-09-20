@@ -98,7 +98,6 @@ export const iosColors = {
   teal: '#30B0C7',
   cyan: '#32ADE6',
   blue: '#007AFF',
-  indigo: '#5856D6',
   purple: '#AF52DE',
   pink: '#FF2D55',
   brown: '#A2845E',
@@ -128,7 +127,6 @@ export const iosColorsDark = {
   yellow: '#FFD60A',
   green: '#30D158',
   blue: '#0A84FF',
-  indigo: '#5E5CE6',
   purple: '#BF5AF2',
   pink: '#FF375F',
 
