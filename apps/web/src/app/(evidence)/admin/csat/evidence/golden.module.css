@@ -1,0 +1,459 @@
+/* apps/web/src/app/(evidence)/admin/csat/evidence/golden.module.css */
+/*
+  골든 목업 `docs/design/golden/admin-csat-mockup.html` 의 <style> 을 **그대로 옮긴 것**.
+  값을 고치지 않는다 — 다르면 목업이 아니라 이 파일이 틀린 것이다(판정 기준: 1280·375 픽셀 대조).
+
+  이 라우트는 공용 관리자 껍데기(AdminSidebar·헤더)를 쓰지 않는다. 사이드바까지 여기서 그린다.
+  그래서 파일은 `app/(evidence)/` 라우트 그룹에 있다 — 그룹은 URL 에 영향을 주지 않고
+  `app/admin/layout.tsx` 의 껍데기만 벗긴다.
+
+  전역(globals.css · Tailwind preflight)이 끼어들지 못하게 `.shell` 안에서 초기화한다.
+  글꼴도 목업과 같은 시스템 스택을 쓴다 — 목업과의 차이를 0 으로 만드는 것이 지금의 판정 기준이고,
+  제품 글꼴(next/font)은 데이터 연결 단계에서 목업과 함께 옮긴다.
+*/
+
+/* ── 선 격자 ────────────────────────────────────────────────────────────
+   한 칸 24px. 모든 세로 치수가 그 배수다(행 48 = 2칸 · 판심 72 = 3칸 · 표제 24 = 1칸).
+   격자는 무늬가 아니라 **선**이다 — 괘선(--bd)이 행을 만들고, 난외 세로선이 번호 칸을 연다. */
+.shell {
+  --u: 24px;
+  --row: 48px;
+  --gutter: 24px;
+
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  background: var(--bg2);
+  color: var(--t1);
+  font-family: 'Malgun Gothic', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: var(--u);
+  word-break: keep-all;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+.shell *,
+.shell *::before,
+.shell *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+}
+@media (max-width: 767px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .rail {
+    display: none;
+  }
+}
+
+/* ── 난외(欄外) — 번호와 권점이 사는 24px 칸 ───────────────────────────
+   본문과 사이드바가 **같은 난외**를 갖는다. 이것이 껍데기와 본문을 한 지면으로 묶는다. */
+.marginal {
+  position: relative;
+  padding-left: var(--gutter);
+}
+.marginal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--gutter);
+  border-left: 1px solid var(--bd);
+}
+
+/* ── 사이드바 = 공정 정오표 ──────────────────────────────────────────── */
+.rail {
+  background: var(--bg);
+  border-right: 1px solid var(--bd);
+}
+.rail .marginal {
+  padding-left: 0;
+}
+.rail .marginal::before {
+  left: calc(var(--gutter) + 12px);
+}
+
+.plate {
+  /* 판심 — 제목이 앉는 3칸 띠 */
+  height: calc(var(--u) * 3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--bd);
+}
+.seal {
+  /* A4 — 주묵 도장. 면이 아니라 테두리 + 글자 */
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--ju);
+  color: var(--ju);
+  border-radius: var(--r-sm);
+  font-weight: 700;
+  font-size: 13px;
+}
+.plate b {
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+.badge {
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--ju-ink);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-sm);
+  padding: 1px 5px;
+}
+
+.rail h2 {
+  /* 난외 표제 — 한 칸 높이, 괘선 위에 앉는다 */
+  height: var(--u);
+  display: flex;
+  align-items: center;
+  padding: 0 12px 0 46px;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--t3);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--bd);
+  background: var(--bg2);
+}
+.rail a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--row);
+  padding: 0 12px 0 46px;
+  color: var(--t2);
+  text-decoration: none;
+  font-size: 13px;
+  border-bottom: 1px solid var(--bd);
+}
+.rail a .n {
+  /* 번호는 난외 칸에 — 본문 정오표와 같은 자리 */
+  position: absolute;
+  left: 12px;
+  width: 24px;
+  text-align: center;
+  color: var(--t3);
+  font-variant-numeric: tabular-nums;
+}
+.rail a:hover {
+  color: var(--t1);
+  background: var(--bg2);
+}
+.rail a[aria-current] {
+  color: var(--t1);
+  font-weight: 600;
+  background: var(--ju-light);
+  box-shadow: inset 2px 0 0 var(--ju);
+}
+.rail a[aria-current] .n {
+  color: var(--ju-ink);
+}
+.rail a.stuck .n::before {
+  /* A2 — 막힌 공정은 껍데기에서도 같은 권점을 받는다 */
+  content: '•';
+  position: absolute;
+  left: -8px;
+  color: var(--ju);
+  font-size: 18px;
+}
+.rail .foot {
+  padding: 12px;
+  font-size: 11px;
+  color: var(--t3);
+}
+
+/* ── 본문 ─────────────────────────────────────────────────────────────── */
+.main {
+  max-width: 1024px;
+}
+.head {
+  /* 판심 — 사이드바 판심과 같은 3칸 · 같은 괘선 */
+  height: calc(var(--u) * 3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 var(--u);
+  border-bottom: 1px solid var(--bd);
+  background: var(--bg);
+}
+.head h1 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.head .when {
+  margin-left: auto;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--t3);
+}
+.body {
+  padding: var(--u);
+}
+@media (max-width: 767px) {
+  .head {
+    padding: 0 16px;
+  }
+  .body {
+    padding: 16px;
+  }
+}
+.sub {
+  color: var(--t2);
+  font-size: 12.5px;
+  margin-bottom: 12px;
+}
+
+/* A3 — 가장 앞선 막힌 단계 한 줄. 색이 아니라 문장 + 주묵 표식 */
+.blocked {
+  margin-bottom: var(--u);
+  padding: 10px 12px 10px 10px;
+  border: 1px solid var(--bd);
+  border-left: 2px solid var(--ju);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.blocked .gwon {
+  color: var(--ju);
+  font-size: 15px;
+  line-height: 1;
+}
+.blocked strong {
+  font-weight: 700;
+}
+.blocked span {
+  color: var(--t2);
+}
+
+/* A1 — 정오표: 번호 + 괘선 행 */
+.shell table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg);
+}
+.shell caption {
+  text-align: left;
+  font-size: 11.5px;
+  color: var(--t3);
+  padding: 0 0 6px;
+}
+.shell th,
+.shell td {
+  text-align: left;
+  padding: 0 8px;
+  height: var(--row);
+  border-bottom: 1px solid var(--bd);
+  font-size: 13px;
+}
+.shell thead th {
+  font-size: 11px;
+  color: var(--t3);
+  font-weight: 600;
+  height: var(--u);
+}
+.shell tbody tr:last-child td {
+  border-bottom: 0;
+}
+.shell td.n {
+  width: 44px;
+  color: var(--t2);
+  font-variant-numeric: tabular-nums;
+  position: relative;
+}
+.shell td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  width: 92px;
+}
+.shell td.verdict {
+  width: 108px;
+}
+/* A2 — 서명: 막힌 행의 권점, 고른 행에서 실선으로 이어진다 */
+.shell tr.stuck td.n::before {
+  content: '•';
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ju);
+  font-size: 18px;
+  line-height: 1;
+}
+/* tint(--ju-light)는 토큰 정의상 「활성 행 배경」 자리다. 원색 --ju 는 점·선에만 쓴다(A4). */
+.shell tr.picked {
+  background: var(--ju-light);
+}
+.shell tr.picked td.n::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: -8px;
+  bottom: -1px;
+  height: 1.5px;
+  background: var(--ju);
+  transform-origin: left;
+}
+/* 목업에서는 `.mark`(0,1,0) 가 `td`(0,0,1) 를 이겼다. 여기서는 규칙을 `.shell` 로 감쌌기 때문에
+   `.shell td`(0,1,1) 가 더 세다 — 그대로 두면 「다음」 칸만 13px 로 커져 표 폭이 24.5px 밀린다(실측). */
+.shell .mark {
+  font-size: 11px;
+  color: var(--t2);
+}
+.shell .mark b {
+  color: var(--t1);
+  font-weight: 600;
+}
+
+/* 고른 칸 상세 */
+.detail {
+  margin-top: var(--u);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+}
+/* 한 줄이면 12+24+12 = 48(2칸). 좁은 폭에서 두 줄이 되면 칸이 늘어난다 —
+   height 로 잠그면 375 에서 둘째 줄이 상세 위로 겹친다. */
+.detail h2 {
+  font-size: 13px;
+  letter-spacing: normal; /* globals 의 제목 자간(-0.005em)이 새어든다 */
+  padding: 12px;
+  min-height: var(--row);
+  line-height: var(--u);
+  border-bottom: 1px solid var(--bd);
+  font-weight: 700;
+}
+.detail h2 em {
+  font-style: normal;
+  color: var(--ju-ink);
+}
+.gauges {
+  display: flex;
+  gap: var(--u);
+  padding: 12px;
+  flex-wrap: wrap;
+}
+.gauge {
+  font-size: 12px;
+  color: var(--t2);
+}
+.gauge b {
+  display: block;
+  font-size: 17px;
+  color: var(--t1);
+  font-variant-numeric: tabular-nums;
+}
+.cmd {
+  margin: 0 12px 12px;
+  border: 1px solid var(--bd);
+  border-left: 2px solid var(--ju);
+  border-radius: var(--r-sm);
+  padding: 8px 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: var(--bg2);
+}
+.cmd code {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--t1);
+  overflow-wrap: anywhere;
+}
+.cmd button {
+  margin-left: auto;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--bd);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  color: var(--t1);
+  font-size: 12px;
+  cursor: pointer;
+}
+.foot {
+  margin-top: var(--u);
+  font-size: 12px;
+  color: var(--t3);
+}
+
+/* 수정 1 (375) — 정오표를 두 줄 행으로 접는다.
+   5열을 375에 그대로 두면 「원문 / 수집」처럼 **공정 이름이 음절로 쪼개진다**.
+   골격은 그대로다 — 번호와 괘선이 여전히 행을 만든다. 접는 것은 열이지 형태가 아니다. */
+@media (max-width: 767px) {
+  .shell thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .shell table,
+  .shell tbody,
+  .shell tr,
+  .shell td {
+    display: block;
+    width: auto;
+  }
+  /* 수정 2 (375) — caption 이 번호 칸 폭으로 눌려 낱말이 한 줄씩 쪼개졌다. block 으로 되돌린다. */
+  .shell caption {
+    display: block;
+    width: 100%;
+  }
+  .shell tbody tr {
+    position: relative;
+    border-bottom: 1px solid var(--bd);
+    padding: 8px 8px 8px 34px;
+    min-height: 44px;
+  }
+  .shell tbody tr:last-child {
+    border-bottom: 0;
+  }
+  .shell td {
+    height: auto;
+    border: 0;
+    padding: 0;
+  }
+  .shell td.n {
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    width: auto;
+  }
+  .shell tr.stuck td.n::before {
+    left: -6px;
+  }
+  .shell tr.picked td.n::after {
+    left: 0;
+    right: -10px;
+    bottom: -4px;
+  }
+  .shell td[data-label] + td[data-label] {
+    margin-top: 2px;
+  }
+  /* 둘째 줄: 눈금 · 판정 · 다음을 한 줄에 나란히 */
+  .shell td.num,
+  .shell td.verdict,
+  .shell td.next {
+    display: inline-block;
+    margin-right: 12px;
+    font-size: 12px;
+  }
+  .shell td.num {
+    text-align: left;
+  }
+}
