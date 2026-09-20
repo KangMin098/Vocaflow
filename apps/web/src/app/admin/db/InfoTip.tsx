@@ -50,7 +50,7 @@ export function InfoTip({ label, children }: { label: string; children: ReactNod
         onMouseLeave={() => setOpen(false)}
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
-        className="relative inline-flex h-[18px] w-[18px] items-center justify-center rounded-[var(--r-full)] after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 after:content-[''] text-[var(--t2)] transition-colors duration-[var(--dur-fast)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+        className="relative inline-flex h-[18px] w-[18px] items-center justify-center rounded-[var(--r-full)] after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 after:content-[''] text-[var(--t2)] transition-colors duration-[var(--dur-fast)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <HelpCircle size={13} strokeWidth={2} aria-hidden="true" />
       </button>

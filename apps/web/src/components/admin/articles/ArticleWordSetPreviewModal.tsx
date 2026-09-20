@@ -70,7 +70,7 @@ export function ArticleWordSetPreviewModal({ open, onClose, title, cefrLevel, wo
         <header className="flex items-start justify-between gap-3 border-b border-[var(--bd)] p-5">
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-baseline gap-2">
-              <span className="rounded-[var(--r-full)] bg-[#8B5CF6]/10 px-2 py-1 font-display text-[10px] font-[700] text-[#6D28D9]">
+              <span className="rounded-[var(--r-full)] bg-[var(--p)]/10 px-2 py-1 font-display text-[10px] font-[700] text-[var(--p-hover)]">
                 글 단어장
               </span>
               <h3 className="font-display text-[16px] font-[700] text-[var(--t1)]">{title}</h3>

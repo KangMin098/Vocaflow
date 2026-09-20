@@ -86,7 +86,7 @@ export function FreedomPanel({ view }: { view: FreedomView }) {
       {/* 두 수를 맨 위에 — 이 화면이 답하는 질문이 둘이기 때문이다. */}
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         <div className="flex items-start gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
-          <Layers size={15} strokeWidth={1.75} className="mt-0.5 shrink-0 text-[#8B5CF6]" aria-hidden />
+          <Layers size={15} strokeWidth={1.75} className="mt-0.5 shrink-0 text-[var(--p)]" aria-hidden />
           <div className="min-w-0">
             <p className="font-display text-[18px] font-[800] leading-none text-[var(--t1)]">
               {i.soloOk}
@@ -103,7 +103,7 @@ export function FreedomPanel({ view }: { view: FreedomView }) {
         </div>
 
         <div className="flex items-start gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
-          <BookOpen size={15} strokeWidth={1.75} className="mt-0.5 shrink-0 text-[#8B5CF6]" aria-hidden />
+          <BookOpen size={15} strokeWidth={1.75} className="mt-0.5 shrink-0 text-[var(--p)]" aria-hidden />
           <div className="min-w-0">
             <p className="font-display text-[18px] font-[800] leading-none text-[var(--t1)]">
               {i.mixVolumes}

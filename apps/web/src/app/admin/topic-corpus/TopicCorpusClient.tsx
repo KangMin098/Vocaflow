@@ -632,7 +632,7 @@ function ActionButton({
       className={[
         'inline-flex h-11 items-center gap-s-1 rounded-md border px-s-3 font-display text-[12px] font-semibold transition-all duration-normal',
         primary
-          ? 'border-p bg-p text-ti hover:bg-p-hover'
+          ? 'border-p bg-p text-[var(--on-p)] hover:bg-p-hover'
           : 'border-bd bg-bg text-t2 hover:border-p hover:text-p',
         'active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40',
       ].join(' ')}

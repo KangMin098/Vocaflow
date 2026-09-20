@@ -88,9 +88,9 @@ function Volume({
       onClick={onPick}
       aria-pressed={picked}
       title={`${v.title} — ${k.label}`}
-      className={`flex min-h-[44px] flex-col items-center justify-center gap-0.5 rounded-[var(--r-sm)] border px-1 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] ${
+      className={`flex min-h-[44px] flex-col items-center justify-center gap-0.5 rounded-[var(--r-sm)] border px-1 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
         picked
-          ? 'border-[#8B5CF6] bg-[#8B5CF6]/10'
+          ? 'border-[var(--p)] bg-[var(--p)]/10'
           : 'border-[var(--bd)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
       }`}
     >

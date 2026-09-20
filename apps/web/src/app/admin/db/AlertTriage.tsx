@@ -65,7 +65,7 @@ function StatusButtons({ id, status }: { id: number; status: string }) {
   }
 
   const btn =
-    'inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] active:scale-[0.98] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]'
+    'inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] active:scale-[0.98] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
 
   return (
     <span className="inline-flex flex-wrap items-center gap-1.5">
@@ -111,7 +111,7 @@ function CopySql({ sql }: { sql: string }) {
         }
       }}
       aria-live="polite"
-      className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+      className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <Copy size={11} strokeWidth={2} aria-hidden="true" />
       {copied ? '복사함' : 'SQL 복사'}
@@ -176,9 +176,9 @@ export function AlertTriage({
             type="button"
             aria-pressed={filter === f.key}
             onClick={() => setFilter(f.key)}
-            className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
+            className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
               filter === f.key
-                ? 'border-[#6D28D9] bg-[#8B5CF6]/10 text-[#6D28D9]'
+                ? 'border-[var(--p-hover)] bg-[var(--p)]/10 text-[var(--p-hover)]'
                 : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]'
             }`}
           >
@@ -195,7 +195,7 @@ export function AlertTriage({
               id="axis-filter"
               value={axis}
               onChange={(e) => setAxis(e.target.value)}
-              className="min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+              className="min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             >
               <option value="all">모든 축</option>
               {axes.map((a) => (
@@ -243,7 +243,7 @@ export function AlertTriage({
                         aria-expanded={isOpen}
                         aria-label={`${f.title} 자세히`}
                         onClick={() => setOpen(isOpen ? null : f.id)}
-                        className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-fast)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                        className="inline-flex h-[44px] w-[44px] items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-fast)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                       >
                         <ChevronRight
                           size={14}
@@ -270,7 +270,7 @@ export function AlertTriage({
                       <button
                         type="button"
                         onClick={() => setOpen(isOpen ? null : f.id)}
-                        className="flex min-h-[44px] w-full items-center break-keep text-left font-display text-[12px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-fast)] ease-[var(--ease)] hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                        className="flex min-h-[44px] w-full items-center break-keep text-left font-display text-[12px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-fast)] ease-[var(--ease)] hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                       >
                         {f.title}
                       </button>

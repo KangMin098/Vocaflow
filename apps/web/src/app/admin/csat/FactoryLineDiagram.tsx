@@ -84,7 +84,7 @@ export function FactoryLineDiagram({ stages, selectedId, onSelect, bottleneckOrd
           aria-hidden
         >
           <div
-            className="rounded-t-[var(--r-sm)] border-b-2 border-[#8B5CF6]/40 pb-1 text-center font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[#8B5CF6]"
+            className="rounded-t-[var(--r-sm)] border-b-2 border-[var(--p)]/40 pb-1 text-center font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]"
             style={{ gridColumn: `span ${labCount}` }}
           >
             {LANE_LABEL.lab}
@@ -127,9 +127,9 @@ export function FactoryLineDiagram({ stages, selectedId, onSelect, bottleneckOrd
                   onClick={() => onSelect(s.def.id)}
                   aria-current={on ? 'true' : undefined}
                   aria-label={`${s.def.ord}. ${s.def.name} — ${st.label}${isBottleneck ? ' · 지금 라인을 막고 있다' : ''}`}
-                  className={`relative z-10 flex min-h-[44px] w-full flex-col items-center gap-1 rounded-[var(--r-md)] border bg-[var(--bg)] px-1 py-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] ${
+                  className={`relative z-10 flex min-h-[44px] w-full flex-col items-center gap-1 rounded-[var(--r-md)] border bg-[var(--bg)] px-1 py-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
                     on
-                      ? 'border-[#8B5CF6] bg-[#8B5CF6]/8'
+                      ? 'border-[var(--p)] bg-[var(--p)]/8'
                       : 'border-[var(--bd)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
                   }`}
                 >

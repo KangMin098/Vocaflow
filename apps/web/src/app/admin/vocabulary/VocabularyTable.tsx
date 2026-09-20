@@ -20,7 +20,7 @@ const CEFR_COLOR: Record<string, string> = {
   A2: '#22C55E',
   B1: '#3B82F6',
   B2: '#1D4ED8',
-  C1: '#7C3AED',
+  C1: 'var(--p-hover)',
   C2: '#581C87',
 }
 
@@ -107,8 +107,8 @@ export function VocabularyTable({
                   tabIndex={0}
                   role="button"
                   aria-pressed={isSelected}
-                  className={`cursor-pointer border-b border-[var(--bd)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40 ${
-                    isSelected ? 'bg-[#8B5CF61A]' : ''
+                  className={`cursor-pointer border-b border-[var(--bd)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/40 ${
+                    isSelected ? 'bg-[var(--p-light)]' : ''
                   }`}
                 >
                   <td className="px-3 py-2">
@@ -151,7 +151,7 @@ export function VocabularyTable({
                       <span
                         className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700] ${
                           reclassified
-                            ? 'bg-[#8B5CF61A] text-[#8B5CF6]'
+                            ? 'bg-[var(--p-light)] text-[var(--p)]'
                             : 'bg-[var(--bg3)] text-[var(--t2)]'
                         }`}
                         title={

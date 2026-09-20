@@ -105,7 +105,7 @@ export function StoryWeaverIdTab({ onPickPreview }: StoryWeaverIdTabProps) {
             disabled={isLoading || !idInput.trim()}
             className={[
               'min-h-[44px] inline-flex items-center justify-center gap-2 rounded-[var(--r-sm)] px-4',
-              'bg-[var(--p)] hover:bg-[var(--p-hover)] font-display text-[12px] font-[600] text-[var(--ti)]',
+              'bg-[var(--p)] hover:bg-[var(--p-hover)] font-display text-[12px] font-[600] text-[var(--on-p)]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2',
               'disabled:cursor-not-allowed disabled:opacity-50',

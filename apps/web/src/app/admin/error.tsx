@@ -42,7 +42,7 @@ export default function AdminError({
             <AlertTriangle size={16} strokeWidth={2} />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[#8B5CF6]">
+            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
               Admin Console
             </p>
             <h1 className="font-display text-[20px] font-[800] tracking-tight text-[var(--t1)]">
@@ -64,14 +64,14 @@ export default function AdminError({
           <button
             type="button"
             onClick={reset}
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7C3AED] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] disabled:opacity-50"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:opacity-50"
           >
             <RotateCw size={14} strokeWidth={2} aria-hidden />
             다시 시도
           </button>
           <Link
             href="/admin"
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
             <ArrowLeft size={14} strokeWidth={2} aria-hidden />
             대시보드로

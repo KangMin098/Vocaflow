@@ -63,7 +63,7 @@ function CommandRow({ cmd, why, claudeCode }: { cmd: string; why: string; claude
             )
           }}
           aria-label={`명령 복사: ${cmd}`}
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] active:bg-[var(--bd)]"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)]"
         >
           {copied ? (
             <ClipboardCheck size={15} strokeWidth={1.75} className="text-[#2E7D5A]" aria-hidden />
@@ -74,7 +74,7 @@ function CommandRow({ cmd, why, claudeCode }: { cmd: string; why: string; claude
       </div>
       <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
         {claudeCode ? (
-          <span className="bg-[#8B5CF6]/12 mr-1 inline-flex items-center gap-0.5 rounded px-1 py-0.5 text-[10px] font-[600] text-[#8B5CF6]">
+          <span className="bg-[var(--p)]/12 mr-1 inline-flex items-center gap-0.5 rounded px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
             <Sparkles size={10} strokeWidth={2} aria-hidden />
             Claude Code
           </span>
@@ -166,9 +166,9 @@ export function OrderWizard({
                 disabled={!reachable}
                 onClick={() => setAt(i)}
                 aria-current={here ? 'step' : undefined}
-                className={`flex min-h-[44px] w-full items-center gap-2 rounded-[var(--r-md)] border px-2.5 py-2 text-left font-display text-[12.5px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] ${
+                className={`flex min-h-[44px] w-full items-center gap-2 rounded-[var(--r-md)] border px-2.5 py-2 text-left font-display text-[12.5px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
                   here
-                    ? 'bg-[#8B5CF6]/8 border-[#8B5CF6] font-[700] text-[var(--t1)]'
+                    ? 'bg-[var(--p)]/8 border-[var(--p)] font-[700] text-[var(--t1)]'
                     : reachable
                       ? 'border-[var(--bd)] bg-[var(--bg)] font-[500] text-[var(--t2)] hover:bg-[var(--bg2)]'
                       : 'cursor-not-allowed border-dashed border-[var(--bd)] bg-transparent font-[500] text-[var(--t3)]'
@@ -215,9 +215,9 @@ export function OrderWizard({
                             setPick(key)
                             setAt(1)
                           }}
-                          className={`flex min-h-[44px] flex-col justify-center rounded-[var(--r-sm)] border px-2.5 py-1.5 text-left transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] ${
+                          className={`flex min-h-[44px] flex-col justify-center rounded-[var(--r-sm)] border px-2.5 py-1.5 text-left transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
                             pick === key
-                              ? 'bg-[#8B5CF6]/8 border-[#8B5CF6]'
+                              ? 'bg-[var(--p)]/8 border-[var(--p)]'
                               : 'border-[var(--bd)] bg-[var(--bg2)] hover:bg-[var(--bg3)]'
                           }`}
                         >
@@ -332,7 +332,7 @@ export function OrderWizard({
           <button
             type="button"
             onClick={() => setAt(2)}
-            className="bg-[#8B5CF6]/8 hover:bg-[#8B5CF6]/16 min-h-[44px] w-fit rounded-[var(--r-md)] border border-[#8B5CF6] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+            className="bg-[var(--p)]/8 hover:bg-[var(--p)]/16 min-h-[44px] w-fit rounded-[var(--r-md)] border border-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
             규격 보기
           </button>
@@ -372,7 +372,7 @@ export function OrderWizard({
           <button
             type="button"
             onClick={() => setAt(3)}
-            className="bg-[#8B5CF6]/8 hover:bg-[#8B5CF6]/16 min-h-[44px] w-fit rounded-[var(--r-md)] border border-[#8B5CF6] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+            className="bg-[var(--p)]/8 hover:bg-[var(--p)]/16 min-h-[44px] w-fit rounded-[var(--r-md)] border border-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
             발주 확인
           </button>

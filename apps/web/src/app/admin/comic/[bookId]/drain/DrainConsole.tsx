@@ -10,7 +10,7 @@ import { ArrowLeft, CircleCheck, CircleSlash, Clock, Cpu, Loader2, RefreshCw, Wr
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { ComicDrainSubject, DrainRun, PanelEvent } from '@/lib/comic/admin-queries'
 
-const ACCENT = '#8B5CF6'
+const ACCENT = 'var(--p)'
 const STATUS_TONE: Record<string, string> = {
   pass: 'var(--memory-stable)', fail: 'var(--memory-risk)', repairing: 'var(--memory-shaky)',
   pending: 'var(--t4)', skipped: 'var(--t3)',

@@ -68,7 +68,7 @@ export function TextbookProductionPanel({ report }: { report: ProductionReport }
         {/* ① 지금 누구 차례인가 — 이 화면에서 가장 중요한 한 줄 */}
         {report.turnStage && TurnIcon ? (
           <p className="flex items-center gap-1.5 font-body text-[12px] text-[var(--t2)]">
-            <TurnIcon size={13} strokeWidth={1.75} className="text-[#8B5CF6]" aria-hidden />
+            <TurnIcon size={13} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
             <span className="font-display font-[700] text-[var(--t1)]">
               {ACTOR_LABEL[report.turnStage.actor]} 차례
             </span>

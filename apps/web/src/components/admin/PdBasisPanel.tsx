@@ -18,7 +18,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { PD_BASIS_CHOICES, defaultPdBasis, type PdBasisSpec } from '@/lib/pd-comic/model'
 
-const ACCENT = '#8B5CF6'
+const ACCENT = 'var(--p)'
 
 interface Lookup { label: string; note: string; url: string }
 interface IssueRow {

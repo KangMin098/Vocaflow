@@ -20,13 +20,13 @@ export function AdminPageHeader({
   return (
     <header className="mb-6 flex flex-wrap items-center gap-3">
       <span
-        className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A78BFA] to-[#8B5CF6] text-white shadow-[0_1px_4px_rgba(139,92,246,0.18)]"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p-light)] to-[var(--p)] text-white shadow-[0_1px_4px_rgba(139,92,246,0.18)]"
         aria-hidden
       >
         <Icon size={16} strokeWidth={2} />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[#8B5CF6]">
+        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
           Admin Console
         </p>
         <h1 className="font-display text-[22px] font-[800] tracking-tight text-[var(--t1)]">

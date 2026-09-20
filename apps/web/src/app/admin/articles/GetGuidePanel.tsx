@@ -89,7 +89,7 @@ export function GetGuidePanel({ coverage, feedHealth, level, onLevel, onPickSour
                     'inline-flex min-h-[44px] items-center rounded-[var(--r-full)] px-3 font-display text-[11px] font-[600]',
                     'transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
                     active
-                      ? 'bg-[var(--p)] text-[var(--ti)]'
+                      ? 'bg-[var(--p)] text-[var(--on-p)]'
                       : 'border border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)]',
                   ].join(' ')}
                 >

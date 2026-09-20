@@ -94,7 +94,7 @@ function RankRibbon({ rank, isPrimary }: { rank: number; isPrimary: boolean }) {
         'rounded-br-[var(--r-md)]',
         'font-mono text-[10px] font-[700]',
         isPrimary
-          ? 'bg-[var(--p)] text-[var(--ti)]'
+          ? 'bg-[var(--p)] text-[var(--on-p)]'
           : 'bg-[var(--bg2)] text-[var(--t2)]',
       ].join(' ')}
       aria-label={`종합 점수 순위 ${rank}위`}

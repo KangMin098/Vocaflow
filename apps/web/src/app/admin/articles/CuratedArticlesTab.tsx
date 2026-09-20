@@ -943,7 +943,7 @@ function ActionBtn({
 }) {
   const cls =
     tone === 'primary'
-      ? 'bg-[var(--p)] hover:bg-[var(--p-hover)] text-[var(--ti)]'
+      ? 'bg-[var(--p)] hover:bg-[var(--p-hover)] text-[var(--on-p)]'
       : tone === 'success'
         ? 'bg-[var(--learn-known)] hover:opacity-90 text-white'
         : tone === 'danger'

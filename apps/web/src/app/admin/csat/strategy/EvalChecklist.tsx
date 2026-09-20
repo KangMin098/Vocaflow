@@ -94,7 +94,7 @@ export function EvalChecklist({ dimensions }: { dimensions: readonly EvalDimensi
         근거(시중은 어떻게 하나 · 우리는 · 어떻게 쟀나)는 그것을 의심할 때만 필요하다.
       */}
       <details className="group">
-        <summary className="flex min-h-[44px] cursor-pointer list-none items-center font-display text-[11.5px] font-[600] text-[#8B5CF6] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#A78BFA] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]">
+        <summary className="flex min-h-[44px] cursor-pointer list-none items-center font-display text-[11.5px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--p-light)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
           {dimensions.length}축 전부 — 무엇을 어떻게 쟀나
         </summary>
         <div className="mt-1 flex flex-col gap-3">

@@ -191,7 +191,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
     <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <h2 className="inline-flex items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
-          <Activity size={15} className="text-[#8B5CF6]" aria-hidden="true" />
+          <Activity size={15} className="text-[var(--p)]" aria-hidden="true" />
           지금
           <span className="font-mono text-[11px] font-[500] text-[var(--t2)]">
             {live ? `${ageS}초 전 값` : '값 없음'}
@@ -202,7 +202,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
             type="button"
             onClick={() => setAuto((v) => !v)}
             aria-pressed={auto}
-            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             {auto ? (
               <Pause size={11} strokeWidth={2.5} aria-hidden="true" />
@@ -215,7 +215,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
             type="button"
             onClick={() => void pull()}
             disabled={busy}
-            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[#8B5CF6]/40 bg-[#8B5CF6]/8 px-2.5 py-1 font-display text-[11px] font-[600] text-[#6D28D9] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#8B5CF6]/15 active:scale-[0.98] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)]/40 bg-[var(--p)]/8 px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--p-hover)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)]/15 active:scale-[0.98] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <RefreshCw
               size={11}
@@ -308,7 +308,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
           type="button"
           aria-expanded={openDetail}
           onClick={() => setOpenDetail((v) => !v)}
-          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {openDetail ? '세부 접기' : '세부 펴기'}
           <span className="font-mono text-[10px]">

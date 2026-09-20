@@ -47,7 +47,7 @@ function CopyCommand({ command }: { command: string }) {
           .catch(() => setCopied(false))
       }}
       aria-label={`명령 복사: ${command}`}
-      className="inline-flex min-h-[44px] items-center gap-1.5 self-start rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[10px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] active:bg-[var(--bd)]"
+      className="inline-flex min-h-[44px] items-center gap-1.5 self-start rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[10px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)]"
     >
       {/* 아이콘 없이 글자로 — 복사됨을 색만으로 말하지 않는다. */}
       {copied ? '복사됨' : '명령 복사'}

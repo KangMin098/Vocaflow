@@ -889,4 +889,4 @@ const selectCls =
 const filterCls =
   'h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)]'
 const primaryBtn =
-  'inline-flex h-11 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50'
+  'inline-flex h-11 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[12px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50'

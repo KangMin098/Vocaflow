@@ -28,7 +28,7 @@ import {
   type PdPanelAdmin,
 } from '@/lib/pd-comic/model'
 
-const ACCENT = '#8B5CF6'
+const ACCENT = 'var(--p)'
 
 /**
  * 되돌릴 수 없는 동작 앞에 세우는 확인 — **무엇이 왜 비가역인지 문구에 적는다.**
@@ -1539,7 +1539,7 @@ function ModernizationMethods() {
       <button type="button" onClick={() => setOpen((v) => !v)} className="flex w-full items-center gap-2 px-3 py-3 text-left">
         <span className="font-display text-[12.5px] font-[800] text-[var(--t1)]">현대화 방법 (2트랙)</span>
         <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>기본 · 작화 보존</span>
-        <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: '#8B5CF6', background: '#8B5CF618' }}>선택 · AI 리스타일</span>
+        <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: 'var(--p)', background: 'var(--p-light)' }}>선택 · AI 리스타일</span>
         <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">{open ? '▾' : '▸'}</span>
       </button>
       {open && (
@@ -1576,7 +1576,7 @@ const OP_META: Record<OpStep['action'], { label: string; color: string; bg: stri
   adopt: { label: '채택', color: '#2E7D5A', bg: '#2E7D5A18' },
   reject: { label: '반려', color: '#9C3A30', bg: '#9C3A3018' },
   improve: { label: '개선', color: '#B5803A', bg: '#B5803A18' },
-  pivot: { label: '피벗', color: '#8B5CF6', bg: '#8B5CF618' },
+  pivot: { label: '피벗', color: 'var(--p)', bg: 'var(--p-light)' },
   evaluate: { label: '평가', color: '#5B6470', bg: '#5B647018' },
   note: { label: '메모', color: '#8A8278', bg: '#8A827818' },
 }

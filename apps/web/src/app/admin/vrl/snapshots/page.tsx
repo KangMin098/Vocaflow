@@ -44,7 +44,7 @@ async function Content() {
 
 const TYPE_BADGE: Record<string, { color: string; bg: string }> = {
   initial: { color: 'var(--t3)', bg: 'var(--bg3)' },
-  level_change: { color: '#8B5CF6', bg: '#8B5CF61A' },
+  level_change: { color: 'var(--p)', bg: 'var(--p-light)' },
   scheduled: { color: 'var(--info)', bg: 'var(--info-light)' },
   manual: { color: 'var(--active)', bg: 'var(--warning-light)' },
   reset: { color: 'var(--error)', bg: 'var(--error-light)' },
@@ -52,7 +52,7 @@ const TYPE_BADGE: Record<string, { color: string; bg: string }> = {
 
 const TRIGGER_BADGE: Record<string, string> = {
   api: 'var(--info)',
-  cron: '#8B5CF6',
+  cron: 'var(--p)',
   admin: 'var(--error)',
   system: 'var(--t3)',
   internal: 'var(--active)',

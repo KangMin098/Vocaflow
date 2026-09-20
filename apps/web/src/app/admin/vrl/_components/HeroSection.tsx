@@ -65,13 +65,13 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
   return (
     <section
       aria-label="사전 데이터 품질 종합"
-      className="from-[#8B5CF6]/8 relative overflow-hidden rounded-[var(--r-xl)] border border-[#8B5CF6]/20 bg-gradient-to-br via-[var(--bg)] to-[var(--bg)] p-6 shadow-[var(--sh-sm)]"
+      className="from-[var(--p)]/8 relative overflow-hidden rounded-[var(--r-xl)] border border-[var(--p)]/20 bg-gradient-to-br via-[var(--bg)] to-[var(--bg)] p-6 shadow-[var(--sh-sm)]"
     >
       {/* ── 헤더 ── */}
       <header className="mb-4 flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <span
-            className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#8B5CF6] to-[#6D28D9] text-white shadow-[var(--sh-sm)]"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p)] to-[var(--p-hover)] text-[var(--on-p)] shadow-[var(--sh-sm)]"
             aria-hidden
           >
             <Activity size={18} strokeWidth={1.75} />
@@ -84,7 +84,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
                 취향 문제가 아니라 길을 잃게 만드는 결함이다.
                 여기는 VRL 파이프라인(어휘 레벨)이 만든 **사전 데이터의 품질**을 본다.
                 회귀 `components/admin/__tests__/sidebar-screen-titles.test.tsx`. */}
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[#8B5CF6]">
+            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--p)]">
               VRL Pipeline
             </p>
             <h2 className="font-display text-[22px] font-[800] leading-tight text-[var(--t1)]">
@@ -226,7 +226,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
 
       {/* 장식: 우상단 광택 */}
       <div
-        className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[#8B5CF6]/10 blur-2xl"
+        className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[var(--p)]/10 blur-2xl"
         aria-hidden
       />
     </section>

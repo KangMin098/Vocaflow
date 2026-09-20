@@ -1465,7 +1465,7 @@ function CurationWorkflowGuide({
                 className={[
                   'min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)]',
                   isCurrent
-                    ? 'bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
+                    ? 'bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-sm)]'
                     : s.count > 0
                       ? 'bg-[var(--bg)] text-[var(--t1)] ring-1 ring-[var(--bd)] hover:ring-[var(--p)]'
                       : 'bg-transparent text-[var(--t2)] hover:text-[var(--t2)]',

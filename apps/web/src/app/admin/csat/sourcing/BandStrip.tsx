@@ -66,7 +66,7 @@ export function BandStrip({ bands }: { bands: BandStock[] }) {
             st === 'blocked'
               ? 'border-dashed border-[#9C3A30]'
               : st === 'audio'
-                ? 'border-dashed border-[#8B5CF6]'
+                ? 'border-dashed border-[var(--p)]'
                 : st === 'ungated'
                   ? 'border-[var(--bd)] opacity-60'
                   : 'border-[var(--bd)]'
@@ -85,7 +85,7 @@ export function BandStrip({ bands }: { bands: BandStock[] }) {
                   className="w-full rounded-[var(--r-sm)] transition-[height] duration-[var(--dur-normal)] ease-[var(--ease)]"
                   style={{
                     height: `${b.n === 0 ? 0 : Math.max(fill, 6)}%`,
-                    background: st === 'audio' ? '#8B5CF6' : '#2E7D5A',
+                    background: st === 'audio' ? 'var(--p)' : '#2E7D5A',
                   }}
                   aria-hidden
                 />

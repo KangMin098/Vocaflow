@@ -60,7 +60,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
         <header className="flex items-start justify-between gap-3 border-b border-[var(--bd)] p-5">
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-baseline gap-2">
-              <span className="rounded-[var(--r-full)] bg-[#8B5CF6]/10 px-2 py-1 font-display text-[10px] font-[700] text-[#6D28D9]">
+              <span className="rounded-[var(--r-full)] bg-[var(--p)]/10 px-2 py-1 font-display text-[10px] font-[700] text-[var(--p-hover)]">
                 Ch.{chapter.chapterIdx}
               </span>
               <h3 className="font-display text-[16px] font-[700] text-[var(--t1)]">
@@ -85,7 +85,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
             type="button"
             onClick={onClose}
             aria-label="닫기"
-            className="grid h-11 w-11 shrink-0 place-items-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <X size={18} aria-hidden />
           </button>
@@ -101,7 +101,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                 className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4"
               >
                 <div className="mb-2 flex items-center gap-2">
-                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-[var(--r-full)] bg-[#8B5CF6]/10 font-display text-[11px] font-[700] tabular-nums text-[#6D28D9]">
+                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-[var(--r-full)] bg-[var(--p)]/10 font-display text-[11px] font-[700] tabular-nums text-[var(--p-hover)]">
                     {q.qOrder}
                   </span>
                   <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--t2)]">

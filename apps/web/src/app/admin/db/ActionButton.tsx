@@ -26,7 +26,7 @@ import { ACTION_CATALOG } from '@/lib/admin/db-health/types'
 import type { ActionKey, ActionResult } from '@/lib/admin/db-health/types'
 
 const BASE =
-  'inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border px-2.5 py-1 font-display text-[11px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50'
+  'inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border px-2.5 py-1 font-display text-[11px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50'
 
 const SKIN = {
   safe: 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]',
@@ -94,7 +94,7 @@ export function ActionButton({
           autoFocus
           onChange={(e) => setReason(e.target.value)}
           placeholder="사유 (5자 이상)"
-          className="min-h-[44px] w-[180px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[11px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+          className="min-h-[44px] w-[180px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[11px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         />
         <button
           type="button"

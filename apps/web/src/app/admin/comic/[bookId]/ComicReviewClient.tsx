@@ -18,7 +18,7 @@ import {
   archiveComicAction, deleteComicAction, enqueueComicJobsAction, setBookStyleAction, setComicPublishedAction,
 } from '../actions'
 
-const ACCENT = '#8B5CF6'
+const ACCENT = 'var(--p)'
 const STAGE_FLOW: ComicStage[] = ['queued', 'generating', 'review', 'published']
 const STAGE_HINT: Record<ComicStage, string> = {
   none: '아직 만화가 없습니다. Comic Pipeline(Catalog)에서 이 도서를 "만화 생성 큐"에 적재하세요.',

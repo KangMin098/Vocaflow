@@ -207,7 +207,7 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
                   <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t1)]">
                     {g.metric === 'wpm' ? g.threshold : `${Math.round(g.threshold * 100)}%`}
                     {g.isLocked ? (
-                      <Lock size={11} strokeWidth={2} className="ml-1 inline text-[#8B5CF6]" aria-label="잠김" />
+                      <Lock size={11} strokeWidth={2} className="ml-1 inline text-[var(--p)]" aria-label="잠김" />
                     ) : null}
                   </td>
                   <td className="break-keep py-1.5 text-[var(--t3)]">{g.note ?? '—'}</td>

@@ -356,7 +356,7 @@ export default async function AdminDashboardPage() {
       label: '오늘 학습자',
       value: fmt(stats.learners.activeToday),
       icon: Users,
-      accent: '#8B5CF6',
+      accent: 'var(--p)',
       bg: '#F5F3FF',
       hint: `가입 ${fmt(stats.learners.total)}명 · 학습 텍스트 ${fmt(stats.texts)}편`,
     },
@@ -376,13 +376,13 @@ export default async function AdminDashboardPage() {
       {/* ── 헤더 ── */}
       <header className="mb-8 flex items-center gap-3">
         <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#8B5CF6] to-[#6D28D9] text-white shadow-[0_2px_6px_rgba(139,92,246,0.30)]"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p)] to-[var(--p-hover)] text-[var(--on-p)] shadow-[0_2px_6px_rgba(139,92,246,0.30)]"
           aria-hidden="true"
         >
           <ShieldCheck size={16} strokeWidth={2} />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[#8B5CF6]">
+          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
             Admin Console
           </p>
           <h1 className="font-display text-[24px] font-[800] tracking-tight text-[var(--t1)]">
@@ -442,10 +442,10 @@ export default async function AdminDashboardPage() {
             <li key={p.label}>
               <Link
                 href={p.href}
-                className="group flex h-full items-start gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[#8B5CF6]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 active:translate-y-0"
+                className="group flex h-full items-start gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 active:translate-y-0"
               >
                 <span
-                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[#8B5CF6]/10 group-hover:text-[#8B5CF6]"
+                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p)]/10 group-hover:text-[var(--p)]"
                   aria-hidden="true"
                 >
                   <p.Icon size={16} strokeWidth={1.75} />
@@ -492,10 +492,10 @@ export default async function AdminDashboardPage() {
             <li key={o.href}>
               <Link
                 href={o.href}
-                className="group flex h-full items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:border-[#8B5CF6]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1"
+                className="group flex h-full items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
               >
                 <span
-                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg2)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[#8B5CF6]/10 group-hover:text-[#8B5CF6]"
+                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg2)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p)]/10 group-hover:text-[var(--p)]"
                   aria-hidden="true"
                 >
                   <o.Icon size={15} strokeWidth={1.75} />
@@ -557,7 +557,7 @@ export default async function AdminDashboardPage() {
               <li key={`${e.kind}-${e.href}-${e.at}`}>
                 <Link
                   href={e.href}
-                  className="group flex items-center gap-3 py-3 transition-opacity duration-[var(--dur-normal)] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                  className="group flex items-center gap-3 py-3 transition-opacity duration-[var(--dur-normal)] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                 >
                   <span
                     className="inline-flex w-[68px] shrink-0 justify-center rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.04em]"

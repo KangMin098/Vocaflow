@@ -34,7 +34,7 @@ export function ChapterQuizAdminSection({ chapters, totalChapters, job }: Props)
     <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
       <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <ListChecks size={16} className="text-[#8B5CF6]" aria-hidden />
+          <ListChecks size={16} className="text-[var(--p)]" aria-hidden />
           <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
             챕터 퀴즈 검수
           </h2>
@@ -120,7 +120,7 @@ export function ChapterQuizAdminSection({ chapters, totalChapters, job }: Props)
                           setSelected(c)
                         }
                       }}
-                      className={`cursor-pointer border-b border-[var(--bd)]/40 transition-colors hover:bg-[var(--bg2)] focus-visible:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
+                      className={`cursor-pointer border-b border-[var(--bd)]/40 transition-colors hover:bg-[var(--bg2)] focus-visible:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                         isLow ? 'bg-[var(--warning-light)]/50' : ''
                       }`}
                     >
@@ -136,7 +136,7 @@ export function ChapterQuizAdminSection({ chapters, totalChapters, job }: Props)
                         {c.questions.length}
                       </td>
                       <td className="py-2 pr-3">
-                        <span className="inline-flex items-center gap-1 text-[#6D28D9]">
+                        <span className="inline-flex items-center gap-1 text-[var(--p-hover)]">
                           <ListChecks size={11} aria-hidden />
                           미리보기
                         </span>

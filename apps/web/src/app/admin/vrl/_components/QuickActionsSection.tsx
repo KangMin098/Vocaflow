@@ -110,7 +110,7 @@ export function QuickActionsSection({
       <header className="flex items-center gap-3">
         <span
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
-          style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
+          style={{ backgroundColor: 'var(--p-light)', color: 'var(--p)' }}
           aria-hidden
         >
           <Zap size={17} strokeWidth={1.75} />

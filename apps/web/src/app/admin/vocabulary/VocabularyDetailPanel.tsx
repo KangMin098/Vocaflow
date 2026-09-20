@@ -44,7 +44,7 @@ export function VocabularyDetailPanel({ detail, onClose }: VocabularyDetailPanel
       {/* ── 헤더 ── */}
       <header className="flex items-start justify-between gap-2 border-b border-[var(--bd)] pb-3">
         <div className="min-w-0 flex-1">
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.08em] text-[#8B5CF6]">
+          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
             {detail.primary_pos ?? detail.pos}
             {detail.lemma_band ? ` · band ${detail.lemma_band}` : ''}
           </p>
@@ -315,7 +315,7 @@ function DimCell({
   return (
     <div
       className={`rounded-[var(--r-md)] border p-2 ${
-        changed ? 'border-[#8B5CF6]/40 bg-[#8B5CF61A]' : 'border-[var(--bd)] bg-[var(--bg2)]'
+        changed ? 'border-[var(--p)]/40 bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
       <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
@@ -327,7 +327,7 @@ function DimCell({
       {ruleV1 && (
         <p className="mt-0.5 font-mono text-[9px] text-[var(--t2)]">
           rule_v1: {ruleV1}
-          {changed && <span className="ml-1 text-[#8B5CF6]">↻</span>}
+          {changed && <span className="ml-1 text-[var(--p)]">↻</span>}
         </p>
       )}
       {extra && <p className="font-mono text-[9px] text-[var(--t2)]">{extra}</p>}
@@ -351,7 +351,7 @@ function JsonbCell({
   return (
     <div
       className={`rounded-[var(--r-md)] border p-2 ${
-        changed ? 'border-[#8B5CF6]/40 bg-[#8B5CF61A]' : 'border-[var(--bd)] bg-[var(--bg2)]'
+        changed ? 'border-[var(--p)]/40 bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
       <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
