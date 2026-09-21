@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **참조 사이트 심층 분석 + 삽화 22점**(DD-68): `scripts/design/extract-components.mjs`(33페이지 스타일시트 42 → 컴포넌트 이름 313 · DOM 실재 156, 계열 13 · 상호작용 상태 선택자 · 크기 · 서체 — `refs/tines/components-*`), `scripts/design/extract-interactions.mjs`(메가메뉴 · 검색 모달 · 쿠키 설정 · 탭 전환 · 영상 · 문의 폼 · 모바일 하위 메뉴 · 404 등 10 기록 — `refs/tines/interactions-*`, 스크린샷은 tmp). `tines-mapping.md` §7 부품 단위 · §8 전체 라우트 약 170 · §9 삽화 배정 · §10 상호작용 · §11 색 구성 실측(우리는 진한 보라 면이 많고 틴트 면이 거의 없다 — 소개 틴트 0.9% ↔ 3B 52.3%). 삽화 생성기에 카드 머리 · 패턴 화풍 추가, 장면 7 · 소품 11 · 카드 머리 2 · 패턴 2 생성(무료 Qwen).
+
 - **`/fit` 을 참조 도구 화면 골격으로**(DD-68): 왼쪽 정렬 64px 제목 · 점 격자 무대(P22) 위 액자 속 진단 도구 · 「이럴 때 씁니다」 FAQ 펼침(P9, 구조화 데이터와 같은 `QUESTIONS`) · 근거 카드. 진단 도구(`PublicFitClient`)·문구·DB 실측 수치는 무변경.
 
 - **소개 · 요금제를 참조 골격으로**(DD-68 · tines-mapping §5-3): 구간 부품 `components/marketing/sections`(Hero2Col · Frame · SectionHead · PurplePanel · ToneCards · Bento · Faq — 서버 컴포넌트, FAQ 는 `<details>`). `/about` = 제품 페이지 흐름(2열 히어로+영상 액자 · 영상 3열 · 보라 통판 · 학습 과학 벤토 · 색면 모듈 카드 · 약속). **사실 정정**: 모듈 설명의 「SM-2 간격 반복」을 실제 스케줄러인 FSRS 로. `/pricing` = 보라 전면 + 요금 카드 3 · 차별점 · 영상 · FAQ — 문구·데이터·정직성 회귀는 그대로. 두 화면의 끝 CTA 는 레이아웃이 맡는다.

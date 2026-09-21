@@ -39,6 +39,8 @@ const ENDPOINT = 'https://dashscope-intl.aliyuncs.com/api/v1/services/aigc/multi
 const PALETTE = 'lavender #c3b5ff, violet #714bd0, deep purple #542f9c, pink #ff87c8, mint green #91d1af, peach #ffbc8a, butter yellow #ffd88c'
 const STYLE_DENSE = `Flat vector illustration, extremely dense decorative floral pattern: hundreds of small stylized flowers, daisies, tulips, leaves and buds packed tightly with no empty space, bold uniform dark purple outlines of equal weight, limited flat palette of ${PALETTE} on a plain cream background #fcf9f5, playful retro screen-print style, crisp shapes, no gradients, no shading, no texture, no text, no letters, no numbers, no watermark`
 const STYLE_SPOT = `Flat vector spot illustration of a single object centered on a plain cream background #fcf9f5 with generous empty margin, a small cluster of stylized flowers and leaves at its base, bold uniform dark purple outlines of equal weight, limited flat palette of ${PALETTE}, playful retro screen-print style, crisp shapes, no gradients, no shading, no texture, no text, no letters, no numbers, no watermark`
+const STYLE_HEADER = `Flat vector illustration filling the whole frame edge to edge, a single clear subject surrounded by densely packed stylized flowers and leaves, bold uniform dark purple outlines of equal weight, limited flat palette of ${PALETTE} with a lavender #ece8fd background, playful retro screen-print style, crisp shapes, no gradients, no shading, no texture, no text, no letters, no numbers, no watermark`
+const STYLE_PATTERN = `Seamless symmetrical kaleidoscope pattern filling the whole square: concentric wavy outlines and stylized flower rosettes radiating from the centre, thin uniform lines in ${PALETTE} on a pale lavender #f5f2fb ground, flat vector, no gradients, no shading, no text, no letters, no watermark`
 const NEG = 'text, letters, words, numbers, watermark, logo, signature, gradient, shading, 3d render, photo, realistic, blurry, noise, grain, frame, border'
 
 /** 장면 — id · 크기(Qwen 지원 비율) · 화풍 · 장면 문장. */
@@ -57,6 +59,33 @@ const SCENES = [
     scene: 'A pair of retro over-ear headphones whose cable curls into a vine with small leaves.' },
   { id: 'spot-comic', size: '1328*1328', style: STYLE_SPOT,
     scene: 'A small stack of vintage comic books with blank covers, a round paintbrush resting on top with a drop of fresh paint.' },
+  // ── 2회차(2026-09-21) — 매핑 §2 · §5 가 필요로 하는 자리 ──
+  // 장면(폭 전체)
+  { id: 'scene-library', size: '1664*928', style: STYLE_DENSE, scene: 'A tall wooden bookshelf overflowing with books, flowers and vines growing out between the books and spilling onto the floor.' },
+  { id: 'scene-comics', size: '1664*928', style: STYLE_DENSE, scene: 'A spread of vintage comic book pages with empty panels and blank speech bubbles, a paintbrush and paint pots, floral vines curling through the panels.' },
+  { id: 'scene-csat', size: '1664*928', style: STYLE_DENSE, scene: 'A school exam desk seen from above: a blank answer sheet with empty bubble rows, two pencils, an eraser and a round clock, a border of dense flowers around the desk.' },
+  { id: 'scene-teacher', size: '1664*928', style: STYLE_DENSE, scene: 'A friendly classroom: a blank chalkboard, a teacher desk with a stack of notebooks and an apple, small student desks, potted flowers on every windowsill.' },
+  { id: 'scene-video', size: '1664*928', style: STYLE_DENSE, scene: 'A vintage film projector casting a beam, its film strip unspooling into a river of flowers.' },
+  { id: 'scene-404', size: '1664*928', style: STYLE_DENSE, scene: 'A wooden signpost with several blank arrow signs pointing in different directions, standing in a dense flower meadow.' },
+  { id: 'scene-hub', size: '1664*928', style: STYLE_DENSE, scene: 'A cozy reading desk with a desk lamp, an open notebook, a mug and a small stack of books, surrounded by dense potted flowers.' },
+  // 소품(카드 구석)
+  { id: 'spot-flashcard', size: '1328*1328', style: STYLE_SPOT, scene: 'A small stack of blank index cards, the top card mid-flip.' },
+  { id: 'spot-spellforge', size: '1328*1328', style: STYLE_SPOT, scene: 'A small blacksmith anvil with blank square letter tiles on it and a little hammer.' },
+  { id: 'spot-wordblitz', size: '1328*1328', style: STYLE_SPOT, scene: 'A retro stopwatch with a lightning bolt shape on its face.' },
+  { id: 'spot-pairflip', size: '1328*1328', style: STYLE_SPOT, scene: 'Two matching blank playing cards lying face up side by side, a third card face down.' },
+  { id: 'spot-echomatch', size: '1328*1328', style: STYLE_SPOT, scene: 'A retro studio microphone whose sound waves curl out as leafy vines.' },
+  { id: 'spot-dashboard', size: '1328*1328', style: STYLE_SPOT, scene: 'A small garden plot with four flowers at different growth stages, from seedling to full bloom.' },
+  { id: 'spot-dictionary', size: '1328*1328', style: STYLE_SPOT, scene: 'A thick open dictionary with a ribbon bookmark, blank pages.' },
+  { id: 'spot-teacher', size: '1328*1328', style: STYLE_SPOT, scene: 'A red apple on a small stack of notebooks next to a brass school bell.' },
+  { id: 'spot-empty-vault', size: '1328*1328', style: STYLE_SPOT, scene: 'An empty round glass jar with a cork lid and a single seed lying at the bottom.' },
+  { id: 'spot-review-done', size: '1328*1328', style: STYLE_SPOT, scene: 'A watering can pouring water onto a cluster of freshly bloomed flowers.' },
+  { id: 'spot-search', size: '1328*1328', style: STYLE_SPOT, scene: 'A magnifying glass hovering over a single small flower.' },
+  // 카드 머리
+  { id: 'card-books', size: '1472*1140', style: STYLE_HEADER, key: false, scene: 'A row of classic hardcover books standing upright, their spines decorated with flowers.' },
+  { id: 'card-vocab', size: '1472*1140', style: STYLE_HEADER, key: false, scene: 'A garden bed where blank square word tiles grow like flowers on stems.' },
+  // 패턴 타일
+  { id: 'pattern-kaleido-1', size: '1328*1328', style: STYLE_PATTERN, key: false, scene: 'Kaleidoscope rosette pattern, violet and mint dominant.' },
+  { id: 'pattern-kaleido-2', size: '1328*1328', style: STYLE_PATTERN, key: false, scene: 'Kaleidoscope rosette pattern, pink and peach dominant.' },
   { id: 'spot-quiz', size: '1328*1328', style: STYLE_SPOT,
     scene: 'A sharpened pencil lying across a blank index card with three empty round checkboxes.' },
 ]
@@ -84,12 +113,13 @@ async function generate(s) {
  * 상자 테두리가 보인다 — **가장자리에서 이어진** 바탕색 화소만 투명하게 한다(그림 안쪽 크림색은 남는다).
  * 경계는 바탕과의 거리로 알파를 부드럽게 준다(외곽선 주변 계단 방지).
  */
-function keyAndEncode(src) {
+function keyAndEncode([src, key]) {
   return (async () => {
     const img = new Image(); img.src = src; await img.decode()
     const W = img.naturalWidth, H = img.naturalHeight
     const c = document.createElement('canvas'); c.width = W; c.height = H
     const g = c.getContext('2d'); g.drawImage(img, 0, 0)
+    if (key === false) return c.toDataURL('image/webp', 0.86).split(',')[1] // 바탕이 그림의 일부(카드 머리 · 패턴)
     const id = g.getImageData(0, 0, W, H), d = id.data
     // 바탕색 = 네 모서리 16px 칸의 중앙값
     const samples = []
@@ -124,7 +154,7 @@ if (REKEY) {
   for (const s of SCENES.filter((x) => !ONLY || x.id === ONLY)) {
     const f = path.join(OUT, `${s.id}.webp`)
     if (!fs.existsSync(f)) { console.log(`  - ${s.id} 없음`); continue }
-    const b64 = await pg.evaluate(keyAndEncode, `data:image/webp;base64,${fs.readFileSync(f).toString('base64')}`)
+    const b64 = await pg.evaluate(keyAndEncode, [`data:image/webp;base64,${fs.readFileSync(f).toString('base64')}`, s.key])
     fs.writeFileSync(f, Buffer.from(b64, 'base64'))
     console.log(`  ✓ ${s.id} 바탕 투명화`)
   }
@@ -141,7 +171,7 @@ for (const s of todo) {
     const t = Date.now()
     const png = await generate(s)
     // 바탕 빼기 + WebP(품질 0.86) — Chromium 캔버스
-    const b64 = await page.evaluate(keyAndEncode, `data:image/png;base64,${png.toString('base64')}`)
+    const b64 = await page.evaluate(keyAndEncode, [`data:image/png;base64,${png.toString('base64')}`, s.key])
     const buf = Buffer.from(b64, 'base64')
     fs.writeFileSync(path.join(OUT, `${s.id}.webp`), buf)
     made++

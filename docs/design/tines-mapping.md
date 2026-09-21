@@ -2,7 +2,8 @@
 
 > 2026-09-21 · 작성 Claude Code · DD-68(「가장 닮음」 1단계)의 적용 지도.
 > **사실의 출처**: 참조 쪽은 생성물 [`refs/tines/sections-summary.md`](refs/tines/sections-summary.md)
-> (`scripts/design/extract-sections.mjs` — 33페이지 · 구간 약 200 · 팝업류 6) · 우리 쪽은 저장소의 `page.tsx`·레이아웃(같은 날 확인).
+> (`scripts/design/extract-sections.mjs` — 33페이지 · 구간 약 200 · 팝업류 6) · [`components-summary.md`](refs/tines/components-summary.md)(컴포넌트 313 · DOM 실재 156) ·
+> [`interactions-summary.md`](refs/tines/interactions-summary.md)(팝업·상호작용 10) · 우리 쪽은 저장소의 `page.tsx`·부품(같은 날 확인).
 > 이 파일은 **판단**(어느 자리에 대응하나 · 적용 순서)을 적는 사람의 문서다. 참조 수치는 요약 파일이 정본이다.
 >
 > 상태: ✅ 적용 · ◐ 일부 · ○ 예정 · — 해당 없음(이유를 적는다)
@@ -14,7 +15,8 @@
 | 전역 틀 | 알약 내비 + 메가메뉴 3 + 검색 모달 + 모바일 서랍 + 71링크 푸터 + 쿠키 배너 | 공개: `components/marketing/site/*`(랜딩 + `(marketing)/layout.tsx` 공통) · 학습자: `Sidebar` · `MobileTabBar` | ✅ 공개 화면 (검색 제외) |
 | 공개 화면 | 홈 · 제품(3B) · 솔루션 · 산업 · 요금제 · 고객 · 도서관 · 블로그 · 이벤트 · 대학 · 법률 · 404 | `/` · `/about` · `/fit` · `/pricing` · `/library/*` · `/comics` · `/video` · `/teacher` · `/terms` · `/privacy` · `not-found` | ◐ `/` 만 |
 | 앱 화면 | 제품 액자 안의 앱 UI(좌측 공간 목록 · KPI 줄 · 도넛 · 표) — `refs/tines/app-measured.json` | `/hub` · `/dashboard` · 학습 셸 | ○ |
-| 삽화 | 꽃밭 · 사물 소품 · 격자 무대 | `public/illustrations/tines/` 7점(Qwen 생성) | ◐ 랜딩용 7점 |
+| 삽화 | 꽃밭 · 사물 소품 · 격자 무대 · 만화경 무늬 | `public/illustrations/tines/` 29점(Qwen 생성 — §9 배정) | ◐ 공개 화면에 9점 사용 |
+| 부품 | 컴포넌트 313(DOM 156) · 계열 13 | `components/ui/*` 20 · `marketing/site` · `marketing/sections` | ◐ §7 |
 
 ## 1. 전역 틀 · 팝업류
 
@@ -109,3 +111,90 @@
 - `/contact/` · 블로그 글 본문처럼 이름 없는 요소로만 된 본문은 구간이 1개(마지막 CTA)로 잡힌다.
 - 이전 세대 페이지(enterprise · university · careers · podcast 등)는 CSS 모듈 이름이 없어 `<section>`·`<div>` 로 적혔다.
 - 로그인해야 보이는 참조 앱 화면은 제품 액자에 보이는 만큼만 안다.
+
+## 7. 부품 단위 매칭 — 참조 컴포넌트 계열 → 우리 부품
+
+> 출처: [`refs/tines/components-summary.md`](refs/tines/components-summary.md)(33페이지 · 시트 42 · 이름 313 · DOM 실재 156).
+> 「상태」 칸은 참조 CSS 에 실제로 있는 상호작용 선택자다 — 우리 부품이 같은 상태를 가져야 한다.
+
+| 계열 | 참조 대표(페이지 수) | 참조 상태 | 우리 부품 | 할 일 | 상태 |
+|---|---|---|---|---|---|
+| 내비 | `SiteNav26`(21) · `AreaNav`(18, 구역 하위 내비) · `NavSearch` | :hover · ::placeholder | `marketing/site/SiteHeader` · 학습자 `layout/Sidebar` | 공개 ✅. **`AreaNav`(구역 안 가로 하위 내비) 대응 없음** → 서가(도서·만화·단어장·교재) · 수능 하위 탭에 | ◐ |
+| 푸터 | `SiteFooter26`(21) | aria-expanded(모바일 접힘) | `SiteFooter` | 390 에서 묶음 접힘(aria-expanded) | ◐ |
+| 버튼 | `Button`(19) · `CtaButtons`(15) · `CollectionViewToggle` · `DocsThemeToggle` | :hover · :focus · :disabled | `ui/Button` · `marketing/pill.ts` | `ui/Button` 에 알약 변형 → 앱 전체가 같은 단추 · 격자/목록 보기 전환 ↔ 서가 보기 전환 | ○ |
+| 폼 · 입력 | `TextInput` · `Textarea` · `Checkbox` · `ConsentCheckboxes` · `ContactSupportForm` | :hover · :focus · ::placeholder · :checked | `ui/Input` · `Textarea` · `Checkbox` · `FormField` · `Select` · `Radio` · `Toggle` | 스킨 토큰만 받은 상태 → 참조 입력 모양(라벤더 테두리 · 14px 모서리 · 보라 포커스 링) | ○ |
+| 탭 · 펼침 · 캐러셀 | `HomeUseCasesSection`(role=tab · aria-selected) · `ThreeBFaqSection`/`PricingFaqSection`([open]) · `HomeLogoMarquee` · `TimelineScrubber` · `WcmDial` | aria-selected · [open] · :focus-visible | `sections/Faq` ✅ · 탭 **부품 없음** · `ui/ButtonGroup` | `ui/Tabs`(aria-selected · 방향키) 신설 → 랜딩 모듈 5 를 탭 전환으로 · 학습 화면 필터 탭 | ◐ |
+| 표 · 목록 · 격자 | `LibraryTable` · `EventsDirectory` · `PartnerDirectory` · `CaseStudyGridSection` · `ThreeBBentoSection` · `DotGridPattern`(5) | :hover · :active · :focus | `sections/Bento` ✅ · 서가 격자 · 관리자 표 | 서가 필터 디렉터리(왼쪽 `LibrarySidebar` + 위 `LibraryFindAndFilterBar`) · 관리자 표 행 | ◐ |
+| 카드 | `CaseStudyBookCard`(3, :hover · :active) · `LibraryStoryCard` · `ContentCard*` · `WhatsNewCard` · `LibraryToolCard` · `PricingPlanCards` · `ThreeBExampleCard` | :hover · :active · :focus-visible | `ui/Card` · 서가 `VocabSetCard` · 표지 · `sections/ToneCards` ✅ | `ui/Card` 에 콘텐츠 · 책 · 도구 카드 변형 | ○ |
+| 히어로 · 머리 | `SectionHeading2`(5) · `SolutionHero`(3) · `SolutionPageAllcapsHeading` · `ComboFontHeading`(산세리프+세리프 한 제목) · `HeroHeadlineDecoration` | — | `sections/Hero2Col` · `SectionHead` ✅ | `ComboFontHeading` 변형 | ◐ |
+| CTA 띠 | `WildCodeCTASection`(15) · `ExplosionCTASection`(3) · `ThreeBCodaSection` | — | `site/FlowerCta` ✅ | 폭발형 변형(큰 세리프 + 방사 그림) | ◐ |
+| 매체 · 삽화 | `WildCodeFlowers`(15) · `InteractiveCursor`(15) · `CurrentColorRemoteSvg`(6, 글자색 따라가는 아이콘) · `VideoPlayer` · `ThreeBMascot` | :hover · :focus-visible | `public/illustrations/tines/*`(29점) · `ComponentVideo` · lucide | 영상 액자 ✅ · 마스코트 자리 · 커서 연출 보류 | ◐ |
+| 본문 · 서식 | `Article`(3) · `StructuredTextBlock` · `PullQuote` · `CenteredQuoteSection` · `DefaultSidebarContent` | :hover | 읽기 `text-viewer` · 약관 본문 | 본문 단 · 인용 · 곁단 → `/terms` `/privacy` `/text/[id]` | ○ |
+| 모달 · 팝업 | `GlobalSearch`(role=dialog) · 쿠키 설정 패널 | Esc · focus | `ui/Modal` · `ui/Toast` · `ui/Tooltip` | `ui/Modal` 을 참조 검색 모달 모양(전면 · 상단 입력 · 결과 목록)으로 | ○ |
+| 서가 전용 | `LibrarySidebar`(2) · `LibraryFindAndFilterBar` · `LibraryDirectoryHero`(2) · `RatingStars` | :focus · ::placeholder | 서가 목록 화면 | 왼쪽 필터 곁단 + 위 검색·필터 막대 — `/library/*` | ○ |
+
+## 8. 전체 라우트 매칭 (우리 약 170 라우트 → 참조 템플릿 · 구간 패턴 · 삽화)
+
+| 우리 묶음 | 라우트 | 참조 템플릿 | 쓸 패턴 | 삽화 | 상태 |
+|---|---|---|---|---|---|
+| 랜딩 | `/` | 홈 | P1 · P3 · P4 · P5 · P6 · P7 · C10 | hero-book-field · bed-flowers · spot 5 | ✅ |
+| 소개 | `/about` | 제품(3B) | P2 · P5 · P8 · P6 | hero-book-field · spot | ✅ |
+| 요금제 | `/pricing` | 요금제 | 보라 전면 · P10 · P9 | — | ✅ |
+| 진단 | `/fit` · `/fit/s/[payload]` | 역량 표 | P18 · P22 · P9 | — (도구가 주인공) | ◐ (`/fit/s` ○) |
+| 영상 | `/video` · `/video/[id]` | 블로그 · 팟캐스트 · 글 상세 | P11 · P12 · P16 | scene-video | ○ |
+| 약관 | `/terms` · `/privacy` | 법률 | 본문 서식 · 펼침 | — | ○ |
+| 인증 | `/login` · `/signup` · `/reset-password` · `/verify-email` · `/join/[code]` | 문의 폼(`ContactSupportForm`) | 폼 부품 · 2열(폼 + 그림) | scene-hub · spot-teacher(초대) | ○ |
+| 서가 | `/library/books` · `/library/books/[bookId]` · `/library/vocab` · `/library/textbooks/*` · `/library/scripts/*` | 도서관 · 고객/사례 · 사례 상세 | `AreaNav` · P11 · P12 · P13 · P15 · P16 · P17 | scene-library · card-books · card-vocab · spot-dictionary | ○ |
+| 만화 | `/comics` · `/comics/restored/*` · `/comics/adapted/*` | 도서관 · 글 상세 | P11 · P12 · P16 | scene-comics · spot-comic | ○ |
+| 수능 | `/csat` · `/csat/dissect` · `/csat/formulas` · `/practice` · `/practice/dcp` | 솔루션 · 이벤트 디렉터리 | P2 · P17 · `AreaNav` | scene-csat | ○ |
+| 교사 | `/teacher` · `/reports` | 산업(B2B) | P2 · 표 | scene-teacher · spot-teacher | ○ |
+| 셸 · 허브 | `/hub` · `/dashboard` · `/plan` · `/my/*` · `/settings` | 제품 액자 속 앱 UI(§4) | 레일 · KPI 줄 · 도넛 · 표 | scene-hub · spot-dashboard | ○ |
+| 학습 모듈 | `/text*` · `/wordvault*` · `/flashcard*` · `/spellforge*` · `/scriptquiz*` · `/dictate*` · `/pairflip*` · `/text/[id]/echo` · `/diagnostic*` · `/wordblitz` | 대응 없음(참조는 마케팅 사이트) | 입구 화면만 P2 + 소품 · 학습 중 화면은 스킨 토큰 | spot-reading · vault · flashcard · spellforge · quiz · listening · pairflip · echomatch · wordblitz | ○ |
+| 빈 상태 | 각 모듈 빈 목록 | 404 · 빈 결과 | 소품 + 문장 + 다음 한 걸음 | spot-empty-vault · spot-review-done · spot-search | ○ |
+| 404 | `not-found.tsx` | 404 | 그림 + 검색 입력 | scene-404 | ○ |
+| 아케이드 | `/arcade*` · `/play/*`(19) | — | — | — | — 게임은 자기 미술을 가진다 |
+| 관리자 | `/admin/*`(60) | 제품 액자 속 앱 UI | 레일 · 표 · 필터 막대 | — | ○ (스킨 토큰만) |
+| 개발 | `/dev/*` · `/hub-lab` · `/sitemap` | — | — | — | — |
+
+## 9. 삽화 배정 (`public/illustrations/tines/` 29점 — `scripts/design/illo-tines-gen.mjs`)
+
+| 규격(참조 dna §6) | 파일 | 쓰는 자리 |
+|---|---|---|
+| 장면(폭 전체) | hero-book-field · scene-library · scene-comics · scene-csat · scene-teacher · scene-video · scene-hub · scene-404 | 랜딩 히어로 · 서가 · 만화 · 수능 · 교사 · 영상 · 허브/인증 · 404 |
+| 띠(아래 꽃밭) | bed-flowers | 보라 통판 · 꽃밭 CTA |
+| 카드 머리 | card-books · card-vocab | 메가메뉴 서가 카드 · 서가 모음 격자 머리 |
+| 소품(카드 구석) | spot-reading · vault · memory · listening · quiz · comic · flashcard · spellforge · wordblitz · pairflip · echomatch · dashboard · dictionary · teacher | 모듈 카드 · 메가메뉴 · 입구 화면 |
+| 빈 상태 소품 | spot-empty-vault · spot-review-done · spot-search | 보관함 빈 목록 · 오늘 복습 끝 · 검색 결과 없음 |
+| 패턴 타일 | pattern-kaleido-1 · pattern-kaleido-2 | 참조 `HomeAiTangleBanner` 모니터 액자 속 무늬 자리 — 영상 포스터 · 로딩 바탕 |
+
+## 10. 팝업 · 상호작용 매칭
+
+> 출처: [`refs/tines/interactions-summary.md`](refs/tines/interactions-summary.md)(시나리오 11 · 기록 10). 스크린샷은 `tmp/tines-capture/interactions/`(커밋 안 함).
+
+| 참조 상호작용 | 관찰 | 우리 대응 | 상태 |
+|---|---|---|---|
+| 메가메뉴 Product | 1440×310 · 포커스 4 · 꽃 그림 포함 | `SiteHeader` 메가메뉴 | ✅ |
+| 검색 모달 | role=dialog · 전면 · 입력 1 · 입력하면 결과 목록 | **없음** — 서가 검색을 전역 검색 모달로 올리는 기능 추가 필요(결정) | ○ |
+| 쿠키 설정 | 1212×108 패널 · 토글 4 | — (제3자 쿠키 없음) | — |
+| 홈 팀 탭 전환 | role=tab · 전환 시 패널 1360×939 교체 · 포커스 11 | 랜딩 모듈 5 — 정적 카드 → `ui/Tabs` 전환형 | ○ |
+| FAQ 펼침 | `[open]` 선택자(details 계열) | `sections/Faq`(`<details>`) | ✅ |
+| 영상 재생 | `VideoPlayer` 1344×755 인라인 | `ComponentVideo`(인라인) | ✅ |
+| 문의 폼 | `ContactSupportForm` 552×539 · 입력 5 · 파일 첨부 | 인증 폼 · 문의는 mailto | ◐ |
+| 모바일 메뉴 · 하위 메뉴 | 374×329 → 하위 펼침 374×769 · 포커스 11 | `SiteHeader` 서랍(하위 묶음 접힘 없이 전부 펼친 목록) | ◐ |
+| 404 | 전면 · 검색 입력 1 · 링크 다수 | `not-found.tsx` | ○ |
+| 이벤트 필터 | 기록 실패(누를 요소를 못 찾았다) | — | 재측정 필요 |
+
+**기록의 한계**: FAQ 시나리오는 고정 헤더를 층으로 잡았다(값 무효 — `[open]` 선택자로 대신 확인). 이벤트 필터는 누를 요소를 찾지 못했다.
+
+## 11. 색 구성 — 참조와 우리(2026-09-21 실측)
+
+같은 방법(전체 페이지 캡처 · 7픽셀마다 · HSL 계열)으로 잰 면적 %. 「보라 계열」= 진한 보라 + 보라 틴트.
+
+| 짝 | 보라 계열(우리/참조) | 진한 보라 | 보라 틴트 | 참조에만 있는 것 |
+|---|---|---|---|---|
+| 홈 | 26.9 / 23.3 | 26.1 / 19.7 | 0.8 / 3.6 | 초록 5.3 |
+| 소개 ↔ 3B | 21.1 / 56.4 | 20.2 / 4.1 | 0.9 / **52.3** | — |
+| 요금제 | 25.6 / 92.5 | 18.1 / 92.0 | 7.5 / 0.5 | — |
+| 진단 ↔ 솔루션 | 11.1 / 8.4 | 8.8 / 5.1 | 2.3 / 3.3 | 분홍 틴트 8.5 · 주황 틴트 2.2 · 청록 1.9 |
+
+**읽는 법**: 우리가 보라를 「더 많이」 쓴 게 아니다 — **진한 보라 면**을 많이 쓰고 **틴트 면**(라벤더 · 분홍 · 주황 · 초록 · 청록 옅은 면)을 거의 안 쓴다. 참조의 글자색도 한 색이 아니다(제목 `#5D38AE` 40회 · `#714BD0` 은 홈 4회 — dna §2). 다음 회차의 색 조정 근거다.
