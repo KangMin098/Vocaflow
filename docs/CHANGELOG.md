@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **캔버스 토큰 교정**(DD-68 · tines-mapping §15): 스킨 `--bg2`/`--bg3` 이 라벤더(`#f5f2fb`/`#ece8fd`)라 앱 화면 보이는 면적의 44~78% 가 연보라였다(DOM 실측) → 참조 웜 뉴트럴 `#f8f4f0`/`#f3efea`. 보라 바탕 서가 83→5% · 오늘 58→10% · 보관함 53→4%.
+
 - **참조 UI 부품 실측 + 전역 적용**(DD-68 · tines-mapping §14): `scripts/design/extract-ui-kit.mjs`(80개 템플릿 — 버튼·호버·탭·분절·칩·입력·카드·층·그림자 → `refs/tines/ui-kit-summary.md`). `ui/tines-kit.ts` 부품 클래스 · `ui/ToneTabs`(랜딩 모듈 색 탭) · `ui/SpotState`(빈 상태·오류·404) · 스킨 모양 층(버튼 알약 · 라벤더 유리 막 · 입력 테두리) · 떠 있는 유리 아래 탭 · 검색 유리 패널 · 칩/PrimaryButton · 용도별 소품 6(빈 책장·백지·플러그·찢긴 비행기·모래시계·자물쇠, 무료 한도 소진으로 3점 보류) · 옛 빈 상태 삽화 모듈 2 삭제. 조사 오류 5곳 수정 + 전역 가드 · 삽화 파일 가드. `shot-authed.mjs --vp`.
 
 - **참조 코퍼스 151페이지 + 색 짝 · 물건 삽화**(DD-68 · tines-mapping §13): `scripts/design/tines-corpus.mjs`(사이트맵 6,439 → 템플릿 80 · 151페이지 캡처 + 그림 2,510 · 색 면 측정, 원본은 tmp) · `tines-corpus-report.mjs`(→ `docs/design/refs/tines/corpus-summary.md` · `corpus.json`). 발견: 면 위 글자는 그 면 색상의 짙은 글자 · 삽화는 꽃무늬가 아니라 굵은 윤곽 물건(소품 81px 페이지당 7.8 · 진한 단색 정사각 타일 300px). 적용: 스킨 `--tint-*-ink` 6 · `--deep-*` 6 · `--on-deep`(스킨 끔은 의미색 잉크 별칭) + `.tone-*` 면 클래스 12 · `lib/design/tone.ts` 범주 색 · 삽화 생성기 3화풍(물건 소품 · 진한 면 타일 · 흩어진 띠)으로 소품 17 교체 + 타일 18 · 띠 1 신규 · 구역 머리는 장면 → 타일 · `/practice` 여섯 면 카드(강조 = 진한 면 + 타일, 나머지 = 옅은 면 + 소품) · 메가메뉴 · 랜딩 모듈 · 소개 모듈 카드 진한 면 톤 · 대시보드/오늘 카드 짝 글자.
