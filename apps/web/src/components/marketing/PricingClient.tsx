@@ -23,10 +23,13 @@
 //    상수로 적어 두면 반드시 낡는다(2026-08-26 에 세 수치가 9일 만에 전부 어긋나 있었다).
 //    lib/marketing/trust-signals.ts 참조.
 //
+// 모양(DD-68): 참조 요금제 화면 — 보라 전면 바탕 위 흰 큰 제목 · 실측 지표 · 요금 카드 3 → 차별점 → 영상 → FAQ 펼침.
+// 끝 CTA 는 레이아웃(`MarketingTail`)이 맡는다. **문구·데이터는 모양 바꿈과 무관하게 그대로다.**
+//
 // 이 파일은 클라이언트 컴포넌트가 아니다 — 월간/연간 토글(`useState`)이 사라지면서 훅이
 // 0개가 됐다. 가입 전 첫인상 화면을 이유 없이 클라이언트 번들에 실을 이유가 없다.
 
-import { Check, Heart, Mail, Sparkles, Users } from 'lucide-react'
+import { Check, Mail } from 'lucide-react'
 import Link from 'next/link'
 
 import { ComponentVideo } from '@/components/video/ComponentVideo'
@@ -35,6 +38,9 @@ import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import type { TrustSignal } from '@/lib/marketing/trust-signals'
 import { Illustration } from '@/components/illustrations/Illustration'
 import { ILLO_07_COVERAGE } from '@/components/illustrations/generated/illo-07-coverage'
+
+import { PILL } from './pill'
+import { Faq, Frame, Kicker, SectionHead, WRAP } from './sections'
 
 /** 문의 주소 — 유료 플랜·학교 도입 모두 지금은 사람이 받는다. */
 const CONTACT = 'hello@vocaflow.app'
@@ -96,6 +102,8 @@ const FAQS: readonly FAQ[] = [
   },
 ] as const
 
+const FOCUS = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'
+
 /**
  * @param signals 서버가 DB 에서 읽은 신뢰 지표. null 이면 **섹션을 통째로 숨긴다** —
  *   낡거나 0 인 숫자를 공개 화면에 거는 것보다 안 보여주는 편이 낫다.
@@ -106,176 +114,95 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
 
   return (
     <div className="bg-[var(--bg)]">
-      {/* ── Hero ── */}
-      <section className="border-b border-[var(--bd)] bg-gradient-to-br from-[var(--bg2)] to-[var(--bg)]">
-        <div className="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)] shadow-[var(--sh-xs)]">
-            <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
-            요금제
-          </span>
-          <h1 className="mt-6 break-keep font-editorial text-[36px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[48px]">
-            지금은 전부 무료입니다
+      {/* ── 보라 전면 — 히어로 · 실측 지표 · 요금 카드 ── */}
+      <section className={WRAP}>
+        <div className="overflow-hidden rounded-[var(--r-2xl)] bg-[var(--ju)] px-6 pb-12 pt-12 text-[var(--on-ju)] md:px-14 md:pt-16">
+          <Kicker>요금제</Kicker>
+          <h1 className="mt-5 break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] md:text-[64px]">
+            지금은 전부 무료입니다.
           </h1>
-          <p className="mx-auto mt-4 max-w-xl break-keep font-body text-[15px] leading-relaxed text-[var(--t2)]">
+          <p className="mt-5 max-w-[46ch] break-keep font-serif text-[20px] leading-[1.4] md:text-[24px]">
             유료 플랜을 아직 만들지 않았습니다. 결제 수단을 받는 화면도 없어요. 지금 있는 기능은
             제한 없이 쓰시면 됩니다.
           </p>
-        </div>
-      </section>
 
-      {/* ── Trust signals — 서버가 읽어 준 것만. 못 읽었으면 섹션 자체가 없다. ── */}
-      {signals && signals.length > 0 && (
-        <section aria-label="신뢰 지표" className="border-b border-[var(--bd)] bg-[var(--bg)]">
-          <div className="mx-auto max-w-4xl px-6 py-8">
-            <ul className="grid grid-cols-3 divide-x divide-[var(--bd)]">
+          {/* 신뢰 지표 — 서버가 읽어 준 것만. 못 읽었으면 줄 자체가 없다. */}
+          {signals && signals.length > 0 && (
+            <ul aria-label="신뢰 지표" className="mt-10 flex flex-wrap gap-x-12 gap-y-4">
               {signals.map((s) => (
-                <li key={s.label} className="px-4 text-center first:pl-0 last:pr-0">
-                  <p className="font-display text-[24px] font-[800] tabular-nums tracking-tight text-[var(--t1)] md:text-[28px]">
-                    {s.value}
-                  </p>
-                  <p className="mt-0.5 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-                    {s.label}
-                  </p>
-                  <p className="mt-0.5 break-keep font-body text-[11px] text-[var(--t2)]">{s.sub}</p>
+                <li key={s.label} className="flex items-baseline gap-3">
+                  <span className="font-display text-[30px] font-[600] tabular-nums tracking-[-0.02em]">{s.value}</span>
+                  <span className="break-keep font-body text-[14px]">{s.label} · {s.sub}</span>
                 </li>
               ))}
             </ul>
-          </div>
-        </section>
-      )}
+          )}
 
-      {/* ── 지금 / 준비 중 / 학교 ── */}
-      <section className="bg-[var(--bg)]">
-        <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
-          <ul className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <ul className="mt-12 grid gap-4 md:grid-cols-3">
             {/* ① 지금 — 유일하게 "지금 할 수 있는" 카드 */}
-            <li className="relative flex flex-col rounded-[var(--r-2xl)] border border-[var(--p)] bg-[var(--bg)] p-6 shadow-[var(--sh-lg)] transition-all duration-[var(--dur-normal)] md:-translate-y-2 md:p-7">
-              <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--p)]"
-                aria-hidden
-              >
-                <Heart size={18} strokeWidth={1.75} />
-              </span>
-              <h2 className="mt-4 break-keep font-display text-[22px] font-[800] text-[var(--t1)]">
-                지금 쓰실 수 있는 것
-              </h2>
-              <p className="mt-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
-                계정만 만들면 아래가 전부 열립니다.
-              </p>
-
-              <p className="mt-6 font-display text-[40px] font-[800] leading-none tracking-tight text-[var(--t1)] md:text-[44px]">
-                무료
-              </p>
-              <p className="mt-2 break-keep font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-                결제 수단을 받지 않습니다
-              </p>
-
-              <Link
-                href="/signup"
-                className="mt-6 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] hover:shadow-[var(--sh-md)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
-              >
+            <li className="flex flex-col rounded-[var(--r-xl)] bg-[var(--bg)] p-7 text-[var(--ju)]">
+              <h2 className="break-keep font-serif text-[26px] font-[700]">지금 쓰실 수 있는 것</h2>
+              <p className="mt-1 break-keep font-body text-[14px]">계정만 만들면 아래가 전부 열립니다.</p>
+              <p className="mt-6 font-display text-[56px] font-[400] leading-none tracking-[-0.03em]">무료</p>
+              <p className="mt-2 break-keep font-body text-[13px]">결제 수단을 받지 않습니다</p>
+              <Link href="/signup" className={`${PILL} mt-6 bg-[var(--p)] text-[var(--on-p)] hover:bg-[var(--p-hover)]`}>
                 무료로 시작하기
               </Link>
-
               <ul className="mt-6 space-y-3 border-t border-[var(--bd)] pt-6">
                 {AVAILABLE_NOW.map((f) => (
                   <li key={f} className="flex items-start gap-3">
-                    <span
-                      className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[var(--success-light)] text-[var(--success)]"
-                      aria-hidden
-                    >
-                      <Check size={10} strokeWidth={3} />
-                    </span>
-                    <span className="break-keep font-body text-[13px] leading-relaxed text-[var(--t1)]">
-                      {f}
-                    </span>
+                    <Check size={16} strokeWidth={2.5} aria-hidden className="mt-0.5 shrink-0" />
+                    <span className="break-keep font-body text-[14px] leading-relaxed">{f}</span>
                   </li>
                 ))}
               </ul>
             </li>
 
             {/* ② 준비 중 — 가격도 날짜도 적지 않는다. 적을 근거가 없다. */}
-            <li className="relative flex flex-col rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)] md:p-7">
-              <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t2)]"
-                aria-hidden
-              >
-                <Sparkles size={18} strokeWidth={1.75} />
-              </span>
-              <div className="mt-4 flex items-center gap-2">
-                <h2 className="break-keep font-display text-[22px] font-[800] text-[var(--t1)]">
-                  유료 플랜
-                </h2>
-                <span className="rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-                  준비 중
-                </span>
+            <li className="flex flex-col rounded-[var(--r-xl)] bg-[var(--bg3)] p-7 text-[var(--ju)]">
+              <div className="flex items-center gap-2">
+                <h2 className="break-keep font-serif text-[26px] font-[700]">유료 플랜</h2>
+                <span className="rounded-full border border-[var(--ju)] px-2.5 py-0.5 font-display text-[12px] font-[700]">준비 중</span>
               </div>
-              <p className="mt-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
-                가격도 조건도 아직 정하지 않았습니다.
-              </p>
-
-              <p className="mt-6 break-keep font-body text-[14px] leading-[1.7] text-[var(--t2)]">
+              <p className="mt-1 break-keep font-body text-[14px]">가격도 조건도 아직 정하지 않았습니다.</p>
+              <p className="mt-6 break-keep font-body text-[15px] leading-[1.7]">
                 정해지기 전에는 이 자리에 숫자를 적지 않습니다. 만들게 되면 시작 전에 안내드리고,
-                <strong className="text-[var(--t1)]"> 그 전까지 쓰신 것에는 요금이 붙지 않습니다.</strong>
+                <strong> 그 전까지 쓰신 것에는 요금이 붙지 않습니다.</strong>
               </p>
-
               <a
                 href={`mailto:${CONTACT}?subject=${encodeURIComponent('유료 플랜 소식 받기')}`}
-                className="mt-6 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] border-2 border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[700] text-[var(--t1)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+                className={`${PILL} mt-6 gap-2 border border-[var(--ju)] text-[var(--ju)] hover:bg-[var(--bg2)]`}
               >
                 <Mail size={14} strokeWidth={2.25} aria-hidden />
                 정해지면 알려주세요
               </a>
-
               <ul className="mt-6 space-y-3 border-t border-[var(--bd)] pt-6">
-                <li className="break-keep font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-                  아직 없는 것
-                </li>
+                <li className="break-keep font-display text-[13px] font-[700] tracking-[0.04em]">아직 없는 것</li>
                 {NOT_YET.map((f) => (
                   <li key={f} className="flex items-start gap-3">
-                    <span
-                      className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--t3)]"
-                      aria-hidden
-                    />
-                    <span className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
-                      {f}
-                    </span>
+                    <span className="mt-[8px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ju)]" aria-hidden />
+                    <span className="break-keep font-body text-[14px] leading-relaxed">{f}</span>
                   </li>
                 ))}
               </ul>
             </li>
 
             {/* ③ 학교·학원 — 지금도 무료로 되는 기능이라 "문의" 는 도입 지원이지 견적이 아니다 */}
-            <li className="relative flex flex-col rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)] md:p-7">
-              <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-[var(--info-light)] text-[var(--info)]"
-                aria-hidden
-              >
-                <Users size={18} strokeWidth={1.75} />
-              </span>
-              <h2 className="mt-4 break-keep font-display text-[22px] font-[800] text-[var(--t1)]">
-                선생님 · 학원
-              </h2>
-              <p className="mt-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
-                학급 기능도 지금은 비용이 없습니다.
-              </p>
-
-              <p className="mt-6 break-keep font-body text-[14px] leading-[1.7] text-[var(--t2)]">
+            <li className="flex flex-col rounded-[var(--r-xl)] bg-[var(--bg3)] p-7 text-[var(--ju)]">
+              <h2 className="break-keep font-serif text-[26px] font-[700]">선생님 · 학원</h2>
+              <p className="mt-1 break-keep font-body text-[14px]">학급 기능도 지금은 비용이 없습니다.</p>
+              <p className="mt-6 break-keep font-body text-[15px] leading-[1.7]">
                 학급을 만들고 초대코드를 나눠 주면 학생이 참여하고, 보낸 단어가 학생 단어장으로
                 도착합니다. 반이 여러 개거나 도입 지원이 필요하면 메일로 알려 주세요.
               </p>
-
               {/* ⚠️ `/teacher` 는 보호 라우트다 — 익명 방문자를 그리로 보내면 설명 없이
                   로그인 폼으로 튕긴다. 되튕김을 예고하며 복귀 경로를 실어 보낸다. */}
-              <Link
-                href="/login?next=%2Fteacher"
-                className="mt-6 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] border-2 border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[700] text-[var(--t1)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
-              >
+              <Link href="/login?next=%2Fteacher" className={`${PILL} mt-6 border border-[var(--ju)] text-[var(--ju)] hover:bg-[var(--bg2)]`}>
                 로그인하고 교사 허브 열기
               </Link>
               <a
                 href={`mailto:${CONTACT}?subject=${encodeURIComponent('학교·학원 도입 문의')}`}
-                className="mt-2 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] px-5 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+                className={`mt-2 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full font-display text-[14px] font-[600] underline-offset-4 hover:underline ${FOCUS}`}
               >
                 <Mail size={14} strokeWidth={2.25} aria-hidden />
                 {CONTACT}
@@ -283,7 +210,7 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
             </li>
           </ul>
 
-          <p className="mx-auto mt-10 max-w-md break-keep text-center font-body text-[13px] italic text-[var(--t2)]">
+          <p className="mt-8 break-keep text-center font-serif text-[18px]">
             카드도 계좌도 받지 않습니다 — 받을 화면 자체가 없어요.
           </p>
         </div>
@@ -292,47 +219,34 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
       {/* ── 이 제품만 하는 것 ──
           지어낸 후기가 있던 자리. 후기는 실증자료 없이 게재할 수 없으므로,
           실제 학습자가 생기기 전까지는 **검증 가능한 동작**으로 대신한다. */}
-      <section aria-label="다른 점" className="border-t border-[var(--bd)] bg-[var(--bg)]">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <header className="mb-8 max-w-2xl">
-            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
-              What&apos;s different
-            </p>
-            <h2 className="mt-2 break-keep font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
-              읽기 전에, 이 글이 나에게 맞는지 먼저 알려줍니다
-            </h2>
-            {/* 삽화(사전 #7 · 골든 S) — 제목 → 그림 → 본문(03-system §3-9) */}
-            <Illustration asset={ILLO_07_COVERAGE} className="mt-6" />
-            <p className="mt-3 break-keep font-body text-[14px] leading-[1.7] text-[var(--t2)]">
-              교과서 지문이든 선생님이 준 프린트든 붙여넣으면, 지금 내 어휘로 몇 %가 읽히는지
-              바로 나옵니다. 그리고 몇 개를 더 익히면 편하게 읽히는지까지.
-            </p>
-            <Link
-              href="/fit"
-              className="mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--ju)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
-            >
+      <section aria-label="다른 점" className={`${WRAP} py-24`}>
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+          <div>
+            <SectionHead
+              kicker="다른 점"
+              title="읽기 전에, 이 글이 나에게 맞는지 먼저 알려줍니다."
+              sub="교과서 지문이든 선생님이 준 프린트든 붙여넣으면, 지금 내 어휘로 몇 %가 읽히는지 바로 나옵니다. 그리고 몇 개를 더 익히면 편하게 읽히는지까지."
+            />
+            <Link href="/fit" className={`${PILL} mt-8 bg-[var(--ju)] text-[var(--on-ju)] hover:bg-[var(--p)]`}>
               지금 지문 넣어 보기 — 가입 없이
             </Link>
-          </header>
-          <ul className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {DIFFERENTIATORS.map((d) => (
-              <li
-                key={d.title}
-                className="flex flex-col rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
-              >
-                <p className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">
-                  {d.title}
-                </p>
-                <p className="mt-2 break-keep font-body text-[13px] leading-[1.7] text-[var(--t2)]">
-                  {d.body}
-                </p>
-                <p className="mt-3 break-keep border-t border-[var(--bd)] pt-3 font-mono text-[11px] leading-[1.6] text-[var(--t2)]">
-                  {d.basis}
-                </p>
-              </li>
-            ))}
-          </ul>
+          </div>
+          {/* 삽화(사전 #7 · 골든 S) */}
+          <Frame>
+            <div className="p-6">
+              <Illustration asset={ILLO_07_COVERAGE} />
+            </div>
+          </Frame>
         </div>
+        <ul className="mt-12 grid gap-3 md:grid-cols-3">
+          {DIFFERENTIATORS.map((d) => (
+            <li key={d.title} className="flex flex-col rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg2)] p-6 text-[var(--ju)]">
+              <p className="break-keep font-serif text-[22px] font-[700]">{d.title}</p>
+              <p className="mt-2 break-keep font-body text-[15px] leading-[1.6]">{d.body}</p>
+              <p className="mt-auto break-keep border-t border-[var(--bd)] pt-3 font-body text-[12.5px] leading-[1.6]">{d.basis}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/*
@@ -343,111 +257,43 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
         커리큘럼 한 편 + 시리즈 세 편. 발행 전이면 이 절이 통째로 안 그려진다.
       */}
       {(curriculum || seriesVideos.length > 0) && (
-        <section aria-label="무엇이 들어 있나" className="border-t border-[var(--bd)] bg-[var(--bg2)]">
-          <div className="mx-auto max-w-6xl px-6 py-16">
-            <header className="mb-8 max-w-2xl">
-              <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
-                What&apos;s inside
-              </p>
-              <h2 className="mt-2 break-keep font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
-                무엇이 들어 있는지 60초로 봅니다
-              </h2>
-              <p className="mt-3 break-keep font-body text-[14px] leading-[1.7] text-[var(--t2)]">
-                학년을 잇는 7단 계단과 시리즈 셋. 화면에 나오는 재고 수치는 모두 실측이고
-                출처가 함께 나옵니다.
-              </p>
-            </header>
-
-            {curriculum && (
-              <div className="mb-8 max-w-2xl">
+        <section aria-label="무엇이 들어 있나" className={`${WRAP} pb-24`}>
+          <SectionHead
+            kicker="무엇이 들어 있나"
+            title="무엇이 들어 있는지 60초로 봅니다."
+            sub="학년을 잇는 7단 계단과 시리즈 셋. 화면에 나오는 재고 수치는 모두 실측이고 출처가 함께 나옵니다."
+          />
+          {curriculum && (
+            <div className="mt-10 max-w-3xl">
+              <Frame>
                 <ComponentVideo video={curriculum} />
-              </div>
-            )}
-
-            {seriesVideos.length > 0 && (
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                {seriesVideos.map((v) => (
-                  <article key={v.id}>
+              </Frame>
+            </div>
+          )}
+          {seriesVideos.length > 0 && (
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              {seriesVideos.map((v) => (
+                <article key={v.id}>
+                  <Frame>
                     <ComponentVideo video={v} />
-                    <h3 className="mt-2 break-keep font-display text-[14px] font-[700]">
-                      <Link
-                        href={`/video/${v.id}`}
-                        className="text-[var(--t1)] underline-offset-4 hover:underline"
-                      >
-                        {v.title}
-                      </Link>
-                    </h3>
-                  </article>
-                ))}
-              </div>
-            )}
-          </div>
+                  </Frame>
+                  <h3 className="mt-3 break-keep font-serif text-[20px] font-[700]">
+                    <Link href={`/video/${v.id}`} className="text-[var(--ju)] underline-offset-4 hover:underline">
+                      {v.title}
+                    </Link>
+                  </h3>
+                </article>
+              ))}
+            </div>
+          )}
         </section>
       )}
 
       {/* ── FAQ ── */}
-      <section className="border-t border-[var(--bd)] bg-[var(--bg)]">
-        <div className="mx-auto max-w-3xl px-6 py-16">
-          <header className="mb-8 text-center">
-            <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
-              FAQ
-            </p>
-            <h2 className="mt-2 break-keep font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
-              자주 묻는 질문
-            </h2>
-          </header>
-
-          <ul className="space-y-3">
-            {FAQS.map((faq) => (
-              <li
-                key={faq.q}
-                className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-xs)]"
-              >
-                <details className="group">
-                  <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-4 rounded-[var(--r-sm)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
-                    <span className="break-keep font-display text-[15px] font-[700] text-[var(--t1)]">
-                      {faq.q}
-                    </span>
-                    <span
-                      className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--bg2)] text-[var(--t2)] transition-transform duration-[var(--dur-normal)] group-open:rotate-45"
-                      aria-hidden
-                    >
-                      <span className="font-display text-[16px] font-[600]">+</span>
-                    </span>
-                  </summary>
-                  <p className="mt-3 break-keep font-body text-[14px] leading-relaxed text-[var(--t2)]">
-                    {faq.a}
-                  </p>
-                </details>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="bg-gradient-to-br from-[var(--p)] to-[#6D28D9] text-[var(--ti)]">
-        <div className="mx-auto max-w-2xl px-6 py-16 text-center">
-          <h2 className="break-keep font-display text-[26px] font-[800] tracking-tight md:text-[32px]">
-            먼저 지문 하나로 확인해 보세요
-          </h2>
-          <p className="mx-auto mt-3 max-w-md break-keep font-body text-[15px] leading-relaxed opacity-90">
-            가입하지 않아도 됩니다. 마음에 들면 그때 계정을 만드세요.
-          </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/fit"
-              className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ti)] px-6 font-display text-[14px] font-[700] text-[var(--p)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] hover:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ti)] active:scale-[0.97] sm:w-auto"
-            >
-              지문 진단 해보기
-            </Link>
-            <Link
-              href="/signup"
-              className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--ti)] px-6 font-display text-[14px] font-[700] text-[var(--ti)] transition-all duration-[var(--dur-normal)] hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ti)] active:scale-[0.97] sm:w-auto"
-            >
-              무료로 시작하기
-            </Link>
-          </div>
+      <section className={`${WRAP} pb-8`}>
+        <div className="grid gap-10 lg:grid-cols-[1fr_2fr]">
+          <SectionHead kicker="FAQ" title="자주 묻는 질문." />
+          <Faq items={FAQS.map((f) => ({ q: f.q, a: f.a }))} />
         </div>
       </section>
     </div>

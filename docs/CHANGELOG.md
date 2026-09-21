@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **소개 · 요금제를 참조 골격으로**(DD-68 · tines-mapping §5-3): 구간 부품 `components/marketing/sections`(Hero2Col · Frame · SectionHead · PurplePanel · ToneCards · Bento · Faq — 서버 컴포넌트, FAQ 는 `<details>`). `/about` = 제품 페이지 흐름(2열 히어로+영상 액자 · 영상 3열 · 보라 통판 · 학습 과학 벤토 · 색면 모듈 카드 · 약속). **사실 정정**: 모듈 설명의 「SM-2 간격 반복」을 실제 스케줄러인 FSRS 로. `/pricing` = 보라 전면 + 요금 카드 3 · 차별점 · 영상 · FAQ — 문구·데이터·정직성 회귀는 그대로. 두 화면의 끝 CTA 는 레이아웃이 맡는다.
+
 - **공개 화면 공통 틀**(DD-68 · tines-mapping §5-1·2): `components/marketing/site/` — `SiteHeader`(알약 내비 · 메가메뉴 3 「학습·서가·알아보기」 올림/누름으로 열고 Esc·바깥 누름으로 닫음 · `aria-expanded/controls` · 390 모바일 서랍) · `SiteFooter`(5단) · `FlowerCta`(끝 꽃밭 CTA, 약관·개인정보 제외) · `nav-data.ts`(링크 단일 출처, 실재 경로만). 랜딩과 `(marketing)/layout.tsx`(서버 컴포넌트로 전환)가 같은 틀을 쓴다 — **공개 화면에 모바일 메뉴가 없던 결함을 닫았다**. 소품 삽화 `spot-comic` 추가. 영상 링크 회귀는 공통 내비 데이터를 본다.
 
 - **참조 사이트 구간 전수 목록 + 매핑**(DD-68): `scripts/design/extract-sections.mjs` 가 템플릿별 33페이지(목록+상세 · 404 포함)에서 구간 약 200개(컴포넌트 이름 · 눈썹/제목 · 높이 · 바탕 · 열 · 탭/펼침/폼/영상/모션)와 팝업류 6(쿠키 · 메가메뉴 3 · 검색 모달 · 모바일 서랍)을 뽑는다 → `refs/tines/sections.json` · `sections-summary.md`(구조만). CSS 모듈 이름이 없는 이전 세대 페이지는 보이는 블록으로 대체 판정. 판단 문서 `docs/design/tines-mapping.md` — 전역 틀 11 · 템플릿 18 · 구간 패턴 22 · 앱 UI 5 를 우리 화면에 대응시키고 적용 순서를 적었다. 발견: 공개 화면 390 에서 내비가 숨어 모바일 메뉴가 없다 · 전역 검색 없음.

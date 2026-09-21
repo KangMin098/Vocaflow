@@ -37,10 +37,10 @@
 | 참조 템플릿 | 참조 구간 흐름(요약 파일 순서) | 우리 화면 | 상태 |
 |---|---|---|---|
 | 홈 `/` | 히어로 → 100× 그림 → 제품 액자 → 선언문 → 보라 통판 → 팀 탭 5 → USP → 카드 4 → CTA | `/` | ✅ |
-| 제품 `/3b/` | 히어로 → 소개 → 영상 3열 → 탐색 → **벤토 3회(6–9칸)** → 코다 → FAQ → CTA | `/about` (기능 개관) | ○ |
+| 제품 `/3b/` | 히어로 → 소개 → 영상 3열 → 탐색 → **벤토 3회(6–9칸)** → 코다 → FAQ → CTA | `/about` — 2열 히어로+영상 액자 · 영상 3열 · 보라 통판 · 벤토 7 · 색면 모듈 8 · 약속 | ✅ |
 | 솔루션 `/solutions/it/` | `SolutionHero`(2열 + 그림) → 문제 서술 → 기능 2열(그림 6) → 「Dive into the details」 5–6열 카드 → 2열 → CTA | 대상별 소개: 수능 `/csat` · 교사 `/teacher` | ○ |
 | 산업 `/public-sector/` | 히어로 2단 → 층층 제품 그림 → 3열 → 가운데 인용 → 2열 → 예시 → 협력사 8열 → 4열 → 폭발 CTA | 교사 · 학교(B2B) 소개 | ○ |
-| 요금제 `/pricing/` | (보라 전면) 요금 카드 2 → 인용 격자 → 배지 줄 → FAQ 5 → CTA | `/pricing` | ○ |
+| 요금제 `/pricing/` | (보라 전면) 요금 카드 2 → 인용 격자 → 배지 줄 → FAQ 5 → CTA | `/pricing` — 보라 전면 + 요금 카드 3 · 차별점 · 영상 · FAQ 펼침(인용·배지 자리는 검증 가능한 동작) | ✅ |
 | 고객·사례 `/customers/` | 9열 필터 → **책 모양 사례 카드**(`CaseStudyBookCard`) 격자 → CTA | `/library/books` (진짜 책 표지 격자) | ○ |
 | 사례 상세 `/case-studies/r3/` | 하이라이트 수치 히어로 → 2열 본문(곁단) → 더 보기 3열 → CTA | 도서 상세 `/library/books/[id]` | ○ |
 | 도서관 `/library/` | 이야기 격자 → 임베드 3열 → How it works → (눈썹 머리 + 모음 격자) ×4 → 도구 12열 → 공동체 격자 → 제출 CTA | `/library` 허브 · `/library/vocab` · `/comics` | ○ |
@@ -61,15 +61,15 @@
 | # | 패턴 | 참조 예(컴포넌트 · 페이지) | 구조 | 우리 부품(만들 것) · 쓸 화면 | 상태 |
 |---|---|---|---|---|---|
 | P1 | 왼쪽 정렬 큰 제목 히어로 | `ThreeBHero` (홈 · 3B) | 배지 · 64px 2줄 · 세리프 부제 · 알약 CTA 2 · 증거 띠 | `/` | ✅ |
-| P2 | 2열 히어로 + 그림 | `SolutionHero` (솔루션 · 산업) | 눈썹 · 제목 · 부제 · 오른쪽 그림 | `/about` · `/teacher` · `/csat` · `/pricing` | ○ |
+| P2 | 2열 히어로 + 그림 | `SolutionHero` (솔루션 · 산업) | 눈썹 · 제목 · 부제 · 오른쪽 그림 | `/about` · `/teacher` · `/csat` · `/pricing` | ◐ |
 | P3 | 폭 전체 삽화 + 겹치는 제품 액자 | `ThreeBHundredXBanner` + `ThreeBProductVisual` | 그림 위로 라벤더 이중 테두리 액자 | `/` (CoverageHero) | ✅ |
 | P4 | 가운데 선언문 | `HomeMonitorBanner` | 모노 눈썹 · 굵은 세리프 · 세리프 문단 · 양옆 그림 | `/` · `/about` | ✅ |
 | P5 | 보라 통판 | `HomeSolutionSection` | 흰 제목 · 2×2 세리프 항목 · 아래 꽃밭 · 흰 알약 | `/` · `/pricing` | ✅ |
 | P6 | 색면 탭 + 제품 패널 | `HomeUseCasesSection` (탭 5) | 색면 탭 5 → 누르면 아래 패널 전환 | `/` 모듈 5 — **지금은 정적 카드**(탭 전환 없음) | ◐ |
 | P7 | USP 카드 줄 | `HomeUSPSection` (4열, 그림 4) | 보라 카드 · 세리프 문장 · 구석 소품 | `/` 문 카드 2 | ◐ |
-| P8 | 벤토 격자 | `ThreeBBentoSection` (6–9칸, 3회) | 크기 다른 칸 · 그림 · 짧은 문장 | `/about` 기능 개관 · `/hub` 요약 | ○ |
-| P9 | FAQ 펼침 | `ThreeBFaqSection` · `PricingFaqSection` (펼침 5) | 질문 행 · 펼치면 답 | `/pricing` · `/fit` | ○ |
-| P10 | 요금 카드 | `PricingPlanCards` (2) | 보라 전면 위 카드 2 | `/pricing` | ○ |
+| P8 | 벤토 격자 | `ThreeBBentoSection` (6–9칸, 3회) | 크기 다른 칸 · 그림 · 짧은 문장 | `/about` 기능 개관 · `/hub` 요약 | ◐ |
+| P9 | FAQ 펼침 | `ThreeBFaqSection` · `PricingFaqSection` (펼침 5) | 질문 행 · 펼치면 답 | `/pricing` · `/fit` | ◐ |
+| P10 | 요금 카드 | `PricingPlanCards` (2) | 보라 전면 위 카드 2 | `/pricing` | ◐ |
 | P11 | 눈썹 머리 + 모음 격자 | `PageSectionHeader` + `CollectionsGridPageSection` (5–6열) | 모노 눈썹 · 제목 · 「모두 보기」 · 카드 격자 | `/library` 허브 · `/library/vocab` · `/comics` | ○ |
 | P12 | 이야기 카드 격자 | `StoryGridPageSection` · `LibraryStoryCard` (9열, 그림 30) | 색 머리 카드 · 제목 · 태그 | 단어장 카드 · 도서 카드 | ○ |
 | P13 | 책 모양 카드 | `CaseStudyBookCard` | 책 등 · 표지 · 제목 | `/library/books` 표지 — 우리는 **진짜 책**이라 자리가 딱 맞는다 | ○ |
