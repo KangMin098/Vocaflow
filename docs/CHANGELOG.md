@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **제약 4종 삭제 + 제약 스킬 삭제**(DD-65 · ADR-007, 사용자 결정): 무한 모션 · 12px+ 모서리 · 그림자 · glass 금지를 규칙·라쳇(`average-signal-ratchet` 신호 8→4)·`learning-tone` 에서 뺐다. 스킬 `vocaflow-design` Part 2(제약 §0–§8)·§G4 삭제(두 사본 368→163줄), `minimalist-ui` · `vocaflow-visual-critic` 삭제. 토큰 추가 `--r-3xl…6xl` · `--sh-soft/drop/overlay` · `--blur-sm/md/lg` · `--dur-loop*`(웹+앱, Tailwind `rounded-4xl…6xl` · `shadow-soft/drop/overlay`) — 기존 값 무변경, 현재 화면 변화 0.
+
 - 모션 토큰 2개 추가(DD-64 · ADR-006, 사용자 결정): `--dur-quick` 150ms · `--ease-out-quint` `cubic-bezier(.22, 1, .36, 1)` — 웹 `tokens.css` + 앱 `motion.ts` 동시. 근거는 참조 작성 CSS 최빈값(150ms ×33 · 이징 ×23). 기존 `--dur-*`·`--ease` 값은 무변경, 적용 화면 0.
 
 - 실물 우선 Stage 1 보강(DD-62): 참조 사이트가 **작성한 CSS** 의 값 집계기 `scripts/design/extract-css-authored.mjs` → `docs/design/refs/tines/css-authored.json` · `css-authored-summary.md`. extract-computed 가 못 보는 값(측정 시점에 안 보이는 hover·메뉴·모션)을 6페이지 30시트에서 뽑는다 — 분기점 · 지속시간/이징(우리 `--dur-*` 최근접 Δms) · transition 대상 속성 · @keyframes 51개의 움직이는 속성 · 작성 모서리 전체(`var(--radius)` 작성값 풀이, 우리 상한 6px 초과 표시) · 그림자/블러/z-index · @font-face 목록. CSS·서체·이미지 원문은 저장하지 않는다(원본 미러는 로컬 `tmp/` 전용).

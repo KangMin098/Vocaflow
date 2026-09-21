@@ -52,7 +52,7 @@
 (`stitch-design-taste` 의 perpetual micro-motion · `gpt-taste` 의 GSAP pinning ·
 `stitch` 의 "세리프 금지" vs Lora 시그니처). **발명 엔진(§A–§F)** 과 판정표·라우팅은
 **[.claude/skills/vocaflow-design/SKILL.md](./.claude/skills/vocaflow-design/SKILL.md)** 가 정본이다.
-UI 작업 전 그 스킬을 먼저 읽는다. **Part 1(§A–§F)이 목표이고 Part 2(§0–§8)는 하한선이다** —
+UI 작업 전 그 스킬을 먼저 읽는다. **Part 1(§A–§G)이 목표다**(제약 절 Part 2 §0–§8 은 DD-65 로 삭제) —
 제약만 지킨 화면은 "위반 없는 평범한 화면"이지 혁신이 아니다.
 
 ---

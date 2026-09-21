@@ -78,7 +78,7 @@
 
 권고가 아니라 **실패하는 테스트**다(vocaflow-design §G5):
 새 `page.tsx` 는 첫 20줄에 `// @form: <G1 축> — <서명>` 이 없으면 실패(`apps/web/src/app/__tests__/form-declaration-ratchet.test.ts`),
-3열 균등 격자 · 그림자 · 12px+ 둥근 카드 · 그라디언트 · AI-보라 · glass · 떠오르는 hover · 무한 모션이 **하나라도 늘면** 실패(`apps/web/src/components/__tests__/average-signal-ratchet.test.ts`).
+3열 균등 격자 · 그라디언트 · AI-보라 · 떠오르는 hover 가 **하나라도 늘면** 실패(그림자 · 12px+ 둥근 카드 · glass · 무한 모션은 DD-65 로 해제)(`apps/web/src/components/__tests__/average-signal-ratchet.test.ts`).
 기준선은 내리기만 한다.
 
 ## 골든 스크린
@@ -90,7 +90,7 @@
 
 | 결정할 것 | 정본 |
 |---|---|
-| 학습 효과·형태 발명·외부 스킬 충돌 | [vocaflow-design](.claude/skills/vocaflow-design/SKILL.md) (Part 1 §A–§G 목표 · Part 2 하한선), [CLAUDE.md](CLAUDE.md) |
+| 학습 효과·형태 발명·외부 스킬 충돌 | [vocaflow-design](.claude/skills/vocaflow-design/SKILL.md) (Part 1 §A–§G — 제약 절 Part 2 는 DD-65 로 삭제), [CLAUDE.md](CLAUDE.md) |
 | 현재 판면·서체·토큰·형태 문법 | [디자인 시스템](docs/DESIGN_SYSTEM.md), [주묵 판면](docs/design/03-system.md) |
 | 실제 토큰·글꼴 구현 | [tokens.css](packages/design-tokens/src/tokens.css), [Tailwind](apps/web/tailwind.config.ts) |
 | 제품의 학습 계층 | [학습 모델](docs/LEARNING_MODEL.md) |

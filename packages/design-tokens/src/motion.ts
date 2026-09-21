@@ -5,6 +5,10 @@ export const duration = {
   normal: 200,
   slow: 300,
   slower: 500,
+  // DD-65 — 반복(무한) 모션 한 바퀴
+  loopFast: 2000,
+  loop: 4000,
+  loopSlow: 30000,
 } as const;
 
 export const easing = {

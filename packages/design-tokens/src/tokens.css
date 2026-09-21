@@ -232,6 +232,15 @@
   --sh-xl: 0 0 0 1px var(--bd);
   /* 진짜로 떠야 하는 것 — 모달 · 바텀시트 · 토스트 · 팝오버 */
   --sh-float: 0 0 0 1px var(--bd), 0 18px 48px -12px rgba(26, 23, 20, .22);
+  /* 참조 작성값에서 온 실제 그림자 — 위 --sh-xs…xl(링)은 그대로 두고 새 이름으로 더한다 · DD-65
+     refs/tines/css-authored-summary.md §그림자 (em 값은 16px 로 환산) */
+  --sh-soft: 0 1px 3px rgba(0, 0, 0, .06);
+  --sh-drop: 0 16px 16px -8px rgba(0, 0, 0, .10);
+  --sh-overlay: 0 24px 80px rgba(0, 0, 0, .25);
+  /* backdrop-filter 흐림 — 참조 작성값 8 · 12(최빈) · 20px */
+  --blur-sm: 8px;
+  --blur-md: 12px;
+  --blur-lg: 20px;
 
   /* ═══════════════════════════════════════════════════════════════════════
      v07 Radius — **하나의 램프로 접는다.**
@@ -246,6 +255,11 @@
   --r-lg: 4px;
   --r-xl: 5px;
   --r-2xl: 6px;
+  /* 6px 상한 해제 뒤 추가(DD-65) — 참조 작성값 8 · 12(--radius) · 16(--cardRadius) · 24px */
+  --r-3xl: 8px;
+  --r-4xl: 12px;
+  --r-5xl: 16px;
+  --r-6xl: 24px;
   --r-full: 9999px;
 
   /* ─────── Spacing — 4px 기반 ─────── */
@@ -275,6 +289,10 @@
   --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
   /* 진입(드롭다운·패널이 나타날 때) — 참조 작성 이징 최빈(23회). 기존 --ease 는 그대로 둔다 · DD-64 */
   --ease-out-quint: cubic-bezier(.22, 1, .36, 1);
+  /* 반복(무한) 모션 한 바퀴 — 참조 작성값 2s · 4s · 30s(흐르는 띠) · DD-65 */
+  --dur-loop-fast: 2s;
+  --dur-loop: 4s;
+  --dur-loop-slow: 30s;
 
   /* ═══════════════════════════════════════════════════════
      iOS / iPadOS HIG 토큰 (v06.36)
@@ -541,4 +559,7 @@
   --sh-ios-2: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 24px -12px rgba(0, 0, 0, .5);
   --sh-ios-3: 0 2px 4px rgba(0, 0, 0, .4), 0 12px 32px -8px rgba(0, 0, 0, .55);
   --sh-ios-4: 0 4px 8px rgba(0, 0, 0, .45), 0 20px 48px -8px rgba(0, 0, 0, .6);
+  --sh-soft: 0 1px 3px rgba(0, 0, 0, .35);
+  --sh-drop: 0 16px 16px -8px rgba(0, 0, 0, .5);
+  --sh-overlay: 0 24px 80px rgba(0, 0, 0, .6);
 }

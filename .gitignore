@@ -149,7 +149,6 @@ scripts/dict/SLUR_CANDIDATES.json
 .agents/skills/*
 !.agents/skills/vocaflow-design/
 !.agents/skills/vocaflow-design-loop/
-!.agents/skills/vocaflow-visual-critic/
 .claude/skills/*
 !.claude/skills/vocaflow-design/
 .claude/_disabled/

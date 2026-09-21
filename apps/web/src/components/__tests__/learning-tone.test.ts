@@ -313,13 +313,7 @@ describe('v07 — 학습자 판면에 그림문자를 그리지 않는다', () =
     }).map(({ path }) => rel(path))
     expect(offenders, `emoji 필드를 그린다: ${offenders.join(', ')}`).toEqual([])
   })
-
-  it('학습 중 쉼 화면에 무한 반복 장식 모션이 없다', () => {
-    for (const f of ['flashcard/MicroPause.tsx', 'spellforge/MicroPause.tsx']) {
-      const src = readFileSync(join(COMPONENTS, f), 'utf8')
-      expect(src, `${f} 에 끝나지 않는 장식 모션`).not.toMatch(/_infinite\]/)
-    }
-  })
+  // 「학습 중 쉼 화면에 무한 반복 장식 모션이 없다」 검사는 DD-65(사용자 결정 2026-09-21)로 제약과 함께 삭제했다.
 })
 
 describe('v07 — 반짝이(Sparkles)는 우리 표식이 아니다', () => {

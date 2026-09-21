@@ -217,6 +217,10 @@ const config: Config = {
         "ios-glow-green": "var(--sh-ios-glow-green)",
         "ios-glow-red": "var(--sh-ios-glow-red)",
         "ios-glow-orange": "var(--sh-ios-glow-orange)",
+        // DD-65 — 참조 작성값에서 온 실제 그림자(다크 값은 tokens.css)
+        soft: "var(--sh-soft)",
+        drop: "var(--sh-drop)",
+        overlay: "var(--sh-overlay)",
       },
 
       borderRadius: {
@@ -234,6 +238,10 @@ const config: Config = {
         xl: "var(--r-xl)",    // 5px
         "2xl": "var(--r-2xl)", // 6px
         "3xl": "var(--r-ios-3xl)", // 8px
+        // DD-65 — 6px 상한 해제 뒤 추가된 램프(--r-4xl…6xl)
+        "4xl": "var(--r-4xl)", // 12px
+        "5xl": "var(--r-5xl)", // 16px
+        "6xl": "var(--r-6xl)", // 24px
         // ─── iOS HIG radius (v06.36) ───
         "ios-xs": "var(--r-ios-xs)",
         "ios-sm": "var(--r-ios-sm)",

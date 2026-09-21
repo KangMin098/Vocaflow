@@ -43,7 +43,7 @@ docs/design/03-system.md · 04-application.md → packages/design-tokens/CLAUDE.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 A1. 참조 이미지·SVG 를 저장소로 복사하지 않는다. .gitignore 에 docs/design/refs/**/*.{png,jpg,svg,webp}. 저장소에는 텍스트 산출물과 우리 자산만.
 A2. L3 금지: Tines 의 소재(식물·만화경 등)·색값·서체·SVG 경로·캐릭터를 쓰지 않는다. 래스터 생성기의 스타일 입력은 사람이 고른 골든 삽화 3점뿐, 참조 캡처는 절대 넣지 않는다.
-A3. SKILL.md Part 2 하한선(Calm UI·접근성·모션 예산·폰트 4종·토큰만)은 어기지 않는다. L2 차용이 DESIGN.md 와 충돌하면 코드가 아니라 **DESIGN.md 개정안**을 만들어 사람 결정에 올린다(Gate 2).
+A3. (SKILL.md Part 2 하한선 조항은 DD-65 로 삭제 — 규칙 정본은 AGENTS.md.) L2 차용이 DESIGN.md 와 충돌하면 코드가 아니라 **DESIGN.md 개정안**을 만들어 사람 결정에 올린다(Gate 2).
 A4. 소재는 시험·종이·잉크·책·시험지 격자의 세계에서만. 사람 얼굴·로봇·식물·추상 blob·이모지 금지.
 A5. 화면 코드는 Gate 6 전까지 고치지 않는다. Gate 6 도 manifest 자산 교체와 최소 변경만.
 A6. SVG 우선, CSS 변수(토큰)로 색 수신, <title> 필수. 래스터는 표지·OG 등 사진적 질감에만.

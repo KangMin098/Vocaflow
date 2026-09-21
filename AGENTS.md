@@ -70,11 +70,11 @@
 | D4 | 빈 상태에 다음 한 걸음이 반드시 있다 |
 | D5 | 가입 후 첫 학습 완료까지 화면 전환 ≤ 3 (회귀 `app/__tests__/activation-path.test.ts`) |
 
-**모션 예산**: 마이크로 100–200ms(`--dur-fast`/`--dur-quick`/`--dur-normal`, 진입 이징 `--ease-out-quint`) · 표준 200–300ms(`--dur-slow`) · 스태거 50ms · 이동 4–16px / 리빌 20–40px · 총 1초 초과 금지 · `transform`·`opacity` 만.
+**모션 예산**: 마이크로 100–200ms(`--dur-fast`/`--dur-quick`/`--dur-normal`, 진입 이징 `--ease-out-quint`) · 표준 200–300ms(`--dur-slow`) · 스태거 50ms · 이동 4–16px / 리빌 20–40px · 총 1초 초과 금지(반복 모션은 한 바퀴 `--dur-loop-fast`/`--dur-loop`/`--dur-loop-slow` 로 예외 — DD-65) · `transform`·`opacity` 만.
 `prefers-reduced-motion` 은 끄기가 아니라 낮추기(이동·회전·스케일 제거, 페이드는 남김).
 학습 중 허용 7종: 카드 뒤집기 · 정답 scale · 오답 shake · 진행률 바 · 점수 카운트업 · 페이지 페이드 · 포커스 링.
-항상 금지: 폭죽 · 콘페티 · 배지 팝업 · 자동재생 캐러셀 · 장식적 상시 모션. **로더·스켈레톤은 허용** — 기준은 "끝나는 상태가 있는가". 아케이드(`components/game/`)는 대상 아님. 회귀 `components/__tests__/learning-tone.test.ts`.
-활성 외부 취향 스킬 2개(`design-taste-frontend` · `minimalist-ui`, + 내장 `dataviz`)는 위 철학과 충돌한다 — 판정은 vocaflow-design 스킬이 정본, 나머지 11개는 `_disabled/`([design/DECISIONS](./docs/design/DECISIONS.md)). **Part 1(§A–§G) 발명이 목표 — 화면은 §G 로 자산의 형태를 골격으로 세운다. Part 2(§0–§8) 제약은 하한선.**
+항상 금지: 폭죽 · 콘페티 · 배지 팝업 · 자동재생 캐러셀. 아케이드(`components/game/`)는 대상 아님. 회귀 `components/__tests__/learning-tone.test.ts`. (장식적 상시 모션 금지는 DD-65 로 삭제.)
+활성 외부 취향 스킬은 `design-taste-frontend` 1개(+ 내장 `dataviz`) — `minimalist-ui` 와 vocaflow-design 의 제약 판정표(옛 Part 2 §0–§8)는 DD-65 로 삭제, 나머지는 `_disabled/`([design/DECISIONS](./docs/design/DECISIONS.md)). **Part 1(§A–§G) 발명이 목표 — 화면은 §G 로 자산의 형태를 골격으로 세운다.**
 
 ## 절대 하지 않을 것
 
@@ -91,7 +91,7 @@
 - 인터랙티브 요소 4상태(hover · active · focus · disabled) · 카드·버튼 transition(`--dur-normal`, `--ease`) · 정답/오답 3중 피드백(색 + 아이콘 + 애니메이션).
 - 모바일 퍼스트(390 → 768 → 1280) · CSS Variables 로 테마(하드코딩 금지, 게임 전용 예외) · `data-theme="dark"` 전 컴포넌트 대응.
 - 파일 첫 줄 경로 주석(`// apps/web/src/components/ui/Button.tsx`) · 코드 완성형만(TODO·생략·placeholder 금지).
-- **평균 금지(혁신만 목표)**: 새 `page.tsx` 는 첫 20줄에 `// @form: <G1 축> — <서명>`(vocaflow-design §G) · 평균 신호(3열 균등·그림자·둥근 카드·그라디언트·AI-보라·glass·떠오르는 hover·무한 모션)는 늘리지 않는다. 회귀 `app/__tests__/form-declaration-ratchet.test.ts` · `components/__tests__/average-signal-ratchet.test.ts` — 기준선을 올려 통과시키지 않는다.
+- **평균 금지(혁신만 목표)**: 새 `page.tsx` 는 첫 20줄에 `// @form: <G1 축> — <서명>`(vocaflow-design §G) · 평균 신호(3열 균등·그라디언트·AI-보라·떠오르는 hover)는 늘리지 않는다. 그림자·12px+ 모서리·glass·무한 모션은 DD-65 로 제약 해제(`--sh-soft/drop/overlay` · `--r-3xl…6xl` · `--blur-*` · `--dur-loop*`). 회귀 `app/__tests__/form-declaration-ratchet.test.ts` · `components/__tests__/average-signal-ratchet.test.ts` — 기준선을 올려 통과시키지 않는다.
 - **마이그레이션 자동 적용 금지** — SQL 을 보여주고 사용자 승인 후 적용.
 
 ## LLM 판단이 필요한 일 = 에이전트가 직접 하는 배치 드레인

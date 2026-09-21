@@ -50,12 +50,13 @@
 
 | 항목 | 값 | 토큰 |
 |---|---|---|
-| 마이크로 (호버·프레스·토글) | **100–200ms** | `--dur-fast` 100ms · `--dur-normal` 200ms |
+| 마이크로 (호버·프레스·토글) | **100–200ms** | `--dur-fast` 100ms · `--dur-quick` 150ms · `--dur-normal` 200ms |
 | 표준 전환 (패널·모달·페이지) | **200–300ms** | `--dur-normal` · `--dur-slow` 300ms |
-| 이징 | `cubic-bezier(.4, 0, .2, 1)` | `--ease` |
+| 이징 | `cubic-bezier(.4, 0, .2, 1)` · 진입 `cubic-bezier(.22, 1, .36, 1)` | `--ease` · `--ease-out-quint` |
 | 스태거 | **50ms** | §Motion 사용 매핑 |
 | 이동 거리 | 마이크로 **4–16px** · 리빌 **20–40px** | — |
-| 총 지속 | **1초 초과 금지** (예외: `--dur-breath` 4s 정지 배경 앰비언트) | — |
+| 총 지속 | **1초 초과 금지** (예외: `--dur-breath` 4s 정지 배경 앰비언트 · 반복 모션 한 바퀴) | — |
+| 반복 모션 한 바퀴 | **2s · 4s · 30s** | `--dur-loop-fast` · `--dur-loop` · `--dur-loop-slow` (DD-65) |
 | 애니메이트 대상 | `transform` · `opacity` **만** | — |
 
 #### 3.1 `prefers-reduced-motion` 은 끄기가 아니라 **낮추기**
@@ -76,7 +77,7 @@
 
 카드 뒤집기 · 정답 `scale(1.05)→1` · 오답 shake 3회 · 진행률 바 · 점수 카운트업 · 페이지 전환 페이드 · 포커스 링.
 
-**항상 금지**: 폭죽 · 콘페티 · 배지 팝업 · 자동재생 캐러셀 · **장식적 상시 모션**(끝나는 상태가 없는 것).
+**항상 금지**: 폭죽 · 콘페티 · 배지 팝업 · 자동재생 캐러셀. (장식적 상시 모션 금지는 DD-65 로 삭제 — 반복 모션은 `--dur-loop*`.)
 - **로더·스켈레톤은 허용** — 판정 기준은 "반복하는가" 가 아니라 **"끝나는 상태가 있는가"**(2026-09-06, 로더 20곳 오탐 정정).
 - **트로피** — 금지는 「진행률 100% 완료 축하」 자리다. 점수·기록 표시의 `Trophy` 는 해당 없음.
 - **아케이드 예외** — `components/game/` 는 대상 아님. 학습 모듈(`flashcard` · `dictation` · `spellforge` · `pairflip` · `echo` …)은 예외가 아니다.
@@ -93,8 +94,8 @@
 | # | 원칙 | 값 |
 |---|---|---|
 | 1 | 순백·순흑 금지 | 지면 `--bg #FBFAF6` · 잉크 `--t1 #1A1714` |
-| 2 | 카드가 아니라 판면 | 모든 `--sh-*` = `0 0 0 1px var(--bd)`(헤어라인 링). 실제로 뜨는 것(모달·시트·토스트·팝오버)만 `--sh-float` |
-| 3 | radius 는 거의 직각 | `--r-sm/md/lg/xl/2xl` = 2/3/4/5/6px · `--r-full` 은 칩·아바타·진행바만 |
+| 2 | 카드가 아니라 판면 | 기존 `--sh-xs…xl` = `0 0 0 1px var(--bd)`(헤어라인 링). 실제 그림자는 `--sh-soft` · `--sh-drop` · `--sh-overlay`(DD-65, 제약 해제) · 모달류는 `--sh-float` |
+| 3 | radius 램프 | `--r-sm/md/lg/xl/2xl` = 2/3/4/5/6px · `--r-3xl/4xl/5xl/6xl` = 8/12/16/24px(DD-65, 6px 상한 해제) · `--r-full` |
 | 4 | 주묵은 앱이 지면에 남기는 표식 | 1차 CTA(화면에 하나) · 활성 표식 · 완료 체크 · 권점. **학습자 오답·위험 상태에는 쓰지 않는다**(회귀 `learning-tone.test.ts`) |
 | 5 | 동시 노출 색 ≤ 3 | 잉크(`--p`) + 주묵 + Memory Decay 1개. 나머지는 잉크 알파와 지면 |
 | 6 | 눌리면 들어간다 | hover 는 색만 · `active:translate-y-[1px]` · `transition-all` 대신 속성 나열 |
@@ -174,7 +175,7 @@ R(t) = `exp(ln(0.9) × t / S)` 를 **동적 계산**한다(`memory_state` 컬럼
 R(t) 없이는 그을 수 없는 선이다. 정보는 **두께**가 나르므로 색 단독 전달 금지를 장치 자체가 충족한다(`sr-only` 상태명 동반).
 FSRS 상태가 없는 표면은 `bandFromOverdue(overdueDays)` 로 **가진 값**만 두께로 옮긴다 — 상태를 지어내지 않는다.
 `components/workspace/ReadingUniverse.tsx`(`/text/[id]`)도 2026-09-18 에 F1 로 옮겼다 — 그 전의 v06 표현(1.5px dashed + `word-pulse` 4s **무한** + 하드코딩 `rgba`)은
-끝나는 상태가 없는 모션이었다([design/DECISIONS.md](design/DECISIONS.md) DD-06). 평균 신호 라쳇의 `infinite-anim` 이 재발을 막는다.
+끝나는 상태가 없는 모션이었다([design/DECISIONS.md](design/DECISIONS.md) DD-06). 이 금지는 DD-65 로 해제됐다(라쳇 `infinite-anim` 삭제).
 
 ### F2. 관계 선 — 지지 · 배제 · 유인 · 합류
 
@@ -259,7 +260,10 @@ mono      : … JetBrains Mono → … → var(--font-body) → monospace  ← �
 |---|---|---|
 | `--sh-xs … --sh-xl` · `--sh-ios-1…3` · `--sh-card` | `0 0 0 1px var(--bd)` | 모든 판면·카드(뜨지 않는다) |
 | `--sh-float` · `--sh-ios-4` | 링 + `0 18px 48px -12px rgba(26,23,20,.22)` | 모달 · 바텀시트 · 토스트 · 팝오버 |
+| `--sh-soft` · `--sh-drop` · `--sh-overlay` | `0 1px 3px` 6% · `0 16px 16px -8px` 10% · `0 24px 80px` 25% (다크 35/50/60%) | 참조 작성값 — DD-65 |
+| `--blur-sm` · `--blur-md` · `--blur-lg` | 8 · 12 · 20px | `backdrop-filter` 흐림 — DD-65 |
 | `--r-sm` · `--r-md` · `--r-lg` · `--r-xl` · `--r-2xl` | 2 · 3 · 4 · 5 · 6px | 입력 · 버튼 · 판면 · 시트 |
+| `--r-3xl` · `--r-4xl` · `--r-5xl` · `--r-6xl` | 8 · 12 · 16 · 24px | 카드 · 패널 (Tailwind `rounded-4xl…6xl`) — DD-65 |
 | `--r-ios-modal` | 10px | 실제로 뜨는 시트 |
 | `--r-full` | 9999px | 칩 · 아바타 · 진행바 — **큰 컨테이너·1차 버튼 금지** |
 

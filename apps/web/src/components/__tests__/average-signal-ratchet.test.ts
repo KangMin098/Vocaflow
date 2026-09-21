@@ -3,13 +3,14 @@
 // **평균 회귀 신호를 라쳇으로 잠근다 — 늘어나면 실패, 줄어들면 기준선을 같이 내린다.**
 //
 // ── 왜 ───────────────────────────────────────────────────────────────
-// 지침(vocaflow-design §G · DESIGN_SYSTEM §판면)은 "카드+그림자 · 3열 균등 · 그라디언트 · AI-보라 ·
-// 떠오르는 hover · glass · 끝나지 않는 모션" 을 평균의 신호로 적어 두었다. 그런데 **적어 두기만 했다.**
+// 지침(vocaflow-design §G · DESIGN_SYSTEM §판면)은 "3열 균등 · 그라디언트 · AI-보라 · 떠오르는 hover" 를
+// 평균의 신호로 적어 두었다. 그런데 **적어 두기만 했다.**
+// (그림자 · 12px+ 둥근 카드 · glass · 끝나지 않는 모션 4개는 DD-65 — 사용자 결정 2026-09-21 — 로 제약째 삭제했다.)
 // 규칙 위반 없이도 화면은 이 신호들로 조용히 평균에 수렴한다 — 어떤 e2e 도, axe 도 실패하지 않는다.
 // 목표가 "평균은 절대 안 된다" 이므로(2026-09-18 사용자 지시) 문장이 아니라 숫자로 막는다.
 //
 // ── 무엇을 세는가 ─────────────────────────────────────────────────────
-// `src/` 의 .tsx/.ts/.css(테스트 제외)에서 아래 8개 패턴의 출현 수를 **표면별로** 센다.
+// `src/` 의 .tsx/.ts/.css(테스트 제외)에서 아래 4개 패턴의 출현 수를 **표면별로** 센다.
 //   learner — 학습자 화면 전부(학습 세션 `flashcard/play` 등 포함)
 //   admin   — `/admin` 과 `components/admin` (DD-01: 보라 액센트는 교체 결정 — 줄이기만 한다)
 //   제외    — 아케이드(`components/game` · `lib/game` · `(app)/play` · `arcade`). 게임의 리듬은
@@ -39,14 +40,6 @@ const SIGNALS: Record<string, { re: RegExp; why: string }> = {
     re: /(?<![\w-])(?:(?:sm|md|lg|xl):)?grid-cols-3(?![\w-])/g,
     why: '3열 균등 격자 — 템플릿의 기본 구도. 골격은 G1 축이어야 한다',
   },
-  'shadow-heavy': {
-    re: /(?<![\w-])(?:hover:)?shadow-(?:md|lg|xl|2xl)(?![\w-])/g,
-    why: 'Tailwind 기본 그림자 — 판면은 뜨지 않는다(--sh-* 는 헤어라인 링)',
-  },
-  'rounded-big': {
-    re: /(?<![\w-])rounded-(?:xl|2xl|3xl)(?![\w-])/g,
-    why: '12px+ 둥근 카드 — 판면 radius 는 2–6px(--r-*)',
-  },
   gradient: {
     re: /bg-gradient-to-|linear-gradient\(|radial-gradient\(/g,
     why: '장식 그라디언트 — N1 불통과(자산 없이 복제된다)',
@@ -55,17 +48,9 @@ const SIGNALS: Record<string, { re: RegExp; why: string }> = {
     re: /#8B5CF6|#7C3AED|#6D28D9|#A78BFA|(?<![\w-])(?:bg|text|border|from|to|via|ring)-(?:violet|purple|indigo)-\d{2,3}/gi,
     why: 'AI-보라 — 외부 스킬 공통 금지 1순위. Admin 액센트도 교체 결정(DD-01)',
   },
-  glass: {
-    re: /backdrop-blur/g,
-    why: 'glassmorphism — 판면 방향과 반대, 대비를 깎는다',
-  },
   'float-hover': {
     re: /hover:-translate-y-/g,
     why: '떠오르는 hover — 판면에서 요소는 뜨지 않는다. 눌리면 들어간다',
-  },
-  'infinite-anim': {
-    re: /_infinite\]|animate-(?:bounce|ping)(?![\w-])/g,
-    why: '끝나는 상태가 없는 모션 — 장식적 상시 모션 금지(로더 animate-spin·스켈레톤 animate-pulse 는 세지 않는다)',
   },
 }
 
@@ -82,23 +67,15 @@ const SIGNALS: Record<string, { re: RegExp; why: string }> = {
 const BASELINE: Record<Surface, Record<string, number>> = {
   learner: {
     'grid-3eq': 58,
-    'shadow-heavy': 29,
-    'rounded-big': 41,
     gradient: 167,
     'ai-purple': 38,
-    glass: 49,
     'float-hover': 64,
-    'infinite-anim': 12,
   },
   admin: {
     'grid-3eq': 35,
-    'shadow-heavy': 0,
-    'rounded-big': 4,
     gradient: 36,
     'ai-purple': 0,
-    glass: 7,
     'float-hover': 8,
-    'infinite-anim': 0,
   },
 }
 

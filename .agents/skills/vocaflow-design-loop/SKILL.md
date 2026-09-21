@@ -21,7 +21,7 @@ description: Design or improve Vocaflow web screens with the existing learning m
    문장 선택·강조·발화·취소 상태의 연결도 검증한다. 시각 작업을 이유로 학습 데이터를 바꾸지 않는다.
 5. [브라우저 검증 절차](../../../docs/design/06-workflow.md)에 따라 캡처와 상호작용 검증을 실행한다.
    실제 이미지를 열어 보고 비평한다. 스크린샷 파일이 생성됐다는 사실만으로 디자인을 평가하지 않는다.
-6. [visual-critic](../vocaflow-visual-critic/SKILL.md)의 (a) 익명성 → (b) 평균 회귀 → (c) 골든 → (d) 포트폴리오 → (e) 규칙 순으로 판정하고,
+6. [06-workflow](../../../docs/design/06-workflow.md) 5단계의 (a) 익명성 → (b) 평균 회귀 → (c) 골든 → (d) 포트폴리오 → (e) 규칙 순으로 판정하고,
    가장 나쁜 것 1개를 수정한 뒤 같은 조건에서 다시 검증한다(2회까지, 그 뒤는 사람 판단).
    관찰되지 않은 문제를 개수에 맞춰 지어내거나 근거 없는 무한 수정을 하지 않는다.
 
