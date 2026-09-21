@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **랜딩 `/` 를 참조 홈 골격으로 재구성**(DD-68 ③④): 알약 내비·CTA, 왼쪽 정렬 64px 제목 + 세리프 부제, 로고 줄 자리에 DB 실측 지표, 폭 전체 삽화 위로 겹치는 제품 액자(CoverageHero), 가운데 선언문, 보라 통판(차별점 3 + 꽃밭), 색면 모듈 5(소품 삽화), 보라 문 카드 2, 마지막 CTA. 계약(서버 컴포넌트 · canonical · `/fit` · 실측 수치 · 도착/CTA 계측 · `/video`) 유지 — 두 번째 CTA 는 `trackView={false}` 로 도착을 두 번 세지 않는다. `PILL` 상수는 `components/marketing/pill.ts`(클라이언트 파일에서 내보내면 서버에서 `[object Object]` 가 된다 — 실측). 스킨 세리프·모노 목록에 한글 서체를 끼웠다.
+
 - **Tines 화풍 삽화 6점**(DD-68 ⑤): 무료 Qwen-Image(DashScope)로 생성하는 `scripts/design/illo-tines-gen.mjs` — 화풍 문장 한 곳 · 참조 그림 입력 0 · 소재는 우리 기능. 히어로 1(펼친 책 꽃밭) + 소품 5(읽기·단어 보관함·망각·듣기·퀴즈), 가장자리 바탕 투명화 + WebP → `public/illustrations/tines/`(합 ~780 KiB). Pollinations 는 해상도·워터마크·프롬프트 불이행으로 기각(같은 프롬프트 실측).
 
 - **Tines 스킨 1단계**(DD-68 · ADR-008): `skins/tines.css`(+ 앱 `skins/tines.ts`, 패리티 테스트)가 `<html data-skin="tines">` 에서 토큰을 참조 실측값으로 덮는다 — 기본 켜짐, `?skin=off` 로 비교. 서체 대체는 픽셀 비교(`scripts/design/font-lookalike.mjs`)로 Figtree · Petrona · Space Mono + 한글 Pretendard(CDN). `style-gate` 의 Tines 색 근접은 보고만.

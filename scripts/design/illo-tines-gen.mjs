@@ -45,6 +45,8 @@ const NEG = 'text, letters, words, numbers, watermark, logo, signature, gradient
 const SCENES = [
   { id: 'hero-book-field', size: '1664*928', style: STYLE_DENSE,
     scene: 'A giant open book seen from slightly above; its pages burst into a lush dense field of flowers that spills over the edges, while small blank flashcards hang above it like bunting on a string.' },
+  { id: 'bed-flowers', size: '1664*928', style: STYLE_DENSE,
+    scene: 'A wide low mound of densely packed flowers running along the bottom edge of the frame like a flower bed; the upper half of the image is completely empty plain background.' },
   { id: 'spot-reading', size: '1328*1328', style: STYLE_SPOT,
     scene: 'A vintage brass magnifying glass leaning on a small stack of books, the lens showing a few enlarged blank lines.' },
   { id: 'spot-vault', size: '1328*1328', style: STYLE_SPOT,

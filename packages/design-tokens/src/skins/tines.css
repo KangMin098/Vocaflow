@@ -87,8 +87,9 @@
 
   /* ── 서체 ── */
   --font-display: var(--font-tines-sans), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-serif: var(--font-tines-serif), Georgia, serif;
-  --font-mono: var(--font-tines-mono), ui-monospace, monospace;
+  /* 라틴 전용 대체 서체 뒤에 한글 서체를 바로 둔다 — 없으면 한글이 시스템 세리프·모노로 떨어진다. */
+  --font-serif: var(--font-tines-serif), var(--font-ko-display), Georgia, serif;
+  --font-mono: var(--font-tines-mono), "Pretendard Variable", Pretendard, ui-monospace, monospace;
   /* 한글 세리프는 --font-ko-display(Hahmlet) 그대로 — 참조 사이트에 한글 서체가 없다. */
 }
 
