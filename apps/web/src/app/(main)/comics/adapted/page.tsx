@@ -9,10 +9,10 @@
 //   · 등록 = 부모 도서 등록 여부 → 리더 라우트(/text/[id]/comic) 진입 가능 여부
 //   · 진도 = 만화 컷 위치 → "이어서 보기". 챕터 완료(texts.status)와 분리 회계(설계서 R1).
 
-import { BookImage } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { Capsule, Screen } from '@/components/ui/ios'
+import { AreaHero } from '@/components/layout/AreaHero'
+import { Screen } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/server'
 import { fetchComicCatalogResult } from '@/lib/comic/catalog'
 import {
@@ -133,32 +133,23 @@ export default async function LibraryComicsPage() {
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        <header className="flex flex-col gap-3 px-1">
-          <div className="flex items-center gap-3">
-            <span
-              aria-hidden
-              className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm"
-              style={{ background: 'var(--active)', color: '#231a09' }}
-            >
-              <BookImage size={16} />
-            </span>
-            <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
-              책 만화
-            </h1>
-          </div>
-          <p className="break-keep font-body text-[15px] text-[var(--t2)]">
-            같은 책, 그림으로 먼저 만나는 입구 — 줄거리를 잡고 나면 본문이 한결 수월해져요.
-          </p>
-          {items.length > 0 && (
-            <div className="mt-1 flex flex-wrap items-center gap-2">
-              <Capsule label="만화" value={`${items.length}편`} />
-              {totalPanels > 0 && <Capsule label="컷" value={`${totalPanels}`} />}
-              {readingCount > 0 && (
-                <Capsule tone="green" label="보는 중" value={`${readingCount}편`} />
-              )}
-            </div>
-          )}
-        </header>
+        {/* DD-68 — 서가와 같은 구역 머리. 장면은 만화 서가(scene-comics), 면은 복숭아 틴트. */}
+        <AreaHero
+          kicker="만화 · Book Comics"
+          title="책 만화"
+          sub="같은 책, 그림으로 먼저 만나는 입구 — 줄거리를 잡고 나면 본문이 한결 수월해져요."
+          scene="scene-comics"
+          tint="peach"
+          stats={
+            items.length > 0
+              ? [
+                  { label: '만화', value: `${items.length}편` },
+                  ...(totalPanels > 0 ? [{ label: '컷', value: `${totalPanels}` }] : []),
+                  ...(readingCount > 0 ? [{ label: '보는 중', value: `${readingCount}편` }] : []),
+                ]
+              : undefined
+          }
+        />
 
         <ComicsBrowser items={items} loadError={catalogFailed} />
       </div>

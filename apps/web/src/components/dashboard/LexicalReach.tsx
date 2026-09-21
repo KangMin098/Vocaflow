@@ -24,7 +24,7 @@ export function LexicalReach({ reach }: { reach: Reach }) {
   return (
     <section
       aria-label="어휘의 무게중심"
-      className="flex flex-col rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-6"
+      className="flex flex-col rounded-[var(--r-2xl)] bg-[var(--tint-yellow)] px-5 py-5 md:px-6"
     >
       <header className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">

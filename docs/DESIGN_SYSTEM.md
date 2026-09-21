@@ -111,6 +111,8 @@
 | `--r-sm…2xl` | 4 · 6 · 12 · 14 · 24px | (라이트와 같음) |
 | 서체 | Figtree · Petrona · Space Mono · 한글 Pretendard / Hahmlet | |
 
+스킨 위 앱 부품(DD-68): `components/layout/AreaNav` — 구역 하위 내비(라벤더 알약 막대, 선택 면 = 막대 면에 `--ju` 12% 섞음) · `components/layout/AreaHero` — 앱 구역 머리(2열, 오른쪽 `--tint-*` 면 위 장면 삽화 · `fit` contain/cover). 틴트 면 위 본문은 `--t2` 까지 — 분홍 · 청록 면에는 `--t1` 만 쓴다(`#714bd0` 가 4.0 · 4.4:1).
+
 ### 색 토큰 카탈로그 (현행 · 2026-09-18 실측)
 
 | 토큰 | 라이트 | 다크 | 역할 |

@@ -3,7 +3,8 @@
 
 'use client'
 
-import { ArrowRight, Check, Copy, GraduationCap, Plus, Users } from 'lucide-react'
+import { ArrowRight, Check, Copy, Plus, Users } from 'lucide-react'
+import { AreaHero } from '@/components/layout/AreaHero'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
@@ -109,21 +110,16 @@ export function TeacherClient({
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-10">
-      <header className="flex items-center gap-2">
-        <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
-          aria-hidden
-        >
-          <GraduationCap size={18} strokeWidth={1.75} />
-        </span>
-        <div>
-          <h1 className="font-editorial text-[20px] font-[800] text-[var(--t1)]">클래스</h1>
-          <p className="font-body text-[12px] text-[var(--t2)]">
-            클래스를 만들어 초대코드로 학생을 모아요
-          </p>
-        </div>
-      </header>
+    <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-10">
+      {/* DD-68 — 서가 · 만화와 같은 구역 머리. 장면은 교실(scene-teacher), 면은 초록 틴트. */}
+      <AreaHero
+        kicker="교사 · 클래스"
+        title="클래스"
+        sub="클래스를 만들어 초대코드로 학생을 모아요"
+        scene="scene-teacher"
+        tint="green"
+        fit="cover"
+      />
 
       {/* 조회 실패 고지 — 빈 목록이 "클래스가 없음" 으로 읽히지 않게. 개설·참여 자체는
           막지 않는다(쓰기 경로는 별개로 살아 있을 수 있다). */}

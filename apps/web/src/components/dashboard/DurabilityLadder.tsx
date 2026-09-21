@@ -42,7 +42,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
     return (
       <section
         aria-label="기억이 버티는 시간"
-        className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8 md:py-8"
+        className="rounded-[var(--r-2xl)] bg-[var(--tint-lavender)] px-5 py-6 md:px-8 md:py-8"
       >
         <Eyebrow />
         <p className="mt-4 max-w-[42ch] font-editorial text-[24px] font-[500] leading-[1.3] tracking-[-0.014em] text-[var(--t1)] [word-break:keep-all] md:text-[30px]">
@@ -66,7 +66,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
   return (
     <section
       aria-label="기억이 버티는 시간"
-      className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8 md:py-8"
+      className="rounded-[var(--r-2xl)] bg-[var(--tint-lavender)] px-5 py-6 md:px-8 md:py-8"
     >
       <Eyebrow />
 
@@ -83,7 +83,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
 
       {/* 사다리 — 누적 막대 하나. 게이지·퍼센트 없음(철학 ④). */}
       <div
-        className="mt-6 flex h-3 w-full overflow-hidden rounded-[var(--r-full)] bg-[var(--bg3)]"
+        className="mt-6 flex h-3 w-full overflow-hidden rounded-[var(--r-full)] bg-[var(--bg)]"
         role="img"
         aria-label={rungs
           .filter((r) => r.count > 0)
@@ -157,7 +157,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
           이전 화면을 비판한 것과 똑같은 결함이다(개수는 있고 단어가 없다). 회고에서 남는 것은
           수치가 아니라 "언제 처음 만나 몇 번을 다시 만났나" 라는 자기 이력이다. */}
       {champion && (
-        <aside className="mt-4 rounded-[var(--r-lg)] bg-[var(--bg2)] px-4 py-4">
+        <aside className="mt-4 rounded-[var(--r-lg)] bg-[var(--bg)] px-4 py-4">
           <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
             가장 멀리 온 단어
           </p>

@@ -45,7 +45,7 @@ export function AppFrame({ vpKey, subst }: { vpKey: string; subst?: AppSubst }) 
   const nodeIndex = new Map(nodes.map((n, i) => [`${n.x}:${n.y}:${n.w}:${n.h}`, i]))
   // 점 격자는 치환하면 우리 모눈 토큰이 된다(03-system 「원고지」와 같은 자리다).
   const gridFill = subst ? 'var(--grid-line)' : undefined
-  const outline = subst ? 'var(--bd)' : 'var(--replica-outline)'
+  const outline = subst ? 'var(--bd)' : 'var(--replica-outline, rgba(0, 0, 0, 0.08))'
 
   return (
     <div

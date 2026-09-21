@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **앱 셸 4단계 — 서가 · 만화 · 교사 · 오늘 · 성장**(DD-68 · tines-mapping §7·§8): 참조 `AreaNav` 를 `components/layout/AreaNav`(라벤더 알약 막대 — tablist 역할·이름 유지, e2e 그대로)로 만들어 `LibraryTabs` · `ComicsTabs` 가 쓴다. 앱 구역 머리 `components/layout/AreaHero`(눈썹 · 큰 제목 · 세리프 부제 · 수치 알약 + 틴트 면 위 장면, 액자형은 `fit="cover"`)를 `/library/books`(scene-library · 수치 `3133만` 한국어 단위 — 옛 `31327k`) · `/comics/adapted` · `/comics/restored`(scene-comics) · `/teacher`(scene-teacher)에. `/hub` 첫 지면 카드는 테두리 + 24px + 소품(spot-memory · spot-quiz) + 라벤더 제안 면 + 알약 CTA, `/dashboard` 는 큰 머리 + spot-dashboard + 카드 틴트 순환(라벤더 · 초록 · 복숭아 · 노랑 — 분홍·청록은 본문 보라 AA 미달이라 제외). 곁일: `/api/search` 를 공개 라우트 허용 목록에 이유와 함께 등록(지난 커밋 누락) · `dev/replica` 외곽선 변수에 대체값. 로그인 화면 캡처 `scripts/design/shot-authed.mjs`(검증 계정 · 상태는 tmp).
+
 - **전역 검색**(DD-68 · 참조 `GlobalSearch` 대응 · 사용자 승인): `GET /api/search?q=`(화면 · 도서 · 단어 · 영상 — 요청자 세션 · RLS 그대로라 익명은 단어 묶음이 빈다 · 필터 문법 글자 제거 · 실패 묶음은 `partial`) + 공통 헤더 검색 모달 `SearchDialog`(Ctrl/⌘+K · role=dialog · Esc/바깥 닫기 · 포커스 복귀 · Tab 가둠 · 빈 결과에 spot-search + 다음 한 걸음). 단어는 보여 줄 화면이 없어 링크 없이 뜻을 행 안에 둔다. 회귀 15건(`lib/search/__tests__`). 매핑 정정: 학습자용 검색은 원래 **어디에도 없었다**.
 
 - **색 구성 교정 + 삽화 적용**(DD-68 · tines-mapping §11): 실측상 우리는 틴트 면이 거의 없었다 → 스킨에 참조 틴트 6(`--tint-lavender/green/peach/yellow/pink/teal`, 다크 짝 · 스킨 끔은 기존 옅은 의미색 별칭)과 글자 두 단(제목 `--t1` `#5d38ae` · 본문 `#714bd0` — 틴트 위 AA 5.5:1↑) 추가, 벤토 칸 틴트 순환 · 구간 제목은 `--t1`. 404(공통 헤더 · scene-404) · `/video`(2열 히어로 scene-video · 액자 격자, 겹친 `<main>` 해소) · 인증 레이아웃(2열 · scene-hub · 공통 워드마크).

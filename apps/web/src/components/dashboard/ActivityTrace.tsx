@@ -71,7 +71,7 @@ export function ActivityTrace({
     <section
       aria-label="학습 흐름 — 지난 28일"
       data-design-card=""
-      className="flex min-w-0 flex-col rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-6"
+      className="flex min-w-0 flex-col rounded-[var(--r-2xl)] bg-[var(--tint-peach)] px-5 py-5 md:px-6"
     >
       <header className="flex items-center justify-between gap-3">
         <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
@@ -81,7 +81,7 @@ export function ActivityTrace({
             연속을 기록으로 만들면 끊기는 날이 실패가 된다(streak 불안). */}
         {streak > 0 && (
           <span
-            className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--bg2)] px-3 py-1 font-display text-[11px] font-[700] text-[var(--t1)]"
+            className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--bg)] px-3 py-1 font-display text-[11px] font-[700] text-[var(--t1)]"
             aria-label={`${streak}일 연속 학습 중`}
           >
             <Flame size={11} strokeWidth={2.5} className="text-[var(--active)]" aria-hidden />

@@ -119,14 +119,14 @@
 
 | 계열 | 참조 대표(페이지 수) | 참조 상태 | 우리 부품 | 할 일 | 상태 |
 |---|---|---|---|---|---|
-| 내비 | `SiteNav26`(21) · `AreaNav`(18, 구역 하위 내비) · `NavSearch` | :hover · ::placeholder | `marketing/site/SiteHeader` · 학습자 `layout/Sidebar` | 공개 ✅. **`AreaNav`(구역 안 가로 하위 내비) 대응 없음** → 서가(도서·만화·단어장·교재) · 수능 하위 탭에 | ◐ |
+| 내비 | `SiteNav26`(21) · `AreaNav`(18, 구역 하위 내비) · `NavSearch` | :hover · ::placeholder | `marketing/site/SiteHeader` · 학습자 `layout/Sidebar` | 공개 ✅. `AreaNav` → `layout/AreaNav`(라벤더 알약 막대 · 구역 이름 알약 · 선택 면 흰 알약 · 50px) — 서가 · 만화 탭 ✅ · 수능 하위 탭 ○ | ◐ |
 | 푸터 | `SiteFooter26`(21) | aria-expanded(모바일 접힘) | `SiteFooter` | 390 에서 묶음 접힘(aria-expanded) | ◐ |
 | 버튼 | `Button`(19) · `CtaButtons`(15) · `CollectionViewToggle` · `DocsThemeToggle` | :hover · :focus · :disabled | `ui/Button` · `marketing/pill.ts` | `ui/Button` 에 알약 변형 → 앱 전체가 같은 단추 · 격자/목록 보기 전환 ↔ 서가 보기 전환 | ○ |
 | 폼 · 입력 | `TextInput` · `Textarea` · `Checkbox` · `ConsentCheckboxes` · `ContactSupportForm` | :hover · :focus · ::placeholder · :checked | `ui/Input` · `Textarea` · `Checkbox` · `FormField` · `Select` · `Radio` · `Toggle` | 스킨 토큰만 받은 상태 → 참조 입력 모양(라벤더 테두리 · 14px 모서리 · 보라 포커스 링) | ○ |
 | 탭 · 펼침 · 캐러셀 | `HomeUseCasesSection`(role=tab · aria-selected) · `ThreeBFaqSection`/`PricingFaqSection`([open]) · `HomeLogoMarquee` · `TimelineScrubber` · `WcmDial` | aria-selected · [open] · :focus-visible | `sections/Faq` ✅ · 탭 **부품 없음** · `ui/ButtonGroup` | `ui/Tabs`(aria-selected · 방향키) 신설 → 랜딩 모듈 5 를 탭 전환으로 · 학습 화면 필터 탭 | ◐ |
 | 표 · 목록 · 격자 | `LibraryTable` · `EventsDirectory` · `PartnerDirectory` · `CaseStudyGridSection` · `ThreeBBentoSection` · `DotGridPattern`(5) | :hover · :active · :focus | `sections/Bento` ✅ · 서가 격자 · 관리자 표 | 서가 필터 디렉터리(왼쪽 `LibrarySidebar` + 위 `LibraryFindAndFilterBar`) · 관리자 표 행 | ◐ |
 | 카드 | `CaseStudyBookCard`(3, :hover · :active) · `LibraryStoryCard` · `ContentCard*` · `WhatsNewCard` · `LibraryToolCard` · `PricingPlanCards` · `ThreeBExampleCard` | :hover · :active · :focus-visible | `ui/Card` · 서가 `VocabSetCard` · 표지 · `sections/ToneCards` ✅ | `ui/Card` 에 콘텐츠 · 책 · 도구 카드 변형 | ○ |
-| 히어로 · 머리 | `SectionHeading2`(5) · `SolutionHero`(3) · `SolutionPageAllcapsHeading` · `ComboFontHeading`(산세리프+세리프 한 제목) · `HeroHeadlineDecoration` | — | `sections/Hero2Col` · `SectionHead` ✅ | `ComboFontHeading` 변형 | ◐ |
+| 히어로 · 머리 | `SectionHeading2`(5) · `SolutionHero`(3) · `SolutionPageAllcapsHeading` · `ComboFontHeading`(산세리프+세리프 한 제목) · `HeroHeadlineDecoration` | — | `sections/Hero2Col` · `SectionHead` ✅ · 앱 구역 머리 `layout/AreaHero`(2열 · 틴트 면 위 장면 · 수치 알약) ✅ | `ComboFontHeading` 변형 | ◐ |
 | CTA 띠 | `WildCodeCTASection`(15) · `ExplosionCTASection`(3) · `ThreeBCodaSection` | — | `site/FlowerCta` ✅ | 폭발형 변형(큰 세리프 + 방사 그림) | ◐ |
 | 매체 · 삽화 | `WildCodeFlowers`(15) · `InteractiveCursor`(15) · `CurrentColorRemoteSvg`(6, 글자색 따라가는 아이콘) · `VideoPlayer` · `ThreeBMascot` | :hover · :focus-visible | `public/illustrations/tines/*`(29점) · `ComponentVideo` · lucide | 영상 액자 ✅ · 마스코트 자리 · 커서 연출 보류 | ◐ |
 | 본문 · 서식 | `Article`(3) · `StructuredTextBlock` · `PullQuote` · `CenteredQuoteSection` · `DefaultSidebarContent` | :hover | 읽기 `text-viewer` · 약관 본문 | 본문 단 · 인용 · 곁단 → `/terms` `/privacy` `/text/[id]` | ○ |
@@ -144,11 +144,11 @@
 | 영상 | `/video` · `/video/[id]` | 블로그 · 팟캐스트 · 글 상세 | P11 · P12 · P16 | scene-video | ○ |
 | 약관 | `/terms` · `/privacy` | 법률 | 본문 서식 · 펼침 | — | ○ |
 | 인증 | `/login` · `/signup` · `/reset-password` · `/verify-email` · `/join/[code]` | 문의 폼(`ContactSupportForm`) | 2열(폼 + 틴트 면 위 scene-hub) — `(auth)/layout.tsx` | scene-hub | ◐ (`/join` · 폼 부품 ○) |
-| 서가 | `/library/books` · `/library/books/[bookId]` · `/library/vocab` · `/library/textbooks/*` · `/library/scripts/*` | 도서관 · 고객/사례 · 사례 상세 | `AreaNav` · P11 · P12 · P13 · P15 · P16 · P17 | scene-library · card-books · card-vocab · spot-dictionary | ○ |
-| 만화 | `/comics` · `/comics/restored/*` · `/comics/adapted/*` | 도서관 · 글 상세 | P11 · P12 · P16 | scene-comics · spot-comic | ○ |
+| 서가 | `/library/books` · `/library/books/[bookId]` · `/library/vocab` · `/library/textbooks/*` · `/library/scripts/*` | 도서관 · 고객/사례 · 사례 상세 | `AreaNav` · P11 · P12 · P13 · P15 · P16 · P17 | scene-library · card-books · card-vocab · spot-dictionary | ◐ (`/library/books` 머리 · 탭 ✅, 격자·필터 ○) |
+| 만화 | `/comics` · `/comics/restored/*` · `/comics/adapted/*` | 도서관 · 글 상세 | P11 · P12 · P16 | scene-comics · spot-comic | ◐ (두 면 머리 · 탭 ✅) |
 | 수능 | `/csat` · `/csat/dissect` · `/csat/formulas` · `/practice` · `/practice/dcp` | 솔루션 · 이벤트 디렉터리 | P2 · P17 · `AreaNav` | scene-csat | ○ |
-| 교사 | `/teacher` · `/reports` | 산업(B2B) | P2 · 표 | scene-teacher · spot-teacher | ○ |
-| 셸 · 허브 | `/hub` · `/dashboard` · `/plan` · `/my/*` · `/settings` | 제품 액자 속 앱 UI(§4) | 레일 · KPI 줄 · 도넛 · 표 | scene-hub · spot-dashboard | ○ |
+| 교사 | `/teacher` · `/reports` | 산업(B2B) | P2 · 표 | scene-teacher · spot-teacher | ◐ (`/teacher` 머리 ✅ — 액자형 장면이라 `fit="cover"`) |
+| 셸 · 허브 | `/hub` · `/dashboard` · `/plan` · `/my/*` · `/settings` | 제품 액자 속 앱 UI(§4) | 레일 · KPI 줄 · 도넛 · 표 | scene-hub · spot-dashboard | ◐ (`/hub` 첫 지면 카드 · `/dashboard` 머리 + 틴트 카드 순환 ✅) |
 | 학습 모듈 | `/text*` · `/wordvault*` · `/flashcard*` · `/spellforge*` · `/scriptquiz*` · `/dictate*` · `/pairflip*` · `/text/[id]/echo` · `/diagnostic*` · `/wordblitz` | 대응 없음(참조는 마케팅 사이트) | 입구 화면만 P2 + 소품 · 학습 중 화면은 스킨 토큰 | spot-reading · vault · flashcard · spellforge · quiz · listening · pairflip · echomatch · wordblitz | ○ |
 | 빈 상태 | 각 모듈 빈 목록 | 404 · 빈 결과 | 소품 + 문장 + 다음 한 걸음 | spot-empty-vault · spot-review-done · spot-search | ○ |
 | 404 | `not-found.tsx` | 404 | 그림 + 검색 입력 | scene-404 | ○ |

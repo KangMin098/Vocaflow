@@ -37,6 +37,7 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   { route: 'analytics/event', why: '계측 수집 — 비로그인 방문자의 랜딩 이벤트를 받아야 한다' },
   { route: 'auth/callback', why: 'OAuth 콜백 — 로그인이 성립하기 전에 불린다' },
   { route: 'comics/pd/[slug]/info', why: '공개 만화 상세 정보 (비로그인 미리보기)' },
+  { route: 'search', why: '공개 헤더 전역 검색(DD-68) — 요청자 세션으로 조회해 RLS 가 걸러 낸 만큼만 돌려준다(익명은 단어 묶음이 빈다)' },
   { route: 'fit', why: '공개 진단 — 가치 확인 앞에 로그인을 두지 않는다 (CLAUDE.md D1)' },
   { route: 'lcp/process', why: 'pg_cron 워커 경로 — X-LCP-Token 으로만 연다' },
   {

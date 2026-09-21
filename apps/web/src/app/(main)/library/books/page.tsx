@@ -1,11 +1,12 @@
 // apps/web/src/app/(main)/library/books/page.tsx
 //
-// v06.32 도서관 — 슬림 헤더 + 책장 그리드.
-// Hero 영역 ~200px → ~40px (1 row meta). 인지 부하 최소화 + 컨텐츠 집중.
+// 도서관 — 구역 머리(AreaHero · DD-68) + 책장 그리드.
+// 머리는 참조 도서관 페이지 골격: 글과 수치 왼쪽, 서가 장면 오른쪽. 탐색 격자는 그 아래 BooksExplorer.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-import { Capsule, Screen } from '@/components/ui/ios';
+import { AreaHero } from '@/components/layout/AreaHero';
+import { Screen } from '@/components/ui/ios';
 import { createClient } from '@/lib/supabase/server';
 import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select';
 import { BooksExplorer } from '@/components/library/browse/BooksExplorer';
@@ -16,6 +17,9 @@ import { applyBookCatalogGate } from '@/lib/library/publish-gate';
 import { fetchPublishedBookWordSetCounts } from '@/lib/library/word-set-counts';
 import type { PublishedBook } from '@/lib/library/published-book';
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
+
+/** 수치 알약 — 3133만 · 1.1만처럼 한국어 단위로 접는다(예전 `31327k` 는 읽히지 않았다). */
+const COUNT = new Intl.NumberFormat('ko-KR', { notation: 'compact', maximumFractionDigits: 1 });
 
 /** 만화 히어로에 노출할 최대 도서 수 (커버 조회 상한과 동일) */
 const HERO_N = 4;
@@ -379,34 +383,26 @@ export default async function LibraryBooksPage({
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        <header className="flex flex-col gap-3 px-1">
-          <div className="flex items-center gap-3">
-            {/* v07 — 둥근 컬러 아이콘 칩을 뺐다. 아이콘을 상자에 담는 것은 지금 AI 생성 UI 의
-                공통 관용구이고(00-inventory C4·C8), `bg-ios-orange` 는 지면 팔레트 밖이다.
-                판면에서 제목을 여는 것은 **주묵 획 하나**다 — 셸·세션 머리와 같은 표식. */}
-            <span aria-hidden className="inline-block h-[30px] w-[4px] shrink-0 bg-[var(--ju)] md:h-[40px]" />
-            <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
-              {MATERIAL_LABEL.book}
-            </h1>
-          </div>
-          <p className="font-body text-[15px] text-[var(--t2)]">
-            큐레이션된 영어 원서 — i+1 수준에 맞춘 도서를 추천해드려요.
-          </p>
-          {totalBooks > 0 && (
-            <div className="mt-1 flex flex-wrap items-center gap-2">
-              <Capsule label={MATERIAL_LABEL.book} value={`${totalBooks}`} />
-              <Capsule label="챕터" value={`${totalChapters}`} />
-              <Capsule label="단어" value={`${(totalWords / 1000).toFixed(0)}k`} />
-              {myCount > 0 && (
-                <Capsule
-                  tone="green"
-                  label="내 학습"
-                  value={inProgressCount > 0 ? `${myCount}권 · 진행 ${inProgressCount}` : `${myCount}권`}
-                />
-              )}
-            </div>
-          )}
-        </header>
+        {/* DD-68 — 참조 도서관 머리: 왼쪽 글 · 오른쪽 틴트 면 위 서가 장면. 수치는 방금 받은 카탈로그에서 센다. */}
+        <AreaHero
+          kicker="서가 · 영어 원서"
+          title={MATERIAL_LABEL.book}
+          sub="큐레이션된 영어 원서 — i+1 수준에 맞춘 도서를 추천해드려요."
+          scene="scene-library"
+          tint="lavender"
+          stats={
+            totalBooks > 0
+              ? [
+                  { label: MATERIAL_LABEL.book, value: `${totalBooks}` },
+                  { label: '챕터', value: COUNT.format(totalChapters) },
+                  { label: '단어', value: COUNT.format(totalWords) },
+                  ...(myCount > 0
+                    ? [{ label: '내 학습', value: inProgressCount > 0 ? `${myCount}권 · 진행 ${inProgressCount}` : `${myCount}권` }]
+                    : []),
+                ]
+              : undefined
+          }
+        />
 
         {comicHeroes.length > 0 && <ComicHeroCard items={comicHeroes} />}
 
