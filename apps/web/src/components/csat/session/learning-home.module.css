@@ -3,6 +3,7 @@
 .shell { margin-inline: auto; width: 100%; max-width: 42rem; padding: 16px 16px 40px; }
 .shell:has([data-csat-home]) { max-width: 76rem; }
 .shell:has([data-testid=analysis-reading]) { max-width: 94rem; }
+.shell:has([data-csat-formulas]) { max-width: 60rem; }
 .home { color: var(--t1); word-break: keep-all; padding-bottom: 48px; }
 .home :is(button, a, summary, select):focus-visible { outline: 2px solid var(--p); outline-offset: 3px; }
 .home h1, .home h2 { font-family: var(--font-ko-display), serif; font-weight: 500; letter-spacing: -.03em; }
