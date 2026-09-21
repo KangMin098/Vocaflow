@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **Tines 화풍 삽화 6점**(DD-68 ⑤): 무료 Qwen-Image(DashScope)로 생성하는 `scripts/design/illo-tines-gen.mjs` — 화풍 문장 한 곳 · 참조 그림 입력 0 · 소재는 우리 기능. 히어로 1(펼친 책 꽃밭) + 소품 5(읽기·단어 보관함·망각·듣기·퀴즈), 가장자리 바탕 투명화 + WebP → `public/illustrations/tines/`(합 ~780 KiB). Pollinations 는 해상도·워터마크·프롬프트 불이행으로 기각(같은 프롬프트 실측).
+
 - **Tines 스킨 1단계**(DD-68 · ADR-008): `skins/tines.css`(+ 앱 `skins/tines.ts`, 패리티 테스트)가 `<html data-skin="tines">` 에서 토큰을 참조 실측값으로 덮는다 — 기본 켜짐, `?skin=off` 로 비교. 서체 대체는 픽셀 비교(`scripts/design/font-lookalike.mjs`)로 Figtree · Petrona · Space Mono + 한글 Pretendard(CDN). `style-gate` 의 Tines 색 근접은 보고만.
 
 - **코드로 걸린 디자인 제한 해제**(DD-67): 영상 강조색이 원시 CSS 색을 받고(`accentColor`·`accentSoft`), 영상 말하는 자리 서체를 장면 `voice` 로 덮어쓴다. 브랜드 캔버스·표지 lockup 이 색 값과 `font-family` 를 받고, 카탈로그·조판 CSS 변수가 팔레트 덮어쓰기를 받는다. 기본 출력 무변경.
