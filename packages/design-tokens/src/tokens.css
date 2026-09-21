@@ -265,6 +265,7 @@
 
   /* ─────── Motion (legacy) ─────── */
   --dur-fast: 100ms;
+  --dur-quick: 150ms;   /* 참조 작성값 최빈(33회) — docs/design/refs/tines/css-authored-summary.md · DD-64 */
   --dur-normal: 200ms;
   --dur-slow: 300ms;
   --dur-slower: 500ms;
@@ -272,6 +273,8 @@
   --ease-in: cubic-bezier(.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, .2, 1);
   --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  /* 진입(드롭다운·패널이 나타날 때) — 참조 작성 이징 최빈(23회). 기존 --ease 는 그대로 둔다 · DD-64 */
+  --ease-out-quint: cubic-bezier(.22, 1, .36, 1);
 
   /* ═══════════════════════════════════════════════════════
      iOS / iPadOS HIG 토큰 (v06.36)

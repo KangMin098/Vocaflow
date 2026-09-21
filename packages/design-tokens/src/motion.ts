@@ -1,6 +1,7 @@
 // packages/design-tokens/src/motion.ts
 export const duration = {
   fast: 100,
+  quick: 150,
   normal: 200,
   slow: 300,
   slower: 500,
@@ -11,6 +12,7 @@ export const easing = {
   in: 'cubic-bezier(.4, 0, 1, 1)',
   out: 'cubic-bezier(0, 0, .2, 1)',
   spring: 'cubic-bezier(.34, 1.56, .64, 1)',
+  outQuint: 'cubic-bezier(.22, 1, .36, 1)',
 } as const;
 
 export type DurationKey = keyof typeof duration;

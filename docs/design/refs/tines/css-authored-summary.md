@@ -33,25 +33,25 @@
 
 ## 모션
 
-우리 토큰: `--dur-fast` 100ms · `--dur-normal` 200ms · `--dur-slow` 300ms · `--dur-slower` 500ms · `--ease` `cubic-bezier(.4, 0, .2, 1)` · `--ease-in` `cubic-bezier(.4, 0, 1, 1)` · `--ease-out` `cubic-bezier(0, 0, .2, 1)` · `--ease-spring` `cubic-bezier(.34, 1.56, .64, 1)` · `--ease-ios-standard` `cubic-bezier(.4, 0, .2, 1)` · `--ease-ios-emphasized` `cubic-bezier(.2, 0, 0, 1)` · `--ease-ios-spring` `cubic-bezier(.34, 1.56, .64, 1)` · `--ease-ios-spring-bouncy` `cubic-bezier(.5, 1.8, .5, 1)`
+우리 토큰: `--dur-fast` 100ms · `--dur-quick` 150ms · `--dur-normal` 200ms · `--dur-slow` 300ms · `--dur-slower` 500ms · `--ease` `cubic-bezier(.4, 0, .2, 1)` · `--ease-in` `cubic-bezier(.4, 0, 1, 1)` · `--ease-out` `cubic-bezier(0, 0, .2, 1)` · `--ease-spring` `cubic-bezier(.34, 1.56, .64, 1)` · `--ease-out-quint` `cubic-bezier(.22, 1, .36, 1)` · `--ease-ios-standard` `cubic-bezier(.4, 0, .2, 1)` · `--ease-ios-emphasized` `cubic-bezier(.2, 0, 0, 1)` · `--ease-ios-spring` `cubic-bezier(.34, 1.56, .64, 1)` · `--ease-ios-spring-bouncy` `cubic-bezier(.5, 1.8, .5, 1)`
 
 ### 지속시간
 
 | 값 | ms | 등장 | 최근접 토큰 | Δms |
 | --- | --- | --- | --- | --- |
-| `.15s` | 150 | 33 | `--dur-fast` | 50 |
+| `.15s` | 150 | 33 | `--dur-quick` | 0 |
 | `.2s` | 200 | 22 | `--dur-normal` | 0 |
 | `.1s` | 100 | 21 | `--dur-fast` | 0 |
 | `.12s` | 120 | 11 | `--dur-fast` | 20 |
 | `.4s` | 400 | 10 | `--dur-slow` | 100 |
 | `.5s` | 500 | 8 | `--dur-slower` | 0 |
-| `.6s` | 600 | 7 | `--dur-slower` | 100 |
-| `.3s` | 300 | 7 | `--dur-slow` | 0 |
 | `.25s` | 250 | 7 | `--dur-normal` | 50 |
+| `.3s` | 300 | 7 | `--dur-slow` | 0 |
+| `.6s` | 600 | 7 | `--dur-slower` | 100 |
 | `1s` | 1000 | 6 | `--dur-slower` | 500 |
 | `.18s` | 180 | 6 | `--dur-normal` | -20 |
-| `4s` | 4000 | 4 | `--dur-slower` | 3500 |
 | `.35s` | 350 | 4 | `--dur-slow` | 50 |
+| `4s` | 4000 | 4 | `--dur-slower` | 3500 |
 | `.01ms` | 0.01 | 3 | `--dur-fast` | -99.99 |
 | `0s` | 0 | 2 | `--dur-fast` | -100 |
 | `.75s` | 750 | 2 | `--dur-slower` | 250 |
@@ -77,7 +77,7 @@
 
 ### transition 대상 속성
 
-`opacity` ×37 · `transform` ×22 · `background-color` ×14 · `border-color` ×12 · `filter` ×9 · `color` ×7 · `background` ×5 · `all` ×4 · `border-radius` ×3 · `clip-path` ×3 · `grid-template-rows` ×2 · `width` ×1 · `left` ×1 · `flex-grow` ×1 · `inset` ×1
+`opacity` ×37 · `transform` ×22 · `background-color` ×14 · `border-color` ×12 · `filter` ×9 · `color` ×7 · `background` ×5 · `all` ×4 · `clip-path` ×3 · `border-radius` ×3 · `grid-template-rows` ×2 · `width` ×1 · `left` ×1 · `flex-grow` ×1 · `inset` ×1
 
 ### @keyframes (51개) · animation 반복: 유한 23 · 무한 32
 
@@ -150,28 +150,28 @@
 | `inherit` | — | 14 | — | — | — |
 | `99rem` | 990 | 12 | `--r-full` | — | — |
 | `1.4rem` | 14 | 10 | `--r-2xl` | 예 | — |
+| `1.2rem` | 12 | 9 | `--r-2xl` | 예 | — |
 | `1em` | — | 9 | — | — | — |
 | `2.4rem` | 24 | 9 | `--r-2xl` | 예 | — |
-| `1.2rem` | 12 | 9 | `--r-2xl` | 예 | — |
 | `4px` | 4 | 8 | `--r-lg` | — | — |
 | `var(--cardRadius)` | — | 7 | — | — | `1.6rem` 16px ×1 · `2.4rem` 24px ×1 |
-| `1.8rem` | 18 | 6 | `--r-2xl` | 예 | — |
-| `.8rem` | 8 | 6 | `--r-2xl` | 예 | — |
 | `3px` | 3 | 6 | `--r-md` | — | — |
+| `.8rem` | 8 | 6 | `--r-2xl` | 예 | — |
+| `1.8rem` | 18 | 6 | `--r-2xl` | 예 | — |
 | `6px` | 6 | 6 | `--r-2xl` | — | — |
 | `1.6rem` | 16 | 5 | `--r-2xl` | 예 | — |
-| `2em` | — | 5 | — | — | — |
 | `5rem` | 50 | 5 | `--r-2xl` | 예 | — |
+| `2em` | — | 5 | — | — | — |
 | `1rem` | 10 | 5 | `--r-2xl` | 예 | — |
+| `12px` | 12 | 4 | `--r-2xl` | 예 | — |
 | `.35em` | — | 4 | — | — | — |
 | `.75em` | — | 4 | — | — | — |
-| `12px` | 12 | 4 | `--r-2xl` | 예 | — |
 
 ## 그림자 · 블러 · 층
 
-- box-shadow 작성 13건: `none` ×2 · `var(--shadowTo)` ×2 · `0px 1px 3px color-mix(in srgb, var(--black) 6%, transparent)` ×2 · `0 0 0 .4rem var(--barFocusRing)` ×1 · `var(--shadowFrom)` ×1 · `0 0 2px 2px var(--ac40),0 0 2px 2px var(--ac40)` ×1 · `0 0 2px 2px color-mix(in srgb, var(--focusRingColor,var(--c-green40)) 90%, var(--lightest))` ×1 · `0 24px 80px #00000040` ×1 · `0 0 3px var(--acc40)` ×1 · `0 1em 1em -.5em #0000001a` ×1
-- backdrop-filter 작성 18건: `blur(12px)` ×4 · `blur(10px)` ×3 · `blur(1em)` ×3 · `blur(var(--barBlur))` ×2 · `blur(16px)` ×2 · `blur(18px)` ×1 · `blur(20px)` ×1 · `blur(8px)` ×1 · `blur(1.2rem)` ×1
-- z-index: 1 ×73 · 0 ×23 · 2 ×14 · 99999 ×9 · -1 ×8 · 2000 ×6 · 3 ×5 · 200 ×5 · 10 ×3 · 5 ×2 · 90 ×2 · 1200 ×2 · 999999 ×1 · 2147483001 ×1 · var(--monitorLayer,1) ×1 · 4 ×1
+- box-shadow 작성 13건: `var(--shadowTo)` ×2 · `0px 1px 3px color-mix(in srgb, var(--black) 6%, transparent)` ×2 · `none` ×2 · `var(--shadowFrom)` ×1 · `0 0 2px 2px var(--ac40),0 0 2px 2px var(--ac40)` ×1 · `0 0 0 .4rem var(--barFocusRing)` ×1 · `0 0 2px 2px color-mix(in srgb, var(--focusRingColor,var(--c-green40)) 90%, var(--lightest))` ×1 · `0 24px 80px #00000040` ×1 · `0 0 3px var(--acc40)` ×1 · `0 1em 1em -.5em #0000001a` ×1
+- backdrop-filter 작성 18건: `blur(12px)` ×4 · `blur(10px)` ×3 · `blur(1em)` ×3 · `blur(16px)` ×2 · `blur(var(--barBlur))` ×2 · `blur(18px)` ×1 · `blur(20px)` ×1 · `blur(8px)` ×1 · `blur(1.2rem)` ×1
+- z-index: 1 ×73 · 0 ×23 · 2 ×14 · 99999 ×9 · -1 ×8 · 2000 ×6 · 200 ×5 · 3 ×5 · 10 ×3 · 5 ×2 · 1200 ×2 · 90 ×2 · 1000 ×1 · 2147483001 ×1 · var(--monitorLayer,1) ×1 · 4 ×1
 
 ## @font-face (패밀리 · 굵기 · 스타일만)
 

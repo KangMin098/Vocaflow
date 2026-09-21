@@ -99,10 +99,6 @@
       5
     ],
     [
-      "(min-width:640px)and(max-width:919px)",
-      4
-    ],
-    [
       "(min-width:768px)and(max-width:1023px)",
       4
     ],
@@ -111,8 +107,16 @@
       4
     ],
     [
+      "(min-width:640px)and(max-width:919px)",
+      4
+    ],
+    [
       "(min-width:768px)and(max-width:1279px)",
       3
+    ],
+    [
+      "(prefers-color-scheme:dark)and(hover:hover)",
+      2
     ],
     [
       "(max-width:420px)",
@@ -127,12 +131,20 @@
       2
     ],
     [
-      "(prefers-color-scheme:dark)and(hover:hover)",
+      "(max-width:919px)and(prefers-color-scheme:dark)",
       2
     ],
     [
-      "(max-width:919px)and(prefers-color-scheme:dark)",
-      2
+      "(min-width:1024px)and(hover:hover)",
+      1
+    ],
+    [
+      "(max-width:1023px)and(hover:hover)",
+      1
+    ],
+    [
+      "(max-width:1023px)and(prefers-color-scheme:dark)",
+      1
     ],
     [
       "(max-width:1439px)",
@@ -163,18 +175,6 @@
       1
     ],
     [
-      "(min-width:1024px)and(hover:hover)",
-      1
-    ],
-    [
-      "(max-width:1023px)and(hover:hover)",
-      1
-    ],
-    [
-      "(max-width:1023px)and(prefers-color-scheme:dark)",
-      1
-    ],
-    [
       "(min-resolution:2x)",
       1
     ],
@@ -200,8 +200,8 @@
       "value": ".15s",
       "ms": 150,
       "count": 33,
-      "nearestToken": "--dur-fast",
-      "deltaMs": 50
+      "nearestToken": "--dur-quick",
+      "deltaMs": 0
     },
     {
       "value": ".2s",
@@ -239,11 +239,11 @@
       "deltaMs": 0
     },
     {
-      "value": ".6s",
-      "ms": 600,
+      "value": ".25s",
+      "ms": 250,
       "count": 7,
-      "nearestToken": "--dur-slower",
-      "deltaMs": 100
+      "nearestToken": "--dur-normal",
+      "deltaMs": 50
     },
     {
       "value": ".3s",
@@ -253,11 +253,11 @@
       "deltaMs": 0
     },
     {
-      "value": ".25s",
-      "ms": 250,
+      "value": ".6s",
+      "ms": 600,
       "count": 7,
-      "nearestToken": "--dur-normal",
-      "deltaMs": 50
+      "nearestToken": "--dur-slower",
+      "deltaMs": 100
     },
     {
       "value": "1s",
@@ -274,18 +274,18 @@
       "deltaMs": -20
     },
     {
-      "value": "4s",
-      "ms": 4000,
-      "count": 4,
-      "nearestToken": "--dur-slower",
-      "deltaMs": 3500
-    },
-    {
       "value": ".35s",
       "ms": 350,
       "count": 4,
       "nearestToken": "--dur-slow",
       "deltaMs": 50
+    },
+    {
+      "value": "4s",
+      "ms": 4000,
+      "count": 4,
+      "nearestToken": "--dur-slower",
+      "deltaMs": 3500
     },
     {
       "value": ".01ms",
@@ -511,11 +511,11 @@
       4
     ],
     [
-      "border-radius",
+      "clip-path",
       3
     ],
     [
-      "clip-path",
+      "border-radius",
       3
     ],
     [
@@ -965,6 +965,14 @@
       "resolved": null
     },
     {
+      "value": "1.2rem",
+      "px": 12,
+      "count": 9,
+      "nearestToken": "--r-2xl",
+      "overOurMax": true,
+      "resolved": null
+    },
+    {
       "value": "1em",
       "px": null,
       "count": 9,
@@ -975,14 +983,6 @@
     {
       "value": "2.4rem",
       "px": 24,
-      "count": 9,
-      "nearestToken": "--r-2xl",
-      "overOurMax": true,
-      "resolved": null
-    },
-    {
-      "value": "1.2rem",
-      "px": 12,
       "count": 9,
       "nearestToken": "--r-2xl",
       "overOurMax": true,
@@ -1016,11 +1016,11 @@
       ]
     },
     {
-      "value": "1.8rem",
-      "px": 18,
+      "value": "3px",
+      "px": 3,
       "count": 6,
-      "nearestToken": "--r-2xl",
-      "overOurMax": true,
+      "nearestToken": "--r-md",
+      "overOurMax": false,
       "resolved": null
     },
     {
@@ -1032,11 +1032,11 @@
       "resolved": null
     },
     {
-      "value": "3px",
-      "px": 3,
+      "value": "1.8rem",
+      "px": 18,
       "count": 6,
-      "nearestToken": "--r-md",
-      "overOurMax": false,
+      "nearestToken": "--r-2xl",
+      "overOurMax": true,
       "resolved": null
     },
     {
@@ -1056,14 +1056,6 @@
       "resolved": null
     },
     {
-      "value": "2em",
-      "px": null,
-      "count": 5,
-      "nearestToken": null,
-      "overOurMax": false,
-      "resolved": null
-    },
-    {
       "value": "5rem",
       "px": 50,
       "count": 5,
@@ -1072,9 +1064,25 @@
       "resolved": null
     },
     {
+      "value": "2em",
+      "px": null,
+      "count": 5,
+      "nearestToken": null,
+      "overOurMax": false,
+      "resolved": null
+    },
+    {
       "value": "1rem",
       "px": 10,
       "count": 5,
+      "nearestToken": "--r-2xl",
+      "overOurMax": true,
+      "resolved": null
+    },
+    {
+      "value": "12px",
+      "px": 12,
+      "count": 4,
       "nearestToken": "--r-2xl",
       "overOurMax": true,
       "resolved": null
@@ -1096,19 +1104,19 @@
       "resolved": null
     },
     {
-      "value": "12px",
-      "px": 12,
-      "count": 4,
-      "nearestToken": "--r-2xl",
-      "overOurMax": true,
-      "resolved": null
-    },
-    {
       "value": "calc(var(--radius)/2)",
       "px": null,
       "count": 4,
       "nearestToken": null,
       "overOurMax": false,
+      "resolved": null
+    },
+    {
+      "value": "2rem",
+      "px": 20,
+      "count": 3,
+      "nearestToken": "--r-2xl",
+      "overOurMax": true,
       "resolved": null
     },
     {
@@ -1125,14 +1133,6 @@
       "count": 3,
       "nearestToken": null,
       "overOurMax": false,
-      "resolved": null
-    },
-    {
-      "value": "2rem",
-      "px": 20,
-      "count": 3,
-      "nearestToken": "--r-2xl",
-      "overOurMax": true,
       "resolved": null
     },
     {
@@ -1307,7 +1307,26 @@
       "resolved": null
     },
     {
-      "value": "calc(var(--backdropHeight)/2) calc(var(--backdropHeight)/2) 0 0",
+      "value": "var(--navBackdropRadius)",
+      "px": null,
+      "count": 1,
+      "nearestToken": null,
+      "overOurMax": false,
+      "resolved": [
+        {
+          "value": "99rem",
+          "px": 990,
+          "count": 2
+        },
+        {
+          "value": "0px",
+          "px": 0,
+          "count": 1
+        }
+      ]
+    },
+    {
+      "value": "var(--navBackdropMergedRadius) var(--navBackdropMergedRadius) 0 0",
       "px": null,
       "count": 1,
       "nearestToken": null,
@@ -1315,35 +1334,11 @@
       "resolved": null
     },
     {
-      "value": "0 0 calc(var(--backdropHeight)/2) calc(var(--backdropHeight)/2)",
-      "px": null,
+      "value": ".9rem",
+      "px": 9,
       "count": 1,
-      "nearestToken": null,
-      "overOurMax": false,
-      "resolved": null
-    },
-    {
-      "value": "0 0 .8rem .8rem",
-      "px": null,
-      "count": 1,
-      "nearestToken": null,
-      "overOurMax": false,
-      "resolved": null
-    },
-    {
-      "value": ".8rem .8rem 0 0",
-      "px": null,
-      "count": 1,
-      "nearestToken": null,
-      "overOurMax": false,
-      "resolved": null
-    },
-    {
-      "value": ".3rem",
-      "px": 3,
-      "count": 1,
-      "nearestToken": "--r-md",
-      "overOurMax": false,
+      "nearestToken": "--r-2xl",
+      "overOurMax": true,
       "resolved": null
     },
     {
@@ -1486,26 +1481,7 @@
       "resolved": null
     },
     {
-      "value": "var(--navBackdropRadius)",
-      "px": null,
-      "count": 1,
-      "nearestToken": null,
-      "overOurMax": false,
-      "resolved": [
-        {
-          "value": "99rem",
-          "px": 990,
-          "count": 2
-        },
-        {
-          "value": "0px",
-          "px": 0,
-          "count": 1
-        }
-      ]
-    },
-    {
-      "value": "var(--navBackdropMergedRadius) var(--navBackdropMergedRadius) 0 0",
+      "value": "calc(var(--backdropHeight)/2) calc(var(--backdropHeight)/2) 0 0",
       "px": null,
       "count": 1,
       "nearestToken": null,
@@ -1513,16 +1489,32 @@
       "resolved": null
     },
     {
-      "value": ".9rem",
-      "px": 9,
+      "value": "0 0 calc(var(--backdropHeight)/2) calc(var(--backdropHeight)/2)",
+      "px": null,
       "count": 1,
-      "nearestToken": "--r-2xl",
-      "overOurMax": true,
+      "nearestToken": null,
+      "overOurMax": false,
       "resolved": null
     },
     {
-      "value": ".35rem",
-      "px": 3.5,
+      "value": "0 0 .8rem .8rem",
+      "px": null,
+      "count": 1,
+      "nearestToken": null,
+      "overOurMax": false,
+      "resolved": null
+    },
+    {
+      "value": ".8rem .8rem 0 0",
+      "px": null,
+      "count": 1,
+      "nearestToken": null,
+      "overOurMax": false,
+      "resolved": null
+    },
+    {
+      "value": ".3rem",
+      "px": 3,
       "count": 1,
       "nearestToken": "--r-md",
       "overOurMax": false,
@@ -1607,6 +1599,14 @@
       "resolved": null
     },
     {
+      "value": ".35rem",
+      "px": 3.5,
+      "count": 1,
+      "nearestToken": "--r-md",
+      "overOurMax": false,
+      "resolved": null
+    },
+    {
       "value": "0 0 .9rem .9rem",
       "px": null,
       "count": 1,
@@ -1682,10 +1682,6 @@
   "ourMaxRadiusPx": 6,
   "boxShadow": [
     [
-      "none",
-      2
-    ],
-    [
       "var(--shadowTo)",
       2
     ],
@@ -1694,8 +1690,8 @@
       2
     ],
     [
-      "0 0 0 .4rem var(--barFocusRing)",
-      1
+      "none",
+      2
     ],
     [
       "var(--shadowFrom)",
@@ -1703,6 +1699,10 @@
     ],
     [
       "0 0 2px 2px var(--ac40),0 0 2px 2px var(--ac40)",
+      1
+    ],
+    [
+      "0 0 0 .4rem var(--barFocusRing)",
       1
     ],
     [
@@ -1736,11 +1736,11 @@
       3
     ],
     [
-      "blur(var(--barBlur))",
+      "blur(16px)",
       2
     ],
     [
-      "blur(16px)",
+      "blur(var(--barBlur))",
       2
     ],
     [
@@ -1786,11 +1786,11 @@
       6
     ],
     [
-      "3",
+      "200",
       5
     ],
     [
-      "200",
+      "3",
       5
     ],
     [
@@ -1802,15 +1802,15 @@
       2
     ],
     [
-      "90",
-      2
-    ],
-    [
       "1200",
       2
     ],
     [
-      "999999",
+      "90",
+      2
+    ],
+    [
+      "1000",
       1
     ],
     [
@@ -1826,11 +1826,7 @@
       1
     ],
     [
-      "1000",
-      1
-    ],
-    [
-      "9999",
+      "999999",
       1
     ],
     [
@@ -1839,6 +1835,10 @@
     ],
     [
       "10000",
+      1
+    ],
+    [
+      "9999",
       1
     ],
     [
@@ -1901,6 +1901,11 @@
         "ms": 100
       },
       {
+        "name": "--dur-quick",
+        "value": "150ms",
+        "ms": 150
+      },
+      {
         "name": "--dur-normal",
         "value": "200ms",
         "ms": 200
@@ -1932,6 +1937,10 @@
       {
         "name": "--ease-spring",
         "value": "cubic-bezier(.34, 1.56, .64, 1)"
+      },
+      {
+        "name": "--ease-out-quint",
+        "value": "cubic-bezier(.22, 1, .36, 1)"
       },
       {
         "name": "--ease-ios-standard",

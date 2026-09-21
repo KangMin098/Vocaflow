@@ -70,7 +70,7 @@
 | D4 | 빈 상태에 다음 한 걸음이 반드시 있다 |
 | D5 | 가입 후 첫 학습 완료까지 화면 전환 ≤ 3 (회귀 `app/__tests__/activation-path.test.ts`) |
 
-**모션 예산**: 마이크로 100–200ms(`--dur-fast`/`--dur-normal`) · 표준 200–300ms(`--dur-slow`) · 스태거 50ms · 이동 4–16px / 리빌 20–40px · 총 1초 초과 금지 · `transform`·`opacity` 만.
+**모션 예산**: 마이크로 100–200ms(`--dur-fast`/`--dur-quick`/`--dur-normal`, 진입 이징 `--ease-out-quint`) · 표준 200–300ms(`--dur-slow`) · 스태거 50ms · 이동 4–16px / 리빌 20–40px · 총 1초 초과 금지 · `transform`·`opacity` 만.
 `prefers-reduced-motion` 은 끄기가 아니라 낮추기(이동·회전·스케일 제거, 페이드는 남김).
 학습 중 허용 7종: 카드 뒤집기 · 정답 scale · 오답 shake · 진행률 바 · 점수 카운트업 · 페이지 페이드 · 포커스 링.
 항상 금지: 폭죽 · 콘페티 · 배지 팝업 · 자동재생 캐러셀 · 장식적 상시 모션. **로더·스켈레톤은 허용** — 기준은 "끝나는 상태가 있는가". 아케이드(`components/game/`)는 대상 아님. 회귀 `components/__tests__/learning-tone.test.ts`.
