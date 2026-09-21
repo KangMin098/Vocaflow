@@ -111,14 +111,13 @@ export function TeacherClient({
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-10">
-      {/* DD-68 — 서가 · 만화와 같은 구역 머리. 장면은 교실(scene-teacher), 면은 초록 틴트. */}
+      {/* DD-68 — 서가 · 만화와 같은 구역 머리. 타일은 교실(tile-teacher), 수치 알약은 청록. */}
       <AreaHero
         kicker="교사 · 클래스"
         title="클래스"
         sub="클래스를 만들어 초대코드로 학생을 모아요"
-        scene="scene-teacher"
-        tint="green"
-        fit="cover"
+        tile="tile-teacher"
+        tint="teal"
       />
 
       {/* 조회 실패 고지 — 빈 목록이 "클래스가 없음" 으로 읽히지 않게. 개설·참여 자체는

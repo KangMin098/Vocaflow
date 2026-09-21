@@ -34,7 +34,7 @@ export const MENUS: Menu[] = [
     cards: [
       { href: '/fit', title: '난이도 진단', body: '로그인 없이, 이 글에서 내가 아는 비율을 잽니다.', illo: 'spot-reading', tone: 'feature' },
       { href: '/wordvault', title: '단어 보관함', body: '담은 단어를 기억 상태 네 색으로 봅니다.', illo: 'spot-vault', tone: 'ju' },
-      { href: '/flashcard', title: '간격 복습', body: '잊을 때쯤 다시 꺼냅니다(FSRS).', illo: 'spot-memory', tone: 'ju' },
+      { href: '/flashcard', title: '간격 복습', body: '잊을 때쯤 다시 꺼냅니다(FSRS).', illo: 'spot-memory', tone: 'info' },
     ],
     listLabel: '연습',
     list: [
@@ -48,7 +48,7 @@ export const MENUS: Menu[] = [
     cardsLabel: '읽을 것',
     cards: [
       { href: '/library/books', title: '도서', body: '퍼블릭 도메인 고전을 챕터별 어휘와 함께.', illo: 'spot-reading', tone: 'success' },
-      { href: '/comics', title: '복원 만화', body: '옛 만화를 다시 칠해 읽기 쉽게.', illo: 'spot-comic', tone: 'ju' },
+      { href: '/comics', title: '복원 만화', body: '옛 만화를 다시 칠해 읽기 쉽게.', illo: 'spot-comic', tone: 'warning' },
     ],
     listLabel: '대상',
     list: [

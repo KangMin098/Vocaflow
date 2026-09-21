@@ -25,6 +25,7 @@ import Link from 'next/link'
 import { CoverageHero } from '@/components/marketing/CoverageHero'
 import { LandingCta } from '@/components/marketing/LandingCta'
 import { PILL } from '@/components/marketing/pill'
+import { DEEP_CLASS, MODULE_TONE } from '@/lib/design/tone'
 import { SiteFooter } from '@/components/marketing/site/SiteFooter'
 import { SiteHeader } from '@/components/marketing/site/SiteHeader'
 import { SectionBeacon } from '@/components/marketing/SectionBeacon'
@@ -46,13 +47,13 @@ export const revalidate = 86400
 
 const ILLO = '/illustrations/tines'
 
-/** 학습 모듈 다섯 — 참조 사이트 「팀 탭」 자리. 색은 의미 토큰(스킨이 참조의 green/purple/blue/orange/deep 을 준다). */
+/** 학습 모듈 다섯 — 참조 사이트 「팀 탭」 자리. 색은 모듈 범주 색(`lib/design/tone.ts` MODULE_TONE)의 진한 면. */
 const MODULES = [
-  { name: '읽기', body: '지문을 읽다가 모르는 단어를 그 자리에서 담습니다. 뜻은 문맥과 함께 남아요.', bg: 'var(--success)', illo: 'spot-reading' },
-  { name: '단어 보관함', body: '담은 단어를 기억 상태 네 색으로 봅니다. 지금 흔들리는 단어가 먼저 보여요.', bg: 'var(--ju)', illo: 'spot-vault' },
-  { name: '간격 복습', body: '잊을 때쯤 다시 꺼냅니다. 복습 간격은 FSRS 가 단어마다 계산해요.', bg: 'var(--info)', illo: 'spot-memory' },
-  { name: '듣기 · 따라 말하기', body: '받아쓰기로 소리를 잡고, 따라 말한 억양을 원문과 겹쳐 비교합니다.', bg: 'var(--warning)', illo: 'spot-listening' },
-  { name: '지문 퀴즈', body: '읽은 글을 문항으로 다시 확인합니다. 틀린 자리는 다음 복습으로 이어져요.', bg: 'var(--p)', illo: 'spot-quiz' },
+  { name: '읽기', body: '지문을 읽다가 모르는 단어를 그 자리에서 담습니다. 뜻은 문맥과 함께 남아요.', tone: DEEP_CLASS[MODULE_TONE.read.deep], illo: 'spot-reading' },
+  { name: '단어 보관함', body: '담은 단어를 기억 상태 네 색으로 봅니다. 지금 흔들리는 단어가 먼저 보여요.', tone: DEEP_CLASS[MODULE_TONE.wordvault.deep], illo: 'spot-vault' },
+  { name: '간격 복습', body: '잊을 때쯤 다시 꺼냅니다. 복습 간격은 FSRS 가 단어마다 계산해요.', tone: DEEP_CLASS[MODULE_TONE.flashcard.deep], illo: 'spot-memory' },
+  { name: '듣기 · 따라 말하기', body: '받아쓰기로 소리를 잡고, 따라 말한 억양을 원문과 겹쳐 비교합니다.', tone: DEEP_CLASS[MODULE_TONE.dictation.deep], illo: 'spot-listening' },
+  { name: '지문 퀴즈', body: '읽은 글을 문항으로 다시 확인합니다. 틀린 자리는 다음 복습으로 이어져요.', tone: DEEP_CLASS[MODULE_TONE.scriptquiz.deep], illo: 'spot-quiz' },
 ] as const
 
 export default async function LandingPage() {
@@ -196,7 +197,7 @@ export default async function LandingPage() {
           </p>
           <ul className="mt-12 grid overflow-hidden rounded-[var(--r-xl)] sm:grid-cols-2 lg:grid-cols-5">
             {MODULES.map((m) => (
-              <li key={m.name} className="relative flex min-h-[340px] flex-col p-7 text-[var(--on-semantic)]" style={{ background: m.bg }}>
+              <li key={m.name} className={`${m.tone} relative flex min-h-[340px] flex-col p-7 text-[var(--t1)]`}>
                 <h3 className="break-keep font-serif text-[26px] font-[400] leading-[1.15]">{m.name}</h3>
                 <p className="mt-3 break-keep font-body text-[15px] font-[500] leading-[1.45]">{m.body}</p>
                 <Image src={`${ILLO}/${m.illo}.webp`} alt="" width={1328} height={1328} className="mt-auto w-[132px] self-end" />

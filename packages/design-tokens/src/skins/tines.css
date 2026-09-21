@@ -65,13 +65,31 @@
   --t2: #714bd0;
   --t3: #714bd0;
 
-  /* ── 틴트 면 — 참조 섹션·카드 틴트 6계열(dna §2). 우리 쪽에 없던 면이다(tines-mapping §11) ── */
+  /* ── 틴트 면 + 같은 색상의 글자(tines-mapping §13-1 — 151페이지 실측).
+        참조는 옅은 면 위에 보라가 아니라 **그 면 색상의 짙은 글자**를 얹는다. 대비 5.2~7.0 ── */
   --tint-lavender: #ece8fd;
-  --tint-green: #e4eee6;
-  --tint-peach: #ffeedd;
+  --tint-lavender-ink: #5d38ae;
+  --tint-green: #e4eee7;
+  --tint-green-ink: #005d35;
+  --tint-peach: #ffe1c4;
+  --tint-peach-ink: #8a3701;
   --tint-yellow: #fff1d1;
-  --tint-pink: #ffc7e5;
-  --tint-teal: #bee9e4;
+  --tint-yellow-ink: #7a4d16;
+  --tint-pink: #ffdeee;
+  --tint-pink-ink: #8a1f57;
+  --tint-teal: #ddf1ed;
+  --tint-teal-ink: #006d6d;
+
+  /* ── 진한 면 — 참조 카드·통판(초록 · 주황 · 자홍 · 보라 · 짙은 보라 · 숯). 위 글자는 크림.
+        참조의 #25a871 · #d15c08 · #e269a4 는 흰 글자 3.0~3.8 이라 큰 제목 전용이다 — 본문이 올라가는
+        면이므로 같은 색상의 AA 단(4.9~13.1)을 쓴다 ── */
+  --deep-purple: #6956a8;
+  --deep-green: #1f7a57;
+  --deep-orange: #b74d1a;
+  --deep-magenta: #a54b7a;
+  --deep-ink: #32274b;
+  --deep-charcoal: #32313b;
+  --on-deep: #fcf9f5;
   --t4: rgba(113, 75, 208, 0.2);
 
   /* ── 선 — 참조 테두리 `1px solid var(--acc20)` = #c3b5ff ── */
@@ -147,11 +165,17 @@
   --t4: rgba(222, 216, 255, 0.2);
 
   --tint-lavender: #2a1b49;
+  --tint-lavender-ink: #ded8ff;
   --tint-green: #0a221b;
+  --tint-green-ink: #a8dcbd;
   --tint-peach: #2d1812;
+  --tint-peach-ink: #ffc79c;
   --tint-yellow: #2c1912;
+  --tint-yellow-ink: #ffd88c;
   --tint-pink: #3e192a;
+  --tint-pink-ink: #ffb3d6;
   --tint-teal: #0c1d21;
+  --tint-teal-ink: #9fe0dc;
 
   --bd: #3f2374;
   --bdf: #aa94ff;

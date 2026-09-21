@@ -12,6 +12,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { AreaHero } from '@/components/layout/AreaHero'
+import { MATERIAL_TONE } from '@/lib/design/tone'
 import { Screen } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/server'
 import { fetchComicCatalogResult } from '@/lib/comic/catalog'
@@ -133,13 +134,13 @@ export default async function LibraryComicsPage() {
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        {/* DD-68 — 서가와 같은 구역 머리. 장면은 만화 서가(scene-comics), 면은 복숭아 틴트. */}
+        {/* DD-68 — 서가와 같은 구역 머리. 타일은 tile-comics, 수치 알약은 만화 범주 색(MATERIAL_TONE.comic). */}
         <AreaHero
           kicker="만화 · Book Comics"
           title="책 만화"
           sub="같은 책, 그림으로 먼저 만나는 입구 — 줄거리를 잡고 나면 본문이 한결 수월해져요."
-          scene="scene-comics"
-          tint="peach"
+          tile="tile-comics"
+          tint={MATERIAL_TONE.comic.tint}
           stats={
             items.length > 0
               ? [

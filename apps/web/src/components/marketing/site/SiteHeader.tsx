@@ -19,13 +19,14 @@ import { LogoMark } from './LogoMark'
 import { SearchButton } from './SearchDialog'
 import { MENUS, TOP_LINKS, type Menu, type MenuCard } from './nav-data'
 
+// 면 톤(globals.css `.tone-*` · tines-mapping §13-1) — 진한 면 위는 크림 글자, 옅은 면 위는 같은 색상 글자.
 const TONE: Record<MenuCard['tone'], string> = {
-  feature: 'bg-[var(--ju)] text-[var(--on-ju)]',
-  ju: 'bg-[var(--ju)] text-[var(--on-ju)]',
-  success: 'bg-[var(--success)] text-[var(--on-semantic)]',
-  warning: 'bg-[var(--warning)] text-[var(--on-semantic)]',
-  info: 'bg-[var(--info)] text-[var(--on-semantic)]',
-  soft: 'bg-[var(--bg3)] text-[var(--t1)]',
+  feature: 'tone-deep-purple text-[var(--t1)]',
+  ju: 'tone-deep-magenta text-[var(--t1)]',
+  success: 'tone-deep-green text-[var(--t1)]',
+  warning: 'tone-deep-orange text-[var(--t1)]',
+  info: 'tone-deep-ink text-[var(--t1)]',
+  soft: 'tone-lavender text-[var(--t1)]',
 }
 
 const FOCUS = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'

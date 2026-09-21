@@ -25,6 +25,7 @@
 'use client'
 
 import { ArrowRight, Gamepad2 } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { useFacetSummary } from '@/components/wordvault/hooks/useFacetSummary'
@@ -35,6 +36,22 @@ import {
   practiceToolsByFacet,
   type PracticeTool,
 } from '@/lib/learner/practice-map'
+
+import { DEEP_CLASS, MODULE_TONE, TINT_CLASS, type ModuleKey } from '@/lib/design/tone'
+
+/**
+ * 면마다 색과 그림(DD-68 · tines-mapping §13) — 참조 사례 카드 문법: 강조 카드는 진한 면 + 정사각 타일,
+ * 나머지는 옅은 면 + 구석 소품. 색은 그 면을 대표하는 모듈의 색(`MODULE_TONE`)이라 어느 화면에서나 같다.
+ */
+const FACET_ART: Record<FacetId, { module: ModuleKey; tile: string; spot: string }> = {
+  recognize: { module: 'flashcard', tile: 'tile-flashcard', spot: 'spot-flashcard' },
+  spell: { module: 'spellforge', tile: 'tile-spellforge', spot: 'spot-spellforge' },
+  sound: { module: 'echo', tile: 'tile-echo', spot: 'spot-echomatch' },
+  build: { module: 'pairflip', tile: 'tile-pairflip', spot: 'spot-pairflip' },
+  use: { module: 'scriptquiz', tile: 'tile-quiz', spot: 'spot-quiz' },
+  fluency: { module: 'wordblitz', tile: 'tile-wordblitz', spot: 'spot-wordblitz' },
+}
+const ILLO = '/illustrations/tines'
 
 const TOOLS = practiceToolsByFacet()
 const GAME_COUNT = gameLabCount()
@@ -190,8 +207,9 @@ function LeadCard({
     <section
       aria-label="지금 연습할 곳"
       data-design-card
-      className="rounded-ios-2xl bg-[var(--bg)] px-6 py-7 shadow-ios-1 md:px-8 md:py-8"
+      className={`${DEEP_CLASS[MODULE_TONE[FACET_ART[facet].module].deep]} grid items-center gap-6 overflow-hidden rounded-[var(--r-2xl)] px-6 py-7 md:grid-cols-[1fr_auto] md:px-8 md:py-8`}
     >
+      <div className="min-w-0">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         {/* 자간을 주지 않는다 — 라틴 eyebrow 관습(0.16em)을 한글에 그대로 쓰면
             "지 금  가 장  무 른  곳" 으로 벌어져 낱글자로 읽힌다(실측). */}
@@ -216,7 +234,7 @@ function LeadCard({
         <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
           <Link
             href={primary.href}
-            className="inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98]"
+            className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[var(--ju)] px-6 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98]"
           >
             {primary.label} 로 연습
             <ArrowRight size={15} aria-hidden />
@@ -232,6 +250,14 @@ function LeadCard({
       )}
 
       {others.length > 0 && <ToolRow tools={others} className="mt-4" />}
+      </div>
+      <Image
+        src={`${ILLO}/${FACET_ART[facet].tile}.webp`}
+        alt=""
+        width={1328}
+        height={1328}
+        className="hidden w-[220px] select-none rounded-[var(--r-xl)] md:block lg:w-[260px]"
+      />
     </section>
   )
 }
@@ -266,8 +292,15 @@ function FacetCard({
     <li className={cell}>
       <div
         data-design-card
-        className="flex h-full flex-col rounded-ios-xl bg-[var(--bg)] px-4 py-4 shadow-ios-1 md:px-5 md:py-4"
+        className={`${TINT_CLASS[MODULE_TONE[FACET_ART[facet].module].tint]} relative flex h-full flex-col rounded-[var(--r-xl)] px-4 py-4 pr-24 md:px-5 md:py-5 md:pr-28`}
       >
+        <Image
+          src={`${ILLO}/${FACET_ART[facet].spot}.webp`}
+          alt=""
+          width={1328}
+          height={1328}
+          className="pointer-events-none absolute right-3 top-3 w-[72px] select-none md:w-[84px]"
+        />
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
           <span className="font-display text-[15px] font-[700] text-[var(--t1)]">{def.name}</span>
           {progress && (
@@ -316,7 +349,7 @@ function ToolRow({ tools, className = '' }: { tools: PracticeTool[]; className?:
         <li key={t.href}>
           <Link
             href={t.href}
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-ios-pill bg-[var(--bg2)] px-3 font-mono text-[12px] text-[var(--t2)] no-underline hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-safe:transition-colors"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[color-mix(in_srgb,var(--t2)_12%,transparent)] px-3 font-mono text-[12px] text-[var(--t2)] no-underline hover:text-[var(--t1)] hover:ring-1 hover:ring-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-safe:transition-colors"
           >
             {t.isGame && <Gamepad2 size={12} aria-hidden className="shrink-0" />}
             {t.label}

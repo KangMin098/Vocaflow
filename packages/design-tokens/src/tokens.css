@@ -262,6 +262,20 @@
   --tint-yellow: var(--active-light);
   --tint-pink: var(--error-light);
   --tint-teal: var(--info-light);
+  /* 틴트 위 글자 · 진한 면(DD-68 §13-1) — 스킨을 끄면 기존 의미색 잉크를 가리킨다 */
+  --tint-lavender-ink: var(--on-p-tint);
+  --tint-green-ink: var(--success-ink);
+  --tint-peach-ink: var(--warning-ink);
+  --tint-yellow-ink: var(--active-ink);
+  --tint-pink-ink: var(--error-ink);
+  --tint-teal-ink: var(--info-ink);
+  --deep-purple: var(--p);
+  --deep-green: var(--success-ink);
+  --deep-orange: var(--warning-ink);
+  --deep-magenta: var(--error-ink);
+  --deep-ink: var(--t1);
+  --deep-charcoal: var(--t1);
+  --on-deep: var(--bg);
 
   /* 6px 상한 해제 뒤 추가(DD-65) — 참조 작성값 8 · 12(--radius) · 16(--cardRadius) · 24px */
   --r-3xl: 8px;

@@ -85,7 +85,7 @@ export function TodayFocus({ word }: { word: TasteWord | null }) {
       {/* ── 제안: 게이트가 아니다 ──
           단어를 본 다음에 온다. 순서가 뒤집히면 다시 시험이 된다. */}
       <div
-        className={`flex flex-col gap-4 rounded-[var(--r-xl)] bg-[var(--tint-lavender)] p-5 md:flex-row md:items-center md:gap-8 md:p-6 ${
+        className={`flex flex-col gap-4 tone-lavender rounded-[var(--r-xl)] p-5 md:flex-row md:items-center md:gap-8 md:p-6 ${
           word ? 'mt-8' : ''
         }`}
       >

@@ -6,6 +6,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 import { AreaHero } from '@/components/layout/AreaHero';
+import { MATERIAL_TONE } from '@/lib/design/tone';
 import { Screen } from '@/components/ui/ios';
 import { createClient } from '@/lib/supabase/server';
 import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select';
@@ -383,13 +384,13 @@ export default async function LibraryBooksPage({
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        {/* DD-68 — 참조 도서관 머리: 왼쪽 글 · 오른쪽 틴트 면 위 서가 장면. 수치는 방금 받은 카탈로그에서 센다. */}
+        {/* DD-68 — 참조 도서관 머리: 왼쪽 글 · 오른쪽 진한 면 타일(tile-books). 색은 도서 범주 색. 수치는 방금 받은 카탈로그에서 센다. */}
         <AreaHero
           kicker="서가 · 영어 원서"
           title={MATERIAL_LABEL.book}
           sub="큐레이션된 영어 원서 — i+1 수준에 맞춘 도서를 추천해드려요."
-          scene="scene-library"
-          tint="lavender"
+          tile="tile-books"
+          tint={MATERIAL_TONE.book.tint}
           stats={
             totalBooks > 0
               ? [

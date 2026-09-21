@@ -8,6 +8,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { TINT_CLASS, TINT_ROTATION } from '@/lib/design/tone'
+
 import { PILL } from '../pill'
 
 const ILLO = '/illustrations/tines'
@@ -148,7 +150,8 @@ export function PurplePanel({
 }
 
 export type Tone = 'success' | 'ju' | 'info' | 'warning' | 'p'
-const TONE_BG: Record<Tone, string> = { success: 'var(--success)', ju: 'var(--ju)', info: 'var(--info)', warning: 'var(--warning)', p: 'var(--p)' }
+// 진한 면 톤 — 위 글자는 크림(globals.css `.tone-deep-*`, tines-mapping §13-1)
+const TONE_CLASS: Record<Tone, string> = { success: 'tone-deep-green', ju: 'tone-deep-magenta', info: 'tone-deep-ink', warning: 'tone-deep-orange', p: 'tone-deep-purple' }
 
 /** P6 — 색면 카드 줄(참조 팀 탭 자리). 카드마다 제목 · 한 줄 · 구석 소품. 링크면 카드 전체가 누르는 자리. */
 export function ToneCards({ items, columns = 5 }: { items: { title: string; body: string; tone: Tone; illo?: string; href?: string }[]; columns?: 3 | 4 | 5 }) {
@@ -164,7 +167,7 @@ export function ToneCards({ items, columns = 5 }: { items: { title: string; body
           </>
         )
         return (
-          <li key={m.title} className="flex text-[var(--on-semantic)]" style={{ background: TONE_BG[m.tone] }}>
+          <li key={m.title} className={`${TONE_CLASS[m.tone]} flex text-[var(--t1)]`}>
             {m.href ? (
               <Link href={m.href} className={`flex min-h-[320px] w-full flex-col p-7 transition-[filter] duration-[var(--dur-quick)] hover:brightness-110 ${FOCUS}`}>{body}</Link>
             ) : (
@@ -178,8 +181,7 @@ export function ToneCards({ items, columns = 5 }: { items: { title: string; body
 }
 
 /** P8 — 벤토: 크기가 다른 칸. `span` 2 = 두 칸 폭. 칸마다 번호 · 제목 · 문장 · (그림). */
-/** 참조 틴트 6계열 — 칸마다 돌려 쓴다(한 격자에 같은 면이 이웃하지 않게). 틴트 위 글자는 --t1 이다(AA). */
-export const TINTS = ['var(--tint-lavender)', 'var(--tint-green)', 'var(--tint-peach)', 'var(--tint-yellow)', 'var(--tint-pink)', 'var(--tint-teal)'] as const
+/** 칸마다 면 톤을 돌린다(`lib/design/tone.ts` TINT_ROTATION) — 면 안 글자는 그 색상의 짙은 글자가 된다(§13-1). */
 
 export function Bento({ cells }: { cells: { kicker?: string; title: string; body: string; span?: 1 | 2; illo?: string; media?: React.ReactNode }[] }) {
   return (
@@ -187,8 +189,7 @@ export function Bento({ cells }: { cells: { kicker?: string; title: string; body
       {cells.map((c, i) => (
         <li
           key={c.title}
-          style={{ background: TINTS[i % TINTS.length] }}
-          className={`relative flex min-h-[240px] flex-col overflow-hidden rounded-[var(--r-xl)] p-6 text-[var(--t1)] ${c.span === 2 ? 'lg:col-span-2' : ''}`}
+          className={`${TINT_CLASS[TINT_ROTATION[i % TINT_ROTATION.length]]} relative flex min-h-[240px] flex-col overflow-hidden rounded-[var(--r-xl)] p-6 text-[var(--t1)] ${c.span === 2 ? 'lg:col-span-2' : ''}`}
         >
           {c.kicker && <p className="font-mono text-[12px] font-[700] uppercase tracking-[0.05em]">{c.kicker}</p>}
           <h3 className="mt-2 break-keep font-serif text-[22px] font-[700] leading-[1.2]">{c.title}</h3>

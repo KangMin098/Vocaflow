@@ -42,7 +42,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
     return (
       <section
         aria-label="기억이 버티는 시간"
-        className="rounded-[var(--r-2xl)] bg-[var(--tint-lavender)] px-5 py-6 md:px-8 md:py-8"
+        className="tone-lavender rounded-[var(--r-2xl)] px-5 py-6 md:px-8 md:py-8"
       >
         <Eyebrow />
         <p className="mt-4 max-w-[42ch] font-editorial text-[24px] font-[500] leading-[1.3] tracking-[-0.014em] text-[var(--t1)] [word-break:keep-all] md:text-[30px]">
@@ -66,7 +66,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
   return (
     <section
       aria-label="기억이 버티는 시간"
-      className="rounded-[var(--r-2xl)] bg-[var(--tint-lavender)] px-5 py-6 md:px-8 md:py-8"
+      className="tone-lavender rounded-[var(--r-2xl)] px-5 py-6 md:px-8 md:py-8"
     >
       <Eyebrow />
 

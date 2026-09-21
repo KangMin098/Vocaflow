@@ -1098,6 +1098,143 @@ body.studying .sidebar:hover { opacity: 1; }
 }
 
 /* 공개 화면 메가메뉴 열림(DD-68) — 참조 `areaDropdownIn`: opacity + translateY. reduced-motion 에서는 motion-safe 가 끈다. */
+/* ── 면 톤(DD-68 · tines-mapping §13-1) ─────────────────────────────────────────
+   참조는 면마다 글자 색상을 바꾼다 — 옅은 면 위에는 그 색상의 짙은 글자, 진한 면 위에는 크림.
+   면 안의 --t1/--t2/--t3/--ju/--bd 를 다시 정의하므로, var(--t1) 을 쓰는 기존 부품이 고치지 않고도
+   그 면의 글자색을 따른다. 짝은 전부 AA(4.9~13.1 — 스킨 주석 참조). */
+.tone-lavender {
+  background-color: var(--tint-lavender);
+  --t1: var(--tint-lavender-ink);
+  --t2: var(--tint-lavender-ink);
+  --t3: var(--tint-lavender-ink);
+  --ju: var(--tint-lavender-ink);
+  --on-ju: var(--tint-lavender);
+  --bd: color-mix(in srgb, var(--tint-lavender-ink) 22%, transparent);
+  --p-light: color-mix(in srgb, var(--tint-lavender-ink) 12%, transparent);
+  --on-p-tint: var(--tint-lavender-ink);
+}
+.tone-green {
+  background-color: var(--tint-green);
+  --t1: var(--tint-green-ink);
+  --t2: var(--tint-green-ink);
+  --t3: var(--tint-green-ink);
+  --ju: var(--tint-green-ink);
+  --on-ju: var(--tint-green);
+  --bd: color-mix(in srgb, var(--tint-green-ink) 22%, transparent);
+  --p-light: color-mix(in srgb, var(--tint-green-ink) 12%, transparent);
+  --on-p-tint: var(--tint-green-ink);
+}
+.tone-peach {
+  background-color: var(--tint-peach);
+  --t1: var(--tint-peach-ink);
+  --t2: var(--tint-peach-ink);
+  --t3: var(--tint-peach-ink);
+  --ju: var(--tint-peach-ink);
+  --on-ju: var(--tint-peach);
+  --bd: color-mix(in srgb, var(--tint-peach-ink) 22%, transparent);
+  --p-light: color-mix(in srgb, var(--tint-peach-ink) 12%, transparent);
+  --on-p-tint: var(--tint-peach-ink);
+}
+.tone-yellow {
+  background-color: var(--tint-yellow);
+  --t1: var(--tint-yellow-ink);
+  --t2: var(--tint-yellow-ink);
+  --t3: var(--tint-yellow-ink);
+  --ju: var(--tint-yellow-ink);
+  --on-ju: var(--tint-yellow);
+  --bd: color-mix(in srgb, var(--tint-yellow-ink) 22%, transparent);
+  --p-light: color-mix(in srgb, var(--tint-yellow-ink) 12%, transparent);
+  --on-p-tint: var(--tint-yellow-ink);
+}
+.tone-pink {
+  background-color: var(--tint-pink);
+  --t1: var(--tint-pink-ink);
+  --t2: var(--tint-pink-ink);
+  --t3: var(--tint-pink-ink);
+  --ju: var(--tint-pink-ink);
+  --on-ju: var(--tint-pink);
+  --bd: color-mix(in srgb, var(--tint-pink-ink) 22%, transparent);
+  --p-light: color-mix(in srgb, var(--tint-pink-ink) 12%, transparent);
+  --on-p-tint: var(--tint-pink-ink);
+}
+.tone-teal {
+  background-color: var(--tint-teal);
+  --t1: var(--tint-teal-ink);
+  --t2: var(--tint-teal-ink);
+  --t3: var(--tint-teal-ink);
+  --ju: var(--tint-teal-ink);
+  --on-ju: var(--tint-teal);
+  --bd: color-mix(in srgb, var(--tint-teal-ink) 22%, transparent);
+  --p-light: color-mix(in srgb, var(--tint-teal-ink) 12%, transparent);
+  --on-p-tint: var(--tint-teal-ink);
+}
+.tone-deep-purple {
+  background-color: var(--deep-purple);
+  --t1: var(--on-deep);
+  --t2: var(--on-deep);
+  --t3: var(--on-deep);
+  --ju: var(--on-deep);
+  --on-ju: var(--deep-purple);
+  --bd: color-mix(in srgb, var(--on-deep) 28%, transparent);
+  --p-light: color-mix(in srgb, var(--on-deep) 16%, transparent);
+  --on-p-tint: var(--on-deep);
+}
+.tone-deep-green {
+  background-color: var(--deep-green);
+  --t1: var(--on-deep);
+  --t2: var(--on-deep);
+  --t3: var(--on-deep);
+  --ju: var(--on-deep);
+  --on-ju: var(--deep-green);
+  --bd: color-mix(in srgb, var(--on-deep) 28%, transparent);
+  --p-light: color-mix(in srgb, var(--on-deep) 16%, transparent);
+  --on-p-tint: var(--on-deep);
+}
+.tone-deep-orange {
+  background-color: var(--deep-orange);
+  --t1: var(--on-deep);
+  --t2: var(--on-deep);
+  --t3: var(--on-deep);
+  --ju: var(--on-deep);
+  --on-ju: var(--deep-orange);
+  --bd: color-mix(in srgb, var(--on-deep) 28%, transparent);
+  --p-light: color-mix(in srgb, var(--on-deep) 16%, transparent);
+  --on-p-tint: var(--on-deep);
+}
+.tone-deep-magenta {
+  background-color: var(--deep-magenta);
+  --t1: var(--on-deep);
+  --t2: var(--on-deep);
+  --t3: var(--on-deep);
+  --ju: var(--on-deep);
+  --on-ju: var(--deep-magenta);
+  --bd: color-mix(in srgb, var(--on-deep) 28%, transparent);
+  --p-light: color-mix(in srgb, var(--on-deep) 16%, transparent);
+  --on-p-tint: var(--on-deep);
+}
+.tone-deep-ink {
+  background-color: var(--deep-ink);
+  --t1: var(--on-deep);
+  --t2: var(--on-deep);
+  --t3: var(--on-deep);
+  --ju: var(--on-deep);
+  --on-ju: var(--deep-ink);
+  --bd: color-mix(in srgb, var(--on-deep) 28%, transparent);
+  --p-light: color-mix(in srgb, var(--on-deep) 16%, transparent);
+  --on-p-tint: var(--on-deep);
+}
+.tone-deep-charcoal {
+  background-color: var(--deep-charcoal);
+  --t1: var(--on-deep);
+  --t2: var(--on-deep);
+  --t3: var(--on-deep);
+  --ju: var(--on-deep);
+  --on-ju: var(--deep-charcoal);
+  --bd: color-mix(in srgb, var(--on-deep) 28%, transparent);
+  --p-light: color-mix(in srgb, var(--on-deep) 16%, transparent);
+  --on-p-tint: var(--on-deep);
+}
+
 @keyframes vf-dropdown-in {
   from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: none; }
