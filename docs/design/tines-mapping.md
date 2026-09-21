@@ -156,16 +156,16 @@
 | 관리자 | `/admin/*`(60) | 제품 액자 속 앱 UI | 레일 · 표 · 필터 막대 | — | ○ (스킨 토큰만) |
 | 개발 | `/dev/*` · `/hub-lab` · `/sitemap` | — | — | — | — |
 
-## 9. 삽화 배정 (`public/illustrations/tines/` 29점 — `scripts/design/illo-tines-gen.mjs`)
+## 9. 삽화 배정 (`public/illustrations/tines/` — `scripts/design/illo-tines-gen.mjs`, 3회차 기준 · 규격 근거 §13-2)
 
-| 규격(참조 dna §6) | 파일 | 쓰는 자리 |
+| 규격(참조 실측) | 파일 | 쓰는 자리 |
 |---|---|---|
-| 장면(폭 전체) | hero-book-field · scene-library · scene-comics · scene-csat · scene-teacher · scene-video · scene-hub · scene-404 | 랜딩 히어로 · 서가 · 만화 · 수능 · 교사 · 영상 · 허브/인증 · 404 |
-| 띠(아래 꽃밭) | bed-flowers | 보라 통판 · 꽃밭 CTA |
-| 카드 머리 | card-books · card-vocab | 메가메뉴 서가 카드 · 서가 모음 격자 머리 |
-| 소품(카드 구석) | spot-reading · vault · memory · listening · quiz · comic · flashcard · spellforge · wordblitz · pairflip · echomatch · dashboard · dictionary · teacher | 모듈 카드 · 메가메뉴 · 입구 화면 |
-| 빈 상태 소품 | spot-empty-vault · spot-review-done · spot-search | 보관함 빈 목록 · 오늘 복습 끝 · 검색 결과 없음 |
-| 패턴 타일 | pattern-kaleido-1 · pattern-kaleido-2 | 참조 `HomeAiTangleBanner` 모니터 액자 속 무늬 자리 — 영상 포스터 · 로딩 바탕 |
+| **진한 면 타일** 1328² (표시 220~300px, 바탕이 그림의 일부) | tile-books · articles · decks · textbooks · comics · read · vault · flashcard · wordblitz · pairflip · spellforge · echo · quiz · dictation · dashboard · csat · teacher · hub | 구역 머리(`AreaHero` — 서가 · 만화 · 교사) · `/practice` 강조 카드 · 앞으로 모듈 입구 · 서가 모음 격자 |
+| **물건 소품** 1328² (표시 64~150px, 투명) | spot-reading · vault · memory · listening · comic · flashcard · spellforge · wordblitz · pairflip · echomatch · dashboard · dictionary · teacher · empty-vault · review-done · search · quiz | `/practice` 면 카드 구석 · 메가메뉴 · 랜딩/소개 모듈 카드 · 오늘 · 성장 머리 · 검색 빈 결과 · 빈 상태 |
+| **흩어진 물건 띠** 1664×928 (투명, 가운데 빈 자리) | band-scatter | 마감 CTA 둘레(참조 「Built by you」) |
+| 꽃무늬(홈 전용) | hero-book-field · bed-flowers | 랜딩 히어로 · 보라 통판 · 꽃밭 CTA |
+| 꽃 장면(2회차 · 교체 대상) | scene-hub · scene-video · scene-404 (library · comics · csat · teacher 는 타일로 대체돼 안 쓴다) | 인증 · 영상 · 404 |
+| 카드 머리 · 패턴 | card-books · card-vocab · pattern-kaleido-1/2 | 메가메뉴 서가 카드 · 영상 포스터 |
 
 ## 10. 팝업 · 상호작용 매칭
 
@@ -234,3 +234,35 @@
 5. **측정이 색을 빠뜨렸다.** `extract-css-authored.mjs` 는 모션·모서리·그림자만 모았고 색은 안 모았다. 색 근거는 계산 스타일(`computed-summary.md` — 색 변수 467개, 12계열: lime 24 · yellow 14 · orange 14 · purple 14 · pink 12 · green 12 · teal 8 · red 8 · magenta 8 · blue 6 …)뿐인데 그중 보라 + 옅은 틴트 6만 토큰으로 옮겼다. §11 비교도 보라 계열 면적만 보고, 가장 색이 많은 서가 · 블로그 · 이벤트 · 검색은 짝을 짓지 않았다.
 
 글자색은 원인이 아니다 — 참조도 제목·본문이 보라(`#5d38ae` · `#714bd0`)다. 다른 점은 **원색 카드 위에서는 흰 글자**라는 것이다.
+
+## 13. 151페이지 코퍼스 — 색 짝 · 삽화 규격 (2026-09-21)
+
+> 출처 [`refs/tines/corpus-summary.md`](refs/tines/corpus-summary.md) · `corpus.json` — 사이트맵 6,439 URL → 템플릿 80 · 151페이지(`scripts/design/tines-corpus.mjs`), 그림 2,510 · 바탕색 93. 원본 캡처·모음판은 `tmp/tines-corpus/`(저장소 밖).
+
+### 13-1. 색은 「면 + 같은 색상의 글자」 짝이다
+
+글자의 83.6% 는 `#5d38ae`(보라)다 — 보라 글자는 맞다. 다른 것은 **면**이다: 옅은 면 위에서는 **같은 색상의 짙은 글자**, 진한 면 위에서는 크림/흰 글자.
+
+| 색상 | 옅은 면 → 글자 (대비) | 진한 면 → 글자 (대비) | 본문 AA 되는 진한 면 |
+|---|---|---|---|
+| 보라 | `#ece8fd` → `#5d38ae` (6.6) · `#eadff8` → `#4d3e78` (7.2) | `#7a56e0` → `#fcf9f5` (4.7) · `#8d75e6` → 흰 (3.6) | `#6956a8` (6.0) · `#4d3e78` (9.2) · `#32274b` (13.7) |
+| 초록 | `#e4eee7` → `#005d35` (6.8) · `#d6edd9` → `#195642` (6.9) | `#25a871` → 흰 (3.0) · `#008b53` → 크림 (4.2) | `#1f7a57` (5.3) |
+| 주황 | `#ffe1c4` → `#8a3701` (6.4) · `#ffe0cc` → `#803218` (7.0) | `#d15c08` → 크림 (3.8) · `#f47e3f` → 흰 (2.7) | `#b74d1a` (5.1) |
+| 자홍 | `#ffdeee` → `#8a1f57` (7.0) · `#ffdce8` → `#763359` (7.0) | `#e269a4` → 흰 (3.1) · `#cd3d8b` → 크림 (4.3) | `#a54b7a` (5.4) |
+| 청록 | `#ddf1ed` → `#006d6d` (5.2) | — | — |
+| 무채 | 크림 `#fcf9f5` · `#f3efea` · 흰 | 숯 `#32313b` → 크림 (12.2) | 〃 |
+
+진한 면 위 3.0~4.3 은 참조가 **큰 제목에만** 쓰는 값이다 — 우리는 본문이 올라가는 진한 면에 오른쪽 열(AA)을 쓴다.
+
+### 13-2. 삽화 규격 — 쓰임별
+
+| 쓰임 | 페이지당 | 크기 p10/중앙/p90 | 위치 | 참조 화풍 | 우리 지금 |
+|---|---|---|---|---|---|
+| **소품(spot)** | **7.8** | 51 / 81 / 137 정사각 | 오른쪽 54% · 왼쪽 28% | 굵은 짙은보라 윤곽 **물건 하나**(학사모·머그·방패·컴퓨터·램프·로봇팔), 약간 입체, 꽃 없음. 크림 바탕 또는 **옅은 정사각 타일**(라벤더·살구·민트, 135×135) 위 | 꽃밭 딸린 소품 · 화면당 0~2 |
+| **카드 타일** | 2.6 | 218 / 382 / 680 × 146 / 250 / 409 | 고르게 | **진한 단색 정사각 면**(초록 `#00894f` · 자홍 `#cd3d8b` · 주황 `#c75a1a` · 보라 `#7a56e0`)을 꽉 채우고 가운데에 물건·기계 하나(전구 문어 · 조명 아래 보석 · 톱니 기계 · 레일) — 300×300 / 170×170 | 없음 |
+| 히어로 | 0.8 | 331 / 457 / 861 × 128 / 319 / 547 | 오른쪽 43% | 카드 타일과 같은 문법, 또는 흩어진 물건 | 투명 바탕 꽃 장면 |
+| 띠(band) | 1.3 | 1240 × 540 | 가운데 91% | 가운데 CTA 카드 둘레에 **작은 물건이 흩어진** 판(「Built by you, powered by Tines」) | 꽃밭 띠 |
+| 본문 삽입(inline) | 3.6 | 221 / 603 / 933 | 고르게 | 진한 면 타일 · 제품 화면 조각 · 도표 | 없음 |
+| 꽃무늬 | — | — | — | **홈 히어로 글자 · 마감 CTA 에만**. 나머지 화면은 물건 삽화 | 전 화면 |
+
+**조치**: ① 스킨에 색 짝 토큰과 `.tone-*` 면 클래스(면 안의 `--t1/--t2/--bd` 를 그 색상 글자로 바꾼다) ② 범주 색 배정(자료 4 · 모듈 9) ③ 삽화 생성기에 「물건 소품」 · 「진한 면 타일」 · 「흩어진 물건 띠」 화풍 추가, 꽃무늬는 랜딩 히어로·마감 띠만 ④ 화면당 소품 수를 참조 수준(서가·모듈 입구·빈 상태·카드 구석)으로.
