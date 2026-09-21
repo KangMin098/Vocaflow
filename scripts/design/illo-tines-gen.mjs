@@ -118,6 +118,16 @@ const SCENES = [
   { id: 'tile-csat', size: '1328*1328', style: STYLE_TILE(TILE_BG.magenta), key: false, scene: 'A blank exam paper on a desk under a hanging lamp, a magnifying glass and two pencils beside it.' },
   { id: 'tile-teacher', size: '1328*1328', style: STYLE_TILE(TILE_BG.green), key: false, scene: 'A small chalkboard on an easel with a red apple and a brass bell on the ledge.' },
   { id: 'tile-hub', size: '1328*1328', style: STYLE_TILE(TILE_BG.purple), key: false, scene: 'A cozy desk lamp shining over an open notebook, a mug and a small stack of books.' },
+  // ── 3회차 — 용도별 소품(빈 상태 · 오류 · 로딩 · 잠김 · 환영 · 404 · 계획) ──
+  { id: 'spot-error', size: '1328*1328', style: STYLE_OBJECT, scene: 'A small paper plane with a crumpled wing and a bandage patch on it.' },
+  { id: 'spot-offline', size: '1328*1328', style: STYLE_OBJECT, scene: 'An unplugged electrical plug with its cable lying next to a wall socket.' },
+  { id: 'spot-empty-shelf', size: '1328*1328', style: STYLE_OBJECT, scene: 'A small empty wooden bookshelf with a single book leaning on one side.' },
+  { id: 'spot-empty-page', size: '1328*1328', style: STYLE_OBJECT, scene: 'A blank sheet of paper with a sharpened pencil lying on it.' },
+  { id: 'spot-loading', size: '1328*1328', style: STYLE_OBJECT, scene: 'A chunky hourglass with sand flowing.' },
+  { id: 'spot-locked', size: '1328*1328', style: STYLE_OBJECT, scene: 'A closed book with a round brass padlock on its cover.' },
+  { id: 'spot-welcome', size: '1328*1328', style: STYLE_OBJECT, scene: 'An open wooden door with a round welcome mat in front of it.' },
+  { id: 'spot-lost', size: '1328*1328', style: STYLE_OBJECT, scene: 'A small book floating in the air, lifted by a cone of light from a hovering flying saucer.' },
+  { id: 'spot-calendar', size: '1328*1328', style: STYLE_OBJECT, scene: 'A desk calendar page with a ribbon bookmark and a small pencil.' },
   // ── 3회차 — 흩어진 물건 띠(마감 CTA 둘레, 참조 1240×540) ──
   { id: 'band-scatter', size: '1664*928', style: STYLE_SCATTER, scene: 'Learning objects floating around an empty centre.' },
   { id: 'spot-quiz', size: '1328*1328', style: STYLE_OBJECT, scene: 'A sharpened pencil lying across a blank index card with three empty round checkboxes.' },
