@@ -25,6 +25,8 @@ import Link from 'next/link'
 import { CoverageHero } from '@/components/marketing/CoverageHero'
 import { LandingCta } from '@/components/marketing/LandingCta'
 import { PILL } from '@/components/marketing/pill'
+import { SiteFooter } from '@/components/marketing/site/SiteFooter'
+import { SiteHeader } from '@/components/marketing/site/SiteHeader'
 import { SectionBeacon } from '@/components/marketing/SectionBeacon'
 import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import { buildHeroDemo } from '@/lib/marketing/hero-demo'
@@ -58,35 +60,7 @@ export default async function LandingPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-[var(--bg)] text-[var(--t1)]">
-      {/* ── 헤더 — 알약 내비 · 오른쪽 로그인/가입 · 대문자 모노 CTA ── */}
-      <header className="sticky top-0 z-30 bg-[var(--bg)]">
-        <div className="mx-auto flex h-[72px] max-w-[1360px] items-center justify-between px-4 lg:px-10">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex min-h-[44px] items-center gap-2" aria-label="Vocaflow 홈">
-              <LogoMark />
-              <span className="font-display text-[22px] font-[500] tracking-[-0.02em] text-[var(--ju)]">vocaflow</span>
-            </Link>
-            <nav className="hidden items-center gap-1 md:flex" aria-label="주요">
-              <NavPill href="/library/books">서가</NavPill>
-              <NavPill href="/fit">난이도 진단</NavPill>
-              <NavPill href="/about">소개</NavPill>
-              <NavPill href="/video">영상</NavPill>
-              <NavPill href="/pricing">요금제</NavPill>
-            </nav>
-          </div>
-          <div className="flex items-center gap-1">
-            <NavPill href="/login">로그인</NavPill>
-            <span className="hidden sm:inline-flex">
-              <NavPill href="/signup">가입</NavPill>
-            </span>
-            <span className="ml-2 hidden sm:block">
-              <Link href="/signup" className={`${PILL} bg-[var(--p)] text-[var(--on-p)] hover:bg-[var(--p-hover)]`}>
-                무료로 시작
-              </Link>
-            </span>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="flex-1">
         {/* ── 히어로 — 왼쪽 정렬 · 64px 두 줄 · 세리프 부제 ── */}
@@ -265,41 +239,8 @@ export default async function LandingPage() {
         </section>
       </main>
 
-      <footer className="border-t border-[var(--bd)] bg-[var(--bg)]">
-        <div className="mx-auto flex max-w-[1360px] flex-col gap-3 px-4 py-10 sm:flex-row sm:items-center sm:justify-between lg:px-10">
-          <p className="font-body text-[14px] text-[var(--t2)]">Vocaflow — 영어 스크립트 기반 어휘 학습</p>
-          <nav className="flex flex-wrap items-center gap-2" aria-label="바닥글">
-            <NavPill href="/about">소개</NavPill>
-            <NavPill href="/video">영상</NavPill>
-            <NavPill href="/pricing">요금제</NavPill>
-            <NavPill href="/terms">이용약관</NavPill>
-            <NavPill href="/privacy">개인정보처리방침</NavPill>
-          </nav>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
-  )
-}
-
-/** 참조 사이트의 원형 워드마크 자리 — 우리 이름의 첫 글자를 같은 선 굵기로. */
-function LogoMark() {
-  return (
-    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden className="text-[var(--ju)]">
-      <circle cx="15" cy="15" r="13" fill="none" stroke="currentColor" strokeWidth="2.4" />
-      <path d="M8.5 9.5 15 21l6.5-11.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-/** 내비 알약 — 14px 600 · 8/12 패딩 · 누르면 옅은 보라 면. 누르는 자리는 44px. */
-function NavPill({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className="inline-flex min-h-[44px] items-center rounded-full px-3 font-display text-[14px] font-[600] text-[var(--ju)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
-    >
-      {children}
-    </Link>
   )
 }
 

@@ -55,6 +55,8 @@ const SCENES = [
     scene: 'A terracotta flower pot with a young sprout, next to a small round alarm clock, symbolising spaced review.' },
   { id: 'spot-listening', size: '1328*1328', style: STYLE_SPOT,
     scene: 'A pair of retro over-ear headphones whose cable curls into a vine with small leaves.' },
+  { id: 'spot-comic', size: '1328*1328', style: STYLE_SPOT,
+    scene: 'A small stack of vintage comic books with blank covers, a round paintbrush resting on top with a drop of fresh paint.' },
   { id: 'spot-quiz', size: '1328*1328', style: STYLE_SPOT,
     scene: 'A sharpened pencil lying across a blank index card with three empty round checkboxes.' },
 ]

@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **공개 화면 공통 틀**(DD-68 · tines-mapping §5-1·2): `components/marketing/site/` — `SiteHeader`(알약 내비 · 메가메뉴 3 「학습·서가·알아보기」 올림/누름으로 열고 Esc·바깥 누름으로 닫음 · `aria-expanded/controls` · 390 모바일 서랍) · `SiteFooter`(5단) · `FlowerCta`(끝 꽃밭 CTA, 약관·개인정보 제외) · `nav-data.ts`(링크 단일 출처, 실재 경로만). 랜딩과 `(marketing)/layout.tsx`(서버 컴포넌트로 전환)가 같은 틀을 쓴다 — **공개 화면에 모바일 메뉴가 없던 결함을 닫았다**. 소품 삽화 `spot-comic` 추가. 영상 링크 회귀는 공통 내비 데이터를 본다.
+
 - **참조 사이트 구간 전수 목록 + 매핑**(DD-68): `scripts/design/extract-sections.mjs` 가 템플릿별 33페이지(목록+상세 · 404 포함)에서 구간 약 200개(컴포넌트 이름 · 눈썹/제목 · 높이 · 바탕 · 열 · 탭/펼침/폼/영상/모션)와 팝업류 6(쿠키 · 메가메뉴 3 · 검색 모달 · 모바일 서랍)을 뽑는다 → `refs/tines/sections.json` · `sections-summary.md`(구조만). CSS 모듈 이름이 없는 이전 세대 페이지는 보이는 블록으로 대체 판정. 판단 문서 `docs/design/tines-mapping.md` — 전역 틀 11 · 템플릿 18 · 구간 패턴 22 · 앱 UI 5 를 우리 화면에 대응시키고 적용 순서를 적었다. 발견: 공개 화면 390 에서 내비가 숨어 모바일 메뉴가 없다 · 전역 검색 없음.
 
 - **랜딩 `/` 를 참조 홈 골격으로 재구성**(DD-68 ③④): 알약 내비·CTA, 왼쪽 정렬 64px 제목 + 세리프 부제, 로고 줄 자리에 DB 실측 지표, 폭 전체 삽화 위로 겹치는 제품 액자(CoverageHero), 가운데 선언문, 보라 통판(차별점 3 + 꽃밭), 색면 모듈 5(소품 삽화), 보라 문 카드 2, 마지막 CTA. 계약(서버 컴포넌트 · canonical · `/fit` · 실측 수치 · 도착/CTA 계측 · `/video`) 유지 — 두 번째 CTA 는 `trackView={false}` 로 도착을 두 번 세지 않는다. `PILL` 상수는 `components/marketing/pill.ts`(클라이언트 파일에서 내보내면 서버에서 `[object Object]` 가 된다 — 실측). 스킨 세리프·모노 목록에 한글 서체를 끼웠다.

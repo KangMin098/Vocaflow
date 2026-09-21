@@ -49,6 +49,14 @@ describe('랜딩은 영상으로 링크를 잇는다', () => {
   // 디자인·UX 금지 검사 1건(랜딩 히어로 플레이어 금지)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
   it('대신 링크로 잇는다 — 영상이 아예 안 닿으면 그것도 문제다', () => {
-    expect(landing).toContain('/video')
+    // 랜딩의 링크는 공통 헤더·푸터(nav-data 한 곳)가 그린다(DD-68). 랜딩이 그 부품을 쓰고,
+    // 그 데이터에 영상 경로가 있어야 한다.
+    const navData = fs.readFileSync(
+      path.join(process.cwd(), 'src', 'components', 'marketing', 'site', 'nav-data.ts'),
+      'utf8',
+    )
+    expect(landing).toMatch(/<SiteHeader\s*\/>/)
+    expect(landing).toMatch(/<SiteFooter\s*\/>/)
+    expect(navData).toContain("'/video'")
   })
 })

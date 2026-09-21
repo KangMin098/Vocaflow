@@ -1096,3 +1096,9 @@ body.studying .sidebar:hover { opacity: 1; }
     transition: opacity var(--dur-fast) var(--ease);
   }
 }
+
+/* 공개 화면 메가메뉴 열림(DD-68) — 참조 `areaDropdownIn`: opacity + translateY. reduced-motion 에서는 motion-safe 가 끈다. */
+@keyframes vf-dropdown-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
