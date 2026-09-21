@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **색 구성 교정 + 삽화 적용**(DD-68 · tines-mapping §11): 실측상 우리는 틴트 면이 거의 없었다 → 스킨에 참조 틴트 6(`--tint-lavender/green/peach/yellow/pink/teal`, 다크 짝 · 스킨 끔은 기존 옅은 의미색 별칭)과 글자 두 단(제목 `--t1` `#5d38ae` · 본문 `#714bd0` — 틴트 위 AA 5.5:1↑) 추가, 벤토 칸 틴트 순환 · 구간 제목은 `--t1`. 404(공통 헤더 · scene-404) · `/video`(2열 히어로 scene-video · 액자 격자, 겹친 `<main>` 해소) · 인증 레이아웃(2열 · scene-hub · 공통 워드마크).
+
 - **참조 사이트 심층 분석 + 삽화 22점**(DD-68): `scripts/design/extract-components.mjs`(33페이지 스타일시트 42 → 컴포넌트 이름 313 · DOM 실재 156, 계열 13 · 상호작용 상태 선택자 · 크기 · 서체 — `refs/tines/components-*`), `scripts/design/extract-interactions.mjs`(메가메뉴 · 검색 모달 · 쿠키 설정 · 탭 전환 · 영상 · 문의 폼 · 모바일 하위 메뉴 · 404 등 10 기록 — `refs/tines/interactions-*`, 스크린샷은 tmp). `tines-mapping.md` §7 부품 단위 · §8 전체 라우트 약 170 · §9 삽화 배정 · §10 상호작용 · §11 색 구성 실측(우리는 진한 보라 면이 많고 틴트 면이 거의 없다 — 소개 틴트 0.9% ↔ 3B 52.3%). 삽화 생성기에 카드 머리 · 패턴 화풍 추가, 장면 7 · 소품 11 · 카드 머리 2 · 패턴 2 생성(무료 Qwen).
 
 - **`/fit` 을 참조 도구 화면 골격으로**(DD-68): 왼쪽 정렬 64px 제목 · 점 격자 무대(P22) 위 액자 속 진단 도구 · 「이럴 때 씁니다」 FAQ 펼침(P9, 구조화 데이터와 같은 `QUESTIONS`) · 근거 카드. 진단 도구(`PublicFitClient`)·문구·DB 실측 수치는 무변경.

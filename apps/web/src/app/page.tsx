@@ -75,7 +75,7 @@ export default async function LandingPage() {
             </span>
           </Link>
 
-          <h1 className="mt-7 max-w-[20ch] break-keep font-display text-[40px] font-[400] leading-[1.08] tracking-[-0.03em] text-[var(--ju)] md:text-[64px]">
+          <h1 className="mt-7 max-w-[20ch] break-keep font-display text-[40px] font-[400] leading-[1.08] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]">
             글이 어려운 게 아니라
             <br />
             내가 아는 비율이 다른 겁니다.
@@ -132,7 +132,7 @@ export default async function LandingPage() {
           <Image src={`${ILLO}/spot-vault.webp`} alt="" width={1328} height={1328} className="absolute right-4 top-40 hidden w-[240px] xl:block" />
           <div className="mx-auto max-w-[36rem] text-center">
             <p className="font-display text-[14px] font-[700] tracking-[0.04em] text-[var(--ju)]">읽기가 막히는 진짜 이유</p>
-            <h2 className="mt-6 break-keep font-serif text-[36px] font-[700] leading-[1.12] tracking-[-0.02em] text-[var(--ju)] md:text-[52px]">
+            <h2 className="mt-6 break-keep font-serif text-[36px] font-[700] leading-[1.12] tracking-[-0.02em] text-[var(--t1)] md:text-[52px]">
               단어장은 길어지는데
               <br />
               글은 여전히 어렵다.
@@ -188,7 +188,7 @@ export default async function LandingPage() {
         {/* ── 모듈 다섯 — 참조의 색면 탭 자리 ── */}
         <section className="mx-auto max-w-[1360px] px-4 py-24 lg:px-10 lg:py-32">
           <p className="font-display text-[14px] font-[700] tracking-[0.04em] text-[var(--ju)]">한 글로 이어지는 학습</p>
-          <h2 className="mt-6 max-w-[22ch] break-keep font-display text-[36px] font-[400] leading-[1.08] tracking-[-0.03em] text-[var(--ju)] md:text-[56px]">
+          <h2 className="mt-6 max-w-[22ch] break-keep font-display text-[36px] font-[400] leading-[1.08] tracking-[-0.03em] text-[var(--t1)] md:text-[56px]">
             읽은 글이 그대로 단어장이 되고, 복습이 됩니다.
           </h2>
           <p className="mt-6 max-w-[48ch] break-keep font-serif text-[20px] leading-[1.4] text-[var(--ju)] md:text-[26px]">
@@ -229,7 +229,7 @@ export default async function LandingPage() {
         {/* ── 마지막 CTA ── */}
         <section className="mx-auto max-w-[1360px] px-4 pb-28 lg:px-10">
           <div className="flex flex-col items-center text-center">
-            <h2 className="break-keep font-display text-[48px] font-[500] leading-[1] tracking-[-0.04em] text-[var(--ju)] md:text-[96px]">
+            <h2 className="break-keep font-display text-[48px] font-[500] leading-[1] tracking-[-0.04em] text-[var(--t1)] md:text-[96px]">
               오늘 읽을 글부터.
             </h2>
             <div className="mt-10">

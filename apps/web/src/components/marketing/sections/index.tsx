@@ -38,7 +38,7 @@ export function SectionHead({
     <header className={center ? 'mx-auto max-w-[40rem] text-center' : 'max-w-[46rem]'}>
       {kicker && <Kicker className="text-[var(--ju)]">{kicker}</Kicker>}
       <h2
-        className={`mt-5 break-keep text-[var(--ju)] ${
+        className={`mt-5 break-keep text-[var(--t1)] ${
           serifTitle
             ? 'font-serif text-[34px] font-[700] leading-[1.12] tracking-[-0.02em] md:text-[48px]'
             : 'font-display text-[36px] font-[400] leading-[1.08] tracking-[-0.03em] md:text-[56px]'
@@ -46,7 +46,7 @@ export function SectionHead({
       >
         {title}
       </h2>
-      {sub && <p className="mt-5 break-keep font-serif text-[19px] leading-[1.45] text-[var(--ju)] md:text-[24px]">{sub}</p>}
+      {sub && <p className="mt-5 break-keep font-serif text-[19px] leading-[1.45] text-[var(--t2)] md:text-[24px]">{sub}</p>}
     </header>
   )
 }
@@ -69,8 +69,8 @@ export function Hero2Col({
     <section className={`${WRAP} grid items-center gap-10 pb-16 pt-8 lg:grid-cols-[1.05fr_1fr] lg:pb-24 lg:pt-12`}>
       <div>
         <Kicker className="text-[var(--ju)]">{kicker}</Kicker>
-        <h1 className="mt-5 break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--ju)] md:text-[64px]">{title}</h1>
-        <p className="mt-6 max-w-[40ch] break-keep font-serif text-[20px] leading-[1.4] text-[var(--ju)] md:text-[24px]">{sub}</p>
+        <h1 className="mt-5 break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]">{title}</h1>
+        <p className="mt-6 max-w-[40ch] break-keep font-serif text-[20px] leading-[1.4] text-[var(--t2)] md:text-[24px]">{sub}</p>
         {ctas && ctas.length > 0 && (
           <div className="mt-8 flex flex-wrap gap-3">
             {ctas.map((c) => (
@@ -178,17 +178,21 @@ export function ToneCards({ items, columns = 5 }: { items: { title: string; body
 }
 
 /** P8 — 벤토: 크기가 다른 칸. `span` 2 = 두 칸 폭. 칸마다 번호 · 제목 · 문장 · (그림). */
+/** 참조 틴트 6계열 — 칸마다 돌려 쓴다(한 격자에 같은 면이 이웃하지 않게). 틴트 위 글자는 --t1 이다(AA). */
+export const TINTS = ['var(--tint-lavender)', 'var(--tint-green)', 'var(--tint-peach)', 'var(--tint-yellow)', 'var(--tint-pink)', 'var(--tint-teal)'] as const
+
 export function Bento({ cells }: { cells: { kicker?: string; title: string; body: string; span?: 1 | 2; illo?: string; media?: React.ReactNode }[] }) {
   return (
     <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-      {cells.map((c) => (
+      {cells.map((c, i) => (
         <li
           key={c.title}
-          className={`relative flex min-h-[240px] flex-col overflow-hidden rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg2)] p-6 ${c.span === 2 ? 'lg:col-span-2' : ''}`}
+          style={{ background: TINTS[i % TINTS.length] }}
+          className={`relative flex min-h-[240px] flex-col overflow-hidden rounded-[var(--r-xl)] p-6 text-[var(--t1)] ${c.span === 2 ? 'lg:col-span-2' : ''}`}
         >
-          {c.kicker && <p className="font-mono text-[12px] font-[700] uppercase tracking-[0.05em] text-[var(--ju)]">{c.kicker}</p>}
-          <h3 className="mt-2 break-keep font-serif text-[22px] font-[700] leading-[1.2] text-[var(--ju)]">{c.title}</h3>
-          <p className="mt-2 max-w-[42ch] break-keep font-body text-[15px] leading-[1.55] text-[var(--ju)]">{c.body}</p>
+          {c.kicker && <p className="font-mono text-[12px] font-[700] uppercase tracking-[0.05em]">{c.kicker}</p>}
+          <h3 className="mt-2 break-keep font-serif text-[22px] font-[700] leading-[1.2]">{c.title}</h3>
+          <p className="mt-2 max-w-[42ch] break-keep font-body text-[15px] leading-[1.55]">{c.body}</p>
           {c.media && <div className="mt-4">{c.media}</div>}
           {c.illo && <Image src={`${ILLO}/${c.illo}.webp`} alt="" width={1328} height={1328} className="mt-auto w-[112px] self-end" />}
         </li>

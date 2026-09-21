@@ -255,6 +255,14 @@
   --r-lg: 4px;
   --r-xl: 5px;
   --r-2xl: 6px;
+  /* 틴트 면(DD-68) — 스킨이 참조 틴트 6색을 준다. 기본은 기존 옅은 의미색을 가리킨다(새 색 0). */
+  --tint-lavender: var(--bg3);
+  --tint-green: var(--success-light);
+  --tint-peach: var(--warning-light);
+  --tint-yellow: var(--active-light);
+  --tint-pink: var(--error-light);
+  --tint-teal: var(--info-light);
+
   /* 6px 상한 해제 뒤 추가(DD-65) — 참조 작성값 8 · 12(--radius) · 16(--cardRadius) · 24px */
   --r-3xl: 8px;
   --r-4xl: 12px;

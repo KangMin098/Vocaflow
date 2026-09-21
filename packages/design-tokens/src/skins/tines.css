@@ -60,10 +60,18 @@
   --bg3: #ece8fd;
   --ti: #fcf9f5;
 
-  /* ── 글자 — 참조는 #714bd0 한 색(바탕 대비 5.53:1) ── */
-  --t1: #714bd0;
+  /* ── 글자 — 참조 실측(dna §2): 제목 #5d38ae(40회) · 본문 #714bd0. 틴트 면 위 글자는 --t1(5.5:1 이상) ── */
+  --t1: #5d38ae;
   --t2: #714bd0;
   --t3: #714bd0;
+
+  /* ── 틴트 면 — 참조 섹션·카드 틴트 6계열(dna §2). 우리 쪽에 없던 면이다(tines-mapping §11) ── */
+  --tint-lavender: #ece8fd;
+  --tint-green: #e4eee6;
+  --tint-peach: #ffeedd;
+  --tint-yellow: #fff1d1;
+  --tint-pink: #ffc7e5;
+  --tint-teal: #bee9e4;
   --t4: rgba(113, 75, 208, 0.2);
 
   /* ── 선 — 참조 테두리 `1px solid var(--acc20)` = #c3b5ff ── */
@@ -137,6 +145,13 @@
   --t2: #c3b5ff;
   --t3: #aa94ff;
   --t4: rgba(222, 216, 255, 0.2);
+
+  --tint-lavender: #2a1b49;
+  --tint-green: #0a221b;
+  --tint-peach: #2d1812;
+  --tint-yellow: #2c1912;
+  --tint-pink: #3e192a;
+  --tint-teal: #0c1d21;
 
   --bd: #3f2374;
   --bdf: #aa94ff;

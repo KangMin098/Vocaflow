@@ -10,10 +10,13 @@
 // 발행 전에는 이 라우트가 **목록 대신 다음 걸음을 보여 준다**(D5) — 빈 화면을 두지 않는다.
 
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { ComponentVideo } from '@/components/video/ComponentVideo'
 import { KIND_LABEL, KIND_ORDER, VIDEO_PUBLISHED, videosByKind } from '@/lib/video/catalog'
+import { PILL } from '@/components/marketing/pill'
+import { Frame, Hero2Col, SectionHead, WRAP } from '@/components/marketing/sections'
 
 export const metadata: Metadata = {
   title: '영상으로 보기',
@@ -24,53 +27,49 @@ export const metadata: Metadata = {
 // 손으로 적었더니 종류를 둘 더한 날 **11편이 조용히 사라졌다**(화면은 멀쩡히 떴다).
 const ORDER = KIND_ORDER
 
+// 모양(DD-68): 참조 블로그·팟캐스트 목록 — 2열 히어로(영사기 장면) → 종류마다 눈썹 머리 + 액자 속 영상 격자.
+// ⚠️ 레이아웃이 이미 <main> 을 그린다 — 여기서 한 번 더 그리면 main 이 겹친다(예전 결함).
 export default function VideoIndexPage() {
   const byKind = videosByKind()
   const total = ORDER.reduce((n, k) => n + byKind[k].length, 0)
 
   return (
-    <main className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6">
-      <header className="mb-10">
-        <h1 className="break-keep font-editorial text-[clamp(28px,5vw,44px)] font-[600] leading-tight text-[var(--t1)]">
-          영상으로 보기
-        </h1>
-        <p className="mt-3 max-w-[52ch] break-keep text-[15px] leading-relaxed text-[var(--t2)]">
-          읽는 대신 봅니다. 모든 수치는 화면에 출처가 함께 나옵니다.
-        </p>
-      </header>
+    <div className="pb-8">
+      <Hero2Col
+        kicker="영상"
+        title={<>읽는 대신<br />봅니다.</>}
+        sub="모든 수치는 화면에 출처가 함께 나옵니다."
+        media={<Image src="/illustrations/tines/scene-video.webp" alt="" width={1664} height={928} priority sizes="(min-width: 1024px) 50vw, 100vw" className="h-auto w-full" />}
+      />
 
       {!VIDEO_PUBLISHED || total === 0 ? (
-        // 빈 상태에 **다음 한 걸음**이 있어야 한다(D5). "준비 중" 만 적고 끝내지 않는다.
-        <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-6">
-          <p className="break-keep text-[15px] leading-relaxed text-[var(--t2)]">
-            영상은 아직 올라가지 않았습니다. 그동안 제품이 하는 일을 직접 해 볼 수 있어요 —
-            지문 하나를 넣으면 <strong className="text-[var(--t1)]">내가 아는 비율</strong>이 바로 나옵니다.
-          </p>
-          <Link
-            href="/fit"
-            className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 text-[15px] font-semibold text-[var(--ti)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
-          >
-            내 지문으로 재 보기
-          </Link>
+        // 빈 상태에 **다음 한 걸음**이 있어야 한다. "준비 중" 만 적고 끝내지 않는다.
+        <section className={WRAP}>
+          <div className="rounded-[var(--r-2xl)] bg-[var(--tint-lavender)] p-8 text-[var(--t1)] md:p-12">
+            <p className="max-w-[48ch] break-keep font-serif text-[22px] leading-[1.45]">
+              영상은 아직 올라가지 않았습니다. 그동안 제품이 하는 일을 직접 해 볼 수 있어요 —
+              지문 하나를 넣으면 <strong>내가 아는 비율</strong>이 바로 나옵니다.
+            </p>
+            <Link href="/fit" className={`${PILL} mt-6 bg-[var(--ju)] text-[var(--on-ju)] hover:bg-[var(--p)]`}>
+              내 지문으로 재 보기
+            </Link>
+          </div>
         </section>
       ) : (
         ORDER.filter((kind) => byKind[kind].length > 0).map((kind) => (
-          <section key={kind} className="mb-12">
-            <h2 className="mb-1 break-keep font-display text-[20px] font-bold text-[var(--t1)]">
-              {KIND_LABEL[kind]}
-            </h2>
-            <p className="mb-5 font-mono text-[13px] tabular-nums text-[var(--t3)]">
-              {byKind[kind].length}편
-            </p>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <section key={kind} className={`${WRAP} pb-20`}>
+            <SectionHead kicker={`${byKind[kind].length}편`} title={KIND_LABEL[kind]} />
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {byKind[kind].map((video) => (
                 <article key={video.id}>
-                  <ComponentVideo video={video} />
+                  <Frame>
+                    <ComponentVideo video={video} />
+                  </Frame>
                   {/*
                     제목이 **편별 페이지로 가는 링크**다. 그 페이지에 자막 전문이 서버 렌더로
                     깔려 있어 검색이 읽을 것이 있다 — 목록만 있으면 62편이 URL 하나를 나눠 쓴다.
                   */}
-                  <h3 className="mt-2 break-keep text-[15px] font-semibold">
+                  <h3 className="mt-3 break-keep font-serif text-[20px] font-[700]">
                     <Link
                       href={`/video/${video.id}`}
                       className="text-[var(--t1)] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
@@ -84,6 +83,6 @@ export default function VideoIndexPage() {
           </section>
         ))
       )}
-    </main>
+    </div>
   )
 }

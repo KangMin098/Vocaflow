@@ -142,7 +142,7 @@ export default async function FitPage({ searchParams }: { searchParams?: SearchP
       {/* ── 머리 — 참조 역량 표 화면(DD-68 · tines-mapping P18): 왼쪽 정렬 큰 제목 ── */}
       <header className={`${WRAP} pt-8 lg:pt-12`}>
         <Kicker className="text-[var(--ju)]">지문 난이도 진단</Kicker>
-        <h1 className="mt-5 max-w-[18ch] break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--ju)] md:text-[64px]">
+        <h1 className="mt-5 max-w-[18ch] break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]">
           이 지문, 우리 반에 맞을까?
         </h1>
         <p className="mt-6 max-w-[52ch] break-keep font-serif text-[20px] leading-[1.45] text-[var(--ju)] md:text-[24px]">

@@ -7,7 +7,10 @@
 'use client'
 
 import { Moon, Sun } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
+
+import { LogoMark } from '@/components/marketing/site/LogoMark'
 import { useEffect, useState } from 'react'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
@@ -52,16 +55,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             {/* v07 워드마크 — 주묵 각인 + Lora. `Sparkles` 아이콘은 지금 전 세계 AI 생성 UI 가
                 공통으로 쓰는 표식이라, 그걸 로고로 쓰면 로고가 아니라 출신 표시가 된다.
                 (실측: public/ 에 로고 자산 0개 — docs/design/00-inventory.md §0-5) */}
-            <span className="flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--ju)] font-english text-[14px] font-[500] leading-none text-[var(--on-ju)]">
-              V
-            </span>
-            <span className="font-english text-[17px] font-[500] tracking-[0.01em]">
-              Vocaflow
-              <span
-                aria-hidden
-                className="ml-[3px] inline-block h-[4px] w-[4px] rounded-full bg-[var(--ju)] align-[3px]"
-              />
-            </span>
+            <LogoMark />
+            <span className="font-display text-[22px] font-[500] tracking-[-0.02em] text-[var(--ju)]">vocaflow</span>
           </Link>
 
           {/* 우측 — 미세한 액션 */}
@@ -79,8 +74,12 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </header>
 
       {/* ── Main ── */}
-      <main className="flex flex-1 items-center justify-center px-s-4 py-s-8 sm:py-s-12">
-        <div className="w-full max-w-md">{children}</div>
+      {/* 참조 문의 폼 골격(DD-68): 왼쪽 폼 · 오른쪽 틴트 면 위 장면. 390 에서는 폼만. */}
+      <main className="mx-auto grid w-full max-w-[1360px] flex-1 items-center gap-10 px-4 py-8 sm:py-12 lg:grid-cols-[minmax(0,28rem)_1fr] lg:gap-16 lg:px-10">
+        <div className="w-full max-w-md justify-self-center lg:justify-self-start">{children}</div>
+        <div aria-hidden className="hidden overflow-hidden rounded-[var(--r-2xl)] bg-[var(--tint-lavender)] p-6 lg:block">
+          <Image src="/illustrations/tines/scene-hub.webp" alt="" width={1664} height={928} sizes="50vw" className="h-auto w-full" />
+        </div>
       </main>
 
       {/* ── Footer — 작고 절제 ── */}

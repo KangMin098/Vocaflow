@@ -47,7 +47,7 @@
 | 사례 상세 `/case-studies/r3/` | 하이라이트 수치 히어로 → 2열 본문(곁단) → 더 보기 3열 → CTA | 도서 상세 `/library/books/[id]` | ○ |
 | 도서관 `/library/` | 이야기 격자 → 임베드 3열 → How it works → (눈썹 머리 + 모음 격자) ×4 → 도구 12열 → 공동체 격자 → 제출 CTA | `/library` 허브 · `/library/vocab` · `/comics` | ○ |
 | 도서관 상세 | `LibraryTable`(그림 23) | 단어장 상세 `/library/vocab/[id]` | ○ |
-| 블로그 `/blog/` | 대표 글 카드 → 발췌 → 글 카드 → 뉴스레터 폼 → CTA | `/video` (목록) | ○ |
+| 블로그 `/blog/` | 대표 글 카드 → 발췌 → 글 카드 → 뉴스레터 폼 → CTA | `/video` — 2열 히어로(scene-video) · 종류별 머리 + 액자 격자 | ✅ |
 | 글 상세 | 본문(`Article`, 영상) → CTA | `/text/[id]` 읽기 · `/video/[id]` | ○ |
 | 이벤트 `/events/` | 세계 지도(펼침) → 디렉터리(필터 폼, 그림 33) → 뉴스레터 → CTA | 필터 디렉터리 패턴 → `/library/books` 필터 · `/csat` 문항 목록 | ○ |
 | 대학 `/university/` | 히어로 → 과정 격자(그림 53) → 라이브러리 → 부트캠프 → CTA | 학습 경로 `/plan` · `/diagnostic` | ○ |
@@ -55,7 +55,7 @@
 | 역량 표 `/workflow-capability-matrix/` | 점 격자 → **조작 다이얼**(펼침·폼) → 14열 표 → CTA | `/fit` — 왼쪽 정렬 제목 · 점 격자 무대 위 액자 속 도구 · FAQ 펼침 · 근거 카드 (`/diagnostic` 은 ○) | ◐ |
 | 긴 이야기 `/history-and-future-of-workflows/` | 시대별 22구간 · 그림 · 인용 폼 | — | — 한 번짜리 캠페인 페이지. 필요할 때 |
 | 법률 `/legal/` · `/privacy/` | 펼침 목록 · 긴 글 | `/terms` · `/privacy` | ○ (서체·색만) |
-| 404 | 그림 1 + 검색 입력 | `app/not-found.tsx` | ○ |
+| 404 | 그림 1 + 검색 입력 | `app/not-found.tsx` — 공통 헤더 · 큰 제목 · 알약 출구 · scene-404 (검색 입력은 전역 검색이 생기면) | ◐ |
 | 채용 · 파트너 · 뉴스룸 · 웨비나 · 보안 | 가치·복지·공고 목록 · 협력사 · 보도 · 등록 폼 · 준수 목록 | — | — 해당 사업이 없다 |
 
 ## 3. 구간 패턴 카탈로그 (재사용 부품 후보)
@@ -143,7 +143,7 @@
 | 진단 | `/fit` · `/fit/s/[payload]` | 역량 표 | P18 · P22 · P9 | — (도구가 주인공) | ◐ (`/fit/s` ○) |
 | 영상 | `/video` · `/video/[id]` | 블로그 · 팟캐스트 · 글 상세 | P11 · P12 · P16 | scene-video | ○ |
 | 약관 | `/terms` · `/privacy` | 법률 | 본문 서식 · 펼침 | — | ○ |
-| 인증 | `/login` · `/signup` · `/reset-password` · `/verify-email` · `/join/[code]` | 문의 폼(`ContactSupportForm`) | 폼 부품 · 2열(폼 + 그림) | scene-hub · spot-teacher(초대) | ○ |
+| 인증 | `/login` · `/signup` · `/reset-password` · `/verify-email` · `/join/[code]` | 문의 폼(`ContactSupportForm`) | 2열(폼 + 틴트 면 위 scene-hub) — `(auth)/layout.tsx` | scene-hub | ◐ (`/join` · 폼 부품 ○) |
 | 서가 | `/library/books` · `/library/books/[bookId]` · `/library/vocab` · `/library/textbooks/*` · `/library/scripts/*` | 도서관 · 고객/사례 · 사례 상세 | `AreaNav` · P11 · P12 · P13 · P15 · P16 · P17 | scene-library · card-books · card-vocab · spot-dictionary | ○ |
 | 만화 | `/comics` · `/comics/restored/*` · `/comics/adapted/*` | 도서관 · 글 상세 | P11 · P12 · P16 | scene-comics · spot-comic | ○ |
 | 수능 | `/csat` · `/csat/dissect` · `/csat/formulas` · `/practice` · `/practice/dcp` | 솔루션 · 이벤트 디렉터리 | P2 · P17 · `AreaNav` | scene-csat | ○ |
@@ -196,5 +196,7 @@
 | 소개 ↔ 3B | 21.1 / 56.4 | 20.2 / 4.1 | 0.9 / **52.3** | — |
 | 요금제 | 25.6 / 92.5 | 18.1 / 92.0 | 7.5 / 0.5 | — |
 | 진단 ↔ 솔루션 | 11.1 / 8.4 | 8.8 / 5.1 | 2.3 / 3.3 | 분홍 틴트 8.5 · 주황 틴트 2.2 · 청록 1.9 |
+
+**조치(같은 날)**: 스킨에 틴트 6 · 글자 두 단(`--t1` `#5d38ae` / `--t2` `#714bd0`)을 넣고 벤토 칸에 틴트를 돌렸다.
 
 **읽는 법**: 우리가 보라를 「더 많이」 쓴 게 아니다 — **진한 보라 면**을 많이 쓰고 **틴트 면**(라벤더 · 분홍 · 주황 · 초록 · 청록 옅은 면)을 거의 안 쓴다. 참조의 글자색도 한 색이 아니다(제목 `#5D38AE` 40회 · `#714BD0` 은 홈 4회 — dna §2). 다음 회차의 색 조정 근거다.
