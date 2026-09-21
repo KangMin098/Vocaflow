@@ -12,6 +12,7 @@
 import { usePathname } from 'next/navigation'
 
 import { AreaNav } from '@/components/layout/AreaNav'
+import { routeArt } from '@/lib/design/route-art'
 import { LIBRARY_TABS } from '@/lib/library/tabs'
 
 // 목록·라벨은 `lib/library/tabs.ts` 하나가 갖는다 — 이 파일도, 사이드바 서브메뉴도 거기서 읽는다.
@@ -26,6 +27,7 @@ export function LibraryTabs() {
   return (
     <AreaNav
       area="서가"
+      tint={routeArt(pathname)?.tint ?? 'lavender'}
       ariaLabel="라이브러리 탭"
       watch={pathname}
       items={LIBRARY_TABS.map((t) => ({

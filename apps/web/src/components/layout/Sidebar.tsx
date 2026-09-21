@@ -15,10 +15,12 @@
 'use client'
 
 import { ChevronDown, Menu, type LucideIcon } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useSearchParams, type ReadonlyURLSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+import { routeArt } from '@/lib/design/route-art'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
 import {
@@ -501,7 +503,17 @@ function NavLinkItem({
             />
           )}
 
-          {/* 아이콘 컨테이너 */}
+          {/* 아이콘 — 모듈 색 타일 썸네일(DD-68 · tines-mapping §16: 참조 앱 레일도 항목마다 색 있는 아이콘).
+              대응 그림이 없는 항목(설정 · 사이트맵)만 선 아이콘. */}
+          {routeArt(item.href) ? (
+            <Image
+              src={`/illustrations/tines/${routeArt(item.href)!.tile}.webp`}
+              alt=""
+              width={56}
+              height={56}
+              className={`h-7 w-7 shrink-0 select-none rounded-[8px] transition-transform duration-[var(--dur-normal)] ${isActive ? 'ring-2 ring-[var(--ju)] ring-offset-1 ring-offset-[var(--bg)]' : ''}`}
+            />
+          ) : (
           <span
             className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] transition-colors duration-[var(--dur-normal)] ${
               isActive ? '' : 'bg-[var(--bg2)] group-hover:bg-[var(--bg3)]'
@@ -522,6 +534,7 @@ function NavLinkItem({
               style={isActive ? { color: accentColor } : undefined}
             />
           </span>
+          )}
 
           {!collapsed && <span className="flex-1 truncate">{item.label}</span>}
         </Link>
@@ -572,13 +585,17 @@ function NavLinkItem({
                   }`}
                   style={childActive ? { backgroundColor: activeBg } : undefined}
                 >
-                  <ChildIcon
-                    size={14}
-                    strokeWidth={1.75}
-                    aria-hidden="true"
-                    className="shrink-0"
-                    style={childActive ? { color: accentColor } : undefined}
-                  />
+                  {routeArt(child.href) ? (
+                    <Image src={`/illustrations/tines/${routeArt(child.href)!.tile}.webp`} alt="" width={40} height={40} className="h-5 w-5 shrink-0 select-none rounded-[6px]" />
+                  ) : (
+                    <ChildIcon
+                      size={14}
+                      strokeWidth={1.75}
+                      aria-hidden="true"
+                      className="shrink-0"
+                      style={childActive ? { color: accentColor } : undefined}
+                    />
+                  )}
                   <span className="flex-1 truncate">{child.label}</span>
                 </Link>
               </li>

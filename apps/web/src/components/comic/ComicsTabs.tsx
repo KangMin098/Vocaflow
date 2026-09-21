@@ -31,6 +31,7 @@ export function ComicsTabs() {
   return (
     <AreaNav
       area="만화"
+      tint="yellow"
       ariaLabel="만화 탭"
       watch={pathname}
       items={TABS.map((t) => ({

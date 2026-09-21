@@ -13,6 +13,7 @@ import { GlobalBodyReset } from '@/components/layout/GlobalBodyReset'
 import { ScreenViewTracker } from '@/components/layout/ScreenViewTracker'
 import { MobileTabBar } from '@/components/layout/MobileTabBar'
 import { MobileUtilityBar } from '@/components/layout/MobileUtilityBar'
+import { ModuleBanner } from '@/components/layout/ModuleBanner'
 import { SessionFrame } from '@/components/layout/SessionFrame'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { CompassRibbon } from '@/components/layout/CompassRibbon'
@@ -59,6 +60,8 @@ export default async function MainLayout({ children }: { children: React.ReactNo
         {/* `tabIndex={-1}` 이 있어야 건너뛰기 링크가 실제로 여기에 포커스를 놓는다 —
             없으면 주소만 바뀌고 포커스는 그대로라, 다음 Tab 이 다시 셸로 돌아간다. */}
         <main id="main-content" tabIndex={-1} className="min-w-0 flex-1 focus:outline-none">
+          {/* 모듈 머리띠 — 경로의 범주 색 면 + 타일(DD-68 · tines-mapping §16). 세션 · 그림 머리가 있는 화면은 스스로 빠진다. */}
+          <ModuleBanner />
           <SessionFrame>{children}</SessionFrame>
         </main>
         {/* 탭 자체는 fixed 이고, 콘텐츠 끝을 가리지 않게 하는 여백은 이 컴포넌트가 같이 낸다.

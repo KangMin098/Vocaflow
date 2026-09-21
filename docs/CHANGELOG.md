@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **우리 화면 코퍼스 + 셸 범주 색**(DD-68 · tines-mapping §16): `scripts/design/ours-corpus.mjs`(79화면 · 117회, 참조와 같은 기준 → `docs/design/refs/ours-corpus-summary.md`) — 원인은 보라 과다가 아니라 다른 색 부재(보라 외 색 2%). `lib/design/route-art.ts` · 사이드바 색 타일 아이콘 · `layout/ModuleBanner`(범주 색 머리띠, 세션 제외) · 구역 내비 막대 범주 색 · 빈 상태 5곳 SpotState → 보라 외 색 2→8% · 화면당 삽화 1.7→13.9.
+
 - **캔버스 토큰 교정**(DD-68 · tines-mapping §15): 스킨 `--bg2`/`--bg3` 이 라벤더(`#f5f2fb`/`#ece8fd`)라 앱 화면 보이는 면적의 44~78% 가 연보라였다(DOM 실측) → 참조 웜 뉴트럴 `#f8f4f0`/`#f3efea`. 보라 바탕 서가 83→5% · 오늘 58→10% · 보관함 53→4%.
 
 - **참조 UI 부품 실측 + 전역 적용**(DD-68 · tines-mapping §14): `scripts/design/extract-ui-kit.mjs`(80개 템플릿 — 버튼·호버·탭·분절·칩·입력·카드·층·그림자 → `refs/tines/ui-kit-summary.md`). `ui/tines-kit.ts` 부품 클래스 · `ui/ToneTabs`(랜딩 모듈 색 탭) · `ui/SpotState`(빈 상태·오류·404) · 스킨 모양 층(버튼 알약 · 라벤더 유리 막 · 입력 테두리) · 떠 있는 유리 아래 탭 · 검색 유리 패널 · 칩/PrimaryButton · 용도별 소품 6(빈 책장·백지·플러그·찢긴 비행기·모래시계·자물쇠, 무료 한도 소진으로 3점 보류) · 옛 빈 상태 삽화 모듈 2 삭제. 조사 오류 5곳 수정 + 전역 가드 · 삽화 파일 가드. `shot-authed.mjs --vp`.

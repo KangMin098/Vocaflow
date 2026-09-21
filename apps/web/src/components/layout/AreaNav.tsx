@@ -15,11 +15,13 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 
 import { scrollActiveIntoView, useScrollHint } from '@/hooks/useScrollHint'
+import { TINT_CLASS, type Tint } from '@/lib/design/tone'
 
 // 참조 선택 면 #ddd8fe — 막대 면(라벤더)에 보라 12% 를 섞어 만든다. 다크에서는 같은 식이 한 단 밝은 면이 된다.
 //   Tailwind 는 글자 그대로 적힌 클래스만 만든다 — `hover:${…}` 로 조립하지 않고 두 벌을 적는다.
-const DEEP = 'bg-[color-mix(in_srgb,var(--ju)_12%,var(--tint-lavender))]'
-const DEEP_HOVER = 'hover:bg-[color-mix(in_srgb,var(--ju)_12%,var(--tint-lavender))]'
+//   막대 면은 구역 범주 색(tone-*)이라, 선택 면은 그 면 위에 면 글자색을 12% 섞는다.
+const DEEP = 'bg-[color-mix(in_srgb,var(--ju)_12%,transparent)]'
+const DEEP_HOVER = 'hover:bg-[color-mix(in_srgb,var(--ju)_12%,transparent)]'
 
 export type AreaNavItem = {
   href: string
@@ -38,6 +40,7 @@ export function AreaNav({
   items,
   right,
   watch,
+  tint = 'lavender',
 }: {
   /** 구역 이름 — 막대 맨 앞 알약 */
   area: string
@@ -47,6 +50,8 @@ export function AreaNav({
   right?: React.ReactNode
   /** 바뀌면 선택 면을 화면 안으로 끌어온다(보통 pathname) */
   watch?: string
+  /** 막대 면 — 지금 면의 범주 색(`lib/design/route-art.ts`). 참조는 라벤더 하나지만 우리 앱에선 이 막대가 보라 바탕 출처 1위였다(ours-corpus) */
+  tint?: Tint
 }) {
   const { ref, hint, measure } = useScrollHint<HTMLElement>()
 
@@ -56,7 +61,7 @@ export function AreaNav({
   }, [watch, ref, measure])
 
   return (
-    <div className="flex items-center gap-2 rounded-[50px] bg-[var(--tint-lavender)] p-1.5">
+    <div className={`flex items-center gap-2 rounded-[50px] p-1.5 ${TINT_CLASS[tint]}`}>
       <span className={`hidden shrink-0 items-center rounded-[50px] ${DEEP} px-4 font-display text-[14px] font-[600] leading-[36px] text-[var(--t1)] sm:inline-flex`}>
         {area}
       </span>
