@@ -162,6 +162,7 @@
 |---|---|---|
 | **진한 면 타일** 1328² (표시 220~300px, 바탕이 그림의 일부) | tile-books · articles · decks · textbooks · comics · read · vault · flashcard · wordblitz · pairflip · spellforge · echo · quiz · dictation · dashboard · csat · teacher · hub | 구역 머리(`AreaHero` — 서가 · 만화 · 교사) · `/practice` 강조 카드 · 앞으로 모듈 입구 · 서가 모음 격자 |
 | **물건 소품** 1328² (표시 64~150px, 투명) | spot-reading · vault · memory · listening · comic · flashcard · spellforge · wordblitz · pairflip · echomatch · dashboard · dictionary · teacher · empty-vault · review-done · search · quiz | `/practice` 면 카드 구석 · 메가메뉴 · 랜딩/소개 모듈 카드 · 오늘 · 성장 머리 · 검색 빈 결과 · 빈 상태 |
+| **용도별 소품** 1328² (투명, 표시 104~180px — `ui/SpotState`) | spot-empty-shelf · spot-empty-page · spot-offline · spot-error · spot-loading · spot-locked (+ 기존 empty-vault · search · review-done) | 서가 빈 상태(비었음 = 빈 책장 · 걸러짐 = 돋보기 · 못 읽음 = 플러그) · 읽기/보관함 빈 상태 · 전역 오류 · 404 — spot-lost · welcome · calendar 는 무료 한도 소진으로 미생성 |
 | **흩어진 물건 띠** 1664×928 (투명, 가운데 빈 자리) | band-scatter | 마감 CTA 둘레(참조 「Built by you」) |
 | 꽃무늬(홈 전용) | hero-book-field · bed-flowers | 랜딩 히어로 · 보라 통판 · 꽃밭 CTA |
 | 꽃 장면(2회차 · 교체 대상) | scene-hub · scene-video · scene-404 (library · comics · csat · teacher 는 타일로 대체돼 안 쓴다) | 인증 · 영상 · 404 |
@@ -266,3 +267,25 @@
 | 꽃무늬 | — | — | — | **홈 히어로 글자 · 마감 CTA 에만**. 나머지 화면은 물건 삽화 | 전 화면 |
 
 **조치**: ① 스킨에 색 짝 토큰과 `.tone-*` 면 클래스(면 안의 `--t1/--t2/--bd` 를 그 색상 글자로 바꾼다) ② 범주 색 배정(자료 4 · 모듈 9) ③ 삽화 생성기에 「물건 소품」 · 「진한 면 타일」 · 「흩어진 물건 띠」 화풍 추가, 꽃무늬는 랜딩 히어로·마감 띠만 ④ 화면당 소품 수를 참조 수준(서가·모듈 입구·빈 상태·카드 구석)으로.
+
+## 14. UI 부품 — 참조 80개 템플릿 실측과 적용 (2026-09-21)
+
+> 출처 [`refs/tines/ui-kit-summary.md`](refs/tines/ui-kit-summary.md) · `ui-kit.json` — `scripts/design/extract-ui-kit.mjs`(코퍼스 템플릿마다 첫 페이지, 버튼 호버까지). 부품 클래스는 `components/ui/tines-kit.ts` 한 곳.
+
+| 부품 | 참조 실측 | 우리 적용 |
+|---|---|---|
+| 1차 버튼 | `#542f9c` · 크림 · 990px · 35 · 모노 13/700 대문자(69/80) · 호버 `#6741bf` | `BTN.primary`(`--p` → 호버 `--ju`) · 한글이라 산세리프 14/700 |
+| 2차 · 연한 버튼 | 크림 + 보라(호버 `#d1c7ff`) · 라벤더 `#ece8fd` + `#6741bf`(33/80, 호버 `#ded8ff`) | `BTN.secondary` · `BTN.soft` · 진한 면 위 `BTN.onDeep` |
+| **버튼 모양 전역** | 버튼은 모두 알약 | globals.css 스킨 모양 층: `inline-flex` + 44px 하한 링크·단추 → 999px(모서리 토큰은 카드와 공유라 값은 그대로). 지킬 곳은 `data-shape="keep"` |
+| 색 탭 | 홈 팀 탭: 탭마다 원색 카드(초록·보라·청록·주황·파랑) · 14px · 167 · 고른 탭 색이 패널로 | `ui/ToneTabs`(role=tab · 방향키 · 자동 활성) → 랜딩 모듈 다섯 |
+| 구역 탭(위) | `AreaNav` 라벤더 알약 막대 · 붙음 top 68 · h 62 | `layout/AreaNav`(서가 · 만화) |
+| 아래 탭 | (참조 홈 제품 액자의 떠 있는 막대) | `MobileTabBar` 떠 있는 유리 막대(라벤더 82% · blur 12 · 28px · 선택 = 흰 알약) · `--tabbar-h` 86px |
+| 분절 | 반투명 보라 트랙 · 켠 칸 크림 · 10.5px · 45 | `SEG` 클래스(새 코드용) |
+| 칩 | 라벤더 알약 24 · 14/600(38/80) · 모노 대문자 28 | `ios/Capsule` neutral = 라벤더 + `--ju` · `CHIP.*` |
+| 입력 | 투명 · 1px `#d7c4fa` · 6px · 46 · 검색은 라벤더 알약 | 스킨 모양 층: 테두리 있는 input/textarea/select → `--bd-input` · `INPUT.*` |
+| 카드 | **그림자 없음** · 크림+`#aa94ff` 12 · 웜그레이 10 · 틴트+같은색 테두리 8 · 숯 14 | `CARD.*` · `--bd-strong` · 스킨이 iOS 글로우·다크 실그림자를 링/없음으로 |
+| 팝업 막 | 검색은 검은 막 없이 유리 막대(모서리 14 · 얇은 테두리) | 검색 모달 = 라벤더 막 + 유리 패널 · 스킨 모양 층이 `fixed bg-black/40~60` 막을 라벤더 55% + blur 12 로 |
+| 층 | 붙는 헤더 68(z 1000+) · 구역 내비 top 68 · 곁단 붙음 top 100~155 · 그림자 4건뿐 | 그림자 토큰 링 유지 · 떠 있는 층만 `--sh-overlay` |
+| 빈 상태 · 오류 · 404 | 가운데 소품(UFO) · 세리프 제목 · 알약 | `ui/SpotState` → 서가 빈 상태 · 읽기/보관함 빈 상태 · 전역 오류 · 404 |
+
+곁일: 조사 오류 「스크립트을/이」 5곳(약관 · 스크립트 퀴즈 2 · 이어하기 카드 · 읽기 빈 상태) — 파일별 가드만 있어 재발했다 → 저장소 전역 가드 `components/__tests__/korean-particle.test.ts`. 삽화 이름 ↔ 파일 가드 `illustration-files.test.ts`(생성 한도로 일부가 빠져도 깨진 그림이 새지 않게). 새 공개 상호작용(색 탭)의 계측 이벤트는 funnel 허용 목록(DB CHECK) 마이그레이션이 필요해 붙이지 않았다 — 승인 대기.
