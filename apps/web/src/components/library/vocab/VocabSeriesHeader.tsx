@@ -16,6 +16,7 @@
 // ⚠️ 상태를 **색으로만** 가르지 않는다(색맹 대응) — 숫자·라벨을 함께 쓴다.
 
 import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
+import { TINT_CLASS, TINT_ROTATION } from '@/lib/design/tone'
 
 import type { LadderFill } from '@/lib/library/vocab/rung'
 
@@ -130,10 +131,9 @@ function RungTile({
       // 내 계단은 테두리 + 글자 + `aria-current` 3중으로 말한다. 색 하나로만 가르면
       // 색맹 학습자에게는 아무 표시도 없는 것과 같다.
       aria-current={isLearner ? 'step' : undefined}
-      className={`flex min-w-[104px] flex-col gap-1 rounded-ios-sm border px-3 py-2.5 transition-colors ${
-        isLearner
-          ? 'border-[var(--p)] bg-[var(--p-light,var(--bg3))]'
-          : 'border-[var(--bd)] bg-[var(--bg)]'
+      // DD-68 · tines-mapping §17 — 참조 격자처럼 칸마다 옅은 면을 돌린다(면 안 글자는 그 색상의 짙은 글자).
+      className={`${TINT_CLASS[TINT_ROTATION[(step - 1) % TINT_ROTATION.length]]} flex min-w-[104px] flex-col gap-1 rounded-[12px] border px-3 py-2.5 transition-colors ${
+        isLearner ? 'border-[var(--t1)] ring-2 ring-[var(--t1)]' : 'border-transparent'
       }`}
     >
       <div className="flex items-baseline gap-1.5">

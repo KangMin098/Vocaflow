@@ -19,6 +19,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, ChevronRight, Info, Volume2 } from 'lucide-react'
@@ -247,6 +248,8 @@ function SeriesHero({
               <p className="truncate font-mono text-[10.5px] font-[600] text-[var(--t2)]">출처 · {sourceHint(stat)}</p>
             )}
           </div>
+          {/* DD-68 · tines-mapping §17 — 참조 사례 카드의 구석 타일(기사 범주 색) */}
+          <Image src="/illustrations/tines/tile-articles.webp" alt="" width={1328} height={1328} className="hidden w-[104px] shrink-0 select-none rounded-[12px] md:block" />
         </div>
 
         {/* 왼쪽=팝업 어포던스 */}

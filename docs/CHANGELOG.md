@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **목록 색 · 빈 상태 마무리**(DD-68 · tines-mapping §17): 단어장 사다리 칸 면 순환 · 기사 추천 카드 타일 · 빈 상태 5곳 SpotState(도서 필터 초기화 버튼 44px 미달 해소).
+
 - **우리 화면 코퍼스 + 셸 범주 색**(DD-68 · tines-mapping §16): `scripts/design/ours-corpus.mjs`(79화면 · 117회, 참조와 같은 기준 → `docs/design/refs/ours-corpus-summary.md`) — 원인은 보라 과다가 아니라 다른 색 부재(보라 외 색 2%). `lib/design/route-art.ts` · 사이드바 색 타일 아이콘 · `layout/ModuleBanner`(범주 색 머리띠, 세션 제외) · 구역 내비 막대 범주 색 · 빈 상태 5곳 SpotState → 보라 외 색 2→8% · 화면당 삽화 1.7→13.9.
 
 - **캔버스 토큰 교정**(DD-68 · tines-mapping §15): 스킨 `--bg2`/`--bg3` 이 라벤더(`#f5f2fb`/`#ece8fd`)라 앱 화면 보이는 면적의 44~78% 가 연보라였다(DOM 실측) → 참조 웜 뉴트럴 `#f8f4f0`/`#f3efea`. 보라 바탕 서가 83→5% · 오늘 58→10% · 보관함 53→4%.

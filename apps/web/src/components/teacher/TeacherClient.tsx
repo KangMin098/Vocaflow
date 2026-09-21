@@ -16,6 +16,7 @@ import {
   type MyMembership,
   type TeacherClass,
 } from '@/lib/teacher/class-actions'
+import { SpotState } from '@/components/ui/SpotState'
 import { inviteUrl } from '@/lib/teacher/invite-link'
 
 export function TeacherClient({
@@ -186,9 +187,7 @@ export function TeacherClient({
           내가 만든 클래스 ({classes.length})
         </h2>
         {classes.length === 0 ? (
-          <p className="rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] px-5 py-8 text-center font-body text-[13px] text-[var(--t2)]">
-            아직 만든 클래스가 없어요. 위에서 첫 클래스를 만들어 보세요.
-          </p>
+          <SpotState art="empty-page" size="sm" role="status" title="아직 만든 클래스가 없어요" body="위에서 첫 클래스를 만들어 보세요." />
         ) : (
           <ul className="flex flex-col gap-2">
             {classes.map((c) => (

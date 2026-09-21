@@ -27,6 +27,7 @@ import {
   NetflixDetailSheet,
   type DetailVariant,
 } from '@/components/library/shared/NetflixDetailSheet'
+import { SpotState } from '@/components/ui/SpotState'
 import { createClient } from '@/lib/supabase/client'
 import { unenrollBook } from '@/lib/library/enroll'
 import {
@@ -532,24 +533,12 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
         />
 
         {visible.length === 0 ? (
-          <div
+          <SpotState
+            art="search"
             role="status"
-            className="flex flex-col items-center justify-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-14 text-center"
-          >
-            <span className="select-none text-3xl" aria-hidden>
-              🔎
-            </span>
-            <p className="font-display text-[14px] font-[700] text-[var(--t1)]">
-              조건에 맞는 도서가 없어요
-            </p>
-            <button
-              type="button"
-              onClick={() => applyFilters(EMPTY_FILTERS)}
-              className="mt-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
-            >
-              필터 초기화
-            </button>
-          </div>
+            title="조건에 맞는 도서가 없어요"
+            secondary={{ label: '필터 초기화', onClick: () => applyFilters(EMPTY_FILTERS) }}
+          />
         ) : (
           <>
             <div
