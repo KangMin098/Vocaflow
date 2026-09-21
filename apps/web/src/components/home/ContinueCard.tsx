@@ -57,7 +57,7 @@ export function ContinueCard() {
         </span>
         <div className="flex flex-col gap-1">
           <span className="font-display text-[15px] font-[600] text-[var(--t1)]">
-            아직 학습한 스크립트이 없어요
+            아직 학습한 스크립트가 없어요
           </span>
           <span className="font-body text-[13px] text-[var(--t2)]">
             첫 스크립트를 추가하고 학습을 시작해보세요
