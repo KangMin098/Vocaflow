@@ -32,6 +32,8 @@ describe('삽화 이름 ↔ 파일', () => {
       if (!src.includes('illustrations/tines') && !src.includes('SpotState') && !src.includes('AreaHero') && !src.includes('ToneTabs')) continue
       for (const m of src.matchAll(NAME)) {
         const id = m[1]
+        // 시험 표식은 삽화 이름이 아니다 — data-testid="pattern-proof" 가 접두사 `pattern-` 에 걸렸다(2026-09-22)
+        if (/data-testid=\{?$/.test(src.slice(Math.max(0, (m.index ?? 0) - 14), m.index))) continue
         if (!existsSync(path.join(DIR, `${id}.webp`))) missing.push(`${path.relative(SRC, f)} → ${id}`)
       }
     }

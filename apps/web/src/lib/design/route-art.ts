@@ -49,12 +49,12 @@ export function routeArt(pathname: string): RouteArt | null {
 }
 
 /**
- * 머리띠를 **넣지 않는** 화면 — 이미 그림 머리가 있는 곳(서가 도서 · 만화 · 교사 · 오늘 · 성장 · 연습)과
+ * 머리띠를 **넣지 않는** 화면 — 이미 그림 머리가 있는 곳(서가 도서 · 만화 · 교사 · 오늘 · 성장 · 연습 · 기출 홈)과
  * 학습 중인 세션(집중 — 세션 틀이 따로 있다)과 읽기 본문.
  */
 const NO_BANNER = [
   /^\/hub$/, /^\/dashboard$/, /^\/practice$/, /^\/library\/books$/, /^\/comics\//, /^\/teacher$/,
-  /\/play(\/|$)/, /^\/dictate\/session/, /^\/wordvault\/(study|review|browse)/, /^\/csat\/dissect/,
+  /\/play(\/|$)/, /^\/dictate\/session/, /^\/wordvault\/(study|review|browse)/, /^\/csat$/, /^\/csat\/dissect/,
   /^\/text\/[^/]+/, /^\/library\/books\/[^/]+/, /^\/my\/books\/[^/]+/, /^\/settings/, /^\/diagnostic\/[^/]+/,
 ]
 /**
