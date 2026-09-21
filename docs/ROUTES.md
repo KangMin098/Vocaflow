@@ -276,7 +276,13 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 ---
 
-## API Routes (28)
+## API Routes (29)
+
+### `/api/search` (1 · 2026-09-21)
+
+| Route | 설명 |
+|---|---|
+| `GET /api/search?q=` | 공개 화면 전역 검색(`SiteHeader` 검색 모달 · Ctrl/⌘+K). 묶음: 화면(`nav-data`) · 도서(`library_books` 발행본 제목·저자) · 단어(`shared_dictionary` 표제어 앞부분 — **RLS 상 로그인한 사람만**, 익명이면 빈 묶음) · 영상(카탈로그). 요청자 세션으로 조회(권한 우회 0) · 검색어 60자 · PostgREST 필터 문법 글자 제거(`lib/search/global.ts`) · 묶음 실패는 `partial` 로 알린다 · `private, max-age=30` |
 
 ### `/api/auth/*` (1)
 

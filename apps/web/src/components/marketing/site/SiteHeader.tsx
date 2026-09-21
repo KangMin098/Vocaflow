@@ -16,6 +16,7 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
 import { PILL } from '../pill'
 import { LogoMark } from './LogoMark'
+import { SearchButton } from './SearchDialog'
 import { MENUS, TOP_LINKS, type Menu, type MenuCard } from './nav-data'
 
 const TONE: Record<MenuCard['tone'], string> = {
@@ -83,6 +84,7 @@ export function SiteHeader() {
           </nav>
         </div>
         <div className="flex items-center gap-1">
+          <span className="mr-1"><SearchButton /></span>
           <span className="hidden sm:inline-flex"><NavPill href="/login">로그인</NavPill></span>
           <span className="hidden sm:inline-flex"><NavPill href="/signup">가입</NavPill></span>
           <span className="ml-2 hidden sm:block">
