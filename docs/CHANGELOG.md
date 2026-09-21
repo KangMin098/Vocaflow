@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **상단 메뉴 재설계**(DD-68 · tines-mapping §19): 참조 메가메뉴 3종 골격(Product · Solutions · Discover)을 `nav-data.ts` 레이아웃 데이터 + `SiteHeader` 레이아웃 셋으로 — 원색 카드 · 모노 눈썹 · 소품 칩 목록 · 패턴 머리 카드 · →/↗ 화살표. 공지 띠 · 모바일 알약 아코디언 서랍.
+
 - **목록 색 · 빈 상태 마무리**(DD-68 · tines-mapping §17): 단어장 사다리 칸 면 순환 · 기사 추천 카드 타일 · 빈 상태 5곳 SpotState(도서 필터 초기화 버튼 44px 미달 해소).
 
 - **우리 화면 코퍼스 + 셸 범주 색**(DD-68 · tines-mapping §16): `scripts/design/ours-corpus.mjs`(79화면 · 117회, 참조와 같은 기준 → `docs/design/refs/ours-corpus-summary.md`) — 원인은 보라 과다가 아니라 다른 색 부재(보라 외 색 2%). `lib/design/route-art.ts` · 사이드바 색 타일 아이콘 · `layout/ModuleBanner`(범주 색 머리띠, 세션 제외) · 구역 내비 막대 범주 색 · 빈 상태 5곳 SpotState → 보라 외 색 2→8% · 화면당 삽화 1.7→13.9.
