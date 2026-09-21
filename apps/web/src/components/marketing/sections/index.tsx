@@ -200,7 +200,7 @@ export function Bento({ cells }: { cells: { kicker?: string; title: string; body
 /** P9 — FAQ 펼침. `<details>` 라 스크립트 없이 열리고 답이 초기 HTML 에 남는다. */
 export function Faq({ items }: { items: { q: string; a: React.ReactNode }[] }) {
   return (
-    <div className="divide-y divide-[var(--bd)] border-y border-[var(--bd)]">
+    <div className="self-start divide-y divide-[var(--bd)] border-y border-[var(--bd)]">
       {items.map((it) => (
         <details key={it.q} className="group">
           <summary className={`flex min-h-[64px] cursor-pointer list-none items-center justify-between gap-6 py-4 font-serif text-[20px] font-[700] text-[var(--ju)] [&::-webkit-details-marker]:hidden ${FOCUS}`}>

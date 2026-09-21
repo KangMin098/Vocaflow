@@ -44,6 +44,7 @@ import { fetchPlatformFacts, formatCount } from '@/lib/marketing/trust-signals'
 import { Illustration } from '@/components/illustrations/Illustration'
 import { ILLO_14_CLASS_SHEET } from '@/components/illustrations/generated/illo-14-class-sheet'
 import { ILLO_15_FIT_GRADE } from '@/components/illustrations/generated/illo-15-fit-grade'
+import { Faq, Frame, Kicker, SectionHead, WRAP } from '@/components/marketing/sections'
 
 export const metadata: Metadata = {
   title: BASE_TITLE,
@@ -132,96 +133,91 @@ export default async function FitPage({ searchParams }: { searchParams?: SearchP
   if (legacyShared) redirect(`${SHARE_PATH}/${readShareParam(searchParams)}`)
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-12 md:py-16">
+    <div className="pb-8">
       <script
         type="application/ld+json"
         // 내용이 코드에서 만든 JSON 문자열이라 사용자 입력이 섞이지 않는다.
         dangerouslySetInnerHTML={{ __html: structuredData() }}
       />
-      <header className="mb-9 flex flex-col gap-3">
-        <p className="m-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
-          지문 난이도 진단
-        </p>
-        <h1 className="m-0 text-balance break-keep font-editorial text-[30px] font-[800] leading-[1.2] tracking-[-0.03em] text-[var(--t1)] md:text-[38px]">
+      {/* ── 머리 — 참조 역량 표 화면(DD-68 · tines-mapping P18): 왼쪽 정렬 큰 제목 ── */}
+      <header className={`${WRAP} pt-8 lg:pt-12`}>
+        <Kicker className="text-[var(--ju)]">지문 난이도 진단</Kicker>
+        <h1 className="mt-5 max-w-[18ch] break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--ju)] md:text-[64px]">
           이 지문, 우리 반에 맞을까?
         </h1>
-        <p className="m-0 max-w-[52ch] break-keep font-body text-[15px] leading-[1.75] text-[var(--t2)] md:text-[16px]">
+        <p className="mt-6 max-w-[52ch] break-keep font-serif text-[20px] leading-[1.45] text-[var(--ju)] md:text-[24px]">
           영어 지문을 붙여넣으면 <b>중1부터 학술 원서까지 학년별로 몇 %가 읽히는지</b> 바로
           나옵니다. 가입 없이, 저장하지 않고.
         </p>
       </header>
 
-      {/* 도착 즉시 작동하는 결과 — 빈 입력칸으로 시작하지 않는다(§🎯 I1·I2) */}
-      <PublicFitClient
-        initialSample={sample?.profile ?? null}
-        initialSampleSurfaces={sample?.surfaces ?? null}
-      />
-
-      {/* ── 이 화면이 답하는 것 ── */}
-      <section aria-label="자주 쓰는 방법" className="mt-14 flex flex-col gap-4">
-        <h2 className="m-0 font-display text-[18px] font-[750] tracking-[-0.02em] text-[var(--t1)]">
-          이럴 때 씁니다
-        </h2>
-        {/* 삽화(사전 #14) — 학급에 나눠 줄 한 장. 골든 1호 판면 밖, 제목 → 그림 → 본문(03-system §3-9) */}
-        <Illustration asset={ILLO_14_CLASS_SHEET} />
-        <dl className="m-0 grid grid-cols-1 gap-3">
-          {QUESTIONS.map(({ q, a }) => (
-            <div
-              key={q}
-              className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-5"
-            >
-              <dt className="font-display text-[14.5px] font-[700] text-[var(--t1)]">{q}</dt>
-              <dd className="m-0 mt-2 font-body text-[13.5px] leading-[1.7] text-[var(--t2)]">{a}</dd>
+      {/* 도착 즉시 작동하는 결과 — 빈 입력칸으로 시작하지 않는다. 점 격자 무대(P22) 위 액자에 담는다. */}
+      <section aria-label="진단" className={`${WRAP} mt-10`}>
+        <div className="rounded-[var(--r-2xl)] bg-[var(--bg2)] bg-[radial-gradient(var(--bd)_1px,transparent_1px)] p-3 [background-size:12px_12px] md:p-8">
+          <Frame>
+            <div className="px-4 py-6 md:px-8 md:py-8">
+              <PublicFitClient initialSample={sample?.profile ?? null} initialSampleSurfaces={sample?.surfaces ?? null} />
             </div>
-          ))}
-        </dl>
+          </Frame>
+        </div>
+      </section>
+
+      {/* ── 이 화면이 답하는 것 — FAQ 펼침(P9) ── */}
+      <section aria-label="자주 쓰는 방법" className={`${WRAP} mt-24 grid gap-10 lg:grid-cols-[1fr_1.4fr]`}>
+        <div>
+          <SectionHead kicker="이럴 때 씁니다" title="교사가 실제로 묻는 세 가지." />
+          {/* 삽화(사전 #14) — 학급에 나눠 줄 한 장 */}
+          <div className="mt-8 max-w-md"><Illustration asset={ILLO_14_CLASS_SHEET} /></div>
+        </div>
+        <Faq items={QUESTIONS.map(({ q, a }) => ({ q, a }))} />
       </section>
 
       {/* ── 방법 근거 ── */}
-      <section
-        aria-label="판정 근거"
-        className="mt-10 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-5 md:p-6"
-      >
-        <h2 className="m-0 font-display text-[15px] font-[750] tracking-[-0.02em] text-[var(--t1)]">
-          어떻게 재나요
-        </h2>
-        {/* 삽화(사전 #15) — 이 글의 적정 학년(학년 칸에 맞춰 놓고 도장). 제목 → 그림 → 본문 */}
-        <Illustration asset={ILLO_15_FIT_GRADE} className="mt-4" />
-        <ul className="mt-3 flex list-disc flex-col gap-3 pl-5 font-body text-[13.5px] leading-[1.7] text-[var(--t2)]">
-          <li>
-            지문의 <b>러닝 워드</b>(기능어 포함) 대비, 해당 학년이 아는 어휘의 비율을 셉니다 — Hu &amp;
-            Nation(2000)의 어휘 커버리지 정의입니다.
-          </li>
-          <li>
-            기준선 <b>98%·95%</b>는 같은 연구의 읽기 이해 임계에서 왔습니다. 이후 재현
-            연구(Kremmel 외, 2023)가 90~98% 사이 차이는 크지 않다고 보고해, 하나의 절벽이 아니라{' '}
-            <b>구간</b>으로 표시합니다.
-          </li>
-          <li>
-            학년별 어휘는 자체 학습 어휘 목록(V-Level 1~11)을 씁니다.
-            레벨을 확인할 수 없는 단어는 <b>감추지 않고</b> 범위로 표시합니다.
-          </li>
-          <li>
-            {facts ? (
-              <>
-                영영 사전 <b>{formatCount(facts.headwords)}</b> 표제어와 도서–어휘 연결{' '}
-                <b>{formatCount(facts.bookVocabLinks)}</b>건 위에서 동작합니다.
-              </>
-            ) : (
-              <>영영 사전과 도서–어휘 연결 위에서 동작합니다.</>
-            )}
-          </li>
-        </ul>
-        <p className="m-0 mt-4 font-body text-[12.5px] leading-[1.65] text-[var(--t3)]">
-          더 자세한 원리는{' '}
-          <Link
-            href="/about"
-            className="border-b border-[var(--p)] text-[var(--p)] transition-opacity duration-[var(--dur-normal)] hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
-          >
-            소개
-          </Link>
-          에서 볼 수 있어요.
-        </p>
+      <section aria-label="판정 근거" className={`${WRAP} mt-24`}>
+        <div className="grid gap-10 rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg2)] p-6 md:p-12 lg:grid-cols-[1fr_1.3fr]">
+          <div>
+            <SectionHead kicker="어떻게 재나요" title="근거가 있는 계산입니다." serifTitle />
+            {/* 삽화(사전 #15) — 이 글의 적정 학년(학년 칸에 맞춰 놓고 도장) */}
+            <div className="mt-8 max-w-md"><Illustration asset={ILLO_15_FIT_GRADE} /></div>
+          </div>
+          <div>
+            <ul className="flex list-disc flex-col gap-4 pl-5 font-body text-[16px] leading-[1.7] text-[var(--ju)]">
+              <li>
+                지문의 <b>러닝 워드</b>(기능어 포함) 대비, 해당 학년이 아는 어휘의 비율을 셉니다 — Hu &amp;
+                Nation(2000)의 어휘 커버리지 정의입니다.
+              </li>
+              <li>
+                기준선 <b>98%·95%</b>는 같은 연구의 읽기 이해 임계에서 왔습니다. 이후 재현
+                연구(Kremmel 외, 2023)가 90~98% 사이 차이는 크지 않다고 보고해, 하나의 절벽이 아니라{' '}
+                <b>구간</b>으로 표시합니다.
+              </li>
+              <li>
+                학년별 어휘는 자체 학습 어휘 목록(V-Level 1~11)을 씁니다.
+                레벨을 확인할 수 없는 단어는 <b>감추지 않고</b> 범위로 표시합니다.
+              </li>
+              <li>
+                {facts ? (
+                  <>
+                    영영 사전 <b>{formatCount(facts.headwords)}</b> 표제어와 도서–어휘 연결{' '}
+                    <b>{formatCount(facts.bookVocabLinks)}</b>건 위에서 동작합니다.
+                  </>
+                ) : (
+                  <>영영 사전과 도서–어휘 연결 위에서 동작합니다.</>
+                )}
+              </li>
+            </ul>
+            <p className="mt-6 font-body text-[14px] leading-[1.65] text-[var(--ju)]">
+              더 자세한 원리는{' '}
+              <Link
+                href="/about"
+                className="underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+              >
+                소개
+              </Link>
+              에서 볼 수 있어요.
+            </p>
+          </div>
+        </div>
       </section>
     </div>
   )

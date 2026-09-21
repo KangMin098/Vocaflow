@@ -50,7 +50,7 @@
 | 이벤트 `/events/` | 세계 지도(펼침) → 디렉터리(필터 폼, 그림 33) → 뉴스레터 → CTA | 필터 디렉터리 패턴 → `/library/books` 필터 · `/csat` 문항 목록 | ○ |
 | 대학 `/university/` | 히어로 → 과정 격자(그림 53) → 라이브러리 → 부트캠프 → CTA | 학습 경로 `/plan` · `/diagnostic` | ○ |
 | 팟캐스트 `/podcast/` | 시즌별 2열 목록 ×6 | `/video` 시리즈 묶음 | ○ |
-| 역량 표 `/workflow-capability-matrix/` | 점 격자 → **조작 다이얼**(펼침·폼) → 14열 표 → CTA | `/fit` · `/diagnostic`(조작해서 결과 보기) | ○ |
+| 역량 표 `/workflow-capability-matrix/` | 점 격자 → **조작 다이얼**(펼침·폼) → 14열 표 → CTA | `/fit` — 왼쪽 정렬 제목 · 점 격자 무대 위 액자 속 도구 · FAQ 펼침 · 근거 카드 (`/diagnostic` 은 ○) | ◐ |
 | 긴 이야기 `/history-and-future-of-workflows/` | 시대별 22구간 · 그림 · 인용 폼 | — | — 한 번짜리 캠페인 페이지. 필요할 때 |
 | 법률 `/legal/` · `/privacy/` | 펼침 목록 · 긴 글 | `/terms` · `/privacy` | ○ (서체·색만) |
 | 404 | 그림 1 + 검색 입력 | `app/not-found.tsx` | ○ |
@@ -81,7 +81,7 @@
 | P19 | 뉴스레터 폼 띠 | `NewsletterSection` | 문장 + 이메일 입력 | — | — 우편 발송 기능이 없다 |
 | P20 | 꽃밭 CTA 띠 | `WildCodeCTASection` (16페이지) | 꽃밭 + 제목 + 알약 CTA | **모든 공개 화면 끝** | ◐ |
 | P21 | 인용 · 배지 · 협력사 격자 | `CenteredQuoteSection` · `PricingQuotesGrid` · `G2BadgeList` · 협력사 8열 | 후기 · 수상 · 고객 로고 | — | — **지어낸 후기·수상 금지(I5)**. 대신 콘텐츠 출처(퍼블릭 도메인 원문 공급처)를 실제 목록으로 |
-| P22 | 점 격자 무대 | `DotGridPattern` · `GridCanvas` | 12px 점 · 24px 선 격자 바탕 | 도구·진단 화면 바탕 | ○ |
+| P22 | 점 격자 무대 | `DotGridPattern` · `GridCanvas` | 12px 점 · 24px 선 격자 바탕 | 도구·진단 화면 바탕 — `/fit` | ◐ |
 
 ## 4. 앱 화면 — 참조의 제품 액자 안 UI
 
