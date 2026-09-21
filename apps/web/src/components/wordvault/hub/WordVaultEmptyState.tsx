@@ -7,53 +7,21 @@
 
 'use client'
 
-import { ArrowRight, FileText, Library } from 'lucide-react'
-import { Illustration } from '@/components/illustrations/Illustration'
-import { ILLO_01_WORDBOOK_EMPTY } from '@/components/illustrations/generated/illo-01-wordbook-empty'
-import Link from 'next/link'
+import { SpotState } from '@/components/ui/SpotState'
+import { MODULE_TONE, TINT_CLASS } from '@/lib/design/tone'
 
+// DD-68 · tines-mapping §14 — 참조 빈 결과 문법(가운데 소품 · 세리프 제목 · 알약 두 개)을 보관함 범주 색(분홍) 면 위에.
+//   예전 제목 「스크립트을」은 조사를 손으로 붙인 오류였다 — 「스크립트를」.
 export function WordVaultEmptyState() {
   return (
-    <section
-      aria-label="첫 단어 시작"
-      className="relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-gradient-to-br from-[var(--p)]/10 to-[var(--bg2)] p-8 md:p-12"
-    >
-      <div className="relative max-w-2xl">
-        {/* 삽화(사전 #1) — 빈 상태 문장 위. 옆 문장이 같은 말을 해서 decorative(03-system §3-9) */}
-        <Illustration asset={ILLO_01_WORDBOOK_EMPTY} decorative className="mb-6" />
-        <p className="mb-3 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-          — 단어장이 비어 있어요
-        </p>
-
-        <h2 className="mb-3 font-display text-[28px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[32px]">
-          스크립트을 추가하면
-          <br />
-          <span className="text-[var(--p)]">단어장이 시작됩니다</span>
-        </h2>
-
-        <p className="mb-8 max-w-lg font-body text-[14px] leading-relaxed text-[var(--t2)] md:text-[15px]">
-          좋아하는 책, 강연, 기사를 추가하면 AI가 핵심 단어를 추출해 학습 단어장을 만들어 드립니다.
-        </p>
-
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Link
-            href="/text/new"
-            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--t1)] bg-[var(--ju)] px-5 py-3 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-[background-color,transform] duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-          >
-            <FileText size={16} aria-hidden="true" />
-            <span>스크립트 추가하기</span>
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-
-          <Link
-            href="/library"
-            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-3 font-display text-[14px] font-[700] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)]"
-          >
-            <Library size={16} aria-hidden="true" />
-            <span>라이브러리 둘러보기</span>
-          </Link>
-        </div>
-      </div>
+    <section aria-label="첫 단어 시작" className={`${TINT_CLASS[MODULE_TONE.wordvault.tint]} rounded-[var(--r-2xl)] px-6 py-8 md:px-12 md:py-12`}>
+      <SpotState
+        art="empty-vault"
+        title="스크립트를 추가하면 단어장이 시작됩니다"
+        body="좋아하는 책, 강연, 기사를 추가하면 AI가 핵심 단어를 추출해 학습 단어장을 만들어 드립니다."
+        primary={{ href: '/text/new', label: '스크립트 추가하기' }}
+        secondary={{ href: '/library', label: '라이브러리 둘러보기' }}
+      />
     </section>
   )
 }

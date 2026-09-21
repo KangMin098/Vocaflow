@@ -90,6 +90,16 @@
   --deep-ink: #32274b;
   --deep-charcoal: #32313b;
   --on-deep: #fcf9f5;
+
+  /* ── 입력 테두리 · 강한 카드 테두리 — 참조 UI 실측(ui-kit-summary: input 1px #d7c4fa · 카드 1px #aa94ff) ── */
+  --bd-input: #d7c4fa;
+  --bd-strong: #aa94ff;
+  /* 참조 버튼·카드에는 그림자가 없다(80페이지 중 그림자 4건) — iOS 글로우를 끈다 */
+  --sh-ios-glow-tint: none;
+  --sh-ios-glow-blue: none;
+  --sh-ios-glow-green: none;
+  --sh-ios-glow-red: none;
+  --sh-ios-glow-orange: none;
   --t4: rgba(113, 75, 208, 0.2);
 
   /* ── 선 — 참조 테두리 `1px solid var(--acc20)` = #c3b5ff ── */
@@ -176,6 +186,13 @@
   --tint-pink-ink: #ffb3d6;
   --tint-teal: #0c1d21;
   --tint-teal-ink: #9fe0dc;
+  --bd-input: #3f2374;
+  --bd-strong: #6741bf;
+  /* 참조는 다크에서도 떠 있는 층 말고는 그림자를 쓰지 않는다 — 기본 다크의 실그림자를 링으로 */
+  --sh-ios-1: 0 0 0 1px var(--bd);
+  --sh-ios-2: 0 0 0 1px var(--bd);
+  --sh-ios-3: 0 0 0 1px var(--bd);
+  --sh-soft: 0 0 0 1px var(--bd);
 
   --bd: #3f2374;
   --bdf: #aa94ff;

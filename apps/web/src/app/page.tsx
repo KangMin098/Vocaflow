@@ -25,7 +25,9 @@ import Link from 'next/link'
 import { CoverageHero } from '@/components/marketing/CoverageHero'
 import { LandingCta } from '@/components/marketing/LandingCta'
 import { PILL } from '@/components/marketing/pill'
-import { DEEP_CLASS, MODULE_TONE } from '@/lib/design/tone'
+import { BTN } from '@/components/ui/tines-kit'
+import { ToneTabs } from '@/components/ui/ToneTabs'
+import { DEEP_CLASS, MATERIAL_TONE, MODULE_TONE } from '@/lib/design/tone'
 import { SiteFooter } from '@/components/marketing/site/SiteFooter'
 import { SiteHeader } from '@/components/marketing/site/SiteHeader'
 import { SectionBeacon } from '@/components/marketing/SectionBeacon'
@@ -47,13 +49,16 @@ export const revalidate = 86400
 
 const ILLO = '/illustrations/tines'
 
-/** 학습 모듈 다섯 — 참조 사이트 「팀 탭」 자리. 색은 모듈 범주 색(`lib/design/tone.ts` MODULE_TONE)의 진한 면. */
+/**
+ * 학습 모듈 다섯 — 참조 홈 「팀 탭」(`HomeUseCasesSection`) 자리. 탭마다 모듈 범주 색(`MODULE_TONE`)의 진한 면이고,
+ * 고른 탭의 색이 아래 패널로 이어진다(`ToneTabs`). 패널은 그 모듈 타일 + 설명 + 들어가는 길.
+ */
 const MODULES = [
-  { name: '읽기', body: '지문을 읽다가 모르는 단어를 그 자리에서 담습니다. 뜻은 문맥과 함께 남아요.', tone: DEEP_CLASS[MODULE_TONE.read.deep], illo: 'spot-reading' },
-  { name: '단어 보관함', body: '담은 단어를 기억 상태 네 색으로 봅니다. 지금 흔들리는 단어가 먼저 보여요.', tone: DEEP_CLASS[MODULE_TONE.wordvault.deep], illo: 'spot-vault' },
-  { name: '간격 복습', body: '잊을 때쯤 다시 꺼냅니다. 복습 간격은 FSRS 가 단어마다 계산해요.', tone: DEEP_CLASS[MODULE_TONE.flashcard.deep], illo: 'spot-memory' },
-  { name: '듣기 · 따라 말하기', body: '받아쓰기로 소리를 잡고, 따라 말한 억양을 원문과 겹쳐 비교합니다.', tone: DEEP_CLASS[MODULE_TONE.dictation.deep], illo: 'spot-listening' },
-  { name: '지문 퀴즈', body: '읽은 글을 문항으로 다시 확인합니다. 틀린 자리는 다음 복습으로 이어져요.', tone: DEEP_CLASS[MODULE_TONE.scriptquiz.deep], illo: 'spot-quiz' },
+  { id: 'read', name: '읽기', body: '지문을 읽다가 모르는 단어를 그 자리에서 담습니다. 뜻은 문맥과 함께 남아요.', tone: MODULE_TONE.read.deep, spot: 'spot-reading', tile: 'tile-read', href: '/library/books', cta: '서가 둘러보기' },
+  { id: 'vault', name: '단어 보관함', body: '담은 단어를 기억 상태 네 색으로 봅니다. 지금 흔들리는 단어가 먼저 보여요.', tone: MODULE_TONE.wordvault.deep, spot: 'spot-vault', tile: 'tile-vault', href: '/wordvault', cta: '보관함 열기' },
+  { id: 'review', name: '간격 복습', body: '잊을 때쯤 다시 꺼냅니다. 복습 간격은 FSRS 가 단어마다 계산해요.', tone: MODULE_TONE.flashcard.deep, spot: 'spot-memory', tile: 'tile-flashcard', href: '/flashcard', cta: '복습 시작' },
+  { id: 'listen', name: '듣기 · 따라 말하기', body: '받아쓰기로 소리를 잡고, 따라 말한 억양을 원문과 겹쳐 비교합니다.', tone: MODULE_TONE.dictation.deep, spot: 'spot-listening', tile: 'tile-dictation', href: '/dictate', cta: '받아쓰기' },
+  { id: 'quiz', name: '지문 퀴즈', body: '읽은 글을 문항으로 다시 확인합니다. 틀린 자리는 다음 복습으로 이어져요.', tone: MODULE_TONE.scriptquiz.deep, spot: 'spot-quiz', tile: 'tile-quiz', href: '/scriptquiz', cta: '퀴즈 풀기' },
 ] as const
 
 export default async function LandingPage() {
@@ -195,15 +200,30 @@ export default async function LandingPage() {
           <p className="mt-6 max-w-[48ch] break-keep font-serif text-[20px] leading-[1.4] text-[var(--ju)] md:text-[26px]">
             지문에서 담은 단어가 다섯 가지 연습으로 이어집니다. 새 단어장을 따로 만들 필요가 없어요.
           </p>
-          <ul className="mt-12 grid overflow-hidden rounded-[var(--r-xl)] sm:grid-cols-2 lg:grid-cols-5">
-            {MODULES.map((m) => (
-              <li key={m.name} className={`${m.tone} relative flex min-h-[340px] flex-col p-7 text-[var(--t1)]`}>
-                <h3 className="break-keep font-serif text-[26px] font-[400] leading-[1.15]">{m.name}</h3>
-                <p className="mt-3 break-keep font-body text-[15px] font-[500] leading-[1.45]">{m.body}</p>
-                <Image src={`${ILLO}/${m.illo}.webp`} alt="" width={1328} height={1328} className="mt-auto w-[132px] self-end" />
-              </li>
-            ))}
-          </ul>
+          <div className="mt-12">
+            <ToneTabs
+              label="학습 모듈"
+              items={MODULES.map((m) => ({
+                id: m.id,
+                label: m.name,
+                summary: m.body.split('.')[0] + '.',
+                tone: m.tone,
+                spot: m.spot,
+                panel: (
+                  <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
+                    <div>
+                      <h3 className="break-keep font-display text-[30px] font-[400] leading-[1.1] tracking-[-0.02em] md:text-[40px]">{m.name}</h3>
+                      <p className="mt-4 max-w-[46ch] break-keep font-serif text-[19px] leading-[1.5] md:text-[22px]">{m.body}</p>
+                      <Link href={m.href} className={`${BTN.onDeep} mt-8`}>
+                        {m.cta}
+                      </Link>
+                    </div>
+                    <Image src={`${ILLO}/${m.tile}.webp`} alt="" width={1328} height={1328} className="w-[220px] select-none justify-self-center rounded-[14px] md:w-[300px]" />
+                  </div>
+                ),
+              }))}
+            />
+          </div>
         </section>
 
         {/* ── 두 갈래 문 — 참조의 보라 카드 줄 ── */}
@@ -215,14 +235,16 @@ export default async function LandingPage() {
               title="무엇을 읽나요."
               body="퍼블릭 도메인 고전과 복원 만화를 챕터별 어휘와 함께 읽습니다. 로그인 없이 둘러볼 수 있어요."
               cta="서가 둘러보기"
-              illo="spot-reading"
+              illo="tile-books"
+              tone={DEEP_CLASS[MATERIAL_TONE.book.deep]}
             />
             <DoorCard
               href="/teacher"
               title="가르치시나요."
               body="학급을 만들고 초대코드를 나눠 주면 학생들의 어휘 진행을 한 화면에서 봅니다."
               cta="교사 허브"
-              illo="spot-quiz"
+              illo="tile-teacher"
+              tone={DEEP_CLASS.charcoal}
             />
           </div>
         </section>
@@ -245,18 +267,19 @@ export default async function LandingPage() {
   )
 }
 
-function DoorCard({ href, title, body, cta, illo }: { href: string; title: string; body: string; cta: string; illo: string }) {
+/** 문 카드 — 참조 사례 카드처럼 범주 색의 진한 면(도서 초록 · 교사 청록), 구석에 타일. */
+function DoorCard({ href, title, body, cta, illo, tone }: { href: string; title: string; body: string; cta: string; illo: string; tone: string }) {
   return (
     <Link
       href={href}
-      className="group relative flex min-h-[380px] flex-col overflow-hidden rounded-[var(--r-2xl)] bg-[var(--ju)] p-8 text-[var(--on-ju)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] md:p-10"
+      className={`${tone} group relative flex min-h-[380px] flex-col overflow-hidden rounded-[var(--r-2xl)] p-8 text-[var(--t1)] transition-[filter] duration-[var(--dur-quick)] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] md:p-10`}
     >
       <h2 className="break-keep font-serif text-[30px] font-[700] leading-[1.15]">{title}</h2>
       <p className="mt-3 max-w-[30ch] break-keep font-serif text-[20px] leading-[1.45]">{body}</p>
       <span className="mt-auto inline-flex items-center gap-1.5 font-display text-[14px] font-[700] tracking-[0.02em]">
         {cta} <ArrowRight size={14} aria-hidden />
       </span>
-      <Image src={`/illustrations/tines/${illo}.webp`} alt="" width={1328} height={1328} className="absolute bottom-4 right-6 w-[150px]" />
+      <Image src={`/illustrations/tines/${illo}.webp`} alt="" width={1328} height={1328} className="absolute bottom-6 right-6 w-[170px] rounded-[14px]" />
     </Link>
   )
 }

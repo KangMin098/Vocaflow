@@ -34,7 +34,8 @@
        ③ md 이상에서 0(사이드바가 대신하므로 탭이 없다).
        ⚠️ 풀스크린 세션(`lib/layout/full-screen-routes`)에는 탭이 없다. 그 화면의
        하단 고정 UI 는 이 값을 쓰면 안 된다(빈 자리만큼 떠 보인다). */
-    --tabbar-h: calc(56px + env(safe-area-inset-bottom, 0px));
+    /* 떠 있는 막대(DD-68): 항목 56 + 안여백 8 + 테두리 2 + 바닥 띄움 12 + 위 여유 8 */
+    --tabbar-h: calc(86px + env(safe-area-inset-bottom, 0px));
 
     /* 학습 단계 (뇌과학 기반) — v07 「주묵 판면」에서 지면 톤으로 재조율
        ⚠️ **여기가 의뢰서가 말한 「연보라 포인트」였다.** 00-inventory §0-1 은 학습자 표면에
@@ -1098,6 +1099,30 @@ body.studying .sidebar:hover { opacity: 1; }
 }
 
 /* 공개 화면 메가메뉴 열림(DD-68) — 참조 `areaDropdownIn`: opacity + translateY. reduced-motion 에서는 motion-safe 가 끈다. */
+/* ── 스킨 모양 층(DD-68 · tines-mapping §14 — 참조 80페이지 UI 실측) ─────────────────────────────
+   우리 버튼은 공용 부품이 아니라 화면마다 적은 Tailwind 조합이다(모서리 토큰 --r-md 1,043곳을 카드·입력과 같이 쓴다).
+   토큰 값을 바꾸면 카드까지 알약이 되므로, **버튼 조합**(inline-flex + 44px 하한)만 골라 참조 알약(990px)으로 만든다.
+   스킨을 끄면(?skin=off) 전부 원래대로다. 모양을 지키고 싶은 요소는 data-shape="keep". */
+:root[data-skin="tines"] :is(a, button, [role="button"])[class*="inline-flex"]:is([class*="min-h-[40px]"], [class*="min-h-[44px]"], [class*="min-h-[48px]"], [class*="min-h-11"], [class*="min-h-12"]):not([role="tab"]):not([data-shape="keep"]) {
+  border-radius: 999px;
+}
+/* 대화상자 뒤 막 — 참조는 화면을 검게 덮지 않는다(검색은 막 없이 뜨는 유리 막대). 옅은 라벤더 + blur 12px */
+:root[data-skin="tines"] [class*="fixed"]:is(.bg-black/40, .bg-black/50, .bg-black/60) {
+  background-color: rgba(236, 232, 253, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+:root[data-skin="tines"][data-theme="dark"] [class*="fixed"]:is(.bg-black/40, .bg-black/50, .bg-black/60) {
+  background-color: rgba(25, 18, 38, 0.6);
+}
+/* 입력 — 참조 1px #d7c4fa, 포커스 때 보라 */
+:root[data-skin="tines"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, select)[class*="border"] {
+  border-color: var(--bd-input);
+}
+:root[data-skin="tines"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, select)[class*="border"]:focus {
+  border-color: var(--ju);
+}
+
 /* ── 면 톤(DD-68 · tines-mapping §13-1) ─────────────────────────────────────────
    참조는 면마다 글자 색상을 바꾼다 — 옅은 면 위에는 그 색상의 짙은 글자, 진한 면 위에는 크림.
    면 안의 --t1/--t2/--t3/--ju/--bd 를 다시 정의하므로, var(--t1) 을 쓰는 기존 부품이 고치지 않고도

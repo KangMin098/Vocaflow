@@ -97,7 +97,8 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-start justify-center bg-[rgba(25,18,38,0.28)] px-4 pt-[12vh] motion-safe:animate-[vf-dropdown-in_var(--dur-slow)_var(--ease-out-quint)_both]"
+      // 참조 GlobalSearch: 화면을 검게 덮지 않는다 — 옅은 라벤더 막 + blur, 그 위에 유리 막대(tines-mapping §14)
+      className="fixed inset-0 z-[60] flex items-start justify-center bg-[color-mix(in_srgb,var(--tint-lavender)_45%,transparent)] px-4 pt-[12vh] backdrop-blur-[6px] motion-safe:animate-[vf-dropdown-in_var(--dur-slow)_var(--ease-out-quint)_both]"
       onMouseDown={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
       <div
@@ -106,11 +107,11 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
         aria-modal="true"
         aria-labelledby={titleId}
         onKeyDown={onKeyDown}
-        className="w-full max-w-[900px] overflow-hidden rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-overlay)]"
+        className="w-full max-w-[900px] overflow-hidden rounded-[14px] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] shadow-[var(--sh-overlay)] backdrop-blur-[12px]"
       >
         <h2 id={titleId} className="sr-only">사이트 검색</h2>
         {/* 포커스 표시는 입력 줄 전체가 맡는다(아래 보라 선) — 입력칸 자체 테두리는 끈다 */}
-        <div className="flex items-center gap-3 border-b border-[var(--bd)] bg-[var(--bg2)] px-4 focus-within:shadow-[inset_0_-2px_0_var(--ju)]">
+        <div className="flex items-center gap-3 border-b border-[var(--bd)] bg-[color-mix(in_srgb,var(--tint-lavender)_80%,transparent)] px-4 focus-within:shadow-[inset_0_-2px_0_var(--ju)]">
           <Search size={18} aria-hidden className="shrink-0 text-[var(--ju)]" />
           <label htmlFor={`${titleId}-q`} className="sr-only">검색어</label>
           <input

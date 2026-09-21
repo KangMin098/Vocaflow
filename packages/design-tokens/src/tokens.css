@@ -276,6 +276,7 @@
   --deep-ink: var(--t1);
   --deep-charcoal: var(--t1);
   --on-deep: var(--bg);
+  --bd-input: var(--bd);
 
   /* 6px 상한 해제 뒤 추가(DD-65) — 참조 작성값 8 · 12(--radius) · 16(--cardRadius) · 24px */
   --r-3xl: 8px;

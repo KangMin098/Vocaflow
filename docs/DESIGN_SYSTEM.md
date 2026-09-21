@@ -113,6 +113,8 @@
 
 면 톤 · 범주 색(DD-68 · tines-mapping §13, 참조 151페이지 실측): 틴트 6 은 **짝 글자**(`--tint-*-ink` — 초록 `#005d35` · 살구 `#8a3701` · 노랑 `#7a4d16` · 분홍 `#8a1f57` · 청록 `#006d6d` · 라벤더 `#5d38ae`, 5.2~7.0:1)를 갖고, 진한 면 6(`--deep-purple/green/orange/magenta/ink/charcoal`, 위 글자 `--on-deep` 크림 4.9~13.1:1)이 있다. 면에는 `globals.css` 의 `.tone-<틴트>` · `.tone-deep-<색>` 클래스를 쓴다 — 면 안의 `--t1/--t2/--t3/--ju/--bd` 를 그 색상으로 바꾸므로 기존 부품이 고치지 않고 따라온다. 범주 색은 `lib/design/tone.ts`(`MATERIAL_TONE` 도서 초록 · 기사 살구 · 단어장 분홍 · 교재 라벤더 · 만화 노랑 / `MODULE_TONE` 모듈 10).
 
+참조 UI 부품(DD-68 · tines-mapping §14): 클래스 키트 `components/ui/tines-kit.ts`(`BTN.primary/secondary/soft/onDeep/text` · `CHIP` · `INPUT` · `CARD` · `SEG`) · 색 탭 `components/ui/ToneTabs` · 빈 상태 틀 `components/ui/SpotState`(용도별 소품) · 스킨 모양 층(globals.css — 버튼 조합 알약 · 검은 막 → 라벤더 유리 · 입력 테두리 `--bd-input`). 토큰 `--bd-input` · 스킨 `--bd-strong #aa94ff` · iOS 글로우 없음.
+
 스킨 위 앱 부품(DD-68): `components/layout/AreaNav` — 구역 하위 내비(라벤더 알약 막대, 선택 면 = 막대 면에 `--ju` 12% 섞음) · `components/layout/AreaHero` — 앱 구역 머리(2열, 오른쪽 `--tint-*` 면 위 장면 삽화 · `fit` contain/cover). 틴트 면 위 본문은 `--t2` 까지 — 분홍 · 청록 면에는 `--t1` 만 쓴다(`#714bd0` 가 4.0 · 4.4:1).
 
 ### 색 토큰 카탈로그 (현행 · 2026-09-18 실측)
