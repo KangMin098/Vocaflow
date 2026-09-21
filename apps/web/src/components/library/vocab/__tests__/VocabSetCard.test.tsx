@@ -86,7 +86,6 @@ describe('단어장 카드 — 표지와 유형', () => {
     expect(html).toMatch(/<path[^>]+d="/)
     // 옛 방식의 흔적이 남아 있으면 두 경로가 공존한다는 뜻이다.
     expect(html).not.toContain('example.org')
-    expect(html).not.toMatch(/grayscale/)
   })
 
   it('권이 다르면 도판도 다르다 — 같은 계열 스물여덟 권이 한 그림이 되지 않는다', () => {
@@ -150,15 +149,7 @@ describe('단어장 카드 — 표지와 유형', () => {
     expect(html).not.toContain('CEFR')
   })
 
-  /*
-    이모지 폴백은 **도판을 못 받은 권의 대타**였다. 이제 모든 권이 도판을 그리므로 대타가
-    필요 없고, 두면 선화 위에 이모지가 겹친다. 폴백이 되살아나면 이 검사가 잡는다.
-  */
-  it('이모지 폴백을 쓰지 않는다 — 모든 권이 도판을 갖기 때문이다', () => {
-    const html = render(set({ coverImageUrl: null, coverImageMeta: null }))
-    expect(html).not.toContain('🏛️')
-    expect(html).toContain('<svg')
-  })
+  // 디자인·UX 금지 검사 1건(이모지 폴백 금지)과 흑백 필터 금지 단언은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
   it('유형 라벨과 묶은 원리를 함께 적는다', () => {
     const html = render(set())

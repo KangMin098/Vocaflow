@@ -15,49 +15,38 @@
 
 ---
 
-## 🎯 첫인상 · 이탈 방지 · 모션 예산
+## 🎯 공개 화면 · 계측 · 모션 토큰
 
-### 1. 증명 우선 (Proof-first hero)
+### 1. 공개 화면 — 정직성 · 줄바꿈
 
-주장("내가 아는 비율")은 지문 위에 칠해진 그림이다. 산문으로 설명하면 증명이 사라진다.
+(첫인상 규칙 I1–I4 · I6 · I8 과 히어로 순서 규칙은 DD-66 으로 삭제.)
 
 | # | 규칙 | 검사법 |
 |---|---|---|
-| **I1** | 공개 화면 above-the-fold 에 제품이 **실제로 수행한 결과** ≥1 | 히어로에 실데이터 렌더 요소 |
-| **I2** | 거기까지 클릭 **0** · 입력 **0** | 진입 직후 화면에 보이는가 |
-| **I3** | 증명은 **조작 가능** — 값을 바꾸면 즉시 반응 | 컨트롤 ≥1 · 반응 ≤200ms |
-| **I4** | 히어로 부제 ≤ **2문장 / 90자** | 글자 수 |
 | **I5** | 수치는 **DB 실측 또는 그 자리 계산값**만 | `components/marketing/__tests__/no-hardcoded-stats.test.ts` |
-| **I6** | 증명 요소가 **서버 렌더 HTML** 에 남는다 | 초기 HTML 에 텍스트 |
 | **I7** | 한글에 `break-keep` — 없으면 390px 에서 낱말이 쪼개진다 | 2026-09-04 랜딩 H1 "다른 겁니 / 다" |
-| **I8** | 증명이 접힌 위에서 끝난다 — **판정 기준 1280×900, 모바일 제외** | 모바일도 증명 자체(색칠된 지문+조작+숫자)는 접힌 위(=I2). 예외는 판정선이지 모바일 퍼스트가 아니다 |
 
-**순서**: `증명(작동하는 것) → 근거 1줄 → 다음 문 → 신뢰 수치 → 상세`. AIDA 를 쓰지 않는다 — 교사·학생은 **오늘 쓸 도구**를 찾으러 온다.
+### 2. 계측 · 데이터
 
-### 2. 이탈 방지 — 못 재면 방지도 없다
+(이탈 방지 규칙 D1 · D5(빈 상태) · D6(비난 금지) · D7(화면 전환 ≤ 3)은 DD-66 으로 삭제.)
 
 | # | 규칙 | 근거 |
 |---|---|---|
-| **D1** | 가치 확인 앞에 로그인·입력·모달을 두지 않는다 | `/fit` 이 공개인 이유 |
 | **D2** | 새 공개 화면은 **진입 + 내부 상호작용 이벤트**를 같은 커밋에 | `lib/analytics/events.ts` 닫힌 목록 |
 | **D3** | 이벤트 속성은 숫자·불리언·닫힌 열거형만 | 타입이 강제(지문 유출 차단) |
 | **D4** | 파생 가능한 것은 수집하지 않는다 | `lib/admin/retention-math.ts` |
-| **D5** | 빈 상태에 **다음 한 걸음** | 막다른 화면 = 이탈 |
-| **D6** | 실패·오답에서 비난 금지 (정답률 빨간 글씨·경고 아이콘) | 철학 3 |
-| **D7** | 가입 → 첫 학습 완료 **화면 전환 ≤ 3** | 실측 3 — 가입→`/hub`→`/diagnostic`→`/flashcard/play`. 회귀 `app/__tests__/activation-path.test.ts`(세 파일에 나뉜 경로라 화면은 멀쩡한 채 4전환이 된다) |
 
-### 3. 모션 예산 — 숫자로 고정
+### 3. 모션 토큰
+
+(모션 예산 상한 — 스태거·이동 거리·총 1초·`transform`/`opacity` 한정 — 은 DD-66 으로 삭제. 아래는 토큰 값이다.)
 
 | 항목 | 값 | 토큰 |
 |---|---|---|
-| 마이크로 (호버·프레스·토글) | **100–200ms** | `--dur-fast` 100ms · `--dur-quick` 150ms · `--dur-normal` 200ms |
-| 표준 전환 (패널·모달·페이지) | **200–300ms** | `--dur-normal` · `--dur-slow` 300ms |
+| 마이크로 (호버·프레스·토글) | 100–200ms | `--dur-fast` 100ms · `--dur-quick` 150ms · `--dur-normal` 200ms |
+| 표준 전환 (패널·모달·페이지) | 200–300ms | `--dur-normal` · `--dur-slow` 300ms |
 | 이징 | `cubic-bezier(.4, 0, .2, 1)` · 진입 `cubic-bezier(.22, 1, .36, 1)` | `--ease` · `--ease-out-quint` |
-| 스태거 | **50ms** | §Motion 사용 매핑 |
-| 이동 거리 | 마이크로 **4–16px** · 리빌 **20–40px** | — |
-| 총 지속 | **1초 초과 금지** (예외: `--dur-breath` 4s 정지 배경 앰비언트 · 반복 모션 한 바퀴) | — |
-| 반복 모션 한 바퀴 | **2s · 4s · 30s** | `--dur-loop-fast` · `--dur-loop` · `--dur-loop-slow` (DD-65) |
-| 애니메이트 대상 | `transform` · `opacity` **만** | — |
+| 정지 배경 앰비언트 | 4s | `--dur-breath` |
+| 반복 모션 한 바퀴 | 2s · 4s · 30s | `--dur-loop-fast` · `--dur-loop` · `--dur-loop-slow` (DD-65) |
 
 #### 3.1 `prefers-reduced-motion` 은 끄기가 아니라 **낮추기**
 
@@ -73,32 +62,25 @@
 진입 연출이 꼭 필요한 표면은 자기 규칙으로 **페이드만** 되살린다(`.wayfinder-reveal` → `wayfinder-fade`).
 앱 안 토글은 `html[data-reduced-motion='on']`(`components/layout/DevicePreferences.tsx`), JS 구동 모션은 `useReduceMotion()` 분기.
 
-#### 3.2 학습 화면 모션 화이트리스트 (7종 외 금지)
+#### 3.2 (학습 화면 모션 화이트리스트 7종 · 「항상 금지」 목록 — DD-66 으로 삭제)
 
-카드 뒤집기 · 정답 `scale(1.05)→1` · 오답 shake 3회 · 진행률 바 · 점수 카운트업 · 페이지 전환 페이드 · 포커스 링.
-
-**항상 금지**: 폭죽 · 콘페티 · 배지 팝업 · 자동재생 캐러셀. (장식적 상시 모션 금지는 DD-65 로 삭제 — 반복 모션은 `--dur-loop*`.)
-- **로더·스켈레톤은 허용** — 판정 기준은 "반복하는가" 가 아니라 **"끝나는 상태가 있는가"**(2026-09-06, 로더 20곳 오탐 정정).
-- **트로피** — 금지는 「진행률 100% 완료 축하」 자리다. 점수·기록 표시의 `Trophy` 는 해당 없음.
-- **아케이드 예외** — `components/game/` 는 대상 아님. 학습 모듈(`flashcard` · `dictation` · `spellforge` · `pairflip` · `echo` …)은 예외가 아니다.
-
-회귀: `components/__tests__/learning-tone.test.ts`. 외부 취향 스킬과의 충돌 판정은 [vocaflow-design §2](../.claude/skills/vocaflow-design/SKILL.md).
+현재 학습 화면에 쓰이는 모션은 §Motion 사용 매핑에 있다.
 
 ---
 
 ## 🖋 판면 — 지면 · 잉크 · 주묵
 
-**방향 한 줄**: 뜨지 않고 그어진다. 강조는 색이 아니라 자국이다. 밑줄 두께는 데이터다.
+**방향 한 줄**: 헤어라인으로 긋고, 자국(권점·붓 자국)으로 강조하며, 밑줄 두께는 데이터다.
 (Reading Room 의 지면·잉크 위에 v07 이 **면적을 가진 색 하나 `--ju`** 와 **데이터가 그리는 표식**을 더했다 — 결정 경위 [design/02-directions.md](design/02-directions.md) · 상세 [design/03-system.md](design/03-system.md).)
 
 | # | 원칙 | 값 |
 |---|---|---|
-| 1 | 순백·순흑 금지 | 지면 `--bg #FBFAF6` · 잉크 `--t1 #1A1714` |
+| 1 | 지면·잉크 | 지면 `--bg #FBFAF6` · 잉크 `--t1 #1A1714` |
 | 2 | 카드가 아니라 판면 | 기존 `--sh-xs…xl` = `0 0 0 1px var(--bd)`(헤어라인 링). 실제 그림자는 `--sh-soft` · `--sh-drop` · `--sh-overlay`(DD-65, 제약 해제) · 모달류는 `--sh-float` |
 | 3 | radius 램프 | `--r-sm/md/lg/xl/2xl` = 2/3/4/5/6px · `--r-3xl/4xl/5xl/6xl` = 8/12/16/24px(DD-65, 6px 상한 해제) · `--r-full` |
-| 4 | 주묵은 앱이 지면에 남기는 표식 | 1차 CTA(화면에 하나) · 활성 표식 · 완료 체크 · 권점. **학습자 오답·위험 상태에는 쓰지 않는다**(회귀 `learning-tone.test.ts`) |
-| 5 | 동시 노출 색 ≤ 3 | 잉크(`--p`) + 주묵 + Memory Decay 1개. 나머지는 잉크 알파와 지면 |
-| 6 | 눌리면 들어간다 | hover 는 색만 · `active:translate-y-[1px]` · `transition-all` 대신 속성 나열 |
+| 4 | 주묵은 앱이 지면에 남기는 표식 | 현행 쓰임: 1차 CTA · 활성 표식 · 완료 체크 · 권점 |
+| 5 | (동시 노출 색 ≤ 3 — DD-66 으로 삭제) | |
+| 6 | 눌리면 들어간다 | 현행 버튼: `active:translate-y-[1px]` · `transition-all` 대신 속성 나열 |
 
 ### 면(fill) vs 잉크(ink) — 작은 글자는 반드시 `-ink`
 
@@ -123,13 +105,13 @@
 | `--p-hover` / `--p-light` | `#081832` / `#E3E8EE` | `#87B0DC` / `rgba(107,155,209,.18)` | |
 | `--ju` / `--ju-ink` | `#C0392B` / `#A8342A` | `#E0705C` / `#E0705C` | 주묵 면·선 / 작은 글자 |
 | `--ju-light` / `--ju-wash` | `#F5E4E0` / `rgba(192,57,43,.13)` | `rgba(224,112,92,.18)` / `.20` | 활성 행 / 붓 자국 |
-| `--active` / `--active-ink` | `#B0843A` / `#7E5A1B` | `#D4A856` / `#D4A856` | 골드 — 면적 5% 미만 |
+| `--active` / `--active-ink` | `#B0843A` / `#7E5A1B` | `#D4A856` / `#D4A856` | 골드 강조 |
 | `--success` · `--error` · `--warning` · `--info` | `#2E7D5A` · `#9C3A30` · `#B5803A` · `#50697F` | `#5BA47D` · `#A8443A` · `#CEA254` · `#8AA8C0` | semantic |
 | `--accent-plum` | `#7A4A6B` | `#C79AB6` | 여섯 번째 분류 색조(주묵과 헷갈리지 않게 자주 쪽) |
 | `--bg` · `--bg2` · `--bg3` | `#FBFAF6` · `#F4F0E9` · `#ECE6DA` | `#231D17` · `#181410` · `#2D261F` | 지면 · 캔버스 · 채움 |
 | `--t1` · `--t2` · `--t3` · `--t4` | `#1A1714` · α.74 · α.62 · α.20 | `#F0EAE0` · α.74 · α.62 · α.20 | 잉크 알파 4단 |
 | `--bd` · `--bde` | `#E0DBD0` · `#9C3A30` | `#3D362D` · — | 헤어라인 · 오류 테두리 |
-| `--grid-line` | `color-mix(--bd 40%, transparent)` | `color-mix(--bd 55%, transparent)` | 모눈 무대(1px · 24px) — 삽화·증명 액자·공개 히어로·빈 상태 바탕만. SVG `<pattern>` 으로만 그린다 · [03-system §3-9](design/03-system.md) |
+| `--grid-line` | `color-mix(--bd 40%, transparent)` | `color-mix(--bd 55%, transparent)` | 모눈 무대(1px · 24px) — 현행 자리: 삽화·증명 액자·공개 히어로·빈 상태 바탕. SVG `<pattern>` 으로 그린다 · [03-system §3-9](design/03-system.md) |
 | `--learn-error` / `-ink` | `#6B6258` / `#57504A` | — | **오답은 중립 흑연**(빨강 아님) |
 
 분류 팔레트(POS 8 · 사이드바 6)는 일반 Tailwind 색조를 지면 색조로 **개수를 보존해** 1:1 로 옮긴 것이다 — 표는 [design/03-system.md §3-2](design/03-system.md).
@@ -161,7 +143,7 @@ R(t) = `exp(ln(0.9) × t / S)` 를 **동적 계산**한다(`memory_state` 컬럼
 > 원 결정은 "모듈 CSS 가 소유 · 공용 토큰 신설 금지"였다. 이 절은 그 결정을 존중해 **토큰을 새로 만들지 않고**
 > 기존 토큰만으로 **문법(선의 뜻)** 을 공용으로 적는다. 다른 모듈이 같은 선을 쓰면 **같은 뜻**이어야 한다.
 > 두 모듈 이상이 같은 값을 복사하기 시작하면 그때 토큰을 신설하는 개정을 연다(→ [design/DECISIONS.md](design/DECISIONS.md) DD-03).
-> 이 문법을 **어떤 화면의 골격으로 세우는가**는 vocaflow-design §G 가 정한다.
+> 이 문법을 **어떤 화면의 골격으로 세우는가**의 절차는 vocaflow-design §G 에 있다(참고).
 
 ### F1. 선의 두께 = 망각도 (`DecayUnderline`)
 
@@ -212,7 +194,7 @@ FSRS 상태가 없는 표면은 `bandFromOverdue(overdueDays)` 로 **가진 값*
 | `SealMark` | 낙관 — 라벨 첫 글자를 Hahmlet 으로 주묵 테두리 안에(28/36/44px). 이모지 얼굴의 자리를 대신한다 |
 | `Gwonjeom` | 권점 아이콘 — lucide `Sparkles` 의 자리(「추천·새것·눈여겨볼 것」) |
 | `PressButton` | 1차 주묵 채움 / 2차 잉크 외곽 / 3차 글자만 · 48px 하한 · 4상태 |
-| `Eyebrow` | 작은 라벨 — 대문자·넓은 트래킹 금지 |
+| `Eyebrow` | 작은 라벨 — 현행: 대문자 변환·넓은 트래킹 없음 |
 
 ### F5. 비교 판면
 
@@ -221,7 +203,7 @@ wrapper 최대 68rem, 읽기면은 42rem. 패턴 교체 `button[aria-pressed]` �
 
 ---
 
-## Typography — 4종 고정 (v07)
+## Typography — 현행 4종 (v07)
 
 | 역할 | 글꼴 | Tailwind | 자리 |
 |---|---|---|---|
@@ -236,7 +218,7 @@ english   : var(--font-serif) → Lora → Georgia → serif        ← 한글�
 mono      : … JetBrains Mono → … → var(--font-body) → monospace  ← 한글이 모노 폴백으로 떨어지지 않게
 ```
 
-- **금지**: Inter · Roboto · Arial · 한글에 Lora · 영어에 산세리프 · Plus Jakarta Sans / DM Sans(v07 에서 제거 — 한글 글리프 0)
+- v07 에서 Plus Jakarta Sans / DM Sans 를 제거했다(한글 글리프 0). (금지 서체 목록은 DD-66 으로 삭제.)
 - 한글 두 벌은 **`preload: false`**, `subsets` 미지정(수백 조각 전량 preload 방지 — 회귀 `learning-tone.test.ts`).
 - `h1~h6` 기본은 세리프(영문 Lora + 한글 Hahmlet, 600) + `word-break: keep-all`.
 
@@ -258,19 +240,19 @@ mono      : … JetBrains Mono → … → var(--font-body) → monospace  ← �
 
 | | 값 | 쓰는 자리 |
 |---|---|---|
-| `--sh-xs … --sh-xl` · `--sh-ios-1…3` · `--sh-card` | `0 0 0 1px var(--bd)` | 모든 판면·카드(뜨지 않는다) |
+| `--sh-xs … --sh-xl` · `--sh-ios-1…3` · `--sh-card` | `0 0 0 1px var(--bd)` | 판면·카드(헤어라인 링) |
 | `--sh-float` · `--sh-ios-4` | 링 + `0 18px 48px -12px rgba(26,23,20,.22)` | 모달 · 바텀시트 · 토스트 · 팝오버 |
 | `--sh-soft` · `--sh-drop` · `--sh-overlay` | `0 1px 3px` 6% · `0 16px 16px -8px` 10% · `0 24px 80px` 25% (다크 35/50/60%) | 참조 작성값 — DD-65 |
 | `--blur-sm` · `--blur-md` · `--blur-lg` | 8 · 12 · 20px | `backdrop-filter` 흐림 — DD-65 |
 | `--r-sm` · `--r-md` · `--r-lg` · `--r-xl` · `--r-2xl` | 2 · 3 · 4 · 5 · 6px | 입력 · 버튼 · 판면 · 시트 |
 | `--r-3xl` · `--r-4xl` · `--r-5xl` · `--r-6xl` | 8 · 12 · 16 · 24px | 카드 · 패널 (Tailwind `rounded-4xl…6xl`) — DD-65 |
 | `--r-ios-modal` | 10px | 실제로 뜨는 시트 |
-| `--r-full` | 9999px | 칩 · 아바타 · 진행바 — **큰 컨테이너·1차 버튼 금지** |
+| `--r-full` | 9999px | 칩 · 아바타 · 진행바 |
 
 ## Motion 사용 매핑
 
 ```
-버튼 호버:      background-color/border-color/color, var(--dur-normal) var(--ease)  — 뜨지 않는다
+버튼 호버:      background-color/border-color/color, var(--dur-normal) var(--ease)
 버튼 프레스:    translateY(1px)                                                       — 스케일 대신
 카드 뒤집기:    rotateY(180deg), 0.55s var(--ease)
 정답 피드백:    scale(1.05)→scale(1), --dur-slow, --ease-spring
@@ -287,19 +269,19 @@ mono      : … JetBrains Mono → … → var(--font-body) → monospace  ← �
 
 ---
 
-### 게임 전용 하드코딩 색상 (예외) — 2026-09-06 실측으로 정정
+### 게임 전용 하드코딩 색상 — 2026-09-06 실측으로 정정
 
 ```css
-/* ── WordBlitz 정글 전용 — 변경 금지 ── */
+/* ── WordBlitz 정글 전용 ── */
 #FFE234  /* 황금 점수 텍스트 */
 #3d8a3d  /* 정글 배경 기본 그린 */
 
-/* ── SpellForge 파란 패널 — 변경 금지 ── */
+/* ── SpellForge 파란 패널 ── */
 #4A9FCF  /* 패널 메인 */
 #5CB8E0  /* 패널 라이트 (그러데이션 시작) */
 #3A7FAF  /* 패널 다크 */
 
-/* ── PairFlip Editorial — 변경 금지 ── */
+/* ── PairFlip Editorial ── */
 #1E3A8A → #1E1B4B  /* 네이비/인디고 그라디언트 */
 #F59E0B            /* 골드 */
 #FCD34D            /* 골드 라이트 (진행바 그러데이션 끝) */
@@ -323,13 +305,12 @@ mono      : … JetBrains Mono → … → var(--font-body) → monospace  ← �
 
 ## 컴포넌트 규약
 
-- **새 화면의 구획은 `components/ui/press`(F4)** 로 만든다. iOS 프리미티브(`@/components/ui/ios` — Card · Frame · SegmentControl · InsetGroup · InsetRow · Capsule · StatPill · ActivityRing · PrimaryButton · GlassBar · SheetContainer · Screen)는 **유지**되며 토큰 교체로 판면 톤을 받는다. 두 벌을 한 화면에 섞어 같은 구획을 두 문법으로 그리지 않는다.
+- **구획 컴포넌트**: 판면 어휘 `components/ui/press`(F4)와 iOS 프리미티브(`@/components/ui/ios` — Card · Frame · SegmentControl · InsetGroup · InsetRow · Capsule · StatPill · ActivityRing · PrimaryButton · GlassBar · SheetContainer · Screen) 두 벌이 있고, 후자는 토큰 교체로 판면 톤을 받는다.
 - **섹션 껍데기는 `Frame`** — 손으로 `border + p-4` 를 만들면 그 구역만 한 단계 작아 보인다.
-- **상태로 1차 버튼 색을 바꾸지 않는다** — 밀린 복습은 오류가 아니다. 긴급도는 문구와 수치가 말한다.
 - **카드 + 보조 액션 = `.arc-slot`** — `<a>` 안에 `<button>` 금지. 형제로 두고 버튼은 우상단 44×44, 카드 상단 `padding-right: 44px`, DOM 순서 = 탭 순서.
-- **설명 오버레이는 세션 진입 전에만**(`components/game/brief/`) — `role="dialog"` + `aria-modal` · Esc · Tab 트랩 · 포커스 복귀 · ≤620px 바텀시트 · 상태는 색+아이콘+테두리 3중.
-- **아이콘 = lucide-react** 12–20px · `strokeWidth` 2 · `currentColor` · **둥근 컨테이너에 담지 않는다**. 세션 머리·채점 이모지 금지(→ `SealMark` · 채움 눈금 1~4칸).
-- **삽화 = `components/illustrations/Illustration`** + `generated/<id>.ts`(드레인 import 가 쓴다 — 손으로 고치지 않는다). 인라인 SVG 라 토큰·다크를 그대로 받는다. 자리는 공개 화면 섹션 머리 · 빈 상태만(학습 중 · `ModuleHero` 0). 규칙 [design/03-system.md §3-9](design/03-system.md) · 목록 `docs/design/asset-manifest.json`.
+- **설명 오버레이**(`components/game/brief/`, 현행은 세션 진입 전) — `role="dialog"` + `aria-modal` · Esc · Tab 트랩 · 포커스 복귀 · ≤620px 바텀시트 · 상태는 색+아이콘+테두리 3중.
+- **아이콘 = lucide-react** 12–20px · `strokeWidth` 2 · `currentColor`. 세션 머리·채점 표식은 현행 `SealMark` · 채움 눈금 1~4칸.
+- **삽화 = `components/illustrations/Illustration`** + `generated/<id>.ts`(드레인 import 가 쓴다 — 손으로 고치지 않는다). 인라인 SVG 라 토큰·다크를 그대로 받는다. 현행 자리는 공개 화면 섹션 머리 · 빈 상태. 규칙 [design/03-system.md §3-9](design/03-system.md) · 목록 `docs/design/asset-manifest.json`.
 - **폼**: 레이블 필수(placeholder 대체 금지) · 오류는 `--bde` 테두리 + 문구 · disabled 는 `opacity-50` + `cursor-not-allowed`.
 
 ## 화면 계측 훅
@@ -348,19 +329,16 @@ mono      : … JetBrains Mono → … → var(--font-body) → monospace  ← �
 - 클릭되는 것은 `<button>`/`<a>` — `div onClick` 에 `role`·`tabIndex` 를 붙였으면 **`onKeyDown` 도**(Enter/Space 는 div 에서 click 을 만들지 않는다)
 - 키보드: Tab / Esc / Enter / Space / 방향키 · 한국어 IME 조합 보호는 입력 컴포넌트 책임
 
-### 안티패턴 (절대 금지)
-- 정답률 빨간 글씨 압박 · "오답"을 부정적 색만으로 표시
-- 모달 오버레이로 학습 중단 · "Are you still there?" · 학습 흐름 중 광고·업셀
-- 진행률 100% 에 폭죽·트로피 — "오늘 잘 마쳤어요"
-- 빈 상태를 두 칸 잡아 두 번 알리기 — 없는 것은 한 줄로 말하고 자리를 비운다
+### 안티패턴 (접근성 · 정직성)
+- "오답"을 색만으로 표시(→ 색 + 아이콘 + 텍스트)
 - 낡은 산출물을 현재 것처럼 내걸기 — 나이를 함께 적는다
-- 오류 색(`--error`)을 오류가 아닌 것(복습 밀림·미완료)에 쓰기
+
+(디자인·학습 UX 금지 항목 — 빨간 글씨 압박 · 모달로 학습 중단 · 폭죽·트로피 · 빈 상태 두 칸 · 오류 색 용도 — 은 DD-66 으로 삭제.)
 
 ### PR 자가 점검 (머지 전)
 - [ ] 학습 과학 원칙 중 최소 1개에 명시적 기여? (철학 4 · 원칙 7 정본은 [AGENTS.md](../AGENTS.md) · [LEARNING_MODEL](./LEARNING_MODEL.md))
-- [ ] Calm UI 위반 없는가? (색·소리·애니메이션 과잉)
 - [ ] 회상 부담을 명시적으로 만드는가?
-- [ ] 실패가 비난적이지 않은가?
 - [ ] 진행을 환경으로 보여주는가?
 - [ ] 맥락을 보존하는가? (단어는 스크립트/예문과 결합)
-- [ ] 골격이 형태 문법(F1–F5) 또는 vocaflow-design §G1 축 중 하나인가 — 카드 목록·표·3열 격자가 골격이면 [06-workflow](design/06-workflow.md) 비평 (b) 평균 회귀부터
+
+(Calm UI · 비난 · 평균 회귀 점검 항목은 DD-66 으로 삭제.)

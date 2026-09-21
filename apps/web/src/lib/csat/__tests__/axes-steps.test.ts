@@ -20,17 +20,7 @@ describe('두 축은 절대 합치지 않는다', () => {
     expect(new Set(marks).size).toBe(marks.length)
   })
 
-  it('색은 전부 토큰 참조다 — 하드코딩 hex 금지', () => {
-    for (const [k, v] of Object.entries(AXIS)) {
-      expect(v.fg, `${k}.fg`).toMatch(/^var\(--/)
-      expect(v.bg, `${k}.bg`).toMatch(/^var\(--/)
-    }
-  })
-
-  it('3점 표시에 error 색을 쓰지 않는다 — 어려움은 실패가 아니다', () => {
-    expect(AXIS.hard.fg).not.toContain('error')
-    expect(AXIS.hard.bg).not.toContain('error')
-  })
+  // 디자인·UX 금지 검사 3건(하드코딩 hex 금지 · 3점 error 색 금지 · 농도 토큰 강제)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
   it('모든 역할이 라벨과 설명을 갖는다', () => {
     for (const [k, v] of Object.entries(AXIS)) {
@@ -71,10 +61,6 @@ describe('히트맵 농도', () => {
   it('진한 칸 위 글자는 배경색으로 뒤집힌다', () => {
     expect(densityFg(0)).toBe('var(--t1)')
     expect(densityFg(DENSITY_STEPS - 1)).toBe('var(--bg)')
-  })
-
-  it('농도도 토큰으로 만든다 — 새 색을 만들지 않는다', () => {
-    expect(densityBg(3)).toContain('var(--p)')
   })
 })
 

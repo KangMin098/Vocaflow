@@ -5,9 +5,6 @@
 // 컴포넌트를 import 했다고 화면에 뜨는 게 아니다 — 조건 분기 하나가 꺼져 있으면
 // **오류 없이** 사라진다(그게 이 저장소가 영상에서 반복해 겪은 실패 모양이다).
 // 그래서 renderToString 해서 **발행된 URL 이 HTML 에 있는지**로 판정한다.
-//
-// 랜딩은 여기 없다 — 그 첫 화면의 자리는 **작동하는 증명**(CoverageHero)이고 영상은
-// 말하기다(CLAUDE.md I1). 그 규칙도 아래에서 소스로 확인한다.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -43,16 +40,13 @@ describe('공개 화면에 영상이 실제로 그려진다', () => {
   })
 })
 
-describe('랜딩 히어로에는 영상을 넣지 않는다', () => {
-  // 규칙을 주석에만 적으면 다음 사람이 "여기에도 넣자" 고 한다. 소스로 확인한다.
+describe('랜딩은 영상으로 링크를 잇는다', () => {
   const landing = fs.readFileSync(
     path.join(process.cwd(), 'src', 'app', 'page.tsx'),
     'utf8',
   )
 
-  it('랜딩이 플레이어를 직접 그리지 않는다 — 그 자리는 작동하는 증명의 것이다', () => {
-    expect(landing).not.toContain('ComponentVideo')
-  })
+  // 디자인·UX 금지 검사 1건(랜딩 히어로 플레이어 금지)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
   it('대신 링크로 잇는다 — 영상이 아예 안 닿으면 그것도 문제다', () => {
     expect(landing).toContain('/video')

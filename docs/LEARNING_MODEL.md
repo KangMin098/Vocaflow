@@ -213,10 +213,10 @@ Difficulty 회귀:   D_new = w × D_old + (1-w) × D_baseline    -- ease hell �
 
 | 장치 | Cold | Warm | Hot | 안티패턴 회피 |
 |---|:---:|:---:|:---:|---|
-| Streak 카운터 | 표시 | 강조 (`s2` 크기) | 잠금 가능 | 끊겨도 비난 X — "다시 만나봐요" |
-| 색 변화 (4색) | **핵심 보상** | **핵심 보상** | **핵심 보상** | 빨강 = 압박 X (자연스러운 알림) |
+| Streak 카운터 | 표시 | 강조 (`s2` 크기) | 잠금 가능 | 끊기면 "다시 만나봐요" |
+| 색 변화 (4색) | **핵심 보상** | **핵심 보상** | **핵심 보상** | (DD-66 로 삭제) |
 | 격려 카피 | 자주 | 가끔 | 최소 | 과잉 시 진정성 손실 |
-| Memory Decay 환경 | 약하게 | 표준 | 강하게 | 모달/빨간 카운터 절대 X |
+| Memory Decay 환경 | 약하게 | 표준 | 강하게 | (DD-66 로 삭제) |
 
 > 보상은 **고정 비율(VR) 스케줄** — 매번 X, 가끔 O (도파민 시스템 정합).
 
@@ -344,7 +344,7 @@ Workspace L2 통독
 
 | 원칙 | L0 | L1 | L2 | L3 | L4a 재인 | L4b 시각생성 | L4c 청각생성 | L5 | L6 |
 |---|---|---|---|---|---|---|---|---|---|
-| Calm UI | 광고 X · 카드 정렬 | 입력 양식 차분 | 자동재생 X | progress 차분 | 정답 spring · 비난 X | 타이핑 완성 spring | TTS 입력 시 정지 | 3-screen 차분 | "오늘 잘 마쳤어요" |
+| Calm UI | 카드 정렬 | 입력 양식 차분 | — | progress 차분 | 정답 spring | 타이핑 완성 spring | TTS 입력 시 정지 | 3-screen 차분 | "오늘 잘 마쳤어요" |
 | Progressive Disclosure | CategoryChip 토글 | 입력 단순화 | hover→RecallCard | 예문 토글 | 힌트 점진 노출 | 첫 글자 힌트 | 4단계 힌트 | 스크립트 인용 단서 | InsightPanel 토글 |
 | Empathetic Feedback | "추천해드려요" | "직접 입력해 보세요" | "좋은 흐름이에요" | "12개를 만났어요" | "다시 만나봐요" | "정확해요!" | "다시 들어볼까요?" | "스크립트을 정복했어요" | "20분의 깊은 시간" |
 | Implicit Progress | 본 카드 흐림 | — | progressPercent | Memory Decay 4색 | ● 회색→주황 | ● 주황→초록 | 단어별 색 갱신 | 텍스트 정복 표시 | WeeklyHeatmap |
@@ -417,7 +417,7 @@ Workspace L2 통독
 - FSRS 변수(D/S/R)를 사용자에게 직접 노출 — Progressive Disclosure 위반
 - Cold 사용자에게 Interleaved 강제 — undesirable difficulty
 - `state` 컬럼을 DB에 저장하고 직접 사용 — Memory Decay 색 일관성 깨짐 (반드시 R(t) 동적 계산)
-- 추천 라벨에 정확도/실패 카운트 노출 — Empathetic Feedback 위반
+- (추천 라벨 정확도/실패 카운트 노출 금지 — DD-66 으로 삭제)
 
 ## 기출 해부의 인출·대조·전이 (2026-09-17)
 

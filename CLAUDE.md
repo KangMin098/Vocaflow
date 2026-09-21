@@ -8,7 +8,7 @@
 
 ## 스킬 · 서브에이전트 · 슬래시 명령
 
-- 화면·랜딩·온보딩·모션·감성 카피를 만들기 전에 **`vocaflow-design` 스킬을 호출**한다. 외부 취향 스킬 `design-taste-frontend` 는 참고용이다(`minimalist-ui` · 판정표는 DD-65 로 삭제).
+- UI 작업에서 `vocaflow-design` · `design-taste-frontend` 는 필요할 때 부르는 선택 스킬이다.
 - 드레인 청크 팬아웃은 `.claude/agents/` 의 전용 서브에이전트로: `csat-item-analyst` · `pending-words-judge` · `vcb-enrich-chunk` · `vcb-seed-validator` · `vcb-curation-comparator`. 진입은 슬래시 명령(`/pending-words-drain` · `/vcb-batch-enrich` · `/vcb-seed-validate` · `/vcb-curate-compare`).
 - DB 위험 작업은 `/db-checkpoint` 로 앞뒤 스냅샷, 장애는 `/db-incident`, 헬스 판정·조치는 `/db-health-audit` → `/db-remediate`.
 - 서브에이전트는 **독립 청크를 병렬로 돌릴 때와 넓은 탐색**에만 쓴다. 파일 하나·사실 하나 확인은 직접 한다.

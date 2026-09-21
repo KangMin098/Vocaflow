@@ -1,13 +1,10 @@
 // packages/library-pipeline/src/vocab/brand.test.ts
 //
-// 이 파일의 일은 **드리프트를 잡는 것**이다. 값을 여기 다시 적으면 세 곳이 되어
-// 더 나빠지므로, 토큰 패키지에서 읽어 카탈로그 팔레트와 대조한다.
+// 카탈로그 브랜드(팔레트 짝 · CSS 변수 · 판권면 · 사다리)의 동작 계약을 검사한다.
 
-import { colorsDark, colorsLight, fontFamily, iosColors } from '@vocaflow/design-tokens'
 import { describe, expect, it } from 'vitest'
 import { SERIES_SPINE } from '../textbook/series'
 import {
-  CATALOG_FONTS,
   CATALOG_PALETTE,
   FAMILY_DUOTONE,
   VOCAB_SERIES_BRAND,
@@ -23,50 +20,17 @@ import {
   vocabBrandSpecRows,
 } from './brand'
 
-describe('카탈로그 팔레트가 디자인 토큰과 어긋나지 않는다', () => {
-  it('라이트 — 일곱 색이 전부 토큰 값이다', () => {
-    expect(CATALOG_PALETTE.light.ink).toBe(colorsLight.t1)
-    expect(CATALOG_PALETTE.light.sub).toBe(colorsLight.t3)
-    expect(CATALOG_PALETTE.light.line).toBe(colorsLight.bd)
-    expect(CATALOG_PALETTE.light.bg).toBe(colorsLight.bg)
-    expect(CATALOG_PALETTE.light.accent).toBe(colorsLight.activeInk)
-    expect(CATALOG_PALETTE.light.spine).toBe(colorsLight.p)
-    expect(CATALOG_PALETTE.light.plate).toBe(colorsLight.bg2)
-  })
+// 디자인 금지 검사 5건(팔레트·듀오톤을 토큰 값에 묶기 · 반투명 금지 · 옛 듀오톤 금지 · 표제어 Lora)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
-  it('다크 — 일곱 색이 전부 토큰 값이다', () => {
-    expect(CATALOG_PALETTE.dark.ink).toBe(colorsDark.t1)
-    expect(CATALOG_PALETTE.dark.sub).toBe(colorsDark.t3)
-    expect(CATALOG_PALETTE.dark.line).toBe(colorsDark.bd)
-    expect(CATALOG_PALETTE.dark.bg).toBe(colorsDark.bg2)
-    expect(CATALOG_PALETTE.dark.accent).toBe(colorsDark.activeInk)
-    expect(CATALOG_PALETTE.dark.spine).toBe(colorsDark.p)
-    expect(CATALOG_PALETTE.dark.plate).toBe(colorsDark.bg3)
-  })
-
+describe('카탈로그 팔레트의 테마 짝', () => {
   it('라이트·다크가 같은 키를 갖는다 — 한쪽만 늘면 테마가 짝을 잃는다', () => {
     expect(Object.keys(CATALOG_PALETTE.dark).sort())
       .toEqual(Object.keys(CATALOG_PALETTE.light).sort())
   })
 
-  it('듀오톤 다섯 계열이 전부 토큰 값이고 라이트·다크가 짝을 이룬다', () => {
+  it('듀오톤 다섯 계열의 라이트·다크가 짝을 이룬다', () => {
     expect(Object.keys(FAMILY_DUOTONE.dark).sort())
       .toEqual(Object.keys(FAMILY_DUOTONE.light).sort())
-    expect(FAMILY_DUOTONE.light.list.ink).toBe(colorsLight.info)
-    expect(FAMILY_DUOTONE.light.structure.ink).toBe(colorsLight.success)
-    expect(FAMILY_DUOTONE.light.corpus.ink).toBe(colorsLight.warning)
-    expect(FAMILY_DUOTONE.light.delivery.ink).toBe(colorsLight.p)
-    expect(FAMILY_DUOTONE.light.unique.ink).toBe(iosColors.purple)
-  })
-
-  it('듀오톤에 반투명 색이 없다 — multiply/screen 블렌드가 흐려진다', () => {
-    const all = [
-      ...Object.values(FAMILY_DUOTONE.light),
-      ...Object.values(FAMILY_DUOTONE.dark),
-    ].flatMap((d) => [d.ink, d.paper])
-    for (const c of all) {
-      expect(c, `${c} 에 알파가 있다`).toMatch(/^#[0-9a-fA-F]{6}$/)
-    }
   })
 
   it('다섯 계열의 잉크가 서로 다르다 — 같으면 색으로 계열을 못 가른다', () => {
@@ -75,24 +39,6 @@ describe('카탈로그 팔레트가 디자인 토큰과 어긋나지 않는다',
       expect(new Set(inks).size).toBe(inks.length)
     }
   })
-
-  it('covers/design.ts 가 손으로 적어 두었던 옛 듀오톤으로 되돌아가지 않는다', () => {
-    // 2026-08-30 이전 FAMILY_GRAIN 의 하드코딩 값. 다시 나타나면 실패한다.
-    const retired = [
-      '#2f4858', '#f3f1ec', '#f1f4ef', '#8a5a2b', '#f6f1e8',
-      '#6b655c', '#f4f2ee', '#5b3fa8', '#f2f0f8',
-    ]
-    const inUse = [
-      ...Object.values(FAMILY_DUOTONE.light),
-      ...Object.values(FAMILY_DUOTONE.dark),
-    ].flatMap((d) => [d.ink, d.paper]).map((v) => v.toLowerCase())
-    for (const old of retired) expect(inUse).not.toContain(old)
-  })
-
-  it('표제어 서체는 Lora — v06.39 시그니처다', () => {
-    expect(CATALOG_FONTS.english).toBe(fontFamily.english.join(', '))
-    expect(CATALOG_FONTS.english).toContain('Lora')
-  })
 })
 
 describe('카탈로그 CSS 변수', () => {
@@ -100,7 +46,7 @@ describe('카탈로그 CSS 변수', () => {
     const css = catalogCssVariables()
     const bare = css.split('\n').find((l) => l.startsWith(':root{'))
     expect(bare).toBeDefined()
-    expect(bare).toContain(colorsLight.t1)
+    expect(bare).toContain(CATALOG_PALETTE.light.ink)
   })
 
   it('다크가 미디어쿼리와 data-theme 양쪽에 있다 — 토글이 두 방향 모두 이긴다', () => {

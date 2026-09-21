@@ -29,7 +29,7 @@
 
 | 영역 | 문서 |
 |---|---|
-| UI / 컴포넌트 | **[DESIGN.md](./DESIGN.md) 필독**(방향·화면별 골격·서명) · [DESIGN_SYSTEM](./docs/DESIGN_SYSTEM.md) · [MODULES](./docs/MODULES.md) · 발명 정본 [vocaflow-design](./.claude/skills/vocaflow-design/SKILL.md) (UI 작업 전 필독) |
+| UI / 컴포넌트 | [DESIGN.md](./DESIGN.md)(방향·화면별 골격·서명) · [DESIGN_SYSTEM](./docs/DESIGN_SYSTEM.md) · [MODULES](./docs/MODULES.md) · 발명 참고 [vocaflow-design](./.claude/skills/vocaflow-design/SKILL.md) |
 | DB / 마이그레이션 | [DB_SCHEMA](./docs/DB_SCHEMA.md) · [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md) |
 | 라이브러리 큐레이션 | [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md) · [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md) |
 | 만화(CCP) | [CCP_LIBRARY_INTEGRATION](./docs/CCP_LIBRARY_INTEGRATION.md) · [COMIC_PIPELINE_DESIGN](./scripts/comic/docs/COMIC_PIPELINE_DESIGN.md) |
@@ -47,51 +47,39 @@
 진입 순서: 이 파일 → 영역 문서 1–3개 → **사실 검증**(DB 직접 질의 · 라우트 grep) → 변경 시 CONVENTIONS 자가 점검 → 머지 후 CHANGELOG Unreleased 갱신.
 세션 시작에 한 번: `pnpm sync:memory --check` → stale 이면 `pnpm sync:memory` 뒤 **별도 커밋**(훅은 더 이상 자동 갱신하지 않는다 — DD-49).
 
-## 디자인 철학 4 · 학습 과학 7 (항상)
+## 디자인 방향 · 학습 과학 7
 
-- **Calm UI**(학습 중 자극 최소 — 광고·뱃지 알림·과한 애니메이션 금지) · **Progressive Disclosure**(본질 먼저, 깊이는 요청 시) · **Empathetic Feedback**(비난·압박 대신 격려·맥락. 한국어 Hahmlet 세리프·이탤릭 없음 / 영어 Lora italic) · **Implicit Progress**(숫자 게이지보다 환경 변화).
+- 방향(강제 규칙 아님 — 디자인·UX 금지·제한은 DD-66 으로 전부 삭제): **Calm UI** · **Progressive Disclosure** · **Empathetic Feedback** · **Implicit Progress**. 현재 서체는 한국어 Hahmlet · 영어 Lora.
 - Active Recall(Karpicke & Roediger 2008) · Spaced Repetition(FSRS, `ts-fsrs`) · Desirable Difficulty(Bjork) · Dual Coding(Paivio) · Context-Dependent(학습 맥락에서 인출) · Cognitive Load(작업기억 ~4) · Emotional Encoding(보상 + 자기효능감). 적용: [LEARNING_MODEL](./docs/LEARNING_MODEL.md).
 - **Memory Decay 4색** — R(t) = `exp(ln(0.9) × t / S)` 를 **동적 계산**(`memory_state` 컬럼 저장 절대 금지): stable `#2E7D5A` R≥0.95 · shaky `#B5803A` 0.70≤R<0.95 · risk `#9C3A30` R<0.70 · new `#8A8278` 신규(D/S 미부여).
 
-## 첫인상 · 이탈 방지 — 말하지 말고 증명하라
+## 공개 화면 — 남은 규칙
 
 | # | 규칙 |
 |---|---|
-| I1–I2 | 공개 화면 above-the-fold 에 **실제로 수행한 결과** ≥1, 거기까지 클릭 0 · 입력 0 |
-| I3 | 증명은 조작 가능 — 컨트롤 ≥1, 200ms 내 반응 |
-| I4 | 히어로 부제 ≤ 90자 |
 | I5 | 수치는 DB 실측 또는 즉석 계산만 — 상수 금지 (`no-hardcoded-stats` 회귀) |
-| I6 | 증명이 서버 렌더 HTML 에 남는다 |
 | I7 | 한글에 `break-keep` (없으면 390px 에서 낱말이 쪼개진다) |
-| I8 | 증명이 접힌 위에서 끝난다 — 데스크톱 1280×900 기준, 모바일 제외 |
-| D1 | 가치 확인 앞에 로그인·입력·모달을 두지 않는다 |
 | D2 | 새 공개 화면은 진입 + 내부 상호작용 이벤트를 같은 커밋에 (`lib/analytics/events.ts`) |
 | D3 | 이벤트 속성은 숫자·불리언·닫힌 열거형만 |
-| D4 | 빈 상태에 다음 한 걸음이 반드시 있다 |
-| D5 | 가입 후 첫 학습 완료까지 화면 전환 ≤ 3 (회귀 `app/__tests__/activation-path.test.ts`) |
 
-**모션 예산**: 마이크로 100–200ms(`--dur-fast`/`--dur-quick`/`--dur-normal`, 진입 이징 `--ease-out-quint`) · 표준 200–300ms(`--dur-slow`) · 스태거 50ms · 이동 4–16px / 리빌 20–40px · 총 1초 초과 금지(반복 모션은 한 바퀴 `--dur-loop-fast`/`--dur-loop`/`--dur-loop-slow` 로 예외 — DD-65) · `transform`·`opacity` 만.
+I1–I4 · I6 · I8 · D1 · D4 · D5 는 DD-66 으로 삭제(회귀 `activation-path` 포함).
+
+모션 토큰: `--dur-*` · `--ease*` · `--dur-loop*`(값은 `packages/design-tokens/src/tokens.css`). 모션 예산·허용 목록·금지 목록은 DD-66 으로 삭제.
 `prefers-reduced-motion` 은 끄기가 아니라 낮추기(이동·회전·스케일 제거, 페이드는 남김).
-학습 중 허용 7종: 카드 뒤집기 · 정답 scale · 오답 shake · 진행률 바 · 점수 카운트업 · 페이지 페이드 · 포커스 링.
-항상 금지: 폭죽 · 콘페티 · 배지 팝업 · 자동재생 캐러셀. 아케이드(`components/game/`)는 대상 아님. 회귀 `components/__tests__/learning-tone.test.ts`. (장식적 상시 모션 금지는 DD-65 로 삭제.)
-활성 외부 취향 스킬은 `design-taste-frontend` 1개(+ 내장 `dataviz`) — `minimalist-ui` 와 vocaflow-design 의 제약 판정표(옛 Part 2 §0–§8)는 DD-65 로 삭제, 나머지는 `_disabled/`([design/DECISIONS](./docs/design/DECISIONS.md)). **Part 1(§A–§G) 발명이 목표 — 화면은 §G 로 자산의 형태를 골격으로 세운다.**
+외부 취향 스킬 `design-taste-frontend`(+ 내장 `dataviz`)와 `vocaflow-design` 은 참고용이다(`minimalist-ui` · 제약 판정표는 DD-65, 나머지 금지는 DD-66 으로 삭제).
 
 ## 절대 하지 않을 것
 
-- **타이포**: Inter · Roboto · Arial · 한글에 Lora · 영어에 산세리프.
-- **색**: `--color-primary` 등 v5 롱폼(v6 이후 `--p` 축약형만) · Quizlet 로고·아이콘·브랜드색 복사 · 색만으로 정보 전달.
-- **학습 UX**: 정답률 빨간 글씨 압박 · 모달 오버레이로 학습 중단 · 진행률 100% 에 폭죽·트로피("오늘 잘 마쳤어요" 선호).
+- **저작권**: Quizlet 로고·아이콘·브랜드색 복사.
 - **데이터**: `memory_state` / `mastery_progress` / `last_days` / `next_days` 컬럼 · 암호화 안 된 API 키(Supabase Vault) · `module_history` 정규화(TEXT[] 유지).
-- **접근성**: 44px 미만 터치 타겟 · placeholder 만으로 레이블 대체.
+- **접근성**: 44px 미만 터치 타겟 · placeholder 만으로 레이블 대체 · 색만으로 정보 전달.
 - **비밀값**: `.env*` 밖(에이전트 설정·문서·코드)에 키·토큰·DB URL 을 적지 않는다. `.env*` 를 출력하지 않는다.
 - 더 많은 안티패턴: [CONVENTIONS](./docs/CONVENTIONS.md).
 
 ## 항상 지킬 것
 
-- 인터랙티브 요소 4상태(hover · active · focus · disabled) · 카드·버튼 transition(`--dur-normal`, `--ease`) · 정답/오답 3중 피드백(색 + 아이콘 + 애니메이션).
-- 모바일 퍼스트(390 → 768 → 1280) · CSS Variables 로 테마(하드코딩 금지, 게임 전용 예외) · `data-theme="dark"` 전 컴포넌트 대응.
+- 인터랙티브 요소에 보이는 focus 표시(접근성).
 - 파일 첫 줄 경로 주석(`// apps/web/src/components/ui/Button.tsx`) · 코드 완성형만(TODO·생략·placeholder 금지).
-- **평균 금지(혁신만 목표)**: 새 `page.tsx` 는 첫 20줄에 `// @form: <G1 축> — <서명>`(vocaflow-design §G) · 평균 신호(3열 균등·그라디언트·AI-보라·떠오르는 hover)는 늘리지 않는다. 그림자·12px+ 모서리·glass·무한 모션은 DD-65 로 제약 해제(`--sh-soft/drop/overlay` · `--r-3xl…6xl` · `--blur-*` · `--dur-loop*`). 회귀 `app/__tests__/form-declaration-ratchet.test.ts` · `components/__tests__/average-signal-ratchet.test.ts` — 기준선을 올려 통과시키지 않는다.
 - **마이그레이션 자동 적용 금지** — SQL 을 보여주고 사용자 승인 후 적용.
 
 ## LLM 판단이 필요한 일 = 에이전트가 직접 하는 배치 드레인
@@ -137,7 +125,7 @@ API 키를 기다리며 "막혔다" 고 보고하지 않는다 — **지금 돌�
 - CSAT 원문 배치: 새 도구 전 기존 자산 검색 → `csat-sources-audit` → 사유별 대상·dry-run → 소량 검증 → 재감사. 적격 정본은 `evaluateSource`; 내용 판정은 UUID·본문 해시·revision에 묶는다. 상세 `.agents/skills/csat-source-audit/SKILL.md`.
 
 **LCP** 9 외부 소스 → 도서 큐레이션(auto_curate_book 게이트 + 4축 난이도) · **VCB** seed → enrichment → shared_words(cast-2000 audit chain) · **VRL** 4축 분류(V-Level 0-11 · Track 6 · Domain 8 · Skill 5) + 진단 5종 · **ACP** 14 소스 수집(`scripts/acp/collect-daily.mjs`) → `library_articles`. **arXiv 는 없다**(`20260614240000_acp_remove_arxiv_source`, CHECK 제약이 재삽입 차단). 상세 [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md).
-Admin Console: `/admin/*`(route group 미사용) · 액센트 = Deep Ink `--p` + `ShieldCheck` + 「Admin」 텍스트(2026-09-18 결정 — 옛 보라 `#8B5CF6` 은 신규 사용 금지, 평균 신호 라쳇으로 감소만) · 상세 [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md).
+Admin Console: `/admin/*`(route group 미사용) · 액센트 = Deep Ink `--p` + `ShieldCheck` + 「Admin」 텍스트(2026-09-18 결정 · 보라 금지는 DD-66 으로 삭제) · 상세 [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md).
 
 ## 자동화 정책 (사용자 standing authorization · 2026-06-08)
 
