@@ -8,6 +8,8 @@
    ─────────────────────────────────────────────────────────────── */
 
 @import '@vocaflow/design-tokens/tokens.css';
+/* 화면 스킨 — <html data-skin="tines"> 일 때만 켜진다(DD-68). */
+@import '@vocaflow/design-tokens/skins/tines.css';
 
 @tailwind base;
 @tailwind components;

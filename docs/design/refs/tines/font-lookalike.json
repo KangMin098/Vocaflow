@@ -1,0 +1,591 @@
+{
+  "generatedBy": "scripts/design/font-lookalike.mjs",
+  "generatedAt": "2026-09-21",
+  "method": "IoU × (1 − |1 − 폭 비율|), 문장 + 글자표 평균",
+  "results": {
+    "sans": {
+      "reference": "Roobert 400",
+      "sample": "You told everyone to use AI. Now give them a secure place to do it.",
+      "ranking": [
+        {
+          "family": "Hanken Grotesk",
+          "weight": 400,
+          "iou": 0.3267,
+          "widthRatio": 1.003,
+          "heightRatio": 0.994,
+          "score": 0.3258
+        },
+        {
+          "family": "Figtree",
+          "weight": 400,
+          "iou": 0.3189,
+          "widthRatio": 1.015,
+          "heightRatio": 1.017,
+          "score": 0.314
+        },
+        {
+          "family": "Red Hat Display",
+          "weight": 400,
+          "iou": 0.2413,
+          "widthRatio": 1.004,
+          "heightRatio": 1.04,
+          "score": 0.2403
+        },
+        {
+          "family": "Geist",
+          "weight": 400,
+          "iou": 0.2286,
+          "widthRatio": 1.022,
+          "heightRatio": 0.966,
+          "score": 0.2235
+        },
+        {
+          "family": "Instrument Sans",
+          "weight": 400,
+          "iou": 0.2227,
+          "widthRatio": 1.032,
+          "heightRatio": 1.034,
+          "score": 0.2157
+        },
+        {
+          "family": "Schibsted Grotesk",
+          "weight": 400,
+          "iou": 0.2248,
+          "widthRatio": 1.041,
+          "heightRatio": 1.034,
+          "score": 0.2155
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": 400,
+          "iou": 0.2274,
+          "widthRatio": 1.062,
+          "heightRatio": 0.989,
+          "score": 0.2133
+        },
+        {
+          "family": "Outfit",
+          "weight": 400,
+          "iou": 0.2095,
+          "widthRatio": 0.989,
+          "heightRatio": 1.011,
+          "score": 0.2072
+        },
+        {
+          "family": "DM Sans",
+          "weight": 400,
+          "iou": 0.21,
+          "widthRatio": 1.027,
+          "heightRatio": 1.046,
+          "score": 0.2043
+        },
+        {
+          "family": "Manrope",
+          "weight": 400,
+          "iou": 0.2054,
+          "widthRatio": 1.01,
+          "heightRatio": 1.08,
+          "score": 0.2032
+        },
+        {
+          "family": "Wix Madefor Display",
+          "weight": 400,
+          "iou": 0.212,
+          "widthRatio": 1.052,
+          "heightRatio": 1.023,
+          "score": 0.201
+        },
+        {
+          "family": "Bricolage Grotesque",
+          "weight": 400,
+          "iou": 0.2026,
+          "widthRatio": 1.039,
+          "heightRatio": 0.971,
+          "score": 0.1946
+        },
+        {
+          "family": "Albert Sans",
+          "weight": 400,
+          "iou": 0.1986,
+          "widthRatio": 1.039,
+          "heightRatio": 1,
+          "score": 0.1909
+        },
+        {
+          "family": "Rethink Sans",
+          "weight": 400,
+          "iou": 0.1969,
+          "widthRatio": 1.031,
+          "heightRatio": 1.034,
+          "score": 0.1908
+        },
+        {
+          "family": "Plus Jakarta Sans",
+          "weight": 400,
+          "iou": 0.1997,
+          "widthRatio": 1.049,
+          "heightRatio": 1.069,
+          "score": 0.1898
+        },
+        {
+          "family": "Urbanist",
+          "weight": 400,
+          "iou": 0.1946,
+          "widthRatio": 0.974,
+          "heightRatio": 1.098,
+          "score": 0.1896
+        },
+        {
+          "family": "Be Vietnam Pro",
+          "weight": 400,
+          "iou": 0.2033,
+          "widthRatio": 1.095,
+          "heightRatio": 1.063,
+          "score": 0.184
+        },
+        {
+          "family": "Golos Text",
+          "weight": 400,
+          "iou": 0.1979,
+          "widthRatio": 1.073,
+          "heightRatio": 1.011,
+          "score": 0.1835
+        },
+        {
+          "family": "Inter",
+          "weight": 400,
+          "iou": 0.1966,
+          "widthRatio": 1.069,
+          "heightRatio": 1.063,
+          "score": 0.183
+        },
+        {
+          "family": "Onest",
+          "weight": 400,
+          "iou": 0.1931,
+          "widthRatio": 1.052,
+          "heightRatio": 1.063,
+          "score": 0.183
+        },
+        {
+          "family": "Work Sans",
+          "weight": 400,
+          "iou": 0.201,
+          "widthRatio": 1.09,
+          "heightRatio": 1.04,
+          "score": 0.1829
+        },
+        {
+          "family": "Sora",
+          "weight": 400,
+          "iou": 0.1975,
+          "widthRatio": 1.13,
+          "heightRatio": 1.04,
+          "score": 0.1719
+        }
+      ]
+    },
+    "sans-medium": {
+      "reference": "Roobert 500",
+      "sample": "Product Solutions Customers Discover Pricing Log in Sign up",
+      "ranking": [
+        {
+          "family": "Figtree",
+          "weight": 500,
+          "iou": 0.4926,
+          "widthRatio": 1.013,
+          "heightRatio": 1.006,
+          "score": 0.4861
+        },
+        {
+          "family": "Red Hat Display",
+          "weight": 500,
+          "iou": 0.3101,
+          "widthRatio": 1.011,
+          "heightRatio": 1.028,
+          "score": 0.3068
+        },
+        {
+          "family": "Hanken Grotesk",
+          "weight": 500,
+          "iou": 0.2968,
+          "widthRatio": 0.994,
+          "heightRatio": 0.989,
+          "score": 0.295
+        },
+        {
+          "family": "Outfit",
+          "weight": 500,
+          "iou": 0.2745,
+          "widthRatio": 0.987,
+          "heightRatio": 1.006,
+          "score": 0.271
+        },
+        {
+          "family": "Geist",
+          "weight": 500,
+          "iou": 0.2585,
+          "widthRatio": 1.04,
+          "heightRatio": 0.966,
+          "score": 0.2482
+        },
+        {
+          "family": "Instrument Sans",
+          "weight": 500,
+          "iou": 0.2429,
+          "widthRatio": 1.046,
+          "heightRatio": 1.023,
+          "score": 0.2317
+        },
+        {
+          "family": "Schibsted Grotesk",
+          "weight": 500,
+          "iou": 0.2388,
+          "widthRatio": 1.048,
+          "heightRatio": 1.034,
+          "score": 0.2274
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": 500,
+          "iou": 0.2396,
+          "widthRatio": 1.052,
+          "heightRatio": 0.989,
+          "score": 0.2273
+        }
+      ]
+    },
+    "serif": {
+      "reference": "Reckless 400",
+      "sample": "Tines lets every team build. IT and Security maintain complete visibility.",
+      "ranking": [
+        {
+          "family": "Gelasio",
+          "weight": 400,
+          "iou": 0.2536,
+          "widthRatio": 1.029,
+          "heightRatio": 1.056,
+          "score": 0.2463
+        },
+        {
+          "family": "DM Serif Display",
+          "weight": 400,
+          "iou": 0.2258,
+          "widthRatio": 1.001,
+          "heightRatio": 1.017,
+          "score": 0.2255
+        },
+        {
+          "family": "Petrona",
+          "weight": 400,
+          "iou": 0.2196,
+          "widthRatio": 0.999,
+          "heightRatio": 1.057,
+          "score": 0.2195
+        },
+        {
+          "family": "Playfair Display",
+          "weight": 400,
+          "iou": 0.2053,
+          "widthRatio": 1.014,
+          "heightRatio": 1.034,
+          "score": 0.2025
+        },
+        {
+          "family": "Gloock",
+          "weight": 400,
+          "iou": 0.2006,
+          "widthRatio": 1.045,
+          "heightRatio": 1.068,
+          "score": 0.1916
+        },
+        {
+          "family": "Literata",
+          "weight": 400,
+          "iou": 0.2007,
+          "widthRatio": 1.097,
+          "heightRatio": 1.073,
+          "score": 0.1812
+        },
+        {
+          "family": "Spectral",
+          "weight": 400,
+          "iou": 0.1862,
+          "widthRatio": 1.034,
+          "heightRatio": 1.057,
+          "score": 0.1799
+        },
+        {
+          "family": "Lora",
+          "weight": 400,
+          "iou": 0.1836,
+          "widthRatio": 1.057,
+          "heightRatio": 1.096,
+          "score": 0.1731
+        },
+        {
+          "family": "Newsreader",
+          "weight": 400,
+          "iou": 0.1706,
+          "widthRatio": 1.008,
+          "heightRatio": 1.045,
+          "score": 0.1692
+        },
+        {
+          "family": "Young Serif",
+          "weight": 400,
+          "iou": 0.1973,
+          "widthRatio": 1.159,
+          "heightRatio": 1.079,
+          "score": 0.166
+        },
+        {
+          "family": "Source Serif 4",
+          "weight": 400,
+          "iou": 0.1765,
+          "widthRatio": 1.083,
+          "heightRatio": 1.045,
+          "score": 0.1618
+        },
+        {
+          "family": "Fraunces",
+          "weight": 400,
+          "iou": 0.1679,
+          "widthRatio": 1.08,
+          "heightRatio": 1.051,
+          "score": 0.1545
+        },
+        {
+          "family": "Brygada 1918",
+          "weight": 400,
+          "iou": 0.1589,
+          "widthRatio": 1.061,
+          "heightRatio": 1.068,
+          "score": 0.1492
+        },
+        {
+          "family": "Besley",
+          "weight": 400,
+          "iou": 0.177,
+          "widthRatio": 1.16,
+          "heightRatio": 1.118,
+          "score": 0.1487
+        },
+        {
+          "family": "Noto Serif Display",
+          "weight": 400,
+          "iou": 0.159,
+          "widthRatio": 1.078,
+          "heightRatio": 1.073,
+          "score": 0.1467
+        },
+        {
+          "family": "Libre Caslon Text",
+          "weight": 400,
+          "iou": 0.1602,
+          "widthRatio": 1.103,
+          "heightRatio": 1.169,
+          "score": 0.1437
+        },
+        {
+          "family": "Bodoni Moda",
+          "weight": 400,
+          "iou": 0.148,
+          "widthRatio": 1.065,
+          "heightRatio": 1.09,
+          "score": 0.1383
+        },
+        {
+          "family": "Crimson Pro",
+          "weight": 400,
+          "iou": 0.1513,
+          "widthRatio": 0.911,
+          "heightRatio": 0.956,
+          "score": 0.1379
+        },
+        {
+          "family": "Libre Baskerville",
+          "weight": 400,
+          "iou": 0.1649,
+          "widthRatio": 1.195,
+          "heightRatio": 1.169,
+          "score": 0.1327
+        },
+        {
+          "family": "Instrument Serif",
+          "weight": 400,
+          "iou": 0.1665,
+          "widthRatio": 0.764,
+          "heightRatio": 1.028,
+          "score": 0.1273
+        },
+        {
+          "family": "EB Garamond",
+          "weight": 400,
+          "iou": 0.132,
+          "widthRatio": 0.915,
+          "heightRatio": 1.062,
+          "score": 0.1208
+        },
+        {
+          "family": "Cormorant",
+          "weight": 400,
+          "iou": 0.1157,
+          "widthRatio": 0.917,
+          "heightRatio": 1.073,
+          "score": 0.1061
+        }
+      ]
+    },
+    "mono": {
+      "reference": "Roobert Mono 700",
+      "sample": "BOOK A DEMO  SIGN UP FREE  100X SIMPLER",
+      "ranking": [
+        {
+          "family": "Space Mono",
+          "weight": 700,
+          "iou": 0.7891,
+          "widthRatio": 0.971,
+          "heightRatio": 0.989,
+          "score": 0.7665
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": 700,
+          "iou": 0.8031,
+          "widthRatio": 0.952,
+          "heightRatio": 0.994,
+          "score": 0.7649
+        },
+        {
+          "family": "Geist Mono",
+          "weight": 700,
+          "iou": 0.7777,
+          "widthRatio": 0.952,
+          "heightRatio": 0.988,
+          "score": 0.7407
+        },
+        {
+          "family": "JetBrains Mono",
+          "weight": 700,
+          "iou": 0.7619,
+          "widthRatio": 0.952,
+          "heightRatio": 1.022,
+          "score": 0.7256
+        },
+        {
+          "family": "Sometype Mono",
+          "weight": 700,
+          "iou": 0.7868,
+          "widthRatio": 0.921,
+          "heightRatio": 0.953,
+          "score": 0.7244
+        },
+        {
+          "family": "Source Code Pro",
+          "weight": 700,
+          "iou": 0.7496,
+          "widthRatio": 0.952,
+          "heightRatio": 0.93,
+          "score": 0.7139
+        },
+        {
+          "family": "Chivo Mono",
+          "weight": 700,
+          "iou": 0.7321,
+          "widthRatio": 0.952,
+          "heightRatio": 0.958,
+          "score": 0.6972
+        },
+        {
+          "family": "Fira Code",
+          "weight": 700,
+          "iou": 0.7152,
+          "widthRatio": 0.952,
+          "heightRatio": 0.984,
+          "score": 0.6811
+        },
+        {
+          "family": "Spline Sans Mono",
+          "weight": 700,
+          "iou": 0.701,
+          "widthRatio": 0.952,
+          "heightRatio": 1.011,
+          "score": 0.6676
+        },
+        {
+          "family": "Roboto Mono",
+          "weight": 700,
+          "iou": 0.6963,
+          "widthRatio": 0.953,
+          "heightRatio": 0.967,
+          "score": 0.6632
+        },
+        {
+          "family": "Overpass Mono",
+          "weight": 700,
+          "iou": 0.6774,
+          "widthRatio": 0.978,
+          "heightRatio": 0.925,
+          "score": 0.6623
+        },
+        {
+          "family": "Anonymous Pro",
+          "weight": 700,
+          "iou": 0.7162,
+          "widthRatio": 0.867,
+          "heightRatio": 0.904,
+          "score": 0.6206
+        },
+        {
+          "family": "Ubuntu Mono",
+          "weight": 700,
+          "iou": 0.7735,
+          "widthRatio": 0.794,
+          "heightRatio": 0.872,
+          "score": 0.6139
+        },
+        {
+          "family": "Red Hat Mono",
+          "weight": 700,
+          "iou": 0.6262,
+          "widthRatio": 0.952,
+          "heightRatio": 0.908,
+          "score": 0.5964
+        },
+        {
+          "family": "DM Mono",
+          "weight": 400,
+          "iou": 0.5904,
+          "widthRatio": 0.952,
+          "heightRatio": 0.979,
+          "score": 0.5623
+        },
+        {
+          "family": "Share Tech Mono",
+          "weight": 400,
+          "iou": 0.4993,
+          "widthRatio": 0.857,
+          "heightRatio": 0.893,
+          "score": 0.4279
+        },
+        {
+          "family": "Azeret Mono",
+          "weight": 700,
+          "iou": 0.4329,
+          "widthRatio": 1.032,
+          "heightRatio": 0.891,
+          "score": 0.4192
+        },
+        {
+          "family": "Martian Mono",
+          "weight": 700,
+          "iou": 0.2878,
+          "widthRatio": 1.111,
+          "heightRatio": 1.157,
+          "score": 0.2559
+        }
+      ]
+    }
+  }
+}

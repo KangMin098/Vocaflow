@@ -97,6 +97,19 @@
 **`--t3` 이하를 의미 있는 글자에 쓰지 않는다** — 메타·저자명·설명은 `--t2` 이상, `--t4` 는 장식·비활성 전용.
 측정 근거 ADR-004([DESIGN_DECISIONS.md](./DESIGN_DECISIONS.md)) · 회귀 `apps/web/tests/e2e/14-learner-quality.spec.ts`(axe AA · 라이트/다크 · 44px).
 
+### 화면 스킨 — Tines (DD-68)
+
+`<html data-skin="tines">` 이면 `packages/design-tokens/src/skins/tines.css` 가 같은 토큰 이름(`--p` · `--bg*` · `--t*` · `--bd` · 의미색 · `--r-sm…2xl` · 서체 변수)을 참조 사이트 실측값으로 덮어쓴다. 기본값은 켜짐(`NEXT_PUBLIC_SKIN`, 끄기 `off`), 브라우저 `?skin=off|tines`. 앱(RN) 값은 `skins/tines.ts` — 두 출처는 `skin-parity.test.ts` 가 묶는다.
+
+| 자리 | 라이트 | 다크 |
+|---|---|---|
+| `--bg` · `--bg2` · `--bg3` | `#fcf9f5` · `#f5f2fb` · `#ece8fd` | `#191226` · `#211735` · `#2a1b49` |
+| `--t1…t3` | `#714bd0`(5.53:1 — 참조는 글자 한 색) | `#ded8ff` · `#c3b5ff` · `#aa94ff` |
+| `--p` · `--on-p` | `#542f9c` · `#fcf9f5` | `#aa94ff` · `#191226` |
+| `--bd` | `#c3b5ff` | `#3f2374` |
+| `--r-sm…2xl` | 4 · 6 · 12 · 14 · 24px | (라이트와 같음) |
+| 서체 | Figtree · Petrona · Space Mono · 한글 Pretendard / Hahmlet | |
+
 ### 색 토큰 카탈로그 (현행 · 2026-09-18 실측)
 
 | 토큰 | 라이트 | 다크 | 역할 |

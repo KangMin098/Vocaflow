@@ -5,10 +5,13 @@
 
 import type { Metadata, Viewport } from "next";
 import {
+  Figtree,
   Hahmlet,
   IBM_Plex_Sans_KR,
   Lora,
   JetBrains_Mono,
+  Petrona,
+  Space_Mono,
 } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
 import { DevicePreferences } from "@/components/layout/DevicePreferences";
@@ -82,6 +85,39 @@ const fontMono = JetBrains_Mono({
   display: "swap",
 });
 
+// ── Tines 스킨(DD-68) — 참조 서체(상용)의 픽셀 비교 1위 무료 대체 ─────────────────
+// docs/design/refs/tines/font-lookalike.md · 변수는 skins/tines.css 가 읽는다.
+// preload 를 끈다 — 스킨이 꺼진 화면에서는 한 바이트도 받지 않는다.
+const fontTinesSans = Figtree({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-tines-sans",
+  display: "swap",
+  preload: false,
+});
+
+const fontTinesSerif = Petrona({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+  variable: "--font-tines-serif",
+  display: "swap",
+  preload: false,
+});
+
+const fontTinesMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-tines-mono",
+  display: "swap",
+  preload: false,
+});
+
+/**
+ * 화면 스킨 — 기본은 `tines`(사용자 결정 2026-09-21 「가장 닮음으로 우선 진행 후 평가」).
+ * `NEXT_PUBLIC_SKIN=off` 로 기본을 끄고, 브라우저에서는 `?skin=off|tines` 가 localStorage 에 남는다.
+ */
+const DEFAULT_SKIN = process.env.NEXT_PUBLIC_SKIN ?? "tines";
+
 export const metadata: Metadata = {
   // 이게 없으면 Next 는 OG·canonical 을 **상대경로**로 내보내고, 상대 OG URL 은 대부분의
   // 메신저·SNS 미리보기에서 무시된다 — 공유 링크에 제목을 붙여 놔도 안 보인다(2026-08-17 실측).
@@ -132,7 +168,8 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${fontUI.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable}`}
+      className={`${fontUI.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable} ${fontTinesSans.variable} ${fontTinesSerif.variable} ${fontTinesMono.variable}`}
+      data-skin={DEFAULT_SKIN === "off" ? undefined : DEFAULT_SKIN}
       suppressHydrationWarning
     >
       <head>
@@ -145,10 +182,20 @@ export default function RootLayout({
                   var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                   var theme = stored || (prefersDark ? 'dark' : 'light');
                   document.documentElement.setAttribute('data-theme', theme);
+                  var q = new URLSearchParams(location.search).get('skin');
+                  if (q === 'off' || q === 'tines') localStorage.setItem('vocaflow-skin', q);
+                  var skin = localStorage.getItem('vocaflow-skin');
+                  if (skin === 'off') document.documentElement.removeAttribute('data-skin');
+                  else if (skin) document.documentElement.setAttribute('data-skin', skin);
                 } catch (e) {}
               })();
             `,
           }}
+        />
+        {/* 한글 산세리프(Tines 스킨) — Pretendard 동적 서브셋. 스킨이 꺼지면 글꼴 파일을 받지 않는다. */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
       <body className="font-body antialiased">

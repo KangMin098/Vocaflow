@@ -6,7 +6,7 @@
 //
 // 삽화마다 재는 것:
 //   접근성  <title> 있음
-//   지식재산 서체 Roobert/Reckless 0(상용 서체 라이선스) · Tines 색 정확 일치 0 · 새 색 ΔE2000 < 2 (Tines 목록) 0 — 예외 토큰 --bg · --bg2
+//   지식재산 서체 Roobert/Reckless 0(상용 서체 라이선스) · Tines 색 정확 일치 · 새 색 ΔE2000 < 2 (Tines 목록) 는 보고만(DD-68) — 예외 토큰 --bg · --bg2
 //       경로 유사: Tines SVG 원본을 저장소에 두지 않으므로(brief A1) 비교 원본이 없으면 "원본 없음" 으로 기록한다
 // DD-66(사용자 결정 2026-09-21)으로 삭제한 디자인 취향 규칙: 팔레트 칸 ≤ 5 · 허용 토큰 밖 토큰 · 선 굵기 종류 ≤ 2 ·
 //   2px/3px 선 · 액센트 면적 ≤ 10% · hex 리터럴 · 그라디언트 · 무대 동일성 · 큰 도형 폭 60~85% · 금지 소재 낱말 ·
@@ -92,7 +92,8 @@ for (const [idx, f] of files.entries()) {
     file: f, size: info.size, title: !!info.title, fonts: info.fonts, badFont: info.fonts.some((x) => /Roobert|Reckless/i.test(x)),
     exact: exact.length, nearNew: near.filter((n) => !n.exempt).length, nearExempt: near.filter((n) => n.exempt).map((n) => `${n.exempt}↔${n.tines} ${n.de}`),
   }
-  r.fails = [!r.title && 'title', r.badFont && 'font', r.exact && 'hex=Tines', r.nearNew && 'ΔE<2'].filter(Boolean)
+  // Tines 색 정확 일치 · ΔE<2 는 **보고만** 한다 — DD-68(사용자 결정 2026-09-21 「가장 닮음」)으로 실패 조건에서 뺐다.
+  r.fails = [!r.title && 'title', r.badFont && 'font'].filter(Boolean)
   results.push(r)
 }
 await b.close()
