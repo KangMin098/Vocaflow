@@ -139,3 +139,17 @@ describe('조판 활자 스케일', () => {
     expect(css).toContain(`--leading:${VOLUME_METRICS.leading}`)
   })
 })
+
+describe('조판 팔레트 덮어쓰기 (DD-66 — 팔레트 = 토큰 고정 해제)', () => {
+  it('인자가 없으면 토큰 팔레트 그대로다', () => {
+    expect(volumeCssVariables()).toBe(volumeCssVariables({}))
+    expect(volumeCssVariables()).toContain(`--ink:${VOLUME_PALETTE.light.ink}`)
+  })
+
+  it('적은 자리만 바꾸고 나머지는 토큰 값을 둔다', () => {
+    const css = volumeCssVariables({ light: { slot: '#c0392b' }, dark: { bg: '#101010' } })
+    expect(css).toContain('--slot:#c0392b')
+    expect(css).toContain('--bg:#101010')
+    expect(css).toContain(`--ink:${VOLUME_PALETTE.light.ink}`)
+  })
+})

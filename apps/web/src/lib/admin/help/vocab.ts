@@ -635,7 +635,7 @@ export const VCB_HELP: HelpRegistry = {
           + '표지 듀오톤이 계열 색이고, 세트마다 브랜드를 만들면 카탈로그가 잡지 스크랩북이 된다.',
         prerequisites: [
           'apps/web/.env.local 에 SUPABASE_SERVICE_ROLE_KEY 가 있을 것 (import 가 발행 세트를 고친다)',
-          '색을 새로 정할 생각이라면 먼저 디자인 토큰을 고칠 것 — 규격은 색 값을 담을 수 없다(역할 이름만)',
+          '색은 역할 이름(ink·paper·accent — 토큰을 따라감)이나 CSS 색 값(hex·rgb·oklch — 적은 값 그대로, 토큰을 안 따라감) 둘 다 받는다. 서체도 역할 이름이나 font-family 값을 받는다(DD-66)',
         ],
         procedure: [
           {
@@ -679,7 +679,7 @@ export const VCB_HELP: HelpRegistry = {
             + '(2026-09-07 이전이 정확히 그 상태였다: 여덟 항목 중 계열 하나만 화면에 닿고 있었다).',
         ],
         recovery: [
-          '검증에 걸린 캔버스는 **적재되지 않는다** — 색 값(hex/rgb)을 담았거나 빈 값이면 거절하고 그 계열을 건너뛴다. 출력에 찍힌 field/message 를 고쳐 다시 돌린다.',
+          '검증에 걸린 캔버스는 **적재되지 않는다** — 빈 값, 범위 밖 수치, 역할도 색 값도 아닌 색 자리(오타)면 거절하고 그 계열을 건너뛴다. 출력에 찍힌 field/message 를 고쳐 다시 돌린다.',
           '잘못 각인했으면 .out.json 을 고쳐 --commit 을 다시 돌린다 (덮어쓰기가 아니라 같은 키를 다시 쓴다).',
           '규격이 화면에서 안 맞으면 **코드가 아니라 캔버스를 고친다** — 화면 값은 각인에서 오고, '
             + '코드에 남은 것은 각인이 없는 권의 하한뿐이다(`covers/contrast.ts`). '

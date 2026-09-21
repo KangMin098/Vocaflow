@@ -285,3 +285,17 @@ describe('규격 표', () => {
     }
   })
 })
+
+describe('카탈로그 팔레트 덮어쓰기 (DD-66 — 팔레트 = 토큰 고정 해제)', () => {
+  it('인자가 없으면 토큰 팔레트 그대로다', () => {
+    expect(catalogCssVariables()).toBe(catalogCssVariables({}))
+    expect(catalogCssVariables()).toContain(`--ink:${CATALOG_PALETTE.light.ink}`)
+  })
+
+  it('적은 자리만 바꾸고 나머지는 토큰 값을 둔다', () => {
+    const css = catalogCssVariables({ light: { accent: '#714bd0' }, dark: { spine: 'oklch(0.7 0.1 280)' } })
+    expect(css).toContain('--accent:#714bd0')
+    expect(css).toContain('--spine:oklch(0.7 0.1 280)')
+    expect(css).toContain(`--ink:${CATALOG_PALETTE.light.ink}`)
+  })
+})

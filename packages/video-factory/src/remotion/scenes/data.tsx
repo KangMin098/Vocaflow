@@ -7,15 +7,15 @@
 
 import React from 'react'
 
-import type { AccentKey, LadderScene, ShelfScene, StatScene } from '../../spec/types'
+import type { Accent, LadderScene, ShelfScene, StatScene } from '../../spec/types'
 import { shelfBookWidth, shelfGap } from '../../spec/layout'
-import { ACCENT, FONT, SURFACE } from '../../theme/palette'
+import { accentColor, FONT, SURFACE } from '../../theme/palette'
 import { enterExit, progress, spread, transform } from '../motion'
 import { KO, useFormat } from '../Frame'
 
 /* ── 수치 ─────────────────────────────────────────────────────── */
 
-export const Stat: React.FC<{ scene: StatScene; accent: AccentKey; duration: number }> = ({
+export const Stat: React.FC<{ scene: StatScene; accent: Accent; duration: number }> = ({
   scene,
   accent,
   duration,
@@ -44,7 +44,7 @@ export const Stat: React.FC<{ scene: StatScene; accent: AccentKey; duration: num
                 fontVariantNumeric: 'tabular-nums',
                 fontSize: Math.round(76 * scale),
                 lineHeight: 1.05,
-                color: ACCENT[accent],
+                color: accentColor(accent),
               }}
             >
               {shown}
@@ -80,7 +80,7 @@ export const Stat: React.FC<{ scene: StatScene; accent: AccentKey; duration: num
 
 /* ── 커리큘럼 계단 ────────────────────────────────────────────── */
 
-export const Ladder: React.FC<{ scene: LadderScene; accent: AccentKey; duration: number }> = ({
+export const Ladder: React.FC<{ scene: LadderScene; accent: Accent; duration: number }> = ({
   scene,
   accent,
   duration,
@@ -144,7 +144,7 @@ export const Ladder: React.FC<{ scene: LadderScene; accent: AccentKey; duration:
                 style={{
                   width: `${width * 100}%`,
                   height: '100%',
-                  backgroundColor: empty ? SURFACE.border : ACCENT[accent],
+                  backgroundColor: empty ? SURFACE.border : accentColor(accent),
                 }}
               />
               {/*
@@ -183,13 +183,13 @@ export const Ladder: React.FC<{ scene: LadderScene; accent: AccentKey; duration:
 
 /* ── 서가 ─────────────────────────────────────────────────────── */
 
-export const Shelf: React.FC<{ scene: ShelfScene; accent: AccentKey; duration: number }> = ({
+export const Shelf: React.FC<{ scene: ShelfScene; accent: Accent; duration: number }> = ({
   scene,
   accent,
   duration,
 }) => {
   const { format, scale, frame } = useFormat()
-  const color = ACCENT[accent]
+  const color = accentColor(accent)
 
   /**
    * 책등 폭을 **가용 폭에서 계산한다.**

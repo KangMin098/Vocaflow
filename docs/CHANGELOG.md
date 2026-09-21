@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **코드로 걸린 디자인 제한 해제**(DD-67): 영상 강조색이 원시 CSS 색을 받고(`accentColor`·`accentSoft`), 영상 말하는 자리 서체를 장면 `voice` 로 덮어쓴다. 브랜드 캔버스·표지 lockup 이 색 값과 `font-family` 를 받고, 카탈로그·조판 CSS 변수가 팔레트 덮어쓰기를 받는다. 기본 출력 무변경.
+
 - **디자인·UX 금지·제한 전부 삭제**(DD-66, 사용자 결정): 규칙 문서 16종·스킬 2종에서 금지·게이트 문구 삭제, 회귀 3파일 삭제(`average-signal-ratchet` · `form-declaration-ratchet` · `activation-path`) + 테스트 약 40건의 금지 케이스 삭제(웹 14파일 · `framework` · video-factory · library-pipeline), `style-gate` 취향 규칙 12개 삭제. 접근성 · 정직성 · 저작권 · 비밀값 · 데이터 · git 규칙은 유지. 코드로 걸린 제한 4건은 미변경(DD-66 표).
 
 - **제약 4종 삭제 + 제약 스킬 삭제**(DD-65 · ADR-007, 사용자 결정): 무한 모션 · 12px+ 모서리 · 그림자 · glass 금지를 규칙·라쳇(`average-signal-ratchet` 신호 8→4)·`learning-tone` 에서 뺐다. 스킬 `vocaflow-design` Part 2(제약 §0–§8)·§G4 삭제(두 사본 368→163줄), `minimalist-ui` · `vocaflow-visual-critic` 삭제. 토큰 추가 `--r-3xl…6xl` · `--sh-soft/drop/overlay` · `--blur-sm/md/lg` · `--dur-loop*`(웹+앱, Tailwind `rounded-4xl…6xl` · `shadow-soft/drop/overlay`) — 기존 값 무변경, 현재 화면 변화 0.
