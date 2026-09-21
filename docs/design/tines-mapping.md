@@ -306,7 +306,7 @@ DOM 실측(화면 격자 20px 마다 가장 위 칠한 바탕 · 글자 · 테�
 
 ## 16. 우리 화면 코퍼스 — 79화면 · 117회, 참조 151페이지와 같은 기준 (2026-09-21)
 
-> 출처 [`refs/ours-corpus-summary.md`](../refs/ours-corpus-summary.md) — `scripts/design/ours-corpus.mjs`(검증 계정 · 정적 77 + 동적 6 · 주요 40화면은 390 도). 다시 재면 표가 새로 쓰인다.
+> 출처 [`refs/ours-corpus-summary.md`](refs/ours-corpus-summary.md) — `scripts/design/ours-corpus.mjs`(검증 계정 · 정적 77 + 동적 6 · 주요 40화면은 390 도). 다시 재면 표가 새로 쓰인다.
 
 §15(캔버스 교정) 뒤에도 「보라만 보인다」의 원인은 **보라가 많아서가 아니라 다른 색이 없어서**였다 — 캔버스가 무채가 되자 남는 색이 글자 · 테두리 · 버튼의 보라뿐이었다. 학습 화면 대부분이 그림 0 · 보라 외 색 0%.
 
