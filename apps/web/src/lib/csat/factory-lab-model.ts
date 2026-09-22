@@ -17,6 +17,15 @@ export interface MarketView {
   target: number
   /** 벤치마크 7축이 **재지 않는** 자리 — 종이가 원리적으로 못 하는 것들의 실측. */
   platform: PlatformGap
+  /**
+   * 지금 고른 리포트가 **며칠 전 것인가** — 서버에서 계산해 넘긴다.
+   *
+   * ⚠️ 화면에서 `Date.now()` 를 부르지 않는다. 시계를 클라이언트가 읽으면 서버 렌더와 값이
+   *   갈려 하이드레이션이 어긋나고, 이 저장소는 「로직 안에서 시계를 읽지 않는다」를 규칙으로
+   *   둔다(AGENTS.md 「하지 말 것」 — 고정 날짜 픽스처가 시간이 지나며 저절로 떨어진다).
+   *   못 읽었으면 null 이고 그때는 신선도를 주장하지 않는다.
+   */
+  benchAgeDays: number | null
   /** 리포트를 하나도 못 읽었을 때만. 개별 모드의 null 과 다르다. */
   loadError: string | null
 }

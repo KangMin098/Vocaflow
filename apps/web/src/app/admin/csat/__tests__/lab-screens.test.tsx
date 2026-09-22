@@ -75,6 +75,7 @@ const market: MarketView = {
     pooledIndex: 1.424,
     publishers: [pub({}), pub({ publisher: 'NE능률', overallIndex: 1.343, reachableMax: 1.391, targetReachable: true, gaps: [] })],
   },
+  benchAgeDays: 5,
   target: 1.2,
   platform: { itemAttempts: 1, renderedVolumes: 7, itemAttemptsError: null },
   loadError: null,
@@ -130,6 +131,8 @@ describe('MarketClient', () => {
         <MarketClient
           warehouse={null}
           volume={null}
+          // 리포트를 못 읽었으면 나이도 못 잰다 — 0 이 아니라 null 이다.
+          benchAgeDays={null}
           target={1.2}
           platform={{ itemAttempts: 0, renderedVolumes: 0, itemAttemptsError: null }}
           loadError="리포트 없음"

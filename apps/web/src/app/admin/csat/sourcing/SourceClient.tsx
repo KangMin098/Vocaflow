@@ -19,11 +19,20 @@
 import { useState, useTransition } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import {
+  StageFailures,
+  StageFrame,
+  type FailureRow,
+  type StageBlock,
+} from '@/components/admin/csat/StageFrame'
+import { FACTORY_STAGES, judgeStage } from '@/lib/csat/factory-model'
 
 import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 import type { SourceConsoleView } from '@/lib/csat/source-console'
 
 import { BandStrip } from './BandStrip'
+
+const STAGE = FACTORY_STAGES.find((s) => s.id === 'source')!
 
 // `import type` 이라 런타임에 사라진다 — 액션 모듈(그리고 그것이 끌고 오는 인증 경로)이
 // 이 파일에 묶이지 않는다. 실제 함수는 page.tsx 가 prop 으로 내린다.
@@ -65,13 +74,57 @@ export function SourceClient({
 
   const behind = targets.filter((t) => t.pct != null && t.pct < 1)
 
+  // ── ② 막힌 것 ──────────────────────────────────────────────────────
+  // ⚠️ 오디오 축 밴드(S5)는 **지문을 수확해서 채우는 칸이 아니다.** 0편인 것이 결함이 아니므로
+  //   막힌 것으로 세지 않는다 — 옛 판정이 그것을 세는 바람에 화면이 **아무리 수확해도 안 꺼지는
+  //   빨간불**을 띄웠다(그 사고 기록은 `factory-line-model.ts` §④ 에 있다).
+  const blocks: StageBlock[] = [
+    {
+      what: '지문으로 채워야 하는데 0편인 밴드',
+      count: rollup == null ? null : emptyBands.length,
+      unmeasuredReason: rollup == null ? '아직 한 번도 안 쟀다 — 0편이 아니다' : undefined,
+    },
+    {
+      what: '몫에 미달한 소스 타겟',
+      count: rollup == null ? null : behind.length,
+      unmeasuredReason: rollup == null ? '아직 한 번도 안 쟀다' : undefined,
+    },
+    {
+      what: '등록부에 없는 원천 — 누가 언제 왜 넣었는지 모른다',
+      // 등록부에 없는 원천은 **원천 수가 아니라 편수**로 센다 — 한 원천이 수천 편일 수 있다.
+      count: audit ? audit.unregistered.reduce((a, u) => a + u.n, 0) : null,
+      unmeasuredReason: audit ? undefined : '등록부 대조를 못 했다',
+    },
+  ]
+
+  const failureRows: FailureRow[] = [
+    ...emptyBands.map((b) => ({
+      id: `band:${b}`,
+      label: BAND_KO[b] ?? b,
+      tags: ['지문 0편'],
+      says: '이 밴드의 책은 지금 못 만든다 — 문항을 더 만들어도 안 된다. 수확이 먼저다.',
+    })),
+    ...behind.slice(0, 6).map((t) => ({
+      id: `target:${t.key}`,
+      label: t.label,
+      tags: ['몫 미달', t.pct == null ? '못 잼' : `${Math.round(t.pct * 100)}%`],
+      says: t.basisLabel ?? t.note ?? '몫의 근거가 적혀 있지 않다',
+    })),
+  ].slice(0, 10)
+
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">④ 소재 — 지문 재고</h2>
-          <p className="font-body text-[12px] text-[var(--t2)]">시중: 지문 섭외 · 저작권 검토</p>
-        </div>
+    <StageFrame
+      stage={STAGE}
+      status={judgeStage([
+        {
+          label: '지문으로 채우는 밴드 중 재고 보유',
+          num: rollup == null ? null : bands.length - emptyBands.length,
+          den: bands.length,
+          unit: 'ratio',
+          unmeasuredReason: rollup == null ? '아직 한 번도 안 쟀다' : undefined,
+        },
+      ])}
+      help={
         <div className="flex items-center gap-2">
           {/*
             크론(6시간)과 **같은 RPC** 를 부른다. 드레인을 막 돌린 사람에게 여섯 시간은 길고,
@@ -96,7 +149,45 @@ export function SourceClient({
           </button>
           <AdminScreenHelp screen="csat-sourcing" />
         </div>
-      </div>
+      }
+      blocks={blocks}
+      commands={[
+        {
+          cmd: 'node scripts/csat/harvest-plos.mjs',
+          why: '수확은 커서를 남긴다 — 다시 돌려도 같은 것을 두 번 안 가져온다',
+          writes: true,
+        },
+        {
+          cmd: 'node scripts/textbook/harvest-gutenberg-kid.mjs',
+          why: '사다리 아래 계단(초·중)은 수능 지문으로 못 채운다 — 그 학령의 원문이 따로 있어야 한다',
+          writes: true,
+        },
+        {
+          cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/graded-source-probe.mjs',
+          why: '수확한 글이 그 밴드 규격(어휘 커버리지 · 문장 수)에 드는지 먼저 잰다. 읽기만 한다',
+        },
+        {
+          cmd: 'pnpm dlx tsx scripts/textbook/write-drain-import.mjs --dir <밴드 디렉터리> --commit',
+          why: '에이전트가 쓴 원글을 적재한다. 재실행 안전(source_id 유일키) · 건너뛴 수를 출력한다',
+          writes: true,
+        },
+      ]}
+      approvalNote={
+        '규격 밖 글을 적재하면 문항이 안 나오고 재고만 불어난다 — 수확 전에 graded-source-probe 로 먼저 잰다. 적재한 글을 지우는 길은 없다.'
+      }
+      failures={
+        <StageFailures
+          title="막고 있는 자리 — 밴드와 타겟"
+          total={rollup == null ? null : emptyBands.length + behind.length}
+          rows={failureRows}
+          emptyNote={
+            rollup == null
+              ? '아직 한 번도 안 쟀다 — 0편이 아니다. 위 「지금 다시 잰다」를 누른다.'
+              : '지문으로 채우는 밴드에 모두 재고가 있고 타겟도 다 찼다.'
+          }
+        />
+      }
+    >
 
       {view.errors.map((e) => (
         <p
@@ -395,6 +486,6 @@ export function SourceClient({
           </p>
         </div>
       </details>
-    </div>
+    </StageFrame>
   )
 }

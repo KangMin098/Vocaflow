@@ -17,6 +17,15 @@
 import { Lock } from 'lucide-react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import {
+  StageFailures,
+  StageFrame,
+  type FailureRow,
+  type StageBlock,
+} from '@/components/admin/csat/StageFrame'
+import { FACTORY_STAGES, judgeStage } from '@/lib/csat/factory-model'
+
+const STAGE = FACTORY_STAGES.find((s) => s.id === 'blueprint')!
 import type { BlueprintCell, BlueprintView } from '@/lib/csat/factory-lab-model'
 
 const METRIC_KO: Record<string, string> = {
@@ -49,19 +58,82 @@ function cellTone(c: BlueprintCell): { bg: string; fg: string; text: string; tit
 export function BlueprintClient({ rungs, gates, typeAxis, loadError }: BlueprintView) {
   const broken = rungs.filter((r) => r.emptyTypes.length)
 
+  // ── ② 막힌 것 ──────────────────────────────────────────────────────
+  // ③ 은 **규격을 정하는** 공정이라 막는 것이 셋이다: 선언했는데 못 만드는 칸 ·
+  // 임계가 안 정해진 단계 · 그리고 **한 번도 잠근 적 없는 게이트**.
+  //
+  // ⚠️ 마지막 것이 이 화면의 숨은 결함이었다. `csat_stage_gates.is_locked` 는 「근거가 확정돼
+  //   더 못 움직인다」는 뜻인데 실측하면 **9행 전부 false** 다(2026-09-23). 잠금 장치가 있는데
+  //   한 번도 쓰인 적이 없으므로, 누구든 임계를 바꾸면 **이미 통과시킨 재고가 통째로 규격 밖**이
+  //   될 수 있고 그 변경을 막는 것이 아무것도 없다.
+  const emptyCells = rungs.flatMap((r) => r.emptyTypes.map((t) => ({ rung: r, type: t })))
+  const unlocked = gates.filter((g) => !g.isLocked)
+
+  const blocks: StageBlock[] = [
+    {
+      what: '선언했는데 재고 0 인 칸 — 그 학년 책이 반쪽이 된다',
+      count: loadError ? null : emptyCells.length,
+      unmeasuredReason: loadError ?? undefined,
+    },
+    {
+      what: '임계가 정의되지 않은 단계',
+      count: loadError ? null : Math.max(0, 5 - new Set(gates.map((g) => g.stage)).size),
+      unmeasuredReason: loadError ?? undefined,
+    },
+    {
+      what: '잠기지 않은 게이트 — 누구든 임계를 바꿀 수 있고 그러면 통과시킨 재고가 규격 밖이 된다',
+      count: loadError ? null : unlocked.length,
+      unmeasuredReason: loadError ?? undefined,
+    },
+  ]
+
+  const failureRows: FailureRow[] = emptyCells.slice(0, 10).map(({ rung, type }) => ({
+    id: `${rung.step}|${type}`,
+    label: `${rung.schoolBand} · ${type}`,
+    tags: [`${rung.step}단`, `V${rung.vLevels.join('·')}`],
+    says: `${rung.volumeTitle ?? ''} 가 이 유형을 쓰기로 했는데 재고가 없다 — ⑤ 집필에서 채운다`,
+  }))
+
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
-            ③ 설계 — 이원목적분류표
-          </h2>
-          <p className="font-body text-[12px] text-[var(--t2)]">
-            시중: 이원목적분류표 · 목차 설계 — 연령 × 수준 × 유형
-          </p>
-        </div>
-        <AdminScreenHelp screen="csat-blueprint" />
-      </div>
+    <StageFrame
+      stage={STAGE}
+      status={judgeStage([
+        {
+          label: '사다리가 선언한 유형 중 생산 가능',
+          num: loadError ? null : rungs.length - broken.length,
+          den: rungs.length,
+          unit: 'ratio',
+          unmeasuredReason: loadError ?? undefined,
+        },
+      ])}
+      help={<AdminScreenHelp screen="csat-blueprint" />}
+      blocks={blocks}
+      commands={[
+        {
+          cmd: 'node scripts/csat/build-blueprint.mjs',
+          why: '분류표를 다시 세운다. 읽기만 한다',
+        },
+        {
+          cmd: 'node scripts/csat/verify-blueprint.mjs',
+          why: '선언과 생산이 어긋난 칸을 찾는다. 읽기만 한다',
+        },
+      ]}
+      approvalNote={
+        '단계 게이트 임계를 바꾸면 **이미 통과시킨 재고까지 다시 재야 한다** — 되돌리기 어렵다. 근거가 확정된 임계는 is_locked 로 잠근다(실측 2026-09-23: 9행 전부 열려 있다).'
+      }
+      failures={
+        <StageFailures
+          title="선언했는데 못 만드는 칸"
+          total={loadError ? null : emptyCells.length}
+          rows={failureRows}
+          emptyNote={
+            loadError
+              ? '분류표를 못 읽었다 — 0건이 아니다.'
+              : '선언한 유형이 전부 생산 가능하다. 계단이 끊긴 데가 없다.'
+          }
+        />
+      }
+    >
 
       {loadError ? (
         <p
@@ -224,6 +296,6 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
           </table>
         </div>
       </section>
-    </div>
+    </StageFrame>
   )
 }

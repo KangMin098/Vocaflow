@@ -173,6 +173,7 @@ export const MARKET_REAL: MarketView = {
       }),
     ],
   },
+  benchAgeDays: 5,
   target: 1.2,
   platform: { itemAttempts: 1, renderedVolumes: 7, itemAttemptsError: null },
   loadError: null,
