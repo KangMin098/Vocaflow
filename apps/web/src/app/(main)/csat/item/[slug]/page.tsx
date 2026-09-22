@@ -17,6 +17,7 @@ import { notFound } from 'next/navigation'
 
 import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/AnalysisTheater'
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
+import { kiceSourceOf } from '@/lib/csat/kice-source'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { lectureMeta, lectureOutline } from '@/lib/csat/lecture/store'
@@ -90,11 +91,14 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       }))
     : []
   const nextPick = pickNextItem(siblings, item.id, () => true)
+  const paper = kiceSourceOf(item.id.split('#')[0])
 
   const theater = (
     <AnalysisTheater
       title={`${item.exam_label} ${item.no}번`}
+      examLabel={item.exam_label}
       typeName={item.type_name}
+      points={item.points}
       minutes={theaterMinutes(outline)}
       steps={steps}
       blocks={blocks}
@@ -102,6 +106,11 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       backHref={item.type_id ? `/csat?type=${encodeURIComponent(item.type_id)}` : '/csat'}
       backLabel="기출 목록"
       next={nextPick ? { href: `/csat/item/${nextPick.item.slug}`, label: `${nextPick.item.exam_label} ${nextPick.item.no}번` } : null}
+      source={{ url: paper.paperUrl ?? paper.listUrl, direct: paper.paperUrl != null, reason: paper.reason }}
+      siblings={siblings
+        .slice()
+        .sort((a, b) => b.exam_label.localeCompare(a.exam_label) || a.no - b.no)
+        .map((s) => ({ slug: s.slug, label: s.exam_label, no: s.no, current: s.id === item.id }))}
     />
   )
 

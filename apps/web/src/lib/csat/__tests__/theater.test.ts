@@ -10,7 +10,17 @@ import { describe, expect, it } from 'vitest'
 
 import { examAxis } from '../browse-model'
 import type { LectureStep } from '../lecture/types'
-import { blockKeyForTarget, stepName, theaterBlocks, theaterMinutes, theaterSteps, type TheaterSource } from '../theater'
+import {
+  BLOCK_TINT,
+  blockKeyForTarget,
+  stepName,
+  theaterBlocks,
+  theaterClock,
+  theaterMinutes,
+  theaterSteps,
+  theaterTimeline,
+  type TheaterSource,
+} from '../theater'
 
 const cue = (order: number, role: LectureStep['role'], kind: 'analysis' | 'anchor', id: string, sec = 15): LectureStep => ({
   id: `X#1:${order}`,
@@ -160,5 +170,54 @@ describe('examAxis — 회차 id 에서 종류와 학년도', () => {
     expect(examAxis('2014A')).toEqual({ kind: 'suneung', year: 2014, month: null })
     expect(examAxis('M2606')).toEqual({ kind: 'mock', year: 2026, month: 6 })
     expect(examAxis('M2709')).toEqual({ kind: 'mock', year: 2027, month: 9 })
+  })
+})
+
+describe('theaterTimeline — 진행 띠', () => {
+  it('구간 폭의 합이 100% 다 — 막대가 트랙을 정확히 채운다', () => {
+    const line = theaterTimeline(theaterSteps(OUTLINE))
+    expect(line.segments).toHaveLength(OUTLINE.length)
+    expect(line.segments.reduce((sum, s) => sum + s.pct, 0)).toBeCloseTo(100, 6)
+  })
+
+  it('시작 초가 누적된다 — 앞 구간의 끝이 다음 구간의 시작이다', () => {
+    const line = theaterTimeline(theaterSteps(OUTLINE))
+    expect(line.segments[0].start).toBe(0)
+    expect(line.segments[3].start).toBe(OUTLINE.slice(0, 3).reduce((sum, c) => sum + c.est_sec, 0))
+    expect(line.total).toBe(OUTLINE.reduce((sum, c) => sum + c.est_sec, 0))
+  })
+
+  it('눈금은 처음과 끝을 포함해 다섯이다', () => {
+    const line = theaterTimeline(theaterSteps(OUTLINE))
+    expect(line.marks).toHaveLength(5)
+    expect(line.marks[0]).toBe(0)
+    expect(line.marks[4]).toBe(Math.round(line.total))
+  })
+
+  it('길이가 0초여도 막대가 사라지지 않는다 — 0 으로 나누지 않는다', () => {
+    const line = theaterTimeline(theaterSteps([cue(1, 'intro', 'analysis', 'head', 0), cue(2, 'vocab', 'analysis', 'vocab', 0)]))
+    expect(line.total).toBe(0)
+    expect(line.segments.map((s) => s.pct)).toEqual([50, 50])
+    expect(line.marks).toEqual([])
+  })
+
+  it('차례가 없으면 띠도 없다', () => {
+    expect(theaterTimeline([])).toEqual({ total: 0, segments: [], marks: [] })
+  })
+})
+
+describe('theaterClock — 길이 표기', () => {
+  it('분과 초를 우리말로', () => {
+    expect(theaterClock(0)).toBe('0초')
+    expect(theaterClock(59.4)).toBe('59초')
+    expect(theaterClock(120)).toBe('2분')
+    expect(theaterClock(224)).toBe('3분 44초')
+  })
+})
+
+describe('BLOCK_TINT — 블록 종류마다 고정 면 색', () => {
+  it('모든 종류에 색이 있다 — 색 없는 카드가 생기지 않는다', () => {
+    const kinds = theaterBlocks(FULL).map((b) => b.kind)
+    for (const kind of new Set(kinds)) expect(BLOCK_TINT[kind], kind).toBeTruthy()
   })
 })

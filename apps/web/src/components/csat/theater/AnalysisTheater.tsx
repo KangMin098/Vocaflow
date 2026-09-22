@@ -2,29 +2,57 @@
 
 // apps/web/src/components/csat/theater/AnalysisTheater.tsx
 //
-// **해설 극장 — 왼쪽은 차례, 오른쪽은 그 차례가 가리키는 곳.**
+// **해설 극장 — 참조(3B 워크스페이스) 골격을 문항 해설로 옮긴 것.**
 //
-//   ① 레일   문항 카드 + 사고 과정 단계가 **하나씩 쌓인다**(강의 큐 12~14개 = 이 문항을 읽는 순서)
-//   ② 무대   왼: 지문 지도(문장 막대·근거 칩) · 오: 분석 블록이 **차례로 붙는다**
-//   ③ 장 카드 바닥 줄 — 누르면 그 장부터
+// 첫 판(2026-09-23 오전)은 읽기 판면(42rem) 안에 우겨넣어 두 판이 손가락만큼 좁았다.
+// 참조는 **작업 공간**이다 — 화면을 가득 쓰고, 왼쪽 레일은 세로로 끝까지 가며, 가운데는
+// 탭으로 갈리고, 바닥에는 단계 카드가 깔린다. 그 골격을 그대로 옮긴다:
 //
-// 한 큐 = 왼쪽 한 단계 + 오른쪽 한 블록 + 지도 하이라이트 하나. 셋이 같은 인덱스에서 움직이므로
-// 귀·왼쪽·오른쪽이 갈라질 수 없다. 재생 엔진은 `LectureStage`/`LecturePlayer` 를 그대로 쓴다 —
-// 이 파일은 **판면과 순서 표시**만 맡는다.
+//   참조                      → 여기
+//   ─────────────────────────────────────────────────────────────────
+//   왼쪽 레일(대화 기록)       → 차례 레일(강의 큐 12~14개가 쌓인다)
+//   레일 머리(버전 · Push live) → 강의 판 · 길이 · 상영 상태
+//   레일 배너(브랜치 보는 중)   → 「지금 어디를 보고 있는가」 안내
+//   레일 바닥 작성 상자        → 행동 상자(상영 · 펼치기 · 다음 문항)
+//   탭(Readme·Monitor·Runs…)  → 분석 · 지문 지도 · 진행 · 원문 · 다른 문항
+//   두 판(파일 ⌄ / Output ⌄)  → 지문 지도 ⌄ / 분석 ⌄
+//   실행 화면(지표 + 간트)     → 진행(차례 14개의 실제 추정 초로 그린 시간 띠)
+//   바닥 단계 카드(파스텔)     → 분석 블록 카드(종류마다 고정 면 색 + 개수 + 활성 링)
 //
 // ⚠️ 대본은 여기 없다. 왼쪽 단계 이름은 역할·타깃에서 짓고(`lib/csat/theater.ts`),
 //    말은 재생을 누른 뒤 `/api/csat/lecture` 로만 온다.
-// ⚠️ 「전부 펼쳐 읽기」를 둔다. 순차 표출은 기본값이지 감옥이 아니다 — 이미 아는 문항을
-//    다시 여는 사람에게 12단계를 강요하면 화면이 느려지기만 한다.
 
 import Link from 'next/link'
-import { ChevronLeft, ChevronRight, Headphones, ListTree, Pause, Play, Volume2, VolumeX } from 'lucide-react'
+import {
+  BookOpen,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Circle,
+  ExternalLink,
+  Gauge,
+  Headphones,
+  Layers,
+  ListTree,
+  Map as MapIcon,
+  Pause,
+  Play,
+  Volume2,
+  VolumeX,
+} from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { PassageMap, type MapAnchor, type MapPlacement } from '@/components/csat/PassageMap'
 import { useLecture } from '@/components/csat/lecture/LectureStage'
 import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
-import { blockKeyForTarget, type TheaterBlock, type TheaterStep } from '@/lib/csat/theater'
+import {
+  BLOCK_TINT,
+  blockKeyForTarget,
+  theaterClock,
+  theaterTimeline,
+  type TheaterBlock,
+  type TheaterStep,
+} from '@/lib/csat/theater'
 import { useTheaterSfx } from '@/lib/csat/theater-sfx'
 
 import styles from './theater.module.css'
@@ -37,9 +65,27 @@ export interface TheaterMap {
   placements: MapPlacement[]
 }
 
+export interface TheaterSibling {
+  slug: string
+  label: string
+  no: number
+  current: boolean
+}
+
+type TabId = 'analysis' | 'map' | 'run' | 'source' | 'siblings'
+
+const TABS: { id: TabId; label: string; Icon: typeof BookOpen }[] = [
+  { id: 'analysis', label: '분석', Icon: BookOpen },
+  { id: 'map', label: '지문 지도', Icon: MapIcon },
+  { id: 'run', label: '진행', Icon: Gauge },
+  { id: 'source', label: '원문', Icon: ExternalLink },
+  { id: 'siblings', label: '같은 유형', Icon: Layers },
+]
+
 export function AnalysisTheater({
   title,
   typeName,
+  points,
   minutes,
   steps,
   blocks,
@@ -47,9 +93,13 @@ export function AnalysisTheater({
   backHref,
   backLabel,
   next,
+  source,
+  siblings,
+  examLabel,
 }: {
   title: string
   typeName: string | null
+  points: number | null
   minutes: number
   steps: TheaterStep[]
   blocks: TheaterBlock[]
@@ -57,24 +107,27 @@ export function AnalysisTheater({
   backHref: string
   backLabel: string
   next: { href: string; label: string } | null
+  source: { url: string; direct: boolean; reason: string | null }
+  siblings: TheaterSibling[]
+  examLabel: string
 }) {
   const lec = useLecture()
   const sfx = useTheaterSfx()
   const [cursor, setCursor] = useState(0)
   const [all, setAll] = useState(steps.length === 0)
+  const [tab, setTab] = useState<TabId>('analysis')
   const railRef = useRef<HTMLDivElement>(null)
   const blocksRef = useRef<HTMLDivElement>(null)
   const played = useRef(-1)
 
   const playing = Boolean(lec && (lec.status === 'playing' || lec.status === 'paused'))
   const blockKeys = useMemo(() => blocks.map((b) => b.key), [blocks])
+  const timeline = useMemo(() => theaterTimeline(steps), [steps])
 
-  // 재생 중에는 엔진이 차례를 쥔다. 멈춰 있으면 학습자가 쥔다(← → · 단계 클릭).
   useEffect(() => {
     if (playing && lec) setCursor(lec.index)
   }, [playing, lec])
 
-  // 큐가 바뀔 때 한 번. 같은 자리로 돌아온 경우는 내지 않는다 — 소리가 «새 단계» 를 뜻해야 한다.
   useEffect(() => {
     if (played.current === cursor) return
     const first = played.current === -1
@@ -82,7 +135,6 @@ export function AnalysisTheater({
     if (!first || playing) sfx.play(steps[cursor]?.sfx ?? 'step')
   }, [cursor, playing, sfx, steps])
 
-  // 지금까지 지나온 단계가 가리킨 블록만 열려 있다. 「전부 펼쳐 읽기」면 전부.
   const open = useMemo(() => {
     if (all || !steps.length) return new Set(blockKeys)
     const shown = new Set<string>(['analysis:head'])
@@ -94,6 +146,8 @@ export function AnalysisTheater({
   }, [all, blockKeys, cursor, steps])
 
   const step = steps[cursor] ?? null
+  const liveKey = step ? blockKeyForTarget(step.targetKey, blockKeys) : null
+
   const move = (delta: number) => {
     const to = Math.max(0, Math.min(steps.length - 1, cursor + delta))
     if (to === cursor) return
@@ -105,12 +159,15 @@ export function AnalysisTheater({
     else setCursor(index)
   }
   const jumpToBlock = (key: string) => {
+    setTab('analysis')
     const index = steps.findIndex((s) => blockKeyForTarget(s.targetKey, blockKeys) === key)
     if (index >= 0) goto(index)
-    setTimeout(() => blocksRef.current?.querySelector(`[data-block="${CSS.escape(key)}"]`)?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 0)
+    window.setTimeout(
+      () => blocksRef.current?.querySelector(`[data-block="${CSS.escape(key)}"]`)?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }),
+      0,
+    )
   }
 
-  // 지금 단계가 보이게 — 큐가 바뀔 때만 한 번(붙들기·멈춤으로는 움직이지 않는다)
   useEffect(() => {
     railRef.current?.querySelector('[data-state="live"]')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
   }, [cursor])
@@ -133,6 +190,7 @@ export function AnalysisTheater({
   })
 
   const status = lec?.status ?? 'idle'
+  const silent = lec?.mode === 'silent'
   const mainLabel =
     status === 'loading'
       ? '여는 중…'
@@ -142,81 +200,64 @@ export function AnalysisTheater({
           ? '이어서'
           : status === 'ended'
             ? '처음부터'
-            : lec?.mode === 'silent'
+            : silent
               ? `하이라이트만 · 약 ${minutes}분`
               : `상영 시작 · 약 ${minutes}분`
-  const MainIcon = status === 'playing' ? Pause : lec?.mode === 'silent' ? Play : Headphones
-  const progress = steps.length ? ((cursor + 1) / steps.length) * 100 : 0
+  const MainIcon = status === 'playing' ? Pause : silent ? Play : Headphones
+  const elapsed = timeline.segments.slice(0, cursor).reduce((sum, s) => sum + s.sec, 0)
 
   return (
-    <div className={styles.root} data-testid="analysis-theater">
-      <header className={styles.top}>
-        <div className={styles.topIn}>
-          <div className={styles.brand}>
-            <Link className={styles.back} href={backHref}>
-              <ChevronLeft size={15} aria-hidden /> {backLabel}
-            </Link>
-            <b>{title}</b>
-            {typeName ? <span>{typeName}</span> : null}
-          </div>
-          <div className={styles.ctl}>
-            <button type="button" onClick={sfx.toggle} aria-pressed={sfx.on} title="효과음">
-              {sfx.on ? <Volume2 size={15} aria-hidden /> : <VolumeX size={15} aria-hidden />}
-              <span>{sfx.on ? '효과음 켬' : '효과음 끔'}</span>
+    <div className={styles.workspace} data-csat-theater data-testid="analysis-theater">
+      {/* ── 상단 막대 ─────────────────────────────────────────── */}
+      <header className={styles.bar}>
+        <Link className={styles.back} href={backHref}>
+          <ChevronLeft size={15} aria-hidden /> {backLabel}
+        </Link>
+        <h1 className={styles.docTitle}>{title}</h1>
+        {typeName ? <span className={styles.tag}># {typeName}</span> : null}
+        {points ? <span className={styles.tagQuiet}>{points}점</span> : null}
+        <div className={styles.barRight}>
+          <button type="button" className={styles.iconBtn} onClick={sfx.toggle} aria-pressed={sfx.on} title="효과음">
+            {sfx.on ? <Volume2 size={15} aria-hidden /> : <VolumeX size={15} aria-hidden />}
+          </button>
+          <button type="button" className={styles.iconBtn} onClick={() => setAll((v) => !v)} aria-pressed={all} title="전부 펼쳐 읽기">
+            <ListTree size={15} aria-hidden />
+          </button>
+          {lec ? (
+            <button
+              type="button"
+              className={styles.rate}
+              onClick={() => lec.setRate(RATES[(RATES.indexOf(lec.rate as (typeof RATES)[number]) + 1) % RATES.length])}
+              title="말하기 속도"
+            >
+              {lec.rate.toFixed(2).replace(/0$/, '')}×
             </button>
-            <button type="button" onClick={() => setAll((v) => !v)} aria-pressed={all}>
-              <ListTree size={15} aria-hidden />
-              <span>{all ? '차례대로 보기' : '전부 펼쳐 읽기'}</span>
-            </button>
-            {lec ? (
-              <button
-                type="button"
-                className={styles.rate}
-                onClick={() => lec.setRate(RATES[(RATES.indexOf(lec.rate as (typeof RATES)[number]) + 1) % RATES.length])}
-                title="말하기 속도"
-              >
-                {lec.rate.toFixed(2).replace(/0$/, '')}×
-              </button>
-            ) : null}
-            <button type="button" onClick={() => move(-1)} disabled={cursor === 0} title="이전 단계">
-              <ChevronLeft size={16} aria-hidden />
-            </button>
-            <button type="button" onClick={() => move(1)} disabled={cursor >= steps.length - 1} title="다음 단계">
-              <ChevronRight size={16} aria-hidden />
-            </button>
-          </div>
+          ) : null}
           {lec ? (
             <button type="button" className={styles.play} onClick={() => (status === 'idle' ? lec.start(cursor, 'start') : lec.toggle())}>
-              <MainIcon size={16} aria-hidden /> {mainLabel}
+              <MainIcon size={15} aria-hidden /> {mainLabel}
             </button>
           ) : null}
         </div>
-        <div className={styles.progress}>
-          <i style={{ width: `${progress}%` }} />
-        </div>
-        {lec?.error ? (
-          <p className={styles.notice} role="status">
-            {lec.error} 다시 눌러 주세요.
-          </p>
-        ) : lec?.mode === 'silent' && playing ? (
-          <p className={styles.notice} role="status">
-            이 기기에 한국어 음성이 없어 소리 없이 강조만 넘어가요.
-          </p>
-        ) : null}
       </header>
 
-      <div className={styles.theater}>
-        {/* ① 레일 — 문항과 사고 과정 */}
-        <section className={styles.rail} aria-label="이 문항을 읽는 차례">
-          <div className={styles.railHead}>
-            <p className={styles.eyebrow}>차례 {steps.length || blocks.length}</p>
-            <h1>{title}</h1>
-            <p className={styles.railMeta}>
-              {typeName ?? '유형 미정'}
-              {steps.length ? ` · 약 ${minutes}분` : ' · 상영 없음'}
-            </p>
+      <div className={styles.body}>
+        {/* ── ① 레일 ─────────────────────────────────────────── */}
+        <aside className={styles.rail} aria-label="이 문항을 읽는 차례">
+          <div className={styles.railTop}>
+            <span className={styles.liveDot} data-on={playing} aria-hidden />
+            <b>{steps.length ? `강의 · 차례 ${steps.length}` : '상영 없음'}</b>
+            <span className={styles.railTime}>{steps.length ? theaterClock(timeline.total) : '—'}</span>
           </div>
-          <div className={styles.steps} ref={railRef}>
+          <p className={styles.railBanner}>
+            <Circle size={12} aria-hidden />
+            <span>{all ? '전부 펼쳐 읽는 중이에요.' : playing ? '상영을 따라가는 중이에요.' : '차례를 눌러 그 자리부터 볼 수 있어요.'}</span>
+            <button type="button" onClick={() => setAll((v) => !v)}>
+              {all ? '차례대로' : '전부 펼치기'}
+            </button>
+          </p>
+
+          <div className={styles.stream} ref={railRef}>
             {steps.length ? (
               steps.map((s) => {
                 const state = s.index === cursor ? 'live' : s.index < cursor ? 'done' : 'wait'
@@ -226,6 +267,7 @@ export function AnalysisTheater({
                     <button type="button" className={styles.stepBtn} onClick={() => goto(s.index)} aria-current={state === 'live' ? 'step' : undefined}>
                       <span className={styles.stepKind}>
                         {s.kind} · {String(s.index + 1).padStart(2, '0')}
+                        <em>{Math.round(s.sec)}초</em>
                       </span>
                       {s.name}
                     </button>
@@ -236,85 +278,297 @@ export function AnalysisTheater({
               <p className={styles.quiet}>이 문항에는 아직 상영(강의)이 없어요. 오른쪽 분석은 그대로 읽을 수 있어요.</p>
             )}
           </div>
-          <p className={styles.railFoot}>← → 로 단계를 옮겨요. 단계를 누르면 그 자리부터 다시 들어요.</p>
-        </section>
 
-        {/* ② 무대 — 지도와 부가 정보 */}
-        <section className={styles.stage} aria-label="지문 지도와 분석">
-          <div className={styles.stageBar}>
+          {/* 참조의 작성 상자 자리 — 여기서는 «이 문항으로 무엇을 할까» 다 */}
+          <div className={styles.composer}>
+            <p className={styles.composerHead}>
+              <span className={styles.avatar} aria-hidden>
+                V
+              </span>
+              이 문항으로 무엇을 할까요?
+            </p>
+            <div className={styles.composerActions}>
+              <button type="button" onClick={() => move(1)} disabled={cursor >= steps.length - 1}>
+                다음 단계
+              </button>
+              <button type="button" onClick={() => setTab('run')}>
+                진행 보기
+              </button>
+              {next ? (
+                <Link href={next.href}>같은 유형 다음 문항</Link>
+              ) : (
+                <Link href={backHref}>기출 목록</Link>
+              )}
+            </div>
+            <div className={styles.composerFoot}>
+              <span className={styles.pill}>
+                {cursor + 1} / {Math.max(1, steps.length)} · {theaterClock(elapsed)} 지남
+              </span>
+              <button type="button" className={styles.round} onClick={() => move(-1)} disabled={cursor === 0} title="이전 단계">
+                <ChevronLeft size={15} aria-hidden />
+              </button>
+              <button type="button" className={styles.round} onClick={() => move(1)} disabled={cursor >= steps.length - 1} title="다음 단계">
+                <ChevronRight size={15} aria-hidden />
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        {/* ── ② 본문 ─────────────────────────────────────────── */}
+        <section className={styles.main}>
+          <nav className={styles.tabs} aria-label="보기">
+            {TABS.map(({ id, label, Icon }) => (
+              <button key={id} type="button" aria-pressed={tab === id} onClick={() => setTab(id)}>
+                <Icon size={14} aria-hidden /> {label}
+              </button>
+            ))}
+            <span className={styles.tabsRight}>{examLabel}</span>
+          </nav>
+
+          <div className={styles.stageHead}>
             <p className={styles.now}>
               <span>{String(cursor + 1).padStart(2, '0')}</span>
               <b>{step?.name ?? '분석 읽기'}</b>
             </p>
-            <p className={styles.legendRow}>
+            <p className={styles.legend}>
               <span className={styles.legendAnswer}>정답 근거</span>
               <span className={styles.legendReject}>오답 지우는 자리</span>
             </p>
-          </div>
-          <div className={styles.panes}>
-            <div className={styles.mapPane}>
-              {map ? (
-                <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
-              ) : (
-                <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못해 지도가 없어요. 분석은 오른쪽에서 그대로 읽을 수 있어요.</p>
-              )}
-            </div>
-            <div className={styles.blockPane} ref={blocksRef}>
-              {blocks.map((b) => {
-                const shown = open.has(b.key)
-                return (
-                  <article
-                    key={b.key}
-                    data-block={b.key}
-                    data-lecture-target={b.key}
-                    data-kind={b.kind}
-                    className={styles.block}
-                    hidden={!shown}
-                  >
-                    <div className={styles.chips}>
-                      {b.chips.map((c) => (
-                        <span key={c.text} className={styles.chip} data-tone={c.tone ?? 'plain'}>
-                          {c.text}
-                        </span>
-                      ))}
-                    </div>
-                    <h2>{b.title}</h2>
-                    {b.body.map((p, i) => (
-                      <p key={i}>{p}</p>
-                    ))}
-                    {b.quote ? <blockquote lang="en">{b.quote}</blockquote> : null}
-                  </article>
-                )
-              })}
-              {!all && steps.length ? <p className={styles.pending}>{blocks.length - [...open].length}개가 뒤 단계에서 열려요.</p> : null}
-            </div>
+            {lec?.error ? (
+              <p className={styles.notice} role="status">
+                {lec.error}
+              </p>
+            ) : silent && playing ? (
+              <p className={styles.notice} role="status">
+                한국어 음성이 없어 강조만 넘어가요
+              </p>
+            ) : null}
           </div>
 
-          {/* ③ 장 카드 */}
-          <nav className={styles.chapters} aria-label="분석 블록으로 이동">
-            {blocks.map((b) => (
-              <button
-                key={b.key}
-                type="button"
-                className={styles.chapter}
-                data-state={open.has(b.key) ? (blockKeyForTarget(step?.targetKey ?? '', blockKeys) === b.key ? 'live' : 'done') : 'wait'}
-                onClick={() => jumpToBlock(b.key)}
-              >
-                <b>{b.title}</b>
-                <span>{b.chips[0]?.text ?? ''}</span>
-              </button>
-            ))}
+          <div className={styles.view}>
+            {tab === 'analysis' ? (
+              <div className={styles.panes}>
+                <section className={styles.pane}>
+                  <p className={styles.paneHead}>
+                    <MapIcon size={13} aria-hidden /> 원문 자리 <ChevronDown size={12} aria-hidden />
+                    <em>{map ? `${map.sentences.length} SENTENCES` : 'NO MAP'}</em>
+                  </p>
+                  <div className={styles.paneBody}>
+                    {map ? (
+                      <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
+                    ) : (
+                      <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못해 지도가 없어요. 분석은 오른쪽에서 그대로 읽을 수 있어요.</p>
+                    )}
+                  </div>
+                </section>
+                <section className={styles.pane}>
+                  <p className={styles.paneHead}>
+                    <BookOpen size={13} aria-hidden /> 분석 <ChevronDown size={12} aria-hidden />
+                    <em>
+                      {[...open].length} / {blocks.length} BLOCKS
+                    </em>
+                  </p>
+                  <div className={`${styles.paneBody} ${styles.blockPane}`} ref={blocksRef}>
+                    {blocks.map((b) => (
+                      <article
+                        key={b.key}
+                        data-block={b.key}
+                        data-lecture-target={b.key}
+                        data-kind={b.kind}
+                        data-live={b.key === liveKey}
+                        className={styles.block}
+                        hidden={!open.has(b.key)}
+                      >
+                        <div className={styles.chips}>
+                          {b.chips.map((c) => (
+                            <span key={c.text} className={styles.chip} data-tone={c.tone ?? 'plain'}>
+                              {c.text}
+                            </span>
+                          ))}
+                        </div>
+                        <h2>{b.title}</h2>
+                        {b.body.map((p, i) => (
+                          <p key={i}>{p}</p>
+                        ))}
+                        {b.quote ? <blockquote lang="en">{b.quote}</blockquote> : null}
+                      </article>
+                    ))}
+                    {!all && steps.length && blocks.length > open.size ? (
+                      <p className={styles.pending}>
+                        <b>{blocks.length - open.size}개가 아직 닫혀 있어요</b>
+                        차례를 넘기면 그 자리에서 열립니다. 지금 전부 읽으려면 위의 «전부 펼쳐 읽기».
+                      </p>
+                    ) : null}
+                  </div>
+                </section>
+              </div>
+            ) : null}
+
+            {tab === 'map' ? (
+              <section className={styles.wide}>
+                <p className={styles.paneHead}>
+                  <MapIcon size={13} aria-hidden /> 원문 자리 <ChevronDown size={12} aria-hidden />
+                  <em>{map ? `${map.sentences.length} SENTENCES` : 'NO MAP'}</em>
+                </p>
+                <div className={styles.paneBody}>
+                  {map ? (
+                    <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
+                  ) : (
+                    <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못했어요.</p>
+                  )}
+                  <p className={styles.quiet}>
+                    원문은 이 화면에 없습니다 — 막대는 <b>문장 길이</b>이고, 근거 인용만 짧게 드러납니다. 문제지는 평가원 공개본을 곁에 두고 보세요.
+                  </p>
+                </div>
+              </section>
+            ) : null}
+
+            {tab === 'run' ? (
+              <section className={styles.wide}>
+                <div className={styles.metrics}>
+                  <div>
+                    <dt>차례</dt>
+                    <dd>{steps.length}</dd>
+                  </div>
+                  <div>
+                    <dt>지금</dt>
+                    <dd>
+                      {String(cursor + 1).padStart(2, '0')}
+                      <span className={styles.badge} data-on={playing}>
+                        {playing ? '상영 중' : '멈춤'}
+                      </span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>지난 시간</dt>
+                    <dd>{theaterClock(elapsed)}</dd>
+                  </div>
+                  <div>
+                    <dt>전체</dt>
+                    <dd>{theaterClock(timeline.total)}</dd>
+                  </div>
+                </div>
+                <div className={styles.gantt}>
+                  <div className={styles.track} role="group" aria-label="차례별 길이">
+                    {timeline.segments.map((seg) => (
+                      <button
+                        key={seg.index}
+                        type="button"
+                        className={styles.seg}
+                        style={{ width: `${seg.pct}%` }}
+                        data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}
+                        onClick={() => goto(seg.index)}
+                        title={`${seg.kind} · ${seg.name} · ${Math.round(seg.sec)}초`}
+                        aria-label={`${seg.index + 1}단계 ${seg.name} · ${Math.round(seg.sec)}초`}
+                      />
+                    ))}
+                  </div>
+                  <div className={styles.axis}>
+                    {timeline.marks.map((m) => (
+                      <span key={m}>{m}s</span>
+                    ))}
+                  </div>
+                </div>
+                <ol className={styles.runList}>
+                  {timeline.segments.map((seg) => (
+                    <li key={seg.index} data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}>
+                      <button type="button" onClick={() => goto(seg.index)}>
+                        <span className={styles.runNo}>{String(seg.index + 1).padStart(2, '0')}</span>
+                        <span className={styles.runKind}>{seg.kind}</span>
+                        <span className={styles.runName}>{seg.name}</span>
+                        <span className={styles.runSec}>{Math.round(seg.sec)}초</span>
+                      </button>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            ) : null}
+
+            {tab === 'source' ? (
+              <section className={styles.wide}>
+                <p className={styles.paneHead}>
+                  <ExternalLink size={13} aria-hidden /> 원문 <ChevronDown size={12} aria-hidden />
+                </p>
+                <div className={styles.paneBody}>
+                  <dl className={styles.kv}>
+                    <div>
+                      <dt>회차</dt>
+                      <dd>{examLabel}</dd>
+                    </div>
+                    <div>
+                      <dt>문항</dt>
+                      <dd>{title}</dd>
+                    </div>
+                    <div>
+                      <dt>유형</dt>
+                      <dd>{typeName ?? '유형 미정'}</dd>
+                    </div>
+                    <div>
+                      <dt>문제지</dt>
+                      <dd>
+                        <a href={source.url} target="_blank" rel="noreferrer">
+                          {source.direct ? '평가원 문제지 PDF 열기' : '평가원 게시판에서 찾기'} <ExternalLink size={13} aria-hidden />
+                        </a>
+                      </dd>
+                    </div>
+                  </dl>
+                  {source.reason ? <p className={styles.quiet}>{source.reason}</p> : null}
+                  <p className={styles.quiet}>
+                    지문·선지는 평가원 저작물이라 이 화면에 싣지 않아요. 우리가 보관하는 것은 <b>문장 길이와 근거 자리</b>뿐입니다.
+                  </p>
+                </div>
+              </section>
+            ) : null}
+
+            {tab === 'siblings' ? (
+              <section className={styles.wide}>
+                <p className={styles.paneHead}>
+                  <Layers size={13} aria-hidden /> 같은 유형 <ChevronDown size={12} aria-hidden />
+                  <em>{siblings.length} ITEMS</em>
+                </p>
+                <div className={styles.paneBody}>
+                  <ul className={styles.siblings}>
+                    {siblings.map((s) => (
+                      <li key={s.slug}>
+                        <Link href={`/csat/item/${s.slug}`} aria-current={s.current ? 'page' : undefined} data-current={s.current}>
+                          <b>{s.no}</b>
+                          <span>{s.label}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            ) : null}
+          </div>
+
+          {/* ── ③ 바닥 블록 카드 ────────────────────────────── */}
+          <nav className={styles.cards} aria-label="분석 블록으로 이동">
+            {blocks.map((b) => {
+              const state = b.key === liveKey ? 'live' : open.has(b.key) ? 'done' : 'wait'
+              return (
+                <button
+                  key={b.key}
+                  type="button"
+                  className={styles.card}
+                  data-state={state}
+                  data-tint={BLOCK_TINT[b.kind]}
+                  onClick={() => jumpToBlock(b.key)}
+                >
+                  <b>{b.title}</b>
+                  <span>
+                    <em>{b.body.length || 1}</em>
+                    {b.chips.slice(0, 2).map((c) => (
+                      <i key={c.text}>{c.text}</i>
+                    ))}
+                  </span>
+                  {state === 'live' ? <u aria-hidden /> : null}
+                </button>
+              )
+            })}
           </nav>
         </section>
       </div>
-
-      {next ? (
-        <p className={styles.next}>
-          <Link href={next.href}>
-            같은 유형 다음 문항 · {next.label} <ChevronRight size={15} aria-hidden />
-          </Link>
-        </p>
-      ) : null}
     </div>
   )
 }

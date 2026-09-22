@@ -252,3 +252,71 @@ export function blockKeyForTarget(targetKey: string, blockKeys: string[]): strin
   if (targetKey === 'analysis:map') return 'analysis:map'
   return null
 }
+
+// ── 진행 띠(Runs) ──────────────────────────────────────────────────────
+//
+// 참조(Tines)의 실행 화면은 「지표 네 칸 + 시간 축 간트」다. 강의 큐는 저마다 추정 초를 들고
+// 있으므로 같은 그림이 **지어낸 장식이 아니라 실제 값**으로 그려진다 — 어느 단계가 길고
+// 어디쯤 왔는지가 막대 하나로 보인다.
+
+export interface TheaterSegment {
+  index: number
+  /** 시작 초 */
+  start: number
+  sec: number
+  /** 전체 길이 대비 % */
+  pct: number
+  offsetPct: number
+  kind: string
+  name: string
+}
+
+export interface TheaterTimeline {
+  total: number
+  segments: TheaterSegment[]
+  /** 축 눈금(초) — 처음과 끝을 포함해 다섯 칸 */
+  marks: number[]
+}
+
+export function theaterTimeline(steps: TheaterStep[]): TheaterTimeline {
+  const total = steps.reduce((sum, s) => sum + s.sec, 0)
+  let start = 0
+  const segments = steps.map((s) => {
+    const seg: TheaterSegment = {
+      index: s.index,
+      start,
+      sec: s.sec,
+      // 전체가 0초면 균등 분할한다 — 0 으로 나누면 막대가 통째로 사라진다
+      pct: total > 0 ? (s.sec / total) * 100 : 100 / Math.max(1, steps.length),
+      offsetPct: total > 0 ? (start / total) * 100 : (s.index / Math.max(1, steps.length)) * 100,
+      kind: s.kind,
+      name: s.name,
+    }
+    start += s.sec
+    return seg
+  })
+  const marks = total > 0 ? [0, 1, 2, 3, 4].map((k) => Math.round((total * k) / 4)) : []
+  return { total, segments, marks }
+}
+
+/** 초 → 「3분 44초」. 참조의 `284ms` 자리에 우리는 분·초를 쓴다(길이 단위가 다르다). */
+export function theaterClock(sec: number): string {
+  const s = Math.max(0, Math.round(sec))
+  const m = Math.floor(s / 60)
+  const r = s % 60
+  return m ? (r ? `${m}분 ${r}초` : `${m}분`) : `${r}초`
+}
+
+/**
+ * 블록 종류 → 면 색(`--tint-*`). 참조의 바닥 카드가 단계마다 고유 색을 갖는 것과 같은 규칙이고,
+ * 색은 **종류에 고정**된다 — 같은 종류는 어느 문항에서나 같은 색이다.
+ */
+export const BLOCK_TINT: Record<TheaterBlockKind, string> = {
+  head: 'lavender',
+  ability: 'teal',
+  intent: 'yellow',
+  answer: 'green',
+  reject: 'peach',
+  procedure: 'pink',
+  vocab: 'lavender',
+}

@@ -57,6 +57,8 @@ export function routeArt(pathname: string): RouteArt | null {
 const NO_BANNER = [
   /^\/hub$/, /^\/dashboard$/, /^\/practice$/, /^\/library\/(books|scripts|vocab|textbooks)$/, /^\/library\/textbooks\/[^/]+$/, /^\/comics\//, /^\/teacher$/,
   /\/play(\/|$)/, /^\/dictate\/session/, /^\/wordvault\/(study|review|browse)/, /^\/csat(\/formulas)?$/, /^\/csat\/dissect/,
+  // 해설 극장은 제 상단 막대를 갖는 작업 공간이라 머리띠가 얹히면 화면이 두 번 시작한다
+  /^\/csat\/item\//,
   /^\/text\/[^/]+/, /^\/library\/books\/[^/]+/, /^\/my\/books\/[^/]+/, /^\/settings/, /^\/diagnostic\/[^/]+/,
 ]
 /**
