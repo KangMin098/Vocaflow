@@ -115,7 +115,7 @@
 
 참조 UI 부품(DD-68 · tines-mapping §14): 클래스 키트 `components/ui/tines-kit.ts`(`BTN.primary/secondary/soft/onDeep/text` · `CHIP` · `INPUT` · `CARD` · `SEG`) · 색 탭 `components/ui/ToneTabs` · 빈 상태 틀 `components/ui/SpotState`(용도별 소품) · 스킨 모양 층(globals.css — 버튼 조합 알약 · 검은 막 → 라벤더 유리 · 입력 테두리 `--bd-input`). 토큰 `--bd-input` · 스킨 `--bd-strong #aa94ff` · iOS 글로우 없음.
 
-스킨 위 앱 부품(DD-68): `components/layout/AreaNav` — 구역 하위 내비(라벤더 알약 막대, 선택 면 = 막대 면에 `--ju` 12% 섞음) · `components/layout/AreaHero` — 앱 구역 머리(2열, 오른쪽 `--tint-*` 면 위 장면 삽화 · `fit` contain/cover). 틴트 면 위 본문은 `--t2` 까지 — 분홍 · 청록 면에는 `--t1` 만 쓴다(`#714bd0` 가 4.0 · 4.4:1).
+스킨 위 앱 부품(DD-68): `components/layout/AreaNav` — 구역 하위 내비(라벤더 알약 막대, 선택 면 = 막대 면에 `--ju` 12% 섞음) · `components/layout/AreaHero` — 앱 구역 머리(범주 색 **진한 판** 안 2열 · 오른쪽 타일 · 선택 `tabs` = 판 아랫변 폴더 탭, 고른 탭 면 `--bg2` · tines-mapping §24). 틴트 면 위 본문은 `--t2` 까지 — 분홍 · 청록 면에는 `--t1` 만 쓴다(`#714bd0` 가 4.0 · 4.4:1).
 
 ### 색 토큰 카탈로그 (현행 · 2026-09-18 실측)
 

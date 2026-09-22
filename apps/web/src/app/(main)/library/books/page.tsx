@@ -384,13 +384,21 @@ export default async function LibraryBooksPage({
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        {/* DD-68 — 참조 도서관 머리: 왼쪽 글 · 오른쪽 진한 면 타일(tile-books). 색은 도서 범주 색. 수치는 방금 받은 카탈로그에서 센다. */}
+        {/* DD-68 — 참조 도서관 머리: 도서 범주 색 진한 판 · 오른쪽 tile-books · 아랫변 탭(둘러보기 / 전체 보기 = ?show=all). 수치는 방금 받은 카탈로그에서 센다. */}
         <AreaHero
           kicker="서가 · 영어 원서"
           title={MATERIAL_LABEL.book}
           sub="큐레이션된 영어 원서 — i+1 수준에 맞춘 도서를 추천해드려요."
           tile="tile-books"
           tint={MATERIAL_TONE.book.tint}
+          tabs={
+            totalBooks > 0
+              ? [
+                  { href: '/library/books', label: '둘러보기', active: !showAll },
+                  { href: '/library/books?show=all', label: '전체 보기', count: `${totalBooks}`, active: showAll },
+                ]
+              : undefined
+          }
           stats={
             totalBooks > 0
               ? [

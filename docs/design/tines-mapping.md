@@ -456,3 +456,13 @@ DashScope 무료 한도(100장)를 다 써서 **Kaggle T4 + Qwen-Image GGUF Q3 +
 | G2 배지 줄 | 없음 — 받은 평가가 없다 |
 
 진한 카드는 보라 띠보다 어두워야 한다. `--deep-purple`(#6956a8)은 띠(#714bd0)와 명도가 거의 같아 묻혀서 카드에서만 `--deep-purple` 을 `color-mix(--p 70%, --deep-ink)` 로 덮는다.
+
+## 24. 앱 구역 머리 ↔ 참조 도서관 머리
+
+참조 도서관(/library)은 **진한 보라 둥근 판** 한 장 안에 눈썹 · 흰 제목 · 부제 · 오른쪽 삽화를 두고, 판 **아랫변에 폴더 탭**
+(Featured · All stories 1213)을 붙인다. 고른 탭은 화면 바탕색이라 판 아래 본문과 이어진다. 우리 `AreaHero` 는 크림 바탕 2열이었다.
+
+- `AreaHero` 를 판으로 바꿨다 — 판 색은 `tint` 의 진한 계열(`DEEP_OF`: green → deep-green · peach/yellow → deep-orange · pink → deep-magenta · teal → deep-charcoal · lavender → deep-purple), `deep` 으로 직접 고를 수도 있다. 부르는 곳 넷(도서 · 책 만화 · 옛 만화 · 교사)이 그대로 따라온다.
+- 수치 알약은 판 위 크림 14% 면. 타일은 240px(판 높이 ~350px, 참조 410px).
+- `tabs` — 판 아랫변 폴더 탭(`data-shape="keep"` 로 알약화 제외). 도서: 둘러보기 / 전체 보기 N(= `?show=all`, 이미 있던 전량 보기 주소). 고른 탭 면은 `--bg2` — 부르는 화면이 `Screen background="bg2"` 여야 이어져 보인다.
+- 눈썹은 모노가 아니라 산세리프 굵게 — 모노 대체 서체에 한글이 없어 공백만 모노 폭이 된다.
