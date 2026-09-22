@@ -304,15 +304,31 @@ export function judgeStage(gauges: readonly StageGauge[]): StageStatus {
 }
 
 /**
- * 병목 — **라인 순서에서 가장 앞선, 통과하지 못한 공정.**
+ * 병목 — **그 레인의 순서에서 가장 앞선, 통과하지 못한 공정.**
  *
  * 뒤쪽 공정이 더 나빠 보여도 앞이 막혀 있으면 뒤를 고쳐 봐야 소용이 없다(해설이 0%인데 조판을
  * 돌리면 해설 없는 책이 나온다). 그래서 "가장 나쁜 공정" 이 아니라 **"가장 앞선 막힌 공정"** 을
  * 고른다. `unmeasured` 도 병목이다 — 재지 않은 것을 통과로 세면 그게 바로 거짓 안심이다.
+ *
+ * ── 레인 인자가 왜 생겼나 (2026-09-23 · DD-69 A1 · DD-72) ───────────
+ * ⚠️ 여기까지 이 함수는 **레인을 안 가리고** `ord` 만 봤다. 그런데 `ord 2` 는 ② 기획이고
+ *   그것은 `lane: 'lab'` — **라인을 막지 않는 공정**이다. 기획은 「시중 교재를 이기는가」를
+ *   묻고, 그 답이 미달이어도 ④ 소재·⑤ 집필·⑧ 조판은 그대로 돈다.
+ *
+ *   실측 2026-09-23: 현황판이 「막힌 곳 · 2. 기획」이라 적는 동안 ④⑤⑧ 은 전부 「통과」였고,
+ *   그 기획의 미달 사유는 **생산이 아니라 증거 부족**(EBS 정답해설이 코퍼스에 없다)이었다.
+ *   즉 화면이 가리킨 곳에서 할 수 있는 생산 작업이 **하나도 없었다.**
+ *
+ *   레인을 나누면 두 병목이 따로 선다 — 연구소 병목은 「무엇을 만들지」가 막힌 것이고,
+ *   라인 병목은 「만드는 것」이 막힌 것이다. 인자를 안 주면 예전처럼 전체에서 고른다.
  */
-export function findBottleneck(stages: readonly StageState[]): StageState | null {
+export function findBottleneck(
+  stages: readonly StageState[],
+  lane?: Lane,
+): StageState | null {
   return (
     [...stages]
+      .filter((s) => (lane ? s.def.lane === lane : true))
       .sort((a, b) => a.def.ord - b.def.ord)
       .find((s) => s.status !== 'pass') ?? null
   )

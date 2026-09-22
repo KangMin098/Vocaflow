@@ -215,7 +215,16 @@ export function FactoryLineClient({
   stages: StageState[]
   loadError: string | null
 }) {
-  const bottleneck = findBottleneck(stages)
+  // ── 병목을 레인마다 따로 고른다 (2026-09-23 · DD-72) ───────────────
+  // ⚠️ 여기까지 병목이 하나였고 `ord` 만 봤다. `ord 2` 는 ② 기획이고 그것은 **연구소**라
+  //   라인을 막지 않는다 — 실측 2026-09-23 에 화면이 「막힌 곳 · 2. 기획」이라 적는 동안
+  //   ④⑤⑧ 은 전부 통과였고, 기획의 미달 사유는 생산이 아니라 **증거 부족**이었다.
+  //   즉 화면이 가리킨 곳에서 **할 수 있는 생산 작업이 하나도 없었다.**
+  //
+  //   라인 병목을 먼저 적는다 — 「지금 무엇을 돌릴까」의 답은 거의 항상 라인에 있다.
+  const lineBottleneck = findBottleneck(stages, 'line')
+  const labBottleneck = findBottleneck(stages, 'lab')
+  const bottleneck = lineBottleneck ?? labBottleneck
   const { passed, total } = lineCompletion(stages)
   // 기본 선택은 병목이다 — 열자마자 고쳐야 할 칸이 이미 펼쳐져 있다.
   const [picked, setPicked] = useState<string | null>(null)
@@ -238,23 +247,41 @@ export function FactoryLineClient({
         </p>
       ) : null}
 
-      {/* ① 한 줄 — 이 화면에서 가장 중요한 문장. 뒤 공정이 더 나빠 보여도 여기부터 푼다. */}
-      <p className="break-keep font-display text-[15px] font-[700] text-[var(--t1)]">
-        {bottleneck ? (
-          <>
-            <span className="text-[var(--t3)]">막힌 곳 · </span>
-            {bottleneck.def.ord}. {bottleneck.def.name}
-            <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t2)]">
-              {bottleneck.blocker ?? bottleneck.def.gate}
-            </span>
-          </>
-        ) : (
-          <span className="text-[#2E7D5A]">공정 {total}칸이 모두 게이트를 넘었다</span>
-        )}
-        <span className="ml-2 font-mono text-[12px] font-[400] tabular-nums text-[var(--t3)]">
-          {passed}/{total}
-        </span>
-      </p>
+      {/* ① 한 줄 — 이 화면에서 가장 중요한 문장. 뒤 공정이 더 나빠 보여도 여기부터 푼다.
+          **라인과 연구소를 갈라 적는다** — 둘은 할 일이 다르다(만드는 것 vs 무엇을 만들지). */}
+      <div className="flex flex-col gap-1">
+        <p className="break-keep font-display text-[15px] font-[700] text-[var(--t1)]">
+          {lineBottleneck ? (
+            <>
+              <span className="text-[var(--t3)]">생산 라인이 막힌 곳 · </span>
+              {lineBottleneck.def.ord}. {lineBottleneck.def.name}
+              <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t2)]">
+                {lineBottleneck.blocker ?? lineBottleneck.def.gate}
+              </span>
+            </>
+          ) : (
+            <span className="text-[#2E7D5A]">생산 라인이 게이트를 다 넘었다</span>
+          )}
+          <span className="ml-2 font-mono text-[12px] font-[400] tabular-nums text-[var(--t3)]">
+            {passed}/{total}
+          </span>
+        </p>
+        {/* 연구소는 **라인을 막지 않는다.** 그래서 작게, 아래에 적는다 — 여기가 미달이어도
+            ④⑤⑧ 은 그대로 돌고, 할 일도 대개 생산이 아니라 증거 모으기다. */}
+        <p className="break-keep font-body text-[12px] text-[var(--t2)]">
+          {labBottleneck ? (
+            <>
+              <span className="text-[var(--t3)]">전략 연구소 · </span>
+              {labBottleneck.def.ord}. {labBottleneck.def.name}
+              <span className="ml-1.5 text-[var(--t3)]">
+                {labBottleneck.blocker ?? labBottleneck.def.gate} — 라인을 막지는 않는다
+              </span>
+            </>
+          ) : (
+            <span className="text-[var(--t3)]">전략 연구소도 게이트를 다 넘었다</span>
+          )}
+        </p>
+      </div>
 
       {/* ② 도식 — 여덟 칸을 한 그림으로. 색 + 모양 + 라벨 삼중이라 색약에서도 갈린다. */}
       {stages.length ? (

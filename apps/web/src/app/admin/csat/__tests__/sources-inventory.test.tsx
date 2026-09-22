@@ -51,7 +51,13 @@ const text = html
  * 절 제목을 고쳐 부른 것 — **옛 이름 → 지금 화면에 있어야 할 문자열**.
  * 비어 있으면 이름을 하나도 안 바꿨다는 뜻이다.
  */
-const HEADING_RENAMES: Record<string, string> = {}
+const HEADING_RENAMES: Record<string, string> = {
+  // 2026-09-23 · DD-72 — 메뉴를 레인(lab/line)대로 재배열하며 이 화면을 **라인 입구**로 옮겼다.
+  // 이 화면의 출력은 ④ 소재의 입력이지 연구소(①②③)의 입력이 아니다(전자는 평가원 기출,
+  // 후자는 library_articles — 겹치지 않는다). 이름이 그 자리를 말하게 했다.
+  // 라우트(/admin/csat/sources) · 도움말 슬러그(csat-sources) · 탭 라벨은 그대로다.
+  '원문 적격': '소재 적격',
+}
 
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim()
 

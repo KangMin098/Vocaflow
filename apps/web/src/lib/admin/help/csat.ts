@@ -758,7 +758,7 @@ export const CSAT_HELP: HelpRegistry = {
       },
       seeAlso: [
         { label: '공정 현황판', href: '/admin/csat' },
-        { label: '원문 적격 — 실어도 되는가', href: '/admin/csat/sources' },
+        { label: '소재 적격 — 실어도 되는가', href: '/admin/csat/sources' },
         { label: '원문 본문·소스별 목록 (ACP)', href: '/admin/articles' },
         { label: '수확기·소스별 함정', doc: 'docs/LIBRARY_PIPELINE.md' },
       ],

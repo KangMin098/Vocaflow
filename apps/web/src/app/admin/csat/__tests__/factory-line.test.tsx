@@ -47,23 +47,53 @@ describe('FactoryLineClient', () => {
     expect(text(html)).toContain('RPC 실패: 권한 없음')
   })
 
-  it('병목은 뒤가 더 나빠도 앞선 미달을 가리킨다', () => {
+  // ── 이 검사가 바뀐 이유 (2026-09-23 · DD-72) ──────────────────────
+  // 원래는 병목이 **하나**였고 `ord` 만 봤다. 그래서 이 검사는 「② 기획(short)과
+  // ⑧ 조판(blocked)이 함께 있으면 기획을 가리킨다」를 잠그고 있었다 —
+  // **그것이 바로 고친 결함이다.** ② 기획은 `lane: 'lab'` 이라 라인을 안 막는다:
+  // 실측 2026-09-23 에 화면이 「막힌 곳 · 2. 기획」이라 적는 동안 ④⑤⑧ 은 전부 통과였고,
+  // 기획의 미달 사유는 생산이 아니라 **증거 부족**이라 그 자리에서 돌릴 것이 없었다.
+  //
+  // 지키려던 것(「뒤가 더 나빠도 앞선 미달을 먼저」)은 **레인 안에서** 그대로 잠근다.
+  it('라인 병목은 라인 안에서 앞선 미달을 가리킨다 — 연구소가 끼어들지 않는다', () => {
     const html = text(
       renderToString(
         <FactoryLineClient
           stages={[
             mk('evidence', 'pass'),
             mk('market', 'short', [], '구속점은 EBS 1.199'),
+            mk('source', 'short', [], '지문이 모자란다'),
             mk('press', 'blocked', [], '조판된 계단이 없다'),
           ]}
           loadError={null}
         />,
       ),
     )
+    // 라인 안에서는 ④ 소재가 ⑧ 조판보다 앞이다.
+    expect(html).toContain('생산 라인이 막힌 곳')
+    expect(html).toContain('4. 소재')
+    expect(html).toContain('지문이 모자란다')
+    // 연구소는 **따로** 적히고, 라인을 막지 않는다고 말한다.
+    expect(html).toContain('전략 연구소')
     expect(html).toContain('2. 기획')
-    expect(html).toContain('구속점은 EBS 1.199')
-    // 뒤쪽 공정이 병목 자리에 오지 않는다
-    expect(html).not.toContain('8. 조판 · 발행<')
+    expect(html).toContain('라인을 막지는 않는다')
+  })
+
+  it('연구소만 막히면 라인은 「다 넘었다」고 말한다 — 없는 생산 작업을 가리키지 않는다', () => {
+    const html = text(
+      renderToString(
+        <FactoryLineClient
+          stages={[
+            mk('market', 'unmeasured', [], 'EBS 는 증거가 모자라 판정할 수 없다'),
+            mk('source', 'pass'),
+            mk('press', 'pass'),
+          ]}
+          loadError={null}
+        />,
+      ),
+    )
+    expect(html).toContain('생산 라인이 게이트를 다 넘었다')
+    expect(html).toContain('EBS 는 증거가 모자라 판정할 수 없다')
   })
 
   it('못 잰 눈금은 0% 막대가 아니라 「못 잼」과 그 이유를 적는다', () => {
@@ -132,13 +162,17 @@ describe('FactoryLineClient', () => {
     expect(html).toContain('Claude Code')
   })
 
-  it('전부 통과하면 막힌 곳이 없다고 말한다 — 빈 자리로 두지 않는다', () => {
+  it('전부 통과하면 두 레인 다 「넘었다」고 말한다 — 빈 자리로 두지 않는다', () => {
     const html = text(
       renderToString(
-        <FactoryLineClient stages={[mk('evidence', 'pass'), mk('market', 'pass')]} loadError={null} />,
+        <FactoryLineClient
+          stages={[mk('evidence', 'pass'), mk('market', 'pass'), mk('press', 'pass')]}
+          loadError={null}
+        />,
       ),
     )
-    expect(html).toContain('모두 게이트를 넘었다')
+    expect(html).toContain('생산 라인이 게이트를 다 넘었다')
+    expect(html).toContain('전략 연구소도 게이트를 다 넘었다')
     expect(html).not.toContain('막힌 곳')
   })
 

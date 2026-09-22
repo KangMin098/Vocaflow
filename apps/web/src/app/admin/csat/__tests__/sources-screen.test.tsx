@@ -500,9 +500,11 @@ describe('원문으로 가는 길', () => {
 describe('도움말 계약', () => {
   const entry = HELP_REGISTRY['csat-sources']
 
-  it('레지스트리 키가 라우트 슬러그와 같다', () => {
+  it('레지스트리 키가 라우트 슬러그와 같고, 제목이 메뉴 라벨과 같다', () => {
     expect(entry).toBeTruthy()
-    expect(entry!.title).toBe('원문 적격')
+    // 도움말 제목과 메뉴 라벨이 다르면 관리자가 자기가 어디 있는지 알 방법이 없다.
+    // 2026-09-23 「원문 적격」 → 「소재 적격」(DD-72). 슬러그·라우트는 안 바뀐다.
+    expect(entry!.title).toBe('소재 적격')
   })
 
   it('드레인 절차가 있고 재실행 안전 여부를 밝힌다', () => {

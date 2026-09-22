@@ -92,7 +92,7 @@ export function SourceWorkspace({
       <header className={styles.header}>
         <div>
           <p className={styles.eyebrow}>재료 · 원문 관리</p>
-          <h2>원문 적격</h2>
+          <h2>소재 적격</h2>
           <p className={styles.description}>
             원천의 준비 상태를 확인하고, 검수가 필요한 원문으로 이동하세요.
           </p>

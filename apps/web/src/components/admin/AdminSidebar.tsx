@@ -155,19 +155,36 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
               group: '만들기',
             },
             { href: '/admin/csat/catalog', label: '카탈로그', Icon: LayoutGrid },
+
+            // ── 레인대로 묶는다 (2026-09-23 · DD-72) ──────────────────────
+            // `factory-model.ts` 는 **`lane: 'lab' | 'line'` 을 이미 선언하고** 현황판도 두 띠로
+            // 그린다(「전략 연구소 / 생산 라인」). 그런데 이 메뉴만 「재료 / 공정 / 출고」로 묶여
+            // 모델을 무시하고 있었고, 그 어긋남이 두 가지를 낳았다:
+            //   · ② 기획(연구소)이 ④ 소재(라인) 앞에 서서 **라인이 기획에 막힌 것처럼** 읽혔다.
+            //     실제로는 안 막는다 — 실측 2026-09-23 에 기획이 「못 잼」인 동안 ④⑤⑧ 은 통과였다.
+            //   · 「원문 적격」이 ①②③ 과 같은 「재료」에 묶였는데, 그 출력은 **④ 소재의 입력**이지
+            //     연구소의 입력이 아니다(전자는 평가원 기출, 후자는 library_articles — 겹치지 않는다).
             {
               href: '/admin/csat/evidence',
               label: '기출 원천',
               tag: '①',
               Icon: Scale,
-              group: '재료',
+              group: '전략 연구소',
             },
-            // 「원문 적격」 — 재고가 아니라 **자격**을 본다: 재고가 있어도 판정을 통과 못 하면 못 싣는다.
-            // 라우트도 2026-09-06 에 `/admin/textbook/sources` → 여기로 옮겼다. 메뉴에서는 교재
-            // 공장 안인데 URL 은 다른 파이프라인이면, 주소창과 메뉴가 서로 다른 말을 한다.
-            { href: '/admin/csat/sources', label: '원문 적격', Icon: BookMarked },
-            { href: '/admin/csat/strategy', label: '기획', tag: '②', Icon: Target, group: '공정' },
+            { href: '/admin/csat/strategy', label: '기획', tag: '②', Icon: Target },
             { href: '/admin/csat/blueprint', label: '설계', tag: '③', Icon: Grid3x3 },
+
+            // 「소재 적격」 — 재고가 아니라 **자격**을 본다: 재고가 있어도 판정을 통과 못 하면 못 싣는다.
+            // 라우트는 2026-09-06 에 `/admin/textbook/sources` → 여기로 옮겼다. 메뉴에서는 교재
+            // 공장 안인데 URL 은 다른 파이프라인이면, 주소창과 메뉴가 서로 다른 말을 한다.
+            // 이름을 「원문 적격」 → 「소재 적격」으로 바꾼 것은 **바로 다음 칸(④ 소재)의 입구**임을
+            // 이름으로 말하기 위해서다.
+            {
+              href: '/admin/csat/sources',
+              label: '소재 적격',
+              Icon: BookMarked,
+              group: '생산 라인',
+            },
             { href: '/admin/csat/sourcing', label: '소재', tag: '④', Icon: FileText },
             { href: '/admin/csat/authoring', label: '집필', tag: '⑤', Icon: PenLine },
             // 해설 ⑥ — **2026-09-23 까지 갈 곳이 없는 칸이었다**(href 가 부모 · 「준비 중」 배지).
