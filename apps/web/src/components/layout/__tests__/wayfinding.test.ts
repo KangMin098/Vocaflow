@@ -94,6 +94,9 @@ const TABBAR_EXEMPT = new Set(['/settings', '/sitemap'])
 
 const allNavItems: NavItem[] = [
   ...META_ITEMS,
+  // v08.7 — Growth 가 Level·Plan·Report 를 `owns` 가 아니라 `children` 으로 갖는다.
+  //   메타의 자식을 안 세면 그 세 화면이 "아무 데도 아님" 으로 잘못 잡힌다.
+  ...META_ITEMS.flatMap((i) => i.children ?? []),
   ...NAV_GROUPS.flatMap((g) => g.items),
   ...NAV_GROUPS.flatMap((g) => g.items.flatMap((i) => i.children ?? [])),
   ...ASIDE_GROUP.items,

@@ -273,19 +273,18 @@ test.describe('내비게이션 기본기', () => {
     test.setTimeout(180_000);
     // 공용 서가와 내 라이브러리는 면 이름이 겹친다(Books · Decks). 사이드바 시절에는 둘이
     // 동시에 펼쳐져 한 화면에 Books 가 둘 서는 사고가 있었다(사용자 지적 2026-08-16).
-    // 상단 메뉴에서는 그 둘이 **한 패널 안**(① Read)에서 눈썹으로 갈라져 있고,
+    // 상단 메뉴에서는 그 둘이 **한 패널 안**(Read)에서 눈썹 둘로 갈라져 있고,
     // 패널 자체는 언제나 하나만 열린다 — 여기서 그 둘을 다 본다.
     await page.goto('/library/books', { waitUntil: 'domcontentloaded', timeout: 45_000 });
     const shell = shellNav(page);
     await expect(shell).toBeVisible({ timeout: 15_000 });
 
     await shell.getByRole('button', { name: /Read/ }).hover();
-    // 한 패널 안이라 어느 쪽이 공용인지 눈썹(자료별 — 공용 서가 / 내 라이브러리)이 말한다
     await expect(shell.locator('a[href="/library/books"]')).toBeVisible();
     await expect(shell.locator('a[href="/text?view=books"]')).toBeVisible();
 
     // 다른 메뉴를 열면 앞의 패널은 닫힌다 — 열린 패널은 늘 하나다
-    await shell.getByRole('button', { name: /더 보기/ }).hover();
+    await shell.getByRole('button', { name: /Growth/ }).hover();
     await expect(shell.locator('a[href="/library/books"]')).toBeHidden();
 
     const expanded = await shell
@@ -294,57 +293,62 @@ test.describe('내비게이션 기본기', () => {
     expect(expanded, '열린 패널이 2개 이상이다').toBe(1);
   });
 
-  test('학습 흐름 레일 — 5단계가 순서대로 있고, Comics 는 레일 밖이다', async ({ page }) => {
+  test('막대는 이름 있는 다섯 칸이다 — 「더 보기」 같은 남은 것 통이 없다', async ({ page }) => {
     test.setTimeout(120_000);
-    // 이 단언이 지키는 것: ① 번호가 순서를 말한다 ② 아무것도 잠겨 있지 않다
-    // ③ 만화가 여섯 번째 단계로 읽히지 않는다.
+    // v08.7 — 1차 상단 메뉴는 만화·기출·학급·설정·사이트맵을 「더 보기」 한 칸에 몰아넣었다.
+    // 그 칸은 이름이 아니라 **남은 것 통**이라 열기 전엔 무엇이 있는지 알 수 없다.
     await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 45_000 });
     const shell = shellNav(page);
     await expect(shell).toBeVisible({ timeout: 15_000 });
 
-    // 레일은 막대 안의 한 구역이다. 순서는 각 칸의 sr-only 문장이 말한다("흐름 N번째 · 이름").
-    const rail = shell.getByRole('navigation', { name: '학습 흐름' });
+    const bar = shell.getByRole('navigation', { name: '주요 화면 메뉴' });
+    const labels = await bar
+      .locator('a, button')
+      .evaluateAll((els) => els.map((e) => (e.textContent || '').trim()));
+    expect(labels.length, '가운데 알약이 다섯이 아니다').toBe(5);
+    for (const l of labels) {
+      expect(l, `이름 없는 칸: ${l}`).not.toMatch(/더 보기|기타|More/i);
+    }
+  });
+
+  test('학습 흐름 — 다섯 단계가 패널 안에서 번호 순으로 읽히고, Comics 는 그 밖이다', async ({
+    page,
+  }) => {
+    test.setTimeout(120_000);
+    // 이 단언이 지키는 것: ① 번호가 순서를 말한다 ② 아무것도 잠겨 있지 않다
+    // ③ 만화가 여섯 번째 단계로 읽히지 않는다.
+    // v08.7 부터 번호는 막대가 아니라 **패널 안**에 산다(Read 패널 ① · Practice 패널 ②~⑤).
+    await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 45_000 });
+    const shell = shellNav(page);
+    await expect(shell).toBeVisible({ timeout: 15_000 });
+
+    // 순서는 각 블록·행의 sr-only 문장이 말한다("흐름 N번째 · 이름")
     const stageNames = ['Read', 'Words', 'Practice', 'Conquer', 'Complete'];
     for (const [i, name] of stageNames.entries()) {
       await expect(
-        rail.getByText(new RegExp(`흐름 ${i + 1}번째 · ${name}`)),
+        shell.getByText(new RegExp(`흐름 ${i + 1}번째 · ${name}`)),
         `${i + 1}단계 ${name} 없음`,
       ).toHaveCount(1);
     }
 
-    // 막대 위에서도 왼쪽→오른쪽 순서가 배열 순서와 같다(번호가 곧 순서다)
-    const railOrder = await rail
-      .locator('[aria-label], a, button')
-      .evaluateAll((els) =>
-        els
-          .map((e) => (e.textContent || '').match(/흐름 (\d)번째/)?.[1])
-          .filter(Boolean)
-          .map(Number),
-      );
-    expect(railOrder, '레일 번호가 화면 순서와 어긋난다').toEqual([1, 2, 3, 4, 5]);
+    // 화면에 나오는 차례도 번호 차례와 같다 — 패널을 왼쪽에서 오른쪽으로 읽으면 ①→⑤ 다
+    const order = await shell.evaluate((el) =>
+      [...(el.textContent || '').matchAll(/흐름 (\d)번째/g)].map((m) => Number(m[1])),
+    );
+    expect(order, '번호가 화면 순서와 어긋난다').toEqual([...order].sort((a, b) => a - b));
 
     // 잠그지 않는다 — LEARNING_FRAMEWORK §4① (자물쇠 UI 금지 · 잠금 어휘 금지)
     await expect(shell.getByText(/잠김|잠금|불가|금지|차단/)).toHaveCount(0);
     await expect(shell.locator('a[aria-disabled="true"], a[disabled]')).toHaveCount(0);
 
-    // Comics 는 레일 밖 — DOM 에서 마지막 단계(Dictation)보다 **뒤**다(「더 보기」 패널).
-    const order = await shell
-      .locator('a[href]')
-      .evaluateAll((els) => els.map((e) => (e as HTMLAnchorElement).getAttribute('href') || ''));
-    const iDictate = order.indexOf('/dictate');
-    const iComic = order.indexOf('/comics/adapted');
-    expect(iDictate, '/dictate 가 상단 메뉴에 없다').toBeGreaterThan(-1);
-    expect(iComic, '/comics/adapted 가 상단 메뉴에 없다').toBeGreaterThan(-1);
-    expect(iComic, 'Comics 가 흐름 위에 있다 — 만화는 학습 단계가 아니다').toBeGreaterThan(
-      iDictate,
+    // Comics 는 열 밖 · 번호 밖 — Read 패널 **하단 링크 줄**에 산다.
+    await shell.getByRole('button', { name: /Read/ }).hover();
+    const comic = shell.locator('a[href="/comics/adapted"]');
+    await expect(comic).toBeVisible();
+    const hasStep = await comic.evaluate((el) =>
+      /흐름 \d번째/.test(el.closest('div')?.textContent || ''),
     );
-
-    // 패널도 레일 순서대로 놓인다 — ① Read 패널이 ③ Practice 패널보다 앞이다
-    const iLibrary = order.indexOf('/library');
-    const iPractice = order.indexOf('/practice');
-    expect(iLibrary, '/library 가 상단 메뉴에 없다').toBeGreaterThan(-1);
-    expect(iPractice, '/practice 가 상단 메뉴에 없다').toBeGreaterThan(-1);
-    expect(iPractice, '패널 순서가 흐름과 어긋났다').toBeGreaterThan(iLibrary);
+    expect(hasStep, '만화에 흐름 번호가 붙었다 — 만화는 학습 단계가 아니다').toBe(false);
   });
 
   test('진입 라우트가 첫 탭으로 리다이렉트된다', async ({ page }) => {
