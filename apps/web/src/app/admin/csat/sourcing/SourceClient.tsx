@@ -293,14 +293,81 @@ export function SourceClient({
             못 잼 — 0 이 아니다. 조회가 값을 안 돌려줬다.
           </p>
         ) : (
-          <ul className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[12px] tabular-nums text-[var(--t2)]">
-            {Object.entries(kidSource.inventory).map(([k, v]) => (
-              <li key={k}>
-                <span className="mr-1 font-body text-[11px] text-[var(--t3)]">{k}</span>
-                {typeof v === 'number' ? v.toLocaleString() : String(v)}
-              </li>
-            ))}
-          </ul>
+          // ⚠️ 여기는 **`Object.entries` 로 통째로 펴고 있었다**(실측 2026-09-23 캡처):
+          //   화면에 영어 키(`bands`·`adapted`·`total`·`pct`)와 `[object Object]` 가 여섯 줄
+          //   찍혔다 — `bands` 는 배열이고 `adapted` 는 객체라 `String(v)` 가 그렇게 된다.
+          //   타입도 린트도 안 잡는 종류의 결함이고, 스크립트도 오류를 안 냈다.
+          //   모양을 모르는 값을 펴서 인쇄하지 않는다 — **칸을 이름으로 적는다.**
+          <div className="flex flex-col gap-2">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[520px] text-left text-[12px]">
+                <thead>
+                  <tr className="border-b border-[var(--bd)] text-[11px] text-[var(--t3)]">
+                    <th className="py-1.5 pr-3 font-[500]">칸</th>
+                    <th className="py-1.5 pr-3 font-[500]">적재</th>
+                    <th className="py-1.5 pr-3 font-[500]">격리</th>
+                    <th className="py-1.5 pr-3 font-[500]">게시 가능</th>
+                    <th className="py-1.5 pr-3 font-[500]">조합 가능</th>
+                    <th className="py-1.5 font-[500]">몫 남음</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {kidSource.inventory.bands.map((b) => (
+                    <tr key={b.band} className="border-b border-[var(--bd)] last:border-0">
+                      <td className="py-1.5 pr-3 break-keep text-[var(--t1)]">{b.band}</td>
+                      <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t2)]">
+                        {b.held.toLocaleString()}
+                      </td>
+                      <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t2)]">
+                        {b.quarantined.toLocaleString()}
+                        <span className="ml-1 text-[10.5px] text-[var(--t3)]">
+                          {b.quarantinedPct}%
+                        </span>
+                      </td>
+                      <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t1)]">
+                        {b.publishable.toLocaleString()}
+                      </td>
+                      {/* ⚠️ **적재와 조합 가능은 다르다.** 실측 2026-09-07: 이 표가 97.8% 를
+                          보고하는 동안 조판이 실제로 쓸 수 있는 것은 9편뿐이었다(나머지는
+                          queued). 안 주면 `undefined` 이고 그때는 「못 잼」이다. */}
+                      <td className="py-1.5 pr-3 font-mono tabular-nums">
+                        {b.composable == null ? (
+                          <span className="text-[#8A8278]">못 잼</span>
+                        ) : (
+                          <span style={{ color: b.composable > 0 ? '#2E7D5A' : '#9C3A30' }}>
+                            {b.composable.toLocaleString()}
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-1.5 font-mono tabular-nums text-[var(--t2)]">
+                        {b.quotaLeft.toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                  <tr className="border-t border-[var(--bd)]">
+                    <td className="py-1.5 pr-3 break-keep text-[var(--t1)]">각색분</td>
+                    <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t2)]">
+                      {kidSource.inventory.adapted.held.toLocaleString()}
+                    </td>
+                    <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t2)]">
+                      {kidSource.inventory.adapted.quarantined.toLocaleString()}
+                    </td>
+                    <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t1)]">
+                      {kidSource.inventory.adapted.publishable.toLocaleString()}
+                    </td>
+                    <td className="py-1.5 pr-3 text-[10.5px] text-[var(--t3)]">칸이 아니다</td>
+                    <td className="py-1.5" />
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="font-mono text-[12px] tabular-nums text-[var(--t1)]">
+              게시 가능 합계 {kidSource.inventory.total.toLocaleString()}
+              <span className="ml-1.5 font-body text-[11.5px] text-[var(--t3)]">
+                목표 대비 {kidSource.inventory.pct}%
+              </span>
+            </p>
+          </div>
         )}
         <p className="break-keep font-body text-[11px] leading-snug text-[var(--t3)]">
           사다리 아래 계단(초·중)은 수능 지문으로 못 채운다 — 그 학령의 원문이 따로 있어야 한다.
