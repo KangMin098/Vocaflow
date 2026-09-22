@@ -470,7 +470,7 @@ export function platformTabs(p: HubPortal): ToneTab[] {
             </ul>
           </div>
         ) : (
-          <Image src={`${ILLO}/tile-comics.webp`} alt="" width={1328} height={1328} className="w-[260px] justify-self-center rounded-[14px]" />
+          <Image src={`${ILLO}/tile-comics.webp`} alt="" width={1328} height={1328} className="vf-float w-[260px] justify-self-center rounded-[14px]" />
         )}
       </div>
     ),
@@ -485,7 +485,7 @@ export function platformTabs(p: HubPortal): ToneTab[] {
     panel: (
       <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
         <PanelCopy title="출제자가 왜 그 선택지를 만들었는지까지." body="문항마다 근거를 지문 위에서 따라 읽고, 오답이 어디서 갈라지는지 확인합니다." cta="기출 시작" href="/csat" index={2} />
-        <Image src={`${ILLO}/tile-csat.webp`} alt="" width={1328} height={1328} className="w-[220px] justify-self-center rounded-[14px] md:w-[300px]" />
+        <Image src={`${ILLO}/tile-csat.webp`} alt="" width={1328} height={1328} className="vf-float w-[220px] justify-self-center rounded-[14px] md:w-[300px]" />
       </div>
     ),
   })
@@ -503,7 +503,16 @@ export function platformTabs(p: HubPortal): ToneTab[] {
           {GAMES.map((g, i) => (
             <li key={g.href}>
               <PromoLink href={g.href} slot="arcade" index={2 + i} className={`group flex h-full flex-col rounded-[14px] bg-[var(--on-deep)] p-2 ${FOCUS}`}>
-                <Image src={`${ILLO}/${g.tile}.webp`} alt="" width={1328} height={1328} sizes="200px" className="aspect-square w-full select-none rounded-[10px] object-cover" />
+                {/* 셋이 같은 박자로 뜨면 판 전체가 출렁인다 — 계단 지연으로 **하나의 물결**이 된다(참조 `keyPulse` 0/.2/.4s). */}
+                <Image
+                  src={`${ILLO}/${g.tile}.webp`}
+                  alt=""
+                  width={1328}
+                  height={1328}
+                  sizes="200px"
+                  className="vf-float aspect-square w-full select-none rounded-[10px] object-cover"
+                  style={{ '--float-y': '4%', '--float-delay': `${i * 0.35}s` } as CSSProperties}
+                />
                 <span className="mt-2 px-1 break-keep font-serif text-[16px] font-[700] text-[var(--on-ju)] md:text-[18px]">{g.name}</span>
                 <span className="mb-1 hidden px-1 break-keep font-body text-[13px] leading-snug text-[var(--on-ju)] sm:block">{g.body}</span>
               </PromoLink>
@@ -589,7 +598,17 @@ export function SolutionSlab({ facts }: { facts: HubPortal['facts'] }) {
                 className={i > 0 ? '-ml-5 md:-ml-6' : ''}
                 style={{ transform: `rotate(${t.tilt}deg) translateY(${t.lift}px)`, zIndex: SLAB_TILES.length - i }}
               >
-                <Image src={`${ILLO}/${t.illo}.webp`} alt="" width={1328} height={1328} sizes="130px" className="w-[72px] select-none rounded-[14px] border-2 border-[var(--on-ju)] md:w-[120px]" />
+                {/* 뜨기는 **그림에** 건다 — `<li>` 에 걸면 애니메이션 transform 이 기울기·높이를 덮어
+                    타일 더미가 평평해진다. 보라 통판은 읽는 면이라 더 느리고 얕게(6s · 4%). */}
+                <Image
+                  src={`${ILLO}/${t.illo}.webp`}
+                  alt=""
+                  width={1328}
+                  height={1328}
+                  sizes="130px"
+                  className="vf-float w-[72px] select-none rounded-[14px] border-2 border-[var(--on-ju)] md:w-[120px]"
+                  style={{ '--float-dur': '6s', '--float-y': '4%', '--float-delay': `${i * 0.45}s` } as CSSProperties}
+                />
               </li>
             ))}
           </ul>
@@ -701,7 +720,15 @@ export function UspCards() {
             <p className="break-keep font-serif text-[23px] leading-[1.22] md:text-[25px]">
               <strong className="font-[700]">{u.lead}</strong> {u.rest}
             </p>
-            <Image src={`${ILLO}/${u.spot}.webp`} alt="" width={1328} height={1328} sizes="120px" className="mt-auto w-[108px] select-none pt-6" />
+            <Image
+              src={`${ILLO}/${u.spot}.webp`}
+              alt=""
+              width={1328}
+              height={1328}
+              sizes="120px"
+              className="vf-float mt-auto w-[108px] select-none pt-6"
+              style={{ '--float-dur': '5s', '--float-y': '7%', '--float-delay': `${i * 0.3}s` } as CSSProperties}
+            />
           </PromoLink>
         </li>
       ))}
@@ -715,14 +742,21 @@ export function UspCards() {
 export function FinalCta({ primary }: { primary: { label: string; href: string } }) {
   return (
     <div className="relative">
-      <Image
-        src={`${ILLO}/band-scatter.webp`}
-        alt=""
-        width={1664}
-        height={928}
-        sizes="(min-width: 1360px) 1280px, 100vw"
-        className="pointer-events-none absolute inset-0 hidden h-full w-full select-none object-cover md:block"
-      />
+      {/* 흩어진 물건 띠가 스크롤에 맞춰 천천히 지나간다(`.vf-parallax` · `view()` 타임라인).
+          **액자를 두르고 그림을 위아래로 3rem 크게 잡는 이유**: 시차는 그림을 ±0.75rem 옮기는데,
+          딱 맞는 그림을 옮기면 띠 가장자리에 **빈 줄**이 생긴다. 넘치는 부분은 액자가 자른다.
+          미지원 브라우저(Firefox 안정판)·모션 끔에서는 그냥 제자리에 있는 그림이다. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block">
+        <Image
+          src={`${ILLO}/band-scatter.webp`}
+          alt=""
+          width={1664}
+          height={928}
+          sizes="(min-width: 1360px) 1280px, 100vw"
+          className="vf-parallax absolute -top-12 left-0 h-[calc(100%+6rem)] w-full select-none object-cover"
+          style={{ '--par-from': '-0.75rem', '--par-to': '0.75rem' } as CSSProperties}
+        />
+      </div>
       <div className="relative mx-auto flex min-h-[360px] max-w-[460px] items-center py-10 md:min-h-[560px]">
         <div className="w-full rounded-[14px] border border-[var(--bd)] bg-[var(--bg)] px-7 py-10 text-center">
           <p className={`${KICKER} text-[var(--ju)]`}>Start today</p>
