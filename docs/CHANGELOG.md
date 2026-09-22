@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **점 격자 질감 + 항목마다 다른 면 색**(DD-68 · tines-mapping §25): `.dots` 유틸 · 기사 주제 줄이 `TINT_ROTATION` 으로 색을 돌린다(호버·초점도 면 색을 따른다).
 - **서가 넷이 같은 판**(DD-68 · tines-mapping §24-2): 기사 · 교재 · 단어장 머리를 `AreaHero` 판으로(교재는 보이는 제목이 처음 생겼다 — sr-only h1 → 판 제목). 판이 생긴 화면은 `NO_BANNER` 로 머리띠 중복 제거. 390px 에서는 타일을 숨기고 제목을 줄여 첫 화면에 상품이 남는다.
 - **비밀값 검사 오탐 제거**: `scripts/security/secret-scan.mjs` 가 `tokens: 'packages/…/tokens.css'` 같은 **저장소 상대 경로**를 비밀값으로 세고 있었다(CI 빨강). 값을 허용 목록에 넣지 않고 경로 모양을 거른다 — 진짜 비밀값은 그대로 잡힌다.
 - **앱 구역 머리 = 참조 도서관 머리**(DD-68 · tines-mapping §24): `AreaHero` 를 범주 색 진한 둥근 판으로 · 판 아랫변 폴더 탭(`tabs`) — 도서는 둘러보기 / 전체 보기 N(`?show=all`). 도서 · 책 만화 · 옛 만화 · 교사 머리가 함께 바뀐다.

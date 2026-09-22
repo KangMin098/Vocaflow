@@ -1123,6 +1123,13 @@ body.studying .sidebar:hover { opacity: 1; }
   border-color: var(--ju);
 }
 
+/* 점 격자 질감(DD-68 · tines-mapping §25) — 참조 도서관의 featured 카드는 옅은 면 위에 점 격자를 깐다.
+   면 글자색의 12% 라 `.tone-*` 어느 면에 얹어도 같은 세기로 보인다. 배경 이미지라 글자·초점 표시와 겹치지 않는다. */
+.dots {
+  background-image: radial-gradient(color-mix(in srgb, var(--t1) 12%, transparent) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
 /* ── 면 톤(DD-68 · tines-mapping §13-1) ─────────────────────────────────────────
    참조는 면마다 글자 색상을 바꾼다 — 옅은 면 위에는 그 색상의 짙은 글자, 진한 면 위에는 크림.
    면 안의 --t1/--t2/--t3/--ju/--bd 를 다시 정의하므로, var(--t1) 을 쓰는 기존 부품이 고치지 않고도

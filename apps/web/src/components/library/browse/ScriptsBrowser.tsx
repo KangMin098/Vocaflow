@@ -26,6 +26,7 @@ import { ArrowRight, ChevronRight, Info, Volume2 } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { useUserVLevel } from '@/hooks/useUserVLevel'
+import { TINT_CLASS, TINT_ROTATION } from '@/lib/design/tone'
 import { dominantMediaForm } from '@/lib/library/media-form'
 import { MediaCover, MediaCoverSrLabel } from '@/components/library/MediaCover'
 import {
@@ -169,10 +170,11 @@ export function ScriptsBrowser({
         <section aria-label="다른 시리즈" className="flex flex-col gap-3">
           <h2 className="px-1 font-display text-[13px] font-[800] text-[var(--t2)]">다른 주제로 읽기</h2>
           <ul className="flex flex-col gap-2">
-            {rest.map((stat) => (
+            {rest.map((stat, i) => (
               <SeriesRow
                 key={stat.track.key}
                 stat={stat}
+                tintIndex={i}
                 onInfo={() => setInfoKey(stat.track.key)}
                 enterHref={seriesHref(stat.track.key)}
               />
@@ -303,21 +305,25 @@ function SeriesRow({
   stat,
   onInfo,
   enterHref,
+  tintIndex,
 }: {
   stat: TrackStat
   onInfo: () => void
   enterHref: string
+  /** 행마다 옅은 면 색을 돌린다(참조 featured 카드 — 이웃이 같은 계열이 되지 않게 `TINT_ROTATION`). */
+  tintIndex: number
 }) {
   const { track, cefrLabel, count } = stat
   const rowForm = dominantMediaForm(track.sources)
   return (
-    <li className="flex min-h-[60px] items-stretch overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)]">
+    // DD-68 · tines-mapping §25 — 참조 featured 카드: 항목마다 옅은 면 색 + 점 격자. 글자·테두리는 그 면의 색을 따른다(`.tone-*`).
+    <li className={`${TINT_CLASS[TINT_ROTATION[tintIndex % TINT_ROTATION.length]]} dots flex min-h-[60px] items-stretch overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t1)]`}>
       {/* 왼쪽 = 학습 안내 팝업 */}
       <button
         type="button"
         onClick={onInfo}
         aria-label={`${track.title} — 학습 안내 보기`}
-        className="flex flex-1 items-center gap-3 px-4 py-3 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
+        className="flex flex-1 items-center gap-3 px-4 py-3 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_8%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--t1)] active:bg-[color-mix(in_srgb,var(--t1)_14%,transparent)]"
       >
         <span className="block h-11 w-8 shrink-0 overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)]">
           <MediaCover form={rowForm} title={track.title} />
@@ -341,7 +347,7 @@ function SeriesRow({
       <Link
         href={enterHref}
         aria-label={`${track.title} 글 둘러보기`}
-        className="flex shrink-0 items-center gap-2 border-l border-[var(--bd)] px-3 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
+        className="flex shrink-0 items-center gap-2 border-l border-[var(--bd)] px-3 transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_8%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--t1)] active:bg-[color-mix(in_srgb,var(--t1)_14%,transparent)]"
       >
         <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">{cefrLabel} · {count}편</span>
         <ChevronRight size={16} aria-hidden className="text-[var(--t2)]" />
