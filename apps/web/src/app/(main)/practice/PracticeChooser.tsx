@@ -292,7 +292,7 @@ function FacetCard({
     <li className={cell}>
       <div
         data-design-card
-        className={`${TINT_CLASS[MODULE_TONE[FACET_ART[facet].module].tint]} relative flex h-full flex-col rounded-[var(--r-xl)] px-4 py-4 pr-24 md:px-5 md:py-5 md:pr-28`}
+        className={`${TINT_CLASS[MODULE_TONE[FACET_ART[facet].module].tint]} dots relative flex h-full flex-col rounded-[var(--r-xl)] px-4 py-4 pr-24 md:px-5 md:py-5 md:pr-28`}
       >
         <Image
           src={`${ILLO}/${FACET_ART[facet].spot}.webp`}
