@@ -28,8 +28,18 @@
 // 재실행 안전: DB **읽기만** 한다. 산출물은 지정한 JSON 한 개를 덮어쓴다.
 // 몇 번 돌려도 결과가 같다(재고가 바뀌면 바뀌는 것이 맞다 — 굽는 시점을 함께 적는다).
 //
+// ── 시리즈가 키에 들어간다 (2026-09-23 · DD-71) ─────────────────────
+// ⚠️ 여기까지 스냅샷의 키는 **V레벨 하나**였다(`volumes['5']`). 그런데 시리즈는 셋이고
+//   계단이 겹친다 — 독해 5단 · 어휘 5단 · 구문 5단이 전부 V5 다. 그래서
+//   `/library/textbooks/vocab/5`(조판 기록 20단원 120문항)가 **독해 4권의 목차**
+//   (10단원 60문항 · 「The Will to Power…」)를 자기 것으로 인쇄했다. 스냅샷이
+//   독해 7권만 담고 있었고 찾는 키에 시리즈가 없었기 때문이다.
+//   키는 이제 `<시리즈>:<V레벨>` 이고, 조합도 `loadVolume(…, { seriesId })` 로 그 시리즈의
+//   허용 유형만 쓴다. 옛 숫자 키는 **독해로만** 읽힌다(`volume-contents.ts` 의 `lookup`).
+//
 // 실행:
 //   npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/contents-snapshot.mjs
+//   ... --series vocab --units 20              ← 그 시리즈만 굽는다(기본 reading · 단원 10)
 //   ... --bands 4,5 --units 10 --out <경로>   ← 그 밴드만 다시 굽고 **나머지는 그대로 둔다**
 //   ... --fresh                                ← 기존 스냅샷을 버리고 통째로 다시
 
@@ -58,7 +68,21 @@ const {
   countPassageWords,
 } = await import('@vocaflow/library-pipeline')
 
-const BANDS = (arg('bands') ?? SERIES_SPINE.map((r) => r.vLevels[0]).join(','))
+const { SERIES_CATALOG } = await import('@vocaflow/library-pipeline/textbook-series-catalog')
+
+/** 어느 시리즈를 굽는가. 기본은 독해 — 옛 호출부가 인자 없이 부른다. */
+const SERIES = arg('series') ?? 'reading'
+const seriesDef = SERIES_CATALOG.find((s) => s.id === SERIES)
+if (!seriesDef) {
+  // 모르는 시리즈면 **조용히 독해로 떨어지지 않는다** — 그러면 어휘를 구웠다고 믿으며
+  // 독해를 한 번 더 굽는다(`shelf-query.ts` 가 같은 판단을 적어 두었다).
+  console.error(`모르는 시리즈: ${SERIES} — 있는 것: ${SERIES_CATALOG.map((s) => s.id).join(', ')}`)
+  process.exit(1)
+}
+
+// ⚠️ 밴드 기본값은 **그 시리즈의 계단**에서 온다. `SERIES_SPINE` 을 쓰면 어휘·구문에 없는
+//   1단(초등 저학년)까지 구우려다 빈 권을 만든다(두 시리즈는 2단부터다).
+const BANDS = (arg('bands') ?? seriesDef.rungs.map((r) => r.vLevels[0]).join(','))
   .split(',')
   .map((x) => Number(x.trim()))
   .filter(Number.isInteger)
@@ -361,13 +385,16 @@ const volumes = {}
 const problems = []
 
 for (const band of BANDS) {
-  const rung = SERIES_SPINE.find((r) => r.vLevels.includes(band))
-  process.stdout.write(`band ${band} … `)
+  // 계단은 **그 시리즈의 것**을 쓴다 — 권 제목이 시리즈마다 다르다
+  // (`Vocaflow Reading 4` vs `Vocaflow Vocab Advanced`). SERIES_SPINE 을 쓰면 어휘 권에
+  // 독해 제목이 박힌다.
+  const rung = seriesDef.rungs.find((r) => r.vLevels.includes(band))
+  process.stdout.write(`${SERIES} band ${band} … `)
   let loaded
   try {
-    loaded = await loadVolume(db, { band, unitCount: UNITS })
+    loaded = await loadVolume(db, { band, unitCount: UNITS, seriesId: SERIES })
   } catch (e) {
-    problems.push({ band, error: String(e?.message ?? e) })
+    problems.push({ band, series: SERIES, error: String(e?.message ?? e) })
     console.log(`실패 — ${e?.message ?? e}`)
     continue
   }
@@ -459,10 +486,12 @@ for (const band of BANDS) {
       items,
     }
   }
-  if (!sample) problems.push({ band, error: '화면이 그릴 수 있는 문항이 든 단원이 없다' })
+  if (!sample) problems.push({ band, series: SERIES, error: '화면이 그릴 수 있는 문항이 든 단원이 없다' })
 
-  volumes[String(band)] = {
+  volumes[`${SERIES}:${band}`] = {
     band,
+    seriesId: SERIES,
+    unitsPerVolume: UNITS,
     step: rung?.step ?? null,
     title: rung?.volumeTitle ?? null,
     schoolBand: rung?.schoolBand ?? null,
@@ -482,7 +511,7 @@ for (const band of BANDS) {
     },
     sample,
   }
-  console.log(`단원 ${toc.length} · 문항 ${volumes[String(band)].totalItems} · 조판가능 ${renderable} · 해설 ${explainedCount} · 교정 ${proofClean}/${proofChecked}${sample ? ` · 미리보기 UNIT ${sample.no}(문항 ${sample.items.length})` : ' · 미리보기 없음'}`)
+  console.log(`단원 ${toc.length} · 문항 ${volumes[`${SERIES}:${band}`].totalItems} · 조판가능 ${renderable} · 해설 ${explainedCount} · 교정 ${proofClean}/${proofChecked}${sample ? ` · 미리보기 UNIT ${sample.no}(문항 ${sample.items.length})` : ' · 미리보기 없음'}`)
 }
 
 // ── 부분 실행이 나머지를 날리지 않게 한다 ────────────────────────────
@@ -502,21 +531,41 @@ if (!FRESH && fs.existsSync(OUT)) {
   }
 }
 
-const mergedVolumes = { ...(prior?.volumes ?? {}), ...volumes }
-// 이번에 다시 구운 밴드의 옛 문제는 버린다(고쳤을 수 있다). 안 구운 밴드의 것은 남긴다.
+// ── 옛 숫자 키를 독해 키로 옮긴다 (2026-09-23) ──────────────────────
+// 옛 스냅샷의 `volumes['5']` 는 **독해 5단**이다(그때는 독해만 구웠다). 그대로 두면
+// 한 파일에 두 가지 키 규칙이 섞이고, 읽는 쪽이 둘 다 알아야 한다. 여기서 한 번에 옮긴다.
+const priorVolumes = {}
+for (const [k, v] of Object.entries(prior?.volumes ?? {})) {
+  priorVolumes[/^\d+$/.test(k) ? `reading:${k}` : k] = /^\d+$/.test(k)
+    ? { ...v, seriesId: v.seriesId ?? 'reading' }
+    : v
+}
+
+const mergedVolumes = { ...priorVolumes, ...volumes }
+
+// 이번에 다시 구운 **이 시리즈의** 밴드만 옛 문제를 버린다(고쳤을 수 있다).
+// ⚠️ 시리즈를 안 보고 버리면 어휘를 구우면서 독해의 문제 기록이 사라진다 —
+//   그러면 아무도 그 독해 권을 다시 굽지 않는다.
 const mergedProblems = [
-  ...(prior?.problems ?? []).filter((x) => !BANDS.includes(x.band)),
+  ...(prior?.problems ?? []).filter(
+    (x) => !(BANDS.includes(x.band) && (x.series ?? 'reading') === SERIES),
+  ),
   ...problems,
 ]
-const kept = Object.keys(prior?.volumes ?? {}).filter((b) => !BANDS.includes(Number(b)))
-if (kept.length) console.log(`
-이번에 안 구운 ${kept.length}권은 그대로 둔다 — band ${kept.join(', ')}`)
+
+const bakedKeys = new Set(Object.keys(volumes))
+const kept = Object.keys(mergedVolumes).filter((k) => !bakedKeys.has(k))
+if (kept.length) console.log(`\n이번에 안 구운 ${kept.length}권은 그대로 둔다 — ${kept.join(', ')}`)
 
 const snapshot = {
   // ⚠️ 굽는 시점을 반드시 적는다 — 스냅샷은 낡는다. 낡은 것이 보여야 다시 굽는다.
   generatedAt: new Date().toISOString(),
+  // 시리즈마다 단원 수가 다르다(독해 10 · 어휘/구문 20). 이 값은 **이번에 구운 것**의 수이고,
+  // 권마다의 값은 `volumes[k].unitsPerVolume` 에 따로 적힌다 — 화면은 권의 값을 써야 한다.
   unitsPerVolume: UNITS,
-  bands: Object.keys(mergedVolumes).map(Number).sort((a, b) => a - b),
+  // ⚠️ 키가 `<시리즈>:<V레벨>` 이 되면서 `Number(key)` 가 NaN 이 된다. 권의 `band` 를 센다.
+  bands: [...new Set(Object.values(mergedVolumes).map((v) => v.band))].sort((a, b) => a - b),
+  series: [...new Set(Object.values(mergedVolumes).map((v) => v.seriesId ?? 'reading'))].sort(),
   volumes: mergedVolumes,
   problems: mergedProblems,
 }

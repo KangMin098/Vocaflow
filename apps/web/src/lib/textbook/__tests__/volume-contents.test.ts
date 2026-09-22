@@ -19,15 +19,18 @@ import {
   CONTENTS_UNITS_PER_VOLUME,
   contentsOf,
   contentsProblem,
+  seriesHasContents,
   unitCovers,
 } from '../volume-contents'
 import raw from '../volume-contents.json'
 
 const snapshot = raw as unknown as {
   volumes: Record<string, ReturnType<typeof contentsOf> & object>
-  problems: { band: number; error: string }[]
+  problems: { band: number; error: string; series?: string }[]
 }
-const bands = Object.keys(snapshot.volumes).map(Number)
+// ⚠️ 키에서 밴드를 뽑지 않는다 — 키가 `reading:5` 로 바뀌면서 `Number(key)` 가 NaN 이 된다.
+//    권 자신이 들고 있는 `band` 를 센다.
+const bands = Object.values(snapshot.volumes).map((v) => v.band)
 
 describe('권 목차 스냅샷', () => {
   it('일곱 권이 다 들어 있다', () => {
@@ -42,14 +45,14 @@ describe('권 목차 스냅샷', () => {
   it('한 권은 시장 중앙값만큼 단원을 갖는다', () => {
     expect(CONTENTS_UNITS_PER_VOLUME).toBeGreaterThanOrEqual(5)
     for (const b of bands) {
-      const c = contentsOf([b])!
+      const c = contentsOf('reading', [b])!
       expect(c.units.length, `band ${b}`).toBe(CONTENTS_UNITS_PER_VOLUME)
     }
   })
 
   it('단원마다 실제 원글 제목이 있다 — 단원 제목을 짓지 않는다', () => {
     for (const b of bands) {
-      for (const u of contentsOf([b])!.units) {
+      for (const u of contentsOf('reading', [b])!.units) {
         expect(u.passages.length, `band ${b} unit ${u.no}`).toBeGreaterThan(0)
         for (const p of u.passages) expect(typeof p).toBe('string')
       }
@@ -60,7 +63,7 @@ describe('권 목차 스냅샷', () => {
     // 실측 사고 재발 방지. 지문이 있는 유형이면 최소 40어는 넘는다(수능 하한 90의 절반 아래는
     // 지문이 아니라 무언가 잘못 센 것이다). 지문이 없는 유형뿐인 단원은 `null` 이다.
     for (const b of bands) {
-      for (const u of contentsOf([b])!.units) {
+      for (const u of contentsOf('reading', [b])!.units) {
         if (u.words === null) continue
         expect(u.words[0], `band ${b} unit ${u.no} 최소`).toBeGreaterThan(40)
         expect(u.words[1], `band ${b} unit ${u.no} 최대`).toBeGreaterThanOrEqual(u.words[0])
@@ -71,7 +74,7 @@ describe('권 목차 스냅샷', () => {
 
   it('미리보기 선택지가 **전부 문자열**이다 — 객체면 [object Object] 가 찍힌다', () => {
     for (const b of bands) {
-      const s = contentsOf([b])!.sample
+      const s = contentsOf('reading', [b])!.sample
       if (!s) continue
       for (const it of s.items) {
         // ⚠️ **5 로 못 박으면 안 된다.** 초등 3종은 선택지가 3~4개이고, 철자 완성은
@@ -93,7 +96,7 @@ describe('권 목차 스냅샷', () => {
 
   it('미리보기 정답이 1~5 안에 있다', () => {
     for (const b of bands) {
-      const s = contentsOf([b])!.sample
+      const s = contentsOf('reading', [b])!.sample
       if (!s) continue
       for (const it of s.items) {
         if (!it.choices || it.choices.length === 0) continue // 삽입·밑줄·단답 — 아래 모양 검사에서 본다
@@ -105,7 +108,7 @@ describe('권 목차 스냅샷', () => {
 
   it('미리보기 어휘는 낱말과 뜻을 **둘 다** 갖는다', () => {
     for (const b of bands) {
-      const s = contentsOf([b])!.sample
+      const s = contentsOf('reading', [b])!.sample
       if (!s) continue
       for (const w of s.vocabulary) {
         expect(w.word.trim().length, `band ${b}`).toBeGreaterThan(0)
@@ -116,9 +119,9 @@ describe('권 목차 스냅샷', () => {
 
   it('미리보기를 못 내는 권은 **이유가 적혀 있다** — 빈 자리로 두지 않는다', () => {
     for (const b of bands) {
-      const c = contentsOf([b])!
+      const c = contentsOf('reading', [b])!
       if (c.sample && c.sample.items.length > 0) continue
-      expect(contentsProblem([b]), `band ${b}`).toBeTruthy()
+      expect(contentsProblem('reading', [b]), `band ${b}`).toBeTruthy()
     }
   })
 
@@ -128,7 +131,7 @@ describe('권 목차 스냅샷', () => {
     //   word_order·unit_vocab·vocab_choice·grammar_fix 로 바뀌었다). 조판기가 그리는 네 모양을
     //   전부 낸 뒤에야 일곱 권이 고르게 찬다. 이 단언이 그 회귀를 막는다.
     for (const b of bands) {
-      const s = contentsOf([b])!.sample
+      const s = contentsOf('reading', [b])!.sample
       expect(s, `band ${b}`).not.toBeNull()
       expect(s!.items.length, `band ${b}`).toBeGreaterThanOrEqual(4)
     }
@@ -138,7 +141,7 @@ describe('권 목차 스냅샷', () => {
     // 갈래를 `kind` 가 아니라 **선택지 유무**로 가른다 — 초등 철자 완성은 kind 가
     // 'elementary' 이면서 단답이라, kind 로 가르면 선택지 3개를 요구하다 걸린다.
     for (const b of bands) {
-      for (const it of contentsOf([b])!.sample!.items) {
+      for (const it of contentsOf('reading', [b])!.sample!.items) {
         const where = `band ${b} 문항 ${it.no} (${it.type}/${it.kind ?? 'choice'})`
         expect(it.stem.trim().length, where).toBeGreaterThan(0)
 
@@ -175,16 +178,72 @@ describe('권 목차 스냅샷', () => {
   it('원글이 없는 권은 목차가 **낱말 단원**으로 갈린다 — 낱말을 글 제목처럼 적지 않는다', () => {
     // 초등 3종은 사전에서 나오므로 ref_title 자리에 낱말이 들어간다. 실측 2026-09-06:
     // 초등 저학년 목차가 add · about · act 를 글 제목처럼 늘어놓고 있었다.
-    const elementary = contentsOf([1])!
+    const elementary = contentsOf('reading', [1])!
     expect(elementary.units.every((u) => unitCovers(u) === 'word')).toBe(true)
     // 글을 쓰는 권은 반대여야 한다 — 규칙이 넓어져 멀쩡한 권까지 낱말로 읽히면 안 된다.
     for (const b of bands.filter((x) => x >= 5)) {
-      expect(contentsOf([b])!.units.some((u) => unitCovers(u) === 'article'), `band ${b}`).toBe(true)
+      expect(contentsOf('reading', [b])!.units.some((u) => unitCovers(u) === 'article'), `band ${b}`).toBe(true)
     }
   })
 
   it('없는 밴드를 물으면 빈 목차를 만들어 내지 않는다', () => {
-    expect(contentsOf([99])).toBeNull()
-    expect(contentsProblem([99])).toBeNull()
+    expect(contentsOf('reading', [99])).toBeNull()
+    expect(contentsProblem('reading', [99])).toBeNull()
+  })
+})
+
+// ── 교차 시리즈 오염 (DD-71) ─────────────────────────────────────────
+//
+// 실측 2026-09-23: `/library/textbooks/vocab/5`(Vocaflow Vocab Advanced · 조판 기록
+// **20단원 120문항**)가 학습자에게 **10단원 60문항짜리 독해 목차**를 인쇄했다 —
+// 「The Will to Power…」 같은 독해 지문과 독해 유형(주장·제목·주제·함축 의미)이 그대로 찍혔다.
+//
+// 원인은 스냅샷을 찾는 키가 **V레벨 하나**였기 때문이다. 시리즈는 셋인데 계단이 겹친다 —
+// 독해 5단 · 어휘 5단 · 구문 5단이 전부 V5 다. 그래서 어휘 권이 독해 권의 목차에 걸렸다.
+//
+// 이 검사가 잠그는 것은 **두 가지**다:
+//   ① 안 구운 시리즈는 **다른 시리즈의 목차를 빌려 오지 않는다**(null 이어야 한다).
+//   ② 목차를 낸 권은 그 목차가 **자기 시리즈의 것**이다.
+describe('목차는 시리즈를 건너오지 않는다', () => {
+  const SERIES_IDS = ['reading', 'vocab', 'syntax'] as const
+
+  it('스냅샷에 없는 시리즈를 물으면 null 이다 — 독해 목차를 대신 주지 않는다', () => {
+    for (const id of SERIES_IDS) {
+      if (seriesHasContents(id)) continue
+      for (const b of [1, 2, 3, 4, 5, 6, 7]) {
+        expect(contentsOf(id, [b]), `${id} band ${b} 는 안 구웠는데 목차가 나왔다`).toBeNull()
+      }
+    }
+  })
+
+  it('목차를 낸 권은 그 목차가 **자기 시리즈의 것**이다', () => {
+    for (const id of SERIES_IDS) {
+      for (const b of [1, 2, 3, 4, 5, 6, 7]) {
+        const c = contentsOf(id, [b])
+        if (!c) continue
+        expect(c.seriesId ?? 'reading', `${id} band ${b} 의 목차가 다른 시리즈 것이다`).toBe(id)
+      }
+    }
+  })
+
+  it('권 제목이 그 시리즈의 브랜드로 시작한다 — 어휘 권에 독해 제목이 박히지 않게', () => {
+    const BRAND: Record<string, string> = {
+      reading: 'Vocaflow Reading',
+      vocab: 'Vocaflow Vocab',
+      syntax: 'Vocaflow Syntax',
+    }
+    for (const id of SERIES_IDS) {
+      for (const b of [1, 2, 3, 4, 5, 6, 7]) {
+        const c = contentsOf(id, [b])
+        if (!c?.title) continue
+        expect(c.title, `${id} band ${b}`).toContain(BRAND[id])
+      }
+    }
+  })
+
+  it('적어도 한 시리즈는 구워져 있다 — 스냅샷이 통째로 비면 이 검사가 전부 통과해 버린다', () => {
+    // ⚠️ 위 셋은 「없으면 통과」다. 스냅샷이 비면 아무것도 안 재고 초록이 된다 —
+    //    이 저장소가 여러 번 겪은 거짓 초록이다(30-admin-sweep 머리말).
+    expect(SERIES_IDS.some((id) => seriesHasContents(id))).toBe(true)
   })
 })
