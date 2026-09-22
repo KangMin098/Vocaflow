@@ -7,10 +7,14 @@
 //   구멍을 메우러 간다. 그래서 **동시 실행 수를 묶어** 물결로 나눠 보낸다(24칸씩 · 실측 7.2초).
 //   그래도 새는 것이 있는지는 **유형별 합 == 표 전체 count** 로 확인한다.
 //
-// ⚠️ 해설 화면(⑥)이 여기 없는 이유: 유형별 해설 보유율은 `answer_key->>explanation_ko` 를
-//   유형마다 훑어야 하는데 그 컬럼에 인덱스가 없어 한 번에 5~8초씩 걸리고, 여러 개를 같이
-//   던지면 절반이 null 로 온다(실측). 서버에서 한 번에 접는 집계 RPC 가 필요하고 그것은
-//   마이그레이션이라 **승인 대기**다. 그때까지 해설은 현황판의 전체 눈금으로만 본다.
+// ⚠️ **여기에 「해설 화면(⑥)이 없는 이유」가 한 달 넘게 적혀 있었다.** 그 문장은
+//   「유형별 해설 보유율은 `answer_key->>explanation_ko` 를 유형마다 훑어야 하는데 인덱스가
+//   없어 5~8초씩 걸린다 → 집계 RPC 가 필요하고 그것은 마이그레이션이라 승인 대기」였다.
+//   **낡은 문장이었다** — 필요한 집계는 `textbook_shelf_inventory_mv`(20260831090000)에
+//   (유형 × 수준 × 문항 × 해설)로 이미 들어 있고, 바로 아래 ⑤ 집필이 **같은 호출로 같은 표를
+//   읽고 있었다**(`loadDcpInventory`, 실측 1.2초). 마이그레이션이 필요 없던 화면이 이 한
+//   문장 때문에 안 만들어졌고, 그 사이 ⑥ 은 파이프라인 최저점(9/22)이었다(DD-69 · DD-72).
+//   교훈: **「막혔다」고 적을 때는 막은 것이 지금도 막고 있는지 같은 주석에 실측을 붙인다.**
 
 import 'server-only'
 
@@ -20,12 +24,14 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { loadDcpInventory } from './item-count'
+import { inventoryFreshnessNote, loadDcpInventory } from './item-count'
 
 import {
   GENERATED_TYPES,
   INVENTORY_LEVELS,
   type AuthorCell,
+  type ExplainCell,
+  type ExplainView,
   type AuthorView,
   type PressView,
   type PressVolumeRow,
@@ -284,5 +290,54 @@ export async function loadPressView(): Promise<PressView> {
     brandFingerprint: current,
     brand: { rows: brandSpecRows(), fonts: VOLUME_FONTS },
     loadError: error ? `조판 기록 조회 실패: ${error.message}` : null,
+  }
+}
+
+/* ───────────────────────── ⑥ 해설 ───────────────────────── */
+
+/**
+ * 유형 × 수준 해설 보유 — **이미 있던 집계표에서 읽는다.**
+ *
+ * ⚠️ 이 파일 머리말에 「해설 화면이 여기 없는 이유」가 한 달 넘게 적혀 있었다:
+ *   「`answer_key->>explanation_ko` 를 유형마다 훑어야 하는데 인덱스가 없어 5~8초씩 걸리고,
+ *   집계 RPC 가 필요한데 마이그레이션이라 승인 대기다.」
+ *   **그 문장이 낡았다.** 필요한 집계는 `textbook_shelf_inventory_mv`(20260831090000)에
+ *   (유형 × 수준 × 문항 × 해설)로 이미 들어 있고 `loadDcpInventory` 가 1.2초에 읽는다 —
+ *   집필 화면이 **같은 호출로 같은 표를 이미 읽고 있었다.** 마이그레이션 없이 만들 수 있던
+ *   화면이 그 한 문장 때문에 안 만들어졌다(DD-72).
+ *
+ * 해설 판정 정의는 집계표 쪽을 따른다 —
+ * `COALESCE(NULLIF(explanation_ko,''), NULLIF(rationale_ko,''))`. 키만 있고 값이 빈 문항을
+ * 「해설 있음」으로 세면 구멍이 영영 안 보인다(`item-count.ts` 머리말의 같은 규칙).
+ */
+export async function loadExplainView(): Promise<ExplainView> {
+  const db = createAdminClient() as unknown as SupabaseClient
+  const inventory = await loadDcpInventory(db)
+
+  if (!inventory.ok) {
+    // **0 으로 적지 않는다** — 못 읽은 것과 「해설이 다 붙었다」는 정반대다.
+    return { cells: [], items: null, explained: null, inventoryAt: null, inventoryNote: null, loadError: inventory.error }
+  }
+
+  const ladder = new Set<string>()
+  for (const rung of SERIES_SPINE) {
+    for (const v of rung.vLevels) for (const t of rung.types) ladder.add(`${t}|${v}`)
+  }
+
+  const cells: ExplainCell[] = inventory.cells.map((c) => ({
+    type: c.type,
+    vLevel: c.vLevel,
+    items: c.items,
+    explained: c.explained,
+    inLadder: ladder.has(`${c.type}|${c.vLevel}`),
+  }))
+
+  return {
+    cells,
+    items: inventory.items,
+    explained: inventory.explained,
+    inventoryAt: inventory.refreshedAt,
+    inventoryNote: inventoryFreshnessNote(inventory.refreshedAt) ?? null,
+    loadError: null,
   }
 }

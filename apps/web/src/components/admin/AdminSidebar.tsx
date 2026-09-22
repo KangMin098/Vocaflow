@@ -170,14 +170,12 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
             { href: '/admin/csat/blueprint', label: '설계', tag: '③', Icon: Grid3x3 },
             { href: '/admin/csat/sourcing', label: '소재', tag: '④', Icon: FileText },
             { href: '/admin/csat/authoring', label: '집필', tag: '⑤', Icon: PenLine },
-            {
-              href: '/admin/csat',
-              label: '해설',
-              tag: '⑥',
-              Icon: MessageSquareText,
-              pendingNote:
-                '전용 화면을 **안 만든다** — 답이 이미 두 곳에 있다. 전체 보유율은 현황판 ⑥ 눈금, 어느 권이 해설 때문에 막혔는지는 카탈로그의 「해설 모자람」 칸이다. 화면을 더 만들면 같은 값을 세 곳에서 세게 된다',
-            },
+            // 해설 ⑥ — **2026-09-23 까지 갈 곳이 없는 칸이었다**(href 가 부모 · 「준비 중」 배지).
+            //   안 만든 근거는 「전체 보유율은 현황판 눈금, 막힌 권은 카탈로그 칸」이었는데,
+            //   그 둘은 **합계**만 말한다. 실측하면 합계는 99.46% 인데 구멍 4,719건 중 8할이
+            //   어휘 유형 하나(vocab_choice 3,800)에 몰려 있다 — 합계는 「거의 다 됐다」이고
+            //   칸은 「유형 하나 돌리면 끝난다」이다. **할 일이 다르다**(DD-72).
+            { href: '/admin/csat/explain', label: '해설', tag: '⑥', Icon: MessageSquareText },
             { href: '/admin/csat/review', label: '검수', tag: '⑦', Icon: ClipboardCheck },
             {
               href: '/admin/csat/press',

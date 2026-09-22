@@ -207,3 +207,57 @@ export interface PressView {
   }
   loadError: string | null
 }
+
+/* ───────────────────────── ⑥ 해설 ───────────────────────── */
+//
+// **이 화면은 2026-09-23 까지 없었다** (DD-69: ⑥ 해설 9/22 — 파이프라인 최저).
+// 메뉴에는 칸이 있었는데 `href` 가 부모를 가리키고 「준비 중」 배지가 붙어 있었다.
+//
+// 없던 이유로 적혀 있던 것은 「유형별 해설 보유율은 `answer_key->>explanation_ko` 를 유형마다
+// 훑어야 하고 그 컬럼에 인덱스가 없어 5~8초씩 걸린다 → 집계 RPC 가 필요한데 마이그레이션이라
+// 승인 대기」였다. **그 판단이 낡았다** — 필요한 집계는 이미 `textbook_shelf_inventory_mv`
+// (20260831090000)에 (유형 × 수준 × 문항 수 × 해설 수)로 들어 있고, `loadDcpInventory` 가
+// 그것을 1.2초에 읽는다. 마이그레이션 없이 만들 수 있었던 화면이 그 문장 하나 때문에
+// 한 달 넘게 안 만들어졌다.
+
+/** 해설 한 칸 — (유형 × 수준). `items` 가 0 이면 그 칸은 애초에 없는 것이다. */
+export interface ExplainCell {
+  type: string
+  vLevel: number
+  items: number
+  explained: number
+  /** 사다리가 실제로 쓰는 칸인가 — 밖의 구멍은 급하지 않다(어느 권에도 안 실린다). */
+  inLadder: boolean
+}
+
+export interface ExplainView {
+  cells: ExplainCell[]
+  items: number | null
+  explained: number | null
+  /** 집계표를 마지막으로 갱신한 시각(ISO). 못 읽었으면 null — 신선도를 주장하지 않는다. */
+  inventoryAt: string | null
+  /**
+   * 그 시각을 사람 말로 — **서버에서 계산해 넘긴다.**
+   *
+   * ⚠️ 화면에서 계산하지 않는다. 시계를 클라이언트가 읽으면 서버 렌더와 값이 갈려
+   *   하이드레이션이 어긋나고, 이 저장소는 「로직 안에서 시계를 읽지 않는다」를 규칙으로 둔다
+   *   (고정 날짜 픽스처가 시간이 지나며 저절로 떨어진다 — AGENTS.md 「하지 말 것」).
+   */
+  inventoryNote: string | null
+  loadError: string | null
+}
+
+/** 해설이 모자란 칸 — 많은 순서로. 사다리 안을 먼저 세운다(그쪽이 곧 학습자에게 간다). */
+export function explainGaps(v: Pick<ExplainView, 'cells'>): ExplainCell[] {
+  return v.cells
+    .filter((c) => c.items > c.explained)
+    .sort((a, b) => {
+      if (a.inLadder !== b.inLadder) return a.inLadder ? -1 : 1
+      return b.items - b.explained - (a.items - a.explained)
+    })
+}
+
+/** 「몇 문항에 해설이 없나」 — 못 쟀으면 null 이고 0 이 아니다. */
+export function explainMissing(v: Pick<ExplainView, 'items' | 'explained'>): number | null {
+  return v.items == null || v.explained == null ? null : v.items - v.explained
+}
