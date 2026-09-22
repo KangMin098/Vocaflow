@@ -16,6 +16,8 @@ import path from 'node:path'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
+import { DEFAULT_SCENE_TIME, freezeMotion, installFreezeMotion, settleImages } from './lib/freeze-motion.mjs'
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const WEB = path.join(ROOT, 'apps/web')
 // playwright 는 apps/web 에만 설치돼 있다 — 스크립트 위치가 아니라 거기서 찾는다.
@@ -135,6 +137,8 @@ const run = async () => {
       hasTouch: w <= 430,
     })
     const p = await c.newPage()
+    // 첫 프레임부터 모션을 세운다 — 연 **뒤**에 거는 것만으로는 이미 돌던 루프가 안 되감긴다.
+    await installFreezeMotion(p, Number(arg('scene-time', DEFAULT_SCENE_TIME)))
     for (const r of routes) {
       const file = path.join(outDir, `${slug(r)}@${w}.png`)
       try {
@@ -155,9 +159,16 @@ const run = async () => {
           continue
         }
 
+        // 같은 화면을 두 번 찍으면 같아야 한다 — 그걸 깨는 둘을 여기서 닫는다.
+        // (지연 표지 · 앰비언트 루프. 이유와 값은 `lib/freeze-motion.mjs` 에.)
+        const imgs = await settleImages(p)
+        await freezeMotion(p, Number(arg('scene-time', DEFAULT_SCENE_TIME)))
         await p.screenshot({ path: file, fullPage })
-        report.push({ route: r, width: w, landed, ok: true })
-        process.stdout.write(`✓ ${r} @${w}${landed !== r ? ` → ${landed}` : ''}\n`)
+        report.push({ route: r, width: w, landed, ok: true, images: imgs })
+        process.stdout.write(
+          `✓ ${r} @${w}${landed !== r ? ` → ${landed}` : ''}` +
+          `${imgs.pending > 0 ? ` · ⚠ 그림 ${imgs.pending}/${imgs.total} 못 받음(캡처가 흔들릴 수 있다)` : ''}\n`,
+        )
       } catch (e) {
         report.push({ route: r, width: w, ok: false, error: String(e).slice(0, 120) })
         process.stdout.write(`✗ ${r} @${w} — ${String(e).slice(0, 90)}\n`)

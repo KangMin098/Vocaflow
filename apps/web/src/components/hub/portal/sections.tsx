@@ -13,12 +13,18 @@
 
 import { ArrowRight, Check, Hash } from 'lucide-react'
 import Image from 'next/image'
+import type { CSSProperties } from 'react'
 
 import { vocabCategoryMeta } from '@/components/library/vocab/categories'
 import { BTN, CHIP } from '@/components/ui/tines-kit'
 import type { ToneTab } from '@/components/ui/ToneTabs'
 import { SOURCE_TRACKS } from '@/lib/articles/source-map'
 import { TINT_CLASS, TINT_ROTATION } from '@/lib/design/tone'
+import {
+  MEMORY_ATTENTION_LABEL,
+  MEMORY_LABEL,
+  MEMORY_ORDER,
+} from '@/lib/framework/memory-labels'
 import type { HubPortal, PortalBook } from '@/lib/learner/hub-portal-query'
 import type { WayfinderModel } from '@/lib/learner/wayfinder'
 
@@ -64,7 +70,10 @@ export function SectionHead({ kicker, title, byline, align = 'left' }: {
  */
 export function ProductFrame({ model, books, facts }: { model: WayfinderModel | null; books: PortalBook[]; facts: HubPortal['facts'] }) {
   return (
-    <div className="rounded-[28px] border-2 border-[var(--bd)] bg-[var(--tint-lavender)] p-1.5">
+    <div
+      className="vf-rise rounded-[28px] border-2 border-[var(--bd)] bg-[var(--tint-lavender)] p-1.5"
+      style={{ '--rise-y': '16px', '--rise-dur': '600ms' } as CSSProperties}
+    >
       <div className="grid overflow-hidden rounded-[22px] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--tint-lavender)_40%,var(--bg))] md:grid-cols-[232px_minmax(0,1fr)]">
         <FrameRail model={model} facts={facts} />
         <div className="grid min-w-0 content-start gap-4 p-3 md:p-4 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
@@ -97,9 +106,15 @@ function FrameRail({ model, facts }: { model: WayfinderModel | null; facts: HubP
               {model.done}/{model.total}
             </span>
           </div>
-          <ol className="flex flex-col gap-0.5">
+          <ol className="relative flex flex-col gap-0.5">
+            {/* 오늘의 흐름을 잇는 선 — 점선이 아래로 흐른다(`.vf-flow`). 참조가 연결선에
+                `stroke-dashoffset` 를 흘려 「지금 돌고 있다」를 말하는 자리와 같은 뜻이다.
+                왼쪽 16px = 단계 동그라미의 중심(px-2 8px + 동그라미 반지름 8px). */}
+            {model.steps.length > 1 && (
+              <span aria-hidden className="vf-flow absolute bottom-3 left-4 top-3 w-px -translate-x-1/2 text-[var(--ju)] opacity-40" />
+            )}
             {model.steps.map((s) => (
-              <li key={s.key}>
+              <li key={s.key} className="relative">
                 <PromoLink
                   href={s.href}
                   slot="panel"
@@ -110,11 +125,18 @@ function FrameRail({ model, facts }: { model: WayfinderModel | null; facts: HubP
                 >
                   <span
                     aria-hidden
-                    className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-[1.5px] ${
-                      s.done ? 'border-[var(--ju)] bg-[var(--ju)] text-[var(--bg)]' : 'border-[var(--ju)]'
+                    /* 면을 채운다 — 뒤로 흐르는 선이 동그라미를 **관통하지 않고 잇는다**. */
+                    className={`relative flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-[1.5px] ${
+                      s.done ? 'border-[var(--ju)] bg-[var(--ju)] text-[var(--bg)]' : 'border-[var(--ju)] bg-[var(--bg)]'
                     }`}
                   >
-                    {s.done && <Check size={10} strokeWidth={3} />}
+                    {s.done ? (
+                      <Check size={10} strokeWidth={3} />
+                    ) : s.current ? (
+                      /* 「지금 할 차례」만 숨쉰다 — 색 말고도 구별되는 표식이다(색만으로 정보 금지).
+                         읽는 글이 아니라 **한 점**이라 주의를 끌되 방해하지 않는다. */
+                      <span className="vf-breathe h-1.5 w-1.5 rounded-full bg-[var(--ju)]" />
+                    ) : null}
                   </span>
                   <span className={s.done ? 'line-through opacity-70' : ''}>{s.name}</span>
                   <span className="sr-only">{s.done ? '완료' : s.current ? '지금 할 차례' : '남음'}</span>
@@ -152,17 +174,23 @@ function KpiRow({ model }: { model: WayfinderModel }) {
   const { past, counts, reach } = model
   const kpis = [
     { label: '연속 학습', value: `${past.streak}일` },
-    { label: '다시 볼 단어', value: fmt(counts.attention) },
-    { label: '새 단어', value: fmt(counts.fresh) },
+    { label: `${MEMORY_ATTENTION_LABEL} 단어`, value: fmt(counts.attention) },
+    { label: MEMORY_LABEL.new.label, value: fmt(counts.fresh) },
     { label: '읽을 수 있는 책', value: reach.vLevel === null ? '진단 후' : fmt(reach.open) },
   ]
   return (
     <div className={`${FRAME_CARD} flex flex-wrap items-center justify-between gap-4 px-4 py-3 xl:col-span-2`}>
       <dl className="flex flex-wrap gap-x-8 gap-y-3">
-        {kpis.map((k) => (
+        {kpis.map((k, i) => (
           <div key={k.label}>
             <dt className="font-display text-[12px] text-[var(--ju)]">{k.label}</dt>
-            <dd className="font-display text-[22px] font-[500] tabular-nums leading-tight tracking-[-0.01em] text-[var(--t1)]">{k.value}</dd>
+            {/* 숫자가 아래에서 올라와 앉는다 — 창(`overflow-hidden`) 덕에 「굴러 들어온」 것처럼 읽힌다.
+                뜻이 있는 연출이다: 이 값은 **방금 계산된 것**이고(`buildWayfinder`), 실제로 그렇다. */}
+            <dd className="overflow-hidden font-display text-[22px] font-[500] tabular-nums leading-tight tracking-[-0.01em] text-[var(--t1)]">
+              <span className="vf-rise block" style={{ '--rise-y': '100%', '--rise-delay': `${250 + i * 60}ms` } as CSSProperties}>
+                {k.value}
+              </span>
+            </dd>
           </div>
         ))}
       </dl>
@@ -175,12 +203,23 @@ function KpiRow({ model }: { model: WayfinderModel }) {
   )
 }
 
-const MEMORY = [
-  { key: 'stable', label: '안정', color: 'var(--memory-stable)' },
-  { key: 'shaky', label: '흔들림', color: 'var(--memory-shaky)' },
-  { key: 'risk', label: '위급', color: 'var(--memory-risk)' },
-  { key: 'fresh', label: '신규', color: 'var(--memory-new)' },
-] as const
+/**
+ * 기억 4상태의 이름·색은 **레지스트리에서 받는다**(`lib/framework/memory-labels.ts`).
+ *
+ * 처음에는 이 파일이 네 이름을 직접 지었다 — `위급` · `신규`. 그래서 플랫폼 메인이
+ * `/wordvault` · `TodayQueue` 와 **다른 어휘로 같은 네 칸**을 불렀다(레지스트리는
+ * `흐릿함` · `새 단어`). 학습자에게는 그 둘이 같은 칸인지 알 길이 없다 —
+ * 레지스트리가 존재하는 이유가 바로 그 드리프트다(회귀 `memory-labels.test.ts`).
+ *
+ * `key` 는 이 화면의 값 묶음 이름이라 레지스트리 상태 이름과 하나만 다르다(`new` → `fresh`).
+ */
+const VALUE_KEY = { stable: 'stable', shaky: 'shaky', risk: 'risk', new: 'fresh' } as const
+
+const MEMORY = MEMORY_ORDER.map((state) => ({
+  key: VALUE_KEY[state],
+  label: MEMORY_LABEL[state].label,
+  color: `var(${MEMORY_LABEL[state].token})`,
+}))
 
 /** 기억 4색 도넛 — 참조의 「Spend vs limits」 자리. 값은 예보 0일째(= 지금)의 R(t) 동적 계산 + 신규 수. */
 function MemoryCard({ model }: { model: WayfinderModel }) {
@@ -216,10 +255,15 @@ function MemoryCard({ model }: { model: WayfinderModel }) {
       <div className="mt-2 flex justify-center">
         <svg viewBox="0 0 160 160" className="h-[150px] w-[150px]" role="img" aria-label={`기억 상태 — ${summary}`}>
           <circle cx="80" cy="80" r={R} fill="none" stroke="var(--tint-lavender)" strokeWidth="9" />
-          {arcs.map((a) =>
+          {arcs.map((a, i) =>
             a.len > 0 ? (
               <circle
                 key={a.key}
+                /* 호가 그려지며 들어온다 — 기하(`strokeDasharray`·`strokeDashoffset`)는 그대로 두고
+                   §4.5 `.vf-arc` 가 **시작 지점만** 호 길이만큼 밀어 숨겼다가 제자리로 되돌린다.
+                   자리잡기용 `strokeDashoffset` 를 덮으면 조각이 엉뚱한 각도에 붙는다. */
+                className="vf-arc"
+                style={{ '--arc-offset': `${-a.offset}px`, '--arc-len': `${a.len}px`, '--arc-delay': `${300 + i * 80}ms` } as CSSProperties}
                 cx="80"
                 cy="80"
                 r={R}
@@ -233,7 +277,7 @@ function MemoryCard({ model }: { model: WayfinderModel }) {
               />
             ) : null,
           )}
-          <text x="80" y="74" textAnchor="middle" fill="var(--ju)" fontSize="11">다시 볼</text>
+          <text x="80" y="74" textAnchor="middle" fill="var(--ju)" fontSize="11">{MEMORY_ATTENTION_LABEL}</text>
           <text x="80" y="98" textAnchor="middle" fill="var(--t1)" fontSize="24" fontWeight="500">
             {fmt(values.shaky + values.risk)}
           </text>
@@ -256,11 +300,12 @@ function ForecastCard({ model }: { model: WayfinderModel }) {
   const { forecast } = model
   const last = forecast.days[forecast.days.length - 1]
   if (!last) return null
-  const parts = [
-    { label: '안정', v: last.stable, color: 'var(--memory-stable)' },
-    { label: '흔들림', v: last.shaky, color: 'var(--memory-shaky)' },
-    { label: '위급', v: last.risk, color: 'var(--memory-risk)' },
-  ]
+  // 예보는 신규를 세지 않는다(아직 D/S 가 없다) — 앞 세 상태만, 이름·색은 레지스트리에서.
+  const parts = (['stable', 'shaky', 'risk'] as const).map((state) => ({
+    label: MEMORY_LABEL[state].label,
+    v: last[state],
+    color: `var(${MEMORY_LABEL[state].token})`,
+  }))
   const sum = parts.reduce((s, p) => s + p.v, 0)
   return (
     <section aria-label={`${forecast.horizonDays}일 예보`} className={`${FRAME_CARD} p-4`}>
@@ -268,7 +313,8 @@ function ForecastCard({ model }: { model: WayfinderModel }) {
       <p className="font-display text-[22px] font-[500] tabular-nums tracking-[-0.01em] text-[var(--t1)]">{fmt(forecast.fadingSoon)}</p>
       {sum > 0 && (
         <>
-          <div aria-hidden className="mt-4 flex h-1.5 gap-1">
+          {/* 막대가 왼쪽에서 자란다(`.vf-grow`) — 「7일 뒤」라는 예보가 지금 그려지는 중이라는 뜻. */}
+          <div aria-hidden className="vf-grow mt-4 flex h-1.5 gap-1" style={{ '--grow-delay': '420ms' } as CSSProperties}>
             {parts.map((p) =>
               p.v > 0 ? <span key={p.label} className="rounded-full" style={{ flexGrow: p.v, background: p.color }} /> : null,
             )}
@@ -314,7 +360,13 @@ function NewBooksTable({ books, tall }: { books: PortalBook[]; tall: boolean }) 
         </thead>
         <tbody>
           {rows.map((b, i) => (
-            <tr key={b.id} className="border-b border-[var(--bd)] last:border-0">
+            /* 행이 차례로 켜진다. **이동 없이 페이드만** — `display: table-row` 의 `transform` 은
+               브라우저마다 다르게 취급돼 표가 어긋난다(`--rise-y: 0`). */
+            <tr
+              key={b.id}
+              className="vf-rise border-b border-[var(--bd)] last:border-0"
+              style={{ '--rise-y': '0px', '--rise-dur': '320ms', '--rise-delay': `${360 + i * 40}ms` } as CSSProperties}
+            >
               <td className="py-2 pr-3">
                 <PromoLink href={`/library/books/${b.id}`} slot="shelf" index={i} className={`group flex min-h-[44px] items-center gap-3 rounded-[6px] ${FOCUS}`}>
                   {/* 표지 호스트가 여러 곳이라 원본 그대로 */}

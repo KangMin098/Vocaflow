@@ -371,7 +371,7 @@ export default function SettingsPage() {
           />
           <Row
             label="모션 감소"
-            description="애니메이션을 최소화하여 시각 자극을 줄입니다 (전정 감각 민감자 추천)."
+            description="화면에서 계속 움직이는 것(떠 있는 삽화 · 흐르는 선 · 시차)을 멈추고, 전환을 짧게 줄입니다."
             control={
               <Toggle
                 checked={reducedMotion}

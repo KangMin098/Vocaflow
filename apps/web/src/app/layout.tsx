@@ -188,6 +188,13 @@ export default function RootLayout({
                   var skin = localStorage.getItem('vocaflow-skin');
                   if (skin === 'off') document.documentElement.removeAttribute('data-skin');
                   else if (skin) document.documentElement.setAttribute('data-skin', skin);
+                  // 모션 취향도 **첫 페인트 전에** 칠한다 — globals.css §4.5 의 상시 루프는
+                  // 마운트 뒤에 칠하면 끈 사람에게 한 프레임 번쩍인다(전환만 낮추던 때는 늦어도 됐다).
+                  // 저장·동기화는 DevicePreferences 가 계속 맡는다(여기는 첫 칠만).
+                  var mo = localStorage.getItem('vocaflow-reduced-motion');
+                  var osReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                  var reduced = mo === 'on' || (mo !== 'off' && osReduced);
+                  if (reduced) document.documentElement.setAttribute('data-reduced-motion', 'on');
                 } catch (e) {}
               })();
             `,

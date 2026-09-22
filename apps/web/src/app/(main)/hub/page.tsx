@@ -22,6 +22,7 @@
 
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 
 import { Screen } from '@/components/ui/ios'
 import { ToneTabs } from '@/components/ui/ToneTabs'
@@ -71,16 +72,22 @@ export default async function HubPage() {
                 </span>
               </PromoLink>
             )}
-            <h1 className="mt-7 max-w-[22ch] break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]">
+            <h1
+              className="vf-rise mt-7 max-w-[22ch] break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]"
+              style={{ '--rise-delay': '50ms' } as CSSProperties}
+            >
               읽을 것, 외울 것, <br className="sm:hidden" />
               풀 것이
               <br />
               한 서가에 있습니다.
             </h1>
-            <p className="mt-6 max-w-[56ch] break-keep font-serif text-[20px] leading-[1.35] text-[var(--ju)] md:text-[26px]">
+            <p
+              className="vf-rise mt-6 max-w-[56ch] break-keep font-serif text-[20px] leading-[1.35] text-[var(--ju)] md:text-[26px]"
+              style={{ '--rise-delay': '100ms' } as CSSProperties}
+            >
               {model ? model.now.headline : 'Vocaflow 는 내가 아는 비율을 재고, 지금 읽을 수 있는 것부터 꺼내 줍니다.'}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="vf-rise mt-8 flex flex-wrap gap-3" style={{ '--rise-delay': '150ms' } as CSSProperties}>
               <PromoLink href={primary.href} slot="hero" index={1} className={BTN.primary}>
                 {primary.label}
               </PromoLink>

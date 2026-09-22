@@ -13,6 +13,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { ROOT, chromium } from './lib/ref-page.mjs'
+import { freezeMotion, installFreezeMotion } from './lib/freeze-motion.mjs'
 
 const argv = process.argv.slice(2)
 const flag = (k, d) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : d }
@@ -48,6 +49,7 @@ if (!fs.existsSync(STATE) || Date.now() - fs.statSync(STATE).mtimeMs > 30 * 60_0
 const ctx = await browser.newContext({ viewport: { width: VW, height: VH }, storageState: STATE })
 for (const r of routes) {
   const page = await ctx.newPage()
+  await installFreezeMotion(page)
   const url = `${BASE}${r}${r.includes('?') ? '&' : '?'}skin=tines`
   const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 120_000 }).catch((e) => ({ status: () => `ERR ${e.message.split('\n')[0]}` }))
   const landed = new URL(page.url()).pathname
@@ -57,6 +59,8 @@ for (const r of routes) {
   const name = r.replace(/^\//, '').replace(/[/?=&]+/g, '-') || 'root'
   for (let i = 0; i < Math.min(SLICES, Math.ceil(H / VH)); i++) {
     await page.evaluate((y) => window.scrollTo(0, y), i * VH); await page.waitForTimeout(250)
+    // 앰비언트 모션을 한 시각에 세운다 — 조각마다 다른 프레임이 찍히면 이어 볼 수 없다.
+    await freezeMotion(page)
     const f = path.join(OUT, `authed-${name}-${VW}-${String(i + 1).padStart(2, '0')}.png`)
     await page.screenshot({ path: f })
     console.log(path.relative(ROOT, f))

@@ -614,3 +614,264 @@ Esc · 바깥 누르기 · 뒤로가기(`useCloseOnBack`) · 포커스 가둠·�
   (점 경로 이름 + `export const NAME = { key: '…' }` 해석).
 - e2e `31-popup-return` 의 분모는 이제 "`role="dialog"` 를 그리는 파일" 이 아니라
   **"팝업을 띄우는 컴포넌트"** 다 — 껍데기가 공용이라도 트리거·복귀는 화면마다 다르다.
+
+## 29. 살아 있는 화면 — 참조 모션 체계와 `/hub` 적용 (2026-09-23)
+
+사용자 관찰: 「참조는 **이미지가 움직여서** 살아 있는 플랫폼처럼 느껴진다」. 우리 `/hub` 는 같은 골격
+(§21)에 같은 화풍의 삽화를 놓았는데도 정지 화면이다(지금 상태: `docs/design/shots/motion-before/hub@1440.png`).
+무엇이 다른지 **참조의 작성 CSS·JS 를 직접 읽어** 값으로 옮겼다.
+
+### 29-1. 재료 — 무엇을 읽었나
+
+`www.tines.com/3b/` 의 작성 스타일시트 8장(**517,871 B**)과 JS 청크 19개(1.8 MB)를 받아 셌다.
+
+| 센 것 | 수 |
+|---|---|
+| `@keyframes`(고유) | **47** |
+| `animation` 선언 | 66 — 그중 `infinite` **25** |
+| `@media (prefers-reduced-motion: …)` | **32** — `reduce` 21 · `no-preference` **9** |
+| 스크롤 타임라인(`animation-timeline`) | 4곳 — `scroll(root)` 3 · `view()` 1 |
+| 결정론 갈고리(`[data-3b-deterministic]`) | **12곳** |
+| `IntersectionObserver` 를 쓰는 청크 | 4 |
+
+사본은 저장소에 두지 않는다(세션 임시 폴더). **그림·서체가 아니라 비율·시간·이징만** 가져온다
+— DD-62 ③ · DD-68 의 넘지 않는 선 2개.
+
+### 29-2. 실측 — 모션 47종은 다섯 갈래뿐이다
+
+| 갈래 | 참조 예 | 실측값 | 무엇을 말하는가 |
+|---|---|---|---|
+| ① **상시 루프**(살아 있음) | `tileFloat` — 벤토 칸 삽화 | `4s ease-in-out infinite` · `translateY(0 → -6%)` | 그림이 숨을 쉰다. **진폭 6%** — 읽기를 방해하지 않는 크기 |
+| | `radarSweep` — 제품 목업 | `4s linear infinite` · `rotate(360deg)` | 목업 안에서 무언가 돌고 있다 |
+| | `labelDotBreathe` — 영상 「LIVE」 점 | `1.8s ease-in-out` · `opacity 1→.5` + `scale 1→.55` | 지금 살아 있다는 신호 |
+| | `promptCaretBlink` · `chatCaretBlink` | `1.1s step-end infinite` | 목업이 **입력을 기다린다** |
+| | `breathe` · `blink` — 마스코트 | `±0.8px` · 깜빡임은 `4s` 중 **90–95% 구간**에만 `scaleY(.05)` | 눈은 주기의 5%만 움직인다. 나머지 95%는 정지 |
+| | `keyPulse` — 게임 키 3개 | `1.8s` · 지연 `0 / .2s / .4s` | **계단 지연**이 셋을 한 물결로 만든다 |
+| ② **데이터가 흐른다** | `depGraphFlow` · `accessMapFlow` | `0.7s linear infinite` · `stroke-dashoffset: 0 → -8px` | 연결선의 점선이 흐른다 = 「지금 돌고 있는 플랫폼」. **가장 싼 생동감** |
+| ③ **스크롤 = 타임라인** | `heroQuoteSink` · `hundredXSink` | `animation-timeline: scroll(root)` · `animation-range: 0 80vh` · `translateY(0 → 7rem / 4.5rem)` | 히어로의 글자와 그림이 **다른 속도로** 가라앉는다. JS 0줄 |
+| | `heroBedDrift` — 꽃밭 | `scroll(root)` · `0 100vh` · `translateY(0 → 10rem)` | 배경이 느리게 따라온다 |
+| | `quoteFlowerParallax` | `view-timeline-name: --quoteFlowerView` · `-8rem → 8rem` | **그 요소가 화면을 지나는 동안**만 움직인다 |
+| ④ **진입 한 번** | `snappyIn` · `threeBVisualAppear` | `.4–.6s cubic-bezier(.22,1,.36,1) both` · `opacity 0→1` 이 **0.1% 지점에서 끝난다** · `translateY 12–16px → 0` | 투명도는 시작 직후 끝나고 **이동만 보인다** — 크로스페이드 중의 흐릿한 글자가 없다 |
+| | 메가메뉴 패널의 자식들 | `nth-child` 지연 `0 / 50 / 100 / 150 / 200ms` | 한 덩어리가 아니라 차례로 선다 |
+| ⑤ **질감** | `grainShimmer` · `scanlineRoll` | `0.6s step-end` 배경 위치 흔들기 · `8s linear` 96px 굴리기 | 움직임이라기보다 소재(종이·브라운관) |
+
+**이징은 사실상 하나다** — `cubic-bezier(.22, 1, .36, 1)`, 즉 우리 `--ease-out-quint`(DD-64 로 이미 토큰에 있다).
+루프는 `ease-in-out`, 흐름·회전은 `linear`, 깜빡임은 `step-end`. 그 밖의 이징은 쓰지 않는다.
+지속시간도 `--dur-quick` 150ms(마이크로) · `.4–.6s`(진입) · `1.8–4s`(루프) 세 무리뿐이다.
+
+### 29-3. 값보다 중요한 것 — 규율 네 가지
+
+값은 베껴도 이 넷을 빼면 「움직이는 화면」이 아니라 「산만한 화면」이 된다.
+
+① **켜는 쪽으로 쓴다.** 루프·시차는 전부 `@media (prefers-reduced-motion: no-preference)` **안에서만**
+   정의된다(9곳). 끄는 코드를 따로 쓰지 않는다.
+   → **우리에게 특히 중요하다.** `globals.css` §4.4 의 전역 규칙이 `animation-duration: .01ms !important`
+   로 모든 애니메이션을 죽인다(그 주석 스스로 "정본과 어긋난다"고 적어 두었다). `no-preference` 안에
+   두면 **싸울 일 자체가 없다** — `reduce` 사용자에게는 그 규칙이 존재하지 않는다. 전역 규칙은 건드리지 않는다.
+
+② **스크롤 타임라인은 점진 향상이다.** `@supports (animation-timeline: scroll())` 로 감싼다.
+   지원: Chrome·Edge 115+ · Safari 26+ · **Firefox 안정판은 아직 플래그 뒤**(전역 약 83%).
+   미지원 브라우저에서는 그냥 정지 상태로 보인다 — 폴백을 따로 쓰지 않는다.
+
+③ **결정론 갈고리**(12곳) — 참조는 캡처할 때 애니메이션을 **끄지 않고 정해진 시각에 세운다**.
+
+```css
+[data-3b-deterministic] { animation: none }
+[data-3b-deterministic] .radarDial {
+  animation-play-state: paused;
+  animation-delay: calc(var(--sceneTime, 0) * -1s);   /* 음수 지연 = 그 시각으로 감기 */
+}
+```
+
+   이 저장소에는 `capture-learner.mjs` · `replica-diff.mjs` · `style-gate.mjs` 가 있다. 갈고리 없이
+   루프를 넣으면 **기준선 캡처가 찍을 때마다 달라진다**(픽셀 diff 가 무의미해진다). 나중 일이 아니라
+   모션과 **같은 커밋**에 들어가야 하는 것이다.
+
+④ **메인 스레드 청구.** 히어로가 mount 에서 main thread 를 claim 하고, 아래 무거운 장면들은
+   subscribe 해서 release 뒤에야 만들어진다(타임아웃 폴백 있음). rAF 루프는 `IntersectionObserver`
+   `rootMargin: "50% 0px"` 안에 있을 때만 돈다. **우리는 지금 필요 없다**(§29-6 — JS 를 안 늘린다).
+   규율만 적어 둔다: 나중에 캔버스·rAF 장면을 넣는다면 그때 이 구조가 전제다.
+
+### 29-4. 우리가 가져올 수 없는 것 — 그래서 결론이 뒤집힌다
+
+참조의 마스코트·드론은 **DOM/SVG 부품**이다. 눈·고리·날개가 각각 다른 주기로 움직이고, 드론은
+스프라이트 띠를 `steps(frameCount)` 로 넘긴다. 우리 삽화 **73점은 평면 `.webp` 한 장**이라 안쪽을
+움직일 수 없다. 통째로 움직이는 것(뜨기 · 시차 · 기울기)만 된다.
+
+**그래서**: 참조의 「살아 있음」에서 큰 몫은 삽화가 아니라 **제품 목업(DOM·SVG)** 이 낸다 —
+레이더 · 흐르는 연결선 · 깜빡이는 캐럿 · 굴러가는 숫자. 우리 `/hub` 의 그 자리는 `ProductFrame`
+이고, 그 안은 전부 DOM·SVG 다(레일 · KPI 숫자 · `<svg>` 도넛 · 예보 막대 · 새 고전 표).
+**가장 큰 이득이 거기 있고, 비용도 거기가 가장 싸다.** 삽화 뜨기는 그다음이다.
+
+### 29-5. `/hub` 자리별 배정
+
+위에서 아래로, 지금 코드 기준(`app/(main)/hub/page.tsx` · `components/hub/portal/sections.tsx`).
+
+| 자리 | 지금 | 넣을 것 | 갈래 | JS |
+|---|---|---|---|---|
+| NEW 알약 → h1 → 부제 → CTA 둘 | 정지 | 차례로 서기 — `12px ↑` · 지연 `0/50/100/150ms` | ④ | 0 |
+| `TitleMarquee` | **이미 흐른다**(40s · 멈춤 단추) | 그대로 — 참조 로고 줄과 같은 자리 | — | — |
+| `ProductFrame` 액자 전체 | 정지 | `threeBVisualAppear` 그대로 — `16px ↑` · `.6s` · `both` | ④ | 0 |
+| ↳ 액자 안쪽 라벤더 선 | 정지 실선 | **점선 흐름** — 선 하나를 `0.7s linear infinite` 로 흘린다 | ② | 0 |
+| ↳ `FrameRail` 「지금 할 차례」 항목 | 색만 다름 | 왼쪽 점이 `1.8s` 숨쉰다(`labelDotBreathe`) | ① | 0 |
+| ↳ `KpiRow` 숫자 4개 | 정지 | 굴러 올라와 앉는다(`rollUp` `.5s`) · 지연 `0/60/120/180ms` | ④ | 0 |
+| ↳ `MemoryCard` 도넛 | `stroke-dasharray` 로 이미 그린다 | **그려지며 들어온다** — `stroke-dashoffset` 를 호 길이에서 0 으로(`.9s` · 색마다 `80ms` 계단) | ④ | 0 |
+| ↳ `ForecastCard` 분절 막대 | 정지 | 폭이 0 → 최종으로 자란다(`.7s`) | ④ | 0 |
+| ↳ `NewBooksTable` 행 7개 | 정지 | 행마다 `40ms` 계단 진입 | ④ | 0 |
+| `ToneTabs` 만화 탭 `tile-comics` · 수능 탭 `tile-csat` | 정지 | `4s` 뜨기(`-6%`) | ① | 0 |
+| ↳ 단어장 탭 `spot-cat-*` 격자 | 정지 | 같은 뜨기 · 칸마다 지연 `0/.25/.5/…` | ① | 0 |
+| ↳ **서가 탭** 표지 격자 | 정지 | **아무것도 안 한다** — 진짜 책 표지다. 흔들면 상품이 흔들린다 | — | — |
+| `SolutionSlab` 타일 삽화 3점 | 정지 | 더 느린 뜨기(`6s` · `-4%`) — 보라 통판은 읽는 면이다 | ① | 0 |
+| `ReadingSection` 시리즈 카드의 56px spot | 정지 | **뜨기 없음** — 6%가 3px 라 떨림으로 보인다. 카드 호버 때만 `2°` 기울기 | — | 0 |
+| `UspCards` 108px spot | 정지 | 카드가 화면을 지날 때 `view()` 시차 `-2rem → 2rem` | ③ | 0 |
+| `FinalCta` 흩어진 물건 띠 | 정지 | `scroll(root)` 마지막 구간에서 `6rem` 떠오른다 | ③ | 0 |
+| 히어로 ↔ 액자 시차 | 정지 | **보류** — 참조의 히어로 시차는 꽃밭이 받쳐 준다. §20 에 따라 `/hub` 에는 꽃밭이 없다 | — | — |
+
+**넣지 않는 것**: 배경 질감(⑤ grain · scanline) — 우리 지면은 크림 단색이고 거기에 노이즈를 얹으면
+읽는 글의 대비가 흔들린다. 자동 재생 캐러셀 · 콘페티는 DD-65 가 남긴 금지에 그대로 있다.
+
+### 29-6. 부품 계약 — CSS 한 절과 속성 하나
+
+`/hub` 는 서버 컴포넌트다(클라이언트 경계는 `PromoLink` · `TitleMarquee` · `ToneTabs` 셋뿐).
+**JS 를 한 줄도 늘리지 않는다** — 진입 연출까지 `animation-timeline: view()` 로 하면
+`IntersectionObserver` 가 필요 없고, 페이지가 `'use client'` 로 내려오지 않는다.
+
+`globals.css` §4.5 「살아 있는 표면」. 클래스 일곱 + 지역 변수:
+
+| 클래스 | 하는 일 | 호출부가 인라인으로 주는 변수 |
+|---|---|---|
+| `.vf-rise` | 진입 — `12px ↑` · `--dur-slower` · `--ease-out-quint` · 투명도는 `0.1%` 에 끝난다 | `--rise-delay` · `--rise-y` · `--rise-dur` |
+| `.vf-arc` | SVG 호가 그려진다 — **시작 지점만** 호 길이만큼 밀어 숨긴다(기하는 그대로) | `--arc-offset` · `--arc-len` · `--arc-delay` |
+| `.vf-grow` | 막대가 왼쪽에서 자란다 — `scaleX(0 → 1)` · 700ms | `--grow-delay` |
+| `.vf-float` | 상시 뜨기 — `translateY(0 → calc(-1 * var(--float-y)))` | `--float-dur`(기본 `--dur-loop` 4s) · `--float-y`(기본 6%) · `--float-delay` |
+| `.vf-flow` | 점선이 흐른다 — 반복 그라디언트 + `background-position-y` · 700ms linear | `--flow-step`(기본 9px) · 색은 `currentColor` |
+| `.vf-breathe` | 「지금」 점이 숨쉰다 — `opacity 1→.45` + `scale 1→.6` · `--dur-loop-fast` | — |
+| `.vf-parallax` | 시차 — `view()` 타임라인 | `--par-from` · `--par-to` |
+
+진입 셋(`rise`·`arc`·`grow`)은 한 번만 돌아서 조건 없이 정의하고, **상시 루프 셋과 시차는
+`no-preference` 안에서만 정의한다**:
+
+```css
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-reduced-motion='on']) .vf-float { animation: vf-float var(--float-dur, var(--dur-loop)) ease-in-out infinite; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    :root:not([data-reduced-motion='on']) .vf-parallax { animation-timeline: view(); /* … */ }
+  }
+}
+```
+
+**끄는 손잡이는 둘, 후크는 하나.** 설계 초안은 새 `data-motion="calm"` 을 두려 했으나, 저장소에
+**이미 같은 것이 있었다** — `/settings` 「모션 감소」 → `<html data-reduced-motion="on">`
+(`components/layout/DevicePreferences.tsx`, 3상태 `system/on/off` · `localStorage` · OS 변경 추종).
+후크를 둘로 나누면 한쪽만 꺼진다. 그래서 **새 속성을 만들지 않고 그것을 쓴다.**
+
+| 손잡이 | 후크 | 효과 |
+|---|---|---|
+| OS 설정 | `prefers-reduced-motion: reduce` | 루프·시차 규칙이 **존재하지 않는다**. 진입은 페이드(`--dur-fast`)로 낮춘다 |
+| 앱 토글 `/settings` 「모션 감소」 | `<html data-reduced-motion="on">` | 같음. 흐름선은 **점선 자체도 없앤다**(멈춘 점선은 고장으로 읽힌다) |
+| 캡처 하네스 | `<html data-motion-freeze>` + `--scene-time` | `animation-play-state: paused` + 음수 지연 — 끄는 게 아니라 **그 시각에 세운다**(§29-3 ③) |
+
+앱 토글이 필요한 이유는 취향이 아니라 요건이다: 5초 넘게 자동으로 움직이는 것에는 멈출 수단이
+있어야 한다(WCAG 2.2.2) — OS 설정을 바꿀 수 없는 사람에게 `prefers-reduced-motion` 하나로는 수단이 없다.
+`TitleMarquee` 의 멈춤 단추는 **그대로 둔다**(제자리에 있는 조작이 더 발견하기 쉽다).
+
+**첫 페인트 전에 칠한다**: 토글은 원래 마운트 뒤(`useEffect`)에 칠해졌다 — 전환만 낮추던 때는
+"첫 프레임에 늦어도 색이 틀리지 않는다"가 맞았지만, 상시 루프가 생기면 **끈 사람에게 한 프레임
+움직임이 번쩍인다.** `app/layout.tsx` 의 선행 스크립트(테마를 칠하는 그것)가 같이 칠하도록 옮겼다.
+
+**시차 캡처만 다르다**: `.vf-parallax` 는 스크롤 위치에 묶인 값이라 「어느 시각」이 없다 —
+freeze 에서는 세우지 않고 `animation: none` 으로 끈다(fill 이 사라져 offset 0 으로 돌아간다).
+
+### 29-7. 회귀 — 무엇이 조용히 깨지는가
+
+| 깨지는 것 | 왜 | 막는 법 |
+|---|---|---|
+| **기준선 캡처가 흔들린다** | 루프가 돌면 `docs/design/golden/` 과의 픽셀 diff 가 매번 다르다 | 캡처 하네스가 `data-motion-freeze` + `--scene-time` 을 심는다(`scripts/design/lib/freeze-motion.mjs`). **모션과 같은 커밋에서** — 아래 §29-9 가 실측이다 |
+| 전역 `reduce` 규칙과 충돌 | `!important` 가 새 규칙을 이긴다 | 애초에 `no-preference` 안에만 쓴다 — 충돌이 생길 수 없다. 유닛 테스트가 이것을 센다 |
+| 삽화가 칸 밖으로 샌다 | `translateY(-6%)` 는 이웃을 밀지는 않지만 겹칠 수 있다 | 뜨는 삽화의 부모에 여백을 두고, 칸 경계를 넘는지 e2e 에서 `boundingBox` 로 본다 |
+| `ToneTabs` 탭을 바꿀 때마다 지연이 다시 흐른다 | 패널이 새로 mount 된다 | 탭 패널 삽화의 뜨기는 **지연 0** 으로 시작한다. 계단 지연은 탭 사이가 아니라 **한 패널 안의 여러 그림**에만 |
+| 도넛 「그려짐」이 값 변화와 섞인다 | 같은 `stroke-dashoffset` 를 진입과 데이터가 함께 쓴다 | 진입은 키프레임, 값은 서버가 찍은 정적 속성 — 진입 끝(`both`)이 값을 덮지 않도록 `--draw-len` 만 애니메이트 |
+
+새 테스트 3:
+
+- `motion-contract`(유닛 · CSS 파싱) — ① `.vf-*` 규칙이 전부 `no-preference` 안에 있다 ② `data-motion='calm'` 에서 전부 꺼진다 ③ `@supports` 없이 쓰인 `animation-timeline` 이 0이다.
+- e2e `/hub` — `reduce` 로 열었을 때 삽화의 `transform` 이 최종값이고, `calm` 토글 뒤에도 같다.
+- 캡처 회귀 — 같은 라우트를 2회 찍어 픽셀 차 0.
+
+### 29-8. 단계 (평가 지점 포함)
+
+| 단계 | 범위 | 끝 판정 |
+|---|---|---|
+| **A. 껍데기** | `globals.css` §4.5 · `data-motion` · 캡처 하네스 freeze · `motion-contract` 테스트. **화면 변화 0** | 같은 라우트 2회 캡처 픽셀 차 0 |
+| **B. 목업이 산다** | `ProductFrame` — 액자 진입 · 도넛 그려짐 · KPI 굴림 · 표 계단 · 액자 선 흐름 · 「지금 할 차례」 점 | `/hub` 1440·390 전후 캡처 · 사용자 평가 |
+| **C. 삽화가 뜬다** | `ToneTabs` · `SolutionSlab` 뜨기, `UspCards` · `FinalCta` 시차 | 같은 방식 평가 |
+| **D. 넓히기** | 평가 통과 시 `/`(랜딩) · `/about` · `/library` 로. **같은 다섯 클래스만** 쓴다 | — |
+
+**B 를 먼저 하는 이유**: 삽화 뜨기는 눈에 띄지만 「플랫폼이 돌고 있다」는 말을 하지 않는다.
+참조에서 그 말을 하는 것은 목업 안의 흐르는 선과 도는 레이더다(§29-4). 우리 목업은 **진짜 학습자
+데이터**를 그리므로 같은 연출이 참조보다 정직하다 — 숫자가 굴러 앉는 것은 그 값이 방금 계산됐다는
+뜻이고, 실제로 그렇다.
+
+### 29-9. 실측 — 「두 번 찍으면 같아야 한다」가 두 가지를 드러냈다 (2026-09-23)
+
+A 단계의 끝 판정은 「같은 라우트 2회 캡처 픽셀 차 0」이었다. 실제로 재 보니 **0이 아니었고,
+원인이 둘**이었다. 설계가 예상한 것은 하나뿐이었다.
+
+| 회차 | 차이 | 무엇이 남아 있었나 |
+|---|---|---|
+| 1 | **0.89%** | freeze 선택자를 `.vf-*` 일곱으로 **열거**했더니, §4.5 밖에 있던 **제목 마키**(`.hub-mq`, 40초 무한)가 안 섰다 |
+| 2 | **0.70%** | 마키는 섰다(브라우저에서 확인: `animation-play-state: paused` · `animation-delay: -3s`). 남은 것은 **표지** — `loading="lazy"` 인 도서 표지가 외부 호스트(standardebooks.org)에서 오는데 실행마다 도착 수가 달랐다(못 받음 9 → 3). 빈 칸이 되면 **쪽 높이까지 바뀐다** |
+| 3 | 측정 불가 | 다른 세션이 같은 워크트리에 올린 `lib/csat/review-defects.ts`(`import 'server-only'`)가 dev 빌드를 깨서 `/hub` 가 Build Error 화면을 찍었다. 캡처를 지우고 측정을 멈췄다 — **못 잰 것을 통과로 세지 않는다** |
+
+**고친 것 둘** (둘 다 이 작업 안에서):
+
+① **freeze 선택자를 `*` 로.** 목록을 손으로 유지하면 새 루프가 생길 때마다 조용히 빠지고,
+   아무도 안 알린다 — 기준선 diff 가 조금씩 시끄러워질 뿐이다. 이제 스피너·마키·스켈레톤까지
+   전부 선다. 회귀 `motion-contract` ④ 가 **전체 선택자인지**를 센다.
+
+② **표지를 다 받고 찍는다.** `settleImages()` — `loading="lazy"` 를 `eager` 로 바꿔 강제로 부르고
+   최대 9초 기다린다. 다 못 받으면 **수를 출력한다**(`⚠ 그림 3/43 못 받음`). 죽은 호스트 하나가
+   캡처 전체를 멈추면 안 되므로 기다림에는 한도를 둔다.
+
+**왜 표지 문제를 여기서 고쳤나**: 「같은 화면을 두 번 찍으면 같아야 한다」는 **하나의 요건**이고,
+그걸 깨는 원인이 둘이었을 뿐이다. 모션만 고치고 넘어가면 기준선 diff 는 여전히 시끄럽고,
+다음 사람은 원인을 모션에서 찾는다(찾을 수 없다).
+
+### 29-10. 세 번째 원인 — **음수 지연은 이미 돌고 있는 것을 되감지 못한다** (2026-09-23)
+
+빌드가 풀린 뒤 다시 재니 **0.14%** 였고, 차이가 **띠 한 줄**(y 573–601)로 좁혀졌다 — 제목 마키다.
+브라우저에서 확인하면 분명히 `animation-play-state: paused` · `animation-delay: -3s` 인데도
+실행마다 다른 위치에서 멈췄다.
+
+원인: `paused` 는 **「지금 위치에서 멈춰라」** 로 동작하고, 그때 뒤늦게 준 음수 지연은 그 위치를
+되돌리지 못한다. 그래서 40초 마키는 **페이지가 열린 뒤 흐른 시간**(실행마다 다르다)에서 섰다.
+진입 애니메이션은 `both` 로 이미 끝나 있어 어느 시각에 세워도 같은 프레임이라 증상이 안 보였다 —
+**긴 주기의 무한 루프에서만** 드러난다. 그래서 늦게 발견됐고, 앞으로 `.vf-float`(4초)를 삽화에
+붙이는 C 단계에서 같은 문제가 더 크게 나왔을 것이다.
+
+참조는 이 문제가 없다. `[data-3b-deterministic]` 이 **서버에서 찍혀 나오므로** 애니메이션이
+처음부터 멈춘 채 시작한다. 같은 조건을 만든다 — `installFreezeMotion()` 이 `addInitScript` 로
+**문서가 생기자마자** 속성을 단다(`<html>` 이 아직 없으면 `MutationObserver` 로 기다린다).
+페이지를 만든 직후·`goto` 전에 한 번 부른다. 연 뒤에 거는 `freezeMotion()` 은 보조로 남긴다
+(SPA 이동으로 새로 생긴 루프용) — **그것만으로는 부족하다**는 것이 이 절의 내용이다.
+
+| 회차 | 차이 | 고친 것 |
+|---|---|---|
+| 1 | 0.89% | freeze 선택자 열거 → `*` |
+| 2 | 0.70% | 지연 표지 → `settleImages()` |
+| 3 | — | (다른 세션이 dev 빌드를 깨 측정 불가) |
+| 4 | **0.14%** | 남은 것은 마키 한 줄 |
+| 5 | 0.44% (**모션 아님**) | `installFreezeMotion()` 뒤 — 마키 띠가 **사라졌다**. 남은 차이는 **데이터**다 |
+
+**5회차를 「나빠졌다」로 읽으면 안 된다.** 차이가 난 자리를 잘라 보니 셸의 나침반 띠가
+두 캡처에서 **다른 문장**이었다 — 「먼저 · 5분 진단이 끝나면 312권 중…」 → 「다음 · 기억이
+흐려진 단어 252개를…」. 이 워크트리는 **검증 계정 하나를 여러 세션이 공유한다**(AGENTS.md
+「공유 워크스페이스」). 띠 높이가 달라지면서 아래 전체가 2px 밀렸고, 그래서 표의 행마다
+42px 간격으로 차이 띠가 생겼다(내용·표지는 동일). 같은 이유로 액자 레일의 「오늘의 흐름」이
+있다가 없다 — 그 계정의 오늘이 실제로 바뀌었다.
+
+**그래서 이 판정의 유효 범위**: 모션·그림 로딩에서 온 흔들림은 **0** 이다(마키·도넛·표지 띠가
+전부 사라졌다). 픽셀 0 을 말하려면 **계정 상태를 고정한 캡처**가 있어야 한다 —
+`seed-empty-account.mjs` 가 있는 자리이고, 기준선 캡처의 다음 숙제다(모션 범위 밖).
