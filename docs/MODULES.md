@@ -1038,6 +1038,27 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ---
 
+## 기출 서가 · 해설 극장 — 802문항 자유 탐색 (2026-09-23)
+
+학습자가 열 수 있는 문항이 **12개**였다(오늘의 해부가 요구하는 손질된 메타데이터를 가진 것만).
+자료는 처음부터 **802문항 전부 공개 분석 · 792 강의 · 666 지문 지도**였다. 게이트를 걷고 두 화면을 세운다:
+**서가**(`/csat` 안 · 네 축으로 좁혀 고른다)와 **극장**(`/csat/item/[slug]` · 왼쪽 차례 · 오른쪽 지도와 블록).
+설계 정본 [csat-learner/analysis-theater.md](./csat-learner/analysis-theater.md).
+
+| | |
+|---|---|
+| 서가 규칙(순수) | [`lib/csat/browse-model.ts`](../apps/web/src/lib/csat/browse-model.ts) — `examAxis`(수능/모의·학년도·월) · `browseExamOrder`(최근 학년도 → 수능 → 9월 → 6월) · `filterBrowse`(축 넷 **AND** + 찾기, 번호는 완전 일치) · `groupByExam` |
+| 서가 로더(서버) | [`lib/csat/browse.ts`](../apps/web/src/lib/csat/browse.ts) — `csat_items_public` 802행 + 강의 색인 + 골격 앵커 → 문항마다 `lecture`·`map` 플래그. 프로세스 캐시 10분. **지문·선지·발문은 읽지 않는다**(`stem` 컬럼이 있어도) |
+| 서가 화면 | [`components/csat/browse/CsatLibrary.tsx`](../apps/web/src/components/csat/browse/CsatLibrary.tsx) — 회차 단위 번호 칩 · 상영 없는 문항은 **점선**으로 남긴다(감추지 않는다) · 「아무거나 한 문항」 |
+| 극장 골격(순수) | [`lib/csat/theater.ts`](../apps/web/src/lib/csat/theater.ts) — 강의 큐 → 왼쪽 단계 이름(역할·타깃에서만 짓는다) · 역할 → 효과음 · 분석 층 → 오른쪽 블록(**빈 칸은 만들지 않는다**) · `blockKeyForTarget`(문장 앵커는 지도로) |
+| 대본 없는 차례 | `lecture/store.ts` `lectureOutline` + `lecture/types.ts` `LectureStep` — 역할·타깃·길이·말한 문장 번호만. **재생 전에도 레일이 선다**(대본은 여전히 API 로만) |
+| 극장 화면 | [`components/csat/theater/AnalysisTheater.tsx`](../apps/web/src/components/csat/theater/AnalysisTheater.tsx) — 레일(차례) · 무대(`PassageMap` + 블록) · 장 카드 · 「전부 펼쳐 읽기」 · ←/→ · 배속 |
+| 효과음 | [`lib/csat/theater-sfx.ts`](../apps/web/src/lib/csat/theater-sfx.ts) — 넷(step·mark·trap·seal), 큐 경계에서만. 기존 **실녹음 샘플을 배속으로** 다시 쓴다(새 자산 0). `wrong.wav` 는 쓰지 않는다 · 기본 끔 · 샘플을 못 받으면 무음 |
+| 엔진 | **변경 없음** — `LecturePlayer` · `LectureStage` · `PassageMap` 그대로 |
+| 회귀 | 순수 **28** — [`theater.test.ts`](../apps/web/src/lib/csat/__tests__/theater.test.ts) 16(차례·이름·소리·블록·빈 칸 없음·정답표 없는 회차) + [`browse-model.test.ts`](../apps/web/src/lib/csat/__tests__/browse-model.test.ts) 12(축 AND · 거르지 않음 · 번호 완전 일치 · 회차 순서) |
+
+---
+
 ## 기출 해부 — 예측 · 대조 · 공식 (2026-09-17)
 
 학습자 라우트는 /csat, /csat/dissect, /csat/formulas 세 개다. 정답을 처음부터 공개하고

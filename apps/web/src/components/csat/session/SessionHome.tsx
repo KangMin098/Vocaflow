@@ -9,7 +9,7 @@
 // 같은 패턴은 ④⑥⑦ 어디서나 같은 색 · 같은 소품이다(`patternTone` · `patternArt`).
 'use client'
 
-import { ArrowRight, Headphones } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -23,6 +23,8 @@ import { REFLOW_VERSION } from '@/lib/csat/reflow/reflow'
 import { cachedExamIds, loadDissectionRecord, saveDissectionRecord } from '@/lib/csat/session/store'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { TINT_CLASS, TINT_ROTATION, type Tint } from '@/lib/design/tone'
+import { CsatLibrary } from '@/components/csat/browse/CsatLibrary'
+import type { BrowseCatalog } from '@/lib/csat/browse-model'
 import { PaperDrop } from './PaperDrop'
 import { PatternComparison } from './PatternComparison'
 import { PatternMap } from './PatternMap'
@@ -48,12 +50,11 @@ const FLOATS: { src: string; style: React.CSSProperties }[] = [
   { src: 'spot-review-done', style: { right: '10%', top: '56%', width: 96, rotate: '-6deg' } },
 ]
 
-export function SessionHome({ catalog }: { catalog: DissectionCatalog }) {
+export function SessionHome({ catalog, browse, initialType }: { catalog: DissectionCatalog; browse: BrowseCatalog; initialType?: string }) {
   const router = useRouter()
   const [state, setState] = useState<{ record: DissectionRecord; cached: string[]; plan: DissectionItem[]; now: number } | null>(null)
   const [busy, setBusy] = useState(false)
   const [pattern, setPattern] = useState(0)
-  const [filter, setFilter] = useState('all')
   const groups = patternGroups(catalog.items)
   const selected = groups[pattern] ?? groups[0]
   const toneOf = new Map(groups.map((g, i) => [g.tag, patternTone(i)]))
@@ -79,11 +80,10 @@ export function SessionHome({ catalog }: { catalog: DissectionCatalog }) {
     track({ name: 'csat_session_started', props: { size: plan.length, review: record.queue.some(q => q.due <= state.now), needed: new Set(plan.map(i => i.exam_id)).size, cached: new Set(plan.map(i => i.exam_id).filter(e => state.cached.includes(e))).size } })
     router.push(dissectionHref(plan))
   }
-  const filtered = catalog.items.filter(i => filter === 'all' || i.formulaTag === filter || filter === 'seen' && (record.inspected?.includes(i.id) || record.predictions.some(p => p.item === i.id)))
   const steps = [
-    { name: '예측', detail: '근거는 어디에 있을까', tile: 'tile-quiz', tone: 'pink' as Tint, href: ready ? dissectionHref(plan) : '#explore-title' },
-    { name: '설계 읽기', detail: '근거 → 함정 → 의도', tile: 'tile-read', tone: 'green' as Tint, href: selected ? itemHref(selected.items[0], 'evidence') : '#explore-title' },
-    { name: '전이', detail: '소재가 바뀌어도 통할까', tile: 'tile-articles', tone: 'peach' as Tint, href: ready ? dissectionHref(plan) : '#explore-title' },
+    { name: '예측', detail: '근거는 어디에 있을까', tile: 'tile-quiz', tone: 'pink' as Tint, href: ready ? dissectionHref(plan) : '#library-title' },
+    { name: '설계 읽기', detail: '근거 → 함정 → 의도', tile: 'tile-read', tone: 'green' as Tint, href: selected ? itemHref(selected.items[0], 'evidence') : '#library-title' },
+    { name: '전이', detail: '소재가 바뀌어도 통할까', tile: 'tile-articles', tone: 'peach' as Tint, href: ready ? dissectionHref(plan) : '#library-title' },
     { name: '패턴 축적', detail: '내 언어로 남긴 공식', tile: 'tile-textbooks', tone: 'lavender' as Tint, href: '/csat/formulas' },
   ]
   const tone = patternTone(pattern)
@@ -95,10 +95,10 @@ export function SessionHome({ catalog }: { catalog: DissectionCatalog }) {
       {active && <Link className={home.resume} href="/csat/dissect?resume=1"><span className={home.resumeBadge}>이어서</span><span>{active.items[active.index].replace('#', ' · ')}번부터 하던 학습</span><ArrowRight size={15} aria-hidden /></Link>}
       <p className={home.mono}>CSAT · Dissect</p>
       <h1 id="home-title">다른 지문, 같은 설계.</h1>
-      <p className={home.lede}>정답을 알고 시작해요. 근거와 오답을 만든 설계를 예측하고, 다른 지문에서 같은 설계를 찾아요.</p>
+      <p className={home.lede}>수능·모의평가 {browse.items.length}문항이 전부 열려 있어요. 유형·학년도로 골라 바로 들어가거나, 오늘 몫으로 고른 세 문항부터 시작해요.</p>
       <div className={home.ctaRow}>
-        <button className={BTN.primary} onClick={() => void start()} disabled={busy || !ready} data-testid="start">{busy ? '여는 중…' : ready ? '오늘의 해부 시작' : '준비 중'}</button>
-        <Link className={BTN.secondary} href="/csat/formulas">내 공식</Link>
+        <Link className={BTN.primary} href="#library-title" data-testid="browse-all">전체 기출 탐색</Link>
+        <button className={BTN.secondary} onClick={() => void start()} disabled={busy || !ready} data-testid="start">{busy ? '여는 중…' : ready ? '오늘의 해부 시작' : '준비 중'}</button>
       </div>
     </div>
 
@@ -170,22 +170,9 @@ export function SessionHome({ catalog }: { catalog: DissectionCatalog }) {
       <div className={home.mapFoot}><Link className={BTN.soft} href="/csat/formulas">내 공식에서 이어가기 <ArrowRight size={15} aria-hidden /></Link>{record.queue.length > 0 && <span>{record.queue.length}개 원리를 다시 확인하려고 남겼어요.</span>}</div>
     </section>
 
-    {/* ⑦ 목록 카드 */}
-    <section className={home.band} aria-labelledby="explore-title">
-      <div className={home.directory}>
-        <div className={home.directoryHead}>
-          <h2 id="explore-title">궁금한 문항부터</h2>
-          <p className={home.intro}><Headphones size={16} aria-hidden /> 분석을 읽고, 같은 설명을 들을 수 있어요.</p>
-          <label className={home.filter}>살펴볼 원리 <select value={filter} onChange={e => setFilter(e.target.value)}><option value="all">전체 문항</option><option value="seen">내가 살펴본 문항</option>{groups.map(group => <option key={group.tag} value={group.tag}>{group.format}</option>)}</select></label>
-        </div>
-        <div className={home.listCol}>
-          {filtered.length ? <ul className={home.index}>{filtered.map(item => <li key={item.id} style={toneVars(toneOf.get(item.formulaTag) ?? 'lavender')}><Link href={itemHref(item)}>
-            <span className={`${TINT_CLASS[toneOf.get(item.formulaTag) ?? 'lavender']} ${home.rowIcon}`} aria-hidden><Image src={patternArt(item.format)} alt="" width={1328} height={1328} /></span>
-            <span className={home.rowText}><strong>{item.topic}</strong><span className={home.reference}><b>{item.format}</b> | {item.exam_id} · {item.no}번</span></span>
-          </Link></li>)}</ul> : <p className={home.empty}>아직 살펴본 문항이 없어요. <button className={BTN.text} onClick={() => setFilter('all')}>전체 문항 보기</button></p>}
-          {filter !== 'all' && filtered.length > 0 && <button className={`${BTN.secondary} ${home.wide}`} onClick={() => setFilter('all')}>전체 {catalog.items.length}문항 보기 <ArrowRight size={15} aria-hidden /></button>}
-        </div>
-      </div>
+    {/* ⑦ 전체 기출 서가 — 12문항짜리 목록을 802문항으로 바꾼 자리 */}
+    <section className={home.band}>
+      <CsatLibrary catalog={browse} initialType={initialType} />
     </section>
   </div>
 }

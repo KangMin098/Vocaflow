@@ -124,9 +124,11 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 #### 평가원 기출 — 학습자 루프 (`(main)/csat/*` · 보호 라우트 · 2026-09-17 재설계)
 
-**학습자 라우트는 셋뿐이다**(docs/csat-learner-brief.md A1). 분석을 **읽는** 화면은 관리자 뷰
-`/admin/kice/*` 로 옮겼고 훈련(`/csat/drill`)·오버레이(`/csat/overlay`)는 걷었다(처분표
-[csat-learner/gate0-routes.md](./csat-learner/gate0-routes.md)).
+**2026-09-23 — 라우트 셋 제한을 걷었다.** 브리프 A1(「학습자 라우트 셋뿐」)은 학습자가 열 수 있는
+문항을 **12개**로 묶어 두고 있었다(오늘의 해부가 요구하는 손질된 메타데이터를 가진 것만). 실제 자료는
+**802문항 전부 공개 분석 · 792문항 강의 · 666문항 지문 지도**다. 그래서 문항마다 제 주소를 준다 —
+`/csat/item/[slug]`. 훈련(`/csat/drill`)·오버레이(`/csat/overlay`)는 그대로 걷힌 채다(처분표
+[csat-learner/gate0-routes.md](./csat-learner/gate0-routes.md)). 관리자 검수 사본 `/admin/kice/item/[slug]` 도 그대로 둔다.
 
 **서버는 문항 원문을 싣지 않는다.** 지문·선지는 학습자가 받은 문제지 PDF 에서 **브라우저가** 뽑아
 큰 글자로 다시 흘려 넣는다(reflow · `lib/csat/reflow`). 서버로 가는 것은 SHA-256 64자뿐이고,
@@ -134,7 +136,8 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 | 라우트 | 파일 | 설명 |
 |---|---|---|
-| `/csat` | `(main)/csat/page.tsx` + `SessionHome.tsx` | 오늘의 해부 카드 · 예측/대조/공식 온보딩 · 필요한 PDF 받기/놓기 · 낮은 계열 커버리지 우선 유형 구성 |
+| `/csat` | `(main)/csat/page.tsx` + `SessionHome.tsx` + `CsatLibrary.tsx` | 히어로 1차 CTA = **전체 기출 탐색** · 오늘의 해부 카드(보조) · 패턴 비교 · **전체 기출 서가**(802문항 · 네 축 필터 = 시험 종류/학년도/유형/상태 + 유형·회차·번호 찾기 + 「아무거나 한 문항」). 목록 단위는 회차, 칩은 번호 · 유형 · 3점 표시. `?type=<유형 id>` 로 유형을 미리 건다 |
+| `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` + `AnalysisTheater.tsx` | **해설 극장** — 왼쪽 레일에 강의 큐(12~14개)가 차례로 쌓이고, 오른쪽에 지문 지도(`PassageMap`)와 분석 블록(재는 것 · 의도 · 정답 근거 · 오답마다 · 절차 · 어휘)이 같은 박자로 열린다. 바닥 장 카드로 점프. 효과음 4종(큐 경계) · 배속 3단 · 「전부 펼쳐 읽기」. 강의가 없는 문항은 상영 없이 블록만 |
 | `/csat/dissect` | `(main)/csat/dissect/page.tsx` + `SessionRunner.tsx` · `ItemScreen.tsx` | 정답 선공개 · 예측 3수 후 분석 인라인 · 설계도 · 공식 저장/3일 뒤 재확인 · 두 문항 대조 후 전이. `?set=<슬러그,…>`와 `?formula=<태그>` 검증 |
 | `/csat/formulas` | `(main)/csat/formulas/page.tsx` + `ProgressView.tsx` | 기기에 모은 공식 · 최근 30예측 적중률 · 계열 커버리지. 유형별 펼치기와 해당 공식 다시 확인 |
 
