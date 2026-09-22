@@ -1,0 +1,1052 @@
+{
+  "readOnly": true,
+  "contract": "source-discovery/v1",
+  "probedAt": "2026-09-22T21:21:27.907Z",
+  "scoredAt": "2026-09-22T21:37:36.027Z",
+  "method": {
+    "gates": [
+      "robots.txt",
+      "라이선스 고지",
+      "대량 취득 경로"
+    ],
+    "sample": "통과분만 F1~F3 (Gate 0 과 같은 3중 합의 · 같은 검증기)",
+    "caveat": "후보의 F2(지문 적합)는 범용 <p> 추출기로 잰 값이다 — 전용 어댑터가 있는 기존 원천과 직접 비교할 수 없다"
+  },
+  "candidates": [
+    {
+      "key": "medlineplus",
+      "label": "MedlinePlus (NLM)",
+      "gap": [
+        "과학·자연",
+        "심리·인지"
+      ],
+      "homepage": "https://medlineplus.gov",
+      "acquisition": {
+        "mode": "sitemap",
+        "url": "https://medlineplus.gov/sitemap.xml",
+        "note": "XML 덤프는 일자 파일명이라 목록부터 읽는다",
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://medlineplus.gov/about/using/usingcontent/",
+        "httpStatus": 200,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": 25534,
+      "priorVerdict": null,
+      "scores": {
+        "F1": 17.3,
+        "F2": 5.1,
+        "F3": 5.2,
+        "subtotal60": 27.6,
+        "sampled": 50,
+        "consensusCefr": {
+          "B1": 52,
+          "B2": 48
+        },
+        "cefrDistanceToExam": 19.5,
+        "inBandPct": 100,
+        "register": {
+          "reference": 66,
+          "expository": 34
+        },
+        "topic": {
+          "과학·자연": 90,
+          "사회·경제": 4,
+          "기술·매체": 4,
+          "심리·인지": 2
+        },
+        "topicDistanceToExam": 66.6,
+        "shortTopicSharePct": 10,
+        "cleanPct": 0,
+        "selfContainedPct": 40,
+        "prosePct": 64,
+        "csatTypeCoverage": 3,
+        "wordsMedian": 267,
+        "defect": {
+          "table-or-list": 56,
+          "boilerplate": 38,
+          "non-prose": 4,
+          "duplicated": 2
+        }
+      }
+    },
+    {
+      "key": "nps",
+      "label": "National Park Service",
+      "gap": [
+        "역사·인류",
+        "과학·자연"
+      ],
+      "homepage": "https://www.nps.gov",
+      "acquisition": {
+        "mode": "sitemap",
+        "url": "https://www.nps.gov/sitemap.xml",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://www.nps.gov/aboutus/disclaimer.htm",
+        "httpStatus": 200,
+        "signsFound": [
+          "PD-Government",
+          "ARR"
+        ],
+        "grade": "L0"
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "All rights reserved"
+      ],
+      "scaleEstimate": 19643,
+      "priorVerdict": "us-gov-agencies §2 (2026-09-07) 채택 · 19,634 URL",
+      "scores": {
+        "F1": 16.1,
+        "F2": 6,
+        "F3": 4.4,
+        "subtotal60": 26.5,
+        "sampled": 50,
+        "consensusCefr": {
+          "B2": 80,
+          "B1": 20
+        },
+        "cefrDistanceToExam": 27.9,
+        "inBandPct": 100,
+        "register": {
+          "reference": 50,
+          "expository": 28,
+          "narrative": 10,
+          "news": 8,
+          "argumentative": 4
+        },
+        "topic": {
+          "역사·인류": 42,
+          "분류불가": 28,
+          "과학·자연": 26,
+          "예술·문화": 4
+        },
+        "topicDistanceToExam": 67.1,
+        "shortTopicSharePct": 4,
+        "cleanPct": 0,
+        "selfContainedPct": 34,
+        "prosePct": 36,
+        "csatTypeCoverage": 8,
+        "wordsMedian": 371,
+        "defect": {
+          "boilerplate": 46,
+          "caption": 32,
+          "table-or-list": 16,
+          "citation-apparatus": 2,
+          "duplicated": 2,
+          "fragment": 2
+        }
+      }
+    },
+    {
+      "key": "shareamerica",
+      "label": "ShareAmerica (US State Dept)",
+      "gap": [
+        "사회·경제",
+        "역사·인류"
+      ],
+      "homepage": "https://share.america.gov",
+      "acquisition": {
+        "mode": "feed",
+        "url": "https://share.america.gov/feed/",
+        "note": null,
+        "httpStatus": 403
+      },
+      "license": {
+        "url": "https://share.america.gov/about/",
+        "httpStatus": 403,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 403,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "라이선스 고지 HTTP 403",
+        "취득 경로 HTTP 403"
+      ],
+      "scaleEstimate": null,
+      "priorVerdict": "—",
+      "scores": null
+    },
+    {
+      "key": "cdc",
+      "label": "CDC",
+      "gap": [
+        "과학·자연"
+      ],
+      "homepage": "https://www.cdc.gov",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://tools.cdc.gov/api/v2/resources/media?max=10",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://www.cdc.gov/other/agencymaterials.html",
+        "httpStatus": 200,
+        "signsFound": [
+          "PD-Government"
+        ],
+        "grade": "L0"
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": 3889,
+      "priorVerdict": "us-gov-agencies §5 (2026-09-07) 보류 · 3,889편 · JSON API",
+      "scores": null
+    },
+    {
+      "key": "peerj",
+      "label": "PeerJ",
+      "gap": [
+        "과학·자연",
+        "심리·인지"
+      ],
+      "homepage": "https://peerj.com",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://peerj.com/articles/index.json?limit=10",
+        "note": null,
+        "httpStatus": 403
+      },
+      "license": {
+        "url": "https://peerj.com/about/policies-and-procedures/",
+        "httpStatus": 200,
+        "signsFound": [
+          "CC-BY"
+        ],
+        "grade": "L1"
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "취득 경로 HTTP 403"
+      ],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "bmc",
+      "label": "BMC (BioMed Central)",
+      "gap": [
+        "과학·자연"
+      ],
+      "homepage": "https://www.biomedcentral.com",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PUBLISHER%3A%22BMC%22%20AND%20LICENSE%3A%22cc%20by%22&format=json&pageSize=10",
+        "note": "Europe PMC 경유(이미 배선된 경로)",
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://www.biomedcentral.com/getpublished/copyright-and-license",
+        "httpStatus": 200,
+        "signsFound": [
+          "CC-BY-NC-ND",
+          "CC-BY"
+        ],
+        "grade": "L4"
+      },
+      "robots": {
+        "httpStatus": 404,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "nature_comms",
+      "label": "Nature Communications / Scientific Reports",
+      "gap": [
+        "과학·자연"
+      ],
+      "homepage": "https://www.nature.com/ncomms/",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=JOURNAL%3A%22Nat%20Commun%22%20AND%20LICENSE%3A%22cc%20by%22&format=json&pageSize=10",
+        "note": "Europe PMC 경유",
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://www.nature.com/nature-portfolio/open-access",
+        "httpStatus": 200,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": true,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "AI 이용 거부(robots)"
+      ],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "knowable",
+      "label": "Knowable Magazine",
+      "gap": [
+        "과학·자연",
+        "사회·경제"
+      ],
+      "homepage": "https://knowablemagazine.org",
+      "acquisition": {
+        "mode": "feed",
+        "url": "https://knowablemagazine.org/rss/all",
+        "note": null,
+        "httpStatus": 403
+      },
+      "license": {
+        "url": "https://knowablemagazine.org/content/about/reprints",
+        "httpStatus": 403,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": true,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "AI 이용 거부(robots)",
+        "라이선스 고지 HTTP 403",
+        "취득 경로 HTTP 403"
+      ],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "undark",
+      "label": "Undark Magazine",
+      "gap": [
+        "과학·자연",
+        "사회·경제"
+      ],
+      "homepage": "https://undark.org",
+      "acquisition": {
+        "mode": "feed",
+        "url": "https://undark.org/feed/",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://undark.org/republish-our-articles/",
+        "httpStatus": 404,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": true,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "AI 이용 거부(robots)",
+        "라이선스 고지 HTTP 404"
+      ],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "global_voices",
+      "label": "Global Voices",
+      "gap": [
+        "사회·경제",
+        "예술·문화"
+      ],
+      "homepage": "https://globalvoices.org",
+      "acquisition": {
+        "mode": "feed",
+        "url": "https://globalvoices.org/feed/",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://globalvoices.org/about/global-voices-attribution-policy/",
+        "httpStatus": 200,
+        "signsFound": [
+          "CC-BY"
+        ],
+        "grade": "L1"
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": {
+        "F1": 13,
+        "F2": 9.4,
+        "F3": 14.8,
+        "subtotal60": 37.1,
+        "sampled": 34,
+        "consensusCefr": {
+          "B2": 94.1,
+          "C1": 2.9,
+          "C2": 2.9
+        },
+        "cefrDistanceToExam": 47.3,
+        "inBandPct": 94.1,
+        "register": {
+          "news": 47.1,
+          "expository": 26.5,
+          "argumentative": 20.6,
+          "narrative": 5.9
+        },
+        "topic": {
+          "사회·경제": 58.8,
+          "과학·자연": 14.7,
+          "예술·문화": 11.8,
+          "기술·매체": 8.8,
+          "역사·인류": 5.9
+        },
+        "topicDistanceToExam": 43.7,
+        "shortTopicSharePct": 79.4,
+        "cleanPct": 0,
+        "selfContainedPct": 55.9,
+        "prosePct": 85.3,
+        "csatTypeCoverage": 11,
+        "wordsMedian": 1591,
+        "defect": {
+          "boilerplate": 85.3,
+          "non-prose": 11.8,
+          "duplicated": 2.9
+        }
+      }
+    },
+    {
+      "key": "wikinews",
+      "label": "Wikinews (영문)",
+      "gap": [
+        "사회·경제"
+      ],
+      "homepage": "https://en.wikinews.org",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://en.wikinews.org/w/api.php?action=query&list=categorymembers&cmtitle=Category:Published&cmlimit=10&format=json",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://en.wikinews.org/wiki/Wikinews:Copyright",
+        "httpStatus": 200,
+        "signsFound": [
+          "CC-BY"
+        ],
+        "grade": "L1"
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": 22237,
+      "priorVerdict": "SOURCE_SPECS 에 이미 있으나 library_articles 0행 — 배선만 없다",
+      "scores": {
+        "F1": 17.7,
+        "F2": 8.4,
+        "F3": 11.9,
+        "subtotal60": 38.1,
+        "sampled": 50,
+        "consensusCefr": {
+          "B2": 52,
+          "B1": 48
+        },
+        "cefrDistanceToExam": 16.3,
+        "inBandPct": 100,
+        "register": {
+          "news": 80,
+          "reference": 20
+        },
+        "topic": {
+          "사회·경제": 40,
+          "분류불가": 34,
+          "예술·문화": 10,
+          "과학·자연": 10,
+          "기술·매체": 4,
+          "심리·인지": 2
+        },
+        "topicDistanceToExam": 55.7,
+        "shortTopicSharePct": 56,
+        "cleanPct": 8,
+        "selfContainedPct": 60,
+        "prosePct": 80,
+        "csatTypeCoverage": 6,
+        "wordsMedian": 297,
+        "defect": {
+          "citation-apparatus": 42,
+          "boilerplate": 20,
+          "non-prose": 20,
+          "none": 8,
+          "table-or-list": 8,
+          "caption": 2
+        }
+      }
+    },
+    {
+      "key": "aeon",
+      "label": "Aeon",
+      "gap": [
+        "철학·윤리",
+        "심리·인지"
+      ],
+      "homepage": "https://aeon.co",
+      "acquisition": {
+        "mode": "feed",
+        "url": "https://aeon.co/feed.rss",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://aeon.co/republish",
+        "httpStatus": 200,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": true,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "AI 이용 거부(robots)"
+      ],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "sciencedaily",
+      "label": "ScienceDaily",
+      "gap": [
+        "과학·자연"
+      ],
+      "homepage": "https://www.sciencedaily.com",
+      "acquisition": {
+        "mode": "feed",
+        "url": "https://www.sciencedaily.com/rss/all.xml",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://www.sciencedaily.com/terms.htm",
+        "httpStatus": 200,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "openstax",
+      "label": "OpenStax",
+      "gap": [
+        "사회·경제",
+        "철학·윤리",
+        "심리·인지"
+      ],
+      "homepage": "https://openstax.org",
+      "acquisition": {
+        "mode": "dump",
+        "url": "https://api.github.com/orgs/openstax/repos?per_page=100&type=public",
+        "note": "osbooks-* CNXML repo",
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://openstax.org/license",
+        "httpStatus": 200,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": true,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "AI 이용 거부(robots)"
+      ],
+      "scaleEstimate": 55,
+      "priorVerdict": "ACP_OPENSTAX_DESIGN §2 — 55 repo 중 영어 CC-BY 원서 2종 · 41종 CC-BY-NC-SA",
+      "scores": null
+    },
+    {
+      "key": "libretexts",
+      "label": "LibreTexts",
+      "gap": [
+        "과학·자연",
+        "사회·경제",
+        "심리·인지"
+      ],
+      "homepage": "https://libretexts.org",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://chem.libretexts.org/@api/deki/site/search?q=type%3Awiki&limit=10&dream.out.format=json",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://commons.libretexts.org/",
+        "httpStatus": 200,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "noba",
+      "label": "Noba Project",
+      "gap": [
+        "심리·인지"
+      ],
+      "homepage": "https://nobaproject.com",
+      "acquisition": {
+        "mode": "crawl",
+        "url": "https://nobaproject.com/browse-content",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://nobaproject.com",
+        "httpStatus": 200,
+        "signsFound": [
+          "CC-BY-NC-SA"
+        ],
+        "grade": "L3"
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": true,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "robots 전면 차단"
+      ],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "open_textbook_library",
+      "label": "Open Textbook Library",
+      "gap": [
+        "사회·경제",
+        "교육·언어"
+      ],
+      "homepage": "https://open.umn.edu/opentextbooks",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://open.umn.edu/opentextbooks/textbooks.json?per_page=10",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://open.umn.edu/opentextbooks/faq",
+        "httpStatus": 200,
+        "signsFound": [
+          "CC-BY"
+        ],
+        "grade": "L1"
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "core_econ",
+      "label": "CORE Econ",
+      "gap": [
+        "사회·경제"
+      ],
+      "homepage": "https://www.core-econ.org",
+      "acquisition": {
+        "mode": "crawl",
+        "url": "https://www.core-econ.org/the-economy/",
+        "note": null,
+        "httpStatus": 403
+      },
+      "license": {
+        "url": "https://www.core-econ.org/terms-conditions/",
+        "httpStatus": 403,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 403,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "라이선스 고지 HTTP 403",
+        "취득 경로 HTTP 403"
+      ],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "wikibooks",
+      "label": "Wikibooks / Wikiversity (영문)",
+      "gap": [
+        "교육·언어",
+        "과학·자연"
+      ],
+      "homepage": "https://en.wikibooks.org",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://en.wikibooks.org/w/api.php?action=query&list=search&srsearch=incategory:Book&srlimit=10&format=json",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://en.wikibooks.org/wiki/Wikibooks:Copyrights",
+        "httpStatus": 200,
+        "signsFound": [
+          "CC-BY-SA",
+          "CC-BY"
+        ],
+        "grade": "L2"
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "standard_ebooks",
+      "label": "Standard Ebooks",
+      "gap": [
+        "예술·문화",
+        "역사·인류"
+      ],
+      "homepage": "https://standardebooks.org",
+      "acquisition": {
+        "mode": "feed",
+        "url": "https://standardebooks.org/feeds/atom/new-releases",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://standardebooks.org/about",
+        "httpStatus": 200,
+        "signsFound": [
+          "CC0"
+        ],
+        "grade": "L0"
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": 1200,
+      "priorVerdict": null,
+      "scores": {
+        "F1": 13.3,
+        "F2": 5.4,
+        "F3": 12.3,
+        "subtotal60": 31,
+        "sampled": 13,
+        "consensusCefr": {
+          "B2": 100
+        },
+        "cefrDistanceToExam": 47.9,
+        "inBandPct": 100,
+        "register": {
+          "expository": 100
+        },
+        "topic": {
+          "예술·문화": 38.5,
+          "역사·인류": 30.8,
+          "사회·경제": 7.7,
+          "교육·언어": 7.7,
+          "철학·윤리": 7.7,
+          "과학·자연": 7.7
+        },
+        "topicDistanceToExam": 50.4,
+        "shortTopicSharePct": 53.9,
+        "cleanPct": 0,
+        "selfContainedPct": 92.3,
+        "prosePct": 0,
+        "csatTypeCoverage": 2,
+        "wordsMedian": 432,
+        "defect": {
+          "boilerplate": 100
+        }
+      }
+    },
+    {
+      "key": "african_storybook_web",
+      "label": "African Storybook",
+      "gap": [
+        "예술·문화"
+      ],
+      "homepage": "https://www.africanstorybook.org",
+      "acquisition": {
+        "mode": "dump",
+        "url": "https://api.github.com/repos/global-asp/asp-source/contents",
+        "note": "commit 고정 corpus",
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://www.africanstorybook.org/about.php",
+        "httpStatus": 200,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": null,
+      "priorVerdict": "csat_source_registry profile — 파일럿 50편 중 적격 4편(8%) · 자동 수집 금지",
+      "scores": null
+    },
+    {
+      "key": "smithsonian",
+      "label": "Smithsonian Open Access",
+      "gap": [
+        "예술·문화",
+        "역사·인류"
+      ],
+      "homepage": "https://www.si.edu/openaccess",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://api.si.edu/openaccess/api/v1.0/search?q=online_media_type:%22Images%22&rows=1",
+        "note": "API 키 필요",
+        "httpStatus": 403
+      },
+      "license": {
+        "url": "https://www.si.edu/termsofuse",
+        "httpStatus": 403,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "라이선스 고지 HTTP 403",
+        "취득 경로 HTTP 403"
+      ],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "eol",
+      "label": "Encyclopedia of Life",
+      "gap": [
+        "과학·자연"
+      ],
+      "homepage": "https://eol.org",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://eol.org/api/pages/1.0/328598.json?details=true",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://eol.org/docs/what-is-eol/licensing-and-attribution",
+        "httpStatus": 403,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 403,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": false,
+      "blockers": [
+        "라이선스 고지 HTTP 403"
+      ],
+      "scaleEstimate": null,
+      "priorVerdict": null,
+      "scores": null
+    },
+    {
+      "key": "worldbank_okr",
+      "label": "World Bank Open Knowledge Repository",
+      "gap": [
+        "사회·경제"
+      ],
+      "homepage": "https://openknowledge.worldbank.org",
+      "acquisition": {
+        "mode": "api",
+        "url": "https://openknowledge.worldbank.org/oai/request?verb=ListRecords&metadataPrefix=oai_dc",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://openknowledge.worldbank.org/collections/8b167a40-9e47-4b7a-b23a-31f8ac7e7a1b",
+        "httpStatus": 200,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": 40415,
+      "priorVerdict": "source-key.ts GovernedSource · harvest-worldbank.mjs 존재 · library_articles 0행",
+      "scores": null
+    },
+    {
+      "key": "nsf",
+      "label": "NSF",
+      "gap": [
+        "과학·자연",
+        "기술·매체"
+      ],
+      "homepage": "https://www.nsf.gov",
+      "acquisition": {
+        "mode": "sitemap",
+        "url": "https://www.nsf.gov/sitemap.xml",
+        "note": null,
+        "httpStatus": 200
+      },
+      "license": {
+        "url": "https://www.nsf.gov/policies/",
+        "httpStatus": 200,
+        "signsFound": [],
+        "grade": null
+      },
+      "robots": {
+        "httpStatus": 200,
+        "aiRefusal": false,
+        "blocksAll": false,
+        "blocksPath": false
+      },
+      "acquirable": true,
+      "blockers": [],
+      "scaleEstimate": 1399,
+      "priorVerdict": "us-gov-agencies §4 (2026-09-07) 보류 · 1,399편",
+      "scores": null
+    }
+  ],
+  "summary": {
+    "total": 25,
+    "acquirable": 13,
+    "blocked": 12,
+    "sampled": 5
+  }
+}
