@@ -73,7 +73,7 @@ export const MENUS: Menu[] = [
     ],
     listLabel: '대상별',
     list: [
-      { href: '/csat', title: '수능 준비', body: '평가원 기출 지문과 유형별 연습.', illo: 'spot-cat-exam' },
+      { href: '/csat', title: '수능 준비', body: '평가원 기출 지문과 유형별 연습.', illo: 'spot-quiz' },
       { href: '/library/textbooks', title: '교재', body: '학년 계단으로 세운 교재 서가.', illo: 'spot-dictionary' },
       { href: '/teacher', title: '교사 · 학급', body: '초대코드로 학생 어휘 진행을 한 화면에.', illo: 'spot-teacher' },
     ],

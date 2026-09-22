@@ -2,8 +2,8 @@
 //
 // 빈 상태 · 오류 · 없음 화면의 공통 틀(DD-68 · tines-mapping §13-2 · §14) — 참조 404 · 빈 결과 문법:
 // **가운데 소품 하나**(물건 삽화, 104–160px) · 세리프 제목 · 한 문단 · 알약 단추(1차 + 2차). 상자·점선 테두리 없이 판면 위에 선다.
-// 용도별 소품: empty-shelf · empty-vault · empty-page · search · offline · error · loading · locked · review-done
-// (파일이 있는 것만 — 생성기 목록의 lost · welcome · calendar 는 무료 한도 소진으로 아직 없다, 2026-09-21).
+// 용도별 소품: empty-shelf · empty-vault · empty-page · search · offline · error · loading · locked · review-done · lost · welcome · calendar
+// (파일이 있는 것만 — 가드 `components/__tests__/illustration-files.test.ts`).
 // 서버 · 클라이언트 어디서나 쓴다(상태 없음).
 
 import Image from 'next/image'
@@ -12,7 +12,7 @@ import Link from 'next/link'
 import { BTN } from './tines-kit'
 
 export type SpotArt =
-  | 'empty-shelf' | 'empty-vault' | 'empty-page' | 'search' | 'offline' | 'error' | 'loading' | 'locked' | 'review-done'
+  | 'empty-shelf' | 'empty-vault' | 'empty-page' | 'search' | 'offline' | 'error' | 'loading' | 'locked' | 'review-done' | 'lost' | 'welcome' | 'calendar'
 
 type Action = { label: string; href?: string; onClick?: () => void }
 

@@ -74,11 +74,11 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </header>
 
       {/* ── Main ── */}
-      {/* 참조 문의 폼 골격(DD-68): 왼쪽 폼 · 오른쪽 틴트 면 위 장면. 390 에서는 폼만. */}
+      {/* 참조 문의 폼 골격(DD-68 · tines-mapping §18): 왼쪽 폼 · 오른쪽 틴트 면 위 물건 소품(열린 문). 390 에서는 폼만. */}
       <main className="mx-auto grid w-full max-w-[1360px] flex-1 items-center gap-10 px-4 py-8 sm:py-12 lg:grid-cols-[minmax(0,28rem)_1fr] lg:gap-16 lg:px-10">
         <div className="w-full max-w-md justify-self-center lg:justify-self-start">{children}</div>
-        <div aria-hidden className="hidden overflow-hidden rounded-[var(--r-2xl)] bg-[var(--tint-lavender)] p-6 lg:block">
-          <Image src="/illustrations/tines/scene-hub.webp" alt="" width={1664} height={928} sizes="50vw" className="h-auto w-full" />
+        <div aria-hidden className="tone-green hidden min-h-[440px] items-center justify-center overflow-hidden rounded-[var(--r-2xl)] p-10 lg:flex">
+          <Image src="/illustrations/tines/spot-welcome.webp" alt="" width={1328} height={1328} sizes="320px" className="h-auto w-[300px] select-none" />
         </div>
       </main>
 

@@ -1,6 +1,6 @@
 // apps/web/src/app/not-found.tsx
 //
-// 404 — 참조 사이트 404 골격(DD-68 · tines-mapping §2 · §14): 공통 헤더 · **가운데 소품 하나**(참조 UFO 자리 — 지금은 돋보기 소품. 전용 그림 spot-lost 는 생성 한도가 돌아오면) ·
+// 404 — 참조 사이트 404 골격(DD-68 · tines-mapping §2 · §14): 공통 헤더 · **가운데 소품 하나**(참조 UFO 자리 — 빛줄기에 떠오르는 책, Kaggle 생성) ·
 // 세리프 제목 · 출구 알약 둘 · 공통 푸터.
 // 루트 not-found 라 레이아웃 그룹 밖이다 — 공통 헤더·푸터를 직접 얹는다.
 
@@ -19,7 +19,7 @@ export default function NotFound() {
           로그인 상태면 미들웨어가 `/hub` 로 보내 준다(한 줄로 두 경우를 다 만족). */}
       <main className="flex flex-1 items-center justify-center px-4 py-20 lg:py-28">
         <SpotState
-          art="search"
+          art="lost"
           size="lg"
           title="페이지를 찾을 수 없어요."
           body="주소가 잘렸거나 바뀐 것 같아요. 아래에서 다시 시작할 수 있어요."

@@ -16,7 +16,9 @@ const R: Record<string, RouteArt> = {
   '/hub': { tile: 'tile-hub', spot: 'spot-memory', ...MODULE_TONE.dashboard },
   '/dashboard': { tile: 'tile-dashboard', spot: 'spot-dashboard', tint: 'yellow', deep: 'ink' },
   '/diagnostic': { tile: 'tile-quiz', spot: 'spot-quiz', ...MODULE_TONE.scriptquiz },
-  '/plan': { tile: 'tile-dashboard', spot: 'spot-memory', tint: 'yellow', deep: 'ink' },
+  '/plan': { tile: 'tile-dashboard', spot: 'spot-calendar', tint: 'yellow', deep: 'ink' },
+  // 설정은 타일이 없어 소품을 레일 아이콘으로(머리띠는 NO_BANNER)
+  '/settings': { tile: 'spot-settings', spot: 'spot-settings', tint: 'lavender', deep: 'ink' },
   '/reports': { tile: 'tile-dashboard', spot: 'spot-dashboard', tint: 'yellow', deep: 'ink' },
   '/library': { tile: 'tile-books', spot: 'spot-reading', ...MATERIAL_TONE.book },
   '/library/books': { tile: 'tile-books', spot: 'spot-reading', ...MATERIAL_TONE.book },

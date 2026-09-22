@@ -341,6 +341,7 @@ DashScope 무료 한도(100장)를 다 써서 **Kaggle T4 + Qwen-Image GGUF Q3 +
 - `scripts/design/lib/illo-tines-scenes.mjs` — 화풍 · 장면 · 후처리(`keyAndEncode`) **단일 출처**. DashScope(`illo-tines-gen.mjs`)와 Kaggle(`illo-kaggle.mjs`)이 같이 읽는다 — 한쪽만 고치면 두 경로 그림이 갈린다.
 - `scripts/design/illo-kaggle.mjs` — 커널 소스 생성 → push(`machineShape: NvidiaTeslaT4` 강제 · 모델 Dataset `minkang123/vocaflow-qwen-comic` 연결, 다운로드 0) → status 폴링 → output PNG → 같은 바탕 빼기 + WebP. 키는 `~/.kaggle/kaggle.json`(저장소 밖). 재실행 안전(없는 장면만).
 - 4회차 소품 18: 기사 주제 6(라디오 · 그림책 · 망원경 · 말풍선 · 막대그래프 · 지구본) · 단어장 분류 8(답안지 · 학교 · 가방 · 크레용 · 증서 · 뿌리 · 서류가방 · 지도) · 설정 · 그리고 한도로 못 만든 404(떠오르는 책) · 환영 · 달력.
+- **4스텝 Lightning 은 cfg=1 이라 부정 프롬프트가 안 먹는다** — 금지어를 긍정문에 넣으면(「no card or panel」) 오히려 그 형태를 그렸다(9장 전부 카드 바탕). 그래서 `--variants N`: 장면마다 시드 N개 → 바탕을 뺀 뒤 **투명 비율 최고**를 자동 선택(카드가 깔린 결과가 탈락). 9장 재생성 7장 통과 · 서류가방은 두 번째 물건을 빼고 4후보 → 통과 · 답안지는 반복 실패(글자 · 카드)라 장면에서 빼고 DashScope `spot-quiz` 로 대체.
 - 배치: 기사 「다른 주제로 읽기」 행마다 주제 소품(44px, 참조 목록 행 아이콘 자리) · 단어장 분류 격자 칸의 낙관 → 소품(소품 없는 전체 · 유아 · 공무원은 낙관 유지) · 404 → spot-lost.
 
 ## 19. 상단 메뉴 재설계 — 참조 메가메뉴 3종 (2026-09-22)

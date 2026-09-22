@@ -43,6 +43,17 @@ import { SeriesDetail } from './SeriesDetail'
 import { SeriesInfoModal } from './SeriesInfoModal'
 
 // 시리즈 출처 힌트 — 상위 3개 짧은 라벨 + 나머지 개수 (학습자 정보 제공, 좁은 공간용)
+/** 주제 트랙 → 물건 소품(`lib/articles/source-map.ts` 의 key). 없으면 소품 없이 표지만. */
+const TRACK_SPOT: Record<string, string> = {
+  listen: 'spot-topic-radio',
+  easy: 'spot-topic-easy',
+  topic: 'spot-topic-science',
+  news: 'spot-reading',
+  argue: 'spot-topic-talk',
+  data: 'spot-topic-data',
+  reference: 'spot-topic-travel',
+}
+
 function sourceHint(stat: TrackStat): string {
   const top = stat.sources.slice(0, 3).map((s) => s.short)
   const more = stat.sources.length - top.length
@@ -311,6 +322,10 @@ function SeriesRow({
         <span className="block h-11 w-8 shrink-0 overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)]">
           <MediaCover form={rowForm} title={track.title} />
         </span>
+        {/* DD-68 · tines-mapping §18 — 주제마다 물건 소품(참조 목록 행의 아이콘 자리) */}
+        {TRACK_SPOT[track.key] && (
+          <Image src={`/illustrations/tines/${TRACK_SPOT[track.key]}.webp`} alt="" width={96} height={96} className="hidden h-11 w-11 shrink-0 select-none sm:block" />
+        )}
         <span className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="truncate font-display text-[14px] font-[700] text-[var(--t1)]">
             {track.title}
