@@ -5,6 +5,10 @@
 // 폴더 탭**(참조 Featured · All stories 1213). 고른 탭은 화면 바탕색(--bg2 · `Screen background="bg2"`)이라 판 밖 본문과 이어져 보인다.
 // 판 색은 구역의 범주 색(`tint` → `DEEP_OF`)을 따른다 — 같은 자료는 어느 화면에서나 같은 색.
 // 서버 컴포넌트 — 삽화는 장식(alt="")이고, 제목·수치는 서버 HTML 에 남는다.
+//
+// ⚠️ **390px 에서는 타일을 숨긴다.** 참조는 모바일에서도 큰 그림을 싣지만 우리 서가는 매대다 —
+//    실측 2026-09-01(단어장 390px): 머리가 309px 을 먹어 첫 상품이 y=913(1.08화면)이라 첫 화면 상품이 0개였다
+//    (같은 자로 잰 시중 단어장 앱은 0.29화면 · 3개). 그림은 sm 이상에서만 선다.
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -67,7 +71,7 @@ export function AreaHero({
         <div className="flex flex-col justify-center py-2">
           {/* 모노는 한글이 없어 공백만 모노 폭이 된다(pill.ts) — 눈썹은 산세리프 굵게 */}
           <p className="font-display text-[13px] font-[700] uppercase tracking-[0.05em]">{kicker}</p>
-          <h1 className="mt-3 break-keep font-display text-[38px] font-[500] leading-[1.04] tracking-[-0.03em] md:text-[52px]">{title}</h1>
+          <h1 className="mt-3 break-keep font-display text-[28px] font-[500] leading-[1.04] tracking-[-0.03em] sm:text-[38px] md:text-[52px]">{title}</h1>
           <p className="mt-3 max-w-[40ch] break-keep font-display text-[15.5px] font-[500] leading-[1.45] md:text-[17px]">{sub}</p>
           {stats && stats.length > 0 && (
             <dl className="mt-6 flex flex-wrap gap-2">
@@ -88,7 +92,7 @@ export function AreaHero({
           height={1328}
           priority
           sizes="(min-width: 768px) 240px, 50vw"
-          className="w-[50%] max-w-[240px] select-none justify-self-end rounded-[var(--r-xl)] md:w-[210px] lg:w-[240px]"
+          className="hidden w-[50%] max-w-[240px] select-none justify-self-end rounded-[var(--r-xl)] sm:block md:w-[210px] lg:w-[240px]"
         />
       </div>
       {hasTabs && (
