@@ -13,6 +13,7 @@
 //   허용 CAC 가 가입당 ₩400 인 시장에서, 관문 앞에 둘 수 있는 가치가 유일한 획득 수단이다.
 
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
@@ -65,6 +66,13 @@ export const metadata: Metadata = {
     description: BASE_DESC,
   },
 }
+
+/** 쓰는 법 세 단계 — 화면이 실제로 하는 일만. 소품은 `public/illustrations/tines`. */
+const FIT_STEPS = [
+  { spot: 'spot-empty-page', label: '지문 붙여넣기', body: '교과서든 프린트든 영어 글이면 됩니다' },
+  { spot: 'spot-teacher', label: '학년 고르기', body: '우리 반 학년으로 슬라이더를 옮깁니다' },
+  { spot: 'spot-dashboard', label: '한 장 받기', body: '읽히는 비율과 짚을 낱말이 나옵니다' },
+] as const
 
 /** 이 화면이 답하는 질문들 — 교사가 실제로 쓰는 말로 적는다. */
 const QUESTIONS = [
@@ -159,6 +167,29 @@ export default async function FitPage({ searchParams }: { searchParams?: SearchP
               <PublicFitClient initialSample={sample?.profile ?? null} initialSampleSurfaces={sample?.surfaces ?? null} />
             </div>
           </Frame>
+        </div>
+      </section>
+
+      {/* ── 쓰는 법 세 단계 — 참조 도서관의 「How it works」 패널(DD-68 · tines-mapping §26):
+             옅은 면 위 왼쪽 글 · 오른쪽 단계마다 물건 하나와 이름. 순서가 그림으로 먼저 읽힌다. ── */}
+      <section aria-label="쓰는 법" className={`${WRAP} mt-16`}>
+        <div className="tone-peach dots grid gap-8 rounded-[var(--r-2xl)] p-6 text-[var(--t1)] md:grid-cols-[1fr_1.2fr] md:p-12">
+          <div>
+            <h2 className="break-keep font-serif text-[26px] font-[700] leading-[1.15] md:text-[32px]">세 단계면 끝납니다.</h2>
+            <p className="mt-3 max-w-[34ch] break-keep font-body text-[15px] leading-[1.6]">
+              가입도, 설치도, 저장도 없습니다. 붙여넣고 학년을 고르면 나눠 줄 한 장이 나옵니다.
+            </p>
+          </div>
+          <ol className="grid grid-cols-3 gap-4">
+            {FIT_STEPS.map((s, i) => (
+              <li key={s.label} className="flex flex-col items-center gap-2 text-center">
+                <Image src={`/illustrations/tines/${s.spot}.webp`} alt="" width={1328} height={1328} className="w-[72px] select-none md:w-[88px]" />
+                <span className="font-mono text-[11px] font-[700] tabular-nums">0{i + 1}</span>
+                <span className="break-keep font-display text-[14px] font-[700] leading-snug">{s.label}</span>
+                <span className="break-keep font-body text-[12.5px] leading-snug">{s.body}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
