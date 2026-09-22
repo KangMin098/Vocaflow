@@ -64,7 +64,8 @@ const fontUI = IBM_Plex_Sans_KR({
 
 /** 한글 디스플레이 — 제목·뜻·감성 문장. Lora 가 못 그리는 한글을 같은 세리프 정서로 받는다. */
 const fontKoDisplay = Hahmlet({
-  weight: ["300", "400", "500", "600", "700"],
+  // 800 — 참조 선언 제목의 굵은 둘째 줄(tines-mapping §21). 없으면 700 으로 대체돼 두 굵기 대비가 줄었다.
+  weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-ko-display",
   display: "swap",
   preload: false,

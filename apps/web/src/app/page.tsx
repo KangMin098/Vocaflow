@@ -25,6 +25,7 @@ import Link from 'next/link'
 import { CoverageHero } from '@/components/marketing/CoverageHero'
 import { LandingCta } from '@/components/marketing/LandingCta'
 import { PILL } from '@/components/marketing/pill'
+import { FrameBar, MonitorCluster, PatternWord, Ribbon, SourceMarquee } from '@/components/marketing/signature'
 import { BTN } from '@/components/ui/tines-kit'
 import { ToneTabs } from '@/components/ui/ToneTabs'
 import { DEEP_CLASS, MATERIAL_TONE, MODULE_TONE } from '@/lib/design/tone'
@@ -48,6 +49,12 @@ export const metadata: Metadata = {
 export const revalidate = 86400
 
 const ILLO = '/illustrations/tines'
+
+/**
+ * 읽을거리를 가져오는 곳 — 도서(lib/library 수집 소스)와 기사(lib/articles/source-map.ts 트랙 소스)의 **실제 출처** 이름.
+ * 참조의 고객 로고 줄 자리지만 협력사를 지어내지 않는다. 출처를 빼거나 더하면 여기도 같이.
+ */
+const SOURCES = ['Project Gutenberg', 'Standard Ebooks', 'LibriVox', 'VOA', 'NASA', 'NIH', 'eLife', 'PLOS', 'USGS', 'NOAA', 'Our World in Data', 'The Conversation', 'Wikipedia', 'Wikisource', 'OpenStax']
 
 /**
  * 학습 모듈 다섯 — 참조 홈 「팀 탭」(`HomeUseCasesSection`) 자리. 탭마다 모듈 범주 색(`MODULE_TONE`)의 진한 면이고,
@@ -94,6 +101,9 @@ export default async function LandingPage() {
             <LandingCta />
           </div>
 
+          {/* 이름 흐름 띠 — 참조 고객 로고 줄 자리. 로고를 지어내지 않고 **실제로 읽을거리를 가져오는 곳**의 이름만. */}
+          <SourceMarquee label="읽을거리를 가져오는 곳" names={SOURCES} />
+
           {/* 증거 띠 — 참조의 고객 로고 줄 자리. 로고 대신 DB 실측(못 읽으면 줄이 없다). */}
           {signals && signals.length > 0 && (
             <ul aria-label="플랫폼 규모" className="mt-14 flex flex-wrap items-baseline gap-x-14 gap-y-6">
@@ -112,17 +122,18 @@ export default async function LandingPage() {
         {/* ── 폭 전체 삽화 + 겹치는 제품 액자(조작 가능한 증명) ── */}
         <section aria-label="직접 재 보기" className="relative">
           <SectionBeacon section="demo" />
-          <Image
-            src={`${ILLO}/hero-book-field.webp`}
-            alt=""
-            width={1664}
-            height={928}
-            priority
-            sizes="100vw"
-            className="h-auto w-full select-none"
-          />
+          {/* 참조 「100×」 — 꽃무늬로 채운 거대한 글자 + 걸친 리본. 글자는 제목이 아니라 장식이라 aria-hidden */}
+          <div aria-hidden className="relative mx-auto max-w-[1360px] overflow-hidden px-2 pt-6 text-center">
+            <PatternWord image="hero-book-field" className="block select-none font-display text-[26vw] font-[800] leading-[0.82] tracking-[-0.06em] lg:text-[300px]">
+              아는 비율
+            </PatternWord>
+            <Ribbon tone="green" className="absolute left-[12%] top-[26%] -rotate-[5deg]">로그인 없이</Ribbon>
+            <Ribbon tone="orange" className="absolute right-[14%] top-[14%] rotate-[4deg]">문맥 그대로</Ribbon>
+            <Ribbon tone="magenta" className="absolute right-[6%] top-[52%] rotate-[6deg]">간격 복습 FSRS</Ribbon>
+          </div>
           {demo && (
-            <div className="relative z-10 mx-auto -mt-[12vw] max-w-[1360px] px-4 lg:px-10">
+            <div className="relative z-10 mx-auto -mt-[5vw] max-w-[1360px] px-4 lg:-mt-[70px] lg:px-10">
+              <FrameBar tab="이 글, 지금 재 보는 중" />
               <div className="rounded-[var(--r-2xl)] border-2 border-[var(--bd)] bg-[var(--bg2)] p-2 md:p-3">
                 <div className="rounded-[18px] border border-[var(--bd)] bg-[var(--bg)] px-4 py-6 md:px-10 md:py-8">
                   <CoverageHero demo={demo} />
@@ -134,15 +145,17 @@ export default async function LandingPage() {
 
         {/* ── 선언문 — 모노 눈썹 · 굵은 세리프 · 가운데 ── */}
         <section className="relative mx-auto max-w-[1360px] px-4 py-24 lg:px-10 lg:py-36">
-          <Image src={`${ILLO}/spot-reading.webp`} alt="" width={1328} height={1328} className="absolute left-4 top-24 hidden w-[260px] xl:block" />
-          <Image src={`${ILLO}/spot-vault.webp`} alt="" width={1328} height={1328} className="absolute right-4 top-40 hidden w-[240px] xl:block" />
+          <MonitorCluster side="left" />
+          <MonitorCluster side="right" />
           <div className="mx-auto max-w-[36rem] text-center">
-            <p className="font-display text-[14px] font-[700] tracking-[0.04em] text-[var(--ju)]">읽기가 막히는 진짜 이유</p>
-            <h2 className="mt-6 break-keep font-serif text-[36px] font-[700] leading-[1.12] tracking-[-0.02em] text-[var(--t1)] md:text-[52px]">
-              단어장은 길어지는데
+            <p className="font-mono text-[13px] font-[700] uppercase tracking-[0.06em] text-[var(--ju)]">읽기가 막히는 진짜 이유</p>
+            {/* 참조 선언 제목 — 같은 세리프로 앞 문장은 가늘게, 뒷 문장은 굵게 */}
+            <h2 className="mt-6 break-keep font-serif text-[36px] leading-[1.12] tracking-[-0.02em] text-[var(--t1)] md:text-[56px]">
+              <span className="font-[300]">단어장은 길어지는데</span>
               <br />
-              글은 여전히 어렵다.
+              <span className="font-[800]">글은 여전히 어렵다.</span>
             </h2>
+            <Image src={`${ILLO}/spot-topic-talk.webp`} alt="" width={1328} height={1328} className="mx-auto mt-8 w-[96px] select-none" />
             <p className="mt-8 break-keep font-serif text-[18px] leading-[1.6] text-[var(--ju)] md:text-[20px]">
               같은 글도 읽는 사람마다 모르는 단어가 다릅니다. 그래서 글의 &lsquo;난이도&rsquo;는 한 숫자로 정해지지 않아요.
             </p>
@@ -252,8 +265,9 @@ export default async function LandingPage() {
         {/* ── 마지막 CTA ── */}
         <section className="mx-auto max-w-[1360px] px-4 pb-28 lg:px-10">
           <div className="flex flex-col items-center text-center">
-            <h2 className="break-keep font-display text-[48px] font-[500] leading-[1] tracking-[-0.04em] text-[var(--t1)] md:text-[96px]">
-              오늘 읽을 글부터.
+            {/* 참조 「Start today」 — 보라 모자이크로 채운 거대 글자 */}
+            <h2 className="break-keep font-display text-[64px] font-[800] leading-[0.95] tracking-[-0.05em] md:text-[150px]">
+              <PatternWord image="pattern-kaleido-1">오늘 읽을 글부터.</PatternWord>
             </h2>
             <div className="mt-10">
               <LandingCta align="center" trackView={false} />
