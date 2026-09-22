@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **해설 극장 설계**(문서만): `/csat/dissect` 의 분석 읽기를 왼쪽 사고 과정 레일 · 오른쪽 원문/부가 정보 두 판 · 바닥 장 카드의 순차 표출로 재설계. 큐 계약(한 큐 = 단계 1 + 블록 1 + 하이라이트 1) · 상영 중 되묻기 1회 · 효과음 6종(배경음 없음). 정본 [analysis-theater.md](./csat-learner/analysis-theater.md) · 결정 [csat-learner/DECISIONS.md](./csat-learner/DECISIONS.md) 2026-09-23.
 - **/fit 에 쓰는 법 세 단계**(DD-68 · tines-mapping §26): 참조 「How it works」 패널 — 살구 면 + 단계마다 소품(붙여넣기 · 학년 고르기 · 한 장 받기). 공개 관문이 소품 0 · 색 면 0이었다.
 - **점 격자 질감 + 항목마다 다른 면 색**(DD-68 · tines-mapping §25): `.dots` 유틸 · 기사 주제 줄이 `TINT_ROTATION` 으로 색을 돌린다(호버·초점도 면 색을 따른다).
 - **서가 넷이 같은 판**(DD-68 · tines-mapping §24-2): 기사 · 교재 · 단어장 머리를 `AreaHero` 판으로(교재는 보이는 제목이 처음 생겼다 — sr-only h1 → 판 제목). 판이 생긴 화면은 `NO_BANNER` 로 머리띠 중복 제거. 390px 에서는 타일을 숨기고 제목을 줄여 첫 화면에 상품이 남는다.
