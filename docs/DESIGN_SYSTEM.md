@@ -117,6 +117,8 @@
 
 스킨 위 앱 부품(DD-68): `components/layout/AreaNav` — 구역 하위 내비(라벤더 알약 막대, 선택 면 = 막대 면에 `--ju` 12% 섞음) · `.dots` — 옅은 면 위 점 격자 질감(면 글자색 12% · 12px, tines-mapping §25) · `components/layout/AreaHero` — 앱 구역 머리(범주 색 **진한 판** 안 2열 · 오른쪽 타일 · 선택 `tabs` = 판 아랫변 폴더 탭, 고른 탭 면 `--bg2` · tines-mapping §24). 틴트 면 위 본문은 `--t2` 까지 — 분홍 · 청록 면에는 `--t1` 만 쓴다(`#714bd0` 가 4.0 · 4.4:1).
 
+팝업 골격(DD-68 · tines-mapping §28): `components/ui/Dialog` 하나가 저장소의 모든 팝업 껍데기다 — 밝은 배경막(`--bg` 72% + blur, 어둡게 덮지 않는다) · 크림 패널 1px `--bd` · `--r-2xl` · `--sh-float` · 머리(빵부스러기 알약 → 40px 제목 → 작성자 줄 → 윤곽선 태그 + 오른쪽 메타) → 가로선 → 본문 → 바닥 알약 버튼 줄. 부품 `DialogColumns`(1.8:1 2열) · `DialogTintPanel`(`.tone-*` 면 패널) · `DialogSection`. 클래스는 `tines-kit.ts` 의 `DIALOG`(overlay · panel · header · crumbs · title · tag · iconBtn 44px · edgeBtn) · `TINT_PANEL` · `BTN_STACKED`(색 어긋난 겹친 그림자 — 참조 「COPY PROMPT」). Esc · 바깥 · 뒤로가기 · 포커스 가둠·복원 · 스크롤 잠금은 부품의 계약이고, **마운트 = 열림**이다(`isOpen` 없음). `ui/Modal` 은 `isOpen` 을 받는 얇은 호환 층으로 남는다.
+
 ### 색 토큰 카탈로그 (현행 · 2026-09-18 실측)
 
 | 토큰 | 라이트 | 다크 | 역할 |

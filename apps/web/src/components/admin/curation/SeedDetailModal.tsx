@@ -12,10 +12,13 @@
 //   - themes (배지)
 //   - description (원문 영문 설명)
 //   - 액션: 원문 링크 + Enqueue CTA
+//
+// 껍데기는 `ui/Dialog`(DD-68 · tines-mapping §28) — 표지는 히어로가 아니라 오른쪽 칸의
+// 액자로, 제목은 크림 머리에 크게. 학습자 도서 상세(NetflixDetailSheet)와 같은 배치다.
 
 'use client'
 
-import { useEffect } from 'react'
+
 import {
   AlertCircle,
   BookOpen,
@@ -29,8 +32,10 @@ import {
   Plus,
   Tag,
   TrendingUp,
-  X,
 } from 'lucide-react'
+
+import { Dialog, DialogColumns } from '@/components/ui/Dialog'
+import { BTN } from '@/components/ui/tines-kit'
 import type { SeedCatalogRow } from '@/lib/library/admin-queries'
 
 interface Props {
@@ -57,27 +62,7 @@ const SOURCE_LABEL: Record<string, string> = {
 }
 
 export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
-  // Esc 키 + body scroll lock
-  useEffect(() => {
-    if (!row) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', onKey)
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
-  }, [row, onClose])
-
-  // unmount 안전망
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [])
-
+  // Esc · 바깥 · 뒤로가기 · 포커스 가둠 · 스크롤 잠금은 `ui/Dialog` 의 계약이다.
   if (!row) return null
 
   const cm = row.curation_meta
@@ -88,99 +73,78 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
   const hasCuration = !!cm && Object.keys(cm).length > 0
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={row.title}
-      onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-3 backdrop-blur-sm sm:p-6 md:p-10"
+    <Dialog
+      onClose={onClose}
+      size="xl"
+      crumbs={['Admin', '씨앗 카탈로그', sourceLabel]}
+      title={row.title}
+      ariaLabel={row.title}
+      byline={row.author}
+      tags={[
+        ...(cm?.genre_norm ? [cm.genre_norm] : []),
+        ...(row.est_v_level != null ? [`V${row.est_v_level}`] : []),
+        ...(cm?.est_cefr ? [`CEFR ${cm.est_cefr}`] : []),
+        ...(cm?.age_band ? [cm.age_band] : []),
+      ]}
+      meta={
+        row.imported_to_books ? (
+          <span className="inline-flex items-center gap-1 font-display font-[700] text-[var(--success-ink)]">
+            <CheckCircle2 size={13} aria-hidden /> 큐에 추가됨
+          </span>
+        ) : (
+          <span
+            className="inline-flex items-center rounded-full px-2.5 py-1 font-mono text-[11px] font-[700]"
+            style={{ color: sourceColor, background: `color-mix(in srgb, ${sourceColor} 12%, transparent)` }}
+          >
+            {sourceLabel}
+          </span>
+        )
+      }
+      footer={
+        <>
+          {row.source_url && (
+            <a href={row.source_url} target="_blank" rel="noopener noreferrer" className={BTN.secondary}>
+              <ExternalLink size={13} aria-hidden /> 원문 페이지
+            </a>
+          )}
+          {row.imported_to_books ? (
+            <span className="ml-auto inline-flex items-center gap-2 rounded-full border border-[var(--success)] bg-[var(--success-light)] px-4 py-2 font-mono text-[12px] font-[700] text-[var(--success-ink)]">
+              <CheckCircle2 size={12} aria-hidden /> 큐에 이미 추가됨
+            </span>
+          ) : (
+            <button type="button" onClick={() => onEnqueue(row)} disabled={enqueuing} className={`${BTN.primary} ml-auto`}>
+              {enqueuing ? <Loader2 size={13} className="animate-spin" aria-hidden /> : <Plus size={13} aria-hidden />}
+              {enqueuing ? '큐 추가 중...' : '큐에 추가 (enqueue)'}
+            </button>
+          )}
+        </>
+      }
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="relative flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-[var(--r-xl)] bg-[var(--bg)] shadow-[0_24px_64px_-12px_rgba(0,0,0,0.4)]"
-      >
-        {/* 닫기 */}
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="닫기"
-          className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ "after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 absolute right-3 top-3 z-[2] flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-all hover:scale-110 hover:bg-black/70"}
-        >
-          <X size={16} />
-        </button>
-
-        {/* Hero — cover + 제목 */}
-        <div className="flex shrink-0 gap-4 border-b border-[var(--bd)] bg-[var(--bg2)] p-5">
-          <div className="h-32 w-24 shrink-0 overflow-hidden rounded-[var(--r-md)] bg-[var(--bg3)] shadow-[var(--sh-sm)]">
-            {row.cover_url ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={row.cover_url}
-                alt=""
-                className="h-full w-full object-cover"
-                loading="lazy"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center text-[var(--t2)]">
-                <BookOpen size={28} />
-              </div>
-            )}
-          </div>
-
-          <div className="min-w-0 flex-1 pt-1">
-            <div className="mb-2 flex flex-wrap items-center gap-2">
-              <span
-                className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]"
-                style={{
-                  color: sourceColor,
-                  background: `color-mix(in srgb, ${sourceColor} 12%, transparent)`,
-                }}
-              >
-                {sourceLabel}
-              </span>
-              {cm?.genre_norm && (
-                <span className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">
-                  {cm.genre_norm}
-                </span>
+      <DialogColumns
+        side={
+          <>
+            {/* 표지 액자 — 참조 팝업의 미리보기 자리 */}
+            <figure className="aspect-[3/4] overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg3)]">
+              {row.cover_url ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={row.cover_url} alt="" className="h-full w-full object-cover" loading="lazy" />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center text-[var(--t2)]">
+                  <BookOpen size={28} aria-hidden />
+                </div>
               )}
-              {row.imported_to_books && (
-                <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-known)]">
-                  <CheckCircle2 size={10} /> 큐에 추가됨
-                </span>
-              )}
-            </div>
+            </figure>
 
-            <h2 className="font-display text-[18px] font-[700] leading-tight text-[var(--t1)] line-clamp-2">
-              {row.title}
-            </h2>
-            {row.author && (
-              <p className="mt-1 font-body text-[13px] text-[var(--t2)]">
-                {row.author}
-              </p>
-            )}
-
-            {/* 핵심 메타 그리드 */}
-            <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-[11px] sm:grid-cols-3">
-              {row.est_v_level != null && (
-                <MetaCell label="V-Level" value={`V${row.est_v_level}`} accent="var(--p)" />
-              )}
-              {cm?.est_cefr && (
-                <MetaCell label="CEFR" value={cm.est_cefr} accent="var(--learn-known)" />
-              )}
+            {/* 핵심 메타 — 참조는 좁은 칸에 수치를 세로로 쌓는다 */}
+            <div className="grid grid-cols-2 gap-x-3 gap-y-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4 text-[11px]">
+              {row.est_v_level != null && <MetaCell label="V-Level" value={`V${row.est_v_level}`} accent="var(--p)" />}
+              {cm?.est_cefr && <MetaCell label="CEFR" value={cm.est_cefr} accent="var(--success-ink)" />}
               {cm?.age_band && <MetaCell label="연령" value={cm.age_band} />}
               {row.published_year && (
-                <MetaCell
-                  label="출판"
-                  value={String(row.published_year)}
-                  icon={<Calendar size={10} />}
-                />
+                <MetaCell label="출판" value={String(row.published_year)} icon={<Calendar size={10} />} />
               )}
               {row.word_count && (
-                <MetaCell
-                  label="단어"
-                  value={row.word_count.toLocaleString()}
-                  icon={<FileText size={10} />}
-                />
+                <MetaCell label="단어" value={row.word_count.toLocaleString()} icon={<FileText size={10} />} />
               )}
               {row.reading_time_minutes && (
                 <MetaCell
@@ -200,15 +164,12 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
                   icon={<TrendingUp size={10} />}
                 />
               )}
-              {row.language && (
-                <MetaCell label="언어" value={row.language} />
-              )}
+              {row.language && <MetaCell label="언어" value={row.language} />}
             </div>
-          </div>
-        </div>
-
-        {/* 본문 — 스크롤 영역 */}
-        <div className="flex-1 overflow-y-auto p-5">
+          </>
+        }
+        main={
+          <div>
           {!hasCuration && (
             <div className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] p-3 text-[12px] text-[var(--learn-review)]">
               <AlertCircle size={14} />
@@ -283,45 +244,10 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
               </div>
             </Section>
           )}
-        </div>
-
-        {/* Footer — 액션 */}
-        <div className="flex shrink-0 items-center justify-between gap-3 border-t border-[var(--bd)] bg-[var(--bg2)] p-3">
-          {row.source_url ? (
-            <a
-              href={row.source_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
-            >
-              <ExternalLink size={12} /> 원문 페이지
-            </a>
-          ) : (
-            <span />
-          )}
-
-          {row.imported_to_books ? (
-            <span className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-3 py-2 font-mono text-[12px] font-[700] text-[var(--learn-known)]">
-              <CheckCircle2 size={12} /> 큐에 이미 추가됨
-            </span>
-          ) : (
-            <button
-              type="button"
-              onClick={() => onEnqueue(row)}
-              disabled={enqueuing}
-              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
-            >
-              {enqueuing ? (
-                <Loader2 size={12} className="animate-spin" />
-              ) : (
-                <Plus size={12} />
-              )}
-              {enqueuing ? '큐 추가 중...' : '큐에 추가 (enqueue)'}
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
+          </div>
+        }
+      />
+    </Dialog>
   )
 }
 

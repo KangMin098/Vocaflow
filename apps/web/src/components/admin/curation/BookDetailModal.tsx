@@ -6,7 +6,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
-  X, Loader2, RefreshCw, CheckCircle2, Archive, AlertCircle, ExternalLink, BookOpen, Play, Undo2, Trash2, ListChecks,
+  Loader2, RefreshCw, CheckCircle2, Archive, AlertCircle, ExternalLink, BookOpen, Play, Undo2, Trash2, ListChecks,
 } from 'lucide-react';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/client';
@@ -24,7 +24,7 @@ import {
   type LibraryBookAdminRow,
 } from '@/lib/library/admin-queries';
 import { bookSourceUrl, sourceLabel } from '@/lib/library/source-urls';
-import { ModalShell } from './EnqueueModal';
+import { Dialog } from '@/components/ui/Dialog';
 
 interface BookDetailModalProps {
   book: LibraryBookAdminRow | null;
@@ -52,18 +52,8 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
   // dev-process 등 keepOpen 액션 완료 후 인라인 success 표시 (3초 후 자동 소멸)
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!book) return;
-    function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape' && !actionPending) onClose();
-    }
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [book, actionPending, onClose]);
+  // Esc · 바깥 · 뒤로가기 · 포커스 가둠 · 스크롤 잠금은 `ui/Dialog` 의 계약이다.
+  // 작업 중에는 닫히면 안 되므로 `onClose` 자체를 빈 함수로 넘긴다(아래 return).
 
   useEffect(() => {
     if (!book) {
@@ -138,55 +128,138 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
   const statusInfo = classifyStatus(book.status);
   const cost = parseLlmCost(book.llm_cost_usd);
 
-  return (
-    <ModalShell labelledById="book-detail-title" onClose={actionPending ? () => {} : onClose} size="lg">
-      <div className="flex items-start justify-between gap-3 border-b border-[var(--bd)] px-5 py-4">
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <h2
-              id="book-detail-title"
-              className="line-clamp-1 font-display text-[16px] font-[700] text-[var(--t1)]"
-            >
-              {book.title}
-            </h2>
-            <StatusPill tone={statusInfo.tone} label={statusInfo.label} />
-          </div>
-          <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t2)]">
-            {book.author ?? '저자 미상'} ·{' '}
-            {(() => {
-              const url = bookSourceUrl(book.source, book.source_id)
-              const label = `${sourceLabel(book.source)} ID ${book.source_id ?? '?'}`
-              return url ? (
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 hover:text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--p)] rounded-sm"
-                >
-                  {label}
-                  <ExternalLink size={10} aria-hidden />
-                </a>
-              ) : (
-                label
-              )
-            })()}
-          </p>
-        </div>
+  // 바닥 액션 줄 — Dialog 의 footer 로 넘긴다(본문이 길어도 결정 버튼은 늘 보인다).
+  const footerActions = (
+    <>
+        {(book.status === 'published' || book.status === 'ready') && (
+          <Link
+            href={`/admin/curation/preview/${book.id}`}
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          >
+            <BookOpen size={12} aria-hidden />
+            📖 본문 검수
+          </Link>
+        )}
+        {/* dev-only "Process Now / 재처리" — 모든 상태에서 파이프라인 (재)실행 가능.
+            pg_cron Vault config 가 없을 때 수동 진행 + 이미 처리된 도서(ready/published) 재처리
+            (예: 챕터 분할 수정 반영). 서버 라우트가 NODE_ENV='production' 차단.
+            ⚠ published 재처리 시 dev-process 가 status='ready' 로 되돌려 재게시 필요. */}
+        {process.env.NODE_ENV !== 'production' &&
+          [
+            'queued', 'ingesting', 'normalizing', 'segmenting', 'analyzing',
+            'curating', 'failed', 'ready', 'published',
+          ].includes(book.status) && (
+            <>
+              {/* 커밋 전 챕터 수 체크 — dry-run (쓰기 X) */}
+              <ActionButton
+                icon={<ListChecks size={12} />}
+                label="검증 (dry-run)"
+                pending={actionPending === 'dry-validate'}
+                onClick={handleDryRun}
+                tone="neutral"
+              />
+              <ActionButton
+                icon={book.status === 'ready' || book.status === 'published' ? <RefreshCw size={12} /> : <Play size={12} />}
+                label={book.status === 'ready' || book.status === 'published' ? '재처리 (dev)' : '지금 처리 (dev)'}
+                pending={actionPending === 'dev-process'}
+                onClick={() => runAction('dev-process', (id) => devProcessBook(id), { keepOpen: true })}
+                tone="primary"
+              />
+            </>
+          )}
+        {book.status === 'failed' && (
+          <ActionButton
+            icon={<RefreshCw size={12} />}
+            label="재처리"
+            pending={actionPending === 'requeue'}
+            onClick={() => runAction('requeue', (id) => requeueBook(createClient(), id))}
+            tone="primary"
+          />
+        )}
+        {book.status === 'ready' && (
+          <ActionButton
+            icon={<CheckCircle2 size={12} />}
+            label="강제 게시"
+            pending={actionPending === 'publish'}
+            onClick={() => runAction('publish', (id) => forcePublishBook(createClient(), id))}
+            tone="primary"
+          />
+        )}
+        {book.status === 'published' && (
+          <ActionButton
+            icon={<Undo2 size={12} />}
+            label="검토 대기로 되돌리기"
+            pending={actionPending === 'revert'}
+            onClick={() => setConfirmRevert(true)}
+            tone="neutral"
+          />
+        )}
+        {book.status !== 'archived' && (
+          <ActionButton
+            icon={<Archive size={12} />}
+            label="보관"
+            pending={actionPending === 'archive'}
+            onClick={() => runAction('archive', (id) => archiveBook(createClient(), id))}
+            tone="neutral"
+          />
+        )}
+        {(book.status === 'ready' || book.status === 'archived') && (
+          <ActionButton
+            icon={<Trash2 size={12} />}
+            label="영구 삭제"
+            pending={actionPending === 'delete'}
+            onClick={() => setConfirmDelete(true)}
+            tone="danger"
+          />
+        )}
         <button
           type="button"
           onClick={onClose}
           disabled={!!actionPending}
-          // h-8(32px) 이었다 — CLAUDE.md 가 금지하는 44px 미만 터치 타겟이다.
-          // 관리자도 폰으로 볼 수 있고, 폰에는 Esc 가 없어 이 버튼이 닫는 유일한 길이다
-          // (실측 2026-08-25 · 390px). 아이콘 크기는 그대로 두고 누를 면적만 넓힌다.
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
-          aria-label="닫기"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
         >
-          <X size={16} aria-hidden />
+          닫기
         </button>
-      </div>
+    </>
+  );
 
-      <div className="flex flex-1 flex-col gap-4 overflow-y-auto px-5 py-4">
+  const sourceHref = bookSourceUrl(book.source, book.source_id)
+  const sourceText = `${sourceLabel(book.source)} ID ${book.source_id ?? '?'}`
+
+  return (
+    <Dialog
+      onClose={actionPending ? () => {} : onClose}
+      size="xl"
+      crumbs={['Admin', '도서 큐레이션', statusInfo.label]}
+      title={book.title}
+      ariaLabel={book.title}
+      byline={
+        <>
+          {book.author ?? '저자 미상'} ·{' '}
+          {sourceHref ? (
+            <a
+              href={sourceHref}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 rounded-sm hover:text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--p)]"
+            >
+              {sourceText}
+              <ExternalLink size={11} aria-hidden />
+            </a>
+          ) : (
+            sourceText
+          )}
+        </>
+      }
+      tags={[
+        `단어 ${book.word_count?.toLocaleString() ?? "—"}`,
+        `장 ${book.chapter_count ?? "—"}`,
+        ...(book.copyright_safe_in_kr ? ["KR safe ✓"] : ["KR check ⚠"]),
+      ]}
+      meta={<StatusPill tone={statusInfo.tone} label={statusInfo.label} />}
+      footer={footerActions}
+    >
+      <div className="flex flex-col gap-4">
         <Section title="처리 정보">
           <DataRow label="상태" value={statusInfo.label} />
           <DataRow
@@ -348,97 +421,6 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
       {/* dry-run 검증 결과 — 재처리 커밋 전 예상 챕터 수 + 경고 (커밋 X) */}
       {dryRun && <DryRunResult result={dryRun} currentChapters={book.chapter_count ?? null} />}
 
-      <div className="flex flex-wrap items-center justify-end gap-2 border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
-        {(book.status === 'published' || book.status === 'ready') && (
-          <Link
-            href={`/admin/curation/preview/${book.id}`}
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-          >
-            <BookOpen size={12} aria-hidden />
-            📖 본문 검수
-          </Link>
-        )}
-        {/* dev-only "Process Now / 재처리" — 모든 상태에서 파이프라인 (재)실행 가능.
-            pg_cron Vault config 가 없을 때 수동 진행 + 이미 처리된 도서(ready/published) 재처리
-            (예: 챕터 분할 수정 반영). 서버 라우트가 NODE_ENV='production' 차단.
-            ⚠ published 재처리 시 dev-process 가 status='ready' 로 되돌려 재게시 필요. */}
-        {process.env.NODE_ENV !== 'production' &&
-          [
-            'queued', 'ingesting', 'normalizing', 'segmenting', 'analyzing',
-            'curating', 'failed', 'ready', 'published',
-          ].includes(book.status) && (
-            <>
-              {/* 커밋 전 챕터 수 체크 — dry-run (쓰기 X) */}
-              <ActionButton
-                icon={<ListChecks size={12} />}
-                label="검증 (dry-run)"
-                pending={actionPending === 'dry-validate'}
-                onClick={handleDryRun}
-                tone="neutral"
-              />
-              <ActionButton
-                icon={book.status === 'ready' || book.status === 'published' ? <RefreshCw size={12} /> : <Play size={12} />}
-                label={book.status === 'ready' || book.status === 'published' ? '재처리 (dev)' : '지금 처리 (dev)'}
-                pending={actionPending === 'dev-process'}
-                onClick={() => runAction('dev-process', (id) => devProcessBook(id), { keepOpen: true })}
-                tone="primary"
-              />
-            </>
-          )}
-        {book.status === 'failed' && (
-          <ActionButton
-            icon={<RefreshCw size={12} />}
-            label="재처리"
-            pending={actionPending === 'requeue'}
-            onClick={() => runAction('requeue', (id) => requeueBook(createClient(), id))}
-            tone="primary"
-          />
-        )}
-        {book.status === 'ready' && (
-          <ActionButton
-            icon={<CheckCircle2 size={12} />}
-            label="강제 게시"
-            pending={actionPending === 'publish'}
-            onClick={() => runAction('publish', (id) => forcePublishBook(createClient(), id))}
-            tone="primary"
-          />
-        )}
-        {book.status === 'published' && (
-          <ActionButton
-            icon={<Undo2 size={12} />}
-            label="검토 대기로 되돌리기"
-            pending={actionPending === 'revert'}
-            onClick={() => setConfirmRevert(true)}
-            tone="neutral"
-          />
-        )}
-        {book.status !== 'archived' && (
-          <ActionButton
-            icon={<Archive size={12} />}
-            label="보관"
-            pending={actionPending === 'archive'}
-            onClick={() => runAction('archive', (id) => archiveBook(createClient(), id))}
-            tone="neutral"
-          />
-        )}
-        {(book.status === 'ready' || book.status === 'archived') && (
-          <ActionButton
-            icon={<Trash2 size={12} />}
-            label="영구 삭제"
-            pending={actionPending === 'delete'}
-            onClick={() => setConfirmDelete(true)}
-            tone="danger"
-          />
-        )}
-        <button
-          type="button"
-          onClick={onClose}
-          disabled={!!actionPending}
-          className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
-        >
-          닫기
-        </button>
-      </div>
 
       {confirmRevert && (
         <RevertConfirmDialog
@@ -468,7 +450,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
           }}
         />
       )}
-    </ModalShell>
+    </Dialog>
   );
 }
 
@@ -493,9 +475,9 @@ function DeleteConfirmDialog({
       role="dialog"
       aria-modal="true"
       aria-labelledby="delete-confirm-title"
-      className="absolute inset-0 z-10 flex items-center justify-center bg-black/40 px-4"
+      className="absolute inset-0 z-10 flex items-center justify-center bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] px-4 backdrop-blur-[6px]"
     >
-      <div className="w-full max-w-md rounded-[var(--r-lg)] border border-[var(--learn-error)] bg-[var(--bg)] p-5 shadow-[var(--sh-xl)]">
+      <div className="w-full max-w-md rounded-[var(--r-2xl)] border border-[var(--error)] bg-[var(--bg)] p-6 shadow-[var(--sh-float)]">
         <h3
           id="delete-confirm-title"
           className="font-display text-[15px] font-[700] text-[var(--learn-error)]"
@@ -567,9 +549,9 @@ function RevertConfirmDialog({
       role="dialog"
       aria-modal="true"
       aria-labelledby="revert-confirm-title"
-      className="absolute inset-0 z-10 flex items-center justify-center bg-black/40 px-4"
+      className="absolute inset-0 z-10 flex items-center justify-center bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] px-4 backdrop-blur-[6px]"
     >
-      <div className="w-full max-w-md rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-xl)]">
+      <div className="w-full max-w-md rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-float)]">
         <h3
           id="revert-confirm-title"
           className="font-display text-[15px] font-[700] text-[var(--t1)]"

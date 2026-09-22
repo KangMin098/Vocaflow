@@ -17,14 +17,22 @@
 // 계열(family) 은 탭으로 모드를 전환한다 — 네 모드가 같은 인출을 공유하고 동기 장치만
 // 다르다는 사실이, 탭이라는 형식 자체로 전달된다.
 
+// ── 껍데기는 `ui/Dialog` (DD-68 · tines-mapping §28, 2026-09-23) ───────────
+// 예전에는 팝업 전체가 짙은 아케이드 판이었다(스크림 rgba(8,6,4,.72) · 패널 #17130E).
+// 참조 팝업은 크림 껍데기 안에 **짙은 미리보기 액자**를 넣는다 — 제품 화면이 들어가는 자리다.
+// 우리 브리핑도 같은 구조가 맞는다: 규칙을 읽는 글(Objective · Notes)은 크림 위가 읽기 편하고,
+// 보드 그림 3장과 트라이얼은 게임 화면 그대로여야 하므로 짙은 액자 안에 그대로 둔다.
+// 그래서 `bf-stage` 안쪽 규칙(보드 · 트라이얼)은 손대지 않았다 — 그 안은 여전히 짙은 면이다.
+
 'use client'
 
 import Link from 'next/link'
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
 import type { CSSProperties } from 'react'
 
 import BriefBoard, { BRIEF_BOARD_CSS } from '@/components/game/brief/BriefBoard'
+import { Dialog } from '@/components/ui/Dialog'
+import { BTN, SEG } from '@/components/ui/tines-kit'
 import { GAME_BRIEFS, gaugesOf, slotStepOf } from '@/lib/game/brief'
 import type { BriefGaugeState } from '@/lib/game/brief'
 import { GAME_BY_SLUG, GAME_MARKS, type GameSlug } from '@/lib/game/catalog'
@@ -56,9 +64,6 @@ interface Props {
   launchLabel?: string
 }
 
-const FOCUSABLE =
-  'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
-
 export default function GameBriefModal({
   entries,
   familyName,
@@ -68,8 +73,7 @@ export default function GameBriefModal({
 }: Props) {
   const [tab, setTab] = useState(0)
   const [mounted, setMounted] = useState(false)
-  const panelRef = useRef<HTMLDivElement>(null)
-  const titleId = useId()
+  const panelId = useId()
 
   const entry = entries[Math.min(tab, entries.length - 1)]
   const game = GAME_BY_SLUG[entry.slug]
@@ -77,52 +81,7 @@ export default function GameBriefModal({
 
   useEffect(() => setMounted(true), [])
 
-  // 배경 스크롤 잠금 — 오버레이 뒤가 따라 움직이면 "어디에 있는지" 감각이 깨진다.
-  useEffect(() => {
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [])
-
-  // 열릴 때 패널로 포커스 이동, 닫힐 때 원래 자리로 복귀.
-  useEffect(() => {
-    const opener = document.activeElement as HTMLElement | null
-    const t = window.setTimeout(() => panelRef.current?.focus(), 20)
-    return () => {
-      window.clearTimeout(t)
-      opener?.focus?.()
-    }
-  }, [])
-
-  // Esc 닫기 + Tab 순환(포커스 트랩). 트랩이 없으면 뒤 페이지로 탭이 새어 나간다.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.stopPropagation()
-        onClose()
-        return
-      }
-      if (e.key !== 'Tab' || !panelRef.current) return
-      const nodes = Array.from(panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-        (n) => n.offsetParent !== null,
-      )
-      if (nodes.length === 0) return
-      const first = nodes[0]
-      const last = nodes[nodes.length - 1]
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault()
-        last.focus()
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault()
-        first.focus()
-      }
-    }
-    document.addEventListener('keydown', onKey, true)
-    return () => document.removeEventListener('keydown', onKey, true)
-  }, [onClose])
-
+  // Esc · 바깥 · 뒤로가기 · 포커스 가둠 · 스크롤 잠금은 전부 `Dialog` 의 계약이다.
   if (!mounted || !game || !brief) return null
 
   const mood = game.mood
@@ -133,79 +92,102 @@ export default function GameBriefModal({
     ['--m-accent']: mood.accent,
   } as CSSProperties
 
-  return createPortal(
-    <div className="bf-scrim" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+  return (
+    <Dialog
+      onClose={onClose}
+      size="lg"
+      crumbs={[
+        `Protocol${entry.code ? ` · ${entry.code}` : ''}`,
+        ...(familyName ? [familyName] : []),
+        game.layer,
+      ]}
+      title={game.name}
+      byline={game.tagline}
+      tags={[game.layer, game.ref, ...(game.is3d ? ['3D'] : [])]}
+      media={
+        // 게임 표식 — 그 게임의 무드 색을 쓰는 유일한 머리 요소.
+        // 바탕이 **짙어야** 한다: 무드 액센트는 짙은 아케이드 판 위에서 고른 색이라, 같은 색을
+        // 옅게 섞은 크림 면에 얹으면 글자색과 면 색이 같아져 표식이 통째로 사라진다
+        // (첫 시도에서 Ghost Race 타일이 빈 분홍 사각형으로 찍혔다 — 실측 2026-09-23).
+        <span
+          aria-hidden="true"
+          className="grid h-[52px] w-[52px] place-items-center rounded-[var(--r-lg)]"
+          style={{
+            ...styleVars,
+            color: 'var(--m-accent)',
+            background:
+              'radial-gradient(120% 120% at 20% 0%, color-mix(in srgb, var(--m-a) 40%, transparent) 0%, transparent 60%), linear-gradient(158deg, #17130E 0%, #14161E 100%)',
+            border: '1px solid color-mix(in srgb, var(--m-accent) 32%, rgba(255,255,255,.14))',
+          }}
+        >
+          <svg
+            viewBox="0 0 32 32"
+            width="30"
+            height="30"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            {GAME_MARKS[entry.slug]}
+          </svg>
+        </span>
+      }
+      footer={
+        <>
+          <button type="button" className={BTN.secondary} onClick={onClose}>
+            나중에
+          </button>
+          {onLaunch ? (
+            <button type="button" className={`${BTN.primary} ml-auto`} onClick={onLaunch}>
+              {launchLabel} <span aria-hidden="true">→</span>
+            </button>
+          ) : (
+            <Link href={entry.href} className={`${BTN.primary} ml-auto`}>
+              Launch <span aria-hidden="true">→</span>
+            </Link>
+          )}
+        </>
+      }
+    >
       <style dangerouslySetInnerHTML={{ __html: BRIEF_CSS }} />
+
+      {entries.length > 1 && (
+        <div className={`${SEG.track} mb-5 flex-wrap`} role="tablist" aria-label="모드 선택">
+          {entries.map((e, i) => (
+            <button
+              key={e.slug}
+              type="button"
+              role="tab"
+              id={`${panelId}-tab-${i}`}
+              aria-controls={`${panelId}-panel`}
+              className={`${SEG.item} ${i === tab ? SEG.on : ''}`}
+              aria-selected={i === tab}
+              tabIndex={i === tab ? 0 : -1}
+              onClick={() => setTab(i)}
+            >
+              {e.tabLabel ?? GAME_BY_SLUG[e.slug]?.name ?? e.slug}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div
-        ref={panelRef}
-        className="bf-panel"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        tabIndex={-1}
+        className="bf-body"
+        id={`${panelId}-panel`}
+        role={entries.length > 1 ? 'tabpanel' : undefined}
+        aria-labelledby={entries.length > 1 ? `${panelId}-tab-${tab}` : undefined}
+        tabIndex={entries.length > 1 ? 0 : undefined}
         style={styleVars}
       >
-        <header className="bf-head">
-          <span className="bf-mark" aria-hidden="true">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-              {GAME_MARKS[entry.slug]}
-            </svg>
-          </span>
-          <div className="bf-head-body">
-            <p className="bf-eyebrow">
-              Protocol{entry.code ? ` · ${entry.code}` : ''}
-              {familyName ? ` · ${familyName}` : ''}
-            </p>
-            <h2 id={titleId} className="bf-title">
-              {game.name}
-            </h2>
-            <p className="bf-tag">{game.tagline}</p>
-          </div>
-          <button type="button" className="bf-close" onClick={onClose} aria-label="브리핑 닫기">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-              <path d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          </button>
-        </header>
+        <section className="bf-sec">
+          <h3 className="bf-sec-title">Objective</h3>
+          <p className="bf-obj">{brief.objective}</p>
+        </section>
 
-        <div className="bf-chips">
-          <span className="bf-chip">{game.layer}</span>
-          <span className="bf-chip">{game.ref}</span>
-          {game.is3d && <span className="bf-chip bf-chip--3d">3D</span>}
-        </div>
-
-        {entries.length > 1 && (
-          <div className="bf-tabs" role="tablist" aria-label="모드 선택">
-            {entries.map((e, i) => (
-              <button
-                key={e.slug}
-                type="button"
-                role="tab"
-                id={`${titleId}-tab-${i}`}
-                aria-controls={`${titleId}-panel`}
-                className="bf-tab"
-                aria-selected={i === tab}
-                tabIndex={i === tab ? 0 : -1}
-                onClick={() => setTab(i)}
-              >
-                {e.tabLabel ?? GAME_BY_SLUG[e.slug]?.name ?? e.slug}
-              </button>
-            ))}
-          </div>
-        )}
-
-        <div
-          className="bf-body"
-          id={`${titleId}-panel`}
-          role={entries.length > 1 ? 'tabpanel' : undefined}
-          aria-labelledby={entries.length > 1 ? `${titleId}-tab-${tab}` : undefined}
-          tabIndex={entries.length > 1 ? 0 : undefined}
-        >
-          <section className="bf-sec">
-            <h3 className="bf-sec-title">Objective</h3>
-            <p className="bf-obj">{brief.objective}</p>
-          </section>
-
+        {/* ── 짙은 액자 — 참조 팝업의 제품 화면 자리. 보드와 트라이얼은 게임 화면 그대로다 ── */}
+        <div className="bf-stage">
           <section className="bf-sec">
             <h3 className="bf-sec-title">
               Procedure <span className="bf-sec-note">그림 3장</span>
@@ -233,43 +215,27 @@ export default function GameBriefModal({
           </section>
 
           <Trial key={entry.slug} slug={entry.slug} />
-
-          <section className="bf-sec">
-            <h3 className="bf-sec-title">Notes</h3>
-            <dl className="bf-notes">
-              <div>
-                <dt>Controls</dt>
-                <dd>{brief.facts.input}</dd>
-              </div>
-              <div>
-                <dt>One run</dt>
-                <dd>{brief.facts.run}</dd>
-              </div>
-              <div>
-                <dt>Record</dt>
-                <dd>{brief.facts.record}</dd>
-              </div>
-            </dl>
-          </section>
         </div>
 
-        <footer className="bf-foot">
-          <button type="button" className="bf-later" onClick={onClose}>
-            나중에
-          </button>
-          {onLaunch ? (
-            <button type="button" className="bf-launch" onClick={onLaunch}>
-              {launchLabel} <span aria-hidden="true">→</span>
-            </button>
-          ) : (
-            <Link href={entry.href} className="bf-launch">
-              Launch <span aria-hidden="true">→</span>
-            </Link>
-          )}
-        </footer>
+        <section className="bf-sec">
+          <h3 className="bf-sec-title">Notes</h3>
+          <dl className="bf-notes">
+            <div>
+              <dt>Controls</dt>
+              <dd>{brief.facts.input}</dd>
+            </div>
+            <div>
+              <dt>One run</dt>
+              <dd>{brief.facts.run}</dd>
+            </div>
+            <div>
+              <dt>Record</dt>
+              <dd>{brief.facts.record}</dd>
+            </div>
+          </dl>
+        </section>
       </div>
-    </div>,
-    document.body,
+    </Dialog>
   )
 }
 
@@ -485,69 +451,30 @@ function Trial({ slug }: { slug: GameSlug }) {
 }
 
 const BRIEF_CSS = `
-  .bf-scrim { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center;
-    padding: clamp(0px, 4vh, 40px) clamp(0px, 4vw, 32px);
-    background: rgba(8,6,4,.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-    animation: bf-in .18s ease-out; }
-  @keyframes bf-in { from { opacity: 0; } to { opacity: 1; } }
+  /* 껍데기(스크림 · 패널 · 머리 · 칩 · 탭 · 바닥)는 ui/Dialog 와 tines-kit 이 그린다.
+     여기 남은 것은 **브리핑 본문**뿐이다 — 크림 위의 글과, 짙은 액자 안의 게임 화면. */
 
-  .bf-panel { position: relative; display: flex; flex-direction: column; width: min(760px, 100%); max-height: 100%;
-    border-radius: 22px; overflow: hidden; isolation: isolate;
-    font-family: var(--font-display, system-ui, sans-serif); color: #F4EEE4;
+  .bf-body { display: flex; flex-direction: column; gap: 22px;
+    font-family: var(--font-display, system-ui, sans-serif); }
+
+  /* 짙은 액자 — 참조 팝업의 제품 화면 자리. 게임 무드 색이 사는 유일한 면이다. */
+  .bf-stage { display: flex; flex-direction: column; gap: 22px; padding: 18px; border-radius: var(--r-lg, 12px);
+    color: #F4EEE4; isolation: isolate;
     background:
       radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--m-a) 26%, transparent) 0%, transparent 56%),
       linear-gradient(158deg, #17130E 0%, #14161E 100%);
-    border: 1px solid color-mix(in srgb, var(--m-accent) 26%, rgba(255,255,255,.14));
-    box-shadow: 0 40px 90px -30px rgba(0,0,0,.92); }
-  .bf-panel:focus { outline: none; }
-  @media (max-width: 620px) {
-    .bf-scrim { padding: 0; align-items: flex-end; }
-    .bf-panel { width: 100%; max-height: 94vh; border-radius: 22px 22px 0 0; }
-  }
+    border: 1px solid color-mix(in srgb, var(--m-accent) 30%, rgba(255,255,255,.14)); }
+  @media (max-width: 620px) { .bf-stage { padding: 12px; } }
 
-  /* 헤더 */
-  .bf-head { display: flex; align-items: flex-start; gap: 14px; padding: 20px 20px 12px; }
-  .bf-mark { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 13px;
-    color: var(--m-accent); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.22); }
-  .bf-mark svg { width: 28px; height: 28px; filter: drop-shadow(0 0 6px var(--m-glow)); }
-  .bf-head-body { flex: 1; min-width: 0; }
-  .bf-eyebrow { margin: 0; font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800;
-    letter-spacing: .2em; text-transform: uppercase; color: var(--m-accent); }
-  .bf-title { margin: 5px 0 0; font-size: clamp(21px, 3.4vw, 26px); font-weight: 800; letter-spacing: -.01em; color: #fff; }
-  .bf-tag { margin: 5px 0 0; font-size: 13px; line-height: 1.45; color: rgba(244,238,228,.76); word-break: keep-all; }
-  .bf-close { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px;
-    color: rgba(244,238,228,.8); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14);
-    cursor: pointer; transition: background-color .15s var(--ease, ease), color .15s var(--ease, ease); }
-  .bf-close:hover { background: rgba(255,255,255,.14); color: #fff; }
-  .bf-close:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--m-accent); }
-
-  .bf-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 20px 12px; }
-  .bf-chip { font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800;
-    letter-spacing: .07em; text-transform: uppercase; color: rgba(244,238,228,.82);
-    background: rgba(0,0,0,.3); border: 1px solid rgba(255,255,255,.16); border-radius: 999px; padding: 5px 10px; }
-  .bf-chip--3d { color: #EAF6FF; background: rgba(120,190,255,.2); border-color: rgba(180,220,255,.36); }
-
-  /* 계열 탭 */
-  .bf-tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 20px 14px; }
-  .bf-tab { min-height: 44px; padding: 0 15px; border-radius: 999px; cursor: pointer;
-    font: inherit; font-size: 12.5px; font-weight: 800; letter-spacing: -.01em;
-    color: rgba(244,238,228,.74); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14);
-    transition: background-color .15s var(--ease, ease), color .15s var(--ease, ease), border-color .15s var(--ease, ease); }
-  .bf-tab:hover { background: rgba(255,255,255,.13); color: #fff; }
-  .bf-tab[aria-selected="true"] { color: #16110B; background: var(--m-accent); border-color: var(--m-accent); }
-  .bf-tab:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--m-accent); }
-
-  /* 본문 — 여기만 스크롤한다(헤더·푸터 고정) */
-  .bf-body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
-    padding: 4px 20px 20px; display: flex; flex-direction: column; gap: 22px; }
-
+  /* 구역 제목 — 크림 위에서는 토큰 색, 액자 안에서는 옅은 크림 */
   .bf-sec-title { display: flex; align-items: baseline; gap: 8px; margin: 0 0 10px;
     font-family: var(--font-english, ui-monospace, monospace); font-size: 11px; font-weight: 800;
-    letter-spacing: .2em; text-transform: uppercase; color: rgba(244,238,228,.58); }
+    letter-spacing: .2em; text-transform: uppercase; color: var(--t2); }
   .bf-sec-note { font-family: var(--font-display, system-ui, sans-serif); font-size: 11px; font-weight: 700;
-    letter-spacing: 0; text-transform: none; color: rgba(244,238,228,.44); }
-  .bf-obj { margin: 0; font-size: 14px; line-height: 1.7; color: rgba(248,242,234,.92); word-break: keep-all; }
+    letter-spacing: 0; text-transform: none; color: var(--t3); }
+  .bf-stage .bf-sec-title { color: rgba(244,238,228,.58); }
+  .bf-stage .bf-sec-note { color: rgba(244,238,228,.44); }
+  .bf-obj { margin: 0; font-size: 14px; line-height: 1.7; color: var(--t1); word-break: keep-all; }
 
   /* 절차 3프레임 */
   .bf-figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
@@ -600,34 +527,16 @@ const BRIEF_CSS = `
   .bf-spent { margin: 0; font-family: var(--font-body, system-ui, sans-serif); font-size: 12px; line-height: 1.5;
     color: #F3D9AC; }
 
-  /* 노트 */
+  /* 노트 — 액자 밖 크림 위. 참조 팝업의 본문 카드와 같은 테두리 한 겹. */
   .bf-notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; }
   @media (max-width: 620px) { .bf-notes { grid-template-columns: 1fr; } }
-  .bf-notes > div { padding: 10px 12px; border-radius: 12px; background: rgba(0,0,0,.24); border: 1px solid rgba(255,255,255,.1); }
+  .bf-notes > div { padding: 10px 12px; border-radius: var(--r-md, 6px);
+    background: var(--bg2); border: 1px solid var(--bd); }
   .bf-notes dt { font-family: var(--font-english, ui-monospace, monospace); font-size: 9.5px; font-weight: 800;
-    letter-spacing: .14em; text-transform: uppercase; color: rgba(244,238,228,.56); }
-  .bf-notes dd { margin: 5px 0 0; font-size: 12px; line-height: 1.5; color: rgba(248,242,234,.88); word-break: keep-all; }
-
-  /* 푸터 */
-  .bf-foot { display: flex; align-items: center; justify-content: flex-end; gap: 10px;
-    padding: 14px 20px; border-top: 1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.26); }
-  .bf-later { min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer; font: inherit;
-    font-size: 13px; font-weight: 700; color: rgba(244,238,228,.74);
-    background: transparent; border: 1px solid rgba(255,255,255,.18);
-    transition: background-color .15s var(--ease, ease), color .15s var(--ease, ease); }
-  .bf-later:hover { background: rgba(255,255,255,.09); color: #fff; }
-  .bf-later:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--m-accent); }
-  .bf-launch { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 22px; border-radius: 999px;
-    font-size: 14px; font-weight: 800; letter-spacing: -.01em; text-decoration: none; color: #17110A;
-    background: linear-gradient(180deg, color-mix(in srgb, var(--m-accent) 92%, #fff), var(--m-accent));
-    box-shadow: 0 10px 24px -10px rgba(0,0,0,.6);
-    transition: transform .15s var(--ease, ease), filter .15s var(--ease, ease); }
-  .bf-launch:hover { filter: brightness(1.06); transform: translateY(-1px); }
-  .bf-launch:focus-visible { outline: none; box-shadow: 0 0 0 3px #fff; }
+    letter-spacing: .14em; text-transform: uppercase; color: var(--t2); }
+  .bf-notes dd { margin: 5px 0 0; font-size: 12px; line-height: 1.5; color: var(--t1); word-break: keep-all; }
 
   @media (prefers-reduced-motion: reduce) {
-    .bf-scrim { animation: none; }
-    .bf-launch, .bf-close, .bf-tab, .bf-again, .bf-later { transition: none; }
-    .bf-launch:hover { transform: none; }
+    .bf-again { transition: none; }
   }
 ` + BRIEF_BOARD_CSS
