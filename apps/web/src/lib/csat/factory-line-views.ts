@@ -24,6 +24,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
+import { seriesHasContents } from '@/lib/textbook/volume-contents'
+
 import { inventoryFreshnessNote, loadDcpInventory } from './item-count'
 
 import {
@@ -35,6 +37,8 @@ import {
   type AuthorView,
   type PressView,
   type PressVolumeRow,
+  type VolumePublish,
+  type VolumeReach,
   type ReviewLayer,
   type ReviewView,
   type ReviewVolumeRow,
@@ -235,20 +239,69 @@ export async function loadReviewView(): Promise<ReviewView> {
 
 /* ───────────────────────── ⑧ 조판 ───────────────────────── */
 
+/* ───────────────────────── ⑧ 조판 ───────────────────────── */
+
+/** `colophon.publish` 를 읽는다. **없으면 null** — 「아무도 판정한 적이 없다」이다. */
+function publishOf(colophon: (Colophon & { publish?: Partial<VolumePublish> | null }) | null): VolumePublish | null {
+  const p = colophon?.publish
+  if (!p || typeof p.status !== 'string') return null
+  const ok = ['rendered', 'review', 'approved', 'published', 'withdrawn']
+  if (!ok.includes(p.status)) return null // 모르는 값은 지어내지 않고 「판정 없음」으로 둔다
+  return {
+    status: p.status as VolumePublish['status'],
+    reason: typeof p.reason === 'string' && p.reason.trim() ? p.reason : null,
+    at: typeof p.at === 'string' ? p.at : null,
+    by: typeof p.by === 'string' ? p.by : null,
+  }
+}
+
+/**
+ * 그 권에서 **3인 검수에 막힌 문항 수.**
+ *
+ * `settled`(셋이 보기는 한 수)와 `passed`(셋이 통과시킨 수)의 차가 「봤는데 막혔다」다.
+ * `settled` 가 없는 옛 기록에서는 `items - passed` 로 떨어지는데, 그것은 「덜 봤다」까지
+ * 섞인 수라 **다른 뜻**이다 — 그래서 그때는 `null`(못 잼)로 둔다. 두 수를 한 칸에 섞으면
+ * 관리자가 검수를 더 돌릴지 문항을 고칠지 정할 수 없다.
+ */
+function blockedOf(colophon: Colophon | null): number | null {
+  const pr = colophon?.review?.personaReview
+  if (!pr || pr.settled == null) return null
+  return Math.max(0, pr.settled - pr.passed)
+}
+
+/**
+ * 학습자 도달 — **경로가 있는지만 말한다.** 「열린다」와 「제대로 보인다」는 다르다.
+ *
+ * ⚠️ 조판 산출물(`out_path` 로컬 HTML)을 읽는 학습자 코드는 **0곳**이다(실측 2026-09-23).
+ *   매대는 재고에서 그려지고, 상세면의 목차는 `volume-contents.json` 스냅샷에서 온다.
+ *   그래서 「찍었다」가 「학습자가 그 책을 본다」를 뜻하지 않는다 — 화면이 그 사실을 적는다.
+ */
+function reachOf(series: string, step: number | null): VolumeReach {
+  return {
+    href: step == null ? null : `/library/textbooks/${series}/${step}`,
+    hasContents: seriesHasContents(series),
+  }
+}
+
 export async function loadPressView(): Promise<PressView> {
   const db = createAdminClient() as unknown as SupabaseClient
   const { data, error } = await db
     .from('textbook_volume_renders')
     .select(
-      'band, volume_title, step, school_band, units, items, explained_batch, explained_rule, ' +
+      'band, series, volume_title, step, school_band, units, items, explained_batch, explained_rule, ' +
+        'auto_passed, auto_total, ' +
         'type_mix_fit, distinct_volumes, articles_with_items, articles_idle, ' +
-        'brand_fingerprint, render_count, rendered_at, out_path',
+        'brand_fingerprint, render_count, rendered_at, out_path, colophon',
     )
     .order('band')
 
   const current = brandFingerprint()
   const rows = (data ?? []) as unknown as {
     band: number
+    series: string | null
+    auto_passed: number | null
+    auto_total: number | null
+    colophon: (Colophon & { publish?: Partial<VolumePublish> | null }) | null
     volume_title: string | null
     step: number | null
     school_band: string | null
@@ -268,6 +321,15 @@ export async function loadPressView(): Promise<PressView> {
 
   const volumes: PressVolumeRow[] = rows.map((r) => ({
     band: r.band,
+    // 옛 행에는 series 가 없다 — 그때는 독해만 찍었다(마이그레이션 textbook_volume_renders_series).
+    series: r.series ?? 'reading',
+    // ⚠️ colophon.publish 가 없으면 **null** 이다. 'rendered' 로 채우면 「사람이 rendered 로
+    //   판정했다」와 「아무도 판정한 적이 없다」가 같은 값이 되고, 그 둘은 할 일이 다르다.
+    publish: publishOf(r.colophon),
+    personaBlocked: blockedOf(r.colophon),
+    autoPassed: r.auto_passed ?? 0,
+    autoTotal: r.auto_total ?? 0,
+    reach: reachOf(r.series ?? 'reading', r.step),
     volumeTitle: r.volume_title,
     step: r.step,
     schoolBand: r.school_band,

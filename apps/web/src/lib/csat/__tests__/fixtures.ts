@@ -432,6 +432,13 @@ export const PRESS_REAL: PressView = {
   volumes: [
     {
       band: 6,
+      series: 'reading',
+      // 사람이 발행 판정을 내린 권 — 사유 없이 approved 는 없다(승인은 사유가 필요 없다).
+      publish: { status: 'published', reason: null, at: '2026-09-02T00:00:00Z', by: 'claude' },
+      personaBlocked: 0,
+      autoPassed: 10,
+      autoTotal: 10,
+      reach: { href: '/library/textbooks/reading/6', hasContents: true },
       volumeTitle: 'Vocaflow Reading 5',
       step: 6,
       schoolBand: '고2',
@@ -449,6 +456,14 @@ export const PRESS_REAL: PressView = {
     },
     {
       band: 1,
+      series: 'vocab',
+      // 아무도 판정한 적이 없다 — 'rendered' 로 채우면 「사람이 rendered 라 판정했다」가 된다.
+      publish: null,
+      personaBlocked: null,
+      // 자동 검사가 **안 돌았다** — 0/0 은 「통과」가 아니라 「못 잼」이다.
+      autoPassed: 0,
+      autoTotal: 0,
+      reach: { href: '/library/textbooks/vocab/1', hasContents: false },
       volumeTitle: 'Vocaflow Reading Starter',
       step: 1,
       schoolBand: '초등 저학년',

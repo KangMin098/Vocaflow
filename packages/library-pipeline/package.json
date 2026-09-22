@@ -17,6 +17,7 @@
     "./textbook-series": "./src/textbook/series.ts",
     "./textbook-brand": "./src/textbook/brand.ts",
     "./textbook-evaluation": "./src/textbook/evaluation.ts",
+    "./textbook-press-gate": "./src/textbook/press-gate.ts",
     "./textbook-series-catalog": "./src/textbook/series-catalog.ts",
     "./vocab-typeset": "./src/vocab/typeset.ts",
     "./vocab-brand-canvas": "./src/vocab/brand-canvas.ts",

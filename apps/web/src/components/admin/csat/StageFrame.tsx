@@ -333,7 +333,8 @@ export function StageFailures({
                 {r.href ? (
                   <a
                     href={r.href}
-                    className="font-mono text-[11.5px] text-[var(--p)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+                    // 44px 미만 터치 타깃 금지 — 인라인 링크라 내용이 높이를 정하면 20px 이 된다.
+                    className="inline-flex min-h-[44px] items-center font-mono text-[11.5px] text-[var(--p)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
                   >
                     {r.label}
                   </a>

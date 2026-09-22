@@ -384,6 +384,12 @@ const press: PressView = {
   volumes: [
     {
       band: 6,
+      series: 'reading',
+      publish: { status: 'published', reason: null, at: '2026-09-02T00:00:00Z', by: 'claude' },
+      personaBlocked: 0,
+      autoPassed: 10,
+      autoTotal: 10,
+      reach: { href: '/library/textbooks/reading/6', hasContents: true },
       volumeTitle: 'Vol 5',
       step: 6,
       schoolBand: '고2',
@@ -401,6 +407,14 @@ const press: PressView = {
     },
     {
       band: 1,
+      series: 'vocab',
+      // 아무도 판정한 적이 없다 — 'rendered' 로 채우면 「사람이 그렇게 판정했다」가 된다.
+      publish: null,
+      personaBlocked: null,
+      // 자동 검사가 **안 돌았다** — 0/0 은 「통과」가 아니라 「못 잼」이다.
+      autoPassed: 0,
+      autoTotal: 0,
+      reach: { href: '/library/textbooks/vocab/1', hasContents: false },
       volumeTitle: 'Starter',
       step: 1,
       schoolBand: '초등 저학년',

@@ -170,8 +170,48 @@ export interface ReviewView {
 
 /* ───────────────────────── ⑧ 조판 ───────────────────────── */
 
+/* ───── ⑧ 조판 — 발행 상태와 학습자 도달 (2026-09-23 · DD-72) ───── */
+//
+// ⚠️ **「찍혔다」와 「내보내도 된다」가 한 사실로 뭉쳐 있었다.** 실측 2026-09-23:
+//   19권 전부 `auto_passed = auto_total` · `failed_checks` 전 행 NULL · 카탈로그 「냈음」인데,
+//   그중 한 권(Vocaflow Vocab Advanced)의 3인 검수는 **1 / 60** 이었고 공개 URL 로 열려 있었다.
+//   게이트가 없어서가 아니라 **게이트를 지난 흔적을 남길 자리가 없어서**다.
+//
+// 상태를 담을 곳: `textbook_volume_renders.colophon.publish` — **jsonb 라 마이그레이션이
+// 필요 없다**(AGENTS.md §🤖: 「jsonb 에 키를 더하면 마이그레이션 불필요 — 통째로 덮지 말고
+// 기존 값을 읽어 키 하나만 더한다」). 컬럼으로 올리는 것은 `20260923060200` 초안이고
+// 승인되면 그쪽이 정본이 된다. 그때까지 읽는 쪽은 **둘 다** 본다.
+
+/** 발행 판정. 없으면 `null` — 「찍히기만 했다」이고 「반려됐다」와 다르다. */
+export interface VolumePublish {
+  status: 'rendered' | 'review' | 'approved' | 'published' | 'withdrawn'
+  /** review·withdrawn 인 이유. 없으면 null 이고 화면이 「사유 없음」이라 적는다. */
+  reason: string | null
+  at: string | null
+  by: string | null
+}
+
+/** 그 권이 학습자에게 실제로 닿는가 — **세 조건이 다 서야 한다.** */
+export interface VolumeReach {
+  /** 매대 라우트. 시리즈·단이 있어야 만든다(지어내지 않는다). */
+  href: string | null
+  /** 그 시리즈의 목차 스냅샷이 구워져 있는가. 없으면 상세면에 목차 절이 안 나간다. */
+  hasContents: boolean
+}
+
 export interface PressVolumeRow {
   band: number
+  /** 어느 시리즈의 권인가. 계단이 겹치므로(독해 5단 · 어휘 5단 · 구문 5단이 전부 V5) 밴드만으로는 권이 안 정해진다. */
+  series: string
+  /** 발행 판정 — `colophon.publish`. 없으면 null(「찍히기만 했다」 · 「반려됐다」와 다르다). */
+  publish: VolumePublish | null
+  /** 3인 검수에서 막힌 문항 수. 조판기가 잰 값에서 파생한다. 못 쟀으면 null. */
+  personaBlocked: number | null
+  /** 자동 검사 통과 / 전체. 전체가 0 이면 **검사가 안 돈 것**이고 「통과」가 아니다. */
+  autoPassed: number
+  autoTotal: number
+  /** 학습자 도달 경로. */
+  reach: VolumeReach
   volumeTitle: string | null
   step: number | null
   schoolBand: string | null

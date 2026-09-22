@@ -11,12 +11,63 @@
 //   ③ **문항이 안 붙은 원글** — 조판이 재고로 세지 않는 글이다. 여기가 크면 집필보다 문항 붙이기가
 //      먼저다(실측 2026-08-30 에 V6 은 원글 9,992편 중 8,235편이 그 상태였다).
 
+// ── ④ 「찍었다」가 「학습자가 본다」를 뜻하지 않는다 (2026-09-23 · DD-72) ──
+// 실측: 조판 산출물(`out_path` 로컬 HTML)을 읽는 학습자 코드가 **0곳**이다. 매대는 재고에서
+// 그려지고 상세면의 목차는 커밋된 스냅샷에서 온다. 그래서 3인 검수 1/60 인 권이 카탈로그에
+// 「냈음」으로 서고 공개 URL 로 열려 있었다. 이 화면이 그 사실을 적는다.
+
 'use client'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import type { PressView } from '@/lib/csat/factory-line-model'
+import {
+  StageFailures,
+  StageFrame,
+  type FailureRow,
+  type StageBlock,
+} from '@/components/admin/csat/StageFrame'
+import { judgePressGate, type PressGateVerdict } from '@vocaflow/library-pipeline/textbook-press-gate'
+
+import type { PressView, PressVolumeRow } from '@/lib/csat/factory-line-model'
+import { FACTORY_STAGES, judgeStage } from '@/lib/csat/factory-model'
 
 import { LadderFill } from './LadderFill'
+
+const STAGE = FACTORY_STAGES.find((s) => s.id === 'press')!
+
+const PUBLISH_KO: Record<string, string> = {
+  rendered: '찍힘',
+  review: '검수 대기',
+  approved: '승인됨',
+  published: '매대에 있음',
+  withdrawn: '내림',
+}
+
+/**
+ * 그 권의 조판 게이트 판정 — **드레인과 같은 함수**를 쓴다.
+ *
+ * ⚠️ 여기서 따로 세지 않는다. 판정이 세 곳(드레인 export · 이 화면 · 발행 승인)에 필요한데
+ *   각자 세면 언젠가 다른 수를 말하고, 그때부터 셋 다 못 믿는다. 이 저장소는 그 사고를
+ *   이미 겪었다 — 「3인 검수」가 두 가지를 뜻하는 동안 ⑦ 눈금이 다른 것을 세면서 초록이었다.
+ */
+export function verdictOf(v: PressVolumeRow): PressGateVerdict {
+  return judgePressGate({
+    series: v.series,
+    band: v.band,
+    items: v.items,
+    missingExplanations: Math.max(0, v.missingExplanations),
+    personaBlocked: v.personaBlocked,
+    autoPassed: v.autoPassed,
+    autoTotal: v.autoTotal,
+    brandCurrent: v.brandCurrent,
+    hasContents: v.reach.hasContents,
+    publishStatus: v.publish?.status ?? null,
+  })
+}
+
+/** 막는 이유만. 「못 잼」은 여기 안 들어간다 — 할 일이 정반대다. */
+export function blockersOf(v: PressVolumeRow): string[] {
+  return verdictOf(v).blockers
+}
 
 export function PressClient({ volumes, rungs, brandFingerprint, brand, loadError }: PressView) {
   const stale = volumes.filter((v) => !v.brandCurrent)
@@ -24,16 +75,93 @@ export function PressClient({ volumes, rungs, brandFingerprint, brand, loadError
   const idle = volumes.filter((v) => v.articlesIdle != null)
   const idleSum = idle.length ? idle.reduce((n, v) => n + (v.articlesIdle ?? 0), 0) : null
 
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">⑧ 조판 · 발행</h2>
-          <p className="font-body text-[12px] text-[var(--t2)]">시중: 조판 · 교정쇄 · 인쇄</p>
-        </div>
-        <AdminScreenHelp screen="csat-press" />
-      </div>
+  const blocked = volumes.filter((v) => blockersOf(v).length > 0)
+  const unjudged = volumes.filter((v) => v.publish == null)
+  const noContents = volumes.filter((v) => !v.reach.hasContents)
 
+  const status = judgeStage([
+    {
+      label: '조판된 계단',
+      num: loadError ? null : new Set(volumes.map((v) => v.band)).size,
+      den: rungs,
+      unit: 'ratio',
+      unmeasuredReason: loadError ?? undefined,
+    },
+    {
+      label: '학습자에게 나갈 수 있는 권',
+      num: loadError ? null : volumes.length - blocked.length,
+      den: volumes.length,
+      unit: 'ratio',
+      unmeasuredReason: loadError ?? undefined,
+    },
+  ])
+
+  const blocks: StageBlock[] = [
+    { what: '나갈 수 없는 권 (막는 이유가 있다)', count: loadError ? null : blocked.length },
+    {
+      // 「막혔다」가 아니라 「아무도 안 봤다」 — 할 일이 다르다.
+      what: '발행 판정이 아예 없는 권',
+      count: loadError ? null : unjudged.length,
+    },
+    {
+      what: '목차 스냅샷이 없는 시리즈의 권 — 상세면에 목차 절이 안 나간다',
+      count: loadError ? null : noContents.length,
+    },
+  ]
+
+  const failureRows: FailureRow[] = volumes
+    .filter((v) => blockersOf(v).length > 0)
+    .slice(0, 10)
+    .map((v) => ({
+      id: `${v.series}:${v.band}`,
+      label: `${v.volumeTitle ?? `V${v.band}`}`,
+      tags: [v.series, `V${v.band}`, PUBLISH_KO[v.publish?.status ?? ''] ?? '판정 없음'],
+      says: blockersOf(v).join(' · '),
+      href: v.reach.href ?? undefined,
+    }))
+
+  return (
+    <StageFrame
+      stage={STAGE}
+      status={status}
+      help={<AdminScreenHelp screen="csat-press" />}
+      blocks={blocks}
+      commands={[
+        {
+          cmd: 'pnpm dlx tsx scripts/textbook/press-candidates.mjs',
+          why: '찍을 후보 권과 권마다의 차단 사유를 낸다. 읽기만 하고 재실행 안전',
+        },
+        {
+          cmd: 'pnpm dlx tsx scripts/textbook/build-volume.mjs --band 6 --units 20',
+          why: '읽기만 하며 3관점 채점표를 낸다',
+        },
+        {
+          cmd: 'pnpm dlx tsx scripts/textbook/render-volume.mjs --band 6 --units 20 --out volume-v6.html',
+          why: '지정한 파일을 덮어쓴다 — 되돌릴 원장이 없다',
+          writes: true,
+        },
+        {
+          cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/contents-snapshot.mjs --series vocab --units 20',
+          why: '그 시리즈의 목차 스냅샷을 굽는다 — 없으면 학습자 상세면에 목차 절이 안 나간다',
+          writes: true,
+        },
+      ]}
+      approvalNote={
+        '발행(매대 노출)은 되돌리기 어렵다 — 차단 사유가 0 인 권만 승인 대상이다. 승인 기록을 담을 표(csat_pipeline_approvals)는 마이그레이션 승인 대기이고, 그때까지 판정은 colophon.publish 에 남는다.'
+      }
+      failures={
+        <StageFailures
+          title="나갈 수 없는 권 — 막는 이유"
+          total={loadError ? null : blocked.length}
+          rows={failureRows}
+          emptyNote={
+            loadError
+              ? '조판 기록을 못 읽었다 — 0건이 아니다.'
+              : '막는 이유가 있는 권이 없다. 다만 「발행 판정이 없는 권」은 위 「막힌 것」에서 따로 센다 — 안 막힌 것과 안 본 것은 다르다.'
+          }
+        />
+      }
+    >
       {loadError ? (
         <p
           role="alert"
@@ -83,6 +211,105 @@ export function PressClient({ volumes, rungs, brandFingerprint, brand, loadError
       <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
         <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--t1)]">학령 사다리</h3>
         <LadderFill volumes={volumes} rungs={rungs} />
+      </section>
+
+      {/* ── 학습자 도달 ────────────────────────────────────────────────
+          이 절이 없던 동안 ⑧ 은 **A5 0점**이었다. 「찍었다」까지만 말하고 그 책이
+          학습자에게 닿는지는 어느 화면도 말하지 않았다 — 그래서 3인 검수 1/60 인 권이
+          카탈로그에 「냈음」으로 서고 공개 URL 로 열려 있었다(실측 2026-09-23). */}
+      <section
+        aria-label="학습자 도달"
+        className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4"
+      >
+        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">
+          학습자에게 닿는가 — 권마다
+        </h3>
+        <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
+          ⚠️ <strong>조판 산출물은 학습자 경로에 없다.</strong> 매대는 <strong>재고</strong>에서
+          그려지고 상세면의 목차는 커밋된 스냅샷에서 온다 — 즉 <strong>찍는 것과 나가는 것이
+          서로 다른 길</strong>이고, 여기서 막아도 매대는 안 막힌다. 그 두 길을 잇는 것은{' '}
+          <code className="font-mono text-[11px]">textbook_volume_renders.status</code> 마이그레이션
+          (승인 대기)이다.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px] text-left text-[12px]">
+            <thead>
+              <tr className="border-b border-[var(--bd)] text-[11px] text-[var(--t3)]">
+                <th className="py-1.5 pr-3 font-[500]">권</th>
+                <th className="py-1.5 pr-3 font-[500]">발행 판정</th>
+                <th className="py-1.5 pr-3 font-[500]">목차 스냅샷</th>
+                <th className="py-1.5 pr-3 font-[500]">막는 이유</th>
+                <th className="py-1.5 font-[500]">매대 주소</th>
+              </tr>
+            </thead>
+            <tbody>
+              {volumes.map((v) => {
+                const why = blockersOf(v)
+                return (
+                  <tr key={`${v.series}:${v.band}`} className="border-b border-[var(--bd)] last:border-0">
+                    <td className="break-keep py-1.5 pr-3 text-[var(--t1)]">
+                      <span className="font-mono text-[10px] text-[var(--t3)]">
+                        {v.series} V{v.band}
+                      </span>{' '}
+                      {v.volumeTitle ?? '—'}
+                    </td>
+                    <td className="py-1.5 pr-3">
+                      {v.publish == null ? (
+                        // ⚠️ 「찍힘」으로 채우지 않는다 — 사람이 그렇게 판정한 것과 다르다.
+                        <span className="text-[#8A8278]">판정 없음</span>
+                      ) : (
+                        <span
+                          style={{
+                            color:
+                              v.publish.status === 'published' || v.publish.status === 'approved'
+                                ? '#2E7D5A'
+                                : v.publish.status === 'withdrawn'
+                                  ? '#9C3A30'
+                                  : '#B5803A',
+                          }}
+                        >
+                          {PUBLISH_KO[v.publish.status]}
+                          {v.publish.reason ? (
+                            <span className="ml-1 break-keep text-[10.5px] text-[var(--t3)]">
+                              {v.publish.reason}
+                            </span>
+                          ) : null}
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-1.5 pr-3">
+                      {v.reach.hasContents ? (
+                        <span style={{ color: '#2E7D5A' }}>있음</span>
+                      ) : (
+                        <span style={{ color: '#9C3A30' }}>없음 — 목차 절이 안 나간다</span>
+                      )}
+                    </td>
+                    <td className="break-keep py-1.5 pr-3 text-[11px]">
+                      {why.length ? (
+                        <span style={{ color: '#B5803A' }}>{why.join(' · ')}</span>
+                      ) : (
+                        <span className="text-[var(--t3)]">없음</span>
+                      )}
+                    </td>
+                    <td className="py-1.5">
+                      {v.reach.href ? (
+                        <a
+                          href={v.reach.href}
+                          className="inline-flex min-h-[44px] items-center font-mono text-[11px] text-[var(--p)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+                        >
+                          {v.reach.href}
+                        </a>
+                      ) : (
+                        // 단이 없으면 주소를 지어내지 않는다.
+                        <span className="text-[#8A8278]">단 없음</span>
+                      )}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
@@ -193,13 +420,15 @@ export function PressClient({ volumes, rungs, brandFingerprint, brand, loadError
         조판 공정의 것이다. 별도 관측 화면에 두면 "규격이 바뀌었는데 왜 옛 규격으로 찍혔지" 를
         두 화면을 오가며 맞춰 봐야 한다.
       */}
-      <section
+      {/* 규격 표는 **참고**다 — 이 화면의 물음은 「나갈 수 있는가」이고 규격은 그 이유 중 하나다.
+          펴 두면 표 두 개가 나란히 서서 어느 쪽이 결론인지 안 읽힌다. 접힌 것은 밀집도에서 안 센다. */}
+      <details
         aria-label="브랜드 규격"
         className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4"
       >
-        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">
-          조판 규격 — 이 값으로 찍힌다
-        </h3>
+        <summary className="flex min-h-[44px] cursor-pointer list-none items-center font-display text-[13px] font-[700] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
+          조판 규격 — 이 값으로 찍힌다 ▾
+        </summary>
         <p className="break-keep font-body text-[11.5px] text-[var(--t3)]">
           값은 디자인 토큰에서 온다 — 조판기가 색을 따로 갖고 있으면 손에 쥔 책이 화면과 달라진다.
           위 사다리에서 <strong>옛 규격</strong>으로 뜨는 권은 이 표가 바뀌기 전에 찍힌 것이다.
@@ -243,8 +472,7 @@ export function PressClient({ volumes, rungs, brandFingerprint, brand, loadError
           <span>한국어 해설 · {brand.fonts.body}</span>
           <span>문항 번호·수치 · {brand.fonts.mono}</span>
         </p>
-      </section>
-
-    </div>
+      </details>
+    </StageFrame>
   )
 }
