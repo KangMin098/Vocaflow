@@ -17,6 +17,9 @@
 //
 // 함정(실측): machineShape 없으면 P100 배정 → torch 미지원 · Dataset 마운트 경로가 커널마다 다르다(os.walk 로 찾는다)
 //   · status/output 은 쿼리형 주소만 된다 · /kaggle/working 은 20GB 라 ComfyUI 는 /kaggle/tmp 에.
+//   · **커널 이름 하나를 두 세션이 쓰면 나중 push 가 앞 실행을 덮는다**(2026-09-22 — 기출 패턴 16장이 다른 세션의 타일 4장으로
+//     바뀌어 「후처리 0장」으로 조용히 끝났다). push 전에 같은 커널이 돌고 있으면 멈추고, 받은 출력이 요청과 안 맞으면 실패한다.
+//     동시에 돌리려면 `--slug vocaflow-illo-<이름>` 으로 커널을 나눈다.
 
 import fs from 'node:fs'
 import os from 'node:os'
@@ -34,7 +37,7 @@ const VARIANTS = Number(arg('--variants', '1'))
 const OUT = path.join(ROOT, 'apps/web/public/illustrations/tines')
 const WORK = path.join(ROOT, 'tmp/illo-kaggle')
 const DATASET = 'minkang123/vocaflow-qwen-comic'
-const SLUG = 'vocaflow-illo-tines'
+const SLUG = arg('--slug', 'vocaflow-illo-tines')
 
 const cred = JSON.parse(fs.readFileSync(path.join(os.homedir(), '.kaggle/kaggle.json'), 'utf8'))
 const USER = String(cred.username).toLowerCase()
@@ -131,9 +134,16 @@ async function api(p, init = {}) {
   return j
 }
 
+// 제목도 커널마다 달라야 한다 — 같은 제목이면 push 가 409 (newTitle 은 slug 에서 만든다)
 async function push(jobs) {
+  // 같은 커널이 돌고 있으면 새 버전이 그 실행을 덮는다 — 멈춘다(위 함정)
+  const cur = await api(`/kernels/status?userName=${USER}&kernelSlug=${SLUG}`).catch(() => null)
+  if (/running|queued/.test(String(cur?.status ?? '').toLowerCase())) {
+    console.error(`커널 ${SLUG} 이 이미 ${cur.status} — 다른 실행을 덮게 된다. 끝나기를 기다리거나 --slug 로 다른 커널을 쓴다`)
+    process.exit(3)
+  }
   const body = {
-    slug: `${USER}/${SLUG}`, newTitle: 'vocaflow illo tines', text: kernelSource(jobs), language: 'python', kernelType: 'script',
+    slug: `${USER}/${SLUG}`, newTitle: SLUG.replace(/-/g, ' '), text: kernelSource(jobs), language: 'python', kernelType: 'script',
     isPrivate: true, enableGpu: true, enableInternet: true, machineShape: 'NvidiaTeslaT4',
     datasetDataSources: [DATASET], competitionDataSources: [], kernelDataSources: [], modelDataSources: [], categoryIds: [],
   }
@@ -235,4 +245,13 @@ if (!FETCH_ONLY) {
   if (!(await waitDone())) { await fetchOutputs().catch(() => {}); process.exit(1) }
 }
 const pngs = await fetchOutputs()
+if (!FETCH_ONLY) {
+  // 받은 출력이 이번 요청의 것인지 — 다른 실행이 같은 커널을 덮었으면 이름이 하나도 안 맞는다
+  const asked = new Set(SCENES.filter((s) => (!ONLY || ONLY.includes(s.id))).map((s) => s.id))
+  const mine = pngs.filter((n) => asked.has(n.replace(/\.png$/, '').replace(/__v\d+$/, '')))
+  if (!mine.length) {
+    console.error(`출력 ${pngs.length}장이 요청한 장면과 하나도 안 맞는다(${pngs.slice(0, 4).join(', ')}) — 같은 커널(${SLUG})을 다른 실행이 덮었다. --slug 로 나눠 다시`)
+    process.exit(4)
+  }
+}
 await postprocess(pngs)

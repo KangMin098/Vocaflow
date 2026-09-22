@@ -1,6 +1,6 @@
 // apps/web/src/components/csat/session/ProgressView.tsx
 //
-// 내 공식 — 참조(Tines) 사례 상세 골격(DD-68 · tines-mapping §20): 히어로 + 소품 → 강조 수치 3칸(면마다 다른 색) →
+// 내 공식 — 참조(Tines) 사례 상세 골격(DD-68 · tines-mapping 「기출 홈」): 히어로 + 소품 → 강조 수치 3칸(면마다 다른 색) →
 // 계보 카드(유형 → 공식 → 출처로 접히는 이력). 기록은 이 기기에만 있다.
 'use client'
 

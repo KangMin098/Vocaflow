@@ -109,7 +109,7 @@ export const SCENES = [
   // ── 3회차 — 흩어진 물건 띠(마감 CTA 둘레, 참조 1240×540) ──
   { id: 'band-scatter', size: '1664*928', style: STYLE_SCATTER, scene: 'Learning objects floating around an empty centre.' },
   { id: 'spot-quiz', size: '1328*1328', style: STYLE_OBJECT, scene: 'A sharpened pencil lying across a blank index card with three empty round checkboxes.' },
-  // ── 5회차(Kaggle) — 기출 출제 패턴 소품(`lib/csat/pattern-art.ts` · tines-mapping §20). 패턴의 설계를 물건 은유로 ──
+  // ── 6회차(Kaggle) — 기출 출제 패턴 소품(`lib/csat/pattern-art.ts` · tines-mapping 「기출 홈」). 패턴의 설계를 물건 은유로 ──
   { id: 'spot-pat-negate', size: '1328*1328', style: STYLE_OBJECT, scene: 'A chunky wooden signpost with two blank arrow signs pointing in exactly opposite directions.' },
   { id: 'spot-pat-restate', size: '1328*1328', style: STYLE_OBJECT, scene: 'Two blank speech bubbles of the same shape, a large one and a smaller copy echoing it, with a small curved arrow between them.' },
   { id: 'spot-pat-examples', size: '1328*1328', style: STYLE_OBJECT, scene: 'One large blank card standing upright with three small blank cards fanned out in front of it.' },

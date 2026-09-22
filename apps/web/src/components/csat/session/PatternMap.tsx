@@ -5,10 +5,12 @@
 'use client'
 
 import { ArrowRight, Check, Circle, Dot, RotateCcw } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import type { DissectionItem, DissectionRecord } from '@/lib/csat/dissect'
 import { patternGroups, patternPosition } from '@/lib/csat/learning-home'
 import { toItemSlug } from '@/lib/csat/item-slug'
+import { patternArt } from '@/lib/csat/pattern-art'
 import { TINT_CLASS, type Tint } from '@/lib/design/tone'
 import home from './learning-home.module.css'
 
@@ -27,7 +29,7 @@ export function PatternMap({ items, record, toneOf }: { items: DissectionItem[];
   return <div data-testid="visual-pattern-map">
     <p className={home.mapSummary}><strong>{touched}</strong> / {items.length}문항을 살펴봤어요 <span aria-hidden>·</span> {(['seen', 'saved', 'review'] as const).map(s => { const Mark = MARK[s]; return <span key={s}><Mark size={14} aria-hidden /> {LABEL[s]}</span> })}</p>
     <div className={home.mapCards}>{patternGroups(items).map(group => <section key={group.tag} className={`${TINT_CLASS[toneOf.get(group.tag) ?? 'lavender']} ${home.mapCard}`} aria-label={`${group.format} 패턴`}>
-      <header><strong>{group.format}</strong><span>{patternPosition(group.items, record)}</span></header>
+      <header><div><strong>{group.format}</strong><span>{patternPosition(group.items, record)}</span></div><Image src={patternArt(group.format)} alt="" width={1328} height={1328} /></header>
       <ul>{group.items.map(item => {
         const state = stateOf(item)
         const Mark = MARK[state]
