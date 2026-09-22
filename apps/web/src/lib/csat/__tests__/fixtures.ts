@@ -12,6 +12,7 @@ import type { BenchPublisher } from '../factory-bench'
 import type { BlueprintView, MarketView } from '../factory-lab-model'
 import type { AuthorView, PressView, ReviewView } from '../factory-line-model'
 // `import type` 이라 런타임에 사라진다 — `source-console.ts` 의 `server-only` 가 안 끌려온다.
+import type { ReviewDefectView } from '../review-defects-model'
 import type { SourceConsoleView } from '../source-console'
 import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 import { FACTORY_STAGES, type StageState } from '../factory-model'
@@ -553,3 +554,45 @@ export const SERIES_REAL: SeriesCatalogView = (() => {
 
 /** 초·중 원문 재고 — TBP 콘솔에서 ④ 소재로 옮긴 패널(2026-09-06). */
 export const KID_SOURCE_REAL: KidSourcePanel = { inventory: null, error: null }
+
+/**
+ * ⑦ 검수에서 막힌 문항 — **DB 실측 모양**(2026-09-23).
+ *
+ * 값은 지어낸 것이 아니라 그날 실제로 잰 분포다:
+ *   판정 963행 = pass 303 · revise 501 · fail 159 · 문항 321 · 3인 전원 pass 29
+ * 밀집도 하네스가 **채워진 화면**을 재야 예산이 뜻을 갖는다 — 빈 화면을 재면 실제보다
+ * 작게 나오고, 데이터가 들어오는 날 아무 경고 없이 예산을 넘는다.
+ */
+export const REVIEW_DEFECTS_REAL: ReviewDefectView = {
+  available: true,
+  loadError: null,
+  itemsReviewed: 321,
+  itemsAllPass: 29,
+  itemsBlocked: 292,
+  byVerdict: { pass: 303, revise: 501, fail: 159 },
+  matrix: [
+    { vLevel: 5, pass: 140, revise: 244, fail: 78, items: 154 },
+    { vLevel: 6, pass: 121, revise: 198, fail: 61, items: 128 },
+    { vLevel: 7, pass: 42, revise: 59, fail: 20, items: 39 },
+  ],
+  rows: [
+    {
+      itemId: '3f2a91c7-0000-4000-8000-000000000001',
+      type: 'blank_word',
+      vLevel: 5,
+      persona: 'analyst',
+      verdict: 'fail',
+      says: '오답 2번과 4번이 같은 이유로 틀린다 — 배제 근거가 하나뿐이다',
+      reviewedAt: '2026-09-18T04:11:02.000Z',
+    },
+    {
+      itemId: '91c70a33-0000-4000-8000-000000000002',
+      type: 'insert',
+      vLevel: 6,
+      persona: 'tutor',
+      verdict: 'revise',
+      says: null,
+      reviewedAt: '2026-09-17T23:40:10.000Z',
+    },
+  ],
+}

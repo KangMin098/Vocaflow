@@ -31,6 +31,7 @@ import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
 import { SIDEBAR_NAV, type NavItem } from '../AdminSidebar'
+import { FACTORY_STAGES } from '@/lib/csat/factory-model'
 
 // `src/components/admin/__tests__/` → 세 단계 올라가야 `src` 다. 두 단계로 잡으면
 // `src/components` 를 가리켜 `app/` 을 못 찾고 **모든 화면이 「h1 0」으로 보인다** —
@@ -148,6 +149,29 @@ function headerTitles(src: string): string[] {
   return [...stripComments(src).matchAll(HEADER_TITLE_RE)].map((m) => m[1]!)
 }
 
+/**
+ * **`<StageFrame stage={STAGE}>` 의 제목도 읽는다** (2026-09-23 · DD-72).
+ *
+ * 교재 공장 단계 화면들이 공통 골격으로 옮겨 가면서 `<h2>` 가 `StageFrame.tsx` 로 들어갔고,
+ * 화면 파일에는 `const STAGE = FACTORY_STAGES.find((s) => s.id === 'review')!` 만 남았다.
+ * 그 상태로 **화면에는 「⑦ 검수 — …」가 또렷이 떠 있는데** 판정은 「못 알아봄」이 됐다.
+ *
+ * `AdminPageHeader` 때와 **같은 자리**다 — 검사가 자기 주장을 못 재고 있는 것이지
+ * 화면이 나빠진 게 아니다. 그때와 같은 방식으로 한 단계만 따라간다: 공정 id 를 읽어
+ * 정본(`FACTORY_STAGES`)에서 이름을 꺼낸다. 모르는 id 면 아무것도 안 준다(지어내지 않는다).
+ */
+const STAGE_ID_RE = /FACTORY_STAGES\.find\(\s*\([^)]*\)\s*=>\s*[a-zA-Z_$][\w$]*\.id\s*===\s*'([a-z]+)'/g
+
+function stageTitles(src: string): string[] {
+  const out: string[] = []
+  for (const m of stripComments(src).matchAll(STAGE_ID_RE)) {
+    const def = FACTORY_STAGES.find((s) => s.id === m[1])
+    // 이름과 질문 둘 다 화면 제목에 그대로 인쇄된다(`StageFrame` 의 h2).
+    if (def) out.push(`${def.name} ${def.question}`)
+  }
+  return out
+}
+
 function titlesIn(src: string, tag: 'h1' | 'h2'): string[] {
   const re = new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`, 'g')
   const out: string[] = []
@@ -230,7 +254,7 @@ for (const item of ITEMS) {
     // ⚠️ 「같은 이름 주장」 검사에는 **자기 파일의 h1 만** 넣는다. layout 의 h1 은 그 구역
     //   전체가 공유하는 것이라(교재 공장의 「교재 공장」), 넣으면 아홉 화면이 서로
     //   충돌하는 것으로 잡힌다 — 설계대로 동작하는 것을 위반이라 부르는 셈이다.
-    const header = headerTitles(src)
+    const header = [...headerTitles(src), ...stageTitles(src)]
     if (own.includes(f)) h1Titles.push(...h1, ...header)
     allTitles.push(...h1, ...header, ...titlesIn(src, 'h2'))
   }

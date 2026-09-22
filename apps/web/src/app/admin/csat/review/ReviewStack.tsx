@@ -11,7 +11,13 @@
 // 뜻이고, 그러면 아래 층의 수치는 「좋아 보여도 의미가 없다」 — 표본이 안 온 것뿐이다.
 //
 // ⚠️ 층마다 **무엇을 보는지**를 지운 적이 없다. 넷이 같은 것을 보면 층이 넷이 아니라 하나이고,
-//   그게 이 화면이 막아야 하는 거짓 안심이다. 명령은 접어 둔다(깊이).
+//   그게 이 화면이 막아야 하는 거짓 안심이다.
+//
+// ── 명령을 여기서 뺐다 (2026-09-23 · DD-72) ─────────────────────────
+// 층마다 「이 층을 돌리는 명령」을 접어 두고 있었는데, 공통 골격의 **드레인 절**이 같은 네 명령을
+// 복사 버튼과 함께 한자리에 낸다. 같은 명령이 두 곳에 그려지면 눈이 같은 목록을 두 번 훑고,
+// 한쪽만 고쳐지면 둘이 갈린다 — 이 파이프라인이 레일 세 개로 이미 겪은 일이다
+// (`admin/csat/layout.tsx` 머리말). 층은 **무엇을 보는지**만 말한다.
 
 'use client'
 
@@ -112,14 +118,6 @@ export function ReviewStack({ layers }: { layers: ReviewLayer[] }) {
               </p>
             ) : null}
 
-            <details className="mt-1">
-              <summary className="flex min-h-[44px] cursor-pointer list-none items-center font-display text-[11px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--p-light)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
-                이 층을 돌리는 명령
-              </summary>
-              <code className="mt-1 block break-all rounded-[var(--r-sm)] bg-[var(--bg2)] p-1.5 font-mono text-[11px] text-[var(--t1)]">
-                {l.cmd}
-              </code>
-            </details>
           </li>
         )
       })}

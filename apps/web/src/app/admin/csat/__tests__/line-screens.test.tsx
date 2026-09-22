@@ -576,10 +576,32 @@ describe('ReviewStack — 카드 넷이 아니라 위에서 아래로 쌓인 체
     expect(text(html)).not.toContain('여기까지 오지 않는다')
   })
 
-  it('명령은 접혀 있다 — 층이 무엇을 보는지가 먼저, 어떻게 돌리는지는 깊이다', () => {
+  // ── 이 검사가 바뀐 이유 (2026-09-23 · DD-72) ──────────────────────
+  // 원래는 `<details>` 수를 층 수와 견줬다 — 층마다 명령을 접어 두었기 때문이다.
+  // 공통 골격이 생기며 네 명령이 **드레인 절 한 곳**으로 모였고(복사 버튼과 함께),
+  // 같은 명령이 두 곳에 그려지던 중복이 사라졌다. 그래서 세는 대상이 없어졌다.
+  //
+  // 지키려던 것은 개수가 아니라 **순서**다: 층은 「무엇을 보는지」를 먼저 말하고,
+  // 「어떻게 돌리는지」는 그 아래 한자리에 있다. 그 순서를 직접 잰다 —
+  // 명령 문자열이 층 도식보다 **뒤에** 나오는가.
+  it('층은 무엇을 보는지를 먼저 말하고, 명령은 그 아래 한자리에 모인다', () => {
     const html = renderToString(<ReviewClient {...review} />)
-    expect((html.match(/<details/g) ?? []).length).toBeGreaterThanOrEqual(review.layers.length)
-    for (const l of review.layers) expect(text(html)).toContain(l.looksAt)
+    const plain = text(html)
+    for (const l of review.layers) expect(plain).toContain(l.looksAt)
+
+    // 마지막 층의 「보는 것」보다 첫 명령이 뒤에 있어야 한다.
+    const lastLooksAt = plain.lastIndexOf(review.layers[review.layers.length - 1]!.looksAt)
+    const firstCmd = plain.indexOf(review.layers[0]!.cmd)
+    expect(lastLooksAt, '층의 「보는 것」이 안 그려졌다').toBeGreaterThan(-1)
+    expect(firstCmd, '명령이 안 그려졌다').toBeGreaterThan(-1)
+    expect(firstCmd, '명령이 층 도식보다 앞에 있다 — 무엇을 보는지가 먼저다').toBeGreaterThan(
+      lastLooksAt,
+    )
+
+    // 명령은 **드레인 절 한 곳**에만 있다 — 층마다 접어 두던 것을 합쳤으므로
+    // 복사 버튼 수가 곧 명령 수여야 한다. 두 곳에 그리면 여기가 두 배가 된다.
+    // (표본의 층 둘이 같은 명령 문자열을 쓰므로 문자열 등장 횟수로는 못 센다.)
+    expect((html.match(/aria-label="명령 복사: /g) ?? []).length).toBe(review.layers.length)
   })
 
   it('못 잰 층은 0% 가 아니라 「못 잼」과 이유다', () => {

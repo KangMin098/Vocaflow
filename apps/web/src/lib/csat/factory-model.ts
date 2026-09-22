@@ -102,6 +102,16 @@ export interface StageDef {
   marketName: string
   /** 이 공정이 답하는 질문 하나. 화면 부제로 쓴다. */
   question: string
+  /**
+   * 이 공정이 **받는 것**. 계약의 빠져 있던 한 축이다.
+   *
+   * ── 왜 뒤늦게 생겼나 (2026-09-23 · DD-72) ─────────────────────────
+   * 이 모델은 `output`(내놓는 것)과 `gate`(넘어야 하는 것)를 처음부터 갖고 있었는데
+   * **받는 것**이 없었다. 그래서 단계 화면이 「이 칸이 무엇으로 시작하는가」를 말할 수 없었고,
+   * 실측(DD-69 A2)에서 아홉 화면 중 계약 셋을 다 적은 것이 **둘**뿐이었다.
+   * 입력을 적어 두면 앞 칸이 막혔을 때 이 칸에서 할 일이 없다는 것이 화면에서 바로 보인다.
+   */
+  input: string
   /** 이 공정이 내놓는 것. */
   output: string
   /** 게이트 — 이걸 넘어야 다음 공정으로 원고가 넘어간다. */
@@ -136,6 +146,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '기출 원천',
     marketName: '출제경향 분석',
     question: '우리가 겨냥한 시험을 실제로 아는가',
+    input: '평가원 기출 원문과 정답표(csat_items · csat_exams)',
     output: '회차·유형별 기출 분석과 유형 리포트',
     gate: '사정권 배점을 덮은 회차가 늘고 있는가',
     gateGauges: ['독해 실점 0 회차'],
@@ -148,6 +159,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '기획',
     marketName: '시장조사 · 경쟁교재 분석',
     question: '시중 교재를 이기는가, 어디서 지는가',
+    input: '시중 교재 코퍼스 79종과 우리 재고 집계',
     output: '출판사별 우위 지수와 구속점',
     gate: '구속 출판사 지수 ≥ 1.200',
     gateGauges: ['구속 출판사 지수'],
@@ -160,6 +172,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '설계',
     marketName: '이원목적분류표 · 목차 설계',
     question: '연령 × 수준 × 유형 칸이 규격대로 정의됐는가',
+    input: '학령 눈금(SERIES_SPINE)과 기출 유형 · 단계 게이트 임계',
     output: '학령 사다리 7단과 단별 허용 유형',
     gate: '사다리에 끊긴 계단이 없는가',
     gateGauges: ['사다리가 선언한 유형 중 생산 가능', '단계 게이트 임계 정의 (S1~S5)'],
@@ -172,6 +185,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '소재',
     marketName: '지문 섭외 · 저작권 검토',
     question: '각 칸에 쓸 지문이 있는가',
+    input: '적격 판정을 통과한 원문(csat_source_eligibility.grade)',
     output: '단계 밴드별 지문 재고',
     // ⚠️ **셈법이 바뀌었는데 이 두 줄이 안 따라왔었다** (실측 2026-09-16).
     //   `5982ac67`(2026-09-15)이 밴드 판정을 게이트의 `metric` 에 맡기도록 바꾸면서
@@ -197,6 +211,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '집필',
     marketName: '원고 집필 (문항)',
     question: '각 칸에 문항이 있는가',
+    input: '밴드별 원글과 그 밴드가 쓰는 유형 목록',
     output: '유형 × 수준 문항 재고',
     gate: '사다리 각 단이 쓰는 유형 중 재고 0인 칸이 없는가',
     gateGauges: ['사다리 칸 중 재고 있음'],
@@ -209,6 +224,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '해설',
     marketName: '정답해설 집필',
     question: '문항마다 해설이 붙었는가',
+    input: '조판 후보 문항(csat_dcp_items)',
     output: '문항별 한국어 해설',
     gate: '해설 보유율 100%',
     gateGauges: ['해설 보유'],
@@ -221,6 +237,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '검수',
     marketName: '초교 · 재교 · 삼교 + 감수',
     question: '다층 검수를 통과했는가',
+    input: '그 권에 실릴 문항 — 재고 전량이 아니라 조판기가 고른 것',
     output: '층별 통과 기록',
     gate: '층마다 통과율 100%',
     gateGauges: ['L1', 'L2', 'L3', 'L4'],
@@ -233,6 +250,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '조판 · 발행',
     marketName: '조판 · 교정쇄 · 인쇄',
     question: '권으로 나왔는가',
+    input: '검수를 통과한 문항과 사다리 규격',
     output: '조판된 권과 그 검수 기록',
     gate: '사다리 계단마다 최신 규격으로 조판된 권이 있는가',
     gateGauges: ['조판된 계단', '최신 규격으로 찍힌 계단'],
