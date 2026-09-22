@@ -91,7 +91,8 @@ export function TodayStage({
   //  없어요" 카드가 페이지 중앙을 점거했다.)
   if (!lead && blocks.length === 0) return null
 
-  // 무대는 **섹션 하나**다. 뒤이어 띠는 `NextWordsStrip` 으로 분리했다(순서 때문 — 그 파일 주석).
+  // 무대는 **섹션 하나**다. 뒤이어 띠(`NextWordsStrip`)는 2026-09-23 에 지웠다 —
+  // `/hub` 재설계로 어디서도 렌더되지 않게 됐고, 같은 일은 포털의 KPI 줄이 한다.
   return (
     <section
         aria-label="오늘"

@@ -125,12 +125,16 @@ export type PublicEvent =
       name: 'hub_promo_clicked'
       props: { slot: 'hero' | 'panel' | 'quick' | 'shelf' | 'bento' | 'reading' | 'arcade' | 'vocab'; index: number }
     }
-  /**
-   * 메인 배너를 **사람이** 넘겼다(자동 넘김은 세지 않는다). `index` 는 도착한 장.
-   * 은퇴(2026-09-22 재설계 2회차) — 배너 캐러셀을 참조 홈 골격으로 바꾸며 걷었다. 보내는 곳 0.
-   * DB 허용 목록에는 남긴다(이미 쌓인 행을 읽는 쪽이 이름을 안다).
+  /*
+   * `hub_hero_moved`(메인 배너를 사람이 넘김)은 2026-09-22 재설계 2회차에 **화면과 함께
+   * 은퇴했다** — 배너 캐러셀을 참조 홈 골격으로 바꾸며 걷었고, 보내는 곳이 0이 됐다.
+   * 그런데 이름만 이 유니온과 `ALLOWED_EVENTS` 에 남겨 두어 `wired.test.ts` 가 걸렸다:
+   * **목록에 있는데 아무도 안 보내는 이벤트**는 대시보드에서 "0건" 으로 보일 뿐
+   * "고장" 으로 안 보인다 — 그 구분이 이 목록의 존재 이유다.
+   * 그래서 `csat_overlay_*` 4종과 같은 처리를 한다: 여기서는 지우고,
+   * **DB 허용 목록(`20260922090000_funnel_allow_hub_portal`)에는 남긴다** —
+   * 이미 쌓인 행을 읽는 쪽이 이름을 알아야 하기 때문이다.
    */
-  | { name: 'hub_hero_moved'; props: { index: number; via: 'dot' | 'arrow' } }
   /**
    * 셸의 「나의 자리」 패널을 폈다 — **셸 두 번째 층이 실제로 쓰이는가.**
    *
@@ -429,7 +433,6 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   landing_demo_moved: true,
   landing_section_reached: true,
   hub_promo_clicked: true,
-  hub_hero_moved: true,
   wayfinder_opened: true,
   wayfinder_cta_clicked: true,
   csat_evidence_opened: true,

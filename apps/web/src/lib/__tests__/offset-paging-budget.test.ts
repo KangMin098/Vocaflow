@@ -29,7 +29,7 @@
 // 388개가 아니라 **규칙이 틀렸다**는 뜻이다 — 이 저장소가 「루프 애니메이션 금지」로 정당한
 // 로더 20곳을 걸었을 때 배운 것이다. 그래서 기계가 확실히 가를 수 있는 하나만 잡는다.
 
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdtempSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -100,12 +100,40 @@ describe('OFFSET 페이징 예산', () => {
       const byFile = new Map<string, number>()
       for (const h of hits) byFile.set(h.file, (byFile.get(h.file) ?? 0) + 1)
       const worst = [...byFile].sort((a, b) => b[1] - a[1]).slice(0, 8)
+
+      /*
+       * **가장 최근에 바뀐 파일**도 함께 낸다 (2026-09-23).
+       *
+       * 예산이 210 → 211 로 1 늘었을 때, 위 「파일별 상위」 는 11건짜리 옛 파일들만
+       * 보여 준다 — **한 건 늘린 새 파일은 상위 8에 절대 안 들어온다.** 그래서 늘어난
+       * 원인을 찾으려고 커밋을 손으로 바이섹트해야 했다(실측: 원인은 그날 새로 생긴
+       * 스크립트 한 줄이었다). 「늘었다」 만 말하고 **어디서** 늘었는지 안 말하는 경고는
+       * 고치는 사람에게 일거리를 넘길 뿐이다. 수정 시각 역순이면 그 줄이 맨 위에 온다.
+       */
+      const recent = [...byFile.keys()]
+        .map((f) => {
+          let mtime = 0
+          try {
+            // ⚠️ 스캐너가 주는 `file` 은 **cwd(= apps/web) 기준**이다 — 저장소 밖 스크립트는
+            //    `../../scripts/…` 로 온다. REPO_ROOT 에 이으면 저장소 바깥을 가리켜
+            //    전부 ENOENT 가 되고, 정작 찾으려던 **새 파일이 맨 뒤로 밀린다**(첫 판이 그랬다).
+            mtime = statSync(resolve(process.cwd(), f)).mtimeMs
+          } catch {
+            // 스캔 뒤 사라진 파일 — 순서만 뒤로 민다.
+          }
+          return { f, mtime }
+        })
+        .sort((a, b) => b.mtime - a.mtime)
+        .slice(0, 6)
+
       throw new Error(
         `OFFSET 페이징이 ${BASELINE} → ${hits.length} 로 늘었다.\n` +
           `뒤 페이지가 앞을 다시 훑으므로 표가 커지면 반드시 느려진다 — 이 저장소에서\n` +
           `같은 이유로 네 개의 명령이 죽었다(가장 큰 것은 656,988행 · 657페이지).\n` +
           `고유한 열(대개 pk)로 커서를 잡으면 산출물은 같고 깊이 비용이 사라진다.\n` +
-          `파일별 상위:\n${worst.map(([f, n]) => `  ${n}  ${f}`).join('\n')}`,
+          `파일별 상위:\n${worst.map(([f, n]) => `  ${n}  ${f}`).join('\n')}\n` +
+          `가장 최근에 바뀐 파일(여기부터 본다):\n` +
+          `${recent.map(({ f }) => `  ${byFile.get(f)}  ${f}`).join('\n')}`,
       )
     }
     expect(hits.length).toBeLessThanOrEqual(BASELINE)
