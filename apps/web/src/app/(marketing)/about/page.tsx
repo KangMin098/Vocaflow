@@ -100,7 +100,7 @@ export default function AboutPage() {
           </figure>
         </section>
 
-        <section className={`${WRAP} pb-20`}>
+        <section className={`${WRAP} pb-14`}>
           <FrameBar tab="Vocaflow 소개" />
           <Frame>
             {intro ? (
@@ -111,18 +111,22 @@ export default function AboutPage() {
           </Frame>
         </section>
 
-        <section className={`${WRAP} relative grid gap-10 pb-28 lg:grid-cols-[1.1fr_1fr]`}>
-          <div>
-            <p className="font-mono text-[13px] font-[700] uppercase tracking-[0.06em]">Vocaflow 알아보기</p>
-            {/* 참조 문단형 제목 — 앞 문장은 굵게, 이어지는 문장은 같은 크기 보통 굵기 */}
-            <h2 className="mt-5 break-keep font-serif text-[32px] leading-[1.15] tracking-[-0.01em] md:text-[48px]">
-              <span className="font-[800]">단어를 외우는 게 아니라 머리에 남게.</span>{' '}
-              <span className="font-[400]">읽은 글에서 담고, 잊을 때쯤 다시 만나고, 같은 단어를 여러 맥락에서 만납니다.</span>
-            </h2>
-          </div>
-          <div className="relative hidden min-h-[600px] lg:block"><MonitorCluster side="right" /></div>
-        </section>
       </div>
+
+      {/* 선언 구간은 **라벤더 밖**이다 — 안에 두면 모니터 무리 옆이 빈 라벤더로 남아 화면의
+          보라 비중이 63%까지 올라간다(실측 2026-09-23 `ours-corpus`). 크림 위에서 같은 표현을 쓴다. */}
+      <section className={`${WRAP} relative grid gap-10 py-20 lg:grid-cols-[1.1fr_1fr]`}>
+        <div>
+          <p className="font-display text-[13px] font-[700] uppercase tracking-[0.05em] text-[var(--ju)]">Vocaflow 알아보기</p>
+          {/* 참조 문단형 제목 — 앞 문장은 굵게, 이어지는 문장은 같은 크기 보통 굵기 */}
+          <h2 className="mt-5 break-keep font-serif text-[32px] leading-[1.15] tracking-[-0.01em] text-[var(--t1)] md:text-[48px]">
+            <span className="font-[800]">단어를 외우는 게 아니라 머리에 남게.</span>{' '}
+            <span className="font-[400]">읽은 글에서 담고, 잊을 때쯤 다시 만나고, 같은 단어를 여러 맥락에서 만납니다.</span>
+          </h2>
+        </div>
+        {/* 그림이 620px + top-16 이라 칸을 그만큼 잡는다 — 덜 잡으면 다음 구간으로 흘러내린다 */}
+        <div className="relative hidden min-h-[700px] lg:block"><MonitorCluster side="right" /></div>
+      </section>
 
       {/* ── 다른 점 세 가지 — 각 영상이 그 주장을 화면에서 증명한다 ── */}
       {benefitVideos.length > 0 && (
