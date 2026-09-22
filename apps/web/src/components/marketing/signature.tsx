@@ -48,7 +48,7 @@ export function Ribbon({ children, tone = 'green', className = '' }: { children:
  * 이름 흐름 띠 — 같은 목록을 두 번 이어 붙여 -50% 로 흘린다(끊김 없음). 움직임을 줄이면(prefers-reduced-motion)
  * 흐름을 멈추고 한 벌만 줄바꿈해 보여 준다. 이름마다 서체를 돌려 로고 줄의 리듬을 낸다.
  */
-export function SourceMarquee({ label, names }: { label: string; names: string[] }) {
+export function SourceMarquee({ label, names }: { label: string; names: readonly string[] }) {
   const faces = ['font-display font-[700] tracking-[-0.02em]', 'font-serif font-[600]', 'font-mono font-[700] uppercase tracking-[0.02em] text-[20px]', 'font-display font-[500] italic']
   const row = (dup: boolean) =>
     names.map((n, i) => (

@@ -35,6 +35,7 @@ import { SectionBeacon } from '@/components/marketing/SectionBeacon'
 import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import { buildHeroDemo } from '@/lib/marketing/hero-demo'
 import { fetchTrustSignals } from '@/lib/marketing/trust-signals'
+import { CONTENT_SOURCES } from '@/lib/marketing/sources'
 
 export const metadata: Metadata = {
   // ⚠️ `absolute` — 루트 `title.template`("%s | Vocaflow")을 **거친다.**
@@ -49,12 +50,6 @@ export const metadata: Metadata = {
 export const revalidate = 86400
 
 const ILLO = '/illustrations/tines'
-
-/**
- * 읽을거리를 가져오는 곳 — 도서(lib/library 수집 소스)와 기사(lib/articles/source-map.ts 트랙 소스)의 **실제 출처** 이름.
- * 참조의 고객 로고 줄 자리지만 협력사를 지어내지 않는다. 출처를 빼거나 더하면 여기도 같이.
- */
-const SOURCES = ['Project Gutenberg', 'Standard Ebooks', 'LibriVox', 'VOA', 'NASA', 'NIH', 'eLife', 'PLOS', 'USGS', 'NOAA', 'Our World in Data', 'The Conversation', 'Wikipedia', 'Wikisource', 'OpenStax']
 
 /**
  * 학습 모듈 다섯 — 참조 홈 「팀 탭」(`HomeUseCasesSection`) 자리. 탭마다 모듈 범주 색(`MODULE_TONE`)의 진한 면이고,
@@ -102,7 +97,7 @@ export default async function LandingPage() {
           </div>
 
           {/* 이름 흐름 띠 — 참조 고객 로고 줄 자리. 로고를 지어내지 않고 **실제로 읽을거리를 가져오는 곳**의 이름만. */}
-          <SourceMarquee label="읽을거리를 가져오는 곳" names={SOURCES} />
+          <SourceMarquee label="읽을거리를 가져오는 곳" names={CONTENT_SOURCES} />
 
           {/* 증거 띠 — 참조의 고객 로고 줄 자리. 로고 대신 DB 실측(못 읽으면 줄이 없다). */}
           {signals && signals.length > 0 && (

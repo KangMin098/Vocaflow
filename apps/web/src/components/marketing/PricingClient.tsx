@@ -23,18 +23,23 @@
 //    상수로 적어 두면 반드시 낡는다(2026-08-26 에 세 수치가 9일 만에 전부 어긋나 있었다).
 //    lib/marketing/trust-signals.ts 참조.
 //
-// 모양(DD-68): 참조 요금제 화면 — 보라 전면 바탕 위 흰 큰 제목 · 실측 지표 · 요금 카드 3 → 차별점 → 영상 → FAQ 펼침.
+// 모양(DD-68 · tines-mapping §23): 참조 요금제 화면 — 폭 전체 보라 띠에 가운데 제목(양옆 소품 + 떠 있는 색 막대) ·
+// 윗변 이름표 카드 3(옅은 초록 · 진한 보라 · 살구, 버튼을 가로지르는 구분선 · 오른쪽 아래 소품) · 출처 흐름 띠 ·
+// 접힌 모서리 약속 카드 → 차별점 → 영상 → FAQ 펼침.
 // 끝 CTA 는 레이아웃(`MarketingTail`)이 맡는다. **문구·데이터는 모양 바꿈과 무관하게 그대로다.**
 //
 // 이 파일은 클라이언트 컴포넌트가 아니다 — 월간/연간 토글(`useState`)이 사라지면서 훅이
 // 0개가 됐다. 가입 전 첫인상 화면을 이유 없이 클라이언트 번들에 실을 이유가 없다.
 
 import { Check, Mail } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
+import { SourceMarquee } from '@/components/marketing/signature'
 import { ComponentVideo } from '@/components/video/ComponentVideo'
 import { curriculumVideo, videosByKind } from '@/lib/video/catalog'
 import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
+import { CONTENT_SOURCES } from '@/lib/marketing/sources'
 import type { TrustSignal } from '@/lib/marketing/trust-signals'
 import { Illustration } from '@/components/illustrations/Illustration'
 import { ILLO_07_COVERAGE } from '@/components/illustrations/generated/illo-07-coverage'
@@ -102,6 +107,44 @@ const FAQS: readonly FAQ[] = [
   },
 ] as const
 
+/** 제목 둘레 떠 있는 색 막대(참조 요금제 머리) — 위치는 장식 영역(1180×300) 기준 고정값. */
+const BARS: readonly { x: string; y: number; w: number; c: string }[] = [
+  { x: '14%', y: 18, w: 34, c: 'bg-[var(--tint-green)]' },
+  { x: '3%', y: 120, w: 20, c: 'bg-[var(--tint-lavender)]' },
+  { x: '20%', y: 210, w: 26, c: 'bg-[var(--tint-peach)]' },
+  { x: '8%', y: 250, w: 18, c: 'bg-[var(--tint-pink)]' },
+  { x: '80%', y: 22, w: 34, c: 'bg-[var(--tint-pink)]' },
+  { x: '95%', y: 130, w: 22, c: 'bg-[var(--tint-lavender)]' },
+  { x: '76%', y: 240, w: 20, c: 'bg-[var(--tint-green)]' },
+  { x: '88%', y: 262, w: 24, c: 'bg-[var(--tint-peach)]' },
+]
+
+/**
+ * 요금 카드 — 참조 EXPLORE/DEPLOY 카드: 윗변 가운데 이름표 · 가운데 정렬 머리 · 버튼을 가로지르는 구분선(`CardAction`) ·
+ * 아래 목록 · 오른쪽 아래 소품. 면 색은 `.tone-*` 가 글자·버튼 색까지 함께 바꾼다.
+ */
+function PlanCard({ tone, tab, spot, children }: { tone: string; tab: string; spot: string; children: React.ReactNode }) {
+  return (
+    <li className={`${tone} relative flex flex-col items-center overflow-hidden rounded-[14px] border border-[var(--bd)] px-7 pb-24 pt-14 text-center text-[var(--t1)]`}>
+      <span className="absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap rounded-b-[8px] bg-[color-mix(in_srgb,var(--ju)_16%,transparent)] px-4 py-1.5 font-display text-[12.5px] font-[700] tracking-[0.04em]">
+        {tab}
+      </span>
+      {children}
+      <Image src={`/illustrations/tines/${spot}.webp`} alt="" width={1328} height={1328} className="pointer-events-none absolute bottom-4 right-4 w-[72px] select-none" />
+    </li>
+  )
+}
+
+/** 버튼 줄 — 카드 폭 전체 구분선이 버튼 한가운데를 지난다(참조). */
+function CardAction({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative my-6 flex w-full justify-center">
+      <span aria-hidden className="absolute -inset-x-7 top-1/2 h-px bg-[var(--bd)]" />
+      {children}
+    </div>
+  )
+}
+
 const FOCUS = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'
 
 /**
@@ -114,106 +157,131 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
 
   return (
     <div className="bg-[var(--bg)]">
-      {/* ── 보라 전면 — 히어로 · 실측 지표 · 요금 카드 ── */}
-      <section className={WRAP}>
-        <div className="overflow-hidden rounded-[var(--r-2xl)] bg-[var(--ju)] px-6 pb-12 pt-12 text-[var(--on-ju)] md:px-14 md:pt-16">
+      {/* ── 보라 띠 — 가운데 제목 · 실측 지표 · 이름표 카드 3 · 출처 흐름 · 약속 카드 (참조 요금제 상단) ── */}
+      <section aria-labelledby="pricing-title" className="relative overflow-hidden bg-[var(--ju)] pb-24 pt-14 text-[var(--on-ju)] md:pt-20">
+        {/* 참조 제목 양옆 기계 소품 + 흩어진 색 막대 — 장식 */}
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 mx-auto hidden h-[300px] max-w-[1180px] select-none lg:block">
+          <Image src="/illustrations/tines/spot-dashboard.webp" alt="" width={1328} height={1328} className="absolute left-[4%] top-8 w-[150px]" />
+          <Image src="/illustrations/tines/spot-quiz.webp" alt="" width={1328} height={1328} className="absolute right-[4%] top-10 w-[140px]" />
+          {BARS.map((b, i) => (
+            <span key={i} className={`absolute h-2 rounded-[2px] ${b.c}`} style={{ left: b.x, top: b.y, width: b.w }} />
+          ))}
+        </div>
+
+        <div className={`${WRAP} relative text-center`}>
           <Kicker>요금제</Kicker>
-          <h1 className="mt-5 break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] md:text-[64px]">
+          <h1 id="pricing-title" className="mt-4 break-keep font-display text-[44px] font-[400] leading-[1.04] tracking-[-0.03em] md:text-[72px]">
             지금은 전부 무료입니다.
           </h1>
-          <p className="mt-5 max-w-[46ch] break-keep font-serif text-[20px] leading-[1.4] md:text-[24px]">
+          <p className="mx-auto mt-5 max-w-[40ch] break-keep font-serif text-[19px] leading-[1.4] md:text-[22px]">
             유료 플랜을 아직 만들지 않았습니다. 결제 수단을 받는 화면도 없어요. 지금 있는 기능은
             제한 없이 쓰시면 됩니다.
           </p>
 
           {/* 신뢰 지표 — 서버가 읽어 준 것만. 못 읽었으면 줄 자체가 없다. */}
           {signals && signals.length > 0 && (
-            <ul aria-label="신뢰 지표" className="mt-10 flex flex-wrap gap-x-12 gap-y-4">
+            <ul aria-label="신뢰 지표" className="mt-8 flex flex-wrap justify-center gap-x-10 gap-y-3">
               {signals.map((s) => (
-                <li key={s.label} className="flex items-baseline gap-3">
-                  <span className="font-display text-[30px] font-[600] tabular-nums tracking-[-0.02em]">{s.value}</span>
-                  <span className="break-keep font-body text-[14px]">{s.label} · {s.sub}</span>
+                <li key={s.label} className="flex items-baseline gap-2.5">
+                  <span className="font-display text-[26px] font-[600] tabular-nums tracking-[-0.02em]">{s.value}</span>
+                  <span className="break-keep font-body text-[13.5px]">{s.label} · {s.sub}</span>
                 </li>
               ))}
             </ul>
           )}
+        </div>
 
-          <ul className="mt-12 grid gap-4 md:grid-cols-3">
-            {/* ① 지금 — 유일하게 "지금 할 수 있는" 카드 */}
-            <li className="flex flex-col rounded-[var(--r-xl)] bg-[var(--bg)] p-7 text-[var(--ju)]">
-              <h2 className="break-keep font-serif text-[26px] font-[700]">지금 쓰실 수 있는 것</h2>
-              <p className="mt-1 break-keep font-body text-[14px]">계정만 만들면 아래가 전부 열립니다.</p>
-              <p className="mt-6 font-display text-[56px] font-[400] leading-none tracking-[-0.03em]">무료</p>
-              <p className="mt-2 break-keep font-body text-[13px]">결제 수단을 받지 않습니다</p>
-              <Link href="/signup" className={`${PILL} mt-6 bg-[var(--p)] text-[var(--on-p)] hover:bg-[var(--p-hover)]`}>
-                무료로 시작하기
-              </Link>
-              <ul className="mt-6 space-y-3 border-t border-[var(--bd)] pt-6">
-                {AVAILABLE_NOW.map((f) => (
-                  <li key={f} className="flex items-start gap-3">
-                    <Check size={16} strokeWidth={2.5} aria-hidden className="mt-0.5 shrink-0" />
-                    <span className="break-keep font-body text-[14px] leading-relaxed">{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </li>
+        <ul className={`${WRAP} relative mt-14 grid gap-4 md:grid-cols-3`}>
+          {/* ① 지금 — 유일하게 "지금 할 수 있는" 카드 */}
+          <PlanCard tone="tone-green" tab="지금" spot="spot-welcome">
+            <h2 className="break-keep font-serif text-[24px] font-[700]">지금 쓰실 수 있는 것</h2>
+            <p className="mt-1 break-keep font-body text-[14px]">계정만 만들면 아래가 전부 열립니다.</p>
+            <p className="mt-5 font-display text-[52px] font-[400] leading-none tracking-[-0.03em]">무료</p>
+            <p className="mt-2 break-keep font-body text-[13px]">결제 수단을 받지 않습니다</p>
+            <CardAction>
+              <Link href="/signup" className={`${PILL} relative bg-[var(--ju)] text-[var(--on-ju)] hover:brightness-110`}>무료로 시작하기</Link>
+            </CardAction>
+            <ul className="space-y-2.5 text-left">
+              {AVAILABLE_NOW.map((f) => (
+                <li key={f} className="flex items-start gap-3">
+                  <Check size={16} strokeWidth={2.5} aria-hidden className="mt-0.5 shrink-0" />
+                  <span className="break-keep font-body text-[14px] leading-relaxed">{f}</span>
+                </li>
+              ))}
+            </ul>
+          </PlanCard>
 
-            {/* ② 준비 중 — 가격도 날짜도 적지 않는다. 적을 근거가 없다. */}
-            <li className="flex flex-col rounded-[var(--r-xl)] bg-[var(--bg3)] p-7 text-[var(--ju)]">
-              <div className="flex items-center gap-2">
-                <h2 className="break-keep font-serif text-[26px] font-[700]">유료 플랜</h2>
-                <span className="rounded-full border border-[var(--ju)] px-2.5 py-0.5 font-display text-[12px] font-[700]">준비 중</span>
-              </div>
-              <p className="mt-1 break-keep font-body text-[14px]">가격도 조건도 아직 정하지 않았습니다.</p>
-              <p className="mt-6 break-keep font-body text-[15px] leading-[1.7]">
-                정해지기 전에는 이 자리에 숫자를 적지 않습니다. 만들게 되면 시작 전에 안내드리고,
-                <strong> 그 전까지 쓰신 것에는 요금이 붙지 않습니다.</strong>
-              </p>
+          {/* ② 준비 중 — 가격도 날짜도 적지 않는다. 적을 근거가 없다. */}
+          <PlanCard tone="tone-deep-purple [--deep-purple:color-mix(in_srgb,var(--p)_70%,var(--deep-ink))]" tab="준비 중" spot="spot-locked">
+            <h2 className="break-keep font-serif text-[24px] font-[700]">유료 플랜</h2>
+            <p className="mt-1 break-keep font-body text-[14px]">가격도 조건도 아직 정하지 않았습니다.</p>
+            <p className="mt-5 break-keep font-body text-[15px] leading-[1.7]">
+              정해지기 전에는 이 자리에 숫자를 적지 않습니다. 만들게 되면 시작 전에 안내드리고,
+              <strong> 그 전까지 쓰신 것에는 요금이 붙지 않습니다.</strong>
+            </p>
+            <CardAction>
               <a
                 href={`mailto:${CONTACT}?subject=${encodeURIComponent('유료 플랜 소식 받기')}`}
-                className={`${PILL} mt-6 gap-2 border border-[var(--ju)] text-[var(--ju)] hover:bg-[var(--bg2)]`}
+                className={`${PILL} relative gap-2 bg-[var(--ju)] text-[var(--on-ju)] hover:brightness-95`}
               >
                 <Mail size={14} strokeWidth={2.25} aria-hidden />
                 정해지면 알려주세요
               </a>
-              <ul className="mt-6 space-y-3 border-t border-[var(--bd)] pt-6">
-                <li className="break-keep font-display text-[13px] font-[700] tracking-[0.04em]">아직 없는 것</li>
-                {NOT_YET.map((f) => (
-                  <li key={f} className="flex items-start gap-3">
-                    <span className="mt-[8px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ju)]" aria-hidden />
-                    <span className="break-keep font-body text-[14px] leading-relaxed">{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </li>
+            </CardAction>
+            <ul className="space-y-2.5 text-left">
+              <li className="break-keep font-display text-[13px] font-[700] tracking-[0.04em]">아직 없는 것</li>
+              {NOT_YET.map((f) => (
+                <li key={f} className="flex items-start gap-3">
+                  <span className="mt-[8px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ju)]" aria-hidden />
+                  <span className="break-keep font-body text-[14px] leading-relaxed">{f}</span>
+                </li>
+              ))}
+            </ul>
+          </PlanCard>
 
-            {/* ③ 학교·학원 — 지금도 무료로 되는 기능이라 "문의" 는 도입 지원이지 견적이 아니다 */}
-            <li className="flex flex-col rounded-[var(--r-xl)] bg-[var(--bg3)] p-7 text-[var(--ju)]">
-              <h2 className="break-keep font-serif text-[26px] font-[700]">선생님 · 학원</h2>
-              <p className="mt-1 break-keep font-body text-[14px]">학급 기능도 지금은 비용이 없습니다.</p>
-              <p className="mt-6 break-keep font-body text-[15px] leading-[1.7]">
-                학급을 만들고 초대코드를 나눠 주면 학생이 참여하고, 보낸 단어가 학생 단어장으로
-                도착합니다. 반이 여러 개거나 도입 지원이 필요하면 메일로 알려 주세요.
-              </p>
-              {/* ⚠️ `/teacher` 는 보호 라우트다 — 익명 방문자를 그리로 보내면 설명 없이
-                  로그인 폼으로 튕긴다. 되튕김을 예고하며 복귀 경로를 실어 보낸다. */}
-              <Link href="/login?next=%2Fteacher" className={`${PILL} mt-6 border border-[var(--ju)] text-[var(--ju)] hover:bg-[var(--bg2)]`}>
+          {/* ③ 학교·학원 — 지금도 무료로 되는 기능이라 "문의" 는 도입 지원이지 견적이 아니다 */}
+          <PlanCard tone="tone-peach" tab="선생님 · 학원" spot="spot-teacher">
+            <h2 className="break-keep font-serif text-[24px] font-[700]">학급 기능</h2>
+            <p className="mt-1 break-keep font-body text-[14px]">학급 기능도 지금은 비용이 없습니다.</p>
+            <p className="mt-5 break-keep font-body text-[15px] leading-[1.7]">
+              학급을 만들고 초대코드를 나눠 주면 학생이 참여하고, 보낸 단어가 학생 단어장으로
+              도착합니다. 반이 여러 개거나 도입 지원이 필요하면 메일로 알려 주세요.
+            </p>
+            {/* ⚠️ `/teacher` 는 보호 라우트다 — 익명 방문자를 그리로 보내면 설명 없이
+                로그인 폼으로 튕긴다. 되튕김을 예고하며 복귀 경로를 실어 보낸다. */}
+            <CardAction>
+              <Link href="/login?next=%2Fteacher" className={`${PILL} relative bg-[var(--ju)] text-[var(--on-ju)] hover:brightness-110`}>
                 로그인하고 교사 허브 열기
               </Link>
-              <a
-                href={`mailto:${CONTACT}?subject=${encodeURIComponent('학교·학원 도입 문의')}`}
-                className={`mt-2 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full font-display text-[14px] font-[600] underline-offset-4 hover:underline ${FOCUS}`}
-              >
-                <Mail size={14} strokeWidth={2.25} aria-hidden />
-                {CONTACT}
-              </a>
-            </li>
-          </ul>
+            </CardAction>
+            <a
+              href={`mailto:${CONTACT}?subject=${encodeURIComponent('학교·학원 도입 문의')}`}
+              className={`inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-full font-display text-[14px] font-[600] underline-offset-4 hover:underline ${FOCUS}`}
+            >
+              <Mail size={14} strokeWidth={2.25} aria-hidden />
+              {CONTACT}
+            </a>
+          </PlanCard>
+        </ul>
 
-          <p className="mt-8 break-keep text-center font-serif text-[18px]">
-            카드도 계좌도 받지 않습니다 — 받을 화면 자체가 없어요.
-          </p>
+        {/* 참조 고객 로고 흐름 자리 — 실제 콘텐츠 출처 이름. 보라 띠 위라 글자는 크림(--on-ju). */}
+        <div className="mt-8 [--ju:var(--on-ju)]">
+          <SourceMarquee label="읽을거리를 가져오는 곳" names={CONTENT_SOURCES} />
         </div>
+
+        {/* 참조 접힌 모서리 인용 카드 자리 — 지어낸 추천사 대신 이 화면이 지키는 약속 */}
+        <figure className={`${WRAP} relative mt-20`}>
+          <div className="relative mx-auto max-w-[940px]">
+            <span aria-hidden className="absolute -left-[5%] -top-6 bottom-6 w-[30%] rounded-[12px] bg-[color-mix(in_srgb,var(--p)_45%,var(--ju))] [clip-path:polygon(0_0,55%_0,100%_18px,100%_100%,0_100%)]" />
+            <div className="relative rounded-[12px] border border-[color-mix(in_srgb,var(--on-ju)_20%,transparent)] bg-[color-mix(in_srgb,var(--p)_70%,var(--deep-ink))] px-8 py-10 text-[var(--on-deep)] md:px-12 md:py-12">
+              <span aria-hidden className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--on-deep)_14%,transparent)] font-serif text-[22px]">&ldquo;</span>
+              <blockquote className="mt-6 break-keep font-serif text-[24px] leading-[1.4] md:text-[32px]">
+                카드도 계좌도 받지 않습니다 — 받을 화면 자체가 없어요. 유료 플랜을 만들게 되면 시작 전에 알리고, 그 전까지 쓰신 것에는 요금을 붙이지 않습니다.
+              </blockquote>
+              <figcaption className="mt-6 font-display text-[13.5px] font-[700]">Vocaflow 요금 약속</figcaption>
+            </div>
+          </div>
+        </figure>
       </section>
 
       {/* ── 이 제품만 하는 것 ──
