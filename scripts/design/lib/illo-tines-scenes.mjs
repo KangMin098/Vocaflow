@@ -43,13 +43,6 @@ export const SCENES = [
   { id: 'spot-comic', size: '1328*1328', style: STYLE_OBJECT, scene: 'A small stack of three vintage comic books with blank covers and a round paintbrush on top.' },
   // ── 2회차(2026-09-21) — 매핑 §2 · §5 가 필요로 하는 자리 ──
   // 장면(폭 전체)
-  { id: 'scene-library', size: '1664*928', style: STYLE_DENSE, scene: 'A tall wooden bookshelf overflowing with books, flowers and vines growing out between the books and spilling onto the floor.' },
-  { id: 'scene-comics', size: '1664*928', style: STYLE_DENSE, scene: 'A spread of vintage comic book pages with empty panels and blank speech bubbles, a paintbrush and paint pots, floral vines curling through the panels.' },
-  { id: 'scene-csat', size: '1664*928', style: STYLE_DENSE, scene: 'A school exam desk seen from above: a blank answer sheet with empty bubble rows, two pencils, an eraser and a round clock, a border of dense flowers around the desk.' },
-  { id: 'scene-teacher', size: '1664*928', style: STYLE_DENSE, scene: 'A friendly classroom: a blank chalkboard, a teacher desk with a stack of notebooks and an apple, small student desks, potted flowers on every windowsill.' },
-  { id: 'scene-video', size: '1664*928', style: STYLE_DENSE, scene: 'A vintage film projector casting a beam, its film strip unspooling into a river of flowers.' },
-  { id: 'scene-404', size: '1664*928', style: STYLE_DENSE, scene: 'A wooden signpost with several blank arrow signs pointing in different directions, standing in a dense flower meadow.' },
-  { id: 'scene-hub', size: '1664*928', style: STYLE_DENSE, scene: 'A cozy reading desk with a desk lamp, an open notebook, a mug and a small stack of books, surrounded by dense potted flowers.' },
   // 소품(카드 구석)
   { id: 'spot-flashcard', size: '1328*1328', style: STYLE_OBJECT, scene: 'A small stack of blank index cards, the top card mid-flip.' },
   { id: 'spot-spellforge', size: '1328*1328', style: STYLE_OBJECT, scene: 'A small blacksmith anvil with two blank square letter tiles on it and a little hammer.' },
@@ -62,9 +55,7 @@ export const SCENES = [
   { id: 'spot-empty-vault', size: '1328*1328', style: STYLE_OBJECT, scene: 'An empty round glass jar with a cork lid and a single seed lying at the bottom.' },
   { id: 'spot-review-done', size: '1328*1328', style: STYLE_OBJECT, scene: 'A round rubber stamp next to a blank index card with a big check mark shape.' },
   { id: 'spot-search', size: '1328*1328', style: STYLE_OBJECT, scene: 'A magnifying glass hovering over a single blank index card.' },
-  // 카드 머리
-  { id: 'card-books', size: '1472*1140', style: STYLE_HEADER, key: false, scene: 'A row of classic hardcover books standing upright, their spines decorated with flowers.' },
-  { id: 'card-vocab', size: '1472*1140', style: STYLE_HEADER, key: false, scene: 'A garden bed where blank square word tiles grow like flowers on stems.' },
+  // 패턴
   // 패턴 타일
   { id: 'pattern-kaleido-1', size: '1328*1328', style: STYLE_PATTERN, key: false, scene: 'Kaleidoscope rosette pattern, violet and mint dominant.' },
   { id: 'pattern-kaleido-2', size: '1328*1328', style: STYLE_PATTERN, key: false, scene: 'Kaleidoscope rosette pattern, pink and peach dominant.' },
@@ -112,9 +103,21 @@ export const SCENES = [
   { id: 'spot-cat-business', size: '1328*1328', style: STYLE_OBJECT, scene: 'A single chunky leather briefcase with a gold clasp, standing upright.' },
   { id: 'spot-cat-theme', size: '1328*1328', style: STYLE_OBJECT, scene: 'A folded map with three round map pins stuck in it.' },
   { id: 'spot-settings', size: '1328*1328', style: STYLE_OBJECT, scene: 'A chunky gear with a small wrench crossing it.' },
+  // ── 5회차 — 공개 페이지 머리 타일(참조: 꽃무늬는 홈 전용, 나머지 머리는 진한 면 타일 — tines-mapping §20) ──
+  { id: 'tile-video', size: '1328*1328', style: STYLE_TILE(TILE_BG.purple), key: false, scene: 'A chunky vintage film projector with two film reels on top, a soft cone of light beaming forward.' },
+  { id: 'tile-about', size: '1328*1328', style: STYLE_TILE(TILE_BG.green), key: false, scene: 'An open book standing on its spine with a glowing light bulb rising out of the pages.' },
   // ── 3회차 — 흩어진 물건 띠(마감 CTA 둘레, 참조 1240×540) ──
   { id: 'band-scatter', size: '1664*928', style: STYLE_SCATTER, scene: 'Learning objects floating around an empty centre.' },
   { id: 'spot-quiz', size: '1328*1328', style: STYLE_OBJECT, scene: 'A sharpened pencil lying across a blank index card with three empty round checkboxes.' },
+  // ── 5회차(Kaggle) — 기출 출제 패턴 소품(`lib/csat/pattern-art.ts` · tines-mapping §20). 패턴의 설계를 물건 은유로 ──
+  { id: 'spot-pat-negate', size: '1328*1328', style: STYLE_OBJECT, scene: 'A chunky wooden signpost with two blank arrow signs pointing in exactly opposite directions.' },
+  { id: 'spot-pat-restate', size: '1328*1328', style: STYLE_OBJECT, scene: 'Two blank speech bubbles of the same shape, a large one and a smaller copy echoing it, with a small curved arrow between them.' },
+  { id: 'spot-pat-examples', size: '1328*1328', style: STYLE_OBJECT, scene: 'One large blank card standing upright with three small blank cards fanned out in front of it.' },
+  { id: 'spot-pat-purpose', size: '1328*1328', style: STYLE_OBJECT, scene: 'A round archery target on a small stand with one arrow stuck in the bullseye.' },
+  { id: 'spot-pat-condition', size: '1328*1328', style: STYLE_OBJECT, scene: 'A chunky key lying next to an open padlock.' },
+  { id: 'spot-pat-direction', size: '1328*1328', style: STYLE_OBJECT, scene: 'A round brass compass with a blank dial and a diamond-shaped needle.' },
+  { id: 'spot-pat-trade', size: '1328*1328', style: STYLE_OBJECT, scene: 'A small balance scale with one blank cube on each pan, perfectly level.' },
+  { id: 'spot-pat-contrast', size: '1328*1328', style: STYLE_OBJECT, scene: 'A chunky seesaw with a big square block on one end and a small round ball on the other end.' },
 ]
 
 

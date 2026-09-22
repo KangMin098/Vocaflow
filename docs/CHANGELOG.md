@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **꽃무늬 홈 전용화**(DD-68 · tines-mapping §20): 끝 CTA → 흩어진 물건 띠 `ScatterCta`(FlowerCta 삭제) · /video · /about 머리 타일(Kaggle, 안쪽 액자 자동 자르기) · 꽃 장면·카드 머리 9점 삭제 · 단어장 분류 탭 소품.
+
 - **Kaggle 무료 GPU 삽화 경로 + 목록 소품 17**(DD-68 · tines-mapping §18): `scripts/design/illo-kaggle.mjs`(T4 + Qwen-Image GGUF Q3 + Lightning 4-step, REST 자동 · 모델 Dataset 연결 · `--variants` 투명 비율 자동 선택) · 화풍·장면 단일 출처 `lib/illo-tines-scenes.mjs`(DashScope 생성기와 공유). 기사 주제 행 · 단어장 분류 격자 · 404(떠오르는 책) · 가입/로그인(열린 문) · 계획(달력) · 설정 레일 아이콘.
 
 - **`/hub` 플랫폼 메인 재설계**: 「오늘의 무대」 한 장 → 포털 메인(배너 캐러셀 `PortalHero` + 「나의 오늘」 패널 + 바로 가기 + 새 고전 선반 + 홍보 격자 + 읽을거리 + 아케이드 띠 + 목적별 단어장 + 서가 규모). 데이터 `lib/learner/hub-portal-query.ts`(발행 게이트 · 못 센 수는 숨김) · 부품 `components/hub/portal/*` · 이벤트 `hub_promo_clicked` · `hub_hero_moved` + 마이그레이션 `20260922090000_funnel_allow_hub_portal`(적용 · DB `20260922004102`) · e2e 23 을 포털 계약 3개로 교체.

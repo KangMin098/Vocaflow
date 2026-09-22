@@ -374,3 +374,11 @@ DashScope 무료 한도(100장)를 다 써서 **Kaggle T4 + Qwen-Image GGUF Q3 +
 - 확인: 1440 · 390 × 라이트 · 다크 axe 위반 0 · 가로 넘침 0 · 1440 시작 버튼 y 300 · 탭 전환 · 필터 빈 상태.
 
 **내 공식 `/csat/formulas`** — 참조 사례 상세(하이라이트 수치 히어로 → 본문) 골격: 히어로(눈썹 알약 · 세리프 h1 · 오른쪽 spot-vault) → 강조 수치 3칸(라벤더 공식 수 · 초록 적중률 · 살구 함정 계열 커버리지 + 막대 — 390 에서도 3열) → 유형별 계보 카드(`details open` · 공식 행 펼침 · 출처 알약 · 「이 공식으로 해부하기」). 빈 상태는 `SpotState`(empty-vault). 셸 머리띠 제외 · 판면 60rem. 확인: 1440 · 390 × 빈/채움 × 라이트/다크 axe 0 · 넘침 0(채움은 기기 저장소에 표본 기록을 넣고 찍은 뒤 지웠다).
+
+## 20. 꽃무늬는 홈 전용 — 남은 장면 교체 · 끝 CTA (2026-09-22)
+
+- **끝 CTA = 흩어진 물건 띠**(`site/ScatterCta` — 참조 「Built by you, powered by Tines」): 폭 전체 `band-scatter` 한가운데 크림 카드(로고 · 세리프 제목 · 알약 둘 · 「이미 계정이 있나요? 로그인」). 공개 레이아웃 꼬리(`MarketingTail`)가 쓴다. 꽃밭 CTA(`FlowerCta`)는 지웠다 — 랜딩은 자기 꽃밭 구간을 따로 갖는다.
+- **머리 타일**: `/video` 꽃 장면 → `tile-video`(영사기, 보라) · `/about` 영상 없을 때의 대체 그림 → `tile-about`(전구 꽂힌 책, 초록). Kaggle 생성.
+- Kaggle 타일은 안쪽에 둥근 테두리 액자를 한 겹 더 그린다(앱 아이콘 모양) → `illo-kaggle.mjs` 후처리가 `tile-*` 를 사방 10% 잘라 면이 가장자리까지 차게 한다.
+- 안 쓰게 된 2회차 꽃 장면 · 카드 머리 9점 삭제(scene-hub · 404 · library · comics · csat · teacher · video · card-books · card-vocab)와 생성기 목록에서 제거(남기면 다시 만든다).
+- 단어장 표지 넘기기의 분류 탭에도 분류 소품(24px) + 알약 모양.

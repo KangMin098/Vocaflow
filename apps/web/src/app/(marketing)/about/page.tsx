@@ -71,7 +71,7 @@ export default function AboutPage() {
             {intro ? (
               <ComponentVideo video={intro} />
             ) : (
-              <Image src="/illustrations/tines/hero-book-field.webp" alt="" width={1664} height={928} priority sizes="(min-width: 1024px) 50vw, 100vw" className="h-auto w-full" />
+              <Image src="/illustrations/tines/tile-about.webp" alt="" width={1328} height={1328} priority sizes="(min-width: 1024px) 50vw, 100vw" className="h-auto w-full" />
             )}
           </Frame>
         }

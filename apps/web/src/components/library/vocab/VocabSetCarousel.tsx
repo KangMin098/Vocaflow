@@ -9,6 +9,7 @@
 
 'use client'
 
+import Image from 'next/image'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Check, Eye, Loader2, Plus } from 'lucide-react'
@@ -230,7 +231,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
               // **비활성 칩도 자기 유형 색을 입는다.** 활성 하나만 칠하면 나머지 일곱은
               //   전부 같은 회색이라, 여덟 유형이 한자리에 보이는 이 유일한 줄이
               //   "고를 것이 하나" 처럼 읽힌다(실측 2026-09-01 — 표지는 한 번에 한 유형만 뜬다).
-              className={`inline-flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap rounded-[var(--r-sm)] px-4 py-2 font-display text-[13px] font-[700] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] ${
+              className={`inline-flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap rounded-full py-2 pl-2.5 pr-4 font-display text-[13px] font-[700] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] ${
                 isActive ? '' : 'hover:brightness-[0.97]'
               }`}
               style={
@@ -241,9 +242,13 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
                   : { backgroundColor: cc.tint, color: cc.ink }
               }
             >
+              {/* DD-68 · tines-mapping §18 — 분류 소품(참조 칩 앞 아이콘 자리). 소품이 없는 분류는 글자만 */}
+              {'spot' in c && (
+                <Image src={`/illustrations/tines/${c.spot}.webp`} alt="" width={64} height={64} className="h-6 w-6 shrink-0 select-none" />
+              )}
               {c.label}
               <span
-                className={`rounded-[var(--r-sm)] px-1.5 font-mono text-[10px] tabular-nums ${
+                className={`rounded-full px-1.5 font-mono text-[10px] tabular-nums ${
                   // ⚠️ 흰 막은 강조색 바탕을 **밝혀서** 그 위의 흰 글자를 깎는다
                   //    (실측 2026-08-22: 3.34:1). 같은 분리감을 어둡히는 쪽으로 낸다.
                   isActive ? 'bg-black/25' : 'bg-black/[0.07]'

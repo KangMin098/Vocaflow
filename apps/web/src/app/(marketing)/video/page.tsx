@@ -39,7 +39,8 @@ export default function VideoIndexPage() {
         kicker="영상"
         title={<>읽는 대신<br />봅니다.</>}
         sub="모든 수치는 화면에 출처가 함께 나옵니다."
-        media={<Image src="/illustrations/tines/scene-video.webp" alt="" width={1664} height={928} priority sizes="(min-width: 1024px) 50vw, 100vw" className="h-auto w-full" />}
+        // 참조 머리 그림 = 진한 면 정사각 타일(꽃무늬는 홈 전용 — tines-mapping §20)
+        media={<Image src="/illustrations/tines/tile-video.webp" alt="" width={1328} height={1328} priority sizes="(min-width: 1024px) 460px, 80vw" className="mx-auto h-auto w-full max-w-[460px] rounded-[var(--r-2xl)]" />}
       />
 
       {!VIDEO_PUBLISHED || total === 0 ? (
