@@ -123,7 +123,7 @@ test.describe('UI 스모크 — 학습자 주요 화면', () => {
     expect(fatal, `console errors: ${fatal.join(' | ')}`).toHaveLength(0);
   });
 
-  // 모바일 전역 내비 — 설계안 실측 "모바일 전역 내비 링크 **0개**"(사이드바는 hidden md:flex)
+  // 모바일 전역 내비 — 설계안 실측 "모바일 전역 내비 링크 **0개**"(데스크톱 셸은 hidden md:block)
   // 를 닫은 것이다. 좁은 화면에서 링크를 타고 들어가면 되돌아 나올 길이 없었다.
   test('모바일 폭에서 하단 탭으로 4 표면에 갈 수 있다', async ({ page }) => {
     test.setTimeout(120_000);

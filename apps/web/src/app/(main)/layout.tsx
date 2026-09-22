@@ -15,7 +15,7 @@ import { MobileTabBar } from '@/components/layout/MobileTabBar'
 import { MobileUtilityBar } from '@/components/layout/MobileUtilityBar'
 import { ModuleBanner } from '@/components/layout/ModuleBanner'
 import { SessionFrame } from '@/components/layout/SessionFrame'
-import { Sidebar } from '@/components/layout/Sidebar'
+import { AppHeader } from '@/components/layout/AppHeader'
 import { CompassRibbon } from '@/components/layout/CompassRibbon'
 import { computeTodayStatus } from '@/lib/learner/today-status'
 import { fetchWayfinder } from '@/lib/learner/wayfinder-query'
@@ -28,7 +28,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
   const wayfinder = await fetchWayfinder()
 
   return (
-    <div className="flex min-h-screen bg-[var(--bg2)]">
+    <div className="flex min-h-screen flex-col bg-[var(--bg2)]">
       {/*
         건너뛰기 링크 — **키보드만 쓰는 학습자의 첫 번째 문.**
 
@@ -50,9 +50,11 @@ export default async function MainLayout({ children }: { children: React.ReactNo
       <GlobalBodyReset />
       {/* 화면 진입 계측(D2) — 화면마다 심지 않고 셸 한 곳에서 경로 변경을 듣는다. */}
       <ScreenViewTracker group="main" />
-      <Sidebar />
+      {/* 주 메뉴 — v08.6 부터 **상단 막대 + 메가메뉴**다(왼쪽 240px 레일 폐지 · DD-68 §27).
+          IA 정본은 그대로 `sidebar-config.ts` 이고, 배치만 `top-nav-data.ts` 가 맡는다. */}
+      <AppHeader />
       <div className="flex min-w-0 flex-1 flex-col">
-        {/* 레일 밖 유틸리티(Class·Settings)의 모바일 유일 통로 — 사이드바는 `hidden md:flex` 라
+        {/* 레일 밖 유틸리티(Class·Settings)의 모바일 유일 통로 — 상단 막대는 `hidden md:block` 이라
             폰에서는 이 줄이 없으면 두 화면으로 가는 길이 아예 없다. 상태 띠 위에 둔다:
             띠 안에 넣으면 ADR 0006 D2(띠는 상태 표면 하나)가 되돌아간다. */}
         <MobileUtilityBar signedIn={wayfinder !== null} />

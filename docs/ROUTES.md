@@ -27,8 +27,8 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 |---|---|---|---|
 | `(auth)` | `/login` / `/signup` / `/reset-password` / `/verify-email` | 미인증 | 헤더 없음 |
 | `(marketing)` | `/about` / `/fit` / `/fit/s/[payload]` / `/join/[code]` / `/pricing` / `/privacy` / `/terms` / `/video` / `/video/[id]` | 공개 | 랜딩 + 지문 진단 + 학급 초대 + 영상 서가(편별 62) |
-| `(main)` | `/hub` / `/text/*` / `/wordvault/*` 등 | 인증 필요 | Sidebar + FlowNav + SessionFrame |
-| `(app)` | `/play/wordblitz` / `/play/pirate-quest` | 인증 | 풀스크린 (Sidebar X · SessionFrame ✓) |
+| `(main)` | `/hub` / `/text/*` / `/wordvault/*` 등 | 인증 필요 | AppHeader(상단 막대 + 메가메뉴 · v08.6) + CompassRibbon + SessionFrame |
+| `(app)` | `/play/wordblitz` / `/play/pirate-quest` | 인증 | 풀스크린 (셸 메뉴 X · SessionFrame ✓) |
 | `admin/*` | `/admin/*` | admin/curator only | AdminSidebar |
 | `dev/*` | `/dev/components` | 개발 | 카탈로그 |
 | `dev/tts-probe` | `/dev/tts-probe` | 개발 | **강의 TTS 프로브(Gate 0)** — 강의 재생에 쓰는 어댑터·엔진을 그대로 돌려 음성 목록·경계 이벤트·40초 발화·큐 연속 재생·낭독 속도를 잰다. `?auto=1` 이면 열자마자 돌고 `window.__TTS_PROBE__` 에 남긴다(하네스 `scripts/csat-lecture/tts-probe.mts`) |
@@ -56,7 +56,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
-| `/text` | `(main)/text/page.tsx` | 허브 — **My Library**. `?view=books\|scripts\|vocab` 로 세 면(Books·Texts·Decks) 직접 진입 (v08.4 · 사이드바 서브메뉴가 이 주소를 쓴다) |
+| `/text` | `(main)/text/page.tsx` | 허브 — **My Library**. `?view=books\|scripts\|vocab` 로 세 면(Books·Texts·Decks) 직접 진입 (v08.4 · 상단 ① Read 패널이 이 주소를 쓴다) |
 | `/text/new` | `(main)/text/new/page.tsx` | 입력 — 단일 / 책 (챕터별) 모드 (v06.34) |
 | `/text/[id]` | `(main)/text/[id]/page.tsx` + `layout.tsx` | 워크스페이스 (ReadingUniverse + ChapterSidebar) |
 | `/text/[id]/echo` | `(main)/text/[id]/echo/page.tsx` | EchoMatch 따라읽기 (v06.33) |
@@ -69,7 +69,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/library` | `(main)/library/page.tsx` + `layout.tsx` | redirect → `/library/books` |
 | `/library/books` | `(main)/library/books/page.tsx` | 도서 그리드 (BooksExplorer) |
 | `/library/books/[bookId]` | `(main)/library/books/[bookId]/page.tsx` | 도서 상세 |
-| `/comics` | `(main)/comics/page.tsx` + `layout.tsx` | **만화 — 사이드바 Scripts 아래 별도 메뉴**. redirect → `/comics/adapted`. layout 에 ComicsTabs(Book Comics·Vintage Comics) |
+| `/comics` | `(main)/comics/page.tsx` + `layout.tsx` | **만화 — 레일 밖 별도 메뉴**(v08.6 부터 상단 「더 보기」 패널). redirect → `/comics/adapted`. layout 에 ComicsTabs(Book Comics·Vintage Comics) |
 | `/comics/adapted` | `(main)/comics/adapted/page.tsx` | **Book Comics(책 만화 · CCP)** — 라이브러리 도서를 만화로. 발행 카탈로그 + 이어서 보기 (ComicsBrowser) |
 | `/comics/adapted/[bookId]` | `(main)/comics/adapted/[bookId]/page.tsx` | 만화 상세 — 미등록·비로그인 프리뷰 3컷 + 포맷 선택(ComicFormatChoice) |
 | `/comics/restored` | `(main)/comics/restored/page.tsx` | **Vintage Comics(옛 영어 만화책 · PDCP)** — **유형 → 시리즈 2단 서가**. `?series=<key>` 로 시리즈 안 호 목록. 카드마다 콘텐츠 정보 팝업(`ComicInfoDialog`) |
@@ -426,7 +426,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `app/layout.tsx` | Root — fonts + Toast Provider |
 | `app/(auth)/layout.tsx` | 헤더 없음 |
 | `app/(marketing)/layout.tsx` | 랜딩 |
-| `app/(main)/layout.tsx` | Sidebar + FlowNav + SessionFrame 자동 주입 |
+| `app/(main)/layout.tsx` | AppHeader(상단 메뉴) + CompassRibbon + ModuleBanner + SessionFrame 자동 주입 |
 | `app/(main)/dashboard/layout.tsx` | metadata server layout (page.tsx 가 'use client') |
 | `app/(main)/library/layout.tsx` | LibraryTabs (3탭 — 도서/스크립트/공용 단어장) + max-w-wide. 만화는 최상위 `/comics` 로 분리(2026-08-09) |
 | `app/(main)/text/[id]/layout.tsx` | 워크스페이스 RSC — v_text_content fetch + chapter context (library_book_id / user_book_group_id 분기) |
@@ -438,9 +438,9 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 ## 풀스크린 라우트 정책
 
-`isFullScreenRoute(pathname)` (`lib/layout/full-screen-routes.ts`) — Sidebar 와 FlowNav 가 공유:
+`isFullScreenRoute(pathname)` (`lib/layout/full-screen-routes.ts`) — AppHeader · CompassRibbon · MobileTabBar 가 공유:
 
-| 페이지 유형 | URL | Sidebar | FlowNav | SessionFrame |
+| 페이지 유형 | URL | 상단 메뉴 | FlowNav | SessionFrame |
 |---|---|:---:|:---:|:---:|
 | 허브 / 메타 | `/hub`, `/text`, `/wordvault`, `/flashcard` 등 | ✅ | ✅ | ❌ |
 | 워크스페이스 | `/text/[id]` | ✅ (focus 시 dim) | ✅ | ❌ |

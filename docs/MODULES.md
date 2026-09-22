@@ -385,7 +385,7 @@ flush 는 원래 `isComplete` 에만 걸려 있었다. ✕ · Esc · 뒤로가�
 
 ### 라우트
 - `/wordblitz` — Hub
-- `/play/wordblitz` — 풀스크린 (사이드바 X · SessionFrame 자동 주입)
+- `/play/wordblitz` — 풀스크린 (셸 메뉴 X · SessionFrame 자동 주입)
 
 ### 게임 — 속사 인지 (v07 재설계, 2026-07)
 - ko 뜻 프롬프트 → 4개 en 타일(2×2) 중 정답을 탭/키(`1`–`4`)로 선택.
@@ -720,7 +720,7 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ### 라우트
 - `/text/[id]/comic` — ModePills input 그룹 "만화" 진입 (라이브러리 도서 + 발행 만화 존재 시). 없으면 EmptyState.
-- `/comics` — **만화 단일 메뉴**(사이드바 Scripts 그룹 최상위 · `/library` 하위 탭 아님). redirect → `/comics/adapted`. 메뉴 안에서 **출처**로 나뉜다(ComicsTabs):
+- `/comics` — **만화 단일 메뉴**(레일 밖 · 상단 「더 보기」 패널 · `/library` 하위 탭 아님). redirect → `/comics/adapted`. 메뉴 안에서 **출처**로 나뉜다(ComicsTabs):
   - **Adapted `/comics/adapted`** — 도서 각색(CCP). 우리가 가진 원서를 모델로 각색. 카탈로그 + 이어서 보기(`comic_read_progress`). 등록 도서면 리더 직행, 미등록이면 상세로.
   - **Restored `/comics/restored`** — 원본 복원(PDCP). 저작권 만료 만화 원본을 수집·복원. 호 단위 독립 콘텐츠(원작이 만화 자체).
 - `/comics/adapted/[bookId]` — 만화 상세. **미등록·비로그인도 프리뷰 3컷 열람**(아트만 — 정본 대사/vocab 은 리더 자산) + 포맷 선택. 시작 시 `enroll_library_book`(멱등) 후 리더 직행.
@@ -728,7 +728,7 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ### 발견 (v07 CCP × Library — `docs/CCP_LIBRARY_INTEGRATION.md`)
 만화는 **별도 콘텐츠가 아니라 같은 책(Work)의 다른 표현형(Expression)** — 데이터는 `library_books` 앵커, 탐색 UI 만 독립 코너화.
-- **메뉴**: 사이드바 Scripts 그룹의 `Comics`(최상위). 2026-08-09 사용자 결정으로 LibraryTabs 4번째 탭에서 승격 — `/library` 탭은 3탭(도서/스크립트/공용 단어장)으로 복귀. 만화 액센트 = gold `--active`.
+- **메뉴**: 상단 「더 보기」 패널의 `Comics` 틀(레일 밖 · v08.6 이전에는 사이드바 최상위). 2026-08-09 사용자 결정으로 LibraryTabs 4번째 탭에서 승격 — `/library` 탭은 3탭(도서/스크립트/공용 단어장)으로 복귀. 만화 액센트 = gold `--active`.
 - **포맷 facet**: 장르 축과 직교. `BookFilterBar` "포맷" 구획(만화/원어민 음성) + QuickPick "만화로" + `BookGridCard` 배지(아이콘+sr-only).
 - **선택**: `NetflixDetailSheet` 도서 상세에 gold 보조 CTA(만화로 읽기 / 만화 미리보기) + 만화 상세의 `ComicFormatChoice`(만화/원문/듣기 3카드, **권장 1개만** "지금 추천").
 - **처방**: `lib/comic/prescribe.ts` — 이어보기 > 복습 > 난이도 > 미진단 순. 적정 난이도(ideal)에선 **본문을 권장**(만화는 스캐폴드).
@@ -758,7 +758,7 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 검증된 인디 게임 원형으로 훈련. 모듈이 아니라 **모듈 위에 얹히는 놀이 표면**.
 
 ### 라우트
-- `(main)/arcade` — 허브 (Sidebar Practice 그룹 등재 · `/hub` ArcadeEntryCard)
+- `(main)/arcade` — 허브 (상단 ③ Practice 패널의 Game Lab 카드 · `/hub` ArcadeEntryCard)
 - `(app)/play/<slug>` — 게임 본체 19종 (풀스크린 · SessionFrame 자동 주입)
 
 ### 카탈로그 SSoT — `lib/game/catalog.tsx`
@@ -1117,7 +1117,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 단어 모험 3D 게임 (R3F · @react-three/fiber + drei). 아케이드 카탈로그 `source: bank` · `beta`.
 
 ### 라우트
-- `/play/pirate-quest` — 풀스크린 (사이드바 X · SessionFrame ✓ · 복귀 `/arcade`)
+- `/play/pirate-quest` — 풀스크린 (셸 메뉴 X · SessionFrame ✓ · 복귀 `/arcade`)
 
 ### 컴포넌트 (`components/pirate-quest/`)
 - `PirateQuestGame.tsx` / `PirateQuestUI.tsx` / `PirateQuestUI.css`

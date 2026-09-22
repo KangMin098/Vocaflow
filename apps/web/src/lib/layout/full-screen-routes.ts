@@ -1,6 +1,6 @@
 // apps/web/src/lib/layout/full-screen-routes.ts
 //
-// 풀스크린 (= 사이드바 + FlowNav 둘 다 숨김) 라우트 판정.
+// 풀스크린 (= 셸 메뉴 + 나침반 띠 + 하단 탭 전부 숨김) 라우트 판정.
 // 학습 세션 진입 시 working memory 보호(Sweller) — Calm UI 정합.
 //
 // ── 왜 패턴을 걷어냈나 (v08.6) ─────────────────────────────────────
@@ -10,14 +10,14 @@
 // 모양에 걸려 있었다**:
 //   · `/notes/play` 같은 무관한 라우트가 생기는 순간 조용히 풀스크린이 된다
 //   · 규약 밖에 놓인 세션(예: `/dictate/session`)은 매번 여기에 손으로 추가해야 한다
-//     — 실제로 그렇게 쌓였고, 빠뜨리면 세션이 사이드바를 달고 뜬다
+//     — 실제로 그렇게 쌓였고, 빠뜨리면 세션이 셸 메뉴를 달고 뜬다
 //
 // 경로는 **선언의 대상이지 추측의 대상이 아니다.** 활동의 정본은
 // `lib/framework/registry` 의 `route.fullScreen` 이고, 이 파일은 그 선언을 그대로 옮긴 목록이다.
 //
 // 왜 레지스트리를 import 하지 않는가:
 //   레지스트리는 `game/catalog` 를 거쳐 `GAME_MARKS`(ReactNode)까지 끌고 온다.
-//   사이드바·FlowNav·SessionFrame 이 그것을 import 하면 그 JSX 가 전 화면 번들에 딸려 온다.
+//   AppHeader·SessionFrame 이 그것을 import 하면 그 JSX 가 전 화면 번들에 딸려 온다.
 //   그래서 목록은 여기 손으로 두고, **드리프트는 단위 테스트가 막는다** —
 //   `framework.test.ts` 가 `fullScreenActivityPaths()` 와 이 목록을 대조한다.
 //   목록을 고치면 테스트가 같이 빨개진다.
@@ -67,7 +67,7 @@ const NON_ACTIVITY_FULL_SCREEN: ReadonlySet<string> = new Set([
 // 비포함 (의도적):
 //   - /text/[id]          : 자체 Focus Mode(30초 무활동) 보유
 //   - /text/[id]/echo     : 워크스페이스 안에서 열린다(registry: fullScreen false)
-//   - /dictate/setup      : 설정 단계, 사이드바 유지가 효율적
+//   - /dictate/setup      : 설정 단계, 셸 메뉴 유지가 효율적
 //   - /dictate/results    : 결과 검토, 다음 모듈 이동 빈번
 //   - /text/new           : 입력 양식, 라이브러리 전환 유도
 //   - /wordvault?view=*   : 쿼리 파라미터, 같은 hub 라우트

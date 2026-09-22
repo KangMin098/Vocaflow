@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **학습자 셸 — 왼쪽 레일 → 상단 막대 + 메가메뉴**(DD-68 · tines-mapping §27): `components/layout/Sidebar.tsx` 삭제, `AppHeader`(막대 60px + 메가메뉴 3) · `top-nav-data.ts`(배치 · 카드 면 색은 `route-art` 범주 색) · `nav-match.ts`(구체성 점수로 현재 위치 표식 하나) 신설. IA 정본은 `sidebar-config.ts` 그대로 — 흐름 다섯 단계가 번호 배지 + 실선 조각으로 가로로 이어지고, 서가 네 면 · 내 라이브러리 네 면은 ① Read 패널 하나에서 한 번에 열린다(셰브런 사라짐). 만화 · 기출 · 학급 · 설정 · 사이트맵은 「더 보기」 패널. 모바일 셸은 그대로(레일도 데스크톱 전용이었다). 회귀 `layout/__tests__/top-nav.test.tsx` 21건 신설 + e2e 09 · 11 · 12 갱신.
 - **해설 극장 설계**(문서만): `/csat/dissect` 의 분석 읽기를 왼쪽 사고 과정 레일 · 오른쪽 원문/부가 정보 두 판 · 바닥 장 카드의 순차 표출로 재설계. 큐 계약(한 큐 = 단계 1 + 블록 1 + 하이라이트 1) · 상영 중 되묻기 1회 · 효과음 6종(배경음 없음). 정본 [analysis-theater.md](./csat-learner/analysis-theater.md) · 결정 [csat-learner/DECISIONS.md](./csat-learner/DECISIONS.md) 2026-09-23.
 - **/fit 에 쓰는 법 세 단계**(DD-68 · tines-mapping §26): 참조 「How it works」 패널 — 살구 면 + 단계마다 소품(붙여넣기 · 학년 고르기 · 한 장 받기). 공개 관문이 소품 0 · 색 면 0이었다.
 - **점 격자 질감 + 항목마다 다른 면 색**(DD-68 · tines-mapping §25): `.dots` 유틸 · 기사 주제 줄이 `TINT_ROTATION` 으로 색을 돌린다(호버·초점도 면 색을 따른다).

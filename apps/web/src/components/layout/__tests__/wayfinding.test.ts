@@ -103,7 +103,7 @@ const allNavItems: NavItem[] = [
 const under = (pathname: string, prefix: string) =>
   pathname === prefix || pathname.startsWith(`${prefix}/`)
 
-/** 사이드바가 이 경로에서 켜지는가 (자기 href 또는 owns). */
+/** 데스크톱 셸(상단 메뉴)이 이 경로에서 켜지는가 (자기 href 또는 owns). */
 function sidebarCovers(route: string): boolean {
   return allNavItems.some(
     (i) => under(route, i.href.split('?')[0]) || (i.owns ?? []).some((p) => under(route, p)),
@@ -127,11 +127,11 @@ describe('위치 표시 — 모든 학습자 화면에 소유자가 있다', () 
     expect(routes.length).toBeGreaterThan(20)
   })
 
-  it('데스크톱 — 사이드바의 어느 항목이 켜진다', () => {
+  it('데스크톱 — 셸 메뉴의 어느 항목이 켜진다', () => {
     const orphans = routes.filter((r) => !sidebarCovers(r))
     expect(
       orphans,
-      '이 화면들에서는 사이드바 어느 항목에도 aria-current 가 붙지 않는다 — ' +
+      '이 화면들에서는 셸 메뉴 어느 항목에도 aria-current 가 붙지 않는다 — ' +
         'sidebar-config.ts 의 알맞은 항목에 owns 를 더할 것',
     ).toEqual([])
   })
@@ -140,12 +140,12 @@ describe('위치 표시 — 모든 학습자 화면에 소유자가 있다', () 
     const orphans = routes.filter((r) => !TABBAR_EXEMPT.has(r) && !tabBarCovers(r))
     expect(
       orphans,
-      '이 화면들에서는 하단 탭이 전부 꺼진다(모바일에는 사이드바가 없다) — ' +
+      '이 화면들에서는 하단 탭이 전부 꺼진다(모바일에는 셸 메뉴가 없다) — ' +
         'axes.ts SURFACES 의 알맞은 표면에 owns 를 더할 것',
     ).toEqual([])
   })
 
-  it('사이드바 owns 는 다른 항목의 href 를 가로채지 않는다', () => {
+  it('owns 는 다른 항목의 href 를 가로채지 않는다', () => {
     const hrefs = allNavItems.map((i) => i.href.split('?')[0])
     for (const item of allNavItems) {
       for (const p of item.owns ?? []) {
