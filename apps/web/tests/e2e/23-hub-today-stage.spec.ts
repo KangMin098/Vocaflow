@@ -6,7 +6,7 @@
 //   ① 홍보 면의 책은 **실제 발행 도서**다 — 홍보 자리는 지어낸 표지·제목이 들어가기 가장 쉬운 곳이다.
 //   ② 「오늘」 정의는 하나 — 배너 옆 패널의 흐름 진행이 셸 띠와 같다(v06.108 META Opt A).
 //      패널은 같은 모델(`buildWayfinder`)을 읽으므로, 둘이 다르면 누군가 모델을 하나 더 만든 것이다.
-//   ③ 자동으로 넘어가는 배너에는 멈춤 단추가 있다(WCAG 2.2.2).
+//   ③ 흐르는 제목 줄(참조 로고 줄 자리)에는 멈춤 단추가 있고, 누르면 실제로 멈춘다(WCAG 2.2.2).
 
 import { test, expect, type Page } from '@playwright/test'
 
@@ -69,10 +69,13 @@ test.describe('플랫폼 메인 — /hub', () => {
     expect(`${a![1]}/${a![2]}`).toBe(`${b![1]}/${b![2]}`)
   })
 
-  test('③ 배너에는 멈춤 단추가 있다', async ({ page }) => {
+  test('③ 흐르는 제목 줄에는 멈춤 단추가 있고, 누르면 멈춘다', async ({ page }) => {
     await page.goto('/hub', { waitUntil: 'domcontentloaded' })
-    const carousel = page.locator('[aria-roledescription="carousel"]')
-    await expect(carousel).toBeVisible({ timeout: 30_000 })
-    await expect(carousel.getByRole('button', { name: /자동 넘김/ })).toBeVisible()
+    const pause = page.getByRole('button', { name: '제목 흐름 멈추기' })
+    await expect(pause).toBeVisible({ timeout: 30_000 })
+    await pause.click()
+    const state = await page.locator('.hub-mq').evaluate((el) => getComputedStyle(el).animationPlayState)
+    expect(state).toBe('paused')
+    await expect(page.getByRole('button', { name: '제목 흐름 다시 켜기' })).toHaveAttribute('aria-pressed', 'true')
   })
 })

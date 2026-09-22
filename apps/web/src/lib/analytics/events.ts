@@ -125,7 +125,11 @@ export type PublicEvent =
       name: 'hub_promo_clicked'
       props: { slot: 'hero' | 'panel' | 'quick' | 'shelf' | 'bento' | 'reading' | 'arcade' | 'vocab'; index: number }
     }
-  /** 메인 배너를 **사람이** 넘겼다(자동 넘김은 세지 않는다). `index` 는 도착한 장. */
+  /**
+   * 메인 배너를 **사람이** 넘겼다(자동 넘김은 세지 않는다). `index` 는 도착한 장.
+   * 은퇴(2026-09-22 재설계 2회차) — 배너 캐러셀을 참조 홈 골격으로 바꾸며 걷었다. 보내는 곳 0.
+   * DB 허용 목록에는 남긴다(이미 쌓인 행을 읽는 쪽이 이름을 안다).
+   */
   | { name: 'hub_hero_moved'; props: { index: number; via: 'dot' | 'arrow' } }
   /**
    * 셸의 「나의 자리」 패널을 폈다 — **셸 두 번째 층이 실제로 쓰이는가.**

@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- **`/hub` 2회차 — 참조 홈 골격으로**(tines-mapping §21): 1회차 포털 문법(자동 넘김 배너 · 원형 바로 가기 · 크기 다른 칸 격자)을 걷고 참조 홈 띠 순서로 — 히어로 → 흐르는 고전 제목 줄 → 제품 액자(오늘의 흐름 · KPI · 기억 도넛 · 예보 · 새 고전 표) → 색 탭 5 → 보라 통판 → 읽을거리 → WHY 카드 4 → 흩어진 물건 CTA. 구획 156px · 그림자 0 · 모노 13px 눈썹 · 56px/400 제목 + 세리프 24px 부제. `PortalHero` 삭제 · `TitleMarquee` 신설 · `hub_hero_moved` 은퇴(허용 목록엔 남김) · e2e 23-③ 을 제목 줄 멈춤으로.
+
 - **꽃무늬 홈 전용화**(DD-68 · tines-mapping §20): 끝 CTA → 흩어진 물건 띠 `ScatterCta`(FlowerCta 삭제) · /video · /about 머리 타일(Kaggle, 안쪽 액자 자동 자르기) · 꽃 장면·카드 머리 9점 삭제 · 단어장 분류 탭 소품.
 
 - **Kaggle 무료 GPU 삽화 경로 + 목록 소품 17**(DD-68 · tines-mapping §18): `scripts/design/illo-kaggle.mjs`(T4 + Qwen-Image GGUF Q3 + Lightning 4-step, REST 자동 · 모델 Dataset 연결 · `--variants` 투명 비율 자동 선택) · 화풍·장면 단일 출처 `lib/illo-tines-scenes.mjs`(DashScope 생성기와 공유). 기사 주제 행 · 단어장 분류 격자 · 404(떠오르는 책) · 가입/로그인(열린 문) · 계획(달력) · 설정 레일 아이콘.
