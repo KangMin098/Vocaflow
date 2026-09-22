@@ -115,6 +115,19 @@ export type PublicEvent =
    */
   | { name: 'landing_section_reached'; props: { section: 'demo' | 'differentiators' | 'doors' } }
   /**
+   * 플랫폼 메인(`/hub`, 2026-09-22 재설계)의 홍보 면을 눌렀다 — **어느 면이 사람을 보내는가.**
+   *
+   * 메인이 「오늘의 무대」 한 장에서 홍보 면 여럿으로 바뀌었다. 면이 늘어난 만큼, 쓰이지 않는 면을
+   * 걷어 낼 근거가 필요하다. 진입은 `screen_viewed`(hub)가 이미 세므로 여기서는 나가는 쪽만 센다.
+   * `index` 는 그 면 안의 순번(0부터) — 무엇을 눌렀는지는 순번으로 충분하다(제목은 자유 문자열이다).
+   */
+  | {
+      name: 'hub_promo_clicked'
+      props: { slot: 'hero' | 'panel' | 'quick' | 'shelf' | 'bento' | 'reading' | 'arcade' | 'vocab'; index: number }
+    }
+  /** 메인 배너를 **사람이** 넘겼다(자동 넘김은 세지 않는다). `index` 는 도착한 장. */
+  | { name: 'hub_hero_moved'; props: { index: number; via: 'dot' | 'arrow' } }
+  /**
    * 셸의 「나의 자리」 패널을 폈다 — **셸 두 번째 층이 실제로 쓰이는가.**
    *
    * 이 파일은 원래 공개 퍼널용이지만, 이 둘은 같은 계약(숫자·불리언·닫힌 열거형)을 지키고
@@ -411,6 +424,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   volume_previewed: true,
   landing_demo_moved: true,
   landing_section_reached: true,
+  hub_promo_clicked: true,
+  hub_hero_moved: true,
   wayfinder_opened: true,
   wayfinder_cta_clicked: true,
   csat_evidence_opened: true,

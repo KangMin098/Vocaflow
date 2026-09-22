@@ -11,7 +11,7 @@
 
 - **Kaggle 무료 GPU 삽화 경로 + 목록 소품 17**(DD-68 · tines-mapping §18): `scripts/design/illo-kaggle.mjs`(T4 + Qwen-Image GGUF Q3 + Lightning 4-step, REST 자동 · 모델 Dataset 연결 · `--variants` 투명 비율 자동 선택) · 화풍·장면 단일 출처 `lib/illo-tines-scenes.mjs`(DashScope 생성기와 공유). 기사 주제 행 · 단어장 분류 격자 · 404(떠오르는 책) · 가입/로그인(열린 문) · 계획(달력) · 설정 레일 아이콘.
 
-- **`/hub` 플랫폼 메인 재설계**: 「오늘의 무대」 한 장 → 포털 메인(배너 캐러셀 `PortalHero` + 「나의 오늘」 패널 + 바로 가기 + 새 고전 선반 + 홍보 격자 + 읽을거리 + 아케이드 띠 + 목적별 단어장 + 서가 규모). 데이터 `lib/learner/hub-portal-query.ts`(발행 게이트 · 못 센 수는 숨김) · 부품 `components/hub/portal/*` · 이벤트 `hub_promo_clicked` · `hub_hero_moved` + 마이그레이션 `20260922090000_funnel_allow_hub_portal`(**적용 대기**) · e2e 23 을 포털 계약 3개로 교체.
+- **`/hub` 플랫폼 메인 재설계**: 「오늘의 무대」 한 장 → 포털 메인(배너 캐러셀 `PortalHero` + 「나의 오늘」 패널 + 바로 가기 + 새 고전 선반 + 홍보 격자 + 읽을거리 + 아케이드 띠 + 목적별 단어장 + 서가 규모). 데이터 `lib/learner/hub-portal-query.ts`(발행 게이트 · 못 센 수는 숨김) · 부품 `components/hub/portal/*` · 이벤트 `hub_promo_clicked` · `hub_hero_moved` + 마이그레이션 `20260922090000_funnel_allow_hub_portal`(적용 · DB `20260922004102`) · e2e 23 을 포털 계약 3개로 교체.
 
 - **기출 홈 재설계**(DD-68 · tines-mapping §20): `/csat` 을 참조 솔루션 골격으로 — 2열 히어로 + 「오늘의 해부」 제품 카드 · 패턴 색 탭 + 비교 패널 · 네 단계 타일 카드 · 패턴 색 카드 탐색 지도(`PatternMap` 트리 → 카드) · 필터 디렉터리. `/csat/formulas` 도 같은 언어로(히어로 · 강조 수치 면 3 · 계보 카드 · SpotState 빈 상태). 셸 머리띠는 두 화면에서 뺀다. 1440 · 390 라이트/다크 axe 0 · 가로 넘침 0.
 

@@ -1,122 +1,171 @@
 // apps/web/src/app/(main)/hub/page.tsx
-// @form: 망각 — 오늘 단어의 밑줄 두께 3/2/1px (TodayStage · DecayUnderline)
+// @form: 배너 — 영역마다 한 장, 진한 범주 색 면이 7초마다 넘어간다 (PortalHero)
 //
-// Today (Hub) — forward 진입면.
+// 플랫폼 메인 — 2026-09-22 재설계(사용자 요청: 「다른 사이트처럼 여러 플랫폼 홍보로 구성하는 메인」).
 //
-// v06.200 재설계 — 진입면이 답하는 질문을 바꿨다.
-//   이전: "무엇이 있나" (히어로 인사말 + 처방 5블록 나열 + 7개 동일 모듈 카드 + 추천 + 관리)
-//   지금: "무엇을 배우고, 지금 뭘 하지" (단어 지면 + 오늘의 흐름)
+// ── 무엇이 바뀌었나 ──────────────────────────────────────────────────
+//   이전(v06.200): 「오늘의 무대」 한 장 — 오늘 되찾을 단어 + 처방 흐름 + 읽을 글 3편.
+//     학습을 이미 시작한 사람에게는 맞았지만, 이 플랫폼에 **무엇이 있는지**는 한 곳도 말하지 않았다.
+//     서가 · 만화 · 기출 · 아케이드 · 교사 · 단어장은 사이드바 이름으로만 존재했다.
+//   지금: 포털 메인의 문법 — 배너 + 개인 패널 → 바로 가기 → 새로 들어온 것 → 홍보 격자 → 읽을거리
+//     → 아케이드 띠 → 단어장 컬렉션 → 서가 규모.
 //
-// 왜 바꿨나 — 실측 스크린샷으로 확인한 결함:
-//   ① 히어로 140px 를 매일 같은 인사말 하나에 썼다(정보밀도 0)
-//   ② 처방 5블록이 전부 같은 무게로 나열돼 "지금 뭘" 이 3초에 안 읽혔다
-//   ③ 빈 상태 카드가 페이지 중앙을 히어로급으로 점거했다
-//   ④ 7개 동일 정사각 카드 중 다섯이 "아직 학습 전" — 죽은 정보. 도구는 사이드바가 이미 판다
-//   ⑤ 어휘 학습 플랫폼인데 **화면에 단어가 한 개도 없었다**
-//   ⑥ 추천 단어장이 /wordvault 와 중복, "V-Level 갱신" 관리 기능이 학습 진입면에 있었다
-//   설계 3안 비교와 점수는 재설계 랩(`/hub-lab`)에 남아 있다.
+// ── 유지한 것 ────────────────────────────────────────────────────────
+//   · 「오늘」 정본은 셸 나침반 모델(`buildWayfinder`) 하나다. 배너 옆 패널은 그것을 **같은 모델로**
+//     다시 보여줄 뿐 새 할 일 표면을 만들지 않는다(v06.108 META Opt A · e2e 22-H).
+//   · 홍보 면의 수치 · 표지 · 제목은 전부 발행 게이트를 지난 DB 실물이다(I5 · `hub-portal-query`).
 //
-// **유지한 것 — "오늘" 단일 정본(v06.108 META Opt A)**:
-//   · 오늘 수동계획 있음        → TodayPlanCard 가 정본 (사용자 의지 우선 · Empathetic)
-//   · 진단완료 + 수동계획 없음  → TodayStage 의 오늘의 흐름이 정본 (prescribe_today 5블록)
-//   · 미진단                    → TodayFocus (진단 유도)
-//   경쟁하는 표면을 만들지 않는다. 단어 지면은 "할 일" 표면이 아니라 학습 재료다.
-//
-// 회고(backward)는 /dashboard 단독 — 여기는 forward 만.
+// 회고(backward)는 여전히 /dashboard 단독.
 
 import { Screen } from '@/components/ui/ios'
-import { kstRoomTime } from '@/components/home/room-tone'
-import { GatewayLead } from '@/components/home/GatewayLead'
-import { TodayFocus } from '@/components/home/TodayFocus'
-import { TodayPlanCard } from '@/components/home/TodayPlanCard'
-import { NextWordsStrip } from '@/components/home/NextWordsStrip'
-import { TodayReading } from '@/components/home/TodayReading'
-import { TodayStage } from '@/components/home/TodayStage'
-import { fetchStudyPlanItems } from '@/lib/learner/plan-actions'
-import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
-import { fetchReadingRoom } from '@/lib/learner/reading-room-actions'
-import { fetchGatewayState } from '@/lib/learner/gateway'
-import { fetchTasteWord } from '@/lib/learner/taste-word'
+import { PortalHero, type HeroSlide } from '@/components/hub/portal/PortalHero'
 import {
-  fetchCheckDoneToday,
-  fetchDcpDoneToday,
-  fetchReadDoneToday,
-  fetchTouchedModulesToday,
-} from '@/lib/learner/today-status-query'
+  ArcadeBand,
+  MyTodayPanel,
+  NewBooksShelf,
+  PromoBento,
+  QuickMenu,
+  ReadingSection,
+  ScaleBand,
+  SectionHead,
+  VocabCollections,
+} from '@/components/hub/portal/sections'
+import { DEEP_CLASS, MATERIAL_TONE } from '@/lib/design/tone'
+import { fetchHubPortal, type HubPortal } from '@/lib/learner/hub-portal-query'
+import { buildWayfinder } from '@/lib/learner/wayfinder'
+import { fetchWayfinder } from '@/lib/learner/wayfinder-query'
 
 export const metadata = {
-  title: 'Today',
-  description: '오늘의 학습을 시작하세요',
+  title: '홈',
+  description: '고전 서가 · 만화 · 수능 기출 · 단어 게임 — 내가 아는 비율로 읽기를 설계하는 영어 학습 플랫폼',
 }
 
-/** KST 오늘 요일 1=월..7=일. */
-function kstWeekday(): number {
-  const day = new Date(Date.now() + 9 * 3_600_000).getUTCDay()
-  return day === 0 ? 7 : day
+const fmt = (n: number) => n.toLocaleString('ko-KR')
+
+/** 배너 — 영역마다 한 장. 수치는 센 것만, 못 셌으면 문장에서 뺀다. */
+function heroSlides(p: HubPortal, diagnosed: boolean): HeroSlide[] {
+  const slides: HeroSlide[] = [
+    {
+      id: 'books',
+      label: '서가',
+      title: p.facts.books ? `고전 ${fmt(p.facts.books)}권,\n내 수준에서 펼치기` : '퍼블릭 도메인 고전,\n내 수준에서 펼치기',
+      body: '챕터마다 어휘가 미리 뽑혀 있어요. 읽다가 모르는 단어는 그 자리에서 보관함에 담깁니다.',
+      cta: '서가 둘러보기',
+      href: '/library/books',
+      tone: DEEP_CLASS[MATERIAL_TONE.book.deep],
+      illo: 'tile-books',
+      fact: p.newBooks[0] ? `NEW · ${p.newBooks[0].title}` : null,
+    },
+    {
+      id: 'csat',
+      label: '수능 기출',
+      title: '평가원 기출을\n유형별로 해부',
+      body: '출제자가 왜 그 선택지를 만들었는지까지 — 문항마다 근거를 지문 위에서 따라 읽습니다.',
+      cta: '기출 시작',
+      href: '/csat',
+      tone: DEEP_CLASS.purple,
+      illo: 'tile-csat',
+    },
+    {
+      id: 'arcade',
+      label: '아케이드',
+      title: '담은 단어로\n게임 한 판',
+      body: '워드블리츠 · 페어플립 · 스펠포지 — 내 보관함의 단어가 그대로 문제가 됩니다.',
+      cta: '아케이드 입장',
+      href: '/arcade',
+      tone: DEEP_CLASS.magenta,
+      illo: 'tile-wordblitz',
+    },
+    {
+      id: 'teacher',
+      label: '교사',
+      title: '학급의 어휘를\n한 화면에서',
+      body: '학급을 만들고 초대코드를 나눠 주면 학생들의 어휘 진행을 한곳에서 봅니다.',
+      cta: '교사 허브',
+      href: '/teacher',
+      tone: DEEP_CLASS.charcoal,
+      illo: 'tile-teacher',
+    },
+  ]
+
+  if (p.comics.length > 0) {
+    slides.splice(1, 0, {
+      id: 'comics',
+      label: '만화',
+      title: '같은 책을\n그림으로 먼저',
+      body: '줄거리를 그림으로 먼저 알고 나면 원문이 훨씬 가벼워집니다.',
+      cta: '만화 보기',
+      href: '/comics',
+      tone: DEEP_CLASS[MATERIAL_TONE.comic.deep],
+      illo: 'tile-comics',
+      fact: p.facts.comics ? `${fmt(p.facts.comics)}편` : null,
+    })
+  }
+
+  // 진단 전인 사람에게는 진단이 가장 큰 문이다 — 맨 앞에 세운다.
+  if (!diagnosed) {
+    slides.unshift({
+      id: 'diagnostic',
+      label: '5분 진단',
+      title: '내가 아는 비율부터\n재고 시작합니다',
+      body: '몇 개의 단어를 아는지만 확인하면, 지금 읽을 수 있는 책과 오늘 만날 단어가 정해져요.',
+      cta: '진단 시작',
+      href: '/diagnostic',
+      tone: DEEP_CLASS.ink,
+      illo: 'tile-hub',
+    })
+  }
+  return slides
 }
 
 export default async function HubPage() {
-  const [planItems, prescription, room, touchedToday, dcpDoneToday, readDoneToday, checkDoneToday, gateway] =
-    await Promise.all([
-    fetchStudyPlanItems(),
-    fetchTodayPrescription(),
-    fetchReadingRoom(),
-    // 셸 띠와 **같은 값**을 쓴다 — cache() 라 추가 쿼리는 돌지 않는다.
-    fetchTouchedModulesToday(),
-    fetchDcpDoneToday(),
-    // 읽기·검증은 `by_module` 에 안 남는다 — 안 넘기면 그 두 블록이 영원히 미완료다
-    fetchReadDoneToday(),
-    fetchCheckDoneToday(),
-    fetchGatewayState(),
-  ])
-
-  const today = kstWeekday()
-  const hasTodayPlan = planItems.some((i) => i.weekdays.includes(today))
-  const isDiagnosed = prescription?.isDiagnosed ?? false
-
-  // 첫 방문 지면에 세울 단어 — 미진단일 때만 부른다(진단한 사람에게는 무대가 이미 단어를 판다).
-  const tasteWord = !hasTodayPlan && !isDiagnosed ? await fetchTasteWord() : null
-
-  // 시각은 서버에서 정한다 — 클라이언트에서 계산하면 SSR 과 어긋나 지면 색이 한 번 튄다.
-  const time = kstRoomTime()
+  const [portal, wayfinder] = await Promise.all([fetchHubPortal(), fetchWayfinder()])
+  const model = wayfinder ? buildWayfinder({ ...wayfinder, pathname: '/hub' }) : null
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
-      <div className="flex flex-col gap-4 py-6 md:py-8">
-        {/* 관문 첫 줄 — 돌아온 사람을 알아본다.
-            처음 온 사람·오늘 이미 한 사람에게는 스스로 사라진다(할 말이 없으면 그리지 않는다). */}
-        <GatewayLead state={gateway} />
+    <Screen width="full" background="bg" padX="none">
+      <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-16 px-4 py-6 md:gap-24 md:py-8 lg:px-10">
+        {/* 배너 + 나의 오늘 */}
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
+          <PortalHero slides={heroSlides(portal, wayfinder?.isDiagnosed ?? false)} />
+          <MyTodayPanel model={model} />
+        </div>
 
-        {/* 무대 — 좌: 오늘 되찾을 단어(학습 재료) · 우: 오늘의 흐름(처방이 정본일 때만).
-            수동계획이 정본인 날에는 흐름을 넘기지 않는다(표면 이중화 방지). */}
-        <TodayStage
-          room={room}
-          prescription={hasTodayPlan ? null : prescription}
-          time={time}
-          touchedToday={[...touchedToday]}
-          dcpDoneToday={dcpDoneToday}
-          readDoneToday={readDoneToday}
-          checkDoneToday={checkDoneToday}
-        />
+        <div className="-mt-8 md:-mt-14">
+          <QuickMenu />
+        </div>
 
-        {/* 오늘 읽을 것 — 처방이 고른 실제 글을 제목으로 세운다.
-            흐름의 `Read · 30분` 은 개수와 같은 것이고, 제목·수준·성격이 있어야 고를 수 있다
-            (단어에 대해 v06.200 이 내린 결론을 읽을거리에 적용). */}
-        {!hasTodayPlan && isDiagnosed && prescription && (
-          <TodayReading candidates={prescription.input.candidates} />
+        {portal.newBooks.length > 0 && (
+          <section aria-label="새로 들어온 고전">
+            <SectionHead eyebrow="New arrivals" title="새로 들어온 고전" href="/library/books" cta="서가 전체" slot="shelf" index={99} />
+            <NewBooksShelf books={portal.newBooks} />
+          </section>
         )}
 
-        {/* 뒤이어 — 밀린 단어 한 줄.
-            ⚠️ 순서가 중요하다: 무대(지금 할 일) → 오늘 읽을 것 → 뒤이어(남은 단어).
-            이 띠가 무대 안에 있던 동안에는 **밀린 단어가 오늘 읽을 것보다 위**에 왔다. */}
-        <NextWordsStrip room={room} />
+        <section aria-label="Vocaflow 에서 할 수 있는 것">
+          <SectionHead eyebrow="Explore" title="읽고, 듣고, 풀고, 가르치고." />
+          <PromoBento comics={portal.comics} comicTotal={portal.facts.comics} />
+        </section>
 
-        {/* 오늘 정본 — 수동계획 우선 */}
-        {hasTodayPlan && <TodayPlanCard items={planItems} today={today} />}
+        <section aria-label="읽을거리">
+          <SectionHead eyebrow="Read today" title="짧은 글로 매일 한 편" href="/library/scripts" cta="글 전체" slot="reading" index={99} />
+          <ReadingSection portal={portal} />
+        </section>
 
-        {/* 미진단 — **시험이 아니라 지면을 먼저 준다.** 단어 하나를 세우고 진단은 그 아래 제안으로.
-            (근거: 가입→첫 학습 중앙값 55일 실측 + 가치를 게이트 뒤에 두지 말라는 온보딩 연구) */}
-        {!hasTodayPlan && !isDiagnosed && <TodayFocus word={tasteWord} />}
+        <section aria-label="아케이드">
+          <ArcadeBand />
+        </section>
+
+        {portal.setCategories.length > 0 && (
+          <section aria-label="단어장 컬렉션">
+            <SectionHead eyebrow="Word sets" title="목적별 단어장" href="/library/vocab" cta="단어장 전체" slot="vocab" index={99} />
+            <VocabCollections categories={portal.setCategories} />
+          </section>
+        )}
+
+        <section aria-label="서가 규모" className="pb-8">
+          <ScaleBand facts={portal.facts} />
+        </section>
       </div>
     </Screen>
   )

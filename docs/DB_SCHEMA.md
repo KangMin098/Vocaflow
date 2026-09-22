@@ -1095,6 +1095,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 | 정책 3 | `video_public_read`(누구나 SELECT) · `video_admin_write` · `video_admin_update` |
 | `funnel_events_event_check` | `video_started` · `video_completed` 추가 (17 → 19종) |
 | `funnel_events_event_check` (2026-09-19 · 사용자 승인 후 적용, DB 버전 `20260918232454`) | `fit_level_moved` · `fit_sheet_opened` 추가 (38 → 40종) — `20260919100000_funnel_allow_fit_paint.sql`. 목록은 적용 시점 DB 제약에서 옮겼다 |
+| `funnel_events_event_check` (2026-09-22 · 사용자 승인 후 적용, DB 버전 `20260922004102`) | `hub_promo_clicked` · `hub_hero_moved` 추가 (40 → 42종) — `20260922090000_funnel_allow_hub_portal.sql`. 목록은 2026-09-22 DB 제약에서 옮겼다 |
 
 ⚠️ **왜 공개 버킷인가**: 이 영상의 첫 독자는 로그인하지 않은 **교사**다
 (허용 CAC ₩400 → 교사→학급 경로만 성립, `PLATFORM_AUDIT.md`). 로그인 뒤에 두면
