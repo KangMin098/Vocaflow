@@ -5,7 +5,91 @@
 // ⚠️ 드레인 절차·게이트·스크립트 이름이 바뀌면 **같은 커밋에서** 여기도 고친다
 //    (루트 CLAUDE.md §3️⃣). 낡은 절차는 관리자를 잘못 조작하게 만든다.
 
-import type { HelpRegistry } from './types'
+import { FACTORY_STAGES } from '@/lib/csat/factory-model'
+import type { HelpDiagram, HelpRegistry } from './types'
+
+/* ───────────────── 공정 칸의 계약을 **모델에서 만든다** ─────────────────
+ *
+ * 단계 화면에서 관리자가 가장 먼저 묻는 것은 「이 화면은 뭘 받아서 뭘 내놓나」다.
+ * 그 답은 `factory-model.ts` 의 `input` · `output` · `gate` 에 이미 있고, 화면 부제로도 쓰인다.
+ *
+ * ⚠️ **여기 다시 적지 않는다.** 도움말에 베껴 두면 공정이 바뀔 때 화면은 따라가고 도움말만
+ *    조용히 낡는다 — 이 저장소가 두 번 겪은 실패 방식이고, 낡은 도움말은 코드보다 위험하다
+ *    (AGENTS 자동화 정책 ②). 모델에서 만들면 다음에 계약이 바뀌는 순간 그림도 같이 바뀐다.
+ *
+ * `factory-model` 은 import 가 0 인 순수 모듈이라 클라이언트 그래프에 들어가도 안전하다
+ * (이미 `FactoryLineClient` 등 아홉 화면이 쓴다).
+ */
+const ORD_MARK = ['', '①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'] as const
+
+function stage(id: (typeof FACTORY_STAGES)[number]['id']) {
+  const s = FACTORY_STAGES.find((x) => x.id === id)
+  if (!s) throw new Error(`공정이 없다: ${id}`)
+  return s
+}
+
+/**
+ * 「…으로 / …로」 를 **받침으로 고른다.**
+ *
+ * 칸 이름이 모델에서 오므로 조사를 손으로 붙일 수 없다. 붙이지 않으면 「⑦ 검수 으로」처럼
+ * 틀린 말이 화면에 서고, 도움말이 어색하면 읽는 사람이 그 화면 전체를 대충 읽는다.
+ * 규칙은 하나다 — 받침이 없거나 받침이 ㄹ 이면 「로」, 그 밖에는 「으로」.
+ */
+function ro(word: string): string {
+  const code = word.charCodeAt(word.length - 1) - 0xac00
+  if (code < 0 || code > 11171) return `${word}로`
+  const jong = code % 28
+  return jong === 0 || jong === 8 ? `${word}로` : `${word}으로`
+}
+
+/** 앞 칸 · 뒤 칸 이름 — 「어디서 와서 어디로 가나」를 칸 이름으로 말한다. */
+function neighbours(ord: number) {
+  const prev = FACTORY_STAGES.find((s) => s.ord === ord - 1)
+  const next = FACTORY_STAGES.find((s) => s.ord === ord + 1)
+  return {
+    from: prev ? `${ORD_MARK[prev.ord]} ${prev.name}에서` : '공장 밖에서',
+    // ⑨ 는 ② 기획으로 돌아간다 — 고리가 거기서 닫힌다(모델의 `output` 이 그렇게 적혀 있다).
+    to: next ? `${ORD_MARK[next.ord]} ${ro(next.name)}` : '② 기획으로 — 다음 바퀴',
+  }
+}
+
+/** 공정 한 칸의 계약 그림. 세 칸 + 관문 한 줄. */
+function contractOf(id: (typeof FACTORY_STAGES)[number]['id']): HelpDiagram {
+  const s = stage(id)
+  const { from, to } = neighbours(s.ord)
+  return {
+    kind: 'io',
+    caption: '이 칸은 무엇을 받아 무엇을 내놓나',
+    nodes: [
+      { label: from, says: s.input },
+      { label: `${ORD_MARK[s.ord]} ${s.name}`, says: s.question },
+      { label: to, says: s.output },
+    ],
+    gate: s.gate,
+  }
+}
+
+/** 레인 이름 — 「어느 무리에 속한 칸인가」. 메뉴가 이 순서로 서 있다(DD-72). */
+const LANE_NAME: Record<string, string> = { lab: '연구소', line: '생산 라인', shelf: '매대' }
+
+/**
+ * 공정 아홉 칸을 한 줄 레일로. **칸 이름도 순서도 모델이 정본이다** —
+ * 칸이 늘거나 이름이 바뀌면 이 그림이 따라 바뀐다(손으로 적으면 따라오지 않는다).
+ */
+function factoryLane(caption: string): HelpDiagram {
+  return {
+    kind: 'lane',
+    caption,
+    // 레인 이름은 **그 무리의 첫 칸에만** 적는다. 칸마다 적으면 「생산 라인」이 다섯 번
+    // 되풀이돼 레일이 같은 글자의 줄이 된다(실측 캡처 2026-09-23).
+    nodes: FACTORY_STAGES.map((st, i) => ({
+      label: `${ORD_MARK[st.ord]} ${st.name}`,
+      says: FACTORY_STAGES[i - 1]?.lane === st.lane ? undefined : (LANE_NAME[st.lane] ?? st.lane),
+    })),
+    rule:
+      '「병목」은 **가장 나쁜 칸이 아니라 가장 앞선 막힌 칸**이다 — 앞이 막힌 채 뒤를 돌리면 그 결함이 그대로 책에 실린다(해설을 안 붙이고 조판하면 해설 빠진 책이 나온다). 화면은 그 칸을 이미 펼쳐 둔다.',
+  }
+}
 
 export const CSAT_HELP: HelpRegistry = {
   // ── 새 교재 만들기 ──────────────────────────────────────────────
@@ -109,6 +193,7 @@ export const CSAT_HELP: HelpRegistry = {
         '**행이 시리즈, 열이 학령이고 한 칸이 한 권**이다. 시중이 파는 단위가 시리즈라서 그렇다 — 서점에 있는 것은 「독해 고1」이 아니라 「리딩튜터 주니어 Level 2」이고, 한 브랜드가 학령 전체를 계단으로 잇는다. ⚠️ **이 화면은 공정의 앞이 아니라 뒤다**(2026-09-23 · DD-77). 하는 일이 둘이고 둘 다 「낸 다음」의 일이다: 낸 책이 팔리는지 보고 개정·절판을 정하는 것(⑨ 운영), 그리고 그 판단으로 **다음 유형을 발의하는 것**(품목). 뒤의 것이 ② 기획의 입력이라 여기가 끝이면서 다음 바퀴의 시작이다. 그전에는 ⓪ 으로 맨 앞에 서 있었고, 그래서 공정이 ⑧ 에서 **끝났다.**',
       when: '무엇을 만들지 정할 때. 그리고 배치를 돌리기 전에 — 어느 권을 겨냥하는지 정해야 헛일을 안 한다.',
       diagrams: [
+        contractOf('operate'),
         {
           kind: 'keys',
           caption: '칸 하나가 한 권 — 기호가 그 권의 상태다',
@@ -199,15 +284,39 @@ export const CSAT_HELP: HelpRegistry = {
     title: '교재 공장 — 공정 현황판',
     screen: {
       summary:
-        '시중 교재 제작 공정(기획 → 설계 → 소재 → 집필 → 해설 → 검수 → 조판)을 그대로 8칸으로 세우고, 칸마다 실측 눈금·게이트·다음에 돌릴 명령을 함께 보여 준다. 조작 버튼은 없다 — 각 칸을 채우는 것은 Claude Code 배치이고, 이 화면은 그 배치를 어디에 돌릴지 정하는 자리다.',
+        '시중 교재 제작 공정을 그대로 **아홉 칸**으로 세우고, 칸마다 실측 눈금 · 게이트 · 다음에 돌릴 명령을 함께 보여 준다. 칸 이름과 순서는 바로 아래 레일에 있다.',
       when: '배치를 한 번 돌린 뒤, 또는 하루를 시작하며 "오늘 무엇을 돌릴까" 를 정할 때.',
       diagrams: [
+        factoryLane('공정 아홉 칸 — 내가 보고 있는 화면이 어디인가'),
+        {
+          kind: 'io',
+          caption: '이 화면은 무엇을 받아 무엇을 내놓나',
+          nodes: [
+            {
+              label: '아홉 칸에서',
+              says: '칸마다 잰 눈금과 게이트 판정',
+              items: ['재고 집계(30분 갱신)', '리포트 · 검수 기록', '조판 준비도'],
+            },
+            {
+              label: '막힌 칸을 고른다',
+              actor: 'auto',
+              says: '가장 앞선 막힌 칸 하나를 펼친다',
+            },
+            {
+              label: '터미널로',
+              actor: 'script',
+              says: '거기서 돌릴 명령 한 줄',
+              items: ['복사해서 붙인다', '웹에서는 안 끝난다'],
+            },
+          ],
+          gate: '이 화면에는 **조작 버튼이 없다** — 칸을 채우는 것은 Claude Code 배치이고, 여기는 그 배치를 어디에 돌릴지 정하는 자리다.',
+        },
         {
           kind: 'flow',
-          caption: '이 화면을 읽는 순서 — 조작 버튼은 없다',
+          caption: '그래서 이 화면을 보는 순서',
           nodes: [
             { label: '막힌 곳 한 줄', says: '가장 앞선 막힌 공정. 여기부터 푼다' },
-            { label: '라인 도식', says: '여덟 칸을 색 + 모양 + 글자로' },
+            { label: '라인 도식', says: '아홉 칸을 색 + 모양 + 글자로' },
             { label: '고른 칸 상세', says: '눈금 · 게이트 · 다음에 돌릴 명령' },
             { label: '명령 복사', actor: 'script', says: '터미널에 붙인다 — 웹에서 안 끝난다' },
           ],
@@ -217,10 +326,10 @@ export const CSAT_HELP: HelpRegistry = {
           kind: 'keys',
           caption: '상태 넷 — 색만으로 가르지 않는다',
           nodes: [
-            { label: '통과', state: 'pass', says: '게이트를 넘었다' },
-            { label: '몫 남음', state: 'short', says: '재고는 있는데 목표에 못 닿았다' },
-            { label: '막힘', state: 'blocked', says: '분자가 0 — 시작도 못 했다' },
-            { label: '못 잼', state: 'unmeasured', says: '실패가 아니라 안 잰 것. 0 과 다르다' },
+            { label: '통과', state: 'pass', says: '이 칸에서 더 할 일이 없다' },
+            { label: '몫 남음', state: 'short', says: '만들기는 했는데 목표에 못 닿았다' },
+            { label: '막힘', state: 'blocked', says: '아직 한 건도 없다 — 시작 전' },
+            { label: '못 잼', state: 'unmeasured', says: '안 잰 것이다. 「0건」과 다르다' },
           ],
         },
       ],
@@ -401,6 +510,7 @@ export const CSAT_HELP: HelpRegistry = {
         '시중 교재와 7축으로 견주어 「120% 우위」가 실제로 성립하는지 출판사마다 따로 판정한다. 합본 평균이 아니라 **가장 낮은 출판사(구속점)** 로 판정하는 화면이다.',
       when: '새 밴드를 열기 전, 또는 벤치마크를 다시 돌린 뒤. 「우위」를 주장하는 문서를 쓰기 직전에도 여기를 본다.',
       diagrams: [
+        contractOf('market'),
         {
           kind: 'flow',
           caption: '「우위」를 주장하기 전에 거치는 세 걸음',
@@ -515,6 +625,7 @@ export const CSAT_HELP: HelpRegistry = {
         '원고를 쓰기 전에 정하는 표 — **어느 학년(연령)에 · 어느 수준(V-Level)으로 · 어느 유형을** 낼 것인가. 이 표가 없으면 집필이 있는 소재대로 흘러가고 학년별 난이도 사다리가 들쭉날쭉해진다.',
       when: '새 학년대를 열 때, 계단이 끊겼다는 보고를 받았을 때, 게이트 임계를 손대기 전.',
       diagrams: [
+        contractOf('blueprint'),
         {
           kind: 'flow',
           caption: '분류표가 서는 순서 — 선언과 생산이 어긋나면 여기서 보인다',
@@ -571,6 +682,7 @@ export const CSAT_HELP: HelpRegistry = {
         '문항마다 한국어 해설이 붙었는지를 **칸으로** 본다. 합계는 99.46%(실측 2026-09-23)로 거의 다 찬 것처럼 보이지만 구멍은 고르게 퍼져 있지 않다 — 4,719건 중 3,800건이 어휘 유형 하나에 몰려 있다. **합계는 「거의 다 됐다」, 칸은 「유형 하나 돌리면 끝난다」**이고 할 일이 다르다.',
       when: '권이 조판에서 「해설 없음」으로 막혔을 때, 새 유형을 대량 생성한 직후, 드레인을 돌리기 전에 몫을 확인할 때.',
       diagrams: [
+        contractOf('explain'),
         {
           kind: 'flow',
           caption: '해설이 붙는 두 길 — 규칙이 먼저다',
@@ -661,6 +773,7 @@ export const CSAT_HELP: HelpRegistry = {
         '단계 밴드별로 **조판이 고를 수 있는 지문**이 몇 편인지 본다. 값은 DB 가 6시간마다 떠 두는 스냅샷(`csat_source_rollup()`)에서 읽으므로 방문마다 10만 행을 훑지 않는다 — 대신 화면이 **언제 잰 값인지**를 늘 함께 적는다. 시중은 여기서 섭외비를 쓰고, 우리는 공개 도메인·개방 접근에서 수확하므로 대신 **수율**이 든다.',
       when: '어느 밴드의 책이 안 만들어질 때. 문항을 아무리 만들어도 그 학년 권이 안 차면 원인이 대개 여기다. 드레인·수확을 막 돌린 뒤 재고가 실제로 늘었는지 볼 때도 — 그때는 「지금 다시 잰다」를 먼저 누른다.',
       diagrams: [
+        contractOf('source'),
         {
           kind: 'flow',
           caption: '지문이 밴드에 들어오는 길',
@@ -796,6 +909,7 @@ export const CSAT_HELP: HelpRegistry = {
         'DB 에 있는 문항 **전량**을 유형 25 × 수준 9 표로 편다. 설계 화면(③)이 「사다리가 쓰기로 한 칸」만 보여 준다면, 여기는 그 밖까지 보여 준다 — 그 차이가 이 화면의 요점이다.',
       when: '재고가 많다는데 권이 안 차는 이유를 찾을 때. 새 유형을 만들지 말지 정할 때.',
       diagrams: [
+        contractOf('author'),
         {
           kind: 'flow',
           caption: '빈 칸을 채우는 순서 — 글보다 문항이 먼저다',
@@ -903,6 +1017,7 @@ export const CSAT_HELP: HelpRegistry = {
         '층 넷이 각자 **다른 것**을 본다. 통과율 하나로 접지 않는 이유는, 오탈자를 보는 눈이 논리 오류를 못 보고 논리를 보는 눈이 정답 쏠림을 못 보기 때문이다. 한 층만 통과한 원고는 검수를 받은 것이 아니다.',
       when: '조판 직전. 그리고 「우위」를 주장하는 문서를 쓰기 전.',
       diagrams: [
+        contractOf('review'),
         {
           kind: 'keys',
           caption: '층 넷이 각자 다른 것을 본다 — 순서가 아니다',
@@ -1108,6 +1223,7 @@ export const CSAT_HELP: HelpRegistry = {
         '공정의 끝. 여기까지 와야 학습자가 손에 쥐는 것이 생긴다 — 그 앞의 모든 수치는 **재고**이지 책이 아니다.',
       when: '한 밴드의 공정이 다 끝났다고 판단할 때. 그리고 규격(브랜드·지문 길이)을 바꾼 뒤.',
       diagrams: [
+        contractOf('press'),
         {
           kind: 'flow',
           caption: '조판 명령 하나가 거치는 길 — 이제 거절할 수 있다',
@@ -1340,6 +1456,7 @@ export const CSAT_HELP: HelpRegistry = {
     title: '기출 원천 관리',
     tabs: {
       '운영 현황': { summary: '학습자 해부 준비도와 별도의 원천 품질을 먼저 확인합니다.', diagrams: [
+        contractOf('evidence'),
         {
           kind: 'keys',
           caption: '원천 품질과 학습 준비는 다른 자다 — 무엇을 보고 있나',

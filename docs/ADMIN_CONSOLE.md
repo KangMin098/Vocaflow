@@ -984,7 +984,7 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 
 | 항목 | 위치 |
 |---|---|
-| 스키마 | `apps/web/src/lib/admin/help/types.ts` — `ScreenHelp {summary · when · steps · fields · cautions · drain · seeAlso}` |
+| 스키마 | `apps/web/src/lib/admin/help/types.ts` — `ScreenHelp {summary · when · diagrams · steps · fields · cautions · drain · seeAlso}` |
 | 데이터 | `apps/web/src/lib/admin/help/<pipeline>.ts` — 8 파일 (articles · curation · comic · pd-comics · vocab · vrl · quality · ops) |
 | 병합 | `apps/web/src/lib/admin/help/index.ts` → `HELP_REGISTRY` (키 = 라우트 슬러그) |
 | 렌더 | `apps/web/src/components/admin/AdminScreenHelp.tsx` — 헤더 `화면 도움말` 버튼 → 인라인 펼침 (모달 아님 · 열어 둔 채 조작 가능 · 열림 상태 화면별 localStorage 기억) |
@@ -1002,6 +1002,22 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 | VCB 보강 | `vocab-run-detail` (`/vcb-batch-enrich`) |
 | VCB 시드 | `vocab-run-seed` (`/vcb-seed-list`) |
 | VCB 재보강 | `vocab-curate` (`/vcb-reenrich`) |
+
+### 도식 — 산문보다 위에 그린다 (2026-09-12 신설 · 2026-09-23 확장 · DD-80)
+
+교재 공장 11화면의 도움말은 **45,379자**였고 그중 77%가 `fields`·`drain` 산문이었다. 지우지 않고 접었고, 보이는
+자리에는 그림을 둔다. 종류는 넷이고 **답해야 할 질문이 종류를 정한다**:
+
+| 종류 | 답하는 질문 | 칸 상한 |
+|---|---|---|
+| `flow` | 어떤 순서로 도나 (칸마다 순번을 숫자로 낸다) | 6 |
+| `lane` | 공정 어디에 있고 어디가 막혔나 (`bottleneck` 칸만 크게) | 10 |
+| `io` | 이 화면은 뭘 받아 뭘 내놓나 (받는 것 / 하는 일 / 내놓는 것 + `gate`) | 3 고정 |
+| `keys` | 이 기호가 무슨 뜻인가 | 6 |
+
+- 칸 이름 20자 · 칸 설명 48자 · 칸 안 항목 24자 × 4개 — 넘치면 그건 `fields` 에 들어갈 내용이다(회귀 `help-diagram.test.ts`).
+- **공정 칸의 계약은 모델에서 만든다** — `csat.ts` 의 `contractOf(id)` 가 `factory-model.ts` 의 `input`·`question`·`output`·`gate` 를 읽어 `io` 그림을 만든다. 도움말에 베껴 두면 공정이 바뀔 때 도움말만 조용히 낡는다.
+- 본문의 `**굵게**` 와 `` `코드` `` 는 **렌더가 읽는다**(`richText`). 2026-09-23 전에는 별표가 글자로 찍혔다 — 교재 공장 렌더 결과에 `**` 가 1,164개 있었다. 회귀가 0을 지킨다.
 
 ---
 
