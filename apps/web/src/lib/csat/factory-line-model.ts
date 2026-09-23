@@ -91,6 +91,8 @@ export const TYPE_KO: Record<string, string> = {
 // `passageGateBands`. 판정 근거를 목록이 아니라 **게이트의 metric** 에 뒀으므로, S5 에
 // `coverage` 가 붙는 날 자동으로 지문 밴드가 된다.
 
+import type { ItemStateView } from './item-state-model'
+
 /* ───────────────────────── ⑤ 집필 ───────────────────────── */
 
 export interface AuthorCell {
@@ -105,6 +107,14 @@ export interface AuthorView {
   total: number | null
   /** 사다리가 쓰는 (유형, V-Level) 조합. 그 밖의 재고는 **지금 어느 권에도 안 실린다**. */
   ladderCells: { type: string; vLevel: number }[]
+  /**
+   * **막힌 문항** — csat_item_state 에서 파생한 수.
+   *
+   * ⚠️ 재고 매트릭스는 「몇 개 있나」만 말한다. 그중 **못 쓰는 것**은 다른 축이고,
+   *   그 축이 없던 동안 관리자는 막힌 문항 292개를 재고로 세고 있었다(DD-74).
+   *   못 읽었으면 available:false — 「0개」와 다르다.
+   */
+  itemState: ItemStateView
   loadError: string | null
   /**
    * 재고를 **언제 센 값**인지 (ISO). 30분마다 갱신되는 집계표에서 읽으므로 지금 값이

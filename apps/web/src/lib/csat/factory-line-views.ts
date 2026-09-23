@@ -27,6 +27,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { seriesHasContents } from '@/lib/textbook/volume-contents'
 
 import { inventoryFreshnessNote, loadDcpInventory } from './item-count'
+import { loadItemState } from './item-state'
 
 import {
   GENERATED_TYPES,
@@ -78,7 +79,8 @@ export async function loadAuthorView(): Promise<AuthorView> {
   //
   //   낡음 감시(총계 vs 칸 합)는 그래서 의미를 잃었다 — 둘이 같은 출처라 자기 자신과
   //   비교하는 셈이다. 대신 **집계표가 언제 갱신됐는지**를 화면이 말한다(`refreshedAt`).
-  const inventory = await loadDcpInventory(db)
+  // 둘은 서로를 안 기다린다 — 한쪽이 느려도 다른 쪽이 그려진다.
+  const [inventory, itemState] = await Promise.all([loadDcpInventory(db), loadItemState()])
   const byCell = new Map<string, number>()
   if (inventory.ok) {
     for (const c of inventory.cells) byCell.set(`${c.type}|${c.vLevel}`, c.items)
@@ -114,6 +116,7 @@ export async function loadAuthorView(): Promise<AuthorView> {
     // 그만큼 모자란 값이므로, 그때는 총계를 내지 않는다(모자란 수를 정확한 총계로 내밀면 안 된다).
     total: unmeasured ? null : summed,
     ladderCells,
+    itemState,
     loadError: unmeasured
       ? `집계표를 못 읽었다 — ${inventory.ok ? '' : inventory.error}. 총계는 내지 않는다 (모자란 수를 정확한 값처럼 내밀지 않기 위해서다)`
       : null,

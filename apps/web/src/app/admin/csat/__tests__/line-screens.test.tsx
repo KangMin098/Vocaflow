@@ -6,6 +6,7 @@
 // null 을 0 으로 그려 "지적 0건" 이라는 거짓 안심이 떴다. 둘 다 화면은 멀쩡해 보이는데
 // 관리자가 잘못 조작하게 만드는 종류라 렌더 테스트로 못 박는다.
 
+import { UNREAD_ITEM_STATE } from '@/lib/csat/item-state-model'
 import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -238,7 +239,8 @@ const author: AuthorView = {
     { type: 'insert', vLevel: 5, count: null },
   ],
   total: 4827,
-  ladderCells: [{ type: 'order', vLevel: 5 }],
+  ladderCells: [{ type: 'order', vLevel: 5 }],  // 표본은 **못 읽은 상태**를 기본으로 — 렌더 테스트는 DB 를 안 타므로 그것이 사실이다.
+  itemState: UNREAD_ITEM_STATE,
   loadError: null,
   inventoryAt: null,
 }
@@ -253,8 +255,7 @@ describe('offLadderCount', () => {
     expect(
       offLadderCount({
         cells: [{ type: 'order', vLevel: 5, count: 100 }],
-        ladderCells: [{ type: 'order', vLevel: 5 }],
-      }),
+        ladderCells: [{ type: 'order', vLevel: 5 }],      }),
     ).toBe(0)
   })
 })

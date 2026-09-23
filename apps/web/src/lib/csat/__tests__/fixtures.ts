@@ -8,6 +8,7 @@
 //
 // ⚠️ 이 파일은 테스트 파일이 아니다(`*.test.ts` 아님) — vitest 가 수집하지 않는다.
 
+import { UNREAD_ITEM_STATE } from '@/lib/csat/item-state-model'
 import type { BenchPublisher } from '../factory-bench'
 import type { BlueprintView, MarketView } from '../factory-lab-model'
 import type { AuthorView, PressView, ReviewView } from '../factory-line-model'
@@ -354,7 +355,8 @@ export const AUTHOR_REAL: AuthorView = {
     { type: 'order', vLevel: 5 },
     { type: 'order', vLevel: 6 },
     { type: 'insert', vLevel: 6 },
-  ],
+  ],  // 표본은 **못 읽은 상태**를 기본으로 — 렌더 테스트는 DB 를 안 타므로 그것이 사실이다.
+  itemState: UNREAD_ITEM_STATE,
   loadError: null,
   inventoryAt: null,
 }

@@ -42,7 +42,7 @@ function heat(n: number | null | undefined, max: number): number {
   return Math.log10(n + 1) / Math.log10(max + 1)
 }
 
-export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorView) {
+export function AuthorClient({ cells, total, ladderCells, itemState, loadError }: AuthorView) {
   const [onlyLadder, setOnlyLadder] = useState(false)
   /** 농도의 분모. 못 센 칸은 빼고 실제로 있는 최대 재고를 쓴다. */
   const maxCell = cells.reduce((m, c) => Math.max(m, c.count ?? 0), 0)
@@ -73,6 +73,13 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
       // 못 센 칸은 **막힌 것이 아니다** — 조회가 빈손으로 온 것이고 새로고침하면 대개 맞는다.
       what: '못 센 칸 (조회가 빈손으로 왔다)',
       count: unmeasuredCells.length,
+    },
+    {
+      // ⚠️ 재고 매트릭스는 「몇 개 있나」만 말한다. 그중 **못 쓰는 것**은 다른 축이고,
+      //    그 축이 없던 동안 관리자는 막힌 문항 292개를 재고로 세고 있었다(DD-74).
+      what: '검수에서 막힌 문항 — 재고에 있지만 못 쓴다',
+      count: itemState.available ? itemState.blocked : null,
+      unmeasuredReason: itemState.error ?? '문항 상태 표를 못 읽었다',
     },
     {
       what: '사다리 밖 재고 — 어느 권에도 안 실린다',
