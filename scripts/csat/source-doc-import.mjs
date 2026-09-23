@@ -45,10 +45,51 @@ const SCRATCH = arg('dir') ?? 'C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--wo
  * `acp_classify_license` 가 다시 파싱해 엉뚱한 등급을 찍는다(2026-09-23 재고 80편 사고).
  */
 const META = {
-  olh: { source: 'olh', file: 'ft-olh-samples.json', idKey: 'pk', bodyKeys: ['body_prose', 'body_trimmed'], license: 'CC BY 4.0', urlKey: 'xml_url' },
-  econstor: { source: 'econstor', file: 'ft-econstor-samples.json', idKey: 'handle', bodyKeys: ['bodyText'], license: null, urlKey: 'pdfUrl' },
-  scielo: { source: 'scielo', file: 'ft-scielo-samples.json', idKey: 'pid', bodyKeys: ['body_text'], license: null, urlKey: 'url' },
-  openalex: { source: 'openalex', file: 'ft-openalex-samples.json', idKey: 'idx', bodyKeys: ['extracted_text'], license: 'CC BY 4.0', urlKey: 'host' },
+  olh: { source: 'olh', file: 'ft-olh-samples.json', idKey: 'pk', bodyKeys: ['body_prose', 'body_trimmed'], license: 'CC BY 4.0', urlKey: 'xml_url', rightsKeys: ['license_norm'] },
+  econstor: { source: 'econstor', file: 'ft-econstor-samples.json', idKey: 'handle', bodyKeys: ['bodyText'], license: null, urlKey: 'pdfUrl', rightsKeys: ['rights'] },
+  scielo: { source: 'scielo', file: 'ft-scielo-samples.json', idKey: 'pid', bodyKeys: ['body_text'], license: null, urlKey: 'url', rightsKeys: ['license_v541'] },
+  openalex: { source: 'openalex', file: 'ft-openalex-samples.json', idKey: 'idx', bodyKeys: ['extracted_text'], license: 'CC BY 4.0', urlKey: 'host', rightsKeys: [] },
+}
+
+/**
+ * **개작을 허용하는 라이선스만 적재한다.**
+ *
+ * `source-policy.test.ts` 의 「SOURCE_SPECS 에 restricted 등급 소스가 없다」가
+ * econstor 를 잡았고, 그 판정이 옳았다 — 실측(확보 27편):
+ *   CC 병기 15 · **CC 없음 12** · CC 전용 0
+ * EconStor 표준 이용약관이 **항상 병기**되므로 원천 단위로 CC 를 선언할 수 없다.
+ * 그래서 **행 단위로 거른다.**
+ *
+ * SciELO 도 같다 — 확보 30편 중 `BY-NC-ND/4.0` 3 · `BY-NC/4.0` 2 (저널 단위 `v541`).
+ * NC·ND 는 DD-75 의 R3·R4(사실·논지만 취해 재저작) 입력이지 **그대로 싣는 원문이 아니다.**
+ *
+ * 통과: CC BY · CC BY-SA · CC0 · PD.  탈락: NC 계열 · ND 계열 · 라이선스 없음.
+ */
+function derivationAllowed(raw, m) {
+  const parts = []
+  for (const k of m.rightsKeys ?? []) {
+    const v = raw?.[k]
+    if (typeof v === 'string') parts.push(v)
+    else if (Array.isArray(v)) parts.push(...v.filter((x) => typeof x === 'string'))
+  }
+  // rightsKeys 가 없는 원천(openalex)은 질의 필터가 곧 라이선스다.
+  if (!parts.length) return { ok: (m.rightsKeys ?? []).length === 0, license: m.license }
+  const joined = parts.join(' | ')
+  const lower = joined.toLowerCase()
+  if (/-nc|noncommercial|non-commercial/.test(lower)) return { ok: false, license: joined }
+  if (/-nd\b|noderiv/.test(lower)) return { ok: false, license: joined }
+  if (/\bcc0\b|public domain/.test(lower)) return { ok: true, license: 'CC0 1.0' }
+  // ⚠️ 원천마다 표기가 다르다 — 셋을 다 봐야 한다. 처음엔 앞의 둘만 봐서
+  //    SciELO 30편이 **전부** 막혔다(그 원천은 `BY/4.0` 처럼 `cc` 없이 적는다).
+  //    NC·ND 는 위에서 먼저 떨어뜨리므로 여기 오는 `by-…` 는 순수 BY/BY-SA 다.
+  if (
+    /creativecommons\.org\/licenses\/by(-sa)?\//.test(lower) || // URL 꼴 (OLH·EconStor)
+    /\bcc[ -]by(-sa)?\b/.test(lower) ||                          // 「CC BY」 꼴
+    /^by(-sa)?\/[\d.]+$/.test(lower.trim())                      // 「BY/4.0」 꼴 (SciELO v541)
+  ) {
+    return { ok: true, license: /-sa/.test(lower) ? 'CC BY-SA 4.0' : 'CC BY 4.0' }
+  }
+  return { ok: false, license: joined }
 }
 
 const W = (t) => (String(t ?? '').match(/[A-Za-z][A-Za-z'-]*/g) ?? []).length
@@ -116,7 +157,8 @@ for (let i = 0; i < sourceIds.length; i += 200) {
 console.log(`이미 있음 ${existing.size}편`)
 
 // ── 적재 ──────────────────────────────────────────────────────────────
-let inserted = 0, skipped = 0, tooShort = 0
+let inserted = 0, skipped = 0, tooShort = 0, blockedByLicense = 0
+const byLicenseSource = {}
 const failures = []
 let n = 0
 for (const d of wanted) {
@@ -130,6 +172,9 @@ for (const d of wanted) {
   if (W(prose) < 300) { tooShort++; continue } // 빈 값·너무 짧은 값을 넣지 않는다
 
   const raw = m.raw ?? {}
+  // 개작 불가·라이선스 없음은 **그대로 싣는 원문이 아니다**(R3·R4 재저작 입력이다).
+  const lic = derivationAllowed(raw, m)
+  if (!lic.ok) { blockedByLicense++; byLicenseSource[d.source] = (byLicenseSource[d.source] ?? 0) + 1; continue }
   const row = {
     source: d.source,
     source_id,
@@ -138,7 +183,8 @@ for (const d of wanted) {
     source_url: raw[m.urlKey] ? String(raw[m.urlKey]) : null,
     published_at: null,
     // 원천이 준 값이 있으면 그것, 없으면 META 의 사람 읽는 표기. 슬러그를 넣지 않는다.
-    license: raw.license_norm ?? raw.rights?.[0] ?? raw.license_v541 ?? m.license ?? 'All Rights Reserved',
+    // 정규화된 사람 읽는 표기 — 등급 슬러그를 넣으면 트리거가 재파싱한다.
+    license: lic.license,
     content: prose,
     audio_url: null,
     feed_id: null,
@@ -155,6 +201,7 @@ console.log(`
 ${COMMIT ? '적재' : 'dry-run'}   ${inserted}편
 건너뜀(이미 있음) ${skipped}편
 건너뜀(300어 미만) ${tooShort}편
+건너뜀(개작 불가·라이선스 없음) ${blockedByLicense}편  ${JSON.stringify(byLicenseSource)}
 실패        ${failures.length}편`)
 for (const f of failures.slice(0, 10)) console.log('  ' + f)
 if (failures.length > 10) console.log(`  … 외 ${failures.length - 10}건`)

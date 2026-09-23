@@ -1010,7 +1010,14 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     // ⚠ **CC 전용 문서가 0편이다**(표본 30편 전수 확인). EconStor 표준 이용약관이
     //   **항상 병기**되고 CC 는 그 위에 더 붙는 것이다(30편 중 17편). 재배포형
     //   활용은 그 병기분에 한정해 봐야 한다 — 「CC 25.9%」를 그대로 쓰면 안 된다.
-    license: 'EconStor Terms of Use',
+    //
+    // 그래서 여기 적는 값은 **우리가 실제로 적재하는 것**의 라이선스다 —
+    // 처음엔 `'EconStor Terms of Use'` 로 적었고 `source-policy.test.ts` 의
+    // 「SOURCE_SPECS 에 restricted 등급 소스가 없다」가 그것을 잡았다. **테스트가 옳았다.**
+    // 고친 것은 테스트가 아니라 적재 범위다 — `source-doc-import.mjs` 가 행마다
+    // 개작 허용 라이선스를 확인하고 NC·ND·라이선스 없음을 넣지 않는다
+    // (확보 27편 중 **13편이 그렇게 빠진다**). 그 나머지가 CC BY 다.
+    license: 'CC BY 4.0',
     attributionRequired: true,
     topicDomain: ['economy', 'society', 'education', 'psychology', 'environment'],
     styleGuide: '경제·사회 워킹페이퍼 본문 · 장문 토막 편당 21 · 방법·표 절은 정제 대상',
