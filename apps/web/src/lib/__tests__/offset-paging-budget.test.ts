@@ -70,8 +70,24 @@ type Scanner = { scanFile: (file: string) => Hit[]; walk: (dir: string, out?: st
  *     쓰므로 이 스캐너에는 OFFSET 한 건으로 잡힌다(정당한 사용인데도 셈에 든다 — 다음에 스캐너가
  *     헬퍼 경유를 구분하게 만드는 편이 낫다).
  * 그래서 예산만 210 으로 옮기고, **다음 회차에 이 두 파일을 고치는 것**을 남긴다(올리지 말 것).
+ *
+ * ── 210 → 216 (2026-09-23 · DD-74 · DD-78) ───────────────────────────
+ * ⚠️ **여섯 중 다섯이 정본 헬퍼(`pagedSelect`·`pagedSelectIn`) 경유다** — 위 +1 과 같은 종류다.
+ *   헬퍼가 내부에서 `.range()` 를 쓰므로 **올바르게 쓴 자리도 이 스캐너에 잡힌다.**
+ *     · `lib/csat/review-defects.ts` +2 — ⑦ 검수가 `csat_item_reviews` 를 직접 읽게 한 것(DD-74).
+ *       그전에는 읽는 웹 코드가 0곳이라 revise 501 · fail 159 가 어느 화면에도 없었다.
+ *     · `scripts/textbook/item-state-sync.mjs` +2 — 검수 판정에서 문항 상태를 파생하는 드레인.
+ *     · `lib/csat/item-state.ts` +1 — **이 회차의 `row-cap-lies` 수정**이다. `.limit(5000)` 이었는데
+ *       PostgREST 응답은 1,000행에서 끊기므로 「5,000에 닿으면 경고」가 **영영 안 울리고**
+ *       1,001번째부터 조용히 적은 수를 정확한 수처럼 적고 있었다 → 헬퍼로 끝까지 읽는다.
+ *   나머지 +1 은 다른 세션 몫이다(`csat/source-scorecard-export.mts`).
+ *
+ * ⚠️ **이 번호가 헬퍼를 쓸 때마다 오르는 것이 문제다.** 위 2026-09-20 항목이 이미 같은 말을
+ *   적어 두었다 — 「다음에 스캐너가 헬퍼 경유를 구분하게 만드는 편이 낫다」. 올바른 사용이
+ *   예산을 먹으면, 정작 막아야 할 **직접 `.range()` 루프**(items.ts 7 · resolve.ts 11)가
+ *   같은 숫자 안에 숨는다. 그 분리가 다음 회차의 실제 할 일이고, **그 전에는 올리지 말 것.**
  */
-const BASELINE = 210
+const BASELINE = 216
 
 let scanner: Scanner
 

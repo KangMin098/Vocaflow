@@ -55,16 +55,23 @@ const db = createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: fa
 
 /* ── 실측 헬퍼 ────────────────────────────────────────────────── */
 
+/** `head: true` 세기 질의 — 필터 콜백이 실제로 받는 타입. */
+type CountQuery = ReturnType<ReturnType<typeof db.from>['select']>
+
 /**
  * 행 수를 센다. **`count ?? 0` 을 쓰지 않는다** — 없는 테이블도 head 요청엔 204/count=null 로
  * 답하므로 0 과 구분이 안 된다(CHANGELOG v06.34 에 적힌 함정). 못 쟀으면 null 을 그대로 나른다.
  */
 async function countOf(
   table: string,
-  filter?: (q: ReturnType<typeof db.from>) => unknown,
+  // ⚠️ 여기는 `(q: ReturnType<typeof db.from>) => unknown` 이었고, 호출부는 받은 값을
+  //   `{ eq: … }` 로 **캐스팅**해서 썼다. 넘어오는 것은 `.from()` 이 아니라 `.select()` 의
+  //   결과라 두 타입이 안 겹치는데, `.mts` 가 타입체크 밖이라 그 캐스팅이 통과하고 있었다
+  //   (DD-78). 실제로 받는 것을 그대로 적으면 캐스팅이 필요 없다.
+  filter?: (q: CountQuery) => CountQuery,
 ): Promise<number | null> {
-  const base = db.from(table).select('*', { count: 'exact', head: true })
-  const q = (filter ? (filter(base as never) as typeof base) : base)
+  const base: CountQuery = db.from(table).select('*', { count: 'exact', head: true })
+  const q = filter ? filter(base) : base
   const { count, error } = await q
   if (error) return null
   return typeof count === 'number' ? count : null
@@ -249,9 +256,7 @@ async function main(): Promise<void> {
   // 3) 플랫폼 수치 — 광고에 쓸 수 있는 것만, 출처와 함께
   const platform = {
     dictionary: await countOf('shared_dictionary'),
-    booksPublished: await countOf('library_books', (q) =>
-      (q as { eq: (c: string, v: string) => unknown }).eq('status', 'published'),
-    ),
+    booksPublished: await countOf('library_books', (q) => q.eq('status', 'published')),
     articles: await countOf('library_articles'),
     items: await countOf('csat_dcp_items'),
     chapterQuiz: await countOf('library_chapter_quiz'),
