@@ -236,3 +236,12 @@ apps/web/public/dev/replica-shots/
 scripts/csat/argsme-drain/chunk-*.json
 !scripts/csat/argsme-drain/*.out.json
 scripts/csat/argsme-drain/manifest.json
+
+# 3B 워크스페이스 실측 — **수치 JSON 만 남긴다**(ref-*.json · ours-*.json).
+# 저장한 참조 페이지는 남의 저작물이고, 상태 파일은 자격 증명이다(docs/design/refs/3b/CAPTURE.md).
+docs/design/refs/3b/*.html
+docs/design/refs/3b/*_files/
+docs/design/refs/3b/*.mhtml
+docs/design/refs/3b/state*.json
+docs/design/refs/3b/*.boxes.json
+apps/web/playwright-auth/
