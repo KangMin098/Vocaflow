@@ -18,6 +18,7 @@
 //   대신 **명령어**(관리자가 복사해 돌리는 것)와 **표 헤더**(데이터 열)를 잠근다 —
 //   그 둘이 남아 있으면 그 수치를 낼 자리도 남아 있다.
 
+import type { EligibilityDrift } from '@/lib/textbook/eligibility-drift'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -28,6 +29,22 @@ import { buildSourceEligibilityPanel } from '@/lib/textbook/source-eligibility-v
 import { buildSourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
 import { SourceEligibilityClient } from '../sources/SourceEligibilityClient'
+
+/**
+ * 스냅샷 대비 증감 — **못 읽은 상태**를 표본으로 쓴다.
+ *
+ * 렌더 테스트는 DB 를 안 타므로 「지금 값」이 없는 것이 정상이고, 화면은 그때
+ * 「못 읽었다」고 적어야 한다(0 이 아니다). 그 문장이 안 나오면 이 표본이 거짓으로 통과한다.
+ */
+const DRIFT_UNREAD: EligibilityDrift = {
+  available: false,
+  error: null,
+  snapshotAt: '2026-09-19T02:31:46.502Z',
+  measuredAt: null,
+  snapshotTotal: 0,
+  nowTotal: null,
+  grades: [],
+}
 
 interface Baseline {
   capturedAt: string
@@ -40,7 +57,7 @@ const baseline: Baseline = JSON.parse(
   readFileSync(resolve(__dirname, 'sources-inventory-baseline.json'), 'utf8'),
 )
 
-const html = renderToString(<SourceEligibilityClient panel={buildSourceEligibilityPanel()} inventory={buildSourceInventoryPanel()} />)
+const html = renderToString(<SourceEligibilityClient panel={buildSourceEligibilityPanel()} inventory={buildSourceInventoryPanel()} drift={DRIFT_UNREAD} />)
 /** 태그를 걷어낸 화면 텍스트 — 어디에 있든 「있다」로 센다(배치는 재설계의 자유다). */
 const text = html
   .replace(/<[^>]*>/g, ' ')
@@ -60,6 +77,7 @@ const HEADING_RENAMES: Record<string, string> = {
 }
 
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim()
+
 
 describe('원문 적격 — 재설계해도 정보가 빠지지 않는다', () => {
   it('기준선을 실제로 읽었다', () => {

@@ -9,6 +9,7 @@
 //
 // 그래서 아래 검사는 **표시가 사라지는 것**과 **판정이 관대해지는 것**을 함께 잠근다.
 
+import type { EligibilityDrift } from '@/lib/textbook/eligibility-drift'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -21,8 +22,25 @@ import { buildSourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
 import { SourceEligibilityClient } from '../sources/SourceEligibilityClient'
 
+/**
+ * 스냅샷 대비 증감 — **못 읽은 상태**를 표본으로 쓴다.
+ *
+ * 렌더 테스트는 DB 를 안 타므로 「지금 값」이 없는 것이 정상이고, 화면은 그때
+ * 「못 읽었다」고 적어야 한다(0 이 아니다). 그 문장이 안 나오면 이 표본이 거짓으로 통과한다.
+ */
+const DRIFT_UNREAD: EligibilityDrift = {
+  available: false,
+  error: null,
+  snapshotAt: '2026-09-19T02:31:46.502Z',
+  measuredAt: null,
+  snapshotTotal: 0,
+  nowTotal: null,
+  grades: [],
+}
+
 const panel = buildSourceEligibilityPanel(new Date('2026-09-06T12:00:00Z'))
-const html = renderToString(<SourceEligibilityClient panel={panel} inventory={buildSourceInventoryPanel()} />)
+const html = renderToString(<SourceEligibilityClient panel={panel} inventory={buildSourceInventoryPanel()} drift={DRIFT_UNREAD} />)
+
 
 describe('buildSourceEligibilityPanel', () => {
   it('스냅샷 합계가 등급 합과 맞는다 — 어긋나면 밴드 인자와 함께 만든 스냅샷이다', () => {
