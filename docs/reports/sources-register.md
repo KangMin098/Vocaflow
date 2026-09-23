@@ -198,7 +198,11 @@ R3 로 보면 **Smarthistory**(예술 논증 최상위) · **Noba**(심리학 �
 어휘만 통제하고 구문 길이·전문어 밀도를 안 잡는다. **입력을 어디서 가져와도 A2 칸은 지금 방식으로 안 채워진다.**
 
 **④ 그래도 R0·R1 을 먼저 한다.** 표현까지 쓸 수 있으면 재저작 드레인이 통째로 빠지므로 비용이 다르다.
-**FrYM 잔여 1,862편**(새 코드 0) · **World Bank 40,415편**(CHECK 제약 한 줄) 이 그래서 맨 앞이다.
+**FrYM 잔여 1,862편**(새 코드 0) · **World Bank 40,415편** 이 그래서 맨 앞이다.
+⚠️ **2026-09-24 정정** — World Bank 를 막는 것은 CHECK 제약이 아니다. 라이브 제약을
+`pg_get_constraintdef` 로 읽어 보니 `worldbank` 는 **이미 들어 있다**. 남은 잠금은 하나,
+`openknowledge.worldbank.org/robots.txt` 의 `Disallow: /server/oai/` + `Crawl-delay: 10` 이고
+**그걸 넘을지는 사용자 결정**이다(`scripts/csat/harvest-worldbank.mjs` 머리).
 
 **⑤ 길이로 매긴 순위는 전부 다시 매겨야 한다 (2026-09-23 정정).** 창이 넷인데 하나만 봤으므로,
 「규격에 맞는다」·「짧아서 못 쓴다」·「길어서 못 쓴다」는 판정이 모두 근거를 잃었다. 재계수가
@@ -242,7 +246,7 @@ AgEcon(AWS WAF) · Liverpool/White Rose 본사(403).
 |---|---|---|---|
 | 0 | **compose 게이트에 3중 합의 검사** · **off-list(≤13%) 게이트로 교체** | 공통 | 코드 2 |
 | 1 | **FrYM 잔여 1,862편** | R1 | **새 코드 0** |
-| 2 | **World Bank CHECK 제약 SQL**(승인 후) | R1 | SQL 1줄 → 40,415편 |
+| 2 | **World Bank robots.txt 판단**(제약은 이미 열려 있다 — 2026-09-24 실측) | R1 | 사용자 결정 → 40,415편 |
 | 3 | `europe-pmc.ts` 가 `stripJatsCitations` 를 쓰게 | 공통 | import 1줄 → 잔해 78%→9% |
 | 4 | **Rebus 131섹션 · LibreTexts 예술사 53섹션** | R1 | 어댑터 2 |
 | 5 | **FEE 24,010 · Economics Observatory 1,104 · PDR 1,652** | R1·R2 | 어댑터 3 |
