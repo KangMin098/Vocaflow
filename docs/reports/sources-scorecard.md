@@ -1,6 +1,12 @@
 <!-- docs/reports/sources-scorecard.md -->
 # 소스GET 원천 21곳 채점 — Gate 0·1 (2026-09-23)
 
+> **정정 (2026-09-23) — 라이선스 기준 탈락은 이 문서에서 무효다.**
+> 사용자 지시: 「라이센스 기준으로 소스get 대상에서 제외 절대 하지마. 라이센스에 맞게 변환 전략 세울 계획임.」
+> 아래에서 라이선스를 이유로 「반려」·「하」·「실격」으로 적은 판정은 **경로 배정으로 대체**된다 —
+> 정본은 [sources-register.md](./sources-register.md)(경로표 R0~R4 + 제외 없는 등록부).
+> 이 문서의 **측정치·접근 사실·내용 판정**은 그대로 유효하다.
+
 > **읽기 전용 측정이다.** DB 를 고치지 않았고 마이그레이션도 없다. 원문 인용 0 — 길이·점수·분포만 싣는다.
 > 산출물: 이 문서 + [`sources-scorecard.json`](./sources-scorecard.json) (전 칸의 원수치).
 > 재현: `source-scorecard-export.mts` → 에이전트 판정 → `source-scorecard-verify.mts` → `source-scorecard-score.mts`.
