@@ -8,7 +8,7 @@ import path from 'node:path'
 import { isDeepStrictEqual } from 'node:util'
 import { evaluateSource as judgeSource, tallyEligibility, isComposable, ELIGIBILITY_SPEC_VERSION } from '../../packages/library-pipeline/src/textbook/source-eligibility.ts'
 import { cefrFitsBand } from '../../packages/library-pipeline/src/textbook/assemble-unit.ts'
-import { decide, HARMFUL, UNFIT } from '../csat/gate-rules.mjs'
+import { decide, retentionOf, HARMFUL, UNFIT } from '../csat/gate-rules.mjs'
 import { retryingFetch } from '../lib/supabase-client.mjs'
 import { compositionContradictions, auditFailures } from './csat-sources-checks.mjs'
 import { sourceEligibilityInput } from '../../packages/library-pipeline/src/textbook/source-eligibility-row.ts'
@@ -77,6 +77,9 @@ function flag(code, row, detail) {
 const states = {}, sources = {}, grades = [], articleIds = new Set(), hashes = new Map()
 const withItemsByGrade = {}, byBand = {}, gates = {}
 const work = {}, reasonCounts = {}, analysisStates = {}, contentStates = {}, cefrStates = {}
+// 보관 축은 **확보한 전량**을 센다 — 조판 후보(ready/published)만 세면 archived·queued 가
+// 집계 밖으로 빠져 「전량에 보관 판정이 있는가」라는 물음에 답하지 못한다.
+const retention = {}, retentionUndecided = {}
 let total = 0, composableWithItems = 0, composableWithoutItems = 0
 const select = 'id,title,source,status,updated_at,source_url,content_hash,language,article_v_level,word_count,register,cefr_level,license_class,display_only,copyright_safe_in_kr,syntax_score,gate:csat_fit->gate,windows:csat_fit->make->windows'
 for await (const rows of walk('library_articles', select)) {
@@ -88,6 +91,10 @@ for await (const rows of walk('library_articles', select)) {
     const candidate = ['ready', 'published'].includes(row.status)
     const gate = row.gate ?? {}
     gates[String(gate.verdict ?? '(none)')] = (gates[String(gate.verdict ?? '(none)')] ?? 0) + 1
+    const keepState = retentionOf({ purpose: gate.purpose, verdict: gate.verdict })
+    retention[keepState] = (retention[keepState] ?? 0) + 1
+    // undecided 는 출처별로 쪼개 둔다 — 합계만 보면 어느 파이프라인이 구멍인지 알 수 없다.
+    if (keepState === 'undecided') retentionUndecided[`${row.source}/${row.status}`] = (retentionUndecided[`${row.source}/${row.status}`] ?? 0) + 1
     if (row.content_hash) {
       const ids = hashes.get(row.content_hash) ?? []
       ids.push({ id: row.id, source: row.source, status: row.status })
@@ -142,6 +149,9 @@ const tally = tallyEligibility(grades)
 const report = {
   startedAt, completedAt: new Date().toISOString(), readOnly: true,
   scope: 'All library_articles metadata; eligibility only ready/published; bodies audited separately',
+  // 보관 여부(파생 — 저장하지 않는다). `keep-pending-extraction` 은 purpose:'raw' 클래스 규칙이고,
+  // `undecided` 가 0이 아니면 그만큼이 **보관 판정 없이 쌓여 있는** 원문이다.
+  retention, retentionUndecided,
   itemReferenceInput: refFile ? 'External SQL distinct reference list (not a transactional snapshot)' : 'Live paginated distinct reference scan (not a transactional snapshot)',
   total, states, sources, gateVerdicts: gates, eligibility: tally, byBand,
   itemReferences: refs.size, orphanItemReferences: [...refs].filter(id => !articleIds.has(id)),

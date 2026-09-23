@@ -302,6 +302,11 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 > 본문 없는 묘비로 기억해 다시 GET·재판정하지 않는다. 기준설계와 이행 순서:
 > [SOURCE_INTAKE_DESIGN](./SOURCE_INTAKE_DESIGN.md). 아래 「중복 방지 규약」은 **그 전의 구조**다
 > (보유 목록 = `library_articles` 전량 스캔). 이행이 끝나면 이 절을 기준설계로 갈음한다.
+>
+> ⚠️ **「게시 불가」와 「미보관」은 다르다.** `csat_fit.gate.publishable=false` 를 버릴 것으로 읽으면
+> 안 된다 — plos 원본 31,220편은 전량 `oversize-raw` 로 게시가 막혀 있지만 **추출 대기 재고**다.
+> 보관 축은 `gate-rules.retentionOf` 가 파생으로 답하고(저장하지 않는다), 감사가 확보 전량에 대해
+> 센다. 표와 실측은 SOURCE_INTAKE_DESIGN 「보관 축」.
 
 ### 중복 방지 규약 — 열쇠 한 벌 + 커서 한 벌 (2026-09-07)
 

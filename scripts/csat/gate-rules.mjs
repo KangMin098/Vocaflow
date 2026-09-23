@@ -249,6 +249,37 @@ export function decide({ purpose, verdict, genre, codes }) {
 }
 
 /**
+ * **보관 판정 — 게시 가능 여부와 다른 축이다**(2026-09-23 사용자 결정).
+ *
+ * `decide()` 는 「지금 이 원문을 **그대로 게시할 수 있는가**」만 답한다. 그 답이 `false` 라고
+ * 버릴 것이라는 뜻이 아니다 — plos 원본 **31,220편은 전량 `oversize-raw` 로 게시가 막혀 있지만**
+ * 버릴 재고가 아니라 **추출을 기다리는 재고**다(실측 2026-09-23: 그 집합의 blockedBy·publishable 이
+ * 예외 없이 `oversize-raw`/false 하나였다). 두 축을 한 칸으로 읽었더니 「게시 불가」와 「미보관」이
+ * 구별되지 않아, **확보한 원문 전량에 보관 판정이 있느냐**는 물음에 답할 수가 없었다.
+ *
+ * ⚠️ **파생값이다 — 컬럼에 저장하지 않는다.** 저장하면 규칙을 고쳐도 데이터가 안 따라온다
+ *   (바로 아래 RULES_VERSION 주석의 2026-09-06 사고와 같은 형태). 감사·화면이 그때그때 계산한다.
+ *
+ * | 값 | 언제 | 왜 |
+ * |---|---|---|
+ * | `keep-pending-extraction` | `purpose:'raw'` | **클래스 규칙.** 자르지 않은 논문 전문이라 판정을 붙여도 게시가 열리지 않는다 — 여는 것은 판정이 아니라 추출(`plos-extract`)이고, 개별 판정은 추출된 발췌에 붙는다. 전문을 한 편씩 읽는 것은 같은 판정을 두 번 하는 일이다 |
+ * | `keep` | 내용 판정이 `use`·`narrative` | 사람이 본문을 읽고 남기기로 했다 |
+ * | `discard` | 내용 판정이 `reject` | 사람이 본문을 읽고 버리기로 했다 |
+ * | `undecided` | 그 외 | **이 값이 0이 아니면 관리 구멍이다** — 감사가 이 수를 찍는다 |
+ *
+ * `purpose` 를 verdict 보다 먼저 보는 이유: raw 는 verdict 가 있어도 게시가 안 열리므로
+ * 보관 사유가 「읽고 남겼다」가 아니라 「추출 대기」로 남아야 되짚을 수 있다.
+ */
+export function retentionOf({ purpose, verdict } = {}) {
+  if (purpose === 'raw') return 'keep-pending-extraction'
+  if (verdict === 'use' || verdict === 'narrative') return 'keep'
+  if (verdict === 'reject') return 'discard'
+  return 'undecided'
+}
+
+export const RETENTION = new Set(['keep', 'keep-pending-extraction', 'discard', 'undecided'])
+
+/**
  * **규칙 판(版). 판정 결과를 바꾸는 수정을 하면 반드시 올린다.**
  *
  * ⚠️ 이게 없으면 **규칙을 고쳐도 데이터가 안 바뀐다.** 실제로 그랬다(2026-09-06):
