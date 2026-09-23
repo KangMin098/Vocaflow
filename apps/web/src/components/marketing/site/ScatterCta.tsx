@@ -7,6 +7,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 
 import { BTN } from '@/components/ui/tines-kit'
 
@@ -16,14 +17,23 @@ export function ScatterCta({ title = '오늘 읽을 글부터.' }: { title?: str
   return (
     <section aria-label="시작하기" className="relative mx-auto w-full max-w-[1360px] overflow-hidden px-4 py-10 lg:px-10 lg:py-16">
       <div className="relative">
-        <Image
-          src="/illustrations/tines/band-scatter.webp"
-          alt=""
-          width={1664}
-          height={928}
-          sizes="(min-width: 1360px) 1280px, 100vw"
-          className="pointer-events-none absolute inset-0 hidden h-full w-full select-none object-cover md:block"
-        />
+        {/* 띠가 스크롤에 맞춰 천천히 지나간다(§4.5 `.vf-parallax` · `view()` 타임라인).
+            여백은 **6% 균일 확대**로 만든다 — 위아래로만 늘리면 상자 비율이 달라져
+            `object-cover` 가 다른 데를 자르고, 삽화에 그려진 액자선이 띠 안으로 들어온다
+            (실측 2026-09-23 · tines-mapping §29-11). 미지원 브라우저·모션 끔에서는 제자리. */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block">
+          <div className="h-full w-full scale-[1.06]">
+            <Image
+              src="/illustrations/tines/band-scatter.webp"
+              alt=""
+              width={1664}
+              height={928}
+              sizes="(min-width: 1360px) 1280px, 100vw"
+              className="vf-parallax h-full w-full select-none object-cover"
+              style={{ '--par-from': '-0.6rem', '--par-to': '0.6rem' } as CSSProperties}
+            />
+          </div>
+        </div>
         <div className="relative mx-auto flex min-h-[420px] max-w-[440px] items-center py-10 md:min-h-[560px]">
           <div className="w-full rounded-[14px] border border-[var(--bd)] bg-[var(--bg)] px-7 py-9 text-center">
             <span className="inline-flex justify-center"><LogoMark /></span>

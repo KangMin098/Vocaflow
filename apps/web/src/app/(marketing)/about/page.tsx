@@ -6,6 +6,7 @@
 // 끝 CTA 는 레이아웃(`MarketingTail`)이 맡는다.
 
 import Image from 'next/image'
+import type { CSSProperties } from 'react'
 import Link from 'next/link'
 
 import { Illustration } from '@/components/illustrations/Illustration'
@@ -78,17 +79,18 @@ export default function AboutPage() {
 
         <section className={`${WRAP} grid items-start gap-10 pb-6 pt-8 lg:grid-cols-[1.1fr_1fr] lg:pt-12`}>
           <div>
-            <p className="font-mono text-[13px] font-[700] uppercase tracking-[0.06em]">우리의 미션</p>
-            <h1 className="mt-5 break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] md:text-[64px]">영어를 오래 가게<br />만드는 학습.</h1>
-            <p className="mt-6 max-w-[40ch] break-keep font-serif text-[20px] leading-[1.4] md:text-[24px]">단어를 외우는 게 아니라 머리에 남도록. 학습 과학과 디자인을 도구로, 차분하게 단단하게 오래.</p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            {/* 히어로가 차례로 선다(§4.5 `.vf-rise` · 50ms 계단 — 랜딩·`/hub` 와 같은 값). */}
+            <p className="vf-rise font-mono text-[13px] font-[700] uppercase tracking-[0.06em]">우리의 미션</p>
+            <h1 className="vf-rise mt-5 break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] md:text-[64px]" style={{ '--rise-delay': '50ms' } as CSSProperties}>영어를 오래 가게<br />만드는 학습.</h1>
+            <p className="vf-rise mt-6 max-w-[40ch] break-keep font-serif text-[20px] leading-[1.4] md:text-[24px]" style={{ '--rise-delay': '100ms' } as CSSProperties}>단어를 외우는 게 아니라 머리에 남도록. 학습 과학과 디자인을 도구로, 차분하게 단단하게 오래.</p>
+            <div className="vf-rise mt-8 flex flex-wrap gap-3" style={{ '--rise-delay': '150ms' } as CSSProperties}>
               <Link href="/fit" className={BTN.primary}>지문 난이도 재 보기</Link>
               <Link href="/signup" className={BTN.secondary}>무료로 시작하기</Link>
             </div>
           </div>
           {/* 참조의 고객 인용 자리 — 추천사를 지어내지 않고 이 페이지가 기대는 **연구 근거**를 출처와 함께 */}
           <figure className="relative">
-            <div className="relative z-10 rounded-[24px] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_60%,var(--tint-lavender))] p-7 md:p-9">
+            <div className="vf-rise relative z-10 rounded-[24px] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_60%,var(--tint-lavender))] p-7 md:p-9" style={{ '--rise-y': '16px', '--rise-dur': '600ms', '--rise-delay': '200ms' } as CSSProperties}>
               <blockquote className="break-keep font-serif text-[22px] leading-[1.4] md:text-[26px]">떠올리는 연습이, 다시 읽는 연습보다 오래 남는 기억을 만듭니다.</blockquote>
               <figcaption className="mt-5 font-display text-[13.5px] leading-snug">
                 <span className="block font-[700]">Karpicke &amp; Roediger (2008)</span>
@@ -96,7 +98,16 @@ export default function AboutPage() {
               </figcaption>
             </div>
             {/* 참조처럼 카드 **아래**에 꽃밭 — 위쪽을 흐려 면에 녹인다 */}
-            <Image src="/illustrations/tines/bed-flowers.webp" alt="" width={1664} height={928} className="pointer-events-none -mt-20 h-auto w-full select-none" />
+            {/* 카드 아래 꽃밭이 화면을 지나는 동안 천천히 흐른다(참조 `quoteFlowerParallax` 자리).
+                자르는 액자가 없지만 **잘릴 것도 없다** — 떠 있는 그림 한 장이라 그냥 움직인다. */}
+            <Image
+              src="/illustrations/tines/bed-flowers.webp"
+              alt=""
+              width={1664}
+              height={928}
+              className="vf-parallax pointer-events-none -mt-20 h-auto w-full select-none"
+              style={{ '--par-from': '-1rem', '--par-to': '1rem' } as CSSProperties}
+            />
           </figure>
         </section>
 
@@ -106,7 +117,7 @@ export default function AboutPage() {
             {intro ? (
               <ComponentVideo video={intro} />
             ) : (
-              <Image src="/illustrations/tines/tile-about.webp" alt="" width={1328} height={1328} priority sizes="100vw" className="mx-auto h-auto w-full max-w-[520px]" />
+              <Image src="/illustrations/tines/tile-about.webp" alt="" width={1328} height={1328} priority sizes="100vw" className="vf-float mx-auto h-auto w-full max-w-[520px]" style={{ '--float-dur': '6s', '--float-y': '3%' } as CSSProperties} />
             )}
           </Frame>
         </section>

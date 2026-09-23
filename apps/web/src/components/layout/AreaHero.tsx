@@ -12,6 +12,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 
 import { DEEP_CLASS, type Deep, type Tint } from '@/lib/design/tone'
 
@@ -85,6 +86,8 @@ export function AreaHero({
           )}
           {children && <div className="mt-6">{children}</div>}
         </div>
+        {/* 구역 타일이 숨을 쉰다(globals.css §4.5 `.vf-float` · tines-mapping §29).
+            판 자체는 가만히 둔다 — 제목·수치를 읽는 면이라 움직이면 읽기를 방해한다. */}
         <Image
           src={`/illustrations/tines/${tile}.webp`}
           alt=""
@@ -92,7 +95,8 @@ export function AreaHero({
           height={1328}
           priority
           sizes="(min-width: 768px) 240px, 50vw"
-          className="hidden w-[50%] max-w-[240px] select-none justify-self-end rounded-[var(--r-xl)] sm:block md:w-[210px] lg:w-[240px]"
+          className="vf-float hidden w-[50%] max-w-[240px] select-none justify-self-end rounded-[var(--r-xl)] sm:block md:w-[210px] lg:w-[240px]"
+          style={{ '--float-dur': '5s', '--float-y': '5%' } as CSSProperties}
         />
       </div>
       {hasTabs && (

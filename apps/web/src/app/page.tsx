@@ -21,6 +21,7 @@ import { ArrowRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 
 import { CoverageHero } from '@/components/marketing/CoverageHero'
 import { LandingCta } from '@/components/marketing/LandingCta'
@@ -73,9 +74,11 @@ export default async function LandingPage() {
       <main className="flex-1">
         {/* ── 히어로 — 왼쪽 정렬 · 64px 두 줄 · 세리프 부제 ── */}
         <section className="mx-auto max-w-[1360px] px-4 pb-10 pt-6 lg:px-10 lg:pt-4">
+          {/* 히어로가 차례로 선다(§4.5 `.vf-rise` · 50ms 계단) — 참조 메가메뉴의 `nth-child` 지연과 같은 수법.
+              투명도는 0.1% 에 끝나므로 이동만 보인다(이동 중 흐릿한 글자가 없다). */}
           <Link
             href="/fit"
-            className="inline-flex min-h-[44px] items-center rounded-full border border-[var(--ju)] text-[14px] text-[var(--ju)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+            className="vf-rise inline-flex min-h-[44px] items-center rounded-full border border-[var(--ju)] text-[14px] text-[var(--ju)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
             <span className="border-r border-[var(--ju)] px-3 font-mono text-[12px] font-[700] uppercase tracking-[0.05em]">New</span>
             <span className="inline-flex items-center gap-1.5 px-3 font-[500]">
@@ -83,16 +86,22 @@ export default async function LandingPage() {
             </span>
           </Link>
 
-          <h1 className="mt-7 max-w-[20ch] break-keep font-display text-[40px] font-[400] leading-[1.08] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]">
+          <h1
+            className="vf-rise mt-7 max-w-[20ch] break-keep font-display text-[40px] font-[400] leading-[1.08] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]"
+            style={{ '--rise-delay': '50ms' } as CSSProperties}
+          >
             글이 어려운 게 아니라
             <br />
             내가 아는 비율이 다른 겁니다.
           </h1>
-          <p className="mt-6 max-w-[52ch] break-keep font-serif text-[20px] leading-[1.35] text-[var(--ju)] md:text-[26px]">
+          <p
+            className="vf-rise mt-6 max-w-[52ch] break-keep font-serif text-[20px] leading-[1.35] text-[var(--ju)] md:text-[26px]"
+            style={{ '--rise-delay': '100ms' } as CSSProperties}
+          >
             이 글이 편하게 읽히기까지 몇 단어가 남았는지 계산해 드려요.
           </p>
 
-          <div className="mt-8">
+          <div className="vf-rise mt-8" style={{ '--rise-delay': '150ms' } as CSSProperties}>
             <LandingCta />
           </div>
 
@@ -129,7 +138,7 @@ export default async function LandingPage() {
           {demo && (
             <div className="relative z-10 mx-auto -mt-[5vw] max-w-[1360px] px-4 lg:-mt-[70px] lg:px-10">
               <FrameBar tab="이 글, 지금 재 보는 중" />
-              <div className="rounded-[var(--r-2xl)] border-2 border-[var(--bd)] bg-[var(--bg2)] p-2 md:p-3">
+              <div className="vf-rise rounded-[var(--r-2xl)] border-2 border-[var(--bd)] bg-[var(--bg2)] p-2 md:p-3" style={{ '--rise-y': '16px', '--rise-dur': '600ms' } as CSSProperties}>
                 <div className="rounded-[18px] border border-[var(--bd)] bg-[var(--bg)] px-4 py-6 md:px-10 md:py-8">
                   <CoverageHero demo={demo} />
                 </div>
@@ -150,7 +159,15 @@ export default async function LandingPage() {
               <br />
               <span className="font-[800]">글은 여전히 어렵다.</span>
             </h2>
-            <Image src={`${ILLO}/spot-topic-talk.webp`} alt="" width={1328} height={1328} className="mx-auto mt-8 w-[96px] select-none" />
+            {/* 선언 한가운데 소품 하나만 숨을 쉰다 — 글 두 문단 사이라 얕게(5%). */}
+            <Image
+              src={`${ILLO}/spot-topic-talk.webp`}
+              alt=""
+              width={1328}
+              height={1328}
+              className="vf-float mx-auto mt-8 w-[96px] select-none"
+              style={{ '--float-dur': '5s', '--float-y': '5%' } as CSSProperties}
+            />
             <p className="mt-8 break-keep font-serif text-[18px] leading-[1.6] text-[var(--ju)] md:text-[20px]">
               같은 글도 읽는 사람마다 모르는 단어가 다릅니다. 그래서 글의 &lsquo;난이도&rsquo;는 한 숫자로 정해지지 않아요.
             </p>
@@ -188,13 +205,17 @@ export default async function LandingPage() {
                 </div>
               </div>
             </div>
+            {/* 꽃밭이 판을 지나는 동안 가라앉는다(참조 `heroBedDrift`·`quoteFlowerParallax` 자리).
+                **아래로만** 민다 — `bottom-0` 에 붙어 있어 위로 올리면 판 밑변에 빈 줄이 생기고,
+                아래로 민 만큼은 판의 `overflow-hidden` 이 자른다. */}
             <Image
               src={`${ILLO}/bed-flowers.webp`}
               alt=""
               width={1664}
               height={928}
               sizes="(min-width: 1024px) 60vw, 100vw"
-              className="pointer-events-none absolute bottom-0 left-0 w-full select-none [mask-image:linear-gradient(to_right,black_78%,transparent)] lg:w-[52%]"
+              className="vf-parallax pointer-events-none absolute bottom-0 left-0 w-full select-none [mask-image:linear-gradient(to_right,black_78%,transparent)] lg:w-[52%]"
+              style={{ '--par-from': '0rem', '--par-to': '1.5rem' } as CSSProperties}
             />
           </div>
         </section>
@@ -253,6 +274,7 @@ export default async function LandingPage() {
               cta="교사 허브"
               illo="tile-teacher"
               tone={DEEP_CLASS.charcoal}
+              delay="0.5s"
             />
           </div>
         </section>
@@ -277,7 +299,7 @@ export default async function LandingPage() {
 }
 
 /** 문 카드 — 참조 사례 카드처럼 범주 색의 진한 면(도서 초록 · 교사 청록), 구석에 타일. */
-function DoorCard({ href, title, body, cta, illo, tone }: { href: string; title: string; body: string; cta: string; illo: string; tone: string }) {
+function DoorCard({ href, title, body, cta, illo, tone, delay = '0s' }: { href: string; title: string; body: string; cta: string; illo: string; tone: string; delay?: string }) {
   return (
     <Link
       href={href}
@@ -288,7 +310,15 @@ function DoorCard({ href, title, body, cta, illo, tone }: { href: string; title:
       <span className="mt-auto inline-flex items-center gap-1.5 font-display text-[14px] font-[700] tracking-[0.02em]">
         {cta} <ArrowRight size={14} aria-hidden />
       </span>
-      <Image src={`/illustrations/tines/${illo}.webp`} alt="" width={1328} height={1328} className="absolute bottom-6 right-6 w-[170px] rounded-[14px]" />
+      {/* 구석 타일이 숨을 쉰다. 카드가 `overflow-hidden` 이라 떠도 판 밖으로 안 나간다. */}
+      <Image
+        src={`/illustrations/tines/${illo}.webp`}
+        alt=""
+        width={1328}
+        height={1328}
+        className="vf-float absolute bottom-6 right-6 w-[170px] rounded-[14px]"
+        style={{ '--float-y': '5%', '--float-delay': delay } as CSSProperties}
+      />
     </Link>
   )
 }

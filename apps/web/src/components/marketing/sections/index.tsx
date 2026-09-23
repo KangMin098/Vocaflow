@@ -7,6 +7,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 
 import { TINT_CLASS, TINT_ROTATION } from '@/lib/design/tone'
 
@@ -95,7 +96,8 @@ export function Hero2Col({
 /** 참조의 라벤더 이중 테두리 액자 — 영상·제품 화면을 담는다. */
 export function Frame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-[var(--r-2xl)] border-2 border-[var(--bd)] bg-[var(--bg2)] p-2 md:p-3">
+    // 액자가 16px 아래에서 올라온다(§4.5 `.vf-rise`) — 참조 `threeBVisualAppear` 와 같은 자리.
+    <div className="vf-rise rounded-[var(--r-2xl)] border-2 border-[var(--bd)] bg-[var(--bg2)] p-2 md:p-3" style={{ '--rise-y': '16px', '--rise-dur': '600ms' } as CSSProperties}>
       <div className="overflow-hidden rounded-[18px] border border-[var(--bd)] bg-[var(--bg)] [&_figcaption]:px-4 [&_figcaption]:pb-3">{children}</div>
     </div>
   )
@@ -158,12 +160,22 @@ export function ToneCards({ items, columns = 5 }: { items: { title: string; body
   const cols = columns === 5 ? 'lg:grid-cols-5' : columns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
   return (
     <ul className={`grid overflow-hidden rounded-[var(--r-xl)] sm:grid-cols-2 ${cols}`}>
-      {items.map((m) => {
+      {items.map((m, i) => {
         const body = (
           <>
             <h3 className="break-keep font-serif text-[26px] font-[400] leading-[1.15]">{m.title}</h3>
             <p className="mt-3 break-keep font-body text-[15px] font-[500] leading-[1.45]">{m.body}</p>
-            {m.illo && <Image src={`${ILLO}/${m.illo}.webp`} alt="" width={1328} height={1328} className="mt-auto w-[128px] self-end" />}
+            {/* 구석 소품이 숨을 쉰다 — 진한 면 위 읽는 글 옆이라 얕게(4%), 카드마다 계단 지연. */}
+            {m.illo && (
+              <Image
+                src={`${ILLO}/${m.illo}.webp`}
+                alt=""
+                width={1328}
+                height={1328}
+                className="vf-float mt-auto w-[128px] self-end"
+                style={{ '--float-dur': '5s', '--float-y': '4%', '--float-delay': `${i * 0.3}s` } as CSSProperties}
+              />
+            )}
           </>
         )
         return (
@@ -195,7 +207,18 @@ export function Bento({ cells }: { cells: { kicker?: string; title: string; body
           <h3 className="mt-2 break-keep font-serif text-[22px] font-[700] leading-[1.2]">{c.title}</h3>
           <p className="mt-2 max-w-[42ch] break-keep font-body text-[15px] leading-[1.55]">{c.body}</p>
           {c.media && <div className="mt-4">{c.media}</div>}
-          {c.illo && <Image src={`${ILLO}/${c.illo}.webp`} alt="" width={1328} height={1328} className="mt-auto w-[112px] self-end" />}
+          {/* 참조 `ThreeBBentoSection.tileFloat` 의 원자리 — 4s · 6%. 칸마다 계단 지연을 줘
+              여러 칸이 한 박자로 출렁이지 않게 한다(참조 `keyPulse` 와 같은 수법). */}
+          {c.illo && (
+            <Image
+              src={`${ILLO}/${c.illo}.webp`}
+              alt=""
+              width={1328}
+              height={1328}
+              className="vf-float mt-auto w-[112px] self-end"
+              style={{ '--float-delay': `${i * 0.35}s` } as CSSProperties}
+            />
+          )}
         </li>
       ))}
     </ul>
