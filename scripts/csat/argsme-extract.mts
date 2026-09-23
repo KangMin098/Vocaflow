@@ -39,8 +39,13 @@ function loadList(path: string): string[] {
   const out: string[] = []
   for (const line of readFileSync(path, 'utf8').split(/\r?\n/)) {
     if (!line || line.startsWith('#')) continue
-    const w = line.split(',')[0]?.trim().toLowerCase()
-    if (w && /^[a-z][a-z'-]*$/.test(w)) out.push(w)
+    // ⚠️ 이 CSV 는 `표제어,굴절형,굴절형…` 이다. 첫 칸만 읽으면 굴절형 8,933개가 버려져
+    // is·are·was·were·their·them·better·best·children·an·does·did 가 전부 off-list 로 잡힌다
+    // (실측 2026-09-23: 목록 3,767 → 12,700). 그 상태로 잰 off-list 는 전부 과대였다.
+    for (const cell of line.split(',')) {
+      const w = cell.trim().toLowerCase()
+      if (w && /^[a-z][a-z'-]*$/.test(w)) out.push(w)
+    }
   }
   return out
 }
