@@ -13,13 +13,16 @@
 
 import fs from 'node:fs'
 
-import { HARMFUL, UNFIT } from './gate-rules.mjs'
+import { HARMFUL, UNFIT, SOURCE_USES } from './gate-rules.mjs'
 
 // ⚠️ **적재기와 같은 집합을 써야 한다.** 여기 손으로 적어 두었더니 `poetry-drama` 가 빠져 있었고,
 //   그 조합(`use` + `poetry-drama`)은 이 검사를 통과한 뒤 `gate-mixed-import` 에서 throw 했다 —
 //   검사기가 먼저 보라고 만든 것인데 먼저 못 봤다. 그래서 정본(`gate-rules`)에서 편다.
 const BLOCKED = new Set([...HARMFUL, ...UNFIT, 'poetry-drama'])
-const KEYS = ['id', 'verdict', 'genre', 'why', 'source_updated_at', 'body_sha256']
+// `uses` 는 2026-09-23 에 더한 일곱째 키 — **이 원문으로 어떤 교재를 만들 수 있는가**.
+// 그 전에 끝난 판정 파일에는 없으므로 **없어도 통과시키되**, 채운 비율을 출력에 찍는다
+// (조용히 비어 있으면 전량을 다시 읽어야 하는 것을 나중에야 알게 된다).
+const KEYS = ['id', 'verdict', 'genre', 'why', 'source_updated_at', 'body_sha256', 'uses']
 const pairs = process.argv.slice(2)
 if (!pairs.length || pairs.length % 2) throw new Error('<export.json> <reviews.json> 쌍으로 넘긴다')
 
@@ -50,17 +53,37 @@ for (let i = 0; i < pairs.length; i += 2) {
     if (r.verdict === 'reject' && !BLOCKED.has(r.genre)) problems.push(`${at} reject 인데 차단 장르가 아니다: ${r.genre}`)
     if (Date.parse(r.source_updated_at) !== Date.parse(src.source_updated_at)) problems.push(`${at} 리비전 불일치: ${r.id}`)
     if (r.body_sha256 !== src.body_sha256) problems.push(`${at} 본문 해시 불일치: ${r.id}`)
+    if (r.uses !== undefined) {
+      if (!Array.isArray(r.uses)) problems.push(`${at} uses 가 배열이 아니다`)
+      else {
+        const unknown = r.uses.filter((u) => !SOURCE_USES.has(u))
+        if (unknown.length) problems.push(`${at} 모르는 uses: ${unknown.join(',')}`)
+        if (new Set(r.uses).size !== r.uses.length) problems.push(`${at} uses 에 중복`)
+        // 버릴 글에 「이걸로 만들 수 있다」가 붙어 있으면 둘 중 하나가 틀린 것이다.
+        if (r.verdict === 'reject' && r.uses.length) problems.push(`${at} reject 인데 uses 가 있다: ${r.uses.join(',')}`)
+        if (r.verdict !== 'reject' && !r.uses.length) problems.push(`${at} ${r.verdict} 인데 uses 가 비었다`)
+      }
+    }
   }
   for (const x of exported) if (!seen.has(x.id)) problems.push(`판정이 빠진 편: ${x.id}`)
 
   const dist = {}
+  const useCount = {}
+  let withUses = 0
   for (const r of Array.isArray(reviews) ? reviews : []) {
     const k = `${r.verdict}/${r.genre}`
     dist[k] = (dist[k] ?? 0) + 1
+    if (Array.isArray(r.uses)) {
+      withUses++
+      for (const u of r.uses) useCount[u] = (useCount[u] ?? 0) + 1
+    }
   }
+  const rows = Array.isArray(reviews) ? reviews.length : 0
   console.log(JSON.stringify({
-    exportFile, reviewFile, exported: exported.length, reviewed: Array.isArray(reviews) ? reviews.length : 0,
+    exportFile, reviewFile, exported: exported.length, reviewed: rows,
     ok: problems.length === 0, problems: problems.slice(0, 10), distribution: dist,
+    // 채움 비율을 늘 찍는다 — `uses` 가 조용히 빈 채로 쌓이면 나중에 전량을 다시 읽어야 한다.
+    usesFilled: `${withUses}/${rows}`, uses: useCount,
   }))
   if (problems.length) bad++
 }

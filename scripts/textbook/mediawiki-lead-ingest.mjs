@@ -251,22 +251,18 @@ for (let i = 0; i < sample.items.length; i++) {
   const words0 = countWords(raw)
   let content = raw
   let wasTrimmed = false
-  if (words0 < win.wordsMin) {
-    tooShort++
-    continue
-  }
+  // ⚠️ **길이는 확보 여부를 가르지 않는다**(2026-09-23 사용자 결정 · DD-79).
+  //   예전에는 창 밖이면 `tooShort`/`tooLong` 으로 **적재하지 않았다**. 원문은 지문이 아니고,
+  //   자를지 말지는 교재 생성이 유형별 창으로 정한다(`compose-unit.itemWordSpec`).
+  //   이제 세기만 하고 전문을 담는다. `--trim` 을 준 경우에만 창에 맞춰 자른다.
+  if (words0 < win.wordsMin) tooShort++
   if (words0 > win.wordsMax) {
-    if (!TRIM) {
-      tooLong++
-      continue
+    tooLong++
+    if (TRIM) {
+      const cut = trimToWindow(raw, win.wordsMin, win.wordsMax)
+      if (!cut) trimFailed++
+      else { content = cut; wasTrimmed = true }
     }
-    const cut = trimToWindow(raw, win.wordsMin, win.wordsMax)
-    if (!cut) {
-      trimFailed++
-      continue
-    }
-    content = cut
-    wasTrimmed = true
   }
 
   // 자르면 난이도가 바뀐다 — **자른 뒤 다시 잰다.** 자르기 전 값으로 칸을 정하면

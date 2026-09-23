@@ -101,27 +101,30 @@ for (const item of list) {
     note: null,
   }
 
-  if (words < PASSAGE_WORDS.min || words > PASSAGE_WORDS.max) {
-    if (!targetBand) {
-      outOfSpec++
-      continue
-    }
-    // 통째로는 창 밖 — 문단 경계에서 그 칸에 드는 조각을 만든다.
+  // ⚠️ **길이는 확보 여부를 가르지 않는다**(2026-09-23 사용자 결정 · DD-79).
+  //   예전에는 창(100~200어) 밖이고 `--band` 가 없으면 `outOfSpec` 으로 **버렸다** —
+  //   이 소스의 어수 중앙값이 354 이므로 그 규칙이 대부분을 버리고 있었다.
+  //   원문은 지문이 아니다. 자를지 말지는 교재 생성이 유형별 창으로 정한다
+  //   (`compose-unit.itemWordSpec` — 문장 6~40 · 학교 문단 40~200 · 수능 90~200 · 장문 260~400).
+  //   `--band` 를 준 경우에만 **덧붙여** 발췌를 만든다. 못 만들어도 전문은 담는다.
+  if (targetBand && (words < PASSAGE_WORDS.min || words > PASSAGE_WORDS.max)) {
+    // 통째로는 그 칸의 창 밖 — 문단 경계에서 그 칸에 드는 조각을 만든다.
     const paras = spacePlaceParagraphs(
       await (await fetch(item.url, { headers: { 'user-agent': UA } })).text()
     )
     const ex = paras.length ? excerptForBand(paras, targetBand) : null
     if (!ex) {
+      // 조각을 못 만들어도 **전문은 담는다** — 길이로 버리지 않는다.
       outOfSpec++
-      continue
-    }
-    row = {
-      // 문단 범위를 열쇠에 남긴다 — 원본과 다른 글로 dedup 되고 나중에 되짚을 수 있다.
-      source_id: `${article.source_id}#p${ex.start + 1}-${ex.end}`,
-      // **PD 라도 변경은 밝힌다** — 학습자가 이게 전문인지 조각인지 알아야 한다.
-      title: `${article.title} (${ex.start === 0 ? '앞부분' : `${ex.start + 1}문단부터`} 발췌)`,
-      content: ex.text,
-      note: `FK ${ex.fk} · ${ex.band} · ${ex.words}어`,
+    } else {
+      row = {
+        // 문단 범위를 열쇠에 남긴다 — 원본과 다른 글로 dedup 되고 나중에 되짚을 수 있다.
+        source_id: `${article.source_id}#p${ex.start + 1}-${ex.end}`,
+        // **PD 라도 변경은 밝힌다** — 학습자가 이게 전문인지 조각인지 알아야 한다.
+        title: `${article.title} (${ex.start === 0 ? '앞부분' : `${ex.start + 1}문단부터`} 발췌)`,
+        content: ex.text,
+        note: `FK ${ex.fk} · ${ex.band} · ${ex.words}어`,
+      }
     }
   }
 

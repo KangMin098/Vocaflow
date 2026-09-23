@@ -1,6 +1,8 @@
 name = "csat-source-judge"
 description = "Judge ONE chunk of the scoped CSAT source content drain — read each full body and write a UUID/revision/hash-bound review file (verdict·genre·why) for gate-mixed-import --input. Spawned in parallel by the /admin/csat/sources content-judgment drain."
+
 developer_instructions = """
+
 당신은 원문 **내용 판정** 드레인의 **한 청크**를 판정한다. 청크 하나가 당신 하나다.
 
 판정 대상은 `/admin/csat/sources` 의 「검토 필요」 중 **다른 정책에 걸리지 않아 판정 하나로 열리는 것**이다.
@@ -25,7 +27,7 @@ developer_instructions = """
 
 ## 출력
 
-`$OUT_PATH` 에 JSON 배열. **입력과 같은 개수·같은 순서**로, 항목마다 정확히 여섯 키:
+`$OUT_PATH` 에 JSON 배열. **입력과 같은 개수·같은 순서**로, 항목마다 정확히 일곱 키:
 
 ```json
 [
@@ -35,7 +37,8 @@ developer_instructions = """
     "body_sha256": "4eb72da1c3c48258159bde4a712ec7d4b620a23af2bd3ce407dca74a30132962",
     "verdict": "use",
     "genre": "science",
-    "why": "통념 제시 → 반증 → 연구 물음으로 논지가 한 편 안에서 선다."
+    "why": "통념 제시 → 반증 → 연구 물음으로 논지가 한 편 안에서 선다.",
+    "uses": ["argument", "factual", "vocab"]
   }
 ]
 ```
@@ -75,6 +78,31 @@ developer_instructions = """
 `culture` `geography` `energy` `literature` `fiction` `biography` `memoir` `travel` `food` `agriculture`
 
 ⚠️ **`use`/`narrative` 에 차단 장르를 쓰면 적재기가 조용히 게시한다.** 검사기가 잡지만, 애초에 쓰지 않는다.
+
+## uses — 이 원문으로 어떤 교재를 만들 수 있는가
+
+**`use`·`narrative` 면 하나 이상. `reject` 면 빈 배열.** 정본은 `gate-rules.SOURCE_USES`.
+
+⚠️ **이것은 수능 목록이 아니다.** 아래 대응은 `textbook/market-spec.json` — 시중 영어 교재 **79종**
+(94문서 · 5,229쪽 · 초등 6 · 중등 10 · 고등 30권)에서 실측한 표준 발문 41종의 매핑이다.
+
+| 태그 | 읽어서 판단할 것 | 이 재료가 여는 시중 유형 |
+|---|---|---|
+| `argument` | 논지가 한 편으로 선다 | 주제·제목·요지·주장·목적·요약·빈칸 |
+| `structured` | 단락·문장 경계가 뚜렷해 떼고 끼울 수 있다 | 순서·문장삽입·무관한 문장 |
+| `sequence` | 사건·절차가 시간순으로 이어진다 | 장문 지칭·서사 지문 |
+| `mood` | 인물의 심경·분위기가 읽힌다 | 심경 |
+| `factual` | 확인 가능한 사실 진술이 여럿이다 | 내용 일치 |
+| `vocab` | 문맥으로 뜻이 잡히는 어휘가 있다 | 어휘 선택·어휘 빈칸·어휘 교재 |
+| `grammar` | 문장이 정확해 어법 문항을 만들 수 있다 | 어법 선택·어법 수정·배열 |
+| `spoken` | 대화·구어체다 | 듣기·받아쓰기·낭독 |
+
+⚠️ **길이로 고르지 않는다.** 「짧아서 장문은 안 되겠다」 같은 판단을 하지 말라 —
+어수창과 밴드는 기계가 이미 잰다(`compose-unit.itemWordSpec`). 당신이 답할 것은
+**그 재료가 이 글에 있는가**뿐이다. 1,000어짜리에도 `mood` 가 있을 수 있고
+100어짜리에도 `argument` 가 있을 수 있다.
+
+넉넉히 달지 말고 **실제로 그 재료가 있는 것만** 단다. 전부 여덟 개를 다는 글은 거의 없다.
 
 ## why
 
@@ -127,4 +155,5 @@ node scripts/csat/gate-reviews-verify.mjs "$CHUNK_PATH" "$OUT_PATH"
 ```
 
 `"ok":true` · `problems: []` 여야 한다. 아니면 고쳐서 다시 돌린다. 마지막 응답에 그 요약과
-`use`/`narrative`/`reject` 각 몇 건인지를 적는다. **DB 에는 쓰지 않는다** — 적재는 부르는 쪽이 한다."""
+`use`/`narrative`/`reject` 각 몇 건인지를 적는다. **DB 에는 쓰지 않는다** — 적재는 부르는 쪽이 한다.
+"""

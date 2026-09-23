@@ -16,7 +16,7 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 import { isDeepStrictEqual } from 'node:util'
 
-import { hardReject, purposeOf, decide, PURPOSE_RULE, RULES_VERSION, CODES_VERSION, HARMFUL, UNFIT } from './gate-rules.mjs'
+import { hardReject, purposeOf, decide, PURPOSE_RULE, RULES_VERSION, CODES_VERSION, HARMFUL, UNFIT, SOURCE_USES } from './gate-rules.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -40,6 +40,12 @@ if (inputIndex >= 0) {
     if (!['use','narrative','reject'].includes(r.verdict) || typeof r.genre !== 'string' || typeof r.why !== 'string' || r.why.trim().length < 10) throw new Error('Incomplete content judgment')
     if (r.verdict !== 'reject' && blockedGenres.has(r.genre)) throw new Error('Verdict/genre contradiction')
     if (!Number.isFinite(Date.parse(r.source_updated_at)) || !/^[a-f0-9]{64}$/.test(r.body_sha256 ?? '')) throw new Error('Review must record revision and full-body SHA256')
+    // `uses` — 이 원문으로 만들 수 있는 교재 재료(2026-09-23). 옛 판정 파일에는 없으므로 있을 때만 검사한다.
+    if (r.uses !== undefined) {
+      if (!Array.isArray(r.uses) || r.uses.some(u => !SOURCE_USES.has(u))) throw new Error(`Unknown source use: ${JSON.stringify(r.uses)}`)
+      if (r.verdict === 'reject' && r.uses.length) throw new Error('Rejected source cannot carry uses')
+      if (r.verdict !== 'reject' && !r.uses.length) throw new Error('Kept source must carry at least one use')
+    }
   }
   const { createScriptClient } = await import('../lib/supabase-client.mjs')
   const client = createScriptClient()
@@ -52,7 +58,9 @@ if (inputIndex >= 0) {
     if (crypto.createHash('sha256').update(row.content ?? '').digest('hex') !== review.body_sha256) throw new Error(`Reviewed body changed: ${row.id}`)
     const purpose = purposeOf(row), codes = hardReject(row.content ?? '')
     const decision = decide({ purpose, verdict: review.verdict, genre: review.genre, codes })
-    const gate = { v: 2, rv: RULES_VERSION, cv: CODES_VERSION, ...decision, purpose, verdict: review.verdict, genre: review.genre, why: review.why, codes, by: 'chunk-llm' }
+    const gate = { v: 2, rv: RULES_VERSION, cv: CODES_VERSION, ...decision, purpose, verdict: review.verdict, genre: review.genre, why: review.why, codes, by: 'chunk-llm',
+      // 있을 때만 담는다 — 없는 키를 `undefined` 로 넣으면 jsonb 비교가 매번 「변경」으로 보인다.
+      ...(review.uses ? { uses: review.uses } : {}) }
     const previous = row.csat_fit?.gate ?? null
     const { at: ignored, ...comparable } = previous ?? {}
     const unchanged = isDeepStrictEqual(comparable, gate)

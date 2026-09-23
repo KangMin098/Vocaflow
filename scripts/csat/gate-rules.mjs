@@ -140,6 +140,37 @@ export function purposeOf(row) {
 export const HARMFUL = new Set(['bias', 'doctrine', 'pseudoscience', 'obsolete-fact', 'polemic'])
 export const UNFIT = new Set(['reference', 'fragmentary', 'mixed'])
 
+/**
+ * **이 원문으로 어떤 교재를 만들 수 있는가** — 판정과 함께 받는 재료 표시 (2026-09-23 사용자 결정).
+ *
+ * ⚠️ **유형 코드를 직접 고르게 하지 않는다.** 유형 적합 = 재료 × 어수창 × 밴드인데,
+ *   어수창과 밴드는 기계가 이미 계산한다(`compose-unit.itemWordSpec` · `readability`).
+ *   읽어야만 아는 것은 **재료가 있는가** 하나뿐이다. 유형 코드를 고르게 하면 판정자에게
+ *   길이 판단을 다시 떠넘기게 되고, 그것이 2026-09-23 에 걷어낸 바로 그 실수다.
+ *
+ * ⚠️ **수능 목록이 아니다.** 아래 대응은 `textbook/market-spec.json` — 시중 영어 교재 **79종**
+ *   (94문서 · 5,229쪽 · 초등 6 · 중등 10 · 고등 30권)에서 실측한 표준 발문 41종이 매핑된
+ *   유형 16개와, 조립기의 초등 3종·문장 단위 유형이다.
+ */
+export const SOURCE_USES = new Set([
+  // 논지가 한 편으로 선다 → topic · title · main_point · claim · purpose · summary · blank
+  'argument',
+  // 단락·문장 경계가 뚜렷해 떼고 끼울 수 있다 → order · insert · irrelevant
+  'structured',
+  // 사건·절차가 시간순으로 이어진다 → long_reference · 서사형 지문
+  'sequence',
+  // 인물의 심경·분위기가 읽힌다 → mood
+  'mood',
+  // 확인 가능한 사실 진술이 여럿이다 → content_match
+  'factual',
+  // 문맥으로 뜻이 잡히는 어휘가 있다 → vocab_choice · 어휘 교재 · WordVault
+  'vocab',
+  // 문장이 정확해 어법 문항을 만들 수 있다 → grammar_choice · grammar_fix · blank_word · word_order
+  'grammar',
+  // 대화·구어체다 → 듣기 · 받아쓰기(Dictation) · 낭독(EchoMatch)
+  'spoken',
+])
+
 export const PURPOSE_RULE = {
   csat: {
     /**
