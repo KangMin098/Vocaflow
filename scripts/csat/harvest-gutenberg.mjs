@@ -52,6 +52,7 @@ import { promisify } from 'node:util'
 import { fitRecord } from './lib-fit.mjs'
 import { classify, TOPIC_KEYS, TOPIC_V } from './lib-topic.mjs'
 import { cleanBookText, looksLikeBookMatter } from './lib-clean.mjs'
+import { chopToWindow } from './lib-chop.mjs'
 import { looksNarrative, peopleRatio, NARRATIVE_FLOOR } from './lib-narrative.mjs'
 import { catalogRows, catalogByLocc } from '../textbook/lib/pg-catalog.mjs'
 
@@ -149,33 +150,30 @@ function stripBoilerplate(t) {
   return body
 }
 
+/** 버린 몫 — 실행 끝에 찍는다. 조용히 버리면 다음 사람이 같은 것을 다시 발견한다. */
+const chopLoss = {}
+
 /**
  * 본문을 지문 크기 조각으로 자른다.
  *
- * ⚠️ **문단 경계에서만** 자른다. 문장 중간에서 끊으면 그 조각의 문장 평균이 망가져서
- *   소스의 성질이 아니라 자르는 방식을 재게 된다. (§45 에서 정제기가 빈 줄을 삼켰을 때
- *   조각이 73 → 5 로 무너진 것도 같은 이유다 — 이 함수는 빈 줄에 전적으로 의존한다.)
+ * ⚠️ **2026-09-24 — 이 함수는 본문의 절반 이상을 조용히 버리고 있었다.**
+ *   12권 1,312,273어를 원문째 받아 사유별로 가른 결과(잔여 0어):
+ *     남김 45.1% · 340어 넘는 문단 21.3% · 400어 넘긴 묶음 30.6% · 비산문 2.9% · 꼬리 0.1%
+ *   앞의 둘은 **「자를 자리를 못 찾았다」는 이유로 글을 버리는 것**이었다. 340어짜리
+ *   문단은 쪼개면 되고, 창을 넘긴 묶음은 마지막 문장을 다음 묶음으로 넘기면 된다.
+ *   특히 340어를 넘는 긴 문단은 1900년대 논설·철학·역사서의 전형이라,
+ *   **논증 밀도가 높은 산문이 계통적으로 빠졌다**(책마다 0.5%~39.3%).
+ *
+ *   고친 뒤 같은 12권에서 **45.1% → 96.5%**, 조각 1,741 → 3,983 이 됐다.
+ *   구현과 회귀: `lib-chop.mjs` · `__tests__/lib-chop.test.mjs`.
+ *
+ * ⚠️ 문장 중간에서는 여전히 안 자른다 — 그러면 조각의 문장 평균이 망가져서
+ *   소스의 성질이 아니라 **자르는 방식**을 재게 된다(§45).
  */
-function chop(body, lo = 300, hi = 340) {
-  const paras = body
-    .split(/\n\s*\n/)
-    .map((x) => x.replace(/\s+/g, ' ').trim())
-    .filter((x) => x.length > 80 && /[.!?]/.test(x))
-  const out = []
-  let buf = []
-  let n = 0
-  for (const para of paras) {
-    const w = para.split(/\s+/).length
-    if (w > hi) continue
-    buf.push(para)
-    n += w
-    if (n >= lo) {
-      if (n <= hi + 60) out.push(buf.join(' '))
-      buf = []
-      n = 0
-    }
-  }
-  return out
+function chop(body, lo = 300, max = 400) {
+  const { spans, losses } = chopToWindow(body, { lo, max })
+  for (const [k, v] of Object.entries(losses)) chopLoss[k] = (chopLoss[k] ?? 0) + v
+  return spans
 }
 
 // ── 목표 배합과 현재 재고 ────────────────────────────────────────────
@@ -507,6 +505,15 @@ for (const b of picked) {
 
 console.log('  ' + '-'.repeat(74))
 console.log(`  조각 ${chunksAll.toLocaleString()} · 배제 ${droppedAll.toLocaleString()} · 적합 ${fitAll.toLocaleString()} (${chunksAll ? ((fitAll / chunksAll) * 100).toFixed(1) : 0}%)`)
+// 자르면서 버린 몫 — **찍지 않으면 아무도 모른다.** 옛 chop() 이 본문의 54.9% 를
+// 조용히 버리고 있었던 것을 2026-09-24 에야 발견한 이유가 정확히 이것이다.
+{
+  const lost = Object.entries(chopLoss).filter(([, v]) => v > 0)
+  if (lost.length) {
+    console.log(`  자르면서 버린 낱말 ${lost.map(([k, v]) => `${k} ${v.toLocaleString()}`).join(' · ')}`)
+    console.log('    notProse=표·목차·시행 · tooShortTail=창 하한에 못 미친 꼬리 · oversizeSentence=문장 하나가 창보다 김')
+  }
+}
 if (NARRATIVE) {
   console.log(`  서사가 아니어서 버린 조각 ${narrativeDropped.toLocaleString()} — 인물 대명사 비율 < ${NARRATIVE_FLOOR}`)
 }
