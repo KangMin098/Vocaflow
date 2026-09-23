@@ -794,11 +794,16 @@ freeze 에서는 세우지 않고 `animation: none` 으로 끈다(fill 이 사�
 | `ToneTabs` 탭을 바꿀 때마다 지연이 다시 흐른다 | 패널이 새로 mount 된다 | 탭 패널 삽화의 뜨기는 **지연 0** 으로 시작한다. 계단 지연은 탭 사이가 아니라 **한 패널 안의 여러 그림**에만 |
 | 도넛 「그려짐」이 값 변화와 섞인다 | 같은 `stroke-dashoffset` 를 진입과 데이터가 함께 쓴다 | 진입은 키프레임, 값은 서버가 찍은 정적 속성 — 진입 끝(`both`)이 값을 덮지 않도록 `--draw-len` 만 애니메이트 |
 
-새 테스트 3:
+회귀 둘 — **CSS 쪽과 마크업 쪽이 각각** 있어야 계약이 닫힌다:
 
-- `motion-contract`(유닛 · CSS 파싱) — ① `.vf-*` 규칙이 전부 `no-preference` 안에 있다 ② `data-motion='calm'` 에서 전부 꺼진다 ③ `@supports` 없이 쓰인 `animation-timeline` 이 0이다.
-- e2e `/hub` — `reduce` 로 열었을 때 삽화의 `transform` 이 최종값이고, `calm` 토글 뒤에도 같다.
-- 캡처 회귀 — 같은 라우트를 2회 찍어 픽셀 차 0.
+- `lib/a11y/__tests__/motion-contract`(CSS 파싱) — ① 루프·시차가 전부 `no-preference` 안에 있다 ② 앱 토글 후크가 `data-reduced-motion` **하나뿐**이다 ③ `@supports` 없이 쓰인 `animation-timeline` 이 0이다 ④ 캡처 freeze 가 **전체 선택자**다(목록이 아니라) ⑤ `reduce` 에서도 진입은 페이드로 남는다.
+- `components/hub/portal/__tests__/product-frame`(렌더) — 클래스가 **붙는 자리**를 본다. 단계가 둘 이상일 때만 연결선 · 숨쉬는 점은 「지금 할 차례」 **하나에만** · 도넛 호가 자리잡기용 `strokeDashoffset` 를 잃지 않는다.
+
+**왜 렌더 테스트가 따로 필요했나**: 「오늘의 흐름」 레일은 `model.steps.length > 0` 일 때만
+그려지는데, 이 저장소의 검증 계정 둘(`runtime-test-*` · `lexicon-test`)이 **둘 다 진단 전**이라
+캡처에는 그 레일이 아예 안 나온다 — 흐르는 선과 숨쉬는 점은 **화면으로 확인할 수 없다.**
+계정 데이터를 한 번 바꿔 찍는 것보다 조건을 세워 두고 매번 확인하는 쪽이 싸다.
+(유효성 확인: `s.current` 를 `true` 로 바꿔 보면 숨쉬는 점이 3개가 되어 테스트가 떨어진다.)
 
 ### 29-8. 단계 (평가 지점 포함)
 
