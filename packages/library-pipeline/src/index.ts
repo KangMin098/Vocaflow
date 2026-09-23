@@ -292,6 +292,24 @@ export type {
   LearnerLevel,
   ArticleScore,
 } from './ingest-article/_curation-spec'
+// 적재 전 본문 게이트 — 수집기 공통(G-b·G-e·G-i·G-j·G-k·G-o·G-p·G-q).
+// 임계값은 전부 실측이고 근거는 모듈 머리에 적혀 있다.
+export {
+  screenBody,
+  judgeEnglishBody,
+  latinRatio,
+  englishFunctionWordRatio,
+  unglueSentencePunctuation,
+  expandLigatures,
+  joinLineBreakHyphens,
+  joinColumnBlocks,
+  looksLikeShreddedProse,
+  LATIN_RATIO_MIN,
+  ENGLISH_FUNCTION_RATIO_MIN,
+  ENGLISH_JUDGEABLE_TOKENS,
+} from './ingest-article/prose-gates'
+export type { BodyScreen, EnglishVerdict } from './ingest-article/prose-gates'
+
 // ACP §18 — SourcePolicy (큐레이션/학습자 화면 공유 분기 출처). client 는 /curation-spec 서브패스로.
 export {
   getSourcePolicy,
