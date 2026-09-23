@@ -80,6 +80,26 @@ const WINDOWS = [
 const windowsOf = (words: number): string[] =>
   WINDOWS.filter((w) => words >= w.min && words <= w.max).map((w) => w.key)
 
+/**
+ * **창마다 최소 문장 수가 다르다.**
+ *
+ * 처음엔 「문장 4개 이상」을 모든 글에 걸었다. 그랬더니 **학교 문장 창(6~40어)이
+ * 87,326 → 604 로 떨어졌다**(실측 2026-09-23). 6~40어는 **한 문장이 정상**이고,
+ * 그 창의 문항은 문장 하나를 통째로 묻는다.
+ *
+ * 길이로 원천을 거르지 않게 고쳤는데 **품질 게이트 안에 한 창 전제가 남아 있었다** —
+ * 같은 실수의 마지막 잔재다. 창이 정하는 것은 길이만이 아니라 **무엇이 정상인가**다.
+ */
+const MIN_SENTENCES: Record<string, number> = {
+  school_sentence: 1, // 한 문장이 정상이다
+  school_paragraph: 2, // 문단이므로 둘 이상
+  csat_short: 4, // 논증 한 덩이 — 주장 + 근거 + 마무리
+  csat_long: 6, // 260~400어를 4문장으로 쓰면 문장당 70어가 된다
+}
+/** 여러 창에 드는 글은 **가장 느슨한 창**을 기준으로 본다 — 한 창에서만 쓰일 수도 있다. */
+const minSentencesFor = (win: string[]): number =>
+  Math.min(...win.map((k) => MIN_SENTENCES[k] ?? 4))
+
 // ── G1: 자족성 ────────────────────────────────────────────────────────
 /** 상대를 가리키는 글은 혼자 읽히지 않는다 — 어느 하나라도 걸리면 탈락. */
 const NOT_SELF_CONTAINED: RegExp[] = [
@@ -215,6 +235,8 @@ const stats = {
   outOfAllWindows: 0,
   byWindow: {} as Record<string, number>,
   passedByWindow: {} as Record<string, number>,
+  /** 표기 탈락을 창별로 — 한 창만 유독 떨어지면 그건 규칙이 그 창에 안 맞는다는 뜻이다. */
+  g2ByWindow: {} as Record<string, number>,
   bySource: {} as Record<string, number>, passedBySource: {} as Record<string, number>,
   offListOfPassed: [] as number[],
 }
@@ -245,7 +267,13 @@ for (const r of iterRecords(buf)) {
 
   if (NOT_SELF_CONTAINED.some((re) => re.test(text))) { stats.g1_self++; continue }
   const q = quality(text)
-  if (q.sentences < 4 || q.lowerStartPct > 5 || q.noEndPunctPct > 10 || q.shoutPct > 5) { stats.g2_quality++; continue }
+  // 표기 품질(소문자 시작·부호 누락·대문자 절규)은 창과 무관하지만,
+  // **최소 문장 수는 창이 정한다** — 위 MIN_SENTENCES 주석 참조.
+  if (q.sentences < minSentencesFor(win) || q.lowerStartPct > 5 || q.noEndPunctPct > 10 || q.shoutPct > 5) {
+    stats.g2_quality++
+    stats.g2ByWindow[win[0] ?? '?'] = (stats.g2ByWindow[win[0] ?? '?'] ?? 0) + 1
+    continue
+  }
   const off = offListPct(text)
   if (off > 13) { stats.g3_offlist++; continue }
 
