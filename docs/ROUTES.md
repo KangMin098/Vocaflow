@@ -140,6 +140,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` + `AnalysisTheater.tsx` | **해설 극장** — 왼쪽 레일에 강의 큐(12~14개)가 차례로 쌓이고, 오른쪽에 지문 지도(`PassageMap`)와 분석 블록(재는 것 · 의도 · 정답 근거 · 오답마다 · 절차 · 어휘)이 같은 박자로 열린다. 바닥 장 카드로 점프. 효과음 4종(큐 경계) · 배속 3단 · 「전부 펼쳐 읽기」. 강의가 없는 문항은 상영 없이 블록만 |
 | `/csat/dissect` | `(main)/csat/dissect/page.tsx` + `SessionRunner.tsx` · `ItemScreen.tsx` | 정답 선공개 · 예측 3수 후 분석 인라인 · 설계도 · 공식 저장/3일 뒤 재확인 · 두 문항 대조 후 전이. `?set=<슬러그,…>`와 `?formula=<태그>` 검증 |
 | `/csat/formulas` | `(main)/csat/formulas/page.tsx` + `ProgressView.tsx` | 기기에 모은 공식 · 최근 30예측 적중률 · 계열 커버리지. 유형별 펼치기와 해당 공식 다시 확인 |
+| `/csat/space` | `(app)/csat/space/page.tsx` + `SpaceScreen.tsx` · `PatternBand.tsx` (모델 `lib/csat/space-model.ts`) | **기출 작업 공간** — 참조(Tines 3B) 앱 화면 골격을 그대로 쓴 별도 화면(`/csat` 홈은 그대로다). 좌측 레일(기출 홈·해부·내 공식 + 회차 29) · 무늬 띠 + 찾기 상자 · 탭 둘(유형 26 · 함정 32) · 한 줄이 한 작업인 표. 줄을 펼치면 다음 걸음 카드 넷(잡는 법 · 넓이 · 예시 기출 → `/csat/item/[slug]` · 서가). **DB 왕복 0** — 수치는 구운 `trap-atlas.json`, 회차 이름은 구운 골격 JSON. `(app)` 그룹이라 셸 머리가 없다(풀스크린 목록에는 없어 `SessionFrame` 은 통과) |
 
 #### 기출 분석 뷰 (관리자 · `admin/kice/*` · 2026-09-17 학습자 `/csat` 에서 이전)
 

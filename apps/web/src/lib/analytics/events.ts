@@ -270,6 +270,53 @@ export type PublicEvent =
       }
     }
   /**
+   * 기출 작업 공간(`/csat/space`)에서 **보는 범위를 바꿨다** — 탭 · 두 칩 · 찾기 상자.
+   *
+   * 이 화면은 골격을 참조(Tines 3B) 앱 화면에서 가져왔고, 그 골격의 값어치는
+   * 「한 판에서 좁혀 들어간다」에 전부 걸려 있다. 좁히는 조작이 한 번도 안 일어나면
+   * 이 화면은 그냥 **긴 목록 두 개**이고, 그러면 골격을 옮긴 이유가 사라진다.
+   * 진입은 `screen_viewed`(csat-space)가 이미 세므로 여기서 또 세지 않는다 — 분모가 갈린다.
+   *
+   * ⚠️ 찾기 말은 **보내지 않는다.** `queried` 하나로 「적었는가」만 센다 — 자유 문자열은
+   *    D3(숫자·불리언·닫힌 열거형만)에 걸리고, 이 이벤트로 답할 질문도 아니다.
+   */
+  | {
+      name: 'csat_space_scoped'
+      props: {
+        /** 지금 보고 있는 판 */
+        tab: 'type' | 'trap'
+        /** 「예시 있는 것만」이 켜져 있나 */
+        withExample: boolean
+        /** 「최근 회차 이후만」이 켜져 있나 */
+        recentOnly: boolean
+        /** 찾기 상자에 말이 들어 있나 */
+        queried: boolean
+        /** 그 범위에서 남은 줄 수 — 좁힐수록 준다 */
+        shown: number
+      }
+    }
+  /**
+   * 작업 공간의 한 줄을 펴서 **다음 걸음 넷**(잡는 법 · 넓이 · 예시 · 서가)까지 봤다.
+   *
+   * `csat_trap_opened` 와 이름이 비슷하지만 분모가 다르다 — 저쪽은 오답 지도의 함정 줄이고
+   * 이쪽은 작업 공간의 유형·함정 줄이다. 한 이벤트로 합치면 두 화면의 성적이 섞인다.
+   */
+  | {
+      name: 'csat_space_opened'
+      props: {
+        /** 유형 줄인가 함정 줄인가 */
+        kind: 'type' | 'trap'
+        /** 지금 보이는 목록에서 몇 번째 줄인가 (1-기반) */
+        rank: number
+        /** 출제 중(유형) · 유형을 가로지름(함정) */
+        live: boolean
+        /** 예시 기출이 달린 줄인가 */
+        hasExample: boolean
+        /** 이 방문에서 몇 번째로 편 것인가 */
+        seq: number
+      }
+    }
+  /**
    * 한 회차 계획의 **줄 세우는 기준**을 바꿨다 — ⑤ 주파가 실제로 쓰이는가.
    *
    * 「내 약한 것 먼저」는 기록이 문턱을 넘은 사람에게만 보인다. 그 사람들이 실제로 눌러
@@ -440,6 +487,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_plan_speed_set: true,
   csat_plan_ordered: true,
   csat_trap_opened: true,
+  csat_space_scoped: true,
+  csat_space_opened: true,
   csat_lecture_played: true,
   csat_lecture_ended: true,
   csat_session_started: true,

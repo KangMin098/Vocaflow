@@ -139,6 +139,11 @@ describe('허용 이벤트 목록', () => {
     'csat_plan_speed_set',
     'csat_plan_ordered',
     'csat_trap_opened',
+    // 2026-09-23 — 기출 작업 공간(`/csat/space`) 2종. 이 화면의 값어치는 「한 판에서 좁혀
+    // 들어간다」에 전부 걸려 있어서, 좁히는 조작이 0 이면 긴 목록 두 개일 뿐이다(DD-73).
+    // `csat_trap_opened` 와 합치지 않는다 — 분모가 다른 화면이다.
+    'csat_space_scoped',
+    'csat_space_opened',
     'screen_viewed',
     // 2026-09-12 — 구성요소 영상 2종(`packages/video-factory`). **만든 수가 아니라 본 수**를
     // 센다: 141개를 찍어 낼 수 있어도 본 사람이 0 이면 공급만 늘린 것이다(§D).

@@ -16,7 +16,7 @@
 // ⚠️ 발문·지문은 여기 없다(저작권 경계). 칩이 말하는 것은 번호 · 유형 · 배점뿐이다.
 
 import Link from 'next/link'
-import { Dices, Search } from 'lucide-react'
+import { Dices, LayoutGrid, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { toItemSlug } from '@/lib/csat/item-slug'
@@ -54,11 +54,18 @@ export function CsatLibrary({ catalog, initialType }: { catalog: BrowseCatalog; 
             <b>{catalog.items.length}문항</b>. 고르면 근거와 오답 설계를 차례로 봐요.
           </p>
         </div>
-        {random ? (
-          <Link className={styles.dice} href={`/csat/item/${toItemSlug(random.id)}`}>
-            <Dices size={16} aria-hidden /> 아무거나 한 문항
+        {/* 서가의 두 갈래 — 한 문항으로 바로 들어가거나, 유형·함정을 한 판에 놓고 고르거나.
+            작업 공간(`/csat/space`)으로 들어오는 **유일한 길**이다(링크 그래프 라쳇이 지킨다). */}
+        <div className={styles.headLinks}>
+          <Link className={styles.dice} href="/csat/space">
+            <LayoutGrid size={16} aria-hidden /> 작업 공간에서 고르기
           </Link>
-        ) : null}
+          {random ? (
+            <Link className={styles.dice} href={`/csat/item/${toItemSlug(random.id)}`}>
+              <Dices size={16} aria-hidden /> 아무거나 한 문항
+            </Link>
+          ) : null}
+        </div>
       </div>
 
       <div className={styles.body}>
