@@ -13,7 +13,12 @@
 
 import fs from 'node:fs'
 
-const BLOCKED = new Set(['bias', 'doctrine', 'pseudoscience', 'obsolete-fact', 'polemic', 'reference', 'fragmentary', 'mixed'])
+import { HARMFUL, UNFIT } from './gate-rules.mjs'
+
+// ⚠️ **적재기와 같은 집합을 써야 한다.** 여기 손으로 적어 두었더니 `poetry-drama` 가 빠져 있었고,
+//   그 조합(`use` + `poetry-drama`)은 이 검사를 통과한 뒤 `gate-mixed-import` 에서 throw 했다 —
+//   검사기가 먼저 보라고 만든 것인데 먼저 못 봤다. 그래서 정본(`gate-rules`)에서 편다.
+const BLOCKED = new Set([...HARMFUL, ...UNFIT, 'poetry-drama'])
 const KEYS = ['id', 'verdict', 'genre', 'why', 'source_updated_at', 'body_sha256']
 const pairs = process.argv.slice(2)
 if (!pairs.length || pairs.length % 2) throw new Error('<export.json> <reviews.json> 쌍으로 넘긴다')
@@ -40,6 +45,9 @@ for (let i = 0; i < pairs.length; i += 2) {
     if (typeof r.genre !== 'string' || !r.genre) problems.push(`${at} genre 없음`)
     if (typeof r.why !== 'string' || r.why.trim().length < 10) problems.push(`${at} why 가 10자 미만`)
     if (r.verdict !== 'reject' && BLOCKED.has(r.genre)) problems.push(`${at} 모순: ${r.verdict} + 차단 장르 ${r.genre}`)
+    // 반대 방향도 본다 — 드레인 정본(JUDGING.md)은 `reject` 면 genre 가 차단 장르여야 한다고 못박는다.
+    // 주제 장르로 reject 하면 사유 코드가 `blockedBy: 'news'` 처럼 남아 나중에 되짚을 수 없다.
+    if (r.verdict === 'reject' && !BLOCKED.has(r.genre)) problems.push(`${at} reject 인데 차단 장르가 아니다: ${r.genre}`)
     if (Date.parse(r.source_updated_at) !== Date.parse(src.source_updated_at)) problems.push(`${at} 리비전 불일치: ${r.id}`)
     if (r.body_sha256 !== src.body_sha256) problems.push(`${at} 본문 해시 불일치: ${r.id}`)
   }

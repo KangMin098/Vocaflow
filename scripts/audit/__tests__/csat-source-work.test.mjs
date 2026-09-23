@@ -24,3 +24,20 @@ test('same-grade contract drift and orphan references fail CI', () => {
 test('confirmed non-prose needs no fabricated analysis repair', () => {
   assert.deepEqual(discoverWork({}, { analysisStatus: 'missing', contentStatus: 'rejected', blockers: ['content_rejected', 'analysis_missing'] }, {}, false), ['policy_exclusion'])
 })
+test('accepted-but-oversize sources are excerpt work, not a stable policy exclusion', () => {
+  // `base_format` + 발췌 가능(`missing`) = 발췌 생성이 푼다. 실측 2026-09-23 의 3,578편이 이 모양이다.
+  assert.deepEqual(
+    discoverWork({}, { ...clean, excerptStatus: 'missing', blockers: ['base_format', 'excerpt_not_materialized'] }, {}, false),
+    ['excerpt_materialization'],
+  )
+  // 어수가 창 하한 미만이면 `not-required` 라 그 format 은 발췌로 못 푼다 — 그대로 차단이어야 한다.
+  assert.deepEqual(
+    discoverWork({}, { ...clean, excerptStatus: 'not-required', blockers: ['base_format'] }, {}, false),
+    ['policy_exclusion'],
+  )
+  // 내용이 반려면 길이와 무관하게 차단이다.
+  assert.deepEqual(
+    discoverWork({}, { analysisStatus: 'complete', contentStatus: 'rejected', excerptStatus: 'missing', blockers: ['base_format'] }, {}, false),
+    ['policy_exclusion'],
+  )
+})
