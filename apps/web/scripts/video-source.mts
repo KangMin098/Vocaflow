@@ -258,11 +258,28 @@ async function main(): Promise<void> {
   }
 
   // 4) 시리즈별 단 재고 — 각 단이 쓰는 유형의 합. 하나라도 못 쟀으면 합도 null 이다.
+  //
+  // ⚠️ **「나갔는가」는 조판 기록에서 읽는다** (고침 2026-09-23 · DD-76).
+  //    여기는 `SeriesDef.status` 상수를 복사하고 있었다. 그 상수는 시리즈를 정의한 날의
+  //    값이라 찍은 뒤에도 안 바뀌고, 그래서 이 번들은 2026-09-06 에 조판된 어휘 6권 ·
+  //    구문 6권을 **`published` 가 아니라 `ready`** 로 실어 광고에 내보내고 있었다.
+  //    이 스크립트는 나머지 수치를 전부 DB 에서 센다 — 이 칸만 예외일 이유가 없다.
+  const { data: renderRows, error: renderErr } = await db
+    .from('textbook_volume_renders')
+    .select('series')
+  if (renderErr) {
+    // 못 읽었으면 **모르는 것**이다. 여기서 'draft' 로 떨어뜨리면 나간 책을 안 나간 것으로
+    // 광고하게 되고, 그것이 방금 고친 바로 그 거짓이다.
+    throw new Error(`조판 기록을 못 읽었다 — 시리즈 출고 여부를 모른 채 번들을 굽지 않는다: ${renderErr.message}`)
+  }
+  const shippedSeries = new Set<string>(
+    (renderRows ?? []).map((r) => (r as { series: string | null }).series ?? 'reading'),
+  )
   const series = SERIES_CATALOG.map((s) => ({
     id: s.id,
     brand: s.brand,
     question: s.question,
-    status: s.status,
+    status: (shippedSeries.has(s.id) ? 'shipping' : 'draft') as 'shipping' | 'draft',
     marketSeries: s.marketSeries,
     marketExamples: [...s.marketExamples],
     rungs: s.rungs.map((r) => ({

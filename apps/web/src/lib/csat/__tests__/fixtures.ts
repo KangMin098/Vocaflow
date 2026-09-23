@@ -16,6 +16,7 @@ import type { AuthorView, PressView, ReviewView } from '../factory-line-model'
 import type { ReviewDefectView } from '../review-defects-model'
 import type { SourceConsoleView } from '../source-console'
 import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
+import { SCHOOL_SERIES_BLOCKED } from '@vocaflow/library-pipeline/textbook-series-catalog'
 import { FACTORY_STAGES, type StageState } from '../factory-model'
 import {
   NOT_MAKING,
@@ -500,15 +501,19 @@ export const PRESS_REAL: PressView = {
 /**
  * 카탈로그 표본 — **시리즈 × 학령**(2026-09-06 축 변경).
  *
- * 값은 실측에서 왔다: 독해 7단 전부 조판됨 · 어휘·구문 각 6단이 재고를 채웠지만 한 번도
- * 안 찍힘. 「초등 저학년」 칸은 어휘·구문에 단이 없다(`noRung`) — 빈칸이지 결함이 아니다.
+ * 값은 실측에서 왔다(2026-09-23 재확인): 독해 7권 · 어휘 6권 · 구문 6권이 전부
+ * `textbook_volume_renders` 에 `status='published'` 로 있다. 「초등 저학년」 칸은
+ * 어휘·구문에 단이 없다(`noRung`) — 빈칸이지 결함이 아니다.
+ *
+ * ⚠️ 표본이 옛 사실을 들고 있으면 회귀가 **고쳐진 결함을 계속 통과시킨다.** 어휘·구문을
+ *   「한 번도 안 찍음」으로 두는 동안 그것이 정확히 화면의 거짓말이었다(DD-76).
  */
 function seriesRow(
   id: SeriesRow['id'],
   brand: string,
   accent: string,
   marketSeries: number,
-  status: SeriesRow['status'],
+  lifecycle: SeriesRow['lifecycle'],
   cells: (VolumeStatus | null)[],
   items: number,
 ): SeriesRow {
@@ -542,8 +547,15 @@ function seriesRow(
     brand,
     question: '표본',
     accent,
-    status,
-    nextStep: status === 'draft' ? '조판을 한 번도 안 돌렸다' : null,
+    lifecycle,
+    intent: 'active',
+    origin: {
+      trigger: 'supply',
+      evidence: '표본 — 실제 카탈로그는 그때 잰 수를 적는다',
+      since: '2026-09-06',
+    },
+    nextAction: '표본 — 실제 화면은 nextActionOf() 가 준다',
+    stale: 0,
     marketSeries,
     marketExamples: [],
     volumes,
@@ -555,15 +567,26 @@ function seriesRow(
 
 export const SERIES_REAL: SeriesCatalogView = (() => {
   const P = 'published' as const
-  const R = 'ready' as const
   const rows: SeriesRow[] = [
     seriesRow('reading', 'Vocaflow Reading', '#2E7D5A', 16, 'shipping', [P, P, P, P, P, P, P], 215032),
-    seriesRow('vocab', 'Vocaflow Vocab', '#8B5CF6', 3, 'draft', [null, R, R, R, R, R, R], 287614),
-    seriesRow('syntax', 'Vocaflow Syntax', '#B5803A', 2, 'draft', [null, R, R, R, R, R, R], 153720),
+    seriesRow('vocab', 'Vocaflow Vocab', '#8B5CF6', 3, 'shipping', [null, P, P, P, P, P, P], 287614),
+    seriesRow('syntax', 'Vocaflow Syntax', '#B5803A', 2, 'shipping', [null, P, P, P, P, P, P], 153720),
   ]
   return {
+    counts: { shipping: 3, defined: 3, market: 22 },
     rows,
-    counts: { shipping: 1, defined: 3, market: 22 },
+    // 시장 칸 대비 — 내신은 못 만드는 칸이라 이유와 함께 남는다(지우면 매번 다시 검토된다).
+    gaps: [
+      { kind: 'reading', market: 16, ours: 1, blockedWhy: null },
+      { kind: 'vocab', market: 3, ours: 1, blockedWhy: null },
+      { kind: 'syntax', market: 2, ours: 1, blockedWhy: null },
+      {
+        kind: 'school',
+        market: 1,
+        ours: 0,
+        blockedWhy: SCHOOL_SERIES_BLOCKED,
+      },
+    ],
     inventoryAt: null,
     notMaking: NOT_MAKING,
     loadError: null,

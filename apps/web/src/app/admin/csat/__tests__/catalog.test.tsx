@@ -34,9 +34,11 @@ describe('SeriesShelf', () => {
     const n = readyToPrint(SERIES_REAL.rows)
     const h = html()
     if (n > 0) expect(h).toContain(`찍기만 하면 되는 권 ${n}권`)
-    else if (SERIES_REAL.rows.some((r) => r.status === 'draft'))
+    else if (SERIES_REAL.rows.some((r) => r.lifecycle === 'revising'))
+      expect(h).toContain('개정이 밀린 시리즈')
+    else if (SERIES_REAL.rows.some((r) => r.lifecycle != null && r.lifecycle !== 'shipping'))
       expect(h).toContain('한 번도 안 찍은 시리즈')
-    else expect(h).toContain('낼 수 있는 권은 다 냈다')
+    else expect(h).toContain('이번 판은 다 냈다')
   })
 
   it('우리 시리즈를 시장 시리즈와 나란히 적는다 — 분모 없이 「1개」는 아무 말도 안 한다', () => {
@@ -58,11 +60,11 @@ describe('SeriesShelf', () => {
     }
   })
 
-  it('아직 안 찍은 시리즈가 몇 권 중 몇 권인지 드러난다', () => {
-    const draft = SERIES_REAL.rows.filter((r) => r.status === 'draft')
-    expect(draft.length, '표본에 draft 가 없다 — 이 검사가 아무것도 안 지킨다').toBeGreaterThan(0)
+  it('시리즈마다 낸 권이 정의된 단 대비 몇인지 드러난다', () => {
+    // 예전에는 **안 찍은 시리즈만** 이 수를 냈다. 그런데 「7단 중 7권」과 「7단 중 6권」의
+    // 차이가 곧 다음 할 일이라, 나가고 있는 시리즈에도 같은 분수가 필요하다.
     const h = html()
-    for (const r of draft) expect(h).toContain(`${r.published}/${r.rungs}권`)
+    for (const r of SERIES_REAL.rows) expect(h).toContain(`낸 권 ${r.published}/${r.rungs}`)
   })
 
   it('판정을 색만으로 말하지 않는다 — 기호와 글자를 함께 낸다', () => {
@@ -216,27 +218,84 @@ describe('한 권이 무엇으로 만들어지는가', () => {
  *   정의(브랜드·단·유형)는 상수가 맞지만 **"나갔는가" 는 조판 기록에서 읽어야 한다.**
  */
 describe('발행 상태를 실측에서 끌어낸다', () => {
-  it('한 권이라도 나갔으면 shipping 이고 다음 걸음이 없다', () => {
+  it('생애 자리를 조판 기록에서 파생한다 — 로더가 judgeLifecycle 에 실측을 넘긴다', () => {
     const src = readFileSync(
       join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', 'lib', 'csat', 'series-view.ts'),
       'utf8',
     )
-    expect(src).toContain('const shipping = publishedCount > 0')
-    // 상수를 그대로 쓰던 옛 형태가 남아 있으면 안 된다.
+    expect(src).toContain('judgeLifecycle({')
+    expect(src).toContain('publishedVolumes: rendersRead ? publishedCount : null')
+    // 상수를 그대로 나르던 옛 형태가 남아 있으면 안 된다.
     expect(src).not.toContain('status: s.status,')
     expect(src).not.toContain('nextStep: s.nextStep,')
   })
 
-  it('시리즈 분자도 기록에서 센다 — 정의만 해 둔 것을 「판다」로 세지 않는다', () => {
+  it('카탈로그 상수가 「팔린다」를 선언하지 않는다 — 그 말은 조판 기록만 할 수 있다', () => {
+    // ⚠️ 이 검사가 잡는 사고: `SeriesDef.status: 'shipping' | 'draft'` 였던 동안 학습자
+    //    서가와 광고 번들이 **찍은 뒤에도** 「인쇄본 준비 중」을 찍고 있었다(17일 · DD-76).
     const src = readFileSync(
-      join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', 'lib', 'csat', 'series-view.ts'),
+      join(
+        dirname(fileURLToPath(import.meta.url)),
+        '..',
+        '..',
+        '..',
+        '..',
+        '..',
+        '..',
+        '..',
+        'packages',
+        'library-pipeline',
+        'src',
+        'textbook',
+        'series-catalog.ts',
+      ),
       'utf8',
     )
-    expect(src).toContain("rows.filter((r) => r.status === 'shipping').length")
+    expect(src).not.toContain("status: 'shipping'")
+    expect(src).not.toContain("status: 'draft'")
   })
 
-  it('표본은 draft 갈래를 유지한다 — 그 갈래를 시험할 표본이 없으면 검사가 준다', () => {
-    expect(SERIES_REAL.rows.some((r) => r.status === 'draft')).toBe(true)
-    expect(SERIES_REAL.rows.some((r) => r.status === 'shipping')).toBe(true)
+  it('표본이 지금의 실측과 같은 말을 한다 — 낡은 표본은 고쳐진 결함을 통과시킨다', () => {
+    // 2026-09-23 실측: 세 시리즈 전부 published 권이 있다(독해 7 · 어휘 6 · 구문 6).
+    expect(SERIES_REAL.rows.every((r) => r.lifecycle != null)).toBe(true)
+    expect(SERIES_REAL.rows.every((r) => r.published > 0)).toBe(true)
+  })
+})
+
+describe('품목 — 한 권을 냈다고 그 유형이 끝나지 않는다', () => {
+  const html = () => text(renderToString(<SeriesShelf {...SERIES_REAL} />))
+
+  it('시리즈마다 왜 생겼는지를 계기·근거·날짜로 적는다', () => {
+    const h = html()
+    for (const r of SERIES_REAL.rows) {
+      expect(h, `${r.brand} 의 발의 근거가 없다`).toContain(r.origin.evidence)
+      expect(h).toContain(r.origin.since)
+    }
+  })
+
+  it('시리즈마다 다음 한 걸음이 있다 — 나가고 있는 시리즈도 예외가 아니다', () => {
+    const h = html()
+    for (const r of SERIES_REAL.rows) expect(h).toContain(r.nextAction)
+  })
+
+  it('다음 유형의 후보를 시장 분모와 함께 낸다', () => {
+    const h = html()
+    for (const g of SERIES_REAL.gaps) expect(h).toContain(`${g.kind} ${g.ours}/${g.market}`)
+  })
+
+  it('못 만드는 칸은 지우지 않고 이유와 함께 남는다', () => {
+    const blocked = SERIES_REAL.gaps.filter((g) => g.blockedWhy)
+    expect(blocked.length, '표본에 막힌 칸이 없다 — 이 검사가 아무것도 안 지킨다').toBeGreaterThan(0)
+    const h = html()
+    for (const g of blocked) expect(h).toContain(g.blockedWhy!)
+  })
+
+  it('낼 수 있는 권을 다 내도 「완료」로 끝나지 않는다', () => {
+    // ⚠️ 이 화면이 초록으로 끝나면 다음에 무엇을 할지 아무도 모른다. 시중 출판사는 그
+    //    자리에서 다음 라인을 발의한다 — 화면도 그래야 한다(DD-76).
+    const done = { ...SERIES_REAL, rows: SERIES_REAL.rows.map((r) => ({ ...r, ready: 0 })) }
+    const h = text(renderToString(<SeriesShelf {...done} />))
+    expect(h).toContain('이번 판은 다 냈다')
+    expect(h).toContain('다음은 시장의 빈 자리')
   })
 })

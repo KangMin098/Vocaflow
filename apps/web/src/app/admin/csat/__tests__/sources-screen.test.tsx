@@ -69,8 +69,14 @@ describe('buildSourceEligibilityPanel', () => {
   })
 
   it('경과 일수를 기준 시각으로 계산한다 — 화면이 낡음을 스스로 말해야 한다', () => {
-    const later = buildSourceEligibilityPanel(new Date('2026-09-20T12:00:00Z'))
-    expect(later.ageDays).toBeGreaterThan(panel.ageDays)
+    // ⚠️ 기준 시각을 **스냅샷이 잰 날에서** 잡는다. 달력 날짜를 박아 두면 스냅샷을 다시
+    //   구울 때마다 두 값이 모두 0 으로 눌려(경과가 음수면 0) 검사가 조용히 통과하거나
+    //   조용히 떨어진다 — 실제로 2026-09-23 에 그렇게 떨어졌다.
+    const measured = new Date(panel.measuredAt)
+    const day = 86_400_000
+    const near = buildSourceEligibilityPanel(new Date(measured.getTime() + 2 * day))
+    const far = buildSourceEligibilityPanel(new Date(measured.getTime() + 30 * day))
+    expect(far.ageDays).toBeGreaterThan(near.ageDays)
   })
 
   it('다음 한 걸음은 **되돌릴 수 있는** 축 중 가장 큰 것이다', () => {

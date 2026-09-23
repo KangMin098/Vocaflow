@@ -14,10 +14,17 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { SERIES_TYPE_LABEL_KO } from '@vocaflow/library-pipeline/textbook-series'
+import { brandFingerprint } from '@vocaflow/library-pipeline/textbook-brand'
 import {
+  SCHOOL_SERIES_BLOCKED,
   SERIES_CATALOG,
-  seriesShipping,
+  seriesDefined,
 } from '@vocaflow/library-pipeline/textbook-series-catalog'
+import {
+  judgeLifecycle,
+  nextActionOf,
+  seriesGaps,
+} from '@vocaflow/library-pipeline/textbook-series-lifecycle'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -38,15 +45,31 @@ export async function loadSeriesCatalog(): Promise<SeriesCatalogView> {
     // 시리즈마다 자기 기록을 갖는다 — 마이그레이션 `textbook_volume_renders_series` 가
     // `(series, band)` 복합 키를 넣기 전에는 `band` 하나로 키를 잡아 어휘 권이 독해 기록을
     // 덮었다(실측 2026-09-06 에 band 5 를 그렇게 잃었다).
-    db.from('textbook_volume_renders').select('series, step'),
+    db.from('textbook_volume_renders').select('series, step, brand_fingerprint'),
   ])
+
+  // ⚠️ 조판 기록을 **못 읽은 것**과 **한 권도 없는 것**은 다르다. 앞의 것을 0 으로 세면
+  //   화면이 「아직 안 찍었네」로 읽고, 그것이 이 파일이 2026-09-06 에 이미 겪은 사고다.
+  const rendersRead = !renders.error
+  const renderRows = ((renders.data ?? []) as {
+    series: string | null
+    step: number | null
+    brand_fingerprint: string | null
+  }[]).filter((r) => r.step != null)
 
   /** 「그 시리즈의 그 단이 나갔는가」 — 키가 시리즈+단이다. 단만 보면 남의 권을 센다. */
   const publishedKeys = new Set<string>(
-    ((renders.data ?? []) as { series: string | null; step: number | null }[])
-      .filter((r) => r.step != null)
-      .map((r) => `${r.series ?? 'reading'}|${r.step}`),
+    renderRows.map((r) => `${r.series ?? 'reading'}|${r.step}`),
   )
+
+  // 지금 규격의 지문. 이것과 다른 지문으로 찍힌 권은 **나갔지만 낡은 권**이고,
+  // 그 시리즈의 생애는 출고가 아니라 개정이다.
+  const fingerprintNow = brandFingerprint()
+  const staleBySeries = new Map<string, number>()
+  for (const r of renderRows) {
+    const id = r.series ?? 'reading'
+    if (r.brand_fingerprint !== fingerprintNow) staleBySeries.set(id, (staleBySeries.get(id) ?? 0) + 1)
+  }
 
   const byCell = new Map<string, { items: number; explained: number }>()
   if (inv.ok) {
@@ -95,21 +118,36 @@ export async function loadSeriesCatalog(): Promise<SeriesCatalogView> {
       }
     })
     const publishedCount = volumes.filter((v) => v.status === 'published').length
-    // ⚠️ **「팔고 있나」는 상수가 아니라 사실이다.** `series-catalog.ts` 의 `status` 는
-    //   정의 시점의 값이라 실제로 찍고 나면 낡는다 — 실측 2026-09-06 에 어휘·구문 12권을
-    //   찍었는데도 화면이 「한 번도 안 찍은 시리즈 2개」라고 적었다. 기록에서 읽는다.
-    const shipping = publishedCount > 0
+    const readyCount = volumes.filter((v) => v.status === 'ready').length
+    const stale = rendersRead ? (staleBySeries.get(s.id) ?? 0) : null
+    // ⚠️ **「팔고 있나」는 상수가 아니라 사실이다.** 카탈로그의 뜻(`intent`)은 정의 시점의
+    //   값이라 찍고 나면 낡는다 — 실측 2026-09-06 에 어휘·구문 12권을 찍었는데도 화면이
+    //   「한 번도 안 찍은 시리즈 2개」라고 적었다. 생애는 기록에서 파생한다.
+    const lifecycle = judgeLifecycle({
+      intent: s.intent,
+      rungs: s.rungs.length,
+      publishedVolumes: rendersRead ? publishedCount : null,
+      readyVolumes: inv.ok ? readyCount : null,
+      staleVolumes: stale,
+    })
     return {
       id: s.id,
       brand: s.brand,
       question: s.question,
       accent: s.accent,
-      status: shipping ? ('shipping' as const) : ('draft' as const),
-      nextStep: shipping ? null : s.nextStep,
+      lifecycle,
+      intent: s.intent,
+      origin: s.origin,
+      nextAction: nextActionOf(lifecycle, {
+        readyVolumes: inv.ok ? readyCount : null,
+        staleVolumes: stale,
+        seriesId: s.id,
+      }),
+      stale,
       marketSeries: s.marketSeries,
       marketExamples: s.marketExamples,
       volumes,
-      ready: volumes.filter((v) => v.status === 'ready').length,
+      ready: readyCount,
       published: publishedCount,
       rungs: s.rungs.length,
     }
@@ -119,7 +157,13 @@ export async function loadSeriesCatalog(): Promise<SeriesCatalogView> {
     rows,
     // 분모(시장 22)는 코퍼스 실측이고, 분자는 **조판 기록**이다 — 정의만 해 둔 시리즈를
     // 「판다」로 세면 그 수가 거짓이 된다.
-    counts: { ...seriesShipping(), shipping: rows.filter((r) => r.status === 'shipping').length },
+    counts: {
+      ...seriesDefined(),
+      shipping: rows.filter((r) => r.lifecycle === 'shipping' || r.lifecycle === 'revising')
+        .length,
+    },
+    // 다음 유형의 후보 — 못 만드는 칸은 그 이유와 함께 적는다(빈칸으로 두면 「잊은 것」처럼 읽힌다).
+    gaps: seriesGaps(SERIES_CATALOG, { school: SCHOOL_SERIES_BLOCKED }),
     inventoryAt: inv.ok ? inv.refreshedAt : null,
     notMaking: NOT_MAKING,
     loadError: inv.ok ? null : `재고를 못 읽었다: ${inv.error}`,
