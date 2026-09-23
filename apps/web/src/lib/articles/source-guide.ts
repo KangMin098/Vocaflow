@@ -128,7 +128,6 @@ export const SOURCE_LABEL: Record<string, string> = {
   usgs: 'USGS',
   noaa: 'NOAA Climate.gov',
   // ── GET 탭이 없는 소스 — 그래도 재고에 있고 관리 대상이다 ──
-  gutenberg: 'Project Gutenberg',
   futurity: 'Futurity',
   frontiers: 'Frontiers',
   frym: 'Frontiers for Young Minds',

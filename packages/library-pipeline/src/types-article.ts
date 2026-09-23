@@ -32,7 +32,8 @@ export type ArticleSource =
   // ⚠️ **수집기가 없어도 타입에 있어야 한다.** 아래 둘은 ACP 가 GET 하지 않지만 DB CHECK
   //   (`library_articles_source_check`)가 받고 실제로 들어와 있다 — 이 유니언에서 빠져 있던
   //   동안 관리 화면의 소스 목록이 그만큼 짧았고, 재고 최대 소스가 화면에서 보이지 않았다.
-  | 'gutenberg' // 도서에서 잘라 온 초·중 이야기 발췌 (`scripts/textbook/harvest-gutenberg-kid.mjs` · PD). 실측 2026-09-13 **40,519편 — 단일 최대 소스**
+  // 'gutenberg' 는 **퇴출됐다**(2026-09-24). DB 제약에서도 빠졌으므로 이 유니언에도 없다 —
+  //   이 타입은 `library_articles_source_check` 의 거울이고, 갈리면 관리 화면과 DB 가 다른 목록을 든다.
   | 'worldbank' // World Bank 개방 보고서 (CC BY). CHECK 는 열려 있고 재고는 아직 0
   | 'manual'
 
