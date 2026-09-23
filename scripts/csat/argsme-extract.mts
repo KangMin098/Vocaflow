@@ -23,6 +23,12 @@ import { createHash } from 'node:crypto'
 import { readFileSync, writeFileSync, mkdirSync, openSync, readSync, closeSync, statSync } from 'node:fs'
 import { inflateRawSync } from 'node:zlib'
 import { resolve, join } from 'node:path'
+import {
+  CSAT_ITEM_WORDS,
+  CSAT_LONG_ITEM_WORDS,
+  SCHOOL_PARAGRAPH_WORDS,
+  SCHOOL_SENTENCE_WORDS,
+} from '@vocaflow/library-pipeline'
 
 const argOf = (n: string, d: string): string => {
   const i = process.argv.indexOf(`--${n}`)
@@ -55,6 +61,24 @@ const KNOWN = new Set<string>([
   ...loadList(join(DATA, 'NAWL_1.2_lemmatized_for_research.csv')),
 ])
 console.log(`어휘 목록 ${KNOWN.size.toLocaleString()}낱말 (NGSL + NAWL)`)
+
+// ── 길이 창 — 정본에서 가져온다 ───────────────────────────────────────
+/**
+ * **길이는 거르는 기준이 아니라 분류 키다.**
+ *
+ * 창을 여기서 다시 만들지 않는다 — `compose-unit.ts` 가 정본이고, 갈리면 조판과
+ * 판정이 다른 자를 쓴다. 한 글이 여러 창에 들 수 있으므로 **겹쳐 센다**.
+ * 400어를 넘는 것은 버리는 것이 아니라 **잘라 쓰는 것**이고, 그 수율은 `span-gate.mts` 가 잰다.
+ */
+const WINDOWS = [
+  { key: 'school_sentence', ...SCHOOL_SENTENCE_WORDS },
+  { key: 'school_paragraph', ...SCHOOL_PARAGRAPH_WORDS },
+  { key: 'csat_short', ...CSAT_ITEM_WORDS },
+  { key: 'csat_long', ...CSAT_LONG_ITEM_WORDS },
+] as const
+
+const windowsOf = (words: number): string[] =>
+  WINDOWS.filter((w) => words >= w.min && words <= w.max).map((w) => w.key)
 
 // ── G1: 자족성 ────────────────────────────────────────────────────────
 /** 상대를 가리키는 글은 혼자 읽히지 않는다 — 어느 하나라도 걸리면 탈락. */
@@ -187,11 +211,16 @@ console.log(`JSON ${(buf.length / 1e6).toFixed(0)}MB — 레코드 단위로 훑
 // ── 게이트 ────────────────────────────────────────────────────────────
 const stats = {
   total: 0, band: 0, g1_self: 0, g2_quality: 0, g3_offlist: 0, passed: 0,
+  /** 어느 창에도 안 드는 것. **버린 것이 아니라 「이 네 유형에는 안 맞는다」**는 기록이다. */
+  outOfAllWindows: 0,
+  byWindow: {} as Record<string, number>,
+  passedByWindow: {} as Record<string, number>,
   bySource: {} as Record<string, number>, passedBySource: {} as Record<string, number>,
   offListOfPassed: [] as number[],
 }
 interface Item {
   id: string; source_url: string; topic: string; words: number
+  windows: string[]
   off_list_pct: number; avg_sent_words: number; sentences: number
   sha256: string; text: string
 }
@@ -201,7 +230,14 @@ for (const r of iterRecords(buf)) {
   stats.total++
   const text = (r.premises ?? []).map((p) => p.text ?? '').join(' ').replace(/\s+/g, ' ').trim()
   const words = (text.match(/[A-Za-z][A-Za-z'-]*/g) ?? []).length
-  if (words < 140 || words > 200) continue
+  // **길이로 버리지 않는다** — 어떤 원문이 어떤 유형에 쓰일지 미리 모른다(2026-09-23 사용자 지시).
+  // 정본 창은 넷이고(`compose-unit.itemWordSpec`), 내가 쓰던 140~200 은 그중 가장 좁은
+  // 창(90~200)보다도 좁았다. 한 창으로 거르니 args.me 382,545편 중 **351,300편**이
+  // 세어지지도 않았다(재점검 후 어느 창엔가 드는 것이 244,171편).
+  // 그래서 창은 **분류에만** 쓰고, 어느 창에도 안 드는 것만 건너뛴다.
+  const win = windowsOf(words)
+  if (!win.length) { stats.outOfAllWindows++; continue }
+  for (const k of win) stats.byWindow[k] = (stats.byWindow[k] ?? 0) + 1
   stats.band++
   let host = '(불명)'
   try { host = new URL(r.context?.sourceUrl ?? '').hostname.replace(/^www\./, '') } catch { /* 불명 유지 */ }
@@ -214,25 +250,38 @@ for (const r of iterRecords(buf)) {
   if (off > 13) { stats.g3_offlist++; continue }
 
   stats.passed++
+  for (const k of win) stats.passedByWindow[k] = (stats.passedByWindow[k] ?? 0) + 1
   stats.passedBySource[host] = (stats.passedBySource[host] ?? 0) + 1
   stats.offListOfPassed.push(off)
   kept.push({
     id: r.id ?? '', source_url: r.context?.sourceUrl ?? '',
     topic: r.context?.discussionTitle ?? r.context?.sourceTitle ?? '',
-    words, off_list_pct: Number(off.toFixed(1)),
+    words, windows: win, off_list_pct: Number(off.toFixed(1)),
     avg_sent_words: Number(q.avgSentWords.toFixed(1)), sentences: q.sentences,
     sha256: createHash('sha256').update(text).digest('hex'), text,
   })
 }
 
 const pc = (n: number): string => `${((n / Math.max(1, stats.band)) * 100).toFixed(1)}%`
+const pcT = (n: number): string => `${((n / Math.max(1, stats.total)) * 100).toFixed(1)}%`
 console.log(`
-전체              ${stats.total.toLocaleString()}
-140~200어         ${stats.band.toLocaleString()}
-  G1 자족성 탈락    ${stats.g1_self.toLocaleString()}  (${pc(stats.g1_self)})
-  G2 표기 탈락      ${stats.g2_quality.toLocaleString()}  (${pc(stats.g2_quality)})
-  G3 어휘 탈락      ${stats.g3_offlist.toLocaleString()}  (${pc(stats.g3_offlist)})
-  ── 통과          ${stats.passed.toLocaleString()}  (${pc(stats.passed)})`)
+전체                  ${stats.total.toLocaleString()}
+어느 창에도 안 듦       ${stats.outOfAllWindows.toLocaleString()}  (${pcT(stats.outOfAllWindows)})
+어느 창엔가 드는 것     ${stats.band.toLocaleString()}  (${pcT(stats.band)})`)
+console.log('\n창별 — 겹쳐 센다. 분류이지 필터가 아니다')
+for (const w of WINDOWS) {
+  const n = stats.byWindow[w.key] ?? 0
+  const ok = stats.passedByWindow[w.key] ?? 0
+  console.log(
+    `  ${w.key.padEnd(17)}${String(w.min).padStart(4)}~${String(w.max).padEnd(5)}` +
+      `${n.toLocaleString().padStart(9)} → 통과 ${ok.toLocaleString().padStart(7)}`
+  )
+}
+console.log(`
+  G1 자족성 탈락      ${stats.g1_self.toLocaleString()}  (${pc(stats.g1_self)})
+  G2 표기 탈락        ${stats.g2_quality.toLocaleString()}  (${pc(stats.g2_quality)})
+  G3 어휘 탈락        ${stats.g3_offlist.toLocaleString()}  (${pc(stats.g3_offlist)})
+  ── 통과            ${stats.passed.toLocaleString()}  (${pc(stats.passed)})`)
 
 const off = [...stats.offListOfPassed].sort((a, b) => a - b)
 if (off.length) {
