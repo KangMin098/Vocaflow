@@ -35,7 +35,7 @@ vi.mock('@/lib/analytics/client', () => ({ track: vi.fn() }))
 
 import { computeReach } from '@/lib/learner/reach-math'
 import { forecastMemory } from '@/lib/learner/memory-forecast'
-import { buildWayfinder } from '@/lib/learner/wayfinder'
+import { buildWayfinder, type WayfinderBlock } from '@/lib/learner/wayfinder'
 import type { PortalBook } from '@/lib/learner/hub-portal-query'
 
 import { ProductFrame } from '../sections'
@@ -56,7 +56,11 @@ const forecast = forecastMemory(
   7,
 )
 
-function model(blocks: readonly (typeof BLOCKS)[number][] = BLOCKS) {
+// ⚠️ 표본 상수의 **리터럴 유니온**이 아니라 `buildWayfinder` 가 실제로 받는 구조적 타입
+// (`WayfinderBlock`)을 쓴다. 리터럴로 좁히면 아래 「끝난 단계」 검사처럼 **값을 바꾼 표본**이
+// 안 들어간다 — `{ ...b, done: true }` 의 `done` 이 boolean 으로 넓어져 어느 멤버와도 안 맞는다
+// (실측 2026-09-23: 그 상태로 커밋돼 브랜치 타입체크가 막혀 있었다).
+function model(blocks: readonly WayfinderBlock[] = BLOCKS) {
   return buildWayfinder({
     blocks,
     isDiagnosed: true,
@@ -75,7 +79,7 @@ const PORTAL_BOOKS: PortalBook[] = [
 
 const FACTS = { books: 312, articles: 250, comics: 106, curatedSets: 55 }
 
-const html = (blocks?: readonly (typeof BLOCKS)[number][]) =>
+const html = (blocks?: readonly WayfinderBlock[]) =>
   renderToString(<ProductFrame model={model(blocks)} books={PORTAL_BOOKS} facts={FACTS} />)
 
 describe('제품 액자 — 살아 있는 조각 (tines-mapping §29-5)', () => {
