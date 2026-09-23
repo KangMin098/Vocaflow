@@ -1,6 +1,6 @@
--- supabase/migrations/<ts>_english_irregular_forms_policy.sql
+-- supabase/migrations/20260923104145_english_irregular_forms_read_policy.sql
 --
--- **불규칙 활용형 표가 정책이 없어 화면에 조용히 빈 결과를 준다.** — 승인 대기(적용하지 않았다).
+-- **불규칙 활용형 표가 정책이 없어 화면에 조용히 빈 결과를 준다.** — **적용 2026-09-23** (사용자 승인 · 원장 20260923104145).
 --
 -- ── 무엇이 어긋나 있나 (2026-09-23 실측) ────────────────────────────
 -- `public.english_irregular_forms`(337행)은 RLS 가 켜져 있고 **정책이 0개**다.

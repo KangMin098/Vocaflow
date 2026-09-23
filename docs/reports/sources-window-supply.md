@@ -211,3 +211,47 @@ text.replace(/([a-z0-9\)\]”"'])([.!?])([A-Z])/g, '$1$2 $3')
 *근거 데이터: `docs/reports/data/length-recheck.json` · `length-recheck-sources.json` ·
 `recol-{openalex,olh,econstor,the-conversation,iza-summary,cochrane-summary}.json`
 도구: `scripts/csat/length-recheck.mts` · `span-gate.mts` · `argsme-extract.mts` · `baseline-offlist.mts`*
+
+### 구현 상태 (2026-09-23)
+
+게이트를 **수집기마다가 아니라 한 곳에** 올렸다 — `packages/library-pipeline/src/ingest-article/prose-gates.ts`
+(`screenBody` 하나로 부르고, 회귀 23건). 같은 결함이 원천을 가리지 않고 나왔기 때문이다:
+「본문만 자국어」는 OpenAlex·OLH·The Conversation 셋 다에서, 리가처·하이픈·2단 조판은
+PDF 를 쓰는 모든 수집기에서 나왔다.
+
+| 게이트 | 상태 | 구현 |
+|---|---|---|
+| G-b · G-e · G-i · G-o | ✅ | `judgeEnglishBody` — 선언 필드를 안 본다. 라틴문자 비율 ≥0.70 **그리고** 영어 기능어 비율 ≥0.15 |
+| G-j | ✅ | `unglueSentencePunctuation` — 대문자가 뒤따를 때만 띄운다 |
+| G-p | ✅ | `expandLigatures` + `joinLineBreakHyphens` — **하이픈을 지우지 않고** 줄바꿈만 없앤다 |
+| G-q | ✅ | `joinColumnBlocks` — 이어 붙인 **뒤에** 문장을 나눈다 |
+| G-k | ✅ | `looksLikeShreddedProse` — 항목 수와 항목 길이로 진짜 목록과 가른다 |
+| G-c · G-d · G-l | ✅ | `scripts/csat/source-doc-import.mjs` 의 `derivationAllowed` — `short_name`·`name`·`url` 을 함께 본다 |
+| G-m · G-n | ✅ | 같은 자리. EconStor 는 CC 병기분만, SciELO 는 `v541` 로 저널 단위 제외 |
+| G-f · G-g | ✅ | `scripts/csat/argsme-extract.mts` 의 G1·G2 |
+| **G-a** | ❌ **미구현** | **표본을 다시 뽑아야 한다** — 아래 |
+
+#### G-a 를 아직 안 만든 이유
+
+스팸 비율 **6.0%** 라는 수는 있는데 **실물 본문이 저장돼 있지 않다**(`data/ft-openalex.json` 은
+비율만 담고 본문을 안 담는다). 어떤 문자열로 걸리는지 확인하지 않고 정규식을 굳히면
+「무엇을 거르는지 아무도 모르는 규칙」이 남는다 — 이 저장소에서 「루프 애니메이션 금지」가
+정당한 로더 20곳을 걸었던 것과 같은 자리다.
+
+**할 일**: OpenAlex 표본을 본문째 다시 뽑아 6% 를 **눈으로 보고** 패턴을 정한다.
+정확도 지표만 보면 안 된다 — 조각 수가 많아 그럴듯한 오분류를 못 잡는다(2026-09-23 실측).
+
+#### 임계값이 실측인 자리 — 바꾸려면 다시 재라
+
+영어 판정의 두 수는 27편 전수에서 나왔고 **사이가 비어 있다**:
+
+| | 라틴문자 비율 | 영어 기능어 비율 |
+|---|---|---|
+| 영어로 판정된 19편 | 0.990 ~ 1.000 | 0.266 ~ 0.452 (중앙 0.404) |
+| 비영어 8편 | 0.015 · 0.088 · 0.108 | 0.029 ~ 0.061 |
+| **임계** | **0.70** | **0.15** |
+
+기능어 비율은 0.061 과 0.266 사이가 통째로 비어 있어 0.15 는 어느 쪽으로도 **4배 넘게**
+여유가 있다. 표본이 27편으로 얇지만 이 간격 안에서는 뒤집히기 어렵다.
+두 자를 **함께** 써야 한다 — 라틴문자만 보면 독일어·폴란드어가 통과하고,
+기능어만 보면 로마자 전사 비영어가 통과한다(실측 27편에 둘 다 있었다).

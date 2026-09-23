@@ -1,6 +1,6 @@
--- supabase/migrations/<ts>_db_efficiency_cron_autovacuum.sql
+-- supabase/migrations/20260923104258_db_efficiency_cron_autovacuum.sql
 --
--- **30분마다 도는 집계 크론 하나가 256 MB 버퍼 캐시를 하루 48번 비운다.** — 승인 대기(적용하지 않았다).
+-- **30분마다 도는 집계 크론 하나가 256 MB 버퍼 캐시를 하루 48번 비운다.** — **적용 2026-09-23** (사용자 승인 · 원장 20260923104258).
 --
 -- ── ① cron 14 — refresh_textbook_shelf_stats() 주기 (2026-09-23 실측) ──
 --

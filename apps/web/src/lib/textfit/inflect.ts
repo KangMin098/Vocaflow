@@ -9,9 +9,16 @@
 // 즉 이 파일은 "이 단어의 원형은 X 다" 라고 주장하지 않는다. "X 일 수도 있다" 만 만든다.
 // 틀린 후보는 DB 에 없으므로 조용히 버려진다 — 오탐이 학습자에게 새는 경로가 없다.
 //
-// ⚠️ 불규칙 변화형은 다루지 않는다. `english_irregular_forms`(337행)는 RLS 가 켜져 있고
-//    public 정책이 없어 anon 이 못 읽는다(2026-08-17 실측). 그래서 went→go 류는 해석되지 않고
-//    **레벨 미상**으로 남아 판정 범위를 넓힌다 — 없는 정확도를 주장하지 않는 쪽을 택했다.
+// ⚠️ 불규칙 변화형(went→go)은 이 파일이 다루지 않는다 — **순수 함수라 표를 읽을 수 없다**.
+//    337쌍은 DB 의 `english_irregular_forms` 에 있고 `en_inflection_bases()` 가 읽는다.
+//    정본 경로 `resolveLevelsPublic()`(`textfit_resolve_levels_public`, SECURITY DEFINER)은
+//    그 함수를 거치므로 불규칙형을 해석한다 — 이 파일은 그 RPC 가 죽었을 때의 폴백이고,
+//    폴백에서만 went→go 가 빠져 **레벨 미상**으로 남는다.
+//
+//    (2026-08-17~2026-09-23 에는 다른 이유로도 빠져 있었다: 그 표가 RLS 는 켜졌는데 정책이 0개라
+//     SECURITY INVOKER 경로(`resolve_dict_headword`·`lookup_word_meaning`)에서 조용히 0행이었다.
+//     정책 `english_irregular_forms_read` 로 고쳤고, anon 으로 `en_inflection_bases('went')` =
+//     `{go}` 를 실측 확인했다. 마이그레이션 20260923104145.)
 
 /** 자음 (y 제외 — y 는 -ies/-ied 규칙에서 따로 다룬다). */
 const CONSONANT = /[bcdfghjklmnpqrstvwxz]/

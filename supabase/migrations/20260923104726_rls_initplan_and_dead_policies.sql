@@ -1,6 +1,6 @@
--- supabase/migrations/<ts>_rls_initplan.sql
+-- supabase/migrations/20260923104726_rls_initplan_and_dead_policies.sql
 --
--- **RLS 정책이 행마다 auth.uid() 를 다시 부른다 — 3,400만 행짜리 표를 포함해서.** — 승인 대기(적용하지 않았다).
+-- **RLS 정책이 행마다 auth.uid() 를 다시 부른다 — 3,400만 행짜리 표를 포함해서.** — **적용 2026-09-23** (사용자 승인 · 원장 20260923104726).
 --
 -- ── 무엇이 문제인가 (2026-09-23 실측) ───────────────────────────────
 -- 정책 식 안의 `auth.uid()` / `auth.jwt()` / `auth.role()` 은 그대로 두면 **행마다** 평가된다.

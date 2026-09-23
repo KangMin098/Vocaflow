@@ -236,6 +236,9 @@ apps/web/public/dev/replica-shots/
 scripts/csat/argsme-drain/chunk-*.json
 !scripts/csat/argsme-drain/*.out.json
 scripts/csat/argsme-drain/manifest.json
+# 재생성 작업 파일도 같은 이유로 안 남긴다 — `argsme-regen-export.mts` 가 입력 청크와
+# 게이트 판정에서 다시 만든다. 채운 결과는 import 로 `.out.json` 에 들어가 그쪽이 정본이 된다.
+scripts/csat/argsme-drain/regen/
 
 # 3B 워크스페이스 실측 — **수치 JSON 만 남긴다**(ref-*.json · ours-*.json).
 # 저장한 참조 페이지는 남의 저작물이고, 상태 파일은 자격 증명이다(docs/design/refs/3b/CAPTURE.md).

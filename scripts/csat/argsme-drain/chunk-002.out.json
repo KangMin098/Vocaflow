@@ -1,0 +1,312 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "002",
+  "items": [
+    {
+      "id": "2347f748-2019-04-19T12:47:40Z-00019-000",
+      "sha256": "23303664ceaddd7c86112e56240ca5f6c449e594715417d74c0b6c932f1587de",
+      "verdict": "write",
+      "topic_ko": "군 모집 담당자의 학교 방문을 모든 학교에 허용해야 하는가",
+      "passage": "Officers who look for new soldiers should be welcome in every high school, not only in the wealthy ones that adults feel comfortable about. Young people cannot choose a path they have never heard described, and a school that keeps such visitors out has quietly made that choice for them. A military career offers paid study, steady work and clear steps upward, and those rewards matter most to students whose families cannot pay for college. Poorer districts gain from the visits themselves, since the officers who come are often adults from similar streets who finished their studies and built something stable. Critics answer that the army simply collects the young and the desperate, yet the army now refuses anyone without a school certificate, which pushes students to stay in class rather than leave. The fair rule is therefore simple: let every student hear the offer, and trust them to judge it.",
+      "claim": "Military recruiters should be allowed to speak in every school, including the poorest ones."
+    },
+    {
+      "id": "234c0da2-2019-04-18T17:50:04Z-00003-000",
+      "sha256": "eb19bd38743654c124401df2dd739c5dc12cbde8446a4e8b7b2b3287b90798f1",
+      "verdict": "write",
+      "topic_ko": "총기 소유 규제가 폭력의 원인을 겨냥하고 있는가",
+      "passage": "A country that has long promised its citizens the right to keep weapons should not take that right back one small rule at a time. The deeper reason is that the object is not what kills; people kill, and they do so with whatever lies within reach, from knives to cars to hammers. If the tool were the cause, then removing one kind of tool would end the harm. Yet the anger, the poverty and the untreated illness behind most attacks would all remain exactly where they were. Rules that fall only on citizens who already obey the law leave the dangerous few untouched, since that group never bought its weapons through a shop in the first place. A promised right means little if officials may cut it back whenever they judge that the public mood has shifted. Spending the same effort on the causes of violence would save more lives than another rule aimed at the honest owner.",
+      "claim": "Restricting private ownership of weapons attacks the tool rather than the causes of violence."
+    },
+    {
+      "id": "23de424c-2019-04-18T14:44:54Z-00001-000",
+      "sha256": "7a9ff447423fc3931214b7c87f59f7dd522a64aad0b44a7b85be93940c61dd85",
+      "verdict": "skip",
+      "skip_reason": "인구 조절 수단으로 강제 불임·살해를 제안하는 내용이라 교재 지문으로 부적절하다."
+    },
+    {
+      "id": "23de424c-2019-04-18T14:44:54Z-00003-000",
+      "sha256": "b3a6154dcdeb6cb5eceaedf2627a1a1d82212f7d679f274e37466f797ffab6d1",
+      "verdict": "write",
+      "topic_ko": "인구 증가 속도를 계획적으로 늦추어야 하는가",
+      "passage": "Human numbers have climbed for many decades at a speed that no earlier age ever saw, and a curve that steep cannot simply continue. Every other living thing that grows without limit meets the same wall in the end, because the land, the water and the air that feed it are fixed in size. The danger is not that the wall exists but that humanity reaches it without warning, since hunger, disease and conflict are the means by which nature slows a crowd that has failed to slow itself. A planned answer is far gentler. Keeping girls in school longer, making medical care easy to reach, and supporting families who choose to have fewer children all lower birth rates without force. Countries that have done these things saw their growth ease within a single generation, and none of them had to take away anyone's freedom. Choosing the slow path now is the only way to avoid the cruel one later.",
+      "claim": "Population growth should be slowed by gentle means now rather than by hunger and conflict later."
+    },
+    {
+      "id": "24035cab-2019-04-18T12:30:47Z-00006-000",
+      "sha256": "a261e557dd387245f861d5cd0b0da13cffba513f8b28a8db82d28b6a182f281a",
+      "verdict": "write",
+      "topic_ko": "복장 규정 대신 교복을 택해야 하는가",
+      "passage": "Schools that spend their energy writing rules about clothing would do better to hand out a uniform and be done with it. A dress code invites a daily argument, because every rule about length or style can be tested, bent and broken, so teachers end up checking edges of cloth instead of teaching anything. A uniform ends that argument in one line, and it also ends the quiet competition in the hallway, where a student without new clothes is marked out before a single word is spoken. Families save money as well, since one set of plain shirts costs less across a year than a wardrobe chosen to keep up with everyone else. The usual objection is that uniforms crush self-expression. Yet young people express themselves through their hair, their music, their writing and their friendships far more than through a jacket. What a school owes its students is a fair start each morning, not a stage for showing off.",
+      "claim": "Schools should adopt uniforms instead of trying to enforce detailed dress codes."
+    },
+    {
+      "id": "24482824-2019-04-18T15:40:15Z-00009-000",
+      "sha256": "1e7c2700ab883d33e30f7dc635eb87a15e323dfae3cd5ca661ec112c1a671578",
+      "verdict": "write",
+      "topic_ko": "자기모순 명제(역설)는 깊은 진리인가 잘못된 전제의 신호인가",
+      "passage": "A statement that defeats itself tells nobody anything, which is why a puzzle built on pure contradiction deserves less respect than it usually gets. To say that something is true only if it is false is not to describe the world. It is to describe a broken sentence, and a broken sentence carries no more meaning than a broken tool. Admirers treat such puzzles as windows onto some deeper level of truth, but the history of thought suggests the opposite lesson. Again and again, a famous contradiction has turned out to hide a quiet assumption that was simply wrong, and once that assumption was named and dropped, the mystery vanished with it. The right response to a puzzle of this kind is therefore not wonder but work: trace the steps, find the claim that everyone accepted without checking, and correct it. Contradictions are not doors into a deeper world; they are signs of a wrong turn taken somewhere earlier.",
+      "claim": "A paradox is a warning that some hidden assumption is wrong, not a window onto a deeper truth."
+    },
+    {
+      "id": "2572429f-2019-04-18T11:30:43Z-00003-000",
+      "sha256": "de02fd5fb6c48b36767c38f6d8055a979042d6ac027298e2b854b9f65403b603",
+      "verdict": "write",
+      "topic_ko": "옳고 그름을 다수결로 정할 수 있는가",
+      "passage": "If right and wrong were settled by counting hands, the very same act would be a crime one year and a duty the next, and that result should trouble anyone who thinks carefully. Consider a killing that a community condemns today and excuses ten years later after opinion has shifted: nothing about the act itself has changed, only the mood of the crowd around it. Yet nobody in fact talks that way about the past. Looking back at practices that whole societies once accepted, few would call them right then and wrong now. The natural verdict is that the people of that time were mistaken, and that judgment only makes sense if some standard sits above opinion. A majority can reveal what a society believes, which is a fact about the society, but it cannot reveal what is actually good. Counting opinions measures agreement, and agreement and truth are not the same thing.",
+      "claim": "Right and wrong cannot be settled by majority opinion, because that would make the same act both right and wrong."
+    },
+    {
+      "id": "260ebdbb-2019-04-18T19:44:54Z-00002-000",
+      "sha256": "e50275c8f9a66208d9e0875c5302878fa4ee3baf15d394f112fb58ebe77072f7",
+      "verdict": "write",
+      "topic_ko": "빈곤 지원 예산을 고정해 두어도 되는가",
+      "passage": "Freezing the money set aside to help poor families at today's level is a decision to help fewer of them every year that follows. Need does not hold still. When work becomes scarce, the number of households that cannot cover rent and food rises sharply, and the same fixed sum must then be cut into thinner and thinner shares. Population alone produces the same squeeze, since a country with more people contains more people in trouble, even if the share who struggle never moves at all. A budget that ignores both forces is not steady; it shrinks quietly while appearing to stay the same, and the shrinking falls on exactly the households least able to absorb it. Those who defend a fixed sum usually call it discipline, yet discipline that produces hungry children is only a way of moving the cost onto people who cannot object. If such support exists to catch people who fall, the net has to grow with the crowd above it.",
+      "claim": "A fixed welfare budget is a hidden cut, because need grows with the economy and the population."
+    },
+    {
+      "id": "265c5f76-2019-04-18T16:16:34Z-00004-000",
+      "sha256": "e5c0e804dfacb243f6e182bf3db09d660a4b77347e6a83325ed98f6a17b87cc1",
+      "verdict": "write",
+      "topic_ko": "윤리 기준은 문화를 넘어 하나로 통일될 수 있는가",
+      "passage": "There is no single list of right and wrong that every society will ever sign, and pretending otherwise misreads what moral rules actually are. Look at how differently communities treat the same act. In some places killing an animal for a ceremony is an honour, while a few hours away by plane the same act would be a crime, and each community can explain its view in terms its own members find perfectly reasonable. Rules of this kind grow out of history, climate, belief and hard experience, so people shaped by different pasts naturally arrive at different answers. That does not mean anything at all is acceptable, since almost every group condemns cruelty toward its own members. It means that above a thin shared floor, moral judgment is local, and any attempt to hand one culture's full code to the rest of the world will be received as an order rather than as wisdom.",
+      "claim": "Above a thin shared floor, moral standards are local and no single code will ever fit every culture."
+    },
+    {
+      "id": "269594b3-2019-04-18T16:59:22Z-00002-000",
+      "sha256": "82c59c7cabe58f993c17f5b5c03edcad49f6db44966d67295cf0c3519fdad352",
+      "verdict": "write",
+      "topic_ko": "아이가 운동선수 진로에 인생을 걸어도 되는가",
+      "passage": "Every child should be encouraged to play sport, and no child should be encouraged to bet an entire future on it. The gap between those two sentences is where a great deal of quiet damage happens. Only a tiny share of talented young players ever earn a living from a game, and those who fail rarely fail through laziness. They fail because of an injury, a body that grew the wrong way, or a coach who preferred somebody else. A young person who has dropped every subject in order to train has no answer ready when one of those accidents arrives, often at seventeen. Families who handle this well do something simple: they treat training and study as two duties rather than a choice between them, so the child can chase the dream at full speed without having burned the road home. Ambition and a second plan are not enemies, and only one of them can be prepared in advance.",
+      "claim": "Children should be encouraged to play sport, but never to stake an entire future on turning professional."
+    },
+    {
+      "id": "269c4789-2019-04-15T20:24:11Z-00029-000",
+      "sha256": "095f7e5a177a6e978126c8a1f9afdcf30bec9666caa383066bfc8f266a1e75de",
+      "verdict": "write",
+      "topic_ko": "숙제를 없애야 하는가 — 수업 시간의 한계",
+      "passage": "The school day is too short to hold everything a young person needs to learn, which is the plainest reason to keep work going after the bell. Subjects have to be covered within a fixed number of hours, and if every task must happen in class, then lesson time is spent watching students work quietly rather than explaining anything new. Sending that quiet work home frees the teacher for the part only a teacher can do. A second reason matters even more. Skills such as reading improve through repeated practice at a speed that suits one learner, and no classroom can offer thirty different speeds at once, while a kitchen table easily can. Work done at home also brings parents near the learning, so a child who was lost in class has somebody to ask that evening. The fair complaint concerns the amount rather than the idea, and a sensible school answers it by setting less instead of none.",
+      "claim": "Homework should be kept because the school day is too short to carry the whole of learning."
+    },
+    {
+      "id": "26f1a2c3-2019-04-15T20:24:26Z-00018-000",
+      "sha256": "0786a648887e926b8a492973e520c48308b547e801fa44bb6c0291724f9f080e",
+      "verdict": "write",
+      "topic_ko": "여성이 남성과 같은 리그에서 겨루도록 해야 하는가",
+      "passage": "Opening every league to men and women together sounds fair. Yet in the small group of sports whose aim is to knock another competitor down, the change would work against the people it means to help. Crowds have slowly learned to treat a man striking a woman as something shameful, and that lesson is worth far more to a society than any single match. A contest built on heavy blows puts the reverse lesson directly on screen, and viewers will look away however skilled or willing the woman in the ring happens to be. The sport then loses the audience it depends on, and the women who fought for entry inherit a stage that nobody is watching. Mixed competition makes obvious sense in shooting, riding, sailing and any event judged on aim or speed, and those doors should open wider than they have. Where the scoring rewards damage, separate leagues protect both the players and the lesson.",
+      "claim": "Mixed leagues make sense in most sports but not in those whose scoring rewards striking another competitor down."
+    },
+    {
+      "id": "2705e985-2019-04-18T12:49:50Z-00001-000",
+      "sha256": "aa0a86279de1ce315c1abd4e1c8761db73197dd0329010b1dd8ef2cb415bf227",
+      "verdict": "write",
+      "topic_ko": "숙제를 없애자는 주장의 숨은 비용",
+      "passage": "Removing homework from a school sounds like a small kindness, but it quietly demands two enormous changes that nobody proposing it has priced. A course is built to fit a set number of weeks, so if the tasks now done at home must move into class, either the content shrinks or the year grows longer. Neither is a minor adjustment, and both would be fought by the same parents who asked for the change. The second point concerns who is available to help. A student who did not follow the lesson has one chance to ask the teacher and many chances to ask a parent, and the second only exists if some of the work travels home. A reasonable school will treat the youngest children gently and set almost nothing before the age of twelve, then build the habit slowly after that. The target should be a small amount that is actually marked, not a heap and not an empty evening.",
+      "claim": "Abolishing homework would force either a shorter course or a longer school year, and would cut parents out of learning."
+    },
+    {
+      "id": "27137049-2019-04-18T17:04:47Z-00004-000",
+      "sha256": "97b379d6e4fa6773e37971527d651c6b7c97978a2520bbb16f0ab208666a9c23",
+      "verdict": "skip",
+      "skip_reason": "특정 종교 집단을 폭력의 원인으로 지목하는 논지라 교재 지문으로 부적절하다."
+    },
+    {
+      "id": "284ea85-2019-04-15T20:22:26Z-00011-000",
+      "sha256": "c9a979cf39de8b2ce99d3bf1a09e25ed77d4e9c3aaafb237faca11537103744b",
+      "verdict": "write",
+      "topic_ko": "영화가 흡연의 해악을 함께 보여줄 의무가 있는가",
+      "passage": "A film is made to tell a story, and turning it into a health lesson serves neither the story nor the viewer. When a character lights a cigarette, the point is usually to sketch a mood or fix a scene in its period, and the moment passes in seconds. Demanding that every such moment be balanced by a warning treats the audience as though it had never heard that the habit is deadly, which after fifty years of public campaigns is simply untrue. Follow the rule to its end and the results become absurd, since a glass of wine, a fast car and a fried breakfast all shorten lives too, and each would need its own note of caution. Stories built around a list of required warnings lose their shape and their honesty, and viewers notice quickly. The proper place for health advice is a health campaign, not a quiet corner of somebody else's story.",
+      "claim": "Films are made to tell stories and should not be required to attach health warnings to every harmful act they show."
+    },
+    {
+      "id": "284ea85-2019-04-15T20:22:26Z-00013-000",
+      "sha256": "5bdb71d13867727c8d7100326369cb09b38b5303144b8daa0f67006c2734aefd",
+      "verdict": "write",
+      "topic_ko": "영화 속 흡연 금지 규정의 실행 비용",
+      "passage": "A rule against showing smoke on screen would be far harder to run than its supporters admit, and the trouble starts with the films that already exist. Somebody must decide whether old stories are judged by the new standard. If they are, then thousands of hours of finished work have to be watched again and given fresh ratings by paid staff. That bill arrives immediately, while the promised drop in smoking is distant, uncertain and impossible to separate from every other campaign running at the same time. There is also the awkward question of copies already sitting on shelves in private homes, which no rule can reach. Any such measure must fit beside existing protections for free expression, so each disputed case invites a legal fight that costs more than the case is worth. A policy that spends heavily, reaches only part of what it aims at, and limits expression on the way is poor value however worthy its goal.",
+      "claim": "A ban on smoking in films would cost far more to enforce than the small benefit it could deliver."
+    },
+    {
+      "id": "284ea85-2019-04-15T20:22:26Z-00016-000",
+      "sha256": "926bff33ed9dda4a01b4786840e917a6e7700dee568d32f81d6926b82e97acdf",
+      "verdict": "write",
+      "topic_ko": "국가가 영화 속 흡연 장면을 금지하는 것이 정당한가",
+      "passage": "Few people would argue that smoking is harmless, yet the harm of a habit cannot by itself justify removing every picture of that habit from film. A state that begins editing stories for the public good will never reach the end of the work, because almost every strong story contains something dangerous. The goods themselves are still on open sale in shops along almost every street, so a rule that permits the sale but forbids the picture looks strange. A grown viewer can see a character smoking and read the habit as a sign of who that character is, not as an instruction to follow. Honest warnings, steady taxes and patient education have already reduced the habit in many countries, and these tools treat citizens as adults who judge their own risks. A ban on scenes, by contrast, treats the whole audience as children who must be protected from a picture of something legal. Governments carry duties that are far heavier than the smoke inside a story, and that particular job should sit at the bottom of the pile.",
+      "claim": "A government should not ban the depiction of smoking in films."
+    },
+    {
+      "id": "284ea85-2019-04-15T20:22:26Z-00017-000",
+      "sha256": "8a640abf921a8744cf6ba82633104d0560375e5824b576598016a524f21dd866",
+      "verdict": "write",
+      "topic_ko": "영화 속 흡연 제한은 예술을 해치지 않고 설계할 수 있는가",
+      "passage": "A rule limiting smoke on screen can be written with enough care to answer nearly every practical complaint against it. Old films need not be touched at all. Where a story genuinely depends on the habit to place itself in another century, an exception can be granted by the same body that already awards ratings. What the rule would end is the casual use of smoking as a shortcut for cool, tough or grown-up, a shortcut that film makers reach for out of habit rather than need. Limits of this kind have pushed artists toward better solutions many times before, and there is no reason to expect otherwise here. Weighed against that mild inconvenience is a long line of studies finding that young viewers who see the habit presented as attractive are more likely to take it up themselves. When one side of the balance holds a creative shortcut and the other holds the lungs of children, the choice is not difficult.",
+      "claim": "A limit on smoking in films can be designed to spare art while protecting young viewers."
+    },
+    {
+      "id": "28ed8bbc-2019-04-18T13:34:24Z-00004-000",
+      "sha256": "6357feaf82a05911ace8e384fccda8689cde78b96b597d5972167c4a80f66cfa",
+      "verdict": "write",
+      "topic_ko": "삶의 의미는 다른 생명을 떠받치고 변화를 남기는 데 있는가",
+      "passage": "Nothing alive stands on its own, and once that is admitted, the question of what a life is for becomes much easier to answer. A child left alone in a forest would die within days without plants to eat and without the adults who feed and shelter the young. Every creature depends on a chain of others in exactly the same way. Living things therefore exist inside a system of support, and a life that adds nothing to that system has taken without returning. The second half of a meaningful life is change. Almost no one is remembered by name, yet the work of countless forgotten people still shapes the roads and the ideas of the present day, and what they left is real whether or not a name is attached to it. A life is measured not by its length but by what continues after it, so the aim is simple: hold up other life, and leave the world altered.",
+      "claim": "A life finds its meaning in supporting other life and in leaving a change that outlasts it."
+    },
+    {
+      "id": "29972ac3-2019-04-18T11:55:26Z-00000-000",
+      "sha256": "127e8453ec042e8a45fcb214633f1cc93fc64ac2a59ead403f58a16bc8efafb0",
+      "verdict": "write",
+      "topic_ko": "과학 수업에서 무엇을 가르쳐야 하는가 — 검증 가능성 기준",
+      "passage": "A science lesson should present the explanations that can be tested, and that single standard settles what belongs in the room. The world is astonishingly complex, and complexity does feel like the mark of a planner, yet a feeling is not evidence. Small changes passed down across enormous stretches of time, with the useful ones spreading and the harmful ones dying out, are enough to build the eye, the wing and the brain without any plan at all. That account can be checked against rocks, bones and living cells. The competing account cannot be checked, and it also stops too early: if complexity requires a maker, the maker is more complex still, and the question simply moves one step back with nothing gained. None of this settles whether a faith is true, which is a separate matter for other lessons and other conversations. It settles only the narrow question of what a class about testing ideas should teach.",
+      "claim": "A science class should teach only explanations that can be tested against evidence."
+    },
+    {
+      "id": "29a09d70-2019-04-17T11:47:19Z-00029-000",
+      "sha256": "a3bf7a6dc2a546272a2891de0368b56f0993456ed9ac90420cffceb6ac911dab",
+      "verdict": "write",
+      "topic_ko": "정부가 해마다 수입 안에서만 지출하도록 강제해야 하는가",
+      "passage": "Forcing a government to spend only what it collects in the same year sounds responsible and would in fact be reckless. No household in the world lives by that rule. Families borrow to buy a home and to send a child to college, and firms borrow to buy better machines. Local councils borrow to build the roads, schools and water systems that serve two generations, because the benefit arrives across decades and so should the bill. A national government faces the same arithmetic on a larger scale, and denying it that ordinary tool would mean paying for a bridge entirely out of one year's taxes or abandoning the bridge. The rule also bites hardest at the worst moment, since a downturn cuts tax income exactly when more people need help, forcing cuts that deepen the very slump they answer. Spending badly is the real danger, and a rigid annual rule punishes wise borrowing and foolish borrowing alike.",
+      "claim": "Forcing a government to balance its budget every year would block the borrowing that long-term investment requires."
+    },
+    {
+      "id": "29d98969-2019-04-18T15:27:21Z-00001-000",
+      "sha256": "e031b85011d80a6ef8e87d6f38ddbce9a91503e2b02baa900e79f2babf66a555",
+      "verdict": "write",
+      "topic_ko": "국가 발전의 무게중심을 농촌에 둘 것인가 도시에 둘 것인가",
+      "passage": "A country that wants to lift its people out of poverty should put its effort into its cities rather than spread it thinly across its villages. The reason lies in what each place produces. Village income rests mainly on growing food and catching fish, work that a changing climate now makes less certain every decade, since a single storm or dry season can erase a year of effort. Towns and cities live instead on making things and on services, neither of which depends on the weather, so wages there are both higher and steadier. Concentrating investment where work is already growing also serves the villages, because a family with a member earning steady wages in a city sends money home. There is a further gain that is easy to miss: leaving country land alone protects the forests, rivers and soil that would not survive being covered in roads and factories. Building upward in a few places is kinder to the land than building outward everywhere.",
+      "claim": "A developing country should concentrate its investment in cities rather than spread it across villages."
+    },
+    {
+      "id": "2a70e688-2019-04-18T11:33:57Z-00001-000",
+      "sha256": "c51022c99ccebbdf4763ba293aadb211c58eaf07a75603be9c66b14a9d07663e",
+      "verdict": "write",
+      "topic_ko": "학생이 관심에 따라 과목을 고르게 해야 하는가",
+      "passage": "Schools would prepare young people far better for the years after graduation if students were allowed to choose a larger share of their own subjects. Interest drives attention, and attention drives learning, which is why a student who selected a course arrives ready while a student placed in one arrives resigned. A young person aiming at art, building or care work sits through years of lessons chosen for somebody else's future, and leaves holding a certificate but no useful preparation for the life actually ahead. Nobody serious is asking to throw out the basics, since reading, writing, number sense and some understanding of science are needed by everyone whatever they do next. The argument concerns the space above that floor, which is currently filled by tradition rather than by any thought about the particular student. Fill that space with real choices and attendance improves, marks improve, and school finally connects to the life waiting outside it.",
+      "claim": "Students should choose a larger share of their own subjects, since interest is what drives attention and learning."
+    },
+    {
+      "id": "2c878ac5-2019-04-18T18:22:21Z-00003-000",
+      "sha256": "ea09614441f85fff8154b14e2009ae0a298c355f24832a43633e01ed4c40af67",
+      "verdict": "write",
+      "topic_ko": "음악을 공짜로 듣게 되면 누가 사라지는가",
+      "passage": "If recorded music becomes free for everyone, the artists who suffer are not the famous ones but the beginners nobody has heard of yet. A well-known performer already has backing, a touring crew and a paying audience, and would survive the change comfortably for years. The newcomer has none of that. Without income from recordings there is no money for instruments, for studio time or for the long unpaid weeks of travel that build a following, so the career stops at the edge of the home town before anyone outside it hears a note. Companies then sign only those who can already sell, which in practice means people who arrived with money or fame from somewhere else, and the talent that used to rise slowly from small clubs never rises at all. Listeners feel this last, as a strange thinness in what is offered to them. Free music is not free; the price is paid by the music that never gets made.",
+      "claim": "If recorded music becomes free, it is the unknown artists rather than the famous ones who disappear."
+    },
+    {
+      "id": "2c8c8e3a-2019-04-18T15:06:32Z-00007-000",
+      "sha256": "2a02e3bdb525b6ab2516ad512cb903fe1d562b9186cd88fb656557a8ac01eb83",
+      "verdict": "write",
+      "topic_ko": "감각 경험이 실재와 일치함을 증명할 수 있는가",
+      "passage": "Nobody can show that the world reported by the senses matches the world as it actually is. The difficulty is not that the senses fail in some dramatic way, but that there is no independent place from which to check them. Every test of sight ends in more sight, every measurement is read by an eye or heard by an ear, and a report can never step outside itself to compare itself with the thing it reports. Dreams make the gap easy to feel. While a dream is running it carries exactly the weight of ordinary waking life, and it is corrected only later, by more experience of the very same kind. This is not a reason to distrust the senses in daily life, which would be both impossible and silly. It is a reason to hold confidence a little more loosely, and to remember that certainty is a very strong habit rather than a proof.",
+      "claim": "Nobody can prove that the world reported by the senses matches the world as it actually is."
+    },
+    {
+      "id": "2d0c38e4-2019-04-15T20:22:46Z-00018-000",
+      "sha256": "3d6e55b93d7a1d279d11e005f1100a07575c239202d7fdc8c8584faa20c9a56b",
+      "verdict": "write",
+      "topic_ko": "언론에 범죄 보도의 의무가 있는가",
+      "passage": "News organisations are businesses, and the duties that people like to assign to them do not actually exist. A paper reports violent crime because such stories sell, not because some obligation compels it, and the proof is visible on any shelf. Most of what is published concerns fishing, cars, gardening, sport or model trains, subjects that touch neither the safety of the public nor the direction of the country. Nobody thinks those magazines have failed a duty by ignoring the courts. It would be plainly absurd to insist that a gardening monthly carry a page on murder merely because murder is important. Once the imagined duty disappears, the argument for controlling crime reporting loses its base, since the control would fall on a trade rather than on an office of public service. A society that wants less fear and better information should back the reporting people choose to read, not invent duties and then punish their neglect.",
+      "claim": "News organisations are businesses with no duty to report crime, so the case for controlling such reporting has no base."
+    },
+    {
+      "id": "2d3de5f8-2019-04-18T14:18:21Z-00002-000",
+      "sha256": "659c93ca5558c2e49ddf8876175ad76b3bd6c48549aea4334476f4b30755a507",
+      "verdict": "write",
+      "topic_ko": "대학 교육을 무상으로 제공해야 하는가",
+      "passage": "Making university free does not remove its cost; it only moves that cost onto people who are not sitting in the lecture hall. Every teacher, building and library must still be paid for, so the bill returns as higher taxes, and a large share of it is collected from workers who left school early and will never attend themselves. That is a strange kind of fairness. A second effect follows from the price itself, because a course that costs nothing is easy to enter and easy to drift through. A country can end up with crowds of graduates in subjects that lead nowhere while it still cannot find people to fix its wiring. Money spent this way is money not spent on hospitals, roads or the early school years, where the same sum does far more good. Helping poor students directly, through support tied to need and results, reaches the people who deserve it without handing a free ride to the comfortable.",
+      "claim": "Free university education only moves its cost onto people who never attend, and help should be aimed at those in need instead."
+    },
+    {
+      "id": "2d7a6fbd-2019-04-15T20:22:25Z-00013-000",
+      "sha256": "530933e2a27abe9369f7941ba8a27819a4d1e1d248d988de3a67d48a98cba59c",
+      "verdict": "write",
+      "topic_ko": "학교를 지역이 통제하면 더 효율적인가",
+      "passage": "The claim that putting schools under local control makes them run better has been repeated far more often than it has been demonstrated. Local units are not even a single kind of thing, since one district may hold a few hundred children while the next holds half a million, so the word hides enormous differences rather than naming a method. Whatever efficiency appears in a place comes from the skill of the people deciding there, and that skill is spread unevenly. Local control therefore produces a few excellent systems and a long tail of weak ones. National study has the opposite shape: a question answered once, carefully, is answered for everyone, while a thousand separate offices each pay to learn the same lesson alone. Money matters too, since poor areas cannot fund their schools from poor neighbours, and only a larger government can move resources toward the children who have least. Local knowledge is valuable as a contribution to a national system, not as a substitute for one.",
+      "claim": "Local control of schools is not automatically efficient, and national study and funding do what local units cannot."
+    },
+    {
+      "id": "2e128dfc-2019-04-18T11:42:48Z-00000-000",
+      "sha256": "fb7c7223ea930305047ecd1285edbce9071c3665fdff9f6c1062fa9b85dae894",
+      "verdict": "write",
+      "topic_ko": "위험을 파는 극한 스포츠를 무엇으로 정당화할 수 있는가",
+      "passage": "Before agreeing that dangerous sports deserve a place on public screens, it is worth asking what sport is actually for. Several answers are available, and each of them points somewhere different. If the purpose is to test who is best, then a contest decided by luck and nerve rather than by trained skill hardly qualifies; if the purpose is health, then an activity that regularly breaks bones and damages brains works directly against it. That leaves excitement and the money excitement earns, which is a real answer but a weak one, since it is exactly the answer that was given for the killing games of the ancient world. None of this means such activities should be forbidden to the adults who love them. It means that once an audience is paying to watch strangers risk permanent injury, the people selling the event carry a duty they usually prefer not to discuss.",
+      "claim": "Excitement alone is too weak a reason to sell the sight of strangers risking permanent injury."
+    },
+    {
+      "id": "2e784eb9-2019-04-19T12:45:17Z-00032-000",
+      "sha256": "74dbcab055224cb2a58f9f07fe5ba6855db740469f8d0162e9bdcde3249fa88c",
+      "verdict": "write",
+      "topic_ko": "소득세를 없애고 소비에 과세해야 하는가",
+      "passage": "Taxing what people earn is a worse idea than taxing what they choose to spend, and dropping the tax on wages would leave ordinary households clearly better off. Consider what a typical family actually buys. Rent, plain food and children's clothes already carry no sales tax in most systems, and fuel and clean power could easily be left alone as well, so the essential part of the household budget would barely move even if rates on other goods rose. Meanwhile the pay packet grows by roughly a third overnight. Some of that would clear old debts, some would be saved, and the rest would be spent on goods the buyer selected rather than handed over before it was ever seen. Saving on this scale gives banks money to lend that did not come from the public purse, and it leaves the next generation less dependent on state support in old age. A tax that is visible and chosen is fairer than one removed from wages before they arrive.",
+      "claim": "Taxing what people spend is fairer and better for ordinary households than taxing what they earn."
+    },
+    {
+      "id": "2f1615d9-2019-04-18T16:34:32Z-00000-000",
+      "sha256": "75aa0f8a57846ceea6d6175f17d176cb139d4aac8d5c15851a61ceb48520d539",
+      "verdict": "write",
+      "topic_ko": "장기 매매를 합법화해야 하는가",
+      "passage": "Allowing people to be paid for giving an organ is the only proposal on the table that would actually increase the number available. Gifts alone have been tried for decades, and the result is a list of patients that grows faster than the supply, with thousands dying each year while waiting for a part that never arrives. Payment changes the arithmetic, because it brings forward people who were willing in principle but could not afford the weeks of recovery that giving demands. The usual fear is that only the rich would benefit. Yet that fear describes the present rather than the proposal, since wealthy patients already travel abroad and buy quietly while everyone else waits. A controlled system could do the opposite by having a public fund purchase every organ at a fixed price and then hand it on by medical need alone. The objection worth answering concerns the safety of sellers, and that argues for careful rules and honest payment rather than for leaving the trade in the dark.",
+      "claim": "Paying people for organs is the only proposal that would actually raise the supply for patients who are dying without one."
+    },
+    {
+      "id": "2f37106f-2019-04-18T18:30:55Z-00005-000",
+      "sha256": "bcf3de92f875e3de4fa2920248fa470e5305d895aab9953bdf7baba4d104677b",
+      "verdict": "write",
+      "topic_ko": "식당 내 흡연을 법으로 금지해야 하는가",
+      "passage": "The freedom to smoke ends where somebody else has to breathe the result, and a dining room is precisely such a place. A smoker who accepts the risk has made a decision about a single life. The family at the next table, the waiter who works ten hours in that air, and the cook passing through have made no such decision and cannot avoid it while doing their jobs. The common reply is that anyone troubled by the smoke may simply leave, which quietly moves the cost onto the person causing no harm and ignores the staff entirely, since leaving is not an option for them. Stepping outside for a few minutes, by contrast, costs the smoker almost nothing, and the meal is still waiting on return. Many owners already ask their customers to do exactly that, which shows the rule is neither strange nor ruinous. Writing it into law simply spares every other owner the same argument.",
+      "claim": "Smoking should be banned in restaurants because the cost falls on people who never chose the risk."
+    },
+    {
+      "id": "2fb9d5be-2019-04-18T15:18:29Z-00001-000",
+      "sha256": "343cadf092b878099642607c6c1abb98373b98786bab7dee9b9b11d132aafdc5",
+      "verdict": "write",
+      "topic_ko": "총기를 전면 금지하면 살인이 줄어드는가",
+      "passage": "Removing guns from a country would lower the number of killings even though knives and other weapons would remain, because distance and effort matter enormously to whether an attack happens at all. Shooting somebody requires a small movement of one finger from across a room, while an attack at arm's length demands strength, closeness and a willingness to watch what is being done. Many who would do the first would stop short of the second. The intended victim also has a chance in the second case, which removes the guarantee that the attacker is counting on. Anger passes quickly, and a weapon that turns a bad five minutes into a death is far more dangerous than one that gives the moment time to cool. A hidden trade would certainly continue, yet such a trade is slow, expensive and open to arrest in a way that a shop counter is not. Fewer weapons in circulation means fewer moments that end in a funeral.",
+      "claim": "Removing guns would lower the number of killings, because distance and effort decide whether an attack happens at all."
+    },
+    {
+      "id": "30003ec2-2019-04-18T16:18:21Z-00000-000",
+      "sha256": "ba978e147459f1e166e0965656151d5b185f0a7ccb17b4f8c27abbfec8302bdf",
+      "verdict": "write",
+      "topic_ko": "희망은 반드시 두려움을 동반하는가",
+      "passage": "Hope is often described as the twin of fear, as though wanting something to happen must always carry a matching dread of its absence, but the pairing breaks down under examination. Wanting an outcome and dreading its opposite are two separate states, and a person can hold the first without ever reaching the second. Picture an older man who would be delighted to become a grandfather. He hopes his daughter will have a child, and yet he may be entirely at peace if she never does, because her life is hers and he can see other good paths through it. His hope is real, since the news would bring him joy, while the dread that supposedly accompanies it is simply missing. What lies between hope and fear in his case is calm acceptance, and that third position is common in ordinary life. Fear grows from believing that the alternative would be a loss, and many things people hope for are gains whose absence costs nothing.",
+      "claim": "Hope does not have to carry fear with it, because wanting an outcome and dreading its absence are separate states."
+    },
+    {
+      "id": "3064bbce-2019-04-15T20:24:33Z-00011-000",
+      "sha256": "be1bcf75668e33d3af533c3cbb496af13a515385b23d13116875133bb1c8975d",
+      "verdict": "write",
+      "topic_ko": "휴대전화에 매기는 소액 세금은 공정한가",
+      "passage": "A small tax on mobile phones is one of the fairest ways for a poor country to raise money, whatever the loudest voices against it may claim. Nearly everyone now owns a phone, so the base is broad and the amount each person pays stays tiny, while anyone too poor to own one pays nothing at all. Those who own several phones pay several times, which means the burden rises with wealth rather than falling hardest on the poorest, the opposite of what critics usually suggest. It is also worth noticing who is complaining. The companies that sell the service object because a tax shades their profit, and politicians out of office object because anger about a new charge is easy to collect. Neither objection is really a report on how poor households are faring. Set against a few coins a month is the road, the clinic or the classroom that the money builds, and explained in those terms the charge defends itself.",
+      "claim": "A small tax on mobile phones is a fair way for a poor country to raise money, and the loudest objections come from interested parties."
+    },
+    {
+      "id": "312ea0c2-2019-04-18T20:03:33Z-00002-000",
+      "sha256": "81ab3f16023cefebfcf99a484f96932c86a002bc962375ee59995410bfecd9f8",
+      "verdict": "skip",
+      "skip_reason": "논지 없이 정당 구호와 감상만 반복해 지문으로 재구성할 논증이 없다."
+    },
+    {
+      "id": "31491304-2019-04-18T15:30:29Z-00007-000",
+      "sha256": "dad13113812a60a6986a94cc116f8284858df9a476a97a8960c72d736981a363",
+      "verdict": "write",
+      "topic_ko": "하늘이 파란 이유 — 색은 사물이 아니라 빛의 여정에 속한다",
+      "passage": "The sky is not blue because it copies the sea, and the true reason says something surprising about colour itself. Sunlight arrives carrying every colour mixed together, and as it passes through the air it strikes countless tiny pieces of gas that throw part of it sideways. How much is thrown sideways depends sharply on the length of the waves that make up each colour. The short blue waves are spread in all directions across the whole sky. The long red waves travel almost straight through and reach the eye only when the sun sits low and the light has far to run. What is seen overhead, then, is not the colour of anything up there but sunlight bent off course. That conclusion matters beyond this one example, because it shows that a colour can belong to the journey of the light rather than to the object at the end of it.",
+      "claim": "The sky is blue because short blue waves are spread across the air, which shows that colour can belong to the journey of light rather than to any object."
+    },
+    {
+      "id": "35bf4cf8-2019-04-18T12:07:16Z-00000-000",
+      "sha256": "690ed4f4d632391de61aaf26714e1762e0c654e519d5f4bb92b26990d7069b6e",
+      "verdict": "write",
+      "topic_ko": "'필요'라는 것은 존재하지 않는가",
+      "passage": "Claiming that nothing truly needs anything collapses the moment the word is applied to actual cases. A human body requires water, food, warmth and air within a few days or it stops working, and no argument about language changes what happens when those are missing. The pattern reaches far beyond living things. A star burns because it holds a supply of light gas, and when that supply runs out the star dies in an explosion, so the supply is a condition of its continuing, which is exactly what a need is. A planet holds its place only while the pull of its star balances its speed, and without that balance it would drift into empty space or fall inward. Even an ending depends on conditions, since the businesses that bury the dead exist only because people die. Whatever the example, from a body to a burning star, it continues only while something else supports it, and a world with no such conditions would contain nothing at all.",
+      "claim": "Needs are real everywhere, because nothing continues to exist except while some condition supports it."
+    },
+    {
+      "id": "3618db10-2019-04-19T12:44:31Z-00008-000",
+      "sha256": "b43cd219f6de4c057801203d157cfb6a61b2c3d55183a5337d860847a549fa7b",
+      "verdict": "write",
+      "topic_ko": "혼전 재산 계약을 금지해야 하는가",
+      "passage": "An agreement signed before a wedding to keep one partner's property beyond the other's reach damages the very thing a marriage is supposed to be. Much of the meaning of the arrangement comes from its completeness, since two people agree to share everything they have, and that sharing is the visible sign that they enter as equals. A contract that carves out the money undoes the sign before the marriage has even begun. What follows is not only symbolic. In a household where one person holds the property, that person also holds the deciding voice on where to live, whether to move for a job, and what the children may have, while the other is left asking rather than choosing. Resentment grows in exactly such arrangements, and resentment is what ends marriages. A society that wants its couples to last should encourage the equality that makes shared decisions possible rather than give legal blessing to an imbalance.",
+      "claim": "Agreements that fence off one partner's property before a wedding undermine the equality on which a lasting marriage rests."
+    }
+  ]
+}
