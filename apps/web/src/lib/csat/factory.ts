@@ -164,7 +164,7 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   // (실측 2026-09-05: 따로 던지면 8.3초·7.7초에 정상, 같이 던지면 null). 그 상태로
   // 화면은 「집필 · 해설 못 잼」이라고 적었고, 그것은 사실이 아니라 **경합의 흔적**이었다.
   // 가벼운 조회 + 사다리 칸(26개)이 1물결, 무거운 전수 count 둘이 2물결이다.
-  const [coverage, gates, snapshot, cells, renders, warehouse, volume] =
+  const [coverage, gates, snapshot, cells, renders, picks, warehouse, volume] =
     await Promise.all([
       withTimeout(db.rpc('csat_coverage'), 8_000, {
         data: null,
@@ -183,7 +183,10 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
       loadLadderCells(db),
       // 검수 기록은 별도 컬럼이 아니라 `colophon.review` 안에 있다 — 조판기가 찍은 그 값이어야
       // 화면과 손에 쥔 책이 같은 것을 말한다(`lib/textbook/console-stats.ts` 와 같은 규약).
-      db.from('textbook_volume_renders').select('band, colophon, brand_fingerprint'),
+      db.from('textbook_volume_renders').select('band, series, step, colophon, brand_fingerprint'),
+      // ⑨ 운영 — **낸 책을 누가 집었는가.** 이 표가 비어 있으면 「많이 찍었다」가
+      // 「잘 팔린다」로 읽히고, 그것이 이 플랫폼의 이름난 실패 모드다(PLATFORM_AUDIT).
+      db.from('user_textbook_selections').select('series, step'),
       readBench(BENCH_FILES.warehouse),
       readBench(BENCH_FILES.volume),
     ])
@@ -549,7 +552,11 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   /* ⑦ 검수 — 다층. 한 층만 통과한 것은 통과가 아니다. */
   const renderRows = (renders.data ?? []) as {
     band: number
+    series: string | null
+    step: number | null
     colophon: {
+      /** ⑧ 의 발행 결재가 남긴 키. 없으면 **사람이 결재한 적이 없는 권**이다. */
+      publish?: unknown
       review?: {
         answerBias?: unknown
         proofread?: unknown
@@ -727,6 +734,83 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
           {
             cmd: 'pnpm dlx tsx scripts/textbook/render-volume.mjs --band 6 --units 20 --out volume-v6.html',
             why: '문제편·정답편·해설을 한 HTML 로 낸다 — 해설 누락·자동 검수 미통과면 **거절한다**(파일도 기록도 안 남는다). 통과하면 지정한 파일을 덮어쓴다',
+            writes: true,
+          },
+        ],
+      ),
+    )
+  }
+
+  /*
+    ⑨ 운영·개정 — **낸 뒤에 무슨 일이 있었는가.**
+
+    ⚠️ 이 공정이 없던 동안 공장은 ⑧ 에서 끝났고, 여덟 칸이 통과하는 날 현황판이 초록이
+      됐다. 그런데 실측 2026-09-23 을 보면 그 초록 뒤가 비어 있다:
+        · 나간 19권 중 **발행 결재가 있는 권 1**  (나머지 18권은 아무도 결재 안 했다)
+        · 나간 19권 중 **학습자가 한 번이라도 고른 권 3** (전부 독해 · 고른 사람 1명)
+          어휘·구문 12권은 찍혀서 매대에 있는데 **아무도 안 집었다.**
+      두 수를 안 재면 「12권을 더 냈다」가 「12권이 팔린다」로 읽힌다.
+  */
+  {
+    const pickKeys = new Set(
+      ((picks.data ?? []) as { series: string | null; step: number | null }[])
+        .filter((p) => p.step != null)
+        .map((p) => `${p.series ?? 'reading'}|${p.step}`),
+    )
+    const shipped = renderRows.length
+    const approved = renderRows.filter((r) => r.colophon?.publish != null).length
+    const picked = renderRows.filter(
+      (r) => r.step != null && pickKeys.has(`${r.series ?? 'reading'}|${r.step}`),
+    ).length
+    stages.push(
+      state(
+        'operate',
+        [
+          {
+            // 문서가 2026-09-06 부터 주장해 온 ⑨ 진열의 눈금이다. 재는 도구는 있는데
+            // **저장소에 리포트를 안 남겨서** 앱이 읽을 값이 없다 — 지어내지 않는다.
+            label: '구성요소 지수',
+            num: null,
+            den: null,
+            unit: 'index',
+            target: 1.2,
+            unmeasuredReason:
+              'apparatus-surface-probe.mjs 가 --out 없이는 리포트를 안 남긴다 — 벤치마크처럼 docs/reports 에 구워야 이 칸이 켜진다',
+          },
+          {
+            label: '발행 결재를 받은 권',
+            num: renders.error ? null : approved,
+            den: renders.error ? null : shipped,
+            unit: 'ratio',
+            target: 1,
+            unmeasuredReason: renders.error
+              ? `조판 기록 조회 실패: ${renders.error.message}`
+              : undefined,
+          },
+          {
+            label: '학습자가 고른 권',
+            // ⚠️ 못 읽은 것을 0 으로 적지 않는다 — 「아무도 안 골랐다」와 「못 쟀다」는
+            //   할 일이 정반대다(전자는 상품을 고치고, 후자는 조회를 고친다).
+            num: renders.error || picks.error ? null : picked,
+            den: renders.error ? null : shipped,
+            unit: 'ratio',
+            target: 1,
+            unmeasuredReason: picks.error
+              ? `학습자 선택 기록 조회 실패: ${picks.error.message}`
+              : undefined,
+          },
+        ],
+        approved < shipped
+          ? `나간 ${shipped}권 중 ${shipped - approved}권이 **사람 결재 없이** 매대에 있다 — ⑧ 에서 권마다 승인하거나 내린다`
+          : `나간 ${shipped}권 중 ${shipped - picked}권을 아무도 안 골랐다 — 더 찍을 것이 아니라 **왜 안 집는지**를 봐야 한다`,
+        [
+          {
+            cmd: 'pnpm dlx tsx scripts/textbook/press-candidates.mjs',
+            why: '나간 권과 막는 이유를 한 번에 낸다. 읽기만 한다',
+          },
+          {
+            cmd: 'pnpm docs:db-stats',
+            why: '수요 측 수치(가입자·학습기록·학급)를 다시 센다 — 이 공정의 분자가 거기서 온다',
             writes: true,
           },
         ],

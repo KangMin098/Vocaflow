@@ -154,7 +154,6 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
               Icon: Wand2,
               group: '만들기',
             },
-            { href: '/admin/csat/catalog', label: '카탈로그', Icon: LayoutGrid },
 
             // ── 레인대로 묶는다 (2026-09-23 · DD-74) ──────────────────────
             // `factory-model.ts` 는 **`lane: 'lab' | 'line'` 을 이미 선언하고** 현황판도 두 띠로
@@ -200,6 +199,17 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
               tag: '⑧',
               Icon: Printer,
               group: '출고',
+            },
+            // ⑨ 운영·개정 — **끝이 아니라 고리가 닫히는 자리**(2026-09-23 · DD-77).
+            //   이 화면(품목)은 2026-09-23 까지 맨 위에 「카탈로그」로 혼자 서 있었다.
+            //   그런데 하는 일이 둘이다: **무엇을 더 낼 것인가**(품목)와 **낸 것을 어떻게
+            //   할 것인가**(운영·개정). 뒤의 것이 ② 기획의 입력이라 공정의 끝이면서
+            //   다음 바퀴의 시작이다. 맨 위에 두면 그 순환이 메뉴에서 안 읽힌다.
+            {
+              href: '/admin/csat/catalog',
+              label: '품목·운영',
+              tag: '⑨',
+              Icon: LayoutGrid,
             },
           ],
         },

@@ -224,7 +224,11 @@ export function FactoryLineClient({
   //   라인 병목을 먼저 적는다 — 「지금 무엇을 돌릴까」의 답은 거의 항상 라인에 있다.
   const lineBottleneck = findBottleneck(stages, 'line')
   const labBottleneck = findBottleneck(stages, 'lab')
-  const bottleneck = lineBottleneck ?? labBottleneck
+  // 매대(⑨)는 라인을 **막지 않는다** — 낸 책이 안 팔려도 다음 권은 찍힌다. 그래서
+  // 기본 선택에서는 라인·연구소 뒤에 온다. 다만 **안 보이면 안 된다**: 이 칸이 빠져 있던
+  // 동안 공장은 ⑧ 에서 끝났고, 그 끝이 곧 「완료」로 읽혔다(DD-77).
+  const shelfBottleneck = findBottleneck(stages, 'shelf')
+  const bottleneck = lineBottleneck ?? labBottleneck ?? shelfBottleneck
   const { passed, total } = lineCompletion(stages)
   // 기본 선택은 병목이다 — 열자마자 고쳐야 할 칸이 이미 펼쳐져 있다.
   const [picked, setPicked] = useState<string | null>(null)
@@ -279,6 +283,24 @@ export function FactoryLineClient({
             </>
           ) : (
             <span className="text-[var(--t3)]">전략 연구소도 게이트를 다 넘었다</span>
+          )}
+        </p>
+        {/*
+          매대 — **낸 다음**의 일. 라인이 다 통과해도 여기가 막혀 있으면 「더 찍자」가 답이
+          아니다(2026-09-23 · DD-77). 실측: 나간 19권 중 결재 1 · 학습자가 고른 권 3.
+          이 줄이 없던 동안 공장은 ⑧ 에서 끝났고, 그 끝이 곧 「완료」로 읽혔다.
+        */}
+        <p className="break-keep font-body text-[12px] text-[var(--t2)]">
+          {shelfBottleneck ? (
+            <>
+              <span className="text-[var(--t3)]">매대 · </span>
+              {shelfBottleneck.def.ord}. {shelfBottleneck.def.name}
+              <span className="ml-1.5 text-[var(--t3)]">
+                {shelfBottleneck.blocker ?? shelfBottleneck.def.gate} — 더 찍어서 풀리지 않는다
+              </span>
+            </>
+          ) : (
+            <span className="text-[var(--t3)]">낸 책도 결재와 수요가 붙어 있다</span>
           )}
         </p>
       </div>
