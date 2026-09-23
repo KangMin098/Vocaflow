@@ -488,6 +488,182 @@
         "origin 전면 403(Cloudflare cf-mitigated: challenge) · robots 는 기사 경로를 막지 않는데 WAF 가 막는 불일치",
         "본문의 CC BY-ND 문자열은 삽화 크레딧이지 기사 라이선스가 아니다 — 본문 문자열로 판정하면 사진이 포함된다고 오해한다"
       ]
+    },
+    {
+      "source": "scielo_sza_humanities",
+      "route": "R1",
+      "license": "저널 단위만 존재 — 기사 객체에 라이선스 필드가 없다(내 확인 0/25)",
+      "held_now": 0,
+      "countable_total": 31900,
+      "count_is_floor": false,
+      "count_method": "articlemeta journal API 로 121종 중 인문사회 77종을 고르고 ISSN 별 meta.total 전수 합산",
+      "verified_by": "self",
+      "verified_detail": "article 객체 licen*/v540/v541 = 0/25 · title 객체 v541 존재 · 저널 121종·인문사회 77종 일치 · 표본 10종 6,350편",
+      "cc_by_journals": 25543,
+      "words_median": 195,
+      "band_140_200_pct": 30.8,
+      "english_pct": 93.9,
+      "correction": "★★내 커밋 9e61f1a9「SciELO 수치 정정 — 29,600 이 5배 과대일 수 있다」가 틀렸다. 근거로 삼은 「편당 license 필드」는 articlemeta 에 존재하지 않는다(기사 객체 0/25 직접 확인). 앞선 조사의 「없음 56%」는 Crossref deposit 공백이었지 라이선스 부재가 아니다(그 prefix DOI 자체가 39%만 존재). 전수 계수 31,900편 · CC BY 저널분 25,543편 — 29,600 과 같은 자릿수다. **정정을 정정한다.**",
+      "blockers": [
+        "OAI 경로 2개 다 죽음(articlemeta /oai 404 · scielo.org.za OAI 500) — /api/v1/articles/ 벌크가 대체",
+        "기사 HTML 에 기계 판독 라이선스 표시 없음(12/12) — 편당 주장 근거가 원천에 없다",
+        "초록 보유 87.2%"
+      ]
+    },
+    {
+      "source": "olh",
+      "route": "R1",
+      "license": "편당 — CC BY 4.0 82.1% · **전권보유 11.6%**",
+      "held_now": 0,
+      "countable_total": 12343,
+      "count_is_floor": false,
+      "count_method": "Janeway DRF count 필드",
+      "verified_by": "agent",
+      "words_median": 140,
+      "band_140_200_pct": 28.7,
+      "english_pct": 96.4,
+      "blockers": [
+        "★라이선스 short_name 이 깨져 있다 — 221건이 (URL 잘림). 정규화 안 하면 CC BY 가 57.6% 로 과소 집계",
+        "★전권보유 11.6% 혼입 — 「전부 CC BY」로 취급 금지",
+        "offset 1100·1150 재현적 404",
+        "초록 중앙 140어 — 보고치 154~157 보다 짧다"
+      ]
+    },
+    {
+      "source": "openalex_ah",
+      "route": "R1",
+      "license": "CC-BY (필터 조건)",
+      "held_now": 0,
+      "countable_total": 347408,
+      "count_is_floor": false,
+      "count_method": "meta.count (fields/12 + cc-by + article + en). group_by 로도 동일",
+      "verified_by": "agent",
+      "words_median": 160,
+      "band_140_200_pct": 28,
+      "blockers": [
+        "abstract_inverted_index 복원 잡음 — 표본 어수 4~742. 어수 품질이 가장 낮다"
+      ]
+    },
+    {
+      "source": "rebus",
+      "route": "R1/R3 혼재",
+      "license": "권 단위 — CC BY 34/56 · 전권보유 13 · NC 계열 6",
+      "held_now": 0,
+      "countable_books": 56,
+      "countable_sections": 123,
+      "count_method": "pressbooks REST 6페이지 + X-WP-Total 이중 확인 · 대상 8권 TOC 합산",
+      "verified_by": "agent",
+      "correction": "내가 「131섹션」으로 적었는데 실측은 본문 챕터 123(front/back 포함 225)",
+      "access_note": "★403 은 UA 차단이었다 — CloudFront WAF 가 probe UA 를 막고 브라우저 UA 에는 같은 URL 이 200. **UA 를 바꿔 WAF 를 우회할지는 사용자 정책 판단 사항이라 기본값으로 삼지 않는다.**",
+      "blockers": [
+        "챕터 중앙 4,426어 — 섹션 그대로는 학습 단위 불가",
+        "H5P 퀴즈·슬라이드가 본문 0어로 섞임"
+      ]
+    },
+    {
+      "source": "obp",
+      "route": "R1/R3 혼재",
+      "license": "챕터 단위 — by-nc/4.0 44 · by/4.0 41 · by-nc-nd/4.0 14 (표본 100)",
+      "held_now": 0,
+      "countable_books": 547,
+      "countable_sections": 6654,
+      "count_method": "Thoth GraphQL workCount — MONOGRAPH 296 + EDITED_BOOK 203 + TEXTBOOK 48 = 547 · BOOK_CHAPTER 6,654",
+      "verified_by": "agent",
+      "correction": "내가 「303권」으로 적었는데 MONOGRAPH 296 에 가까운 값이었다. 책 단위 547 · 챕터 6,654",
+      "access_note": "★405 는 UA 차단이었다(AWS WAF Human Verification). api.thoth.pub 은 UA 무관 200",
+      "blockers": [
+        "XHTML 전문 보유 챕터는 45.7% 뿐(실측 137/300) — 나머지는 PDF",
+        "미주·참고문헌이 본문과 같은 층 — 문단 중앙 67어까지 내려간다",
+        "license 문자열 표기 4종(http/https × 끝슬래시) — 정규화 필수"
+      ]
+    },
+    {
+      "source": "libretexts_gustlin",
+      "route": "R1",
+      "license": "★페이지 단위로 ccby/arr 혼재(표본 8건 중 arr 2)",
+      "held_now": 0,
+      "countable_books": 5,
+      "countable_sections": 409,
+      "count_method": "sitemap 75,004 loc 전수 파싱 → Gustlin 1,016 → 책 루트별 본문 섹션",
+      "verified_by": "agent",
+      "correction": "내가 「53섹션」으로 적은 것은 Gustlin 5권 중 1권(History of Modern and Contemporary Art)의 값이었다. 전체는 409섹션",
+      "blockers": [
+        "@api/deki 403(개발자 토큰) · api.libretexts.org 401 — sitemap+HTML 만",
+        "★권이 아니라 페이지마다 arr 가 섞임 — 페이지별 license 태그 필독",
+        "/Courses/ 아래 리믹스 사본 501 URL 중복"
+      ]
+    },
+    {
+      "source": "anu_press_manifold",
+      "route": "R4",
+      "license": "전부 CC BY-NC-**ND** (2.5 CA / 4.0 공존)",
+      "held_now": 0,
+      "countable_books": 125,
+      "countable_sections": null,
+      "count_method": "Manifold /api/v1/projects 전량 125(totalCount 일치) · texts 140(published 126)",
+      "verified_by": "agent",
+      "correction": "내가 「936권」·「829권」으로 적었는데 Manifold 실측은 125 프로젝트 / 140 텍스트",
+      "blockers": [
+        "★섹션 본문 REST 경로가 없다(4변형 전부 404) — 리더 SSR HTML 뿐이고 섹션 1개에 490~920KB",
+        "전부 ND — 개작 불가, R4 재저작만",
+        "8건 중 1건 401 열람 제한"
+      ]
+    },
+    {
+      "source": "args_me",
+      "route": "R1",
+      "license": "CC BY 4.0 (Zenodo record metadata · 3개 버전 동일)",
+      "held_now": 0,
+      "countable_total": 382545,
+      "count_is_floor": false,
+      "count_method": "Zenodo record 4139439 의 argsme-1.0-cleaned.zip(236,787,622 B)을 실제 다운로드해 888MB JSON 을 스트리밍 파싱, 최상위 배열 요소 전수 계수",
+      "verified_by": "agent",
+      "band_140_200_count": 31334,
+      "band_140_200_pct": 8.2,
+      "words_median": 119,
+      "highlight": "★조사 전체에서 유일하게 「목표 길이 + CC BY + 전문 + 안정 ID」를 동시에 만족한다. 140~200어가 31,334편이고 이미 내려받아 세어 놨다.",
+      "source_breakdown": "debate.org 333,473 · debatepedia 21,197 · debatewise 14,353 · idebate.org 13,522 (합계 정확히 일치)",
+      "band_breakdown": "140~200어 중 debate.org 26,886 · idebate 2,538 · debatewise 1,343 · debatepedia 567",
+      "stable_id": "레코드 id — 382,545건 전부 유일(중복 0) + context.sourceUrl 로 원문 URL 유지",
+      "blockers": [
+        "라이브 검색 API /api/v2/arguments 가 500(NullPointerException) — 덤프만 살아 있다",
+        "단일 JSON 888MB · 단일 zip 엔트리라 부분 취득 불가, 스트리밍 파서 필요",
+        "2019년 크롤 스냅샷",
+        "전체 중앙값 119어 — 절반이 100어 미만이라 길이 필터가 본론이다"
+      ]
+    },
+    {
+      "source": "idebate",
+      "route": "R4",
+      "license": "전권보유(푸터) — 단 약관이 「전문 그대로·무수정·출처 표기」 조건의 복제·배포를 허용한다고 명시",
+      "held_now": 0,
+      "countable_total": 748,
+      "count_is_floor": false,
+      "count_method": "빈 질의 검색 페이지네이션 62p×12 + 63p 4건",
+      "verified_by": "agent",
+      "words_median_unit": 343,
+      "band_140_200_count": 0,
+      "highlight": "★직접 긁을 필요가 없다 — 본문 13,522편이 이미 args.me CC BY 덤프 안에 들어 있다(2019 스냅샷).",
+      "blockers": [
+        "논점 중앙 343어 — 표본 42논점 중 140~200어 0건",
+        "sitemap·API·RSS 전부 없음 · 목록에 63요청",
+        "본문이 데스크톱/모바일로 중복 렌더 — 해시 dedupe 필요"
+      ]
+    },
+    {
+      "source": "kialo_edu",
+      "route": "R4",
+      "license": "없음 — API 40개 키에 licen*/right*/copy* 0개. 약관은 「색인 목적 외 크롤·스크레이프·다운로드 금지」 명시",
+      "held_now": 0,
+      "countable_total": 613,
+      "count_method": "토픽 페이지 1장에서 /p/<uuid>/<id> 613건(고유 613)",
+      "verified_by": "agent",
+      "fulltext_ok": false,
+      "blockers": [
+        "★본문을 HTTP 로 못 받는다 — 논증 트리가 wss:// websocket 으로만 오고 /claims·/export 는 404",
+        "HTML 은 SPA 껍데기(13~18어) · 표본 5편 중 3편은 배경문도 빈 문자열",
+        "약관이 색인 외 자동 취득을 금지 — 라이선스가 아니라 약관 문제이므로 별도 기록"
+      ]
     }
   ]
 }
