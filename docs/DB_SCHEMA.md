@@ -2004,6 +2004,13 @@ await anon.rpc('get_lcp_config')   // → 에러 없이 호출됨 (내부 파이
 `fix_chapter_html_entities` · `republish_article_word_set` 등. 다수가 `p_user_id` 를 인자로 받아
 **남의 계정 데이터를 대상으로 호출될 수 있다**.
 
+> **글 단어장 발행 두 함수의 어휘 가드**(2026-09-24 · `20260923232916_article_word_set_require_vocab`):
+> `publish_article_word_set` · `republish_article_word_set` 는 그 글의 `library_article_vocabularies` 행이
+> 0 이면 `check_violation` 으로 멈춘다(publish 는 기존 세트 확인 뒤 · republish 는 DELETE 앞). 실제 1차 방어선은
+> 그 앞의 `content_gate_publishable` — critical 「추출 비어있음(0단어)」 — 이고 이 가드는 이중 장치다.
+> 즉 **어휘 행이 없는 글은 발행되지 않는다**(메시지는 「콘텐츠 품질 게이트 FAIL」). 근거·보관 범위 계획:
+> [lav-retention-2026-09-24](./reports/lav-retention-2026-09-24.md).
+
 ### 왜 보류했나 (그냥 REVOKE 하면 안 되는 이유)
 
 "앱이 호출하지 않는 함수만 회수" 로 접근했다가 **틀렸다는 것을 확인했다.**

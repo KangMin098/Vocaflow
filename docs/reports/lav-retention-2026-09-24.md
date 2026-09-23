@@ -47,20 +47,28 @@ Admin 검수 · 교재 조판」이라면 **모든 글의 모든 행을 늘 들�
 분석 순간과 발행 순간에만 쓰이고, 결과(V-Level·단어장)는 이미 다른 표에 저장된다.
 처음에 「예외」로 봤던 사전 채굴·조판도 전량이 필요하지 않았다.
 
-## 3. 발견한 함정 — 줄이기 전에 반드시 막아야 한다
+## 3. 어휘 행이 없는 글을 발행하면 — 조용히 비지 않고 **시끄럽게 막힌다** (정정)
 
-**빈 단어장이 조용히 공개된다.** `publish_article_word_set` 은 `select_article_vocab` 결과가 0행이어도
-멈추지 않고 `is_published = true` · `word_count = 0` 인 세트를 만든다. 그리고 세트가 한 번 생기면
-`RETURN v_set_id` 로 **다시 만들지 않는다** — 나중에 행을 채워도 복구되지 않는다.
-지금은 모든 글에 행이 있어 빈 세트가 **0개**(글 단어장 279개 중)지만, 보관 범위를 줄이는 순간 드러난다.
-에러가 아니라 **누락**으로 나타나므로 눈에 안 띈다.
+> ⚠️ 이 절의 첫 판(커밋 `75559124`)은 「빈 단어장이 조용히 공개된다」고 적었다. **틀렸다.**
+> `publish_article_word_set` 본문만 읽고, 첫 줄에서 부르는 게이트 `content_gate_publishable` 을 안 읽었다.
+
+실측(2026-09-24 · 롤백되는 DO 블록 안에서 `ready` 글 하나의 어휘 행 597개를 지우고 호출):
+`run_content_quality_gates` 의 critical 항목 **「추출 비어있음(0단어)」** 이 `select_article_vocab` 출력
+(`_gsel`)이 0이면 FAIL 을 내고, 두 함수(`publish_article_word_set` · `republish_article_word_set`) 모두
+**첫 줄에서** 그 게이트로 멈춘다 → 트리거 안의 예외라 status 갱신까지 롤백된다. 빈 글 단어장은 실제로 0개(279개 중).
+
+그래서 줄였을 때의 실제 위험은 반대쪽이다 — **2단계(발행 전 재분석)가 들어가기 전에 행을 지우면
+그 글들의 발행이 전부 「콘텐츠 품질 게이트 FAIL」로 실패한다.** 원인이 어휘 부재라는 게 메시지에 안 나온다.
+
+1단계로 적용한 가드(`20260923232916_article_word_set_require_vocab`)는 게이트 **뒤에** 있어 지금은 도달하지 않는다.
+게이트 항목이 완화될 때를 위한 이중 장치일 뿐이다.
 
 ## 4. 계획 (순서가 중요하다)
 
 | 단계 | 내용 | 되돌리기 |
 |---|---|---|
-| 1 | **가드**: 발행 트리거가 어휘 0행이면 예외(`check_violation`)로 발행을 막는다. 빈 세트가 생길 길을 DB 에서 닫는다 — 발행 경로(`force-publish` 라우트 · `publish-article-seeds.mjs` · `publish-voa-seeds.mjs` · `reprocess.mjs` …)가 몇 개든 한 곳에서 막힌다 | 마이그레이션 · 함수 교체로 되돌림 |
-| 2 | **발행 전 재분석**: 발행 경로가 행이 없으면 `analyzeArticle` → `compute_article_vrl` 을 먼저 돌린다(편당 약 46.5 ms) | 코드 |
+| 1 | **가드** — ✅ 적용(2026-09-24 · `20260923232916`). 단, §3 정정대로 기존 게이트가 이미 막고 있어 **이중 장치**다 | [rollback](../AI_CONTEXT/rollback/20260923232916_article_word_set_require_vocab-rollback.sql) |
+| 2 | **발행 전 재분석**: 발행 경로(`force-publish` 라우트 · `publish-article-seeds.mjs` · `publish-voa-seeds.mjs` · `reprocess.mjs` …)가 행이 없으면 `analyzeArticle` → `compute_article_vrl` 을 먼저 돌린다(편당 약 46.5 ms). **6 보다 반드시 먼저** — 없으면 발행이 게이트 FAIL 로 전부 막힌다(§3) | 코드 |
 | 3 | **Admin 미리보기**: 행이 없으면 그 자리에서 분석(쓰지 않고 보여주기만 할지, 써서 캐시할지 결정 필요) | 코드 |
 | 4 | **조판**: `volume-pool.mjs` · `build-unit.mjs` 가 `usedRefs` 중 행 없는 글을 즉석 분석 | 코드 |
 | 5 | **가공 콘솔**: 「어휘 0」과 「아직 안 만듦」을 구분해 표시(`0` 으로 뭉개지 않는다) | 코드 |
