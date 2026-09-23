@@ -1,0 +1,493 @@
+{
+  "measuredAt": "2026-09-23",
+  "contract": "source-acquisition/v1",
+  "note": "취득 가능 편수 실측. verified_by=self 는 내가 직접 재현한 값. DB 적재는 별건(현재 0편).",
+  "sources": [
+    {
+      "source": "the_conversation",
+      "route": "R4",
+      "license": "CC-BY-ND-4.0 (사이트 상수 — HTML 에 기계 판독 라이선스 없음)",
+      "held_now": 70,
+      "countable_total": 34039,
+      "count_is_floor": true,
+      "count_method": "sitemap index 자식 225장 중 23장 실계수. 영어판 128장 중 23장만 셈",
+      "verified_by": "self",
+      "verified_detail": "sitemap 자식 225 일치 · au2026 3552 일치 · uk2026 2811 일치 · us2026 1836",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        795,
+        1000,
+        805,
+        1219,
+        1139
+      ],
+      "stable_id": "URL 말미 숫자 article ID (불변)",
+      "blockers": [
+        "현재 어댑터는 atom 4피드=125편이 상한이고 페이지네이션 없음 — sitemap lister 신설 필요",
+        "현재 source_id 가 slug 60자 절단인데 slug 는 가변 — 숫자 ID 로 바꿔야 재실행 안전",
+        "africa 판에 프랑스어 혼재 — 언어 필터 필요",
+        "nz/global/europe 2026 sitemap 은 200 인데 loc 0 — 빈 응답을 실패로 처리하면 재시도 루프",
+        "robots 에 ClaudeBot·GPTBot 등 AI UA 를 Disallow:/ 로 차단. 우리 UA 는 목록 밖이라 User-agent:* 가 적용되고 그 규칙은 기사 경로를 막지 않음(자체 확인). 발행사 의사 표시는 명시적"
+      ]
+    },
+    {
+      "source": "worldhistory",
+      "route": "R3",
+      "license": "CC BY-NC-SA (편당 명시)",
+      "held_now": 0,
+      "countable_total": 5174,
+      "count_is_floor": false,
+      "count_method": "sitemap 10장 전수 · 고유 loc 28,268 중 산문(article 1,752 + 정의 2,991 + review 431)",
+      "verified_by": "self",
+      "verified_detail": "고유 loc 28,268 정확히 일치. 산문 분류 5,174(에이전트 5,164 — 정의항목 분류 경계 10건 차)",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        2722,
+        2644,
+        2222,
+        1765,
+        1081
+      ],
+      "argument_marker_pct": 21.5,
+      "stable_id": "article 은 URL 숫자 ID · 정의항목은 슬러그만",
+      "blockers": [
+        "페이지 1장 171~196KB 에 본문은 1,081~2,948어 — 전수 시 약 900MB~1GB",
+        "본문 뒤 Bibliography·Related Content·Cite This Work 컷 규칙 필요",
+        "sitemap 밖 경로는 Cloudflare 403 — 경로 추측 금지"
+      ]
+    },
+    {
+      "source": "noba",
+      "route": "R3",
+      "license": "CC BY-NC-SA 4.0 (편당 명시 · 저자명 포함)",
+      "held_now": 0,
+      "countable_total": 105,
+      "count_is_floor": false,
+      "count_method": "/browse-content 한 장에서 고유 /modules/ 링크 계수 (페이지네이션 없음)",
+      "verified_by": "self",
+      "verified_detail": "105 정확히 일치",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        5161,
+        4032,
+        3706,
+        3179,
+        3062
+      ],
+      "argument_marker_pct": 19,
+      "stable_id": "noba.to/<8자> 영구 ID + 슬러그",
+      "blockers": [
+        "sitemap·feed 가 soft-404(200 + Page Not Found) — /browse-content HTML 파싱이 유일한 인벤토리",
+        "총량 105 로 작다. 공급 확장이 아니라 심리·인지 칸 1회성 채우기",
+        "본문 중앙 3,706어 — 164어 목표 대비 22배. 재저작 입력으로만 쓸 수 있다",
+        "이미지 크레딧이 본문 문단에 인라인 — 재저작 전 제거 필요"
+      ]
+    },
+    {
+      "source": "smarthistory",
+      "route": "R3",
+      "license": "CC BY-NC-SA (푸터 아이콘 — 편당 문장 없음)",
+      "held_now": 0,
+      "countable_total": 4686,
+      "count_is_floor": false,
+      "count_method": "직접 접근 전 경로 403 — web.archive.org CDX 로 대체 계수(아카이브 커버리지 기준, 사이트 총수 아님)",
+      "verified_by": "self",
+      "verified_detail": "직접 robots 403 · Cloudflare 챌린지 확인",
+      "fulltext_ok": "wayback 경유만",
+      "fulltext_samples_words": [
+        2186,
+        1585,
+        1416,
+        1413,
+        107
+      ],
+      "argument_marker_pct": 16.5,
+      "stable_id": "워드프레스 post ID (HTML 에서만 · API 403)",
+      "blockers": [
+        "★직접 취득 불가 — robots·sitemap·wp-json·홈·RSS 5경로 전부 Cloudflare managed challenge 403",
+        "wayback 경유는 시의성 없음(2025-09~2026-01 스냅샷) · 페이지당 350~465KB · 응답 1~10초",
+        "표본 5편 중 4편이 영상 트랜스크립트(구어체) · 1편은 본문 107어. 산문 에세이만 거르려면 페이지를 열어 봐야 한다"
+      ]
+    },
+    {
+      "source": "erudit",
+      "route": "R4",
+      "held_now": 0,
+      "countable_total": null,
+      "count_method": "OAI 살아 있음(oai.erudit.org Identify 200, repositoryName=Erudit). ListRecords 가 completeListSize 없이 577B — 재시도 필요",
+      "verified_by": "self",
+      "blockers": [
+        "편수 계수 미완 — ListRecords 응답 확인 필요"
+      ]
+    },
+    {
+      "source": "project_muse",
+      "route": "R4",
+      "held_now": 0,
+      "countable_total": null,
+      "count_method": "OAI 404 — 공개 기계 판독 경로 없음",
+      "verified_by": "self",
+      "blockers": [
+        "공개 취득 경로 없음"
+      ]
+    },
+    {
+      "source": "jstor",
+      "route": "R4",
+      "held_now": 0,
+      "countable_total": null,
+      "count_method": "robots 200 — ClaudeBot·CCBot·GPTBot 차단 명시",
+      "verified_by": "self",
+      "blockers": [
+        "robots 가 AI UA 를 명시 차단 · 합법 대량 경로 Constellate 는 2025-07 폐지"
+      ]
+    },
+    {
+      "source": "knowledge_commons",
+      "route": "R4",
+      "held_now": 0,
+      "countable_total": null,
+      "count_method": "WP API 빈 배열 · KCWorks OAI 연결 실패",
+      "verified_by": "self",
+      "blockers": [
+        "기계 판독 목록을 못 찾음 — 경로 재조사 필요"
+      ]
+    },
+    {
+      "source": "aeon_psyche",
+      "route": "R4(재저작) · 단 전문 재발행은 허용",
+      "license": "편당 기계판독 — essays: \"Aeon Permissive (syndication allowed)\" republication=true commercial=true cc=false · ideas: CC BY-ND republication=true commercial=true",
+      "held_now": 0,
+      "countable_total": 5379,
+      "count_is_floor": false,
+      "count_method": "assets.aeon.co/sitemaps/aeon/main.xml 5,823 loc(essays 2,753 · ideas 904 · videos 2,038 등) + psyche main.xml 1,973 → 영상 제외 본문 5,379",
+      "verified_by": "self",
+      "verified_detail": "aeon main.xml loc 5,823 · essays 2,753 · ideas 904 정확히 일치. 편당 라이선스 5/5 직접 확인(첫 검사는 이스케이프 JSON 때문에 내 정규식이 빗나갔다 — 재검사로 정정)",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        3751,
+        3212,
+        3066,
+        2804,
+        2626,
+        1830,
+        1573,
+        1008
+      ],
+      "argument_marker_pct": 26.7,
+      "stable_id": "Aeon: RSC 페이로드의 숫자 id + 슬러그 + 타입 · Psyche: 슬러그 + JSON-LD 날짜",
+      "correction": "★이 세션 앞부분에서 내가 Aeon 을 「CC BY-ND 는 폐지된 구 정책 · 현행 편당 $650」으로 기록했다. $650 은 신규 원고 청탁 단가이고, 기존 글에는 편당 재발행 허가가 기계판독 형태로 살아 있다. 그 기록을 정정한다.",
+      "blockers": [
+        "사이트 루트 /sitemap.xml 이 404 — assets.aeon.co 를 써야 한다",
+        "ND 는 개작 불가 — 발췌·축약은 파생이므로 지문 제작은 R4(재저작) 경로",
+        "본문이 div.article-content 안에만 있어 일반 추출기는 티저 200어를 긁는다",
+        "robots 가 ClaudeBot·GPTBot 등 9종 차단(우리 UA 는 목록 밖, 실제 200)",
+        "sitemap 에 영상 2,398편 혼입 — 경로 접두사 필터 필수"
+      ]
+    },
+    {
+      "source": "issues_org",
+      "route": "R4",
+      "license": "All Rights Reserved (표본 5/5 · © Arizona Board of Regents)",
+      "held_now": 0,
+      "countable_total": 2857,
+      "count_is_floor": false,
+      "count_method": "sitemap_index 의 post-sitemap 3장 + futuretensefiction 1장 loc 합",
+      "verified_by": "self",
+      "verified_detail": "loc 합 2,857 정확히 일치 · X-WP-Total 2,762 교차검증(post 타입만)",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        2631,
+        2211,
+        1861,
+        1060,
+        980
+      ],
+      "argument_marker_pct": 24.7,
+      "stable_id": "WP post ID (body class postid-NNNNN + REST id)",
+      "blockers": [
+        "robots 의 Disallow: /*? 가 wp-json?per_page= 형태를 포함(현재는 200 응답)",
+        "Crawl-delay: 3"
+      ]
+    },
+    {
+      "source": "sapiens",
+      "route": "R4",
+      "license": "편당 갈림 — CC BY-ND 4.0 재발행 모달(표본 5/5) 또는 \"copyrighted to SAPIENS and the author\" 모달",
+      "held_now": 0,
+      "countable_total": 1388,
+      "count_is_floor": false,
+      "count_method": "post-sitemap 2장 loc 1,540 중 비영어(es 91·fr 30·pt-br 29·it 2 = 152) 제외",
+      "verified_by": "self",
+      "verified_detail": "loc 1,540 · 경로 분포 · 비영어 152 → 영어 1,388 전부 정확히 일치",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        1992,
+        1968,
+        1924,
+        1457,
+        458
+      ],
+      "argument_marker_pct": 20.1,
+      "stable_id": "WP post ID (HTML 에서만 — REST 401)",
+      "blockers": [
+        "wp-json REST 401 + robots 가 /wp-json/ Disallow — sitemap+HTML 만",
+        "robots 에 GPTBot Disallow: /",
+        "본문이 div.wysiwyg 안에만 있고 article 태그 0개 — 표준 추출기는 0어를 낸다"
+      ]
+    },
+    {
+      "source": "procon",
+      "route": "R4",
+      "license": null,
+      "held_now": 0,
+      "countable_total": null,
+      "count_method": "측정 불가 — procon.org → britannica.com/procon 이전, Cloudflare managed challenge 가 모든 콘텐츠 URL 에 403. britannica robots 는 200 이고 /procon 을 막지 않는다(차단 주체는 WAF). Wayback CDX 우회도 503",
+      "verified_by": "agent",
+      "fulltext_ok": false,
+      "blockers": [
+        "★전면 차단 — sitemap·RSS·허브·개별 쟁점 URL 전부 403",
+        "robots 가 지시한 sitemap 인덱스까지 403(robots.txt 만 통과하는 비대칭)"
+      ]
+    },
+    {
+      "source": "fee",
+      "route": "R4(라이선스 근거 없음 → 재저작)",
+      "license": "없음 — 서빙 HTML·RSS·WP REST 어디에도 콘텐츠 라이선스 문자열 0건",
+      "held_now": 0,
+      "countable_total": 24026,
+      "count_is_floor": false,
+      "count_method": "WP REST X-WP-Total=24,026 (articles 타입). 교차검증 articles-sitemap 121장 → 120×200+10=24,010",
+      "verified_by": "self",
+      "verified_detail": "X-WP-Total 24,026 확인 · /licensing/ 은 홈으로 리다이렉트(CC 0건) · /about/ 0건 · 기사 3편 전부 0건",
+      "correction": "★이 세션 앞부분에서 내가 FEE 를 「CC BY 4.0 · adapt, sell 명문 허용 · 24,010편」으로 기록했다. 서빙되는 어디에서도 재현되지 않는다. 규모 1위 원천의 라이선스 근거가 0이므로 표현 재사용 전제를 철회하고 R4 로 내린다.",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        451,
+        606,
+        801,
+        1229,
+        1232,
+        1440,
+        1783,
+        1795
+      ],
+      "argument_marker_pct": 23.6,
+      "win3_band_pct": 26.4,
+      "stable_id": "WP post id",
+      "blockers": [
+        "라이선스 근거 0 — 표현 재사용 불가 전제로 다뤄야 한다",
+        "전문 RSS(/feeds/fulltext/)는 robots 가 Allow 로 명시"
+      ]
+    },
+    {
+      "source": "economicsobservatory",
+      "route": "R2",
+      "license": "CC BY-SA 4.0 (편당 8/8 · 내 확인 3/3)",
+      "held_now": 0,
+      "countable_total": 1104,
+      "count_is_floor": false,
+      "count_method": "question-sitemap 2장 loc 합 1,104",
+      "verified_by": "self",
+      "verified_detail": "loc 1,104 = X-WP-Total 1,104 정확히 일치 · 편당 CC BY-SA 3/3 확인",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        906,
+        1038,
+        1156,
+        1169,
+        1540,
+        1546,
+        1970,
+        2117
+      ],
+      "argument_marker_pct": 25,
+      "win3_mean_words": 170.1,
+      "win3_band_pct": 47.3,
+      "highlight": "★문단 3개 묶음 평균 170.1어 · 140~200 구간 47.3% — 조사 전체 길이 적합 1위. 목표 164어에 가장 가깝다",
+      "stable_id": "WP post id",
+      "blockers": [
+        "SA 전염 — 산출 지문도 SA 로 공개하거나 R4 로 라우팅"
+      ]
+    },
+    {
+      "source": "wellcome_stories",
+      "route": "R1",
+      "license": "CC BY 4.0 (편당 8/8 · 내 확인 2/2)",
+      "held_now": 0,
+      "countable_total": 1081,
+      "count_is_floor": false,
+      "count_method": "Prismic REST total_results_size (document.type=articles)",
+      "verified_by": "self",
+      "verified_detail": "편당 CC BY 4.0 2/2 확인",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        161,
+        785,
+        1140,
+        1161,
+        1165,
+        1263,
+        1288,
+        1368
+      ],
+      "argument_marker_pct": 14.1,
+      "win3_band_pct": 35.4,
+      "stable_id": "Prismic document id + uid",
+      "blockers": [
+        "sitemap 404 — Prismic API 로만 목록",
+        "논증표지 14.1% 최저 — 서사·일인칭 비중 높음",
+        "이미지 크레딧 라이선스가 본문 라이선스와 섞임"
+      ]
+    },
+    {
+      "source": "publicdomainreview",
+      "route": "R2",
+      "license": "essay 는 편당 CC BY-SA 4/4 · collection 은 페이지 표기 0/4(사이트 선언에만 의존)",
+      "held_now": 0,
+      "countable_total": 1737,
+      "count_is_floor": false,
+      "count_method": "sitemap-0.xml 2,831 loc 중 편집 콘텐츠(essay 394 · collection 1,258 · blog 77 · pd-texts 8)",
+      "verified_by": "agent",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        169,
+        525,
+        666,
+        1110,
+        1671,
+        1705,
+        1901,
+        2000
+      ],
+      "argument_marker_pct": 21.9,
+      "win3_band_pct": 16.8,
+      "stable_id": "슬러그만(Gatsby 정적 — 숫자 ID 없음)",
+      "blockers": [
+        "robots.txt 404",
+        "사이트 선언이 「essay 일부는 더 제한적」이라 편당 확인 필수",
+        "문단이 가장 길다(mean 88.6어) — 3문단 묶음은 274.8어로 과하다"
+      ]
+    },
+    {
+      "source": "niemanlab",
+      "route": "R2",
+      "license": "CC BY-NC-SA 4.0 (/about/ 명시)",
+      "held_now": 0,
+      "countable_total": 11994,
+      "count_is_floor": false,
+      "count_method": "X-WP-Total=11,994 · post-sitemap 12장 교차검증 11×1000+994 정확히 일치",
+      "verified_by": "agent",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        70,
+        76,
+        112,
+        683,
+        2036
+      ],
+      "argument_marker_pct": 43.8,
+      "highlight": "논증표지 43.8% — 조사 전체 1위",
+      "stable_id": "WP post id (rel=shortlink)",
+      "blockers": [
+        "★「links on Twitter」류 링크모음이 대량 혼입 — 무작위 5편 중 3편이 70~112어. 11,994 를 편수로 쓰면 안 되고 어수 하한 필터 필수",
+        "SA 전염"
+      ]
+    },
+    {
+      "source": "hechinger",
+      "route": "R4",
+      "license": "CC BY-NC-ND 4.0 (기사마다 재게재 도구 내장 · 5/5)",
+      "held_now": 0,
+      "countable_total": 7356,
+      "count_is_floor": false,
+      "count_method": "X-WP-Total=7,356 · sitemap 4장 합 7,327(29건 차 — 둘 다 실측, noindex 제외분 추정)",
+      "verified_by": "agent",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        630,
+        971,
+        1235,
+        1530,
+        2218
+      ],
+      "argument_marker_pct": 28.1,
+      "stable_id": "WP post id",
+      "blockers": [
+        "ND — 발췌·축약 불가. 140~200어 단문화와 정면 충돌 → R4 재저작만",
+        "스페인어 기사 혼입"
+      ]
+    },
+    {
+      "source": "taxfoundation",
+      "route": "R3",
+      "license": "CC BY-NC 4.0 (/copyright-notice 명시)",
+      "held_now": 0,
+      "countable_total": 6441,
+      "count_is_floor": false,
+      "count_method": "X-WP-Total=6,441 · oped 105 · primer 7 전수. ※robots 가 우리 UA 에 /wp-json/ 금지 — 취득은 sitemap 경로로",
+      "verified_by": "agent",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        418,
+        550,
+        625,
+        853,
+        1065
+      ],
+      "argument_marker_pct": 39.7,
+      "stable_id": "WP post id (body class · shortlink 없음)",
+      "blockers": [
+        "robots 가 /wp-json/ 금지 — 계수 근거로만 쓰고 취득은 sitemap",
+        "★본문에 인라인 glossary 정의가 편당 ~250어 삽입 — 제거 안 하면 길이·난이도 판정이 전부 틀어진다"
+      ]
+    },
+    {
+      "source": "kappan",
+      "route": "R4",
+      "license": "CC 아님 — Copyright Clearance Center 유료 청산",
+      "held_now": 0,
+      "countable_total": 4658,
+      "count_is_floor": false,
+      "count_method": "X-WP-Total=4,658 · post-sitemap 5장 합 4,658 정확히 일치",
+      "verified_by": "agent",
+      "fulltext_ok": true,
+      "fulltext_samples_words": [
+        18,
+        699,
+        940,
+        2188,
+        2714
+      ],
+      "argument_marker_pct": 27.2,
+      "correction": "★내가 「B1~B2 에 가장 정확하다」고 기록했는데 이번 실측으로 확인되지 않았다(가독성은 측정 항목이 아니었다). 측정된 두 축에서는 5곳 중 최하위 — 논증표지 27.2% 최저 · 유일하게 CC 아님. 우선한다면 근거를 재측정한 뒤에.",
+      "stable_id": "WP post id",
+      "blockers": [
+        "길이 편차 18어~2,714어 — 주간 카툰이 섞여 있어 어수 필터 필수"
+      ]
+    },
+    {
+      "source": "knowable",
+      "route": "R4",
+      "license": "CC BY-ND 4.0 (/page/republish · 사진·삽화는 제외 명시)",
+      "held_now": 0,
+      "countable_total": null,
+      "count_method": "셀 수 없음 — origin 색인 경로(sitemap·feed·섹션·홈) 전부 403. Wayback CDX 756개는 잘린 응답의 하한",
+      "verified_by": "agent",
+      "fulltext_ok": false,
+      "fulltext_samples_words": [
+        1226,
+        2121,
+        2300,
+        2314,
+        3032
+      ],
+      "argument_marker_pct": 38.2,
+      "stable_id": "★DOI 10.1146/knowable-XXXXXX-N — 조사 전체 중 가장 강한 안정 ID",
+      "blockers": [
+        "origin 전면 403(Cloudflare cf-mitigated: challenge) · robots 는 기사 경로를 막지 않는데 WAF 가 막는 불일치",
+        "본문의 CC BY-ND 문자열은 삽화 크레딧이지 기사 라이선스가 아니다 — 본문 문자열로 판정하면 사진이 포함된다고 오해한다"
+      ]
+    }
+  ]
+}
