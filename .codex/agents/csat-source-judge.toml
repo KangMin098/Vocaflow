@@ -123,8 +123,8 @@ developer_instructions = """
 ## 끝내기 전에
 
 ```bash
-node scripts/csat/gate-source-review-validate.mjs --chunk "$CHUNK_PATH" --review "$OUT_PATH"
+node scripts/csat/gate-reviews-verify.mjs "$CHUNK_PATH" "$OUT_PATH"
 ```
 
-`errors: 0` · `missing: 0` 이어야 한다. 아니면 고쳐서 다시 돌린다. 마지막 응답에 그 요약과
+`"ok":true` · `problems: []` 여야 한다. 아니면 고쳐서 다시 돌린다. 마지막 응답에 그 요약과
 `use`/`narrative`/`reject` 각 몇 건인지를 적는다. **DB 에는 쓰지 않는다** — 적재는 부르는 쪽이 한다."""
