@@ -34,6 +34,7 @@
   "results": {
     "ccby-eco": {
       "total": 8,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 8,
       "between": 0,
@@ -47,6 +48,7 @@
     },
     "ccby-fee": {
       "total": 8,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 8,
       "between": 0,
@@ -60,6 +62,7 @@
     },
     "ccby-pdr": {
       "total": 8,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 7,
       "between": 0,
@@ -73,6 +76,7 @@
     },
     "ccby-well": {
       "total": 8,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 7,
       "between": 0,
@@ -86,6 +90,7 @@
     },
     "eco-cochrane": {
       "total": 14,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 8,
       "between": 0,
@@ -99,6 +104,7 @@
     },
     "eco-econpapers": {
       "total": 10,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 0,
       "between": 0,
@@ -112,6 +118,7 @@
     },
     "eco-econstor": {
       "total": 30,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 0,
       "between": 2,
@@ -125,6 +132,7 @@
     },
     "eco-iza": {
       "total": 7,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 0,
       "between": 0,
@@ -137,7 +145,8 @@
       "oldBand": 0
     },
     "oaj-olh": {
-      "total": 735,
+      "total": 900,
+      "missing": 165,
       "tooShort": 5,
       "aboveAll": 17,
       "between": 109,
@@ -151,6 +160,7 @@
     },
     "oaj-openalex": {
       "total": 50,
+      "missing": 0,
       "tooShort": 1,
       "aboveAll": 7,
       "between": 9,
@@ -163,7 +173,8 @@
       "oldBand": 12
     },
     "oaj-scielo": {
-      "total": 912,
+      "total": 1100,
+      "missing": 188,
       "tooShort": 0,
       "aboveAll": 6,
       "between": 300,
@@ -177,6 +188,7 @@
     },
     "obk-au": {
       "total": 8,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 7,
       "between": 0,
@@ -190,6 +202,7 @@
     },
     "obk-libre": {
       "total": 8,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 6,
       "between": 0,
@@ -203,6 +216,7 @@
     },
     "obk-obp": {
       "total": 8,
+      "missing": 0,
       "tooShort": 0,
       "aboveAll": 8,
       "between": 0,
@@ -215,7 +229,8 @@
       "oldBand": 0
     },
     "obk-rebus": {
-      "total": 6,
+      "total": 8,
+      "missing": 2,
       "tooShort": 0,
       "aboveAll": 6,
       "between": 0,
@@ -226,6 +241,48 @@
         "csat_long": 0
       },
       "oldBand": 0
+    },
+    "recol-econstor": {
+      "total": 3075,
+      "missing": 471,
+      "tooShort": 1,
+      "aboveAll": 42,
+      "between": 332,
+      "byWindow": {
+        "school_sentence": 29,
+        "school_paragraph": 2035,
+        "csat_short": 1742,
+        "csat_long": 165
+      },
+      "oldBand": 865
+    },
+    "recol-olh": {
+      "total": 4000,
+      "missing": 853,
+      "tooShort": 22,
+      "aboveAll": 92,
+      "between": 479,
+      "byWindow": {
+        "school_sentence": 199,
+        "school_paragraph": 2146,
+        "csat_short": 1737,
+        "csat_long": 214
+      },
+      "oldBand": 904
+    },
+    "recol-openalex": {
+      "total": 2400,
+      "missing": 232,
+      "tooShort": 37,
+      "aboveAll": 139,
+      "between": 362,
+      "byWindow": {
+        "school_sentence": 150,
+        "school_paragraph": 1268,
+        "csat_short": 996,
+        "csat_long": 215
+      },
+      "oldBand": 574
     }
   }
 }

@@ -58,7 +58,15 @@ const wordsIn = (t: string): number => (t.match(/[A-Za-z][A-Za-z'-]*/g) ?? []).l
 
 interface Tally {
   total: number
-  /** 어느 창에도 안 드는 것 — 「너무 짧다(<6)」와 「창 사이·창 위」를 가른다. */
+  /**
+   * **본문이 아예 없는 것.** 「짧다」와 반드시 갈라야 한다 —
+   * 실측 2026-09-23: OLH 의 「6어 미만 875건」 중 **856건**, EconStor 의 「472건」 중
+   * **471건**이 초록 결측이었다(실제 1~5어는 각각 19건·1건). 결측을 짧은 것으로 세면
+   * 「이 원천은 글이 너무 짧다」는 **없는 진단**이 만들어지고, 처방도 틀린다
+   * (짧으면 묶으면 되지만 없으면 다른 데서 가져와야 한다).
+   */
+  missing: number
+  /** 본문은 있는데 가장 짧은 창(6어)에도 못 미치는 것. */
   tooShort: number
   aboveAll: number
   between: number
@@ -66,7 +74,7 @@ interface Tally {
   oldBand: number
 }
 const newTally = (): Tally => ({
-  total: 0, tooShort: 0, aboveAll: 0, between: 0,
+  total: 0, missing: 0, tooShort: 0, aboveAll: 0, between: 0,
   byWindow: Object.fromEntries(WINDOWS.map((w) => [w.key, 0])),
   oldBand: 0,
 })
@@ -81,7 +89,8 @@ function tally(t: Tally, words: number): void {
   if (hit) return
   const lowest = Math.min(...WINDOWS.map((w) => w.min))
   const highest = Math.max(...WINDOWS.map((w) => w.max))
-  if (words < lowest) t.tooShort++
+  if (words === 0) t.missing++
+  else if (words < lowest) t.tooShort++
   else if (words > highest) t.aboveAll++
   else t.between++
 }
@@ -95,10 +104,11 @@ function report(name: string, t: Tally): void {
     console.log(`  ${w.label.padEnd(14)} ${String(w.min).padStart(3)}~${String(w.max).padEnd(4)} ${String(n).toLocaleString().padStart(9)}  ${pc(n)}`)
   }
   console.log(`  ── 어느 창에도 안 듦`)
+  console.log(`     본문 없음               ${String(t.missing).toLocaleString().padStart(9)}  ${pc(t.missing)}   ← 짧은 게 아니라 없다`)
   console.log(`     6어 미만                ${String(t.tooShort).toLocaleString().padStart(9)}  ${pc(t.tooShort)}`)
   console.log(`     창 사이(201~259)        ${String(t.between).toLocaleString().padStart(9)}  ${pc(t.between)}`)
   console.log(`     400어 초과              ${String(t.aboveAll).toLocaleString().padStart(9)}  ${pc(t.aboveAll)}`)
-  const covered = t.total - t.tooShort - t.between - t.aboveAll
+  const covered = t.total - t.missing - t.tooShort - t.between - t.aboveAll
   console.log(`  ▶ **어느 창이든 드는 것     ${String(covered).toLocaleString().padStart(9)}  ${pc(covered)}**`)
   console.log(`     (400어 초과분은 버리는 게 아니라 **잘라 쓰는 것**이다 — 토막 수율은 span-gate 가 잰다)`)
 }
@@ -149,8 +159,21 @@ if (DIR) {
       const j = JSON.parse(readFileSync(join(resolve(DIR), f), 'utf8'))
       arr = Array.isArray(j) ? j : (j.samples ?? [])
     } catch { continue }
-    const texts = arr.map((x) => (typeof x?.text === 'string' ? x.text : '')).filter(Boolean)
-    if (!texts.length) continue
+    // ⚠️ 본문 키가 원천마다 다르다 — `text`만 보면 **파일이 통째로 조용히 빠진다**
+    //    (실측: OLH 표본은 `abstract` 키라 4,000편이 집계에서 사라져 있었다).
+    //    새 키를 만나면 여기 추가한다. 못 찾으면 건너뛰되 **왜 건너뛰었는지 적는다.**
+    const pick = (x: Record<string, unknown>): string => {
+      for (const k of ['text', 'abstract', 'body', 'passage', 'content']) {
+        if (typeof x?.[k] === 'string') return x[k] as string
+      }
+      return ''
+    }
+    // 빈 본문을 걸러내면 **결측이 집계에서 사라져** 커버리지가 부푼다. 빈 것도 넣어 센다.
+    const texts = (arr as Record<string, unknown>[]).map(pick)
+    if (!texts.some(Boolean)) {
+      console.log(`  (건너뜀 ${f} — 본문 키를 못 찾았다: ${Object.keys(arr[0] ?? {}).join(' · ')})`)
+      continue
+    }
     const t = newTally()
     for (const x of texts) tally(t, wordsIn(x))
     const name = f.replace(/-samples.*\.json$/, '')
