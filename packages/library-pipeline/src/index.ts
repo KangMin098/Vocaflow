@@ -460,6 +460,9 @@ export type { CsatInsertItem, CsatOrderItem } from './textbook/csat-format'
 export { MINUTES_PER_ITEM as COMPOSE_MINUTES_PER_ITEM } from './textbook/compose-unit'
 export {
   CSAT_ITEM_WORDS,
+  // 장문 창(260~400)이 안 나가 있었다 — 밖에서 길이를 재는 쪽이 짧은 창만 보고
+  // 장문을 「너무 길다」로 버린다(2026-09-23 소스GET 재점검에서 실제로 그렇게 됐다).
+  CSAT_LONG_ITEM_WORDS,
   LONG_ITEM_TYPES,
   itemWordSpec,
   DEFAULT_SLOTS,
