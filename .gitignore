@@ -248,3 +248,7 @@ docs/design/refs/3b/*.mhtml
 docs/design/refs/3b/state*.json
 docs/design/refs/3b/*.boxes.json
 apps/web/playwright-auth/
+
+# 드레인 실행 기록 — 되돌릴 근거라 로컬에 남기되 추적하지 않는다(수천 행 · 실행마다 새로 생김).
+# 무엇이 돌았는지는 `csat_drain_runs` 가 갖고 있고 화면이 그것을 읽는다.
+scripts/acp/title-entity-repair.*.json

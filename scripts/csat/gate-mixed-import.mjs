@@ -18,6 +18,7 @@ import { isDeepStrictEqual } from 'node:util'
 
 import { hardReject, purposeOf, decide, PURPOSE_RULE, RULES_VERSION, CODES_VERSION, HARMFUL, UNFIT, SOURCE_USES } from './gate-rules.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
+import { track } from './drain-run.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -49,6 +50,12 @@ if (inputIndex >= 0) {
   }
   const { createScriptClient } = await import('../lib/supabase-client.mjs')
   const client = createScriptClient()
+  /* 실행 기록(2026-09-23). 예행은 `validate`, 실제 쓰기는 `import` 로 남긴다 — 화면이
+   * 「예행만 돌고 끝났다」를 실제 적재와 구별해야 한다. 기록이 실패해도 적재는 그대로 간다. */
+  await track(client, {
+    stage: 'source', script: 'scripts/csat/gate-mixed-import.mjs',
+    mode: COMMIT ? 'import' : 'validate', args: `--input ${file}${COMMIT ? ' --commit' : ''}`,
+  }, async () => {
   const response = await client.from('library_articles').select('id,content,updated_at,status,feed_id,source,csat_fit').in('id', [...seenIds])
   if (response.error || response.data.length !== reviews.length) throw new Error('Cannot load every reviewed source')
   const runId = new Date().toISOString().replace(/[:.]/g, '-')
@@ -79,6 +86,9 @@ if (inputIndex >= 0) {
     changed++
   }
   console.log(JSON.stringify({ mode: COMMIT ? 'commit' : 'dry-run', requested: reviews.length, changed, skipped: reviews.length - changed, logPath, statusPreserved: true, next: 'Refresh affected source policy caches and re-audit' }))
+  // 건너뛴 수 = 이미 같은 판정이라 안 쓴 것. **재실행 안전의 증거**라 반드시 센다.
+  return { total: reviews.length, done: changed, skipped: reviews.length - changed }
+  })
 } else {
 if (COMMIT) throw new Error('Legacy mixed commit retired: use --input with UUID/revision/body-bound reviews; dry-run remains available')
 const DRAIN = path.resolve('scripts/csat/gate-mixed')

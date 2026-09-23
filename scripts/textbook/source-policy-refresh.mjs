@@ -15,6 +15,7 @@ import { SOURCE_POLICY_SELECT, sourceEligibilityInput } from '../../packages/lib
 import { allDefects } from '../../packages/library-pipeline/src/textbook/extraction-defect.ts'
 import { splitSentences } from '../csat/lib-fit.mjs'
 import { validateProjection, changedFields, assertCurrentProjection } from './source-policy-batch.mjs'
+import { SOURCE_USES } from '../csat/gate-rules.mjs'
 
 const arg = name => {
   const n = process.argv.indexOf(`--${name}`)
@@ -160,8 +161,15 @@ if (refreshQuality) {
       const invalid = windows.filter(w => !Number.isInteger(w.s) || !Number.isInteger(w.e) || w.s < 0 || w.e <= w.s || w.e > sentences).length
       const excerpt = { windows: windows.length, invalidRanges: invalid, currentSentences: sentences,
         recordedSentences: row.make?.sents ?? null, contentRevisionRecorded: false, approved: false }
+      /* 교재 재료 태그 — 판정 원본은 `csat_fit->gate->uses` 다. 여기서는 **투영만** 한다.
+       * ⚠️ `null` 과 `[]` 를 뭉개지 않는다: 아직 판정이 안 실린 원문은 null, 반려돼서 뽑을 재료가
+       *   없는 원문은 [] 다. 둘을 같게 만들면 조회에서 「안 본 것」과 「봤는데 없는 것」이 섞인다.
+       * 정본에 없는 태그는 버린다 — 규칙이 줄었는데 캐시에 옛 태그가 남으면 조회가 유령을 돌려준다. */
+      const gateUses = row.gate?.uses
+      const uses = Array.isArray(gateUses) ? gateUses.filter(x => SOURCE_USES.has(x)) : null
       const projected = { article_id: row.id, source: row.source, source_updated_at: row.updated_at,
         policy_version: ELIGIBILITY_SPEC_VERSION, input, result, quality_flags: defects.map(x => x.id),
+        uses,
         excerpt_evidence: excerpt, linked_items: counts.get(row.id) ?? 0, measured_at: new Date().toISOString() }
       lines.push(JSON.stringify(projected))
       summary.scanned++

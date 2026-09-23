@@ -23,6 +23,7 @@ import {
 import { SourceInventoryTable, SourceDetail } from './SourceInventoryTable'
 import styles from './sources.module.css'
 import { SourceActionQueue, SourceOperations, SourceQueueSummary } from './SourceOperations'
+import { SourceQueryConsole } from './SourceQueryConsole'
 
 export function SourceWorkspace({
   panel,
@@ -281,7 +282,12 @@ export function SourceWorkspace({
           <h3>교재에 사용할 수 있는 이유와 제외되는 이유</h3>
           <p>조판은 일곱 축의 판정을 통과한 원문만 받습니다. 수집 상태와는 별개의 기준입니다.</p>
         </div>
-        <SourceOperations queue={state.queue} onQueue={queue => update({ queue, reason: null })} reason={state.reason} onReason={reason => update({ reason })} source={state.source} onSourceClear={() => update({ source: null })} />
+        {/* 조건으로 찾는 자리(2026-09-23). 아래 `SourceOperations` 는 사유 분해·재검증 등
+            **작업 흐름**을 쥐고 있어 그대로 둔다 — 조회와 처리는 같은 탭의 다른 층이다. */}
+        <SourceQueryConsole queue={state.queue} onQueue={queue => update({ queue, reason: null })} />
+        <details><summary>사유 분해와 원문 재검증</summary>
+          <SourceOperations queue={state.queue} onQueue={queue => update({ queue, reason: null })} reason={state.reason} onReason={reason => update({ reason })} source={state.source} onSourceClear={() => update({ source: null })} />
+        </details>
         <details><summary>전체 판정 기준과 집계 상세</summary>{eligibility}</details>
       </section>
       <section

@@ -36,8 +36,7 @@ const CODE = CSS.replace(/\/\*[\s\S]*?\*\//g, '')
 function noPreferenceBodies(): string[] {
   const out: string[] = []
   const re = /@media\s*\(prefers-reduced-motion:\s*no-preference\)\s*\{/g
-  let m: RegExpExecArray | null
-  while ((m = re.exec(CODE)) !== null) {
+  while (re.exec(CODE) !== null) {
     let depth = 1
     let i = re.lastIndex
     while (i < CODE.length && depth > 0) {

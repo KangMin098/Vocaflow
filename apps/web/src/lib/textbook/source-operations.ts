@@ -17,6 +17,48 @@ export type SourceBreakdownReason = typeof SOURCE_BREAKDOWN_REASONS[number]
 export const isSourceBreakdownReason = (value: string): value is SourceBreakdownReason =>
   (SOURCE_BREAKDOWN_REASONS as readonly string[]).includes(value)
 
+/* ── 조회 축 (2026-09-23) ────────────────────────────────────────────────────
+ * 큐 프리셋 14개는 **조합이 안 된다.** 「usable 인데 문항이 없는 것」·「argument 재료가 있는
+ * B1 원문」처럼 실제로 묻고 싶은 것이 프리셋 어디에도 없어서, 관리자가 목록을 눈으로 훑었다.
+ * 아래 축들은 서로 곱해서 걸린다(AND).
+ *
+ * ⚠️ **화면과 API 가 같은 목록을 쓴다.** 한쪽에만 값을 더하면 화면이 보내는 값을 API 가
+ *   400 으로 되돌려주고, 그 400 은 목록이 빈 것과 구별이 안 된다. */
+
+/** `evaluateSource` 가 실제로 내는 등급. `excerpt`·`excerpt-blind` 는 DD-79(길이 축 제거)로 더는 생기지 않는다. */
+export const SOURCE_GRADES = ['usable', 'blocked', 'unjudged', 'unknown'] as const
+export type SourceGrade = typeof SOURCE_GRADES[number]
+
+export const SOURCE_STATUSES = ['eligible', 'conditional', 'review', 'rejected'] as const
+export type SourceStatus = typeof SOURCE_STATUSES[number]
+
+/** 정본은 `scripts/csat/gate-rules.mjs` 의 `SOURCE_USES` 다 — 여기 값을 고치면 그쪽도 같이 본다. */
+export const SOURCE_USE_TAGS = ['argument', 'structured', 'sequence', 'mood', 'factual', 'vocab', 'grammar', 'spoken'] as const
+export type SourceUseTag = typeof SOURCE_USE_TAGS[number]
+export const SOURCE_USE_LABELS: Record<SourceUseTag, string> = {
+  argument: '논지', structured: '구조', sequence: '시간순', mood: '심경',
+  factual: '사실', vocab: '어휘', grammar: '어법', spoken: '구어',
+}
+
+export const SOURCE_PAGE_SIZES = [30, 60, 120] as const
+export type SourcePageSize = typeof SOURCE_PAGE_SIZES[number]
+export const SOURCE_PAGE_SIZE: SourcePageSize = 30
+
+/** 정렬 — 컬럼을 문자열로 받지 않고 **여기 적힌 것만** 쓴다(임의 컬럼을 열면 주입 면이 된다). */
+export const SOURCE_LIST_SORTS = {
+  items: [['linked_items', false]],
+  itemsAsc: [['linked_items', true]],
+  recent: [['measured_at', false]],
+  oldest: [['measured_at', true]],
+  title: [['input->>title', true]],
+  source: [['source', true], ['linked_items', false]],
+} as const satisfies Record<string, readonly (readonly [string, boolean])[]>
+export type SourceListSort = keyof typeof SOURCE_LIST_SORTS
+export const SOURCE_LIST_SORT_LABELS: Record<SourceListSort, string> = {
+  items: '문항 많은 순', itemsAsc: '문항 적은 순', recent: '최근 판정순', oldest: '오래된 판정순',
+  title: '제목순', source: '원천순',
+}
+
 export type SourceActionKind = 'automatic' | 'batch' | 'review' | 'investigate' | 'blocked'
 export interface SourceWorkItem {
   id: string
@@ -123,6 +165,14 @@ export interface SourceOperationRow {
   excerpt_evidence: { windows: number; invalidRanges: number; approved: boolean; contentRevisionRecorded: boolean }
   linked_items: number
   measured_at: string
+  /**
+   * 이 원문으로 만들 수 있는 교재 재료(`gate-rules.SOURCE_USES`).
+   *
+   * ⚠️ `null`·`undefined` 와 `[]` 는 다른 뜻이다 — 전자는 **아직 안 실렸다**(마이그레이션
+   *   `_pending_csat_source_eligibility_uses.sql` 이전 행이거나 재투영 전), 후자는
+   *   **버린 원문이라 재료가 없다**. 없는 것을 빈 것으로 세면 「재료가 하나도 없다」가 된다.
+   */
+  uses?: string[] | null
 }
 export interface SourceInspectorData {
   row: SourceOperationRow
