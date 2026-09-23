@@ -231,3 +231,8 @@ docs/design/shots/
 
 # 복제 시트용 우리 화면 캡처 — 실제 데이터가 찍힌다. `node scripts/design/capture-ours.mjs` 로 다시 만든다.
 apps/web/public/dev/replica-shots/
+
+# args.me 교재 적합 드레인 — 입력 청크는 덤프에서 재생성 가능(재실행 안전), 판정만 남긴다
+scripts/csat/argsme-drain/chunk-*.json
+!scripts/csat/argsme-drain/*.out.json
+scripts/csat/argsme-drain/manifest.json
