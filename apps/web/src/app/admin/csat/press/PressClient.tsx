@@ -18,6 +18,8 @@
 
 'use client'
 
+import { useState, useTransition } from 'react'
+
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import {
   StageFailures,
@@ -30,7 +32,16 @@ import { judgePressGate, type PressGateVerdict } from '@vocaflow/library-pipelin
 import type { PressView, PressVolumeRow } from '@/lib/csat/factory-line-model'
 import { FACTORY_STAGES, judgeStage } from '@/lib/csat/factory-model'
 
+import type { PublishResult } from './actions'
 import { LadderFill } from './LadderFill'
+
+/** 화면이 부르는 발행 판정. 실제 함수는 서버 컴포넌트가 prop 으로 내린다. */
+export type PressDecide = (
+  series: string,
+  band: number,
+  decision: 'approved' | 'withdrawn',
+  reason?: string,
+) => Promise<PublishResult>
 
 const STAGE = FACTORY_STAGES.find((s) => s.id === 'press')!
 
@@ -69,7 +80,86 @@ export function blockersOf(v: PressVolumeRow): string[] {
   return verdictOf(v).blockers
 }
 
-export function PressClient({ volumes, rungs, brandFingerprint, brand, loadError }: PressView) {
+/**
+ * 발행 판정 버튼 — **되돌릴 수 없는 동작 앞의 유일한 사람 입력.**
+ *
+ * ⚠️ 막는 것이 있거나 **못 잰 것이 있으면** 누를 수 없다. 화면이 감추는 것만으로는
+ *   부족해서 서버 액션이 같은 판정을 다시 한다 — 화면만 믿으면 요청을 직접 보내는 길이
+ *   열린 채로 남는다.
+ */
+function DecideButtons({
+  v,
+  verdict,
+  onDecide,
+}: {
+  v: PressVolumeRow
+  verdict: PressGateVerdict
+  onDecide: PressDecide
+}) {
+  const [pending, start] = useTransition()
+  const [says, setSays] = useState<string | null>(null)
+  const published = v.publish?.status === 'published'
+
+  return (
+    <div className="flex flex-col gap-1">
+      <div className="flex flex-wrap gap-1.5">
+        {!published ? (
+          <button
+            type="button"
+            disabled={pending || !verdict.approvable}
+            title={
+              verdict.approvable
+                ? '이 권을 매대에 올린다'
+                : [...verdict.blockers, ...verdict.unmeasured].join(' · ')
+            }
+            onClick={() =>
+              start(async () => setSays((await onDecide(v.series, v.band, 'approved')).says))
+            }
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[#2E7D5A] hover:text-[#2E7D5A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
+          >
+            {pending ? '남기는 중…' : '발행 승인'}
+          </button>
+        ) : (
+          <button
+            type="button"
+            disabled={pending}
+            onClick={() =>
+              start(async () =>
+                setSays(
+                  (
+                    await onDecide(
+                      v.series,
+                      v.band,
+                      'withdrawn',
+                      '관리자가 화면에서 내렸다 — 사유를 기록에 남긴다',
+                    )
+                  ).says,
+                ),
+              )
+            }
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#9C3A30] hover:text-[#9C3A30] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
+          >
+            {pending ? '남기는 중…' : '내린다'}
+          </button>
+        )}
+      </div>
+      {says ? (
+        <p role="status" className="break-keep font-body text-[10.5px] leading-snug text-[var(--t2)]">
+          {says}
+        </p>
+      ) : null}
+    </div>
+  )
+}
+
+export function PressClient({
+  volumes,
+  rungs,
+  brandFingerprint,
+  brand,
+  loadError,
+  onDecide,
+}: PressView & { onDecide: PressDecide }) {
   const stale = volumes.filter((v) => !v.brandCurrent)
   const missingExpl = volumes.reduce((n, v) => n + Math.max(0, v.missingExplanations), 0)
   const idle = volumes.filter((v) => v.articlesIdle != null)
@@ -239,7 +329,8 @@ export function PressClient({ volumes, rungs, brandFingerprint, brand, loadError
                 <th className="py-1.5 pr-3 font-[500]">발행 판정</th>
                 <th className="py-1.5 pr-3 font-[500]">목차 스냅샷</th>
                 <th className="py-1.5 pr-3 font-[500]">막는 이유</th>
-                <th className="py-1.5 font-[500]">매대 주소</th>
+                <th className="py-1.5 pr-3 font-[500]">매대 주소</th>
+                <th className="py-1.5 font-[500]">판정</th>
               </tr>
             </thead>
             <tbody>
@@ -291,7 +382,7 @@ export function PressClient({ volumes, rungs, brandFingerprint, brand, loadError
                         <span className="text-[var(--t3)]">없음</span>
                       )}
                     </td>
-                    <td className="py-1.5">
+                    <td className="py-1.5 pr-3">
                       {v.reach.href ? (
                         <a
                           href={v.reach.href}
@@ -303,6 +394,9 @@ export function PressClient({ volumes, rungs, brandFingerprint, brand, loadError
                         // 단이 없으면 주소를 지어내지 않는다.
                         <span className="text-[#8A8278]">단 없음</span>
                       )}
+                    </td>
+                    <td className="py-1.5">
+                      <DecideButtons v={v} verdict={verdictOf(v)} onDecide={onDecide} />
                     </td>
                   </tr>
                 )

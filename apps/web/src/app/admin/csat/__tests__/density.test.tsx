@@ -39,6 +39,11 @@ import { MarketClient } from '../strategy/MarketClient'
 
 import { type Density, measure } from './density-scan'
 
+import type { PressDecide } from '../press/PressClient'
+
+/** 표본은 **쓰지 않는다** — 렌더만 본다. 눌러도 아무 일이 없다는 것을 값으로 말한다. */
+const NO_DECIDE: PressDecide = async () => ({ ok: false, says: '표본에서는 판정을 남기지 않는다' })
+
 const SCREENS: { name: string; html: () => string }[] = [
   { name: '카탈로그', html: () => renderToString(<SeriesShelf {...SERIES_REAL} />) },
   {
@@ -64,7 +69,7 @@ const SCREENS: { name: string; html: () => string }[] = [
     // 채워진 화면을 잰다 — 빈 화면을 재면 데이터가 들어오는 날 예산을 조용히 넘는다.
     html: () => renderToString(<ReviewClient {...REVIEW_REAL} defects={REVIEW_DEFECTS_REAL} />),
   },
-  { name: '조판', html: () => renderToString(<PressClient {...PRESS_REAL} />) },
+  { name: '조판', html: () => renderToString(<PressClient {...PRESS_REAL} onDecide={NO_DECIDE} />) },
 ]
 
 /**

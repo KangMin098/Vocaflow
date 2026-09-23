@@ -47,6 +47,11 @@ import { ReviewClient } from '../review/ReviewClient'
 import { SourceClient } from '../sourcing/SourceClient'
 import { MarketClient } from '../strategy/MarketClient'
 
+import type { PressDecide } from '../press/PressClient'
+
+/** 표본은 **쓰지 않는다** — 렌더만 본다. */
+const NO_DECIDE: PressDecide = async () => ({ ok: false, says: '표본에서는 판정을 남기지 않는다' })
+
 /**
  * 초·middle 재고가 **실제로 채워진** 표본.
  *
@@ -99,7 +104,7 @@ const SCREENS: { name: string; html: () => string }[] = [
   },
   { name: '집필', html: () => renderToString(<AuthorClient {...AUTHOR_REAL} />) },
   { name: '검수', html: () => renderToString(<ReviewClient {...REVIEW_REAL} defects={REVIEW_DEFECTS_REAL} />) },
-  { name: '조판', html: () => renderToString(<PressClient {...PRESS_REAL} />) },
+  { name: '조판', html: () => renderToString(<PressClient {...PRESS_REAL} onDecide={NO_DECIDE} />) },
 ]
 
 /** 화면이 값을 그대로 던졌을 때 나오는 자국들. 전부 사람이 읽을 수 없는 글자다. */

@@ -228,7 +228,8 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     output: '문항별 한국어 해설',
     gate: '해설 보유율 100%',
     gateGauges: ['해설 보유'],
-    href: null,
+    // 2026-09-23 신설(DD-74). 그전에는 null 이라 현황판의 ⑥ 칸이 **갈 곳이 없었다**.
+    href: '/admin/csat/explain',
   },
   {
     id: 'review',
