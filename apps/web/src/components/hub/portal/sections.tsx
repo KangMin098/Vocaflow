@@ -743,19 +743,25 @@ export function FinalCta({ primary }: { primary: { label: string; href: string }
   return (
     <div className="relative">
       {/* 흩어진 물건 띠가 스크롤에 맞춰 천천히 지나간다(`.vf-parallax` · `view()` 타임라인).
-          **액자를 두르고 그림을 위아래로 3rem 크게 잡는 이유**: 시차는 그림을 ±0.75rem 옮기는데,
-          딱 맞는 그림을 옮기면 띠 가장자리에 **빈 줄**이 생긴다. 넘치는 부분은 액자가 자른다.
-          미지원 브라우저(Firefox 안정판)·모션 끔에서는 그냥 제자리에 있는 그림이다. */}
+          미지원 브라우저(Firefox 안정판)·모션 끔에서는 그냥 제자리에 있는 그림이다.
+
+          ⚠️ **여백은 「늘려서」가 아니라 「균일 확대」로 만든다**(2026-09-23 실측).
+          처음에는 그림을 위아래로 `3rem` 늘려 잡았는데(`h-[calc(100%+6rem)]`), 상자 비율이
+          달라지자 `object-cover` 가 **다른 데를 잘랐고** 삽화에 그려져 있던 회색 액자선이
+          띠 안으로 들어왔다. 6% 균일 확대는 **크롭 구도를 그대로 두고** 사방에 3%(≈17px)만
+          남긴다 — ±0.6rem 시차가 그 안에서 논다. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block">
-        <Image
-          src={`${ILLO}/band-scatter.webp`}
-          alt=""
-          width={1664}
-          height={928}
-          sizes="(min-width: 1360px) 1280px, 100vw"
-          className="vf-parallax absolute -top-12 left-0 h-[calc(100%+6rem)] w-full select-none object-cover"
-          style={{ '--par-from': '-0.75rem', '--par-to': '0.75rem' } as CSSProperties}
-        />
+        <div className="h-full w-full scale-[1.06]">
+          <Image
+            src={`${ILLO}/band-scatter.webp`}
+            alt=""
+            width={1664}
+            height={928}
+            sizes="(min-width: 1360px) 1280px, 100vw"
+            className="vf-parallax h-full w-full select-none object-cover"
+            style={{ '--par-from': '-0.6rem', '--par-to': '0.6rem' } as CSSProperties}
+          />
+        </div>
       </div>
       <div className="relative mx-auto flex min-h-[360px] max-w-[460px] items-center py-10 md:min-h-[560px]">
         <div className="w-full rounded-[14px] border border-[var(--bd)] bg-[var(--bg)] px-7 py-10 text-center">
