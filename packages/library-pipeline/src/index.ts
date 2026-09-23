@@ -298,6 +298,10 @@ export {
   resolveSourcePolicy,
   isSourceKey,
   licenseClassOf,
+  // `license`(원문 표기) 칸에 등급 슬러그를 쓰는 사고를 막는 한 벌 — 재고 80편 사고(2026-09-23).
+  licenseTextOf,
+  isLicenseClassSlug,
+  LICENSE_TEXT_BY_CLASS,
   SOURCE_POLICIES,
   SUPPLY_LABEL,
   MEDIA_LABEL,

@@ -1276,6 +1276,47 @@ const AUDIO_SOURCES: ReadonlySet<SourceKey> = new Set<SourceKey>(['voa'])
  *   이쪽만 빠져 있었다: 정책층(UI 게이트 표시)과 권위층(DB)이 갈라져,
  *   NC 소스를 추가하면 화면은 "단어세트 발행 가능"이라 말하고 DB 는 차단한다.
  *   Vocaflow 는 유료화를 전제하므로 NC 는 발행 불가가 정답이다. */
+/**
+ * 등급 슬러그 → **`license` 칸에 쓸 정본 문자열**.
+ *
+ * ⚠️ **`license` 는 사람이 읽는 원문 표기이고 `license_class` 가 파생 등급이다.**
+ * 두 칸에 같은 값을 쓰면 안 된다 — DB 트리거 `acp_classify_license` 가 `license`
+ * **문자열을 다시 파싱해** 등급을 덮어쓰기 때문이다.
+ *
+ * 실측 2026-09-23: 각색 경로 두 곳(`adapt-drain-import.mjs`·`drain-adapt.mjs`)이
+ * `license` 칸에 슬러그를 써서 재고 **80편**이 `restricted` 로 떨어졌다(부모는 전부
+ * PD/CC-BY 라 오탐 0). 슬러그 중 `public_domain` 하나만 깨진 것이 발견을 늦췄다 —
+ * `'PUBLIC_DOMAIN'` 에는 **공백이 없어** `'PUBLIC DOMAIN'` 검사를 빗나가고, `PD`·`ND`·
+ * `SA`·`BY` 어느 것도 안 걸려 마지막 `restricted` 로 떨어진다. 나머지 슬러그는
+ * `CC_BY`→`BY` · `CC_BY_SA`→`SA` 처럼 **우연히** 맞아서 조용했다.
+ *
+ * 그래서 이 표를 두고 `licenseClassOf` 의 **왕복**을 회귀가 지킨다 —
+ * `licenseClassOf(LICENSE_TEXT_BY_CLASS[c]) === c`.
+ */
+export const LICENSE_TEXT_BY_CLASS: Record<LicenseClass, string> = {
+  public_domain: 'Public Domain',
+  cc0: 'CC0 1.0',
+  cc_by: 'CC BY 4.0',
+  cc_by_sa: 'CC BY-SA 4.0',
+  cc_by_nd: 'CC BY-ND 4.0',
+  restricted: 'All Rights Reserved',
+}
+
+/** 이 문자열이 등급 슬러그 그대로인가 — `license` 칸에 들어가면 안 되는 값이다. */
+export function isLicenseClassSlug(value: string): value is LicenseClass {
+  return Object.prototype.hasOwnProperty.call(LICENSE_TEXT_BY_CLASS, value)
+}
+
+/**
+ * 등급이든 원문 표기든 받아 **`license` 칸에 쓸 문자열**로 정규화한다.
+ * 슬러그면 정본 표기로 바꾸고, 이미 사람이 읽는 표기면 그대로 둔다.
+ */
+export function licenseTextOf(value: string | null | undefined): string {
+  const v = (value ?? '').trim()
+  if (!v) return LICENSE_TEXT_BY_CLASS.public_domain
+  return isLicenseClassSlug(v) ? LICENSE_TEXT_BY_CLASS[v] : v
+}
+
 export function licenseClassOf(license: string): LicenseClass {
   const l = license.toUpperCase()
   // NC — 상업적 이용 불가. SA/BY 판정보다 먼저 (DB acp_classify_license 와 동일 순서).

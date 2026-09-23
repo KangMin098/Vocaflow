@@ -20,6 +20,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 
+// 등급 슬러그가 `license`(원문 표기) 칸에 들어가는 사고를 막는 정본 — 재고 80편 사고(2026-09-23).
+const { licenseTextOf } = await import('@vocaflow/library-pipeline')
+
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
@@ -222,7 +225,9 @@ if (has('process')) {
         source_url: src.source_url,
         title: src.title,
         language: 'en',
-        license: src.license_class,
+        // `license` 는 원문 표기 칸이다 — 등급 슬러그를 그대로 넣으면 DB 트리거가
+        // 다시 파싱해 `public_domain` 을 `restricted` 로 떨어뜨린다(§adapt-drain-import).
+        license: licenseTextOf(src.license_class),
         published_at: null,
         content: body,
         estimated_cefr: null,
