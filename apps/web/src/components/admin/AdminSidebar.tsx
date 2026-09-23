@@ -156,7 +156,7 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
             },
             { href: '/admin/csat/catalog', label: '카탈로그', Icon: LayoutGrid },
 
-            // ── 레인대로 묶는다 (2026-09-23 · DD-72) ──────────────────────
+            // ── 레인대로 묶는다 (2026-09-23 · DD-74) ──────────────────────
             // `factory-model.ts` 는 **`lane: 'lab' | 'line'` 을 이미 선언하고** 현황판도 두 띠로
             // 그린다(「전략 연구소 / 생산 라인」). 그런데 이 메뉴만 「재료 / 공정 / 출고」로 묶여
             // 모델을 무시하고 있었고, 그 어긋남이 두 가지를 낳았다:
@@ -191,7 +191,7 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
             //   안 만든 근거는 「전체 보유율은 현황판 눈금, 막힌 권은 카탈로그 칸」이었는데,
             //   그 둘은 **합계**만 말한다. 실측하면 합계는 99.46% 인데 구멍 4,719건 중 8할이
             //   어휘 유형 하나(vocab_choice 3,800)에 몰려 있다 — 합계는 「거의 다 됐다」이고
-            //   칸은 「유형 하나 돌리면 끝난다」이다. **할 일이 다르다**(DD-72).
+            //   칸은 「유형 하나 돌리면 끝난다」이다. **할 일이 다르다**(DD-74).
             { href: '/admin/csat/explain', label: '해설', tag: '⑥', Icon: MessageSquareText },
             { href: '/admin/csat/review', label: '검수', tag: '⑦', Icon: ClipboardCheck },
             {

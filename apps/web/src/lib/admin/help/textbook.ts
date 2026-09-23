@@ -13,7 +13,7 @@ import type { HelpRegistry } from './types'
 export const TBP_HELP: HelpRegistry = {
   'csat-sources': {
     // 메뉴 라벨과 같은 이름이어야 한다 — 다르면 관리자가 자기가 어디 있는지 알 방법이 없다.
-    // 2026-09-23 「원문 적격」 → 「소재 적격」(DD-72): 이 화면의 출력은 **④ 소재의 입력**이고,
+    // 2026-09-23 「원문 적격」 → 「소재 적격」(DD-74): 이 화면의 출력은 **④ 소재의 입력**이고,
     // 이름이 그 자리를 말하게 했다. 라우트(csat/sources)와 도움말 슬러그는 그대로다.
     title: '소재 적격',
     tabs: {

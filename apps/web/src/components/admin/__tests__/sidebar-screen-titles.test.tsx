@@ -150,7 +150,7 @@ function headerTitles(src: string): string[] {
 }
 
 /**
- * **`<StageFrame stage={STAGE}>` 의 제목도 읽는다** (2026-09-23 · DD-72).
+ * **`<StageFrame stage={STAGE}>` 의 제목도 읽는다** (2026-09-23 · DD-74).
  *
  * 교재 공장 단계 화면들이 공통 골격으로 옮겨 가면서 `<h2>` 가 `StageFrame.tsx` 로 들어갔고,
  * 화면 파일에는 `const STAGE = FACTORY_STAGES.find((s) => s.id === 'review')!` 만 남았다.
