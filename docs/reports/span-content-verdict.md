@@ -93,10 +93,10 @@
 | 8 | **OCR 붕괴** | `[a-z][HB][a-z]`(ti→H·ti→B) · 합자 U+FB00–FB04 · 줄바꿈 하이픈(`Further- more`) |
 | 9 | **HTML 엔티티** | `&[a-z]+;` 하나만 있어도 |
 | 10 | **논문 사무 정보** | `CRediT`·`Funding information`·`Data availability`·`Downloaded from`·`upon reasonable request`·`*** p<0.01`·`clustered standard errors` 고정 사전 |
-| 11 | **메타 담론** | `this paper|article|study` + `examines|argues|reviews|we empirically test|to the best of our knowledge|our findings` |
+| 11 | **메타 담론** | `this paper` · `this article` · `this study` + `examines` · `argues` · `reviews` · `we empirically test` · `to the best of our knowledge` · `our findings` |
 | 12 | **앞 문단 의존 지시어** | 첫 20어 안의 `this/these/such/the latter/One such` + 선행사 부재 |
 | 13 | **참고문헌 혼입** | `저널명 + 권(호) + 쪽범위` · `doi.org/` · `이니셜+마침표`(`A. B.`) 밀도 |
-| 14 | **접속사 시작 조각** | `(^|\.\s)(and|but|or|which|that)\s` + 주어 없는 동사 |
+| 14 | **접속사 시작 조각** | 문장이 `and` · `but` · `or` · `which` · `that` 으로 시작하고 주어가 없는 경우 |
 | 15 | **URL·푸터** | `https?://` · `Downloaded from` · `doi.org` |
 | 16 | **캡션·화자 라벨** | 행두 `[A-Z]{2,}:`(`VIZENOR:`) · 치수 표기 `\d+\s?x\s?\d+"` |
 | 17 | **문단 중복** | 같은 60자 이상 문자열이 토막 안에 2회 이상 |
