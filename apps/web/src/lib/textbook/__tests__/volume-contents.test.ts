@@ -30,11 +30,21 @@ const snapshot = raw as unknown as {
 }
 // ⚠️ 키에서 밴드를 뽑지 않는다 — 키가 `reading:5` 로 바뀌면서 `Number(key)` 가 NaN 이 된다.
 //    권 자신이 들고 있는 `band` 를 센다.
-const bands = Object.values(snapshot.volumes).map((v) => v.band)
+//
+// ⚠️ **밴드가 겹친다.** 시리즈 셋이 같은 계단을 쓰므로(독해 5단 · 어휘 5단 · 구문 5단이
+//    전부 V5) `bands` 에는 같은 수가 여러 번 나온다. 아래 검사들은 「독해 기준의 밴드 목록」이
+//    필요하므로 그 시리즈로 좁혀 쓴다.
+const bands = [...new Set(Object.values(snapshot.volumes).filter((v) => (v.seriesId ?? 'reading') === 'reading').map((v) => v.band))]
+
+/** 스냅샷에 실제로 구워진 (시리즈, 밴드) 짝 전부. 새 시리즈가 늘면 자동으로 늘어난다. */
+const baked = Object.values(snapshot.volumes).map((v) => ({
+  series: v.seriesId ?? 'reading',
+  band: v.band,
+}))
 
 describe('권 목차 스냅샷', () => {
-  it('일곱 권이 다 들어 있다', () => {
-    expect(bands.sort((a, b) => a - b)).toEqual([1, 2, 3, 4, 5, 6, 7])
+  it('독해 일곱 권이 다 들어 있다', () => {
+    expect([...bands].sort((a, b) => a - b)).toEqual([1, 2, 3, 4, 5, 6, 7])
   })
 
   it('굽는 시각이 ISO 날짜다 — 낡은 것이 보여야 다시 굽는다', () => {
@@ -42,11 +52,28 @@ describe('권 목차 스냅샷', () => {
     expect(Number.isFinite(Date.parse(CONTENTS_GENERATED_AT))).toBe(true)
   })
 
-  it('한 권은 시장 중앙값만큼 단원을 갖는다', () => {
+  // ── 왜 top-level 값과 안 견주나 (2026-09-23 · DD-74) ───────────────
+  // 이 검사는 `CONTENTS_UNITS_PER_VOLUME`(파일 맨 위 값)과 권의 단원 수를 견줬다.
+  // 시리즈가 셋이 되면서 그 값이 **마지막으로 구운 시리즈**의 것이 됐고(독해 10 · 어휘/구문 20),
+  // 독해 권을 어휘 기준으로 재는 순간 거짓 실패가 났다 — 실제로 그렇게 걸렸다.
+  //
+  // 권마다 몇 단원인지는 **그 권이 들고 있다**(`unitsPerVolume`). 화면도 그 값을 써야 하고
+  // (`volume-contents.ts` 의 같은 경고), 이 검사도 그 규칙을 따른다.
+  it('권의 단원 수가 그 권이 선언한 수와 같다 — top-level 값은 마지막으로 구운 시리즈의 것이다', () => {
     expect(CONTENTS_UNITS_PER_VOLUME).toBeGreaterThanOrEqual(5)
-    for (const b of bands) {
-      const c = contentsOf('reading', [b])!
-      expect(c.units.length, `band ${b}`).toBe(CONTENTS_UNITS_PER_VOLUME)
+    for (const { series, band } of baked) {
+      const c = contentsOf(series, [band])!
+      const declared = c.unitsPerVolume ?? c.units.length
+      expect(declared, `${series} V${band} 선언값`).toBeGreaterThanOrEqual(5)
+      expect(c.units.length, `${series} V${band}`).toBe(declared)
+    }
+  })
+
+  it('시리즈 셋이 다 구워져 있다 — 하나라도 빠지면 그 권들은 목차 절을 잃는다', () => {
+    // 이것이 DD-73 의 재발 방지다. 안 구운 시리즈는 상세면에서 절이 통째로 사라지고,
+    // 그 상태는 「목차가 원래 없는 권」과 화면에서 구별되지 않는다.
+    for (const id of ['reading', 'vocab', 'syntax']) {
+      expect(baked.some((b) => b.series === id), `${id} 시리즈가 안 구워졌다`).toBe(true)
     }
   })
 
