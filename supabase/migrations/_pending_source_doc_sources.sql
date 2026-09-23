@@ -83,3 +83,19 @@ COMMIT;
 --     'ocean_facts','frym','frontiers','worldbank','nist','europe_pmc'
 --   ]::text[]) OR source = 'african_storybook');
 -- COMMIT;
+
+-- ── 적용 확인 (적용 뒤 이 두 줄을 돌려 본다) ─────────────────────────
+-- ① 제약이 새 값을 담고 있고 VALIDATE 됐는가
+--   SELECT convalidated, pg_get_constraintdef(oid)
+--     FROM pg_constraint
+--    WHERE conrelid = 'public.library_articles'::regclass
+--      AND conname  = 'library_articles_source_check';
+--   기대: convalidated = true · 정의에 olh·econstor·scielo·openalex·openstax·nih 이 전부 있다
+--
+-- ② 기존 행이 한 줄도 안 걸렸는가 (걸렸다면 VALIDATE 가 실패했을 것이다)
+--   SELECT source, count(*) FROM public.library_articles GROUP BY 1 ORDER BY 2 DESC;
+--   기대: 22종 · 합계 109,047 (2026-09-23 실측값에서 다른 세션의 적재만큼 늘 수 있다)
+--
+-- 적용 뒤 이어서:
+--   node --tls-max-v1.2 scripts/csat/source-doc-import.mjs            # dry-run 76편
+--   node --tls-max-v1.2 scripts/csat/source-doc-import.mjs --commit

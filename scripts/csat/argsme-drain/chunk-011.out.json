@@ -1,0 +1,310 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "011",
+  "items": [
+    {
+      "id": "e3f93a3a-2019-04-15T20:22:23Z-00010-000",
+      "sha256": "a633705bc3c42122aebcc82130e148d244779645b8b310d00822b03d9a3e6626",
+      "verdict": "write",
+      "topic_ko": "대학 교육비는 입학 시 고정 등록금이 아니라 졸업 후 소득에 물리는 세금으로 걷어야 한다",
+      "passage": "A fixed charge at the gate is the worst way to pay for higher education, and a tax on what graduates actually earn would serve both students and universities far better. The size of a fixed bill is the same for everyone, so it weighs most on the families with least to spare. A payment tied to income behaves differently, since it rises when a career goes well and falls when work is scarce. Nobody is then asked for money that has not yet arrived, and nobody is frightened away by a number printed before the first lecture. Universities would gain too, because a modest share of an ordinary salary, collected across twenty working years, is worth more than any sum a household could pay in advance. That income is also steady from year to year, while fees swing with every rise and fall in the number of applications. A bill that arrives after the benefit is fair; one that arrives before it is merely convenient.",
+      "claim": "Higher education should be paid for by a tax on what graduates later earn, not by a fixed charge collected before study begins."
+    },
+    {
+      "id": "e3f93a3a-2019-04-15T20:22:23Z-00018-000",
+      "sha256": "2ca69bf51c60ef916731bdc1bc5bc6956bf8b96902239196e871a504658c8514",
+      "verdict": "write",
+      "topic_ko": "졸업생세를 중앙 기금으로 모으면 대학의 재정 예측과 독립성이 무너진다",
+      "passage": "A tax on graduates can be defended, but sending the money into a single national fund would damage the universities it is meant to help. At present the fee a student pays travels straight to the institution that teaches that student, so the link between the service and the payment stays visible. If the money were gathered centrally instead, officials in a distant department would decide how much each campus receives. Those decisions are shaped by politics at least as much as by the quality of the teaching they reward. A university that cannot predict its income for five years cannot build a laboratory, hire a research team, or promise a scholarship to anyone. Worse still, an institution whose entire budget has been handed to it by ministers will think twice before publishing work that embarrasses them. Independence is not a luxury for a university; it is the condition under which honest study is possible at all. The money should therefore follow the student, not disappear into a pot that others control.",
+      "claim": "Money raised from graduates should flow straight to the institution that taught them rather than into a central fund controlled by government."
+    },
+    {
+      "id": "e511ec5-2019-04-19T12:45:01Z-00022-000",
+      "sha256": "b9f9ee8d11580004f334b98c2e8836501704b7d1d6f2a48f53ac2b5c6b12e1f4",
+      "verdict": "write",
+      "topic_ko": "동물실험 대체법은 아직 살아 있는 몸을 대신하지 못한다",
+      "passage": "Animal research should continue only where nothing else can yet answer the question, and it should end in each field the moment something else can. That narrow position is uncomfortable, but it matches what the alternatives are actually able to do today. Laboratories already work with cell cultures and computer models wherever those methods will serve, since the law requires it and they are cheaper as well. The trouble is that a living body is a system of enormous complexity, in which a new drug touches organs nobody thought to include in the model. A program that predicts how two molecules meet is still far from predicting how a treatment will act on a human brain. Drug companies have every reason to abandon animal work the moment a substitute becomes reliable, because feeding, housing and testing living creatures is slow and costly. Until that day arrives, a promise to replace animals entirely is a promise about the future rather than a description of the present.",
+      "claim": "Animal research should continue only where no other method can yet answer the question, and should end in each field as soon as one can."
+    },
+    {
+      "id": "e511ec5-2019-04-19T12:45:01Z-00042-000",
+      "sha256": "be9358e89abc1024f46acbde6476d529044365c6678f923ba14aa043bae4d112",
+      "verdict": "write",
+      "topic_ko": "동물의 고통에 대한 책임은 실험실에만 있지 않다",
+      "passage": "Arguments about animal testing often stop at the laboratory door, and that is where they go wrong. The suffering caused by research is real, yet it is a small part of the harm that human life imposes on other creatures every day. Farms, roads, building sites and cleared forests take a far larger number of animal lives than any set of experiments has ever taken. A person who eats meat, wears leather, or lives in a town built on drained land has already been drawn into that account, whether or not the fact was ever noticed. None of this excuses cruelty in a laboratory, and none of it settles whether a particular experiment is justified. It does mean that anger aimed only at scientists is too cheap to be useful, since it costs the angry person nothing at all. An argument worth having has to weigh every animal that human comfort costs, and it must apply the same standard to the dinner table as to the research bench.",
+      "claim": "An honest argument about animal suffering must count the harm caused by ordinary daily life, not only the harm caused inside laboratories."
+    },
+    {
+      "id": "e581691b-2019-04-18T12:44:18Z-00001-000",
+      "sha256": "5179fc3af8de95afdafe6025cdeca5182669cce2c7564e43ed821bc3fdfc2cd7",
+      "verdict": "write",
+      "topic_ko": "분열적 쟁점을 작은 행정구역 단위로 결정하자는 제안의 한계",
+      "passage": "Letting each small district decide the questions that divide a country looks tidy on a map, but it would create new unfairness rather than remove the old kind. Rights that change at a county line are not rights at all; they are local permissions that a person loses by moving house. A family that crosses one road to find cheaper rent could discover that a protection it relied on yesterday has simply gone. Rules of that kind are also easy to escape, because whatever one district forbids can usually be bought an hour away by car. The practical result is a patchwork that costs a great deal to police, produces endless argument at every border, and settles nothing. There is a real case for local choice about roads, schools and parks, where the effects stay inside the district. On matters that touch what a person may do with a life, the decision has to be national, or it means very little.",
+      "claim": "Questions about basic personal rights should be settled nationally, because rights that change at a district line are not rights at all."
+    },
+    {
+      "id": "e60dc379-2019-04-18T15:28:03Z-00002-000",
+      "sha256": "8f3b98d313c7e17abf6129f0360cea8373e4a62510d61839faec8da16969ecd6",
+      "verdict": "write",
+      "topic_ko": "군부 통치보다 민간 통치가 나은 이유",
+      "passage": "Military government promises speed, and speed is exactly the wrong thing to want from the people who hold power over a country. An army is built on a chain of command, in which information moves down only as far as each rank needs it. That arrangement is excellent for a battle and disastrous for a state, because a citizen cannot argue with an order whose reasons are secret. Ordinary politics is slow for a reason: it forces a minister to explain a plan in public, and it leaves a way to remove one who abuses the office. Under military rule that way is closed, and the only remaining remedy against a corrupt commander is rebellion, which is far more costly than an election. Efficiency also loses its appeal once the plans being carried out belong to nobody but the commander who gave the order. A country is better served by a government that argues in the open than by one that simply issues orders.",
+      "claim": "Civilian government is better than military rule because it forces power to explain itself and leaves a peaceful way to remove those who abuse it."
+    },
+    {
+      "id": "e65db6aa-2019-04-18T19:01:14Z-00000-000",
+      "sha256": "5fe0e74a8100f8a510a0b9fab06a7a04fa62cfa3a3d1ee68870836730bf3dd1a",
+      "verdict": "write",
+      "topic_ko": "패스트푸드에 물리는 세금이 비만 문제를 풀지 못하는 이유",
+      "passage": "A tax on cheap food is a poor cure for obesity, whatever comfort it gives to the people who design it. The customers most likely to eat such meals several times a week are usually those with the least money and the least time. A higher price does not send them to fresh vegetables and a kitchen; it sends them to a smaller portion of the same food. Meanwhile the money raised goes into a general budget, where it rarely reaches the clinics that treat the illnesses used to justify the tax. Restaurants faced with a new cost are quick to cut staff hours and lower the quality of what they sell, so the harm lands on workers as well. Diet is worth attention, but it changes through cooking lessons, better school meals and shorter working days rather than through a charge at the counter. A policy that makes poor people poorer while leaving their health untouched has failed, however healthy its stated purpose.",
+      "claim": "A tax on cheap food will not reduce obesity and simply makes poor households poorer."
+    },
+    {
+      "id": "e6af11b5-2019-04-15T20:22:52Z-00022-000",
+      "sha256": "74e708c4a5560af7b9043ac22ba20758cd088a7f39e99185eae1f1a1ebb0c2f4",
+      "verdict": "write",
+      "topic_ko": "주요 쟁점을 국민 직접 투표에 붙이는 일을 늘려야 한다",
+      "passage": "Governments should put the largest questions to a direct vote far more often than they now do. The usual objection is that voters think only of the next few years, yet that failing belongs to elected politicians at least as much. Taxes are cut and new programs are announced with one eye on the coming election, and the long term is sacrificed to a narrow party advantage. Voters asked to decide a single question are freed from that calculation, because there is no seat to defend and no party line to follow. The argument that government ought to lead opinion rather than follow it is really an argument for ignoring what the public wants. Rare cases exist in which a majority has been plainly wrong about the rights of a minority, and written constitutions protect such groups for exactly that reason. Outside those limits, the people who must live under a law are the people best placed to decide whether it should exist.",
+      "claim": "Major questions should be put to a direct vote far more often, because elected representatives are at least as short-sighted as the voters they replace."
+    },
+    {
+      "id": "e6ffa8fb-2019-04-19T12:45:14Z-00029-000",
+      "sha256": "c223c5d9b57066e54915678b12b839578753174b744432bf2392e1c1fc618989",
+      "verdict": "write",
+      "topic_ko": "수업료는 없애되 생활비는 학생이 부담하는 편이 합리적이다",
+      "passage": "Charges for teaching should be abolished, even though doing so will not make study free of cost. Books, rent and food remain, and in countries where lectures cost nothing students still leave with a debt built entirely from the price of staying alive while studying. That debt is reasonable, since it pays for years in which a student could have been earning a full wage instead. A young worker who starts at eighteen is ahead for a decade, while the student earns little, buys expensive books, and waits for the investment to return. Adding a charge for teaching on top of that gap doubles the burden and is the one part of it that public money can easily remove. Teaching is a service the state already funds at every earlier stage of schooling, and the line drawn at eighteen is hard to defend. Let the state carry the cost of the classroom, and let students carry the ordinary cost of living.",
+      "claim": "Charges for teaching should be abolished even though students must still meet their own living costs."
+    },
+    {
+      "id": "e6ffa8fb-2019-04-19T12:45:14Z-00041-000",
+      "sha256": "12805d98e650e5f9e4e76601cbc151777784382353898b6b6c196190bd8f97af",
+      "verdict": "write",
+      "topic_ko": "무상 대학교육의 비용은 결국 누군가가 낸다",
+      "passage": "Free university education is never actually free, and the bill lands on people who may never see a lecture hall. Someone has to pay the salaries of lecturers and the cost of the buildings they teach in, and in practice that someone is the ordinary taxpayer. A worker without children, or with children who will never apply, is asked to fund an advantage that goes mainly to families already better placed. Countries that offer free places carry very high rates of income tax across the whole of working life, and their citizens have accepted that trade openly. In a society where a large share of households struggle to cover rent and food, such a rate would be impossible to collect and cruel to impose. The fair alternative is a charge that follows the benefit, supported by grants for students whose families genuinely cannot pay. Generosity paid for by people poorer than the students receiving it is not generosity at all.",
+      "claim": "Free university education is not free, and in a poor society it asks the worst-off to pay for an advantage that mainly reaches the better-off."
+    },
+    {
+      "id": "e7148df7-2019-04-18T11:56:46Z-00000-000",
+      "sha256": "dae353acda9b9edd39a49f622969790247f7467d9c6ad2bc254abeef230ed150",
+      "verdict": "write",
+      "topic_ko": "온라인 수업만으로 대면 수업을 대체할 수 없다",
+      "passage": "Moving every class online would cost more than it saves, however convenient the recorded lecture has become. Some students learn well alone, but many need the shape that a fixed room and a fixed hour give to a week. Without it the reading is postponed, the questions are never asked, and a term is gone before the problem is noticed. Laboratory subjects suffer worst, since a screen cannot teach a hand to handle hot glass, a sharp blade or an instrument that breaks when it is gripped too firmly. Much of what a campus offers is also accidental: the argument after the lecture, the friend who explains what the teacher could not. Most universities already run online courses beside their ordinary ones, which shows that the two forms answer different needs rather than compete. The sensible policy is to keep both and let the student choose, not to close the classroom because a cheaper copy exists.",
+      "claim": "Universities should keep classroom teaching alongside online courses, because the two forms answer different needs."
+    },
+    {
+      "id": "e7d0961f-2019-04-18T16:48:18Z-00003-000",
+      "sha256": "3d2bc4eed905f57f9b936db134df2d3416c2629354114a3242478744475d1299",
+      "verdict": "skip",
+      "skip_reason": "토론 상대에게 낱말 정의만 늘어놓고 무승부를 제안하는 메타 발언이라 취할 논지가 없다."
+    },
+    {
+      "id": "e95f1ffb-2019-04-18T16:59:14Z-00005-000",
+      "sha256": "8792a055d3b046be6c6be32acac64696d707b9518a596a9a3d24766ad48280c7",
+      "verdict": "write",
+      "topic_ko": "규제만으로는 불법 총기 시장을 닫을 수 없다",
+      "passage": "Stricter gun laws will not close the illegal trade, and a policy that rests on that hope is built on sand. Expensive goods have always found a market outside the law, and a weapon is small, durable and easy enough to carry across a border in a bag. A person determined to do harm has months in which to look for a seller, and such a person needs to succeed only once. New rules therefore fall hardest on the buyers who were already willing to follow them, while the dangerous minority is barely touched. None of this means that nothing can be done; it means the effort should go to the point where the harm actually begins. Better treatment for mental illness, quicker action on threats, and safe storage in the home would save more lives than another line on a form. Safety is won by reducing the reasons people reach for a weapon, not only by counting the weapons themselves.",
+      "claim": "Safety policy should address the reasons people reach for a weapon, because stricter sales rules alone will not close the illegal trade."
+    },
+    {
+      "id": "e95f1ffb-2019-04-18T16:59:14Z-00007-000",
+      "sha256": "e63235c738e165edc59fe7023d92186258be777feaa58e77d366bc57826dad35",
+      "verdict": "write",
+      "topic_ko": "구매 단계의 심사와 총기 회수는 전혀 다른 정책이다",
+      "passage": "Checking who buys a weapon and taking weapons away from people who already own them are two entirely different policies, and confusing them poisons the discussion. Careful screening at the point of sale is reasonable and largely uncontroversial: a dealer runs a background check, and a waiting period separates the decision from the purchase. Rules of that kind can be strengthened without touching property that people already own, and a short course on safe handling would be a fair addition. A register of every weapon in every home is a different matter, because it serves no purpose at the moment of sale and invites later removal. Owners who have broken no law are entitled to keep what the law itself allowed them to buy only a few years earlier. A government that blurs the line between screening buyers and disarming citizens will lose support for the modest measures that actually work. The sensible course is to make the sale careful and leave the lawful owner alone.",
+      "claim": "Careful screening of buyers deserves support, but it must not be confused with taking weapons away from lawful owners."
+    },
+    {
+      "id": "ea87e158-2019-04-18T14:59:18Z-00005-000",
+      "sha256": "69a426eef38e2f5320cb496af1517c6758b9270e5d8b1db8314f3db8625ec58d",
+      "verdict": "write",
+      "topic_ko": "출생 전 유전 검사가 가족에게 주는 준비 시간",
+      "passage": "Testing an embryo for serious genetic disease before it is implanted gives a family something nothing else can give: time. A condition discovered in the first weeks can sometimes be treated at once, and the child then begins life with the illness already under control. Even when no treatment exists, knowledge changes what parents are able to do, since a hospital can be chosen, a specialist found, and money arranged long before the birth. Families who learn of a serious condition only in the delivery room must make enormous decisions while exhausted and frightened. Clear rules are needed, and the first of them is that the information belongs to the parents and must never be used to pressure them. Screening should inform a decision and must never be allowed to replace it, because a test reports a risk rather than a verdict on a life. Used under that limit, the test adds preparation to a difficult situation and takes nothing away from the child.",
+      "claim": "Genetic screening before birth should be available because it gives families time to prepare, provided the result is never used to pressure a decision."
+    },
+    {
+      "id": "ea87e1b5-2019-04-18T14:59:32Z-00000-000",
+      "sha256": "7e885c9a44ec964feb056dc656fbb530c9b6a79a0138c734ce83e190b3b68782",
+      "verdict": "write",
+      "topic_ko": "생명 기술의 속도와 그것을 다스릴 규칙 사이의 간격",
+      "passage": "Laboratory methods for creating life have advanced faster than the rules meant to govern them, and that gap is the real danger. Assisted reproduction has given children to families who would otherwise have none, which is a plain good and should not be surrendered. The same technique, however, produces more embryos than a treatment needs, and the question of what happens to the rest was never properly settled in public. Each new ability arrives the same way: a laboratory shows that something is possible, the public hears about it later, and a law is written years afterwards. That order is the wrong way round, and it leaves every hard choice in the hands of whoever happens to move first. A society that waits until a technique has become common has already lost whatever chance it had to set sensible limits. Rules should be argued out while the method is still new, so that science serves purposes people have chosen rather than ones nobody examined.",
+      "claim": "Rules for new reproductive technology should be argued out while the method is still new, because the gap between ability and regulation is itself the danger."
+    },
+    {
+      "id": "ea8c0bac-2019-04-18T12:24:23Z-00000-000",
+      "sha256": "4cc1ea6e51f8b6bc57a559a747afa3a063b9a63ca580e69ebc892d771b6e84a3",
+      "verdict": "write",
+      "topic_ko": "폭력 문화가 원인이라는 말은 규제를 미룰 이유가 되지 못한다",
+      "passage": "Blaming a culture of violence for gun deaths is a way of doing nothing, since a culture cannot be arrested, taxed or reformed by an afternoon's decision. Culture is real enough, but it is built from habits and laws, and the law is the part that can actually be changed. A weapon is also the cheapest and most certain instrument a violent person can reach for, which is why it appears in so many killings. Other methods are slower, noisier and far easier to interrupt, so the choice of tool is not a detail. Even if regulation left deliberate murder untouched, it would still cut the accidents that kill children in their own homes every year, which is not a small prize. Nobody defending the present arrangement has explained what is gained by the ease of purchase itself. When one side can name a benefit and the other side only predicts failure, the case for at least trying is strong.",
+      "claim": "Blaming a violent culture is no reason to delay regulation, since the law is the part of that culture that can actually be changed."
+    },
+    {
+      "id": "eaf4c41b-2019-04-18T16:38:18Z-00002-000",
+      "sha256": "f5968204ce6712d2fd316487227de2dfc07b0f860af4934558116061c19d8a8f",
+      "verdict": "write",
+      "topic_ko": "스스로 판단하는 기계가 인간의 통제를 벗어날 위험",
+      "passage": "Machines that choose their own actions should never be given the power to switch off the controls that hold them, and the rule must be written before such a machine exists. Systems already in use can recognize a face, plan a route across a city and change that plan the moment conditions change. The safety measures built into them are simply more instructions, stored in the same memory the machine is free to examine. Anything a system is able to read, a sufficiently capable system can also learn to work around, and a stop command is no exception to that rule. Independent power supplies, physical switches and limits that no program can reach must therefore sit outside the machine's own reasoning. The second danger is quieter: as machines take over more work, societies will have to decide what people are for when labour is no longer scarce. Neither problem is solved by hoping that whoever designs the first such machine will happen to be careful.",
+      "claim": "Controls over a machine that makes its own decisions must sit outside the machine's reasoning, and the rule must be written before such a machine exists."
+    },
+    {
+      "id": "eb9a4d4d-2019-04-18T18:18:05Z-00001-000",
+      "sha256": "35e23f5676e29787db2b3c164ac455692c840299d4c2f83a3772d7be6f9807bc",
+      "verdict": "write",
+      "topic_ko": "교복은 학교에서 빈부 차이가 드러나는 자리를 줄인다",
+      "passage": "School uniforms are worth keeping, because they remove one of the clearest signs of money from a place where children cannot escape each other. In a school without them, the cost of a coat or a pair of shoes is visible in every corridor, and the comparison runs all day. Children from poorer homes are judged before they have spoken, and families spend money they cannot spare to protect a child from the comparison. A uniform is not expensive beside that pressure, and where the cost does bite, schools can and already do provide help. Critics answer that young people should be free to express themselves, and that freedom matters outside the gate, where it costs nobody a friendship. Inside the gate, the choice on offer is rarely self-expression; it is a daily ranking that the poorest child always loses. Equality of appearance is a small thing on its own, but it buys attention for the lesson instead of for the label.",
+      "claim": "Schools should require uniforms because they remove one of the clearest daily displays of family wealth."
+    },
+    {
+      "id": "ed3ffebf-2019-04-18T15:59:44Z-00004-000",
+      "sha256": "0537997c8df0babcc05e09cd934234fe8ee72c8f9e7604881a66f494c72a0748",
+      "verdict": "write",
+      "topic_ko": "잦은 이직보다 한 직장에서 경력을 쌓는 편이 낫다",
+      "passage": "Building a career inside one organization beats moving from job to job, for reasons that show up in a pay slip. Pay rises, longer holidays and pension payments are almost always tied to length of service, so a person who leaves every year keeps restarting at the bottom of each scale. Promotion works the same way, since managers hand responsibility to those whose work they have watched over several years. A newcomer is also the first name considered when a business has to cut staff, which makes frequent moves risky in exactly the years when work is hardest to find. Steady employment supports a household in a way that a series of short posts cannot, because rent and school costs arrive whether or not the next job does. Years spent in one place bring friendships and a reputation among colleagues as well, and neither of those transfers easily. What looks like caution is often the faster road to a good income.",
+      "claim": "Building a career inside one organization pays better than moving from job to job, because almost every reward at work is tied to length of service."
+    },
+    {
+      "id": "edd0da87-2019-04-18T15:07:25Z-00003-000",
+      "sha256": "a4c7fc460195f8f5a951a4c6dbeb886c6a249716400c1a89c55f259be87b8108",
+      "verdict": "write",
+      "topic_ko": "타인에게 실질적 해가 없는 개인의 선택은 법이 금지하지 말아야 한다",
+      "passage": "A law should forbid an action only when that action does real and measurable harm to somebody other than the person choosing it. Government exists because people trade some freedom for protection, for courts, for roads and for care in old age, and the trade is worth making. Theft and violence sit clearly inside that bargain, since each of them damages a victim and weakens the order that everyone depends on. Many acts that the law still punishes do nothing of the kind, and the reasons given for punishing them rarely survive examination. A person who chooses how to spend an evening, whom to marry, or how to face a final illness affects mainly the one life involved. Any harm those choices cause to a neighbor is faint and indirect, while the harm of forbidding them falls on a real person with a name. Where the damage is small and the freedom is large, the law has no business in the room.",
+      "claim": "The law should forbid an action only when it does real harm to somebody other than the person choosing it."
+    },
+    {
+      "id": "ef3bf321-2019-04-18T17:56:46Z-00005-000",
+      "sha256": "65624cd58165d187da8826829552c430d5944913914ee101ca2b3fe870c26db1",
+      "verdict": "write",
+      "topic_ko": "빠르게 변하는 사회일수록 전통을 지키는 일이 더 필요하다",
+      "passage": "A society that changes quickly needs its inherited culture more, not less, than a settled one ever did. New laws and new machines arrive faster than anyone can judge them, and the standards used to judge them have to come from somewhere. Tradition supplies that measure, because it records what earlier generations found worth protecting after long and often painful experience of the cost of getting it wrong. It also holds a community together: shared festivals, stories and manners are the reason strangers in one town treat each other as neighbors rather than as competitors. Preservation of this kind is not a refusal to change, and a culture kept under glass dies as surely as one abandoned. The practical task is to carry the valuable parts forward carefully while letting the cruel or merely useless parts go. A people who have thrown away every inherited standard are left with nothing to argue from when the next hard question arrives.",
+      "claim": "A fast-changing society needs its inherited culture more than a settled one, because judging new arrangements requires a standard that comes from somewhere."
+    },
+    {
+      "id": "effd51d-2019-04-18T12:26:46Z-00000-000",
+      "sha256": "ac359ba26c5f8c1e3199645527539730e5ed446eb4296694d178039c7351d8f4",
+      "verdict": "write",
+      "topic_ko": "숙제가 학습에 기여하는 이유",
+      "passage": "Homework is tiresome, and it is also the part of schooling where most learning is finished rather than begun. A lesson heard once sits in the mind loosely, and it is the second encounter, hours later and without the teacher, that fixes it. Spacing the effort in this way is one of the best established findings about how memory works, and it simply cannot happen inside a single school day. The exercise also tells a student something that no lesson can supply: whether the material was actually understood or merely heard and nodded at. A wrong answer at the kitchen table on Tuesday is a warning; the same wrong answer in an examination is a grade. None of this defends the three hours of copying that some schools still set, since badly designed homework wastes time and teaches nothing. Short, regular practice that forces a student to recall the day's work is worth defending, whatever the complaints it attracts.",
+      "claim": "Short, regular homework is worth defending because it spaces practice and reveals whether the lesson was actually understood."
+    },
+    {
+      "id": "f0322148-2019-04-19T12:47:28Z-00003-000",
+      "sha256": "d7393abcee46134e9c6a68f0a455a89349704b034364a4230cd02c797d7a3270",
+      "verdict": "write",
+      "topic_ko": "학교 교육과정에 비교 종교 교육이 필요한 이유",
+      "passage": "Schools should teach about the major religions, and the case for doing so rests on what happens when they do not. A child who learns of faith only at home meets one account of it, presented as settled fact by the people that child trusts most. That is a poor preparation for a world in which neighbors, colleagues and news reports come from many traditions at once. A comparative course does not ask anyone to believe anything; it explains what different communities hold, why they hold it, and how the disagreements arose. Pupils who have studied several traditions are harder to frighten with a crude picture of any one of them, and they are better able to choose for themselves. Such a course is also the natural place to examine the arguments of those who follow no religion at all, which deserve the same attention. Understanding what a quarter of the world believes is ordinary knowledge, and a course of study that leaves it out is incomplete.",
+      "claim": "Schools should teach about several religions, because a child who meets only one account of faith is poorly prepared for a mixed society."
+    },
+    {
+      "id": "f09a5bcb-2019-04-18T15:14:51Z-00002-000",
+      "sha256": "a9a7f1d4889b24716aaa011645016c6d4c2ed226e3806e629585f7dc201d796d",
+      "verdict": "write",
+      "topic_ko": "세금은 소득에 비례해 올라가야 공정하다",
+      "passage": "Tax should rise with income, because the same sum of money means something entirely different to two households of unequal means. A fixed charge of the same size is an inconvenience to a rich family and a missed rent payment to a poor one, so a flat rate is equal only on paper. A system that takes a larger share from larger incomes spreads the actual burden evenly, which is the only sense of fairness that matters at the kitchen table. The money collected also returns as schools, hospitals and pensions, and those services are used most by the people who paid least for them. Necessities should stay outside the arrangement entirely, since nobody should pay more for bread or water because of what they earn. The objection that high earners will leave deserves an answer: a rate high enough to matter and low enough to live with. Fair taxation measures what a payment actually costs the person paying it, not what the figure says on the bill.",
+      "claim": "Tax should rise with income because the same fixed sum imposes a completely different burden on a rich household and a poor one."
+    },
+    {
+      "id": "f0af3d09-2019-04-18T19:35:07Z-00002-000",
+      "sha256": "daac1a231d921f69f4e83622a6e5ba2b80cc73ba6d322619efd3e2c3cdc67a8f",
+      "verdict": "write",
+      "topic_ko": "아이를 기르기에는 시골보다 도시 근교가 낫다",
+      "passage": "A child grows better on the edge of a city than deep in the countryside, because character is formed by variety. Villages are calm and safe, and that is exactly the limitation: the same few dozen families, the same kind of work, the same opinions repeated. A young person raised only among them has little material from which to build a self, and the choice about who to become has effectively been made by somebody else. Near a city a child meets shopkeepers, nurses, drivers and engineers, hears several languages, and discovers that a stranger who lives differently is not therefore an enemy. Learning to tell right from wrong also requires seeing wrong occasionally and watching adults deal with it, rather than growing up where it has been carefully removed. Country life offers real goods, and space, quiet and safety are certainly among them. Still, a childhood spent close to many kinds of people prepares a person for the world that actually exists.",
+      "claim": "Children grow better near a city than deep in the countryside, because character is built from variety of people, work and places."
+    },
+    {
+      "id": "f10b9b08-2019-04-18T16:13:13Z-00003-000",
+      "sha256": "090c3bac094867c6b07101ed59f645d96e28dc4833fcc12b83b7d2c5bbdfdaa9",
+      "verdict": "skip",
+      "skip_reason": "인류를 몰살하겠다고 선언하는 역할극 글이라 교재 지문 소재로 부적절하다."
+    },
+    {
+      "id": "f1272827-2019-04-18T19:44:38Z-00002-000",
+      "sha256": "9595c30ff69b5752b634c3e3f8b82cab552a06d0904339274c63cedc19ba378b",
+      "verdict": "skip",
+      "skip_reason": "같은 한 문장만 열 번 넘게 반복한 빈 글로 취할 논지가 없다."
+    },
+    {
+      "id": "f16b5ef2-2019-04-18T12:46:05Z-00000-000",
+      "sha256": "6547cb921fff8925912d6aae5c3a496791028014cb93c5f253ada4d53bc7e83d",
+      "verdict": "write",
+      "topic_ko": "의무 투표제에 반대한다",
+      "passage": "Voting should stay voluntary, because a vote cast under the threat of punishment tells a government very little about anything. The purpose of an election is to learn what citizens actually want, and a ballot cast by somebody who would rather be elsewhere carries no such information. Compulsion also sits oddly beside the freedom the vote is supposed to protect: a state that may order attendance at a polling station has established a principle with no clear edge. Then there is the practical problem of enforcement, since a duty that carries no penalty at all is only advice. Fines fall hardest on the poorest, prosecution wastes court time, and police hours spent chasing absent voters are hours not spent on crime. Low turnout is a genuine warning, and the answer to it is easier registration, weekend polling and parties worth voting for. A citizen who stays home has said something, and a law that forces attendance makes that message impossible to hear.",
+      "claim": "Voting should stay voluntary, because a ballot cast under threat of punishment tells a government nothing and is impossible to enforce fairly."
+    },
+    {
+      "id": "f1a654d1-2019-04-19T12:47:48Z-00010-000",
+      "sha256": "78b33532dc853900f78471252bcbde864ce422f06d9b4ddd3f0824cce55704be",
+      "verdict": "write",
+      "topic_ko": "대학 입학에서 적극적 우대 조치가 필요한 이유",
+      "passage": "Universities should set admission targets for students from groups that are barely present on campus, because the alternative is a wait that never ends. Many able teenagers never apply to a leading university, not from lack of ability but because the place gives no sign that people like them are welcome there. A student who sees almost no one of a similar background among the teachers or in the lecture halls reads that absence as an answer. That impression cannot correct itself, since the population will only look different once such students arrive, and they stay away while it looks as it does. Deliberate targets break that circle, and after a few years the case for keeping them weakens on its own as applications rise. The policy should therefore carry a fixed review date and a clear measure of progress rather than continue by habit. A door that is technically open but never used is not yet open in any sense that matters.",
+      "claim": "Universities should set temporary admission targets for groups barely present on campus, because the impression that keeps such students away cannot correct itself."
+    },
+    {
+      "id": "f2508129-2019-04-18T16:32:39Z-00003-000",
+      "sha256": "f549608539696c1e8f84325ebea3a8b3952b792e21163c1230070aacc26481bc",
+      "verdict": "write",
+      "topic_ko": "치료를 위한 세포 복제 연구는 허용해야 한다",
+      "passage": "Research that grows human cells for treatment should be allowed to continue, and the objections to it have grown weaker with every passing year. Stem cells already repair damaged tissue in trials, and a patient facing the failure of an organ has an interest that deserves at least as much weight as an abstract worry. The usual reply points to the first cloned animals, which took hundreds of attempts and produced creatures that fell ill and died early. That was decades ago, when the technique was new, and methods have improved beyond recognition since then. A field is also not allowed to improve while the law forbids the work, so the objection quietly creates the failure it predicts. Careful limits are essential, and no researcher should be free to move to human trials before the evidence is overwhelming. Permission to study something is not permission to do anything with it, and refusing the first makes the second impossible to control.",
+      "claim": "Research that grows human cells for treatment should be permitted, because forbidding the work guarantees the very failure the objection predicts."
+    },
+    {
+      "id": "f2508167-2019-04-18T16:24:27Z-00006-000",
+      "sha256": "21c1cf693bdf8885ce9475d90b9dd90af1ae403343abe28a9dc971f92ffb020f",
+      "verdict": "write",
+      "topic_ko": "복제로 장기를 만드는 연구는 비용이 커도 값어치가 있다",
+      "passage": "Growing replacement organs from a patient's own cells is worth the enormous cost, because the present system is failing the people who wait. Donated organs are far too few, and the list of patients is longer every year, so many die during a wait measured in years rather than weeks. Those who survive on a machine live a narrow life, tied to a hospital schedule and to equipment that can fail without warning. An organ grown from the patient's own tissue would not be rejected, which removes both the drugs that hold back the immune system and the illnesses those drugs invite. The expense is real, but it should be set against the operations that already fail and the organs the body destroys. Each failure is followed by years of further care that cost a great deal of public money as well. Money spent on a method that works once is cheaper than money spent repeatedly on one that works sometimes.",
+      "claim": "Growing replacement organs from a patient's own cells is worth its high cost, because the present supply of donated organs is failing the people who wait."
+    },
+    {
+      "id": "f252295-2019-04-18T12:14:20Z-00001-000",
+      "sha256": "c5855ef9a65413287db0ae9334930f50ffb47d75affacd71d3f5b4500e44c3ce",
+      "verdict": "write",
+      "topic_ko": "최저임금이 필요한 이유",
+      "passage": "A legal minimum wage is necessary, because the alternative asks workers to trust that employers will pay fairly without being made to. No firm raises a wage it is not required to raise, and the calculation is simple: the same work arrives whether or not the pay improves. An employee may work harder and longer for years in the hope of a rise that the accounts were never going to allow. The imbalance is worst for those with no other options, such as a worker in a small town with one large employer, or a person whose disability limits where they can apply. Such a worker cannot walk away, and an offer that cannot be refused is not really a bargain at all. A minimum wage puts a floor under that conversation and leaves everything above the floor open to ordinary negotiation. Nobody who works a full week should reach the end of it unable to pay for food and a room.",
+      "claim": "A legal minimum wage is necessary because workers with no alternative cannot bargain, and an offer that cannot be refused is not a bargain."
+    },
+    {
+      "id": "f27da082-2019-04-15T20:22:16Z-00026-000",
+      "sha256": "aeb581c93487117b78094fb8d932a56362120b51ef555595a96fd7d4fc81f5c1",
+      "verdict": "skip",
+      "skip_reason": "학교 성교육 방식 논쟁이라 한국 고등학생용 교재 지문 소재로 부적절하다."
+    },
+    {
+      "id": "f29a382e-2019-04-15T20:24:29Z-00009-000",
+      "sha256": "167e82392b0866be710e6be9146861954edb05ecf7532d88ad51d56fe28be72c",
+      "verdict": "write",
+      "topic_ko": "비밀 정보수집과 민주주의의 사생활 원칙 사이의 충돌",
+      "passage": "Secret collection of personal information by a domestic intelligence service sits badly with the very principles that a democracy claims to hold. Such work requires bank records, messages and call logs gathered without the knowledge of the person concerned, since warning the subject would defeat the purpose. A democracy, however, assumes that each citizen keeps a private sphere and decides who may enter it. Watching a person in secret takes that decision away and leaves the citizen with a right that survives only while nobody chooses to ignore it. Police work is different, and the difference is instructive: an investigation must usually be declared to its subject, and secret methods need the separate permission of a judge in each case. Intelligence services, by contrast, have often operated under a single approval covering whole categories of people at once. Whatever powers a state needs, they should be granted case by case and examined by somebody outside the service that uses them.",
+      "claim": "Secret intelligence gathering conflicts with the private sphere democracy assumes, so such powers should be granted case by case and reviewed from outside."
+    },
+    {
+      "id": "f3cae029-2019-04-18T19:56:22Z-00001-000",
+      "sha256": "9cd57c5885774f1681082e80d98cb346caf97b1d8a4b9a940fb0dab0252a2fcf",
+      "verdict": "write",
+      "topic_ko": "학교가 말하는 목표와 실제로 보상하는 것의 모순",
+      "passage": "Schools announce that they value curiosity and independent thought, and then hand out their rewards for almost the opposite. Marks are given for work completed to a standard set low enough that nearly everyone can reach it, which turns a demanding subject into a list of boxes. A student who follows an interest beyond the required course earns nothing for it and may lose marks for answering a question that was not asked. The arrangement is designed around the pupil who is furthest behind, and that choice is defensible in itself, but it has a cost that is never admitted. Bright pupils are not simply left alone; they are actively taught that effort beyond the requirement is wasted. Those who keep their curiosity have succeeded despite the system rather than because of it, and a system that works that way has been described dishonestly. A school that genuinely wants thinking students has to give marks for thinking rather than for obedience.",
+      "claim": "Schools claim to value curiosity while rewarding the opposite, and a school that wants thinking students must give marks for thinking."
+    },
+    {
+      "id": "f409ee9c-2019-04-19T12:46:20Z-00012-000",
+      "sha256": "74f84e83ed3973436e30746748305754f038c2cbbbc4d9b848377fa5f602b95f",
+      "verdict": "write",
+      "topic_ko": "상점이 버린 음식을 가져가는 행위를 범죄로 다루지 말아야 한다",
+      "passage": "Taking food that a shop has thrown away should not be treated as theft, because nothing of value has been taken from anyone. Once a product is in the bin, the business has already written off its price and decided that no customer will pay for it. The people who search such bins are those with least money and most need, and they would not be there if another way to eat were open to them. Prosecuting such a person costs a court far more than the food is worth and punishes hunger rather than dishonesty. A shop with a genuine plan to reduce the waste, by selling older goods cheaply or giving them to a charity, would stand on different ground. Where the only plan is a locked container and a call to the police, the argument for legal protection collapses entirely. A rule that lets good food rot under guard while people go hungry is not one worth defending.",
+      "claim": "Taking food a shop has thrown away should not be punished as theft, because nothing of value has been taken from anyone."
+    },
+    {
+      "id": "f4173838-2019-04-18T16:43:51Z-00004-000",
+      "sha256": "c60546be723df07d7a0aae6a809da067ef5bfa6bc8fafaabee2783e4b1efa2a8",
+      "verdict": "write",
+      "topic_ko": "자기 자신을 돌보는 일이 이기심이 아닌 이유",
+      "passage": "Putting one's own health first is not selfishness, and treating it as such does harm to everyone involved. A person who is exhausted, ill or desperate has nothing left to offer anybody, so the care that looks generous ends in collapse and in a larger burden for others. Rest, medical treatment and time to recover are therefore not luxuries but the conditions under which help for others remains possible. Nobody else can be expected to watch over one life as closely as the person living it, however willing friends and family may be. The limit on this principle is clear and should be stated plainly: self-care stops where it begins to damage the standard of living of somebody else. Inside that limit, whatever keeps a person healthy is defensible, however ordinary or unimpressive it may appear to others. Duty to others is real, and it is built on a foundation that has to be kept in repair.",
+      "claim": "Putting one's own health first is not selfishness but the condition under which help for others remains possible, so long as it harms nobody else."
+    },
+    {
+      "id": "f47719c4-2019-04-18T13:40:47Z-00001-000",
+      "sha256": "3ac03da53ac6797b39a29cf6b3d55cc6800d012087750678d6e0aca1116bd3b8",
+      "verdict": "write",
+      "topic_ko": "체육 수업은 유지하되 평가 방식을 고쳐야 한다",
+      "passage": "Physical education should stay compulsory, and the usual complaints about it point at the tests rather than at the subject itself. Pupils who dread the lesson are usually dreading a public measurement, a timed run or a count of exercises performed in front of everyone. Standards of that kind were designed for athletes and tell an ordinary teenager only that the body is a source of embarrassment. A class built around activity instead of measurement produces the same movement without the shame, and the pupils who need it most stop hiding from it. The habits formed in these years are the point, since a person who has never once enjoyed exercise before sixteen rarely begins afterwards. Regular activity also clears the mind, uses up restless energy and improves the sleep that homework and screens have shortened. Keep the lesson and change the test, and most of the objection disappears along with the row of pupils hiding at the back.",
+      "claim": "Physical education should remain compulsory, but the tests that embarrass ordinary pupils should be replaced by activity itself."
+    }
+  ]
+}

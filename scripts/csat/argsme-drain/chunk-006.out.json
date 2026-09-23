@@ -1,0 +1,300 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "006",
+  "items": [
+    {
+      "id": "77b9d4a1-2019-04-19T12:47:46Z-00008-000",
+      "sha256": "ee85126b22852265069811f9a94128ff3cb4bd971ea23d2015b2424ae70340bd",
+      "verdict": "write",
+      "topic_ko": "법정 촬영을 허용하는 문제",
+      "passage": "Supporters of filming trials argue that a camera in the courtroom would teach ordinary citizens how the law is actually made. The argument is weaker than it sounds, because the courts that actually change the law are the senior ones, and their sittings hold almost nothing that a viewer would call drama. Their hearings are long exchanges of technical argument between lawyers, and they contain no witnesses, no sharp questioning, and no emotional appeal to a jury. A television company that must attract an audience is therefore certain to ignore them and film ordinary trials instead, where anger and tears are easy to find. Even if such hearings were broadcast, very few viewers would have the legal training or the patience that following them demands. The people who genuinely need those details are lawyers, and a full written record of every judgment has been available to them for a long time. Cameras would hand the public a show and nothing that deserves the name of education.",
+      "claim": "Cameras in courtrooms would deliver entertainment rather than any real public education about the law."
+    },
+    {
+      "id": "78f9e390-2019-04-18T11:37:14Z-00004-000",
+      "sha256": "a12dfb17fdbc8f3a88d92091793a086ea279e4e8d7af26a8cf90334a1febebc0",
+      "verdict": "write",
+      "topic_ko": "여름이 가장 좋은 계절인가",
+      "passage": "Every season has its defenders, but summer offers more than the other three, and the case for it rests on freedom rather than on warm weather alone. Heat removes the daily cost of cold: heavy coats, frozen mornings, and the long list of activities that are impossible once the temperature drops. Swimming, camping, cycling, and evening meals in the open air are all cheap, and all of them are available to almost anyone during the warmer months. Summer also creates the longest break in the school calendar, and that break is the only period in the year when students can rest properly and still choose what to learn. Free lessons on the internet and a shelf of library books make private study easy for anyone who wants it, so the long holiday wastes nothing. The heat itself is rarely a serious problem, because shade, cold food, and a pool solve it within minutes. No other season combines comfort, opportunity, and time in the same generous way.",
+      "claim": "Summer is the best season, because it combines the widest range of cheap activity with the longest stretch of free time."
+    },
+    {
+      "id": "7945d7cc-2019-04-18T14:27:21Z-00005-000",
+      "sha256": "9b1b6e84321295d087c9c2c735e1d74fc700a75d309230791f84d6c64eb1974c",
+      "verdict": "skip",
+      "skip_reason": "한국 고등학생용 교재 지문으로 부적절한 민감 주제이며, 원문도 토론 진행 선언뿐이라 재저작할 논지가 없다."
+    },
+    {
+      "id": "795d4547-2019-04-19T12:47:42Z-00014-000",
+      "sha256": "5148e23c321e2572c605bf33c93827f695ac74cfec48a6274fca845730517510",
+      "verdict": "write",
+      "topic_ko": "탄소 감축, 시장 방식 대 규제 방식",
+      "passage": "Governments that want to cut the gases that warm the planet face a choice between strict rules and market prices, and the market approach reaches the same target at a far lower cost. The reason is easy to see. The dirtiest power stations and vehicles are concentrated in poorer countries, where old equipment can be replaced with modern technology for a fairly modest sum. Squeezing an equal reduction out of an already efficient factory in a wealthy country is enormously expensive, since it demands machines that have not yet been invented. A price on carbon, whether through trading or through a tax, sends money toward whichever repair costs least, and the atmosphere does not care which country the saving came from. The same system moves investment and skill toward economies that need both, so a single policy answers two separate problems at the same time. Rules written in advance can never find those cheap opportunities, because no official has better information about a factory than the people who run it.",
+      "claim": "Putting a price on carbon cuts emissions further and faster than detailed regulation does."
+    },
+    {
+      "id": "79915732-2019-04-18T14:37:15Z-00008-000",
+      "sha256": "d05d0944844bb5d907c6483479536b9b8b1b20a05a36ece8b807db8bc2abd5d9",
+      "verdict": "write",
+      "topic_ko": "도덕을 공식으로 정의할 수 있는가",
+      "passage": "A tidy equation for morality, in which motive and clear thinking are simply added together, is attractive and wrong. Morality is a code of conduct that a community puts forward, and communities differ so widely that no single equation can describe all of them at once. One society treats a harsh punishment for a small theft as justice, while another regards the same sentence as cruelty, and both have long traditions of careful reasoning behind them. A formula that fits the first society will therefore condemn the second by definition, which tells more about the person who wrote it than about right and wrong. History makes the same point sharply, since practices that one century accepted without comment are treated as obvious crimes by the children of the people who accepted them. Intention is an equally weak foundation, because the same intention is praised in one place and blamed in another, depending on the duties that the local community accepts. What such a formula gains in neatness it loses in truth, and moral questions are precisely the questions that resist neat answers.",
+      "claim": "Morality cannot be reduced to a formula, because every community defines it differently."
+    },
+    {
+      "id": "7a137bf0-2019-04-18T11:41:35Z-00001-000",
+      "sha256": "a9740578b345f865686bff2ead5f4aecc0269ad8b88fa131e19ce38876572782",
+      "verdict": "write",
+      "topic_ko": "어린이 만화에 정치를 담는 문제",
+      "passage": "Cartoons for children are often defended as a safe corner of life where public affairs never enter, yet a modest amount of politics belongs there. Young viewers are already surrounded by news, arguments at the dinner table, and elections that decide which school they attend, and a story that ignores all of it teaches them that such matters are for other people. A cartoon can introduce a simple problem, present two honest positions on it, and let the audience weigh them. That is the first exercise in a skill that every adult is later expected to have. Practice of that kind is far more useful when it starts early, because habits of judgment are formed long before a first vote is cast. The line that matters is the line between teaching and propaganda, and showing only one side, or telling children which side is correct, has no place in entertainment. A program that raises a real question and trusts children to think about it is doing them a service.",
+      "claim": "Children's programs should raise honest political questions, but they must never argue for one side."
+    },
+    {
+      "id": "7a47e0cb-2019-04-18T17:33:08Z-00003-000",
+      "sha256": "9bcedfe06aa364b7ce7f777ce02ea66ec75fad68bfdede0f60efb98aa3039937",
+      "verdict": "write",
+      "topic_ko": "도시가 무료 공공 인터넷을 제공해야 하는가",
+      "passage": "A city that pays for free public internet buys far more than a convenience, and much of the spending returns to the city budget in several ways. Students whose homes have no connection are the clearest case, since homework, library records, and study material now sit online. A child without such access falls behind for reasons that have nothing to do with effort or ability. Small businesses are the second case, because a market stall or a repair shop can take card payments and reach customers once a network is simply there, and every new trader adds to the tax the city collects. Public networks also carry advertising, and the fees paid by advertisers cover a useful share of the running cost. Security objections are weaker than they appear, since homes and firms would keep their own private connections and treat the public network as a spare route for ordinary devices. A service that lifts education, trade, and revenue together is worth the modest price of the equipment.",
+      "claim": "Cities should provide free public internet, because the gains in study, trade and tax revenue exceed the cost."
+    },
+    {
+      "id": "7a7d096f-2019-04-15T20:22:36Z-00014-000",
+      "sha256": "1706ff8cf520a7640c5393e68fa0217a1ef56d5faa0aec413e2b95c6f8bb68e5",
+      "verdict": "write",
+      "topic_ko": "멸종 위기 생물 보호의 비용",
+      "passage": "One common argument for strict protection of rare animals rests on regret, since a future generation might wish that a lost species had been saved. Taken seriously, that argument forbids every hard choice, because any decision at all can be regretted by somebody who has not been born yet. Costs in the present are real, however, and they fall on people whose names are already known. Land locked away for wild habitat is land that cannot grow food or carry housing, and the families waiting for both are not imaginary. The burden is not evenly shared either, because the fields and the jobs given up tend to lie in poor farming districts while the demand for protection is loudest in comfortable cities. A policy that treats a distant possibility as heavier than a present shortage has quietly decided that living people count for less. Protection is still worth paying for where the loss would be severe and the cost is modest, but the case has to be argued with evidence rather than settled in advance by an appeal to regret.",
+      "claim": "The possibility of future regret is not a strong enough reason to protect every species whatever the cost."
+    },
+    {
+      "id": "7a832e19-2019-04-18T15:36:11Z-00004-000",
+      "sha256": "90137df44c49aafda37d719ba2041c2aed6f95c4d7f9b934fa185129994e5390",
+      "verdict": "write",
+      "topic_ko": "개와 고양이 중 어느 쪽이 더 나은 반려동물인가",
+      "passage": "Arguments for the dog usually begin with the animal's record of service: rescue work, guiding the blind, and guarding property. Those achievements are real, but they belong to a small number of trained animals, and the ordinary family dog will never do any of them. What matters in a household pet is the fit between the animal and the life of the people who keep it, and by that measure the cat is the stronger choice. A cat needs food, water, a clean box, and a little affection, and it entertains itself for hours when the house is empty. A dog needs walking in every kind of weather, a great deal of washing, and constant company, and a bored dog answers neglect with ruined furniture and torn clothes. Cats also suit small homes, since a flat with no garden is cruel for a large dog and perfectly normal for a cat. Households in which every adult works long hours are now the usual case, and the pet that suits them is the one that is content to be alone.",
+      "claim": "Cats are the better household pet, because they fit the way most families actually live."
+    },
+    {
+      "id": "7b8b69bb-2019-04-15T20:22:38Z-00013-000",
+      "sha256": "27eeaee46de1e91ed1caeee1c05a41738764b0b04c65161ef1d9f6f2ad69c24a",
+      "verdict": "write",
+      "topic_ko": "말기 환자의 미승인 치료제 접근권",
+      "passage": "Letting patients with a fatal illness try a medicine that has not finished testing is often opposed on the ground that careful studies would collapse. The objection deserves an answer rather than a refusal, and there are two. An open program attracts people who would never have joined a formal study at all, so the number of recorded cases grows even as the quality of the record falls, and a large untidy record still teaches researchers a great deal. The design can also be adjusted, since patients who decide against the new medicine form a natural comparison group, which recovers much of what is lost when treatment is no longer assigned in secret. Speed matters as well, because a study that recruits slowly delivers its answer years after the patients who volunteered for it have died. Neither answer is perfect, and evidence produced this way is weaker than evidence from a strict study. Set against that loss is the position of a patient with months to live, whose interest in the only remaining option is not a small matter.",
+      "claim": "Patients with a fatal illness should be allowed to try unfinished treatments, because the studies can be redesigned around them."
+    },
+    {
+      "id": "7c48cbf-2019-04-18T17:14:07Z-00001-000",
+      "sha256": "0f28b4655adcf4779ecdd80afd27e9c1d147be56561b55da156271f330b2b23d",
+      "verdict": "write",
+      "topic_ko": "혐오감을 주는 음식을 금지해야 하는가",
+      "passage": "Calls to ban foods that many people find disgusting confuse two very different things: harm to others and offence to others. A free society limits what its members may do when an action damages somebody else, and that principle explains the law against attacking a stranger far better than any appeal to taste. Eating a dish that the neighbours find revolting damages nobody, and those neighbours have a complete remedy already, which is to eat something else and avoid the restaurants that serve it. Once disgust becomes a reason for a ban, the rule has no natural stopping point, because almost every traditional food is disgusting to somebody in another country. The same argument would remove beef from the table in one place and pork in another, and the final list would be settled by whoever shouted loudest. Enforcement would be a further difficulty, since inspectors would have to decide whose stomach sets the standard, and no honest official could answer that question. Personal distaste is a good reason to choose a different menu and a poor reason to write a law.",
+      "claim": "Disgust is not a sufficient reason to ban a food."
+    },
+    {
+      "id": "7c704a8c-2019-04-18T16:38:56Z-00000-000",
+      "sha256": "425dc780dc4cb5e2356d6fc2fe8d51997e85c03fcc5b5aedc0069ae5bb52b1ae",
+      "verdict": "write",
+      "topic_ko": "종교가 과학의 발전에 한 역할",
+      "passage": "The familiar picture of religion and science as permanent enemies is too simple to survive contact with history. Science is not limited to questions about the origin of life, since it also covers medicine, the study of the stars, and the patient recording of the natural world. Religious institutions funded and housed a great deal of that work for centuries. Religious houses preserved old texts, trained doctors, and kept hospitals open at a time when no government was willing to pay for any of it. Opposition has been productive as well, because a claim that somebody wants to disprove is a claim that gets tested, and many famous experiments were designed by researchers who hoped to settle a religious question one way or the other. None of this proves that religious teaching should direct research or decide what counts as evidence. It shows something narrower and more interesting: the two have been entangled for so long that a story of pure conflict explains almost nothing.",
+      "claim": "Religion and science have shaped each other, so a story of permanent conflict between them explains very little."
+    },
+    {
+      "id": "7e67fe99-2019-04-18T15:47:36Z-00005-000",
+      "sha256": "16594b6f45ec770d3d011af63ff4cdb428e17318fc8839151d45f6d0c9b55e50",
+      "verdict": "skip",
+      "skip_reason": "약물 사용을 다루는 주제라 한국 고등학생용 교재 지문으로 부적절하다."
+    },
+    {
+      "id": "7f01b59c-2019-04-18T17:26:23Z-00001-000",
+      "sha256": "476cb3e44cc2d7a7757e42f3662051e6a12d30d7781f6c3b0359ddfb8b73df39",
+      "verdict": "write",
+      "topic_ko": "낮은 세금과 시장경제는 공정한가",
+      "passage": "Hostility to wealth makes poor tax policy, and a system built on that feeling ends by punishing the wrong people. The fairer arrangement is a market economy with moderate rates, a genuine respect for rights, and strict attention to how public money is actually spent. Firms are not all the same. Some large store chains pay well above the legal minimum, and others are largely owned by the staff who work in them, which shows that decent conditions and private ownership fit together. The real danger is the single company that has captured an entire industry, and that danger is best met by competition law rather than by taxing every successful business into weakness. Rates can still rise with income, since a household earning ten times the average can plainly carry more, but rates set so high that hiring stops leave everybody poorer, including the workers the policy was meant to help. Public money that is wasted is not fairness, and no amount of good intention turns it into fairness.",
+      "claim": "A market economy with moderate taxes and carefully spent public money is fairer than a system built on hostility to wealth."
+    },
+    {
+      "id": "7f01b59c-2019-04-18T17:26:23Z-00003-000",
+      "sha256": "1817e6d15e96af9cf6291742dc943082718d1d21936e526e70b2545ba81ca4c7",
+      "verdict": "write",
+      "topic_ko": "세금의 효율적 사용과 개인의 자유",
+      "passage": "A sensible argument for low taxes is not an argument against government; it is an argument about what government does with the money it takes. Services can be paid for publicly without being run publicly. Health care is the clearest example, because a state that buys treatment from competing providers keeps the guarantee of care while losing the waste of a single monopoly. The same logic applies to work, since an office that matches trained workers with the firms that need them costs little and returns far more than a payment that is sent out and forgotten. Taxes are also easier to accept when the rate follows the state of the economy, rising in good years so that a reserve is there when trade slows. What must never be for sale is the law itself, since a courtroom in which a rich firm wins by default destroys the confidence that markets themselves depend on. Efficiency and freedom are not rivals here, and each one protects the other.",
+      "claim": "Government should pay for services without owning them, and a tax system should be judged by how well the money is spent."
+    },
+    {
+      "id": "7f546086-2019-04-18T16:57:49Z-00002-000",
+      "sha256": "e1ea5303c071e4ad04c344ce4343b9d7e3d3f44c66a5aaaa480cbd9f534cc12a",
+      "verdict": "skip",
+      "skip_reason": "본문이 토론 진행에 대한 반박(순환논증·발언 차례)뿐이고, 실질 논지는 같은 청크의 다른 항목과 중복이다."
+    },
+    {
+      "id": "7f546086-2019-04-18T16:57:49Z-00006-000",
+      "sha256": "3c9f62d84494b611d79aceeb7b6a1edfe882d90c87a89002f114ae6c48e164eb",
+      "verdict": "write",
+      "topic_ko": "교사 무장 정책",
+      "passage": "Placing guns in the hands of classroom teachers is presented as a cheap answer to school violence, and it fails almost every practical test. A weapon that is locked in a safe is useless in the seconds when it would supposedly matter. A weapon carried all day, by contrast, sits within reach of curious children who have been told for years that guns are exciting. Trust is the second loss, because a teacher is the adult a frightened student runs toward, and that role does not survive the daily sight of a gun on a belt. The training is expensive as well, and it is not the brief course that people imagine, since judgment under pressure takes months of practice that no school budget was designed to cover. Money spent that way is money taken from school nurses, from door locks, and from trained officers who do this work as a profession. Schools are safer when the adults inside them are teaching and somebody else is guarding.",
+      "claim": "Arming teachers is an expensive answer that would make schools less safe rather than more."
+    },
+    {
+      "id": "7f5794de-2019-04-18T19:50:09Z-00003-000",
+      "sha256": "f5a1024a582e16fafea4eabd1b22dc253a5e052c9089f4799af4c72717a865de",
+      "verdict": "skip",
+      "skip_reason": "특정 종교 교리의 참을 전제한 논쟁이라 교재 지문으로 부적절하다."
+    },
+    {
+      "id": "80032c2d-2019-04-18T11:42:43Z-00000-000",
+      "sha256": "3e5d3405f518e46bbf5dd5903c72832a8ec835833b7e98a11656bc758f170715",
+      "verdict": "write",
+      "topic_ko": "공교육 폐지 주장에 대한 반론",
+      "passage": "Proposals to close public schools and leave education entirely to private providers treat school spending as a cost when it is far closer to an investment. A population with more skill earns more, pays more tax, and draws less public support, so the money returns to the state in the ordinary course of a working life. Private schools cannot fill the gap either, because fees rise to whatever the market will bear, and the families who are already furthest behind are exactly the ones who would be priced out. Teaching at home is no general answer, since many parents were never taught the material themselves and most households now depend on two incomes, which leaves nobody free during the day. There is also a plain economic point that critics rarely mention. Schools are among the largest employers in the country, and closing them would remove hundreds of thousands of jobs along with the taxes that come with them. A country that abandons public education pays for it twice.",
+      "claim": "Public education is an investment that no private system could replace."
+    },
+    {
+      "id": "803f29db-2019-04-18T15:55:33Z-00004-000",
+      "sha256": "66442a1f5fd904ab5c034d58be2ffdad43092c3716395dc1fc109e3ade0a6ecf",
+      "verdict": "skip",
+      "skip_reason": "신의 존재 증명을 다투는 종교 논쟁이라 교재 지문으로 부적절하다."
+    },
+    {
+      "id": "815a073a-2019-04-18T17:21:14Z-00000-000",
+      "sha256": "b29de246242bccf15a5ff14409df04b66022a2f00f70600f7d0cb2ab8d2eecc2",
+      "verdict": "skip",
+      "skip_reason": "약물 합법화 주제라 한국 고등학생용 교재 지문으로 부적절하다."
+    },
+    {
+      "id": "81e58800-2019-04-19T12:45:34Z-00002-000",
+      "sha256": "c0316bce7b51243b1f5446d164553734ccdaeb21680d2dd2cd0df542a593909f",
+      "verdict": "write",
+      "topic_ko": "리얼리티 방송 비판은 과장인가",
+      "passage": "Complaints that reality television has gone too far are easy to make and much harder to support. Every household that takes part agrees to the filming in advance, and people who have actually lived through such a program usually describe it afterwards as one of the more rewarding things they have done. Consent is the point that critics skip, and an adult who reads the terms and signs the form is not a victim of the camera. Safety is the other common worry, and it is handled far more carefully than critics assume, since rooms are inspected, open flames are removed, dangerous objects are locked away, and staff are present at every hour. A child in a filmed house is watched by more trained adults than a child in an ordinary kitchen on an ordinary evening. None of this means that every program deserves support, and one built on cruelty or deception should be taken off the air. The honest position is narrower: the danger lies in how a program is made, not in the simple fact that cameras are running.",
+      "claim": "The danger of reality television lies in how a program is made, not in the presence of cameras."
+    },
+    {
+      "id": "81e7d4a8-2019-04-18T13:01:52Z-00001-000",
+      "sha256": "955d87843454cf66bd80d46a04c20c9598523eb1759248048dfdfd804b201e57",
+      "verdict": "skip",
+      "skip_reason": "한국 고등학생용 교재 지문으로 부적절한 민감 주제다."
+    },
+    {
+      "id": "821d0b5d-2019-04-18T19:21:50Z-00004-000",
+      "sha256": "bd594aad3f14e92f918fff26911990f6921840b28badd6320c9e92fb0163bfa9",
+      "verdict": "write",
+      "topic_ko": "이름과 체중을 표시하게 하는 제도의 문제",
+      "passage": "A rule requiring every citizen to wear a tag showing a name and a body weight would be impossible to run and cruel in effect. Distribution alone defeats it, since a country of hundreds of millions cannot be supplied with accurate tags, and a number that moves from month to month would be wrong for most wearers within weeks. Enforcement would be worse than the rule itself, because an officer stopping people to check a tag would waste police time on a matter of no public danger. The deeper objection is that a name and a weight are private facts, and privacy means very little if the state can order any fact to be displayed on a chest. Shame is also a poor treatment. People who already avoid public places would withdraw further, and people at risk of an eating disorder would be pushed toward it by a daily reminder that strangers are reading a number about their bodies. Health improves through food, exercise, and medical support, none of which requires a public label.",
+      "claim": "A rule forcing people to display their name and weight would be impossible to run and cruel in effect."
+    },
+    {
+      "id": "82f976b5-2019-04-19T12:45:45Z-00011-000",
+      "sha256": "67145504bfd42a28fe0fd14f326b68cc97e6d1036e6d9eda80843f9e255e1568",
+      "verdict": "write",
+      "topic_ko": "욕설을 법으로 처벌해야 하는가",
+      "passage": "Making rude language illegal would be a serious mistake, however unpleasant such words are. Free speech is protected precisely because it covers speech that offends, and a right that applies only to polite remarks is not a right at all, since polite remarks were never in danger. Strong language usually escapes in moments when nobody is being attacked, after an injury or a piece of bad news, and treating those moments as crimes would turn ordinary people into criminals for a reflex. The law already holds the tools it needs for the cases that genuinely cause harm, because threats, constant insult, and abuse directed at a particular person are punished under rules that have nothing to do with vocabulary. Words also change with fashion, and a list written today would look absurd within a decade, which is a poor foundation for the criminal law. Enforcement would be uneven as well, and the burden would fall hardest on whoever happens to be disliked by the officer on duty. Bad manners are best answered by social disapproval rather than by a court.",
+      "claim": "Rude language should not be illegal."
+    },
+    {
+      "id": "832034ee-2019-04-18T16:15:36Z-00001-000",
+      "sha256": "86c70189c9b105e4f9d94097e909b862b9494d1f2b844f3d0524eab45bcdf011",
+      "verdict": "write",
+      "topic_ko": "미국 공교육 개혁 요구의 초점",
+      "passage": "Alarming figures about unfilled technology jobs are often used to argue that high schools have failed. The numbers are real, but they point somewhere else, because nearly every position on those lists requires a qualification that is earned after school, and many require several years of it. A high school that redesigned itself around one industry would therefore be preparing students for a door that stays shut until a college has opened it. There is a second problem. Public schools were built to give a broad foundation in reading, mathematics, science, and citizenship, and that foundation is what allows a graduate to enter any field, including the fields that do not exist yet. Narrowing it to suit the demands of a single sector would trade a general advantage for a temporary one, and demand from that sector has changed direction more than once in living memory. Reform of training after school is a reasonable request, and blaming high schools for it is not.",
+      "claim": "The reform those job numbers demand is reform of training after high school, not of high school itself."
+    },
+    {
+      "id": "83226e2e-2019-04-18T17:40:10Z-00007-000",
+      "sha256": "56d8973f58acc306cb48b8b5c781adc0faa84c55e3e61fca49ee6f9cc9be48ee",
+      "verdict": "skip",
+      "skip_reason": "한국 고등학생용 교재 지문으로 부적절한 민감 주제다."
+    },
+    {
+      "id": "8339c5fb-2019-04-18T20:03:35Z-00004-000",
+      "sha256": "f8e2717612b79932e9af5139d85ede766a0d2cf988b88e73ad2a288a87fc923a",
+      "verdict": "skip",
+      "skip_reason": "특정 종교를 옹호하는 선동에 가깝고, 특정 국가의 의례를 전제해 자족적이지 않다."
+    },
+    {
+      "id": "845677e0-2019-04-18T11:32:33Z-00000-000",
+      "sha256": "2802231934328076ca7ec656937766d535a227152f9decf561e1ad1586bcde29",
+      "verdict": "write",
+      "topic_ko": "요리 수업을 필수로 해야 하는가",
+      "passage": "Requiring every student to take cooking classes sounds harmless, but the case for it is thinner than it appears. School hours are a fixed budget, and a subject that is added to the schedule is always paid for by another subject that is cut, so a required course has to earn its place against reading, mathematics, and science. Cooking does not clear that bar, because the skill is unusually easy to pick up outside school, since free video lessons show each step at whatever pace a learner needs and a phone is enough equipment to follow them. Cooking is also learned best in a real kitchen, where a family budget and a family taste give the lesson a purpose that a school counter cannot supply. The careers argument is weaker still, since degrees in food and cooking account for well under one percent of the qualifications awarded each year. An optional class serves the students who are genuinely interested, and a short unit inside a health course can cover nutrition for everybody else. Choice rather than obligation is the sensible arrangement here.",
+      "claim": "Cooking should be an optional class rather than a requirement for every student."
+    },
+    {
+      "id": "848388f4-2019-04-19T12:45:37Z-00015-000",
+      "sha256": "26efb50ac174a98290e9515f85bd7221b7cbd53fb278103e8c42fb93f4b044f2",
+      "verdict": "write",
+      "topic_ko": "졸업 자격 표준시험",
+      "passage": "A single examination taken at the end of high school is a poor way to decide who may graduate, because the basic knowledge it claims to measure is not the same for every student. A student heading toward political analysis needs statistics and enough mathematics to run the software that the field depends on. That same student also needs history and the ability to judge where a message came from and why it was made. Someone preparing for engineering needs stronger mathematics than the test supplies, along with physics that the test does not touch at all. The same paper is therefore too demanding for one of them and far too shallow for the other, and neither result tells a college anything it did not already know. Schools already hold years of evidence about each student, in the form of course work, projects, and teacher judgment, and that record is richer than any single morning of questions. A qualification should be a picture of what a student has done, not a photograph of one difficult day.",
+      "claim": "A single standard examination should not decide who is allowed to graduate."
+    },
+    {
+      "id": "8508dd81-2019-04-19T12:45:58Z-00017-000",
+      "sha256": "dcb2ed0c973187805a53c7605d5441d2668652eaabdf45009585874da0bcb2d3",
+      "verdict": "write",
+      "topic_ko": "학교 기도 문제와 지역 자치",
+      "passage": "Defenders of organized prayer in public schools often rest their case on local control, since the board of education is elected and local taxes pay for the buildings. Neither fact settles the question. Voters choose board members for reasons that have almost nothing to do with religion, such as bus routes, repairs, and the size of classes, so an election in practice carries no instruction on prayer at all. Paying tax is an even weaker claim, since nobody argues that taxpayers may set the hours of the school day, fix the amount of time given to history, or dismiss a teacher by majority vote. A local vote on prayer would also decide the beliefs of families too few to outvote anybody, which is what constitutional limits exist to prevent. Those decisions are left to trained staff and to written law precisely because a majority is not automatically expert, and the rules on religion in public institutions are technical rather than local preference. The question belongs where the other hard questions of rights belong, and a local vote cannot answer it.",
+      "claim": "Local elections and local taxes cannot settle the question of prayer in public schools."
+    },
+    {
+      "id": "855bacb6-2019-04-18T19:16:17Z-00005-000",
+      "sha256": "8b5a4530ad643d8d3e0486a408ddd0336d09e13d45d66ba2ec34cf8946783e9a",
+      "verdict": "write",
+      "topic_ko": "연중 학기제로 바꾸는 문제",
+      "passage": "The long summer break survives on habit rather than on reason. It was created when most families farmed and children were needed in the fields during the growing season, a condition that now applies to a tiny fraction of households, so the original justification has simply disappeared. What remains is a gap of several weeks in which a great deal of learning leaks away, and teachers spend the first month of every autumn recovering ground that was covered perfectly well in June. The loss also falls unevenly, since a student with books and a quiet room at home keeps far more than a student with neither. A calendar spread across the year, with shorter breaks at regular intervals, protects that ground and gives teachers room to finish a course of study that is now too crowded to fit comfortably into nine months. Rest is not lost under such a system, because it is distributed instead, and frequent short holidays suit young children better than one exhausting stretch. Working parents gain as well, since care for a child through the summer is expensive and hard to find.",
+      "claim": "The long summer break should be replaced by a calendar spread evenly across the year."
+    },
+    {
+      "id": "87da1933-2019-04-18T14:43:30Z-00007-000",
+      "sha256": "2c89c0081948c8255665a05001e7ecd181925de900c5d51a1be1e89bb6fc98bf",
+      "verdict": "write",
+      "topic_ko": "인류가 환경 문제에 실패할 것인가",
+      "passage": "Predictions that humanity will simply fail on the environment underestimate what has already started. Organized science is the strongest reason for hope. Research groups that combine scientists, engineers, and public officials now exist in most large countries, and their work has moved from warning to design. Clean vehicles, cleaner fuels, and cheap power from the sun and the wind were rare experiments a generation ago, and they are ordinary products today, which is what progress usually looks like from close range. Demand is the second reason, since every year more people are willing to pay for goods that do less damage, and companies follow that money far faster than they follow any lecture. None of this guarantees success, and the scale of the repair is enormous. It does show that failure is a choice rather than a fate, and the record of the last twenty years belongs to the people who kept working, not to the people who announced that nothing could be done.",
+      "claim": "Failure on the environment is a choice rather than a fate."
+    },
+    {
+      "id": "87ed714d-2019-04-18T17:17:18Z-00000-000",
+      "sha256": "7f6e5717e5cd1354c46ac6970e395853676fc401213d3873769a3bc0908c9a61",
+      "verdict": "write",
+      "topic_ko": "펜과 칼 중 무엇이 역사를 움직였는가",
+      "passage": "The claim that the pen defeats the sword is a comforting slogan that history treats roughly. Writing settles a quarrel only when both sides have already agreed to be bound by a document, and for most of the recorded past that agreement did not exist. Empires rose and collapsed by force, borders were drawn by armies, and the treaties that scholars admire were usually written after a battle had decided who would hold the pen. The blade served quieter purposes too, in punishment and in early surgery, long before that work was taken over by trained specialists. There is a further point that the slogan misses. The sword was not defeated by the pen, since it was replaced by the gun, and the pen in turn is being replaced by the keyboard. Tools rise and fall together, and the question of which one rules the world says more about the age than about the tool.",
+      "claim": "Force has shaped history at least as much as writing has, and both tools are now being replaced."
+    },
+    {
+      "id": "886dece7-2019-04-18T14:50:08Z-00002-000",
+      "sha256": "bb9b284ccb6894f378f20f111be6c0b7806fe76f8522325d59c3e344d4000457",
+      "verdict": "write",
+      "topic_ko": "병원 안의 패스트푸드점",
+      "passage": "The presence of a fast food outlet inside a hospital attracts strong criticism, yet the harm it is supposed to cause rarely survives a look at who actually eats there. Patients who are seriously ill do not leave the ward at all, and those with injuries are restricted by a wheelchair, by crutches, or by a diet that the staff control. The customers are therefore mostly visitors, and a visitor is present for a few hours at most, often only once, which is hardly the pattern of eating that produces disease. Visitors also need to eat, and a family that has driven for hours to sit beside a sick relative deserves a warm meal nearby. Staff working long shifts form the other group, and a hot meal at three in the morning is worth more to a tired nurse than a lecture about salt. A hospital can require healthier items on the menu, print the figures beside each price, and keep those prices fair, which meets the real worry without closing anything. A ban would feel decisive and would change almost nothing about what anybody eats.",
+      "claim": "A fast food outlet inside a hospital causes far less harm than its critics claim."
+    },
+    {
+      "id": "887e3bdc-2019-04-18T18:20:48Z-00003-000",
+      "sha256": "53f20f8955f349820fe46a1964703f7efddbfc92c79644cb7c8eb93a8befc1b6",
+      "verdict": "write",
+      "topic_ko": "성인 안전벨트 의무화",
+      "passage": "Laws that punish an adult for riding without a seat belt reach beyond what a government should control. The principle at stake is familiar, because the state may stop an action that injures other people, and it holds no similar claim over an action whose whole risk lands on the person who chose it. An adult without a belt in a crash is the one who is hurt, and the same reasoning already governs a dozen private habits that are legal precisely because the danger stays at home. Children are a different matter, since a rule for minors rests on the judgment that they cannot yet weigh a risk of that size, and nobody proposes to remove it. Enforcement has a cost too, since every stop made for a belt is a stop not made for drunk or dangerous driving. Nothing in the argument recommends the behavior itself, because belts save lives and an adult who refuses one is making a poor decision. The question is only whether a poor private decision should be answered by a fine.",
+      "claim": "Adults should not be fined for riding without a seat belt, even though wearing one is plainly wise."
+    },
+    {
+      "id": "889f8aa3-2019-04-18T18:03:03Z-00005-000",
+      "sha256": "7b7c0b52fe1de4230281e19c15d9feaa90d67f4009d9efb6082f7b508fcf81be",
+      "verdict": "write",
+      "topic_ko": "공정무역을 지지하는 이유",
+      "passage": "Fair trade is an arrangement in which farmers sell under agreed terms instead of accepting whatever a large buyer offers on the day, and the case for it is strong. Bargaining power is the heart of the matter. A single grower facing one powerful buyer has almost no room to refuse, while growers selling under a common standard can hold out for a price that covers the cost of raising the crop. The second gain is the condition of the work itself, because the standard requires safe equipment, decent hours, and a voice for the people who do the picking, and those rules are inspected rather than merely promised. The land benefits as well, since the same standard limits the harshest chemicals and rewards methods that keep the soil alive, which protects the health of the grower and the future of the farm together. Shoppers pay a few cents more for a product marked this way. What those cents buy is a supply chain that does not depend on somebody being desperate.",
+      "claim": "Fair trade deserves support because it changes bargaining power, working conditions and farming methods at the same time."
+    },
+    {
+      "id": "88c5677a-2019-04-18T15:42:24Z-00000-000",
+      "sha256": "3243a36a2af99bdcaf66a36712bff08c1aec1aa144207c539a894661007e9f76",
+      "verdict": "write",
+      "topic_ko": "학교 복장 규정",
+      "passage": "A school dress code is often dismissed as an attack on personal expression, but it answers a real problem inside the building. Clothing is the most visible marker of family income that children carry, and a student who cannot buy the brands that everybody else is wearing stands exposed every single morning, including the student who attends an expensive school on a scholarship. A common standard removes that signal, and what a family earns becomes private again, which is exactly where it belongs. Teachers gain from the same rule, because a plain list of what may be worn settles in seconds an argument that an open policy drags out all morning. The second reason is plainer. Clothes that are chosen to attract attention do attract it, and a classroom where half the room is looking at an outfit is a classroom where half the room is not looking at the lesson. A dress code is not a uniform of the mind, and nothing in it prevents a student from arguing, writing, painting, or dressing freely outside school hours.",
+      "claim": "A school dress code protects students from comparison and distraction without silencing personal expression."
+    },
+    {
+      "id": "89208796-2019-04-18T17:01:01Z-00000-000",
+      "sha256": "47f9a56980e90edc5f23b7ec299fadba60572680e6beaf4d64d34f74155b5ee0",
+      "verdict": "write",
+      "topic_ko": "교복의 효과와 비용",
+      "passage": "Uniforms are criticized for erasing personality, and the criticism misses how much school bullying begins with clothes. Teasing has many sources, but dress is the one that operates every day and in front of everybody, and a student wearing the same shirt as the rest of the class loses the label that invited the comment. Personality survives easily enough, since jewelry, socks, bags, and hair are all still open, and anyone who believes that character depends on a jacket holds a low opinion of character. Cost is the other misunderstanding. A uniform looks expensive because it is bought in one visible payment, while the wardrobe it replaces is assembled quietly across a year in far larger amounts. A few shirts and two pairs of trousers, worn until they wear out, cost a family less than the constant purchases that a free dress policy quietly demands. The saving is real, and it lands on exactly the households that need it most.",
+      "claim": "School uniforms reduce bullying over clothes and cost families less across a full year."
+    }
+  ]
+}
