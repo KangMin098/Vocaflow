@@ -48,6 +48,21 @@ export type SourceKey =
   //   실측 2026-09-13: CC BY×영어×전문보유 5,218,944편 · review 618,178편 · 서론 수확률 97.5%.
   //   변형 가능 논증문 공급선이 사실상 PLOS 하나였던 것을 푼다.
   | 'europe_pmc'
+  // ── 내용 점검을 거쳐 확보한 원문 원천 4곳 (2026-09-23) ──────────────
+  // 원문 117편을 받아 **전부 읽고** 판정해 94편을 확보했다(80.3%).
+  // 넷 다 **전문 경로가 API 안에 이미 있었다** — 긁을 필요가 없다:
+  //   olh       `galleys[]` 의 type=='xml' → JATS 전문
+  //   econstor  OAI `didl` 에 PDF 비트스트림 URL 직접
+  //   scielo    기사 객체의 `fulltexts.html.{lang}`
+  //   openalex  `pdf_url` → 없으면 랜딩 페이지의 `citation_pdf_url` 발굴(성공분의 41%)
+  //
+  // ⚠ `SOURCE_RANKINGS_BY_LEVEL` 에는 넣지 않는다 — `europe_pmc` 와 같은 이유로
+  //   대량 GET 화면의 선택지가 아니다. 학습자 추천이 아니라 교재 원문 공급선이다.
+  // 근거: `docs/reports/source-doc-register.md`
+  | 'olh'
+  | 'econstor'
+  | 'scielo'
+  | 'openalex'
   | 'original'
 
 export interface FeedSpec {
@@ -415,6 +430,51 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     // 철회·정정은 교재에 실을 수 없다 — 제목 축에서 먼저 떨어뜨린다.
     noiseKeywords: ['correction', 'retraction', 'erratum', 'withdrawn'],
     maxItems: 20,
+  },
+  // ── 확보 원문 4곳 (2026-09-23) ──────────────────────────────────────
+  // **피드가 없다.** 넷 다 목록 API 로 받아 본문을 따로 가져오므로 `recencyDays` 가
+  // 뜻을 갖지 않는다(학술 원문은 오래돼도 지문이 된다). 그래도 이 표는
+  // `Record<SourceKey, FeedSpec>` 이라 값을 채워야 하고, 채우지 않으면 TS 가 잡는다.
+  // 값은 `europe_pmc`(같은 성격)를 본보기로 삼되 실측으로 어긋난 칸만 고쳤다.
+  olh: {
+    recencyDays: 3650,
+    minDescriptionLen: 100,
+    minTitleLen: 15,
+    sourceWeight: 0.78,    // 인문 학술 — 편집 품질이 고르다(정제 후 산문 99.8% 잔존)
+    levelBonus: -0.10,
+    idealDescLen: 300,
+    noiseKeywords: ['correction', 'retraction', 'erratum', 'editorial'],
+    maxItems: 50,          // Janeway API 가 한 번에 50편을 준다
+  },
+  econstor: {
+    recencyDays: 3650,
+    minDescriptionLen: 100,
+    minTitleLen: 15,
+    sourceWeight: 0.74,    // 워킹페이퍼 — 방법·표 절이 길다(정제 후 90.6%)
+    levelBonus: -0.10,
+    idealDescLen: 300,
+    noiseKeywords: ['correction', 'retraction', 'erratum'],
+    maxItems: 100,         // OAI ListRecords 한 페이지
+  },
+  scielo: {
+    recencyDays: 3650,
+    minDescriptionLen: 80,
+    minTitleLen: 15,
+    sourceWeight: 0.76,
+    levelBonus: -0.08,     // 남아공 인문사회 — 주제가 평이한 편이다
+    idealDescLen: 250,
+    noiseKeywords: ['correction', 'retraction', 'erratum'],
+    maxItems: 50,
+  },
+  openalex: {
+    recencyDays: 3650,
+    minDescriptionLen: 100,
+    minTitleLen: 15,
+    sourceWeight: 0.68,    // 색인이라 품질이 고르지 않다 — 스팸 6%·본문 비영어 18~30%
+    levelBonus: -0.10,
+    idealDescLen: 300,
+    noiseKeywords: ['correction', 'retraction', 'erratum', 'dumps', 'braindump', 'practice test'],
+    maxItems: 200,         // API per_page 상한
   },
   plos: {
     recencyDays: 3650,     // 연구 — stale 관대
@@ -921,6 +981,73 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'environment', weight: 0.12 },
     ],
   },
+  // ── 확보 원문 4곳 (2026-09-23) ──────────────────────────────────────
+  // 소재 분포는 **확보 94편의 실측**이다(추정이 아니다):
+  //   경제 20 · 사회 18 · 교육 13 · 문화 8 · 철학 8 · 심리 7 · 역사 6 ·
+  //   과학 4 · 예술 3 · 기술 3 · 환경 3 · 인류 1
+  // `preferredFeedMix` 는 비운다 — 넷 다 **피드가 없고** 목록 API 로 받는다.
+  olh: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'C1', max: 'C2' },
+    maxItemsPerBatch: 50,
+    minScore: 0.40,
+    bulkPriority: 3,
+    license: 'CC BY 4.0',
+    attributionRequired: true,
+    topicDomain: ['humanities', 'culture', 'philosophy', 'history', 'art', 'society'],
+    styleGuide: '인문 학술 본문 · 정제 후 산문 99.8% 잔존(넷 중 최고) · 장문 토막 편당 28',
+    // ⚠ **전권보유 8.3% 가 섞여 있다.** 편당 필터가 필수다. 그리고 `short_name` 이
+    //   `censes/by/4.0/` 로 잘린 편이 30편 중 6편이고 그중 하나는 `name` 마저
+    //   "Imported License" 다 — **`url` 을 함께 보지 않으면 CC BY 를 놓친다.**
+    preferredFeedMix: [],
+  },
+  econstor: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'C1', max: 'C2' },
+    maxItemsPerBatch: 100,
+    minScore: 0.40,
+    bulkPriority: 4,
+    // ⚠ **CC 전용 문서가 0편이다**(표본 30편 전수 확인). EconStor 표준 이용약관이
+    //   **항상 병기**되고 CC 는 그 위에 더 붙는 것이다(30편 중 17편). 재배포형
+    //   활용은 그 병기분에 한정해 봐야 한다 — 「CC 25.9%」를 그대로 쓰면 안 된다.
+    license: 'EconStor Terms of Use',
+    attributionRequired: true,
+    topicDomain: ['economy', 'society', 'education', 'psychology', 'environment'],
+    styleGuide: '경제·사회 워킹페이퍼 본문 · 장문 토막 편당 21 · 방법·표 절은 정제 대상',
+    preferredFeedMix: [],
+  },
+  scielo: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 50,
+    minScore: 0.42,
+    bulkPriority: 3,
+    // ⚠ **편당 라이선스 필드가 없다** — 기사 객체에 없고 저널 객체(`title.v541`)에만
+    //   있다(기사 30편 0/30 확인). 저널 350개 중 **41개가 BY-NC-ND**(개작 금지)라
+    //   문장 절단·재조합을 쓰려면 `v541` 로 **저널 단위 제외**가 필요하다.
+    license: 'CC BY 4.0',
+    attributionRequired: true,
+    topicDomain: ['society', 'education', 'economy', 'culture', 'history', 'environment'],
+    styleGuide: '남아공 인문사회 학술 본문 · 확보율 100%(30/30) · 장문 토막 편당 16',
+    preferredFeedMix: [],
+  },
+  openalex: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'C1', max: 'C2' },
+    maxItemsPerBatch: 200,
+    minScore: 0.44,        // 넷 중 확보율 최저(59%) — 문턱을 높인다
+    bulkPriority: 5,
+    license: 'CC BY 4.0',  // 질의 필터가 곧 라이선스다(`best_oa_location.license:cc-by`)
+    attributionRequired: true,
+    topicDomain: ['art', 'humanities', 'culture', 'history', 'philosophy', 'society'],
+    styleGuide: '예술·인문 OA 본문 · 막힌 예술 칸을 겨냥한다 · 장문 토막 편당 16',
+    // ⚠ **적재 전 게이트가 셋 필요하다** — 전부 실측이다:
+    //   ① 스팸 6.0% — IT 자격시험 덤프 판매글이 CC-BY `article` 로 색인돼 있다
+    //   ② 본문 비영어 18~30% — 제목·초록만 영어인 논문이 많다. 초록 기준(0.5%)의
+    //      40~60배다. 라틴문자 비율로는 독일어·폴란드어를 못 거른다 → 기능어 비율
+    //   ③ 초록 null·10어 미만 10.8%
+    preferredFeedMix: [],
+  },
   plos: {
     targetLevels: ['advanced'],
     targetCefr: { min: 'C1', max: 'C2' },
@@ -1099,6 +1226,16 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   //   `textbook/register-signal.ts` 가 재고, 기출 중앙 5.33/1,000어 를 눈금으로 쓴다.
   //   리뷰 논문은 주장·근거·반론 구조라 기본값을 argumentative 로 둔다.
   europe_pmc: 'argumentative',
+  // ── 확보 원문 4곳 (2026-09-23) ──────────────────────────────────────
+  // ⚠ **이 표를 빠뜨리면 조용히 `?? 'expository'` 로 떨어진다.** `Record<string, string>`
+  //   이라 TS 가 안 잡는다 — gutenberg 23,618편이 그렇게 빠져 narrative 50% 를
+  //   expository 로 세고 있었다. 그래서 새 원천은 **여기부터** 적는다.
+  // 값은 읽기 판정의 실측 근거다: 확보 94편 중 74편(79%)이 장문 창을 내고,
+  // 판정자들이 「논증 대목이 있다」를 keep 의 주 근거로 썼다.
+  olh: 'argumentative',
+  econstor: 'argumentative',
+  scielo: 'argumentative',
+  openalex: 'argumentative',
   voa: 'news',
   nasa: 'expository',
   nih: 'expository',
@@ -1395,6 +1532,11 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   space_place: getSourcePolicy('space_place'),
   storyweaver: getSourcePolicy('storyweaver'),
   original: getSourcePolicy('original'),
+  // 확보 원문 4곳 (2026-09-23) — 정책은 SOURCE_SPECS 에서 파생된다(하드코딩 없음).
+  olh: getSourcePolicy('olh'),
+  econstor: getSourcePolicy('econstor'),
+  scielo: getSourcePolicy('scielo'),
+  openalex: getSourcePolicy('openalex'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

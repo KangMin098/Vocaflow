@@ -57,6 +57,13 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   wikipedia: ['expository', 'reference'], // 정규 백과 FA/GA (CC-BY-SA → 발행 가능)
   plos: ['expository'], // 오픈 학술 논문 (CC-BY → 발행 가능)
   europe_pmc: ['expository'], // 생명과학·의학 오픈액세스 (PLOS 와 같은 계열 — 논증문 공급선 2)
+  // 확보 원문 4곳 (2026-09-23) — 넷 다 argumentative 다. 읽기 판정에서 확보 94편 중
+  // 74편(79%)이 장문 창을 냈고, 판정자들이 「논증 대목이 있다」를 keep 의 주 근거로 썼다.
+  // 설명 대목도 함께 있으므로 expository 를 같이 둔다.
+  olh: ['argumentative', 'expository'],
+  econstor: ['argumentative', 'expository'],
+  scielo: ['argumentative', 'expository'],
+  openalex: ['argumentative', 'expository'],
   wikivoyage: ['reference'], // 여행 목적지 가이드 (CC-BY-SA → 발행 가능 · reference 보강)
   usgs: ['expository'], // 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 가능)
   noaa: ['expository'], // 기후과학 explainer (PD US Gov → 발행 가능)
