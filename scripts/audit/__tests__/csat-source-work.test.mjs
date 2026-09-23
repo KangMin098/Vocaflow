@@ -24,20 +24,26 @@ test('same-grade contract drift and orphan references fail CI', () => {
 test('confirmed non-prose needs no fabricated analysis repair', () => {
   assert.deepEqual(discoverWork({}, { analysisStatus: 'missing', contentStatus: 'rejected', blockers: ['content_rejected', 'analysis_missing'] }, {}, false), ['policy_exclusion'])
 })
-test('accepted-but-oversize sources are excerpt work, not a stable policy exclusion', () => {
-  // `base_format` + 발췌 가능(`missing`) = 발췌 생성이 푼다. 실측 2026-09-23 의 3,578편이 이 모양이다.
+test('길이는 제외 사유가 아니다 — 발췌 대기분은 excerptStatus 로만 센다 (2026-09-23)', () => {
+  // 지문 창보다 긴 원문은 결함이 아니라 원문의 정상 상태다. 발췌는 교재 생성 단계가 한다.
   assert.deepEqual(
-    discoverWork({}, { ...clean, excerptStatus: 'missing', blockers: ['base_format', 'excerpt_not_materialized'] }, {}, false),
+    discoverWork({}, { ...clean, excerptStatus: 'missing' }, {}, false),
     ['excerpt_materialization'],
   )
-  // 어수가 창 하한 미만이면 `not-required` 라 그 format 은 발췌로 못 푼다 — 그대로 차단이어야 한다.
   assert.deepEqual(
-    discoverWork({}, { ...clean, excerptStatus: 'not-required', blockers: ['base_format'] }, {}, false),
-    ['policy_exclusion'],
+    discoverWork({}, { ...clean, excerptStatus: 'candidate' }, {}, false),
+    ['excerpt_materialization'],
   )
+  // 창 상한 이하면 자를 것이 없다 — 큐에 넣지 않는다(짧다는 이유로 막지도 않는다).
+  assert.deepEqual(discoverWork({}, { ...clean, excerptStatus: 'not-required' }, {}, false), [])
   // 내용이 반려면 길이와 무관하게 차단이다.
   assert.deepEqual(
-    discoverWork({}, { analysisStatus: 'complete', contentStatus: 'rejected', excerptStatus: 'missing', blockers: ['base_format'] }, {}, false),
+    discoverWork({}, { analysisStatus: 'complete', contentStatus: 'rejected', excerptStatus: 'missing', blockers: [] }, {}, false),
     ['policy_exclusion'],
+  )
+  // `base_format` 은 더 이상 생산되지 않지만, 옛 캐시에 남아 있어도 제외 사유가 되면 안 된다.
+  assert.deepEqual(
+    discoverWork({}, { ...clean, excerptStatus: 'missing', blockers: ['base_format'] }, {}, false),
+    ['excerpt_materialization'],
   )
 })

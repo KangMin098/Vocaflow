@@ -298,6 +298,11 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 
 ## ACP — Article Curation Pipeline v1.0
 
+> ⚠️ **수집·적재 구조는 2026-09-23 에 재설계가 결정됐다** — 채택분만 본문을 보관하고, 제외는
+> 본문 없는 묘비로 기억해 다시 GET·재판정하지 않는다. 기준설계와 이행 순서:
+> [SOURCE_INTAKE_DESIGN](./SOURCE_INTAKE_DESIGN.md). 아래 「중복 방지 규약」은 **그 전의 구조**다
+> (보유 목록 = `library_articles` 전량 스캔). 이행이 끝나면 이 절을 기준설계로 갈음한다.
+
 ### 중복 방지 규약 — 열쇠 한 벌 + 커서 한 벌 (2026-09-07)
 
 같은 소스를 다시 캘 때 **이미 확보·제외한 것을 또 하지 않게** 하는 두 축. 정본은 코드다:
