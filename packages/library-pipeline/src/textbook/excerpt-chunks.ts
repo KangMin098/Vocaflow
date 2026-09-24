@@ -1,6 +1,6 @@
 // packages/library-pipeline/src/textbook/excerpt-chunks.ts
 //
-// **PD 장문을 비중복 발췌 조각으로 자른다.** `scripts/textbook/harvest-gutenberg-kid.mjs`
+// **PD 장문을 비중복 발췌 조각으로 자른다.** `scripts/textbook/harvest-gutenberg-kid.mjs`(2026-09-24 퇴출로 삭제 — 이 모듈은 남는다)
 // 안에 있던 것을 그대로 꺼내 왔다 — 시험을 붙이기 위해서다.
 //
 // ── 왜 꺼냈나 (2026-09-15) ──────────────────────────────────────────

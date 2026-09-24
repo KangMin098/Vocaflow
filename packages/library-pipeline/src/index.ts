@@ -1154,7 +1154,7 @@ export type {
 } from './textbook/freedom'
 
 // PD 장문을 비중복 발췌 조각으로(`textbook/excerpt-chunks.ts`).
-// `scripts/textbook/harvest-gutenberg-kid.mjs` 안에 있던 것 — 시험을 붙일 수 없는 자리라
+// `scripts/textbook/harvest-gutenberg-kid.mjs`(2026-09-24 퇴출로 삭제 — 이 모듈은 남는다) 안에 있던 것 — 시험을 붙일 수 없는 자리라
 // 경계를 넘는 조각이 지면까지 갔다.
 export { disjointChunks, looksLikeHeading } from './textbook/excerpt-chunks'
 export type { ChunkBounds, ExcerptChunk, ParagraphUnit } from './textbook/excerpt-chunks'

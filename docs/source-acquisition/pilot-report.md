@@ -168,13 +168,34 @@ Phase 0 감사가 `csat_dcp_items` 의 고아를 찾았고, 내가 전수로 귀
 나머지 45,663개는 문장 단위 유형(`blank_word` 9,557 · `grammar_fix` 7,960 · `word_order` 5,589 ·
 `unit_vocab` 9,607 · `vocab_choice` 5,754 · `unit_grammar` 4,531 · `grammar_choice` 2,365)이다.
 
-**조치하지 않았다** — 46,031행 삭제는 또 하나의 되돌릴 수 없는 작업이고 사용자 결정이다.
+### 조치 — 삭제했다 (사용자 지시 2026-09-24)
+
+지우기 전에 확인한 것 `[측정]`:
+
+| 참조 | 삭제 규칙 | 걸린 행 |
+|---|---|---:|
+| **`csat_item_attempts` (학습자 풀이)** | SET NULL | **0** — 수요 측 데이터는 안 다친다 |
+| `csat_item_reviews` | CASCADE | 414 |
+| `csat_item_state` | CASCADE | 127 |
+
+스냅샷을 먼저 떴다 — `.agent-logs/orphan-items-20260924.json` (46,031행 전량 · **payload 포함** · 73 MB).
+gutenberg 퇴출 때와 달리 본문을 담았다: 그때는 원문이 PD 라 다시 받을 수 있었지만
+**이 문항들은 LLM 산출물이라 어디서도 다시 못 받는다.**
+생성기: `scripts/csat/orphan-items-snapshot.mjs`.
+
+삭제 결과: article 문항 **879,534 → 833,503**(−46,031) · **고아 0** · 학습자 풀이 20건 유지.
+
+⚠️ 되살려도 `ref_id` 가 가리키던 글은 없다 — 스냅샷은 「문항을 다시 넣는」 근거이지
+「원천을 되살리는」 근거가 아니다.
 
 ### 그 밖에 퇴출이 안 닿은 자리 `[측정: Phase 0 감사]`
 
 - `csat_source_registry` 가 아직 **gutenberg 를 `active=true`** 로 갖고 있다 → 소싱 화면이 그린다
-- DB 표 `csat_source_snapshots` 가 2026-09-23T18:20Z 에 굳어 **gutenberg 40,519편을 그대로** 담고 있다.
-  크론 `20 */6 * * *` 인데 **2026-09-24 00:20·06:20 UTC 실행분이 없다**
+- DB 표 `csat_source_snapshots` 가 2026-09-23T18:20Z 기준이라 **gutenberg 40,519편을 그대로** 담고 있다.
+  ⚠️ **정정** — 파일럿 보고는 "2026-09-24 00:20·06:20 실행분이 없다"고 적었지만 **오독이다.**
+  `select now()` 가 **2026-09-24 00:11 UTC** 이고, 00:20 은 아직 오지 않았다. `cron.job_run_details`
+  전수에서 jobid 18 의 실패 0건 · 09-22~23 내내 6시간마다 정확히 돌았다. **크론은 정상이고
+  이 표는 다음 실행(00:20)에 스스로 갱신된다** — 손댈 필요가 없다.
 - 저장소 스냅샷 **10개가 STALE** — 특히 `source-inventory-snapshot.json`(2026-09-19)은
   scanned 109,043 vs 실제 68,604
 
