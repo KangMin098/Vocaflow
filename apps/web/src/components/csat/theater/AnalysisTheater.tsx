@@ -54,6 +54,9 @@ import {
   type TheaterStep,
 } from '@/lib/csat/theater'
 import { useTheaterSfx } from '@/lib/csat/theater-sfx'
+import { track } from '@/lib/analytics/client'
+import { withView } from '@/lib/csat/continuity'
+import { loadDissectionRecord, saveDissectionRecord } from '@/lib/csat/session/store'
 
 import styles from './theater.module.css'
 
@@ -88,8 +91,9 @@ export function AnalysisTheater({
   steps,
   blocks,
   map,
+  itemId,
   backHref,
-  backLabel,
+  typeHref,
   next,
   source,
   siblings,
@@ -102,14 +106,29 @@ export function AnalysisTheater({
   steps: TheaterStep[]
   blocks: TheaterBlock[]
   map: TheaterMap | null
+  /** 문항 id(`2026#31`) — 열람 기록용 */
+  itemId: string
+  /** 기출분석공간 홈 */
   backHref: string
-  backLabel: string
+  /** 이 유형의 서가 — 유형을 모르면 null */
+  typeHref: string | null
   next: { href: string; label: string } | null
   source: { url: string; direct: boolean; reason: string | null }
   siblings: TheaterSibling[]
   examLabel: string
 }) {
   const lec = useLecture()
+  // 연 문항을 기록에 남긴다 — 넓이 · 「최근 연 문항」 · 공백 판정의 재료(ia-design §2-5)
+  useEffect(() => {
+    let alive = true
+    void loadDissectionRecord().then((record) => {
+      if (alive) void saveDissectionRecord(withView(record, itemId, Date.now()))
+    })
+    return () => {
+      alive = false
+    }
+  }, [itemId])
+  const back = (to: 'home' | 'type' | 'browse') => () => track({ name: 'csat_item_back', props: { to } })
   const sfx = useTheaterSfx()
   const [cursor, setCursor] = useState(0)
   const [all, setAll] = useState(steps.length === 0)
@@ -208,9 +227,20 @@ export function AnalysisTheater({
     <div className={styles.workspace} data-csat-theater data-testid="analysis-theater">
       {/* ── 상단 막대 ─────────────────────────────────────────── */}
       <header className={styles.bar}>
-        <Link className={styles.back} href={backHref}>
-          <ChevronLeft size={15} aria-hidden /> {backLabel}
-        </Link>
+        {/* 돌아가는 길 셋 — 예전에는 같은 유형 문항으로만 이어져 막다른 화면이었다(ia-design §2-5) */}
+        <nav className={styles.crumbs} aria-label="기출분석공간으로 돌아가기">
+          <Link className={styles.back} href={backHref} onClick={back('home')} data-testid="item-back-home">
+            <ChevronLeft size={15} aria-hidden /> 홈
+          </Link>
+          {typeHref ? (
+            <Link className={styles.back} href={typeHref} onClick={back('type')} data-testid="item-back-type">
+              이 유형 목록
+            </Link>
+          ) : null}
+          <Link className={styles.back} href="/csat/browse" onClick={back('browse')} data-testid="item-back-browse">
+            서가
+          </Link>
+        </nav>
         <h1 className={styles.docTitle}>{title}</h1>
         {typeName ? <span className={styles.tag}># {typeName}</span> : null}
         {points ? <span className={styles.tagQuiet}>{points}점</span> : null}
@@ -295,7 +325,7 @@ export function AnalysisTheater({
               {next ? (
                 <Link href={next.href}>같은 유형 다음 문항</Link>
               ) : (
-                <Link href={backHref}>기출 목록</Link>
+                <Link href={typeHref ?? '/csat/browse'}>이 유형 목록</Link>
               )}
             </div>
             <div className={styles.composerFoot}>

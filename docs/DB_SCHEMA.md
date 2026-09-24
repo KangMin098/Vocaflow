@@ -139,6 +139,7 @@ SECURITY **DEFINER** 라 영향이 없었다. 깨져 있던 것은 SECURITY **IN
 |---|---|---|
 | `csat_session_attempts` | `id` uuid PK · `user_id` → auth.users · `item_id` text(`2026#31`) · `type_id` · `correct` bool(null = 넘김) · `confused` · `sec` · `answered_at` | **UNIQUE `(user_id, item_id, answered_at)`** — 재전송·두 탭이 겹쳐도 한 행. 인덱스 `(user_id, answered_at DESC)` |
 | `csat_review_queue` | PK `(user_id, item_id)` · `type_id` · `due_at` · `stage` 1\|2 · `updated_at` | 졸업하면 행 삭제. **`due_at` 은 코드가 계산한 값** — 합친 풀이를 시간순으로 다시 돌린 결과(`lib/csat/session/sync.ts#replayReviews`). DB 함수로 다시 계산하지 않는다(두 벌 금지) |
+| `csat_learner_state` | PK `user_id` → auth.users · `record` jsonb(DissectionRecord v1 — 예측 · 공식 · 복습 큐 · 진행 중 세트 · 열람) · `updated_at` | **기출 해부 기록의 서버 사본**(2026-09-25, `20260925093000`). 기기(IndexedDB)가 먼저, 서버는 다른 기기에서 이어지게 하는 사본. 병합은 코드 하나(`lib/csat/continuity.ts#mergeDissection`) — DB 에서 다시 합치지 않는다. CHECK: version 1 · 1MB 미만. RLS 본인 행만. 경로 `/api/csat/state` |
 
 두 표 모두 RLS **본인 행만**(`FOR ALL TO authenticated USING user_id = auth.uid()`) · `anon` 권한 회수(보안 권고 후속
 `csat_session_records_revoke_anon`). 기존 `csat_item_attempts`(dcp 문항 uuid)·`csat_trap_attempts`(선지 단위 훈련)와는 다른 단위라 새 표다.

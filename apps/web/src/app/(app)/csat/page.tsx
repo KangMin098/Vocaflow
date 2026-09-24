@@ -11,33 +11,46 @@
 //    풀스크린 목록에 없으므로 그 프레임은 그대로 통과한다(= 화면이 뷰포트를 통째로 갖는다).
 //    진입 계측은 그 layout 의 `ScreenViewTracker group="app"` 이 맡는다(D2).
 //
-// 서버가 하는 일은 **회차 이름 목록 하나**뿐이다 — 나머지 수치는 클라이언트가 구운 JSON
-// (`trap-atlas.json`)에서 직접 읽는다. 그래서 이 화면은 DB 왕복이 0 이고, 로그인 세션이
-// 만료돼도 빈 표가 되지 않는다(`/csat` 홈은 공개 분석을 읽으므로 그렇지 않다).
+// 서버가 하는 일: 회차 이름 목록(구운 JSON) + 문항 → 유형 표(서가 카탈로그, 캐시). 표의 수치는
+// 클라이언트가 구운 `trap-atlas.json` 에서 읽는다. 학습 기록은 브라우저가 기기 + `/api/csat/state` 에서 읽는다.
 
 import type { Metadata } from 'next'
 
-import { SpaceScreen, type SpaceExam } from '@/components/csat/space/SpaceScreen'
-import { browseExamOrder, examAxis } from '@/lib/csat/browse-model'
-import { skeletonExamMeta } from '@/lib/csat/skeleton'
+import type { NeedId } from '@/components/csat/home/CsatRail'
+import { SpaceScreen } from '@/components/csat/space/SpaceScreen'
+import { itemTypeMap, railExams } from '@/lib/csat/rail-data'
 import { spaceHeadline } from '@/lib/csat/space-model'
+
+export const dynamic = 'force-dynamic'
 
 // 제목의 수는 **세어서 넣는다.** 26·32 를 손으로 적으면 코퍼스를 다시 구울 때 탭 제목만
 // 조용히 낡는다(AGENTS I5 — 같은 이유로 화면 안의 수도 전부 계산값이다).
 export function generateMetadata(): Metadata {
   const head = spaceHeadline()
   return {
-    title: `기출 작업 공간 — 유형 ${head.types} · 함정 ${head.traps}`,
-    description: '평가원 기출의 유형과 오답 제조법을 한 판에 놓고 고릅니다. 수치는 구운 코퍼스 실측입니다.',
+    title: `기출분석공간 — 유형 ${head.types} · 함정 ${head.traps}`,
+    description: '평가원 기출의 유형과 오답 제조법을 한 판에 놓고 고르고, 멈춘 자리에서 이어 갑니다.',
   }
 }
 
-export default function CsatHomePage() {
-  // 구운 골격 파일에서 온다 — DB 를 치지 않는다(`skeleton.ts` 머리말).
-  const exams: SpaceExam[] = skeletonExamMeta()
-    .map((exam) => ({ ...exam, id: exam.exam_id, ...examAxis(exam.exam_id) }))
-    .sort(browseExamOrder)
-    .map(({ exam_id, label, items }) => ({ exam_id, label, items }))
+const NEED_IDS: NeedId[] = ['start', 'killer', 'trap', 'evidence', 'recent']
+const one = (v: string | string[] | undefined) => (typeof v === 'string' ? v : undefined)
 
-  return <SpaceScreen exams={exams} />
+export default async function CsatHomePage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const params = await searchParams
+  const needParam = one(params.need)
+  const need = NEED_IDS.find((n) => n === needParam) ?? (one(params.tab) === 'trap' ? 'trap' : null)
+  // 회차 목록은 구운 골격 JSON, 문항 → 유형은 서가 카탈로그(프로세스 캐시)에서 온다.
+  const [exams, itemTypes] = [railExams(), await itemTypeMap()]
+  return (
+    // 쿼리가 바뀌면 다시 세운다 — 같은 경로 안의 링크 이동은 컴포넌트를 재사용해 첫 필터가 남는다(A2 실패 2026-09-25)
+    <SpaceScreen
+      key={[need ?? '', one(params.tab) ?? '', one(params.view) ?? ''].join('|')}
+      exams={exams}
+      itemTypes={itemTypes}
+      initialTab={one(params.tab) === 'trap' ? 'trap' : 'type'}
+      need={need}
+      view={one(params.view) === 'continue' ? 'continue' : 'home'}
+    />
+  )
 }

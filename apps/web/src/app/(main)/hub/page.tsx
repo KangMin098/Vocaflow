@@ -28,6 +28,7 @@ import { Screen } from '@/components/ui/ios'
 import { ToneTabs } from '@/components/ui/ToneTabs'
 import { BTN } from '@/components/ui/tines-kit'
 import { PromoLink } from '@/components/hub/portal/PromoLink'
+import { CsatContinueLine } from '@/components/csat/home/CsatContinueLine'
 import {
   FinalCta,
   ProductFrame,
@@ -59,6 +60,8 @@ export default async function HubPage() {
         {/* ── 히어로 + 서명 줄 + 제품 액자 (참조 ThreeBHero 세 칸) ── */}
         <div className="flex flex-col gap-10 md:gap-12">
           <section aria-label="오늘">
+            {/* 기출 이어서 — 멈춘 세트 · 오늘 복습이 있을 때만 선다(docs/csat/ia-design.md §3) */}
+            <CsatContinueLine />
             {newest && (
               <PromoLink
                 href={`/library/books/${newest.id}`}

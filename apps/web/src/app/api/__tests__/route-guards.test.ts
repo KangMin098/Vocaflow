@@ -63,6 +63,10 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
     why: '기출 세션 — 본인 풀이 기록 읽기·올리기·지우기. 로그인 확인은 라우트 안, 쓰기는 RLS(본인 행만)',
   },
   {
+    route: 'csat/state',
+    why: '기출 해부 기록 사본(docs/csat/ia-design.md §3-1) — 본인 기록 읽기·쓰기·지우기. 로그인 확인은 라우트 안, 쓰기는 RLS(본인 행만)',
+  },
+  {
     route: 'csat/session/reveal',
     why: '기출 세션 — 답을 고른 뒤에만 해설을 준다(docs/csat-learner-brief.md A4). 로그인 확인은 라우트 안',
   },

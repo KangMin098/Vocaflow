@@ -6,6 +6,7 @@ import { ArrowUpRight, CircleAlert, X } from 'lucide-react'
 import type { SourceInventoryRow } from '@/lib/textbook/source-inventory-view'
 import { sourceArticlesHref, sourceClues } from '@/lib/textbook/source-workspace'
 import styles from './sources.module.css'
+import { SourceGetGuide } from './SourceGetGuide'
 
 const STATUS_LABEL: Record<string, string> = {
   ready: '검수 대기',
@@ -173,6 +174,7 @@ export function SourceDetail({
           교재 적격 판정 기준 보기 <ArrowUpRight size={14} aria-hidden />
         </button>
       </section>
+      <SourceGetGuide source={row.source} label={row.label} />
       <details>
         <summary>수집 상태와 차단 기록</summary>
         <dl className={styles.factors}>

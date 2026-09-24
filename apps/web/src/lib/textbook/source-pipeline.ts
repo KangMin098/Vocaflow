@@ -13,6 +13,8 @@
 //
 // ⚠️ 명령은 저장소에 실제로 있는 파일만 적는다 — `source-pipeline.test.ts` 가 파일 존재를 잰다.
 
+import { sourceGetGuide, sourceGetPrompt } from './source-get-guide'
+
 export type StageKey = 'collect' | 'retain' | 'extract' | 'level' | 'judge' | 'usable'
 export type Tone = 'ok' | 'pile' | 'stop' | 'na'
 export type Who = 'auto' | 'claude' | 'person' | 'result'
@@ -182,7 +184,14 @@ export interface HowTo {
 export function howTo(row: PipelineRow, stage: StageKey, nextRound: number): HowTo | null {
   const src = row.source
   switch (stage) {
-    case 'collect':
+    case 'collect': {
+      // 원천별 가져오는 법(source-get-guide) 이 있으면 그것 — 상세 패널의 「가져오는 법」과 같은 말을 한다.
+      const guide = sourceGetGuide(src)
+      if (guide) {
+        const steps = guide.steps.flatMap((s) => (s.command ? [{ cmd: s.command, why: s.note, writes: s.writes }] : []))
+        if (steps.length)
+          return { steps, claude: sourceGetPrompt(src, src, guide), rerun: '--commit 없이는 쓰지 않고, 이미 받은 원문은 원천 id 로 건너뛴다' }
+      }
       return row.harvestCmd
         ? {
             steps: [{ cmd: row.harvestCmd, why: `${src} 에서 새 원문을 받는다`, writes: true }],
@@ -200,6 +209,7 @@ export function howTo(row: PipelineRow, stage: StageKey, nextRound: number): How
             claude: null,
             rerun: '이미 받은 원문은 건너뛴다',
           }
+    }
     case 'retain':
       if (row.total - row.pieces <= 0 || row.undecided === 0) return null
       if (src === 'plos') {

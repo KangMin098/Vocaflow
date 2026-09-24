@@ -2,369 +2,220 @@
 
 // apps/web/src/components/csat/browse/CsatWorkspace.tsx
 //
-// **전체 기출 서가 — 별도 화면(3B 워크스페이스 골격).** 기출 메인(`/csat`)에서 띄운다.
+// **전체 기출 서가 — 기출분석공간의 하위 화면.** (ia-design §1-2)
 //
-// 앱 셸 안의 긴 랜딩(`SessionHome`)을 대신한다. `(app)` 풀스크린 그룹에 서서 상단 메뉴 ·
-// 나침반 띠 없이 뷰포트를 통째로 쓰고, 문항 해설 극장(`theater/AnalysisTheater`)과
-// **같은 판**을 쓴다 — 목록에서 문항으로 들어가도 화면의 결이 바뀌지 않게.
+// 결은 홈(`/csat`)과 같다 — 같은 메뉴(`CsatRail`) · 상단 줄 · 흰 카드 · 도구줄. 해설 극장 판은
+// 문항 해설(`/csat/item`)에만 쓴다(2026-09-24 사용자 지적 「극장 스타일 아님」).
 //
-//   참조                        → 여기
-//   ─────────────────────────────────────────────────────────────────
-//   상단 줄(공간 이름 · # 태그)  → 기출 · # 문항 수 · 오른쪽 「오늘의 해부 시작」
-//   왼쪽 레일(대화 기록)         → 유형 목록(누르면 오른쪽이 그 유형으로 좁혀진다)
-//   레일 바닥 작성 상자          → 찾기 입력(유형 · 회차 · 번호) — 실제로 거른다
-//   왼쪽 판(README ⌄)            → 오늘의 해부 + 시험 · 학년도 · 상태 거르개
-//   오른쪽 판(Output ⌄)          → 회차별 번호 칩(결과)
-//   바닥 단계 카드               → 학습 네 걸음(예측 · 설계 읽기 · 전이 · 패턴 축적)
+// 세 입구가 여기로 모인다:
+//   목적별 — `?status=map`(근거 문장 찾기) · `?from=<학년도>`(최근 기출부터)
+//   유형별 — `?type=<유형 id>`
+//   회차별 — `?exam=<회차 id>`
+// 어느 쪽으로 들어와도 같은 번호 칩 → 같은 문항 화면(`/csat/item/[slug]`)이다.
 //
 // ⚠️ 발문·지문은 여기 없다(저작권 경계). 칩이 말하는 것은 번호 · 유형 · 배점뿐이다.
 // ⚠️ 수치는 전부 카탈로그에서 센 값이다(AGENTS I5).
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useEffect, useMemo, useState } from 'react'
-import { ChevronDown, ChevronLeft, Circle, Code2, Dices, LayoutGrid, ListFilter, Play, Search } from 'lucide-react'
+import { Dices, Library, Search, X } from 'lucide-react'
+import { useMemo, useState } from 'react'
 
-import { track } from '@/lib/analytics/client'
+import { CsatRail, type NeedId, type RailPlace } from '@/components/csat/home/CsatRail'
+import { useCsatRecord } from '@/components/csat/home/useCsatRecord'
+import { activeSet, dueNow, touchedItems } from '@/lib/csat/continuity'
 import { EMPTY_FILTER, filterBrowse, groupByExam, type BrowseCatalog, type BrowseFilter, type ExamKind } from '@/lib/csat/browse-model'
-import { composeDissection, emptyDissectionRecord, type DissectionCatalog, type DissectionItem, type DissectionRecord } from '@/lib/csat/dissect'
 import { toItemSlug } from '@/lib/csat/item-slug'
-import { recommendationReason } from '@/lib/csat/learning-home'
-import { REFLOW_VERSION } from '@/lib/csat/reflow/reflow'
-import { cachedExamIds, loadDissectionRecord, saveDissectionRecord } from '@/lib/csat/session/store'
+import type { RailExam } from '@/lib/csat/rail-data'
 
-import theater from '../theater/theater.module.css'
-import styles from './workspace.module.css'
+import home from '../home/home.module.css'
+import styles from '../space/space.module.css'
 
-const dissectionHref = (items: DissectionItem[]) => `/csat/dissect?set=${encodeURIComponent(items.map((i) => toItemSlug(i.id)).join(','))}`
-const STEP_ROLE = ['먼저 예측하기', '설계 대조하기', '다른 문항에서 전이']
+export interface BrowseEntry {
+  type?: string
+  status?: BrowseFilter['status']
+  from?: number
+  exam?: string
+  query?: string
+}
 
-export function CsatWorkspace({ catalog, browse, initialType }: { catalog: DissectionCatalog; browse: BrowseCatalog; initialType?: string }) {
-  const router = useRouter()
-  const [state, setState] = useState<{ record: DissectionRecord; cached: string[]; plan: DissectionItem[]; now: number } | null>(null)
-  const [busy, setBusy] = useState(false)
+const isEmpty = (f: BrowseFilter) =>
+  f.kind === 'all' && f.year === 'all' && f.type === 'all' && f.status === 'all' && f.query.trim() === '' && (f.exam ?? 'all') === 'all' && (f.from ?? 'all') === 'all'
+
+export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog; exams: RailExam[]; entry: BrowseEntry }) {
+  const rec = useCsatRecord()
   const [filter, setFilter] = useState<BrowseFilter>({
     ...EMPTY_FILTER,
-    type: initialType && browse.types.some((t) => t.id === initialType) ? initialType : 'all',
+    type: entry.type && browse.types.some((t) => t.id === entry.type) ? entry.type : 'all',
+    status: entry.status ?? 'all',
+    from: entry.from ?? 'all',
+    exam: entry.exam && browse.exams.some((e) => e.id === entry.exam) ? entry.exam : 'all',
+    query: entry.query ?? '',
   })
   const set = <K extends keyof BrowseFilter>(key: K, value: BrowseFilter[K]) => setFilter((f) => ({ ...f, [key]: value }))
 
-  useEffect(() => {
-    let alive = true
-    void Promise.all([loadDissectionRecord(), cachedExamIds(REFLOW_VERSION)]).then(([record, cached]) => {
-      const now = Date.now()
-      if (alive) setState({ record, cached, plan: composeDissection(catalog, record, now, cached), now })
-    })
-    return () => {
-      alive = false
-    }
-  }, [catalog])
-
-  const record = state?.record ?? emptyDissectionRecord(0)
-  const plan = state?.plan ?? []
-  const ready = plan.length === 3
-  const active = record.active && record.active.index < record.active.items.length ? record.active : null
-  const planType = catalog.types.find((t) => t.id === plan[0]?.type_id)?.name ?? '기출 분석'
-
   const years = useMemo(() => [...new Set(browse.exams.map((e) => e.year))].sort((a, b) => b - a), [browse.exams])
   const typeName = useMemo(() => new Map(browse.types.map((t) => [t.id, t.name])), [browse.types])
+  const examLabel = useMemo(() => new Map(browse.exams.map((e) => [e.id, e.label])), [browse.exams])
   const items = useMemo(() => filterBrowse(browse, filter), [browse, filter])
   const grouped = useMemo(() => groupByExam(browse, items), [browse, items])
+  const seen = useMemo(() => (rec ? touchedItems(rec.record) : new Set<string>()), [rec])
   const random = items.length ? items[Math.floor(Math.random() * items.length)] : null
   const { kind, year, type, status, query } = filter
-  const filtered = kind !== 'all' || year !== 'all' || type !== 'all' || status !== 'all' || query.trim() !== ''
+  const exam = filter.exam ?? 'all'
   const reset = () => setFilter(EMPTY_FILTER)
 
-  const start = async () => {
-    if (busy || !state || !ready) return
-    setBusy(true)
-    await saveDissectionRecord({ ...record, onboarded: true })
-    track({
-      name: 'csat_session_started',
-      props: {
-        size: plan.length,
-        review: record.queue.some((q) => q.due <= state.now),
-        needed: new Set(plan.map((i) => i.exam_id)).size,
-        cached: new Set(plan.map((i) => i.exam_id).filter((e) => state.cached.includes(e))).size,
-      },
-    })
-    router.push(dissectionHref(plan))
-  }
-
-  const steps = [
-    { name: '예측', detail: '근거는 어디에 있을까', tint: 'pink', href: ready ? dissectionHref(plan) : '#csat-results' },
-    { name: '설계 읽기', detail: '근거 → 함정 → 의도', tint: 'green', href: random ? `/csat/item/${toItemSlug(random.id)}` : '#csat-results' },
-    { name: '전이', detail: '소재가 바뀌어도 통할까', tint: 'peach', href: ready ? dissectionHref(plan) : '#csat-results' },
-    { name: '패턴 축적', detail: '내 언어로 남긴 공식', tint: 'teal', href: '/csat/formulas' },
-  ]
+  // 메뉴에서 어느 줄이 「지금」인가 — 지금 걸린 조건을 그대로 비춘다
+  const need: NeedId | null = status === 'map' ? 'evidence' : filter.from && filter.from !== 'all' ? 'recent' : null
+  const place: RailPlace = exam !== 'all' ? 'exam' : type !== 'all' ? 'type' : need ? 'need' : 'browse'
+  const current = place === 'exam' ? exam : place === 'type' ? type : need ?? undefined
+  const title =
+    exam !== 'all'
+      ? examLabel.get(exam) ?? '회차'
+      : type !== 'all'
+        ? typeName.get(type) ?? type
+        : need === 'evidence'
+          ? '근거 문장 찾기 — 지문 지도가 있는 문항'
+          : need === 'recent'
+            ? `최근 기출부터 — ${filter.from}학년도 이후`
+            : '전체 서가'
 
   return (
-    <div className={`${theater.workspace} ${styles.full}`} data-csat-home data-testid="csat-workspace">
-      {/* ── 상단 줄 ─────────────────────────────────────────── */}
-      <header className={theater.bar}>
-        <Link className={theater.back} href="/csat">
-          <ChevronLeft size={15} aria-hidden /> 기출 홈
-        </Link>
-        <h1 className={theater.docTitle}>기출 · 수능 · 모의평가</h1>
-        <span className={theater.tag}># {browse.items.length}문항</span>
-        <div className={theater.barRight}>
-                    {random ? (
-            <Link className={styles.ghost} href={`/csat/item/${toItemSlug(random.id)}`}>
-              <Dices size={14} aria-hidden /> 아무거나 한 문항
+    <div className={styles.root} data-csat-browse data-testid="csat-workspace">
+      <CsatRail place={place} current={current} exams={exams} dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null} />
+
+      <div className="min-w-0">
+        <header className={styles.topbar}>
+          <span className={styles.topPill}>
+            <Library size={13} aria-hidden="true" />
+            서가 <b>{browse.items.length.toLocaleString('ko-KR')}</b>문항 · <b>{browse.exams.length}</b>회차 · <b>{browse.types.length}</b>유형
+          </span>
+          {random ? (
+            <Link className={styles.topLink} href={`/csat/item/${toItemSlug(random.id)}`}>
+              <Dices size={14} aria-hidden="true" />
+              아무거나 한 문항
             </Link>
           ) : null}
-          <button type="button" className={theater.play} onClick={() => void start()} disabled={busy || !ready} data-testid="start">
-            <Play size={14} aria-hidden /> {busy ? '여는 중…' : ready ? '오늘의 해부 시작' : '준비 중'}
-          </button>
-        </div>
-      </header>
+        </header>
 
-      <div className={theater.body}>
-        {/* ── ① 레일: 유형 ───────────────────────────────────── */}
-        <aside className={theater.rail} aria-label="유형으로 고르기">
-          <div className={theater.railTop}>
-            <span className={theater.liveDot} data-on={filtered} aria-hidden />
-            <b>유형 {browse.types.length}</b>
-            <span className={theater.railTime}>{browse.exams.length}회차</span>
-          </div>
-          <p className={theater.railBanner}>
-            <Circle size={12} aria-hidden />
-            <span>{type === 'all' ? '유형을 누르면 오른쪽이 그 유형으로 좁혀져요.' : `${typeName.get(type) ?? type}만 보는 중이에요.`}</span>
-            <button type="button" onClick={() => set('type', 'all')} disabled={type === 'all'}>
-              전체 유형
-            </button>
-          </p>
+        <div className={styles.canvas}>
+          <div className={styles.panel} style={{ marginTop: 0, borderRadius: 0, borderTop: 0 }}>
+            <div className={styles.tabs}>
+              <span className={styles.tab} aria-current="page" style={{ cursor: 'default' }}>
+                <Library size={14} aria-hidden="true" />
+                <span data-testid="browse-title">{title}</span>
+                <span className={styles.tabCount} data-testid="browse-count">
+                  {items.length}
+                </span>
+              </span>
+              {!isEmpty(filter) ? (
+                <button type="button" className={styles.tabsRight} onClick={reset} data-testid="browse-reset">
+                  <X size={13} aria-hidden="true" />
+                  조건 지우기
+                </button>
+              ) : null}
+            </div>
 
-          <div className={theater.stream}>
-            {browse.types.map((t) => {
-              const on = t.id === type
-              return (
-                <div key={t.id} className={theater.step} data-state={on ? 'live' : 'wait'}>
-                  <span className={theater.dot} aria-hidden />
-                  <button type="button" className={theater.stepBtn} aria-pressed={on} onClick={() => set('type', on ? 'all' : t.id)}>
-                    <span className={theater.stepKind}>
-                      {t.status === 'retired' ? '폐지' : '유형'}
-                      <em>{t.items}문항</em>
-                    </span>
-                    {t.name}
+            <div className={home.tools} role="group" aria-label="거르기">
+              <label className={home.search}>
+                <Search size={14} aria-hidden="true" />
+                <span className="sr-only">유형 · 회차 · 번호로 찾기</span>
+                <input id="csat-library-search" type="search" value={query} placeholder="예: 빈칸 · 2026 · 31" onChange={(e) => set('query', e.target.value)} />
+              </label>
+              {([['all', '수능·모의'], ['suneung', '수능'], ['mock', '모의평가']] as const).map(([value, label]) => (
+                <button key={value} type="button" className={home.chip} aria-pressed={kind === value} onClick={() => set('kind', value as ExamKind | 'all')}>
+                  {label}
+                </button>
+              ))}
+              {([['all', '상태 전부'], ['lecture', '강의 있음'], ['map', '지도 있음']] as const).map(([value, label]) => (
+                <button key={value} type="button" className={home.chip} aria-pressed={status === value} onClick={() => set('status', value as BrowseFilter['status'])}>
+                  {label}
+                </button>
+              ))}
+              <label className="sr-only" htmlFor="csat-browse-year">
+                학년도
+              </label>
+              <select
+                id="csat-browse-year"
+                className={home.chip}
+                value={year === 'all' ? 'all' : String(year)}
+                onChange={(e) => set('year', e.target.value === 'all' ? 'all' : Number(e.target.value))}
+              >
+                <option value="all">학년도 전체</option>
+                {years.map((y) => (
+                  <option key={y} value={y}>
+                    {y}학년도
+                  </option>
+                ))}
+              </select>
+              <label className="sr-only" htmlFor="csat-library-type">
+                유형
+              </label>
+              <select id="csat-library-type" className={home.chip} value={type} onChange={(e) => set('type', e.target.value)}>
+                <option value="all">유형 전체</option>
+                {browse.types.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.name} ({t.items}){t.status === 'retired' ? ' · 폐지' : ''}
+                  </option>
+                ))}
+              </select>
+              <p className={home.breadth} role="status">
+                <b>{items.length}</b>문항 · <b>{grouped.length}</b>회차
+                {rec ? (
+                  <>
+                    {' '}
+                    · 연 문항 <b>{items.filter((i) => seen.has(i.id)).length}</b>
+                  </>
+                ) : null}
+              </p>
+            </div>
+
+            <div data-testid="csat-library" id="csat-results">
+              {browse.error ? <p className={`${home.section} ${home.empty}`}>목록 일부를 읽지 못했어요: {browse.error}</p> : null}
+              {grouped.length === 0 ? (
+                <div className={styles.empty}>
+                  <p>이 조건에 맞는 문항이 없어요.</p>
+                  <button type="button" className={styles.emptyReset} onClick={reset}>
+                    조건 지우기
                   </button>
                 </div>
-              )
-            })}
-          </div>
-
-          {/* 참조의 작성 상자 자리 — 실제로 거르는 찾기 */}
-          <div className={theater.composer}>
-            <p className={theater.composerHead}>
-              <span className={theater.avatar} aria-hidden>
-                V
-              </span>
-              어떤 문항을 볼까요?
-            </p>
-            <label className={styles.search}>
-              <Search size={14} aria-hidden />
-              <input
-                id="csat-library-search"
-                type="search"
-                value={query}
-                placeholder="예: 빈칸 · 2026 · 31"
-                aria-label="유형 · 회차 · 번호로 찾기"
-                onChange={(e) => set('query', e.target.value)}
-              />
-            </label>
-            <div className={theater.composerFoot}>
-              <span className={theater.pill}>
-                {items.length}문항 · {grouped.length}회차
-              </span>
-              <button type="button" className={styles.textBtn} onClick={reset} disabled={!filtered}>
-                필터 지우기
-              </button>
-            </div>
-          </div>
-        </aside>
-
-        {/* ── ② 본문 ─────────────────────────────────────────── */}
-        <section className={theater.main}>
-          <div className={theater.stageHead}>
-            <p className={theater.now}>
-              <b>{type === 'all' ? '전체 기출' : typeName.get(type) ?? type}</b>
-              <span>
-                {items.length} / {browse.items.length}
-              </span>
-            </p>
-            <p className={theater.legend}>
-              <span className={styles.legendLecture}>상영 있음</span>
-              <span className={styles.legendThree}>
-                <i>3점</i> 고배점
-              </span>
-              <span className={theater.clock}>{grouped.length}회차</span>
-            </p>
-          </div>
-
-          <div className={theater.view}>
-            <div className={theater.panes}>
-              {/* ── 왼쪽 판: 오늘의 해부 + 거르개(참조 README 자리) ── */}
-              <section className={theater.pane} aria-label="오늘의 해부와 거르개">
-                <p className={theater.paneHead}>
-                  <Code2 size={13} aria-hidden />
-                  <span className={theater.file}>오늘의 해부</span>
-                  <ChevronDown size={12} aria-hidden />
-                  <em>{ready ? `${plan.length} ITEMS` : 'LOADING'}</em>
-                </p>
-                <div className={theater.paneBody}>
-                  {active ? (
-                    <Link className={styles.resume} href="/csat/dissect?resume=1">
-                      <span>이어서</span>
-                      {active.items[active.index].replace('#', ' · ')}번부터 하던 학습
-                    </Link>
-                  ) : null}
-
-                  <div data-testid="today-card" aria-busy={!state}>
-                    <p className={theater.lead}>
-                      <b>오늘의 해부</b> · <code>{planType}</code>
-                      {ready ? (
-                        <>
-                          {' '}
-                          · <code>{plan.length}문항</code> · 예측 → 대조 → 전이 · 예상 <code>{plan.length * 4}분</code>
-                        </>
-                      ) : null}
-                    </p>
-                    {ready ? (
-                      <>
-                        <p className={styles.reason} data-testid="recommendation-reason">
-                          {recommendationReason(catalog, plan, record, state!.now)}
-                        </p>
-                        <ol className={styles.plan}>
-                          {plan.map((item, index) => (
-                            <li key={item.id}>
-                              <span className={styles.planNo}>{String(index + 1).padStart(2, '0')}</span>
-                              <span>
-                                <small>
-                                  {STEP_ROLE[index]} · {item.exam_id} {item.no}번
-                                </small>
-                                {item.format}
-                              </span>
-                            </li>
-                          ))}
-                        </ol>
-                      </>
-                    ) : (
-                      <p className={theater.quiet}>{state ? '추천할 분석을 준비하고 있어요.' : '기기 기록을 확인하고 있어요…'}</p>
-                    )}
-                  </div>
-
-                  <p className={styles.sectionHead}>
-                    <ListFilter size={13} aria-hidden /> 거르기
-                  </p>
-                  <fieldset className={styles.group}>
-                    <legend>시험</legend>
-                    <div className={styles.chips}>
-                      {([['all', '전체'], ['suneung', '수능'], ['mock', '모의평가']] as const).map(([value, label]) => (
-                        <button key={value} type="button" aria-pressed={kind === value} onClick={() => set('kind', value as ExamKind | 'all')}>
-                          {label}
-                        </button>
-                      ))}
+              ) : (
+                grouped.map(({ exam: e, items: rows }) => (
+                  <section key={e.id} className={home.exam}>
+                    <div className={home.examHead}>
+                      <h3>{e.label}</h3>
+                      <p>
+                        {rows.length}문항{rows.length !== e.items ? ` / ${e.items}` : ''}
+                      </p>
                     </div>
-                  </fieldset>
-                  <fieldset className={styles.group}>
-                    <legend>학년도</legend>
-                    <div className={styles.chips}>
-                      <button type="button" aria-pressed={year === 'all'} onClick={() => set('year', 'all')}>
-                        전체
-                      </button>
-                      {years.map((y) => (
-                        <button key={y} type="button" aria-pressed={year === y} onClick={() => set('year', y)}>
-                          {y}
-                        </button>
+                    <ul className={home.numbers}>
+                      {rows.map((i) => (
+                        <li key={i.id}>
+                          <Link
+                            href={`/csat/item/${toItemSlug(i.id)}`}
+                            data-lecture={i.lecture}
+                            data-seen={seen.has(i.id)}
+                            aria-label={`${e.label} ${i.no}번 · ${typeName.get(i.type_id) ?? i.type_id}${i.points ? ` · ${i.points}점` : ''}${i.lecture ? ' · 강의 있음' : ' · 강의 없음'}${seen.has(i.id) ? ' · 연 문항' : ''}`}
+                          >
+                            <b>{i.no}</b>
+                            <span>{typeName.get(i.type_id) ?? i.type_id}</span>
+                            {i.points === 3 ? <i aria-hidden>3점</i> : null}
+                          </Link>
+                        </li>
                       ))}
-                    </div>
-                  </fieldset>
-                  <fieldset className={styles.group}>
-                    <legend>상태</legend>
-                    <div className={styles.chips}>
-                      {([['all', '전부'], ['lecture', '상영 있음'], ['map', '지도 있음']] as const).map(([value, label]) => (
-                        <button key={value} type="button" aria-pressed={status === value} onClick={() => set('status', value as BrowseFilter['status'])}>
-                          {label}
-                        </button>
-                      ))}
-                    </div>
-                  </fieldset>
-                  <p className={theater.quiet}>
-                    지문·선지는 평가원 저작물이라 싣지 않아요. 문항을 열면 <b>근거 자리</b>와 <b>오답 설계</b>를 차례로 봅니다.
-                  </p>
-                </div>
-              </section>
-
-              {/* ── 오른쪽 판: 결과(참조 Output 자리) ── */}
-              <section className={theater.pane} aria-labelledby="library-title" data-testid="csat-library">
-                <p className={theater.paneHead}>
-                  <LayoutGrid size={13} aria-hidden />
-                  <span className={theater.file} id="library-title">
-                    문항
-                  </span>
-                  <ChevronDown size={12} aria-hidden />
-                  <em>
-                    {items.length} ITEMS · {grouped.length} EXAMS
-                  </em>
-                </p>
-                <div className={theater.paneBody} id="csat-results">
-                  <p className={theater.status}>
-                    <span data-on={items.length > 0}>{items.length > 0 ? '200' : '0'}</span>
-                    {items.length > 0 ? 'OK' : '결과 없음'}
-                  </p>
-                  {browse.error ? <p className={theater.quiet}>목록 일부를 읽지 못했어요: {browse.error}</p> : null}
-                  {grouped.length === 0 ? (
-                    <p className={theater.pending}>
-                      <b>이 조건에 맞는 문항이 없어요</b>
-                      <button type="button" className={styles.textBtn} onClick={reset}>
-                        필터 지우기
-                      </button>
-                    </p>
-                  ) : (
-                    grouped.map(({ exam, items: rows }) => (
-                      <section key={exam.id} className={styles.exam}>
-                        <div className={styles.examHead}>
-                          <h3>{exam.label}</h3>
-                          <p>
-                            {rows.length}문항{rows.length !== exam.items ? ` / ${exam.items}` : ''}
-                          </p>
-                        </div>
-                        <ul className={styles.numbers}>
-                          {rows.map((i) => (
-                            <li key={i.id}>
-                              <Link
-                                href={`/csat/item/${toItemSlug(i.id)}`}
-                                data-lecture={i.lecture}
-                                aria-label={`${exam.label} ${i.no}번 · ${typeName.get(i.type_id) ?? i.type_id}${i.points ? ` · ${i.points}점` : ''}${i.lecture ? ' · 상영 있음' : ' · 상영 없음'}`}
-                              >
-                                <b>{i.no}</b>
-                                <span>{typeName.get(i.type_id) ?? i.type_id}</span>
-                                {i.points === 3 ? <i aria-hidden>3점</i> : null}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </section>
-                    ))
-                  )}
-                </div>
-              </section>
+                    </ul>
+                  </section>
+                ))
+              )}
             </div>
           </div>
 
-          {/* ── ③ 바닥 카드: 학습 네 걸음 ─────────────────────── */}
-          <nav className={theater.cards} aria-label="학습 걸음">
-            {steps.map((s, index) => (
-              <Link key={s.name} href={s.href} className={theater.card} data-tint={s.tint} data-state={index === 0 && ready ? 'live' : 'done'}>
-                <b>{s.name}</b>
-                <span>
-                  <em>{String(index + 1).padStart(2, '0')}</em>
-                  <i>{s.detail}</i>
-                </span>
-              </Link>
-            ))}
-          </nav>
-        </section>
+          <div className={styles.foot}>
+            <p>
+              점선 칸은 해설 강의가 아직 없는 문항, 옅은 칸은 이미 연 문항이에요. 지문·선지는 평가원 저작물이라 싣지 않아요 — 문항을 열면 근거
+              자리와 오답 설계를 차례로 봅니다.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
