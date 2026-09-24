@@ -1111,6 +1111,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260917150000  funnel_allow_csat_lecture                   ← 해설 강의 계측 2종 (30 → 32종 · csat_lecture_played · csat_lecture_ended)
 20260916120000  funnel_allow_csat_rest                      ← 기출 계측 8종 (22 → 30종). **그중 6종은 코드가 이미 보내던 것** — 지도/계획/훈련이 한 건도 안 쌓이고 있었다
 20260915143000  funnel_allow_csat_overlay                  ← 오버레이 관측 2종 (20 → 22종)
+20260924150000  video_retire_replace                       ← 내린 편 표 + 요청 교체 모드 + RPC 4 (내리기·되살리기·purge 기록·큐 되돌리기)
 20260924130000  video_requests_format_ids                  ← 요청 규격 이름을 코드 정본(wide/vertical/square)에 맞춤
 20260924120000  video_requests                             ← 영상 요청 순환(분야·요청·rev·검토·평가 5표) + RPC 6 (아래 참조)
 20260915033000  funnel_allow_csat_evidence_opened          ← 기출 해설 「지문 지도」 상호작용 1종 (19 → 20종)
@@ -1196,6 +1197,16 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 
 phase: `requested → designed → (changes_requested ↺ | approved | rejected) → applying → applied → evaluated` · `failed` · `cancelled`.
 전이 규칙은 DB 한 곳(RPC)에 있다 — 화면·드레인 어느 쪽도 phase 를 직접 UPDATE 하지 않는다.
+
+### 영상 내리기 · 교체 — `video_retirements` · `video_requests.mode` (2026-09-24)
+
+| | |
+|---|---|
+| 테이블 | `video_retirements` — `video_id` PK · `reason` NOT NULL · `retired_at` · `restored_at`(null = 지금 내림) · `purged_at`(파일 삭제) · admin 읽기 RLS |
+| 열 | `video_requests.mode` new/replace — replace 면 `video_id` = 대상 id(요청 때 확정) |
+| 인덱스 | `video_requests_video_id_live_uniq` — 부분 유일(approved·applying·applied). 옛 `video_requests_video_id_key` UNIQUE 는 제거(같은 자리를 여러 번 교체) |
+| RPC (화면) | `video_retire(id, reason)` · `video_restore(id)` — purged 면 거절 · `video_request_create(…, p_mode)` |
+| RPC (service_role) | `video_retire_mark_purged(id)` · `video_job_restart(id, kind)` — 교체 시작 때 큐 행을 queued 로 |
 
 ### 영상 평가 결과 — `video_jobs` 의 평가 열 (2026-09-14)
 

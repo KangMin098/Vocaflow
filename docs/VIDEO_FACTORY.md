@@ -179,6 +179,21 @@ Admin 「기획」 탭. Admin 은 커밋된 원천 + **DB 실측**으로 같은 
 - 요청 편 설계도는 `work/request-specs.json`(커밋 안 함)에 굳고, `allSpecs()` 가 규칙 편과 합쳐 음성·렌더·포장·Remotion 루트에 넘긴다. 같은 id 면 규칙 편이 이긴다.
 - **도구**: Remotion + Edge TTS 유지. 교체 제안은 근거와 함께 여기에만 적고, 승인 뒤 바꾼다(지금 제안 없음).
 
+## 2-4. 발행된 편 내리기 · 교체 (2026-09-24)
+
+| | 어떻게 | 되돌리기 |
+|---|---|---|
+| **내리기** | 화면(구성요소 탭 · 요청 상세)에서 이유와 함께 → `video_retirements` · `pnpm video retire:sync --commit` 이 manifest 에서 뺀다 → **커밋·배포 뒤** 화면에서 사라진다 | 「되살리기」 → 다음 `package` 가 manifest 에 되돌린다 |
+| **파일 삭제** | `retire:sync --commit --purge` — 버킷 + 로컬(out · dist-media) 파일을 지우고 `purged_at` | **불가** — 다시 찍어야 한다(되살리기 잠김) |
+| **교체** | 「교체 요청」 → 요청(`mode=replace`, `video_id` = 그 자리) → 순환 그대로 → 발행이 같은 경로를 덮는다 | 교체본을 다시 교체하거나, 규칙 편이면 교체 요청을 거두기 전까지 |
+
+- **내린 편은 어디에도 다시 안 나온다** — `mergeSpecs` 가 음성·렌더·포장·Remotion 에서 빼고, `publish` 는 로컬에 남은 파일도 올리지 않는다. 목록은 명령마다 DB 에서 `work/retired.json` 으로 새로 받고, **못 받으면 멈춘다**(빈 목록으로 진행하면 내린 편이 되살아난다).
+- **교체 편은 같은 id 의 편을 이긴다**(`brief.replaces`). 새 요청 편은 같은 id 가 있으면 진다. 교체 편은 원래 편의 `kind` 를 이어받는다 — /video 의 칸과 계측 kind 가 그대로다.
+- **같은 자리의 진행 중 교체는 하나** — `video_requests_video_id_live_uniq`(approved·applying·applied).
+- **큐** — `video_job_advance` 는 단계를 되돌리지 않으므로, 교체 시작 때 `video_job_restart` 가 그 자리의 행을 `queued` 로 되돌린다.
+- **캐시** — 버킷은 7일 캐시(`cacheControl 604800`)라 같은 경로를 덮으면 옛 파일이 나간다. `package` 가 규격·포스터·자막마다 내용 해시(`v` · `posterV` · `captionsV`)를 manifest 에 쓰고 앱이 `?v=` 로 붙인다. 포스터는 영상이 더 새로우면 다시 뽑는다. 썸네일은 `thumbs <id> --force`.
+- 콘솔: 내린 편은 「안 만듦」이 아니라 「내림 N」, 발행된 요청 편은 「고아」가 아니다(요청이 주인).
+
 ## 3. 3단 드레인 (CLAUDE.md §🤖 와 같은 구조)
 
 | 단계 | 명령 | 하는 일 | 재실행 안전 |

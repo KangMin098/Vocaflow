@@ -30,7 +30,8 @@ import type { VideoSpec } from '../spec/types'
 import { NEEDS } from './audiences'
 import { PHASE_LABEL, nextStepText } from './phases'
 import { checkDesign } from './design'
-import { REQUEST_SPECS_PATH, writeRequestSpecs } from './store'
+import { REQUEST_SPECS_PATH, loadRequestSpecs, writeRequestSpecs } from './store'
+import { writeRetired } from './retired'
 import { buildRequestSpec, type BuildContext, type RequestMeta } from './to-spec'
 import type { RequestAudience, RequestDesign, RequestPhase, RequestPlan, RequestPurpose } from './types'
 
@@ -57,6 +58,7 @@ interface RequestRow {
   current_rev: number
   error: string | null
   created_at: string
+  mode: 'new' | 'replace'
 }
 
 interface RevisionRow {
@@ -80,15 +82,17 @@ export interface ChunkItem {
   /** 이번에 써야 할 rev — import 가 이 값으로 낡은 답을 거른다 */
   rev: number
   videoId: string
-  request: Pick<RequestRow, 'domain_id' | 'target_key' | 'target_label' | 'purpose' | 'audience' | 'formats' | 'memo'>
+  request: Pick<RequestRow, 'domain_id' | 'target_key' | 'target_label' | 'purpose' | 'audience' | 'formats' | 'memo' | 'mode'>
   need: (typeof NEEDS)['learn']['student']
   /** 직전 rev 와 그에 대한 검토 코멘트 — 수정 요청이면 반드시 반영 */
   previous: { rev: number; plan: RequestPlan; design: RequestDesign } | null
   reviews: { rev: number; decision: string; comment: string }[]
   /** 같은 분야·수요자·목적의 지난 평가 — 다음 기획의 입력 */
   pastOutcomes: { videoId: string | null; spec: unknown; outcome: unknown }[]
-  /** 대상이 기존 규칙 편이면 그 설계도 — 출발점 */
+  /** 대상이 기존 편(규칙 편 또는 요청 편)이면 그 설계도 — 출발점. 교체면 **지금 발행본** */
   baseline: VideoSpec | null
+  /** 교체 요청이면 지금 발행본의 재생 기록 — 무엇을 고쳐야 하는지의 근거(표본이 작으면 해석하지 않는다) */
+  replacing: { videoId: string; started: number | null; completed: number | null } | null
   /** 빌릴 수 있는 장면 목록(id · 컷 번호 · 종류 · 자막) */
   borrowable: { videoId: string; scenes: { index: number; kind: string; caption: string }[] }[]
   /** 대상과 관련된 원료 발췌 + 인용 가능한 경로 예시 */
@@ -112,6 +116,7 @@ function ctxOf(bundle: SourceBundle): BuildContext {
 function metaOf(r: RequestRow, plan: RequestPlan): RequestMeta {
   return {
     videoId: r.video_id ?? requestVideoId(r.target_key, r.id),
+    mode: r.mode,
     purpose: r.purpose,
     audience: r.audience,
     formats: r.formats,
@@ -176,6 +181,30 @@ function factsFor(b: SourceBundle, targetKey: string): { path: string; value: un
   return out
 }
 
+/* ───────────────────────── 내린 편 ───────────────────────── */
+
+export interface RetirementRow {
+  video_id: string
+  reason: string
+  retired_at: string
+  restored_at: string | null
+  purged_at: string | null
+}
+
+/**
+ * DB 의 내린 편 → `work/retired.json`. 음성·렌더·포장 전에 돈다.
+ * **못 읽으면 멈춘다** — 옛 파일이나 빈 목록으로 진행하면 내린 편이 되살아난다.
+ */
+export async function refreshRetiredFile(db: SupabaseClient = requireServiceClient()): Promise<RetirementRow[]> {
+  const rows = await must<RetirementRow[]>(
+    db.from('video_retirements').select('video_id,reason,retired_at,restored_at,purged_at'),
+    '내린 편 조회',
+  )
+  const live = rows.filter((r) => r.restored_at === null)
+  writeRetired(live.map((r) => r.video_id))
+  return live
+}
+
 /* ───────────────────────── 상태 · 동기화 ───────────────────────── */
 
 /** 큐(video_jobs)의 결과를 요청 phase 로 옮긴다. 재실행 안전 — 허용된 전이만 일어난다. */
@@ -205,6 +234,8 @@ async function syncApplying(db: SupabaseClient): Promise<{ applied: number; fail
 
 export async function cmdRequests(): Promise<number> {
   const db = requireServiceClient()
+  const retired = await refreshRetiredFile(db)
+  if (retired.length > 0) console.log(`내린 편 ${retired.length}: ${retired.map((r) => r.video_id).join(', ')}`)
   const s = await syncApplying(db)
   if (s.applied || s.failed) console.log(`큐 반영: 발행 ${s.applied} · 실패 ${s.failed}`)
   const rows = await must<RequestRow[]>(
@@ -261,6 +292,20 @@ export async function cmdRequestsExport(): Promise<number> {
     '지난 평가',
   )
 
+  const requested = loadRequestSpecs()
+  const plays = new Map<string, { videoId: string; started: number | null; completed: number | null }>()
+  for (const r of todo.filter((x) => x.mode === 'replace')) {
+    const n = async (event: string): Promise<number | null> => {
+      const { count, error } = await db
+        .from('funnel_events')
+        .select('id', { count: 'exact', head: true })
+        .eq('event', event)
+        .eq('meta->>videoId', r.target_key)
+      return error || count === null ? null : count
+    }
+    plays.set(r.target_key, { videoId: r.target_key, started: await n('video_started'), completed: await n('video_completed') })
+  }
+
   const borrowable = catalog.map((s) => ({
     videoId: s.id,
     scenes: s.scenes.map((sc, index) => ({ index, kind: sc.kind, caption: sc.caption })),
@@ -280,6 +325,7 @@ export async function cmdRequestsExport(): Promise<number> {
         audience: r.audience,
         formats: r.formats,
         memo: r.memo,
+        mode: r.mode,
       },
       need: NEEDS[r.purpose][r.audience],
       previous: prev ? { rev: prev.rev, plan: prev.plan, design: prev.design } : null,
@@ -288,7 +334,8 @@ export async function cmdRequestsExport(): Promise<number> {
         .filter((e) => e.domain_id === r.domain_id && e.audience === r.audience && e.purpose === r.purpose)
         .slice(-3)
         .map((e) => ({ videoId: e.video_id, spec: e.video_request_evaluations[0]?.spec ?? null, outcome: e.video_request_evaluations[0]?.outcome ?? null })),
-      baseline: catalog.find((s) => s.id === r.target_key) ?? null,
+      baseline: catalog.find((s) => s.id === r.target_key) ?? requested.find((s) => s.id === r.target_key) ?? null,
+      replacing: r.mode === 'replace' ? (plays.get(r.target_key) ?? { videoId: r.target_key, started: null, completed: null }) : null,
       borrowable,
       facts: factsFor(bundle, r.target_key),
     }
@@ -410,13 +457,18 @@ export async function cmdRequestsPull(): Promise<number> {
   }
 
   writeRequestSpecs(specs)
-  const q = await enqueueAll(toStart.map((t) => t.spec))
+  // 새 편은 큐에 올리고, 교체 편은 **같은 자리의 큐 행을 처음 단계로** 되돌린다
+  //   (video_job_advance 는 단계를 되돌리지 않는다 — 발행된 자리를 다시 찍으면 기록이 안 움직인다)
+  const q = await enqueueAll(toStart.filter((t) => t.row.mode !== 'replace').map((t) => t.spec))
+  for (const t of toStart.filter((x) => x.row.mode === 'replace')) {
+    await must(db.rpc('video_job_restart', { p_video_id: t.spec.id, p_kind: t.spec.kind }), `${t.spec.id} 큐 되돌리기`)
+  }
   for (const t of toStart) {
     await must(
       db.rpc('video_request_advance', { p_id: t.row.id, p_phase: 'applying', p_video_id: t.spec.id, p_error: null }),
       `${t.spec.id} 적용 시작`,
     )
-    console.log(`→ ${t.spec.id}  ${t.row.target_label}`)
+    console.log(`→ ${t.spec.id}  ${t.row.target_label}${t.row.mode === 'replace' ? '  (교체 — 발행하면 같은 자리를 덮는다)' : ''}`)
   }
   console.log(
     `\n요청 편 설계도 ${specs.length}편 → ${path.relative(process.cwd(), REQUEST_SPECS_PATH)}` +
@@ -439,13 +491,21 @@ export async function cmdRequestsPull(): Promise<number> {
  * 다음 기획이 그 수를 근거로 쓴다. CTA 클릭은 영상 계측에 아직 없다 — 없는 것은 「못 잼」이다.
  */
 export async function recordRequestEvaluations(cards: Scorecard[]): Promise<number> {
-  const mine = cards.filter((c) => c.kind === 'request')
-  if (mine.length === 0) return 0
+  // 교체 편은 원래 편의 kind 를 이어받으므로 kind 로 거르지 않는다 — 요청의 video_id 로 찾는다
   const db = requireServiceClient()
+  const { data: live } = await db
+    .from('video_requests')
+    .select('*')
+    .in('video_id', cards.map((c) => c.videoId))
+    .in('phase', ['applied', 'evaluated'])
+    .order('updated_at', { ascending: false })
+  const rows = (live ?? []) as RequestRow[]
   let n = 0
-  for (const c of mine) {
-    const { data: r } = await db.from('video_requests').select('*').eq('video_id', c.videoId).maybeSingle<RequestRow>()
-    if (!r || !['applied', 'evaluated'].includes(r.phase)) continue
+  for (const c of cards) {
+    // 같은 자리를 여러 번 교체했으면 가장 최근 요청이 이 파일의 주인이다(applied 우선)
+    const mineRows = rows.filter((x) => x.video_id === c.videoId)
+    const r = mineRows.find((x) => x.phase === 'applied') ?? mineRows[0]
+    if (!r) continue
     const count = async (event: string): Promise<number | null> => {
       const { count: k, error } = await db
         .from('funnel_events')
@@ -478,4 +538,71 @@ export async function recordRequestEvaluations(cards: Scorecard[]): Promise<numb
     n++
   }
   return n
+}
+
+/* ───────────────────────── 내리기 반영 ───────────────────────── */
+
+const REPO = path.resolve(HERE, '../../../..')
+const MANIFEST_PATH = path.join(REPO, 'apps/web/src/lib/video/manifest.json')
+const OUT_DIR = path.resolve(HERE, '../../out')
+const DIST_DIR = path.resolve(HERE, '../../dist-media')
+const BUCKET = 'video'
+const FORMAT_DIRS = ['wide', 'vertical', 'square'] as const
+
+/** 한 편이 버킷·로컬에 남기는 파일 — publish.mts 가 올리는 경로 모양 그대로 */
+export function filesOfVideo(id: string): string[] {
+  return [
+    ...FORMAT_DIRS.flatMap((f) => [`${f}/${id}.mp4`, `${f}/${id}.jpg`]),
+    `${id}.vtt`,
+    `${id}.txt`,
+    `thumb/${id}.jpg`,
+  ]
+}
+
+/**
+ * **내린 편을 학습자 화면에서 뺀다** — manifest 에서 지운다. 기본은 예행.
+ *
+ * `--purge` 는 버킷 파일과 로컬 산출물(out · dist-media)까지 지우고 `purged_at` 을 남긴다.
+ * **되돌릴 수 없다** — 되살리려면 다시 찍어야 한다. 로컬도 지우는 이유: publish 는 로컬 폴더를
+ * 통째로 올리므로 로컬에 남아 있으면 다음 발행에 버킷으로 되돌아간다.
+ */
+export async function cmdRetireSync(commit: boolean, purge: boolean): Promise<number> {
+  const db = requireServiceClient()
+  const live = await refreshRetiredFile(db)
+  const ids = new Set(live.map((r) => r.video_id))
+
+  const manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8')) as { videos: { id: string }[] }
+  const drop = manifest.videos.filter((v) => ids.has(v.id)).map((v) => v.id)
+  console.log(`내린 편 ${ids.size} · manifest 에서 뺄 것 ${drop.length}` + (drop.length ? ` — ${drop.join(', ')}` : ''))
+  const purgeTargets = purge ? live.filter((r) => r.purged_at === null) : []
+  if (purge) console.log(`파일까지 지울 것 ${purgeTargets.length}편 (버킷 + 로컬) — 되돌릴 수 없다`)
+
+  if (!commit) {
+    console.log('\n(예행 — --commit 을 붙이면 쓴다)')
+    return 0
+  }
+
+  if (drop.length > 0) {
+    const next = { ...manifest, videos: manifest.videos.filter((v) => !ids.has(v.id)) }
+    fs.writeFileSync(MANIFEST_PATH, JSON.stringify(next, null, 2) + '\n', 'utf8')
+    console.log(`manifest → ${path.relative(process.cwd(), MANIFEST_PATH)} (커밋·배포해야 화면에서 사라진다)`)
+  }
+
+  for (const r of purgeTargets) {
+    const keys = filesOfVideo(r.video_id)
+    const { error } = await db.storage.from(BUCKET).remove(keys)
+    if (error) {
+      console.log(`✗ ${r.video_id} 버킷 삭제 실패: ${error.message} — purged 로 적지 않는다`)
+      continue
+    }
+    for (const k of keys) {
+      for (const base of [OUT_DIR, DIST_DIR]) {
+        const abs = path.join(base, k)
+        if (fs.existsSync(abs)) fs.rmSync(abs)
+      }
+    }
+    await must(db.rpc('video_retire_mark_purged', { p_video_id: r.video_id }), `${r.video_id} purged 기록`)
+    console.log(`🗑 ${r.video_id} — 버킷·로컬 파일 삭제`)
+  }
+  return 0
 }

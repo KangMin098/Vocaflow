@@ -27,6 +27,14 @@ import { createVideoRequestAction } from './actions'
 const FORMAT_LABEL: Record<string, string> = { wide: '가로 16:9', vertical: '세로 9:16', square: '정사각 1:1' }
 const CUSTOM = '__custom__'
 
+/** 「교체 요청」에서 넘어왔을 때 — 대상과 모드가 정해져 있다 */
+export interface RequestPrefill {
+  domainId: string
+  targetKey: string
+  targetLabel: string
+  mode: 'replace'
+}
+
 const fieldCls =
   'min-h-[44px] w-full rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-body text-[13px] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]'
 const labelCls = 'mb-1 block font-body text-[12px] font-[600] text-[var(--t2)]'
@@ -65,19 +73,24 @@ function Choice<T extends string>({
   )
 }
 
-export function RequestsPanel({ board }: { board: RequestBoard }) {
+export function RequestsPanel({ board, prefill = null }: { board: RequestBoard; prefill?: RequestPrefill | null }) {
   const router = useRouter()
   const [pending, start] = useTransition()
   const [error, setError] = useState<string | null>(null)
 
   const firstDomain = board.domains.find((d) => d.enabled)
-  const [domainId, setDomainId] = useState(firstDomain?.id ?? '')
+  const [domainId, setDomainId] = useState(prefill?.domainId ?? firstDomain?.id ?? '')
   const domain = board.domains.find((d) => d.id === domainId) ?? null
-  const targets = useMemo(
-    () => board.targets.filter((t) => domain?.target_kinds.includes(t.kind)),
-    [board.targets, domain],
-  )
-  const [targetKey, setTargetKey] = useState('')
+  const targets = useMemo(() => {
+    const list = board.targets.filter((t) => domain?.target_kinds.includes(t.kind))
+    // 교체 대상이 이 분야 목록에 없으면(요청 편 교체) 그 대상 하나를 얹는다
+    if (prefill && !list.some((t) => t.key === prefill.targetKey)) {
+      list.unshift({ key: prefill.targetKey, label: prefill.targetLabel, kind: 'request', backing: null, hasRuleVideo: false, published: true })
+    }
+    return list
+  }, [board.targets, domain, prefill])
+  const [targetKey, setTargetKey] = useState(prefill?.targetKey ?? '')
+  const [mode, setMode] = useState<'new' | 'replace'>(prefill?.mode ?? 'new')
   const [customLabel, setCustomLabel] = useState('')
   const [purpose, setPurpose] = useState<RequestPurpose>('buy')
   const [audience, setAudience] = useState<RequestAudience>('student')
@@ -86,6 +99,9 @@ export function RequestsPanel({ board }: { board: RequestBoard }) {
 
   const need = NEEDS[purpose][audience]
   const target = targets.find((t) => t.key === targetKey) ?? null
+  // 발행돼 있지 않으면 이어받을 자리가 없다
+  const canReplace = target?.published === true
+  const effectiveMode = canReplace ? mode : 'new'
 
   if (!board.ready) {
     return (
@@ -110,6 +126,7 @@ export function RequestsPanel({ board }: { board: RequestBoard }) {
         audience,
         formats,
         memo,
+        mode: effectiveMode,
       })
       if (!r.ok || !r.data) {
         setError(r.error ?? '요청을 만들지 못했습니다')
@@ -177,6 +194,26 @@ export function RequestsPanel({ board }: { board: RequestBoard }) {
           <p className="mb-1 break-keep font-body text-[11px] text-[var(--t3)]">
             기존 규칙 편({target.key})이 설계의 출발점이 됩니다.
           </p>
+        )}
+
+        {canReplace && (
+          <>
+            <p className={`${labelCls} mt-3`}>이 대상은 발행돼 있습니다</p>
+            <Choice
+              name="모드"
+              value={mode}
+              onChange={setMode}
+              options={[
+                { value: 'replace', label: '이 편 교체' },
+                { value: 'new', label: '새 편 따로' },
+              ]}
+            />
+            <p className="mt-1 break-keep font-body text-[11px] text-[var(--t3)]">
+              {mode === 'replace'
+                ? `발행하면 같은 자리(${target?.key})의 기존 영상을 덮습니다 — 이 영상이 붙은 화면이 모두 새 영상으로 바뀝니다.`
+                : '기존 영상은 그대로 두고 새 id 로 한 편을 더 만듭니다.'}
+            </p>
+          </>
         )}
 
         <p className={`${labelCls} mt-3`}>목적</p>
@@ -266,6 +303,7 @@ export function RequestsPanel({ board }: { board: RequestBoard }) {
                       <p className="font-body text-[11px] text-[var(--t3)]">
                         {board.domains.find((d) => d.id === r.domain_id)?.label ?? r.domain_id} · {PURPOSE_LABEL[r.purpose]} ·{' '}
                         {AUDIENCE_LABEL[r.audience]} · rev {r.current_rev}
+                        {r.mode === 'replace' ? ' · 교체' : ''}
                       </p>
                       <p className="mt-1 break-keep font-body text-[11px] text-[var(--t2)]">
                         {next.who === 'admin' ? '▶ 내 차례 — 검토' : next.who === 'agent' ? '⚙ 에이전트 차례 — 명령은 상세 화면에' : next.text}

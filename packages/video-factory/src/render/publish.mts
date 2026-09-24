@@ -16,6 +16,7 @@ import { fileURLToPath } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 
 import { advance } from '../jobs/client'
+import { refreshRetiredFile } from '../requests/drain.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const PKG = path.resolve(HERE, '../..')
@@ -85,7 +86,10 @@ async function main(): Promise<void> {
     )
   }
 
-  const files = collect()
+  // 내린 편은 올리지 않는다 — 로컬에 남은 파일이 버킷으로 되돌아가지 않게
+  const retired = new Set((await refreshRetiredFile()).map((r) => r.video_id))
+  const idOf = (key: string) => path.basename(key).replace(/\.[^.]+$/, '')
+  const files = collect().filter((f) => !retired.has(idOf(f.key)))
   if (files.length === 0) {
     throw new Error('올릴 것이 없다 — 먼저 `pnpm video render-all` 과 `pnpm video package` 를 돌린다')
   }

@@ -29,6 +29,7 @@ import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { RequestDetail } from '@/lib/admin/video-requests'
 import type { ResolvedVideo } from '@/lib/video/catalog'
 import { cancelVideoRequestAction, reviewVideoRequestAction } from '../../actions'
+import { VideoActions } from '../../VideoActions'
 
 const card = 'rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4'
 const h2 = 'mb-3 font-display text-[15px] font-[800] text-[var(--t1)]'
@@ -152,7 +153,7 @@ export function RequestDetailClient({ detail, video }: { detail: RequestDetail; 
   const [pending, start] = useTransition()
   const [comment, setComment] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const { request: r, revisions, reviews, evaluations, job, domain } = detail
+  const { request: r, revisions, reviews, evaluations, job, domain, retirement, targetPublished } = detail
   const latest = revisions[0] ?? null
   const [shownRev, setShownRev] = useState<number | null>(latest?.rev ?? null)
   const shown = revisions.find((v) => v.rev === shownRev) ?? latest
@@ -193,6 +194,13 @@ export function RequestDetailClient({ detail, video }: { detail: RequestDetail; 
         description={`${domain?.label ?? r.domain_id} · ${PURPOSE_LABEL[r.purpose]} · ${AUDIENCE_LABEL[r.audience]} · ${r.formats.join(' · ')}`}
         actions={<AdminScreenHelp screen="video-request" />}
       />
+
+      {r.mode === 'replace' && (
+        <p className="mb-3 break-keep rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p-light)] px-4 py-2 font-body text-[13px] text-[var(--t1)]">
+          ↻ <strong>교체 요청</strong> — 발행하면 <code className="font-mono">{r.target_key}</code> 자리의 기존 영상을 덮습니다.
+          {targetPublished ? ' 지금 발행본은 아래 「적용」 칸에서 볼 수 있습니다.' : ' (지금은 그 자리가 발행돼 있지 않습니다)'}
+        </p>
+      )}
 
       <Stepper phase={r.phase} />
 
@@ -408,6 +416,14 @@ export function RequestDetailClient({ detail, video }: { detail: RequestDetail; 
             <p className="break-keep font-body text-[13px] text-[var(--t3)]">
               {r.video_id ? '아직 발행 목록(manifest)에 없습니다 — 발행 뒤 여기서 재생됩니다.' : '승인 뒤 requests:pull 이 영상 id 를 붙입니다.'}
             </p>
+          )}
+          {r.video_id && (video || retirement) && (
+            <div className="mt-3 border-t border-[var(--bd)] pt-2">
+              <p className="mb-1 font-body text-[11px] font-[700] text-[var(--t3)]">
+                {r.mode === 'replace' && !['applied', 'evaluated'].includes(r.phase) ? '지금 발행본(교체 전)' : '발행된 편'} · {r.video_id}
+              </p>
+              <VideoActions videoId={r.video_id} published={video !== null} retired={retirement} />
+            </div>
           )}
           {job && (
             <p className="mt-2 font-body text-[12px] text-[var(--t2)]">

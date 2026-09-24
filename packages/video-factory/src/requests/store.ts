@@ -15,6 +15,8 @@ import { fileURLToPath } from 'node:url'
 import type { SourceBundle } from '../catalog/bundle'
 import { buildSpecs } from '../catalog/build'
 import type { VideoSpec } from '../spec/types'
+import { mergeSpecs } from './merge'
+import { readRetired } from './retired'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 export const REQUEST_SPECS_PATH = path.resolve(HERE, '../../work/request-specs.json')
@@ -36,12 +38,14 @@ export function ensureRequestSpecsFile(file: string = REQUEST_SPECS_PATH): void 
 }
 
 /**
- * **규칙 편 + 요청 편** — 음성·렌더·포장·발행이 읽는 전체 목록.
- * 같은 id 가 둘에 있으면 규칙 편이 이긴다(요청 id 는 `req-` 로 시작해 겹칠 수 없지만, 겹치면
- * 기존 편을 조용히 덮는 쪽보다 요청 편이 빠지는 쪽이 안전하다).
+ * **규칙 편 + 요청 편 − 내린 편** — 음성·렌더·포장·발행이 읽는 전체 목록.
+ * 합치는 규칙은 `merge.ts`(교체 편은 같은 id 를 이기고, 새 편은 진다).
+ *
+ * `retired` 를 안 넘기면 `work/retired.json` 을 읽는다 — 없으면 **멈춘다**(retired.ts 머리말).
  */
-export function allSpecs(b: SourceBundle, file: string = REQUEST_SPECS_PATH): VideoSpec[] {
-  const rule = buildSpecs(b)
-  const ids = new Set(rule.map((s) => s.id))
-  return [...rule, ...loadRequestSpecs(file).filter((s) => !ids.has(s.id))]
+export function allSpecs(
+  b: SourceBundle,
+  opts: { file?: string; retired?: ReadonlySet<string> } = {},
+): VideoSpec[] {
+  return mergeSpecs(buildSpecs(b), loadRequestSpecs(opts.file), opts.retired ?? readRetired())
 }

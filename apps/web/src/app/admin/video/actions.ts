@@ -32,6 +32,8 @@ export interface CreateRequestInput {
   audience: string
   formats: string[]
   memo: string
+  /** new = 새 편 · replace = 발행된 편의 자리를 이어받는다 */
+  mode?: string
 }
 
 export async function createVideoRequestAction(input: CreateRequestInput): Promise<ActionResult<{ id: string }>> {
@@ -52,6 +54,7 @@ export async function createVideoRequestAction(input: CreateRequestInput): Promi
       p_audience: input.audience,
       p_formats: formats,
       p_memo: input.memo.slice(0, 2000),
+      p_mode: input.mode === 'replace' ? 'replace' : 'new',
     })
     if (error) return { ok: false, error: error.message }
     revalidatePath('/admin/video')
@@ -100,5 +103,37 @@ export async function cancelVideoRequestAction(id: string): Promise<ActionResult
     return { ok: true }
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : '거두지 못했습니다' }
+  }
+}
+
+/**
+ * 발행된 편을 내린다 — 이유 필수. DB 에 적을 뿐이고, 학습자 화면에서 사라지는 것은
+ * `pnpm video retire:sync --commit` 으로 manifest 를 고쳐 커밋·배포한 뒤다(화면도움말 참조).
+ */
+export async function retireVideoAction(videoId: string, reason: string): Promise<ActionResult> {
+  try {
+    await requireAdmin('/admin/video')
+    if (!reason.trim()) return { ok: false, error: '내리는 이유를 적으세요 — 나중에 되살릴지 판단하는 근거입니다' }
+    const db = (await createClient()) as unknown as SupabaseClient
+    const { error } = await db.rpc('video_retire', { p_video_id: videoId, p_reason: reason.slice(0, 1000) })
+    if (error) return { ok: false, error: error.message }
+    revalidatePath('/admin/video', 'layout')
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : '내리지 못했습니다' }
+  }
+}
+
+/** 내린 편을 되살린다. 파일까지 지운(purge) 편은 DB 가 거절한다 — 다시 찍어야 한다. */
+export async function restoreVideoAction(videoId: string): Promise<ActionResult> {
+  try {
+    await requireAdmin('/admin/video')
+    const db = (await createClient()) as unknown as SupabaseClient
+    const { error } = await db.rpc('video_restore', { p_video_id: videoId })
+    if (error) return { ok: false, error: error.message }
+    revalidatePath('/admin/video', 'layout')
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : '되살리지 못했습니다' }
   }
 }

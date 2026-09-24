@@ -58,7 +58,7 @@ export const NEXT_STEP: Record<RequestPhase, { who: 'admin' | 'agent' | 'none'; 
   approved: { who: 'agent', text: 'pnpm video requests:pull' },
   applying: {
     who: 'agent',
-    text: 'pnpm video voice <id> && pnpm video render <id> && pnpm video loudness --fix && pnpm video thumbs <id> → package → publish → pnpm video requests',
+    text: 'pnpm video voice <id> && pnpm video render <id> && pnpm video loudness --fix && pnpm video thumbs <id> --force → package → publish → pnpm video requests',
   },
   applied: { who: 'agent', text: 'pnpm video evaluate <id>' },
   evaluated: { who: 'none', text: '끝 — 평가가 같은 분야·수요자의 다음 기획에 들어간다' },

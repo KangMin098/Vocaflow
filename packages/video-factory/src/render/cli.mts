@@ -45,6 +45,8 @@ import {
   cmdRequestsImport,
   cmdRequestsPull,
   recordRequestEvaluations,
+  refreshRetiredFile,
+  cmdRetireSync,
 } from '../requests/drain.mjs'
 import { validateAll } from '../spec/validate'
 import { FPS, FORMATS, type FormatId } from '../spec/format'
@@ -618,7 +620,14 @@ function cmdStale(): number {
   return 1
 }
 
+/** 설계도를 읽는 명령 — 시작 전에 DB 의 내린 편 목록을 새로 받는다 */
+const NEEDS_RETIRED = new Set(['list', 'check', 'voice', 'render', 'render-all', 'enqueue', 'stale', 'evaluate', 'thumbs'])
+
 async function main(): Promise<void> {
+  if (cmd && NEEDS_RETIRED.has(cmd)) {
+    const live = await refreshRetiredFile()
+    if (live.length > 0) console.log(`내린 편 ${live.length} — 목록에서 뺀다`)
+  }
   switch (cmd) {
     case 'list':
       await cmdList()
@@ -665,6 +674,9 @@ async function main(): Promise<void> {
     case 'requests:pull':
       process.exitCode = await cmdRequestsPull()
       break
+    case 'retire:sync':
+      process.exitCode = await cmdRetireSync(has('commit'), has('purge'))
+      break
     default:
       console.log(
         [
@@ -683,6 +695,7 @@ async function main(): Promise<void> {
           'pnpm video requests:export          설계 대기 요청 → work/requests/chunk-NN.json',
           'pnpm video requests:import [--commit]  설계 초안 검사 → rev 기록 (기본 예행)',
           'pnpm video requests:pull            승인본 → 설계도 + 큐 + 적용 시작',
+          'pnpm video retire:sync [--commit] [--purge]  내린 편을 manifest 에서 뺀다 (--purge: 파일까지, 되돌릴 수 없음)',
         ].join('\n'),
       )
       process.exitCode = 1

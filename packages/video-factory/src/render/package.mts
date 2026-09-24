@@ -12,12 +12,14 @@
 // 그래야 Next 번들에 헤드리스 렌더러가 딸려 들어가지 않는다.
 
 import { execFileSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { loadBundle } from '../catalog/bundle'
 import { allSpecs } from '../requests/store'
+import { refreshRetiredFile } from '../requests/drain.mjs'
 import { FPS, FORMATS, type FormatId } from '../spec/format'
 import { applyVoiceTiming } from '../voice/timing'
 import { loadVoiceManifest } from '../voice/edge-tts'
@@ -54,6 +56,13 @@ export interface ManifestFormat {
   bytes: number
   width: number
   height: number
+  /**
+   * 내용 해시 앞 10자 — 앱이 `?v=` 로 붙인다. 교체는 **같은 경로를 덮는데** 버킷이 7일 캐시를
+   * 걸어 두므로(publish.mts), 이게 없으면 교체해도 최대 일주일 옛 영상·옛 포스터가 나간다.
+   */
+  v: string
+  /** 포스터 내용 해시 */
+  posterV: string
 }
 
 export interface ManifestEntry {
@@ -64,6 +73,8 @@ export interface ManifestEntry {
   /** 초. 규격이 달라도 길이는 같다. */
   seconds: number
   captions: string
+  /** 자막 내용 해시 — `v` 와 같은 이유 */
+  captionsV: string
   /**
    * 컷별 자막 전문. **왜 manifest 에 싣나:**
    *   편별 페이지가 이걸 **서버 렌더 HTML** 로 내야 검색이 읽을 것이 생긴다(I6).
@@ -86,6 +97,11 @@ export interface Manifest {
   videos: ManifestEntry[]
 }
 
+/** 파일 내용 해시 앞 10자 */
+function hashOf(file: string): string {
+  return createHash('sha1').update(fs.readFileSync(file)).digest('hex').slice(0, 10)
+}
+
 /** Remotion 이 함께 깔아 준 ffmpeg 를 쓴다 — 시스템에 ffmpeg 가 없어도 된다. */
 function ffmpeg(args: string[]): void {
   execFileSync('npx', ['remotion', 'ffmpeg', ...args], {
@@ -96,6 +112,8 @@ function ffmpeg(args: string[]): void {
 }
 
 async function main(): Promise<void> {
+  // 내린 편은 manifest 에 싣지 않는다 — 목록을 DB 에서 새로 받는다(못 받으면 멈춘다)
+  await refreshRetiredFile()
   const specs = allSpecs(loadBundle()).map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
   fs.mkdirSync(DIST, { recursive: true })
 
@@ -123,7 +141,9 @@ async function main(): Promise<void> {
       const posterRel = `${format}/${spec.id}.jpg`
       const poster = path.join(DIST, posterRel)
       fs.mkdirSync(path.dirname(poster), { recursive: true })
-      if (!fs.existsSync(poster)) {
+      // 포스터가 없거나 **영상이 포스터보다 새로우면**(교체·다시 찍음) 다시 뽑는다 —
+      // 있으면 건너뛰던 때는 교체한 영상에 옛 포스터가 붙었다.
+      if (!fs.existsSync(poster) || fs.statSync(mp4).mtimeMs > fs.statSync(poster).mtimeMs) {
         // 첫 프레임은 페이드 중이라 비어 있다 — 첫 컷의 70% 지점을 뽑는다.
         const at = posterFrame(spec, voice) / FPS
         ffmpeg(['-y', '-ss', at.toFixed(2), '-i', mp4, '-frames:v', '1', '-q:v', '3', poster])
@@ -136,6 +156,8 @@ async function main(): Promise<void> {
         bytes: fs.statSync(mp4).size,
         width: def.width,
         height: def.height,
+        v: hashOf(mp4),
+        posterV: hashOf(poster),
       }
     }
 
@@ -150,6 +172,7 @@ async function main(): Promise<void> {
       subtitle: spec.subtitle,
       seconds,
       captions: `${spec.id}.vtt`,
+      captionsV: hashOf(vtt),
       // 자막이 비어 있는 컷은 넣지 않는다 — 여는·닫는 컷은 큰 글씨가 자막을 대신한다.
       transcript: spec.scenes.map((sc) => sc.caption.trim()).filter((c) => c.length > 0),
       evidence: spec.evidence.map((e) => ({ ...e })),

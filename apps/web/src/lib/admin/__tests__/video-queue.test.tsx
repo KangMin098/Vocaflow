@@ -39,7 +39,7 @@ const emptyConsole: VideoConsole = {
 }
 
 /** 요청 탭 — 이 파일은 현황 탭을 보므로 비워 둔다 */
-const noRequests: RequestBoard = { ready: true, domains: [], targets: [], requests: [] }
+const noRequests: RequestBoard = { ready: true, domains: [], targets: [], requests: [], retired: {} }
 
 /** 아무 후보도 없는 기획판 — 기본값. 개별 검사가 필요한 곳에서 덮어쓴다. */
 const emptyPlan: PlanBoard = {

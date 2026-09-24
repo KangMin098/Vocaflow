@@ -45,6 +45,7 @@ const row = (over: Partial<VideoRequestRow> = {}): VideoRequestRow => ({
   error: null,
   created_at: '2026-09-24T00:00:00Z',
   updated_at: '2026-09-24T00:00:00Z',
+  mode: 'new',
   ...over,
 })
 
@@ -72,12 +73,14 @@ const detail = (over: Partial<RequestDetail> = {}): RequestDetail => ({
   reviews: [],
   evaluations: [],
   job: null,
+  retirement: null,
+  targetPublished: false,
   ...over,
 })
 
 describe('요청 탭', () => {
   it('표를 못 읽으면 0건이 아니라 마이그레이션을 말한다', () => {
-    const board: RequestBoard = { ready: false, domains: [], targets: [], requests: [] }
+    const board: RequestBoard = { ready: false, domains: [], targets: [], requests: [], retired: {} }
     const html = renderToString(<RequestsPanel board={board} />)
     expect(html).toContain('20260924120000_video_requests')
     expect(html).not.toContain('요청 0건')
@@ -86,6 +89,7 @@ describe('요청 탭', () => {
   it('검토 대기 요청은 「내 차례」, 설계 대기는 에이전트 차례', () => {
     const board: RequestBoard = {
       ready: true,
+      retired: {},
       domains: [domain],
       targets: [],
       requests: [row({ phase: 'designed', current_rev: 1 }), row({ id: 'x2', target_label: '독해 5권' })],
@@ -128,5 +132,48 @@ describe('요청 상세', () => {
       />,
     )
     expect(html).toContain('pnpm video voice req-volume-reading-4-111111')
+  })
+})
+
+describe('교체 · 내리기', () => {
+  it('교체 요청은 덮을 자리를 먼저 말한다', () => {
+    const html = renderToString(
+      <RequestDetailClient
+        detail={detail({ request: row({ mode: 'replace', target_key: 'series-reading', video_id: 'series-reading', phase: 'designed', current_rev: 1 }), targetPublished: true })}
+        video={null}
+      />,
+    )
+    expect(html).toContain('교체 요청')
+    expect(html).toContain('series-reading')
+  })
+
+  it('파일까지 지운 편은 되살리기가 잠긴다', () => {
+    const html = renderToString(
+      <RequestDetailClient
+        detail={detail({
+          request: row({ phase: 'evaluated', current_rev: 1, video_id: 'req-volume-reading-4-111111' }),
+          retirement: { reason: '수치가 낡음', retired_at: '2026-09-24T00:00:00Z', purged: true },
+        })}
+        video={null}
+      />,
+    )
+    expect(html).toContain('내림')
+    const restore = html.match(/<button[^>]*>되살리기/)?.[0] ?? ''
+    expect(restore).toContain('disabled')
+  })
+
+  it('발행된 대상을 고르면 교체/새 편을 고를 수 있다', () => {
+    const board: RequestBoard = {
+      ready: true,
+      retired: {},
+      domains: [domain],
+      targets: [{ key: 'series-reading', label: '리딩', kind: 'series', backing: null, hasRuleVideo: true, published: true }],
+      requests: [],
+    }
+    const html = renderToString(
+      <RequestsPanel board={board} prefill={{ domainId: 'textbook', targetKey: 'series-reading', targetLabel: '리딩', mode: 'replace' }} />,
+    )
+    expect(html).toContain('이 편 교체')
+    expect(html).toContain('같은 자리(series-reading)')
   })
 })

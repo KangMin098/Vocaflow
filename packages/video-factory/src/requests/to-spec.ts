@@ -26,6 +26,8 @@ import type {
 
 export interface RequestMeta {
   videoId: string
+  /** replace 면 videoId 는 이어받는 자리(기존 편 id)다 */
+  mode?: 'new' | 'replace'
   purpose: RequestPurpose
   audience: RequestAudience
   formats: FormatId[]
@@ -129,9 +131,14 @@ export function buildRequestSpec(
 
   if (problems.some((p) => p.level === 'error')) return { spec: null, problems }
 
+  // 교체 편은 원래 편의 종류를 이어받는다 — manifest 묶음·계측 kind 가 그대로여야 /video 에서
+  // 다른 칸으로 옮겨 가지 않는다. 원래 편이 규칙 편이 아니면(요청 편 교체) 'request'.
+  const replacing = meta.mode === 'replace'
+  const kind = replacing ? (ctx.catalog.find((s) => s.id === meta.videoId)?.kind ?? 'request') : 'request'
+
   const spec: VideoSpec = {
     id: meta.videoId,
-    kind: 'request',
+    kind,
     audience: timingAudience(meta.purpose),
     title: fill(design.title),
     subtitle: fill(design.subtitle),
@@ -143,6 +150,7 @@ export function buildRequestSpec(
       purpose: meta.purpose,
       audience: meta.audience,
       message: meta.plan.message,
+      ...(replacing ? { replaces: meta.videoId } : {}),
     },
   }
 

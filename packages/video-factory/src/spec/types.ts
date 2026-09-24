@@ -253,6 +253,10 @@ export interface VideoBrief {
   purpose: 'learn' | 'buy'
   audience: 'student' | 'parent' | 'teacher' | 'adult'
   message: string
+  /**
+   * 교체 편이면 이어받는 자리의 id(= 이 편의 id). 있으면 같은 id 의 규칙 편을 이긴다(`requests/merge.ts`).
+   */
+  replaces?: string
 }
 
 /** 쓸 수 있는 강조색 — 디자인 토큰에 실재하는 것만. */

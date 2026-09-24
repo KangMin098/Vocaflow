@@ -11,7 +11,9 @@ import { loadBundle } from '../catalog/bundle'
 import { requestVideoId } from '../catalog/ids'
 import { checkDesign } from '../requests/design'
 import { resolveFact, strayDigits } from '../requests/facts'
-import type { RequestMeta } from '../requests/to-spec'
+import { buildRequestSpec, type RequestMeta } from '../requests/to-spec'
+import { mergeSpecs } from '../requests/merge'
+import { MissingRetiredError, readRetired } from '../requests/retired'
 import type { RequestDesign, RequestPlan } from '../requests/types'
 import { FIXTURE_BUNDLE_PATH } from './test-bundle'
 
@@ -143,5 +145,36 @@ describe('검토 미리보기', () => {
     const r = checkDesign(plan, good(), meta, ctx)
     expect(r.preview?.scenes[1]?.caption).toBe('이 권에는 문항 24,396개가 있어요.')
     expect(r.preview?.evidence.some((e) => e.source.includes('rungs[step=4].items'))).toBe(true)
+  })
+})
+
+describe('교체 · 내리기 — 합치기 규칙', () => {
+  const rule = ctx.catalog
+  const target = rule.find((s) => s.id === 'series-reading')!
+
+  it('교체 편은 같은 id 의 규칙 편을 이기고, 원래 종류를 이어받는다', () => {
+    const r = buildRequestSpec(good(), { ...meta, videoId: 'series-reading', mode: 'replace' }, ctx)
+    expect(r.spec?.id).toBe('series-reading')
+    expect(r.spec?.kind).toBe(target.kind)
+    expect(r.spec?.brief?.replaces).toBe('series-reading')
+    const merged = mergeSpecs(rule, [r.spec!], new Set())
+    expect(merged.length).toBe(rule.length)
+    expect(merged.find((s) => s.id === 'series-reading')?.title).toBe(r.spec!.title)
+  })
+
+  it('새 요청 편은 같은 id 가 있으면 진다 — 기존 편을 조용히 덮지 않는다', () => {
+    const imposter = { ...target, title: '가짜', brief: undefined }
+    const merged = mergeSpecs(rule, [imposter], new Set())
+    expect(merged.find((s) => s.id === 'series-reading')?.title).toBe(target.title)
+  })
+
+  it('내린 id 는 어디에도 안 나온다', () => {
+    const merged = mergeSpecs(rule, [], new Set(['series-reading']))
+    expect(merged.some((s) => s.id === 'series-reading')).toBe(false)
+    expect(merged.length).toBe(rule.length - 1)
+  })
+
+  it('내린 편 목록 파일이 없으면 빈 목록으로 삼키지 않고 멈춘다', () => {
+    expect(() => readRetired('does/not/exist.json')).toThrow(MissingRetiredError)
   })
 })

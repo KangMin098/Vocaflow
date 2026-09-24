@@ -37,6 +37,9 @@ export interface VideoFile {
   bytes: number
   width: number
   height: number
+  /** 내용 해시 — 같은 경로를 덮어쓰는 교체 뒤에도 캐시된 옛 파일이 안 나가게 `?v=` 로 붙인다 */
+  v?: string
+  posterV?: string
 }
 
 export interface VideoEvidence {
@@ -52,6 +55,7 @@ export interface VideoEntry {
   subtitle: string
   seconds: number
   captions: string
+  captionsV?: string
   /** 컷별 자막 전문 — 편별 페이지가 **서버 렌더 HTML** 로 낸다(I6). */
   transcript: string[]
   /** 화면에 나온 수치와 출처. 근거 없는 수치를 페이지에 싣지 않기 위해 함께 나른다. */
@@ -72,9 +76,10 @@ export const VIDEO_PUBLISHED = Boolean(manifest.baseUrl) && manifest.videos.leng
 
 export const VIDEO_BUILT_AT = manifest.builtAt
 
-function url(relative: string): string | null {
+function url(relative: string, v?: string): string | null {
   if (!manifest.baseUrl) return null
-  return `${manifest.baseUrl.replace(/\/$/, '')}/${relative}`
+  // 옛 manifest(해시 없음)는 그대로 — 해시는 다음 포장부터 붙는다
+  return `${manifest.baseUrl.replace(/\/$/, '')}/${relative}${v ? `?v=${v}` : ''}`
 }
 
 export interface ResolvedVideo {
@@ -98,9 +103,9 @@ export function videoById(id: string, format: VideoFormat = 'wide'): ResolvedVid
   const entry = manifest.videos.find((v) => v.id === id)
   const f = entry?.formats[format]
   if (!entry || !f) return null
-  const src = url(f.file)
-  const poster = url(f.poster)
-  const captions = url(entry.captions)
+  const src = url(f.file, f.v)
+  const poster = url(f.poster, f.posterV)
+  const captions = url(entry.captions, entry.captionsV)
   if (!src || !poster || !captions) return null
   return {
     id: entry.id,
