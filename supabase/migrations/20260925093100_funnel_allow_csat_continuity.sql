@@ -1,4 +1,4 @@
--- supabase/migrations/20260925090100_funnel_allow_csat_continuity.sql
+-- supabase/migrations/20260925093100_funnel_allow_csat_continuity.sql
 --
 -- **기출 지속 학습 관측(docs/csat/ia-design.md §5)을 DB 가 받게 한다.** (AGENTS D2)
 --

@@ -1,4 +1,4 @@
--- supabase/migrations/20260925090000_csat_learner_state.sql
+-- supabase/migrations/20260925093000_csat_learner_state.sql
 --
 -- **기출 해부 기록(DissectionRecord)을 서버에 한 행으로 둔다.** (docs/csat/ia-design.md §3-1)
 -- 2026-09-24 설계 승인 · SQL 은 적용 전 별도 승인.

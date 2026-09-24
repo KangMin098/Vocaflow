@@ -33,13 +33,13 @@
 | A2 첫 실행 | 같은 경로 안 링크(`/csat` → `/csat?need=killer`)는 컴포넌트를 재사용해 **첫 필터가 남았다** — 메뉴를 눌러도 표가 안 좁혀짐. 서가(`?type=` · `?exam=`)도 같은 구조 | 두 페이지가 쿼리를 `key` 로 걸어 다시 세운다 |
 | C3 첫 실행 | 서버 저장(PUT)이 **통째 덮기**라 탭 둘 · 기기 둘 중 늦게 쓴 쪽이 다른 쪽 학습을 지웠다(열린 채 남은 앞 시나리오 탭이 1.5초 뒤 덮어씀) | PUT 이 서버 사본과 **항목 단위로 합친다**(`mergeDissection`). 테스트는 시나리오마다 컨텍스트를 닫는다 |
 | 단위 테스트 추가 | 복습 문항은 다른 문항으로 바뀌었지만 **복습의 원래 문항이 같은 세트 첫 문항으로 다시** 들어왔다(외운 문항을 한 세트 안에서 다시 봄) | `composeDissection` 이 복습이 걸린 세트에서 원래 문항을 뺀다 |
-| 적용 전 조사 | `funnel_events` CHECK 제약에 `csat_space_scoped` · `csat_space_opened` 가 없어 9-23 이후 **0건 저장** | 마이그레이션 `20260925090100` 에 포함. 적용 뒤 `csat_space_opened` 15건/일 저장 확인 |
+| 적용 전 조사 | `funnel_events` CHECK 제약에 `csat_space_scoped` · `csat_space_opened` 가 없어 9-23 이후 **0건 저장** | 마이그레이션 `20260925093100` 에 포함. 적용 뒤 `csat_space_opened` 15건/일 저장 확인 |
 | C2 첫 실행 | 카드 상태 확인 5초 타임아웃(개발 서버 첫 컴파일) — 앱 결함 아님 | 상태 확인만 20초 |
 | A7 첫 실행 | Playwright 추적 기록 준비 30초 초과 — 환경 문제 | `--trace=off` |
 
 ## 3. 지속 학습 지표가 실제로 기록되는가
 
-마이그레이션 두 개(`20260925090000_csat_learner_state` · `20260925090100_funnel_allow_csat_continuity`)는 2026-09-25 사용자 승인 뒤 적용했다.
+마이그레이션 두 개(`20260925093000_csat_learner_state` · `20260925093100_funnel_allow_csat_continuity`)는 2026-09-25 사용자 승인 뒤 적용했다.
 시나리오 실행 뒤 `node --tls-max-v1.2 scripts/csat/continuity-metrics.mjs --days 1`:
 
 | 지표 | 이벤트 | 기록 | 값(테스트 계정 — 뜻 없음) |

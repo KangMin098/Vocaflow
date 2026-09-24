@@ -144,7 +144,7 @@ describe('허용 이벤트 목록', () => {
     // `csat_trap_opened` 와 합치지 않는다 — 분모가 다른 화면이다.
     'csat_space_scoped',
     'csat_space_opened',
-    // 2026-09-24 — 기출 지속 학습 6종(docs/csat/ia-design.md §5 · 마이그레이션 `20260925090100`).
+    // 2026-09-24 — 기출 지속 학습 6종(docs/csat/ia-design.md §5 · 마이그레이션 `20260925093100`).
     // 홈 상태(첫 방문 · 재방문 · 공백 복귀) · 이어하기 · 복습 시작/끝 · 들어온 축 · 해설에서 돌아가기
     'csat_home_viewed',
     'csat_resume_clicked',
