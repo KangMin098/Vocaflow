@@ -20,7 +20,7 @@
 const { rightsTag } = await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
 
 /** 파생 종류 — `csat_fit.derived_from.kind`. gate-rules `derivativeKind` 가 그대로 돌려준다. */
-export const DERIVED_KINDS = new Set(['lead', 'paragraphs', 'excerpt', 'abstract', 'adapt'])
+export const DERIVED_KINDS = new Set(['lead', 'paragraphs', 'excerpt', 'abstract', 'intro', 'adapt'])
 
 export const countWords = (s) => String(s ?? '').split(/\s+/).filter(Boolean).length
 
