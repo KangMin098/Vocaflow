@@ -7,7 +7,43 @@
 
 import { describe, expect, it } from 'vitest'
 
+import { inventoryFromLive } from '../source-inventory-view'
 import { foldLive } from '../source-live'
+
+describe('inventoryFromLive — 원천별 표를 스냅샷과 같은 행 모양으로', () => {
+  const now = new Date('2026-09-24T12:00:00.000Z')
+  const rows = [
+    { source: 'voa', status: 'ready', n: '90', judged: '80', raw_purpose: '0', levelled: '85', legal_blocked: '2', first_get: '2026-08-01T00:00:00Z', last_get: '2026-09-08T00:00:00Z', blocked_by: { gate: 5, legal: 2 } },
+    { source: 'voa', status: 'published', n: 10, judged: 10, raw_purpose: 0, levelled: 10, legal_blocked: 0, first_get: '2026-07-01T00:00:00Z', last_get: '2026-09-01T00:00:00Z', blocked_by: { gate: 5, legal: 2 } },
+    { source: 'plos', status: 'ready', n: 200, judged: 50, raw_purpose: 30, levelled: 200, legal_blocked: 0, first_get: null, last_get: null, blocked_by: null },
+  ]
+
+  it('상태별 칸을 원천 한 줄로 접고 · 큰 원천이 먼저 온다', () => {
+    const inv = inventoryFromLive(rows, now, 1234)
+    expect(inv.scanned).toBe(300)
+    expect(inv.rows.map((r) => r.source)).toEqual(['plos', 'voa'])
+    const voa = inv.rows.find((r) => r.source === 'voa')!
+    expect([voa.total, voa.ready, voa.published, voa.other]).toEqual([100, 90, 10, 0])
+    expect([voa.judged, voa.judgedPct, voa.levelled, voa.legalBlocked]).toEqual([90, 90, 95, 2])
+    expect(voa.lastGet).toBe('2026-09-08T00:00:00Z')
+    expect(voa.staleDays).toBe(16)
+    expect(voa.topBlocked).toEqual([{ reason: 'gate', count: 5 }, { reason: 'legal', count: 2 }])
+  })
+
+  it('수집 시각이 없으면 「며칠 전」도 없다 — 0 으로 뭉개지 않는다', () => {
+    const plos = inventoryFromLive(rows, now, 0).rows.find((r) => r.source === 'plos')!
+    expect(plos.lastGet).toBeNull()
+    expect(plos.staleDays).toBeNull()
+    expect(plos.topBlocked).toEqual([])
+  })
+
+  it('센 시각은 지금이고 낡음은 0일이다 — 스냅샷과 구별된다', () => {
+    const inv = inventoryFromLive(rows, now, 1234)
+    expect(inv.measuredAt).toBe(now.toISOString())
+    expect(inv.ageDays).toBe(0)
+    expect(inv.elapsedSeconds).toBe(1.2)
+  })
+})
 
 const AT = '2026-09-24T12:00:00.000Z'
 

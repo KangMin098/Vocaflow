@@ -15,6 +15,8 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { inventoryFromLive, type InventoryLiveRpcRow, type SourceInventoryPanel } from './source-inventory-view'
+
 export interface SourceLiveRow {
   source: string
   grade: string
@@ -41,6 +43,12 @@ export interface SourceLive {
   policyMax: number | null
   /** 이 수를 **센** 시각(서버 시계) — 판정 시각과 다르다. */
   countedAt: string
+  /**
+   * 원천별 재고 표 — `csat_source_inventory_live()`. 이 조회만 실패하면 `null` 과 이유이고
+   * 맨 위 수는 그대로 산다(한쪽이 실패했다고 다른 쪽까지 옛 수로 돌리지 않는다).
+   */
+  inventory: SourceInventoryPanel | null
+  inventoryError: string | null
 }
 
 export type SourceLiveResult = SourceLive | { ok: false; error: string; countedAt: string }
@@ -57,7 +65,12 @@ interface RpcRow {
 }
 
 /** RPC 행을 화면 모양으로 접는다 — 순수 함수라 테스트가 DB 없이 잰다. */
-export function foldLive(rows: RpcRow[], countedAt: string): SourceLive {
+export function foldLive(
+  rows: RpcRow[],
+  countedAt: string,
+  inventory: SourceInventoryPanel | null = null,
+  inventoryError: string | null = null,
+): SourceLive {
   const byGrade: Record<string, number> = {}
   const bySourceMap = new Map<string, { source: string; total: number; usable: number; blocked: number; unjudged: number }>()
   let total = 0
@@ -94,13 +107,21 @@ export function foldLive(rows: RpcRow[], countedAt: string): SourceLive {
     policyMin,
     policyMax,
     countedAt,
+    inventory,
+    inventoryError,
   }
 }
 
 export async function loadSourceLive(db: SupabaseClient, now: Date = new Date()): Promise<SourceLiveResult> {
   const countedAt = now.toISOString()
-  const { data, error } = await db.rpc('csat_source_live_rollup')
-  if (error) return { ok: false, error: `지금 수를 못 셌습니다 — ${error.message}`, countedAt }
-  if (!Array.isArray(data)) return { ok: false, error: '지금 수를 못 셌습니다 — 응답 모양이 다릅니다', countedAt }
-  return foldLive(data as RpcRow[], countedAt)
+  const t0 = Date.now()
+  const [roll, inv] = await Promise.all([db.rpc('csat_source_live_rollup'), db.rpc('csat_source_inventory_live')])
+  if (roll.error) return { ok: false, error: `지금 수를 못 셌습니다 — ${roll.error.message}`, countedAt }
+  if (!Array.isArray(roll.data)) return { ok: false, error: '지금 수를 못 셌습니다 — 응답 모양이 다릅니다', countedAt }
+  const inventory =
+    !inv.error && Array.isArray(inv.data) ? inventoryFromLive(inv.data as InventoryLiveRpcRow[], now, Date.now() - t0) : null
+  const inventoryError = inventory
+    ? null
+    : `원천별 표를 못 셌습니다 — ${inv.error?.message ?? '응답 모양이 다릅니다'} · 표는 스캔 결과로 보입니다`
+  return foldLive(roll.data as RpcRow[], countedAt, inventory, inventoryError)
 }

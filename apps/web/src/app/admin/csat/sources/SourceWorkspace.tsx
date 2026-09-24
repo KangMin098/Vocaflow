@@ -32,7 +32,7 @@ import { SourceQueryConsole } from './SourceQueryConsole'
 
 export function SourceWorkspace({
   panel,
-  inventory,
+  inventory: inventorySnapshot,
   initialState = DEFAULT_SOURCE_STATE,
   eligibility,
   operations,
@@ -47,6 +47,11 @@ export function SourceWorkspace({
   live?: SourceLiveResult
 }) {
   const [state, setState] = useState(initialState)
+  // 원천별 표 — 지금 DB 에서 셌으면 그것, 못 셌으면 스냅샷. 「지금 다시 세기」가 이 값을 바꾼다.
+  const [inventory, setInventory] = useState<SourceInventoryPanel>(
+    live?.ok && live.inventory ? live.inventory : inventorySnapshot,
+  )
+  const inventoryLive = inventory !== inventorySnapshot
   const heading = useRef<HTMLHeadingElement>(null)
   const consoleRef = useRef<HTMLDivElement>(null)
   const trigger = useRef<HTMLButtonElement | null>(null)
@@ -110,6 +115,9 @@ export function SourceWorkspace({
           snapshot={{ usable: panel.total.composable, total: panel.total.total, measuredAt: panel.measuredAt }}
           onOpen={() => update({ view: 'eligibility' })}
           onHowTo={() => update({ view: 'operations' })}
+          onCounted={(next) => {
+            if (next.ok && next.inventory) setInventory(next.inventory)
+          }}
         />
       ) : (
       <section className={styles.overview} aria-label="판정 현황과 측정 시각">
@@ -139,7 +147,7 @@ export function SourceWorkspace({
       {inventory.ageDays >= 7 || panel.ageDays >= 7 || panel.specStale ? (
         <p className={styles.warning} role="status">
           {live?.ok
-            ? '맨 위 수는 지금 DB 기준입니다. 아래 학년별·원천별 표(스캔 결과)는 오래되었거나 옛 판정 규격이라, 그 표로 처리하기 전에 스캔을 다시 돌리세요.'
+            ? '맨 위 수와 원천별 표는 지금 DB 기준입니다. 적격 판정 탭의 학년별 표만 스캔 결과(옛 판정 규격)라, 그 표로 처리하기 전에 스캔을 다시 돌리세요.'
             : '집계가 오래되었거나 판정 규격이 바뀌었습니다. 처리 전에 집계를 갱신하세요.'}
         </p>
       ) : null}
@@ -178,7 +186,7 @@ export function SourceWorkspace({
         <div className={styles.listHeading}>
           <h3>어느 원천을 확인할까요?</h3>
           <p>
-            {inventory.rows.length}개 원천 · {inventory.scanned.toLocaleString()}편의 재고 기준.
+            {inventory.rows.length}개 원천 · {inventory.scanned.toLocaleString()}편의 재고 기준{inventoryLive ? '(지금 DB)' : '(스캔 결과)'}.
             적격 판정과 집계 대상이 다를 수 있습니다.
           </p>
         </div>

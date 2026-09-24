@@ -34,12 +34,15 @@ export function LiveOverview({
   snapshot,
   onOpen,
   onHowTo,
+  onCounted,
 }: {
   initial: SourceLiveResult
   /** 못 셌을 때만 쓰는 옛 수 — 스냅샷이라고 밝혀서 보인다. */
   snapshot: { usable: number; total: number; measuredAt: string }
   onOpen: () => void
   onHowTo: () => void
+  /** 다시 센 결과를 부모에 알린다 — 원천별 표도 같은 순간의 수로 바뀐다. */
+  onCounted?: (live: SourceLiveResult) => void
 }) {
   const [live, setLive] = useState<SourceLiveResult>(initial)
   const [busy, setBusy] = useState(false)
@@ -52,6 +55,7 @@ export function LiveOverview({
       const res = await fetch('/api/admin/csat/sources?live=1', { cache: 'no-store' })
       const body = (await res.json()) as SourceLiveResult
       setLive(body)
+      onCounted?.(body)
     } catch (e) {
       setNetError(`서버에 닿지 못했습니다(${e instanceof Error ? e.message : '알 수 없음'}) — 잠시 뒤 다시 누르세요. 화면의 수는 바로 전에 센 값 그대로입니다.`)
     } finally {
@@ -114,13 +118,14 @@ export function LiveOverview({
               csat_source_live_rollup 이 있는지 확인하세요.
             </span>
           )}
+          {ok && live.inventoryError ? <span className="text-[var(--error-ink)]">{live.inventoryError}</span> : null}
           {netError ? <span className="text-[var(--error-ink)]">{netError}</span> : null}
           <button
             type="button"
             onClick={onHowTo}
             className="inline-flex min-h-[44px] items-center font-display text-[12px] font-[700] text-[var(--p)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] sm:self-end"
           >
-            학년별·원천별 표는 스캔 결과 — 갱신 방법
+            학년별 표는 스캔 결과 — 갱신 방법
           </button>
         </div>
       </div>
