@@ -37,8 +37,15 @@ import { CURRICULUM_GATE, type SchoolLevel } from './curriculum'
 import { PASSAGE_WORDS, READING_LEVEL_BANDS } from './readability'
 import { cefrFitsBand } from './assemble-unit'
 
-/** 판정 규격 버전. 자가 바뀌면 올린다 — 적재된 판정이 어느 자로 매겨졌는지 알아야 한다. */
-export const ELIGIBILITY_SPEC_VERSION = 3
+/**
+ * 판정 규격 버전. 자가 바뀌면 올린다 — 적재된 판정이 어느 자로 매겨졌는지 알아야 한다.
+ *
+ * 4 (2026-09-24): V6+ 의 CEFR 상한 B2 → C1(`assemble-unit.UPPER_BAND_MAX_CEFR` · 실측 근거는 그 주석).
+ * ⚠️ DB 함수 `csat_source_is_eligible` · `csat_source_is_gradeable` 이 `policy_version` 을 **숫자로 고정**해 읽는다.
+ *   버전을 올린 캐시를 적재하기 **전에** 두 함수가 새 버전을 받게 하는 마이그레이션이 먼저다 —
+ *   순서가 뒤집히면 재적재하는 동안 적재된 행이 전부 부적격으로 읽혀 서빙·채점이 끊긴다.
+ */
+export const ELIGIBILITY_SPEC_VERSION = 4
 
 /**
  * 등급 — **다음에 할 일**로 가른다.
