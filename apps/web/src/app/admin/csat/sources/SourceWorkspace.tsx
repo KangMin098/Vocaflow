@@ -22,6 +22,8 @@ import {
   type SourceIssue,
   type SourceSort,
 } from '@/lib/textbook/source-workspace'
+import type { SourceLiveResult } from '@/lib/textbook/source-live'
+import { LiveOverview } from './LiveOverview'
 import { SourceInventoryTable, SourceDetail } from './SourceInventoryTable'
 import styles from './sources.module.css'
 import { SourceOperations } from './SourceOperations'
@@ -34,12 +36,15 @@ export function SourceWorkspace({
   initialState = DEFAULT_SOURCE_STATE,
   eligibility,
   operations,
+  live,
 }: {
   panel: SourceEligibilityPanel
   inventory: SourceInventoryPanel
   initialState?: SourceWorkspaceState
   eligibility: ReactNode
   operations: ReactNode
+  // 지금 DB 에서 센 맨 위 요약. 없으면(테스트 표본 등) 옛 스냅샷 요약을 그린다.
+  live?: SourceLiveResult
 }) {
   const [state, setState] = useState(initialState)
   const heading = useRef<HTMLHeadingElement>(null)
@@ -99,6 +104,14 @@ export function SourceWorkspace({
         step={stepByKey(state.view === 'eligibility' ? 'pick' : 'gather')}
         help={<AdminScreenHelp screen="csat-sources" tab={SOURCE_VIEWS[state.view]} />}
       />
+      {live ? (
+        <LiveOverview
+          initial={live}
+          snapshot={{ usable: panel.total.composable, total: panel.total.total, measuredAt: panel.measuredAt }}
+          onOpen={() => update({ view: 'eligibility' })}
+          onHowTo={() => update({ view: 'operations' })}
+        />
+      ) : (
       <section className={styles.overview} aria-label="판정 현황과 측정 시각">
         <button className={styles.verdict} onClick={() => update({ view: 'eligibility' })}>
           <span>교재에 실을 수 있는 원문</span>
@@ -122,9 +135,12 @@ export function SourceWorkspace({
           <button onClick={() => update({ view: 'operations' })}>집계 갱신 방법</button>
         </div>
       </section>
+      )}
       {inventory.ageDays >= 7 || panel.ageDays >= 7 || panel.specStale ? (
         <p className={styles.warning} role="status">
-          집계가 오래되었거나 판정 규격이 바뀌었습니다. 처리 전에 집계를 갱신하세요.
+          {live?.ok
+            ? '맨 위 수는 지금 DB 기준입니다. 아래 학년별·원천별 표(스캔 결과)는 오래되었거나 옛 판정 규격이라, 그 표로 처리하기 전에 스캔을 다시 돌리세요.'
+            : '집계가 오래되었거나 판정 규격이 바뀌었습니다. 처리 전에 집계를 갱신하세요.'}
         </p>
       ) : null}
       <SourceProcess

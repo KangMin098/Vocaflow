@@ -14,6 +14,7 @@ import type { EligibilityDrift } from '@/lib/textbook/eligibility-drift'
 import Link from 'next/link'
 
 import { SourceWorkspace } from './SourceWorkspace'
+import type { SourceLiveResult } from '@/lib/textbook/source-live'
 import type { SourceWorkspaceState } from '@/lib/textbook/source-workspace'
 import type { SourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
@@ -119,13 +120,14 @@ function DriftBar({ drift }: { drift: EligibilityDrift }) {
   )
 }
 
-export function SourceEligibilityClient({ panel, inventory, initialState, drift }: {
+export function SourceEligibilityClient({ panel, inventory, initialState, drift, live }: {
   panel: SourceEligibilityPanel
   inventory: SourceInventoryPanel
   initialState?: SourceWorkspaceState
   drift: EligibilityDrift
+  live?: SourceLiveResult
 }) {
-  return <SourceWorkspace panel={panel} inventory={inventory} initialState={initialState}
+  return <SourceWorkspace panel={panel} inventory={inventory} initialState={initialState} live={live}
     eligibility={<>
       <DriftBar drift={drift} />
       <GradeTable grades={panel.grades} total={panel.total.total} />

@@ -11,6 +11,7 @@ import {
   type SourceUseTag, type SourceListSort, type SourcePageSize,
 } from '@/lib/textbook/source-operations'
 import { lastDrainRun } from '@/lib/csat/drain-runs'
+import { loadSourceLive } from '@/lib/textbook/source-live'
 
 export const dynamic = 'force-dynamic'
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
@@ -55,6 +56,12 @@ export async function GET(request: Request) {
   try {
     const db = createAdminClient() as unknown as SupabaseClient
     const params = new URL(request.url).searchParams
+    // 「지금 다시 세기」 단추 — 첫 화면(page.tsx)과 **같은 함수**로 센다. 못 셌으면 503 과 이유
+    // (0 으로 뭉개지 않는다 — 화면이 「판정 0편」과 「못 셌다」를 가른다).
+    if (params.has('live')) {
+      const live = await loadSourceLive(db)
+      return reply(live, live.ok ? 200 : 503)
+    }
     if (params.has('summary')) {
       const entries = await Promise.all((Object.keys(SOURCE_QUEUES) as SourceQueue[]).map(async queue => [queue, requireCount(await filterQueue(db, queue, true))] as const))
       const latest = await db.from('csat_source_eligibility').select('measured_at,policy_version').order('measured_at').limit(1)
