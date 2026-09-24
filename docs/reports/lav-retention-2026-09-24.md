@@ -69,9 +69,9 @@ Admin 검수 · 교재 조판」이라면 **모든 글의 모든 행을 늘 들�
 |---|---|---|
 | 1 | **가드** — ✅ 적용(2026-09-24 · `20260923232916`). 단, §3 정정대로 기존 게이트가 이미 막고 있어 **이중 장치**다 | [rollback](../AI_CONTEXT/rollback/20260923232916_article_word_set_require_vocab-rollback.sql) |
 | 2 | **발행 전 재분석** — ✅ 2026-09-24. `ensureArticleVocab`(`packages/library-pipeline/src/analyze/ensure-article-vocab.ts`)가 행이 없을 때만 배치 경로 설정(`joinHyphenLineBreaks:false` · `skipLlm:true`)으로 `analyzeArticle` → `compute_article_vrl`. 붙인 곳: `force-publish` 라우트(검수 목록·미리보기의 「게시」가 모두 이리 온다). 나머지 경로 전수: 시드 스크립트 2종(`publish-article-seeds` · `publish-voa-seeds`)은 발행 직전 이미 분석한다 · `reprocess.mjs` 는 분석 경로다 · 가공 콘솔 ⑦은 **화면이 품질 게이트 FAIL 이면 버튼을 잠가**(`publish-gate.ts`) 액션까지 오지 않는다 → 붙이지 않고 6 에서 제외한다 | 코드 |
-| 3 | **Admin 미리보기**: 행이 없으면 그 자리에서 분석(쓰지 않고 보여주기만 할지, 써서 캐시할지 결정 필요) | 코드 |
-| 4 | **조판**: `volume-pool.mjs` · `build-unit.mjs` 가 `usedRefs` 중 행 없는 글을 즉석 분석 | 코드 |
-| 5 | **가공 콘솔**: 「어휘 0」과 「아직 안 만듦」을 구분해 표시(`0` 으로 뭉개지 않는다) | 코드 |
+| 3 | **Admin 미리보기** — ✅ 2026-09-24. `/admin/articles/preview/[id]` 가 행이 없으면 `ensureArticleVocab` 로 만들어 **저장**한다. 보여주기만 하지 않는 이유: 선별은 `select_article_vocab`(SQL)이 표를 읽어 하므로 JS 로 흉내 내면 미리보기와 발행이 갈린다. 결과적으로 검수한 글만 행이 남는다 | 코드 |
+| 4 | **조판** — ✅ 2026-09-24. `fetchArticleVocab`(`volume-pool.mjs`)이 받은 결과에서 행이 없는 지문만 `ensureArticleVocab` 로 만들고 그것만 다시 받는다. `volume-pool` · `build-unit` 둘 다 이 함수를 쓴다. 한 번에 500편 상한(밴드 전체 비교 손잡이 대비) · 실패·상한 초과는 수를 찍는다. 회귀 `scripts/textbook/__tests__/fetch-article-vocab.test.mjs` 4건 | 코드 |
+| 5 | **가공 콘솔** — 불필요. 콘솔이 세는 것은 가공 글(`source='original'`)뿐이고 그 글들은 6 에서 제외하므로 행이 사라지지 않는다 | — |
 | 6 | **정리 함수 + 예행**: `ready` 글 행 삭제를 배치 함수로. **`source = 'original'`(가공 글 · ready 631편)은 제외** — 가공 콘솔이 행이 없으면 발행 버튼을 잠근다(2 참조)(2026-09-23 gutenberg 퇴출 때 이 표의 조인 DELETE 가 회당 평균 49초였다 — `pg_stat_statements`). 예행에서 지울 행 수를 먼저 찍는다 | ⚠ **데이터 손실 — 사용자 확인 필수.** 본문에서 재생성 가능하지만 되돌리는 데 6.4만 편 × 46.5 ms ≈ 50분 |
 | 7 | **재분석 정책**: `process-queue.mjs` · `reprocess.mjs` 가 발행 안 할 글의 행을 다시 쓰지 않게(V-Level 만 갱신) — 안 하면 6 을 해도 다시 찬다 | 코드 |
 | 8 | 디스크 회수: 행을 지워도 파일은 안 줄어든다 — `VACUUM FULL` 또는 `pg_repack`(psql 필요 · 잠금) | 운영 작업 |
