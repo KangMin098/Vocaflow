@@ -16,6 +16,51 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { inventoryFromLive, type InventoryLiveRpcRow, type SourceInventoryPanel } from './source-inventory-view'
+import type { PipelineRow } from './source-pipeline'
+
+/** `csat_source_pipeline_live()` 한 행. */
+interface PipelineRpcRow {
+  source: string | null
+  total: number | string
+  pieces: number | string
+  keep: number | string
+  keep_pending: number | string
+  hold: number | string
+  discard: number | string
+  undecided: number | string
+  levelled: number | string
+  judged: number | string
+  last_get: string | null
+}
+
+/** 순수 함수 — 진행표 행에 원천별 usable(맨 위 수와 같은 셈)과 수집 명령을 붙인다. 큰 원천이 먼저. */
+export function foldPipeline(
+  rows: PipelineRpcRow[],
+  usableBySource: Map<string, number>,
+  harvestBySource: Map<string, string>,
+): PipelineRow[] {
+  return rows
+    .map((r) => {
+      const source = r.source ?? '(없음)'
+      return {
+        source,
+        total: Number(r.total),
+        pieces: Number(r.pieces),
+        keep: Number(r.keep),
+        keepPending: Number(r.keep_pending),
+        hold: Number(r.hold),
+        discard: Number(r.discard),
+        undecided: Number(r.undecided),
+        levelled: Number(r.levelled),
+        judged: Number(r.judged),
+        lastGet: r.last_get,
+        // 적격 판정 표에 없는 원천(판정 대상 풀 밖)은 0 편이 아니라 「못 셈」이 아니다 — 판정 대상이 없어 0 편이다.
+        usable: usableBySource.get(source) ?? 0,
+        harvestCmd: harvestBySource.get(source) ?? null,
+      }
+    })
+    .sort((a, b) => b.total - a.total)
+}
 
 export interface SourceLiveRow {
   source: string
@@ -49,6 +94,12 @@ export interface SourceLive {
    */
   inventory: SourceInventoryPanel | null
   inventoryError: string | null
+  /**
+   * 원천별 작업 진행표 — `csat_source_pipeline_live()` + 등록부 수집 명령 + 원천별 usable.
+   * 이 조회만 실패하면 `null` 과 이유(맨 위 수와 표는 산다).
+   */
+  pipeline: PipelineRow[] | null
+  pipelineError: string | null
 }
 
 export type SourceLiveResult = SourceLive | { ok: false; error: string; countedAt: string }
@@ -109,13 +160,20 @@ export function foldLive(
     countedAt,
     inventory,
     inventoryError,
+    pipeline: null,
+    pipelineError: null,
   }
 }
 
 export async function loadSourceLive(db: SupabaseClient, now: Date = new Date()): Promise<SourceLiveResult> {
   const countedAt = now.toISOString()
   const t0 = Date.now()
-  const [roll, inv] = await Promise.all([db.rpc('csat_source_live_rollup'), db.rpc('csat_source_inventory_live')])
+  const [roll, inv, pipe, reg] = await Promise.all([
+    db.rpc('csat_source_live_rollup'),
+    db.rpc('csat_source_inventory_live'),
+    db.rpc('csat_source_pipeline_live'),
+    db.from('csat_source_registry').select('source, harvest_cmd'),
+  ])
   if (roll.error) return { ok: false, error: `지금 수를 못 셌습니다 — ${roll.error.message}`, countedAt }
   if (!Array.isArray(roll.data)) return { ok: false, error: '지금 수를 못 셌습니다 — 응답 모양이 다릅니다', countedAt }
   const inventory =
@@ -123,5 +181,16 @@ export async function loadSourceLive(db: SupabaseClient, now: Date = new Date())
   const inventoryError = inventory
     ? null
     : `원천별 표를 못 셌습니다 — ${inv.error?.message ?? '응답 모양이 다릅니다'} · 표는 스캔 결과로 보입니다`
-  return foldLive(roll.data as RpcRow[], countedAt, inventory, inventoryError)
+  const live = foldLive(roll.data as RpcRow[], countedAt, inventory, inventoryError)
+  if (pipe.error || !Array.isArray(pipe.data)) {
+    return { ...live, pipeline: null, pipelineError: `진행표를 못 셌습니다 — ${pipe.error?.message ?? '응답 모양이 다릅니다'}` }
+  }
+  // 등록부를 못 읽으면 수집 명령만 비운다(진행 숫자는 산다).
+  const harvest = new Map(
+    ((reg.data ?? []) as { source: string; harvest_cmd: string | null }[])
+      .filter((r) => r.harvest_cmd)
+      .map((r) => [r.source, r.harvest_cmd as string]),
+  )
+  const usable = new Map(live.bySource.map((s) => [s.source, s.usable]))
+  return { ...live, pipeline: foldPipeline(pipe.data as PipelineRpcRow[], usable, harvest), pipelineError: null }
 }

@@ -10,6 +10,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { loadSourceLive } from '@/lib/textbook/source-live'
+import { loadSourceRounds } from '@/lib/textbook/source-rounds'
 import { loadEligibilityDrift } from '@/lib/textbook/eligibility-drift'
 import { buildSourceEligibilityPanel } from '@/lib/textbook/source-eligibility-view'
 import { buildSourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
@@ -30,6 +31,8 @@ export default async function AdminCsatSourcesPage({ searchParams }: {
     loadEligibilityDrift(panel.measuredAt, panel.total.byGrade),
     loadSourceLive(createAdminClient() as unknown as SupabaseClient),
   ])
+  // 원문 점검 회차 기록(docs/source-check/round-*.md) — 원천별 κ · 보관 비율.
+  const rounds = loadSourceRounds()
   return (
     <SourceEligibilityClient
       panel={panel}
@@ -37,6 +40,8 @@ export default async function AdminCsatSourcesPage({ searchParams }: {
       initialState={parseSourceWorkspace(searchParams)}
       drift={drift}
       live={live}
+      rounds={rounds.bySource}
+      nextRound={rounds.nextRound}
     />
   )
 }

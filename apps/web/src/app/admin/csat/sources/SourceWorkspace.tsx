@@ -28,6 +28,8 @@ import { SourceInventoryTable, SourceDetail } from './SourceInventoryTable'
 import styles from './sources.module.css'
 import { SourceOperations } from './SourceOperations'
 import { SourceProcess } from './SourceProcess'
+import { PipelineBoard } from './PipelineBoard'
+import type { PipelineRow, SourceRounds } from '@/lib/textbook/source-pipeline'
 import { SourceQueryConsole } from './SourceQueryConsole'
 
 export function SourceWorkspace({
@@ -37,6 +39,8 @@ export function SourceWorkspace({
   eligibility,
   operations,
   live,
+  rounds = {},
+  nextRound = 1,
 }: {
   panel: SourceEligibilityPanel
   inventory: SourceInventoryPanel
@@ -45,6 +49,9 @@ export function SourceWorkspace({
   operations: ReactNode
   // 지금 DB 에서 센 맨 위 요약. 없으면(테스트 표본 등) 옛 스냅샷 요약을 그린다.
   live?: SourceLiveResult
+  // 원문 점검 회차 기록(원천별 κ · 보관 비율) — 진행표 오른쪽 패널이 쓴다.
+  rounds?: Record<string, SourceRounds>
+  nextRound?: number
 }) {
   const [state, setState] = useState(initialState)
   // 원천별 표 — 지금 DB 에서 셌으면 그것, 못 셌으면 스냅샷. 「지금 다시 세기」가 이 값을 바꾼다.
@@ -52,6 +59,15 @@ export function SourceWorkspace({
     live?.ok && live.inventory ? live.inventory : inventorySnapshot,
   )
   const inventoryLive = inventory !== inventorySnapshot
+  // 원천별 작업 진행표 — 「지금 다시 세기」가 함께 바꾼다.
+  const [pipeline, setPipeline] = useState<PipelineRow[] | null>(live?.ok ? live.pipeline : null)
+  // 「자세히 보기」 — 처음에는 접는다(복잡도 해소 · 2026-09-25). 주소에 탭·조회 조건이 있으면(기존 링크) 펴서 연다.
+  const [details, setDetails] = useState(
+    // ⚠️ 기본값과 **다른지**로 가른다 — 기본 queue 가 'p0' 라 「값이 있나」로 보면 늘 펴졌다(실측 2026-09-25).
+    (Object.keys(DEFAULT_SOURCE_STATE) as (keyof SourceWorkspaceState)[]).some(
+      (k) => initialState[k] !== DEFAULT_SOURCE_STATE[k],
+    ),
+  )
   const heading = useRef<HTMLHeadingElement>(null)
   const consoleRef = useRef<HTMLDivElement>(null)
   const trigger = useRef<HTMLButtonElement | null>(null)
@@ -117,6 +133,7 @@ export function SourceWorkspace({
           onHowTo={() => update({ view: 'operations' })}
           onCounted={(next) => {
             if (next.ok && next.inventory) setInventory(next.inventory)
+            if (next.ok && next.pipeline) setPipeline(next.pipeline)
           }}
         />
       ) : (
@@ -144,6 +161,25 @@ export function SourceWorkspace({
         </div>
       </section>
       )}
+      {pipeline ? (
+        <PipelineBoard rows={pipeline} rounds={rounds} nextRound={nextRound} />
+      ) : live?.ok && live.pipelineError ? (
+        <p className={styles.warning} role="alert">
+          {live.pipelineError}. 「지금 다시 세기」를 눌러 다시 시도하세요 — 계속되면 DB 함수 csat_source_pipeline_live 가 있는지 확인합니다.
+        </p>
+      ) : null}
+      <details
+        open={details}
+        onToggle={(e) => setDetails((e.currentTarget as HTMLDetailsElement).open)}
+        className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]"
+      >
+        <summary className="flex min-h-[44px] cursor-pointer items-center gap-2 px-4 font-display text-[13.5px] font-[800] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
+          자세히 보기
+          <span className="font-body text-[12px] font-[400] text-[var(--t2)]">
+            — 관문 7개 · 원천 관리 · 적격 판정(7축 · 학년별 · 유형 재고) · 원문 조회 · 처리 안내
+          </span>
+        </summary>
+        <div className="flex flex-col gap-4 px-4 pb-4">
       {inventory.ageDays >= 7 || panel.ageDays >= 7 || panel.specStale ? (
         <p className={styles.warning} role="status">
           {live?.ok
@@ -352,6 +388,8 @@ export function SourceWorkspace({
         </section>
         {operations}
       </section>
+        </div>
+      </details>
     </div>
   )
 }

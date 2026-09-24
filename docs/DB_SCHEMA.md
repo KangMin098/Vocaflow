@@ -108,6 +108,7 @@ SECURITY **DEFINER** 라 영향이 없었다. 깨져 있던 것은 SECURITY **IN
     ⚠️ **NULL 과 `{}` 는 다른 뜻이다**: NULL = 아직 판정이 안 실림(79,669) · `{}` = 반려돼 뽑을 재료가 없음(705) · 태그 있음 7,347. 뭉개면 조회에서 「안 본 것」과 「봤는데 없는 것」이 섞인다.
   - RPC `csat_source_live_rollup()` (`20260924150000_csat_source_live_rollup` · 2026-09-24 적용 · 읽기 전용 · `security invoker` · anon 실행 불가): 원천 × 등급별 편수 · 문항 붙은 수 · 판정 시각 범위 · 판정 규격 버전 범위. `/admin/csat/sources` 의 합계가 **커밋된 스냅샷**(87,720편 — gutenberg 퇴출 전)을 말하던 것을 DB 실측(64,102편)으로 바꾸는 입구다. 64,102행 0.09초.
   - RPC `csat_source_inventory_live()` (`20260924151000_csat_source_inventory_live` · 2026-09-24 적용 · 읽기 전용 · anon 실행 불가): `library_articles` 원천 × 상태별 편수 · 판정(`csat_fit.gate.verdict`) · 미절단 원본 · 학령 분석 · 법적 탈락 · 첫/마지막 수집 · 원천별 상위 차단 사유(jsonb). `source-inventory-scan.mjs` 와 같은 정의 — 원천별 표의 실시간 입구. 약 1초(csat_fit 을 한 번만 풀도록 CTE materialized).
+  - RPC `csat_source_pipeline_live()` (`20260925090000_csat_source_pipeline_live` · 2026-09-25 적용 · 읽기 전용 · anon 실행 불가): 원천별 전체 · 조각 · 원본 보관 상태(keep · keep-pending · hold · discard · undecided) · 학령 분석 · 내용 판정 · 마지막 수집. 원본/조각은 `gate-rules.mjs` `derivativeKind`, 보관 상태는 `retentionOf` 와 같은 규칙 — 원천별 작업 진행표의 입구.
 - `csat_drain_runs`: 드레인 실행 기록(`20260923004729`). 2026-09-23 까지 **쓰는 쪽이 0곳**이라 행이 0개였고 화면은 늘 「아직 안 돌렸다」였다 — `scripts/csat/drain-run.mjs`(쓰기)와 `apps/web/src/lib/csat/drain-runs.ts`(읽기)가 그 사이를 잇는다.
   `items_skipped` 는 재실행 안전의 증거라 `null`(안 셌다)과 `0`(재실행인데 하나도 안 건너뜀 = 깨졌다)이 다른 뜻이다.
   `finished_at` 은 트리거 `csat_drain_runs_stamp_finished` 가 **DB 시계로** 찍는다 — 클라이언트 시계와 섞여 소요가 **-1.08초**로 나온 실측(2026-09-23) 때문이다.
