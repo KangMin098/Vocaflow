@@ -29,6 +29,8 @@
 // 실행(TS 패키지 @vocaflow/wlp 를 쓰므로 tsx):
 //   pnpm exec tsx scripts/csat/plos-extract.mjs --limit 200 --compare     # 예행 — 옛 끊기와 새 선택을 같은 논문으로 비교
 //   pnpm exec tsx scripts/csat/plos-extract.mjs --limit 200 --commit [--curl]
+//   pnpm exec tsx scripts/csat/plos-extract.mjs --pending-only --v 7 --limit 300          # 발췌 대기 원본만(V7) — 예행
+//   pnpm exec tsx scripts/csat/plos-extract.mjs --pending-only --v 7 --limit 300 --commit # 적재 · 재실행 안전(자른 원본은 다음 목록에서 빠진다)
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -193,7 +195,8 @@ const cur = fs.existsSync(CURSOR_FILE) ? JSON.parse(fs.readFileSync(CURSOR_FILE,
 
 console.log('PLOS 지문 추출' + (COMMIT ? ' — **적재한다**' : ' — 예행'))
 console.log('='.repeat(78))
-console.log(`  이어서 시작: ${cur.id || '(처음)'} · 이번에 볼 논문 ${LIMIT}편\n`)
+// 발췌 대기 모드는 커서를 안 쓴다 — 「이어서 시작」은 커서 모드에만 뜻이 있다.
+if (!process.argv.includes('--pending-only')) console.log(`  이어서 시작: ${cur.id || '(처음)'} · 이번에 볼 논문 ${LIMIT}편\n`)
 
 const drop = { notKept: 0, noSection: 0, sentDrop: {}, structCite: 0, tooShort: 0, gate: 0, band: 0 }
 let papers = 0
@@ -217,10 +220,69 @@ let inserted = 0
 let firstInsertErr = null
 let cursor = cur.id || FROM || '00000000-0000-0000-0000-000000000000'
 
+/**
+ * `--pending-only [--v 7]` — **발췌 대기 원본만** 고른다(2026-09-25 · 사용자 선택 B).
+ *
+ * 커서 모드는 원본 36,337편을 id 순서로 훑어서, 예행 200편 중 **187편(94%)이 「보관 판정 없음·폐기」로 건너뛰기**였다
+ * (발췌 대기는 4,077편뿐이다). 여기서는 먼저 대상 id 만 가볍게 모으고(본문 없이 · 학년 열로 거른다) 본문은 5편씩 받는다.
+ * 보관 상태는 커서 모드와 **같은 함수**(`retentionOf`)로 가른다. 커서 파일은 건드리지 않는다 — 커서 모드의 자리를 흩뜨리지 않게.
+ */
+const PENDING_ONLY = process.argv.includes('--pending-only')
+const V_LEVEL = arg('v', '')
+let pendingIds = null
+if (PENDING_ONLY) {
+  pendingIds = []
+  // ⚠️ 옛 발췌로 **이미 조각이 있는 원본**은 대기가 아니다 — 원본에 `csat_fit.extract` 표시가 없어도 조각은 있다.
+  //   이걸 안 빼면 대기를 4,077 로 세고 실제로는 262/263 을 건너뛴다(실측 2026-09-25). 진행표 DB 함수와 같은 정의다.
+  const extractedUrls = new Set()
+  {
+    let afterEx = '00000000-0000-0000-0000-000000000000'
+    for (;;) {
+      const { data } = await retry(
+        () => db.from('library_articles').select('id, source_url').eq('feed_id', 'plos-extract').gt('id', afterEx).order('id').limit(1000),
+        '기존 조각 목록',
+      )
+      if (!data?.length) break
+      for (const r of data) {
+        afterEx = r.id
+        if (r.source_url) extractedUrls.add(r.source_url)
+      }
+      if (data.length < 1000) break
+    }
+  }
+  let after = '00000000-0000-0000-0000-000000000000'
+  for (;;) {
+    const { data } = await retry(() => {
+      let q = db
+        .from('library_articles')
+        .select('id, source_url, gate:csat_fit->gate, extract:csat_fit->extract')
+        .eq('source', 'plos')
+        .neq('feed_id', 'plos-extract')
+        .gt('id', after)
+        .order('id')
+        .limit(1000)
+      if (V_LEVEL) q = q.eq('article_v_level', Number(V_LEVEL))
+      return q
+    }, '대상 목록')
+    if (!data?.length) break
+    for (const r of data) {
+      after = r.id
+      if (r.extract || (r.source_url && extractedUrls.has(r.source_url))) continue
+      if (retentionOf({ purpose: 'raw', verdict: r.gate?.verdict, retain: retainValueOf(r.gate?.retain) }) === 'keep-pending-extraction') pendingIds.push(r.id)
+    }
+    if (data.length < 1000) break
+  }
+  console.log(`  발췌 대기만: ${pendingIds.length.toLocaleString()}편${V_LEVEL ? ` (V${V_LEVEL})` : ''} · 이번에 ${Math.min(LIMIT, pendingIds.length)}편\n`)
+}
+
 while (papers < LIMIT) {
+  if (pendingIds && !pendingIds.length) break
+  const batchIds = pendingIds ? pendingIds.splice(0, 5) : null
   const { data } = await retry(
     () =>
-      db
+      batchIds
+        ? db.from('library_articles').select('id,title,source_url,author,license,content,updated_at,csat_fit').in('id', batchIds).order('id')
+        : db
         .from('library_articles')
         .select('id,title,source_url,author,license,content,updated_at,csat_fit')
         .eq('source', 'plos')
@@ -398,14 +460,15 @@ while (papers < LIMIT) {
   //   죽은 회차는 진척이 통째로 사라졌고, 다음 회차가 **같은 논문을 다시 넣어** 중복 키로
   //   실패했다 — 겉으로는 "커서가 안 움직인다" 로만 보였다.
   //   재실행 안전은 "다시 돌리면 이어서 간다" 는 뜻이고, 그러려면 진척이 그때그때 남아야 한다.
-  if (COMMIT) {
+  // 발췌 대기 모드는 커서를 안 쓴다 — 자른 원본에 csat_fit.extract 가 남아 다음 목록에서 저절로 빠진다(재실행 안전).
+  if (COMMIT && !PENDING_ONLY) {
     fs.mkdirSync(path.dirname(CURSOR_FILE), { recursive: true })
     fs.writeFileSync(CURSOR_FILE, JSON.stringify({ id: cursor }, null, 2))
   }
   process.stdout.write(`\r  논문 ${papers} · 지문 ${made} · 적재 ${inserted}`)
 }
 
-if (COMMIT) {
+if (COMMIT && !PENDING_ONLY) {
   fs.mkdirSync(path.dirname(CURSOR_FILE), { recursive: true })
   fs.writeFileSync(CURSOR_FILE, JSON.stringify({ id: cursor }, null, 2))
 }
