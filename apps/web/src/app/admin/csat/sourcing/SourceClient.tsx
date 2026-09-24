@@ -158,9 +158,8 @@ export function SourceClient({
           writes: true,
         },
         {
-          cmd: 'node scripts/textbook/harvest-gutenberg-kid.mjs',
-          why: '사다리 아래 계단(초·중)은 수능 지문으로 못 채운다 — 그 학령의 원문이 따로 있어야 한다',
-          writes: true,
+          cmd: 'pnpm dlx tsx scripts/textbook/storyweaver-ingest.mjs --limit 12',
+          why: '사다리 아래 계단(초·중)은 수능 지문으로 못 채운다 — StoryWeaver 후보를 예행으로 센다(쓰지 않음)',
         },
         {
           cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/graded-source-probe.mjs',
@@ -474,7 +473,7 @@ export function SourceClient({
             node scripts/csat/harvest-plos.mjs
           </code>
           <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-            node scripts/textbook/harvest-gutenberg-kid.mjs
+            pnpm dlx tsx scripts/textbook/storyweaver-ingest.mjs --limit 12
           </code>
           <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
             npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/graded-source-probe.mjs

@@ -83,7 +83,75 @@ export function buildSourceInventoryPanel(now: Date = new Date()): SourceInvento
   const measured = new Date(snap.measuredAt)
   const ageDays = Math.max(0, Math.floor((now.getTime() - measured.getTime()) / 86_400_000))
 
-  const rows: SourceInventoryRow[] = snap.sources.map((r) => {
+  return {
+    measuredAt: snap.measuredAt,
+    ageDays,
+    elapsedSeconds: snap.elapsedSeconds,
+    scope: snap.scope,
+    scanned: snap.scanned,
+    rows: inventoryRows(snap.sources, now),
+    refreshCommand: 'pnpm dlx tsx scripts/textbook/source-inventory-scan.mjs',
+  }
+}
+
+/** RPC `csat_source_inventory_live()` 한 행 — (원천, 상태) 칸. */
+export interface InventoryLiveRpcRow {
+  source: string | null
+  status: string | null
+  n: number | string
+  judged: number | string
+  raw_purpose: number | string
+  levelled: number | string
+  legal_blocked: number | string
+  first_get: string | null
+  last_get: string | null
+  blocked_by: Record<string, number> | null
+}
+
+/**
+ * **지금 DB 에서 센 재고 표**(2026-09-24). 스냅샷과 **같은 행 모양**으로 접는다 — 표 컴포넌트는
+ * 어느 쪽에서 왔는지 모르고 그린다. 정의는 스캐너(`source-inventory-scan.mjs`)와 같다
+ * (DB 함수가 같은 열 · 같은 조건을 센다).
+ */
+export function inventoryFromLive(rows: InventoryLiveRpcRow[], now: Date, elapsedMs: number): SourceInventoryPanel {
+  const bySource = new Map<string, SourceRowJson>()
+  let scanned = 0
+  for (const r of rows) {
+    const src = r.source ?? '(없음)'
+    const s =
+      bySource.get(src) ??
+      ({ source: src, total: 0, byStatus: {}, judged: 0, rawPurpose: 0, levelled: 0, legalBlocked: 0, firstGet: null, lastGet: null, byVLevel: {}, topBlocked: [] } as SourceRowJson)
+    const n = Number(r.n)
+    scanned += n
+    s.total += n
+    s.byStatus[r.status ?? '(없음)'] = (s.byStatus[r.status ?? '(없음)'] ?? 0) + n
+    s.judged += Number(r.judged)
+    s.rawPurpose += Number(r.raw_purpose)
+    s.levelled += Number(r.levelled)
+    s.legalBlocked += Number(r.legal_blocked)
+    if (r.first_get && (!s.firstGet || r.first_get < s.firstGet)) s.firstGet = r.first_get
+    if (r.last_get && (!s.lastGet || r.last_get > s.lastGet)) s.lastGet = r.last_get
+    if (r.blocked_by && !s.topBlocked.length) {
+      s.topBlocked = Object.entries(r.blocked_by)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([reason, count]) => ({ reason, count }))
+    }
+    bySource.set(src, s)
+  }
+  return {
+    measuredAt: now.toISOString(),
+    ageDays: 0,
+    elapsedSeconds: Math.round(elapsedMs / 100) / 10,
+    scope: 'live · library_articles 전체',
+    scanned,
+    rows: inventoryRows([...bySource.values()].sort((a, b) => b.total - a.total), now),
+    refreshCommand: '「지금 다시 세기」 단추 — DB 함수 csat_source_inventory_live',
+  }
+}
+
+function inventoryRows(sources: SourceRowJson[], now: Date): SourceInventoryRow[] {
+  return sources.map((r) => {
     const ready = r.byStatus[READY] ?? 0
     const published = r.byStatus[PUBLISHED] ?? 0
     return {
@@ -109,14 +177,4 @@ export function buildSourceInventoryPanel(now: Date = new Date()): SourceInvento
         : null,
     }
   })
-
-  return {
-    measuredAt: snap.measuredAt,
-    ageDays,
-    elapsedSeconds: snap.elapsedSeconds,
-    scope: snap.scope,
-    scanned: snap.scanned,
-    rows,
-    refreshCommand: 'pnpm dlx tsx scripts/textbook/source-inventory-scan.mjs',
-  }
 }

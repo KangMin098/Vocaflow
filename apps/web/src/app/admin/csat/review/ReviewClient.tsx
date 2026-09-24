@@ -250,7 +250,7 @@ export function ReviewClient({
             </thead>
             <tbody>
               {volumes.map((v) => (
-                <tr key={v.band} className="border-b border-[var(--bd)] last:border-0">
+                <tr key={`${v.volumeTitle ?? ''}|${v.band}`} className="border-b border-[var(--bd)] last:border-0">
                   <td className="py-2 pr-3 text-[var(--t1)]">
                     <span className="font-mono text-[10px] text-[var(--t3)]">V{v.band}</span>{' '}
                     {v.volumeTitle ?? '—'}

@@ -4,6 +4,8 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { Search, ArrowRight, Clock3 } from 'lucide-react'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { StepHeader } from '@/components/admin/factory/StepHeader'
+import { stepByKey } from '@/lib/csat/factory-plain'
 import type { SourceEligibilityPanel } from '@/lib/textbook/source-eligibility-view'
 import type { SourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 import {
@@ -20,26 +22,52 @@ import {
   type SourceIssue,
   type SourceSort,
 } from '@/lib/textbook/source-workspace'
+import type { SourceLiveResult } from '@/lib/textbook/source-live'
+import { LiveOverview } from './LiveOverview'
 import { SourceInventoryTable, SourceDetail } from './SourceInventoryTable'
 import styles from './sources.module.css'
 import { SourceOperations } from './SourceOperations'
 import { SourceProcess } from './SourceProcess'
+import { PipelineBoard } from './PipelineBoard'
+import type { PipelineRow, SourceRounds } from '@/lib/textbook/source-pipeline'
 import { SourceQueryConsole } from './SourceQueryConsole'
 
 export function SourceWorkspace({
   panel,
-  inventory,
+  inventory: inventorySnapshot,
   initialState = DEFAULT_SOURCE_STATE,
   eligibility,
   operations,
+  live,
+  rounds = {},
+  nextRound = 1,
 }: {
   panel: SourceEligibilityPanel
   inventory: SourceInventoryPanel
   initialState?: SourceWorkspaceState
   eligibility: ReactNode
   operations: ReactNode
+  // 지금 DB 에서 센 맨 위 요약. 없으면(테스트 표본 등) 옛 스냅샷 요약을 그린다.
+  live?: SourceLiveResult
+  // 원문 점검 회차 기록(원천별 κ · 보관 비율) — 진행표 오른쪽 패널이 쓴다.
+  rounds?: Record<string, SourceRounds>
+  nextRound?: number
 }) {
   const [state, setState] = useState(initialState)
+  // 원천별 표 — 지금 DB 에서 셌으면 그것, 못 셌으면 스냅샷. 「지금 다시 세기」가 이 값을 바꾼다.
+  const [inventory, setInventory] = useState<SourceInventoryPanel>(
+    live?.ok && live.inventory ? live.inventory : inventorySnapshot,
+  )
+  const inventoryLive = inventory !== inventorySnapshot
+  // 원천별 작업 진행표 — 「지금 다시 세기」가 함께 바꾼다.
+  const [pipeline, setPipeline] = useState<PipelineRow[] | null>(live?.ok ? live.pipeline : null)
+  // 「자세히 보기」 — 처음에는 접는다(복잡도 해소 · 2026-09-25). 주소에 탭·조회 조건이 있으면(기존 링크) 펴서 연다.
+  const [details, setDetails] = useState(
+    // ⚠️ 기본값과 **다른지**로 가른다 — 기본 queue 가 'p0' 라 「값이 있나」로 보면 늘 펴졌다(실측 2026-09-25).
+    (Object.keys(DEFAULT_SOURCE_STATE) as (keyof SourceWorkspaceState)[]).some(
+      (k) => initialState[k] !== DEFAULT_SOURCE_STATE[k],
+    ),
+  )
   const heading = useRef<HTMLHeadingElement>(null)
   const consoleRef = useRef<HTMLDivElement>(null)
   const trigger = useRef<HTMLButtonElement | null>(null)
@@ -92,16 +120,23 @@ export function SourceWorkspace({
   const reset = () => update({ q: '', issue: 'all', sort: 'attention' })
   return (
     <div className={styles.root}>
-      <header className={styles.header}>
-        <div>
-          <p className={styles.eyebrow}>재료 · 원문 관리</p>
-          <h2>소재 적격</h2>
-          <p className={styles.description}>
-            원천의 준비 상태를 확인하고, 검수가 필요한 원문으로 이동하세요.
-          </p>
-        </div>
-        <AdminScreenHelp screen="csat-sources" tab={SOURCE_VIEWS[state.view]} />
-      </header>
+      {/* 한 화면이 두 걸음을 맡는다 — 「원천 관리」 탭은 글감 모으기, 「적격 판정」 탭은 글감 고르기. */}
+      <StepHeader
+        step={stepByKey(state.view === 'eligibility' ? 'pick' : 'gather')}
+        help={<AdminScreenHelp screen="csat-sources" tab={SOURCE_VIEWS[state.view]} />}
+      />
+      {live ? (
+        <LiveOverview
+          initial={live}
+          snapshot={{ usable: panel.total.composable, total: panel.total.total, measuredAt: panel.measuredAt }}
+          onOpen={() => update({ view: 'eligibility' })}
+          onHowTo={() => update({ view: 'operations' })}
+          onCounted={(next) => {
+            if (next.ok && next.inventory) setInventory(next.inventory)
+            if (next.ok && next.pipeline) setPipeline(next.pipeline)
+          }}
+        />
+      ) : (
       <section className={styles.overview} aria-label="판정 현황과 측정 시각">
         <button className={styles.verdict} onClick={() => update({ view: 'eligibility' })}>
           <span>교재에 실을 수 있는 원문</span>
@@ -125,9 +160,31 @@ export function SourceWorkspace({
           <button onClick={() => update({ view: 'operations' })}>집계 갱신 방법</button>
         </div>
       </section>
+      )}
+      {pipeline ? (
+        <PipelineBoard rows={pipeline} rounds={rounds} nextRound={nextRound} />
+      ) : live?.ok && live.pipelineError ? (
+        <p className={styles.warning} role="alert">
+          {live.pipelineError}. 「지금 다시 세기」를 눌러 다시 시도하세요 — 계속되면 DB 함수 csat_source_pipeline_live 가 있는지 확인합니다.
+        </p>
+      ) : null}
+      <details
+        open={details}
+        onToggle={(e) => setDetails((e.currentTarget as HTMLDetailsElement).open)}
+        className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]"
+      >
+        <summary className="flex min-h-[44px] cursor-pointer items-center gap-2 px-4 font-display text-[13.5px] font-[800] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
+          자세히 보기
+          <span className="font-body text-[12px] font-[400] text-[var(--t2)]">
+            — 관문 7개 · 원천 관리 · 적격 판정(7축 · 학년별 · 유형 재고) · 원문 조회 · 처리 안내
+          </span>
+        </summary>
+        <div className="flex flex-col gap-4 px-4 pb-4">
       {inventory.ageDays >= 7 || panel.ageDays >= 7 || panel.specStale ? (
         <p className={styles.warning} role="status">
-          집계가 오래되었거나 판정 규격이 바뀌었습니다. 처리 전에 집계를 갱신하세요.
+          {live?.ok
+            ? '맨 위 수와 원천별 표는 지금 DB 기준입니다. 적격 판정 탭의 학년별 표만 스캔 결과(옛 판정 규격)라, 그 표로 처리하기 전에 스캔을 다시 돌리세요.'
+            : '집계가 오래되었거나 판정 규격이 바뀌었습니다. 처리 전에 집계를 갱신하세요.'}
         </p>
       ) : null}
       <SourceProcess
@@ -165,7 +222,7 @@ export function SourceWorkspace({
         <div className={styles.listHeading}>
           <h3>어느 원천을 확인할까요?</h3>
           <p>
-            {inventory.rows.length}개 원천 · {inventory.scanned.toLocaleString()}편의 재고 기준.
+            {inventory.rows.length}개 원천 · {inventory.scanned.toLocaleString()}편의 재고 기준{inventoryLive ? '(지금 DB)' : '(스캔 결과)'}.
             적격 판정과 집계 대상이 다를 수 있습니다.
           </p>
         </div>
@@ -331,6 +388,8 @@ export function SourceWorkspace({
         </section>
         {operations}
       </section>
+        </div>
+      </details>
     </div>
   )
 }

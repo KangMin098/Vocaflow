@@ -28,7 +28,9 @@
 import { ClipboardCheck, Copy, ShieldAlert, Sparkles, TriangleAlert } from 'lucide-react'
 import { useState, type ReactNode } from 'react'
 
+import { LabHeader, StepHeader } from '@/components/admin/factory/StepHeader'
 import { STATUS_KO, type StageCommand, type StageDef, type StageStatus } from '@/lib/csat/factory-model'
+import { PLAIN_STATUS, labByStage, stepByKey, stepOfStage, type StepKey } from '@/lib/csat/factory-plain'
 
 /* ───────────────────────── ① 계약 ───────────────────────── */
 
@@ -97,12 +99,12 @@ export function StageBlocked({ status, blocks }: { status: StageStatus; blocks: 
           style={{ background: `color-mix(in srgb, ${st.color} 12.2%, transparent)`, color: st.color }}
         >
           {status === 'pass' ? null : <TriangleAlert size={11} strokeWidth={2} aria-hidden />}
-          {st.label}
+          {PLAIN_STATUS[status].label}
         </span>
         <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
           {measured.length === 0 && unmeasured.length === 0
-            ? '막힌 것이 없다'
-            : `막힌 것 ${measured.length + unmeasured.length}가지`}
+            ? '걸리는 것이 없어요'
+            : `걸리는 것 ${measured.length + unmeasured.length}가지`}
         </span>
       </div>
 
@@ -113,7 +115,7 @@ export function StageBlocked({ status, blocks }: { status: StageStatus; blocks: 
             {b.count == null ? (
               // ⚠️ 못 잰 것을 0 으로 적지 않는다. 할 일이 정반대다.
               <span className="font-mono text-[12px] text-[var(--memory-new)]">
-                못 잼{b.unmeasuredReason ? ` — ${b.unmeasuredReason}` : ''}
+                아직 못 셈{b.unmeasuredReason ? ` — ${b.unmeasuredReason}` : ''}
               </span>
             ) : (
               <span className="font-mono text-[12.5px] tabular-nums text-[var(--t1)]">
@@ -195,12 +197,12 @@ function CommandRow({ cmd, why, writes, claudeCode }: StageCommand) {
         {claudeCode ? (
           <span className="mr-1 inline-flex items-center gap-0.5 rounded bg-[color-mix(in_srgb,var(--p)_12%,transparent)] px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
             <Sparkles size={10} strokeWidth={2} aria-hidden />
-            Claude Code
+            Claude 차례
           </span>
         ) : null}
         {writes ? (
           <span className="mr-1 rounded bg-[color-mix(in_srgb,var(--memory-risk)_12%,transparent)] px-1 py-0.5 text-[10px] font-[600] text-[var(--memory-risk)]">
-            씀
+            기록함
           </span>
         ) : null}
         {/* 되돌릴 수 없는 동작에는 승인 지점을 함께 적는다 — 승인 표가 없으면 그 사실도 적는다. */}
@@ -223,11 +225,13 @@ export function StageDrain({
   if (!commands.length && !runs && !approvalNote) return null
   return (
     <section
-      aria-label="드레인"
+      aria-label="실행 줄"
       className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">드레인</h3>
+        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">
+          실행 줄 <span className="font-body text-[11.5px] font-[400] text-[var(--t2)]">— 터미널에 붙여 넣어 돌려요. 「기록함」이 붙은 줄은 데이터를 바꿔요</span>
+        </h3>
         {runs ? <LastRun runs={runs} /> : null}
       </div>
 
@@ -246,7 +250,7 @@ export function StageDrain({
         </ol>
       ) : (
         <p className="break-keep font-body text-[12px] text-[var(--t3)]">
-          이 단계에는 드레인 계약이 아직 없다 — 명령을 지어내지 않는다.
+          이 걸음에는 아직 정해 둔 실행 줄이 없어요.
         </p>
       )}
     </section>
@@ -382,9 +386,12 @@ export function StageFrame({
   runs,
   approvalNote,
   failures,
+  step,
   children,
 }: {
   stage: StageDef
+  /** 쉬운 말 걸음. 소재 공정처럼 한 공정을 두 걸음이 나눠 쓸 때만 화면이 넘긴다. */
+  step?: StepKey
   status: StageStatus
   /** `<AdminScreenHelp …/>` — 화면이 넘긴다(공통 골격이 화면 슬러그를 알 이유가 없다). */
   help: ReactNode
@@ -397,20 +404,31 @@ export function StageFrame({
   /** ③ 상태 매트릭스 — 단계마다 다르다. */
   children: ReactNode
 }) {
-  const ord = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧'][stage.ord - 1] ?? ''
+  // 머리는 쉬운 말 머리띠다(2026-09-24). 공정 이름 · 계약(입력/출력/완료 조건)은 코드의 말이라
+  // 「자세히 — 운영자용」 안으로 접었다. 지운 것이 아니다 — 계약은 그대로 한 번 누르면 보인다.
+  const lab = labByStage(stage.id)
+  const plain = step ? stepByKey(step) : stepOfStage(stage.id)
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="break-keep font-display text-[16px] font-[700] text-[var(--t1)]">
-            {ord} {stage.name} — {stage.question}
-          </h2>
-          <p className="font-body text-[12px] text-[var(--t2)]">시중: {stage.marketName}</p>
+      {lab ? (
+        <LabHeader lab={lab} status={status} help={help} />
+      ) : plain ? (
+        <StepHeader step={plain} status={status} help={help} />
+      ) : (
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="break-keep font-display text-[16px] font-[700] text-[var(--t1)]">{stage.name}</h2>
+          {help}
         </div>
-        {help}
-      </div>
+      )}
 
-      <StageContract stage={stage} />
+      <details className="group rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]">
+        <summary className="flex min-h-[44px] cursor-pointer items-center px-4 font-display text-[12.5px] font-[700] text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--admin)]">
+          자세히 — 운영자용 (공정 이름 「{stage.name}」 · 시중에서는 「{stage.marketName}」)
+        </summary>
+        <div className="px-4 pb-4">
+          <StageContract stage={stage} />
+        </div>
+      </details>
       <StageBlocked status={status} blocks={blocks} />
       {children}
       <StageDrain commands={commands} runs={runs} approvalNote={approvalNote} />

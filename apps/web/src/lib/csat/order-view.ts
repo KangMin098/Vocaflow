@@ -23,7 +23,7 @@ import {
   SERIES_CATALOG,
   SERIES_ITEMS_PER_VOLUME,
 } from '@vocaflow/library-pipeline/textbook-series-catalog'
-import { MARKET_UNITS_PER_BOOK } from '@vocaflow/library-pipeline'
+import { ITEMS_PER_UNIT, MARKET_UNITS_PER_BOOK } from '@vocaflow/library-pipeline'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -205,6 +205,15 @@ export async function loadOrderView(): Promise<OrderView> {
     //   여기서 20 같은 수를 손으로 적으면 화면이 시키는 명령과 조판기가 실제로 찍는 권이
     //   달라진다(그 상수가 근거 없이 20이었던 사고는 `scorecard.ts` 머리말에 적혀 있다).
     unitsPerBook: MARKET_UNITS_PER_BOOK.median,
+    itemsPerUnit: ITEMS_PER_UNIT,
+    unitsRange: {
+      min: MARKET_UNITS_PER_BOOK.min,
+      p25: MARKET_UNITS_PER_BOOK.p25,
+      median: MARKET_UNITS_PER_BOOK.median,
+      p75: MARKET_UNITS_PER_BOOK.p75,
+      max: MARKET_UNITS_PER_BOOK.max,
+    },
+    seriesList: SERIES_CATALOG.map((s) => ({ id: s.id, brand: s.brand, accent: s.accent, kind: s.kind })),
     inventoryAt: inv.ok ? inv.refreshedAt : null,
     loadError: inv.ok ? null : `재고를 못 읽었다: ${inv.error}`,
   }
