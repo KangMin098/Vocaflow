@@ -21,6 +21,19 @@ import { useState } from 'react'
 
 import { coverSvg } from '@vocaflow/library-pipeline/textbook-cover'
 
+/**
+ * 재고 시각 — **로캘 API 를 쓰지 않고** KST 오프셋을 더해 직접 만든다.
+ * `toLocaleString('ko-KR')` 은 서버(Node ICU)와 브라우저가 「PM」/「오후」로 갈려 하이드레이션 오류를
+ * 냈다(실측 2026-09-24 · 콘솔 에러 3건). 배포하면 서버는 UTC 라 시각까지 갈린다 — `formatKstTime` 과 같은 이유.
+ */
+function kstDateTime(iso: string): string {
+  const t = new Date(iso).getTime()
+  if (Number.isNaN(t)) return '—'
+  const k = new Date(t + 9 * 3600_000)
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `${k.getUTCFullYear()}-${p(k.getUTCMonth() + 1)}-${p(k.getUTCDate())} ${p(k.getUTCHours())}:${p(k.getUTCMinutes())} KST`
+}
+
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { StepHeader } from '@/components/admin/factory/StepHeader'
 import { stepByKey } from '@/lib/csat/factory-plain'
@@ -449,7 +462,7 @@ export function SeriesShelf({
 
       {inventoryAt ? (
         <p className="font-body text-[10.5px] text-[var(--t3)]">
-          재고는 {new Date(inventoryAt).toLocaleString('ko-KR')} 기준 (30분마다 갱신)
+          재고는 {kstDateTime(inventoryAt)} 기준 (30분마다 갱신)
         </p>
       ) : null}
     </div>
