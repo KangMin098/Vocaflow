@@ -15,7 +15,7 @@
 //   레일 배너(브랜치 보는 중)   → 「지금 어디를 보고 있는가」 안내
 //   레일 바닥 작성 상자        → 행동 상자(상영 · 펼치기 · 다음 문항)
 //   탭(Readme·Monitor·Runs…)  → 분석 · 지문 지도 · 진행 · 원문 · 다른 문항
-//   두 판(파일 ⌄ / Output ⌄)  → 지문 지도 ⌄ / 분석 ⌄
+//   두 판(파일 ⌄ / Output ⌄)  → 왼쪽 기출 원문(지도 + 문제지) 고정 / 오른쪽 분석·진행·같은 유형
 //   실행 화면(지표 + 간트)     → 진행(차례 14개의 실제 추정 초로 그린 시간 띠)
 //   바닥 단계 카드(파스텔)     → 분석 블록 카드(종류마다 고정 면 색 + 개수 + 활성 링)
 //
@@ -29,12 +29,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Circle,
+  Code2,
   ExternalLink,
   Gauge,
   Headphones,
   Layers,
   ListTree,
-  Map as MapIcon,
   Pause,
   Play,
   Volume2,
@@ -72,13 +72,11 @@ export interface TheaterSibling {
   current: boolean
 }
 
-type TabId = 'analysis' | 'map' | 'run' | 'source' | 'siblings'
+type TabId = 'analysis' | 'run' | 'siblings'
 
 const TABS: { id: TabId; label: string; Icon: typeof BookOpen }[] = [
   { id: 'analysis', label: '분석', Icon: BookOpen },
-  { id: 'map', label: '지문 지도', Icon: MapIcon },
   { id: 'run', label: '진행', Icon: Gauge },
-  { id: 'source', label: '원문', Icon: ExternalLink },
   { id: 'siblings', label: '같은 유형', Icon: Layers },
 ]
 
@@ -316,23 +314,21 @@ export function AnalysisTheater({
 
         {/* ── ② 본문 ─────────────────────────────────────────── */}
         <section className={styles.main}>
-          <nav className={styles.tabs} aria-label="보기">
-            {TABS.map(({ id, label, Icon }) => (
-              <button key={id} type="button" aria-pressed={tab === id} onClick={() => setTab(id)}>
-                <Icon size={14} aria-hidden /> {label}
-              </button>
-            ))}
-            <span className={styles.tabsRight}>{examLabel}</span>
-          </nav>
-
+          {/* 참조의 단계 머리(← Control onboarding demo · 오른쪽 도구) */}
           <div className={styles.stageHead}>
+            <button type="button" className={styles.iconBtn} onClick={() => move(-1)} disabled={cursor === 0} title="이전 단계">
+              <ChevronLeft size={15} aria-hidden />
+            </button>
             <p className={styles.now}>
-              <span>{String(cursor + 1).padStart(2, '0')}</span>
               <b>{step?.name ?? '분석 읽기'}</b>
+              <span>
+                {String(cursor + 1).padStart(2, '0')} / {String(Math.max(1, steps.length)).padStart(2, '0')}
+              </span>
             </p>
             <p className={styles.legend}>
               <span className={styles.legendAnswer}>정답 근거</span>
               <span className={styles.legendReject}>오답 지우는 자리</span>
+              <span className={styles.clock}>{theaterClock(elapsed)} / {theaterClock(timeline.total)}</span>
             </p>
             {lec?.error ? (
               <p className={styles.notice} role="status">
@@ -346,29 +342,68 @@ export function AnalysisTheater({
           </div>
 
           <div className={styles.view}>
-            {tab === 'analysis' ? (
-              <div className={styles.panes}>
-                <section className={styles.pane}>
-                  <p className={styles.paneHead}>
-                    <MapIcon size={13} aria-hidden /> 원문 자리 <ChevronDown size={12} aria-hidden />
-                    <em>{map ? `${map.sentences.length} SENTENCES` : 'NO MAP'}</em>
+            <div className={styles.panes}>
+              {/* ── 왼쪽 판: 기출 원문(참조의 README 자리) ── */}
+              <section className={styles.pane} aria-label="기출 원문">
+                <p className={styles.paneHead}>
+                  <Code2 size={13} aria-hidden />
+                  <span className={styles.file}>원문 · {examLabel}</span>
+                  <ChevronDown size={12} aria-hidden />
+                  <em>{map ? `${map.sentences.length} SENTENCES` : 'NO MAP'}</em>
+                </p>
+                <div className={styles.paneBody}>
+                  <p className={styles.lead}>
+                    <b>{title}</b>
+                    {typeName ? <> · <code>{typeName}</code></> : null}
+                    {points ? <> · <code>{points}점</code></> : null}
                   </p>
-                  <div className={styles.paneBody}>
-                    {map ? (
-                      <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
-                    ) : (
-                      <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못해 지도가 없어요. 분석은 오른쪽에서 그대로 읽을 수 있어요.</p>
-                    )}
-                  </div>
-                </section>
-                <section className={styles.pane}>
-                  <p className={styles.paneHead}>
-                    <BookOpen size={13} aria-hidden /> 분석 <ChevronDown size={12} aria-hidden />
-                    <em>
-                      {[...open].length} / {blocks.length} BLOCKS
-                    </em>
+                  {map ? (
+                    <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
+                  ) : (
+                    <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못해 지도가 없어요. 분석은 오른쪽에서 그대로 읽을 수 있어요.</p>
+                  )}
+                  <dl className={styles.kv}>
+                    <div>
+                      <dt>문제지</dt>
+                      <dd>
+                        <a href={source.url} target="_blank" rel="noreferrer">
+                          {source.direct ? '평가원 문제지 PDF 열기' : '평가원 게시판에서 찾기'} <ExternalLink size={13} aria-hidden />
+                        </a>
+                      </dd>
+                    </div>
+                  </dl>
+                  {source.reason ? <p className={styles.quiet}>{source.reason}</p> : null}
+                  <p className={styles.quiet}>
+                    지문·선지는 평가원 저작물이라 이 화면에 싣지 않아요 — 막대는 <b>문장 길이</b>이고, 근거 인용만 짧게 드러납니다.
                   </p>
+                </div>
+              </section>
+
+              {/* ── 오른쪽 판: 출력(참조의 Output ⌄ 자리) ── */}
+              <section className={styles.pane} aria-label="해설">
+                <div className={styles.paneHead}>
+                  <nav className={styles.tabs} aria-label="보기">
+                    {TABS.map(({ id, label, Icon }) => (
+                      <button key={id} type="button" aria-pressed={tab === id} onClick={() => setTab(id)}>
+                        <Icon size={13} aria-hidden /> {label}
+                      </button>
+                    ))}
+                  </nav>
+                  <em>
+                    {tab === 'analysis'
+                      ? `${[...open].length} / ${blocks.length} BLOCKS`
+                      : tab === 'run'
+                        ? `${steps.length} STEPS`
+                        : `${siblings.length} ITEMS`}
+                  </em>
+                </div>
+
+                {tab === 'analysis' ? (
                   <div className={`${styles.paneBody} ${styles.blockPane}`} ref={blocksRef}>
+                    <p className={styles.status}>
+                      <span data-on={playing}>{playing ? 'LIVE' : 'READY'}</span>
+                      {step ? `${step.kind} · ${Math.round(step.sec)}초` : '분석'}
+                    </p>
                     {blocks.map((b) => (
                       <article
                         key={b.key}
@@ -400,146 +435,85 @@ export function AnalysisTheater({
                       </p>
                     ) : null}
                   </div>
-                </section>
-              </div>
-            ) : null}
+                ) : null}
 
-            {tab === 'map' ? (
-              <section className={styles.wide}>
-                <p className={styles.paneHead}>
-                  <MapIcon size={13} aria-hidden /> 원문 자리 <ChevronDown size={12} aria-hidden />
-                  <em>{map ? `${map.sentences.length} SENTENCES` : 'NO MAP'}</em>
-                </p>
-                <div className={styles.paneBody}>
-                  {map ? (
-                    <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
-                  ) : (
-                    <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못했어요.</p>
-                  )}
-                  <p className={styles.quiet}>
-                    원문은 이 화면에 없습니다 — 막대는 <b>문장 길이</b>이고, 근거 인용만 짧게 드러납니다. 문제지는 평가원 공개본을 곁에 두고 보세요.
-                  </p>
-                </div>
-              </section>
-            ) : null}
+                {tab === 'run' ? (
+                  <div className={styles.paneBody}>
+                    <div className={styles.metrics}>
+                      <div>
+                        <dt>차례</dt>
+                        <dd>{steps.length}</dd>
+                      </div>
+                      <div>
+                        <dt>지금</dt>
+                        <dd>
+                          {String(cursor + 1).padStart(2, '0')}
+                          <span className={styles.badge} data-on={playing}>
+                            {playing ? '상영 중' : '멈춤'}
+                          </span>
+                        </dd>
+                      </div>
+                      <div>
+                        <dt>지난 시간</dt>
+                        <dd>{theaterClock(elapsed)}</dd>
+                      </div>
+                      <div>
+                        <dt>전체</dt>
+                        <dd>{theaterClock(timeline.total)}</dd>
+                      </div>
+                    </div>
+                    <div className={styles.gantt}>
+                      <div className={styles.track} role="group" aria-label="차례별 길이">
+                        {timeline.segments.map((seg) => (
+                          <button
+                            key={seg.index}
+                            type="button"
+                            className={styles.seg}
+                            style={{ width: `${seg.pct}%` }}
+                            data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}
+                            onClick={() => goto(seg.index)}
+                            title={`${seg.kind} · ${seg.name} · ${Math.round(seg.sec)}초`}
+                            aria-label={`${seg.index + 1}단계 ${seg.name} · ${Math.round(seg.sec)}초`}
+                          />
+                        ))}
+                      </div>
+                      <div className={styles.axis}>
+                        {timeline.marks.map((m) => (
+                          <span key={m}>{m}s</span>
+                        ))}
+                      </div>
+                    </div>
+                    <ol className={styles.runList}>
+                      {timeline.segments.map((seg) => (
+                        <li key={seg.index} data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}>
+                          <button type="button" onClick={() => goto(seg.index)}>
+                            <span className={styles.runNo}>{String(seg.index + 1).padStart(2, '0')}</span>
+                            <span className={styles.runKind}>{seg.kind}</span>
+                            <span className={styles.runName}>{seg.name}</span>
+                            <span className={styles.runSec}>{Math.round(seg.sec)}초</span>
+                          </button>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ) : null}
 
-            {tab === 'run' ? (
-              <section className={styles.wide}>
-                <div className={styles.metrics}>
-                  <div>
-                    <dt>차례</dt>
-                    <dd>{steps.length}</dd>
+                {tab === 'siblings' ? (
+                  <div className={styles.paneBody}>
+                    <ul className={styles.siblings}>
+                      {siblings.map((s) => (
+                        <li key={s.slug}>
+                          <Link href={`/csat/item/${s.slug}`} aria-current={s.current ? 'page' : undefined} data-current={s.current}>
+                            <b>{s.no}</b>
+                            <span>{s.label}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <div>
-                    <dt>지금</dt>
-                    <dd>
-                      {String(cursor + 1).padStart(2, '0')}
-                      <span className={styles.badge} data-on={playing}>
-                        {playing ? '상영 중' : '멈춤'}
-                      </span>
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>지난 시간</dt>
-                    <dd>{theaterClock(elapsed)}</dd>
-                  </div>
-                  <div>
-                    <dt>전체</dt>
-                    <dd>{theaterClock(timeline.total)}</dd>
-                  </div>
-                </div>
-                <div className={styles.gantt}>
-                  <div className={styles.track} role="group" aria-label="차례별 길이">
-                    {timeline.segments.map((seg) => (
-                      <button
-                        key={seg.index}
-                        type="button"
-                        className={styles.seg}
-                        style={{ width: `${seg.pct}%` }}
-                        data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}
-                        onClick={() => goto(seg.index)}
-                        title={`${seg.kind} · ${seg.name} · ${Math.round(seg.sec)}초`}
-                        aria-label={`${seg.index + 1}단계 ${seg.name} · ${Math.round(seg.sec)}초`}
-                      />
-                    ))}
-                  </div>
-                  <div className={styles.axis}>
-                    {timeline.marks.map((m) => (
-                      <span key={m}>{m}s</span>
-                    ))}
-                  </div>
-                </div>
-                <ol className={styles.runList}>
-                  {timeline.segments.map((seg) => (
-                    <li key={seg.index} data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}>
-                      <button type="button" onClick={() => goto(seg.index)}>
-                        <span className={styles.runNo}>{String(seg.index + 1).padStart(2, '0')}</span>
-                        <span className={styles.runKind}>{seg.kind}</span>
-                        <span className={styles.runName}>{seg.name}</span>
-                        <span className={styles.runSec}>{Math.round(seg.sec)}초</span>
-                      </button>
-                    </li>
-                  ))}
-                </ol>
+                ) : null}
               </section>
-            ) : null}
-
-            {tab === 'source' ? (
-              <section className={styles.wide}>
-                <p className={styles.paneHead}>
-                  <ExternalLink size={13} aria-hidden /> 원문 <ChevronDown size={12} aria-hidden />
-                </p>
-                <div className={styles.paneBody}>
-                  <dl className={styles.kv}>
-                    <div>
-                      <dt>회차</dt>
-                      <dd>{examLabel}</dd>
-                    </div>
-                    <div>
-                      <dt>문항</dt>
-                      <dd>{title}</dd>
-                    </div>
-                    <div>
-                      <dt>유형</dt>
-                      <dd>{typeName ?? '유형 미정'}</dd>
-                    </div>
-                    <div>
-                      <dt>문제지</dt>
-                      <dd>
-                        <a href={source.url} target="_blank" rel="noreferrer">
-                          {source.direct ? '평가원 문제지 PDF 열기' : '평가원 게시판에서 찾기'} <ExternalLink size={13} aria-hidden />
-                        </a>
-                      </dd>
-                    </div>
-                  </dl>
-                  {source.reason ? <p className={styles.quiet}>{source.reason}</p> : null}
-                  <p className={styles.quiet}>
-                    지문·선지는 평가원 저작물이라 이 화면에 싣지 않아요. 우리가 보관하는 것은 <b>문장 길이와 근거 자리</b>뿐입니다.
-                  </p>
-                </div>
-              </section>
-            ) : null}
-
-            {tab === 'siblings' ? (
-              <section className={styles.wide}>
-                <p className={styles.paneHead}>
-                  <Layers size={13} aria-hidden /> 같은 유형 <ChevronDown size={12} aria-hidden />
-                  <em>{siblings.length} ITEMS</em>
-                </p>
-                <div className={styles.paneBody}>
-                  <ul className={styles.siblings}>
-                    {siblings.map((s) => (
-                      <li key={s.slug}>
-                        <Link href={`/csat/item/${s.slug}`} aria-current={s.current ? 'page' : undefined} data-current={s.current}>
-                          <b>{s.no}</b>
-                          <span>{s.label}</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-            ) : null}
+            </div>
           </div>
 
           {/* ── ③ 바닥 블록 카드 ────────────────────────────── */}

@@ -830,3 +830,62 @@
   background: var(--bg3);
   color: var(--t1);
 }
+
+/* ── 참조(3B) 메인 화면의 색 · 서체 (2026-09-24) ───────────────────────────
+   앱 스킨의 크림 · 보라 대신 참조 값으로 **이 화면 안에서만** 토큰을 덮는다.
+   회색 페이지 위에 레일이 투명하게 놓이고, 오른쪽이 큰 흰 카드 하나다(띠 · 탭 · 표가 그 안에 있다).
+   띠 색(보라 · 분홍 · 초록)은 `PatternBand` 의 격자 변형이 쥔다. */
+.root {
+  --bg: #ffffff;
+  --bg2: #f7f7f8;
+  --bg3: #efeeec;
+  --bd: #e8e7e4;
+  --t1: #18181b;
+  --t2: #56565c;
+  --t3: #8e8e94;
+  --p: #7c5cfa;
+  --ju: #18181b;
+  --success: #16a34a;
+  --tint-lavender: #efeafd;
+  --tint-lavender-ink: #5b3fd6;
+  --font-sans: var(--font-admin-sans), 'Pretendard', system-ui, sans-serif;
+  --font-display: var(--font-sans);
+  --font-serif: var(--font-sans);
+  --font-body: var(--font-sans);
+  --font-ko-display: var(--font-sans);
+  --font-mono: var(--font-admin-mono), ui-monospace, monospace;
+  background: #faf9f7;
+  font-family: var(--font-sans);
+  letter-spacing: -0.005em;
+}
+.rail { background: transparent; }
+@media (min-width: 900px) {
+  .rail { border-right: 0; }
+}
+.markGlyph { background: var(--t1); color: #fff; }
+.railItem { color: var(--t1); font-weight: 400; }
+.railItem[aria-current='true'],
+.railItem[aria-pressed='true'] { background: var(--bg3); color: var(--t1); }
+.topPill { background: #fdf3e7; border: 1px dashed #f0b27a; color: #7a4b1c; font-weight: 500; }
+.topPill b { color: #5b3510; }
+.canvas {
+  margin: 0 14px 14px 0;
+  padding: 0;
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  overflow: hidden;
+}
+@media (max-width: 899px) {
+  .canvas { margin: 0; border-radius: 0; border-width: 1px 0 0; }
+}
+.band { border-radius: 0; background: #f3f3f3; }
+.bandVeil { display: none; }
+.promptBack { background: var(--bg2); }
+.promptCard { box-shadow: 0 1px 3px rgba(0, 0, 0, .06); }
+.promptGo { background: #8e8e94; }
+.promptChip[aria-pressed='true'] { background: var(--bg3); color: var(--t1); }
+.panel { margin-top: -14px; border-width: 1px 0 0; border-radius: 14px 14px 0 0; }
+.tab[aria-selected='true'] { background: var(--bg2); box-shadow: inset 0 0 0 1px var(--bd); }
+.tabCount { background: var(--bg3); color: var(--t2); }
+.gaugeFill { background: var(--t1); }

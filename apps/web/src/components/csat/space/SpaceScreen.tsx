@@ -178,9 +178,9 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
         </span>
 
         <div className={styles.group}>
-          <Link className={styles.railItem} href="/csat">
+          <Link className={styles.railItem} href="/csat/browse">
             <Home size={15} aria-hidden="true" />
-            기출 홈
+            전체 서가
           </Link>
           <Link className={styles.railItem} href="/csat/dissect">
             <Sparkles size={15} aria-hidden="true" />
@@ -272,7 +272,7 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
               · {head.yearMin}–{head.yearMax}
             </span>
           </span>
-          <Link className={styles.topLink} href="/csat">
+          <Link className={styles.topLink} href="/csat/browse">
             <Search size={14} aria-hidden="true" />
             전체 서가
           </Link>
@@ -281,7 +281,7 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
         <div className={styles.canvas}>
           {/* ── ② 무늬 띠 + 명령 상자 ─────────────────────────────────── */}
           <div className={styles.band}>
-            <PatternBand shapes={shapes} className={styles.bandArt} />
+            <PatternBand shapes={shapes} className={styles.bandArt} variant="grid" />
             <div className={styles.bandVeil} aria-hidden="true" />
             <form
               className={styles.prompt}
@@ -441,7 +441,7 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
               {n(head.distractors)}개를 센 값이고, 마지막으로 센 때는 {head.builtAt.slice(0, 10)} 입니다. 지문·선지 원문은
               이 화면에 오지 않습니다(기기의 PDF 에서만 열립니다).
             </p>
-            <Link className={styles.footLink} href="/csat">
+            <Link className={styles.footLink} href="/csat/browse">
               전체 기출 서가로
               <ArrowUpRight size={12} aria-hidden="true" />
             </Link>

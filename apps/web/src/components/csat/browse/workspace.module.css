@@ -1,0 +1,88 @@
+/* apps/web/src/components/csat/browse/workspace.module.css
+   기출 홈(별도 화면) — 골격 · 색 · 서체는 `theater/theater.module.css` 를 그대로 쓰고,
+   여기에는 목록에만 있는 것(찾기 · 거르개 칩 · 오늘의 해부 · 회차별 번호 칩)만 둔다. */
+
+/* (app) 풀스크린 — 앱 셸 머리가 없으므로 뷰포트를 통째로 쓴다 */
+.full { height: 100dvh; border-top: 0; }
+
+.ghost {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px;
+  border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); font-size: 12.5px; color: var(--t2);
+  transition: border-color var(--dur-normal) var(--ease), color var(--dur-normal) var(--ease);
+}
+.ghost:hover { border-color: var(--t2); color: var(--t1); }
+
+/* 레일 바닥 찾기 */
+.search {
+  display: flex; align-items: center; gap: 8px; margin: 0 12px 10px; min-height: 44px; padding: 0 10px;
+  border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); color: var(--t3);
+}
+.search input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; font-size: 13px; color: var(--t1); padding: 8px 0; outline: none; }
+.search input::placeholder { color: var(--t3); }
+.search:focus-within { border-color: var(--t1); }
+.textBtn { min-height: 30px; padding: 0 6px; font-size: 12px; color: var(--t2); text-decoration: underline; text-underline-offset: 3px; }
+.textBtn:hover { color: var(--t1); }
+.textBtn:disabled { opacity: .4; cursor: default; text-decoration: none; }
+
+/* 머리 범례 */
+.legendLecture::before { content: ''; display: inline-block; width: 12px; height: 12px; border: 1px solid var(--t2); border-radius: 3px; margin-right: 5px; vertical-align: -2px; }
+.legendThree i { margin-right: 4px; font-style: normal; font-family: var(--font-mono), monospace; font-size: 10px; color: var(--code); }
+.full [data-testid='start']:disabled { opacity: .5; cursor: wait; }
+
+/* 왼쪽 판 — 오늘의 해부 */
+.resume {
+  display: flex; align-items: center; gap: 8px; min-height: 44px; margin-bottom: 14px; padding: 0 12px;
+  border: 1px solid var(--bd); border-radius: 8px; background: var(--bg2); font-size: 13px; color: var(--t1);
+}
+.resume span {
+  display: inline-flex; align-items: center; height: 22px; padding: 0 7px; border-radius: 5px;
+  background: var(--ju-light); color: var(--ju-ink); font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 600;
+}
+.resume:hover { border-color: var(--t2); }
+.reason { font-size: 13px; line-height: 1.85; color: var(--t2); margin-bottom: 12px; }
+.plan { list-style: none; margin: 0 0 22px; padding: 0; border: 1px solid var(--bd); border-radius: 8px; overflow: hidden; }
+.plan li { display: flex; align-items: baseline; gap: 12px; padding: 10px 12px; font-size: 13px; line-height: 1.6; }
+.plan li + li { border-top: 1px solid var(--bd); }
+.plan small { display: block; font-family: var(--font-mono), monospace; font-size: 10.5px; color: var(--t3); }
+.planNo { font-family: var(--font-mono), monospace; font-size: 11px; color: var(--t3); }
+
+.sectionHead {
+  display: flex; align-items: center; gap: 6px; margin: 4px 0 12px; padding-top: 14px; border-top: 1px solid var(--bd);
+  font-family: var(--font-mono), monospace; font-size: 11.5px; color: var(--t2);
+}
+.group { border: 0; padding: 0; margin: 0 0 14px; }
+.group legend { display: block; font-size: 11.5px; color: var(--t3); margin-bottom: 7px; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chips button {
+  min-height: 32px; padding: 0 10px; border-radius: 7px; font-size: 12px; font-variant-numeric: tabular-nums;
+  border: 1px solid var(--bd); background: var(--bg); color: var(--t2);
+  transition: border-color var(--dur-normal) var(--ease), background var(--dur-normal) var(--ease);
+}
+.chips button:hover { border-color: var(--t2); color: var(--t1); }
+.chips button[aria-pressed='true'] { background: var(--t1); border-color: var(--t1); color: #fff; }
+
+/* 오른쪽 판 — 회차별 번호 칩 */
+.exam { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--bd); }
+.examHead { display: flex; align-items: baseline; gap: 12px; margin-bottom: 9px; }
+.examHead h3 { font-size: 13.5px; font-weight: 500; }
+.examHead p { margin-left: auto; font-family: var(--font-mono), monospace; font-size: 11px; color: var(--t3); }
+.numbers { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 6px; list-style: none; margin: 0; padding: 0; }
+.numbers a {
+  display: flex; align-items: baseline; gap: 7px; min-height: 44px; padding: 8px 10px;
+  border: 1px solid var(--bd); border-radius: 7px; background: var(--bg); color: var(--t1);
+  transition: border-color var(--dur-normal) var(--ease), background var(--dur-normal) var(--ease);
+}
+.numbers a:hover { border-color: var(--t2); background: var(--bg2); }
+.numbers a b { font-family: var(--font-mono), monospace; font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; min-width: 1.5rem; }
+.numbers a span { flex: 1; min-width: 0; font-size: 11.5px; line-height: 1.5; color: var(--t2); overflow-wrap: anywhere; }
+.numbers a i { font-style: normal; font-family: var(--font-mono), monospace; font-size: 10px; color: var(--code); }
+/* 상영 없는 문항은 감추지 않고 점선으로 */
+.numbers a[data-lecture='false'] { border-style: dashed; }
+.numbers a[data-lecture='false'] b { color: var(--t2); }
+
+@media (max-width: 1000px) {
+  .full { height: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .numbers a, .chips button, .ghost { transition-duration: var(--dur-fast); }
+}
