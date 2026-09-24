@@ -22,6 +22,8 @@ import { useState } from 'react'
 import { coverSvg } from '@vocaflow/library-pipeline/textbook-cover'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { StepHeader } from '@/components/admin/factory/StepHeader'
+import { stepByKey } from '@/lib/csat/factory-plain'
 import {
   LIFECYCLE_KO,
   TRIGGER_KO,
@@ -181,23 +183,13 @@ export function SeriesShelf({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
-            ⑨ 품목·운영 — 무엇을 더 낼 것인가, 낸 것을 어떻게 할 것인가
-          </h2>
-          {/*
+      <StepHeader step={stepByKey('after')} help={<AdminScreenHelp screen="csat-catalog" />} />
+      {/*
             ⚠️ 제목이 ⓪ 에서 ⑨ 로 옮겨 왔다(2026-09-23 · DD-77). 이 화면은 공정의 **앞**에
                있는 것처럼 서 있었지만 하는 일은 **뒤**의 일이다 — 낸 책이 팔리는지 보고,
                제도가 바뀌면 개정하고, 안 팔리면 접고, 그 판단으로 다음 유형을 발의한다.
                그 발의가 ② 기획의 입력이라 여기가 **끝이면서 다음 바퀴의 시작**이다.
           */}
-          <p className="break-keep font-body text-[12px] text-[var(--t2)]">
-            한 칸이 한 권이다 · 여기서 나온 판단이 ② 기획으로 돌아간다
-          </p>
-        </div>
-        <AdminScreenHelp screen="csat-catalog" />
-      </div>
 
       {loadError ? (
         <p

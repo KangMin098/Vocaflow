@@ -4,6 +4,8 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { Search, ArrowRight, Clock3 } from 'lucide-react'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { StepHeader } from '@/components/admin/factory/StepHeader'
+import { stepByKey } from '@/lib/csat/factory-plain'
 import type { SourceEligibilityPanel } from '@/lib/textbook/source-eligibility-view'
 import type { SourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 import {
@@ -90,16 +92,11 @@ export function SourceWorkspace({
   const reset = () => update({ q: '', issue: 'all', sort: 'attention' })
   return (
     <div className={styles.root}>
-      <header className={styles.header}>
-        <div>
-          <p className={styles.eyebrow}>재료 · 원문 관리</p>
-          <h2>소재 적격</h2>
-          <p className={styles.description}>
-            원천의 준비 상태를 확인하고, 검수가 필요한 원문으로 이동하세요.
-          </p>
-        </div>
-        <AdminScreenHelp screen="csat-sources" tab={SOURCE_VIEWS[state.view]} />
-      </header>
+      {/* 한 화면이 두 걸음을 맡는다 — 「원천 관리」 탭은 글감 모으기, 「적격 판정」 탭은 글감 고르기. */}
+      <StepHeader
+        step={stepByKey(state.view === 'eligibility' ? 'pick' : 'gather')}
+        help={<AdminScreenHelp screen="csat-sources" tab={SOURCE_VIEWS[state.view]} />}
+      />
       <section className={styles.overview} aria-label="판정 현황과 측정 시각">
         <button className={styles.verdict} onClick={() => update({ view: 'eligibility' })}>
           <span>교재에 실을 수 있는 원문</span>

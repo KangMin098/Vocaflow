@@ -10,6 +10,7 @@ import {
   Clapperboard,
   BookImage,
   BookMarked,
+  BookOpenText,
   Brain,
   ChevronRight,
   ClipboardCheck,
@@ -44,6 +45,11 @@ import {
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Fragment, useEffect, useState } from 'react'
+
+import { PLAIN_LAB, stepByKey, type PlainLab, type StepKey } from '@/lib/csat/factory-plain'
+
+const stepName = (k: StepKey) => stepByKey(k).name
+const labName = (k: PlainLab['key']) => PLAIN_LAB.find((l) => l.key === k)!.name
 
 export interface NavItem {
   href: string
@@ -145,72 +151,42 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
           href: '/admin/csat',
           label: '교재 공장',
           Icon: Factory,
+          // ── 걸음 순서 그대로 (2026-09-24) ─────────────────────────────
+          // 이 메뉴는 공정 id(기출 원천 · 기획 · 설계 · 소재 적격 · 소재 · 집필 …)를 레인별로 늘어놓았는데,
+          // 처음 온 사람은 그 목록에서 「교재 한 권이 어떻게 만들어지는가」를 못 읽었다. 이제 공장 지도와
+          // **같은 걸음 · 같은 이름**이다 — 이름은 `PLAIN_STEPS` 에서 가져온다(여기서 다시 짓지 않는다).
+          // 연구 칸(기출 · 시중 비교 · 학년 계단)은 재료가 거치지 않으므로 「기준을 세우는 곳」으로 뺐다
+          // (DD-74 — 한 줄에 세우면 라인이 연구에 막힌 것처럼 읽힌다).
+          // 「글감 모으기」·「글감 고르기」는 한 화면의 두 탭이라 한 줄이다 — 같은 경로를 두 줄로 두면
+          // 둘이 한꺼번에 켜진다.
           children: [
-            // 「만들기」가 맨 위다 — 이 파이프라인에 오는 이유의 대부분이 **한 권을 내는 것**이고,
-            // 나머지 칸은 전부 "그 한 권을 무엇으로/어떻게" 다. 순서가 곧 관리자가 묻는 순서다.
             {
               href: '/admin/csat/new',
-              label: '새 교재 만들기',
-              Icon: Wand2,
-              group: '만들기',
-            },
-
-            // ── 레인대로 묶는다 (2026-09-23 · DD-74) ──────────────────────
-            // `factory-model.ts` 는 **`lane: 'lab' | 'line'` 을 이미 선언하고** 현황판도 두 띠로
-            // 그린다(「전략 연구소 / 생산 라인」). 그런데 이 메뉴만 「재료 / 공정 / 출고」로 묶여
-            // 모델을 무시하고 있었고, 그 어긋남이 두 가지를 낳았다:
-            //   · ② 기획(연구소)이 ④ 소재(라인) 앞에 서서 **라인이 기획에 막힌 것처럼** 읽혔다.
-            //     실제로는 안 막는다 — 실측 2026-09-23 에 기획이 「못 잼」인 동안 ④⑤⑧ 은 통과였다.
-            //   · 「원문 적격」이 ①②③ 과 같은 「재료」에 묶였는데, 그 출력은 **④ 소재의 입력**이지
-            //     연구소의 입력이 아니다(전자는 평가원 기출, 후자는 library_articles — 겹치지 않는다).
-            {
-              href: '/admin/csat/evidence',
-              label: '기출 원천',
+              label: stepName('order'),
               tag: '①',
-              Icon: Scale,
-              group: '전략 연구소',
+              Icon: Wand2,
+              group: '여덟 걸음',
             },
-            { href: '/admin/csat/strategy', label: '기획', tag: '②', Icon: Target },
-            { href: '/admin/csat/blueprint', label: '설계', tag: '③', Icon: Grid3x3 },
-
-            // 「소재 적격」 — 재고가 아니라 **자격**을 본다: 재고가 있어도 판정을 통과 못 하면 못 싣는다.
-            // 라우트는 2026-09-06 에 `/admin/textbook/sources` → 여기로 옮겼다. 메뉴에서는 교재
-            // 공장 안인데 URL 은 다른 파이프라인이면, 주소창과 메뉴가 서로 다른 말을 한다.
-            // 이름을 「원문 적격」 → 「소재 적격」으로 바꾼 것은 **바로 다음 칸(④ 소재)의 입구**임을
-            // 이름으로 말하기 위해서다.
             {
               href: '/admin/csat/sources',
-              label: '소재 적격',
+              label: `${stepName('gather')} · 고르기`,
+              tag: '②③',
               Icon: BookMarked,
-              group: '생산 라인',
             },
-            { href: '/admin/csat/sourcing', label: '소재', tag: '④', Icon: FileText },
-            { href: '/admin/csat/authoring', label: '집필', tag: '⑤', Icon: PenLine },
-            // 해설 ⑥ — **2026-09-23 까지 갈 곳이 없는 칸이었다**(href 가 부모 · 「준비 중」 배지).
-            //   안 만든 근거는 「전체 보유율은 현황판 눈금, 막힌 권은 카탈로그 칸」이었는데,
-            //   그 둘은 **합계**만 말한다. 실측하면 합계는 99.46% 인데 구멍 4,719건 중 8할이
-            //   어휘 유형 하나(vocab_choice 3,800)에 몰려 있다 — 합계는 「거의 다 됐다」이고
-            //   칸은 「유형 하나 돌리면 끝난다」이다. **할 일이 다르다**(DD-74).
-            { href: '/admin/csat/explain', label: '해설', tag: '⑥', Icon: MessageSquareText },
-            { href: '/admin/csat/review', label: '검수', tag: '⑦', Icon: ClipboardCheck },
-            {
-              href: '/admin/csat/press',
-              label: '조판·발행',
-              tag: '⑧',
-              Icon: Printer,
-              group: '출고',
-            },
-            // ⑨ 운영·개정 — **끝이 아니라 고리가 닫히는 자리**(2026-09-23 · DD-77).
-            //   이 화면(품목)은 2026-09-23 까지 맨 위에 「카탈로그」로 혼자 서 있었다.
-            //   그런데 하는 일이 둘이다: **무엇을 더 낼 것인가**(품목)와 **낸 것을 어떻게
-            //   할 것인가**(운영·개정). 뒤의 것이 ② 기획의 입력이라 공정의 끝이면서
-            //   다음 바퀴의 시작이다. 맨 위에 두면 그 순환이 메뉴에서 안 읽힌다.
-            {
-              href: '/admin/csat/catalog',
-              label: '품목·운영',
-              tag: '⑨',
-              Icon: LayoutGrid,
-            },
+            { href: '/admin/csat/sourcing', label: stepName('passage'), tag: '④', Icon: FileText },
+            { href: '/admin/csat/authoring', label: stepName('items'), tag: '⑤', Icon: PenLine },
+            { href: '/admin/csat/explain', label: stepName('explain'), tag: '⑥', Icon: MessageSquareText },
+            { href: '/admin/csat/review', label: stepName('check'), tag: '⑦', Icon: ClipboardCheck },
+            { href: '/admin/csat/press', label: stepName('publish'), tag: '⑧', Icon: Printer },
+            // 낸 뒤 살피기 — 끝이 아니라 다음 주문으로 돌아가는 고리(DD-77).
+            { href: '/admin/csat/catalog', label: stepName('after'), tag: '↺', Icon: LayoutGrid },
+
+            { href: '/admin/csat/evidence', label: labName('evidence'), Icon: Scale, group: '기준을 세우는 곳' },
+            { href: '/admin/csat/strategy', label: labName('market'), Icon: Target },
+            { href: '/admin/csat/blueprint', label: labName('blueprint'), Icon: Grid3x3 },
+
+            { href: '/admin/csat/help', label: '용어집', Icon: BookOpenText, group: '도움' },
+            { href: '/admin/csat/details', label: '숫자로 자세히', Icon: Gauge },
           ],
         },
         // 기출 분석 뷰 — 2026-09-17 까지 학습자 `/csat` 밑에 있던 분석 화면(지도·유형·문항·지형·
