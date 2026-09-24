@@ -44,7 +44,71 @@ function Shape({ shape, index }: { shape: PatternShape; index: number }) {
   return <circle className="vf-float" style={style} cx={cx} cy={cy} r={r} fill={fill} opacity={opacity} />
 }
 
-export function PatternBand({ shapes, className }: { shapes: PatternShape[]; className?: string }) {
+/**
+ * 격자 무늬(기출 메인) — 참조 메인 띠를 그대로 따른다: **같은 크기 원이 격자로 맞붙고**, 바탕 원은
+ * 옅은 회색, 데이터 원은 보라 · 분홍 · 초록 덩어리 둘(왼쪽 가운데 · 오른쪽)로 모인다.
+ * 원 하나 = 표 한 줄이라는 뜻은 그대로다 — 큰 줄(양이 많은 줄)이 덩어리 한가운데 칸을 먼저 갖고,
+ * 진한 면은 큰 줄에만 간다. 명령 상자 뒤(가운데)는 비워 둔다.
+ */
+const GRID_FILL: Record<SpaceTone, { soft: string; deep: string }> = {
+  lavender: { soft: '#ddd6fb', deep: '#8b6cf0' },
+  pink: { soft: '#fbc8e2', deep: '#e8499a' },
+  green: { soft: '#cfe8da', deep: '#0a9a63' },
+  peach: { soft: '#fbc8e2', deep: '#e8499a' },
+  yellow: { soft: '#ddd6fb', deep: '#8b6cf0' },
+  teal: { soft: '#cfe8da', deep: '#0a9a63' },
+}
+const GRID_R = 38
+const GRID_BASE = ['#ececec', '#f2f2f2', '#e7e7e7']
+const CLUSTERS = [
+  { x: 0.24, y: 0.8, reach: 0.2 },
+  { x: 0.84, y: 0.55, reach: 0.3 },
+]
+
+function gridCells() {
+  const { w, h } = PATTERN_VIEWBOX
+  const step = GRID_R * 2
+  const cells: { cx: number; cy: number; score: number; i: number }[] = []
+  let i = 0
+  for (let cy = 0; cy <= h + GRID_R; cy += step) {
+    for (let cx = GRID_R; cx <= w + GRID_R; cx += step) {
+      // 덩어리 중심에 가까울수록 점수가 낮다(먼저 칠해진다). 가로는 화면 비율대로 눌러 잰다.
+      const score = Math.min(
+        ...CLUSTERS.map((c) => Math.hypot((cx / w - c.x) * 2.2, (cy / h - c.y) * 0.9) / c.reach),
+      )
+      cells.push({ cx, cy, score, i: i++ })
+    }
+  }
+  return cells
+}
+
+function GridBand({ shapes }: { shapes: PatternShape[] }) {
+  const cells = gridCells()
+  const ranked = [...cells].filter((c) => c.score < 1.6).sort((a, b) => a.score - b.score)
+  const rows = [...shapes].sort((a, b) => b.r - a.r)
+  const paint = new Map<number, string>()
+  rows.slice(0, ranked.length).forEach((shape, k) => {
+    const fill = GRID_FILL[shape.tone]
+    paint.set(ranked[k].i, shape.depth >= 0.8 ? fill.deep : fill.soft)
+  })
+  return (
+    <>
+      {cells.map((c) => (
+        <circle
+          key={c.i}
+          className={paint.has(c.i) ? 'vf-float' : undefined}
+          style={paint.has(c.i) ? ({ '--float-y': `${(c.i % 3) + 1}%`, '--float-dur': `${18 + (c.i % 5) * 3}s`, '--float-delay': `${(c.i % 7) * -1.9}s` } as React.CSSProperties) : undefined}
+          cx={c.cx}
+          cy={c.cy}
+          r={GRID_R}
+          fill={paint.get(c.i) ?? GRID_BASE[(c.i * 7) % GRID_BASE.length]}
+        />
+      ))}
+    </>
+  )
+}
+
+export function PatternBand({ shapes, className, variant = 'scatter' }: { shapes: PatternShape[]; className?: string; variant?: 'scatter' | 'grid' }) {
   return (
     <svg
       className={className}
@@ -53,9 +117,11 @@ export function PatternBand({ shapes, className }: { shapes: PatternShape[]; cla
       aria-hidden="true"
       focusable="false"
     >
-      {shapes.map((shape, i) => (
-        <Shape key={`${shape.kind}-${i}`} shape={shape} index={i} />
-      ))}
+      {variant === 'grid' ? (
+        <GridBand shapes={shapes} />
+      ) : (
+        shapes.map((shape, i) => <Shape key={`${shape.kind}-${i}`} shape={shape} index={i} />)
+      )}
     </svg>
   )
 }

@@ -8,6 +8,8 @@
 
 ---
 ## Unreleased (v06.34 → next)
+
+- 기출 화면 3B 정렬: `/csat` = 3B 앱 메인(구 `/csat/space`, 격자 원 띠 · 흰 카드 · Inter, 옛 주소는 redirect) · 목록은 별도 화면 `/csat/browse`(`CsatWorkspace`) · 해설 극장은 원문 판 왼쪽 고정 + 3B 색/서체 + 근거 팝업을 Output 판 모양으로.
 - **원천 먼저 — 조각은 `csat_fit.derived_from` 으로 원천에 잇는다**(2026-09-24 · 기준 v3 「파생물은 원천이 아니다」): 교재 수집기 5곳(`epmc`·`space-place`·`storyweaver`·`mediawiki-lead`·`frym-ingest`)이 수집 단계에서 조각만 넣고 원천을 버리던 것을, 원천 전문을 먼저 저장하고 조각은 파생물로 기록하게. frym 이 창에 맞는 조각이 없으면 원문까지 건너뛰던 길이 제외도 제거. 새 `originals-backfill.mjs`(예행 기본 · 재시도 · 손댄 행 목록 → 적격 캐시 재계산). `derivativeKind` 가 `derived_from` 을 읽는다. storyweaver `?embed=true` 누락(401) 수정.
 - **적격 규격 4 전환 완료**(2026-09-24 · 마이그레이션 `20260924150000` → 캐시 재적재 64,102행 → `20260924170000_eligibility_policy_v4_only`): `csat_source_is_eligible`·`csat_source_is_gradeable` 이 규격 4 만 받는다. 적격(usable) 10,560 → **21,038**(V6+ C1 허용 · DD-81). 재적재 중 Claude Code 충돌로 구동 스크립트가 두 번 끊겨 배치 단위 재시도 구동기로 이어 갔다(배치마다 백업 · 같은 값은 건너뜀).
 - **호출자 0 인 사전 채굴 RPC 둘 삭제**(2026-09-24 · 사용자 승인 · migration `20260924070635_drop_dead_dict_mining_rpcs`): `select_article_coverage(uuid)` · `select_extraction_residual()`. 코드 호출 0 · 함수 호출 0 · 의존 0 · 통계상 호출 0 이고, 읽던 `library_article_vocabularies` 가 발행·가공 글 몫(12.5만 행)만 남아 목적을 못 한다. `database.ts` 에서 타입 제거 · 원문은 rollback 파일에.
