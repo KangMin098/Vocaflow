@@ -119,6 +119,10 @@ function planOf(r) {
   // frym 초록 행 — 원본 열쇠 모양이라 derivativeKind 가 못 가른다(본문이 초록뿐이라는 것은 실측).
   const frymAbs = r.source === 'frym' && id.match(/^frym:(10\.3389\/frym\.[0-9.]*[0-9])$/)
   if (frymAbs) return { group: `frym:${frymAbs[1]}`, kind: 'abstract', plan: { type: 'frym', doi: frymAbs[1] } }
+  // europe_pmc 서론 행 — 원본 열쇠(`europe_pmc:PMC…`) 모양인데 본문이 서론뿐이다(89행 · 2026-09-24 실측).
+  //   frym 초록과 같은 처리: 전문 원천은 `europe_pmc-full:PMC…` 로 따로 받고 이 행은 파생물(intro)로 잇는다(사용자 결정 A).
+  const epmcIntro = r.source === 'europe_pmc' && id.match(/^europe_pmc:(PMC\d+)$/)
+  if (epmcIntro) return { group: `europe_pmc-full:${epmcIntro[1]}`, kind: 'intro', plan: { type: 'epmc', pmcid: epmcIntro[1], key: `europe_pmc-full:${epmcIntro[1]}` } }
   const dk = derivativeKind({ source_id: r.source_id, feed_id: r.feed_id })
   if (!dk) return null
   const base = id.replace(/#.*$/, '')
@@ -128,7 +132,7 @@ function planOf(r) {
   if (dk === 'paragraphs') {
     if (r.source === 'europe_pmc') {
       const pmcid = base.match(/PMC\d+/)?.[0]
-      return pmcid ? { group: base, kind: 'paragraphs', plan: { type: 'epmc', pmcid, key: base } } : null
+      return pmcid ? { group: `europe_pmc-full:${pmcid}`, kind: 'paragraphs', plan: { type: 'epmc', pmcid, key: `europe_pmc-full:${pmcid}` } } : null
     }
     if (r.source === 'space_place') {
       return { group: base, kind: 'excerpt', plan: { type: 'space_place', slug: base.replace(/^space_place:/, ''), key: base } }
@@ -144,6 +148,20 @@ function planOf(r) {
   return { group: null, kind: dk, plan: { type: 'unsupported', why: `${r.source} · ${dk}` } }
 }
 
+// `--shard i/n` — 원천 묶음을 해시로 n 등분해 i 번째만 한다. 묶음 단위라 같은 원천을 두 프로세스가 받지 않는다.
+const SHARD = (() => {
+  const i = process.argv.indexOf('--shard')
+  if (i < 0) return null
+  const m = String(process.argv[i + 1] ?? '').match(/^(\d+)\/(\d+)$/)
+  if (!m || Number(m[1]) >= Number(m[2])) throw new Error('--shard i/n (0 ≤ i < n)')
+  return { i: Number(m[1]), n: Number(m[2]) }
+})()
+const inShard = (group) => {
+  if (!SHARD) return true
+  let h = 0
+  for (const ch of group) h = (h * 31 + ch.charCodeAt(0)) >>> 0
+  return h % SHARD.n === SHARD.i
+}
 const counts = { scanned: rows.length, derivatives: 0, alreadyLinked: 0, unsupported: {} }
 /** 원천 묶음: group → { plan, children: [{ row, kind }] } */
 const groups = new Map()
@@ -159,6 +177,7 @@ for (const r of rows) {
     counts.unsupported[p.plan.why] = (counts.unsupported[p.plan.why] ?? 0) + 1
     continue
   }
+  if (!inShard(p.group)) continue
   if (!groups.has(p.group)) groups.set(p.group, { plan: p.plan, source: r.source, children: [] })
   groups.get(p.group).children.push({ row: r, kind: p.kind })
 }
