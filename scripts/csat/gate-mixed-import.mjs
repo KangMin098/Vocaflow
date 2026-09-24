@@ -41,6 +41,11 @@ if (inputIndex >= 0) {
     if (!['use','narrative','reject'].includes(r.verdict) || typeof r.genre !== 'string' || typeof r.why !== 'string' || r.why.trim().length < 10) throw new Error('Incomplete content judgment')
     if (r.verdict !== 'reject' && blockedGenres.has(r.genre)) throw new Error('Verdict/genre contradiction')
     if (!Number.isFinite(Date.parse(r.source_updated_at)) || !/^[a-f0-9]{64}$/.test(r.body_sha256 ?? '')) throw new Error('Review must record revision and full-body SHA256')
+    // `basis` — 무엇을 읽고 판정했나(2026-09-24). 없거나 `full` 이면 전문 판정이다.
+    //   `sections` = PLOS 원본의 서론·고찰만 읽은 **보관 판정**(`plos-raw-triage-export`) — `gate.retain` 에만
+    //   쓰고 `gate.verdict` 는 건드리지 않는다. 게시 적격을 여는 것은 전문 판정뿐이다.
+    //   (`head` 는 받지 않는다 — 앞 800어 판정은 전문이 보관한 17편 중 12편을 버렸다 · 실측 2026-09-24)
+    if (r.basis !== undefined && !['sections', 'full'].includes(r.basis)) throw new Error(`Unknown judgment basis: ${r.basis}`)
     // `uses` — 이 원문으로 만들 수 있는 교재 재료(2026-09-23). 옛 판정 파일에는 없으므로 있을 때만 검사한다.
     if (r.uses !== undefined) {
       if (!Array.isArray(r.uses) || r.uses.some(u => !SOURCE_USES.has(u))) throw new Error(`Unknown source use: ${JSON.stringify(r.uses)}`)
@@ -65,11 +70,17 @@ if (inputIndex >= 0) {
     if (crypto.createHash('sha256').update(row.content ?? '').digest('hex') !== review.body_sha256) throw new Error(`Reviewed body changed: ${row.id}`)
     const purpose = purposeOf(row), codes = hardReject(row.content ?? '')
     const decision = decide({ purpose, verdict: review.verdict, genre: review.genre, codes })
-    const gate = { v: 2, rv: RULES_VERSION, cv: CODES_VERSION, ...decision, purpose, verdict: review.verdict, genre: review.genre, why: review.why, codes, by: 'chunk-llm',
-      // 있을 때만 담는다 — 없는 키를 `undefined` 로 넣으면 jsonb 비교가 매번 「변경」으로 보인다.
-      ...(review.uses ? { uses: review.uses } : {}) }
     const previous = row.csat_fit?.gate ?? null
     const { at: ignored, ...comparable } = previous ?? {}
+    if (review.basis === 'sections' && purpose !== 'raw') throw new Error(`Sections-basis review is only for raw sources: ${row.id}`)
+    const gate = review.basis === 'sections'
+      // 보관 판정 — 기존 게이트는 그대로 두고 `retain` 한 키만 더한다(통째로 덮으면 게시 판정이 날아간다).
+      ? { ...comparable, retain: { verdict: review.verdict, genre: review.genre, why: review.why, uses: review.uses ?? [], basis: 'sections', by: 'chunk-llm' } }
+      : { v: 2, rv: RULES_VERSION, cv: CODES_VERSION, ...decision, purpose, verdict: review.verdict, genre: review.genre, why: review.why, codes, by: 'chunk-llm',
+        // 있을 때만 담는다 — 없는 키를 `undefined` 로 넣으면 jsonb 비교가 매번 「변경」으로 보인다.
+        ...(review.uses ? { uses: review.uses } : {}),
+        // 전문 판정이 옛 보관 판정을 지우지 않는다.
+        ...(previous?.retain ? { retain: previous.retain } : {}) }
     const unchanged = isDeepStrictEqual(comparable, gate)
     // An identical replay may have our updated revision; all actual changes need CAS.
     if (!unchanged && Date.parse(row.updated_at) !== Date.parse(review.source_updated_at)) throw new Error(`Review revision changed: ${row.id}`)

@@ -17,7 +17,7 @@ reject·분석 누락·CEFR 초과는 사용 차단. 발췌 위치만 있으면 
 배치 전 캐시 백업은 `.agent-logs`에 기록한다. 복구는 해당 배치의 이전 값만 복원하며 원문/정답을 덮지 않는다.
 원문 수정은 별도 revision 조건·본문 해시·앵커 영향 검증이 필요하다. 캐시 재검증은 내용 AI 판정을 대신하지 않는다.
 VOA ingestion은 관측된 댓글 안내 문단 제거 후 최소 길이를 검사한다. 기존 450편은 문항 100개(4편)의 위치 영향 때문에 보존한다.
-미판정 raw 31,367편은 발췌 후 판정 경로, 나머지 17,444편은 내용 검토 대상이다.
+미판정 raw 는 **보관 판정 → 발췌 → 발췌 판정** 순서다(2026-09-24). 보관 판정은 서론·고찰만 읽는다(`plos-raw-triage-export` · 지시 `scripts/csat/plos-raw-triage-brief.md`) — 앞 800어 판정은 30편 대조에서 보관할 논문 17편 중 12편을 버려 폐기했다. 결과는 `csat_fit.gate.retain` 에만 쓰이고 게시 적격은 열지 않는다. `plos-extract` 는 보관 판정된 원본만 자르고, 발췌본에 판정을 스스로 붙이지 않는다(판정 드레인이 읽는다).
 
 일일 읽기 전용 workflow `csat-source-audit.yml`은 DB/cache/snapshot drift와 모순을 exit 1로 알린다.
 기본 브랜치 반영 및 기존 Supabase secrets 설정 후 일정 실행이 활성화된다. 자동 데이터 수정은 없다.
@@ -304,7 +304,7 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 > (보유 목록 = `library_articles` 전량 스캔). 이행이 끝나면 이 절을 기준설계로 갈음한다.
 >
 > ⚠️ **「게시 불가」와 「미보관」은 다르다.** `csat_fit.gate.publishable=false` 를 버릴 것으로 읽으면
-> 안 된다 — plos 원본 31,220편은 전량 `oversize-raw` 로 게시가 막혀 있지만 **추출 대기 재고**다.
+> 안 된다 — plos 원본은 전량 `oversize-raw` 로 게시가 막혀 있지만, 보관 여부는 **읽고 가른다**(2026-09-24 · `gate.retain`). 판정 전에는 `undecided`, 보관이면 추출 대기, 폐기면 `discard`.
 > 보관 축은 `gate-rules.retentionOf` 가 파생으로 답하고(저장하지 않는다), 감사가 확보 전량에 대해
 > 센다. 표와 실측은 SOURCE_INTAKE_DESIGN 「보관 축」.
 

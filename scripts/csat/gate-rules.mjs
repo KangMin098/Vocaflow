@@ -269,9 +269,21 @@ export function decide({ purpose, verdict, genre, codes }) {
  *
  * `purpose` 를 verdict 보다 먼저 보는 이유: raw 는 verdict 가 있어도 게시가 안 열리므로
  * 보관 사유가 「읽고 남겼다」가 아니라 「추출 대기」로 남아야 되짚을 수 있다.
+ *
+ * ⚠️ **raw 도 읽고 가른다**(2026-09-24 사용자 결정 — 위 표의 「클래스 규칙」을 뒤집었다).
+ *   판정 없이 전량을 `keep-pending-extraction` 으로 세면 감사의 `undecided` 가 0 으로 보여
+ *   **31,220편이 아무도 안 읽은 채 「보관」으로 셈해졌다.** 30편을 전문으로 읽어 보니 13편은 버릴 논문이었다.
+ *   raw 의 보관 판정은 `gate.retain`(서론·고찰을 읽은 판정, `plos-raw-triage-export`)이 주고,
+ *   전문 판정(`gate.verdict`)이 있으면 그것도 받는다. 둘 다 없으면 `undecided` — 구멍으로 센다.
+ *   `retain` 은 **보관만** 가른다. 게시 적격은 여전히 발췌본의 전문 판정이 연다.
  */
-export function retentionOf({ purpose, verdict } = {}) {
-  if (purpose === 'raw') return 'keep-pending-extraction'
+export function retentionOf({ purpose, verdict, retain } = {}) {
+  if (purpose === 'raw') {
+    const v = retain ?? verdict
+    if (v === 'reject') return 'discard'
+    if (v === 'use' || v === 'narrative') return 'keep-pending-extraction'
+    return 'undecided'
+  }
   if (verdict === 'use' || verdict === 'narrative') return 'keep'
   if (verdict === 'reject') return 'discard'
   return 'undecided'

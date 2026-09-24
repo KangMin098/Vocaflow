@@ -434,7 +434,7 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
       pct: total.total ? +((count / total.total) * 100).toFixed(1) : 0,
       nextStep:
         grade === 'unjudged' && allUnjudgedAreStructural
-          ? '전부 미절단 원본이라 게이트로는 안 풀린다 — 발췌 경로(scripts/csat/plos-extract)로 가야 한다'
+          ? '전부 미절단 원본이다 — 먼저 보관 판정(scripts/csat/plos-raw-triage-export), 보관된 것만 발췌(scripts/csat/plos-extract)'
           : GRADE_NEXT_STEP[grade],
       composable: COMPOSABLE.includes(grade),
     }

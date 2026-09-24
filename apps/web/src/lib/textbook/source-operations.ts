@@ -183,8 +183,8 @@ export function sourceNextAction(row: SourceOperationRow, stale = false): Source
     next: '본문을 읽고 원천 추출기·연결 문항을 점검합니다.', verify: '수정 시 본문 해시·문항 앵커·품질 신호를 재검증합니다.' }
   if (row.result.analysisStatus !== 'complete') return { kind: 'investigate', what: '필수 분석 경로 확인', why: '학령·어수·문체·구문 중 필수 분석이 비었거나 유효하지 않습니다.',
     impact: '원문 적격을 확정할 수 없습니다.', next: '누락 필드와 기존 어휘 자료를 확인한 뒤 필요한 분석만 수행합니다.', verify: '분석 필드와 적격 판정을 다시 확인합니다.' }
-  if (blockers.includes('raw_content_unjudged')) return { kind: 'blocked', what: '발췌 경로 먼저 확인', why: '미절단 원본은 그대로 내용 판정만 해도 사용할 지문이 생기지 않습니다.',
-    impact: '발췌 파생 원문과 연결 문항이 필요합니다.', next: '수요가 있는 발췌본의 생성·분석·독립 판정 경로를 확인합니다.', verify: '파생 원문의 본문과 판정·문항 범위를 확인합니다.' }
+  if (blockers.includes('raw_content_unjudged')) return { kind: 'batch', what: '보관 판정 먼저', why: '미절단 원본은 서론·고찰을 읽고 보관 여부부터 가릅니다. 보관된 원본만 발췌됩니다.',
+    impact: '판정 전에는 이 원본이 발췌되지 않습니다. 버린 원본은 다시 읽히지 않습니다.', next: 'plos-raw-triage-export 로 청크를 뽑아 판정하고 gate-mixed-import --input 으로 gate.retain 에 적재합니다.', verify: '적재 후 csat-sources-audit 의 보관 미결정 수가 줄었는지 확인합니다.' }
   if (blockers.includes('content_unjudged')) return { kind: 'batch', what: '본문 판정 청크 준비', why: '현재 본문의 내용 판정이 없습니다.',
     impact: '판정 전에는 원문 적격을 확정할 수 없습니다.', next: 'UUID·revision·본문 해시를 묶어 읽고 판정합니다.', verify: '판정 import 후 캐시를 재계산하고 차단 사유를 확인합니다.' }
   if (blockers.includes('cefr_above_band')) return { kind: 'review', what: '학령 배치 검토', why: '측정 CEFR이 현재 학령 상한을 넘습니다.',

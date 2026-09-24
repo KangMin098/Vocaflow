@@ -22,7 +22,7 @@ const BLOCKED = new Set([...HARMFUL, ...UNFIT, 'poetry-drama'])
 // `uses` 는 2026-09-23 에 더한 일곱째 키 — **이 원문으로 어떤 교재를 만들 수 있는가**.
 // 그 전에 끝난 판정 파일에는 없으므로 **없어도 통과시키되**, 채운 비율을 출력에 찍는다
 // (조용히 비어 있으면 전량을 다시 읽어야 하는 것을 나중에야 알게 된다).
-const KEYS = ['id', 'verdict', 'genre', 'why', 'source_updated_at', 'body_sha256', 'uses']
+const KEYS = ['id', 'verdict', 'genre', 'why', 'source_updated_at', 'body_sha256', 'uses', 'basis']
 const pairs = process.argv.slice(2)
 if (!pairs.length || pairs.length % 2) throw new Error('<export.json> <reviews.json> 쌍으로 넘긴다')
 

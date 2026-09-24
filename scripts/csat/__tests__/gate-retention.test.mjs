@@ -9,12 +9,18 @@ import assert from 'node:assert/strict'
 
 import { retentionOf, RETENTION, decide } from '../gate-rules.mjs'
 
-test('raw 는 판정이 무엇이든 추출 대기로 보관된다', () => {
-  // plos 원본 31,220편이 여기 걸린다. 판정을 붙여도 게시가 열리지 않으므로
-  // 보관 사유는 「읽고 남겼다」가 아니라 「추출 대기」로 남아야 되짚을 수 있다.
-  for (const verdict of [undefined, 'use', 'narrative', 'reject']) {
-    assert.equal(retentionOf({ purpose: 'raw', verdict }), 'keep-pending-extraction')
+test('raw 도 읽고 가른다 — 판정 없는 원본은 보관이 아니라 미결정이다(2026-09-24)', () => {
+  // 예전에는 판정과 무관하게 전량 추출 대기로 셌다. 그래서 31,220편이 아무도 안 읽은 채
+  // 「보관」으로 보였다. 30편을 전문으로 읽으니 13편이 버릴 논문이었다.
+  assert.equal(retentionOf({ purpose: 'raw' }), 'undecided')
+  for (const v of ['use', 'narrative']) {
+    assert.equal(retentionOf({ purpose: 'raw', retain: v }), 'keep-pending-extraction')
+    assert.equal(retentionOf({ purpose: 'raw', verdict: v }), 'keep-pending-extraction')
   }
+  assert.equal(retentionOf({ purpose: 'raw', retain: 'reject' }), 'discard')
+  assert.equal(retentionOf({ purpose: 'raw', verdict: 'reject' }), 'discard')
+  // 보관 판정(retain)이 있으면 그것이 이긴다 — raw 의 게이트 verdict 는 옛 전문 판정이다.
+  assert.equal(retentionOf({ purpose: 'raw', verdict: 'use', retain: 'reject' }), 'discard')
 })
 
 test('내용 판정이 보관/미보관을 가른다', () => {
@@ -31,7 +37,7 @@ test('아무 축도 답하지 않은 것은 undecided — 이 값이 관리 구�
 
 test('보관 축은 게시 축과 독립이다 — 게시 불가가 미보관을 뜻하지 않는다', () => {
   // raw: 게시 불가지만 보관한다. 이 한 줄이 이 파일의 이유다.
-  const raw = { purpose: 'raw', verdict: 'use', genre: 'science', codes: [] }
+  const raw = { purpose: 'raw', verdict: 'use', retain: 'use', genre: 'science', codes: [] }
   assert.equal(decide(raw).publishable, false)
   assert.equal(decide(raw).blockedBy, 'oversize-raw')
   assert.equal(retentionOf(raw), 'keep-pending-extraction')

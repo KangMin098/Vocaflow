@@ -28,7 +28,7 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 
 import { fitRecord, windowsOf, splitSentences, W } from './lib-fit.mjs'
-import { hardReject } from './gate-rules.mjs'
+import { hardReject, retentionOf } from './gate-rules.mjs'
 import { classify, TOPIC_V } from './lib-topic.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
 import { protectAbbr, restoreAbbr, SENT_DROP, cleanSentence } from './lib-plos.mjs'
@@ -130,7 +130,7 @@ console.log('PLOS 지문 추출' + (COMMIT ? ' — **적재한다**' : ' — 예
 console.log('='.repeat(78))
 console.log(`  이어서 시작: ${cur.id || '(처음)'} · 이번에 볼 논문 ${LIMIT}편\n`)
 
-const drop = { noSection: 0, sentDrop: {}, structCite: 0, tooShort: 0, gate: 0, band: 0 }
+const drop = { notKept: 0, noSection: 0, sentDrop: {}, structCite: 0, tooShort: 0, gate: 0, band: 0 }
 let papers = 0
 let made = 0
 let inserted = 0
@@ -142,7 +142,7 @@ while (papers < LIMIT) {
     () =>
       db
         .from('library_articles')
-        .select('id,title,source_url,author,license,content')
+        .select('id,title,source_url,author,license,content,gate:csat_fit->gate')
         .eq('source', 'plos')
         // ⚠️ 전에는 `csat_fit->gate->>purpose = 'raw'` 로 걸렀다. 인덱스가 없어서 매 요청마다
         //   75,000행의 jsonb 를 파싱했고, 커서가 뒤로 갈수록 첫 응답이 안 왔다(회차를 여러 번 잃음).
@@ -163,6 +163,13 @@ while (papers < LIMIT) {
   for (const row of data) {
     papers += 1
     cursor = row.id
+    // ⚠️ **보관 판정을 받은 원본만 자른다**(2026-09-24). 예전에는 원본 전량을 잘랐다 — 읽어 보면
+    //   버릴 논문(30편 중 13편)에서도 발췌가 나와 판정 드레인이 그것을 다시 읽고 버렸다.
+    //   판정 없는 원본은 먼저 `plos-raw-triage-export` 드레인으로 간다.
+    if (retentionOf({ purpose: 'raw', verdict: row.gate?.verdict, retain: row.gate?.retain?.verdict }) !== 'keep-pending-extraction') {
+      drop.notKept += 1
+      continue
+    }
     const kept = keepSections(String(row.content ?? ''))
     if (!kept) {
       drop.noSection += 1
@@ -232,14 +239,14 @@ while (papers < LIMIT) {
               topic: t.topic,
               topicMargin: t.margin,
               topicV: TOPIC_V,
+              // ⚠️ **판정을 스스로 붙이지 않는다**(2026-09-24). 예전에는 `verdict:'use'` 를 찍어 넣었다 —
+              //   아무도 안 읽은 발췌가 「사용」으로 보였고, 나중에 전문 판정이 24%를 버렸다.
+              //   verdict 없이 넣으면 `gate-article-export`(발췌 피드는 대상에 든다)가 판정 청크로 뽑는다.
               gate: {
                 v: 2,
-                publishable: true,
+                publishable: true, // 기계 규칙은 통과 — 판정 없음(verdict 키 없음)이 적격에서 `content_unjudged` 로 읽힌다
                 purpose: 'csat',
                 blockedBy: null,
-                verdict: 'use',
-                genre: 'science',
-                why: '논문 서론·논의에서 뗀 설명문 — 절차·수치·1인칭 제거',
                 codes: [],
                 by: 'extract+rule',
                 at: new Date().toISOString(),
@@ -294,6 +301,7 @@ for (const [k, n] of Object.entries(drop.sentDrop).sort((a, b) => b[1] - a[1])) 
   console.log(`    문장 ${k.padEnd(14)} ${n}`)
 }
 console.log(`    묶을 문장 부족      ${drop.tooShort}`)
+console.log(`    보관 판정 없음·폐기  ${drop.notKept}`)
 console.log(`    기계 규칙           ${drop.gate}`)
 console.log(`    대역 미달           ${drop.band}`)
 if (!COMMIT) console.log(`\n  예행이었다. 적재하려면 --commit`)

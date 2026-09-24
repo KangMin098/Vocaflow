@@ -91,7 +91,7 @@ for await (const rows of walk('library_articles', select)) {
     const candidate = ['ready', 'published'].includes(row.status)
     const gate = row.gate ?? {}
     gates[String(gate.verdict ?? '(none)')] = (gates[String(gate.verdict ?? '(none)')] ?? 0) + 1
-    const keepState = retentionOf({ purpose: gate.purpose, verdict: gate.verdict })
+    const keepState = retentionOf({ purpose: gate.purpose, verdict: gate.verdict, retain: gate.retain?.verdict })
     retention[keepState] = (retention[keepState] ?? 0) + 1
     // undecided 는 출처별로 쪼개 둔다 — 합계만 보면 어느 파이프라인이 구멍인지 알 수 없다.
     if (keepState === 'undecided') retentionUndecided[`${row.source}/${row.status}`] = (retentionUndecided[`${row.source}/${row.status}`] ?? 0) + 1
