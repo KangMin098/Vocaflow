@@ -32,6 +32,7 @@
 | UI / 컴포넌트 | [DESIGN.md](./DESIGN.md)(방향·화면별 골격·서명) · [DESIGN_SYSTEM](./docs/DESIGN_SYSTEM.md) · [MODULES](./docs/MODULES.md) · 발명 참고 [vocaflow-design](./.claude/skills/vocaflow-design/SKILL.md) |
 | DB / 마이그레이션 | [DB_SCHEMA](./docs/DB_SCHEMA.md) · [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md) |
 | 라이브러리 큐레이션 | [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md) · [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md) |
+| 원문 점검·판정(보관·내용) | [source-check/criteria](./docs/source-check/criteria.md)(판정 기준 정본 · 버전) · [changelog](./docs/source-check/changelog.md) · 회차 `round-{n}.md` — 판정자 정의·청크 지시에 기준을 다시 쓰지 않는다 · 대량 판정은 회차 일치율 안정 후 승인 |
 | 만화(CCP) | [CCP_LIBRARY_INTEGRATION](./docs/CCP_LIBRARY_INTEGRATION.md) · [COMIC_PIPELINE_DESIGN](./scripts/comic/docs/COMIC_PIPELINE_DESIGN.md) |
 | 학습 모듈 | [LEARNING_MODEL](./docs/LEARNING_MODEL.md) · [MODULES](./docs/MODULES.md) |
 | 학습자 관리 / 목표 / B2B | [LEARNER_MANAGEMENT](./docs/LEARNER_MANAGEMENT.md) · [VOCAB_LAYERS](./docs/VOCAB_LAYERS.md) |
@@ -100,8 +101,8 @@ API 키를 기다리며 "막혔다" 고 보고하지 않는다 — **지금 돌�
 
 **수요 측** — 이 줄이 이 문서에서 가장 중요하다. 공급이 아무리 늘어도 여기가 안 늘면 진단은 `risk` 다.
 
-- 가입자 **4** (프로필 4) · 학습기록 **671** · 읽기 세션 287 · 일별 활동 68 · 점수 79
-- 교사 채널: 학급 **1** · 학급 구성원 0 · 학급 과제 **0** · 퍼널 이벤트 11,025
+- 가입자 **4** (프로필 4) · 학습기록 **671** · 읽기 세션 287 · 일별 활동 70 · 점수 79
+- 교사 채널: 학급 **1** · 학급 구성원 0 · 학급 과제 **0** · 퍼널 이벤트 11,036
 
 **공급 측**
 
@@ -125,7 +126,7 @@ API 키를 기다리며 "막혔다" 고 보고하지 않는다 — **지금 돌�
 - CSAT 원문 배치: 새 도구 전 기존 자산 검색 → `csat-sources-audit` → 사유별 대상·dry-run → 소량 검증 → 재감사. 적격 정본은 `evaluateSource`; 내용 판정은 UUID·본문 해시·revision에 묶는다. 상세 `.agents/skills/csat-source-audit/SKILL.md`.
 
 **LCP** 9 외부 소스 → 도서 큐레이션(auto_curate_book 게이트 + 4축 난이도) · **VCB** seed → enrichment → shared_words(cast-2000 audit chain) · **VRL** 4축 분류(V-Level 0-11 · Track 6 · Domain 8 · Skill 5) + 진단 5종 · **ACP** 14 소스 수집(`scripts/acp/collect-daily.mjs`) → `library_articles`. **arXiv 는 없다**(`20260614240000_acp_remove_arxiv_source`, CHECK 제약이 재삽입 차단). 상세 [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md).
-Admin Console: `/admin/*`(route group 미사용) · 액센트 = Deep Ink `--p` + `ShieldCheck` + 「Admin」 텍스트(2026-09-18 결정 · 보라 금지는 DD-66 으로 삭제) · 상세 [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md).
+Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldCheck` + 「Admin」 텍스트 · 값은 앱 스킨 `skins/admin-app.css`(먹색 · Inter · 보라 0 — DD-82, 2026-09-24) · 상세 [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md).
 
 ## 자동화 정책 (사용자 standing authorization · 2026-06-08)
 

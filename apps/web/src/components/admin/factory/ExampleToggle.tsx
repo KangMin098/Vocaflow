@@ -44,7 +44,7 @@ export function ExampleToggle({ example }: { example: PlainExample }) {
             <span className="hidden sm:inline">→</span>
             <span className="sm:hidden">↓</span>
           </span>
-          <figure className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--admin)]/40 bg-[var(--bg)] p-3">
+          <figure className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--admin)_40%,transparent)] bg-[var(--bg)] p-3">
             <figcaption className="font-display text-[11.5px] font-[700] text-[var(--admin)]">
               후 · {example.after.label}
             </figcaption>

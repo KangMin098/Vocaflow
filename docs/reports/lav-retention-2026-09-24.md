@@ -68,20 +68,29 @@ Admin 검수 · 교재 조판」이라면 **모든 글의 모든 행을 늘 들�
 | 단계 | 내용 | 되돌리기 |
 |---|---|---|
 | 1 | **가드** — ✅ 적용(2026-09-24 · `20260923232916`). 단, §3 정정대로 기존 게이트가 이미 막고 있어 **이중 장치**다 | [rollback](../AI_CONTEXT/rollback/20260923232916_article_word_set_require_vocab-rollback.sql) |
-| 2 | **발행 전 재분석**: 발행 경로(`force-publish` 라우트 · `publish-article-seeds.mjs` · `publish-voa-seeds.mjs` · `reprocess.mjs` …)가 행이 없으면 `analyzeArticle` → `compute_article_vrl` 을 먼저 돌린다(편당 약 46.5 ms). **6 보다 반드시 먼저** — 없으면 발행이 게이트 FAIL 로 전부 막힌다(§3) | 코드 |
-| 3 | **Admin 미리보기**: 행이 없으면 그 자리에서 분석(쓰지 않고 보여주기만 할지, 써서 캐시할지 결정 필요) | 코드 |
-| 4 | **조판**: `volume-pool.mjs` · `build-unit.mjs` 가 `usedRefs` 중 행 없는 글을 즉석 분석 | 코드 |
-| 5 | **가공 콘솔**: 「어휘 0」과 「아직 안 만듦」을 구분해 표시(`0` 으로 뭉개지 않는다) | 코드 |
-| 6 | **정리 함수 + 예행**: `ready` 글 행 삭제를 배치 함수로(2026-09-23 gutenberg 퇴출 때 이 표의 조인 DELETE 가 회당 평균 49초였다 — `pg_stat_statements`). 예행에서 지울 행 수를 먼저 찍는다 | ⚠ **데이터 손실 — 사용자 확인 필수.** 본문에서 재생성 가능하지만 되돌리는 데 6.4만 편 × 46.5 ms ≈ 50분 |
-| 7 | **재분석 정책**: `process-queue.mjs` · `reprocess.mjs` 가 발행 안 할 글의 행을 다시 쓰지 않게(V-Level 만 갱신) — 안 하면 6 을 해도 다시 찬다 | 코드 |
-| 8 | 디스크 회수: 행을 지워도 파일은 안 줄어든다 — `VACUUM FULL` 또는 `pg_repack`(psql 필요 · 잠금) | 운영 작업 |
+| 2 | **발행 전 재분석** — ✅ 2026-09-24. `ensureArticleVocab`(`packages/library-pipeline/src/analyze/ensure-article-vocab.ts`)가 행이 없을 때만 배치 경로 설정(`joinHyphenLineBreaks:false` · `skipLlm:true`)으로 `analyzeArticle` → `compute_article_vrl`. 붙인 곳: `force-publish` 라우트(검수 목록·미리보기의 「게시」가 모두 이리 온다). 나머지 경로 전수: 시드 스크립트 2종(`publish-article-seeds` · `publish-voa-seeds`)은 발행 직전 이미 분석한다 · `reprocess.mjs` 는 분석 경로다 · 가공 콘솔 ⑦은 **화면이 품질 게이트 FAIL 이면 버튼을 잠가**(`publish-gate.ts`) 액션까지 오지 않는다 → 붙이지 않고 6 에서 제외한다 | 코드 |
+| 3 | **Admin 미리보기** — ✅ 2026-09-24. `/admin/articles/preview/[id]` 가 행이 없으면 `ensureArticleVocab` 로 만들어 **저장**한다. 보여주기만 하지 않는 이유: 선별은 `select_article_vocab`(SQL)이 표를 읽어 하므로 JS 로 흉내 내면 미리보기와 발행이 갈린다. 결과적으로 검수한 글만 행이 남는다 | 코드 |
+| 4 | **조판** — ✅ 2026-09-24. `fetchArticleVocab`(`volume-pool.mjs`)이 받은 결과에서 행이 없는 지문만 `ensureArticleVocab` 로 만들고 그것만 다시 받는다. `volume-pool` · `build-unit` 둘 다 이 함수를 쓴다. 한 번에 500편 상한(밴드 전체 비교 손잡이 대비) · 실패·상한 초과는 수를 찍는다. 회귀 `scripts/textbook/__tests__/fetch-article-vocab.test.mjs` 4건 | 코드 |
+| 5 | **가공 콘솔** — 불필요. 콘솔이 세는 것은 가공 글(`source='original'`)뿐이고 그 글들은 6 에서 제외하므로 행이 사라지지 않는다 | — |
+| 6 | ✅ 2026-09-24. `scripts/acp/release-ready-vocab.mjs`(기본 예행 · 20편 묶음 · 삭제 직전 상태 재조회). 예행 63,221편 → 소량 20편(8,783행) 삭제 후 재생성 1초·V-Level·게이트 동일 확인 → 전량: 63,181편 + 시간 초과 2묶음 40편은 SQL 로 마저. 이어 사용자 결정으로 **`archived` 3,488편도 전부** 삭제(단어장 있는 53편 포함 — 학습자 단어장은 `shared_words` 사본이라 영향 없음, 재발행만 가드에 걸린다). 원 계획: `ready` 글 행 삭제를 배치 함수로. **`source = 'original'`(가공 글 · ready 631편)은 제외** — 가공 콘솔이 행이 없으면 발행 버튼을 잠근다(2 참조)(2026-09-23 gutenberg 퇴출 때 이 표의 조인 DELETE 가 회당 평균 49초였다 — `pg_stat_statements`). 예행에서 지울 행 수를 먼저 찍는다 | ⚠ **데이터 손실 — 사용자 확인 필수.** 본문에서 재생성 가능하지만 되돌리는 데 6.4만 편 × 46.5 ms ≈ 50분 |
+| 7 | **재분석 정책** — ✅ 2026-09-24 (안 A). `releaseArticleVocab`(`packages/library-pipeline/src/analyze/release-article-vocab.ts`)가 `compute_article_vrl` 직후 발행 글·가공 글(`original`)이 아니면 그 글의 행을 지운다. `process-queue.mjs` · `reprocess.mjs` 연결, 끝에 걷은 편수를 찍는다. 옛 동작은 `--keep-vocab`. **`reprocess --missing-vocab` 은 발행 글·가공 글만 훑도록 좁혔다** — 그대로 두면 6 뒤에 3,100만 행을 되살린다. 한계: 삽입·삭제 WAL 은 남는다(안 B = 행 없이 V-Level 을 재는 RPC 는 보류). `dev-process` 라우트(개발 전용)는 그대로 남긴다 | 코드 |
+| 8 | ✅ 2026-09-24. `VACUUM (FULL, ANALYZE)` 두 번(ready 정리 뒤 · archived 정리 뒤). MCP `execute_sql` 로 실행됐다(psql 불필요 — 남은 행이 적어 잠금도 짧았다) | 운영 작업 |
+
+**결과(실측 2026-09-24)**
+
+| | 전 | ready 정리 뒤 | archived 정리 뒤 |
+|---|---:|---:|---:|
+| 행 | 32,098,251 | 497,792 | **124,667** |
+| 표(인덱스 포함) | 9,968 MB | 84 MB | **28 MB** |
+| DB 전체 | 약 15 GB | 5,803 MB | **5,747 MB** |
+
+행이 남은 글: 발행 250 · 가공(`original`) 631 · failed 1.
 
 1~5 는 행이 **있든 없든** 같게 동작하므로 먼저 넣어도 무해하다. 6 은 1~5 와 7 이 들어간 뒤에만.
 
 ### 결정이 필요한 것
 
-- `archived` 3,488편(373,125행)도 지울지 — 되살리기(`revert`) 경로가 있으면 2 번과 같은 재분석이 필요하다.
-- 3 번 미리보기가 계산 결과를 **저장할지** — 저장하면 검수한 글만 캐시가 남는다(자연스러운 보관 범위).
+- ~~`archived` 도 지울지~~ — 지웠다(6). ~~미리보기가 저장할지~~ — 저장한다(3).
 - `select_extraction_residual` · `select_article_coverage` 를 지울지 — 호출자 0 이지만 SQL 편집기에서 손으로 쓰는지는 저장소로 알 수 없다.
 
 ## 5. 이 턴에 고친 것

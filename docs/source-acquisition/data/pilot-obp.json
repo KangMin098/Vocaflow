@@ -1,0 +1,3870 @@
+{
+ "contract": "pilot/v1",
+ "source": {
+  "name": "Open Book Publishers (OBP)",
+  "kind": "OA 학술 단행본 출판사(영국)",
+  "homepage": "https://www.openbookpublishers.com",
+  "thoth_publisher_id": "85fd969a-a16c-480b-b641-cb9adf979c3b",
+  "catalog_size_books": {
+   "value": 547,
+   "breakdown": {
+    "MONOGRAPH": 296,
+    "EDITED_BOOK": 203,
+    "TEXTBOOK": 48
+   },
+   "note": "단행본 수준만. 별도로 BOOK_CHAPTER 6,654 · BOOK_SET 17 · JOURNAL_ISSUE 5 가 있다",
+   "evidence": "[측정: Thoth GraphQL workCount(publishers, workTypes)]"
+  },
+  "prior_repo_claim": {
+   "text": "과제 지시문 「303권 · 논증 품질 조사 전체 최상」",
+   "correction": "303 은 MONOGRAPH 296 에 가깝고, 단행본 전체는 547 이다. DOAB 색인 기준 730 이라는 별도 실측도 저장소에 있다(docs/reports/source-probe/oa-humanities-presses.md)",
+   "evidence": "[측정: Thoth workCount]"
+  }
+ },
+ "access": {
+  "thoth_graphql": {
+   "endpoint": "https://api.thoth.pub/graphql",
+   "GET": "405",
+   "POST": "200 — 작동",
+   "verdict": "정규 경로로 작동한다",
+   "gives": "권별 license URL · publicationDate · DOI · landingPage · ISBN · 저자 · 키워드 · pageCount",
+   "does_not_give": "본문. locations.fullTextUrl 은 books.openbookpublishers.com 을 가리키는데 그곳이 막혀 있다",
+   "evidence": "[측정: curl POST 2026-09-24]"
+  },
+  "obp_own_domains": {
+   "www.openbookpublishers.com": "429 Too Many Requests",
+   "books.openbookpublishers.com PDF": "202 · size 0 (챌린지 인터스티셜)",
+   "verdict": "차단. UA 위장으로 우회하지 않았다 — 막혔다고 기록한다",
+   "evidence": "[측정: curl -L, 기본 curl UA, 2026-09-24]"
+  },
+  "oapen_rest": {
+   "endpoint": "https://library.oapen.org/rest/",
+   "status": "200 — 본문 경로",
+   "path": "/rest/search?query=ISBN(하이픈없이) → /rest/items/UUID?expand=bitstreams,metadata → bitstream/retrieve",
+   "payload": "OAPEN 이 색인용으로 뽑아 둔 <파일>.pdf.txt 평문",
+   "evidence": "[측정: 17권 실제 내려받음]",
+   "gotcha": "하이픈 넣은 ISBN(978-1-78374-580-7)으로 조회하면 다른 책이 1순위로 온다(실측: Cornelius Nepos, Life of Hannibal). 하이픈을 빼고, 받은 제목을 반드시 대조할 것"
+  },
+  "mirror_rate": {
+   "value": "17/20 = 85%",
+   "misses": [
+    "Phenomenography in the 21st Century (2025)",
+    "Digital Scholarly Editing (2016)",
+    "New Thresholds In Yeats Studies (연도 미상)"
+   ],
+   "note": "세 권 모두 ISBN 전건 0 hits — 미러 자체가 없다. 저장소의 앞선 실측 82%(14/17)와 겹친다",
+   "evidence": "[측정: 이 파일럿]"
+  }
+ },
+ "sampling": {
+  "n_requested": 20,
+  "n_selected": 20,
+  "n_with_fulltext": 17,
+  "method": "Thoth 단행본 전량 547 → 키워드·제목 기반 주제 버킷 8종 × 출판연도 3대역으로 층화, sha1(workId) 결정적 순서로 할당량 충족",
+  "strata_achieved": {
+   "buckets": {
+    "social": 3,
+    "philosophy": 3,
+    "history": 5,
+    "science": 1,
+    "literature": 4,
+    "music_art": 1,
+    "biography": 2,
+    "other": 1
+   },
+   "year_bands": {
+    "y2016_2021": 8,
+    "y2022plus": 7,
+    "le2015": 4,
+    "unknown": 1
+   },
+   "licenses": {
+    "CC BY": 10,
+    "CC BY-NC": 8,
+    "CC BY-NC-ND": 2
+   }
+  },
+  "reproducible": "scratchpad/pick2.mjs — 시드 문자열 obp-pilot-2026"
+ },
+ "g0": {
+  "license_census_whole_catalog": {
+   "n": 547,
+   "counts": {
+    "CC BY-NC-ND": 86,
+    "CC BY": 220,
+    "CC BY-SA": 6,
+    "CC BY-ND": 3,
+    "CC BY-NC": 215,
+    "CC BY-NC-SA": 3,
+    "CC0": 1,
+    "none": 13
+   },
+   "pct": {
+    "CC BY": "40.2%",
+    "CC BY-NC": "39.3%",
+    "CC BY-NC-ND": "15.7%",
+    "none": "2.4%",
+    "CC BY-SA": "1.1%",
+    "CC BY-ND": "0.5%",
+    "CC BY-NC-SA": "0.5%",
+    "CC0": "0.2%"
+   },
+   "evidence": "[측정: Thoth 전량 547권 license 필드]",
+   "headline": "CC-BY 전용은 220권(40.2%). 이것이 이 파일럿의 핵심 수치다"
+  },
+  "route_census": {
+   "counts": {
+    "R4": 102,
+    "R1": 220,
+    "R2": 6,
+    "R3": 218,
+    "R0": 1
+   },
+   "note": "R0·R1(원문 확보 가능) = CC0 1 + CC BY 220 = 221권(40.4%). 나머지 326권(59.6%)은 R2~R4 재저작 입력"
+  },
+  "license_by_year_band": {
+   "le2015": {
+    "CC BY-NC-ND": 28,
+    "CC BY": 37,
+    "CC BY-SA": 1,
+    "CC BY-ND": 1,
+    "CC BY-NC": 1
+   },
+   "y2016_2021": {
+    "CC BY": 158,
+    "CC BY-NC-ND": 12,
+    "CC BY-NC": 6
+   },
+   "y2022plus": {
+    "CC BY-NC": 184,
+    "CC BY-NC-ND": 42,
+    "CC BY": 20,
+    "CC BY-SA": 3,
+    "CC BY-ND": 2,
+    "CC BY-NC-SA": 2,
+    "CC0": 1
+   },
+   "unknown": {
+    "CC BY": 5,
+    "CC BY-NC": 24,
+    "none": 13,
+    "CC BY-SA": 2,
+    "CC BY-NC-ND": 4,
+    "CC BY-NC-SA": 1
+   }
+  },
+  "license_by_topic_bucket": {
+   "history": {
+    "CC BY-NC-ND": 24,
+    "CC BY": 63,
+    "CC BY-NC": 70,
+    "CC BY-ND": 1,
+    "none": 4,
+    "CC BY-SA": 2
+   },
+   "music_art": {
+    "CC BY-NC-ND": 5,
+    "CC BY": 4,
+    "CC BY-NC-SA": 1,
+    "CC BY-NC": 3,
+    "none": 2
+   },
+   "literature": {
+    "CC BY-NC-ND": 12,
+    "CC BY": 33,
+    "CC BY-NC": 30,
+    "none": 1
+   },
+   "biography": {
+    "CC BY-NC-ND": 3,
+    "CC BY": 14,
+    "CC BY-NC": 12
+   },
+   "social": {
+    "CC BY-NC-ND": 21,
+    "CC BY-SA": 4,
+    "CC BY": 42,
+    "CC BY-NC": 37,
+    "CC0": 1,
+    "none": 2
+   },
+   "philosophy": {
+    "CC BY-NC-ND": 10,
+    "CC BY": 14,
+    "CC BY-NC": 24,
+    "CC BY-NC-SA": 2,
+    "none": 2
+   },
+   "other": {
+    "CC BY-ND": 2,
+    "CC BY": 37,
+    "CC BY-NC": 26,
+    "CC BY-NC-ND": 4,
+    "none": 2
+   },
+   "science": {
+    "CC BY": 13,
+    "CC BY-NC": 13,
+    "CC BY-NC-ND": 7
+   }
+  },
+  "temporal_break": {
+   "finding": "OBP 의 CC BY 는 닫힌 집합이다 — 2013~2021 이 CC BY 시대, 2022 부터 BY-NC 시대",
+   "numbers": {
+    "y2016_2021": "CC BY 158/176 = 89.8%",
+    "y2022plus": "CC BY 20/254 = 7.9%",
+    "le2015": "CC BY 37/68 = 54.4%"
+   },
+   "evidence": "[측정: Thoth publicationDate × license, 547권 전량]",
+   "implication": "신간이 늘어도 R1 재고는 거의 안 는다. CC BY 220권이 사실상 상한이고, 남은 성장은 R3(BY-NC) 쪽이다"
+  },
+  "metadata_vs_colophon": {
+   "checked": 17,
+   "colophon_found": 17,
+   "agree": 16,
+   "disagree": 1,
+   "disagreement": {
+    "book": "Living Earth Community (2020)",
+    "metadata": "CC BY-NC-ND 4.0 (Thoth)",
+    "colophon": "This work as a whole is licensed under CC BY-NC-ND … Selected chapters are available under a CC BY 4.0 license (the type of license is indicated in the footer of the first page of each chapter)",
+    "meaning": "편저(EDITED_BOOK)는 권 단위 라이선스가 충분하지 않다. 장별로 갈리고, 그 정보는 각 장 첫 쪽 꼬리말에만 있다",
+    "evidence": "[측정: 본문 판권장 원문]"
+   },
+   "note": "앞선 보고서는 「메타데이터가 비면 판권장으로 건진다」고 적었다. 이번 17권은 메타데이터가 하나도 비지 않았고, 오히려 판권장이 메타데이터보다 더 세분화된 사례가 나왔다"
+  },
+  "third_party_material": {
+   "books_with_clause": 5,
+   "of": 17,
+   "examples": [
+    "Touching Parchment",
+    "Tyneside Neighbourhoods",
+    "Horos",
+    "Living Earth Community",
+    "Xiipuktan"
+   ],
+   "meaning": "CC 라이선스 책 안에 제3자 저작물(도판·인용)이 permission/fair use 로 들어 있다. 권 라이선스가 본문 전체를 덮지 않는다",
+   "evidence": "[측정: 판권장·사사 문구 정규식, 17권]"
+  },
+  "fail_count": 0,
+  "note": "저자·연도·URL·라이선스 원문 넷이 모두 있는 책 17/17. G0-4 탈락 0"
+ },
+ "g1": {
+  "slots_filled": {
+   "A_추론형": {
+    "weight": 0,
+    "verdict": "채우지 않는다 — 문체가 안 맞아서",
+    "detail": "g3 참조. 가중치가 0 이라 실익도 없다"
+   },
+   "B_정보실용형": {
+    "weight": 1,
+    "verdict": "채우지 않는다",
+    "detail": "학술 단행본에 안내문·공지·도표 기술문이 없다. 표본 17권에서 0건"
+   },
+   "C_장문서사형": {
+    "weight": 0.51,
+    "verdict": "일부 채운다 — 이것이 OBP 의 유일한 슬롯 기여다",
+    "detail": "전기 버킷 29권(전체의 5.3%) 중 CC BY 14권. 표본의 Beyond Holy Russia(2014, CC BY)는 과거시제 동사 7.44/100어로 17권 중 최고(중앙 3.62), 330어 창 271개를 낸다",
+    "evidence": "[측정: 키워드 버킷 + 과거시제 밀도]",
+    "caveat": "전기 버킷은 키워드 대리지표다. biography/memoir/letters 키워드가 붙은 책을 셌을 뿐, 전량을 눈으로 보지 않았다"
+   }
+  },
+  "source_value": "Σ(슬롯 × 결손 가중치) = C 하나 × 0.51, 그것도 547권 중 전기 29권(CC BY 14권)에만. 0 은 아니지만 얇다",
+  "year_distribution": {
+   "y2008_2015": 68,
+   "y2016_2021": 176,
+   "y2022_2026": 254,
+   "unknown": 49,
+   "evidence": "[측정: Thoth publicationDate]",
+   "note": "G1-2 의 「1900년대 초 PD 도서 47% 내용 사유 거절」은 이 원천에 대지 않는다 — 전부 현대 출판물이다"
+  },
+  "genre": {
+   "method": "키워드·제목 버킷(대리지표)",
+   "counts": {
+    "history": 164,
+    "social": 107,
+    "literature": 76,
+    "other": 71,
+    "philosophy": 52,
+    "science": 33,
+    "biography": 29,
+    "music_art": 15
+   },
+   "register": "17권 전수를 읽은 인상으로는 설명·논증(학술 산문)이 압도적. 서사는 전기 2권과 구술문학 1권(Xiipuktan)뿐",
+   "evidence": "[측정: 버킷 집계 + 표본 정독]"
+  },
+  "content_risk": {
+   "finding": "전기·역사 서술(C 후보)일수록 내용 판정 부담이 커진다",
+   "example": "Beyond Holy Russia 는 20세기 초 여행가의 전기이고, 인종에 대한 그 인물의 발언이 그대로 인용된다. 학습자용 지문으로 쓰려면 장면 단위 내용 심사가 필요하다",
+   "evidence": "[측정: 표본 문단 정독]"
+  }
+ },
+ "g2": {
+  "method": "서로 다른 3권 × 문단 3개 = 9개를 직접 가공. 가공 전/후 전문을 g2_pairs 에 그대로 담았다",
+  "books": [
+   "Hanging on to the Edges (2018, CC BY, 과학·사회 에세이)",
+   "Ethics for A-Level (2017, CC BY, 철학 교과서)",
+   "Beyond Holy Russia (2014, CC BY, 전기)"
+  ],
+  "results": [
+   {
+    "id": "B1P1",
+    "book": "Hanging on to the Edges",
+    "before_w": 133,
+    "after_w": 144,
+    "modified_pct": 69.2,
+    "longest_shared_ngram": 4,
+    "shared_6gram_count": 0,
+    "extractor_noise_pct": 4.3,
+    "grade": "중-재저작(>50%)"
+   },
+   {
+    "id": "B1P2",
+    "book": "Hanging on to the Edges",
+    "before_w": 164,
+    "after_w": 154,
+    "modified_pct": 66.5,
+    "longest_shared_ngram": 6,
+    "shared_6gram_count": 1,
+    "extractor_noise_pct": 0,
+    "grade": "중-재저작(>50%)"
+   },
+   {
+    "id": "B1P3",
+    "book": "Hanging on to the Edges",
+    "before_w": 171,
+    "after_w": 163,
+    "modified_pct": 67.3,
+    "longest_shared_ngram": 4,
+    "shared_6gram_count": 0,
+    "extractor_noise_pct": 0.6,
+    "grade": "중-재저작(>50%)"
+   },
+   {
+    "id": "B2P1",
+    "book": "Ethics for A-Level",
+    "before_w": 106,
+    "after_w": 133,
+    "modified_pct": 75.5,
+    "longest_shared_ngram": 3,
+    "shared_6gram_count": 0,
+    "extractor_noise_pct": 6.2,
+    "grade": "중-재저작(>50%)"
+   },
+   {
+    "id": "B2P2",
+    "book": "Ethics for A-Level",
+    "before_w": 120,
+    "after_w": 93,
+    "modified_pct": 68.3,
+    "longest_shared_ngram": 6,
+    "shared_6gram_count": 1,
+    "extractor_noise_pct": 12.4,
+    "grade": "중-재저작(>50%)"
+   },
+   {
+    "id": "B2P3",
+    "book": "Ethics for A-Level",
+    "before_w": 162,
+    "after_w": 140,
+    "modified_pct": 59.3,
+    "longest_shared_ngram": 6,
+    "shared_6gram_count": 1,
+    "extractor_noise_pct": 0,
+    "grade": "중-재저작(>50%)"
+   },
+   {
+    "id": "B3P1",
+    "book": "Beyond Holy Russia",
+    "before_w": 129,
+    "after_w": 121,
+    "modified_pct": 62.8,
+    "longest_shared_ngram": 11,
+    "shared_6gram_count": 8,
+    "extractor_noise_pct": 3.7,
+    "grade": "중-재저작(>50%)"
+   },
+   {
+    "id": "B3P2",
+    "book": "Beyond Holy Russia",
+    "before_w": 142,
+    "after_w": 132,
+    "modified_pct": 58.5,
+    "longest_shared_ngram": 7,
+    "shared_6gram_count": 3,
+    "extractor_noise_pct": 0,
+    "grade": "중-재저작(>50%)"
+   },
+   {
+    "id": "B3P3",
+    "book": "Beyond Holy Russia",
+    "before_w": 102,
+    "after_w": 87,
+    "modified_pct": 49,
+    "longest_shared_ngram": 12,
+    "shared_6gram_count": 9,
+    "extractor_noise_pct": 24.4,
+    "grade": "중(20-50%)"
+   }
+  ],
+  "aggregate": {
+   "mean_modified_pct": 64,
+   "min": 49,
+   "max": 75.5,
+   "by_book": {
+    "Hanging on to the Edges": 67.7,
+    "Ethics for A-Level": 67.7,
+    "Beyond Holy Russia": 56.8
+   },
+   "cost_grade": "9개 중 8개가 50% 초과 = 사실상 재저작. 1개만 20~50% 중",
+   "evidence": "[측정: 낱말 LCS 기반 수정량, scratchpad/diff.mjs]"
+  },
+  "reauthoring_guard_check": {
+   "finding": "criteria.md G0-3 의 재저작 가드는 원문과 6~8-gram 중복 0건이다. 내 가공물 9개 중 6개가 6-gram 을 1~9건 남겼다",
+   "meaning": "이 가공은 어느 쪽에도 못 선다 — 수정량은 이미 재저작 수준(64%)인데 재저작 가드는 통과하지 못한다. CC BY(R1)의 이점을 쓰려면 원문 그대로 + 얕은 손질이어야 하는데 그게 안 된다",
+   "evidence": "[측정: 6-gram 겹침 계수]"
+  },
+  "findings": {
+   "propernoun_removal": "3권 중 2권(에세이·철학)은 논지가 남는다. 전기는 남지 않는다 — B3P2 는 절반이 지명 비교로 이뤄진 인용문이라 고유명사를 바꾸면 인용이 파괴되고 결과물은 의역, 즉 재저작이 된다",
+   "deixis": "9개 중 2개가 문단이 문장 중간에서 시작했다(쪽 넘김·각주 삽입 때문). 지시어를 푸는 문제가 아니라 앞쪽을 복원해야 하는 문제였다",
+   "footnote_dependency": "논지가 각주에 의존한 사례는 0. 다만 각주 텍스트가 문단 안으로 끼어든 사례가 9개 중 4개",
+   "vocabulary": "off-list 낱말은 전부 쉬운 말로 풀렸고 내용이 남았다(3/3 합격). 그러나 그 풀이가 수정량의 큰 몫을 차지한다"
+  }
+ },
+ "g3": {
+  "per_book": [
+   {
+    "title": "Hanging on to the Edges: Essays on Science, Society and the Academic Life",
+    "license": "CC BY",
+    "year": "2018",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.3569,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 96417,
+     "keep_pct": 98.1,
+     "prose_paragraphs": 448,
+     "paragraph_length": {
+      "p10": 51,
+      "p25": 108,
+      "median": 174,
+      "p75": 260,
+      "p90": 409,
+      "max": 1465
+     },
+     "windows": {
+      "school_sentence_6_40": 37,
+      "school_para_40_200": 221,
+      "csat_short_90_200": 170,
+      "csat_long_260_400": 66
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 1.71,
+      "mean_per100": 4.26,
+      "zero_para_pct": 24.3
+     },
+     "proper_noun_by_150w_window": {
+      "n": 200,
+      "pn_median": 1.1,
+      "pn_zero_pct": 21,
+      "deictic_pct": 18.5,
+      "quote_pct": 0
+     },
+     "proper_noun_by_330w_window": {
+      "n": 118,
+      "pn_median": 1.67,
+      "pn_zero_pct": 5.9,
+      "deictic_pct": 16.9,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0.2,
+      "deictic_pct": 14.5
+     },
+     "footnote_marker_per_1k_words": 2.2,
+     "contrast_marker_para_pct": 68.3,
+     "past_tense_verbs_per_100w": 2.62,
+     "citation_shaped_window_pct": 9.3,
+     "extraction_damage": {
+      "chars": 600385,
+      "replacement_per_10k": 1.4,
+      "body_replacement_per_10k": 0.8
+     },
+     "cleaning_cost": {
+      "candidate_paras": 365,
+      "with_running_header": 0,
+      "with_citation_splice": 105,
+      "dirty_pct": 29.3
+     }
+    }
+   },
+   {
+    "title": "Touching Parchment: How Medieval Users Rubbed, Handled, and Kissed Their Manuscripts: Volume 1: Officials and Their Books",
+    "license": "CC BY-NC",
+    "year": "2023",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.2996,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 67879,
+     "keep_pct": 98.2,
+     "prose_paragraphs": 497,
+     "paragraph_length": {
+      "p10": 19,
+      "p25": 33,
+      "median": 81,
+      "p75": 194,
+      "p90": 323,
+      "max": 745
+     },
+     "windows": {
+      "school_sentence_6_40": 162,
+      "school_para_40_200": 225,
+      "csat_short_90_200": 116,
+      "csat_long_260_400": 49
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 15.15,
+      "mean_per100": 21.03,
+      "zero_para_pct": 3
+     },
+     "proper_noun_by_150w_window": {
+      "n": 190,
+      "pn_median": 10,
+      "pn_zero_pct": 0.5,
+      "deictic_pct": 2.6,
+      "quote_pct": 0
+     },
+     "proper_noun_by_330w_window": {
+      "n": 114,
+      "pn_median": 9.42,
+      "pn_zero_pct": 0,
+      "deictic_pct": 1.8,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0,
+      "deictic_pct": 2.6
+     },
+     "footnote_marker_per_1k_words": 1.9,
+     "contrast_marker_para_pct": 31.2,
+     "past_tense_verbs_per_100w": 5,
+     "citation_shaped_window_pct": 27.2,
+     "extraction_damage": {
+      "chars": 432737,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 313,
+      "with_running_header": 0,
+      "with_citation_splice": 117,
+      "dirty_pct": 37.4
+     }
+    }
+   },
+   {
+    "title": "Insolubles: Critical Edition with English Translation",
+    "license": "CC BY-NC",
+    "year": "2024",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.3672,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 60017,
+     "keep_pct": 98.7,
+     "prose_paragraphs": 506,
+     "paragraph_length": {
+      "p10": 17,
+      "p25": 31,
+      "median": 62,
+      "p75": 156,
+      "p90": 287,
+      "max": 752
+     },
+     "windows": {
+      "school_sentence_6_40": 172,
+      "school_para_40_200": 248,
+      "csat_short_90_200": 105,
+      "csat_long_260_400": 32
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 3.08,
+      "mean_per100": 8.11,
+      "zero_para_pct": 24.1
+     },
+     "proper_noun_by_150w_window": {
+      "n": 189,
+      "pn_median": 2.6,
+      "pn_zero_pct": 5.3,
+      "deictic_pct": 9,
+      "quote_pct": 0
+     },
+     "proper_noun_by_330w_window": {
+      "n": 114,
+      "pn_median": 2.81,
+      "pn_zero_pct": 1.8,
+      "deictic_pct": 10.5,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0,
+      "deictic_pct": 6.3
+     },
+     "footnote_marker_per_1k_words": 4.3,
+     "contrast_marker_para_pct": 26.5,
+     "past_tense_verbs_per_100w": 1.58,
+     "citation_shaped_window_pct": 7,
+     "extraction_damage": {
+      "chars": 342400,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 315,
+      "with_running_header": 0,
+      "with_citation_splice": 53,
+      "dirty_pct": 16.8
+     }
+    }
+   },
+   {
+    "title": "Arabic Documents from Medieval Nubia",
+    "license": "CC BY-NC",
+    "year": "2024",
+    "g3": {
+     "english": {
+      "latin": 0.9952,
+      "func": 0.3641,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 141460,
+     "keep_pct": 87.6,
+     "prose_paragraphs": 1277,
+     "paragraph_length": {
+      "p10": 13,
+      "p25": 22,
+      "median": 47,
+      "p75": 119,
+      "p90": 247,
+      "max": 2004
+     },
+     "windows": {
+      "school_sentence_6_40": 585,
+      "school_para_40_200": 530,
+      "csat_short_90_200": 244,
+      "csat_long_260_400": 76
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 6.55,
+      "mean_per100": 11.51,
+      "zero_para_pct": 15.3
+     },
+     "proper_noun_by_150w_window": {
+      "n": 411,
+      "pn_median": 5.95,
+      "pn_zero_pct": 0.2,
+      "deictic_pct": 5.1,
+      "quote_pct": 0.2
+     },
+     "proper_noun_by_330w_window": {
+      "n": 249,
+      "pn_median": 5.92,
+      "pn_zero_pct": 0,
+      "deictic_pct": 5.6,
+      "quote_pct": 0.4
+     },
+     "starts": {
+      "quote_pct": 0.1,
+      "deictic_pct": 3.8
+     },
+     "footnote_marker_per_1k_words": 0.9,
+     "contrast_marker_para_pct": 17.5,
+     "past_tense_verbs_per_100w": 3.62,
+     "citation_shaped_window_pct": 53,
+     "extraction_damage": {
+      "chars": 830636,
+      "replacement_per_10k": 11.5,
+      "body_replacement_per_10k": 12.1
+     },
+     "cleaning_cost": {
+      "candidate_paras": 701,
+      "with_running_header": 0,
+      "with_citation_splice": 25,
+      "dirty_pct": 3.7
+     }
+    }
+   },
+   {
+    "title": "Just Managing? What it Means for the Families of Austerity Britain",
+    "license": "CC BY",
+    "year": "2017",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.3628,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 76751,
+     "keep_pct": 97.8,
+     "prose_paragraphs": 812,
+     "paragraph_length": {
+      "p10": 18,
+      "p25": 34,
+      "median": 69,
+      "p75": 120,
+      "p90": 197,
+      "max": 706
+     },
+     "windows": {
+      "school_sentence_6_40": 252,
+      "school_para_40_200": 488,
+      "csat_short_90_200": 233,
+      "csat_long_260_400": 30
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 3.53,
+      "mean_per100": 7.13,
+      "zero_para_pct": 19.3
+     },
+     "proper_noun_by_150w_window": {
+      "n": 286,
+      "pn_median": 2.82,
+      "pn_zero_pct": 2.1,
+      "deictic_pct": 8,
+      "quote_pct": 0
+     },
+     "proper_noun_by_330w_window": {
+      "n": 158,
+      "pn_median": 2.79,
+      "pn_zero_pct": 0,
+      "deictic_pct": 6.3,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0,
+      "deictic_pct": 9
+     },
+     "footnote_marker_per_1k_words": 1.5,
+     "contrast_marker_para_pct": 43.8,
+     "past_tense_verbs_per_100w": 5.15,
+     "citation_shaped_window_pct": 15.2,
+     "extraction_damage": {
+      "chars": 450338,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 566,
+      "with_running_header": 0,
+      "with_citation_splice": 63,
+      "dirty_pct": 11.3
+     }
+    }
+   },
+   {
+    "title": "Tyneside Neighbourhoods: Deprivation, Social Life and Social Behaviour in One British City",
+    "license": "CC BY",
+    "year": "2015",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.3456,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 49673,
+     "keep_pct": 96.5,
+     "prose_paragraphs": 242,
+     "paragraph_length": {
+      "p10": 28,
+      "p25": 98,
+      "median": 166,
+      "p75": 263,
+      "p90": 410,
+      "max": 948
+     },
+     "windows": {
+      "school_sentence_6_40": 33,
+      "school_para_40_200": 112,
+      "csat_short_90_200": 89,
+      "csat_long_260_400": 37
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 3.67,
+      "mean_per100": 6.68,
+      "zero_para_pct": 8.7
+     },
+     "proper_noun_by_150w_window": {
+      "n": 136,
+      "pn_median": 2.8,
+      "pn_zero_pct": 3.7,
+      "deictic_pct": 8.8,
+      "quote_pct": 0
+     },
+     "proper_noun_by_330w_window": {
+      "n": 88,
+      "pn_median": 2.86,
+      "pn_zero_pct": 2.3,
+      "deictic_pct": 4.5,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0,
+      "deictic_pct": 11.2
+     },
+     "footnote_marker_per_1k_words": 0.3,
+     "contrast_marker_para_pct": 60.3,
+     "past_tense_verbs_per_100w": 4.12,
+     "citation_shaped_window_pct": 26.1,
+     "extraction_damage": {
+      "chars": 312986,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 186,
+      "with_running_header": 0,
+      "with_citation_splice": 30,
+      "dirty_pct": 16.1
+     }
+    }
+   },
+   {
+    "title": "Horos: Ancient Boundaries and the Ecology of Stone",
+    "license": "CC BY-NC",
+    "year": "2022",
+    "g3": {
+     "english": {
+      "latin": 0.9883,
+      "func": 0.3673,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 128221,
+     "keep_pct": 95.2,
+     "prose_paragraphs": 819,
+     "paragraph_length": {
+      "p10": 21,
+      "p25": 46,
+      "median": 125,
+      "p75": 213,
+      "p90": 322,
+      "max": 841
+     },
+     "windows": {
+      "school_sentence_6_40": 184,
+      "school_para_40_200": 406,
+      "csat_short_90_200": 262,
+      "csat_long_260_400": 118
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 2.61,
+      "mean_per100": 10.56,
+      "zero_para_pct": 14.3
+     },
+     "proper_noun_by_150w_window": {
+      "n": 426,
+      "pn_median": 1.96,
+      "pn_zero_pct": 5.2,
+      "deictic_pct": 9.2,
+      "quote_pct": 0
+     },
+     "proper_noun_by_330w_window": {
+      "n": 284,
+      "pn_median": 2.2,
+      "pn_zero_pct": 0.4,
+      "deictic_pct": 5.6,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0,
+      "deictic_pct": 9.2
+     },
+     "footnote_marker_per_1k_words": 2.3,
+     "contrast_marker_para_pct": 55.2,
+     "past_tense_verbs_per_100w": 3.21,
+     "citation_shaped_window_pct": 42.3,
+     "extraction_damage": {
+      "chars": 786304,
+      "replacement_per_10k": 0.7,
+      "body_replacement_per_10k": 0.4
+     },
+     "cleaning_cost": {
+      "candidate_paras": 615,
+      "with_running_header": 0,
+      "with_citation_splice": 49,
+      "dirty_pct": 8.1
+     }
+    }
+   },
+   {
+    "title": "Points of Contact: The Shared Intellectual History of Vocalisation in Syriac, Arabic, and Hebrew",
+    "license": "CC BY",
+    "year": "2021",
+    "g3": {
+     "english": {
+      "latin": 0.9992,
+      "func": 0.3328,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 104124,
+     "keep_pct": 95.6,
+     "prose_paragraphs": 841,
+     "paragraph_length": {
+      "p10": 18,
+      "p25": 30,
+      "median": 81,
+      "p75": 185,
+      "p90": 258,
+      "max": 967
+     },
+     "windows": {
+      "school_sentence_6_40": 264,
+      "school_para_40_200": 396,
+      "csat_short_90_200": 208,
+      "csat_long_260_400": 60
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 7.89,
+      "mean_per100": 13.59,
+      "zero_para_pct": 6.5
+     },
+     "proper_noun_by_150w_window": {
+      "n": 364,
+      "pn_median": 6.35,
+      "pn_zero_pct": 0.8,
+      "deictic_pct": 9.9,
+      "quote_pct": 0
+     },
+     "proper_noun_by_330w_window": {
+      "n": 211,
+      "pn_median": 6.23,
+      "pn_zero_pct": 0,
+      "deictic_pct": 8.1,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0.4,
+      "deictic_pct": 7.4
+     },
+     "footnote_marker_per_1k_words": 0.7,
+     "contrast_marker_para_pct": 43.3,
+     "past_tense_verbs_per_100w": 3.01,
+     "citation_shaped_window_pct": 83.4,
+     "extraction_damage": {
+      "chars": 649294,
+      "replacement_per_10k": 1,
+      "body_replacement_per_10k": 0.5
+     },
+     "cleaning_cost": {
+      "candidate_paras": 558,
+      "with_running_header": 0,
+      "with_citation_splice": 18,
+      "dirty_pct": 3.2
+     }
+    }
+   },
+   {
+    "title": "Living Earth Community: Multiple Ways of Being and Knowing",
+    "license": "CC BY-NC-ND",
+    "year": "2020",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.3444,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 88186,
+     "keep_pct": 96,
+     "prose_paragraphs": 697,
+     "paragraph_length": {
+      "p10": 17,
+      "p25": 32,
+      "median": 84,
+      "p75": 172,
+      "p90": 281,
+      "max": 849
+     },
+     "windows": {
+      "school_sentence_6_40": 213,
+      "school_para_40_200": 359,
+      "csat_short_90_200": 202,
+      "csat_long_260_400": 58
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 9.09,
+      "mean_per100": 18.71,
+      "zero_para_pct": 13.2
+     },
+     "proper_noun_by_150w_window": {
+      "n": 238,
+      "pn_median": 5.52,
+      "pn_zero_pct": 4.2,
+      "deictic_pct": 9.2,
+      "quote_pct": 1.3
+     },
+     "proper_noun_by_330w_window": {
+      "n": 141,
+      "pn_median": 6.07,
+      "pn_zero_pct": 0,
+      "deictic_pct": 7.8,
+      "quote_pct": 1.4
+     },
+     "starts": {
+      "quote_pct": 0.4,
+      "deictic_pct": 7.3
+     },
+     "footnote_marker_per_1k_words": 1.7,
+     "contrast_marker_para_pct": 32.1,
+     "past_tense_verbs_per_100w": 2.84,
+     "citation_shaped_window_pct": 21.3,
+     "extraction_damage": {
+      "chars": 580080,
+      "replacement_per_10k": 0.8,
+      "body_replacement_per_10k": 0.4
+     },
+     "cleaning_cost": {
+      "candidate_paras": 473,
+      "with_running_header": 0,
+      "with_citation_splice": 143,
+      "dirty_pct": 30.9
+     }
+    }
+   },
+   {
+    "title": "Careful Village and Other 'Khashag' from Tibet: The Amdo Comedies of Menla Jyab",
+    "license": "CC BY-NC",
+    "year": "2025",
+    "g3": {
+     "english": {
+      "latin": 0.9834,
+      "func": 0.3475,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 73516,
+     "keep_pct": 98.6,
+     "prose_paragraphs": 972,
+     "paragraph_length": {
+      "p10": 16,
+      "p25": 25,
+      "median": 48,
+      "p75": 96,
+      "p90": 157,
+      "max": 913
+     },
+     "windows": {
+      "school_sentence_6_40": 425,
+      "school_para_40_200": 494,
+      "csat_short_90_200": 209,
+      "csat_long_260_400": 28
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 4.35,
+      "mean_per100": 6.6,
+      "zero_para_pct": 20
+     },
+     "proper_noun_by_150w_window": {
+      "n": 307,
+      "pn_median": 5,
+      "pn_zero_pct": 0,
+      "deictic_pct": 3.3,
+      "quote_pct": 0
+     },
+     "proper_noun_by_330w_window": {
+      "n": 168,
+      "pn_median": 4.84,
+      "pn_zero_pct": 0,
+      "deictic_pct": 4.8,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0,
+      "deictic_pct": 2.5
+     },
+     "footnote_marker_per_1k_words": 2.9,
+     "contrast_marker_para_pct": 25.8,
+     "past_tense_verbs_per_100w": 2.7,
+     "citation_shaped_window_pct": 13.1,
+     "extraction_damage": {
+      "chars": 535576,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 549,
+      "with_running_header": 0,
+      "with_citation_splice": 36,
+      "dirty_pct": 6.7
+     }
+    }
+   },
+   {
+    "title": "Ethics for A-Level",
+    "license": "CC BY",
+    "year": "2017",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.3325,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 88356,
+     "keep_pct": 99.5,
+     "prose_paragraphs": 952,
+     "paragraph_length": {
+      "p10": 15,
+      "p25": 30,
+      "median": 70,
+      "p75": 124,
+      "p90": 192,
+      "max": 1413
+     },
+     "windows": {
+      "school_sentence_6_40": 301,
+      "school_para_40_200": 570,
+      "csat_short_90_200": 284,
+      "csat_long_260_400": 35
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 3.85,
+      "mean_per100": 6.92,
+      "zero_para_pct": 23.8
+     },
+     "proper_noun_by_150w_window": {
+      "n": 331,
+      "pn_median": 3.83,
+      "pn_zero_pct": 3,
+      "deictic_pct": 11.5,
+      "quote_pct": 0
+     },
+     "proper_noun_by_330w_window": {
+      "n": 186,
+      "pn_median": 4.01,
+      "pn_zero_pct": 0.5,
+      "deictic_pct": 12.9,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0.3,
+      "deictic_pct": 9.5
+     },
+     "footnote_marker_per_1k_words": 1,
+     "contrast_marker_para_pct": 43.7,
+     "past_tense_verbs_per_100w": 2.31,
+     "citation_shaped_window_pct": 30.1,
+     "extraction_damage": {
+      "chars": 537624,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 648,
+      "with_running_header": 0,
+      "with_citation_splice": 95,
+      "dirty_pct": 14.7
+     }
+    }
+   },
+   {
+    "title": "Bourdieu and Literature",
+    "license": "CC BY-NC",
+    "year": "2026",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.319,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 70647,
+     "keep_pct": 97.2,
+     "prose_paragraphs": 420,
+     "paragraph_length": {
+      "p10": 16,
+      "p25": 31,
+      "median": 109,
+      "p75": 238,
+      "p90": 402,
+      "max": 1005
+     },
+     "windows": {
+      "school_sentence_6_40": 131,
+      "school_para_40_200": 160,
+      "csat_short_90_200": 102,
+      "csat_long_260_400": 55
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 5.95,
+      "mean_per100": 12.88,
+      "zero_para_pct": 6.7
+     },
+     "proper_noun_by_150w_window": {
+      "n": 167,
+      "pn_median": 3.97,
+      "pn_zero_pct": 0,
+      "deictic_pct": 9,
+      "quote_pct": 0.6
+     },
+     "proper_noun_by_330w_window": {
+      "n": 110,
+      "pn_median": 4.44,
+      "pn_zero_pct": 0,
+      "deictic_pct": 7.3,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0.7,
+      "deictic_pct": 7.1
+     },
+     "footnote_marker_per_1k_words": 1.1,
+     "contrast_marker_para_pct": 46.4,
+     "past_tense_verbs_per_100w": 3.25,
+     "citation_shaped_window_pct": 41.8,
+     "extraction_damage": {
+      "chars": 475381,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 257,
+      "with_running_header": 0,
+      "with_citation_splice": 86,
+      "dirty_pct": 33.9
+     }
+    }
+   },
+   {
+    "title": "Zombies in Western Culture: A Twenty-First Century Crisis",
+    "license": "CC BY",
+    "year": "2017",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.3806,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 30902,
+     "keep_pct": 97.2,
+     "prose_paragraphs": 166,
+     "paragraph_length": {
+      "p10": 49,
+      "p25": 79,
+      "median": 140,
+      "p75": 241,
+      "p90": 354,
+      "max": 738
+     },
+     "windows": {
+      "school_sentence_6_40": 11,
+      "school_para_40_200": 102,
+      "csat_short_90_200": 65,
+      "csat_long_260_400": 20
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 4.02,
+      "mean_per100": 9.31,
+      "zero_para_pct": 10.8
+     },
+     "proper_noun_by_150w_window": {
+      "n": 79,
+      "pn_median": 3.35,
+      "pn_zero_pct": 5.1,
+      "deictic_pct": 10.1,
+      "quote_pct": 1.3
+     },
+     "proper_noun_by_330w_window": {
+      "n": 47,
+      "pn_median": 3.5,
+      "pn_zero_pct": 0,
+      "deictic_pct": 4.3,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0.6,
+      "deictic_pct": 10.2
+     },
+     "footnote_marker_per_1k_words": 1.6,
+     "contrast_marker_para_pct": 53,
+     "past_tense_verbs_per_100w": 3.7,
+     "citation_shaped_window_pct": 53.2,
+     "extraction_damage": {
+      "chars": 201575,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 142,
+      "with_running_header": 0,
+      "with_citation_splice": 31,
+      "dirty_pct": 21.8
+     }
+    }
+   },
+   {
+    "title": "Beyond Holy Russia: The Life and Times of Stephen Graham",
+    "license": "CC BY",
+    "year": "2014",
+    "g3": {
+     "english": {
+      "latin": 0.9966,
+      "func": 0.3373,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 150288,
+     "keep_pct": 95.8,
+     "prose_paragraphs": 815,
+     "paragraph_length": {
+      "p10": 14,
+      "p25": 27,
+      "median": 111,
+      "p75": 299,
+      "p90": 425,
+      "max": 1358
+     },
+     "windows": {
+      "school_sentence_6_40": 277,
+      "school_para_40_200": 238,
+      "csat_short_90_200": 140,
+      "csat_long_260_400": 141
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 13.68,
+      "mean_per100": 22.31,
+      "zero_para_pct": 0.6
+     },
+     "proper_noun_by_150w_window": {
+      "n": 369,
+      "pn_median": 10.57,
+      "pn_zero_pct": 0,
+      "deictic_pct": 4.3,
+      "quote_pct": 0
+     },
+     "proper_noun_by_330w_window": {
+      "n": 271,
+      "pn_median": 10.19,
+      "pn_zero_pct": 0,
+      "deictic_pct": 3,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0,
+      "deictic_pct": 3.1
+     },
+     "footnote_marker_per_1k_words": 2.5,
+     "contrast_marker_para_pct": 50.7,
+     "past_tense_verbs_per_100w": 7.44,
+     "citation_shaped_window_pct": 60.5,
+     "extraction_damage": {
+      "chars": 909226,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 428,
+      "with_running_header": 0,
+      "with_citation_splice": 164,
+      "dirty_pct": 38.3
+     }
+    }
+   },
+   {
+    "title": "Xiipúktan (First of All): Three Views of the Origins of the Quechan People",
+    "license": "CC BY-NC-ND",
+    "year": "2013",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.3549,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 52794,
+     "keep_pct": 98.6,
+     "prose_paragraphs": 1934,
+     "paragraph_length": {
+      "p10": 8,
+      "p25": 13,
+      "median": 21,
+      "p75": 33,
+      "p90": 51,
+      "max": 328
+     },
+     "windows": {
+      "school_sentence_6_40": 1612,
+      "school_para_40_200": 335,
+      "csat_short_90_200": 38,
+      "csat_long_260_400": 3
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 3.23,
+      "mean_per100": 5.3,
+      "zero_para_pct": 41.8
+     },
+     "proper_noun_by_150w_window": {
+      "n": 262,
+      "pn_median": 4.43,
+      "pn_zero_pct": 2.3,
+      "deictic_pct": 1.5,
+      "quote_pct": 16
+     },
+     "proper_noun_by_330w_window": {
+      "n": 129,
+      "pn_median": 4.45,
+      "pn_zero_pct": 0,
+      "deictic_pct": 1.6,
+      "quote_pct": 15.5
+     },
+     "starts": {
+      "quote_pct": 17.5,
+      "deictic_pct": 0.7
+     },
+     "footnote_marker_per_1k_words": 12.5,
+     "contrast_marker_para_pct": 6.9,
+     "past_tense_verbs_per_100w": 6.5,
+     "citation_shaped_window_pct": 12.4,
+     "extraction_damage": {
+      "chars": 338013,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 339,
+      "with_running_header": 0,
+      "with_citation_splice": 5,
+      "dirty_pct": 1.5
+     }
+    }
+   },
+   {
+    "title": "On History: Introduction to World History (1831); Opening Address at the Faculty of Letters, 9 January 1834; Preface to History of France (1869)",
+    "license": "CC BY",
+    "year": "2013",
+    "g3": {
+     "english": {
+      "latin": 1,
+      "func": 0.3519,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 69195,
+     "keep_pct": 99.6,
+     "prose_paragraphs": 459,
+     "paragraph_length": {
+      "p10": 14,
+      "p25": 29,
+      "median": 98,
+      "p75": 192,
+      "p90": 358,
+      "max": 1405
+     },
+     "windows": {
+      "school_sentence_6_40": 144,
+      "school_para_40_200": 209,
+      "csat_short_90_200": 134,
+      "csat_long_260_400": 39
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 8.11,
+      "mean_per100": 11.44,
+      "zero_para_pct": 9.8
+     },
+     "proper_noun_by_150w_window": {
+      "n": 209,
+      "pn_median": 6.77,
+      "pn_zero_pct": 2.4,
+      "deictic_pct": 12.9,
+      "quote_pct": 0.5
+     },
+     "proper_noun_by_330w_window": {
+      "n": 134,
+      "pn_median": 6.65,
+      "pn_zero_pct": 0.7,
+      "deictic_pct": 14.2,
+      "quote_pct": 0
+     },
+     "starts": {
+      "quote_pct": 0.9,
+      "deictic_pct": 10.5
+     },
+     "footnote_marker_per_1k_words": 0.4,
+     "contrast_marker_para_pct": 37,
+     "past_tense_verbs_per_100w": 4.11,
+     "citation_shaped_window_pct": 28.4,
+     "extraction_damage": {
+      "chars": 411591,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 280,
+      "with_running_header": 0,
+      "with_citation_splice": 26,
+      "dirty_pct": 9.3
+     }
+    }
+   },
+   {
+    "title": "Life Histories of Etnos Theory in Russia and Beyond",
+    "license": "CC BY",
+    "year": "2019",
+    "g3": {
+     "english": {
+      "latin": 0.999,
+      "func": 0.3453,
+      "n": 5000,
+      "verdict": "english"
+     },
+     "total_words": 138857,
+     "keep_pct": 95.5,
+     "prose_paragraphs": 1145,
+     "paragraph_length": {
+      "p10": 16,
+      "p25": 25,
+      "median": 61,
+      "p75": 168,
+      "p90": 276,
+      "max": 1298
+     },
+     "windows": {
+      "school_sentence_6_40": 452,
+      "school_para_40_200": 487,
+      "csat_short_90_200": 282,
+      "csat_long_260_400": 90
+     },
+     "proper_noun_by_paragraph": {
+      "median_per100": 11.63,
+      "mean_per100": 16.1,
+      "zero_para_pct": 3.4
+     },
+     "proper_noun_by_150w_window": {
+      "n": 454,
+      "pn_median": 10.09,
+      "pn_zero_pct": 0,
+      "deictic_pct": 11.9,
+      "quote_pct": 0.2
+     },
+     "proper_noun_by_330w_window": {
+      "n": 265,
+      "pn_median": 9.94,
+      "pn_zero_pct": 0,
+      "deictic_pct": 14.3,
+      "quote_pct": 0.4
+     },
+     "starts": {
+      "quote_pct": 0.3,
+      "deictic_pct": 6.4
+     },
+     "footnote_marker_per_1k_words": 0.2,
+     "contrast_marker_para_pct": 28.5,
+     "past_tense_verbs_per_100w": 5.24,
+     "citation_shaped_window_pct": 80,
+     "extraction_damage": {
+      "chars": 924437,
+      "replacement_per_10k": 0,
+      "body_replacement_per_10k": 0
+     },
+     "cleaning_cost": {
+      "candidate_paras": 663,
+      "with_running_header": 0,
+      "with_citation_splice": 101,
+      "dirty_pct": 15.5
+     }
+    }
+   }
+  ],
+  "medians_over_17_books": {
+   "english": "17/17 english — 라틴문자 0.983~1.000 · 기능어 0.300~0.367 (임계 0.70 / 0.15 를 전건 통과)",
+   "keep_pct": 97.2,
+   "paragraph_median_words": 81,
+   "proper_noun_per_100w_by_paragraph": 4.35,
+   "zero_propernoun_paragraph_pct": 13.2,
+   "proper_noun_per_100w_150w_window": 4.43,
+   "zero_propernoun_150w_window_pct": 2.3,
+   "proper_noun_per_100w_330w_window": 4.45,
+   "zero_propernoun_330w_window_pct": 0,
+   "quote_start_pct": 0,
+   "deictic_start_pct_150w_window": 9,
+   "contrast_marker_paragraph_pct": 43.3,
+   "dirty_paragraph_pct": 15.5
+  },
+  "window_yield_17_books": {
+   "school_sentence_6_40": 5255,
+   "school_para_40_200": 5580,
+   "csat_short_90_200": 2883,
+   "csat_long_260_400": 937,
+   "note": "문단 단위 계수다. 문단을 이어 붙인 창으로는 150어 4,618 · 330어 2,787"
+  },
+  "comparison_to_gichul": {
+   "unit_note": "단위를 맞췄다. 기출 지표는 지문(150~334어) 단위이므로 문단이 아니라 문단을 이어 붙인 150어·330어 창에서 다시 쟀다. 고유명사 정규식은 과제가 준 것을 그대로 썼으므로 이 축은 비교 가능하다",
+   "table": [
+    {
+     "axis": "고유명사/100어 (중앙)",
+     "OBP_150w": 4.43,
+     "OBP_330w": 4.45,
+     "A추론형": 0,
+     "C장문서사": 4.25
+    },
+    {
+     "axis": "고유명사 0개 지문 비율",
+     "OBP_150w": "2.3%",
+     "OBP_330w": "0.0%",
+     "A추론형": "52~79%",
+     "C장문서사": "0%"
+    },
+    {
+     "axis": "앞 문맥 지시어로 시작",
+     "OBP_150w": "9.0%",
+     "OBP_330w": null,
+     "A추론형": "0~3.6%",
+     "C장문서사": "0%"
+    },
+    {
+     "axis": "인용부호로 시작",
+     "OBP_150w": "0.0%",
+     "OBP_330w": null,
+     "A추론형": null,
+     "C장문서사": null
+    }
+   ],
+   "verdict": "A 무리와 맞지 않는다. 고유명사 중앙 4.43 대 0, 0개 지문 2.3% 대 52~79% — 어긋남이 크고 방향이 분명하다. 수치상으로는 C 장문 서사형과 거의 정확히 일치한다(4.43 대 4.25, 0% 대 0%)",
+   "but": "일치의 원인이 다르다. C 무리의 고유명사는 사람과 사건이 시간을 따라 움직여서 생기고, OBP 의 고유명사는 학자·사본·지명을 인용해서 생긴다. 표본 17권 중 330어 창의 28.4%(중앙)가 이름+연도 또는 이름의 논증 꼴이었다. 지표는 같고 기제는 다르다 — criteria.md G3 가 경고한 「지표는 피해 갈 수 있다」의 사례다",
+   "evidence": "[측정: scratchpad/win.mjs · chrono.mjs]"
+  },
+  "failed_measurement": {
+   "what": "시간순 표지 비율(C 무리 89.7% 와 대조하려던 값)",
+   "why": "내 정규식은 330어 창 안에 when/after/before 가 하나라도 있으면 잡혀서 17권 중앙 89.5% 가 나왔다 — 전기든 철학 교과서든 구분하지 못했다. 기출의 89.7% 와 같은 자가 아니므로 대조에 쓰지 않는다",
+   "substitute": "대신 과거시제 동사 밀도를 썼고 이쪽은 갈랐다: 전기 7.44 · 사회조사 5.15 · 에세이 2.62 · 철학 교과서 2.31 /100어 (중앙 3.62)"
+  },
+  "extraction_quality": {
+   "text_source": "OAPEN 이 뽑아 둔 .pdf.txt",
+   "mojibake": "표지·홍보문에 합자(ti/tt/ffi)가 U+FFFD 로 깨진다(선두 40k자 5.5~10.8건/만자). 본문은 거의 깨끗하다(0~0.8건/만자). 예외 1권 Arabic Documents from Medieval Nubia 12.1건/만자 — 아랍어 혼용서라 다른 사유다",
+   "hard_wrap": "줄바꿈이 문단이 아니라 줄 끝이다(앞선 보고서와 동일)",
+   "intrusions": "40~400어 문단의 중앙 15.5% 에 러닝 헤더(예: 28 Hanging on to the Edges) 또는 각주·서지가 끼어 있다. 최대 38.3%(Beyond Holy Russia)",
+   "verdict": "본문 품질은 좋다. 비용은 깨진 글자가 아니라 헤더·각주 제거와 쪽 넘김으로 잘린 문장 복원에 있다"
+  }
+ },
+ "verdict": {
+  "headline": "「논증 품질 최상」이라는 앞선 평가는 사실이지만, 슬롯 기여로 이어지지 않는다",
+  "reasoning": [
+   "1. 논증 품질이 높다는 평가 자체는 이번에도 뒤집히지 않았다 — 17권 전수가 영어 판정 통과, 정제 잔존율 중앙 97.2%, 문단이 주장 단위로 떨어진다.",
+   "2. 그러나 품질이 높은 그 글이 채우는 칸은 A 추론형이고, A 의 결손 가중치는 0 이다. 과잉인 칸을 더 채운다.",
+   "3. 게다가 A 에도 문체가 안 맞는다. 지문 길이 창에서 고유명사 중앙 4.43(기출 A 는 0), 고유명사 0개인 지문 2.3%(기출 A 는 52~79%). 학술 산문은 이름을 인용해야 성립하는 글이라 구조적으로 그렇다.",
+   "4. 수치상 C 장문 서사형과 거의 일치하지만 기제가 다르다(인용 대 서사). 실제 C 기여는 전기 버킷 29권 / CC BY 14권으로 얇다.",
+   "5. CC BY 는 220권(40.2%)뿐이고 그마저 닫힌 집합이다 — 2022년부터 OBP 는 BY-NC 로 옮겼다(2022+ CC BY 7.9%). R1 재고는 앞으로 거의 안 는다.",
+   "6. 가공 비용은 9문단 실측 평균 64% 로 사실상 재저작 구간이다. 그런데 그 가공물은 재저작 가드(6-gram 0건)도 통과하지 못한다 — 어느 쪽 경로에도 깨끗하게 서지 못한다."
+  ],
+  "priority": "낮음. 과제 지시문의 예상(A 무리 · 가중치 0)은 결론에서는 맞고 근거에서는 틀렸다 — A 를 채워서 무의미한 것이 아니라, A 에 넣을 만한 문체도 아니다",
+  "if_harvested": {
+   "scope": "전기 버킷의 CC BY 14권만. 권당 상한 20창이면 약 280편",
+   "route": "Thoth 로 목록·라이선스 → OAPEN REST 로 본문 → 전기만 남김 → 장면 단위 내용 심사(g1.content_risk)",
+   "not_recommended": "547권 전량 수확. 326권은 R2~R4 이고, R1 221권도 A 칸을 채운다"
+  },
+  "contrast_group_value": "이 파일럿은 demand-model §5 가 제안한 「과잉 칸이 정말 과잉인가」 대조군 역할을 했다. 답: 과잉이기 이전에 문체가 다르다. 재고 23,935편이 기출 A 문체와 얼마나 맞는지는 아직 아무도 안 쟀다 — 그게 다음 측정이다"
+ },
+ "limits": [
+  "DB 에 쓰지 않았다. 이 파일럿은 읽기 전용이고, 수치는 전부 Thoth·OAPEN 응답과 내려받은 평문에서 나왔다.",
+  "20권 중 3권은 본문을 못 얻었다(OAPEN 미러 없음). G2·G3 는 17권 기준이고, 못 얻은 3권은 비워 뒀다. 이 3권을 OBP 자체 사이트에서 받는 것은 차단(429/202) 때문에 시도하지 않았다 — UA 위장은 하지 않았다.",
+  "주제 버킷은 키워드 대리지표다. 547권을 눈으로 분류하지 않았다. 특히 전기 29권이라는 수는 biography/memoir/letters 키워드 매칭이고, 실제 서사 전기인지는 표본 2권만 확인했다.",
+  "시간순 표지는 재는 데 실패했다(g3.failed_measurement). 기출의 89.7% 와 대조할 값이 이 파일럿에는 없다. 과거시제 밀도는 표본 내부 비교에만 쓸 수 있다.",
+  "앞 문맥 지시어·인용부호 시작 비율은 기출과 같은 자가 아니다. 과제가 항목만 주고 낱말 목록을 주지 않아 내가 목록을 정했다. 고유명사 축만 동일 정규식이라 비교 가능하다.",
+  "문단 재구성은 휴리스틱이다. .pdf.txt 는 줄 끝에서 줄을 바꾸므로 문단 경계를 규칙(빈 줄 · 짧고 마침표로 끝나는 줄)으로 복원했다. 경계가 틀리면 문단 길이 분포와 창 산출이 함께 흔들린다. 그 오차는 재지 않았다.",
+  "라이선스 판정은 권 단위다. Living Earth Community 에서 장별로 갈리는 사례를 찾았지만, 547권 중 몇 권이 그런지는 세지 않았다 — 각 장 첫 쪽 꼬리말을 읽어야 하고 그건 이 파일럿의 범위 밖이다. 편저 203권 전부가 후보다.",
+  "제3자 자료(permission/fair use) 비율 5/17 은 판권장 문구 정규식으로 잰 값이다. 문구가 없는 책에 제3자 자료가 없다는 뜻은 아니다.",
+  "가공 9문단은 내가 골랐다. 무작위 추출이 아니라 지문 길이대(110~200어)이고 숫자·대문자 밀도가 낮은 후보 중 균등 간격으로 뽑았다. 수정량 64% 는 그 선택 위의 값이다.",
+  "BOOK_CHAPTER 6,654건을 안 봤다. Thoth 는 장 단위 레코드를 갖고 있고(저장소의 앞선 정찰은 「장 단위 레코드가 없다」고 적었다 — DOAB/OAPEN 기준으로는 맞지만 Thoth 기준으로는 틀리다), 장별 라이선스·landingPage 가 붙어 있다. 장 경계 문제를 여기서 풀 수 있을지 모른다. 이번엔 확인하지 않았다."
+ ],
+ "books": [
+  {
+   "title": "Hanging on to the Edges: Essays on Science, Society and the Academic Life",
+   "work_id": "ab3a9d7f-c9b9-42bf-9942-45f68b40bcd6",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "http://creativecommons.org/licenses/by/4.0/",
+    "license_url": "http://creativecommons.org/licenses/by/4.0/",
+    "license_class": "CC BY",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY",
+    "colophon_text": "This work is licensed under a Creative Commons Attribution 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Daniel Nettle"
+    ],
+    "year": "2018",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0155",
+    "doi": "https://doi.org/10.11647/OBP.0155",
+    "isbn": [
+     "978-1-78374-580-7",
+     "978-1-78374-581-4",
+     "978-1-78374-582-1",
+     "978-1-80064-573-8",
+     "978-1-78374-608-8",
+     "978-1-78374-583-8",
+     "978-1-78374-584-5"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/27512",
+    "route": "R1",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "social",
+    "keywords": [
+     "academic research",
+     "behavioural studies",
+     "biology",
+     "human behaviour",
+     "interdisciplinary studies",
+     "science"
+    ],
+    "page_count": 262
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.3569,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 96417,
+    "keep_pct": 98.1,
+    "prose_paragraphs": 448,
+    "paragraph_length": {
+     "p10": 51,
+     "p25": 108,
+     "median": 174,
+     "p75": 260,
+     "p90": 409,
+     "max": 1465
+    },
+    "windows": {
+     "school_sentence_6_40": 37,
+     "school_para_40_200": 221,
+     "csat_short_90_200": 170,
+     "csat_long_260_400": 66
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 1.71,
+     "mean_per100": 4.26,
+     "zero_para_pct": 24.3
+    },
+    "proper_noun_by_150w_window": {
+     "n": 200,
+     "pn_median": 1.1,
+     "pn_zero_pct": 21,
+     "deictic_pct": 18.5,
+     "quote_pct": 0
+    },
+    "proper_noun_by_330w_window": {
+     "n": 118,
+     "pn_median": 1.67,
+     "pn_zero_pct": 5.9,
+     "deictic_pct": 16.9,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0.2,
+     "deictic_pct": 14.5
+    },
+    "footnote_marker_per_1k_words": 2.2,
+    "contrast_marker_para_pct": 68.3,
+    "past_tense_verbs_per_100w": 2.62,
+    "citation_shaped_window_pct": 9.3,
+    "extraction_damage": {
+     "chars": 600385,
+     "replacement_per_10k": 1.4,
+     "body_replacement_per_10k": 0.8
+    },
+    "cleaning_cost": {
+     "candidate_paras": 365,
+     "with_running_header": 0,
+     "with_citation_splice": 105,
+     "dirty_pct": 29.3
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/27512",
+    "words": 96417
+   }
+  },
+  {
+   "title": "Phenomenography in the 21st Century: A Methodology for Investigating Human Experience of the World",
+   "work_id": "6bd6e2a3-d139-4f18-b86d-b61f1a2f7951",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_class": "CC BY-NC",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": null,
+    "colophon_text": null,
+    "colophon_source": null,
+    "author": [
+     "Gerlese S. Åkerlind"
+    ],
+    "year": "2025",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/OBP.0431",
+    "doi": "https://doi.org/10.11647/OBP.0431",
+    "isbn": [
+     "978-1-80511-425-3",
+     "978-1-80511-426-0",
+     "978-1-80511-427-7",
+     "978-1-80511-429-1",
+     "978-1-80511-428-4"
+    ],
+    "fulltext_url": null,
+    "route": "R3",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "philosophy",
+    "keywords": [
+     "Educational research",
+     "Epistemology",
+     "Human experience",
+     "Phenomenography",
+     "Research methodology",
+     "Social sciences"
+    ],
+    "page_count": 312
+   },
+   "g3": null,
+   "fulltext": {
+    "ok": false,
+    "reason": "OAPEN 미러 없음 — ISBN 전건 0 hits",
+    "notes": [
+     "isbn 9781805114253: 0 hits",
+     "isbn 9781805114260: 0 hits",
+     "isbn 9781805114277: 0 hits",
+     "isbn 9781805114291: 0 hits",
+     "isbn 9781805114284: 0 hits",
+     "NO OAPEN MIRROR FOUND"
+    ]
+   }
+  },
+  {
+   "title": "Touching Parchment: How Medieval Users Rubbed, Handled, and Kissed Their Manuscripts: Volume 1: Officials and Their Books",
+   "work_id": "b59f517f-1ec8-43b4-a9cd-4b66649760cb",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_class": "CC BY-NC",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY-NC",
+    "colophon_text": "This work is licensed under an Attribution-NonCommercial 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Kathryn M. Rudy"
+    ],
+    "year": "2023",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/OBP.0337",
+    "doi": "https://doi.org/10.11647/OBP.0337",
+    "isbn": [
+     "978-1-80064-959-0",
+     "978-1-80064-960-6",
+     "978-1-80064-961-3",
+     "978-1-80064-965-1",
+     "978-1-80064-964-4",
+     "978-1-80064-962-0",
+     "978-1-80064-963-7"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/62481",
+    "route": "R3",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "history",
+    "keywords": [
+     "handling",
+     "medieval",
+     "Medieval book",
+     "religious",
+     "rituals",
+     "secular"
+    ],
+    "page_count": 272
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.2996,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 67879,
+    "keep_pct": 98.2,
+    "prose_paragraphs": 497,
+    "paragraph_length": {
+     "p10": 19,
+     "p25": 33,
+     "median": 81,
+     "p75": 194,
+     "p90": 323,
+     "max": 745
+    },
+    "windows": {
+     "school_sentence_6_40": 162,
+     "school_para_40_200": 225,
+     "csat_short_90_200": 116,
+     "csat_long_260_400": 49
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 15.15,
+     "mean_per100": 21.03,
+     "zero_para_pct": 3
+    },
+    "proper_noun_by_150w_window": {
+     "n": 190,
+     "pn_median": 10,
+     "pn_zero_pct": 0.5,
+     "deictic_pct": 2.6,
+     "quote_pct": 0
+    },
+    "proper_noun_by_330w_window": {
+     "n": 114,
+     "pn_median": 9.42,
+     "pn_zero_pct": 0,
+     "deictic_pct": 1.8,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0,
+     "deictic_pct": 2.6
+    },
+    "footnote_marker_per_1k_words": 1.9,
+    "contrast_marker_para_pct": 31.2,
+    "past_tense_verbs_per_100w": 5,
+    "citation_shaped_window_pct": 27.2,
+    "extraction_damage": {
+     "chars": 432737,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 313,
+     "with_running_header": 0,
+     "with_citation_splice": 117,
+     "dirty_pct": 37.4
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/62481",
+    "words": 67879
+   }
+  },
+  {
+   "title": "Digital Scholarly Editing: Theories and Practices",
+   "work_id": "43d96298-a683-4098-9492-bba1466cb8e0",
+   "work_type": "EDITED_BOOK",
+   "g0": {
+    "license_raw": "http://creativecommons.org/licenses/by/4.0/",
+    "license_url": "http://creativecommons.org/licenses/by/4.0/",
+    "license_class": "CC BY",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": null,
+    "colophon_text": null,
+    "colophon_source": null,
+    "author": [
+     "Elena Pierazzo",
+     "Matthew James Driscoll"
+    ],
+    "year": "2016",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0095",
+    "doi": "https://doi.org/10.11647/OBP.0095",
+    "isbn": [
+     "978-1-78374-238-7",
+     "978-1-78374-239-4",
+     "978-1-78374-240-0",
+     "978-1-80064-514-1",
+     "978-1-78374-627-9",
+     "978-1-78374-241-7",
+     "978-1-78374-242-4"
+    ],
+    "fulltext_url": null,
+    "route": "R1",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "science",
+    "keywords": [
+     "computer technology",
+     "digital humanities",
+     "Digital scholarly editing",
+     "practices",
+     "textual scholarship",
+     "theories"
+    ],
+    "page_count": 290
+   },
+   "g3": null,
+   "fulltext": {
+    "ok": false,
+    "reason": "OAPEN 미러 없음 — ISBN 전건 0 hits",
+    "notes": [
+     "isbn 9781783742387: 0 hits",
+     "isbn 9781783742394: 0 hits",
+     "isbn 9781783742400: 0 hits",
+     "isbn 9781800645141: 0 hits",
+     "isbn 9781783746279: 0 hits",
+     "isbn 9781783742417: 0 hits",
+     "isbn 9781783742424: 0 hits",
+     "NO OAPEN MIRROR FOUND"
+    ]
+   }
+  },
+  {
+   "title": "Insolubles: Critical Edition with English Translation",
+   "work_id": "057a6d56-a7ef-4d6f-9c19-fe8a4930629c",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_class": "CC BY-NC",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY-NC",
+    "colophon_text": "This work is licensed under an Attribution-NonCommercial 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Walter Segrave",
+     "Barbara Bartocci",
+     "Stephen Read"
+    ],
+    "year": "2024",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/OBP.0359",
+    "doi": "https://doi.org/10.11647/OBP.0359",
+    "isbn": [
+     "978-1-80511-090-3",
+     "978-1-80511-091-0",
+     "978-1-80511-092-7"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/95728",
+    "route": "R3",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "history",
+    "keywords": [
+     "Fallacy of Accident",
+     "Liar Paradox",
+     "Medieval Paradoxes",
+     "Restrictivism",
+     "Supposition Theory",
+     "Thomas Bradwardine"
+    ],
+    "page_count": 158
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.3672,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 60017,
+    "keep_pct": 98.7,
+    "prose_paragraphs": 506,
+    "paragraph_length": {
+     "p10": 17,
+     "p25": 31,
+     "median": 62,
+     "p75": 156,
+     "p90": 287,
+     "max": 752
+    },
+    "windows": {
+     "school_sentence_6_40": 172,
+     "school_para_40_200": 248,
+     "csat_short_90_200": 105,
+     "csat_long_260_400": 32
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 3.08,
+     "mean_per100": 8.11,
+     "zero_para_pct": 24.1
+    },
+    "proper_noun_by_150w_window": {
+     "n": 189,
+     "pn_median": 2.6,
+     "pn_zero_pct": 5.3,
+     "deictic_pct": 9,
+     "quote_pct": 0
+    },
+    "proper_noun_by_330w_window": {
+     "n": 114,
+     "pn_median": 2.81,
+     "pn_zero_pct": 1.8,
+     "deictic_pct": 10.5,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0,
+     "deictic_pct": 6.3
+    },
+    "footnote_marker_per_1k_words": 4.3,
+    "contrast_marker_para_pct": 26.5,
+    "past_tense_verbs_per_100w": 1.58,
+    "citation_shaped_window_pct": 7,
+    "extraction_damage": {
+     "chars": 342400,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 315,
+     "with_running_header": 0,
+     "with_citation_splice": 53,
+     "dirty_pct": 16.8
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/95728",
+    "words": 60017
+   }
+  },
+  {
+   "title": "Arabic Documents from Medieval Nubia",
+   "work_id": "a9da050e-b139-4b36-88d4-374fa818a1be",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_class": "CC BY-NC",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY-NC",
+    "colophon_text": "This work is licensed under an Attribution-NonCommercial 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Geoffrey Khan"
+    ],
+    "year": "2024",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/OBP.0391",
+    "doi": "https://doi.org/10.11647/OBP.0391",
+    "isbn": [
+     "978-1-80511-230-3",
+     "978-1-80511-231-0",
+     "978-1-80511-232-7"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/90239",
+    "route": "R3",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "history",
+    "keywords": [
+     "11th-12th centuries Nubia",
+     "Arabic documents",
+     "Arabic sources",
+     "Egypt-Nubia relations",
+     "English translation",
+     "Middle Ages"
+    ],
+    "page_count": 854
+   },
+   "g3": {
+    "english": {
+     "latin": 0.9952,
+     "func": 0.3641,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 141460,
+    "keep_pct": 87.6,
+    "prose_paragraphs": 1277,
+    "paragraph_length": {
+     "p10": 13,
+     "p25": 22,
+     "median": 47,
+     "p75": 119,
+     "p90": 247,
+     "max": 2004
+    },
+    "windows": {
+     "school_sentence_6_40": 585,
+     "school_para_40_200": 530,
+     "csat_short_90_200": 244,
+     "csat_long_260_400": 76
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 6.55,
+     "mean_per100": 11.51,
+     "zero_para_pct": 15.3
+    },
+    "proper_noun_by_150w_window": {
+     "n": 411,
+     "pn_median": 5.95,
+     "pn_zero_pct": 0.2,
+     "deictic_pct": 5.1,
+     "quote_pct": 0.2
+    },
+    "proper_noun_by_330w_window": {
+     "n": 249,
+     "pn_median": 5.92,
+     "pn_zero_pct": 0,
+     "deictic_pct": 5.6,
+     "quote_pct": 0.4
+    },
+    "starts": {
+     "quote_pct": 0.1,
+     "deictic_pct": 3.8
+    },
+    "footnote_marker_per_1k_words": 0.9,
+    "contrast_marker_para_pct": 17.5,
+    "past_tense_verbs_per_100w": 3.62,
+    "citation_shaped_window_pct": 53,
+    "extraction_damage": {
+     "chars": 830636,
+     "replacement_per_10k": 11.5,
+     "body_replacement_per_10k": 12.1
+    },
+    "cleaning_cost": {
+     "candidate_paras": 701,
+     "with_running_header": 0,
+     "with_citation_splice": 25,
+     "dirty_pct": 3.7
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/90239",
+    "words": 141460
+   }
+  },
+  {
+   "title": "Just Managing? What it Means for the Families of Austerity Britain",
+   "work_id": "df7eb598-914a-49eb-9cbd-9766bd06be84",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "http://creativecommons.org/licenses/by/4.0/",
+    "license_url": "http://creativecommons.org/licenses/by/4.0/",
+    "license_class": "CC BY",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY",
+    "colophon_text": "This work is licensed under a Creative Commons Attribution 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Mark O'Brien",
+     "Paul Kyprianou"
+    ],
+    "year": "2017",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0112",
+    "doi": "https://doi.org/10.11647/OBP.0112",
+    "isbn": [
+     "978-1-78374-323-0",
+     "978-1-78374-324-7",
+     "978-1-78374-325-4",
+     "978-1-80064-531-8",
+     "978-1-78374-417-6",
+     "978-1-78374-326-1",
+     "978-1-78374-327-8"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/31231",
+    "route": "R1",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "social",
+    "keywords": [
+     "austerity",
+     "Britain",
+     "British politics",
+     "Liverpool",
+     "low income",
+     "National Minimun Wage"
+    ],
+    "page_count": 245
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.3628,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 76751,
+    "keep_pct": 97.8,
+    "prose_paragraphs": 812,
+    "paragraph_length": {
+     "p10": 18,
+     "p25": 34,
+     "median": 69,
+     "p75": 120,
+     "p90": 197,
+     "max": 706
+    },
+    "windows": {
+     "school_sentence_6_40": 252,
+     "school_para_40_200": 488,
+     "csat_short_90_200": 233,
+     "csat_long_260_400": 30
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 3.53,
+     "mean_per100": 7.13,
+     "zero_para_pct": 19.3
+    },
+    "proper_noun_by_150w_window": {
+     "n": 286,
+     "pn_median": 2.82,
+     "pn_zero_pct": 2.1,
+     "deictic_pct": 8,
+     "quote_pct": 0
+    },
+    "proper_noun_by_330w_window": {
+     "n": 158,
+     "pn_median": 2.79,
+     "pn_zero_pct": 0,
+     "deictic_pct": 6.3,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0,
+     "deictic_pct": 9
+    },
+    "footnote_marker_per_1k_words": 1.5,
+    "contrast_marker_para_pct": 43.8,
+    "past_tense_verbs_per_100w": 5.15,
+    "citation_shaped_window_pct": 15.2,
+    "extraction_damage": {
+     "chars": 450338,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 566,
+     "with_running_header": 0,
+     "with_citation_splice": 63,
+     "dirty_pct": 11.3
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/31231",
+    "words": 76751
+   }
+  },
+  {
+   "title": "Tyneside Neighbourhoods: Deprivation, Social Life and Social Behaviour in One British City",
+   "work_id": "fad3128f-945a-43a9-9f27-b696521c0386",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "http://creativecommons.org/licenses/by/4.0/",
+    "license_url": "http://creativecommons.org/licenses/by/4.0/",
+    "license_class": "CC BY",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY",
+    "colophon_text": "licensed under a Creative Commons Attribution 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Daniel Nettle"
+    ],
+    "year": "2015",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0084",
+    "doi": "https://doi.org/10.11647/OBP.0084",
+    "isbn": [
+     "978-1-78374-188-5",
+     "978-1-78374-189-2",
+     "978-1-78374-190-8",
+     "978-1-80064-504-2",
+     "978-1-78374-636-1",
+     "978-1-78374-191-5",
+     "978-1-78374-192-2"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/31236",
+    "route": "R1",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "social",
+    "keywords": [
+     "comparative study",
+     "economic deprivation",
+     "Ethnography",
+     "social behaviour",
+     "social solidarity",
+     "United Kingdom"
+    ],
+    "page_count": 146
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.3456,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 49673,
+    "keep_pct": 96.5,
+    "prose_paragraphs": 242,
+    "paragraph_length": {
+     "p10": 28,
+     "p25": 98,
+     "median": 166,
+     "p75": 263,
+     "p90": 410,
+     "max": 948
+    },
+    "windows": {
+     "school_sentence_6_40": 33,
+     "school_para_40_200": 112,
+     "csat_short_90_200": 89,
+     "csat_long_260_400": 37
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 3.67,
+     "mean_per100": 6.68,
+     "zero_para_pct": 8.7
+    },
+    "proper_noun_by_150w_window": {
+     "n": 136,
+     "pn_median": 2.8,
+     "pn_zero_pct": 3.7,
+     "deictic_pct": 8.8,
+     "quote_pct": 0
+    },
+    "proper_noun_by_330w_window": {
+     "n": 88,
+     "pn_median": 2.86,
+     "pn_zero_pct": 2.3,
+     "deictic_pct": 4.5,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0,
+     "deictic_pct": 11.2
+    },
+    "footnote_marker_per_1k_words": 0.3,
+    "contrast_marker_para_pct": 60.3,
+    "past_tense_verbs_per_100w": 4.12,
+    "citation_shaped_window_pct": 26.1,
+    "extraction_damage": {
+     "chars": 312986,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 186,
+     "with_running_header": 0,
+     "with_citation_splice": 30,
+     "dirty_pct": 16.1
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/31236",
+    "words": 49673
+   }
+  },
+  {
+   "title": "Horos: Ancient Boundaries and the Ecology of Stone",
+   "work_id": "40602082-0711-4126-8046-4d21df9ca1b3",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_class": "CC BY-NC",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY-NC",
+    "colophon_text": "This work is licensed under a Attribution-NonCommercial 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Thea Potter"
+    ],
+    "year": "2022",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0266",
+    "doi": "https://doi.org/10.11647/OBP.0266",
+    "isbn": [
+     "978-1-80064-266-9",
+     "978-1-80064-267-6",
+     "978-1-80064-268-3",
+     "978-1-80064-657-5",
+     "978-1-80064-271-3",
+     "978-1-80064-269-0",
+     "978-1-80064-270-6"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/52360",
+    "route": "R3",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "history",
+    "keywords": [
+     "Aristotle",
+     "Athenians",
+     "classical Athenian society",
+     "concept of horos",
+     "Homer",
+     "horos"
+    ],
+    "page_count": 348
+   },
+   "g3": {
+    "english": {
+     "latin": 0.9883,
+     "func": 0.3673,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 128221,
+    "keep_pct": 95.2,
+    "prose_paragraphs": 819,
+    "paragraph_length": {
+     "p10": 21,
+     "p25": 46,
+     "median": 125,
+     "p75": 213,
+     "p90": 322,
+     "max": 841
+    },
+    "windows": {
+     "school_sentence_6_40": 184,
+     "school_para_40_200": 406,
+     "csat_short_90_200": 262,
+     "csat_long_260_400": 118
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 2.61,
+     "mean_per100": 10.56,
+     "zero_para_pct": 14.3
+    },
+    "proper_noun_by_150w_window": {
+     "n": 426,
+     "pn_median": 1.96,
+     "pn_zero_pct": 5.2,
+     "deictic_pct": 9.2,
+     "quote_pct": 0
+    },
+    "proper_noun_by_330w_window": {
+     "n": 284,
+     "pn_median": 2.2,
+     "pn_zero_pct": 0.4,
+     "deictic_pct": 5.6,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0,
+     "deictic_pct": 9.2
+    },
+    "footnote_marker_per_1k_words": 2.3,
+    "contrast_marker_para_pct": 55.2,
+    "past_tense_verbs_per_100w": 3.21,
+    "citation_shaped_window_pct": 42.3,
+    "extraction_damage": {
+     "chars": 786304,
+     "replacement_per_10k": 0.7,
+     "body_replacement_per_10k": 0.4
+    },
+    "cleaning_cost": {
+     "candidate_paras": 615,
+     "with_running_header": 0,
+     "with_citation_splice": 49,
+     "dirty_pct": 8.1
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/52360",
+    "words": 128221
+   }
+  },
+  {
+   "title": "Points of Contact: The Shared Intellectual History of Vocalisation in Syriac, Arabic, and Hebrew",
+   "work_id": "f5749fc6-fb0d-4195-b984-183f868905e6",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "https://creativecommons.org/licenses/by/4.0/",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "license_class": "CC BY",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY",
+    "colophon_text": "This work is licensed under a Creative Commons Attribution 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Nick Posegay"
+    ],
+    "year": "2021",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0271",
+    "doi": "https://doi.org/10.11647/OBP.0271",
+    "isbn": [
+     "978-1-80064-296-6",
+     "978-1-80064-297-3",
+     "978-1-80064-298-0"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/52358",
+    "route": "R1",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "history",
+    "keywords": [
+     "Arabic scholars",
+     "Bible",
+     "Hebrew scholars",
+     "Qurʾān",
+     "Syriac scholars"
+    ],
+    "page_count": 390
+   },
+   "g3": {
+    "english": {
+     "latin": 0.9992,
+     "func": 0.3328,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 104124,
+    "keep_pct": 95.6,
+    "prose_paragraphs": 841,
+    "paragraph_length": {
+     "p10": 18,
+     "p25": 30,
+     "median": 81,
+     "p75": 185,
+     "p90": 258,
+     "max": 967
+    },
+    "windows": {
+     "school_sentence_6_40": 264,
+     "school_para_40_200": 396,
+     "csat_short_90_200": 208,
+     "csat_long_260_400": 60
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 7.89,
+     "mean_per100": 13.59,
+     "zero_para_pct": 6.5
+    },
+    "proper_noun_by_150w_window": {
+     "n": 364,
+     "pn_median": 6.35,
+     "pn_zero_pct": 0.8,
+     "deictic_pct": 9.9,
+     "quote_pct": 0
+    },
+    "proper_noun_by_330w_window": {
+     "n": 211,
+     "pn_median": 6.23,
+     "pn_zero_pct": 0,
+     "deictic_pct": 8.1,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0.4,
+     "deictic_pct": 7.4
+    },
+    "footnote_marker_per_1k_words": 0.7,
+    "contrast_marker_para_pct": 43.3,
+    "past_tense_verbs_per_100w": 3.01,
+    "citation_shaped_window_pct": 83.4,
+    "extraction_damage": {
+     "chars": 649294,
+     "replacement_per_10k": 1,
+     "body_replacement_per_10k": 0.5
+    },
+    "cleaning_cost": {
+     "candidate_paras": 558,
+     "with_running_header": 0,
+     "with_citation_splice": 18,
+     "dirty_pct": 3.2
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/52358",
+    "words": 104124
+   }
+  },
+  {
+   "title": "Living Earth Community: Multiple Ways of Being and Knowing",
+   "work_id": "f957ab3d-c925-4bf2-82fa-9809007753e7",
+   "work_type": "EDITED_BOOK",
+   "g0": {
+    "license_raw": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+    "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+    "license_class": "CC BY-NC-ND",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY",
+    "colophon_text": "CC BY 4.0",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Sam Mickey",
+     "Mary Evelyn Tucker",
+     "John Grim"
+    ],
+    "year": "2020",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0186",
+    "doi": "https://doi.org/10.11647/OBP.0186",
+    "isbn": [
+     "978-1-78374-803-7",
+     "978-1-78374-804-4",
+     "978-1-78374-805-1",
+     "978-1-80064-598-1",
+     "978-1-78374-808-2",
+     "978-1-78374-806-8",
+     "978-1-78374-807-5"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/39359",
+    "route": "R4",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "philosophy",
+    "keywords": [
+     "Earth",
+     "ecological crisis",
+     "ecological knowledge",
+     "ecosystems",
+     "environment",
+     "scholars"
+    ],
+    "page_count": 286
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.3444,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 88186,
+    "keep_pct": 96,
+    "prose_paragraphs": 697,
+    "paragraph_length": {
+     "p10": 17,
+     "p25": 32,
+     "median": 84,
+     "p75": 172,
+     "p90": 281,
+     "max": 849
+    },
+    "windows": {
+     "school_sentence_6_40": 213,
+     "school_para_40_200": 359,
+     "csat_short_90_200": 202,
+     "csat_long_260_400": 58
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 9.09,
+     "mean_per100": 18.71,
+     "zero_para_pct": 13.2
+    },
+    "proper_noun_by_150w_window": {
+     "n": 238,
+     "pn_median": 5.52,
+     "pn_zero_pct": 4.2,
+     "deictic_pct": 9.2,
+     "quote_pct": 1.3
+    },
+    "proper_noun_by_330w_window": {
+     "n": 141,
+     "pn_median": 6.07,
+     "pn_zero_pct": 0,
+     "deictic_pct": 7.8,
+     "quote_pct": 1.4
+    },
+    "starts": {
+     "quote_pct": 0.4,
+     "deictic_pct": 7.3
+    },
+    "footnote_marker_per_1k_words": 1.7,
+    "contrast_marker_para_pct": 32.1,
+    "past_tense_verbs_per_100w": 2.84,
+    "citation_shaped_window_pct": 21.3,
+    "extraction_damage": {
+     "chars": 580080,
+     "replacement_per_10k": 0.8,
+     "body_replacement_per_10k": 0.4
+    },
+    "cleaning_cost": {
+     "candidate_paras": 473,
+     "with_running_header": 0,
+     "with_citation_splice": 143,
+     "dirty_pct": 30.9
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/39359",
+    "words": 88186
+   }
+  },
+  {
+   "title": "Careful Village and Other 'Khashag' from Tibet: The Amdo Comedies of Menla Jyab",
+   "work_id": "2731819e-7b4a-456c-a737-25080105ef6f",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_class": "CC BY-NC",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY-NC",
+    "colophon_text": "This work is licensed under the Creative Commons Attribution-NonCommercial 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Menla Jyab",
+     "Tsering Samdrup",
+     "Timothy Thurston"
+    ],
+    "year": "2025",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/OBP.0452",
+    "doi": "https://doi.org/10.11647/OBP.0452",
+    "isbn": [
+     "978-1-80511-525-0",
+     "978-1-80511-526-7",
+     "978-1-80511-527-4",
+     "978-1-80511-529-8",
+     "978-1-80511-528-1"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/106166",
+    "route": "R3",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "literature",
+    "keywords": [
+     "Cross-cultural performance analysis",
+     "Khashag spoken dialogues",
+     "Menla Jyab comedies",
+     "Post-Mao Tibetan literature",
+     "Tibetan cultural revival",
+     "Tibetan expressive culture"
+    ],
+    "page_count": 328
+   },
+   "g3": {
+    "english": {
+     "latin": 0.9834,
+     "func": 0.3475,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 73516,
+    "keep_pct": 98.6,
+    "prose_paragraphs": 972,
+    "paragraph_length": {
+     "p10": 16,
+     "p25": 25,
+     "median": 48,
+     "p75": 96,
+     "p90": 157,
+     "max": 913
+    },
+    "windows": {
+     "school_sentence_6_40": 425,
+     "school_para_40_200": 494,
+     "csat_short_90_200": 209,
+     "csat_long_260_400": 28
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 4.35,
+     "mean_per100": 6.6,
+     "zero_para_pct": 20
+    },
+    "proper_noun_by_150w_window": {
+     "n": 307,
+     "pn_median": 5,
+     "pn_zero_pct": 0,
+     "deictic_pct": 3.3,
+     "quote_pct": 0
+    },
+    "proper_noun_by_330w_window": {
+     "n": 168,
+     "pn_median": 4.84,
+     "pn_zero_pct": 0,
+     "deictic_pct": 4.8,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0,
+     "deictic_pct": 2.5
+    },
+    "footnote_marker_per_1k_words": 2.9,
+    "contrast_marker_para_pct": 25.8,
+    "past_tense_verbs_per_100w": 2.7,
+    "citation_shaped_window_pct": 13.1,
+    "extraction_damage": {
+     "chars": 535576,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 549,
+     "with_running_header": 0,
+     "with_citation_splice": 36,
+     "dirty_pct": 6.7
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/106166",
+    "words": 73516
+   }
+  },
+  {
+   "title": "Ethics for A-Level",
+   "work_id": "f76ab190-35f4-4136-86dd-d7fa02ccaebb",
+   "work_type": "TEXTBOOK",
+   "g0": {
+    "license_raw": "http://creativecommons.org/licenses/by/4.0/",
+    "license_url": "http://creativecommons.org/licenses/by/4.0/",
+    "license_class": "CC BY",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY",
+    "colophon_text": "This work is licensed under a Creative Commons Attribution 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Mark Dimmock",
+     "Andrew Fisher"
+    ],
+    "year": "2017",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0125",
+    "doi": "https://doi.org/10.11647/OBP.0125",
+    "isbn": [
+     "978-1-78374-388-9",
+     "978-1-78374-389-6",
+     "978-1-78374-390-2",
+     "978-1-80064-544-8",
+     "978-1-78374-408-4",
+     "978-1-78374-391-9",
+     "978-1-78374-392-6"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/31097",
+    "route": "R1",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "philosophy",
+    "keywords": [
+     "A-Level",
+     "applied ethics",
+     "AQA Philosophy",
+     "business ethics",
+     "metaethics",
+     "morality"
+    ],
+    "page_count": 262
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.3325,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 88356,
+    "keep_pct": 99.5,
+    "prose_paragraphs": 952,
+    "paragraph_length": {
+     "p10": 15,
+     "p25": 30,
+     "median": 70,
+     "p75": 124,
+     "p90": 192,
+     "max": 1413
+    },
+    "windows": {
+     "school_sentence_6_40": 301,
+     "school_para_40_200": 570,
+     "csat_short_90_200": 284,
+     "csat_long_260_400": 35
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 3.85,
+     "mean_per100": 6.92,
+     "zero_para_pct": 23.8
+    },
+    "proper_noun_by_150w_window": {
+     "n": 331,
+     "pn_median": 3.83,
+     "pn_zero_pct": 3,
+     "deictic_pct": 11.5,
+     "quote_pct": 0
+    },
+    "proper_noun_by_330w_window": {
+     "n": 186,
+     "pn_median": 4.01,
+     "pn_zero_pct": 0.5,
+     "deictic_pct": 12.9,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0.3,
+     "deictic_pct": 9.5
+    },
+    "footnote_marker_per_1k_words": 1,
+    "contrast_marker_para_pct": 43.7,
+    "past_tense_verbs_per_100w": 2.31,
+    "citation_shaped_window_pct": 30.1,
+    "extraction_damage": {
+     "chars": 537624,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 648,
+     "with_running_header": 0,
+     "with_citation_splice": 95,
+     "dirty_pct": 14.7
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/31097",
+    "words": 88356
+   }
+  },
+  {
+   "title": "Bourdieu and Literature",
+   "work_id": "e7cb5682-32f3-4a85-a7ba-82339d667f26",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_class": "CC BY-NC",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY-NC",
+    "colophon_text": "This work is licensed under the Creative Commons Attribution-NonCommercial 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "John R.W. Speller"
+    ],
+    "year": "2026",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0522",
+    "doi": "https://doi.org/10.11647/OBP.0522",
+    "isbn": [
+     "978-1-80511-857-2",
+     "978-1-80511-858-9",
+     "978-1-80511-859-6",
+     "978-1-80511-861-9",
+     "978-1-80511-860-2"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/116310",
+    "route": "R3",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "literature",
+    "keywords": [
+     "cultural theory",
+     "French literature",
+     "literary theory",
+     "Pierre Bourdieu",
+     "post-structuralism",
+     "reception"
+    ],
+    "page_count": 202
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.319,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 70647,
+    "keep_pct": 97.2,
+    "prose_paragraphs": 420,
+    "paragraph_length": {
+     "p10": 16,
+     "p25": 31,
+     "median": 109,
+     "p75": 238,
+     "p90": 402,
+     "max": 1005
+    },
+    "windows": {
+     "school_sentence_6_40": 131,
+     "school_para_40_200": 160,
+     "csat_short_90_200": 102,
+     "csat_long_260_400": 55
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 5.95,
+     "mean_per100": 12.88,
+     "zero_para_pct": 6.7
+    },
+    "proper_noun_by_150w_window": {
+     "n": 167,
+     "pn_median": 3.97,
+     "pn_zero_pct": 0,
+     "deictic_pct": 9,
+     "quote_pct": 0.6
+    },
+    "proper_noun_by_330w_window": {
+     "n": 110,
+     "pn_median": 4.44,
+     "pn_zero_pct": 0,
+     "deictic_pct": 7.3,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0.7,
+     "deictic_pct": 7.1
+    },
+    "footnote_marker_per_1k_words": 1.1,
+    "contrast_marker_para_pct": 46.4,
+    "past_tense_verbs_per_100w": 3.25,
+    "citation_shaped_window_pct": 41.8,
+    "extraction_damage": {
+     "chars": 475381,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 257,
+     "with_running_header": 0,
+     "with_citation_splice": 86,
+     "dirty_pct": 33.9
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/116310",
+    "words": 70647
+   }
+  },
+  {
+   "title": "Zombies in Western Culture: A Twenty-First Century Crisis",
+   "work_id": "1f0a2f4f-7a52-46d4-88af-c652a579272e",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "http://creativecommons.org/licenses/by/4.0/",
+    "license_url": "http://creativecommons.org/licenses/by/4.0/",
+    "license_class": "CC BY",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY",
+    "colophon_text": "This work is licensed under a Creative Commons Attribution 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Filip Miscevic",
+     "John Vervaeke",
+     "Christopher Mastropietro"
+    ],
+    "year": "2017",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0113",
+    "doi": "https://doi.org/10.11647/OBP.0113",
+    "isbn": [
+     "978-1-78374-328-5",
+     "978-1-78374-329-2",
+     "978-1-78374-330-8",
+     "978-1-80064-532-5",
+     "978-1-78374-416-9",
+     "978-1-78374-331-5",
+     "978-1-78374-332-2"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/30331",
+    "route": "R1",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "music_art",
+    "keywords": [
+     "alienation",
+     "apocalypse",
+     "crisis of meaning",
+     "cultural studies",
+     "media studies",
+     "popular culture"
+    ],
+    "page_count": 104
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.3806,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 30902,
+    "keep_pct": 97.2,
+    "prose_paragraphs": 166,
+    "paragraph_length": {
+     "p10": 49,
+     "p25": 79,
+     "median": 140,
+     "p75": 241,
+     "p90": 354,
+     "max": 738
+    },
+    "windows": {
+     "school_sentence_6_40": 11,
+     "school_para_40_200": 102,
+     "csat_short_90_200": 65,
+     "csat_long_260_400": 20
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 4.02,
+     "mean_per100": 9.31,
+     "zero_para_pct": 10.8
+    },
+    "proper_noun_by_150w_window": {
+     "n": 79,
+     "pn_median": 3.35,
+     "pn_zero_pct": 5.1,
+     "deictic_pct": 10.1,
+     "quote_pct": 1.3
+    },
+    "proper_noun_by_330w_window": {
+     "n": 47,
+     "pn_median": 3.5,
+     "pn_zero_pct": 0,
+     "deictic_pct": 4.3,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0.6,
+     "deictic_pct": 10.2
+    },
+    "footnote_marker_per_1k_words": 1.6,
+    "contrast_marker_para_pct": 53,
+    "past_tense_verbs_per_100w": 3.7,
+    "citation_shaped_window_pct": 53.2,
+    "extraction_damage": {
+     "chars": 201575,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 142,
+     "with_running_header": 0,
+     "with_citation_splice": 31,
+     "dirty_pct": 21.8
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/30331",
+    "words": 30902
+   }
+  },
+  {
+   "title": "Beyond Holy Russia: The Life and Times of Stephen Graham",
+   "work_id": "e76e054c-617d-4004-b68d-54739205df8d",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "http://creativecommons.org/licenses/by/4.0/",
+    "license_url": "http://creativecommons.org/licenses/by/4.0/",
+    "license_class": "CC BY",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY",
+    "colophon_text": "This work is licensed under a Creative Commons Attribution 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Michael Hughes"
+    ],
+    "year": "2014",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0040",
+    "doi": "https://doi.org/10.11647/OBP.0040",
+    "isbn": [
+     "978-1-78374-012-3",
+     "978-1-78374-013-0",
+     "978-1-78374-014-7",
+     "978-1-80064-467-0",
+     "978-1-78374-015-4",
+     "978-1-78374-016-1"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/30330",
+    "route": "R1",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "biography",
+    "keywords": [
+     "biography",
+     "religion",
+     "Russia",
+     "Stephen Graham",
+     "travel writing"
+    ],
+    "page_count": 369
+   },
+   "g3": {
+    "english": {
+     "latin": 0.9966,
+     "func": 0.3373,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 150288,
+    "keep_pct": 95.8,
+    "prose_paragraphs": 815,
+    "paragraph_length": {
+     "p10": 14,
+     "p25": 27,
+     "median": 111,
+     "p75": 299,
+     "p90": 425,
+     "max": 1358
+    },
+    "windows": {
+     "school_sentence_6_40": 277,
+     "school_para_40_200": 238,
+     "csat_short_90_200": 140,
+     "csat_long_260_400": 141
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 13.68,
+     "mean_per100": 22.31,
+     "zero_para_pct": 0.6
+    },
+    "proper_noun_by_150w_window": {
+     "n": 369,
+     "pn_median": 10.57,
+     "pn_zero_pct": 0,
+     "deictic_pct": 4.3,
+     "quote_pct": 0
+    },
+    "proper_noun_by_330w_window": {
+     "n": 271,
+     "pn_median": 10.19,
+     "pn_zero_pct": 0,
+     "deictic_pct": 3,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0,
+     "deictic_pct": 3.1
+    },
+    "footnote_marker_per_1k_words": 2.5,
+    "contrast_marker_para_pct": 50.7,
+    "past_tense_verbs_per_100w": 7.44,
+    "citation_shaped_window_pct": 60.5,
+    "extraction_damage": {
+     "chars": 909226,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 428,
+     "with_running_header": 0,
+     "with_citation_splice": 164,
+     "dirty_pct": 38.3
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/30330",
+    "words": 150288
+   }
+  },
+  {
+   "title": "Xiipúktan (First of All): Three Views of the Origins of the Quechan People",
+   "work_id": "a1305745-7e87-4fb0-b7fd-918c58ae00e4",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "http://creativecommons.org/licenses/by-nc-nd/3.0/",
+    "license_url": "http://creativecommons.org/licenses/by-nc-nd/3.0/",
+    "license_class": "CC BY-NC-ND",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY-NC",
+    "colophon_text": "licensed under a Creative Commons Attribution-NonCommercial-NoDerivs 3.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Amy Miller",
+     "George Bryant"
+    ],
+    "year": "2013",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0037",
+    "doi": "https://doi.org/10.11647/OBP.0037",
+    "isbn": [
+     "978-1-909254-40-4",
+     "978-1-909254-64-0",
+     "978-1-909254-41-1",
+     "978-1-80064-464-9",
+     "978-1-909254-42-8",
+     "978-1-909254-43-5"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/30288",
+    "route": "R4",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "literature",
+    "keywords": [
+     "Amy Miller",
+     "A Yuma Account of Origins",
+     "George Bryant",
+     "Quechan language",
+     "Quechan people",
+     "World Oral Literature Series"
+    ],
+    "page_count": 220
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.3549,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 52794,
+    "keep_pct": 98.6,
+    "prose_paragraphs": 1934,
+    "paragraph_length": {
+     "p10": 8,
+     "p25": 13,
+     "median": 21,
+     "p75": 33,
+     "p90": 51,
+     "max": 328
+    },
+    "windows": {
+     "school_sentence_6_40": 1612,
+     "school_para_40_200": 335,
+     "csat_short_90_200": 38,
+     "csat_long_260_400": 3
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 3.23,
+     "mean_per100": 5.3,
+     "zero_para_pct": 41.8
+    },
+    "proper_noun_by_150w_window": {
+     "n": 262,
+     "pn_median": 4.43,
+     "pn_zero_pct": 2.3,
+     "deictic_pct": 1.5,
+     "quote_pct": 16
+    },
+    "proper_noun_by_330w_window": {
+     "n": 129,
+     "pn_median": 4.45,
+     "pn_zero_pct": 0,
+     "deictic_pct": 1.6,
+     "quote_pct": 15.5
+    },
+    "starts": {
+     "quote_pct": 17.5,
+     "deictic_pct": 0.7
+    },
+    "footnote_marker_per_1k_words": 12.5,
+    "contrast_marker_para_pct": 6.9,
+    "past_tense_verbs_per_100w": 6.5,
+    "citation_shaped_window_pct": 12.4,
+    "extraction_damage": {
+     "chars": 338013,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 339,
+     "with_running_header": 0,
+     "with_citation_splice": 5,
+     "dirty_pct": 1.5
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/30288",
+    "words": 52794
+   }
+  },
+  {
+   "title": "New Thresholds In Yeats Studies: Yeats Annual No. 22",
+   "work_id": "2d2366d6-9cb7-4c1d-a587-5ac8b1b57bf7",
+   "work_type": "EDITED_BOOK",
+   "g0": {
+    "license_raw": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "license_class": "CC BY-NC",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": null,
+    "colophon_text": null,
+    "colophon_source": null,
+    "author": [
+     "Warwick Gould",
+     "James Pethica",
+     "Declan Kiely"
+    ],
+    "year": null,
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0539",
+    "doi": "https://doi.org/10.11647/OBP.0539",
+    "isbn": [
+     "978-1-80511-941-8",
+     "978-1-80511-942-5",
+     "978-1-80511-943-2",
+     "978-1-80511-945-6",
+     "978-1-80511-944-9"
+    ],
+    "fulltext_url": null,
+    "route": "R3",
+    "g0_verdict": "fail:출처추적불가"
+   },
+   "g1": {
+    "topic_bucket": "literature",
+    "keywords": [
+     "Eamonn Cantwell",
+     "Ireland",
+     "Irish poetry",
+     "rare books",
+     "Warwick Gould",
+     "William Butler Yeats"
+    ],
+    "page_count": null
+   },
+   "g3": null,
+   "fulltext": {
+    "ok": false,
+    "reason": "OAPEN 미러 없음 — ISBN 전건 0 hits",
+    "notes": [
+     "isbn 9781805119418: 0 hits",
+     "isbn 9781805119425: 0 hits",
+     "isbn 9781805119432: 0 hits",
+     "isbn 9781805119456: 0 hits",
+     "isbn 9781805119449: 0 hits",
+     "NO OAPEN MIRROR FOUND"
+    ]
+   }
+  },
+  {
+   "title": "On History: Introduction to World History (1831); Opening Address at the Faculty of Letters, 9 January 1834; Preface to History of France (1869)",
+   "work_id": "f8a1849c-0be0-4600-9653-83b0dc6de3ae",
+   "work_type": "MONOGRAPH",
+   "g0": {
+    "license_raw": "http://creativecommons.org/licenses/by/3.0/",
+    "license_url": "http://creativecommons.org/licenses/by/3.0/",
+    "license_class": "CC BY",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY",
+    "colophon_text": "This book is licensed under a Creative Commons Attribution 3.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Jules Michelet"
+    ],
+    "year": "2013",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0036",
+    "doi": "https://doi.org/10.11647/OBP.0036",
+    "isbn": [
+     "978-1-909254-70-1",
+     "978-1-909254-71-8",
+     "978-1-909254-72-5",
+     "978-1-80064-463-2",
+     "978-1-909254-73-2",
+     "978-1-909254-74-9"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/30287",
+    "route": "R1",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "biography",
+    "keywords": [
+     "English translation",
+     "French Historiography",
+     "History of France",
+     "Jules Michelet",
+     "Romantic Historiography",
+     "World History"
+    ],
+    "page_count": 174
+   },
+   "g3": {
+    "english": {
+     "latin": 1,
+     "func": 0.3519,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 69195,
+    "keep_pct": 99.6,
+    "prose_paragraphs": 459,
+    "paragraph_length": {
+     "p10": 14,
+     "p25": 29,
+     "median": 98,
+     "p75": 192,
+     "p90": 358,
+     "max": 1405
+    },
+    "windows": {
+     "school_sentence_6_40": 144,
+     "school_para_40_200": 209,
+     "csat_short_90_200": 134,
+     "csat_long_260_400": 39
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 8.11,
+     "mean_per100": 11.44,
+     "zero_para_pct": 9.8
+    },
+    "proper_noun_by_150w_window": {
+     "n": 209,
+     "pn_median": 6.77,
+     "pn_zero_pct": 2.4,
+     "deictic_pct": 12.9,
+     "quote_pct": 0.5
+    },
+    "proper_noun_by_330w_window": {
+     "n": 134,
+     "pn_median": 6.65,
+     "pn_zero_pct": 0.7,
+     "deictic_pct": 14.2,
+     "quote_pct": 0
+    },
+    "starts": {
+     "quote_pct": 0.9,
+     "deictic_pct": 10.5
+    },
+    "footnote_marker_per_1k_words": 0.4,
+    "contrast_marker_para_pct": 37,
+    "past_tense_verbs_per_100w": 4.11,
+    "citation_shaped_window_pct": 28.4,
+    "extraction_damage": {
+     "chars": 411591,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 280,
+     "with_running_header": 0,
+     "with_citation_splice": 26,
+     "dirty_pct": 9.3
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/30287",
+    "words": 69195
+   }
+  },
+  {
+   "title": "Life Histories of Etnos Theory in Russia and Beyond",
+   "work_id": "a795aafb-d189-4d15-8e64-b9a3fbfa8e09",
+   "work_type": "EDITED_BOOK",
+   "g0": {
+    "license_raw": "http://creativecommons.org/licenses/by/4.0/",
+    "license_url": "http://creativecommons.org/licenses/by/4.0/",
+    "license_class": "CC BY",
+    "license_source": "[측정: Thoth GraphQL works.license]",
+    "colophon_class": "CC BY",
+    "colophon_text": "This work is licensed under a Creative Commons Attribution 4.",
+    "colophon_source": "[측정: OAPEN .pdf.txt 선두 80k자]",
+    "author": [
+     "Dmitry V Arzyutov",
+     "David G. Anderson",
+     "Sergei S. Alymov"
+    ],
+    "year": "2019",
+    "source_url": "https://www.openbookpublishers.com/books/10.11647/obp.0150",
+    "doi": "https://doi.org/10.11647/OBP.0150",
+    "isbn": [
+     "978-1-78374-544-9",
+     "978-1-78374-545-6",
+     "978-1-78374-546-3",
+     "978-1-80064-569-1",
+     "978-1-78374-685-9",
+     "978-1-78374-547-0",
+     "978-1-78374-548-7"
+    ],
+    "fulltext_url": "https://library.oapen.org/handle/20.500.12657/25805",
+    "route": "R1",
+    "g0_verdict": "pass"
+   },
+   "g1": {
+    "topic_bucket": "other",
+    "keywords": [
+     "collective identities",
+     "ethnicity",
+     "etnos",
+     "Eurasia",
+     "language",
+     "national identity"
+    ],
+    "page_count": 448
+   },
+   "g3": {
+    "english": {
+     "latin": 0.999,
+     "func": 0.3453,
+     "n": 5000,
+     "verdict": "english"
+    },
+    "total_words": 138857,
+    "keep_pct": 95.5,
+    "prose_paragraphs": 1145,
+    "paragraph_length": {
+     "p10": 16,
+     "p25": 25,
+     "median": 61,
+     "p75": 168,
+     "p90": 276,
+     "max": 1298
+    },
+    "windows": {
+     "school_sentence_6_40": 452,
+     "school_para_40_200": 487,
+     "csat_short_90_200": 282,
+     "csat_long_260_400": 90
+    },
+    "proper_noun_by_paragraph": {
+     "median_per100": 11.63,
+     "mean_per100": 16.1,
+     "zero_para_pct": 3.4
+    },
+    "proper_noun_by_150w_window": {
+     "n": 454,
+     "pn_median": 10.09,
+     "pn_zero_pct": 0,
+     "deictic_pct": 11.9,
+     "quote_pct": 0.2
+    },
+    "proper_noun_by_330w_window": {
+     "n": 265,
+     "pn_median": 9.94,
+     "pn_zero_pct": 0,
+     "deictic_pct": 14.3,
+     "quote_pct": 0.4
+    },
+    "starts": {
+     "quote_pct": 0.3,
+     "deictic_pct": 6.4
+    },
+    "footnote_marker_per_1k_words": 0.2,
+    "contrast_marker_para_pct": 28.5,
+    "past_tense_verbs_per_100w": 5.24,
+    "citation_shaped_window_pct": 80,
+    "extraction_damage": {
+     "chars": 924437,
+     "replacement_per_10k": 0,
+     "body_replacement_per_10k": 0
+    },
+    "cleaning_cost": {
+     "candidate_paras": 663,
+     "with_running_header": 0,
+     "with_citation_splice": 101,
+     "dirty_pct": 15.5
+    }
+   },
+   "fulltext": {
+    "ok": true,
+    "oapen_handle": "20.500.12657/25805",
+    "words": 138857
+   }
+  }
+ ],
+ "g2_pairs": [
+  {
+   "book": "Hanging on to the Edges (2018, CC BY, essays on science & society)",
+   "id": "B1P1",
+   "raw_extracted": "It's not that the standard position puts humans on one side ('nonbiology') and all other kinds of creatures on the other ('biology'). That would be more straightforward in some ways, though prone to immediate and easy falsification. The problem is that the standard view puts humans partly in 'biology' and partly in 'non-biology'. For example, Tourette syndrome feels like a biological kind of thing, and I don't think 'Researcher believes Tourette syndrome is biological' would garner any headlines. In fact we don't know of any single genetic cause of Tourette 28 Hanging on to the Edges syndrome, the environment appears to be very important, and the manifestations are largely behavioural. Indeed, people can suppress the symptoms of this 'biological' phenomenon through voluntary effort, to some extent (in describing Tourette syndrome, the intriguing term 'semi-voluntary actions' is used).",
+   "before": "It's not that the standard position puts humans on one side ('nonbiology') and all other kinds of creatures on the other ('biology'). That would be more straightforward in some ways, though prone to immediate and easy falsification. The problem is that the standard view puts humans partly in 'biology' and partly in 'non-biology'. For example, Tourette syndrome feels like a biological kind of thing, and I don't think 'Researcher believes Tourette syndrome is biological' would garner any headlines. In fact we don't know of any single genetic cause of Tourette syndrome, the environment appears to be very important, and the manifestations are largely behavioural. Indeed, people can suppress the symptoms of this 'biological' phenomenon through voluntary effort, to some extent (in describing Tourette syndrome, the intriguing term 'semi-voluntary actions' is used).",
+   "after": "The common view does not simply put humans on one side, labelled not biology, and every other creature on the other, labelled biology. That division would at least be clear, and it would also be easy to disprove. The real problem is that the common view puts humans partly on each side. Consider a disorder that makes people twitch and call out without meaning to. Most of us feel at once that such a disorder must be biological, and no newspaper would print the headline that a researcher believes it is. Yet no single gene has been found to cause it, the conditions a person grows up in seem to matter a great deal, and what we actually see is behaviour. People can even hold the symptoms back for a while by choosing to, which is why doctors call these movements only half voluntary.",
+   "propernoun_removable": "yes - Tourette syndrome replaced by a description; the thesis survives intact",
+   "deixis_resolvable": "yes - no reference reaching outside the paragraph",
+   "footnote_dependency": "none",
+   "offlist_lowered": "falsification>disprove; manifestations>what we actually see; semi-voluntary>half voluntary"
+  },
+  {
+   "book": "Hanging on to the Edges (2018, CC BY, essays on science & society)",
+   "id": "B1P2",
+   "raw_extracted": "The difficulty with population thinking crops up in trying to understand social phenomena, too. This may explain the widespread persistence of the ecological fallacy in social science research. I cannot tell you how many times I have tried to remember and transmit the following famous example. Amongst senators from the Northern states, a higher proportion of Democrats than Republicans voted for the 1964 Civil Rights Act. Amongst senators from the Southern states, a higher proportion of Democrats than Republicans voted for the 1964 Civil Rights Act. Amongst all the senators in the senate combined, a higher proportion of Republicans than Democrats voted for the 1964 Civil Rights Act. Eh? That can't be right. Actually, it is. It's quite straightforward. Most of the Republicans were from Northern states, where the support for the 1964 Civil Rights Act was high; more of the Democrats were from the South, where support was low. I can hang onto this one for about five minutes...no, it's gone again.",
+   "before": "The difficulty with population thinking crops up in trying to understand social phenomena, too. This may explain the widespread persistence of the ecological fallacy in social science research. I cannot tell you how many times I have tried to remember and transmit the following famous example. Amongst senators from the Northern states, a higher proportion of Democrats than Republicans voted for the 1964 Civil Rights Act. Amongst senators from the Southern states, a higher proportion of Democrats than Republicans voted for the 1964 Civil Rights Act. Amongst all the senators in the senate combined, a higher proportion of Republicans than Democrats voted for the 1964 Civil Rights Act. Eh? That can't be right. Actually, it is. It's quite straightforward. Most of the Republicans were from Northern states, where the support for the 1964 Civil Rights Act was high; more of the Democrats were from the South, where support was low. I can hang onto this one for about five minutes...no, it's gone again.",
+   "after": "Reasoning about a whole population as though it were one large person causes trouble when we try to understand society as well. It may be why one particular mistake keeps reappearing in social research. Here is the standard example, which I have never managed to hold in my head for long. Among lawmakers from the northern part of the country, a larger share of the first party than of the second voted for a major civil rights bill. Among lawmakers from the southern part, again a larger share of the first party voted for it. Yet among all the lawmakers counted together, a larger share of the second party than of the first voted for it. That looks impossible. It is not. Most members of the second party came from the north, where support for the bill was strong, while more members of the first party came from the south, where support was weak.",
+   "propernoun_removable": "yes - parties become first/second, states become north/south, the Act becomes a civil rights bill; the statistical paradox is fully preserved",
+   "deixis_resolvable": "yes but it cost work - the opening names a term defined pages earlier and had to be unpacked in place",
+   "footnote_dependency": "none",
+   "offlist_lowered": "ecological fallacy>one particular mistake; proportion>share"
+  },
+  {
+   "book": "Hanging on to the Edges (2018, CC BY, essays on science & society)",
+   "id": "B1P3",
+   "raw_extracted": "This visceral-state-blindness relates to a classic psychological phenomenon known as the fundamental attribution error.16 The fundamental attribution error refers to our default position, when confronted with people's behaviour, of attributing it to their personality or enduring dispositions, rather than their current situation. We systematically neglect the temporal fluctuations in people's states, in favour of assuming they are just always like that. The fundamental attribution error is poorly named, because sometimes, often even, it produces the correct attribution rather than an erroneous one. So it's better thought of as an explanatory style; one that may be reasonable or prudent on average, but in particular instances leads us to neglect powerful situational influences - such as hunger, itself a product of the powerful influence of having no money right now. That's why commentators are so prone to argue that reliance of food banks must reflect poor moral character, or poor planning, or that 'they never learned to cook', when I am afraid the true situational culprits are staring us in the face.",
+   "before": "This visceral-state-blindness relates to a classic psychological phenomenon known as the fundamental attribution error. The fundamental attribution error refers to our default position, when confronted with people's behaviour, of attributing it to their personality or enduring dispositions, rather than their current situation. We systematically neglect the temporal fluctuations in people's states, in favour of assuming they are just always like that. The fundamental attribution error is poorly named, because sometimes, often even, it produces the correct attribution rather than an erroneous one. So it's better thought of as an explanatory style; one that may be reasonable or prudent on average, but in particular instances leads us to neglect powerful situational influences - such as hunger, itself a product of the powerful influence of having no money right now. That's why commentators are so prone to argue that reliance of food banks must reflect poor moral character, or poor planning, or that 'they never learned to cook', when I am afraid the true situational culprits are staring us in the face.",
+   "after": "Our blindness to what another person's body is feeling at a given moment is one form of a well known habit of mind. When we see how someone behaves, our first move is to explain it by the kind of person they are rather than by the situation they are in. We steadily forget that people's states rise and fall by the hour, and we assume instead that they are simply always like this. The habit is not always an error, since quite often the explanation it produces is the right one. It is better described as a style of explaining, sensible enough on average, but one that in particular cases makes us overlook a powerful pressure standing right in front of us, such as hunger, which is itself the product of having no money today. That is why it is so easy to claim that people who use food banks must lack character, or foresight, or that they never learned to cook.",
+   "propernoun_removable": "not applicable - the paragraph contains no proper nouns",
+   "deixis_resolvable": "yes - the opening pointer was unpacked in place",
+   "footnote_dependency": "marker 16 present but the argument does not depend on it",
+   "offlist_lowered": "enduring dispositions>the kind of person they are; temporal fluctuations>rise and fall by the hour; situational influences>a powerful pressure"
+  },
+  {
+   "book": "Ethics for A-Level (2017, CC BY, philosophy textbook)",
+   "id": "B2P1",
+   "raw_extracted": "Aristotelian Virtue Ethics 52 According to Aristotle, virtues are character dispositions or personality traits. This focus on our dispositions and our character, rather than our actions in isolation, is what earns Aristotelian Virtue Ethics the label of being an agentcentred moral theory rather than an act-centred moral theory. Act-Centred Moral Theories Utilitarianism and Kantian Ethics are two different examples of act-centred moral theories due to their focus on actions when it comes to making moral assessments and judgments. Act-centred moral theories may be teleological or deontological, absolutist or relativist, but they share a common worldview in that particular actions are bearers of moral value - either being right or wrong.",
+   "before": "According to Aristotle, virtues are character dispositions or personality traits. This focus on our dispositions and our character, rather than our actions in isolation, is what earns Aristotelian Virtue Ethics the label of being an agent-centred moral theory rather than an act-centred moral theory. Utilitarianism and Kantian Ethics are two different examples of act-centred moral theories due to their focus on actions when it comes to making moral assessments and judgments. Act-centred moral theories may be teleological or deontological, absolutist or relativist, but they share a common worldview in that particular actions are bearers of moral value - either being right or wrong.",
+   "after": "On one ancient account, a virtue is a settled feature of a person's character rather than a single thing they do. Because such an account looks at the person and not at the deed on its own, it is called an agent centred theory of morality, in contrast to a deed centred one. Two of the best known modern theories are deed centred: one judges an action by the good and the harm it produces, the other by whether it follows a rule that everyone could follow. Deed centred theories differ among themselves over whether outcomes or rules settle the matter, and over whether moral standards hold everywhere or only inside a community. What they share is the view that moral worth attaches to the particular deed, which is either right or wrong.",
+   "propernoun_removable": "mechanically yes, but the passage loses its subject - Aristotle, Utilitarianism and Kantian Ethics are what the paragraph is ABOUT. After removal it still argues, but about unnamed theories",
+   "deixis_resolvable": "yes",
+   "footnote_dependency": "none; a running header was spliced into the head and a section heading into the middle",
+   "offlist_lowered": "teleological/deontological>outcomes or rules; absolutist/relativist>hold everywhere or only inside a community; dispositions>settled feature of character"
+  },
+  {
+   "book": "Ethics for A-Level (2017, CC BY, philosophy textbook)",
+   "id": "B2P2",
+   "raw_extracted": "7 Aristotle, The Nicomachean Ethics, http://sacred-texts.com/cla/ari/nico/index.htm NORMATIVE ETHICS 55 to reflect specifically on what to do in abnormal or difficult situations (e.g. moral dilemmas, in the case of ethics) but in normal situations appropriate responses will be natural for those who are properly skilled. It is the need to become skilled when developing virtuous character traits that leads Aristotle to suggest that becoming virtuous will require a lifetime of work. Putting up a single bookshelf does not make you a skilled builder any more than a single act of courage makes you a courageous and virtuous person. It is the repetition of skill that determines your status and the development of virtuous characters requires a lifetime of work rather than a single week at a Virtue Ethics Bootcamp.",
+   "before": "to reflect specifically on what to do in abnormal or difficult situations (e.g. moral dilemmas, in the case of ethics) but in normal situations appropriate responses will be natural for those who are properly skilled. It is the need to become skilled when developing virtuous character traits that leads Aristotle to suggest that becoming virtuous will require a lifetime of work. Putting up a single bookshelf does not make you a skilled builder any more than a single act of courage makes you a courageous and virtuous person. It is the repetition of skill that determines your status and the development of virtuous characters requires a lifetime of work rather than a single week at a Virtue Ethics Bootcamp.",
+   "after": "A skilled person still has to stop and think in strange or hard cases, but in ordinary ones the right response comes naturally. Because good character is a skill of this kind, the ancient view holds that becoming good takes a lifetime. Putting up one bookshelf does not make you a builder, and one brave act does not make you a brave person. It is the repeated exercise of the skill that settles what you are, so a character is built over years rather than in a single week at a training camp.",
+   "propernoun_removable": "yes - Aristotle becomes the ancient view; the bookshelf analogy carries the argument by itself",
+   "deixis_resolvable": "only partly - the paragraph as extracted BEGINS MID-SENTENCE, so the opening clause had to be reconstructed rather than resolved",
+   "footnote_dependency": "a footnote with a URL and a running header were spliced into the head of the paragraph by the extractor",
+   "offlist_lowered": "virtuous character traits>good character; Virtue Ethics Bootcamp>training camp"
+  },
+  {
+   "book": "Ethics for A-Level (2017, CC BY, philosophy textbook)",
+   "id": "B2P3",
+   "raw_extracted": "For Aquinas, if we rationally reflect then we arrive at the right way of proceeding. If this is in line with the Natural Law and the Divine Law then it is morally acceptable. If it is out of line, then it is not. The assumption is that the more we think, the more rational we become, the more convergence there will be. We'll all start to have similar views on what is right and wrong. But is this too optimistic? Very often, even after extensive reflection and cool deliberation with friends and colleagues, it is not obvious to us what we as rational agents should do. We all know people we take to be rational, but we disagree with them on moral issues. And even in obviously rational areas such as mathematics, the best mathematicians are not able to agree. We might then be sceptical that as rational agents we will come to be in line with the Natural and Divine Laws.",
+   "before": "For Aquinas, if we rationally reflect then we arrive at the right way of proceeding. If this is in line with the Natural Law and the Divine Law then it is morally acceptable. If it is out of line, then it is not. The assumption is that the more we think, the more rational we become, the more convergence there will be. We'll all start to have similar views on what is right and wrong. But is this too optimistic? Very often, even after extensive reflection and cool deliberation with friends and colleagues, it is not obvious to us what we as rational agents should do. We all know people we take to be rational, but we disagree with them on moral issues. And even in obviously rational areas such as mathematics, the best mathematicians are not able to agree. We might then be sceptical that as rational agents we will come to be in line with the Natural and Divine Laws.",
+   "after": "On this view, careful reasoning leads a person to the right course of action. If that course fits the moral order built into the world, it is acceptable; if it does not, it is not. The assumption behind the view is that the harder we think, the more our conclusions will converge, until we all hold much the same opinions about right and wrong. But is that too hopeful? Very often, even after long reflection and calm discussion with friends, it is still not clear what we ought to do. We all know people we regard as reasonable, and we disagree with them about moral questions anyway. Even in a field as orderly as mathematics, the leading figures cannot always agree. So we have reason to doubt that reasoning alone will bring us into line with any underlying moral order.",
+   "propernoun_removable": "yes - Aquinas becomes on this view, Natural Law and Divine Law become the moral order built into the world; the argument fully survives",
+   "deixis_resolvable": "yes - the only backward tie is nameable in place",
+   "footnote_dependency": "none",
+   "offlist_lowered": "convergence>our conclusions will converge; rational agents>we; sceptical>have reason to doubt"
+  },
+  {
+   "book": "Beyond Holy Russia (2014, CC BY, biography)",
+   "id": "B3P1",
+   "raw_extracted": "172 Beyond Holy Russia been done to their race (in the unpublished version of his memoirs, written many years later, he was sharply critical of those who campaigned for civil rights).5 Graham was nevertheless insistent that most of the failings that supposedly characterised black Americans could be traced back to the evils of slavery rather than to colour. This somewhat reductionist approach ran through his book and, at times, sat unhappily with its numerous anecdotes and vignettes, which taken together appeared to show precisely how difficult it was to generalise about the experience of the people he wrote about. Graham was never entirely successful in The Children of the Slaves at reconciling his twin roles of artist and sociologist, a flaw that had been evident in many of his earlier writings on Russia.",
+   "before": "been done to their race (in the unpublished version of his memoirs, written many years later, he was sharply critical of those who campaigned for civil rights). Graham was nevertheless insistent that most of the failings that supposedly characterised black Americans could be traced back to the evils of slavery rather than to colour. This somewhat reductionist approach ran through his book and, at times, sat unhappily with its numerous anecdotes and vignettes, which taken together appeared to show precisely how difficult it was to generalise about the experience of the people he wrote about. Graham was never entirely successful in The Children of the Slaves at reconciling his twin roles of artist and sociologist, a flaw that had been evident in many of his earlier writings on Russia.",
+   "after": "The traveller held firmly that most of the faults then attributed to black Americans came from the evils of slavery rather than from colour, though in a memoir written long afterwards he was sharply critical of those who campaigned for civil rights. This single explanation ran through his book, and it sat awkwardly beside the many small scenes and anecdotes he also set down, which together showed how hard it was to generalise about the lives of the people he was describing. He never quite managed, in that book, to hold together his two roles of artist and social observer, and the same difficulty had marked much of his earlier writing about the country he had travelled through in his youth.",
+   "propernoun_removable": "yes but the passage goes anonymous - with Graham, the book title and Russia gone, what is left is a judgement about an unnamed man's unnamed book",
+   "deixis_resolvable": "NO - the paragraph as extracted begins mid-sentence at a page break, and its subject had to be supplied from the surrounding pages",
+   "footnote_dependency": "a footnote marker and a running header were spliced in",
+   "offlist_lowered": "reductionist>single explanation; vignettes>small scenes; sociologist>social observer",
+   "content_flag": "the subject's recorded views on race need editorial handling under G1-2"
+  },
+  {
+   "book": "Beyond Holy Russia (2014, CC BY, biography)",
+   "id": "B3P2",
+   "raw_extracted": "Graham was well aware that the legacy of slavery was intimately bound up with the identity of the American South. Whilst he did not address the whole question directly, the phenomenon posed a particular challenge for him given that he was, like so many travellers, bewitched by the region's subtle blend of culture and climate. He recalled how as he made his journey southward: Crossing the Mason-Dixon line was rather a magical and wonderful event for me. After all, the North, with its mighty cities and industrialised populations, is merely prose to one who comes from England. Pennsylvania is a projection of Lancashire and Yorkshire, New York is a projection of London, and massive Washington has something of the oppressiveness of English park drives and Wellingtonias. But Southward one divines another and a better country. It has a glamour; it lures.",
+   "before": "Graham was well aware that the legacy of slavery was intimately bound up with the identity of the American South. Whilst he did not address the whole question directly, the phenomenon posed a particular challenge for him given that he was, like so many travellers, bewitched by the region's subtle blend of culture and climate. He recalled how as he made his journey southward: Crossing the Mason-Dixon line was rather a magical and wonderful event for me. After all, the North, with its mighty cities and industrialised populations, is merely prose to one who comes from England. Pennsylvania is a projection of Lancashire and Yorkshire, New York is a projection of London, and massive Washington has something of the oppressiveness of English park drives and Wellingtonias. But Southward one divines another and a better country. It has a glamour; it lures.",
+   "after": "The traveller knew that the legacy of slavery was bound up with the identity of the southern states. He never faced the question head on, and that was awkward for him, because like many visitors he was charmed by the region's particular mixture of culture and climate. He remembered the moment he crossed the old border between north and south as something close to magical. The north, with its great industrial cities, was mere prose to a man who had come from England: one state was a copy of the mill counties he already knew, one city a copy of his own capital, and the seat of government carried the heaviness of an English park. Southward, he felt, lay a different and a better country. It had glamour; it drew him on.",
+   "propernoun_removable": "NO in any useful sense - half the paragraph is a block quotation built entirely out of place-name comparisons. Replacing the names does not edit the quotation, it destroys it, and what comes out is a paraphrase, that is re-authoring rather than an original text",
+   "deixis_resolvable": "yes",
+   "footnote_dependency": "none",
+   "offlist_lowered": "bewitched>charmed; divines>felt; Wellingtonias>dropped"
+  },
+  {
+   "book": "Beyond Holy Russia (2014, CC BY, biography)",
+   "id": "B3P3",
+   "raw_extracted": "Graham stayed in Tallahassee for about six weeks, meeting many of Hay's friends and fellow professors at Florida State University, as well as attending various concerts and plays. He also visited New Orleans, some three hundred and fifty miles along the Gulf coast, and was once again stunned to find how the rotting wooden city he had known half a century earlier had become a place of packed streets and convention hotels. Graham also had the opportunity to visit Houston, where he went to the Harry Ransom Center at the University of Texas, in order to see a collection of his 29 A ll quotations in the following paragraphs unless otherwise stated from Graham Papers (FSU), Box 580, 2 ('America after Fifty Years') or Graham Papers (FSU), Box 582, 39 (Various notes on United States).",
+   "before": "Graham stayed in Tallahassee for about six weeks, meeting many of Hay's friends and fellow professors at Florida State University, as well as attending various concerts and plays. He also visited New Orleans, some three hundred and fifty miles along the Gulf coast, and was once again stunned to find how the rotting wooden city he had known half a century earlier had become a place of packed streets and convention hotels. Graham also had the opportunity to visit Houston, where he went to the Harry Ransom Center at the University of Texas, in order to see a collection of his papers.",
+   "after": "The traveller stayed in the university town for about six weeks, meeting his friend's colleagues and going to concerts and plays. He also went to the old port city three hundred and fifty miles along the coast, and was again astonished to find that the decaying wooden town he had known half a century earlier had become a place of crowded streets and convention hotels. From there he travelled on to a large city further west, where a university library held a collection of his own papers.",
+   "propernoun_removable": "mechanically yes - but the paragraph is an itinerary, and once the places are gone it says almost nothing. There was no argument to preserve",
+   "deixis_resolvable": "yes",
+   "footnote_dependency": "a 40-word archival citation was spliced into the tail of the paragraph by the extractor",
+   "offlist_lowered": "not applicable - the vocabulary is already easy"
+  }
+ ],
+ "generated": {
+  "date": "2026-09-24",
+  "db_writes": 0,
+  "downloads": "17권 .pdf.txt (약 8MB) · Thoth GraphQL 13회 · OAPEN REST 약 70회"
+ }
+}

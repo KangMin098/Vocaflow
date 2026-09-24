@@ -20,6 +20,12 @@
 //   NASA 사진 설명글이 FK 는 낮은데 교육과정 밖이 64% 였다. 같은 NASA 라도 이 소스는
 //   어린이용으로 쓰였지만, **믿지 않고 잰다.**
 //
+// ── 원천 먼저 (2026-09-24) ───────────────────────────────────────────
+// 발췌는 원천이 아니다(docs/source-check/criteria.md §1). 이제 글마다 **전문을 원천 행**
+// (`space_place:<slug>`)으로 먼저 담고, `--band` 발췌는 조각 행(`#p<a>-<b>` ·
+// `csat_fit.derived_from.kind = 'excerpt'`)으로 덧붙인다. 어휘 가드는 조각만 가른다.
+// 예전 발췌만 있던 글의 원천은 `scripts/textbook/originals-backfill.mjs` 가 채운다.
+//
 // 재실행 안전: `(source, source_id)` 로 먼저 조회해 이미 있으면 건너뛴다. 건너뛴 수를 출력한다.
 // ⚠️ 기본은 dry-run. `--commit` 없이는 DB 에 쓰지 않는다.
 //
@@ -49,12 +55,14 @@ const { createClient } = await import('@supabase/supabase-js')
 const {
   listSpacePlaceFeed,
   ingestSpacePlaceArticle,
+  isShortBodyError,
   spacePlaceParagraphs,
   excerptForBand,
   gradeBand,
   passesCurriculumGate,
   PASSAGE_WORDS,
 } = await import('../../packages/library-pipeline/src/index.ts')
+const { ensureOriginal, fragmentCsatFit } = await import('./_originals.mjs')
 
 const targetBand = BAND ? gradeBand(BAND) : null
 if (BAND && !targetBand) {
@@ -81,25 +89,57 @@ let existed = 0
 let outOfSpec = 0
 let vocabBlocked = 0
 let failed = 0
+let shortBody = 0
+let emptyBody = 0
+/** 원천 행 — 새로 담음(dry-run 은 담을 예정). 조각 수(`added`)와 따로 센다. */
+let originalsAdded = 0
 
 for (const item of list) {
   let article
   try {
     article = await ingestSpacePlaceArticle(item.url)
   } catch (e) {
-    failed++
-    console.log(`  ✗ ${String(e.message).slice(0, 62)}`)
-    continue
+    // 짧은 본문은 **버리지 않는다**(사용자 결정 2026-09-23 — 길이로 원문을 제외하지 않는다).
+    //   본문이 있으면 아래 발췌·창 판정으로 그대로 흘린다 — 창이 가른다, 길이 하한이 아니라.
+    //   빈 본문(0어)은 파서 고장 신호라 따로 세고, 판정으로 적지 않는다(파서를 고치면 되살아난다).
+    if (isShortBodyError(e) && !e.isEmpty && e.article) {
+      shortBody++
+      article = e.article
+    } else if (isShortBodyError(e)) {
+      emptyBody++
+      console.log(`  ✗ 빈 본문(파서 확인) ${item.url}`)
+      continue
+    } else {
+      failed++
+      console.log(`  ✗ ${String(e.message).slice(0, 62)}`)
+      continue
+    }
   }
   await new Promise((z) => setTimeout(z, 700))
 
   const words = (article.content.match(/[A-Za-z][A-Za-z'-]*/g) || []).length
-  let row = {
-    source_id: article.source_id,
-    title: article.title,
-    content: article.content,
-    note: null,
+
+  // ── 원천 먼저 (2026-09-24) — 전문을 원천 행으로 ─────────────────────
+  // 게이트·발췌보다 **앞에** 둔다. 어휘 가드·창은 조각을 가를 뿐 원천을 버리지 않는다.
+  let parent
+  try {
+    parent = await ensureOriginal(db, { article }, { commit: COMMIT })
+  } catch (e) {
+    failed++
+    console.log(`  ✗ ${String(e.message).slice(0, 72)}`)
+    continue
   }
+  if (parent.status === 'existed') existed++
+  else if (parent.status === 'empty') emptyBody++
+  else originalsAdded++
+  console.log(
+    `  ${COMMIT ? '✓' : '·'} 원천 ${String(parent.words).padStart(4)}어  ${parent.status.padEnd(8)} ${article.title.slice(0, 44)}`
+  )
+
+  // 조각은 `--band` 를 주고 전문이 그 칸의 창 밖일 때만 만든다. 그 밖에는 원천이 곧 지문 후보다.
+  if (!targetBand || (words >= PASSAGE_WORDS.min && words <= PASSAGE_WORDS.max)) continue
+
+  let row = null
 
   // ⚠️ **길이는 확보 여부를 가르지 않는다**(2026-09-23 사용자 결정 · DD-79).
   //   예전에는 창(100~200어) 밖이고 `--band` 가 없으면 `outOfSpec` 으로 **버렸다** —
@@ -107,15 +147,16 @@ for (const item of list) {
   //   원문은 지문이 아니다. 자를지 말지는 교재 생성이 유형별 창으로 정한다
   //   (`compose-unit.itemWordSpec` — 문장 6~40 · 학교 문단 40~200 · 수능 90~200 · 장문 260~400).
   //   `--band` 를 준 경우에만 **덧붙여** 발췌를 만든다. 못 만들어도 전문은 담는다.
-  if (targetBand && (words < PASSAGE_WORDS.min || words > PASSAGE_WORDS.max)) {
+  {
     // 통째로는 그 칸의 창 밖 — 문단 경계에서 그 칸에 드는 조각을 만든다.
     const paras = spacePlaceParagraphs(
       await (await fetch(item.url, { headers: { 'user-agent': UA } })).text()
     )
     const ex = paras.length ? excerptForBand(paras, targetBand) : null
     if (!ex) {
-      // 조각을 못 만들어도 **전문은 담는다** — 길이로 버리지 않는다.
+      // 조각을 못 만들어도 **원천은 이미 담았다** — 길이로 버리지 않는다.
       outOfSpec++
+      continue
     } else {
       row = {
         // 문단 범위를 열쇠에 남긴다 — 원본과 다른 글로 dedup 되고 나중에 되짚을 수 있다.
@@ -164,6 +205,7 @@ for (const item of list) {
       license: article.license,
       content: row.content,
       status: 'queued',
+      csat_fit: fragmentCsatFit(article, parent, 'excerpt'),
     })
     if (error) {
       failed++
@@ -179,7 +221,7 @@ for (const item of list) {
 }
 
 console.log(
-  `\n추가 ${added} · 이미 있음 ${existed} · 규격 밖 ${outOfSpec} · **어휘 가드 차단 ${vocabBlocked}** · 실패 ${failed}`
+  `\n원천 ${originalsAdded} · 조각 추가 ${added} · 이미 있음(원천) ${existed} · 규격 밖 ${outOfSpec} · **어휘 가드 차단 ${vocabBlocked}** · 실패 ${failed} · 짧은 본문(창 판정으로) ${shortBody} · 빈 본문(파서 확인) ${emptyBody}`
 )
 if (!COMMIT) console.log('\ndry-run 이었다. 실제로 쓰려면 --commit.')
 

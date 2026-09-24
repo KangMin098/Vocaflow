@@ -413,3 +413,15 @@
   padding-top: 0;
   padding-bottom: 0;
 }
+
+/* 사유 조건은 바깥(공정 관문)에서 내려온 것이라 「거르개 지우기」가 못 지운다 — 제 단추를 준다. */
+.dropReason {
+  min-height: 0;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border: 1px solid var(--bd);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--t2);
+  font-size: 11px;
+}

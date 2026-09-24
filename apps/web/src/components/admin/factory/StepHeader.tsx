@@ -76,7 +76,7 @@ export function StepHeader({
           <b className="block font-display text-[11px] font-[700] text-[var(--t3)]">들어오는 것</b>
           {step.takes}
         </li>
-        <li className="relative flex items-center justify-center rounded-[var(--r-md)] border border-[var(--admin)]/50 px-3 py-2 font-display text-[13px] font-[800] text-[var(--admin)] sm:after:absolute sm:after:-right-5 sm:after:top-1/2 sm:after:-translate-y-1/2 sm:after:font-[400] sm:after:text-[var(--t3)] sm:after:content-['→']">
+        <li className="relative flex items-center justify-center rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--admin)_50%,transparent)] px-3 py-2 font-display text-[13px] font-[800] text-[var(--admin)] sm:after:absolute sm:after:-right-5 sm:after:top-1/2 sm:after:-translate-y-1/2 sm:after:font-[400] sm:after:text-[var(--t3)] sm:after:content-['→']">
           {step.name}
         </li>
         <li className="break-keep rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)]">

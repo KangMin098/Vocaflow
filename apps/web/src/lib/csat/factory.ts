@@ -426,9 +426,10 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
             writes: true,
           },
           {
-            cmd: 'node scripts/textbook/harvest-gutenberg-kid.mjs',
-            why: '아래 밴드(초·중등) 지문을 수확한다',
-            writes: true,
+            // 2026-09-24 — gutenberg 퇴출로 harvest-gutenberg-kid.mjs 가 지워졌다. 초·중등 서사 후보는
+            //   파일럿 보고서가 고른 StoryWeaver 다. 대량 수확은 승인 대기라 **예행(기본)** 만 권한다.
+            cmd: 'pnpm dlx tsx scripts/textbook/storyweaver-ingest.mjs --limit 12',
+            why: '아래 밴드(초·중등) 서사 지문 후보를 예행으로 센다 — 기본은 쓰지 않는다(--commit 은 수확 승인 뒤)',
           },
           {
             cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/graded-source-probe.mjs',

@@ -16,6 +16,7 @@
 //   MathML(<m:math>)·<figure>/<media>/<image>·<exercise>·<equation> 제거 (lexical_noise 원천).
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { fetchWithTimeout, decodeEntities } from './_helpers'
 
@@ -136,11 +137,10 @@ export async function ingestOpenStaxModule(ref: OpenStaxModuleRef): Promise<RawA
   const moduleTitle =
     cnxml.match(/<title>\s*([\s\S]*?)\s*<\/title>/i)?.[1]?.trim() ?? ref.moduleId
   const content = cnxmlToPlainText(cnxml)
-  if (content.length < 400) {
-    throw new Error(`openstax body too short: ${content.length} chars (${ref.moduleId})`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.length < 400
 
-  return {
+  const article: RawArticle = {
     source: 'openstax',
     source_id: `openstax:${ref.repo}:${ref.moduleId}`,
     source_url: `${RAW_BASE}/${ref.repo}/${branch}/modules/${ref.moduleId}/index.cnxml`,
@@ -153,4 +153,13 @@ export async function ingestOpenStaxModule(ref: OpenStaxModuleRef): Promise<RawA
     estimated_cefr: 'C1', // 대학 교재 = 학술 (analyze 단계 재측정)
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`openstax body too short: ${content.length} chars (${ref.moduleId})`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

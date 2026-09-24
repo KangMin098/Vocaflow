@@ -91,7 +91,7 @@ export function FactoryMap({
   return (
     <div className="flex flex-col gap-5">
       {loadError ? (
-        <div role="alert" className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--error)]/40 bg-[var(--error)]/5 p-4">
+        <div role="alert" className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--error)_40%,transparent)] bg-[color-mix(in_srgb,var(--error)_5%,transparent)] p-4">
           <p className="font-display text-[13.5px] font-[700] text-[var(--error-ink)]">공장 숫자를 읽지 못했어요</p>
           <p className="break-keep font-body text-[12.5px] text-[var(--t1)]">
             무슨 일: {loadError}
@@ -161,7 +161,7 @@ export function FactoryMap({
             <Link
               key={r.step.key}
               href={r.step.href}
-              className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--admin)]/60 bg-[var(--bg2)] p-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--admin)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--admin)] sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-dashed border-[color-mix(in_srgb,var(--admin)_60%,transparent)] bg-[var(--bg2)] p-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--admin)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--admin)] sm:flex-row sm:items-center sm:justify-between"
             >
               <div className="flex flex-col gap-1">
                 <div className="flex flex-wrap items-center gap-2">

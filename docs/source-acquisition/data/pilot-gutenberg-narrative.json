@@ -1,0 +1,2847 @@
+{
+ "contract": "pilot/v1",
+ "pilot": "gutenberg-narrative-reassessment",
+ "measuredAt": "2026-09-24",
+ "question": "2026-09-24 에 지운 gutenberg 40,519행 중 narrative 판정 13,637편이 C 무리(장문 서사) 또는 초·중등 서사 슬롯을 채울 수 있는가. 앞선 부정적 측정은 서사·논픽션을 섞은 전체 평균이었다 — 서사 분만 따로 잰다.",
+ "evidenceTags": {
+  "[측정]": "이 파일럿이 직접 잰 값. 재현 경로를 함께 적었다.",
+  "[문헌]": "외부 1차 자료의 값. URL 을 적었다.",
+  "[추론]": "판정에 쓰지 않았다. limits 에만 있다."
+ },
+ "source": {
+  "name": "gutenberg",
+  "snapshot": ".agent-logs/retire-gutenberg-20260923.json",
+  "snapshotTakenAt": "2026-09-23T22:25:27.194Z",
+  "snapshotRows": 40519,
+  "snapshotBooks": 1809,
+  "narrativeChunks": 13637,
+  "narrativeBooks": 938,
+  "note": "source_id 는 본문 해시다 — 책 번호는 source_url(`…/ebooks/<id>`)에서 뽑았다. narrative 13,637 조각은 938권에서 나왔다 [측정: scratchpad extract.mjs].",
+  "fetch": "https://www.gutenberg.org/cache/epub/<id>/pg<id>.txt — curl (node fetch 는 ECONNRESET). 20/20 http=200 [측정]",
+  "chopper": "scripts/csat/lib-chop.mjs chopToWindow(body,{lo,max}) — 옛 chop() 아님 [측정: import 경로]"
+ },
+ "sampling": {
+  "frame": "스냅샷의 verdict==\"narrative\" 13,637 조각 → source_url 의 책 번호로 묶어 938권",
+  "n": 20,
+  "unit": "book",
+  "strata": {
+   "어수대": "책의 narrative 조각 평균 어수 3분위(cut 130 · 155어) → short 7 · mid 7 · long 6",
+   "갈래": "책 단위 최빈 genre. fiction 11 · travel 3 · biography 2 · history 2 · social 1 · nature 1",
+   "저자": "정규화 저자명 중복 금지 → 20권 20저자. 저자 없는 책(938권 중 47권)은 G0-4 로 표본에서 제외"
+  },
+  "seed": "mulberry32(20260924) — 결정적 재현 가능",
+  "populationStrata": {
+   "note": "표본의 층이 모집단에서 차지하는 몫 [측정: narrative-books.json]",
+   "fictionBooks": 687,
+   "fictionChunks": 8228,
+   "nonfictionBooks": 251,
+   "nonfictionChunks": 5409,
+   "fictionChunkPct": 60.3,
+   "byBookGenre": {
+    "fiction": 687,
+    "biography": 75,
+    "history": 62,
+    "travel": 43,
+    "literature": 17,
+    "art": 12,
+    "memoir": 12,
+    "essay": 9,
+    "education": 6,
+    "philosophy": 4,
+    "social": 4,
+    "nature": 4,
+    "science": 2,
+    "technology": 1
+   },
+   "booksWithoutAuthor": 47
+  }
+ },
+ "g0": {
+  "gutenbergDeclaration": {
+   "value": "Public domain in the USA.",
+   "coverage": "20/20 권 전부 같은 문자열 [측정: 각 권 https://www.gutenberg.org/ebooks/<id> 의 dcterms:rights]",
+   "finding": "**Gutenberg 의 선언은 미국 한정이다.** 본문 머리말도 \"If you are not located in the United States, you will have to check the laws of the country where you are located\" 라고 적는다 — 20/20 권 동일. \"Gutenberg 는 PD\" 를 원천 단위 확인 없이 쓰면 안 되는 이유가 이것이다.",
+   "copyrightedPGEbooks": "0/20 — \"copyrighted Project Gutenberg eBook\"(PG 재고 중 저작권 존속분) 은 표본에 없었다 [측정: grep]"
+  },
+  "koreaAssessment": {
+   "basis": "한국 저작권법 제39조(사망 후 70년) · 제40조(무명·이명 저작물은 공표 후 70년) [문헌: https://www.law.go.kr/법령/저작권법]. 저작자 생몰년은 각 권 Gutenberg 서지의 저자 항목에서 읽었다 [측정].",
+   "caveat": "법률 판단은 사용자 소관이다(criteria G0-3). 여기 있는 것은 **날짜 산술**이고 결론이 아니다.",
+   "expiredInKR": 14,
+   "protectedInKR": 4,
+   "unknownAuthorDeath": 2,
+   "breakdown": {
+    "expired_by_pub+70": 3,
+    "expired": 11,
+    "unknown_author_death": 2,
+    "protected_until_2029": 1,
+    "protected_until_2036": 1,
+    "protected_until_2028": 1,
+    "protected_until_2042": 1
+   },
+   "unknownList": [
+    {
+     "id": "51280",
+     "author": "Ethel Gwendoline Vincent",
+     "why": "저작자 몰년이 Gutenberg 서지에 없고 이명(펜네임)도 아니다 — 제40조를 못 쓴다"
+    },
+    {
+     "id": "22398",
+     "author": "Emilie Searchfield",
+     "why": "저작자 몰년이 Gutenberg 서지에 없고 이명(펜네임)도 아니다 — 제40조를 못 쓴다"
+    }
+   ],
+   "protectedList": [
+    {
+     "id": "222",
+     "title": "The Moon and Sixpence",
+     "author": "W. Somerset Maugham",
+     "died": 1965,
+     "freeFrom": 2036
+    },
+    {
+     "id": "46102",
+     "title": "An American Girl in Munich",
+     "author": "Mabel W. Daniels",
+     "died": 1971,
+     "freeFrom": 2042
+    },
+    {
+     "id": "22095",
+     "title": "The Red Cross Girls with the Russian Army",
+     "author": "Margaret Vandercook",
+     "died": 1958,
+     "freeFrom": 2029
+    },
+    {
+     "id": "38983",
+     "title": "The Camp Fire Girls Solve a Mystery",
+     "author": "Hildegard G. Frey",
+     "died": 1957,
+     "freeFrom": 2028
+    }
+   ],
+   "finding": "**20권 중 4권(20%)은 미국에서 PD 지만 한국에서는 아직 보호 기간 중이다** [측정: 저자 몰년 + 법 제39조 산술]. 상업 교재를 낸다는 결정(criteria 전제) 아래서 이 4권은 R0 가 아니라 R4(재저작) 경로다. 표본이 20권이므로 모집단 비율은 아니지만, **\"PD 라 다시 받으면 된다\" 는 전제가 권 단위 확인 없이는 성립하지 않는다**는 것은 이 한 표본으로 충분히 보인다."
+  },
+  "yearTraceability": {
+   "resolved": 19,
+   "unresolved": 1,
+   "unresolvedList": [
+    {
+     "id": "2827",
+     "title": "Aslauga's Knight",
+     "why": "영역본의 출판 연도·역자가 Gutenberg 헤더·본문·Open Library 어디에도 없다. 독일어 원작은 Fouqué(1777-1843) 생전 작 [측정: 서지]. G0-4 로 **탈락**."
+    }
+   ],
+   "method": "① 본문 표제지의 Copyright/Published 행 [측정: grep] → 14권. ② 없으면 Open Library search.json 의 first_publish_year [문헌: https://openlibrary.org/search.json] → 5권. ③ 둘 다 없으면 탈락 → 1권.",
+   "note": "Gutenberg 헤더의 Release date 는 **등록 연도**이지 원저 연도가 아니다. 20권 전부에서 둘이 달랐다(최소 25년, 최대 142년 차이) [측정]."
+  },
+  "route": "R0(표현 그대로) — 단, 위 4권은 한국 기준 R4. 표기 의무 없음(PD)."
+ },
+ "g1": {
+  "slotFit": {
+   "target": {
+    "note": "demand-model.md §1 · criteria G1-3 의 C 무리 목표치 [측정: 기출 802문항]",
+    "C장문서사": {
+     "어수중앙": 334,
+     "고유명사per100": 4.25,
+     "고유명사0개지문": "0%",
+     "앞문맥지시어시작": "0%",
+     "인용부호시작": "0%",
+     "시간순표지": "89.7%"
+    },
+    "초중등서사": {
+     "초6중앙": 62,
+     "중1중앙": 84,
+     "중3중앙": 81
+    }
+   },
+   "measured": "아래 g3 를 보라. 같은 정규식(demand-model.mjs 의 CAPS · BACKREF · startsQuote · 시간순)으로 쟀다 [측정].",
+   "verdictC": "C 장문 서사 슬롯 — **원문 그대로는 못 채운다.** 수능장문 창(260~400)에서 앞 문맥 지시어로 시작 27.4%(목표 0%) · 인용부호로 시작 9.0%(목표 0%) · 시간순 표지 67.0%(목표 89.7%) · 고유명사 5.16/100어(목표 4.25). 네 지표가 모두 목표에서 어긋난다 [측정: 4,772 조각].",
+   "verdictKid": "초·중등 서사 슬롯 — **어수는 맞출 수 있으나 대화가 막는다.** 학교문단 창(40~200)에서 fiction 조각의 59.3%가 대화 비중 9%(STANDALONE_GATE.maxQuotedPct)를 넘는다 [측정: 7,795 조각]. 시중 초·중 지문의 대화 비중은 중앙 0 · p95 8.5다 [측정: standalone.ts STANDALONE_SPEC].",
+   "splitFinding": "**앞선 전체 평균이 가린 것은 서사 vs 논픽션이 아니라 fiction vs 논픽션 서사였다.** 인용부호로 시작: fiction 24.2% · 논픽션 서사 2.2%. 대화 9% 초과: fiction 83.7% · 논픽션 서사 30.5%(수능장문 창) [측정]. 두 무리를 섞은 평균(9.0% · 46.9%)은 어느 쪽의 값도 아니다."
+  },
+  "era": {
+   "yearRange": [
+    1863,
+    1919
+   ],
+   "yearMedian": 1905,
+   "after1930": 0,
+   "distribution": {
+    "1860s": 1,
+    "1880s": 2,
+    "1890s": 1,
+    "1900s": 5,
+    "1910s": 10,
+    "unknown": 1
+   },
+   "finding": "**표본 20권 전부가 1919년 이전이다** [측정: g0.yearTraceability]. PD 라는 제약이 남기는 연대가 그것뿐이므로 이것은 표본의 성질이 아니라 **원천의 성질**이다(sources-register.md 가 같은 이유를 적었다).",
+   "readability": "문장 구조는 현대 영어에 가깝다 — 장문 조각의 문장 평균 20.5어, 고어체 표지(thou·ere·whilst·hath…)를 하나라도 담은 조각이 7.3%, 낱말당 밀도 0.04/100어 [측정: 4,772 조각]. **고어체는 이 원천의 문제가 아니다.**",
+   "whatActuallyReadsOld": "표본을 읽어 확인한 것 [측정: 조각 9편 정독]: ① 19세기 지명·인명·부대명이 설명 없이 쏟아진다(Grant 회고록 조각 하나에 고유명사 9개) ② 사료를 **원 철자 그대로** 길게 인용한다(Vikings of the Pacific 조각 하나가 1579년 항해기 철자 \"stiffnesse\"·\"neerer\" 를 통째로 옮긴다 — 고어체 표지 정규식에는 안 걸린다) ③ 아동물은 문장은 쉽지만 세계가 낡았다(시장 좌판·나막신·마차). ①②는 정규식이 못 잡는다.",
+   "contentRisk": {
+    "narrativeBooksAlsoFlagged": 42,
+    "narrativeBooksAlsoFlaggedPct": 4.5,
+    "narrativeChunksFromSuchBooks": 622,
+    "narrativeChunksFromSuchBooksPct": 4.6,
+    "finding": "**내용 사유(bias·obsolete-fact·pseudoscience·doctrine)는 narrative 판정분에 거의 없다.** 그 네 장르는 스냅샷 전체에서 100% `reject` 로 갔고(7,187편), narrative 판정에는 0편이다 [측정: verdict×genre 교차]. 같은 **책**에서 내용 사유 조각이 하나라도 나온 경우로 넓혀도 938권 중 42권(4.5%) · 13,637 조각 중 622(4.6%)다 [측정]. 앞선 전체 판정의 47%는 **서사 분의 값이 아니다** — 거절된 논설·철학·의사과학의 값이었다.",
+    "caveat": "이 판정은 같은 LLM 패스가 매긴 라벨이므로 독립 검증이 아니다. limits 참조."
+   }
+  }
+ },
+ "g2": {
+  "method": "서로 다른 3권에서 조각 1편씩(문단 여럿)을 골라 **실제로 가공**하고, 낱말 단위 LCS 로 수정량을 쟀다. 수정량 = (원문 소실률 + 신규 작성률) / 2 [측정: g2.mjs]. 가공 전/후 전문을 둘 다 담았다.",
+  "cases": [
+   {
+    "book": "4367",
+    "title": "Personal Memoirs of U. S. Grant (1885)",
+    "genre": "biography/nonfiction",
+    "window": "수능장문 260~400",
+    "slot": "C 장문 서사",
+    "before": "The right under General Getty maintained a firm and steady front, falling back to Middletown where it took a position and made a stand. The cavalry went to the rear, seized the roads leading to Winchester and held them for the use of our troops in falling back, General Wright having ordered a retreat back to that place. Sheridan having left Washington on the 18th, reached Winchester that night. The following morning he started to join his command. He had scarcely got out of town, when he met his men returning in panic from the front and also heard heavy firing to the south. He immediately ordered the cavalry at Winchester to be deployed across the valley to stop the stragglers. Leaving members of his staff to take care of Winchester and the public property there, he set out with a small escort directly for the scene of battle. As he met the fugitives he ordered them to turn back, reminding them that they were going the wrong way. His presence soon restored confidence. Finding themselves worse frightened than hurt the men did halt and turn back. Many of those who had run ten miles got back in time to redeem their reputation as gallant soldiers before night. When Sheridan got to the front he found Getty and Custer still holding their ground firmly between the Confederates and our retreating troops. Everything in the rear was now ordered up. Sheridan at once proceeded to intrench his position; and he awaited an assault from the enemy. This was made with vigor, and was directed principally against Emory's corps, which had sustained the principal loss in the first attack.",
+    "after": "One autumn morning the right wing of the army held a firm and steady front, falling back to a small town where it took a position and made a stand. The cavalry went to the rear, seized the roads leading north, and held them open for the troops that were falling back, because the officer then in charge had ordered a retreat to that place. The commanding general, who had left the capital two days before, reached the northern town that night. The following morning he started out to join his command. He had scarcely got out of the town when he met his men returning in panic from the front, and he also heard heavy firing to the south. He immediately ordered the cavalry to spread across the valley and stop the stragglers. Leaving members of his staff to take care of the town and the public property there, he set out with a small escort directly for the scene of the battle. As he met the fleeing men he ordered them to turn back, reminding them that they were going the wrong way. His presence soon restored confidence. Finding themselves worse frightened than hurt, the men did halt and turn back. Many of those who had run ten miles got back in time to redeem their reputation as brave soldiers before night. When the general got to the front he found two of his officers still holding their ground firmly between the enemy and the retreating troops. Everything in the rear was now ordered up. He at once set his men to digging in, and he awaited an assault. It was made with vigor, and it was aimed mainly at the corps that had suffered the heaviest loss in the first attack.",
+    "beforeWords": 277,
+    "afterWords": 294,
+    "keptWords": 226,
+    "droppedPct": 18.4,
+    "newPct": 23.1,
+    "editPct": 20.8,
+    "notes": [
+     "고유명사 9개(Getty·Middletown·Winchester·Wright·Sheridan·Washington·Custer·Confederates·Emory) → 0. 전부 일반명사로 치환 가능했다.",
+     "앞 문맥 의존 2곳: \"The right under General Getty\"(앞 문단이 좌·우익을 소개) · \"back to that place\". 둘 다 한 낱말 추가로 풀렸다.",
+     "시간 닻이 없어 \"One autumn morning\" 을 새로 넣었다 — 원문에 없는 사실은 넣지 않았다(가을은 본문의 10월 전투에서 나온다).",
+     "고어체 없음. intrench → dug in(철자 현대화 1곳)."
+    ]
+   },
+   {
+    "book": "46102",
+    "title": "An American Girl in Munich (1905)",
+    "genre": "travel/서간체 서사",
+    "window": "수능장문 260~400",
+    "slot": "C 장문 서사 / 심경·분위기",
+    "before": "I can hear the diminuendo rallentando of the orchestra as the gold dulls, the scarlet fades to rose, the rose to pink. It hovers--this last, long streak--in one delicate flush against the violet sky, while the strings sustain pianissimo the tonic harmony. Then it suddenly dies, and the music with it. The day is done. Behold me recovering this morning from the effects of my first participation in German frivolity. The occasion was the Namens-Tag (name day) of the Baroness. \"You see to-day is mother's saint's day, the one for whom she was named,\" explained Karl, not very clearly, at dinner. \"We always have a fête on both days,\" he said, \"with extra wine and a lot of grand things to eat.\" \"Yes, indeed,\" echoed the Baron, beaming back on her and radiating his delight along the line of pensionnaires each side. The eyes of Herr Doktor twinkled as he looked across at me. I met his glance with a half smile. Neither of us meant to be unkind. France and America were merely united in their appreciation of the humorous. Frau von Waldfel raised her eyebrows disagreeably, and looked as though about to start a discussion. To mention food in the presence of that woman is like brandishing a red flag before a bull. Luckily Herr Doktor saw the signs of approaching storm, and with his usual diplomacy turned the trend of conversation, so that an argument was averted for this meal at least. Is there anything more pitiable than a number of guests, hitherto unknown to one another, endeavoring to appear at ease as they wait the summons to dinner?",
+    "after": "That evening I watched the sunset from my window as if it were music. The gold dulled, the scarlet faded to rose, and the rose faded to pink. One last long streak hovered in a delicate flush against the violet sky. Then it suddenly died out, and the day was done. The next morning I was still recovering from my first evening in a foreign boarding house. The night before, my landlady had celebrated her name day, a holiday I had never heard of before I came to this country. Her son tried to explain it to me at dinner. He said that his mother shared a name with a saint, and that the family always held a small feast on the saint's day as well as on her birthday, with extra wine and a great many good things to eat. His father echoed him and beamed at her, and his delight spread along the line of boarders on each side of the table. The old scholar at the far end of the table caught my eye and his own eyes twinkled. I met his glance with a half smile. Neither of us meant to be unkind. We were two foreigners quietly sharing the same sense of the comic. Another guest raised her eyebrows and looked as though she were about to start an argument, for to mention food in front of that woman is like waving a red flag at a bull. Luckily the old scholar saw the storm coming, and he turned the talk to something else, so that a quarrel was avoided for that meal at least. Is there anything more pitiable than a table of guests who have never met before, all trying to look at ease while they wait to be called in to dinner?",
+    "beforeWords": 273,
+    "afterWords": 300,
+    "keptWords": 136,
+    "droppedPct": 50.2,
+    "newPct": 54.7,
+    "editPct": 52.4,
+    "notes": [
+     "고유명사·외국어 7개(Namens-Tag·Baroness·Karl·Baron·Herr Doktor·Frau von Waldfel·pensionnaires, France/America) → 0.",
+     "앞 문맥 의존이 세 겹이었다: ① 첫 문장이 앞 편지의 노을 장면을 이어받는다 ② \"German frivolity\" 가 앞선 하숙집 설명에 붙는다 ③ 등장인물 다섯이 모두 앞 편지에서 소개됐다. ①은 장면을 새로 세워야 풀렸다.",
+     "음악 용어(diminuendo rallentando · pianissimo · tonic harmony)는 학습자 대역 밖이라 통째로 걷어 내고 \"as if it were music\" 한 구로 바꿨다.",
+     "고어체 to-day · fête 만. 문장 구조 자체는 현대 영어에 가깝다."
+    ]
+   },
+   {
+    "book": "4012",
+    "title": "The Dutch Twins (1911)",
+    "genre": "fiction 아동서사",
+    "window": "학교문단 40~200",
+    "slot": "초6~중1 서사 (중앙 62~84어)",
+    "before": "Nicholas doll was all gone. Then they took the four others, said good-bye to the good Vrouw, and went back to Father's stall. They found that Father had sold all his things and was ready to go home. They carried their empty baskets back to the boat, and soon were on their way home. The Twins sat on one seat, holding tight to their dolls, which were growing rather sticky. The boat was so light that they went home from market much more quickly than they had come, and it did not seem long before they saw their own house.",
+    "after": "The twins had eaten one of the five gingerbread dolls before they left the market. They picked up the four that were left, said good-bye to the kind woman who had sold them, and walked back to their father's stall. They found that he had sold everything he had brought and was ready to go home. They carried their empty baskets back to the boat, and soon they were on their way. The twins sat together on one seat, holding tight to their dolls, which were growing rather sticky in the sun. The boat was so light now that it went home much faster than it had come, and before long the children could see their own house ahead of them.",
+    "beforeWords": 100,
+    "afterWords": 121,
+    "keptWords": 71,
+    "droppedPct": 29,
+    "newPct": 41.3,
+    "editPct": 35.2,
+    "notes": [
+     "첫 문장이 통째로 앞 문맥이었다 — \"Nicholas doll\"(성 니콜라스 모양 생강빵 인형)은 앞 두 문단에서만 설명된다. 새 문장으로 갈아야 했다.",
+     "고유명사 2개(Nicholas · Vrouw) → 0.",
+     "어수 107 → 113 — 초6 중앙 62어보다 길다. 이 창에서는 더 잘라야 한다.",
+     "고어체 없음. 이 책은 1911년이지만 문장이 짧고 현대적이다 — 아동물이라 그렇다."
+    ]
+   }
+  ],
+  "meanEditPct": 36.1,
+  "costGrade": "중 (20~50%)",
+  "findings": [
+   "**고유명사 제거 후 이야기가 남는다 — 3/3.** 세 조각의 고유명사 9 · 7 · 2 개를 전부 일반명사로 바꿨는데 사건의 뼈대가 그대로 남았다. 서사는 논증과 달리 고유명사가 **장식**인 경우가 많다 [측정].",
+   "**앞 문맥 의존은 풀린다 — 3/3. 다만 비용이 갈린다.** 논픽션 서사(Grant)는 지시어 2곳을 낱말 하나씩 더해 풀었다(수정량 20.8%). 1인칭 서간체(Munich)는 **첫 문장 자체가 앞 편지의 장면을 이어받아** 장면을 새로 세워야 했다(52.4%). 아동물(Dutch Twins)은 첫 문장이 통째로 앞 문맥이라 새 문장으로 갈았다(35.2%).",
+   "**수정량은 갈래로 갈린다.** 논픽션 서사 20.8%(경에 근접) · 아동 서사 35.2%(중) · 문예 1인칭 52.4%(사실상 재저작). 평균 하나로 등급을 매기면 세 경우가 전부 틀린다.",
+   "**어휘 대역 하향은 별도 비용이다.** Munich 조각의 음악 용어(diminuendo rallentando · pianissimo · tonic harmony)는 낮추는 게 아니라 **걷어내야** 했다 — 그 세 낱말이 조각의 첫 두 문장을 지탱하고 있었다."
+  ]
+ },
+ "g3": {
+  "note": "보조 지표다. 이것만으로 합격시키지 않는다(criteria G3). 정규식은 scripts/csat/demand-model.mjs 와 글자 그대로 같다 — 기출 목표치와 같은 자로 재야 비교가 된다.",
+  "windows": {
+   "학교문장(6~40)": {
+    "spans": 57382,
+    "medWords": 17,
+    "capsPer100_med": 2.78,
+    "capsZeroPct": 49.5,
+    "startsQuotePct": 10.7,
+    "backRefPct": 27,
+    "chronoDMPct": 8.5,
+    "chronoTaskPct": 8.7,
+    "contrastPct": 14.9,
+    "dialogueMed": 0,
+    "dialogueOver9Pct": 19.3,
+    "archaicSpanPct": 0.5,
+    "archaicPer100_mean": 0.03,
+    "avgSentMed": 16,
+    "cCleanPct": 62.3,
+    "cCleanChronoPct": 4.6,
+    "cAllPct": 4.2
+   },
+   "학교문단(40~200)": {
+    "spans": 24510,
+    "medWords": 49,
+    "capsPer100_med": 4.55,
+    "capsZeroPct": 20.1,
+    "startsQuotePct": 9.4,
+    "backRefPct": 26.8,
+    "chronoDMPct": 21.1,
+    "chronoTaskPct": 21.6,
+    "contrastPct": 36.4,
+    "dialogueMed": 0,
+    "dialogueOver9Pct": 29.2,
+    "archaicSpanPct": 1.6,
+    "archaicPer100_mean": 0.04,
+    "avgSentMed": 20.5,
+    "cCleanPct": 63.9,
+    "cCleanChronoPct": 12.6,
+    "cAllPct": 9.9
+   },
+   "수능짧은(90~200)": {
+    "spans": 12617,
+    "medWords": 97,
+    "capsPer100_med": 4.85,
+    "capsZeroPct": 7.7,
+    "startsQuotePct": 8.9,
+    "backRefPct": 26.7,
+    "chronoDMPct": 36,
+    "chronoTaskPct": 36.8,
+    "contrastPct": 57.6,
+    "dialogueMed": 0,
+    "dialogueOver9Pct": 39.4,
+    "archaicSpanPct": 3,
+    "archaicPer100_mean": 0.04,
+    "avgSentMed": 20.6,
+    "cCleanPct": 64.3,
+    "cCleanChronoPct": 22,
+    "cAllPct": 15
+   },
+   "수능장문(260~400)": {
+    "spans": 4772,
+    "medWords": 262,
+    "capsPer100_med": 5.16,
+    "capsZeroPct": 1.2,
+    "startsQuotePct": 9,
+    "backRefPct": 27.4,
+    "chronoDMPct": 67,
+    "chronoTaskPct": 67.6,
+    "contrastPct": 87.6,
+    "dialogueMed": 7.7,
+    "dialogueOver9Pct": 46.9,
+    "archaicSpanPct": 7.3,
+    "archaicPer100_mean": 0.04,
+    "avgSentMed": 20.5,
+    "cCleanPct": 63.6,
+    "cCleanChronoPct": 41.3,
+    "cAllPct": 24.3
+   }
+  },
+  "byGenre": {
+   "fiction": {
+    "학교문장": {
+     "books": 11,
+     "spans": 20247,
+     "startsQuotePct": 25.7,
+     "backRefPct": 25.2,
+     "chronoDMPct": 8.4,
+     "dialogueOver9Pct": 41.1,
+     "archaicSpanPct": 0.3,
+     "capsZeroPct": 57.4
+    },
+    "학교문단": {
+     "books": 11,
+     "spans": 7795,
+     "startsQuotePct": 25,
+     "backRefPct": 26.2,
+     "chronoDMPct": 22.2,
+     "dialogueOver9Pct": 59.3,
+     "archaicSpanPct": 1,
+     "capsZeroPct": 24.1
+    },
+    "수능짧은": {
+     "books": 11,
+     "spans": 3952,
+     "startsQuotePct": 24.8,
+     "backRefPct": 25.6,
+     "chronoDMPct": 37.7,
+     "dialogueOver9Pct": 73.2,
+     "archaicSpanPct": 1.7,
+     "capsZeroPct": 9.2
+    },
+    "수능장문": {
+     "books": 11,
+     "spans": 1476,
+     "startsQuotePct": 24.2,
+     "backRefPct": 27.1,
+     "chronoDMPct": 69,
+     "dialogueOver9Pct": 83.7,
+     "archaicSpanPct": 4.3,
+     "capsZeroPct": 1.6
+    }
+   },
+   "nonfiction": {
+    "학교문장": {
+     "books": 9,
+     "spans": 37135,
+     "startsQuotePct": 2.6,
+     "backRefPct": 28.1,
+     "chronoDMPct": 8.5,
+     "dialogueOver9Pct": 7.5,
+     "archaicSpanPct": 0.6,
+     "capsZeroPct": 45.2
+    },
+    "학교문단": {
+     "books": 9,
+     "spans": 16715,
+     "startsQuotePct": 2.1,
+     "backRefPct": 27,
+     "chronoDMPct": 20.6,
+     "dialogueOver9Pct": 15.2,
+     "archaicSpanPct": 1.9,
+     "capsZeroPct": 18.2
+    },
+    "수능짧은": {
+     "books": 9,
+     "spans": 8665,
+     "startsQuotePct": 1.7,
+     "backRefPct": 27.2,
+     "chronoDMPct": 35.2,
+     "dialogueOver9Pct": 23.9,
+     "archaicSpanPct": 3.5,
+     "capsZeroPct": 7
+    },
+    "수능장문": {
+     "books": 9,
+     "spans": 3296,
+     "startsQuotePct": 2.2,
+     "backRefPct": 27.6,
+     "chronoDMPct": 66.1,
+     "dialogueOver9Pct": 30.5,
+     "archaicSpanPct": 8.5,
+     "capsZeroPct": 1.1
+    }
+   }
+  },
+  "gatePassRates": {
+   "note": "게이트 = 인용부호로 시작 안 함 AND 앞 문맥 지시어로 시작 안 함 AND 대화 비중 ≤9%(STANDALONE_GATE) AND 고어체 표지 없음. passAllPct 는 여기에 **시간순 표지 있음**까지 더한 것(C 무리 요건) [측정: gate.mjs]",
+   "학교문단": {
+    "fiction": {
+     "spans": 7795,
+     "capsMed": 3.33,
+     "noQuoteStartPct": 75,
+     "noBackRefPct": 73.8,
+     "chronoPct": 22.1,
+     "dialogueOkPct": 40.7,
+     "archaicFreePct": 99,
+     "passNoChronoPct": 25.8,
+     "passAllPct": 5.6
+    },
+    "nonfiction": {
+     "spans": 16715,
+     "capsMed": 5.13,
+     "noQuoteStartPct": 97.9,
+     "noBackRefPct": 73,
+     "chronoPct": 20.6,
+     "dialogueOkPct": 84.9,
+     "archaicFreePct": 98.1,
+     "passNoChronoPct": 60.5,
+     "passAllPct": 11.7
+    }
+   },
+   "수능장문": {
+    "fiction": {
+     "spans": 1476,
+     "capsMed": 3.85,
+     "noQuoteStartPct": 75.8,
+     "noBackRefPct": 72.9,
+     "chronoPct": 69,
+     "dialogueOkPct": 16.3,
+     "archaicFreePct": 95.7,
+     "passNoChronoPct": 11.1,
+     "passAllPct": 7.3
+    },
+    "nonfiction": {
+     "spans": 3296,
+     "capsMed": 5.99,
+     "noQuoteStartPct": 97.8,
+     "noBackRefPct": 72.5,
+     "chronoPct": 66.1,
+     "dialogueOkPct": 69.5,
+     "archaicFreePct": 91.4,
+     "passNoChronoPct": 45.9,
+     "passAllPct": 29.4
+    }
+   }
+  },
+  "chopRecovery": {
+   "note": "고친 chopToWindow 의 본문 잔존율 — 옛 chop() 의 45.1% 와 비교 [측정: docs/reports/gutenberg-chop-loss.md]",
+   "keptPctRange": [
+    83.5,
+    96.5
+   ],
+   "keptPctMedian": 91.4,
+   "finding": "**절단 손실은 실제로 고쳐졌다.** 20권 수능장문 창에서 본문의 83.5~96.5%(중앙 91.4%)가 조각으로 남는다 — 옛 chop() 은 45.1% 였다. 그러나 **잔존율이 올라도 위의 문체 지표는 안 바뀐다** — sources-register.md 가 \"절단 방식을 고쳐도 안 바뀐다 — 글의 종류 문제다\" 라고 적은 것이 이 표본에서 확인됐다 [측정]."
+  },
+  "perBook": [
+   {
+    "gutenbergId": "17095",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/17095",
+    "textUrl": "https://www.gutenberg.org/cache/epub/17095/pg17095.txt",
+    "title": "Bunny Brown and His Sister Sue on an Auto Tour (발췌)",
+    "author": "Laura Lee Hope",
+    "authorLife": null,
+    "authorIsPseudonym": true,
+    "year": 1917,
+    "yearEvidence": "본문 표제지 \"Copyright, 1917, by Grosset & Dunlap\"",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "short",
+    "snapshotNarrativeChunks": 3,
+    "bodyWords": 44519,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired_by_pub+70",
+    "windows": {
+     "학교문장": {
+      "spans": 2373,
+      "keptWords": 35451,
+      "keptPct": 79.6,
+      "losses": {
+       "notProse": 5838,
+       "tooShortTail": 21,
+       "oversizeSentence": 1918
+      },
+      "medWords": 13,
+      "capsPer100_med": 0,
+      "capsZeroPct": 55.6,
+      "startsQuotePct": 36.2,
+      "backRefPct": 19.1,
+      "chronoDMPct": 10.2,
+      "chronoTaskPct": 10.4,
+      "contrastPct": 13.7,
+      "dialogueMed": 50,
+      "dialogueOver9Pct": 56.8,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 12
+     },
+     "학교문단": {
+      "spans": 782,
+      "keptWords": 37326,
+      "keptPct": 83.8,
+      "losses": {
+       "notProse": 5838,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 46,
+      "capsPer100_med": 4.44,
+      "capsZeroPct": 18.4,
+      "startsQuotePct": 36.4,
+      "backRefPct": 20.3,
+      "chronoDMPct": 29.2,
+      "chronoTaskPct": 29.8,
+      "contrastPct": 40,
+      "dialogueMed": 50,
+      "dialogueOver9Pct": 80.1,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 14.7
+     },
+     "수능짧은": {
+      "spans": 390,
+      "keptWords": 37278,
+      "keptPct": 83.7,
+      "losses": {
+       "notProse": 5838,
+       "tooShortTail": 48,
+       "oversizeSentence": 0
+      },
+      "medWords": 93,
+      "capsPer100_med": 4.72,
+      "capsZeroPct": 5.6,
+      "startsQuotePct": 36.9,
+      "backRefPct": 19.7,
+      "chronoDMPct": 49.7,
+      "chronoTaskPct": 50.3,
+      "contrastPct": 63.8,
+      "dialogueMed": 50,
+      "dialogueOver9Pct": 91.5,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 15.1
+     },
+     "수능장문": {
+      "spans": 143,
+      "keptWords": 37187,
+      "keptPct": 83.5,
+      "losses": {
+       "notProse": 5838,
+       "tooShortTail": 141,
+       "oversizeSentence": 0
+      },
+      "medWords": 257,
+      "capsPer100_med": 4.74,
+      "capsZeroPct": 0.7,
+      "startsQuotePct": 32.9,
+      "backRefPct": 16.8,
+      "chronoDMPct": 81.1,
+      "chronoTaskPct": 81.1,
+      "contrastPct": 95.8,
+      "dialogueMed": 48.3,
+      "dialogueOver9Pct": 99.3,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 15.9
+     }
+    }
+   },
+   {
+    "gutenbergId": "21845",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/21845",
+    "textUrl": "https://www.gutenberg.org/cache/epub/21845/pg21845.txt",
+    "title": "The tale of Peter Mink (발췌)",
+    "author": "Arthur Scott Bailey",
+    "authorLife": [
+     1877,
+     1949
+    ],
+    "authorIsPseudonym": false,
+    "year": 1916,
+    "yearEvidence": "본문 표제지 \"Copyright, 1916, by\"",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "short",
+    "snapshotNarrativeChunks": 5,
+    "bodyWords": 13846,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 894,
+      "keptWords": 12110,
+      "keptPct": 87.5,
+      "losses": {
+       "notProse": 1320,
+       "tooShortTail": 0,
+       "oversizeSentence": 101
+      },
+      "medWords": 12,
+      "capsPer100_med": 0,
+      "capsZeroPct": 50.8,
+      "startsQuotePct": 20.1,
+      "backRefPct": 43.6,
+      "chronoDMPct": 7.2,
+      "chronoTaskPct": 8.6,
+      "contrastPct": 12.3,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 29.3,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 10
+     },
+     "학교문단": {
+      "spans": 258,
+      "keptWords": 12191,
+      "keptPct": 88,
+      "losses": {
+       "notProse": 1320,
+       "tooShortTail": 16,
+       "oversizeSentence": 0
+      },
+      "medWords": 46,
+      "capsPer100_med": 6.25,
+      "capsZeroPct": 7.8,
+      "startsQuotePct": 20.2,
+      "backRefPct": 44.2,
+      "chronoDMPct": 24,
+      "chronoTaskPct": 29.1,
+      "contrastPct": 38.8,
+      "dialogueMed": 20,
+      "dialogueOver9Pct": 52.7,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 13
+     },
+     "수능짧은": {
+      "spans": 127,
+      "keptWords": 12128,
+      "keptPct": 87.6,
+      "losses": {
+       "notProse": 1320,
+       "tooShortTail": 84,
+       "oversizeSentence": 0
+      },
+      "medWords": 94,
+      "capsPer100_med": 6.45,
+      "capsZeroPct": 0,
+      "startsQuotePct": 15.7,
+      "backRefPct": 40.2,
+      "chronoDMPct": 41.7,
+      "chronoTaskPct": 49.6,
+      "contrastPct": 61.4,
+      "dialogueMed": 25,
+      "dialogueOver9Pct": 66.9,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 13
+     },
+     "수능장문": {
+      "spans": 46,
+      "keptWords": 11988,
+      "keptPct": 86.6,
+      "losses": {
+       "notProse": 1320,
+       "tooShortTail": 226,
+       "oversizeSentence": 0
+      },
+      "medWords": 260,
+      "capsPer100_med": 6.84,
+      "capsZeroPct": 0,
+      "startsQuotePct": 26.1,
+      "backRefPct": 30.4,
+      "chronoDMPct": 76.1,
+      "chronoTaskPct": 82.6,
+      "contrastPct": 89.1,
+      "dialogueMed": 25,
+      "dialogueOver9Pct": 89.1,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 13
+     }
+    }
+   },
+   {
+    "gutenbergId": "23763",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/23763",
+    "textUrl": "https://www.gutenberg.org/cache/epub/23763/pg23763.txt",
+    "title": "Fred Fenton on the Track; Or, The Athletes of Riverport School (발췌)",
+    "author": "Allen Chapman",
+    "authorLife": null,
+    "authorIsPseudonym": true,
+    "year": 1913,
+    "yearEvidence": "본문 표제지 \"Copyrighted 1913, by CUPPLES & LEON COMPANY\"",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "short",
+    "snapshotNarrativeChunks": 10,
+    "bodyWords": 44710,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired_by_pub+70",
+    "windows": {
+     "학교문장": {
+      "spans": 1868,
+      "keptWords": 34674,
+      "keptPct": 77.6,
+      "losses": {
+       "notProse": 2801,
+       "tooShortTail": 24,
+       "oversizeSentence": 5960
+      },
+      "medWords": 18,
+      "capsPer100_med": 0,
+      "capsZeroPct": 56.7,
+      "startsQuotePct": 30.4,
+      "backRefPct": 23.6,
+      "chronoDMPct": 8.1,
+      "chronoTaskPct": 8.1,
+      "contrastPct": 12.6,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 45.4,
+      "archaicSpanPct": 0.6,
+      "archaicPer100_mean": 0.03,
+      "avgSentMed": 16.5
+     },
+     "학교문단": {
+      "spans": 806,
+      "keptWords": 40479,
+      "keptPct": 90.5,
+      "losses": {
+       "notProse": 2801,
+       "tooShortTail": 14,
+       "oversizeSentence": 0
+      },
+      "medWords": 48,
+      "capsPer100_med": 2.56,
+      "capsZeroPct": 21.5,
+      "startsQuotePct": 31.6,
+      "backRefPct": 23.4,
+      "chronoDMPct": 19.5,
+      "chronoTaskPct": 19.5,
+      "contrastPct": 30.8,
+      "dialogueMed": 50,
+      "dialogueOver9Pct": 65.6,
+      "archaicSpanPct": 1.4,
+      "archaicPer100_mean": 0.03,
+      "avgSentMed": 21
+     },
+     "수능짧은": {
+      "spans": 408,
+      "keptWords": 40492,
+      "keptPct": 90.6,
+      "losses": {
+       "notProse": 2801,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 97,
+      "capsPer100_med": 3.33,
+      "capsZeroPct": 6.1,
+      "startsQuotePct": 32.6,
+      "backRefPct": 22.8,
+      "chronoDMPct": 33.1,
+      "chronoTaskPct": 33.1,
+      "contrastPct": 49.5,
+      "dialogueMed": 40,
+      "dialogueOver9Pct": 77.9,
+      "archaicSpanPct": 2.7,
+      "archaicPer100_mean": 0.03,
+      "avgSentMed": 22
+     },
+     "수능장문": {
+      "spans": 153,
+      "keptWords": 40423,
+      "keptPct": 90.4,
+      "losses": {
+       "notProse": 2801,
+       "tooShortTail": 72,
+       "oversizeSentence": 0
+      },
+      "medWords": 261,
+      "capsPer100_med": 3.53,
+      "capsZeroPct": 0,
+      "startsQuotePct": 29.4,
+      "backRefPct": 24.2,
+      "chronoDMPct": 66.7,
+      "chronoTaskPct": 66.7,
+      "contrastPct": 81,
+      "dialogueMed": 44.4,
+      "dialogueOver9Pct": 86.3,
+      "archaicSpanPct": 7.2,
+      "archaicPer100_mean": 0.03,
+      "avgSentMed": 21.5
+     }
+    }
+   },
+   {
+    "gutenbergId": "4012",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/4012",
+    "textUrl": "https://www.gutenberg.org/cache/epub/4012/pg4012.txt",
+    "title": "The Dutch Twins (발췌)",
+    "author": "Lucy Fitch Perkins",
+    "authorLife": [
+     1865,
+     1937
+    ],
+    "authorIsPseudonym": false,
+    "year": 1911,
+    "yearEvidence": "Open Library first_publish_year (본문에 연도 없음)",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "short",
+    "snapshotNarrativeChunks": 8,
+    "bodyWords": 20303,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 1131,
+      "keptWords": 16661,
+      "keptPct": 82.1,
+      "losses": {
+       "notProse": 2611,
+       "tooShortTail": 0,
+       "oversizeSentence": 583
+      },
+      "medWords": 13,
+      "capsPer100_med": 0,
+      "capsZeroPct": 50.5,
+      "startsQuotePct": 21.5,
+      "backRefPct": 32,
+      "chronoDMPct": 10.2,
+      "chronoTaskPct": 10.8,
+      "contrastPct": 8.7,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 31.3,
+      "archaicSpanPct": 0.4,
+      "archaicPer100_mean": 0.04,
+      "avgSentMed": 13
+     },
+     "학교문단": {
+      "spans": 362,
+      "keptWords": 17209,
+      "keptPct": 84.8,
+      "losses": {
+       "notProse": 2611,
+       "tooShortTail": 30,
+       "oversizeSentence": 0
+      },
+      "medWords": 46,
+      "capsPer100_med": 5.26,
+      "capsZeroPct": 15.5,
+      "startsQuotePct": 24,
+      "backRefPct": 30.1,
+      "chronoDMPct": 28.2,
+      "chronoTaskPct": 29.8,
+      "contrastPct": 24.6,
+      "dialogueMed": 25,
+      "dialogueOver9Pct": 54.1,
+      "archaicSpanPct": 1.1,
+      "archaicPer100_mean": 0.04,
+      "avgSentMed": 15
+     },
+     "수능짧은": {
+      "spans": 180,
+      "keptWords": 17209,
+      "keptPct": 84.8,
+      "losses": {
+       "notProse": 2611,
+       "tooShortTail": 30,
+       "oversizeSentence": 0
+      },
+      "medWords": 94,
+      "capsPer100_med": 5.71,
+      "capsZeroPct": 5.6,
+      "startsQuotePct": 21.7,
+      "backRefPct": 35,
+      "chronoDMPct": 44.4,
+      "chronoTaskPct": 48.3,
+      "contrastPct": 42.2,
+      "dialogueMed": 28.6,
+      "dialogueOver9Pct": 69.4,
+      "archaicSpanPct": 1.7,
+      "archaicPer100_mean": 0.04,
+      "avgSentMed": 15.3
+     },
+     "수능장문": {
+      "spans": 65,
+      "keptWords": 16993,
+      "keptPct": 83.7,
+      "losses": {
+       "notProse": 2611,
+       "tooShortTail": 248,
+       "oversizeSentence": 0
+      },
+      "medWords": 260,
+      "capsPer100_med": 6.02,
+      "capsZeroPct": 0,
+      "startsQuotePct": 10.8,
+      "backRefPct": 41.5,
+      "chronoDMPct": 73.8,
+      "chronoTaskPct": 78.5,
+      "contrastPct": 80,
+      "dialogueMed": 29.4,
+      "dialogueOver9Pct": 89.2,
+      "archaicSpanPct": 3.1,
+      "archaicPer100_mean": 0.04,
+      "avgSentMed": 15.6
+     }
+    }
+   },
+   {
+    "gutenbergId": "5304",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5304",
+    "textUrl": "https://www.gutenberg.org/cache/epub/5304/pg5304.txt",
+    "title": "My Robin (발췌)",
+    "author": "Frances Hodgson Burnett",
+    "authorLife": [
+     1849,
+     1924
+    ],
+    "authorIsPseudonym": false,
+    "year": 1912,
+    "yearEvidence": "Open Library first_publish_year (본문에 연도 없음)",
+    "genre": "nature",
+    "isFiction": false,
+    "band": "short",
+    "snapshotNarrativeChunks": 1,
+    "bodyWords": 4981,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 272,
+      "keptWords": 4023,
+      "keptPct": 80.8,
+      "losses": {
+       "notProse": 39,
+       "tooShortTail": 0,
+       "oversizeSentence": 624
+      },
+      "medWords": 13,
+      "capsPer100_med": 0,
+      "capsZeroPct": 87.1,
+      "startsQuotePct": 6.6,
+      "backRefPct": 36.8,
+      "chronoDMPct": 8.1,
+      "chronoTaskPct": 8.8,
+      "contrastPct": 12.5,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 12.9,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 12
+     },
+     "학교문단": {
+      "spans": 97,
+      "keptWords": 4623,
+      "keptPct": 92.8,
+      "losses": {
+       "notProse": 39,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 45,
+      "capsPer100_med": 0,
+      "capsZeroPct": 69.1,
+      "startsQuotePct": 5.2,
+      "backRefPct": 34,
+      "chronoDMPct": 23.7,
+      "chronoTaskPct": 25.8,
+      "contrastPct": 30.9,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 26.8,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 14.7
+     },
+     "수능짧은": {
+      "spans": 48,
+      "keptWords": 4553,
+      "keptPct": 91.4,
+      "losses": {
+       "notProse": 39,
+       "tooShortTail": 79,
+       "oversizeSentence": 0
+      },
+      "medWords": 93,
+      "capsPer100_med": 0,
+      "capsZeroPct": 52.1,
+      "startsQuotePct": 4.2,
+      "backRefPct": 35.4,
+      "chronoDMPct": 35.4,
+      "chronoTaskPct": 39.6,
+      "contrastPct": 54.2,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 37.5,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 15
+     },
+     "수능장문": {
+      "spans": 18,
+      "keptWords": 4553,
+      "keptPct": 91.4,
+      "losses": {
+       "notProse": 39,
+       "tooShortTail": 79,
+       "oversizeSentence": 0
+      },
+      "medWords": 252,
+      "capsPer100_med": 1.16,
+      "capsZeroPct": 22.2,
+      "startsQuotePct": 11.1,
+      "backRefPct": 38.9,
+      "chronoDMPct": 83.3,
+      "chronoTaskPct": 88.9,
+      "contrastPct": 94.4,
+      "dialogueMed": 11.1,
+      "dialogueOver9Pct": 55.6,
+      "archaicSpanPct": 0,
+      "archaicPer100_mean": 0,
+      "avgSentMed": 16.3
+     }
+    }
+   },
+   {
+    "gutenbergId": "51280",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/51280",
+    "textUrl": "https://www.gutenberg.org/cache/epub/51280/pg51280.txt",
+    "title": "Newfoundland to Cochin China (발췌)",
+    "author": "Ethel Gwendoline Vincent",
+    "authorLife": [
+     1861,
+     null
+    ],
+    "authorIsPseudonym": false,
+    "year": 1892,
+    "yearEvidence": "본문 표제지 \"1892\" · 서문 \"May 31st, 1892\" · Open Library 1892",
+    "genre": "travel",
+    "isFiction": false,
+    "band": "short",
+    "snapshotNarrativeChunks": 5,
+    "bodyWords": 100129,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "unknown_author_death",
+    "windows": {
+     "학교문장": {
+      "spans": 2939,
+      "keptWords": 59230,
+      "keptPct": 59.2,
+      "losses": {
+       "notProse": 10226,
+       "tooShortTail": 19,
+       "oversizeSentence": 28583
+      },
+      "medWords": 19,
+      "capsPer100_med": 2.7,
+      "capsZeroPct": 49.4,
+      "startsQuotePct": 1.1,
+      "backRefPct": 22.5,
+      "chronoDMPct": 7.1,
+      "chronoTaskPct": 7.1,
+      "contrastPct": 10.5,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 6.5,
+      "archaicSpanPct": 2.1,
+      "archaicPer100_mean": 0.09,
+      "avgSentMed": 18
+     },
+     "학교문단": {
+      "spans": 1588,
+      "keptWords": 87045,
+      "keptPct": 86.9,
+      "losses": {
+       "notProse": 10226,
+       "tooShortTail": 33,
+       "oversizeSentence": 0
+      },
+      "medWords": 51,
+      "capsPer100_med": 3.85,
+      "capsZeroPct": 25.6,
+      "startsQuotePct": 0.9,
+      "backRefPct": 23.6,
+      "chronoDMPct": 16.4,
+      "chronoTaskPct": 16.3,
+      "contrastPct": 25.7,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 14.3,
+      "archaicSpanPct": 6.6,
+      "archaicPer100_mean": 0.13,
+      "avgSentMed": 24
+     },
+     "수능짧은": {
+      "spans": 833,
+      "keptWords": 86998,
+      "keptPct": 86.9,
+      "losses": {
+       "notProse": 10226,
+       "tooShortTail": 86,
+       "oversizeSentence": 0
+      },
+      "medWords": 101,
+      "capsPer100_med": 4.12,
+      "capsZeroPct": 9.8,
+      "startsQuotePct": 0.6,
+      "backRefPct": 22.4,
+      "chronoDMPct": 28.9,
+      "chronoTaskPct": 28.7,
+      "contrastPct": 42.9,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 24.6,
+      "archaicSpanPct": 12.5,
+      "archaicPer100_mean": 0.13,
+      "avgSentMed": 24.8
+     },
+     "수능장문": {
+      "spans": 326,
+      "keptWords": 86979,
+      "keptPct": 86.9,
+      "losses": {
+       "notProse": 10226,
+       "tooShortTail": 109,
+       "oversizeSentence": 0
+      },
+      "medWords": 264,
+      "capsPer100_med": 4.67,
+      "capsZeroPct": 0.9,
+      "startsQuotePct": 1.2,
+      "backRefPct": 20.9,
+      "chronoDMPct": 57.1,
+      "chronoTaskPct": 57.4,
+      "contrastPct": 74.5,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 33.4,
+      "archaicSpanPct": 28.2,
+      "archaicPer100_mean": 0.13,
+      "avgSentMed": 25.6
+     }
+    }
+   },
+   {
+    "gutenbergId": "19765",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/19765",
+    "textUrl": "https://www.gutenberg.org/cache/epub/19765/pg19765.txt",
+    "title": "Vikings of the Pacific",
+    "author": "Agnes C. Laut",
+    "authorLife": [
+     1871,
+     1936
+    ],
+    "authorIsPseudonym": false,
+    "year": 1905,
+    "yearEvidence": "본문 \"Copyright, 1905\" · \"Published December, 1905\"",
+    "genre": "history",
+    "isFiction": false,
+    "band": "short",
+    "snapshotNarrativeChunks": 25,
+    "bodyWords": 87065,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 3164,
+      "keptWords": 57795,
+      "keptPct": 66.4,
+      "losses": {
+       "notProse": 2762,
+       "tooShortTail": 25,
+       "oversizeSentence": 25127
+      },
+      "medWords": 16,
+      "capsPer100_med": 5.56,
+      "capsZeroPct": 39.7,
+      "startsQuotePct": 1.1,
+      "backRefPct": 16.2,
+      "chronoDMPct": 7.4,
+      "chronoTaskPct": 7.6,
+      "contrastPct": 8.9,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 3.8,
+      "archaicSpanPct": 0.3,
+      "archaicPer100_mean": 0.02,
+      "avgSentMed": 15
+     },
+     "학교문단": {
+      "spans": 1486,
+      "keptWords": 81874,
+      "keptPct": 94,
+      "losses": {
+       "notProse": 2762,
+       "tooShortTail": 36,
+       "oversizeSentence": 520
+      },
+      "medWords": 50,
+      "capsPer100_med": 6.52,
+      "capsZeroPct": 12.2,
+      "startsQuotePct": 1.6,
+      "backRefPct": 14.3,
+      "chronoDMPct": 19,
+      "chronoTaskPct": 19.3,
+      "contrastPct": 25.3,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 9.8,
+      "archaicSpanPct": 1.3,
+      "archaicPer100_mean": 0.02,
+      "avgSentMed": 21.5
+     },
+     "수능짧은": {
+      "spans": 788,
+      "keptWords": 81668,
+      "keptPct": 93.8,
+      "losses": {
+       "notProse": 2762,
+       "tooShortTail": 246,
+       "oversizeSentence": 520
+      },
+      "medWords": 100,
+      "capsPer100_med": 6.74,
+      "capsZeroPct": 3.8,
+      "startsQuotePct": 1.6,
+      "backRefPct": 16,
+      "chronoDMPct": 32.9,
+      "chronoTaskPct": 33.2,
+      "contrastPct": 42,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 15.7,
+      "archaicSpanPct": 2.5,
+      "archaicPer100_mean": 0.03,
+      "avgSentMed": 21.8
+     },
+     "수능장문": {
+      "spans": 304,
+      "keptWords": 82075,
+      "keptPct": 94.3,
+      "losses": {
+       "notProse": 2762,
+       "tooShortTail": 357,
+       "oversizeSentence": 0
+      },
+      "medWords": 265,
+      "capsPer100_med": 7.14,
+      "capsZeroPct": 0,
+      "startsQuotePct": 3,
+      "backRefPct": 14.8,
+      "chronoDMPct": 63.2,
+      "chronoTaskPct": 63.8,
+      "contrastPct": 73,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 23,
+      "archaicSpanPct": 6.3,
+      "archaicPer100_mean": 0.03,
+      "avgSentMed": 21.1
+     }
+    }
+   },
+   {
+    "gutenbergId": "27567",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/27567",
+    "textUrl": "https://www.gutenberg.org/cache/epub/27567/pg27567.txt",
+    "title": "Aunt Jo's scrap-bag, Volume 6 (발췌)",
+    "author": "Louisa May Alcott",
+    "authorLife": [
+     1832,
+     1888
+    ],
+    "authorIsPseudonym": false,
+    "year": 1882,
+    "yearEvidence": "본문 표제지 \"Copyright, 1882\"",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "mid",
+    "snapshotNarrativeChunks": 38,
+    "bodyWords": 54946,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 1972,
+      "keptWords": 40688,
+      "keptPct": 74.1,
+      "losses": {
+       "notProse": 2404,
+       "tooShortTail": 9,
+       "oversizeSentence": 10068
+      },
+      "medWords": 20,
+      "capsPer100_med": 0,
+      "capsZeroPct": 58.5,
+      "startsQuotePct": 28.5,
+      "backRefPct": 18.1,
+      "chronoDMPct": 6.5,
+      "chronoTaskPct": 7.1,
+      "contrastPct": 19.2,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 44.3,
+      "archaicSpanPct": 0.2,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 19
+     },
+     "학교문단": {
+      "spans": 971,
+      "keptWords": 50400,
+      "keptPct": 91.7,
+      "losses": {
+       "notProse": 2404,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 50,
+      "capsPer100_med": 2.27,
+      "capsZeroPct": 32.1,
+      "startsQuotePct": 30.5,
+      "backRefPct": 19.7,
+      "chronoDMPct": 16.4,
+      "chronoTaskPct": 17.5,
+      "contrastPct": 41.5,
+      "dialogueMed": 50,
+      "dialogueOver9Pct": 58.6,
+      "archaicSpanPct": 0.4,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 23
+     },
+     "수능짧은": {
+      "spans": 499,
+      "keptWords": 50314,
+      "keptPct": 91.6,
+      "losses": {
+       "notProse": 2404,
+       "tooShortTail": 88,
+       "oversizeSentence": 0
+      },
+      "medWords": 99,
+      "capsPer100_med": 2.7,
+      "capsZeroPct": 14.6,
+      "startsQuotePct": 30.1,
+      "backRefPct": 18.8,
+      "chronoDMPct": 29.7,
+      "chronoTaskPct": 31.3,
+      "contrastPct": 64.5,
+      "dialogueMed": 40,
+      "dialogueOver9Pct": 74.1,
+      "archaicSpanPct": 0.8,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 23.8
+     },
+     "수능장문": {
+      "spans": 191,
+      "keptWords": 50184,
+      "keptPct": 91.3,
+      "losses": {
+       "notProse": 2404,
+       "tooShortTail": 221,
+       "oversizeSentence": 0
+      },
+      "medWords": 261,
+      "capsPer100_med": 2.87,
+      "capsZeroPct": 4.2,
+      "startsQuotePct": 31.9,
+      "backRefPct": 24.6,
+      "chronoDMPct": 58.1,
+      "chronoTaskPct": 59.7,
+      "contrastPct": 91.1,
+      "dialogueMed": 41.7,
+      "dialogueOver9Pct": 88,
+      "archaicSpanPct": 2.1,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 23.9
+     }
+    }
+   },
+   {
+    "gutenbergId": "22095",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/22095",
+    "textUrl": "https://www.gutenberg.org/cache/epub/22095/pg22095.txt",
+    "title": "The Red Cross Girls with the Russian Army (발췌)",
+    "author": "Margaret Vandercook",
+    "authorLife": [
+     1876,
+     1958
+    ],
+    "authorIsPseudonym": false,
+    "year": 1916,
+    "yearEvidence": "본문 표제지 \"Copyright, 1916, by\"",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "mid",
+    "snapshotNarrativeChunks": 14,
+    "bodyWords": 44039,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "protected_until_2029",
+    "windows": {
+     "학교문장": {
+      "spans": 2309,
+      "keptWords": 40750,
+      "keptPct": 92.5,
+      "losses": {
+       "notProse": 1163,
+       "tooShortTail": 10,
+       "oversizeSentence": 837
+      },
+      "medWords": 17,
+      "capsPer100_med": 5,
+      "capsZeroPct": 41.1,
+      "startsQuotePct": 10,
+      "backRefPct": 32.9,
+      "chronoDMPct": 12.5,
+      "chronoTaskPct": 12.3,
+      "contrastPct": 18.8,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 17.5,
+      "archaicSpanPct": 0.1,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 17
+     },
+     "학교문단": {
+      "spans": 857,
+      "keptWords": 41581,
+      "keptPct": 94.4,
+      "losses": {
+       "notProse": 1163,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 47,
+      "capsPer100_med": 6,
+      "capsZeroPct": 8.4,
+      "startsQuotePct": 8.3,
+      "backRefPct": 34.4,
+      "chronoDMPct": 30.5,
+      "chronoTaskPct": 30.1,
+      "contrastPct": 45.9,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 32,
+      "archaicSpanPct": 0.4,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 18.7
+     },
+     "수능짧은": {
+      "spans": 428,
+      "keptWords": 41565,
+      "keptPct": 94.4,
+      "losses": {
+       "notProse": 1163,
+       "tooShortTail": 16,
+       "oversizeSentence": 0
+      },
+      "medWords": 96,
+      "capsPer100_med": 6.25,
+      "capsZeroPct": 1.2,
+      "startsQuotePct": 8.2,
+      "backRefPct": 32,
+      "chronoDMPct": 51.9,
+      "chronoTaskPct": 51.9,
+      "contrastPct": 70.6,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 45.6,
+      "archaicSpanPct": 0.7,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 18.2
+     },
+     "수능장문": {
+      "spans": 158,
+      "keptWords": 41401,
+      "keptPct": 94,
+      "losses": {
+       "notProse": 1163,
+       "tooShortTail": 184,
+       "oversizeSentence": 0
+      },
+      "medWords": 261,
+      "capsPer100_med": 6.61,
+      "capsZeroPct": 0,
+      "startsQuotePct": 9.5,
+      "backRefPct": 34.2,
+      "chronoDMPct": 82.9,
+      "chronoTaskPct": 82.3,
+      "contrastPct": 94.9,
+      "dialogueMed": 8.3,
+      "dialogueOver9Pct": 48.1,
+      "archaicSpanPct": 1.9,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 18.6
+     }
+    }
+   },
+   {
+    "gutenbergId": "22398",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/22398",
+    "textUrl": "https://www.gutenberg.org/cache/epub/22398/pg22398.txt",
+    "title": "The Heiress of Wyvern Court (발췌)",
+    "author": "Emilie Searchfield",
+    "authorLife": null,
+    "authorIsPseudonym": false,
+    "year": 1900,
+    "yearEvidence": "본문 표제지 \"1900\" · Open Library first_publish_year 1900",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "mid",
+    "snapshotNarrativeChunks": 4,
+    "bodyWords": 27261,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "unknown_author_death",
+    "windows": {
+     "학교문장": {
+      "spans": 1026,
+      "keptWords": 18372,
+      "keptPct": 67.4,
+      "losses": {
+       "notProse": 2666,
+       "tooShortTail": 5,
+       "oversizeSentence": 5470
+      },
+      "medWords": 17,
+      "capsPer100_med": 0,
+      "capsZeroPct": 52.9,
+      "startsQuotePct": 38.6,
+      "backRefPct": 15.8,
+      "chronoDMPct": 7.5,
+      "chronoTaskPct": 9,
+      "contrastPct": 14.3,
+      "dialogueMed": 50,
+      "dialogueOver9Pct": 53.2,
+      "archaicSpanPct": 0.2,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 15.5
+     },
+     "학교문단": {
+      "spans": 460,
+      "keptWords": 23663,
+      "keptPct": 86.8,
+      "losses": {
+       "notProse": 2666,
+       "tooShortTail": 36,
+       "oversizeSentence": 0
+      },
+      "medWords": 48,
+      "capsPer100_med": 3.64,
+      "capsZeroPct": 19.3,
+      "startsQuotePct": 33,
+      "backRefPct": 19.8,
+      "chronoDMPct": 19.1,
+      "chronoTaskPct": 22.4,
+      "contrastPct": 37.6,
+      "dialogueMed": 50,
+      "dialogueOver9Pct": 65.7,
+      "archaicSpanPct": 1.3,
+      "archaicPer100_mean": 0.02,
+      "avgSentMed": 21
+     },
+     "수능짧은": {
+      "spans": 236,
+      "keptWords": 23642,
+      "keptPct": 86.7,
+      "losses": {
+       "notProse": 2666,
+       "tooShortTail": 64,
+       "oversizeSentence": 0
+      },
+      "medWords": 97,
+      "capsPer100_med": 3.67,
+      "capsZeroPct": 3.8,
+      "startsQuotePct": 35.6,
+      "backRefPct": 20.8,
+      "chronoDMPct": 33.5,
+      "chronoTaskPct": 38.1,
+      "contrastPct": 59.7,
+      "dialogueMed": 50,
+      "dialogueOver9Pct": 78.8,
+      "archaicSpanPct": 2.1,
+      "archaicPer100_mean": 0.02,
+      "avgSentMed": 22
+     },
+     "수능장문": {
+      "spans": 89,
+      "keptWords": 23571,
+      "keptPct": 86.5,
+      "losses": {
+       "notProse": 2666,
+       "tooShortTail": 149,
+       "oversizeSentence": 0
+      },
+      "medWords": 260,
+      "capsPer100_med": 4.07,
+      "capsZeroPct": 0,
+      "startsQuotePct": 29.2,
+      "backRefPct": 27,
+      "chronoDMPct": 61.8,
+      "chronoTaskPct": 67.4,
+      "contrastPct": 91,
+      "dialogueMed": 41.7,
+      "dialogueOver9Pct": 94.4,
+      "archaicSpanPct": 5.6,
+      "archaicPer100_mean": 0.02,
+      "avgSentMed": 21.9
+     }
+    }
+   },
+   {
+    "gutenbergId": "954",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/954",
+    "textUrl": "https://www.gutenberg.org/cache/epub/954/pg954.txt",
+    "title": "Tom Swift and His War Tank; Or, Doing His Bit for Uncle Sam (발췌)",
+    "author": "Victor Appleton",
+    "authorLife": null,
+    "authorIsPseudonym": true,
+    "year": 1918,
+    "yearEvidence": "Open Library first_publish_year (본문에 연도 없음)",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "mid",
+    "snapshotNarrativeChunks": 2,
+    "bodyWords": 44622,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired_by_pub+70",
+    "windows": {
+     "학교문장": {
+      "spans": 2348,
+      "keptWords": 36000,
+      "keptPct": 80.7,
+      "losses": {
+       "notProse": 3687,
+       "tooShortTail": 19,
+       "oversizeSentence": 3310
+      },
+      "medWords": 14,
+      "capsPer100_med": 0,
+      "capsZeroPct": 57.5,
+      "startsQuotePct": 42.2,
+      "backRefPct": 18,
+      "chronoDMPct": 7.8,
+      "chronoTaskPct": 8,
+      "contrastPct": 14.3,
+      "dialogueMed": 100,
+      "dialogueOver9Pct": 62.4,
+      "archaicSpanPct": 0.2,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 12
+     },
+     "학교문단": {
+      "spans": 811,
+      "keptWords": 39175,
+      "keptPct": 87.8,
+      "losses": {
+       "notProse": 3687,
+       "tooShortTail": 17,
+       "oversizeSentence": 0
+      },
+      "medWords": 46,
+      "capsPer100_med": 3.33,
+      "capsZeroPct": 19.5,
+      "startsQuotePct": 42.5,
+      "backRefPct": 18.9,
+      "chronoDMPct": 22.2,
+      "chronoTaskPct": 22.9,
+      "contrastPct": 38,
+      "dialogueMed": 57.1,
+      "dialogueOver9Pct": 80.6,
+      "archaicSpanPct": 0.6,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 16.8
+     },
+     "수능짧은": {
+      "spans": 410,
+      "keptWords": 39135,
+      "keptPct": 87.7,
+      "losses": {
+       "notProse": 3687,
+       "tooShortTail": 60,
+       "oversizeSentence": 0
+      },
+      "medWords": 93,
+      "capsPer100_med": 3.57,
+      "capsZeroPct": 4.6,
+      "startsQuotePct": 43.4,
+      "backRefPct": 21,
+      "chronoDMPct": 37.8,
+      "chronoTaskPct": 38.8,
+      "contrastPct": 60.5,
+      "dialogueMed": 60,
+      "dialogueOver9Pct": 93.2,
+      "archaicSpanPct": 1.2,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 17.8
+     },
+     "수능장문": {
+      "spans": 151,
+      "keptWords": 39159,
+      "keptPct": 87.8,
+      "losses": {
+       "notProse": 3687,
+       "tooShortTail": 34,
+       "oversizeSentence": 0
+      },
+      "medWords": 258,
+      "capsPer100_med": 3.6,
+      "capsZeroPct": 0.7,
+      "startsQuotePct": 41.7,
+      "backRefPct": 19.9,
+      "chronoDMPct": 70.9,
+      "chronoTaskPct": 72.2,
+      "contrastPct": 88.7,
+      "dialogueMed": 53.8,
+      "dialogueOver9Pct": 98,
+      "archaicSpanPct": 3.3,
+      "archaicPer100_mean": 0.02,
+      "avgSentMed": 17.9
+     }
+    }
+   },
+   {
+    "gutenbergId": "3761",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/3761",
+    "textUrl": "https://www.gutenberg.org/cache/epub/3761/pg3761.txt",
+    "title": "This Country of Ours (발췌)",
+    "author": "H. E. Marshall",
+    "authorLife": [
+     1867,
+     1941
+    ],
+    "authorIsPseudonym": false,
+    "year": 1917,
+    "yearEvidence": "Open Library first_publish_year (본문에 연도 없음)",
+    "genre": "history",
+    "isFiction": false,
+    "band": "mid",
+    "snapshotNarrativeChunks": 13,
+    "bodyWords": 177366,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 9368,
+      "keptWords": 163746,
+      "keptPct": 92.3,
+      "losses": {
+       "notProse": 2647,
+       "tooShortTail": 29,
+       "oversizeSentence": 7528
+      },
+      "medWords": 16,
+      "capsPer100_med": 5.26,
+      "capsZeroPct": 40.4,
+      "startsQuotePct": 4.4,
+      "backRefPct": 44.7,
+      "chronoDMPct": 9.2,
+      "chronoTaskPct": 9.9,
+      "contrastPct": 20.7,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 9.8,
+      "archaicSpanPct": 0.7,
+      "archaicPer100_mean": 0.05,
+      "avgSentMed": 16
+     },
+     "학교문단": {
+      "spans": 3464,
+      "keptWords": 171111,
+      "keptPct": 96.5,
+      "losses": {
+       "notProse": 2647,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 48,
+      "capsPer100_med": 6.25,
+      "capsZeroPct": 11.9,
+      "startsQuotePct": 3.8,
+      "backRefPct": 43.4,
+      "chronoDMPct": 23.3,
+      "chronoTaskPct": 24.9,
+      "contrastPct": 48.5,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 21.4,
+      "archaicSpanPct": 1.8,
+      "archaicPer100_mean": 0.05,
+      "avgSentMed": 18.3
+     },
+     "수능짧은": {
+      "spans": 1732,
+      "keptWords": 171031,
+      "keptPct": 96.4,
+      "losses": {
+       "notProse": 2647,
+       "tooShortTail": 82,
+       "oversizeSentence": 0
+      },
+      "medWords": 97,
+      "capsPer100_med": 6.52,
+      "capsZeroPct": 3.2,
+      "startsQuotePct": 3.3,
+      "backRefPct": 45,
+      "chronoDMPct": 40.4,
+      "chronoTaskPct": 42.7,
+      "contrastPct": 74,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 34.8,
+      "archaicSpanPct": 3.3,
+      "archaicPer100_mean": 0.05,
+      "avgSentMed": 18.2
+     },
+     "수능장문": {
+      "spans": 644,
+      "keptWords": 170957,
+      "keptPct": 96.4,
+      "losses": {
+       "notProse": 2647,
+       "tooShortTail": 157,
+       "oversizeSentence": 0
+      },
+      "medWords": 264,
+      "capsPer100_med": 7,
+      "capsZeroPct": 0.2,
+      "startsQuotePct": 4,
+      "backRefPct": 46.7,
+      "chronoDMPct": 72.7,
+      "chronoTaskPct": 75,
+      "contrastPct": 97.4,
+      "dialogueMed": 6.7,
+      "dialogueOver9Pct": 40.1,
+      "archaicSpanPct": 7.9,
+      "archaicPer100_mean": 0.05,
+      "avgSentMed": 17.9
+     }
+    }
+   },
+   {
+    "gutenbergId": "25804",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/25804",
+    "textUrl": "https://www.gutenberg.org/cache/epub/25804/pg25804.txt",
+    "title": "The Children's Book of London (발췌)",
+    "author": "G. E. Mitton",
+    "authorLife": [
+     1868,
+     1955
+    ],
+    "authorIsPseudonym": false,
+    "year": 1903,
+    "yearEvidence": "본문 \"First Published 1903\"",
+    "genre": "social",
+    "isFiction": false,
+    "band": "mid",
+    "snapshotNarrativeChunks": 33,
+    "bodyWords": 84005,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 2465,
+      "keptWords": 53355,
+      "keptPct": 63.5,
+      "losses": {
+       "notProse": 569,
+       "tooShortTail": 23,
+       "oversizeSentence": 28458
+      },
+      "medWords": 21,
+      "capsPer100_med": 0,
+      "capsZeroPct": 57.8,
+      "startsQuotePct": 1.9,
+      "backRefPct": 35,
+      "chronoDMPct": 13.7,
+      "chronoTaskPct": 14.1,
+      "contrastPct": 18.4,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 0.1,
+      "archaicSpanPct": 0.4,
+      "archaicPer100_mean": 0.04,
+      "avgSentMed": 20
+     },
+     "학교문단": {
+      "spans": 1452,
+      "keptWords": 81089,
+      "keptPct": 96.5,
+      "losses": {
+       "notProse": 569,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 53,
+      "capsPer100_med": 2.27,
+      "capsZeroPct": 37.2,
+      "startsQuotePct": 1,
+      "backRefPct": 34.9,
+      "chronoDMPct": 28.7,
+      "chronoTaskPct": 29.5,
+      "contrastPct": 41.4,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 0.2,
+      "archaicSpanPct": 1.1,
+      "archaicPer100_mean": 0.04,
+      "avgSentMed": 26
+     },
+     "수능짧은": {
+      "spans": 778,
+      "keptWords": 81043,
+      "keptPct": 96.5,
+      "losses": {
+       "notProse": 569,
+       "tooShortTail": 47,
+       "oversizeSentence": 0
+      },
+      "medWords": 101,
+      "capsPer100_med": 2.82,
+      "capsZeroPct": 22.4,
+      "startsQuotePct": 0.6,
+      "backRefPct": 36.6,
+      "chronoDMPct": 45.9,
+      "chronoTaskPct": 46.3,
+      "contrastPct": 63.6,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 0.4,
+      "archaicSpanPct": 2.1,
+      "archaicPer100_mean": 0.04,
+      "avgSentMed": 26.8
+     },
+     "수능장문": {
+      "spans": 301,
+      "keptWords": 81043,
+      "keptPct": 96.5,
+      "losses": {
+       "notProse": 569,
+       "tooShortTail": 47,
+       "oversizeSentence": 0
+      },
+      "medWords": 267,
+      "capsPer100_med": 3.1,
+      "capsZeroPct": 5,
+      "startsQuotePct": 1,
+      "backRefPct": 31.6,
+      "chronoDMPct": 79.1,
+      "chronoTaskPct": 80.4,
+      "contrastPct": 92.4,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 0.7,
+      "archaicSpanPct": 5.3,
+      "archaicPer100_mean": 0.04,
+      "avgSentMed": 27.1
+     }
+    }
+   },
+   {
+    "gutenbergId": "4367",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/4367",
+    "textUrl": "https://www.gutenberg.org/cache/epub/4367/pg4367.txt",
+    "title": "Personal Memoirs of U. S. Grant, Complete (발췌)",
+    "author": "Ulysses S. Grant",
+    "authorLife": [
+     1822,
+     1885
+    ],
+    "authorIsPseudonym": false,
+    "year": 1885,
+    "yearEvidence": "본문 서문 \"MOUNT MACGREGOR, NEW YORK, July 1, 1885\"",
+    "genre": "biography",
+    "isFiction": false,
+    "band": "mid",
+    "snapshotNarrativeChunks": 39,
+    "bodyWords": 280461,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 10568,
+      "keptWords": 210335,
+      "keptPct": 75,
+      "losses": {
+       "notProse": 2721,
+       "tooShortTail": 109,
+       "oversizeSentence": 60309
+      },
+      "medWords": 19,
+      "capsPer100_med": 4,
+      "capsZeroPct": 44.7,
+      "startsQuotePct": 0.8,
+      "backRefPct": 19,
+      "chronoDMPct": 8.1,
+      "chronoTaskPct": 7.8,
+      "contrastPct": 14.6,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 3,
+      "archaicSpanPct": 0.4,
+      "archaicPer100_mean": 0.02,
+      "avgSentMed": 19
+     },
+     "학교문단": {
+      "spans": 5082,
+      "keptWords": 268848,
+      "keptPct": 95.9,
+      "losses": {
+       "notProse": 2721,
+       "tooShortTail": 0,
+       "oversizeSentence": 246
+      },
+      "medWords": 50,
+      "capsPer100_med": 5.77,
+      "capsZeroPct": 16.6,
+      "startsQuotePct": 0.6,
+      "backRefPct": 19.6,
+      "chronoDMPct": 18.8,
+      "chronoTaskPct": 18.2,
+      "contrastPct": 34.5,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 6.3,
+      "archaicSpanPct": 1.2,
+      "archaicPer100_mean": 0.02,
+      "avgSentMed": 22.5
+     },
+     "수능짧은": {
+      "spans": 2649,
+      "keptWords": 268788,
+      "keptPct": 95.8,
+      "losses": {
+       "notProse": 2721,
+       "tooShortTail": 63,
+       "oversizeSentence": 246
+      },
+      "medWords": 99,
+      "capsPer100_med": 6.25,
+      "capsZeroPct": 6.2,
+      "startsQuotePct": 0.5,
+      "backRefPct": 19.5,
+      "chronoDMPct": 32.5,
+      "chronoTaskPct": 31.7,
+      "contrastPct": 55,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 10.4,
+      "archaicSpanPct": 2.2,
+      "archaicPer100_mean": 0.02,
+      "avgSentMed": 22.5
+     },
+     "수능장문": {
+      "spans": 1011,
+      "keptWords": 268711,
+      "keptPct": 95.8,
+      "losses": {
+       "notProse": 2721,
+       "tooShortTail": 391,
+       "oversizeSentence": 0
+      },
+      "medWords": 264,
+      "capsPer100_med": 6.59,
+      "capsZeroPct": 1.2,
+      "startsQuotePct": 0.9,
+      "backRefPct": 19.5,
+      "chronoDMPct": 62.7,
+      "chronoTaskPct": 61.5,
+      "contrastPct": 87.6,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 14.6,
+      "archaicSpanPct": 5.6,
+      "archaicPer100_mean": 0.02,
+      "avgSentMed": 22.3
+     }
+    }
+   },
+   {
+    "gutenbergId": "222",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/222",
+    "textUrl": "https://www.gutenberg.org/cache/epub/222/pg222.txt",
+    "title": "The Moon and Sixpence",
+    "author": "W. Somerset Maugham",
+    "authorLife": [
+     1874,
+     1965
+    ],
+    "authorIsPseudonym": false,
+    "year": 1919,
+    "yearEvidence": "Open Library first_publish_year 1919",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "long",
+    "snapshotNarrativeChunks": 3,
+    "bodyWords": 76202,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "protected_until_2036",
+    "windows": {
+     "학교문장": {
+      "spans": 3484,
+      "keptWords": 55155,
+      "keptPct": 72.4,
+      "losses": {
+       "notProse": 6841,
+       "tooShortTail": 23,
+       "oversizeSentence": 9866
+      },
+      "medWords": 14,
+      "capsPer100_med": 0,
+      "capsZeroPct": 75.1,
+      "startsQuotePct": 10.4,
+      "backRefPct": 34.4,
+      "chronoDMPct": 6.6,
+      "chronoTaskPct": 7.8,
+      "contrastPct": 14.6,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 29.2,
+      "archaicSpanPct": 0.3,
+      "archaicPer100_mean": 0.04,
+      "avgSentMed": 12
+     },
+     "학교문단": {
+      "spans": 1322,
+      "keptWords": 64518,
+      "keptPct": 84.7,
+      "losses": {
+       "notProse": 6841,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 46,
+      "capsPer100_med": 1.79,
+      "capsZeroPct": 45.2,
+      "startsQuotePct": 9.3,
+      "backRefPct": 36.4,
+      "chronoDMPct": 18.2,
+      "chronoTaskPct": 21.9,
+      "contrastPct": 39.4,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 48.2,
+      "archaicSpanPct": 0.5,
+      "archaicPer100_mean": 0.03,
+      "avgSentMed": 16.3
+     },
+     "수능짧은": {
+      "spans": 678,
+      "keptWords": 64518,
+      "keptPct": 84.7,
+      "losses": {
+       "notProse": 6841,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 92,
+      "capsPer100_med": 2.06,
+      "capsZeroPct": 23.5,
+      "startsQuotePct": 9.3,
+      "backRefPct": 34.4,
+      "chronoDMPct": 30.8,
+      "chronoTaskPct": 36.7,
+      "contrastPct": 62.8,
+      "dialogueMed": 20,
+      "dialogueOver9Pct": 63.4,
+      "archaicSpanPct": 0.9,
+      "archaicPer100_mean": 0.03,
+      "avgSentMed": 16.7
+     },
+     "수능장문": {
+      "spans": 254,
+      "keptWords": 64477,
+      "keptPct": 84.6,
+      "losses": {
+       "notProse": 6841,
+       "tooShortTail": 42,
+       "oversizeSentence": 0
+      },
+      "medWords": 252,
+      "capsPer100_med": 2.33,
+      "capsZeroPct": 4.3,
+      "startsQuotePct": 9.8,
+      "backRefPct": 36.6,
+      "chronoDMPct": 64.2,
+      "chronoTaskPct": 70.5,
+      "contrastPct": 92.5,
+      "dialogueMed": 21.4,
+      "dialogueOver9Pct": 74.4,
+      "archaicSpanPct": 1.6,
+      "archaicPer100_mean": 0.03,
+      "avgSentMed": 16.7
+     }
+    }
+   },
+   {
+    "gutenbergId": "2827",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2827",
+    "textUrl": "https://www.gutenberg.org/cache/epub/2827/pg2827.txt",
+    "title": "Aslauga's Knight",
+    "author": "Freiherr de Friedrich Heinrich Karl La Motte-Fouqué",
+    "authorLife": [
+     1777,
+     1843
+    ],
+    "authorIsPseudonym": false,
+    "year": null,
+    "yearEvidence": "확인 불가 — 독일어 원작은 Fouqué(1777-1843) 생전 작이나 **이 영역본의 출판 연도**는 Gutenberg 헤더·본문·Open Library 어디에도 없다(역자 미기재)",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "long",
+    "snapshotNarrativeChunks": 2,
+    "bodyWords": 12949,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 279,
+      "keptWords": 6236,
+      "keptPct": 48.2,
+      "losses": {
+       "notProse": 173,
+       "tooShortTail": 3,
+       "oversizeSentence": 6278
+      },
+      "medWords": 22,
+      "capsPer100_med": 2.78,
+      "capsZeroPct": 46.6,
+      "startsQuotePct": 15.4,
+      "backRefPct": 33.7,
+      "chronoDMPct": 10.4,
+      "chronoTaskPct": 11.5,
+      "contrastPct": 26.2,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 37.6,
+      "archaicSpanPct": 6.8,
+      "archaicPer100_mean": 0.36,
+      "avgSentMed": 21
+     },
+     "학교문단": {
+      "spans": 205,
+      "keptWords": 12339,
+      "keptPct": 95.3,
+      "losses": {
+       "notProse": 173,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 54,
+      "capsPer100_med": 2.83,
+      "capsZeroPct": 17.6,
+      "startsQuotePct": 13.7,
+      "backRefPct": 35.6,
+      "chronoDMPct": 24.4,
+      "chronoTaskPct": 26.8,
+      "contrastPct": 51.2,
+      "dialogueMed": 50,
+      "dialogueOver9Pct": 57.6,
+      "archaicSpanPct": 15.6,
+      "archaicPer100_mean": 0.39,
+      "avgSentMed": 31.3
+     },
+     "수능짧은": {
+      "spans": 113,
+      "keptWords": 12204,
+      "keptPct": 94.2,
+      "losses": {
+       "notProse": 173,
+       "tooShortTail": 140,
+       "oversizeSentence": 0
+      },
+      "medWords": 104,
+      "capsPer100_med": 3.01,
+      "capsZeroPct": 1.8,
+      "startsQuotePct": 8.8,
+      "backRefPct": 33.6,
+      "chronoDMPct": 38.9,
+      "chronoTaskPct": 42.5,
+      "contrastPct": 75.2,
+      "dialogueMed": 50,
+      "dialogueOver9Pct": 69.9,
+      "archaicSpanPct": 25.7,
+      "archaicPer100_mean": 0.35,
+      "avgSentMed": 32.3
+     },
+     "수능장문": {
+      "spans": 46,
+      "keptWords": 12339,
+      "keptPct": 95.3,
+      "losses": {
+       "notProse": 173,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 267,
+      "capsPer100_med": 3.37,
+      "capsZeroPct": 0,
+      "startsQuotePct": 17.4,
+      "backRefPct": 28.3,
+      "chronoDMPct": 73.9,
+      "chronoTaskPct": 78.3,
+      "contrastPct": 97.8,
+      "dialogueMed": 40,
+      "dialogueOver9Pct": 91.3,
+      "archaicSpanPct": 58.7,
+      "archaicPer100_mean": 0.37,
+      "avgSentMed": 32.1
+     }
+    }
+   },
+   {
+    "gutenbergId": "38983",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/38983",
+    "textUrl": "https://www.gutenberg.org/cache/epub/38983/pg38983.txt",
+    "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House",
+    "author": "Hildegard G. Frey",
+    "authorLife": [
+     1891,
+     1957
+    ],
+    "authorIsPseudonym": false,
+    "year": 1919,
+    "yearEvidence": "본문 표제지 \"Copyright, 1919\"",
+    "genre": "fiction",
+    "isFiction": true,
+    "band": "long",
+    "snapshotNarrativeChunks": 19,
+    "bodyWords": 53185,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "protected_until_2028",
+    "windows": {
+     "학교문장": {
+      "spans": 2563,
+      "keptWords": 42269,
+      "keptPct": 79.5,
+      "losses": {
+       "notProse": 4136,
+       "tooShortTail": 14,
+       "oversizeSentence": 5175
+      },
+      "medWords": 15,
+      "capsPer100_med": 0,
+      "capsZeroPct": 57.4,
+      "startsQuotePct": 30,
+      "backRefPct": 17.8,
+      "chronoDMPct": 7.5,
+      "chronoTaskPct": 7.7,
+      "contrastPct": 10.1,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 42.5,
+      "archaicSpanPct": 0.1,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 14
+     },
+     "학교문단": {
+      "spans": 961,
+      "keptWords": 47297,
+      "keptPct": 88.9,
+      "losses": {
+       "notProse": 4136,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 47,
+      "capsPer100_med": 3.28,
+      "capsZeroPct": 23.3,
+      "startsQuotePct": 26.5,
+      "backRefPct": 19.5,
+      "chronoDMPct": 20.7,
+      "chronoTaskPct": 21.5,
+      "contrastPct": 27.8,
+      "dialogueMed": 33.3,
+      "dialogueOver9Pct": 60.4,
+      "archaicSpanPct": 0.3,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 19.5
+     },
+     "수능짧은": {
+      "spans": 483,
+      "keptWords": 47255,
+      "keptPct": 88.9,
+      "losses": {
+       "notProse": 4136,
+       "tooShortTail": 43,
+       "oversizeSentence": 0
+      },
+      "medWords": 95,
+      "capsPer100_med": 3.37,
+      "capsZeroPct": 8.3,
+      "startsQuotePct": 25.7,
+      "backRefPct": 19,
+      "chronoDMPct": 35.8,
+      "chronoTaskPct": 36.9,
+      "contrastPct": 45.8,
+      "dialogueMed": 37.5,
+      "dialogueOver9Pct": 76.2,
+      "archaicSpanPct": 0.6,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 18.6
+     },
+     "수능장문": {
+      "spans": 180,
+      "keptWords": 47070,
+      "keptPct": 88.5,
+      "losses": {
+       "notProse": 4136,
+       "tooShortTail": 231,
+       "oversizeSentence": 0
+      },
+      "medWords": 260,
+      "capsPer100_med": 4.03,
+      "capsZeroPct": 1.1,
+      "startsQuotePct": 26.7,
+      "backRefPct": 20.6,
+      "chronoDMPct": 64.4,
+      "chronoTaskPct": 65.6,
+      "contrastPct": 78.3,
+      "dialogueMed": 41.2,
+      "dialogueOver9Pct": 86.1,
+      "archaicSpanPct": 1.7,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 19.3
+     }
+    }
+   },
+   {
+    "gutenbergId": "4939",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/4939",
+    "textUrl": "https://www.gutenberg.org/cache/epub/4939/pg4939.txt",
+    "title": "Chopin : the Man and His Music",
+    "author": "James Huneker",
+    "authorLife": [
+     1857,
+     1921
+    ],
+    "authorIsPseudonym": false,
+    "year": 1900,
+    "yearEvidence": "Open Library first_publish_year 1900 (본문 연도는 전부 쇼팽 전기 사실)",
+    "genre": "biography",
+    "isFiction": false,
+    "band": "long",
+    "snapshotNarrativeChunks": 9,
+    "bodyWords": 76186,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 3773,
+      "keptWords": 64758,
+      "keptPct": 85,
+      "losses": {
+       "notProse": 1011,
+       "tooShortTail": 25,
+       "oversizeSentence": 7934
+      },
+      "medWords": 16,
+      "capsPer100_med": 3.7,
+      "capsZeroPct": 46.8,
+      "startsQuotePct": 2.5,
+      "backRefPct": 28.3,
+      "chronoDMPct": 7.7,
+      "chronoTaskPct": 7.8,
+      "contrastPct": 13.5,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 15.3,
+      "archaicSpanPct": 0.2,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 15
+     },
+     "학교문단": {
+      "spans": 1439,
+      "keptWords": 72389,
+      "keptPct": 95,
+      "losses": {
+       "notProse": 1011,
+       "tooShortTail": 24,
+       "oversizeSentence": 0
+      },
+      "medWords": 48,
+      "capsPer100_med": 5,
+      "capsZeroPct": 15.9,
+      "startsQuotePct": 2.3,
+      "backRefPct": 29.8,
+      "chronoDMPct": 21.4,
+      "chronoTaskPct": 21.8,
+      "contrastPct": 33.9,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 37,
+      "archaicSpanPct": 0.7,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 17.7
+     },
+     "수능짧은": {
+      "spans": 742,
+      "keptWords": 72308,
+      "keptPct": 94.9,
+      "losses": {
+       "notProse": 1011,
+       "tooShortTail": 107,
+       "oversizeSentence": 0
+      },
+      "medWords": 95,
+      "capsPer100_med": 5.62,
+      "capsZeroPct": 3.5,
+      "startsQuotePct": 1.3,
+      "backRefPct": 27.1,
+      "chronoDMPct": 36.8,
+      "chronoTaskPct": 37.6,
+      "contrastPct": 55,
+      "dialogueMed": 14.3,
+      "dialogueOver9Pct": 55.5,
+      "archaicSpanPct": 1.3,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 17.8
+     },
+     "수능장문": {
+      "spans": 276,
+      "keptWords": 72389,
+      "keptPct": 95,
+      "losses": {
+       "notProse": 1011,
+       "tooShortTail": 24,
+       "oversizeSentence": 0
+      },
+      "medWords": 260,
+      "capsPer100_med": 5.84,
+      "capsZeroPct": 0,
+      "startsQuotePct": 1.8,
+      "backRefPct": 33,
+      "chronoDMPct": 69.2,
+      "chronoTaskPct": 69.9,
+      "contrastPct": 87,
+      "dialogueMed": 13.3,
+      "dialogueOver9Pct": 64.1,
+      "archaicSpanPct": 3.3,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 17.9
+     }
+    }
+   },
+   {
+    "gutenbergId": "20928",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/20928",
+    "textUrl": "https://www.gutenberg.org/cache/epub/20928/pg20928.txt",
+    "title": "Three Months in the Southern States, April-June 1863",
+    "author": "Sir Arthur James Lyon Fremantle",
+    "authorLife": [
+     1835,
+     1901
+    ],
+    "authorIsPseudonym": false,
+    "year": 1863,
+    "yearEvidence": "본문 표제·일지 \"APRIL-JUNE 1863\" · Open Library first_publish_year 1863",
+    "genre": "travel",
+    "isFiction": false,
+    "band": "long",
+    "snapshotNarrativeChunks": 37,
+    "bodyWords": 70895,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "expired",
+    "windows": {
+     "학교문장": {
+      "spans": 2503,
+      "keptWords": 50828,
+      "keptPct": 71.7,
+      "losses": {
+       "notProse": 568,
+       "tooShortTail": 17,
+       "oversizeSentence": 16908
+      },
+      "medWords": 20,
+      "capsPer100_med": 5.56,
+      "capsZeroPct": 35.2,
+      "startsQuotePct": 0.6,
+      "backRefPct": 23.7,
+      "chronoDMPct": 6.4,
+      "chronoTaskPct": 5.1,
+      "contrastPct": 12.5,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 8.6,
+      "archaicSpanPct": 1.1,
+      "archaicPer100_mean": 0.05,
+      "avgSentMed": 19
+     },
+     "학교문단": {
+      "spans": 1262,
+      "keptWords": 67068,
+      "keptPct": 94.6,
+      "losses": {
+       "notProse": 568,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 50,
+      "capsPer100_med": 6.38,
+      "capsZeroPct": 10.9,
+      "startsQuotePct": 0.8,
+      "backRefPct": 23.4,
+      "chronoDMPct": 15.1,
+      "chronoTaskPct": 12.2,
+      "contrastPct": 32.8,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 20,
+      "archaicSpanPct": 2.9,
+      "archaicPer100_mean": 0.06,
+      "avgSentMed": 23
+     },
+     "수능짧은": {
+      "spans": 664,
+      "keptWords": 66912,
+      "keptPct": 94.4,
+      "losses": {
+       "notProse": 568,
+       "tooShortTail": 165,
+       "oversizeSentence": 0
+      },
+      "medWords": 98,
+      "capsPer100_med": 6.45,
+      "capsZeroPct": 1.1,
+      "startsQuotePct": 0.6,
+      "backRefPct": 22.6,
+      "chronoDMPct": 25.6,
+      "chronoTaskPct": 21.2,
+      "contrastPct": 53.2,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 32.7,
+      "archaicSpanPct": 5.4,
+      "archaicPer100_mean": 0.06,
+      "avgSentMed": 23.8
+     },
+     "수능장문": {
+      "spans": 256,
+      "keptWords": 67068,
+      "keptPct": 94.6,
+      "losses": {
+       "notProse": 568,
+       "tooShortTail": 0,
+       "oversizeSentence": 0
+      },
+      "medWords": 260,
+      "capsPer100_med": 6.67,
+      "capsZeroPct": 0,
+      "startsQuotePct": 1.2,
+      "backRefPct": 27.7,
+      "chronoDMPct": 53.5,
+      "chronoTaskPct": 44.9,
+      "contrastPct": 86.7,
+      "dialogueMed": 8.3,
+      "dialogueOver9Pct": 49.2,
+      "archaicSpanPct": 13.3,
+      "archaicPer100_mean": 0.06,
+      "avgSentMed": 23.3
+     }
+    }
+   },
+   {
+    "gutenbergId": "46102",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/46102",
+    "textUrl": "https://www.gutenberg.org/cache/epub/46102/pg46102.txt",
+    "title": "An American Girl in Munich: Impressions of a Music Student",
+    "author": "Mabel W. Daniels",
+    "authorLife": [
+     1878,
+     1971
+    ],
+    "authorIsPseudonym": false,
+    "year": 1905,
+    "yearEvidence": "본문 표제지 \"Copyright, 1905\" · \"Published March, 1905\"",
+    "genre": "travel",
+    "isFiction": false,
+    "band": "long",
+    "snapshotNarrativeChunks": 12,
+    "bodyWords": 44975,
+    "gutenbergRights": "Public domain in the USA.",
+    "krCopyright": "protected_until_2042",
+    "windows": {
+     "학교문장": {
+      "spans": 2083,
+      "keptWords": 36507,
+      "keptPct": 81.2,
+      "losses": {
+       "notProse": 1060,
+       "tooShortTail": 22,
+       "oversizeSentence": 5416
+      },
+      "medWords": 16,
+      "capsPer100_med": 0,
+      "capsZeroPct": 59.8,
+      "startsQuotePct": 10.2,
+      "backRefPct": 20.4,
+      "chronoDMPct": 9.5,
+      "chronoTaskPct": 9.8,
+      "contrastPct": 11,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 19.3,
+      "archaicSpanPct": 0.2,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 16
+     },
+     "학교문단": {
+      "spans": 845,
+      "keptWords": 41698,
+      "keptPct": 92.7,
+      "losses": {
+       "notProse": 1060,
+       "tooShortTail": 11,
+       "oversizeSentence": 0
+      },
+      "medWords": 47,
+      "capsPer100_med": 2.67,
+      "capsZeroPct": 26.5,
+      "startsQuotePct": 9.7,
+      "backRefPct": 19.9,
+      "chronoDMPct": 23.6,
+      "chronoTaskPct": 24.4,
+      "contrastPct": 29.3,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 33.7,
+      "archaicSpanPct": 0.5,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 19.5
+     },
+     "수능짧은": {
+      "spans": 431,
+      "keptWords": 41698,
+      "keptPct": 92.7,
+      "losses": {
+       "notProse": 1060,
+       "tooShortTail": 11,
+       "oversizeSentence": 0
+      },
+      "medWords": 95,
+      "capsPer100_med": 3.49,
+      "capsZeroPct": 9.3,
+      "startsQuotePct": 8.1,
+      "backRefPct": 22.7,
+      "chronoDMPct": 39.9,
+      "chronoTaskPct": 40.8,
+      "contrastPct": 48.7,
+      "dialogueMed": 0,
+      "dialogueOver9Pct": 49.9,
+      "archaicSpanPct": 0.9,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 19.2
+     },
+     "수능장문": {
+      "spans": 160,
+      "keptWords": 41507,
+      "keptPct": 92.3,
+      "losses": {
+       "notProse": 1060,
+       "tooShortTail": 206,
+       "oversizeSentence": 0
+      },
+      "medWords": 258,
+      "capsPer100_med": 3.82,
+      "capsZeroPct": 0.6,
+      "startsQuotePct": 8.1,
+      "backRefPct": 20.6,
+      "chronoDMPct": 73.8,
+      "chronoTaskPct": 76.3,
+      "contrastPct": 83.1,
+      "dialogueMed": 15.4,
+      "dialogueOver9Pct": 65.6,
+      "archaicSpanPct": 2.5,
+      "archaicPer100_mean": 0.01,
+      "avgSentMed": 19.2
+     }
+    }
+   }
+  ]
+ },
+ "verdict": {
+  "answer": "아니오 — 원문 그대로는 못 채운다. 그러나 전량 폐기도 틀렸다: 논픽션 서사 분(938권 중 251권 · 13,637 조각 중 5,409)은 수정량 20.8% 의 가공 입력으로서 값이 있다.",
+  "byTarget": [
+   {
+    "slot": "C 장문 서사 (결손 가중치 0.51)",
+    "raw": "불합격",
+    "evidence": "수능장문 창 4,772 조각: 앞 문맥 지시어로 시작 27.4%(목표 0%) · 인용부호로 시작 9.0%(목표 0%) · 시간순 표지 67.0%(목표 89.7%) · 고유명사 5.16/100어(목표 4.25) · 고유명사 0개 조각 1.2%(목표 0% — 이 하나만 맞는다) [측정]",
+    "afterProcessing": "논픽션 서사만 보면 게이트 통과 29.4%(fiction 7.3%)이고, 통과 못한 것의 주된 사유는 앞 문맥 지시어(27.5%)인데 G2 에서 그것은 **낱말 한둘로 풀렸다**(Grant 조각 수정량 20.8%) [측정]. 즉 **R0(그대로)가 아니라 경(輕)가공 입력으로는 성립한다.**"
+   },
+   {
+    "slot": "초·중등 서사 (초6 62어 · 중1 84어 · 중3 81어)",
+    "raw": "불합격",
+    "evidence": "학교문단 창 fiction 7,795 조각: 대화 비중 9% 초과 59.3% · 인용부호로 시작 25.0% [측정]. 시중 초·중 지문은 대화 중앙 0 · p95 8.5%, 문두 지시 3% 다 [측정: standalone.ts]. 아동 서사 조각은 **대화 장면**이라 지문이 안 된다 — 2026-09-04 에 이미 같은 결론이 나왔고(standalone.ts 머리말), 이 표본이 그것을 재확인한다.",
+    "afterProcessing": "가공해도 비싸다 — Dutch Twins 조각 수정량 35.2%, 게다가 107어 → 113어로 **늘어서** 초6 중앙 62어에는 다시 잘라야 한다 [측정]."
+   }
+  ],
+  "whatToRevive": {
+   "layer": "논픽션 서사 — 책 단위 genre ∈ {biography, history, travel, memoir}",
+   "books": 192,
+   "snapshotChunks": 4358,
+   "why": [
+    "인용부호로 시작 2.2%(fiction 24.2%) · 대화 9% 초과 30.5%(fiction 83.7%) — **C 무리에 어긋나는 두 지표가 fiction 에서만 크다** [측정: 수능장문 창]",
+    "게이트 통과 29.4% vs fiction 7.3% — **4.0배** [측정]",
+    "가공 수정량 20.8%(Grant) — 「경」 등급(20% 미만) 바로 위 [측정: g2]",
+    "내용 사유 오염 4.5% [측정: 스냅샷 교차]"
+   ],
+   "years": "표본의 이 층은 1863 · 1885 · 1892 · 1900 · 1903 · 1905 · 1905 [측정] — 연대로는 안 갈린다. **갈래로 갈린다.**",
+   "whatToDrop": [
+    "fiction 687권 · 8,228 조각(모집단 60.3%) — 대화 장면이라 두 슬롯 어디에도 안 맞고 가공도 비싸다",
+    "사료를 원 철자로 길게 인용하는 권 — 고어체 표지 정규식으로는 안 잡히므로 **권 단위로 걸러야 한다**(표본에서 51280 28.2% · 2827 58.7% · 20928 13.3% 의 장문 조각이 고어체 표지를 담았다) [측정]",
+    "한국 기준 보호 기간 중인 권 — 표본 20권 중 4권 [측정]"
+   ],
+   "precondition": "되살리기 전에 **권마다 ① 한국 기준 저작권 상태 ② 원저 연도** 를 확인해야 한다. 표본에서 ①은 4/20 이 걸렸고 ②는 1/20 이 확인 불가로 탈락했다 [측정]. 938권에 대해 이 둘을 자동으로 채울 경로는 아직 없다."
+  },
+  "priorMeasurementCheck": {
+   "claim": "demand-model.md §4 — \"앞선 측정에서 gutenberg 조각은 인용부호로 시작 10.7% · 앞 문맥 지시어 11.9% 였고, 그건 C 무리 기준(0% · 0%)과 어긋난다\"",
+   "result": "**서사 분만 따로 재도 어긋난다 — 더 어긋난다.** 인용부호로 시작은 창에 따라 8.9~10.7%(앞선 값과 같은 자리)이고, 앞 문맥 지시어로 시작은 **26.8~27.4%** 로 앞선 11.9% 의 두 배 넘는다 [측정: 같은 BACKREF 정규식]. 즉 \"비교군 오염 때문에 서사 분이 억울하게 나쁘게 나왔다\" 는 가설은 **기각된다.** 오염이 가린 것은 반대쪽이었다 — 서사 안의 **fiction / 논픽션 서사** 분열이다."
+  }
+ },
+ "limits": [
+  "**모집단 총량을 못 냈다.** 938권의 본문을 다 받지 않았으므로 \"논픽션 서사에서 쓸 만한 장문 조각이 몇 편 나오는가\" 를 셀 수 없다. 표본에서 책당 장문 조각은 18~1,011편(중앙 191)으로 **50배 넘게 벌어진다** — 책당 평균을 곱하는 추정은 틀린다. 스냅샷 조각 수 대비 비율도 5.0~84.7배로 벌어져 환산 계수로 쓸 수 없다 [측정].",
+  "**표본 20권은 938권의 2.1% 다.** 갈래별 비율(fiction 60.3% 등)은 모집단 전수 계수이지만, **갈래 안의 문체 지표**(게이트 통과 29.4% 등)는 논픽션 9권 · fiction 11권에서 나온 값이다. 권 간 편차가 크다(논픽션 장문 인용부호 시작 0.9~8.1%).",
+  "**내용 사유 4.5% 는 독립 검증이 아니다.** 같은 LLM 패스가 매긴 genre 라벨을 verdict 와 교차한 값이다. narrative 로 판정된 조각을 사람이 다시 읽어 bias·obsolete-fact 를 세지 않았다.",
+  "**한국 저작권 판정은 날짜 산술이지 법률 의견이 아니다.** 저자 몰년(Gutenberg 서지) + 제39·40조를 적용했을 뿐이고, 번역물·공동저작·전시 특례·상호주의는 안 봤다. criteria G0-3 대로 법률 판단은 사용자 소관이다.",
+  "**앞 문맥 지시어 27.4% 는 상한이다.** 이 정규식은 오탐이 많다고 저장소가 이미 실측했다(문항 지문 30,077건 표본 10건 중 7~8건이 오탐 — standalone.ts 2026-09-14). 다만 **기출 C 무리 0% 도 같은 자로 잰 값**이라 비교 자체는 성립한다. 서사 조각의 진짜 앞문맥 의존률은 이 값보다 낮다 — 얼마나 낮은지는 안 쟀다.",
+  "**어휘 대역(NGSL/NAWL 밖 비율)을 안 쟀다.** criteria G3 의 항목이지만 이 파일럿 범위 밖이다. G2 에서 한 조각(Munich)의 음악 용어가 걸렸을 뿐이다.",
+  "**정제 잔존율(keep_pct)은 chopToWindow 기준으로만 쟀다.** source-doc-inspect.mts 의 표·서지 제거는 안 돌렸다. 삽화 표시·이탤릭 밑줄만 걷어냈다.",
+  "**2827(Aslauga's Knight)은 G0-4 로 탈락했지만 G3 집계에는 들어 있다.** 46 조각(장문 창 전체 4,772 의 1.0%)이라 지표를 흔들지 않지만, 고어체 표지 58.7% 로 그 항목의 표본 평균은 약간 올린다.",
+  "중2 대역은 시중 표본이 10개뿐이라(demand-model §2) 초·중등 슬롯 판정에서 중1·중3 만 대 봤다."
+ ],
+ "reproduce": {
+  "steps": [
+   "① 스냅샷에서 verdict==\"narrative\" 추출 → source_url 의 ebooks/<id> 로 938권 묶기",
+   "② 어수대 3분위 × 갈래 × 저자 유일 층화, seed mulberry32(20260924) → 20권",
+   "③ curl https://www.gutenberg.org/cache/epub/<id>/pg<id>.txt",
+   "④ *** START/END OF THE PROJECT GUTENBERG EBOOK *** 사이만 남기고 [Illustration]·밑줄 제거",
+   "⑤ chopToWindow(body,{lo,max}) 를 창 4개에 돌려 조각 생성",
+   "⑥ demand-model.mjs 와 같은 정규식으로 조각별 지표 → 창별·갈래별 집계",
+   "⑦ 3권에서 조각 1편씩 손으로 가공 → 낱말 LCS 로 수정량"
+  ],
+  "scripts": "스크래치패드(extract.mjs · sample.mjs · measure.mjs · gate.mjs · g2.mjs · build.mjs) — 저장소에 커밋하지 않았다. 재실행이 필요하면 이 steps 로 다시 짠다.",
+  "dbWrites": 0
+ }
+}

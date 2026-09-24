@@ -566,7 +566,7 @@ function PublishControl({
   }
   if (gate === 'published') {
     return (
-      <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-known)]/40 bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known)]">
+      <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--learn-known)_40%,transparent)] bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known)]">
         <CheckCircle2 size={13} aria-hidden />
         게시됨
       </span>

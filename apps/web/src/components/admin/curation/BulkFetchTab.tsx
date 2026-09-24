@@ -605,7 +605,7 @@ export function BulkFetchTab() {
       </section>
 
       {/* 큐레이션 메타 배치 — Claude Code 가 drain */}
-      <section className="flex flex-wrap items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)]/40 bg-[var(--p-light)]/40 p-3">
+      <section className="flex flex-wrap items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[color-mix(in_srgb,var(--p-light)_40%,transparent)] p-3">
         <Info size={13} className="text-[var(--p)]" aria-hidden />
         <span className="font-body text-[11px] text-[var(--t2)]">
           큐레이션 선택 정보(유형·연령·학습 도움·추정 V-Level·줄거리)를 Claude Code 배치로 획득

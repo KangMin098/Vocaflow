@@ -44,7 +44,7 @@ export function AxisBullet({ axis, target }: { axis: BenchAxis; target: number }
           {axis.name}
         </span>
         <span className="shrink-0 font-mono text-[11.5px] tabular-nums text-[var(--t1)]">
-          {measured ? v.toFixed(3) : <span className="text-[#8A8278]">못 잼</span>}
+          {measured ? v.toFixed(3) : <span className="text-[var(--memory-new)]">못 잼</span>}
         </span>
       </div>
 
@@ -72,12 +72,12 @@ export function AxisBullet({ axis, target }: { axis: BenchAxis; target: number }
             style={{
               left: `${left}%`,
               width: `${Math.max(width, 0.4)}%`,
-              background: win ? '#2E7D5A' : '#9C3A30',
+              background: win ? 'var(--memory-stable)' : 'var(--memory-risk)',
             }}
           />
         </div>
       ) : (
-        <p className="break-keep font-body text-[10.5px] leading-snug text-[#8A8278]">
+        <p className="break-keep font-body text-[10.5px] leading-snug text-[var(--memory-new)]">
           {axis.insufficient ?? '이 축은 아직 재지 않았다'}
         </p>
       )}
@@ -90,11 +90,11 @@ export function AxisBulletLegend({ target }: { target: number }) {
   return (
     <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-[10.5px] text-[var(--t3)]">
       <span className="inline-flex items-center gap-1">
-        <span className="inline-block h-1.5 w-4 rounded-full bg-[#2E7D5A]" aria-hidden />
+        <span className="inline-block h-1.5 w-4 rounded-full bg-[var(--memory-stable)]" aria-hidden />
         이김
       </span>
       <span className="inline-flex items-center gap-1">
-        <span className="inline-block h-1.5 w-4 rounded-full bg-[#9C3A30]" aria-hidden />
+        <span className="inline-block h-1.5 w-4 rounded-full bg-[var(--memory-risk)]" aria-hidden />
         짐
       </span>
       <span className="inline-flex items-center gap-1">

@@ -55,7 +55,7 @@ export function ArticleWordSetPreviewModal({ open, onClose, title, cefrLevel, wo
               추출된 단어가 없어요. 상단에서 “지금 처리/재분석”을 실행하세요.
             </p>
           ) : (
-            <ul className="flex flex-col divide-y divide-[var(--bd)]/40">
+            <ul className="flex flex-col divide-y divide-[color-mix(in_srgb,var(--bd)_40%,transparent)]">
               {words.map((w) => (
                 <li key={w.word} className="flex items-start gap-3 py-3">
                   <span className="mt-0.5 w-7 shrink-0 font-display text-[11px] font-[700] tabular-nums text-[var(--t2)]">

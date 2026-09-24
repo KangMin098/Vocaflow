@@ -49,7 +49,7 @@ export default async function AdminGatesPage() {
         </h1>
         <p className="mt-2 max-w-2xl font-body text-[14px] leading-[1.6] text-[var(--t2)]">
           학습자에게 나갈 산출물이 <strong className="text-[var(--t1)]">맞는 단어·맞는 뜻·맞는 레벨</strong>로
-          정확히 뽑혔는지 결정론 불변식으로 검증합니다. <span className="text-[#9C3A30]">critical FAIL</span>은
+          정확히 뽑혔는지 결정론 불변식으로 검증합니다. <span className="text-[var(--memory-risk)]">critical FAIL</span>은
           게시 전 수정 대상 — 사전DB나 파이프라인을 고쳐야 한다는 신호입니다.
         </p>
       </header>

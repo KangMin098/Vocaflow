@@ -158,9 +158,8 @@ export function SourceClient({
           writes: true,
         },
         {
-          cmd: 'node scripts/textbook/harvest-gutenberg-kid.mjs',
-          why: '사다리 아래 계단(초·중)은 수능 지문으로 못 채운다 — 그 학령의 원문이 따로 있어야 한다',
-          writes: true,
+          cmd: 'pnpm dlx tsx scripts/textbook/storyweaver-ingest.mjs --limit 12',
+          why: '사다리 아래 계단(초·중)은 수능 지문으로 못 채운다 — StoryWeaver 후보를 예행으로 센다(쓰지 않음)',
         },
         {
           cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/graded-source-probe.mjs',
@@ -193,7 +192,7 @@ export function SourceClient({
         <p
           key={e}
           role="alert"
-          className="break-keep rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="break-keep rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {e}
         </p>
@@ -218,7 +217,7 @@ export function SourceClient({
           <section className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
             <p
               className="break-keep font-display text-[15px] font-[700]"
-              style={{ color: emptyBands.length ? '#9C3A30' : '#2E7D5A' }}
+              style={{ color: emptyBands.length ? 'var(--memory-risk)' : 'var(--memory-stable)' }}
             >
               {emptyBands.length
                 ? `${emptyBands.map((b) => BAND_KO[b] ?? b).join(' · ')} 는 지문이 0편이다 — 문항을 더 만들어도 안 된다`
@@ -288,7 +287,7 @@ export function SourceClient({
                       <td className="py-2 pr-3 font-mono tabular-nums text-[var(--t1)]">
                         {t.publishable.toLocaleString()}
                         {t.unjudged ? (
-                          <span className="ml-1 text-[10.5px] text-[#B5803A]">
+                          <span className="ml-1 text-[10.5px] text-[var(--memory-shaky)]">
                             미판정 {t.unjudged.toLocaleString()}
                           </span>
                         ) : null}
@@ -298,7 +297,7 @@ export function SourceClient({
                       </td>
                       <td
                         className="py-2 pr-3 font-mono tabular-nums"
-                        style={{ color: t.left > 0 ? '#9C3A30' : '#2E7D5A' }}
+                        style={{ color: t.left > 0 ? 'var(--memory-risk)' : 'var(--memory-stable)' }}
                       >
                         {t.left > 0 ? t.left.toLocaleString() : '채움'}
                       </td>
@@ -338,7 +337,7 @@ export function SourceClient({
                 </p>
               ) : null}
               {audit.licenseMismatch.length ? (
-                <p className="break-keep font-body text-[12px] text-[#9C3A30]">
+                <p className="break-keep font-body text-[12px] text-[var(--memory-risk)]">
                   라이선스 어긋남 —{' '}
                   {audit.licenseMismatch
                     .map((m) => `${m.src}: 등록 ${m.registered} / 실제 ${m.actual.join(',')}`)
@@ -378,9 +377,9 @@ export function SourceClient({
       >
         <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">초·중 원문 재고</h3>
         {kidSource.error ? (
-          <p className="break-keep font-body text-[12px] text-[#9C3A30]">{kidSource.error}</p>
+          <p className="break-keep font-body text-[12px] text-[var(--memory-risk)]">{kidSource.error}</p>
         ) : kidSource.inventory == null ? (
-          <p className="break-keep font-body text-[12px] text-[#8A8278]">
+          <p className="break-keep font-body text-[12px] text-[var(--memory-new)]">
             못 잼 — 0 이 아니다. 조회가 값을 안 돌려줬다.
           </p>
         ) : (
@@ -423,9 +422,9 @@ export function SourceClient({
                           queued). 안 주면 `undefined` 이고 그때는 「못 잼」이다. */}
                       <td className="py-1.5 pr-3 font-mono tabular-nums">
                         {b.composable == null ? (
-                          <span className="text-[#8A8278]">못 잼</span>
+                          <span className="text-[var(--memory-new)]">못 잼</span>
                         ) : (
-                          <span style={{ color: b.composable > 0 ? '#2E7D5A' : '#9C3A30' }}>
+                          <span style={{ color: b.composable > 0 ? 'var(--memory-stable)' : 'var(--memory-risk)' }}>
                             {b.composable.toLocaleString()}
                           </span>
                         )}
@@ -474,7 +473,7 @@ export function SourceClient({
             node scripts/csat/harvest-plos.mjs
           </code>
           <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-            node scripts/textbook/harvest-gutenberg-kid.mjs
+            pnpm dlx tsx scripts/textbook/storyweaver-ingest.mjs --limit 12
           </code>
           <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
             npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/graded-source-probe.mjs

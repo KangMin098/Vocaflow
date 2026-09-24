@@ -24,7 +24,8 @@ import {
 } from '@/lib/textbook/source-workspace'
 import { SourceInventoryTable, SourceDetail } from './SourceInventoryTable'
 import styles from './sources.module.css'
-import { SourceActionQueue, SourceOperations, SourceQueueSummary } from './SourceOperations'
+import { SourceOperations } from './SourceOperations'
+import { SourceProcess } from './SourceProcess'
 import { SourceQueryConsole } from './SourceQueryConsole'
 
 export function SourceWorkspace({
@@ -42,6 +43,7 @@ export function SourceWorkspace({
 }) {
   const [state, setState] = useState(initialState)
   const heading = useRef<HTMLHeadingElement>(null)
+  const consoleRef = useRef<HTMLDivElement>(null)
   const trigger = useRef<HTMLButtonElement | null>(null)
   const tabs = useRef<Partial<Record<SourceView, HTMLButtonElement | null>>>({})
   const rows = filterSources(inventory.rows, state)
@@ -125,8 +127,13 @@ export function SourceWorkspace({
           집계가 오래되었거나 판정 규격이 바뀌었습니다. 처리 전에 집계를 갱신하세요.
         </p>
       ) : null}
-      <SourceActionQueue onSelect={(nextQueue, nextReason) => update({ view: 'eligibility', queue: nextQueue, reason: nextReason ?? null, source: null })} />
-      <SourceQueueSummary onSelect={q => update({ view: 'eligibility', queue: q, reason: null, source: null })} />
+      <SourceProcess
+        onQuery={({ queue: nextQueue, reason: nextReason }) => {
+          update({ view: 'eligibility', queue: nextQueue, reason: nextReason ?? null, source: null })
+          // 탭이 바뀌면서 목록이 화면 밖에 열린다 — 눌렀는데 아무 일도 안 난 것처럼 보인다.
+          requestAnimationFrame(() => consoleRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' }))
+        }}
+      />
       <div className={styles.tabs} role="tablist" aria-label="원문 관리 보기">
         {(Object.entries(SOURCE_VIEWS) as [SourceView, string][]).map(([view, label]) => (
           <button
@@ -281,7 +288,14 @@ export function SourceWorkspace({
         </div>
         {/* 조건으로 찾는 자리(2026-09-23). 아래 `SourceOperations` 는 사유 분해·재검증 등
             **작업 흐름**을 쥐고 있어 그대로 둔다 — 조회와 처리는 같은 탭의 다른 층이다. */}
-        <SourceQueryConsole queue={state.queue} onQueue={queue => update({ queue, reason: null })} />
+        <div ref={consoleRef}>
+          <SourceQueryConsole
+            queue={state.queue}
+            onQueue={queue => update({ queue, reason: null })}
+            reason={state.reason}
+            onReason={reason => update({ reason })}
+          />
+        </div>
         <details><summary>사유 분해와 원문 재검증</summary>
           <SourceOperations queue={state.queue} onQueue={queue => update({ queue, reason: null })} reason={state.reason} onReason={reason => update({ reason })} source={state.source} onSourceClear={() => update({ source: null })} />
         </details>

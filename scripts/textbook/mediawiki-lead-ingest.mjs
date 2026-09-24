@@ -28,6 +28,13 @@
 // 무작위 표집이라 **매번 다른 항목**이 오지만, 이미 넣은 것은 다시 안 넣는다.
 // 건너뛴 수를 항목별로 출력한다 — 조용히 건너뛰면 수율을 모른다.
 //
+// ── 원천 먼저 (2026-09-24) ───────────────────────────────────────────
+// 도입부는 원천이 아니다(docs/source-check/criteria.md §1). 이제 받은 문서마다 **전문을 원천 행**
+// (`<source>:<pageid>` — `ingestMediaWikiArticle` 과 같은 열쇠)으로 먼저 담고, 창에 맞춰 자른 앞부분만
+// 조각 행(`<Title>#lead-trim` · `csat_fit.derived_from.kind = 'lead'`)으로 덧붙인다. 자르지 않아도
+// 창에 들면 원천이 곧 그 글이라 `#lead` 사본을 만들지 않는다. 게이트(칸·어휘·자립성·V)는 조각만 가른다.
+// 예전 `#lead`·`#lead-trim` 행의 원천은 `scripts/textbook/originals-backfill.mjs` 가 채운다.
+//
 // ⚠️ 기본은 dry-run 이다. `--commit` 없이는 DB 에 쓰지 않는다.
 //
 // 실행:
@@ -146,6 +153,7 @@ const { createClient } = await import('@supabase/supabase-js')
 const { gradeBand, bandOf, readability, curriculumFit, standaloneFit, PASSAGE_WORDS } =
   await import('../../packages/library-pipeline/src/index.ts')
 const { estimateArticleVLevel, loadVLevelMap, warmUpRest } = await import('./_vlevel.mjs')
+const { ensureOriginal, fragmentCsatFit } = await import('./_originals.mjs')
 const { extractBookLemmas } = await import(
   '../../packages/library-pipeline/src/analyze/extract-lemmas.ts'
 )
@@ -228,6 +236,11 @@ let vLevelMiss = 0
 /** 어휘 게이트가 막았지만 `--no-curriculum` 이라 통과시킨 수 — 겹침의 크기다. */
 let vocabBypassed = 0
 let trimmed = 0
+/** 원천 행 — 새로 담음(dry-run 은 담을 예정) · 이미 있음. */
+let originalsAdded = 0
+let originalsExisted = 0
+/** 자르지 않아도 창 안 — 원천이 곧 그 글이라 조각을 만들지 않은 수. */
+let wholeIsWindow = 0
 
 for (let i = 0; i < sample.items.length; i++) {
   const item = sample.items[i]
@@ -238,7 +251,40 @@ for (let i = 0; i < sample.items.length; i++) {
     continue
   }
   const raw = (lead.body ?? '').trim()
-  if (!raw || raw.length < 40) {
+  if (!raw) {
+    empty++
+    continue
+  }
+
+  // ── 원천 먼저 (2026-09-24) — 문서 전문을 원천 행으로 ────────────────
+  // 도입부는 원천이 아니다(docs/source-check/criteria.md §1). 창·칸·어휘·자립성·V 게이트보다
+  //   **앞에** 담는다 — 그 게이트들은 조각을 가를 뿐 원천을 버리지 않는다(길이도 마찬가지).
+  //   열쇠는 `ingestMediaWikiArticle` 과 같은 `<source>:<pageid>`(pageid 가 없으면 제목 슬러그).
+  const orig = {
+    source: wiki.source,
+    source_id: `${wiki.source}:${
+      lead.pageid != null ? String(lead.pageid) : String(item.title).toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 60)
+    }`,
+    title: item.title,
+    author: null,
+    source_url: `${wiki.site}${encodeURIComponent(item.id.replace(/ /g, '_'))}`,
+    published_at: null,
+    license: wiki.license,
+    license_evidence: 'collection-default',
+    content: raw,
+  }
+  let parent
+  try {
+    parent = await ensureOriginal(db, { article: orig }, { commit: COMMIT })
+  } catch (e) {
+    failed++
+    console.log(`  ✗ ${String(e.message).slice(0, 72)}`)
+    continue
+  }
+  if (parent.status === 'existed') originalsExisted++
+  else if (parent.status === 'empty') empty++
+  else originalsAdded++
+  if (raw.length < 40) {
     empty++
     continue
   }
@@ -274,8 +320,13 @@ for (let i = 0; i < sample.items.length; i++) {
     continue
   }
   const words = countWords(content)
+  // 자르지 않았으면 조각이 곧 원천이다 — 원천 행이 이미 그 자리다. 사본을 만들지 않는다.
+  if (!wasTrimmed) {
+    wholeIsWindow++
+    continue
+  }
 
-  const source_id = wasTrimmed ? `${item.id}#lead-trim` : `${item.id}#lead`
+  const source_id = `${item.id}#lead-trim`
   const { data: dup } = await db
     .from('library_articles')
     .select('id')
@@ -334,6 +385,7 @@ for (let i = 0; i < sample.items.length; i++) {
       license: wiki.license,
       content,
       status: 'queued',
+      csat_fit: fragmentCsatFit(orig, parent, 'lead'),
     })
     if (error) {
       failed++
@@ -350,7 +402,8 @@ for (let i = 0; i < sample.items.length; i++) {
 }
 
 console.log(
-  `\n추가 ${added}(자르기로 살린 것 ${trimmed}) · 이미 있음 ${existed} · 도입부 없음 ${empty} · ` +
+  `\n원천 ${originalsAdded}(이미 있음 ${originalsExisted}) · 원천이 곧 창 ${wholeIsWindow} · ` +
+    `조각 추가 ${added}(자르기로 살린 것 ${trimmed}) · 이미 있음 ${existed} · 도입부 없음 ${empty} · ` +
     `짧음 ${tooShort} · 김 ${tooLong} · 잘라도 안 됨 ${trimFailed} · 칸 밖 ${outOfBand} · ` +
     `어휘 밖 ${vocabBlocked}${CURRICULUM ? "" : `(그중 통과 ${vocabBypassed})`} · 자립성 미달 ${notStandalone} · V칸 밖 ${vLevelMiss} · 실패 ${failed}`,
 )

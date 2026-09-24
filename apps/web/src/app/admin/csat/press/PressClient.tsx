@@ -115,7 +115,7 @@ function DecideButtons({
             onClick={() =>
               start(async () => setSays((await onDecide(v.series, v.band, 'approved')).says))
             }
-            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[#2E7D5A] hover:text-[#2E7D5A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--memory-stable)] hover:text-[var(--memory-stable)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
           >
             {pending ? '남기는 중…' : '발행 승인'}
           </button>
@@ -137,7 +137,7 @@ function DecideButtons({
                 ),
               )
             }
-            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#9C3A30] hover:text-[#9C3A30] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--memory-risk)] hover:text-[var(--memory-risk)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
           >
             {pending ? '남기는 중…' : '내린다'}
           </button>
@@ -255,7 +255,7 @@ export function PressClient({
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -275,7 +275,7 @@ export function PressClient({
           <p className="font-body text-[11px] text-[var(--t3)]">옛 규격으로 찍힌 권</p>
           <p
             className="mt-1 font-mono text-[20px] font-[700] tabular-nums"
-            style={{ color: stale.length ? '#B5803A' : '#2E7D5A' }}
+            style={{ color: stale.length ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}
           >
             {stale.length}
           </p>
@@ -287,7 +287,7 @@ export function PressClient({
           <p className="font-body text-[11px] text-[var(--t3)]">해설 안 붙은 문항</p>
           <p
             className="mt-1 font-mono text-[20px] font-[700] tabular-nums"
-            style={{ color: missingExpl ? '#9C3A30' : '#2E7D5A' }}
+            style={{ color: missingExpl ? 'var(--memory-risk)' : 'var(--memory-stable)' }}
           >
             {missingExpl.toLocaleString()}
           </p>
@@ -347,16 +347,16 @@ export function PressClient({
                     <td className="py-1.5 pr-3">
                       {v.publish == null ? (
                         // ⚠️ 「찍힘」으로 채우지 않는다 — 사람이 그렇게 판정한 것과 다르다.
-                        <span className="text-[#8A8278]">판정 없음</span>
+                        <span className="text-[var(--memory-new)]">판정 없음</span>
                       ) : (
                         <span
                           style={{
                             color:
                               v.publish.status === 'published' || v.publish.status === 'approved'
-                                ? '#2E7D5A'
+                                ? 'var(--memory-stable)'
                                 : v.publish.status === 'withdrawn'
-                                  ? '#9C3A30'
-                                  : '#B5803A',
+                                  ? 'var(--memory-risk)'
+                                  : 'var(--memory-shaky)',
                           }}
                         >
                           {PUBLISH_KO[v.publish.status]}
@@ -370,14 +370,14 @@ export function PressClient({
                     </td>
                     <td className="py-1.5 pr-3">
                       {v.reach.hasContents ? (
-                        <span style={{ color: '#2E7D5A' }}>있음</span>
+                        <span style={{ color: 'var(--memory-stable)' }}>있음</span>
                       ) : (
-                        <span style={{ color: '#9C3A30' }}>없음 — 목차 절이 안 나간다</span>
+                        <span style={{ color: 'var(--memory-risk)' }}>없음 — 목차 절이 안 나간다</span>
                       )}
                     </td>
                     <td className="break-keep py-1.5 pr-3 text-[11px]">
                       {why.length ? (
-                        <span style={{ color: '#B5803A' }}>{why.join(' · ')}</span>
+                        <span style={{ color: 'var(--memory-shaky)' }}>{why.join(' · ')}</span>
                       ) : (
                         <span className="text-[var(--t3)]">없음</span>
                       )}
@@ -392,7 +392,7 @@ export function PressClient({
                         </a>
                       ) : (
                         // 단이 없으면 주소를 지어내지 않는다.
-                        <span className="text-[#8A8278]">단 없음</span>
+                        <span className="text-[var(--memory-new)]">단 없음</span>
                       )}
                     </td>
                     <td className="py-1.5">
@@ -443,27 +443,27 @@ export function PressClient({
                     {v.units} · {v.items}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
-                    <span style={{ color: v.missingExplanations > 0 ? '#9C3A30' : '#2E7D5A' }}>
+                    <span style={{ color: v.missingExplanations > 0 ? 'var(--memory-risk)' : 'var(--memory-stable)' }}>
                       {v.missingExplanations}
                     </span>
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.typeMixFit == null ? (
-                      <span className="text-[#8A8278]">못 잼</span>
+                      <span className="text-[var(--memory-new)]">못 잼</span>
                     ) : (
-                      <span style={{ color: v.typeMixFit >= 0.8 ? '#2E7D5A' : '#B5803A' }}>
+                      <span style={{ color: v.typeMixFit >= 0.8 ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}>
                         {Math.round(v.typeMixFit * 100)}%
                       </span>
                     )}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums text-[var(--t2)]">
-                    {v.distinctVolumes ?? <span className="text-[#8A8278]">해당 없음</span>}
+                    {v.distinctVolumes ?? <span className="text-[var(--memory-new)]">해당 없음</span>}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.articlesIdle == null ? (
-                      <span className="text-[#8A8278]">못 잼</span>
+                      <span className="text-[var(--memory-new)]">못 잼</span>
                     ) : (
-                      <span style={{ color: v.articlesIdle > 0 ? '#B5803A' : '#2E7D5A' }}>
+                      <span style={{ color: v.articlesIdle > 0 ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}>
                         {v.articlesIdle.toLocaleString()}
                         {v.articlesWithItems != null ? (
                           <span className="ml-1 text-[10.5px] text-[var(--t3)]">
@@ -475,9 +475,9 @@ export function PressClient({
                   </td>
                   <td className="py-2">
                     {v.brandCurrent ? (
-                      <span className="text-[11px] text-[#2E7D5A]">최신</span>
+                      <span className="text-[11px] text-[var(--memory-stable)]">최신</span>
                     ) : (
-                      <span className="text-[11px] text-[#B5803A]">옛 규격</span>
+                      <span className="text-[11px] text-[var(--memory-shaky)]">옛 규격</span>
                     )}
                   </td>
                 </tr>

@@ -39,17 +39,17 @@ function cellTone(c: BlueprintCell): { bg: string; fg: string; text: string; tit
   if (!c.countable)
     return {
       bg: 'transparent',
-      fg: '#8A8278',
+      fg: 'var(--memory-new)',
       text: '함수',
       title: '사전에서 그 자리에서 생성한다 — DB 에 저장하지 않으므로 재고라는 개념이 없다',
     }
   if (c.count == null)
-    return { bg: 'transparent', fg: '#8A8278', text: '못 잼', title: '재고를 못 셌다' }
+    return { bg: 'transparent', fg: 'var(--memory-new)', text: '못 잼', title: '재고를 못 셌다' }
   if (c.count === 0)
-    return { bg: '#9C3A3014', fg: '#9C3A30', text: '0', title: '이 칸이 비면 그 학년 책이 반쪽이다' }
+    return { bg: 'color-mix(in srgb, var(--memory-risk) 7.8%, transparent)', fg: 'var(--memory-risk)', text: '0', title: '이 칸이 비면 그 학년 책이 반쪽이다' }
   return {
-    bg: '#2E7D5A14',
-    fg: '#2E7D5A',
+    bg: 'color-mix(in srgb, var(--memory-stable) 7.8%, transparent)',
+    fg: 'var(--memory-stable)',
     text: c.count.toLocaleString(),
     title: `재고 ${c.count.toLocaleString()}문항`,
   }
@@ -138,7 +138,7 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -148,7 +148,7 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
         {broken.length ? (
           <>
             <p className="font-body text-[12px] text-[var(--t3)]">끊긴 계단</p>
-            <p className="mt-1 break-keep font-display text-[16px] font-[800] text-[#9C3A30]">
+            <p className="mt-1 break-keep font-display text-[16px] font-[800] text-[var(--memory-risk)]">
               {broken.map((r) => `${r.schoolBand}(${r.emptyTypes.join('·')})`).join(' · ')}
             </p>
             <p className="mt-1.5 break-keep font-body text-[12px] text-[var(--t3)]">
@@ -157,7 +157,7 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
             </p>
           </>
         ) : (
-          <p className="font-display text-[15px] font-[700] text-[#2E7D5A]">
+          <p className="font-display text-[15px] font-[700] text-[var(--memory-stable)]">
             학령 {rungs.length}단이 끊긴 데 없이 이어진다
           </p>
         )}

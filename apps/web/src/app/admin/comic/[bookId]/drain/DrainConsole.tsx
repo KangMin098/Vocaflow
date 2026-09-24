@@ -75,7 +75,7 @@ export function DrainConsole({ subject, runs, events }: { subject: ComicDrainSub
       <AdminScreenHelp screen="comic-drain" className="-mt-3" />
 
       {/* 작업 범위 설명 */}
-      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
+      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 18.8%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3.9%, transparent)` }}>
         <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
           <b className="text-[var(--t1)]">드레인 범위</b> — 이 도서의 생성 작업: <code className="font-mono text-[11px]">plan</code>(컨텍스트) →
           <code className="font-mono text-[11px]"> content</code>(각색+컷 생성 · <b>gen-verified 폐루프 S0→S4</b>: 컷마다 자동 QC·수렴/재생성) →
@@ -108,7 +108,7 @@ export function DrainConsole({ subject, runs, events }: { subject: ComicDrainSub
                 <span>진행 {run.panels_done}/{run.panels_total}컷</span>
                 <span>pass {run.panels_pass} · fail {run.panels_fail}</span>
               </div>
-              <div className="h-2 w-full overflow-hidden rounded-full bg-[var(--bd)]/50">
+              <div className="h-2 w-full overflow-hidden rounded-full bg-[color-mix(in_srgb,var(--bd)_50%,transparent)]">
                 <div className="h-full rounded-full" style={{ width: `${run.panels_total ? (run.panels_done / run.panels_total) * 100 : 0}%`, background: run.panels_fail > 0 ? 'var(--memory-shaky)' : 'var(--memory-stable)' }} />
               </div>
             </div>
@@ -186,7 +186,7 @@ export function DrainConsole({ subject, runs, events }: { subject: ComicDrainSub
                 <thead><tr className="border-b border-[var(--bd)] bg-[var(--bg2)] text-[11px] uppercase text-[var(--t2)]"><th className="px-3 py-2">컷</th><th className="px-3 py-2">phase</th><th className="px-3 py-2">상태</th><th className="px-3 py-2">점수</th><th className="px-3 py-2">메시지</th></tr></thead>
                 <tbody>
                   {[...events].sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at)).slice(0, 40).map((e, k) => (
-                    <tr key={k} className="border-b border-[var(--bd)]/50 last:border-0">
+                    <tr key={k} className="border-b border-[color-mix(in_srgb,var(--bd)_50%,transparent)] last:border-0">
                       <td className="px-3 py-2 font-mono text-[var(--t2)]">S{e.chapter_idx}·{e.page_order}{e.attempt > 1 ? ` (#${e.attempt})` : ''}</td>
                       <td className="px-3 py-2 text-[var(--t2)]">{e.phase}</td>
                       <td className="px-3 py-2"><span style={{ color: STATUS_TONE[e.status ?? 'pending'] }}>{e.status}</span></td>

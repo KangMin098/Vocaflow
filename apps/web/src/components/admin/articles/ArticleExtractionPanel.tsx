@@ -85,7 +85,7 @@ export function ArticleExtractionPanel({
       )}
 
       {missing > 0 && (
-        <p className="rounded-[var(--r-sm)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-3 py-2 font-body text-[11px] text-[#92400E]">
+        <p className="rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--warning)_30%,transparent)] bg-[var(--warning-light)] px-3 py-2 font-body text-[11px] text-[var(--warning-ink)]">
           사전 미등재(뜻 없음) <strong>{missing}건</strong> — dict-fill 큐 후보 (학습 노출 시 뜻 누락)
         </p>
       )}

@@ -654,7 +654,7 @@ describe('LadderFill — 「N / 7」을 계단으로', () => {
     const html = renderToString(<PressClient {...press} onDecide={NO_DECIDE} />)
     // 1단(Starter)에 해설 없음 4 → 빨간 점 하나
     expect(html).toContain('해설 없음 4')
-    expect(html).toContain('bg-[#9C3A30]')
+    expect(html).toContain('bg-[var(--memory-risk)]')
   })
 
   it('접근성 이름에 채움 비율을 적는다', () => {

@@ -9002,18 +9002,6 @@ export type Database = {
           sort_order_at: number
         }[]
       }
-      select_article_coverage: {
-        Args: { p_article_id: string }
-        Returns: {
-          first_sentence: string
-          frequency_in_article: number
-          frequency_rank: number
-          gloss_en: string
-          meaning_ko: string
-          pos: string
-          word: string
-        }[]
-      }
       select_article_vocab: {
         Args: { p_article_id: string }
         Returns: {
@@ -9113,15 +9101,6 @@ export type Database = {
           matched_surface: string
           meaning_ko: string
           pos: string
-          word: string
-        }[]
-      }
-      select_extraction_residual: {
-        Args: never
-        Returns: {
-          context: string
-          freq: number
-          sources: string
           word: string
         }[]
       }

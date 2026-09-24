@@ -17,6 +17,7 @@ import crypto from 'node:crypto'
 import { isDeepStrictEqual } from 'node:util'
 
 import { hardReject, purposeOf, decide, PURPOSE_RULE, RULES_VERSION, CODES_VERSION, HARMFUL, UNFIT, SOURCE_USES } from './gate-rules.mjs'
+import { retainProblems, retainRecord } from './retain-record.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
 import { track } from './drain-run.mjs'
 
@@ -38,9 +39,24 @@ if (inputIndex >= 0) {
   for (const r of reviews) {
     if (!/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(r.id ?? '') || seenIds.has(r.id)) throw new Error('Invalid or duplicate review ID')
     seenIds.add(r.id)
+    if (r.kind === 'retain') {
+      // 보관 판정(docs/source-check/criteria.md §3) — 규칙은 retain-record.mjs 한 곳에 있다(검사기와 같다).
+      const problems = retainProblems(r, r.id)
+      if (problems.length) throw new Error(`Invalid retention record: ${problems.slice(0, 3).join(' · ')}`)
+      if (r.basis !== undefined && r.basis !== 'full') throw new Error(`Only full-body judgments are accepted: basis=${r.basis}`)
+      if (!Number.isFinite(Date.parse(r.source_updated_at)) || !/^[a-f0-9]{64}$/.test(r.body_sha256 ?? '')) throw new Error('Review must record revision and full-body SHA256')
+      continue
+    }
     if (!['use','narrative','reject'].includes(r.verdict) || typeof r.genre !== 'string' || typeof r.why !== 'string' || r.why.trim().length < 10) throw new Error('Incomplete content judgment')
     if (r.verdict !== 'reject' && blockedGenres.has(r.genre)) throw new Error('Verdict/genre contradiction')
     if (!Number.isFinite(Date.parse(r.source_updated_at)) || !/^[a-f0-9]{64}$/.test(r.body_sha256 ?? '')) throw new Error('Review must record revision and full-body SHA256')
+    // `kind` — 무엇을 판정했나(2026-09-24). 없거나 `content` 면 내용 판정(`gate.verdict`),
+    //   `retain` 이면 미절단 원본의 **보관 판정** — `gate.retain` 에만 쓰고 `gate.verdict` 는 건드리지 않는다.
+    //   게시 적격을 여는 것은 내용 판정뿐이다(docs/source-check/criteria.md §1).
+    // `basis` — 무엇을 읽었나. **전문(`full`)만 받는다**(2026-09-24 사용자 결정 「정확성 우선」).
+    //   부분 읽기는 30편 대조에서 틀렸다 — 앞 800어는 보관할 17편 중 12편을 버렸고, 서론·고찰은 버릴 5편을 보관했다.
+    if (r.kind !== undefined && !['content', 'retain'].includes(r.kind)) throw new Error(`Unknown judgment kind: ${r.kind}`)
+    if (r.basis !== undefined && r.basis !== 'full') throw new Error(`Only full-body judgments are accepted: basis=${r.basis}`)
     // `uses` — 이 원문으로 만들 수 있는 교재 재료(2026-09-23). 옛 판정 파일에는 없으므로 있을 때만 검사한다.
     if (r.uses !== undefined) {
       if (!Array.isArray(r.uses) || r.uses.some(u => !SOURCE_USES.has(u))) throw new Error(`Unknown source use: ${JSON.stringify(r.uses)}`)
@@ -65,15 +81,30 @@ if (inputIndex >= 0) {
     if (crypto.createHash('sha256').update(row.content ?? '').digest('hex') !== review.body_sha256) throw new Error(`Reviewed body changed: ${row.id}`)
     const purpose = purposeOf(row), codes = hardReject(row.content ?? '')
     const decision = decide({ purpose, verdict: review.verdict, genre: review.genre, codes })
-    const gate = { v: 2, rv: RULES_VERSION, cv: CODES_VERSION, ...decision, purpose, verdict: review.verdict, genre: review.genre, why: review.why, codes, by: 'chunk-llm',
-      // 있을 때만 담는다 — 없는 키를 `undefined` 로 넣으면 jsonb 비교가 매번 「변경」으로 보인다.
-      ...(review.uses ? { uses: review.uses } : {}) }
     const previous = row.csat_fit?.gate ?? null
     const { at: ignored, ...comparable } = previous ?? {}
-    const unchanged = isDeepStrictEqual(comparable, gate)
+    // 보관 판정은 **모든 소스**에 붙는다(원천 단위 · criteria.md §1). 예전에는 PLOS 원본(raw)에만 받았다.
+    const isRetain = review.kind === 'retain'
+    const now = new Date().toISOString()
+    const retain = isRetain ? retainRecord(review) : null
+    const gate = isRetain
+      // 보관 판정 — 기존 게이트는 그대로 두고 `retain` 한 키만 더한다(통째로 덮으면 게시 판정이 날아간다).
+      ? { ...comparable, retain }
+      : { v: 2, rv: RULES_VERSION, cv: CODES_VERSION, ...decision, purpose, verdict: review.verdict, genre: review.genre, why: review.why, codes, by: 'chunk-llm',
+        // 있을 때만 담는다 — 없는 키를 `undefined` 로 넣으면 jsonb 비교가 매번 「변경」으로 보인다.
+        ...(review.uses ? { uses: review.uses } : {}),
+        // 내용 판정이 보관 판정을 지우지 않는다.
+        ...(previous?.retain ? { retain: previous.retain } : {}) }
+    // 비교는 시각을 빼고 한다 — 같은 판정을 다시 넣으면 변경 0(재실행 안전).
+    const { at: ignoredRetainAt, ...prevRetain } = comparable.retain ?? {}
+    const unchanged = isRetain
+      ? isDeepStrictEqual(prevRetain, retain)
+      : isDeepStrictEqual(comparable, gate)
     // An identical replay may have our updated revision; all actual changes need CAS.
     if (!unchanged && Date.parse(row.updated_at) !== Date.parse(review.source_updated_at)) throw new Error(`Review revision changed: ${row.id}`)
-    manifest.push({ runId, id: row.id, revision: row.updated_at, body_sha256: review.body_sha256, before: previous, after: unchanged ? previous : { ...gate, at: new Date().toISOString() }, changed: !unchanged, status: row.status, csat_fit: row.csat_fit })
+    // 보관 판정은 **게이트의 at 을 건드리지 않는다**(그것은 내용 판정의 시각이다) — 시각은 retain 안에 둔다.
+    const after = unchanged ? previous : isRetain ? { ...(previous ?? {}), retain: { ...retain, at: now } } : { ...gate, at: now }
+    manifest.push({ runId, id: row.id, revision: row.updated_at, body_sha256: review.body_sha256, before: previous, after, changed: !unchanged, status: row.status, csat_fit: row.csat_fit })
   }
   const logPath = `${file}.${COMMIT ? 'commit' : 'plan'}-${runId}.json`
   fs.writeFileSync(logPath, JSON.stringify(manifest, null, 2), { flag: 'wx' })

@@ -106,11 +106,12 @@ SECURITY **DEFINER** 라 영향이 없었다. 깨져 있던 것은 SECURITY **IN
 - `csat_source_eligibility`: article_id PK/FK, source_updated_at, policy_version, input/result JSONB, quality_flags, excerpt_evidence, linked_items, measured_at. 정본은 `library_articles`, 이 표는 재생성 가능한 캐시다.
   - `uses text[]` + GIN `csat_source_eligibility_uses_idx` (`20260923205725_csat_source_eligibility_uses`): 이 원문으로 만들 수 있는 교재 재료 8종(`gate-rules.mjs` 의 `SOURCE_USES`). `csat_fit->gate->uses` 의 **투영**이며 정본이 아니다 — 쓰는 곳은 `source-policy-refresh.mjs` 하나다.
     ⚠️ **NULL 과 `{}` 는 다른 뜻이다**: NULL = 아직 판정이 안 실림(79,669) · `{}` = 반려돼 뽑을 재료가 없음(705) · 태그 있음 7,347. 뭉개면 조회에서 「안 본 것」과 「봤는데 없는 것」이 섞인다.
+  - RPC `csat_source_live_rollup()` (`20260924150000_csat_source_live_rollup` · 2026-09-24 적용 · 읽기 전용 · `security invoker` · anon 실행 불가): 원천 × 등급별 편수 · 문항 붙은 수 · 판정 시각 범위 · 판정 규격 버전 범위. `/admin/csat/sources` 의 합계가 **커밋된 스냅샷**(87,720편 — gutenberg 퇴출 전)을 말하던 것을 DB 실측(64,102편)으로 바꾸는 입구다. 64,102행 0.09초.
 - `csat_drain_runs`: 드레인 실행 기록(`20260923004729`). 2026-09-23 까지 **쓰는 쪽이 0곳**이라 행이 0개였고 화면은 늘 「아직 안 돌렸다」였다 — `scripts/csat/drain-run.mjs`(쓰기)와 `apps/web/src/lib/csat/drain-runs.ts`(읽기)가 그 사이를 잇는다.
   `items_skipped` 는 재실행 안전의 증거라 `null`(안 셌다)과 `0`(재실행인데 하나도 안 건너뜀 = 깨졌다)이 다른 뜻이다.
   `finished_at` 은 트리거 `csat_drain_runs_stamp_finished` 가 **DB 시계로** 찍는다 — 클라이언트 시계와 섞여 소요가 **-1.08초**로 나온 실측(2026-09-23) 때문이다.
 - `csat_source_eligibility_history`: revision·입력·판정이 바뀔 때 이전 캐시 보관. 품질 신호만 바뀐 배치는 별도 백업으로 추적한다. 두 표는 RLS 관리자/큐레이터 조회, service_role 쓰기. history의 기본 anon 테이블 권한은 남지만 RLS 정책이 없어 실조회 0행을 확인했다.
-- `csat_source_is_eligible(uuid)`: v3·원문 revision 일치·usable/excerpt·blocker 없음·ready/published 확인. excerpt는 실제 article 문항도 요구한다. 신규/변경 원문은 재검증까지 사용 대기다.
+- `csat_source_is_eligible(uuid)`: 규격 v4(`20260924150000` 로 3·4 를 함께 받다가 캐시 64,102행 재적재 뒤 `20260924170000_eligibility_policy_v4_only` 로 4 만)·원문 revision 일치·usable/excerpt·blocker 없음·ready/published 확인. excerpt는 실제 article 문항도 요구한다. 신규/변경 원문은 재검증까지 사용 대기다.
 - `csat_source_is_gradeable(uuid)` (2026-09-20 · `20260920120000_grade_dcp_band_is_fit_not_eligibility`): **채점 허용** 판정. 적격과 같은 조건이되 **`cefr_above_band` 만 무시**한다(사유 배열에서 밴드 외 사유가 하나라도 있으면 거짓). `grade_dcp_item` 이 이것을 본다 — **밴드는 적합이지 적격이 아니다**: 학습자가 이미 받은 문항의 채점을 난이도 적합 판정이 막으면 답을 내고도 결과를 못 본다(이슈 #104). 서빙(`prescribe_today` · `textbook_practice_items`)은 그대로 `csat_source_is_eligible` 을 쓴다. 판정을 등급으로 못 가르는 이유: 사유가 `["cefr_above_band"]` 하나뿐인 원문 **11,276편**의 등급이 `blocked` 다(2026-09-20 실측).
 - `textbook_practice_items`, `prescribe_today`의 article 연습 선택, `grade_dcp_item`의 article 채점이 위 함수를 사용한다. 독서 입력 후보와 비 article 문항은 기존 소비 정책을 유지한다.
 
@@ -2010,6 +2011,10 @@ await anon.rpc('get_lcp_config')   // → 에러 없이 호출됨 (내부 파이
 > 그 앞의 `content_gate_publishable` — critical 「추출 비어있음(0단어)」 — 이고 이 가드는 이중 장치다.
 > 즉 **어휘 행이 없는 글은 발행되지 않는다**(메시지는 「콘텐츠 품질 게이트 FAIL」). 근거·보관 범위 계획:
 > [lav-retention-2026-09-24](./reports/lav-retention-2026-09-24.md).
+>
+> **삭제된 RPC**(2026-09-24 · `20260924070635_drop_dead_dict_mining_rpcs` · 사용자 결정): `select_article_coverage(uuid)` ·
+> `select_extraction_residual()` — 호출자 0(코드·함수·`pg_stat_statements`), 읽던 표가 발행·가공 글 몫만 남아 옛 목적을 못 한다.
+> 사전 미등재 낱말 채굴은 `scripts/dict/drain-article-lemmas.mjs` 가 본문에서 직접 한다. 원문: `docs/AI_CONTEXT/rollback/drop_dead_dict_mining_rpcs-rollback.sql`.
 
 ### 왜 보류했나 (그냥 REVOKE 하면 안 되는 이유)
 

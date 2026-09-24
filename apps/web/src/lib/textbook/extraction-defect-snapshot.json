@@ -1,27 +1,23 @@
 {
-  "measuredAt": "2026-09-15T11:14:53.672Z",
-  "elapsedSeconds": 611.8,
+  "measuredAt": "2026-09-24T01:01:32.143Z",
+  "elapsedSeconds": 456.4,
   "scope": "status in ('ready','published')",
-  "scanned": 87626,
-  "defective": 4876,
+  "scanned": 64102,
+  "defective": 4612,
   "rules": [
     {
       "id": "html-attr",
       "label": "HTML 속성 혼입",
       "why": "툴팁·링크 속성이 문장 한복판에 남았다 — 그대로 인쇄된다",
-      "count": 67,
+      "count": 12,
       "bySource": [
         {
           "source": "plos",
-          "count": 34
-        },
-        {
-          "source": "gutenberg",
-          "count": 27
+          "count": 7
         },
         {
           "source": "frontiers",
-          "count": 4
+          "count": 3
         },
         {
           "source": "voa",
@@ -30,19 +26,19 @@
       ],
       "samples": [
         {
-          "title": "Exploring the role of meaning in non-Māori speaker",
-          "source": "plos",
-          "evidence": "<p"
+          "title": "Detargeting the target in phoneme detection: aimin",
+          "source": "frontiers",
+          "evidence": "<P B D T R K G>"
         },
         {
-          "title": "Impact damage to the middle trough of a scraper co",
-          "source": "plos",
-          "evidence": "<A"
+          "title": "WHO Declares Zika A Global Health Emergency",
+          "source": "voa",
+          "evidence": "<a mosquito-repellent spray>"
         },
         {
-          "title": "Whole exome sequence-based association analyses of",
-          "source": "plos",
-          "evidence": "<p"
+          "title": "The Southwestern Mandarin /n/-/l/ Merger: Effects ",
+          "source": "frontiers",
+          "evidence": "<a>"
         }
       ]
     },
@@ -50,15 +46,11 @@
       "id": "wiki-markup",
       "label": "위키 마크업 잔재",
       "why": "`== 절 ==` · `[[링크]]` · `{{틀}}` 이 본문에 남았다",
-      "count": 33,
+      "count": 13,
       "bySource": [
         {
           "source": "plos",
-          "count": 22
-        },
-        {
-          "source": "gutenberg",
-          "count": 5
+          "count": 7
         },
         {
           "source": "simple_wikipedia",
@@ -81,17 +73,17 @@
         {
           "title": "Formal reasoning about systems biology using theor",
           "source": "plos",
-          "evidence": "[[ATP;Kinase]]"
+          "evidence": "[[pTP53]]"
         },
         {
-          "title": "Recognizing the Symptoms of Mental Illness followi",
+          "title": "Rotation of the Fla2 flagella of Cereibacter sphae",
           "source": "plos",
-          "evidence": "[[ 17 , 18 ]]"
+          "evidence": "[[reviewed in [ 1 – 6 ]]"
         },
         {
-          "title": "Does road safety cointegrate with socio-economic c",
+          "title": "Implementation strategies for integrating non-comm",
           "source": "plos",
-          "evidence": "[[,,,]]"
+          "evidence": "[[“2016”,”12”]]"
         }
       ]
     },
@@ -132,23 +124,23 @@
       "id": "dup-paragraph",
       "label": "문단 통째 중복",
       "why": "같은 문단이 두 번 들어 있다 — 어수가 부풀고 읽으면 되풀이된다",
-      "count": 1219,
+      "count": 1133,
       "bySource": [
         {
           "source": "plos",
-          "count": 977
+          "count": 971
         },
         {
           "source": "frontiers",
-          "count": 182
+          "count": 120
         },
         {
           "source": "voa",
-          "count": 33
+          "count": 28
         },
         {
           "source": "futurity",
-          "count": 15
+          "count": 6
         },
         {
           "source": "nasa",
@@ -156,11 +148,11 @@
         },
         {
           "source": "usgs",
-          "count": 4
+          "count": 2
         },
         {
           "source": "noaa",
-          "count": 3
+          "count": 1
         }
       ],
       "samples": [
@@ -175,9 +167,9 @@
           "evidence": "STEM is profoundly shaped by wealth, yet financial privilege"
         },
         {
-          "title": "Not just phonology: a longitudinal study of dyslex",
-          "source": "frontiers",
-          "evidence": "a, b, c Post-hoc analysis for comparison between the four su"
+          "title": "Health system responsiveness and its associated fa",
+          "source": "plos",
+          "evidence": "Health System Responsiveness is defined as how well the heal"
         }
       ]
     },
@@ -185,23 +177,19 @@
       "id": "dropped-math",
       "label": "수식이 사라진 문장",
       "why": "기호만 빠지고 문장은 남았다 — 산문처럼 보이는데 뜻이 안 선다",
-      "count": 3443,
+      "count": 3363,
       "bySource": [
         {
           "source": "plos",
-          "count": 3280
-        },
-        {
-          "source": "gutenberg",
-          "count": 55
-        },
-        {
-          "source": "voa",
-          "count": 48
+          "count": 3276
         },
         {
           "source": "frontiers",
-          "count": 34
+          "count": 33
+        },
+        {
+          "source": "voa",
+          "count": 29
         },
         {
           "source": "europe_pmc",
@@ -214,10 +202,6 @@
         {
           "source": "usgs",
           "count": 3
-        },
-        {
-          "source": "storyweaver",
-          "count": 1
         }
       ],
       "samples": [
@@ -242,12 +226,8 @@
       "id": "story-seam",
       "label": "이야기 경계를 넘은 발췌",
       "why": "선집을 자른 창이 한 이야기가 끝난 자리를 지났다 — 지문 한 편에 두 이야기가 담긴다",
-      "count": 44,
+      "count": 14,
       "bySource": [
-        {
-          "source": "gutenberg",
-          "count": 30
-        },
         {
           "source": "voa",
           "count": 6
@@ -267,19 +247,19 @@
       ],
       "samples": [
         {
-          "title": "A Collection of Beatrix Potter Stories (발췌)",
-          "source": "gutenberg",
-          "evidence": "ONCE upon a time there was a frog called Mr. Jeremy Fisher; "
+          "title": "Songs of Spring Describe Her Many Moods",
+          "source": "voa",
+          "evidence": "Once there was a thing called spring\n\r\nWhen the world was wr"
         },
         {
-          "title": "Grimm's Fairy Tales (발췌)",
-          "source": "gutenberg",
-          "evidence": "There was once on a time, a little girl whose father and mot"
+          "title": "What Interrupts Suicide Attempts in Men: A Qualita",
+          "source": "plos",
+          "evidence": "Once there was awareness of a man’s suicidality, family and "
         },
         {
-          "title": "The Phantom of the Opera",
-          "source": "gutenberg",
-          "evidence": "There was once, in a little market-town not far from Upsala,"
+          "title": "“Listen when I come to the table”: Reimagining edu",
+          "source": "frontiers",
+          "evidence": "Once upon a time, there was a magic kid who could fly and us"
         }
       ]
     },

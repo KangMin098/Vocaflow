@@ -97,6 +97,12 @@
 **`--t3` 이하를 의미 있는 글자에 쓰지 않는다** — 메타·저자명·설명은 `--t2` 이상, `--t4` 는 장식·비활성 전용.
 측정 근거 ADR-004([DESIGN_DECISIONS.md](./DESIGN_DECISIONS.md)) · 회귀 `apps/web/tests/e2e/14-learner-quality.spec.ts`(axe AA · 라이트/다크 · 44px).
 
+### 구역 스킨 — Admin 앱 (DD-82)
+
+`/admin` 이하(`app/admin/layout.tsx` 의 `data-area="admin"`)에서는 `packages/design-tokens/src/skins/admin-app.css` 가 Tines 스킨 **위에** 같은 토큰 이름을 레퍼런스 앱(`neon-currant.3b.dev`) 실측값으로 덮는다 — 선택자 `:root:has([data-area="admin"])` 라 body 포털(Dialog)도 받는다. 값: `--p`/`--admin`/`--ju` 먹색 `#0d0d17` · `--on-p` `#fcf9f5` · `--bg` `#fff` · `--bg2` `#fbf9f7` · `--bg3` `#eeebe7` · `--t1/2/3` `#0d0d17`/`#5e5f6c`/`#62616a` · `--bd` `rgba(13,13,23,.1)` · `--ju-wash`(선택 면) `rgba(84,50,0,.08)` · `--r-md` 8px · `--r-lg` 12px · 서체 `--font-admin-sans`(Inter)/`--font-admin-mono`(JetBrains Mono). Dialog 는 `--dialog-backdrop` · `--dialog-blur` · `--dialog-title-{sm,md,lg}` 변수를 읽는다(없으면 기존 값). 다크는 레퍼런스 `light-dark()` 두 번째 값. 대비표·출처 [design/reference-analysis](./design/reference-analysis.md).
+
+> **투명도는 `color-mix` 로 쓴다.** Tailwind 3.4 는 `bg-[var(--p)]/10` 처럼 변수 색에 붙은 `/N` 을 CSS 로 만들지 않는다(조용히 사라진다). `bg-[color-mix(in_srgb,var(--p)_10%,transparent)]` · 인라인은 `color-mix(in srgb, var(--p) 10%, transparent)`. 템플릿 `${색}40` 도 색이 `var()` 면 무효다. admin 은 `admin-color-tokens.test.ts` 가 막는다.
+
 ### 화면 스킨 — Tines (DD-68)
 
 `<html data-skin="tines">` 이면 `packages/design-tokens/src/skins/tines.css` 가 같은 토큰 이름(`--p` · `--bg*` · `--t*` · `--bd` · 의미색 · `--r-sm…2xl` · 서체 변수)을 참조 사이트 실측값으로 덮어쓴다. 기본값은 켜짐(`NEXT_PUBLIC_SKIN`, 끄기 `off`), 브라우저 `?skin=off|tines`. 앱(RN) 값은 `skins/tines.ts` — 두 출처는 `skin-parity.test.ts` 가 묶는다.

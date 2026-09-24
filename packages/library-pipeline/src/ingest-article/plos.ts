@@ -10,6 +10,7 @@
 // source_id: "plos:<doi>"
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { decodeEntities, extractFirst, fetchWithTimeout, htmlToPlainText, safeDate } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -355,11 +356,10 @@ export async function ingestPlosArticle(itemUrl: string): Promise<RawArticle> {
     extractFirst(html, [/<meta\s+name="citation_author"\s+content="([^"]+)"/i]) ?? 'PLOS authors'
 
   const content = extractProse(html)
-  if (content.trim().split(/\s+/).filter(Boolean).length < 200) {
-    throw new Error(`PLOS body too short: ${content.trim().length} chars (${doi})`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.trim().split(/\s+/).filter(Boolean).length < 200
 
-  return {
+  const article: RawArticle = {
     source: 'plos',
     source_id: `plos:${doi}`,
     source_url: url,
@@ -367,10 +367,22 @@ export async function ingestPlosArticle(itemUrl: string): Promise<RawArticle> {
     author: decodeEntities(author).trim(),
     language: 'en',
     license: 'CC-BY-4.0', // PLOS = CC BY 4.0 → 발행 허용
+    // ⚠️ 글에서 읽은 값이 아니라 소스 단위 표기다 — PLOS 에는 공유저작물 선언 글도 있다(Solr `copyright`).
+    //   권리 표지에는 'collection-default' 로 남겨 해소가 필요하다고 표시한다(DD-75).
+    license_evidence: 'collection-default',
     published_at: safeDate(publishedAt),
     content,
     estimated_cefr: null,
     audio_url: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`PLOS body too short: ${content.trim().length} chars (${doi})`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

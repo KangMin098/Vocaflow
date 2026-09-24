@@ -1,0 +1,1787 @@
+{
+ "contract": "demand-model/v1",
+ "measuredAt": "2026-09-23T23:13:33.409Z",
+ "evidence": {
+  "기출": "scripts/csat/data/corpus.json",
+  "시중교재": "d:/workspace/textbook-corpus/market-spec.json · corpus.db",
+  "재고": "library_articles (PostgREST count)"
+ },
+ "limits": [
+  "초·중등 대역은 기출 원장에 없다 — corpus.json 은 고3 수능·모의만 담는다.",
+  "듣기 500문항은 분모에서 뺐다 — 지문 원천 수요가 아니다.",
+  "갈래 축에 실용문·전기 칸이 없다 — register enum 이 5종뿐이다.",
+  "슬롯의 「갈래」는 기출 문항에 라벨이 없어 유형별 분해를 못 했다. 유형×갈래 교차는 비어 있다.",
+  "논지 구조는 표지 정규식의 **존재**만 센다 — 구조를 하나로 판정하지 않는다."
+ ],
+ "readingItems": 802,
+ "types": [
+  {
+   "type": "빈칸 추론",
+   "items": 115,
+   "demandShare": 14.3,
+   "suneung": 55,
+   "mock": 60,
+   "longSection": 0,
+   "measured": 115,
+   "words": {
+    "n": 115,
+    "min": 118,
+    "p10": 132,
+    "p25": 143,
+    "median": 150,
+    "p75": 159,
+    "p90": 166,
+    "max": 179
+   },
+   "avgSent": {
+    "n": 115,
+    "min": 11.9,
+    "p10": 16.3,
+    "p25": 18.3,
+    "median": 21.1,
+    "p75": 24,
+    "p90": 28.6,
+    "max": 36
+   },
+   "capsPer100": {
+    "n": 115,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 1.45,
+    "p90": 2.78,
+    "max": 15.33
+   },
+   "capsZeroPct": 52.2,
+   "firstPersonPct": 40.9,
+   "backRefPct": 1.7,
+   "startsQuotePct": 0.9,
+   "structures": {
+    "대조": 69.6,
+    "주장+근거": 47.8,
+    "예시": 33.9,
+    "시간순": 25.2,
+    "문제-해결": 10.4,
+    "정의": 3.5
+   }
+  },
+  {
+   "type": "안내문 일치",
+   "items": 57,
+   "demandShare": 7.1,
+   "suneung": 27,
+   "mock": 30,
+   "longSection": 0,
+   "measured": 57,
+   "words": {
+    "n": 57,
+    "min": 72,
+    "p10": 79,
+    "p25": 86,
+    "median": 91,
+    "p75": 99,
+    "p90": 108,
+    "max": 112
+   },
+   "avgSent": {
+    "n": 57,
+    "min": 7.2,
+    "p10": 8.2,
+    "p25": 9.9,
+    "median": 11.9,
+    "p75": 15.2,
+    "p90": 18.4,
+    "max": 21
+   },
+   "capsPer100": {
+    "n": 57,
+    "min": 7.14,
+    "p10": 9.28,
+    "p25": 11.36,
+    "median": 15.63,
+    "p75": 19.32,
+    "p90": 23.61,
+    "max": 32.18
+   },
+   "capsZeroPct": 0,
+   "firstPersonPct": 52.6,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "시간순": 28.1,
+    "대조": 8.8,
+    "예시": 3.5,
+    "문제-해결": 3.5,
+    "주장+근거": 1.8
+   }
+  },
+  {
+   "type": "글의 순서",
+   "items": 56,
+   "demandShare": 7,
+   "suneung": 26,
+   "mock": 30,
+   "longSection": 0,
+   "measured": 56,
+   "words": {
+    "n": 56,
+    "min": 122,
+    "p10": 143,
+    "p25": 151,
+    "median": 161,
+    "p75": 167,
+    "p90": 173,
+    "max": 184
+   },
+   "avgSent": {
+    "n": 56,
+    "min": 14.1,
+    "p10": 15,
+    "p25": 17.6,
+    "median": 20.4,
+    "p75": 23.3,
+    "p90": 25.2,
+    "max": 32.8
+   },
+   "capsPer100": {
+    "n": 56,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 0.64,
+    "p90": 2.37,
+    "max": 4.96
+   },
+   "capsZeroPct": 66.1,
+   "firstPersonPct": 35.7,
+   "backRefPct": 3.6,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 69.6,
+    "시간순": 35.7,
+    "예시": 33.9,
+    "주장+근거": 33.9,
+    "정의": 8.9,
+    "문제-해결": 5.4
+   }
+  },
+  {
+   "type": "문장 삽입",
+   "items": 56,
+   "demandShare": 7,
+   "suneung": 26,
+   "mock": 30,
+   "longSection": 0,
+   "measured": 56,
+   "words": {
+    "n": 56,
+    "min": 124,
+    "p10": 142,
+    "p25": 158,
+    "median": 162,
+    "p75": 171,
+    "p90": 180,
+    "max": 189
+   },
+   "avgSent": {
+    "n": 56,
+    "min": 15.5,
+    "p10": 16.2,
+    "p25": 18,
+    "median": 20.1,
+    "p75": 22.5,
+    "p90": 23.9,
+    "max": 24.7
+   },
+   "capsPer100": {
+    "n": 56,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 1.12,
+    "p90": 1.84,
+    "max": 3.83
+   },
+   "capsZeroPct": 66.1,
+   "firstPersonPct": 35.7,
+   "backRefPct": 26.8,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 67.9,
+    "주장+근거": 41.1,
+    "예시": 35.7,
+    "시간순": 33.9,
+    "문제-해결": 12.5,
+    "정의": 1.8
+   }
+  },
+  {
+   "type": "제목",
+   "items": 31,
+   "demandShare": 3.9,
+   "suneung": 16,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 31,
+   "words": {
+    "n": 31,
+    "min": 119,
+    "p10": 140,
+    "p25": 143,
+    "median": 155,
+    "p75": 166,
+    "p90": 170,
+    "max": 184
+   },
+   "avgSent": {
+    "n": 31,
+    "min": 14.9,
+    "p10": 16.9,
+    "p25": 18.1,
+    "median": 21.7,
+    "p75": 23.9,
+    "p90": 28,
+    "max": 31.6
+   },
+   "capsPer100": {
+    "n": 31,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 1.29,
+    "p90": 2.76,
+    "max": 8.28
+   },
+   "capsZeroPct": 58.1,
+   "firstPersonPct": 38.7,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 87.1,
+    "예시": 35.5,
+    "주장+근거": 32.3,
+    "시간순": 22.6,
+    "문제-해결": 3.2,
+    "정의": 3.2
+   }
+  },
+  {
+   "type": "주제",
+   "items": 30,
+   "demandShare": 3.7,
+   "suneung": 15,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 30,
+   "words": {
+    "n": 30,
+    "min": 116,
+    "p10": 130,
+    "p25": 141,
+    "median": 148,
+    "p75": 163,
+    "p90": 175,
+    "max": 177
+   },
+   "avgSent": {
+    "n": 30,
+    "min": 14.6,
+    "p10": 17.6,
+    "p25": 20.1,
+    "median": 21.7,
+    "p75": 24,
+    "p90": 33,
+    "max": 34.4
+   },
+   "capsPer100": {
+    "n": 30,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 1.21,
+    "p90": 2.08,
+    "max": 7.3
+   },
+   "capsZeroPct": 63.3,
+   "firstPersonPct": 23.3,
+   "backRefPct": 3.3,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 70,
+    "주장+근거": 40,
+    "예시": 23.3,
+    "문제-해결": 16.7,
+    "시간순": 6.7,
+    "정의": 3.3
+   }
+  },
+  {
+   "type": "요지",
+   "items": 29,
+   "demandShare": 3.6,
+   "suneung": 14,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 29,
+   "words": {
+    "n": 29,
+    "min": 103,
+    "p10": 132,
+    "p25": 142,
+    "median": 149,
+    "p75": 162,
+    "p90": 170,
+    "max": 179
+   },
+   "avgSent": {
+    "n": 29,
+    "min": 14.7,
+    "p10": 17.3,
+    "p25": 19.3,
+    "median": 22.3,
+    "p75": 25.6,
+    "p90": 30.2,
+    "max": 36.3
+   },
+   "capsPer100": {
+    "n": 29,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 0.68,
+    "p90": 1.45,
+    "max": 3.59
+   },
+   "capsZeroPct": 65.5,
+   "firstPersonPct": 51.7,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 65.5,
+    "주장+근거": 41.4,
+    "예시": 34.5,
+    "시간순": 20.7,
+    "문제-해결": 6.9,
+    "정의": 6.9
+   }
+  },
+  {
+   "type": "어법",
+   "items": 29,
+   "demandShare": 3.6,
+   "suneung": 14,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 29,
+   "words": {
+    "n": 29,
+    "min": 115,
+    "p10": 143,
+    "p25": 147,
+    "median": 154,
+    "p75": 160,
+    "p90": 163,
+    "max": 165
+   },
+   "avgSent": {
+    "n": 29,
+    "min": 12.6,
+    "p10": 14.4,
+    "p25": 17.9,
+    "median": 20.5,
+    "p75": 22.7,
+    "p90": 26.5,
+    "max": 29
+   },
+   "capsPer100": {
+    "n": 29,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 1.88,
+    "p90": 4.49,
+    "max": 10.06
+   },
+   "capsZeroPct": 58.6,
+   "firstPersonPct": 41.4,
+   "backRefPct": 0,
+   "startsQuotePct": 3.4,
+   "structures": {
+    "대조": 69,
+    "예시": 37.9,
+    "주장+근거": 34.5,
+    "시간순": 24.1,
+    "문제-해결": 10.3
+   }
+  },
+  {
+   "type": "어휘(문맥)",
+   "items": 29,
+   "demandShare": 3.6,
+   "suneung": 14,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 29,
+   "words": {
+    "n": 29,
+    "min": 136,
+    "p10": 150,
+    "p25": 162,
+    "median": 169,
+    "p75": 176,
+    "p90": 186,
+    "max": 197
+   },
+   "avgSent": {
+    "n": 29,
+    "min": 14.4,
+    "p10": 16,
+    "p25": 18.6,
+    "median": 19.3,
+    "p75": 23.6,
+    "p90": 25.1,
+    "max": 26
+   },
+   "capsPer100": {
+    "n": 29,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 1.18,
+    "p90": 2.98,
+    "max": 7.39
+   },
+   "capsZeroPct": 51.7,
+   "firstPersonPct": 41.4,
+   "backRefPct": 3.4,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 69,
+    "주장+근거": 58.6,
+    "예시": 48.3,
+    "시간순": 31,
+    "정의": 10.3,
+    "문제-해결": 3.4
+   }
+  },
+  {
+   "type": "도표",
+   "items": 29,
+   "demandShare": 3.6,
+   "suneung": 14,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 29,
+   "words": {
+    "n": 29,
+    "min": 107,
+    "p10": 110,
+    "p25": 114,
+    "median": 133,
+    "p75": 156,
+    "p90": 169,
+    "max": 202
+   },
+   "avgSent": {
+    "n": 29,
+    "min": 11.1,
+    "p10": 15.4,
+    "p25": 17.8,
+    "median": 19.5,
+    "p75": 22.7,
+    "p90": 24.2,
+    "max": 27.5
+   },
+   "capsPer100": {
+    "n": 29,
+    "min": 0,
+    "p10": 0,
+    "p25": 1.82,
+    "median": 5.13,
+    "p75": 7.64,
+    "p90": 12.17,
+    "max": 14.63
+   },
+   "capsZeroPct": 17.2,
+   "firstPersonPct": 0,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 48.3,
+    "시간순": 6.9,
+    "주장+근거": 3.4,
+    "정의": 3.4
+   }
+  },
+  {
+   "type": "장문 제목",
+   "items": 29,
+   "demandShare": 3.6,
+   "suneung": 14,
+   "mock": 15,
+   "longSection": 29,
+   "measured": 29,
+   "words": {
+    "n": 29,
+    "min": 211,
+    "p10": 213,
+    "p25": 222,
+    "median": 243,
+    "p75": 251,
+    "p90": 264,
+    "max": 268
+   },
+   "avgSent": {
+    "n": 29,
+    "min": 15.2,
+    "p10": 16.6,
+    "p25": 19.3,
+    "median": 22.5,
+    "p75": 27.5,
+    "p90": 30.1,
+    "max": 32.3
+   },
+   "capsPer100": {
+    "n": 29,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 0.45,
+    "p90": 2.45,
+    "max": 4.98
+   },
+   "capsZeroPct": 58.6,
+   "firstPersonPct": 69,
+   "backRefPct": 3.4,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 82.8,
+    "예시": 55.2,
+    "주장+근거": 55.2,
+    "시간순": 37.9,
+    "문제-해결": 20.7,
+    "정의": 17.2
+   }
+  },
+  {
+   "type": "장문 순서",
+   "items": 29,
+   "demandShare": 3.6,
+   "suneung": 14,
+   "mock": 15,
+   "longSection": 29,
+   "measured": 29,
+   "words": {
+    "n": 29,
+    "min": 246,
+    "p10": 308,
+    "p25": 320,
+    "median": 334,
+    "p75": 348,
+    "p90": 368,
+    "max": 395
+   },
+   "avgSent": {
+    "n": 29,
+    "min": 10.9,
+    "p10": 11.2,
+    "p25": 12.3,
+    "median": 13.4,
+    "p75": 15.5,
+    "p90": 19.5,
+    "max": 22.4
+   },
+   "capsPer100": {
+    "n": 29,
+    "min": 0.62,
+    "p10": 1.9,
+    "p25": 3.35,
+    "median": 4.25,
+    "p75": 5.19,
+    "p90": 6.08,
+    "max": 10.41
+   },
+   "capsZeroPct": 0,
+   "firstPersonPct": 93.1,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 89.7,
+    "시간순": 89.7,
+    "주장+근거": 44.8,
+    "문제-해결": 6.9
+   }
+  },
+  {
+   "type": "장문 지칭",
+   "items": 29,
+   "demandShare": 3.6,
+   "suneung": 14,
+   "mock": 15,
+   "longSection": 29,
+   "measured": 29,
+   "words": {
+    "n": 29,
+    "min": 246,
+    "p10": 308,
+    "p25": 320,
+    "median": 334,
+    "p75": 348,
+    "p90": 368,
+    "max": 395
+   },
+   "avgSent": {
+    "n": 29,
+    "min": 10.9,
+    "p10": 11.2,
+    "p25": 12.3,
+    "median": 13.4,
+    "p75": 15.5,
+    "p90": 19.5,
+    "max": 22.4
+   },
+   "capsPer100": {
+    "n": 29,
+    "min": 0.62,
+    "p10": 1.9,
+    "p25": 3.35,
+    "median": 4.25,
+    "p75": 5.19,
+    "p90": 6.08,
+    "max": 10.41
+   },
+   "capsZeroPct": 0,
+   "firstPersonPct": 93.1,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 89.7,
+    "시간순": 89.7,
+    "주장+근거": 44.8,
+    "문제-해결": 6.9
+   }
+  },
+  {
+   "type": "장문 내용 일치",
+   "items": 29,
+   "demandShare": 3.6,
+   "suneung": 14,
+   "mock": 15,
+   "longSection": 29,
+   "measured": 29,
+   "words": {
+    "n": 29,
+    "min": 246,
+    "p10": 308,
+    "p25": 320,
+    "median": 334,
+    "p75": 348,
+    "p90": 368,
+    "max": 395
+   },
+   "avgSent": {
+    "n": 29,
+    "min": 10.9,
+    "p10": 11.2,
+    "p25": 12.3,
+    "median": 13.4,
+    "p75": 15.5,
+    "p90": 19.5,
+    "max": 22.4
+   },
+   "capsPer100": {
+    "n": 29,
+    "min": 0.62,
+    "p10": 1.9,
+    "p25": 3.35,
+    "median": 4.25,
+    "p75": 5.19,
+    "p90": 6.08,
+    "max": 10.41
+   },
+   "capsZeroPct": 0,
+   "firstPersonPct": 93.1,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 89.7,
+    "시간순": 89.7,
+    "주장+근거": 44.8,
+    "문제-해결": 6.9
+   }
+  },
+  {
+   "type": "무관한 문장",
+   "items": 28,
+   "demandShare": 3.5,
+   "suneung": 13,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 28,
+   "words": {
+    "n": 28,
+    "min": 129,
+    "p10": 144,
+    "p25": 150,
+    "median": 159,
+    "p75": 169,
+    "p90": 171,
+    "max": 181
+   },
+   "avgSent": {
+    "n": 28,
+    "min": 18.4,
+    "p10": 18.9,
+    "p25": 20.9,
+    "median": 22.6,
+    "p75": 24.1,
+    "p90": 26.8,
+    "max": 28
+   },
+   "capsPer100": {
+    "n": 28,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 0,
+    "p90": 1.76,
+    "max": 4.64
+   },
+   "capsZeroPct": 78.6,
+   "firstPersonPct": 25,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 75,
+    "주장+근거": 71.4,
+    "예시": 35.7,
+    "시간순": 28.6,
+    "문제-해결": 7.1,
+    "정의": 7.1
+   }
+  },
+  {
+   "type": "심경·분위기",
+   "items": 28,
+   "demandShare": 3.5,
+   "suneung": 13,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 28,
+   "words": {
+    "n": 28,
+    "min": 103,
+    "p10": 110,
+    "p25": 113,
+    "median": 122,
+    "p75": 125,
+    "p90": 133,
+    "max": 137
+   },
+   "avgSent": {
+    "n": 28,
+    "min": 6.5,
+    "p10": 9.4,
+    "p25": 10.3,
+    "median": 12.5,
+    "p75": 15.3,
+    "p90": 16.9,
+    "max": 17.7
+   },
+   "capsPer100": {
+    "n": 28,
+    "min": 0,
+    "p10": 0.73,
+    "p25": 0.82,
+    "median": 2.26,
+    "p75": 4.2,
+    "p90": 5.74,
+    "max": 7.63
+   },
+   "capsZeroPct": 7.1,
+   "firstPersonPct": 82.1,
+   "backRefPct": 10.7,
+   "startsQuotePct": 7.1,
+   "structures": {
+    "시간순": 57.1,
+    "대조": 53.6,
+    "주장+근거": 21.4,
+    "문제-해결": 3.6
+   }
+  },
+  {
+   "type": "내용 일치(글)",
+   "items": 28,
+   "demandShare": 3.5,
+   "suneung": 13,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 28,
+   "words": {
+    "n": 28,
+    "min": 107,
+    "p10": 122,
+    "p25": 128,
+    "median": 136,
+    "p75": 140,
+    "p90": 146,
+    "max": 149
+   },
+   "avgSent": {
+    "n": 28,
+    "min": 11.3,
+    "p10": 11.4,
+    "p25": 13.3,
+    "median": 14.4,
+    "p75": 15.6,
+    "p90": 17.8,
+    "max": 20.4
+   },
+   "capsPer100": {
+    "n": 28,
+    "min": 4.38,
+    "p10": 5.34,
+    "p25": 10.07,
+    "median": 13.93,
+    "p75": 18.03,
+    "p90": 21.09,
+    "max": 22.96
+   },
+   "capsZeroPct": 0,
+   "firstPersonPct": 10.7,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "시간순": 60.7,
+    "대조": 46.4,
+    "주장+근거": 14.3,
+    "정의": 10.7
+   }
+  },
+  {
+   "type": "요약문 완성",
+   "items": 28,
+   "demandShare": 3.5,
+   "suneung": 13,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 28,
+   "words": {
+    "n": 28,
+    "min": 143,
+    "p10": 158,
+    "p25": 175,
+    "median": 187,
+    "p75": 195,
+    "p90": 201,
+    "max": 207
+   },
+   "avgSent": {
+    "n": 28,
+    "min": 15.9,
+    "p10": 16.3,
+    "p25": 18.7,
+    "median": 21.2,
+    "p75": 24.9,
+    "p90": 29.6,
+    "max": 31.4
+   },
+   "capsPer100": {
+    "n": 28,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 2.07,
+    "p90": 3.43,
+    "max": 6.37
+   },
+   "capsZeroPct": 53.6,
+   "firstPersonPct": 46.4,
+   "backRefPct": 0,
+   "startsQuotePct": 3.6,
+   "structures": {
+    "대조": 75,
+    "주장+근거": 71.4,
+    "예시": 35.7,
+    "시간순": 32.1,
+    "정의": 7.1,
+    "문제-해결": 3.6
+   }
+  },
+  {
+   "type": "글의 목적",
+   "items": 27,
+   "demandShare": 3.4,
+   "suneung": 12,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 27,
+   "words": {
+    "n": 27,
+    "min": 92,
+    "p10": 98,
+    "p25": 101,
+    "median": 105,
+    "p75": 112,
+    "p90": 116,
+    "max": 117
+   },
+   "avgSent": {
+    "n": 27,
+    "min": 8.6,
+    "p10": 10,
+    "p25": 10.6,
+    "median": 12.4,
+    "p75": 14,
+    "p90": 15,
+    "max": 16.3
+   },
+   "capsPer100": {
+    "n": 27,
+    "min": 0,
+    "p10": 1.92,
+    "p25": 3.96,
+    "median": 7.55,
+    "p75": 11.43,
+    "p90": 14.89,
+    "max": 17.24
+   },
+   "capsZeroPct": 3.7,
+   "firstPersonPct": 100,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "시간순": 37,
+    "주장+근거": 37,
+    "대조": 29.6,
+    "예시": 11.1,
+    "문제-해결": 3.7
+   }
+  },
+  {
+   "type": "필자 주장",
+   "items": 25,
+   "demandShare": 3.1,
+   "suneung": 10,
+   "mock": 15,
+   "longSection": 0,
+   "measured": 25,
+   "words": {
+    "n": 25,
+    "min": 115,
+    "p10": 126,
+    "p25": 129,
+    "median": 138,
+    "p75": 147,
+    "p90": 155,
+    "max": 168
+   },
+   "avgSent": {
+    "n": 25,
+    "min": 15.2,
+    "p10": 16.3,
+    "p25": 18.7,
+    "median": 21,
+    "p75": 24.7,
+    "p90": 29.2,
+    "max": 37.3
+   },
+   "capsPer100": {
+    "n": 25,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 0,
+    "p90": 1.42,
+    "max": 4.38
+   },
+   "capsZeroPct": 76,
+   "firstPersonPct": 60,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 84,
+    "시간순": 40,
+    "예시": 28,
+    "주장+근거": 24,
+    "문제-해결": 16
+   }
+  },
+  {
+   "type": "함축 의미",
+   "items": 22,
+   "demandShare": 2.7,
+   "suneung": 8,
+   "mock": 14,
+   "longSection": 0,
+   "measured": 22,
+   "words": {
+    "n": 22,
+    "min": 118,
+    "p10": 134,
+    "p25": 150,
+    "median": 161,
+    "p75": 166,
+    "p90": 175,
+    "max": 182
+   },
+   "avgSent": {
+    "n": 22,
+    "min": 12.6,
+    "p10": 13.4,
+    "p25": 16.1,
+    "median": 21,
+    "p75": 23.1,
+    "p90": 24.7,
+    "max": 46.7
+   },
+   "capsPer100": {
+    "n": 22,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 2.38,
+    "p90": 3.73,
+    "max": 5
+   },
+   "capsZeroPct": 54.5,
+   "firstPersonPct": 59.1,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 63.6,
+    "주장+근거": 45.5,
+    "시간순": 31.8,
+    "문제-해결": 22.7,
+    "예시": 22.7,
+    "정의": 4.5
+   }
+  },
+  {
+   "type": "장문 어휘",
+   "items": 22,
+   "demandShare": 2.7,
+   "suneung": 8,
+   "mock": 14,
+   "longSection": 22,
+   "measured": 22,
+   "words": {
+    "n": 22,
+    "min": 211,
+    "p10": 220,
+    "p25": 221,
+    "median": 241,
+    "p75": 251,
+    "p90": 264,
+    "max": 268
+   },
+   "avgSent": {
+    "n": 22,
+    "min": 17.4,
+    "p10": 19.3,
+    "p25": 22.1,
+    "median": 24.4,
+    "p75": 27.6,
+    "p90": 30.1,
+    "max": 32.3
+   },
+   "capsPer100": {
+    "n": 22,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 0.45,
+    "p90": 1.64,
+    "max": 4.98
+   },
+   "capsZeroPct": 63.6,
+   "firstPersonPct": 59.1,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 86.4,
+    "주장+근거": 59.1,
+    "예시": 54.5,
+    "시간순": 40.9,
+    "정의": 13.6,
+    "문제-해결": 13.6
+   }
+  },
+  {
+   "type": "장문 빈칸(1개·폐지)",
+   "items": 6,
+   "demandShare": 0.7,
+   "suneung": 5,
+   "mock": 1,
+   "longSection": 6,
+   "measured": 6,
+   "words": {
+    "n": 6,
+    "min": 213,
+    "p10": 213,
+    "p25": 245,
+    "median": 251,
+    "p75": 252,
+    "p90": 253,
+    "max": 253
+   },
+   "avgSent": {
+    "n": 6,
+    "min": 15.2,
+    "p10": 15.2,
+    "p25": 16.3,
+    "median": 18.1,
+    "p75": 20.9,
+    "p90": 22.3,
+    "max": 22.3
+   },
+   "capsPer100": {
+    "n": 6,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0.41,
+    "p75": 2.37,
+    "p90": 2.45,
+    "max": 2.45
+   },
+   "capsZeroPct": 33.3,
+   "firstPersonPct": 100,
+   "backRefPct": 16.7,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 66.7,
+    "예시": 50,
+    "주장+근거": 50,
+    "문제-해결": 50,
+    "정의": 16.7,
+    "시간순": 16.7
+   }
+  },
+  {
+   "type": "지칭 추론(단문·폐지)",
+   "items": 6,
+   "demandShare": 0.7,
+   "suneung": 5,
+   "mock": 1,
+   "longSection": 0,
+   "measured": 6,
+   "words": {
+    "n": 6,
+    "min": 139,
+    "p10": 139,
+    "p25": 150,
+    "median": 158,
+    "p75": 159,
+    "p90": 168,
+    "max": 168
+   },
+   "avgSent": {
+    "n": 6,
+    "min": 12.2,
+    "p10": 12.2,
+    "p25": 14,
+    "median": 17.6,
+    "p75": 18.8,
+    "p90": 19.9,
+    "max": 19.9
+   },
+   "capsPer100": {
+    "n": 6,
+    "min": 0.72,
+    "p10": 0.72,
+    "p25": 1.33,
+    "median": 5.7,
+    "p75": 5.95,
+    "p90": 8.81,
+    "max": 8.81
+   },
+   "capsZeroPct": 0,
+   "firstPersonPct": 50,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 83.3,
+    "시간순": 66.7,
+    "주장+근거": 33.3,
+    "문제-해결": 16.7
+   }
+  },
+  {
+   "type": "빈칸 추론(2개·폐지)",
+   "items": 4,
+   "demandShare": 0.5,
+   "suneung": 4,
+   "mock": 0,
+   "longSection": 0,
+   "measured": 4,
+   "words": {
+    "n": 4,
+    "min": 125,
+    "p10": 125,
+    "p25": 128,
+    "median": 150,
+    "p75": 171,
+    "p90": 171,
+    "max": 171
+   },
+   "avgSent": {
+    "n": 4,
+    "min": 12.5,
+    "p10": 12.5,
+    "p25": 15.5,
+    "median": 18.8,
+    "p75": 21.3,
+    "p90": 21.3,
+    "max": 21.3
+   },
+   "capsPer100": {
+    "n": 4,
+    "min": 0,
+    "p10": 0,
+    "p25": 0.67,
+    "median": 2.34,
+    "p75": 2.92,
+    "p90": 2.92,
+    "max": 2.92
+   },
+   "capsZeroPct": 25,
+   "firstPersonPct": 25,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 50,
+    "예시": 25,
+    "정의": 25,
+    "시간순": 25,
+    "주장+근거": 25
+   }
+  },
+  {
+   "type": "장문 빈칸(2개)",
+   "items": 1,
+   "demandShare": 0.1,
+   "suneung": 1,
+   "mock": 0,
+   "longSection": 1,
+   "measured": 1,
+   "words": {
+    "n": 1,
+    "min": 232,
+    "p10": 232,
+    "p25": 232,
+    "median": 232,
+    "p75": 232,
+    "p90": 232,
+    "max": 232
+   },
+   "avgSent": {
+    "n": 1,
+    "min": 16.6,
+    "p10": 16.6,
+    "p25": 16.6,
+    "median": 16.6,
+    "p75": 16.6,
+    "p90": 16.6,
+    "max": 16.6
+   },
+   "capsPer100": {
+    "n": 1,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0,
+    "p75": 0,
+    "p90": 0,
+    "max": 0
+   },
+   "capsZeroPct": 100,
+   "firstPersonPct": 100,
+   "backRefPct": 0,
+   "startsQuotePct": 0,
+   "structures": {
+    "대조": 100,
+    "예시": 100,
+    "정의": 100,
+    "시간순": 100
+   }
+  }
+ ],
+ "market": {
+  "bands": {
+   "초6": {
+    "gradeMin": 6,
+    "n": 96,
+    "min": 40,
+    "p10": 44,
+    "p25": 52,
+    "median": 62,
+    "p75": 81,
+    "p90": 121,
+    "max": 194,
+    "mean": 72
+   },
+   "중1": {
+    "gradeMin": 7,
+    "n": 67,
+    "min": 40,
+    "p10": 46,
+    "p25": 57,
+    "median": 84,
+    "p75": 124,
+    "p90": 154,
+    "max": 197,
+    "mean": 93.7
+   },
+   "중2": {
+    "gradeMin": 8,
+    "n": 10,
+    "min": 48,
+    "p10": 50,
+    "p25": 58,
+    "median": 99,
+    "p75": 156,
+    "p90": 173,
+    "max": 173,
+    "mean": 100.3
+   },
+   "중3": {
+    "gradeMin": 9,
+    "n": 28,
+    "min": 41,
+    "p10": 42,
+    "p25": 45,
+    "median": 81,
+    "p75": 122,
+    "p90": 153,
+    "max": 165,
+    "mean": 84.5
+   },
+   "고1": {
+    "gradeMin": 10,
+    "n": 690,
+    "min": 40,
+    "p10": 48,
+    "p25": 68,
+    "median": 116,
+    "p75": 178,
+    "p90": 243,
+    "max": 354,
+    "mean": 129.9
+   },
+   "고2": {
+    "gradeMin": 11,
+    "n": 134,
+    "min": 40,
+    "p10": 54,
+    "p25": 70,
+    "median": 117,
+    "p75": 172,
+    "p90": 208,
+    "max": 307,
+    "mean": 125.8
+   },
+   "고3": {
+    "gradeMin": 12,
+    "n": 647,
+    "min": 40,
+    "p10": 50,
+    "p25": 87,
+    "median": 132,
+    "p75": 158,
+    "p90": 178,
+    "max": 319,
+    "mean": 125
+   }
+  },
+  "stems": [
+   {
+    "stem": "다음 글의 주제로 가장 적절한 것은?",
+    "ourType": "topic",
+    "occurrences": 64,
+    "gradeMin": 9,
+    "gradeMax": 12,
+    "seriesCount": 9
+   },
+   {
+    "stem": "다음 글의 제목으로 가장 적절한 것은?",
+    "ourType": "title",
+    "occurrences": 50,
+    "gradeMin": 9,
+    "gradeMax": 12,
+    "seriesCount": 9
+   },
+   {
+    "stem": "다음 글의 요지로 가장 적절한 것은?",
+    "ourType": "main_point",
+    "occurrences": 44,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 9
+   },
+   {
+    "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+    "ourType": "claim",
+    "occurrences": 35,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 9
+   },
+   {
+    "stem": "다음 글의 목적으로 가장 적절한 것은?",
+    "ourType": "purpose",
+    "occurrences": 64,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 8
+   },
+   {
+    "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+    "ourType": "grammar_fix",
+    "occurrences": 61,
+    "gradeMin": 9,
+    "gradeMax": 12,
+    "seriesCount": 8
+   },
+   {
+    "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+    "ourType": "irrelevant",
+    "occurrences": 59,
+    "gradeMin": 9,
+    "gradeMax": 12,
+    "seriesCount": 8
+   },
+   {
+    "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+    "ourType": "blank",
+    "occurrences": 88,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 7
+   },
+   {
+    "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+    "ourType": "order",
+    "occurrences": 47,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 7
+   },
+   {
+    "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+    "ourType": "insert",
+    "occurrences": 42,
+    "gradeMin": 9,
+    "gradeMax": 12,
+    "seriesCount": 6
+   },
+   {
+    "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+    "ourType": "vocab_choice",
+    "occurrences": 41,
+    "gradeMin": 7,
+    "gradeMax": 12,
+    "seriesCount": 5
+   },
+   {
+    "stem": "윗글의 제목으로 가장 적절한 것은?",
+    "ourType": "title",
+    "occurrences": 38,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 5
+   },
+   {
+    "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+    "ourType": "content_match",
+    "occurrences": 35,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 5
+   },
+   {
+    "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+    "ourType": "content_match",
+    "occurrences": 25,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 5
+   },
+   {
+    "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+    "ourType": "summary",
+    "occurrences": 22,
+    "gradeMin": 9,
+    "gradeMax": 12,
+    "seriesCount": 4
+   },
+   {
+    "stem": "다음 글에 드러난 ‘I’의 심경 변화로 가장 적절한 것은?",
+    "ourType": "mood",
+    "occurrences": 7,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 4
+   },
+   {
+    "stem": "다음 표의 내용과 일치하지 않는 것은?",
+    "ourType": "content_match",
+    "occurrences": 6,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 4
+   },
+   {
+    "stem": "글의 빈칸에 들어갈 말로 가장 알맞은 것은?",
+    "ourType": "blank",
+    "occurrences": 39,
+    "gradeMin": 4,
+    "gradeMax": 8,
+    "seriesCount": 3
+   },
+   {
+    "stem": "글의 주제로 가장 알맞은 것은?",
+    "ourType": "topic",
+    "occurrences": 32,
+    "gradeMin": 4,
+    "gradeMax": 7,
+    "seriesCount": 3
+   },
+   {
+    "stem": "밑줄 친 (a)~(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+    "ourType": "vocab_choice",
+    "occurrences": 16,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 3
+   },
+   {
+    "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+    "ourType": "order",
+    "occurrences": 10,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 3
+   },
+   {
+    "stem": "글의 내용과 일치하지 않는 것은?",
+    "ourType": "content_match",
+    "occurrences": 9,
+    "gradeMin": 6,
+    "gradeMax": 10,
+    "seriesCount": 3
+   },
+   {
+    "stem": "윗글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+    "ourType": "blank",
+    "occurrences": 8,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 3
+   },
+   {
+    "stem": "글의 제목으로 가장 적절한 것은?",
+    "ourType": "title",
+    "occurrences": 7,
+    "gradeMin": 7,
+    "gradeMax": 10,
+    "seriesCount": 3
+   },
+   {
+    "stem": "밑줄 친 (a)~(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+    "ourType": "long_reference",
+    "occurrences": 7,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 3
+   },
+   {
+    "stem": "글의 제목으로 가장 알맞은 것은?",
+    "ourType": "title",
+    "occurrences": 50,
+    "gradeMin": 4,
+    "gradeMax": 8,
+    "seriesCount": 2
+   },
+   {
+    "stem": "(A), (B), (C)의 각 네모 안에서 어법에 맞는 표현으로 가장 적절한 것은?",
+    "ourType": "grammar_choice",
+    "occurrences": 14,
+    "gradeMin": 10,
+    "gradeMax": 11,
+    "seriesCount": 2
+   },
+   {
+    "stem": "밑줄 친 부분이 가리키는 대상이 나머지 넷과 다른 것은?",
+    "ourType": "long_reference",
+    "occurrences": 12,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 2
+   },
+   {
+    "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+    "ourType": "blank",
+    "occurrences": 10,
+    "gradeMin": 10,
+    "gradeMax": 11,
+    "seriesCount": 2
+   },
+   {
+    "stem": "글의 (a)~(e) 중, 전체 흐름과 관계없는 문장은?",
+    "ourType": "irrelevant",
+    "occurrences": 10,
+    "gradeMin": 5,
+    "gradeMax": 7,
+    "seriesCount": 2
+   },
+   {
+    "stem": "What is the best title for the passage?",
+    "ourType": "title",
+    "occurrences": 6,
+    "gradeMin": 7,
+    "gradeMax": 7,
+    "seriesCount": 2
+   },
+   {
+    "stem": "What is the passage mainly about?",
+    "ourType": "topic",
+    "occurrences": 5,
+    "gradeMin": 6,
+    "gradeMax": 7,
+    "seriesCount": 2
+   },
+   {
+    "stem": "다음 글의 상황에 나타난 분위기로 가장 적절한 것은?",
+    "ourType": "mood",
+    "occurrences": 4,
+    "gradeMin": 10,
+    "gradeMax": 10,
+    "seriesCount": 2
+   },
+   {
+    "stem": "(A), (B), (C)의 각 네모 안에서 문맥에 맞는 낱말로 가장 적절한 것은?",
+    "ourType": "vocab_choice",
+    "occurrences": 4,
+    "gradeMin": 10,
+    "gradeMax": 10,
+    "seriesCount": 2
+   },
+   {
+    "stem": "밑줄 친 (a)∼(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+    "ourType": "long_reference",
+    "occurrences": 4,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 2
+   },
+   {
+    "stem": "What is the best choice for the blank?",
+    "ourType": "blank",
+    "occurrences": 3,
+    "gradeMin": 7,
+    "gradeMax": 7,
+    "seriesCount": 2
+   },
+   {
+    "stem": "밑줄 친 he[his]가 가리키는 대상이 나머지 넷과 다른 것은?",
+    "ourType": "long_reference",
+    "occurrences": 3,
+    "gradeMin": 10,
+    "gradeMax": 12,
+    "seriesCount": 2
+   },
+   {
+    "stem": "다음 글에 드러난 Sarah의 심경 변화로 가장 적절한 것은?",
+    "ourType": "mood",
+    "occurrences": 2,
+    "gradeMin": 10,
+    "gradeMax": 10,
+    "seriesCount": 2
+   },
+   {
+    "stem": "글의 요지로 가장 알맞은 것은?",
+    "ourType": "main_point",
+    "occurrences": 2,
+    "gradeMin": 6,
+    "gradeMax": 7,
+    "seriesCount": 2
+   },
+   {
+    "stem": "글의 내용과 일치하는 것은?",
+    "ourType": "content_match",
+    "occurrences": 2,
+    "gradeMin": 6,
+    "gradeMax": 7,
+    "seriesCount": 2
+   },
+   {
+    "stem": "글을 통해 답을 알 수 없는 것은?",
+    "ourType": "content_match",
+    "occurrences": 2,
+    "gradeMin": 5,
+    "gradeMax": 6,
+    "seriesCount": 2
+   }
+  ],
+  "highStyle": {
+   "n": 1395,
+   "words": {
+    "n": 1395,
+    "min": 90,
+    "p10": 112,
+    "p25": 131,
+    "median": 148,
+    "p75": 168,
+    "p90": 190,
+    "max": 220
+   },
+   "capsPer100": {
+    "n": 1395,
+    "min": 0,
+    "p10": 0,
+    "p25": 0,
+    "median": 0.68,
+    "p75": 2.96,
+    "p90": 7.5,
+    "max": 32.16
+   },
+   "capsZeroPct": 44.2,
+   "firstPersonPct": 43.4,
+   "backRefPct": 2.5,
+   "startsQuotePct": 0
+  }
+ },
+ "inventory": {
+  "byRegister": {
+   "narrative": 598,
+   "expository": 57664,
+   "argumentative": 2916,
+   "news": 6397,
+   "reference": 15,
+   "(미분류)": 1014
+  },
+  "adaptable": {
+   "narrative": 598,
+   "expository": 57664,
+   "argumentative": 2845,
+   "news": 6397,
+   "reference": 15
+  },
+  "note": "adaptable = display_only=false. ND(개작 불가)는 display_only=true 로 표시돼 있다 — the_conversation 71편이 그 경우다. 갈래 축에 **실용문·전기 칸이 없다**(register enum 에 없다)."
+ }
+}

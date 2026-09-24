@@ -53,7 +53,7 @@ function PromptBox({ k, form }: { k: PromptKey; form: SeriesForm | RenameForm })
   const missing = missingFields(k, form)
   const text = buildPrompt(k, form)
   return (
-    <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--p)]/40 bg-[var(--bg2)] p-3">
+    <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[var(--bg2)] p-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="inline-flex items-center gap-1.5 font-display text-[12.5px] font-[700] text-[var(--t1)]">
           <Bot size={14} strokeWidth={1.9} aria-hidden />
@@ -120,7 +120,7 @@ export function MakeGuide({
             aria-checked={which === m.key}
             onClick={() => setWhich(m.key)}
             className={`flex min-h-[44px] flex-col gap-0.5 rounded-[var(--r-md)] border p-3 text-left transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
-              which === m.key ? 'border-[var(--p)] bg-[var(--p)]/8' : 'border-[var(--bd)] hover:bg-[var(--bg2)]'
+              which === m.key ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_8%,transparent)]' : 'border-[var(--bd)] hover:bg-[var(--bg2)]'
             }`}
           >
             <span className="font-display text-[13.5px] font-[800] text-[var(--t1)]">
@@ -157,7 +157,7 @@ export function MakeGuide({
                 : `지금 쓰는 색: ${seriesList.map((s) => `${s.brand} ${s.accent}`).join(' · ')}`
             }
           >
-            <input className={field} placeholder="#2F6FB5" value={sf.accent} onChange={(e) => set({ accent: e.target.value })} />
+            <input className={field} placeholder="#RRGGBB" value={sf.accent} onChange={(e) => set({ accent: e.target.value })} />
           </Labeled>
           <div className="sm:col-span-2">
             <Labeled label="이 책이 답하는 질문" hint="학습자가 이 책으로 무엇을 할 수 있게 되나 — 한 줄. 예) 문장의 규칙을 스스로 고치는가">
@@ -206,7 +206,7 @@ export function MakeGuide({
                       })
                     }
                     className={`min-h-[44px] rounded-[var(--r-sm)] border px-3 font-display text-[12.5px] font-[600] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
-                      on ? 'border-[var(--p)] bg-[var(--p)]/10 text-[var(--t1)]' : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
+                      on ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] text-[var(--t1)]' : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
                     }`}
                   >
                     {g}

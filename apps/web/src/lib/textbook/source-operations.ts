@@ -6,6 +6,8 @@ export const SOURCE_QUEUES = {
   content: '내용 검토', raw: '미절단 원본', analysis: '분석 미완', cefr: 'CEFR 초과', excerpt: '발췌 미완',
   quality: '본문 품질 검토', p0: '반려 원문 · 문항 연결',
   analyzed: '분석 완료', unavailable: '학습·교재 사용 대기',
+  tagged: '교재 재료 실림',
+  ready: '적격 · 재료 있음',
 } as const
 export type SourceQueue = keyof typeof SOURCE_QUEUES
 export const SOURCE_BREAKDOWN_REASONS = [
@@ -59,20 +61,10 @@ export const SOURCE_LIST_SORT_LABELS: Record<SourceListSort, string> = {
   title: '제목순', source: '원천순',
 }
 
-export type SourceActionKind = 'automatic' | 'batch' | 'review' | 'investigate' | 'blocked'
-export interface SourceWorkItem {
-  id: string
-  queue: SourceQueue
-  reason?: SourceBreakdownReason
-  priority: 'P0' | 'P1' | 'P2'
-  kind: SourceActionKind
-  title: string
-  count: number
-  why: string
-  next: string
-  verify: string
-  dependency: string
-}
+/* 「지금 해야 할 작업」의 모델은 여기가 아니라 `source-process.ts` 다(2026-09-24).
+ * 여기 있던 `buildSourceWorkQueue` 는 작업 6항목을 각각 5줄 산문으로 냈고, 같은 재고
+ * 31,220편을 「미판정 내용 검토」와 「미절단 원본」 두 줄에 겹쳐 **서로 반대되는 처방**을
+ * 달고 있었다(앞엣것은 실측 대상이 0편이었다). 순서 있는 관문 모델로 갈음했다. */
 type SourceCounts = Record<SourceQueue, number>
 export interface SourceMetric {
   name: string
@@ -102,6 +94,8 @@ const METRIC_DEFINITION: Record<SourceQueue, Pick<SourceMetric, 'definition' | '
   p0: { definition: '내용 반려 원문에 문항이 하나 이상 연결된 편수. 연결은 실제 노출의 증거가 아닙니다.', status: 'blocked', severity: 'critical', recommendedActions: ['linked-rejected'] },
   analyzed: { definition: '정책에 필요한 분석 필드가 모두 유효한 원문. 적격이나 사용 가능과는 별개입니다.', status: 'context', severity: 'none', recommendedActions: [] },
   unavailable: { definition: '현재 원문 등급이 조판 가능(usable/excerpt)이 아닌 편수. 사용 이력과 별개입니다.', status: 'blocked', severity: 'high', recommendedActions: [] },
+  tagged: { definition: '교재 재료 태그가 하나 이상 실린 편수. 태그가 없는 것은 「재료가 없다」가 아니라 「아직 판정이 안 내려갔다」입니다.', status: 'context', severity: 'none', recommendedActions: [] },
+  ready: { definition: '적격 판정을 통과했고 교재 재료 태그도 실린 편수. 실제로 교재 생성에 넘길 수 있는 유일한 몫입니다.', status: 'ready', severity: 'none', recommendedActions: [] },
 }
 export function buildSourceMetrics(counts: SourceCounts, measuredAt: string | null): Record<SourceQueue, SourceMetric> {
   return Object.fromEntries((Object.keys(SOURCE_QUEUES) as SourceQueue[]).map(queue => [queue, {
@@ -111,37 +105,6 @@ export function buildSourceMetrics(counts: SourceCounts, measuredAt: string | nu
     drilldownTarget: `/admin/csat/sources?view=eligibility&queue=${queue}`,
     lastCalculatedAt: measuredAt,
   }])) as Record<SourceQueue, SourceMetric>
-}
-/** Counts describe overlapping populations. The order reflects downstream impact and required dependencies. */
-export function buildSourceWorkQueue(counts: SourceCounts): SourceWorkItem[] {
-  const items: SourceWorkItem[] = [
-    { id: 'linked-rejected', queue: 'p0', reason: 'content_rejected', priority: 'P0', kind: 'review',
-      title: '반려 원문에 연결된 문항 확인', count: counts.p0,
-      why: '반려 원문에 문항이 연결되어 있습니다. 연결은 현재 사용이나 노출의 증거가 아니므로 각 문항의 영향부터 확인합니다.',
-      next: '원문과 연결 문항의 지문·앵커·검수 상태를 대조합니다.', verify: '반려 원문이 조판·학습 적격으로 통과하지 않는지 재검증합니다.',
-      dependency: '원문과 문항의 현재 revision 확인' },
-    { id: 'quality', queue: 'quality', priority: 'P1', kind: 'investigate', title: '본문 품질 신호 검토', count: counts.quality,
-      why: '추출 결함 신호는 오탐을 포함하며 본문과 연결 문항에 영향을 줄 수 있습니다.',
-      next: '원천별 본문과 문항 지문을 표본 확인한 뒤 해당 추출기를 조사합니다.', verify: '원문·문항 앵커를 다시 확인하고 품질 스캔을 재실행합니다.',
-      dependency: '원천별 오탐 확인과 변경 전 백업' },
-    { id: 'analysis', queue: 'analysis', priority: 'P1', kind: 'investigate', title: '필수 분석 누락 확인', count: counts.analysis,
-      why: '학령·어수·문체·구문 중 필수 측정이 비었거나 유효하지 않습니다.',
-      next: '원문 검사에서 누락 필드를 확인하고 기존 어휘·분석 경로 중 필요한 것만 실행합니다.', verify: '분석 상태와 적격 판정을 다시 읽습니다.',
-      dependency: '누락 필드와 원문 상태 확인' },
-    { id: 'judgment', queue: 'content', priority: 'P2', kind: 'batch', title: '미판정 내용 검토', count: counts.content,
-      why: '내용 판정이 없다는 신호입니다. 이 수에는 미절단 원본과 다른 정책에 이미 막힌 원문이 겹칩니다.',
-      next: '사유를 좁힌 뒤 UUID·본문 revision·해시를 묶어 판정 청크를 준비합니다.', verify: '판정 import 후 캐시와 차단 사유를 다시 확인합니다.',
-      dependency: '미절단 원본과 다른 차단 정책을 먼저 제외' },
-    { id: 'raw', queue: 'raw', reason: 'raw_content_unjudged', priority: 'P2', kind: 'blocked', title: '미절단 원본의 발췌 경로 확인', count: counts.raw,
-      why: '원본 전체를 내용 판정만 반복해도 교재 지문이 되지 않습니다.',
-      next: '수요가 있는 원문에서 발췌본·문항 연결·분석 경로를 먼저 확인합니다.', verify: '파생 원문의 판정과 문항 범위를 확인합니다.',
-      dependency: '발췌 수요 및 파생 원문의 독립 판정' },
-    { id: 'excerpt', queue: 'excerpt', reason: 'excerpt_not_materialized', priority: 'P2', kind: 'blocked', title: '발췌 문항 준비 확인', count: counts.excerpt,
-      why: '긴 원문에 사용할 문항 지문이 없거나 후보 창만 있습니다.',
-      next: '승인된 문항 지문을 만들 수 있는지 원문과 유형 수요를 확인합니다.', verify: '문항 지문·앵커·검수 통과 후 재판정합니다.',
-      dependency: '내용 판정·학령·문항 수요' },
-  ]
-  return items.filter(item => item.count > 0)
 }
 export const SOURCE_REASON_LABELS: Record<string, string> = {
   source_not_ready: '사용 준비 상태가 아님', content_rejected: '내용 반려', harmful_genre: '학습용 부적합 소재',
@@ -190,6 +153,9 @@ export interface SourceInspectorData {
   history: Array<{ id: number; replaced_at: string; previous: Record<string, unknown> }>
 }
 
+/** 원문 하나를 열었을 때 그 한 편의 다음 작업이 어떤 성격인가(`sourceNextAction` 이 쓴다). */
+export type SourceActionKind = 'automatic' | 'batch' | 'review' | 'investigate' | 'blocked'
+
 export interface SourceNextAction {
   kind: SourceActionKind
   what: string
@@ -217,8 +183,8 @@ export function sourceNextAction(row: SourceOperationRow, stale = false): Source
     next: '본문을 읽고 원천 추출기·연결 문항을 점검합니다.', verify: '수정 시 본문 해시·문항 앵커·품질 신호를 재검증합니다.' }
   if (row.result.analysisStatus !== 'complete') return { kind: 'investigate', what: '필수 분석 경로 확인', why: '학령·어수·문체·구문 중 필수 분석이 비었거나 유효하지 않습니다.',
     impact: '원문 적격을 확정할 수 없습니다.', next: '누락 필드와 기존 어휘 자료를 확인한 뒤 필요한 분석만 수행합니다.', verify: '분석 필드와 적격 판정을 다시 확인합니다.' }
-  if (blockers.includes('raw_content_unjudged')) return { kind: 'blocked', what: '발췌 경로 먼저 확인', why: '미절단 원본은 그대로 내용 판정만 해도 사용할 지문이 생기지 않습니다.',
-    impact: '발췌 파생 원문과 연결 문항이 필요합니다.', next: '수요가 있는 발췌본의 생성·분석·독립 판정 경로를 확인합니다.', verify: '파생 원문의 본문과 판정·문항 범위를 확인합니다.' }
+  if (blockers.includes('raw_content_unjudged')) return { kind: 'batch', what: '보관 판정 먼저', why: '미절단 원본은 본문 전문을 읽고 보관 여부부터 가릅니다. 보관된 원본만 발췌됩니다.',
+    impact: '판정 전에는 이 원본이 발췌되지 않습니다. 버린 원본은 다시 읽히지 않습니다.', next: 'plos-raw-triage-export 로 청크를 뽑아 판정하고 gate-mixed-import --input 으로 gate.retain 에 적재합니다.', verify: '적재 후 csat-sources-audit 의 보관 미결정 수가 줄었는지 확인합니다.' }
   if (blockers.includes('content_unjudged')) return { kind: 'batch', what: '본문 판정 청크 준비', why: '현재 본문의 내용 판정이 없습니다.',
     impact: '판정 전에는 원문 적격을 확정할 수 없습니다.', next: 'UUID·revision·본문 해시를 묶어 읽고 판정합니다.', verify: '판정 import 후 캐시를 재계산하고 차단 사유를 확인합니다.' }
   if (blockers.includes('cefr_above_band')) return { kind: 'review', what: '학령 배치 검토', why: '측정 CEFR이 현재 학령 상한을 넘습니다.',

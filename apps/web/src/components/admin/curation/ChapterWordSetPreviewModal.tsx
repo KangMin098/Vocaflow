@@ -131,7 +131,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
           )}
 
           {words && words.length > 0 && (
-            <ul className="flex flex-col divide-y divide-[var(--bd)]/40">
+            <ul className="flex flex-col divide-y divide-[color-mix(in_srgb,var(--bd)_40%,transparent)]">
               {words.map((w) => (
                 <li key={w.word} className="flex items-center gap-3 py-3">
                   <span className="font-display text-[11px] font-[700] tabular-nums text-[var(--t2)]">

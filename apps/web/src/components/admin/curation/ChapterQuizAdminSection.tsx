@@ -72,7 +72,7 @@ export function ChapterQuizAdminSection({ chapters, totalChapters, job }: Props)
           {(uncovered > 0 || lowChapters.length > 0) && (
             <div
               role="alert"
-              className="mb-3 flex items-start gap-2 rounded-[var(--r-md)] border border-[var(--warning)]/30 bg-[var(--warning-light)] p-3 font-body text-[12px] text-[#92400E]"
+              className="mb-3 flex items-start gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--warning)_30%,transparent)] bg-[var(--warning-light)] p-3 font-body text-[12px] text-[var(--warning-ink)]"
             >
               <AlertTriangle size={14} aria-hidden className="mt-0.5 shrink-0" />
               <span>
@@ -120,8 +120,8 @@ export function ChapterQuizAdminSection({ chapters, totalChapters, job }: Props)
                           setSelected(c)
                         }
                       }}
-                      className={`cursor-pointer border-b border-[var(--bd)]/40 transition-colors hover:bg-[var(--bg2)] focus-visible:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-                        isLow ? 'bg-[var(--warning-light)]/50' : ''
+                      className={`cursor-pointer border-b border-[color-mix(in_srgb,var(--bd)_40%,transparent)] transition-colors hover:bg-[var(--bg2)] focus-visible:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                        isLow ? 'bg-[color-mix(in_srgb,var(--warning-light)_50%,transparent)]' : ''
                       }`}
                     >
                       <td className="py-2 pr-3 font-display font-[700] text-[var(--t1)]">
@@ -130,7 +130,7 @@ export function ChapterQuizAdminSection({ chapters, totalChapters, job }: Props)
                       <td className="py-2 pr-3 text-[var(--t2)]">{c.chapterTitle}</td>
                       <td
                         className={`py-2 pr-3 text-right tabular-nums ${
-                          isLow ? 'font-[700] text-[#92400E]' : 'text-[var(--t1)]'
+                          isLow ? 'font-[700] text-[var(--warning-ink)]' : 'text-[var(--t1)]'
                         }`}
                       >
                         {c.questions.length}
@@ -180,7 +180,7 @@ function QuizJobBadge({ job }: { job: AdminQuizJob }) {
   }
   if (job.status === 'running') {
     return (
-      <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--warning-light)] px-2 py-1 font-display text-[10px] font-[700] text-[#92400E]">
+      <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--warning-light)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--warning-ink)]">
         <Loader2 size={11} aria-hidden className="animate-spin" />
         running {label}
       </span>

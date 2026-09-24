@@ -512,6 +512,13 @@ export { extractBookLemmas } from './analyze/extract-lemmas'
 export type { BookLemmaIndex } from './analyze/extract-lemmas'
 export { analyzeArticle } from './analyze/analyze-article'
 export type { AnalyzeArticleOptions } from './analyze/analyze-article'
+export { ensureArticleVocab } from './analyze/ensure-article-vocab'
+export { releaseArticleVocab, shouldKeepArticleVocab } from './analyze/release-article-vocab'
+export type { VocabRetentionInput } from './analyze/release-article-vocab'
+export type {
+  EnsureArticleVocabDeps,
+  EnsureArticleVocabResult,
+} from './analyze/ensure-article-vocab'
 
 // S3 NORMALIZE + S4 SEGMENT (Phase 5)
 export { normalizeBook, extractBody, normalizePunctuation, reflowSoftHyphens } from './normalize'
@@ -935,6 +942,7 @@ export {
   standaloneFit,
   standaloneSignals,
   STANDALONE_GATE,
+  STANDALONE_NARRATIVE_SPEC,
   STANDALONE_SPEC,
   type StandaloneFit,
   type StandaloneSignals,
@@ -1079,6 +1087,9 @@ export {
   markSeen,
 } from './ingest-article/harvest-cursor'
 export type { HarvestCursor, HarvestRegistryEntry } from './ingest-article/harvest-cursor'
+// 짧은 본문 — 버리지 않고 기사째 들고 나오는 오류(길이로 원문을 제외하지 않는다, 2026-09-23).
+export { ShortBodyError, isShortBodyError } from './ingest-article/short-body'
+export type { ShortBodyDetail } from './ingest-article/short-body'
 
 // 유형 폭 — 사다리가 선언한 유형 대 지면에 실린 유형(`scripts/textbook/type-spread.mjs`).
 export {
@@ -1147,7 +1158,10 @@ export type {
 } from './textbook/freedom'
 
 // PD 장문을 비중복 발췌 조각으로(`textbook/excerpt-chunks.ts`).
-// `scripts/textbook/harvest-gutenberg-kid.mjs` 안에 있던 것 — 시험을 붙일 수 없는 자리라
+// `scripts/textbook/harvest-gutenberg-kid.mjs`(2026-09-24 퇴출로 삭제 — 이 모듈은 남는다) 안에 있던 것 — 시험을 붙일 수 없는 자리라
 // 경계를 넘는 조각이 지면까지 갔다.
 export { disjointChunks, looksLikeHeading } from './textbook/excerpt-chunks'
 export type { ChunkBounds, ExcerptChunk, ParagraphUnit } from './textbook/excerpt-chunks'
+// 권리 표지(DD-75) — 라이선스로 버리지 않고 원문마다 표지를 붙여 csat_fit.rights 로 넘긴다.
+export { rightsClassOf, rightsTag } from './ingest-article/rights-tag'
+export type { RightsClass, RightsEvidence, RightsTag, RightsTagInput } from './ingest-article/rights-tag'
