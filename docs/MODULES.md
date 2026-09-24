@@ -1050,7 +1050,10 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 |---|---|
 | 서가 규칙(순수) | [`lib/csat/browse-model.ts`](../apps/web/src/lib/csat/browse-model.ts) — `examAxis`(수능/모의·학년도·월) · `browseExamOrder`(최근 학년도 → 수능 → 9월 → 6월) · `filterBrowse`(축 넷 **AND** + 찾기, 번호는 완전 일치) · `groupByExam` |
 | 서가 로더(서버) | [`lib/csat/browse.ts`](../apps/web/src/lib/csat/browse.ts) — `csat_items_public` 802행 + 강의 색인 + 골격 앵커 → 문항마다 `lecture`·`map` 플래그. 프로세스 캐시 10분. **지문·선지·발문은 읽지 않는다**(`stem` 컬럼이 있어도) |
-| 서가 화면 | [`components/csat/browse/CsatLibrary.tsx`](../apps/web/src/components/csat/browse/CsatLibrary.tsx) — 회차 단위 번호 칩 · 상영 없는 문항은 **점선**으로 남긴다(감추지 않는다) · 「아무거나 한 문항」 |
+| 서가 화면 | [`components/csat/browse/CsatWorkspace.tsx`](../apps/web/src/components/csat/browse/CsatWorkspace.tsx) — `/csat/browse`. 홈과 같은 메뉴 · 결. 회차 단위 번호 칩 · 강의 없는 문항은 **점선**, 연 문항은 옅게 · 「아무거나 한 문항」 · 쿼리 `?type` `?exam` `?status` `?from` `?q` |
+| 기출분석공간 메뉴 | [`components/csat/home/CsatRail.tsx`](../apps/web/src/components/csat/home/CsatRail.tsx) — 홈 · 이어서·복습(개수) · 내 기록 · 전체 서가 / 목적별 5 / 유형별 / 회차별. 어느 축이든 같은 서가 → 같은 문항 화면(docs/csat/ia-design.md §1) |
+| 상태 카드 · 이어서 판 · 내 기록 | [`home/ContinueCard.tsx`](../apps/web/src/components/csat/home/ContinueCard.tsx)(첫 방문 · 재방문 · 공백 복귀) · [`home/ContinuePanel.tsx`](../apps/web/src/components/csat/home/ContinuePanel.tsx) · [`home/RecordScreen.tsx`](../apps/web/src/components/csat/home/RecordScreen.tsx) · Today 한 줄 [`home/CsatContinueLine.tsx`](../apps/web/src/components/csat/home/CsatContinueLine.tsx) · 기록 훅 [`home/useCsatRecord.ts`](../apps/web/src/components/csat/home/useCsatRecord.ts) |
+| 지속 학습 규칙(순수) | [`lib/csat/continuity.ts`](../apps/web/src/lib/csat/continuity.ts) — 방문 상태 · 밀린 복습 ≤3 압축 · 넓이 · 학습한 날 · 기기↔서버 **항목 단위 병합**(`/api/csat/state` PUT 도 이것으로 합친다) |
 | 극장 골격(순수) | [`lib/csat/theater.ts`](../apps/web/src/lib/csat/theater.ts) — 강의 큐 → 왼쪽 단계 이름(역할·타깃에서만 짓는다) · 역할 → 효과음 · 분석 층 → 오른쪽 블록(**빈 칸은 만들지 않는다**) · `blockKeyForTarget`(문장 앵커는 지도로) |
 | 대본 없는 차례 | `lecture/store.ts` `lectureOutline` + `lecture/types.ts` `LectureStep` — 역할·타깃·길이·말한 문장 번호만. **재생 전에도 레일이 선다**(대본은 여전히 API 로만) |
 | 극장 화면 | [`components/csat/theater/AnalysisTheater.tsx`](../apps/web/src/components/csat/theater/AnalysisTheater.tsx) — 레일(차례) · 무대(`PassageMap` + 블록) · 장 카드 · 「전부 펼쳐 읽기」 · ←/→ · 배속 |

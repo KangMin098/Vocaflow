@@ -147,9 +147,20 @@ export interface SpaceFilter {
   withExample: boolean
   /** 최근 4개년에 실제로 나온 행만 */
   recentOnly: boolean
+  /** 이 키(유형 id · 함정 이름)의 행만 — 목적별 경로(「킬러 유형 잡기」 등)가 미리 짠 묶음. null 이면 거르지 않는다 */
+  keys?: string[] | null
 }
 
-export const EMPTY_SPACE_FILTER: SpaceFilter = { query: '', withExample: false, recentOnly: false }
+export const EMPTY_SPACE_FILTER: SpaceFilter = { query: '', withExample: false, recentOnly: false, keys: null }
+
+/**
+ * 「킬러 유형」 — 빈칸 · 순서 · 삽입. **이름으로 고른다**(유형 id 를 손으로 적으면 코퍼스를 다시 구울 때
+ * 조용히 빗나간다). 근거: needs-research N17(오답률 상위가 이 셋).
+ */
+export const KILLER_PATTERN = /빈칸|순서|삽입/
+export function killerTypeIds(): string[] {
+  return ATLAS_TYPES.filter((t) => KILLER_PATTERN.test(t.name)).map((t) => t.id)
+}
 
 /** 한 축이라도 맞지 않으면 뺀다(AND) — `browse-model.filterBrowse` 와 같은 규칙이다. */
 export function filterRows(rows: SpaceRow[], filter: SpaceFilter): SpaceRow[] {
@@ -157,6 +168,7 @@ export function filterRows(rows: SpaceRow[], filter: SpaceFilter): SpaceRow[] {
   return rows.filter((row) => {
     if (filter.withExample && !row.example) return false
     if (filter.recentOnly && row.recent === 0) return false
+    if (filter.keys && !filter.keys.includes(row.key)) return false
     if (!needle) return true
     return needle.split(/\s+/).every((word) => row.search.includes(word))
   })
@@ -234,7 +246,7 @@ export function stepsFor(row: SpaceRow): SpaceStep[] {
     title: '서가에서 보기',
     body: row.kind === 'type' ? '이 유형의 기출을 전부 훑는다.' : '이 함정이 나온 유형부터 훑는다.',
     tone: toneAt(3),
-    href: row.kind === 'type' ? `/csat?type=${encodeURIComponent(row.key)}` : '/csat',
+    href: row.kind === 'type' ? `/csat/browse?type=${encodeURIComponent(row.key)}` : '/csat/browse',
     hrefLabel: '전체 기출 서가',
   })
   return steps

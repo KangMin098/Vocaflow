@@ -19,29 +19,33 @@
 //   · 참조 상세 화면(바닥 색 카드 넷)은 별도 라우트가 아니라 **줄을 펼치면** 나온다.
 
 import Link from 'next/link'
-import { useCallback, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import {
   ArrowUpRight,
-  BookMarked,
   ChevronDown,
   Crosshair,
   Gauge,
-  Hash,
-  Home,
   Layers,
   Microscope,
   Search,
   SlidersHorizontal,
-  Sparkles,
   Star,
 } from 'lucide-react'
 
 import { PatternBand } from './PatternBand'
 import styles from './space.module.css'
+import home from '../home/home.module.css'
+import { ContinueCard } from '../home/ContinueCard'
+import { ContinuePanel } from '../home/ContinuePanel'
+import { CsatRail, type NeedId } from '../home/CsatRail'
+import { useCsatRecord } from '../home/useCsatRecord'
 import { track } from '@/lib/analytics/client'
+import { activeSet, coverage, dueBucket, dueNow, gapBucket, gapDays, visitState } from '@/lib/csat/continuity'
+import { ATLAS_TYPES } from '@/lib/csat/trap-atlas'
 import {
   EMPTY_SPACE_FILTER,
   filterRows,
+  killerTypeIds,
   patternShapes,
   spaceHeadline,
   stepsFor,
@@ -75,11 +79,45 @@ const SEED: Record<SpaceTab, number> = { type: 7, trap: 23 }
 
 const TAB_LABEL: Record<SpaceTab, string> = { type: '유형', trap: '함정' }
 
-export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
+export function SpaceScreen({
+  exams,
+  itemTypes,
+  initialTab = 'type',
+  need = null,
+  view = 'home',
+}: {
+  exams: SpaceExam[]
+  /** 문항 id → 유형 id(넓이 · 「본 문항」 계산용). 서가 카탈로그에서 온다 */
+  itemTypes: Record<string, string>
+  initialTab?: SpaceTab
+  /** 목적별 경로로 들어왔을 때 — 표를 그 묶음으로 미리 좁힌다 */
+  need?: NeedId | null
+  /** 'continue' = 이어서 · 복습 판(표 자리에 선다) */
+  view?: 'home' | 'continue'
+}) {
   const head = useMemo(spaceHeadline, [])
   const all = useMemo(() => ({ type: typeRows(), trap: trapRows() }), [])
-  const [tab, setTab] = useState<SpaceTab>('type')
-  const [filter, setFilter] = useState<SpaceFilter>(EMPTY_SPACE_FILTER)
+  const [tab, setTab] = useState<SpaceTab>(need === 'trap' ? 'trap' : initialTab)
+  const [filter, setFilter] = useState<SpaceFilter>(need === 'killer' ? { ...EMPTY_SPACE_FILTER, keys: killerTypeIds() } : EMPTY_SPACE_FILTER)
+  const rec = useCsatRecord()
+  const typeOf = useCallback((id: string) => itemTypes[id], [itemTypes])
+  const cov = useMemo(() => (rec ? coverage(rec.record, typeOf) : null), [rec, typeOf])
+  const homeSent = useRef(false)
+  // 홈 상태는 기록을 읽은 **뒤** 한 번만 센다 — 지속 학습 지표의 분모(ia-design §5)
+  useEffect(() => {
+    if (!rec || homeSent.current) return
+    homeSent.current = true
+    track({
+      name: 'csat_home_viewed',
+      props: {
+        state: visitState(rec.record, rec.now),
+        due: dueBucket(rec.dueBefore),
+        gap: gapBucket(gapDays(rec.record, rec.now)),
+        active: activeSet(rec.record) !== null,
+        synced: rec.synced,
+      },
+    })
+  }, [rec])
   const [draft, setDraft] = useState('')
   const [openKey, setOpenKey] = useState<string | null>(null)
   const [showGauges, setShowGauges] = useState(false)
@@ -126,14 +164,6 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
     window.requestAnimationFrame(() => firstRow.current?.focus())
   }, [scope, filter, draft])
 
-  const applyQuery = useCallback(
-    (value: string) => {
-      setDraft(value)
-      scope({ filter: { ...filter, query: value } })
-    },
-    [scope, filter],
-  )
-
   const reset = useCallback(() => {
     setDraft('')
     scope({ filter: EMPTY_SPACE_FILTER })
@@ -169,97 +199,12 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
   return (
     <div className={styles.root} data-csat-space>
       {/* ── ① 좌측 레일 ─────────────────────────────────────────────────── */}
-      <nav className={styles.rail} aria-label="기출 작업 공간">
-        <span className={styles.mark}>
-          <span className={styles.markGlyph} aria-hidden="true">
-            <Microscope size={15} />
-          </span>
-          기출 작업 공간
-        </span>
-
-        <div className={styles.group}>
-          <Link className={styles.railItem} href="/csat/browse">
-            <Home size={15} aria-hidden="true" />
-            전체 서가
-          </Link>
-          <Link className={styles.railItem} href="/csat/dissect">
-            <Sparkles size={15} aria-hidden="true" />
-            오늘의 해부
-          </Link>
-          <Link className={styles.railItem} href="/csat/formulas">
-            <BookMarked size={15} aria-hidden="true" />
-            내 공식
-          </Link>
-        </div>
-
-        <div className={styles.divider} />
-
-        <div className={styles.group}>
-          <div className={styles.groupHead}>보는 것</div>
-          <button
-            type="button"
-            className={styles.railItem}
-            aria-pressed={tab === 'type'}
-            onClick={() => scope({ tab: 'type' })}
-          >
-            <Layers size={15} aria-hidden="true" />
-            유형
-            <span className={styles.railCount}>{n(counts.type)}</span>
-          </button>
-          <button
-            type="button"
-            className={styles.railItem}
-            aria-pressed={tab === 'trap'}
-            onClick={() => scope({ tab: 'trap' })}
-          >
-            <Crosshair size={15} aria-hidden="true" />
-            함정
-            <span className={styles.railCount}>{n(counts.trap)}</span>
-          </button>
-          <button
-            type="button"
-            className={styles.railItem}
-            aria-pressed={filter.withExample}
-            onClick={() => scope({ filter: { ...filter, withExample: !filter.withExample } })}
-          >
-            <Star size={15} aria-hidden="true" />
-            예시 기출이 있는 것만
-          </button>
-          <button
-            type="button"
-            className={styles.railItem}
-            aria-pressed={filter.recentOnly}
-            onClick={() => scope({ filter: { ...filter, recentOnly: !filter.recentOnly } })}
-          >
-            <SlidersHorizontal size={15} aria-hidden="true" />
-            {head.recentFrom}학년도 이후만
-          </button>
-        </div>
-
-        <div className={styles.divider} />
-
-        <div className={styles.group}>
-          <div className={styles.groupHead}>
-            회차
-            <span className={styles.railCount}>{n(exams.length)}</span>
-          </div>
-          <div className={styles.railScroll}>
-            {exams.map((exam) => (
-              <button
-                key={exam.exam_id}
-                type="button"
-                className={styles.railItem}
-                aria-pressed={filter.query === exam.label}
-                onClick={() => applyQuery(filter.query === exam.label ? '' : exam.label)}
-              >
-                <Hash size={14} aria-hidden="true" />
-                <span className="truncate">{exam.label}</span>
-                <span className={styles.railCount}>{n(exam.items)}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </nav>
+      <CsatRail
+        place={view === 'continue' ? 'continue' : need ? 'need' : 'home'}
+        current={need ?? undefined}
+        exams={exams}
+        dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null}
+      />
 
       <div className="min-w-0">
         {/* ── 상단 줄 ───────────────────────────────────────────────────── */}
@@ -283,60 +228,7 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
           <div className={styles.band}>
             <PatternBand shapes={shapes} className={styles.bandArt} variant="grid" />
             <div className={styles.bandVeil} aria-hidden="true" />
-            <form
-              className={styles.prompt}
-              onSubmit={(event) => {
-                event.preventDefault()
-                submit()
-              }}
-            >
-              <div className={styles.promptBack} aria-hidden="true">
-                <Sparkles size={13} />
-                무엇을 해부할까요?
-              </div>
-              <div className={styles.promptCard}>
-                <label className="sr-only" htmlFor={`${listId}-q`}>
-                  유형 · 함정 · 회차 · 문항 번호로 찾기
-                </label>
-                <textarea
-                  id={`${listId}-q`}
-                  className={styles.promptInput}
-                  rows={2}
-                  value={draft}
-                  placeholder="빈칸 추론에서 주체 역전 함정이 어디에 나왔는지 찾기 — 유형·함정·회차·번호를 섞어 적어도 됩니다."
-                  onChange={(event) => setDraft(event.target.value)}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' && !event.shiftKey) {
-                      event.preventDefault()
-                      submit()
-                    }
-                  }}
-                />
-                <div className={styles.promptFoot}>
-                  <button
-                    type="button"
-                    className={styles.promptChip}
-                    aria-pressed={filter.withExample}
-                    onClick={() => scope({ filter: { ...filter, withExample: !filter.withExample } })}
-                  >
-                    <Star size={12} aria-hidden="true" />
-                    예시 있는 것만
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.promptChip}
-                    aria-pressed={filter.recentOnly}
-                    onClick={() => scope({ filter: { ...filter, recentOnly: !filter.recentOnly } })}
-                  >
-                    <SlidersHorizontal size={12} aria-hidden="true" />
-                    {head.recentFrom}학년도 이후
-                  </button>
-                  <button type="submit" className={styles.promptGo} aria-label="찾기">
-                    <Search size={14} aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
-            </form>
+            <ContinueCard state={rec} />
           </div>
 
           {/* ── ③ 판 ─────────────────────────────────────────────────── */}
@@ -370,6 +262,58 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
               </button>
             </div>
 
+            <form
+              className={home.tools}
+              onSubmit={(event) => {
+                event.preventDefault()
+                submit()
+              }}
+            >
+              <label className={home.search}>
+                <Search size={14} aria-hidden="true" />
+                <span className="sr-only">유형 · 함정 · 회차 · 문항 번호로 찾기</span>
+                <input
+                  id={`${listId}-q`}
+                  type="search"
+                  value={draft}
+                  placeholder="예: 빈칸 주체 역전 · 2026 수능 31"
+                  onChange={(event) => setDraft(event.target.value)}
+                />
+              </label>
+              <button
+                type="button"
+                className={home.chip}
+                aria-pressed={filter.withExample}
+                onClick={() => scope({ filter: { ...filter, withExample: !filter.withExample } })}
+              >
+                <Star size={12} aria-hidden="true" />
+                예시 있는 것만
+              </button>
+              <button
+                type="button"
+                className={home.chip}
+                aria-pressed={filter.recentOnly}
+                onClick={() => scope({ filter: { ...filter, recentOnly: !filter.recentOnly } })}
+              >
+                <SlidersHorizontal size={12} aria-hidden="true" />
+                {head.recentFrom}학년도 이후
+              </button>
+              {filter.keys ? (
+                <button type="button" className={home.chip} aria-pressed onClick={() => scope({ filter: { ...filter, keys: null } })} data-testid="need-chip">
+                  킬러 유형만 · 풀기
+                </button>
+              ) : null}
+              <p className={home.breadth} data-testid="breadth">
+                {cov ? (
+                  <>
+                    본 유형 <b>{cov.types}</b>/{ATLAS_TYPES.length} · 만난 함정 계열 <b>{cov.families}</b> · 내 공식 <b>{cov.formulas}</b>
+                  </>
+                ) : (
+                  '기록을 확인하는 중…'
+                )}
+              </p>
+            </form>
+
             {showGauges ? (
               <div className={styles.gauges}>
                 <div className={styles.gauge}>
@@ -402,7 +346,7 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
               </div>
             ) : null}
 
-            <div className={styles.tableHead} aria-hidden="true">
+            <div className={styles.tableHead} aria-hidden="true" hidden={view === 'continue'}>
               <span>{tab === 'type' ? '유형' : '함정'}</span>
               <span>갖춘 것</span>
               <span>걸친 범위</span>
@@ -410,7 +354,9 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
               <span>예시 기출</span>
             </div>
 
-            <div id={`${listId}-panel`} role="tabpanel" aria-labelledby={`${listId}-tab-${tab}`}>
+            {view === 'continue' ? <ContinuePanel state={rec} itemTypes={itemTypes} /> : null}
+
+            <div id={`${listId}-panel`} role="tabpanel" aria-labelledby={`${listId}-tab-${tab}`} hidden={view === 'continue'}>
               {rows.length === 0 ? (
                 <div className={styles.empty}>
                   <p>조건에 맞는 {TAB_LABEL[tab]}이 없습니다.</p>
@@ -423,6 +369,7 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
                   <Row
                     key={row.key}
                     row={row}
+                    seen={row.kind === 'type' ? cov?.byType.get(row.key) ?? 0 : null}
                     index={i}
                     open={openKey === row.key}
                     onToggle={() => openRow(row, i)}
@@ -454,12 +401,15 @@ export function SpaceScreen({ exams }: { exams: SpaceExam[] }) {
 
 function Row({
   row,
+  seen,
   index,
   open,
   onToggle,
   buttonRef,
 }: {
   row: SpaceRow
+  /** 이 학습자가 이 유형에서 연 문항 수(함정 줄은 null) */
+  seen: number | null
   index: number
   open: boolean
   onToggle: () => void
@@ -481,6 +431,7 @@ function Row({
               {row.meta.map((fact) => (
                 <span key={fact}>· {fact}</span>
               ))}
+              {seen ? <span data-testid="row-seen">· 본 문항 {seen}</span> : null}
             </span>
           </span>
         </span>

@@ -210,6 +210,52 @@ export type PublicEvent =
       props: { known: boolean; items: number; failed: number; chosen: boolean }
     }
   /**
+   * 기출 홈(`/csat`)을 열었을 때 **학습자가 어느 상태였나** — 지속 학습 지표의 분모(docs/csat/ia-design.md §5).
+   * 진입 자체는 `screen_viewed` 가 센다. 이것은 기기/서버 기록을 읽은 **뒤** 한 번만 보낸다.
+   * 재방문율(D1 · D7)은 user_id · occurred_at 으로 계산한다 — 속성에 날짜를 싣지 않는다.
+   */
+  | {
+      name: 'csat_home_viewed'
+      props: {
+        state: 'first' | 'return' | 'comeback'
+        /** 오늘 할 복습(압축 전) */
+        due: '0' | '1-3' | '4+'
+        /** 마지막 학습 뒤 지난 날 */
+        gap: '0' | '1-2' | '3-6' | '7+'
+        /** 진행 중 세트가 있나 */
+        active: boolean
+        /** 서버 사본과 합쳤나(false = 기기 기록만) */
+        synced: boolean
+      }
+    }
+  /** 「이어서」 카드 · 줄을 눌렀다 — 이어하기 사용률의 분자. */
+  | {
+      name: 'csat_resume_clicked'
+      props: { kind: 'set' | 'review' | 'comeback' | 'start'; from: 'home' | 'today' | 'record' }
+    }
+  /** 복습 세션을 시작했다 / 끝냈다. `substituted` = 같은 공식의 **다른 문항**으로 냈는가(외운 답 차단). */
+  | {
+      name: 'csat_review_started'
+      props: { size: number; substituted: boolean }
+    }
+  | {
+      name: 'csat_review_done'
+      props: { size: number; substituted: boolean }
+    }
+  /** 어느 축으로 들어왔나 — 목적별 · 유형별 · 회차별(같은 도착지로 가는 두 입구의 비율). */
+  | {
+      name: 'csat_path_chosen'
+      props: {
+        axis: 'need' | 'type' | 'exam'
+        need: 'start' | 'killer' | 'trap' | 'evidence' | 'recent' | 'none'
+      }
+    }
+  /** 문항 해설에서 목록으로 돌아갔다(막다른 길 해소). */
+  | {
+      name: 'csat_item_back'
+      props: { to: 'home' | 'type' | 'browse' }
+    }
+  /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
    * 이 화면의 전제는 «근거를 눌러 가며 지문 위에서 풀이를 재구성한다» 인데, 그 전제가
@@ -494,6 +540,12 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_session_started: true,
   csat_session_explained: true,
   csat_paper_read: true,
+  csat_home_viewed: true,
+  csat_resume_clicked: true,
+  csat_review_started: true,
+  csat_review_done: true,
+  csat_path_chosen: true,
+  csat_item_back: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

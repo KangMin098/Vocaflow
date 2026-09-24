@@ -103,8 +103,9 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       steps={steps}
       blocks={blocks}
       map={map}
-      backHref={item.type_id ? `/csat?type=${encodeURIComponent(item.type_id)}` : '/csat'}
-      backLabel="기출 목록"
+      itemId={item.id}
+      backHref="/csat"
+      typeHref={item.type_id ? `/csat/browse?type=${encodeURIComponent(item.type_id)}` : null}
       next={nextPick ? { href: `/csat/item/${nextPick.item.slug}`, label: `${nextPick.item.exam_label} ${nextPick.item.no}번` } : null}
       source={{ url: paper.paperUrl ?? paper.listUrl, direct: paper.paperUrl != null, reason: paper.reason }}
       siblings={siblings

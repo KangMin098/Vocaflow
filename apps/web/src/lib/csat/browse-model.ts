@@ -78,9 +78,13 @@ export interface BrowseFilter {
   status: 'all' | 'lecture' | 'map'
   /** 유형 이름 · 회차 이름 · 번호 */
   query: string
+  /** 한 회차만(회차별 경로). 'all' 이면 거르지 않는다 */
+  exam?: string
+  /** 이 학년도 이후만(목적별 「최근 기출부터」). 'all' 이면 거르지 않는다 */
+  from?: number | 'all'
 }
 
-export const EMPTY_FILTER: BrowseFilter = { kind: 'all', year: 'all', type: 'all', status: 'all', query: '' }
+export const EMPTY_FILTER: BrowseFilter = { kind: 'all', year: 'all', type: 'all', status: 'all', query: '', exam: 'all', from: 'all' }
 
 /**
  * 네 축 + 찾기. **한 축이라도 맞지 않으면 뺀다**(AND) — 축을 늘릴수록 결과가 좁아지는 것이
@@ -95,6 +99,8 @@ export function filterBrowse(catalog: BrowseCatalog, filter: BrowseFilter): Brow
     if (!exam) return false
     if (filter.kind !== 'all' && exam.kind !== filter.kind) return false
     if (filter.year !== 'all' && exam.year !== filter.year) return false
+    if (filter.exam && filter.exam !== 'all' && exam.id !== filter.exam) return false
+    if (filter.from && filter.from !== 'all' && exam.year < filter.from) return false
     if (filter.type !== 'all' && i.type_id !== filter.type) return false
     if (filter.status === 'lecture' && !i.lecture) return false
     if (filter.status === 'map' && !i.map) return false
