@@ -19,7 +19,8 @@
 // ── 재실행 안전 ──────────────────────────────────────────────────────
 // `source_id`(= `europe_pmc:PMC…` [+ `#p<a>-<b>`]) 로 먼저 중복을 본다. 몇 번 돌려도 같은 글을
 // 두 번 넣지 않는다. `--commit` 없이는 **아무것도 쓰지 않는다**.
-// ⚠️ 빈 값·너무 짧은 본문은 넣지 않는다 — 넣으면 다음 수확이 "이미 있음" 으로 세어 구멍이 남는다.
+// ⚠️ 빈 값은 넣지 않는다 — 넣으면 다음 수확이 "이미 있음" 으로 세어 구멍이 남는다.
+//   짧은 본문은 버리지 않고 창 판정으로 흘린다(길이로 원문을 제외하지 않는다 — 2026-09-23).
 //
 // 실행:
 //   pnpm dlx tsx scripts/textbook/epmc-ingest.mjs                      # dry-run (기본)
@@ -48,6 +49,7 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 })
 
 const epmc = await import('../../packages/library-pipeline/src/ingest-article/europe-pmc.ts')
+const { isShortBodyError } = await import('../../packages/library-pipeline/src/ingest-article/short-body.ts')
 const { readHarvestCursor, writeHarvestCursor, markSeen } = await import(
   '../../packages/library-pipeline/src/ingest-article/harvest-cursor.ts'
 )
@@ -130,6 +132,8 @@ let existed = 0
 let outOfSpec = 0
 let failed = 0
 let licenseBlocked = 0
+let shortBody = 0
+let emptyBody = 0
 const densities = []
 
 for (const item of list) {
@@ -153,11 +157,24 @@ for (const item of list) {
   try {
     article = await retry(() => epmc.ingestEuropePmcArticle(item.pmcid, item.license))
   } catch (e) {
-    const msg = String(e.message ?? e)
-    if (/라이선스/.test(msg)) licenseBlocked++
-    else failed++
-    console.log(`  ✗ ${msg.slice(0, 72)}`)
-    continue
+    // 짧은 본문은 **버리지 않는다**(사용자 결정 2026-09-23 — 길이로 원문을 제외하지 않는다).
+    //   본문이 있으면 아래 발췌·창 판정으로 그대로 흘린다 — 창이 가른다, 길이 하한이 아니라.
+    //   빈 본문(0어)은 파서 고장 신호라 따로 세고, 판정으로 적지 않는다(파서를 고치면 되살아난다).
+    if (isShortBodyError(e) && !e.isEmpty && e.article) {
+      shortBody++
+      article = e.article
+    } else if (isShortBodyError(e)) {
+      emptyBody++
+      judged.delete(item.pmcid)
+      console.log(`  ✗ 빈 본문(파서 확인) ${item.pmcid}`)
+      continue
+    } else {
+      const msg = String(e.message ?? e)
+      if (/라이선스/.test(msg)) licenseBlocked++
+      else failed++
+      console.log(`  ✗ ${msg.slice(0, 72)}`)
+      continue
+    }
   }
 
   // ── 규격 — 조판이 받는 창에 드는 덩어리를 떼어 낸다 ──────────────
@@ -236,7 +253,7 @@ const above = densities.filter((d) => d >= 5.33).length
 
 console.log(
   `\n추가 ${added} · 이미 있음 ${existed} · 창 미달 ${outOfSpec} · ` +
-    `라이선스 차단 ${licenseBlocked} · 실패 ${failed}`,
+    `라이선스 차단 ${licenseBlocked} · 실패 ${failed} · 짧은 본문(창 판정으로) ${shortBody} · 빈 본문(파서 확인) ${emptyBody}`,
 )
 if (med != null) {
   console.log(

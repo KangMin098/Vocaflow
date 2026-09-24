@@ -10,6 +10,7 @@
 // source_id: "plos:<doi>"
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { decodeEntities, extractFirst, fetchWithTimeout, htmlToPlainText, safeDate } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -355,11 +356,10 @@ export async function ingestPlosArticle(itemUrl: string): Promise<RawArticle> {
     extractFirst(html, [/<meta\s+name="citation_author"\s+content="([^"]+)"/i]) ?? 'PLOS authors'
 
   const content = extractProse(html)
-  if (content.trim().split(/\s+/).filter(Boolean).length < 200) {
-    throw new Error(`PLOS body too short: ${content.trim().length} chars (${doi})`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.trim().split(/\s+/).filter(Boolean).length < 200
 
-  return {
+  const article: RawArticle = {
     source: 'plos',
     source_id: `plos:${doi}`,
     source_url: url,
@@ -373,4 +373,13 @@ export async function ingestPlosArticle(itemUrl: string): Promise<RawArticle> {
     audio_url: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`PLOS body too short: ${content.trim().length} chars (${doi})`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

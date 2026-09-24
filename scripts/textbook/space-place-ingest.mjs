@@ -49,6 +49,7 @@ const { createClient } = await import('@supabase/supabase-js')
 const {
   listSpacePlaceFeed,
   ingestSpacePlaceArticle,
+  isShortBodyError,
   spacePlaceParagraphs,
   excerptForBand,
   gradeBand,
@@ -81,15 +82,29 @@ let existed = 0
 let outOfSpec = 0
 let vocabBlocked = 0
 let failed = 0
+let shortBody = 0
+let emptyBody = 0
 
 for (const item of list) {
   let article
   try {
     article = await ingestSpacePlaceArticle(item.url)
   } catch (e) {
-    failed++
-    console.log(`  ✗ ${String(e.message).slice(0, 62)}`)
-    continue
+    // 짧은 본문은 **버리지 않는다**(사용자 결정 2026-09-23 — 길이로 원문을 제외하지 않는다).
+    //   본문이 있으면 아래 발췌·창 판정으로 그대로 흘린다 — 창이 가른다, 길이 하한이 아니라.
+    //   빈 본문(0어)은 파서 고장 신호라 따로 세고, 판정으로 적지 않는다(파서를 고치면 되살아난다).
+    if (isShortBodyError(e) && !e.isEmpty && e.article) {
+      shortBody++
+      article = e.article
+    } else if (isShortBodyError(e)) {
+      emptyBody++
+      console.log(`  ✗ 빈 본문(파서 확인) ${item.url}`)
+      continue
+    } else {
+      failed++
+      console.log(`  ✗ ${String(e.message).slice(0, 62)}`)
+      continue
+    }
   }
   await new Promise((z) => setTimeout(z, 700))
 
@@ -179,7 +194,7 @@ for (const item of list) {
 }
 
 console.log(
-  `\n추가 ${added} · 이미 있음 ${existed} · 규격 밖 ${outOfSpec} · **어휘 가드 차단 ${vocabBlocked}** · 실패 ${failed}`
+  `\n추가 ${added} · 이미 있음 ${existed} · 규격 밖 ${outOfSpec} · **어휘 가드 차단 ${vocabBlocked}** · 실패 ${failed} · 짧은 본문(창 판정으로) ${shortBody} · 빈 본문(파서 확인) ${emptyBody}`
 )
 if (!COMMIT) console.log('\ndry-run 이었다. 실제로 쓰려면 --commit.')
 

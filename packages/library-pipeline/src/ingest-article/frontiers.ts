@@ -53,6 +53,7 @@
 // 통과는 **`cc by` · `cc0` 뿐**(정찰 §3).
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { fetchWithTimeout } from './_helpers'
 import { sourceKey } from './source-key'
@@ -682,13 +683,12 @@ export async function ingestFrontiersArticle(doiOrUrl: string): Promise<RawArtic
   if (!doi) throw new Error(`Frontiers DOI 를 못 읽었다: ${doiOrUrl}`)
   const got = await fetchFrontiersArticle(doi)
   if (!got) throw new Error(`Frontiers 본문을 못 받았다: ${doi}`)
-  if (got.words < FRONTIERS_MIN_WORDS) {
-    throw new Error(`Frontiers 본문이 너무 짧다(${got.words}어 < ${FRONTIERS_MIN_WORDS}): ${doi}`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = got.words < FRONTIERS_MIN_WORDS
   if (!frontiersLicenseAllowed(got.licenseUrl)) {
     throw new Error(`Frontiers 라이선스가 통과 목록 밖이다(${got.licenseUrl ?? '없음'}): ${doi}`)
   }
-  return {
+  const article: RawArticle = {
     source: 'frontiers',
     source_id: sourceKey('frontiers', { doi: got.doi }),
     title: got.title || '(제목 미상)',
@@ -700,4 +700,13 @@ export async function ingestFrontiersArticle(doiOrUrl: string): Promise<RawArtic
     estimated_cefr: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`Frontiers 본문이 너무 짧다(${got.words}어 < ${FRONTIERS_MIN_WORDS}): ${doi}`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

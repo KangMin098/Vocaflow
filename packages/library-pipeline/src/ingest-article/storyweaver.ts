@@ -35,6 +35,7 @@
 // source_id: "storyweaver:<slug>"
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { fetchWithTimeout, hashString } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -226,14 +227,13 @@ export async function ingestStoryweaverArticle(itemUrl: string): Promise<RawArti
     .join(' ')
 
   const content = stripPageNumbers(story.map((p) => storyweaverPageText(p.html ?? '')).join(' '))
-  if (content.length < 80) {
-    throw new Error(`StoryWeaver 본문이 너무 짧다: ${content.length}자 ${itemUrl}`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.length < 80
 
   const license = storyweaverLicense(back)
   const author = storyweaverAuthor(back)
 
-  return {
+  const article: RawArticle = {
     source: 'storyweaver',
     source_id: `storyweaver:${slug}`,
     source_url: itemUrl,
@@ -250,4 +250,13 @@ export async function ingestStoryweaverArticle(itemUrl: string): Promise<RawArti
     estimated_cefr: json.data?.level === '1' ? 'A1' : json.data?.level === '2' ? 'A2' : null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`StoryWeaver 본문이 너무 짧다: ${content.length}자 ${itemUrl}`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

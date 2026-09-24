@@ -65,6 +65,7 @@ const { createClient } = await import('@supabase/supabase-js')
 const {
   listStoryweaverFeed,
   ingestStoryweaverArticle,
+  isShortBodyError,
   storyweaverPageText,
   stripPageNumbers,
   excerptForBand,
@@ -122,6 +123,8 @@ let added = 0
 let existed = 0
 let noLicense = 0
 let failed = 0
+let shortBody = 0
+let emptyBody = 0
 let alsoBook = 0
 /** 발췌해도 그 칸에 못 든 책. **세서 말한다** — 조용히 건너뛰면 수율을 모른다. */
 let outOfBand = 0
@@ -146,9 +149,21 @@ for (const item of list) {
   try {
     article = await ingestStoryweaverArticle(item.url)
   } catch (e) {
-    failed++
-    console.log(`  ✗ ${String(e.message).slice(0, 60)}`)
-    continue
+    // 짧은 본문은 **버리지 않는다**(사용자 결정 2026-09-23 — 길이로 원문을 제외하지 않는다).
+    //   본문이 있으면 아래 발췌·창 판정으로 그대로 흘린다 — 창이 가른다, 길이 하한이 아니라.
+    //   빈 본문(0어)은 파서 고장 신호라 따로 세고, 판정으로 적지 않는다(파서를 고치면 되살아난다).
+    if (isShortBodyError(e) && !e.isEmpty && e.article) {
+      shortBody++
+      article = e.article
+    } else if (isShortBodyError(e)) {
+      emptyBody++
+      console.log(`  ✗ 빈 본문(파서 확인) ${item.url}`)
+      continue
+    } else {
+      failed++
+      console.log(`  ✗ ${String(e.message).slice(0, 60)}`)
+      continue
+    }
   }
 
   if (article.license === 'restricted') {
@@ -256,7 +271,7 @@ for (const item of list) {
 
 console.log(
   `\n추가 ${added} · 이미 있음 ${existed} · 라이선스 미확인 ${noLicense} · ` +
-    `어휘 밖 ${vocabBlocked} · 자립성 미달 ${notStandalone} · 칸 밖 ${outOfBand} · 실패 ${failed}`
+    `어휘 밖 ${vocabBlocked} · 자립성 미달 ${notStandalone} · 칸 밖 ${outOfBand} · 실패 ${failed} · 짧은 본문(창 판정으로) ${shortBody} · 빈 본문(파서 확인) ${emptyBody}`
 )
 if (alsoBook)
   console.log(

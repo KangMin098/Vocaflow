@@ -11,6 +11,7 @@
 // 본문 추출은 HTML 정규식(의존성 0) — 사이트 구조 변경 시 live-tune 필요.
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import {
   decodeEntities,
@@ -130,13 +131,12 @@ export async function ingestTheConversationArticle(itemUrl: string): Promise<Raw
   const body = extractArticleBody(html)
   const content = htmlToPlainText(body ?? html)
 
-  if (content.trim().length < 300) {
-    throw new Error(`The Conversation body too short: ${content.trim().length} chars`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.trim().length < 300
 
   const slug = slugFromUrl(itemUrl) ?? hashString(itemUrl).toString(36)
 
-  return {
+  const article: RawArticle = {
     source: 'the_conversation',
     source_id: `the_conversation:${slug}`,
     source_url: itemUrl,
@@ -149,6 +149,15 @@ export async function ingestTheConversationArticle(itemUrl: string): Promise<Raw
     estimated_cefr: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`The Conversation body too short: ${content.trim().length} chars`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }
 
 /**

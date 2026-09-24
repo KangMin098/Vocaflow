@@ -18,6 +18,7 @@
 // MVP 동작: RSS 1개 카테고리 fetch → item N 개 → 각 item URL → HTML → transcript 추출
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 import { safeDate, safeDateISO } from './_helpers'
 import { sourceKey } from './source-key'
@@ -603,9 +604,8 @@ export function parseVoaArticle(
     .replace(/[ \t ]+/g, ' ')
     .trim()
 
-  if (content.length < 200) {
-    throw new Error(`VOA article body too short: ${content.length} chars`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.length < 200
 
   // source_id — **목록기와 같은 함수**. 여기서 유도 못 하면 던진다(해시 대체 없음):
   //   해시는 오류 없이 통과한 뒤 중복 검사를 영구 무력화한다. 못 넣는 편이 싸다.
@@ -620,26 +620,34 @@ export function parseVoaArticle(
     html.match(/(https?:[^\s<>"']+\.mp3[^\s<>"']*)/i)?.[1] ??
     null
 
-  return {
-    article: {
-      source: 'voa',
-      source_id: sourceId,
-      source_url: itemUrl,
-      title: decodeEntities(title).trim(),
-      // JSON-LD 의 author 는 객체(`{"@type":"Person","name":"…"}`)다. 이름만 꺼낸다.
-      //   ⚠️ 통신사 혼입 판별에 쓰는 값이므로 없는 것을 있는 것처럼 만들지 않는다 —
-      //     `VOA Learning English` 상수 폴백은 값이 아예 없을 때만이다.
-      author: voaAuthorName(ld) ?? 'VOA Learning English',
-      language: 'en',
-      license: 'PD-Government',
-      published_at: safeDate(publishedAt),
-      content,
-      estimated_cefr: hintLevel ? VOA_LEVEL_TO_CEFR[hintLevel] : null,
-      audio_url: audioUrl,
-      fetched_at: new Date(),
-    },
-    articleSection: articleSection ? decodeEntities(articleSection).trim() : null,
+  const article: RawArticle = {
+    source: 'voa',
+    source_id: sourceId,
+    source_url: itemUrl,
+    title: decodeEntities(title).trim(),
+    // JSON-LD 의 author 는 객체(`{"@type":"Person","name":"…"}`)다. 이름만 꺼낸다.
+    //   ⚠️ 통신사 혼입 판별에 쓰는 값이므로 없는 것을 있는 것처럼 만들지 않는다 —
+    //     `VOA Learning English` 상수 폴백은 값이 아예 없을 때만이다.
+    author: voaAuthorName(ld) ?? 'VOA Learning English',
+    language: 'en',
+    license: 'PD-Government',
+    published_at: safeDate(publishedAt),
+    content,
+    estimated_cefr: hintLevel ? VOA_LEVEL_TO_CEFR[hintLevel] : null,
+    audio_url: audioUrl,
+    fetched_at: new Date(),
   }
+  const section = articleSection ? decodeEntities(articleSection).trim() : null
+  if (shortBody) {
+    throw new ShortBodyError(`VOA article body too short: ${content.length} chars`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+      extra: { articleSection: section },
+    })
+  }
+  return { article, articleSection: section }
 }
 
 const VOA_LEVEL_TO_CEFR: Record<1 | 2 | 3, string> = {

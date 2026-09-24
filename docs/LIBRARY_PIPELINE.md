@@ -569,6 +569,14 @@ pnpm dlx tsx scripts/acp/process-queue.mjs  --source plos --commit --limit 900
   분석은 편당 어휘 행 수백 개를 만들어 디스크를 쓰므로, 무엇을 먼저 처리할지가 곧 비용이다.
 - 둘 다 재실행 안전(이미 있는 것은 건너뛴다). 분석은 `ANTHROPIC_API_KEY` 없이도 돌고
   LLM 시그널만 빠진다(CEFR 신뢰도 0.732 → 0.725).
+- **짧은 본문은 버리지 않는다**(2026-09-23 결정 — 길이로 원문을 제외하지 않는다). 수집기의
+  본문 하한은 파서 고장을 잡으려고만 남아 있고, 하한 밑이면 `ShortBodyError`
+  (`ingest-article/short-body.ts`)가 뽑은 본문과 기사 필드를 들고 나온다. `collect-daily` ·
+  `harvest-voa-sitemap` 은 본문이 있으면 성공 경로와 같은 필드로 `queued` 삽입 +
+  `status_message`「짧은 본문 N어 — 길이로 버리지 않는다(내용 판정이 가른다) · 파서 확인 대상」,
+  빈 본문(0어)은 담지 않고 영구 `seen` 에도 적지 않은 채 「빈 본문(파서 확인)」으로 따로 센다.
+  `scripts/textbook/{epmc,frym,space-place,storyweaver}-ingest.mjs` 는 짧은 본문을 발췌·창 판정으로 흘린다.
+  ⚠️ `process-queue` 가 `ready` 로 올릴 때 `status_message` 를 덮으므로 처리 뒤에는 `word_count` 로 센다.
 
 ### 처리
 - `/api/acp/enqueue` (article 큐 등록) → `/api/acp/dev-process` (article 처리)

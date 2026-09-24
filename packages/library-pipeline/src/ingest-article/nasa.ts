@@ -12,6 +12,7 @@
 // source_id 형식: 'nasa:<slug>' (URL 마지막 path segment)
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import {
   decodeEntities,
@@ -404,13 +405,12 @@ export async function ingestNasaArticle(itemUrl: string): Promise<RawArticle> {
   // "Tomorrow's picture:" 꼬리가 `entry-content` **안**에 있다). 두 층으로 막는다.
   content = cleanNasaBody(content)
 
-  if (content.trim().length < NASA_MIN_BODY_CHARS) {
-    throw new Error(`NASA article body too short: ${content.trim().length} chars`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.trim().length < NASA_MIN_BODY_CHARS
 
   const slug = slugFromUrl(itemUrl) ?? hashString(itemUrl).toString(36)
 
-  return {
+  const article: RawArticle = {
     source: 'nasa',
     source_id: `nasa:${slug}`,
     source_url: itemUrl,
@@ -423,6 +423,15 @@ export async function ingestNasaArticle(itemUrl: string): Promise<RawArticle> {
     estimated_cefr: null, // NASA 는 학습자 등급 없음 — analyze 단계에서 자동 감지
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`NASA article body too short: ${content.trim().length} chars`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }
 
 // ─────────────────────────────────────────────

@@ -34,6 +34,7 @@
 
 import { fetchWithTimeout } from './_helpers'
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 const REST = 'https://www.ebi.ac.uk/europepmc/webservices/rest'
 
@@ -393,9 +394,8 @@ export async function ingestEuropePmcArticle(
 
   const got = await fetchEpmcArticle(pmcid)
   if (!got) throw new Error(`Europe PMC 본문을 못 받았다: ${pmcid}`)
-  if (got.words < EPMC_MIN_WORDS) {
-    throw new Error(`Europe PMC 본문이 너무 짧다(${got.words}어 < ${EPMC_MIN_WORDS}): ${pmcid}`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = got.words < EPMC_MIN_WORDS
 
   // 목록 값과 본문 값 중 **통과하지 못하는 쪽이 있으면 통과시키지 않는다.**
   const candidates = [listLicense, got.license].filter((x): x is string => !!x)
@@ -410,7 +410,7 @@ export async function ingestEuropePmcArticle(
   const code = epmcLicenseCode(candidates[0]!)
   if (!code) throw new Error(`Europe PMC 라이선스 코드를 모른다(${candidates[0]}): ${pmcid}`)
 
-  return {
+  const article: RawArticle = {
     source: 'europe_pmc',
     // 열쇠는 PMCID. DOI 가 없는 항목이 있어 DOI 로는 전수를 덮지 못한다.
     source_id: `europe_pmc:${pmcid}`,
@@ -423,4 +423,13 @@ export async function ingestEuropePmcArticle(
     estimated_cefr: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`Europe PMC 본문이 너무 짧다(${got.words}어 < ${EPMC_MIN_WORDS}): ${pmcid}`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

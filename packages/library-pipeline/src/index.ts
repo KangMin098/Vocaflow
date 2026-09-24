@@ -1087,6 +1087,9 @@ export {
   markSeen,
 } from './ingest-article/harvest-cursor'
 export type { HarvestCursor, HarvestRegistryEntry } from './ingest-article/harvest-cursor'
+// 짧은 본문 — 버리지 않고 기사째 들고 나오는 오류(길이로 원문을 제외하지 않는다, 2026-09-23).
+export { ShortBodyError, isShortBodyError } from './ingest-article/short-body'
+export type { ShortBodyDetail } from './ingest-article/short-body'
 
 // 유형 폭 — 사다리가 선언한 유형 대 지면에 실린 유형(`scripts/textbook/type-spread.mjs`).
 export {

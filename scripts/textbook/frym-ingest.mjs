@@ -73,6 +73,7 @@ const { createScriptClient } = await import('../lib/supabase-client.mjs')
 const {
   listFrymFeedPage,
   ingestFrymArticle,
+  isShortBodyError,
   harvestCursorPath,
   readHarvestCursor,
   writeHarvestCursor,
@@ -168,6 +169,8 @@ let outOfSpec = 0
 let vocabBlocked = 0
 let notStandalone = 0
 let failed = 0
+let shortBody = 0
+let emptyBody = 0
 
 /**
  * **판정이 끝난 편**을 커서에 적는다 — 넣은 것뿐 아니라 **거절한 것도** 적는다.
@@ -194,10 +197,22 @@ for (const item of list) {
   try {
     article = await ingestFrymArticle(item.url)
   } catch (e) {
-    // 라이선스를 글에서 못 읽은 것도 여기로 온다 — **넣지 않는 편이 되돌리기 쉽다.**
-    failed++
-    console.log(`  ✗ ${String(e.message).slice(0, 66)}`)
-    continue
+    // 짧은 본문은 **버리지 않는다**(사용자 결정 2026-09-23 — 길이로 원문을 제외하지 않는다).
+    //   본문이 있으면 아래 발췌·창 판정으로 그대로 흘린다 — 창이 가른다, 길이 하한이 아니라.
+    //   빈 본문(0어)은 파서 고장 신호라 따로 세고, 판정으로 적지 않는다(파서를 고치면 되살아난다).
+    if (isShortBodyError(e) && !e.isEmpty && e.article) {
+      shortBody++
+      article = e.article
+    } else if (isShortBodyError(e)) {
+      emptyBody++
+      console.log(`  ✗ 빈 본문(파서 확인) ${item.url}`)
+      continue
+    } else {
+      // 라이선스를 글에서 못 읽은 것도 여기로 온다 — **넣지 않는 편이 되돌리기 쉽다.**
+      failed++
+      console.log(`  ✗ ${String(e.message).slice(0, 66)}`)
+      continue
+    }
   }
   await new Promise((z) => setTimeout(z, 600))
 
@@ -290,6 +305,7 @@ if (COMMIT && judged.size > 0) {
 console.log(
   `\n추가 ${added} · 이미 있음 ${existed} · 발췌 실패 ${outOfSpec} · ` +
     `어휘 ${vocabBlocked} · 자립성 ${notStandalone} · 실패 ${failed}` +
+    ` · 짧은 본문(창 판정으로) ${shortBody} · 빈 본문(파서 확인) ${emptyBody}` +
     (targetBand ? ` (목표 칸 ${targetBand.id})` : ' (드는 칸 아무거나)')
 )
 console.log(

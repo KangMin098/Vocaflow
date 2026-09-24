@@ -81,6 +81,7 @@
 //    글 단위 사실은 Crossref 쪽이다.)
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { fetchWithTimeout, htmlToPlainText } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -478,14 +479,10 @@ export async function ingestFrymArticle(itemUrl: string): Promise<RawArticle> {
   if (!page.ok) throw new Error(`FrYM 본문 GET 실패: ${page.status} ${fullUrl}`)
   const content = frymFullTextContent(await page.text())
   const words = countWords(content)
-  if (words < FULLTEXT_MIN_WORDS) {
-    throw new Error(
-      `FrYM 본문이 너무 짧다: ${words}어 (최소 ${FULLTEXT_MIN_WORDS}) ${doi} — ` +
-        `판형이 바뀌었는지 ${fullUrl} 를 확인할 것`
-    )
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = words < FULLTEXT_MIN_WORDS
 
-  return {
+  const article: RawArticle = {
     source: 'frym',
     // 목록기와 **같은 함수** — 여기서 문자열을 조립하면 그게 두 번째 규칙이 된다.
     source_id: sourceKey('frym', { doi: w.DOI ?? doi, url: fullUrl }),
@@ -502,4 +499,12 @@ export async function ingestFrymArticle(itemUrl: string): Promise<RawArticle> {
     estimated_cefr: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(
+      `FrYM 본문이 너무 짧다: ${words}어 (최소 ${FULLTEXT_MIN_WORDS}) ${doi} — ` +
+        `판형이 바뀌었는지 ${fullUrl} 를 확인할 것`,
+      { source: article.source, url: article.source_url, content: article.content, article },
+    )
+  }
+  return article
 }
