@@ -56,3 +56,14 @@ test('반환값은 언제나 알려진 어휘다', () => {
   ]
   for (const input of inputs) assert.ok(RETENTION.has(retentionOf(input)), JSON.stringify(input))
 })
+
+test('파생물(발췌·도입부·개작)은 원천이 아니다 — 회차·보관 판정에서 뺀다', async () => {
+  const { derivativeKind } = await import('../gate-rules.mjs')
+  assert.equal(derivativeKind({ source_id: 'x', feed_id: 'plos-extract' }), 'extract')
+  assert.equal(derivativeKind({ source_id: 'adapt:0123:1' }), 'adapt')
+  assert.equal(derivativeKind({ source_id: 'A-flat minor#lead-trim' }), 'lead')
+  assert.equal(derivativeKind({ source_id: 'europe_pmc:PMC11474320#p1-2' }), 'paragraphs')
+  // 원천 — 판정 대상
+  assert.equal(derivativeKind({ source_id: 'wikipedia:1050773', feed_id: null }), null)
+  assert.equal(derivativeKind({ source_id: 'plos:10.1371/journal.pone.0001', feed_id: 'harvest' }), null)
+})

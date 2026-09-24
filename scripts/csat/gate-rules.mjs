@@ -296,6 +296,24 @@ export function retentionOf({ purpose, verdict, retain } = {}) {
   return 'undecided'
 }
 
+/**
+ * **파생물인가** — 원천에서 잘라 내거나 고쳐 쓴 행. 보관 판정(원천 단위 · criteria.md §1)의 대상이 아니다.
+ *
+ * 실측 2026-09-24: 원천으로 저장된 행 상당수가 수집 단계에서 이미 잘린 조각이었다 — europe_pmc 1,300 중 1,211
+ * (`#p1-2` 문단 발췌) · space_place 59 중 54 · storyweaver 136 중 77 · simple_wikipedia 99 중 59(`#lead` 도입부) ·
+ * frym `adapted` 피드(초록만). 회차 판정자가 이것들을 원천으로 받아 「원천 불완전」과 씨름했다(round-2 simple_wikipedia κ 0.44).
+ * 판정은 원천에 붙이고 파생물은 원천의 판정을 따른다. 원천이 저장돼 있지 않은 파생물은 수집기가 원천을 받아야 한다.
+ */
+export function derivativeKind({ source_id, feed_id } = {}) {
+  const id = String(source_id ?? '')
+  if (feed_id === 'plos-extract') return 'extract'
+  if (id.startsWith('adapt:')) return 'adapt'
+  if (/#lead/.test(id)) return 'lead'
+  if (/#p\d+-\d+$/.test(id)) return 'paragraphs'
+  if (feed_id === 'adapted') return 'adapted-feed'
+  return null
+}
+
 /** 보관 기록(`gate.retain`)에서 `retentionOf` 에 넘길 값 — 새 기록은 `retention`, 옛 기록은 `verdict`. */
 export const retainValueOf = (retain) => retain?.retention ?? retain?.verdict ?? undefined
 
@@ -304,7 +322,7 @@ export const RETENTION = new Set(['keep', 'keep-pending-extraction', 'hold', 'di
 // ── 보관 판정 어휘 — 정본 docs/source-check/criteria.md §3 과 **같아야 한다**(judge-criteria.test 가 대조한다) ──
 
 /** 기준 버전. 판정 기록마다 남긴다 — 개정 뒤 재판정 대상을 이것으로 가른다. */
-export const CRITERIA_VERSION = 2
+export const CRITERIA_VERSION = 3
 export const RETENTION_VERDICTS = new Set(['keep', 'hold', 'discard'])
 export const HOLD_REASONS = new Set(['criteria-gap', 'processing-unclear', 'incomplete-source', 'borderline'])
 export const SLOT_AGES = new Set(['elem', 'mid', 'high1', 'high2', 'high3', 'adult'])

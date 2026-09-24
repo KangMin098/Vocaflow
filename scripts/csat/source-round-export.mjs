@@ -21,7 +21,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 
-import { CRITERIA_VERSION } from './gate-rules.mjs'
+import { CRITERIA_VERSION, derivativeKind } from './gate-rules.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -43,12 +43,13 @@ const db = createScriptClient()
 
 // ── 훑기 — 메타만(본문 컬럼을 훑지 않는다) ─────────────────────────────
 const bySource = new Map()
+const derived = {}
 let cursor = '00000000-0000-0000-0000-000000000000'
 let seen = 0
 for (;;) {
   const { data, error } = await db
     .from('library_articles')
-    .select('id,source,feed_id,rv:csat_fit->gate->retain->>retention')
+    .select('id,source,source_id,feed_id,rv:csat_fit->gate->retain->>retention')
     .gt('id', cursor)
     .order('id')
     .limit(1000)
@@ -56,7 +57,10 @@ for (;;) {
   if (!data.length) break
   for (const r of data) {
     seen++
-    if (r.feed_id === 'plos-extract' || r.rv) continue
+    // 파생물(발췌·도입부·개작)은 원천이 아니다 — 원천 단위로 판정한다(gate-rules.derivativeKind · 2026-09-24).
+    if (r.rv) continue
+    const dk = derivativeKind(r)
+    if (dk) { derived[r.source] = (derived[r.source] ?? 0) + 1; continue }
     if (ONLY && !ONLY.has(r.source)) continue
     if (!bySource.has(r.source)) bySource.set(r.source, [])
     bySource.get(r.source).push(r.id)
@@ -70,6 +74,7 @@ const order = (id) => crypto.createHash('sha256').update(`${ROUND}:${id}`).diges
 const plan = [...bySource.entries()]
   .map(([source, ids]) => ({ source, pool: ids.length, pick: ids.sort((x, y) => order(x).localeCompare(order(y))).slice(0, PER) }))
   .sort((x, y) => x.source.localeCompare(y.source))
+if (Object.keys(derived).length) console.log(`  파생물 제외: ${Object.entries(derived).map(([k, v]) => `${k} ${v}`).join(' · ')}`)
 console.log(`  회차 ${ROUND} · 기준 v${CRITERIA_VERSION} · 소스 ${plan.length}곳 · 소스당 ${PER}건`)
 for (const p of plan) console.log(`    ${p.source.padEnd(22)} 후보 ${String(p.pool).padStart(6)} → ${p.pick.length}`)
 if (!WRITE) {
