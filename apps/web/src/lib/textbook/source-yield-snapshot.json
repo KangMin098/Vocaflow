@@ -1,57 +1,23 @@
 {
-  "measuredAt": "2026-09-15T03:54:14.012Z",
+  "measuredAt": "2026-09-24T00:48:16.220Z",
   "type": "topic",
-  "perCell": 30,
-  "totalStock": 87094,
-  "totalUsable": 78055,
+  "perCell": 40,
+  "totalStock": 63669,
+  "totalUsable": 56099,
   "rows": [
     {
       "source": "plos",
       "vLevel": 6,
-      "articles": 32082,
-      "sampled": 30,
-      "ok": 25,
-      "yieldPct": 83.3,
-      "usableEstimate": 26735,
+      "articles": 32075,
+      "sampled": 40,
+      "ok": 32,
+      "yieldPct": 80,
+      "usableEstimate": 25660,
       "reasons": {
-        "ok": 25,
+        "ok": 32,
         "no_window": 0,
-        "apparatus": 5,
+        "apparatus": 8,
         "chrome": 0,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "gutenberg",
-      "vLevel": 6,
-      "articles": 7965,
-      "sampled": 30,
-      "ok": 28,
-      "yieldPct": 93.3,
-      "usableEstimate": 7434,
-      "reasons": {
-        "ok": 28,
-        "no_window": 1,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 1,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "gutenberg",
-      "vLevel": 5,
-      "articles": 7508,
-      "sampled": 30,
-      "ok": 29,
-      "yieldPct": 96.7,
-      "usableEstimate": 7258,
-      "reasons": {
-        "ok": 29,
-        "no_window": 0,
-        "apparatus": 0,
-        "chrome": 1,
         "other": 0,
         "body_none": 0
       }
@@ -59,15 +25,15 @@
     {
       "source": "plos",
       "vLevel": 7,
-      "articles": 7422,
-      "sampled": 30,
-      "ok": 27,
-      "yieldPct": 90,
-      "usableEstimate": 6680,
+      "articles": 7431,
+      "sampled": 40,
+      "ok": 38,
+      "yieldPct": 95,
+      "usableEstimate": 7059,
       "reasons": {
-        "ok": 27,
+        "ok": 38,
         "no_window": 0,
-        "apparatus": 3,
+        "apparatus": 2,
         "chrome": 0,
         "other": 0,
         "body_none": 0
@@ -77,47 +43,13 @@
       "source": "voa",
       "vLevel": 4,
       "articles": 6090,
-      "sampled": 30,
-      "ok": 28,
-      "yieldPct": 93.3,
-      "usableEstimate": 5684,
+      "sampled": 40,
+      "ok": 40,
+      "yieldPct": 100,
+      "usableEstimate": 6090,
       "reasons": {
-        "ok": 28,
+        "ok": 40,
         "no_window": 0,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 2,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "plos",
-      "vLevel": 5,
-      "articles": 4995,
-      "sampled": 30,
-      "ok": 27,
-      "yieldPct": 90,
-      "usableEstimate": 4496,
-      "reasons": {
-        "ok": 27,
-        "no_window": 0,
-        "apparatus": 2,
-        "chrome": 0,
-        "other": 1,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "gutenberg",
-      "vLevel": 4,
-      "articles": 2723,
-      "sampled": 30,
-      "ok": 26,
-      "yieldPct": 86.7,
-      "usableEstimate": 2360,
-      "reasons": {
-        "ok": 26,
-        "no_window": 4,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -125,17 +57,17 @@
       }
     },
     {
-      "source": "gutenberg",
-      "vLevel": 7,
-      "articles": 2333,
-      "sampled": 30,
-      "ok": 29,
-      "yieldPct": 96.7,
-      "usableEstimate": 2255,
+      "source": "plos",
+      "vLevel": 5,
+      "articles": 4992,
+      "sampled": 40,
+      "ok": 39,
+      "yieldPct": 97.5,
+      "usableEstimate": 4867,
       "reasons": {
-        "ok": 29,
-        "no_window": 1,
-        "apparatus": 0,
+        "ok": 39,
+        "no_window": 0,
+        "apparatus": 1,
         "chrome": 0,
         "other": 0,
         "body_none": 0
@@ -145,12 +77,12 @@
       "source": "voa",
       "vLevel": 3,
       "articles": 1941,
-      "sampled": 30,
-      "ok": 30,
+      "sampled": 40,
+      "ok": 40,
       "yieldPct": 100,
       "usableEstimate": 1941,
       "reasons": {
-        "ok": 30,
+        "ok": 40,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
@@ -162,12 +94,12 @@
       "source": "futurity",
       "vLevel": 5,
       "articles": 1865,
-      "sampled": 30,
-      "ok": 29,
-      "yieldPct": 96.7,
-      "usableEstimate": 1803,
+      "sampled": 40,
+      "ok": 39,
+      "yieldPct": 97.5,
+      "usableEstimate": 1818,
       "reasons": {
-        "ok": 29,
+        "ok": 39,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 1,
@@ -179,12 +111,12 @@
       "source": "frontiers",
       "vLevel": 6,
       "articles": 1388,
-      "sampled": 30,
-      "ok": 30,
+      "sampled": 40,
+      "ok": 40,
       "yieldPct": 100,
       "usableEstimate": 1388,
       "reasons": {
-        "ok": 30,
+        "ok": 40,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
@@ -196,33 +128,16 @@
       "source": "voa",
       "vLevel": 5,
       "articles": 1382,
-      "sampled": 30,
-      "ok": 30,
-      "yieldPct": 100,
-      "usableEstimate": 1382,
+      "sampled": 40,
+      "ok": 39,
+      "yieldPct": 97.5,
+      "usableEstimate": 1347,
       "reasons": {
-        "ok": 30,
+        "ok": 39,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "gutenberg",
-      "vLevel": 3,
-      "articles": 1336,
-      "sampled": 30,
-      "ok": 27,
-      "yieldPct": 90,
-      "usableEstimate": 1202,
-      "reasons": {
-        "ok": 27,
-        "no_window": 3,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 0,
+        "other": 1,
         "body_none": 0
       }
     },
@@ -230,30 +145,13 @@
       "source": "voa",
       "vLevel": 2,
       "articles": 1150,
-      "sampled": 30,
-      "ok": 29,
-      "yieldPct": 96.7,
-      "usableEstimate": 1112,
+      "sampled": 40,
+      "ok": 35,
+      "yieldPct": 87.5,
+      "usableEstimate": 1006,
       "reasons": {
-        "ok": 29,
-        "no_window": 1,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "gutenberg",
-      "vLevel": 2,
-      "articles": 1238,
-      "sampled": 30,
-      "ok": 26,
-      "yieldPct": 86.7,
-      "usableEstimate": 1073,
-      "reasons": {
-        "ok": 26,
-        "no_window": 4,
+        "ok": 35,
+        "no_window": 5,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -264,13 +162,13 @@
       "source": "europe_pmc",
       "vLevel": 6,
       "articles": 772,
-      "sampled": 30,
-      "ok": 30,
-      "yieldPct": 100,
-      "usableEstimate": 772,
+      "sampled": 40,
+      "ok": 39,
+      "yieldPct": 97.5,
+      "usableEstimate": 753,
       "reasons": {
-        "ok": 30,
-        "no_window": 0,
+        "ok": 39,
+        "no_window": 1,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -281,15 +179,15 @@
       "source": "futurity",
       "vLevel": 6,
       "articles": 727,
-      "sampled": 30,
-      "ok": 30,
-      "yieldPct": 100,
-      "usableEstimate": 727,
+      "sampled": 40,
+      "ok": 38,
+      "yieldPct": 95,
+      "usableEstimate": 691,
       "reasons": {
-        "ok": 30,
+        "ok": 38,
         "no_window": 0,
         "apparatus": 0,
-        "chrome": 0,
+        "chrome": 2,
         "other": 0,
         "body_none": 0
       }
@@ -298,12 +196,12 @@
       "source": "frontiers",
       "vLevel": 5,
       "articles": 542,
-      "sampled": 30,
-      "ok": 30,
+      "sampled": 40,
+      "ok": 40,
       "yieldPct": 100,
       "usableEstimate": 542,
       "reasons": {
-        "ok": 30,
+        "ok": 40,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
@@ -315,16 +213,16 @@
       "source": "usgs",
       "vLevel": 5,
       "articles": 383,
-      "sampled": 30,
-      "ok": 29,
-      "yieldPct": 96.7,
-      "usableEstimate": 370,
+      "sampled": 40,
+      "ok": 40,
+      "yieldPct": 100,
+      "usableEstimate": 383,
       "reasons": {
-        "ok": 29,
+        "ok": 40,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
-        "other": 1,
+        "other": 0,
         "body_none": 0
       }
     },
@@ -332,33 +230,16 @@
       "source": "europe_pmc",
       "vLevel": 7,
       "articles": 301,
-      "sampled": 30,
-      "ok": 27,
-      "yieldPct": 90,
-      "usableEstimate": 271,
+      "sampled": 40,
+      "ok": 34,
+      "yieldPct": 85,
+      "usableEstimate": 256,
       "reasons": {
-        "ok": 27,
-        "no_window": 2,
-        "apparatus": 0,
-        "chrome": 1,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "gutenberg",
-      "vLevel": 8,
-      "articles": 243,
-      "sampled": 30,
-      "ok": 29,
-      "yieldPct": 96.7,
-      "usableEstimate": 235,
-      "reasons": {
-        "ok": 29,
-        "no_window": 0,
+        "ok": 34,
+        "no_window": 6,
         "apparatus": 0,
         "chrome": 0,
-        "other": 1,
+        "other": 0,
         "body_none": 0
       }
     },
@@ -366,15 +247,15 @@
       "source": "futurity",
       "vLevel": 4,
       "articles": 214,
-      "sampled": 30,
-      "ok": 29,
-      "yieldPct": 96.7,
-      "usableEstimate": 207,
+      "sampled": 40,
+      "ok": 38,
+      "yieldPct": 95,
+      "usableEstimate": 203,
       "reasons": {
-        "ok": 29,
+        "ok": 38,
         "no_window": 0,
         "apparatus": 0,
-        "chrome": 1,
+        "chrome": 2,
         "other": 0,
         "body_none": 0
       }
@@ -383,16 +264,16 @@
       "source": "plos",
       "vLevel": 4,
       "articles": 202,
-      "sampled": 30,
-      "ok": 30,
-      "yieldPct": 100,
-      "usableEstimate": 202,
+      "sampled": 40,
+      "ok": 39,
+      "yieldPct": 97.5,
+      "usableEstimate": 197,
       "reasons": {
-        "ok": 30,
+        "ok": 39,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
-        "other": 0,
+        "other": 1,
         "body_none": 0
       }
     },
@@ -400,12 +281,12 @@
       "source": "original",
       "vLevel": 2,
       "articles": 160,
-      "sampled": 30,
-      "ok": 30,
+      "sampled": 40,
+      "ok": 40,
       "yieldPct": 100,
       "usableEstimate": 160,
       "reasons": {
-        "ok": 30,
+        "ok": 40,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
@@ -417,12 +298,12 @@
       "source": "elife",
       "vLevel": 5,
       "articles": 151,
-      "sampled": 30,
-      "ok": 30,
+      "sampled": 40,
+      "ok": 40,
       "yieldPct": 100,
       "usableEstimate": 151,
       "reasons": {
-        "ok": 30,
+        "ok": 40,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
@@ -434,12 +315,29 @@
       "source": "original",
       "vLevel": 3,
       "articles": 151,
-      "sampled": 30,
-      "ok": 30,
+      "sampled": 40,
+      "ok": 40,
       "yieldPct": 100,
       "usableEstimate": 151,
       "reasons": {
-        "ok": 30,
+        "ok": 40,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "original",
+      "vLevel": 4,
+      "articles": 144,
+      "sampled": 40,
+      "ok": 40,
+      "yieldPct": 100,
+      "usableEstimate": 144,
+      "reasons": {
+        "ok": 40,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
@@ -451,30 +349,13 @@
       "source": "europe_pmc",
       "vLevel": 5,
       "articles": 167,
-      "sampled": 30,
-      "ok": 26,
-      "yieldPct": 86.7,
-      "usableEstimate": 145,
+      "sampled": 40,
+      "ok": 34,
+      "yieldPct": 85,
+      "usableEstimate": 142,
       "reasons": {
-        "ok": 26,
-        "no_window": 3,
-        "apparatus": 0,
-        "chrome": 1,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "original",
-      "vLevel": 4,
-      "articles": 144,
-      "sampled": 30,
-      "ok": 30,
-      "yieldPct": 100,
-      "usableEstimate": 144,
-      "reasons": {
-        "ok": 30,
-        "no_window": 0,
+        "ok": 34,
+        "no_window": 6,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -484,15 +365,15 @@
     {
       "source": "plos",
       "vLevel": 8,
-      "articles": 144,
-      "sampled": 30,
-      "ok": 28,
-      "yieldPct": 93.3,
-      "usableEstimate": 134,
+      "articles": 146,
+      "sampled": 40,
+      "ok": 37,
+      "yieldPct": 92.5,
+      "usableEstimate": 135,
       "reasons": {
-        "ok": 28,
+        "ok": 37,
         "no_window": 0,
-        "apparatus": 1,
+        "apparatus": 2,
         "chrome": 0,
         "other": 1,
         "body_none": 0
@@ -502,12 +383,12 @@
       "source": "elife",
       "vLevel": 6,
       "articles": 128,
-      "sampled": 30,
-      "ok": 30,
+      "sampled": 40,
+      "ok": 40,
       "yieldPct": 100,
       "usableEstimate": 128,
       "reasons": {
-        "ok": 30,
+        "ok": 40,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
@@ -519,30 +400,13 @@
       "source": "usgs",
       "vLevel": 6,
       "articles": 122,
-      "sampled": 30,
-      "ok": 30,
+      "sampled": 40,
+      "ok": 40,
       "yieldPct": 100,
       "usableEstimate": 122,
       "reasons": {
-        "ok": 30,
+        "ok": 40,
         "no_window": 0,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "gutenberg",
-      "vLevel": 1,
-      "articles": 156,
-      "sampled": 30,
-      "ok": 22,
-      "yieldPct": 73.3,
-      "usableEstimate": 114,
-      "reasons": {
-        "ok": 22,
-        "no_window": 8,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -552,13 +416,13 @@
     {
       "source": "original",
       "vLevel": 5,
-      "articles": 79,
-      "sampled": 30,
-      "ok": 30,
+      "articles": 109,
+      "sampled": 40,
+      "ok": 40,
       "yieldPct": 100,
-      "usableEstimate": 79,
+      "usableEstimate": 109,
       "reasons": {
-        "ok": 30,
+        "ok": 40,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
@@ -570,13 +434,13 @@
       "source": "frym",
       "vLevel": 4,
       "articles": 70,
-      "sampled": 30,
-      "ok": 30,
-      "yieldPct": 100,
-      "usableEstimate": 70,
+      "sampled": 40,
+      "ok": 39,
+      "yieldPct": 97.5,
+      "usableEstimate": 68,
       "reasons": {
-        "ok": 30,
-        "no_window": 0,
+        "ok": 39,
+        "no_window": 1,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -587,13 +451,13 @@
       "source": "europe_pmc",
       "vLevel": 8,
       "articles": 51,
-      "sampled": 30,
-      "ok": 26,
-      "yieldPct": 86.7,
-      "usableEstimate": 44,
+      "sampled": 40,
+      "ok": 35,
+      "yieldPct": 87.5,
+      "usableEstimate": 45,
       "reasons": {
-        "ok": 26,
-        "no_window": 4,
+        "ok": 35,
+        "no_window": 5,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -601,32 +465,15 @@
       }
     },
     {
-      "source": "wikipedia",
-      "vLevel": 6,
-      "articles": 40,
-      "sampled": 30,
-      "ok": 29,
-      "yieldPct": 96.7,
-      "usableEstimate": 39,
-      "reasons": {
-        "ok": 29,
-        "no_window": 0,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 1,
-        "body_none": 0
-      }
-    },
-    {
       "source": "usgs",
       "vLevel": 4,
       "articles": 42,
-      "sampled": 30,
-      "ok": 27,
-      "yieldPct": 90,
-      "usableEstimate": 38,
+      "sampled": 40,
+      "ok": 37,
+      "yieldPct": 92.5,
+      "usableEstimate": 39,
       "reasons": {
-        "ok": 27,
+        "ok": 37,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 3,
@@ -635,18 +482,69 @@
       }
     },
     {
+      "source": "wikipedia",
+      "vLevel": 6,
+      "articles": 40,
+      "sampled": 40,
+      "ok": 39,
+      "yieldPct": 97.5,
+      "usableEstimate": 39,
+      "reasons": {
+        "ok": 39,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 1,
+        "body_none": 0
+      }
+    },
+    {
       "source": "noaa",
       "vLevel": 5,
       "articles": 39,
-      "sampled": 30,
-      "ok": 29,
-      "yieldPct": 96.7,
+      "sampled": 39,
+      "ok": 38,
+      "yieldPct": 97.4,
       "usableEstimate": 38,
       "reasons": {
-        "ok": 29,
+        "ok": 38,
         "no_window": 0,
         "apparatus": 0,
         "chrome": 1,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "original",
+      "vLevel": 6,
+      "articles": 34,
+      "sampled": 34,
+      "ok": 34,
+      "yieldPct": 100,
+      "usableEstimate": 34,
+      "reasons": {
+        "ok": 34,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "original",
+      "vLevel": 7,
+      "articles": 33,
+      "sampled": 33,
+      "ok": 33,
+      "yieldPct": 100,
+      "usableEstimate": 33,
+      "reasons": {
+        "ok": 33,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
         "other": 0,
         "body_none": 0
       }
@@ -669,6 +567,23 @@
       }
     },
     {
+      "source": "storyweaver",
+      "vLevel": 2,
+      "articles": 40,
+      "sampled": 40,
+      "ok": 23,
+      "yieldPct": 57.5,
+      "usableEstimate": 23,
+      "reasons": {
+        "ok": 23,
+        "no_window": 17,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
       "source": "frym",
       "vLevel": 5,
       "articles": 22,
@@ -679,23 +594,6 @@
       "reasons": {
         "ok": 22,
         "no_window": 0,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "storyweaver",
-      "vLevel": 2,
-      "articles": 40,
-      "sampled": 30,
-      "ok": 16,
-      "yieldPct": 53.3,
-      "usableEstimate": 21,
-      "reasons": {
-        "ok": 16,
-        "no_window": 14,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -747,23 +645,6 @@
       "reasons": {
         "ok": 18,
         "no_window": 1,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "gutenberg",
-      "vLevel": 9,
-      "articles": 18,
-      "sampled": 18,
-      "ok": 18,
-      "yieldPct": 100,
-      "usableEstimate": 18,
-      "reasons": {
-        "ok": 18,
-        "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -834,6 +715,23 @@
         "no_window": 8,
         "apparatus": 0,
         "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "nasa",
+      "vLevel": 5,
+      "articles": 106,
+      "sampled": 40,
+      "ok": 4,
+      "yieldPct": 10,
+      "usableEstimate": 11,
+      "reasons": {
+        "ok": 4,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 36,
         "other": 0,
         "body_none": 0
       }
@@ -924,6 +822,23 @@
       }
     },
     {
+      "source": "nasa",
+      "vLevel": 6,
+      "articles": 80,
+      "sampled": 40,
+      "ok": 4,
+      "yieldPct": 10,
+      "usableEstimate": 8,
+      "reasons": {
+        "ok": 4,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 36,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
       "source": "simple_wikipedia",
       "vLevel": 3,
       "articles": 8,
@@ -1009,23 +924,6 @@
       }
     },
     {
-      "source": "nasa",
-      "vLevel": 6,
-      "articles": 80,
-      "sampled": 30,
-      "ok": 2,
-      "yieldPct": 6.7,
-      "usableEstimate": 5,
-      "reasons": {
-        "ok": 2,
-        "no_window": 0,
-        "apparatus": 0,
-        "chrome": 28,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
       "source": "nist",
       "vLevel": 5,
       "articles": 5,
@@ -1060,42 +958,8 @@
       }
     },
     {
-      "source": "nasa",
-      "vLevel": 5,
-      "articles": 106,
-      "sampled": 30,
-      "ok": 1,
-      "yieldPct": 3.3,
-      "usableEstimate": 4,
-      "reasons": {
-        "ok": 1,
-        "no_window": 0,
-        "apparatus": 0,
-        "chrome": 29,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
       "source": "plos",
       "vLevel": 9,
-      "articles": 4,
-      "sampled": 4,
-      "ok": 4,
-      "yieldPct": 100,
-      "usableEstimate": 4,
-      "reasons": {
-        "ok": 4,
-        "no_window": 0,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
-      "source": "original",
-      "vLevel": 6,
       "articles": 4,
       "sampled": 4,
       "ok": 4,
@@ -1247,23 +1111,6 @@
       }
     },
     {
-      "source": "original",
-      "vLevel": 7,
-      "articles": 3,
-      "sampled": 3,
-      "ok": 3,
-      "yieldPct": 100,
-      "usableEstimate": 3,
-      "reasons": {
-        "ok": 3,
-        "no_window": 0,
-        "apparatus": 0,
-        "chrome": 0,
-        "other": 0,
-        "body_none": 0
-      }
-    },
-    {
       "source": "storyweaver",
       "vLevel": 6,
       "articles": 5,
@@ -1317,6 +1164,23 @@
     {
       "source": "europe_pmc",
       "vLevel": 4,
+      "articles": 2,
+      "sampled": 2,
+      "ok": 2,
+      "yieldPct": 100,
+      "usableEstimate": 2,
+      "reasons": {
+        "ok": 2,
+        "no_window": 0,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "african_storybook",
+      "vLevel": 2,
       "articles": 2,
       "sampled": 2,
       "ok": 2,
@@ -1444,6 +1308,23 @@
       "reasons": {
         "ok": 1,
         "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "african_storybook",
+      "vLevel": 3,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 1,
+      "yieldPct": 100,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
@@ -1597,6 +1478,23 @@
       "reasons": {
         "ok": 1,
         "no_window": 1,
+        "apparatus": 0,
+        "chrome": 0,
+        "other": 0,
+        "body_none": 0
+      }
+    },
+    {
+      "source": "african_storybook",
+      "vLevel": 1,
+      "articles": 1,
+      "sampled": 1,
+      "ok": 1,
+      "yieldPct": 100,
+      "usableEstimate": 1,
+      "reasons": {
+        "ok": 1,
+        "no_window": 0,
         "apparatus": 0,
         "chrome": 0,
         "other": 0,
