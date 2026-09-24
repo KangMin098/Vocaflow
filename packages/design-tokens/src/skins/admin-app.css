@@ -110,8 +110,14 @@
   --sh-float: 0 55px 33px 0 rgba(13, 13, 23, 0.03), 0 25px 25px 0 rgba(13, 13, 23, 0.05), 0 6px 14px 0 rgba(13, 13, 23, 0.06), 0 0 0 0.5px rgba(13, 13, 23, 0.1);
   --sh-overlay: 0 55px 33px 0 rgba(13, 13, 23, 0.03), 0 25px 25px 0 rgba(13, 13, 23, 0.05), 0 6px 14px 0 rgba(13, 13, 23, 0.06);
 
-  /* ── 모달 배경막 — 레퍼런스 --modal-backdrop ── */
+  /* ── 모달 — 레퍼런스 --modal-backdrop(흐림 없음) · 제목은 페이지 제목보다 작다(「Create space」 14px 급) ──
+        tines-kit DIALOG 가 이 변수를 읽고, 없으면 원래 값(지면색 72% · 26/34/40px)으로 그린다. */
   --modal-backdrop: rgba(13, 13, 23, 0.16);
+  --dialog-backdrop: rgba(13, 13, 23, 0.16);
+  --dialog-blur: 0px;
+  --dialog-title-sm: 18px;
+  --dialog-title-md: 20px;
+  --dialog-title-lg: 22px;
 
   /* ── 서체 — Inter(OFL) · 고정폭은 JetBrains Mono(OFL, Geist Mono 대체) · 한글 Pretendard ── */
   --font-display: var(--font-admin-sans), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -190,4 +196,5 @@
   --cefr-c2: #ff8f84;
 
   --modal-backdrop: rgba(13, 13, 23, 0.5);
+  --dialog-backdrop: rgba(13, 13, 23, 0.5);
 }

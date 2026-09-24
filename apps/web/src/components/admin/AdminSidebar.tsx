@@ -426,8 +426,8 @@ function ChildRow({ child, isActive, last }: { child: NavItem; isActive: boolean
           aria-current={isActive ? 'page' : undefined}
           className={`flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-2 font-display text-[13px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 ${
             isActive
-              ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[var(--p)]/35'
-              : 'font-[500] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--t1)] active:bg-[var(--bd)]'
+              ? 'bg-[var(--ju-wash)] font-[600] text-[var(--t1)]'
+              : 'font-[500] text-[var(--t2)] hover:bg-[var(--ju-wash)] hover:text-[var(--t1)] active:bg-[var(--bd)]'
           }`}
         >
           {body}
@@ -476,40 +476,40 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
   return (
     <aside
       aria-label="관리자 메뉴"
-      className="sticky top-0 hidden h-screen w-[240px] shrink-0 flex-col border-r border-[var(--bd)] bg-gradient-to-b from-[var(--bg)] via-[var(--bg)] to-[var(--bg2)] md:flex"
+      className="sticky top-0 hidden h-screen w-[240px] shrink-0 flex-col bg-[var(--bg2)] md:flex"
     >
       {/* ── 로고 ── */}
       <Link
         href="/admin"
-        className="flex h-[64px] shrink-0 items-center gap-3 border-b border-[var(--bd)] px-5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
+        className="flex h-[56px] shrink-0 items-center gap-3 px-5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
       >
         <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p-light)] to-[var(--p)] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_1px_4px_rgba(139,92,246,0.18)]"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] font-display text-[15px] font-[800] text-[var(--on-p)]"
           aria-hidden="true"
         >
           <ShieldCheck size={16} strokeWidth={2.25} />
         </span>
         <div className="flex flex-col leading-tight">
-          <span className="font-display text-[14px] font-[800] tracking-tight text-[var(--t1)]">
+          <span className="font-display text-[14px] font-[600] tracking-tight text-[var(--t1)]">
             Vocaflow
           </span>
-          <span className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+          <span className="font-mono text-[11px] font-[500] uppercase tracking-[0.10em] text-[var(--t2)]">
             Admin
           </span>
         </div>
       </Link>
 
       {/* ── Mode 알림 ── */}
-      <div className="bg-[var(--p)]/8 mx-3 mb-2 mt-4 rounded-[var(--r-md)] border border-[var(--p)]/30 px-3 py-2">
+      <div className="mx-3 mb-2 mt-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2">
         <div className="flex items-start gap-2">
           <ShieldCheck
             size={13}
             strokeWidth={2}
-            className="mt-0.5 shrink-0 text-[var(--p)]"
+            className="mt-0.5 shrink-0 text-[var(--t2)]"
             aria-hidden="true"
           />
           <p className="font-body text-[11px] leading-snug text-[var(--t2)]">
-            <span className="font-display font-[700] text-[var(--p)]">관리자 모드</span> · 시스템
+            <span className="font-display font-[600] text-[var(--t1)]">관리자 모드</span> · 시스템
             데이터에 접근 중
           </p>
         </div>
@@ -528,11 +528,11 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                     aria-hidden="true"
                   />
                 )}
-                <span className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                <span className="font-display text-[11px] font-[500] tracking-[0.02em] text-[var(--t3)]">
                   {group.label}
                 </span>
                 <span
-                  className="h-px flex-1 bg-gradient-to-r from-[var(--bd)] to-transparent"
+                  className="h-px flex-1 bg-[var(--bd)]"
                   aria-hidden="true"
                 />
               </h3>
@@ -563,16 +563,16 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                         open ? 'rounded-t-[var(--r-md)]' : 'rounded-[var(--r-md)]'
                       } ${
                         isActive
-                          ? 'bg-[var(--bg)] shadow-[var(--sh-sm)] ring-1 ring-[var(--bd)]'
+                          ? 'bg-[var(--ju-wash)]'
                           : open
-                            ? 'bg-[var(--bg2)]'
-                            : 'hover:bg-[var(--bg2)] hover:shadow-[inset_0_0_0_1px_var(--bd)]'
+                            ? 'bg-[var(--ju-wash)]'
+                            : 'hover:bg-[var(--ju-wash)]'
                       } `}
                     >
                       {/* 접어 둔 채 그 안에 있을 때도 막대를 세운다 — 그것이 유일한 단서다. */}
                       {isActive || (inside && !open) ? (
                         <span
-                          className="absolute bottom-1.5 left-0 top-1.5 w-[2.5px] rounded-r-full bg-[var(--p-light)]"
+                          className="absolute bottom-1.5 left-0 top-1.5 w-[2.5px] rounded-r-full bg-[var(--t1)]"
                           aria-hidden="true"
                         />
                       ) : null}
@@ -589,7 +589,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                       >
                         <span
                           className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] transition-colors duration-[var(--dur-normal)] ${
-                            lit ? 'bg-[var(--p)]/12' : 'bg-[var(--bg2)] group-hover:bg-[var(--bg3)]'
+                            'bg-transparent'
                           } `}
                         >
                           <item.Icon
@@ -597,7 +597,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                             strokeWidth={1.75}
                             aria-hidden="true"
                             className={`transition-colors duration-[var(--dur-normal)] ${
-                              lit ? 'text-[var(--p)]' : 'text-[var(--t3)] group-hover:text-[var(--t2)]'
+                              lit ? 'text-[var(--t1)]' : 'text-[var(--t2)] group-hover:text-[var(--t1)]'
                             } `}
                           />
                         </span>
@@ -652,7 +652,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                         id={panelId(item.href)}
                         role="group"
                         aria-label={`${item.label} 하위 메뉴`}
-                        className="rounded-b-[var(--r-md)] border border-t-0 border-[var(--bd)] bg-[var(--bg2)] px-1.5 pb-2 pt-1"
+                        className="rounded-b-[var(--r-md)] bg-[var(--ju-wash)] px-1.5 pb-2 pt-1"
                       >
                         <ul className="flex flex-col gap-0.5">
                           {item.children!.map((child, ci) => {
@@ -697,13 +697,13 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
       </nav>
 
       {/* ── 사용자 앱으로 돌아가기 ── */}
-      <div className="shrink-0 border-t border-[var(--bd)] bg-gradient-to-b from-transparent to-[var(--bg2)] p-3">
+      <div className="shrink-0 border-t border-[var(--bd)] p-3">
         <Link
           href="/hub"
-          className="group flex min-h-[44px] items-center gap-3 rounded-[var(--r-md)] px-3 py-2 transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg)] hover:shadow-[var(--sh-sm)] hover:ring-1 hover:ring-[var(--bd)]"
+          className="group flex min-h-[44px] items-center gap-3 rounded-[var(--r-md)] px-3 py-2 transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-wash)]"
         >
           <span
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--p)]"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:text-[var(--t1)]"
             aria-hidden="true"
           >
             <ArrowLeft size={15} strokeWidth={1.75} />

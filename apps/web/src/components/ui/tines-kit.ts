@@ -68,7 +68,7 @@ const DLG_PAD = 'px-5 sm:px-8 lg:px-10'
 export const DIALOG = {
   /** 배경막 — 지면 색으로 씻는다(어둡게 덮지 않는다). 모바일은 아래에서 올라오는 시트. */
   overlay:
-    'fixed inset-0 z-[300] flex items-end justify-center overflow-y-auto overscroll-contain bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] backdrop-blur-[6px] p-0 sm:items-center sm:p-6',
+    'fixed inset-0 z-[300] flex items-end justify-center overflow-y-auto overscroll-contain bg-[var(--dialog-backdrop,color-mix(in_srgb,var(--bg)_72%,transparent))] backdrop-blur-[var(--dialog-blur,6px)] p-0 sm:items-center sm:p-6',
   /** 패널 — 크림 · 1px 라벤더 · 24px · 떠 있는 그림자 */
   panel:
     'relative flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-float)] focus:outline-none sm:rounded-[var(--r-2xl)]',
@@ -81,7 +81,7 @@ export const DIALOG = {
     'inline-flex h-7 items-center rounded-full bg-[var(--tint-lavender)] px-3 font-display text-[12.5px] font-[700] text-[var(--tint-lavender-ink)]',
   /** 제목 — 참조는 팝업 제목을 페이지 제목만큼 크게 쓴다 */
   title:
-    'font-display font-[700] leading-[1.06] tracking-[-0.02em] text-[var(--t1)] text-[26px] sm:text-[34px] lg:text-[40px] break-keep',
+    'font-display font-[700] leading-[1.06] tracking-[-0.02em] text-[var(--t1)] text-[length:var(--dialog-title-sm,26px)] sm:text-[length:var(--dialog-title-md,34px)] lg:text-[length:var(--dialog-title-lg,40px)] break-keep',
   /** 작성자·부제 줄 */
   byline: 'font-body text-[14px] leading-[1.5] text-[var(--t2)] break-keep',
   /** 윤곽선 태그 알약 — 면 색을 따르는 테두리 */
