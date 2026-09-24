@@ -1,6 +1,6 @@
 // scripts/csat/__tests__/intake-no-length-exclusion.test.mjs
 //
-// **원문을 버리는 것은 판정뿐이다**(docs/SOURCE_JUDGMENT_CRITERIA.md §0).
+// **원문을 버리는 것은 판정뿐이다**(docs/source-check/criteria.md §0).
 // 「길이로 원문을 제외하지 않는다」(2026-09-23)는 적격 판정에만 반영되고 수집기에는 남아 있었다 —
 // `harvest-plos` 는 800자 미만·창 0개면 적재 자체를 안 했고, `source-doc-import` 는 300어 미만을 건너뛰었다
 // (2026-09-24 발견). 버린 원문은 흔적이 없어 아무 검사도 못 잡으므로, 코드 모양으로 못박는다.
