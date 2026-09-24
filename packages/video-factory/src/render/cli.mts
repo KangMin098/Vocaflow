@@ -39,6 +39,13 @@ import {
 import { cuesOf } from './captions'
 import { loadBundle } from '../catalog/bundle'
 import { allSpecs } from '../requests/store'
+import {
+  cmdRequests,
+  cmdRequestsExport,
+  cmdRequestsImport,
+  cmdRequestsPull,
+  recordRequestEvaluations,
+} from '../requests/drain.mjs'
 import { validateAll } from '../spec/validate'
 import { FPS, FORMATS, type FormatId } from '../spec/format'
 import { applyVoiceTiming, loadVoiceManifest, synthesizeSpec } from '../voice/edge-tts'
@@ -452,6 +459,16 @@ async function cmdEvaluate(): Promise<number> {
     }
   }
 
+  // 요청 편은 요청 쪽에도 남긴다(규격 + 목적) — 다음 기획의 입력이 된다.
+  if (!has('no-record')) {
+    try {
+      const rn = await recordRequestEvaluations(cards)
+      if (rn > 0) console.log(`요청 평가 기록 ${rn}편`)
+    } catch (e) {
+      console.log(`요청 평가를 못 남겼다: ${(e as Error).message}`)
+    }
+  }
+
   const s = summarize(cards)
   console.log(
     `\n편 ${s.videos} · 전부 통과 ${s.clean} · 어긋남 있음 ${s.failing}` +
@@ -636,6 +653,18 @@ async function main(): Promise<void> {
     case 'thumbs':
       process.exitCode = await cmdThumbs()
       break
+    case 'requests':
+      process.exitCode = await cmdRequests()
+      break
+    case 'requests:export':
+      process.exitCode = await cmdRequestsExport()
+      break
+    case 'requests:import':
+      process.exitCode = await cmdRequestsImport(has('commit'))
+      break
+    case 'requests:pull':
+      process.exitCode = await cmdRequestsPull()
+      break
     default:
       console.log(
         [
@@ -650,6 +679,10 @@ async function main(): Promise<void> {
           'pnpm video evaluate [<id|kind>]     평가 — 규격 대비 (--full 로 축 전부)',
           'pnpm video loudness [--fix]         음량이 YouTube 규격(-14 LUFS) 안인지',
           'pnpm video stale                    발행본이 설계도와 어긋나는지',
+          'pnpm video requests                 요청 현황 + 큐 결과 반영 (재실행 안전)',
+          'pnpm video requests:export          설계 대기 요청 → work/requests/chunk-NN.json',
+          'pnpm video requests:import [--commit]  설계 초안 검사 → rev 기록 (기본 예행)',
+          'pnpm video requests:pull            승인본 → 설계도 + 큐 + 적용 시작',
         ].join('\n'),
       )
       process.exitCode = 1
