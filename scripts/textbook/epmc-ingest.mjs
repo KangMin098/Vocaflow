@@ -206,7 +206,8 @@ for (const item of list) {
   try {
     parent = await ensureOriginal(db, {
       article: full,
-      sourceId: baseKey,
+      // 전문 원천은 `europe_pmc-full:` 열쇠 — `europe_pmc:PMC…` 89행이 서론만 담은 채 원본 열쇠를 차지하고 있어서다(frym-full 과 같은 규칙 · 2026-09-24).
+      sourceId: `europe_pmc-full:${item.pmcid}`,
       feedId: FEED,
       feedLabel: epmc.epmcFeed(FEED)?.label ?? null,
     }, { commit: COMMIT })
