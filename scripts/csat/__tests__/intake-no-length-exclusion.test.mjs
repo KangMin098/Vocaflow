@@ -19,6 +19,14 @@ test('harvest-plos 는 길이·창 점수로 적재를 건너뛰지 않는다', 
   assert.doesNotMatch(s, /if \(sc\.pass <= 0\) continue/)
 })
 
+test('NIST·Frontiers 수확기는 길이·창 점수로 원문을 처분하지 않는다', () => {
+  for (const f of ['scripts/csat/harvest-nist.mjs', 'scripts/csat/harvest-frontiers.mjs']) {
+    const s = read(f)
+    assert.doesNotMatch(s, /MIN_WORDS\) \{\s*\n\s*n\.shortSkip\+\+\s*\n\s*disposed\.add/, f)
+    assert.doesNotMatch(s, /if \(sc\.pass <= 0\) \{\s*\n\s*n\.fitFail\+\+\s*\n\s*disposed\.add/, f)
+  }
+})
+
 test('source-doc-import 는 어수로 적재를 건너뛰지 않는다', () => {
   const s = read('scripts/csat/source-doc-import.mjs')
   assert.doesNotMatch(s, /if \(W\([^)]*\) < \d+\) \{[^}]*continue/)
