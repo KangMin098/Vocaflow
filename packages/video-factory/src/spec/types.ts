@@ -226,6 +226,8 @@ export type VideoKind =
   | 'method'
   /** 권장안 — 한 자리에서 다음으로 무엇을 권하는가 */
   | 'advice'
+  /** 관리자 요청으로 설계·승인된 편 (`requests/`) */
+  | 'request'
 
 export interface VideoSpec {
   /** 파일명이자 컴포지션 id. `<kind>-<slug>`. */
@@ -240,6 +242,17 @@ export interface VideoSpec {
   scenes: SceneSpec[]
   evidence: Evidence[]
   formats: FormatId[]
+  /**
+   * 요청 편의 기획 요지 — 목적·수요자·남길 한 문장. 규칙 편(catalog)에는 없다.
+   * 평가가 「목적 달성」을 잴 때 무엇을 재야 하는지 여기서 안다.
+   */
+  brief?: VideoBrief
+}
+
+export interface VideoBrief {
+  purpose: 'learn' | 'buy'
+  audience: 'student' | 'parent' | 'teacher' | 'adult'
+  message: string
 }
 
 /** 쓸 수 있는 강조색 — 디자인 토큰에 실재하는 것만. */

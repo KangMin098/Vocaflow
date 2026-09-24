@@ -55,3 +55,18 @@ export function activityVideoId(activityId: string): string {
 export function benefitVideoId(slug: string): string {
   return `benefit-${slug}`
 }
+
+/**
+ * 요청 편 — `req-<대상 슬러그>-<요청 id 앞 6자>`. 같은 대상에 요청이 여럿이어도 갈리지 않는다.
+ * 대상 키가 한글·자유 입력이면 슬러그가 비므로 `custom` 으로 둔다.
+ */
+export function requestVideoId(targetKey: string, requestId: string): string {
+  const slug = targetKey
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 40)
+    .replace(/-+$/g, '')
+  const short = requestId.replace(/[^a-z0-9]/gi, '').slice(0, 6).toLowerCase()
+  return `req-${slug || 'custom'}-${short}`
+}

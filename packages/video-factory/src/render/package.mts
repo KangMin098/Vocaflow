@@ -16,8 +16,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { buildSpecs } from '../catalog/build'
 import { loadBundle } from '../catalog/bundle'
+import { allSpecs } from '../requests/store'
 import { FPS, FORMATS, type FormatId } from '../spec/format'
 import { applyVoiceTiming } from '../voice/timing'
 import { loadVoiceManifest } from '../voice/edge-tts'
@@ -96,7 +96,7 @@ function ffmpeg(args: string[]): void {
 }
 
 async function main(): Promise<void> {
-  const specs = buildSpecs(loadBundle()).map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
+  const specs = allSpecs(loadBundle()).map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
   fs.mkdirSync(DIST, { recursive: true })
 
   const videos: ManifestEntry[] = []

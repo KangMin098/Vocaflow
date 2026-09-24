@@ -38,6 +38,7 @@ import {
 } from '../spec/evaluate'
 import { cuesOf } from './captions'
 import { loadBundle } from '../catalog/bundle'
+import { allSpecs } from '../requests/store'
 import { validateAll } from '../spec/validate'
 import { FPS, FORMATS, type FormatId } from '../spec/format'
 import { applyVoiceTiming, loadVoiceManifest, synthesizeSpec } from '../voice/edge-tts'
@@ -120,7 +121,7 @@ function positionals(): string[] {
 
 /** 음성 실측 길이를 반영한 설계도. 이게 렌더가 보는 최종본이다. */
 function specsWithVoice(): VideoSpec[] {
-  return buildSpecs(loadBundle()).map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
+  return allSpecs(loadBundle()).map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
 }
 
 /** `id` 하나, 또는 `kind` 하나, 또는 아무것도 안 주면 전부. */
@@ -170,7 +171,7 @@ async function cmdList(): Promise<void> {
 
 /** 설계도 전부를 큐에 올린다 — 이게 「안 만든 편」의 분모가 된다. */
 async function cmdEnqueue(): Promise<void> {
-  const specs = select(buildSpecs(loadBundle()), positionals())
+  const specs = select(allSpecs(loadBundle()), positionals())
   const r = await enqueueAll(specs)
   console.log(`큐에 올림 ${r.ok}` + (r.skipped ? ` · 못 올림 ${r.skipped}` : ''))
 }
@@ -188,7 +189,7 @@ function cmdCheck(): number {
 }
 
 async function cmdVoice(): Promise<void> {
-  const specs = select(buildSpecs(loadBundle()), positionals())
+  const specs = select(allSpecs(loadBundle()), positionals())
   const force = has('force')
   let made = 0
   let skipped = 0

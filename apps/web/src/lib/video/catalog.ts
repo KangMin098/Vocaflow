@@ -28,6 +28,7 @@ export type VideoKind =
   | 'module'
   | 'method'
   | 'advice'
+  | 'request'
 export type VideoFormat = 'wide' | 'vertical' | 'square'
 
 export interface VideoFile {
@@ -168,6 +169,8 @@ export const KIND_LABEL: Record<VideoKind, string> = {
   series: '브랜드 시리즈',
   type: '문항 유형',
   module: '학습 활동',
+  // 관리자 요청으로 기획·검토를 거친 편 — 분야가 여럿이라 한 이름으로 묶는다
+  request: '기획 영상',
 }
 
 /**
@@ -177,6 +180,14 @@ export const KIND_LABEL: Record<VideoKind, string> = {
  *   **11편이 조용히 사라졌다**(73편 중 62편만 그려짐). 목록은 한 곳에만 있어야 한다.
  */
 export const KIND_ORDER = Object.keys(KIND_LABEL) as VideoKind[]
+
+/**
+ * **규칙이 만드는 종류** — 구성요소 하나당 영상 하나가 있어야 하는 종류(분모가 있는 종류).
+ *
+ * `request` 는 여기 없다: 관리자 요청 하나당 한 편이라 「있어야 할 편」의 분모가 없다.
+ * 요청 편 진척은 `/admin/video` 의 요청 탭(`video_requests`)이 센다.
+ */
+export const RULE_KIND_ORDER = KIND_ORDER.filter((k) => k !== 'request')
 
 /**
  * 목록 화면용 — 종류로 묶어서 돌려준다.
