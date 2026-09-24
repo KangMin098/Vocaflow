@@ -942,6 +942,7 @@ export {
   standaloneFit,
   standaloneSignals,
   STANDALONE_GATE,
+  STANDALONE_NARRATIVE_SPEC,
   STANDALONE_SPEC,
   type StandaloneFit,
   type StandaloneSignals,
