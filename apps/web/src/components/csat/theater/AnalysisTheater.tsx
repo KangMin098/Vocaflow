@@ -28,15 +28,16 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  Circle,
   Code2,
   ExternalLink,
+  FileText,
   Gauge,
   Headphones,
   Layers,
   ListTree,
   Pause,
   Play,
+  Terminal,
   Volume2,
   VolumeX,
 } from 'lucide-react'
@@ -58,6 +59,9 @@ import { track } from '@/lib/analytics/client'
 import { withView } from '@/lib/csat/continuity'
 import { loadDissectionRecord, saveDissectionRecord } from '@/lib/csat/session/store'
 
+import type { LearnerCatalog } from '@/lib/csat/session/catalog'
+
+import { ItemPaper } from './ItemPaper'
 import styles from './theater.module.css'
 
 const RATES = [0.9, 1, 1.15] as const
@@ -98,6 +102,7 @@ export function AnalysisTheater({
   source,
   siblings,
   examLabel,
+  paper,
 }: {
   title: string
   typeName: string | null
@@ -116,6 +121,8 @@ export function AnalysisTheater({
   source: { url: string; direct: boolean; reason: string | null }
   siblings: TheaterSibling[]
   examLabel: string
+  /** 왼쪽 열 원본 — 기기의 문제지 추출본을 읽는다(서버는 원문을 보내지 않는다) */
+  paper: { catalog: LearnerCatalog; examId: string; no: number }
 }) {
   const lec = useLecture()
   // 연 문항을 기록에 남긴다 — 넓이 · 「최근 연 문항」 · 공백 판정의 재료(ia-design §2-5)
@@ -133,7 +140,7 @@ export function AnalysisTheater({
   const [cursor, setCursor] = useState(0)
   const [all, setAll] = useState(steps.length === 0)
   const [tab, setTab] = useState<TabId>('analysis')
-  const railRef = useRef<HTMLDivElement>(null)
+  const railRef = useRef<HTMLElement>(null)
   const blocksRef = useRef<HTMLDivElement>(null)
   const played = useRef(-1)
 
@@ -186,7 +193,7 @@ export function AnalysisTheater({
   }
 
   useEffect(() => {
-    railRef.current?.querySelector('[data-state="live"]')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+    railRef.current?.querySelector('[data-state="live"]')?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' })
   }, [cursor])
 
   useEffect(() => {
@@ -225,13 +232,15 @@ export function AnalysisTheater({
 
   return (
     <div className={styles.workspace} data-csat-theater data-testid="analysis-theater">
-      {/* ── 상단 막대 ─────────────────────────────────────────── */}
+      {/* ── 상단: ← 제목 + 태그 칩 · 오른쪽 재생 컨트롤 ─────────────── */}
       <header className={styles.bar}>
-        {/* 돌아가는 길 셋 — 예전에는 같은 유형 문항으로만 이어져 막다른 화면이었다(ia-design §2-5) */}
-        <nav className={styles.crumbs} aria-label="기출분석공간으로 돌아가기">
-          <Link className={styles.back} href={backHref} onClick={back('home')} data-testid="item-back-home">
-            <ChevronLeft size={15} aria-hidden /> 홈
-          </Link>
+        <Link className={styles.backIcon} href={backHref} onClick={back('home')} data-testid="item-back-home" aria-label="기출분석공간 홈">
+          <ChevronLeft size={16} aria-hidden />
+        </Link>
+        <h1 className={styles.docTitle}>{title}</h1>
+        {typeName ? <span className={styles.tag}>{typeName}</span> : null}
+        {points ? <span className={styles.tag}>{points}점</span> : null}
+        <nav className={styles.crumbs} aria-label="목록으로">
           {typeHref ? (
             <Link className={styles.back} href={typeHref} onClick={back('type')} data-testid="item-back-type">
               이 유형 목록
@@ -241,14 +250,11 @@ export function AnalysisTheater({
             서가
           </Link>
         </nav>
-        <h1 className={styles.docTitle}>{title}</h1>
-        {typeName ? <span className={styles.tag}># {typeName}</span> : null}
-        {points ? <span className={styles.tagQuiet}>{points}점</span> : null}
         <div className={styles.barRight}>
-          <button type="button" className={styles.iconBtn} onClick={sfx.toggle} aria-pressed={sfx.on} title="효과음">
+          <button type="button" className={styles.iconBtn} onClick={sfx.toggle} aria-pressed={sfx.on} title="효과음" aria-label="효과음">
             {sfx.on ? <Volume2 size={15} aria-hidden /> : <VolumeX size={15} aria-hidden />}
           </button>
-          <button type="button" className={styles.iconBtn} onClick={() => setAll((v) => !v)} aria-pressed={all} title="전부 펼쳐 읽기">
+          <button type="button" className={styles.iconBtn} onClick={() => setAll((v) => !v)} aria-pressed={all} title="전부 펼쳐 읽기" aria-label="전부 펼쳐 읽기">
             <ListTree size={15} aria-hidden />
           </button>
           {lec ? (
@@ -270,44 +276,17 @@ export function AnalysisTheater({
       </header>
 
       <div className={styles.body}>
-        {/* ── ① 레일 ─────────────────────────────────────────── */}
-        <aside className={styles.rail} aria-label="이 문항을 읽는 차례">
-          <div className={styles.railTop}>
-            <span className={styles.liveDot} data-on={playing} aria-hidden />
-            <b>{steps.length ? `강의 · 차례 ${steps.length}` : '상영 없음'}</b>
-            <span className={styles.railTime}>{steps.length ? theaterClock(timeline.total) : '—'}</span>
-          </div>
-          <p className={styles.railBanner}>
-            <Circle size={12} aria-hidden />
-            <span>{all ? '전부 펼쳐 읽는 중이에요.' : playing ? '상영을 따라가는 중이에요.' : '차례를 눌러 그 자리부터 볼 수 있어요.'}</span>
-            <button type="button" onClick={() => setAll((v) => !v)}>
-              {all ? '차례대로' : '전부 펼치기'}
-            </button>
+        {/* ── ① 왼쪽 열: 기출문제 원본 + 행동 상자 ───────────────── */}
+        <aside className={styles.rail} aria-label="기출문제 원본">
+          <p className={styles.railTop}>
+            <FileText size={13} aria-hidden />
+            <b>기출문제 원본</b>
+            <span className={styles.railTime}>{examLabel}</span>
           </p>
-
-          <div className={styles.stream} ref={railRef}>
-            {steps.length ? (
-              steps.map((s) => {
-                const state = s.index === cursor ? 'live' : s.index < cursor ? 'done' : 'wait'
-                return (
-                  <div key={s.id} className={styles.step} data-state={state}>
-                    <span className={styles.dot} aria-hidden />
-                    <button type="button" className={styles.stepBtn} onClick={() => goto(s.index)} aria-current={state === 'live' ? 'step' : undefined}>
-                      <span className={styles.stepKind}>
-                        {s.kind} · {String(s.index + 1).padStart(2, '0')}
-                        <em>{Math.round(s.sec)}초</em>
-                      </span>
-                      {s.name}
-                    </button>
-                  </div>
-                )
-              })
-            ) : (
-              <p className={styles.quiet}>이 문항에는 아직 상영(강의)이 없어요. 오른쪽 분석은 그대로 읽을 수 있어요.</p>
-            )}
+          <div className={styles.stream}>
+            <ItemPaper catalog={paper.catalog} examId={paper.examId} no={paper.no} />
           </div>
 
-          {/* 참조의 작성 상자 자리 — 여기서는 «이 문항으로 무엇을 할까» 다 */}
           <div className={styles.composer}>
             <p className={styles.composerHead}>
               <span className={styles.avatar} aria-hidden>
@@ -332,33 +311,32 @@ export function AnalysisTheater({
               <span className={styles.pill}>
                 {cursor + 1} / {Math.max(1, steps.length)} · {theaterClock(elapsed)} 지남
               </span>
-              <button type="button" className={styles.round} onClick={() => move(-1)} disabled={cursor === 0} title="이전 단계">
+              <button type="button" className={styles.round} onClick={() => move(-1)} disabled={cursor === 0} title="이전 단계" aria-label="이전 단계">
                 <ChevronLeft size={15} aria-hidden />
               </button>
-              <button type="button" className={styles.round} onClick={() => move(1)} disabled={cursor >= steps.length - 1} title="다음 단계">
+              <button type="button" className={styles.round} onClick={() => move(1)} disabled={cursor >= steps.length - 1} title="다음 단계" aria-label="다음 단계">
                 <ChevronRight size={15} aria-hidden />
               </button>
             </div>
           </div>
         </aside>
 
-        {/* ── ② 본문 ─────────────────────────────────────────── */}
+        {/* ── ② 본문: 탭 + 두 판 ─────────────────────────────── */}
         <section className={styles.main}>
-          {/* 참조의 단계 머리(← Control onboarding demo · 오른쪽 도구) */}
           <div className={styles.stageHead}>
-            <button type="button" className={styles.iconBtn} onClick={() => move(-1)} disabled={cursor === 0} title="이전 단계">
-              <ChevronLeft size={15} aria-hidden />
-            </button>
-            <p className={styles.now}>
-              <b>{step?.name ?? '분석 읽기'}</b>
-              <span>
-                {String(cursor + 1).padStart(2, '0')} / {String(Math.max(1, steps.length)).padStart(2, '0')}
-              </span>
-            </p>
+            <nav className={styles.tabs} aria-label="보기">
+              {TABS.map(({ id, label, Icon }) => (
+                <button key={id} type="button" aria-pressed={tab === id} onClick={() => setTab(id)}>
+                  <Icon size={13} aria-hidden /> {label}
+                </button>
+              ))}
+            </nav>
             <p className={styles.legend}>
               <span className={styles.legendAnswer}>정답 근거</span>
               <span className={styles.legendReject}>오답 지우는 자리</span>
-              <span className={styles.clock}>{theaterClock(elapsed)} / {theaterClock(timeline.total)}</span>
+              <span className={styles.clock}>
+                {theaterClock(elapsed)} / {theaterClock(timeline.total)}
+              </span>
             </p>
             {lec?.error ? (
               <p className={styles.notice} role="status">
@@ -373,19 +351,20 @@ export function AnalysisTheater({
 
           <div className={styles.view}>
             <div className={styles.panes}>
-              {/* ── 왼쪽 판: 기출 원문(참조의 README 자리) ── */}
-              <section className={styles.pane} aria-label="기출 원문">
+              {/* ── 왼쪽 판: 원문 · 지문 지도 · 정답 근거 ── */}
+              <section className={styles.pane} aria-label="지문 지도">
                 <p className={styles.paneHead}>
                   <Code2 size={13} aria-hidden />
-                  <span className={styles.file}>원문 · {examLabel}</span>
+                  <span className={styles.file}>지문 지도</span>
                   <ChevronDown size={12} aria-hidden />
                   <em>{map ? `${map.sentences.length} SENTENCES` : 'NO MAP'}</em>
                 </p>
                 <div className={styles.paneBody}>
                   <p className={styles.lead}>
-                    <b>{title}</b>
-                    {typeName ? <> · <code>{typeName}</code></> : null}
-                    {points ? <> · <code>{points}점</code></> : null}
+                    <b>{step?.name ?? '분석 읽기'}</b>{' '}
+                    <code>
+                      {String(cursor + 1).padStart(2, '0')} / {String(Math.max(1, steps.length)).padStart(2, '0')}
+                    </code>
                   </p>
                   {map ? (
                     <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
@@ -403,22 +382,15 @@ export function AnalysisTheater({
                     </div>
                   </dl>
                   {source.reason ? <p className={styles.quiet}>{source.reason}</p> : null}
-                  <p className={styles.quiet}>
-                    지문·선지는 평가원 저작물이라 이 화면에 싣지 않아요 — 막대는 <b>문장 길이</b>이고, 근거 인용만 짧게 드러납니다.
-                  </p>
                 </div>
               </section>
 
-              {/* ── 오른쪽 판: 출력(참조의 Output ⌄ 자리) ── */}
+              {/* ── 오른쪽 판: 분석 / 진행 / 같은 유형 ── */}
               <section className={styles.pane} aria-label="해설">
-                <div className={styles.paneHead}>
-                  <nav className={styles.tabs} aria-label="보기">
-                    {TABS.map(({ id, label, Icon }) => (
-                      <button key={id} type="button" aria-pressed={tab === id} onClick={() => setTab(id)}>
-                        <Icon size={13} aria-hidden /> {label}
-                      </button>
-                    ))}
-                  </nav>
+                <p className={styles.paneHead}>
+                  <Terminal size={13} aria-hidden />
+                  <span className={styles.file}>{TABS.find((t) => t.id === tab)?.label}</span>
+                  <ChevronDown size={12} aria-hidden />
                   <em>
                     {tab === 'analysis'
                       ? `${[...open].length} / ${blocks.length} BLOCKS`
@@ -426,7 +398,7 @@ export function AnalysisTheater({
                         ? `${steps.length} STEPS`
                         : `${siblings.length} ITEMS`}
                   </em>
-                </div>
+                </p>
 
                 {tab === 'analysis' ? (
                   <div className={`${styles.paneBody} ${styles.blockPane}`} ref={blocksRef}>
@@ -479,7 +451,7 @@ export function AnalysisTheater({
                         <dd>
                           {String(cursor + 1).padStart(2, '0')}
                           <span className={styles.badge} data-on={playing}>
-                            {playing ? '상영 중' : '멈춤'}
+                            {playing ? '● 상영 중' : '멈춤'}
                           </span>
                         </dd>
                       </div>
@@ -546,19 +518,43 @@ export function AnalysisTheater({
             </div>
           </div>
 
-          {/* ── ③ 바닥 블록 카드 ────────────────────────────── */}
-          <nav className={styles.cards} aria-label="분석 블록으로 이동">
-            {blocks.map((b) => {
-              const state = b.key === liveKey ? 'live' : open.has(b.key) ? 'done' : 'wait'
-              return (
-                <button
-                  key={b.key}
-                  type="button"
-                  className={styles.card}
-                  data-state={state}
-                  data-tint={BLOCK_TINT[b.kind]}
-                  onClick={() => jumpToBlock(b.key)}
-                >
+          {/* ── ③ 하단 도크: 강의 차례(예전 왼쪽 레일) — 강의가 없으면 분석 블록 ── */}
+          <div className={styles.dockHead}>
+            <span className={styles.liveDot} data-on={playing} aria-hidden />
+            <b>{steps.length ? `강의 · 차례 ${steps.length}` : `분석 블록 ${blocks.length}`}</b>
+            <span className={styles.railTime}>{steps.length ? theaterClock(timeline.total) : '상영 없음'}</span>
+          </div>
+          {steps.length ? (
+            <nav className={styles.cards} aria-label="이 문항을 읽는 차례" ref={railRef}>
+              {steps.map((s) => {
+                const state = s.index === cursor ? 'live' : s.index < cursor ? 'done' : 'wait'
+                const key = blockKeyForTarget(s.targetKey, blockKeys)
+                const kind = blocks.find((b) => b.key === key)?.kind
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    className={styles.card}
+                    data-state={state}
+                    data-tint={kind ? BLOCK_TINT[kind] : 'peach'}
+                    onClick={() => goto(s.index)}
+                    aria-current={state === 'live' ? 'step' : undefined}
+                  >
+                    <b>{s.name}</b>
+                    <span>
+                      <em>{String(s.index + 1).padStart(2, '0')}</em>
+                      <i>{s.kind}</i>
+                      <i>{Math.round(s.sec)}초</i>
+                    </span>
+                    {state === 'live' ? <u aria-hidden /> : null}
+                  </button>
+                )
+              })}
+            </nav>
+          ) : (
+            <nav className={styles.cards} aria-label="분석 블록으로 이동">
+              {blocks.map((b) => (
+                <button key={b.key} type="button" className={styles.card} data-state="done" data-tint={BLOCK_TINT[b.kind]} onClick={() => jumpToBlock(b.key)}>
                   <b>{b.title}</b>
                   <span>
                     <em>{b.body.length || 1}</em>
@@ -566,11 +562,10 @@ export function AnalysisTheater({
                       <i key={c.text}>{c.text}</i>
                     ))}
                   </span>
-                  {state === 'live' ? <u aria-hidden /> : null}
                 </button>
-              )
-            })}
-          </nav>
+              ))}
+            </nav>
+          )}
         </section>
       </div>
     </div>

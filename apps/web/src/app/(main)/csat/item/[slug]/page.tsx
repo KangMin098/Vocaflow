@@ -23,6 +23,8 @@ import { toItemSlug } from '@/lib/csat/item-slug'
 import { lectureMeta, lectureOutline } from '@/lib/csat/lecture/store'
 import { pickNextItem } from '@/lib/csat/next-item'
 import type { MapAnchor } from '@/lib/csat/passage-map-model'
+import { loadSessionCatalog, type LearnerCatalog } from '@/lib/csat/session/catalog'
+import { examOrder } from '@/lib/csat/session/model'
 import { loadItemSkeleton, skeletonSiblings } from '@/lib/csat/skeleton'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
 
@@ -91,7 +93,21 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       }))
     : []
   const nextPick = pickNextItem(siblings, item.id, () => true)
-  const paper = kiceSourceOf(item.id.split('#')[0])
+  const examId = item.id.split('#')[0]
+  const paper = kiceSourceOf(examId)
+  // 왼쪽 열(기출문제 원본)이 쓰는 문제지 카탈로그 — 세션 카탈로그는 골격이 있는 문항만 담는다.
+  // 이 문항이 빠져 있으면 추출기가 이 번호를 뽑지 않으므로 여기서 한 줄 보탠다(글자는 없다).
+  const { catalog: base } = await loadSessionCatalog()
+  const paperCatalog: LearnerCatalog = {
+    ...base,
+    items: base.items.some((i) => i.id === item.id)
+      ? base.items
+      : [...base.items, { id: item.id, exam_id: examId, no: item.no, type_id: item.type_id ?? '', points: item.points }],
+    exams: base.exams[examId] ? base.exams : { ...base.exams, [examId]: { label: item.exam_label, order: examOrder(examId) } },
+    papers: base.papers[examId]
+      ? base.papers
+      : { ...base.papers, [examId]: { url: paper.paperUrl ?? paper.listUrl, direct: paper.paperUrl != null } },
+  }
 
   const theater = (
     <AnalysisTheater
@@ -107,6 +123,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       backHref="/csat"
       typeHref={item.type_id ? `/csat/browse?type=${encodeURIComponent(item.type_id)}` : null}
       next={nextPick ? { href: `/csat/item/${nextPick.item.slug}`, label: `${nextPick.item.exam_label} ${nextPick.item.no}번` } : null}
+      paper={{ catalog: paperCatalog, examId, no: item.no }}
       source={{ url: paper.paperUrl ?? paper.listUrl, direct: paper.paperUrl != null, reason: paper.reason }}
       siblings={siblings
         .slice()
