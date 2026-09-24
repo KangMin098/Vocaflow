@@ -71,14 +71,21 @@ describe('회차 — 대량 판정 가능 여부', () => {
     ).toBe(false)
   })
 
-  it('실제 회차 문서를 읽는다 — PLOS 는 round-2 에서 κ 0.643', () => {
+  it('실제 회차 문서를 읽는다 — PLOS 는 round-2 κ 0.643 · round-3 κ 0.847 로 대량 판정 가능', () => {
     const dir = resolve(ROOT, 'docs/source-check')
     const files = readdirSync(dir)
       .filter((n) => /^round-\d+/.test(n))
       .map((name) => ({ name, md: readFileSync(resolve(dir, name), 'utf8') }))
     const rounds = foldRounds(files)
-    expect(rounds.plos?.kappas.at(-1)).toEqual({ round: 'round-2', n: 20, kappa: 0.643 })
-    expect(rounds.plos?.keepPct).toBe(95)
+    // 회차 순서대로 쌓인다 — 이름 순서가 곧 회차 순서다.
+    expect(rounds.plos?.kappas.slice(0, 2)).toEqual([
+      { round: 'round-2', n: 20, kappa: 0.643 },
+      { round: 'round-3', n: 30, kappa: 0.847 },
+    ])
+    // 보관 비율은 **가장 최근 회차**의 것이다.
+    expect(rounds.plos?.keepPct).toBe(80)
+    expect(rounds.plos?.keepRound).toBe('round-3')
+    expect(roundsReady(rounds.plos).ready).toBe(true)
     expect(Object.keys(rounds).length).toBeGreaterThan(10)
   })
 })
