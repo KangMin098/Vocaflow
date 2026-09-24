@@ -4,7 +4,7 @@
 //
 // ⚠️ **2026-09-24 부터 길이·모양 점수로 버리지 않는다.** 아래 설명 중 「통과한 것만 적재」는 옛 설계다.
 //   채점(`csat_fit.pass`)은 기록만 하고, 보관 여부는 내용 판정(`gate.retain` ·
-//   docs/SOURCE_JUDGMENT_CRITERIA.md)이 가른다. 이유: 버린 원문은 흔적이 없어 무엇이 왜 빠졌는지
+//   docs/source-check/criteria.md)이 가른다. 이유: 버린 원문은 흔적이 없어 무엇이 왜 빠졌는지
 //   잴 수 없고, 적격 판정은 이미 길이 차단을 걷어냈다(2026-09-23 · SOURCE_INTAKE_DESIGN).
 //
 // ── 지금 경로가 왜 부족한가 ─────────────────────────────────────────
@@ -49,6 +49,8 @@ import path from 'node:path'
 
 import { fitRecord, scoreArticle } from './lib-fit.mjs'
 import { classify, TOPIC_KEYS, TOPIC_V } from './lib-topic.mjs'
+import { plosLicenseOf } from './lib-plos.mjs'
+const { rightsTag } = await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -281,7 +283,8 @@ for (let p = 0; p < PAGES; p++) {
   const res = await solr({
     q: '*:*',
     fq,
-    fl: 'id,title_display,journal,article_type,publication_date,body',
+    // `copyright` 는 **글마다 다른** 권리 문장이다 — 컬렉션 표지 대신 이것으로 license 를 적는다(DD-75).
+    fl: 'id,title_display,journal,article_type,publication_date,body,copyright,author_display',
     rows: String(ROWS),
     wt: 'json',
     // ⚠️ **`id asc` 로 정렬하면 안 된다.** cursorMark 는 유일 정렬키만 요구하므로 `id asc` 가
@@ -329,22 +332,38 @@ for (let p = 0; p < PAGES; p++) {
       continue
     }
     accepted[tp.topic] = (accepted[tp.topic] ?? 0) + 1
+    // 원문 단위 권리 — Solr `copyright` 문장에서 읽는다(evidence 'api'). 비었으면 'unknown' 으로 적고
+    //   evidence 'none' 이 된다. 'CC BY 4.0' 을 기본값으로 박지 않는다 — PLOS 에는 공유저작물 선언 글도 있다.
+    const license = plosLicenseOf(d.copyright) ?? 'unknown'
+    const sourceUrl = `https://journals.plos.org/plosone/article?id=${d.id}`
     if (samples.length < 6) samples.push({ title: title.slice(0, 62), pass: sc.pass, words: text.split(/\s+/).length })
     passed.push({
       source: 'plos',
       source_id: `plos:${d.id}`,
       title,
       author: null,
-      source_url: `https://journals.plos.org/plosone/article?id=${d.id}`,
+      source_url: sourceUrl,
       published_at: d.publication_date ?? null,
-      license: 'CC BY 4.0',
+      license,
       content: text,
       status: 'queued',
       feed_id: 'harvest',
       feed_label: `겨냥 수확 · ${tp.topic}`,
       // ⚠️ 소재를 **적재 시점에 함께 적는다.** 안 적으면 `backfill-topic.mjs` 가 나중에
       //   다시 읽어야 하고(편당 본문 전체), 그 사이 이 행들은 전수 집계에서 빠진다.
-      csat_fit: { ...fitRecord(text), topic: tp.topic, topicMargin: tp.margin, topicV: TOPIC_V },
+      csat_fit: {
+        ...fitRecord(text),
+        topic: tp.topic,
+        topicMargin: tp.margin,
+        topicV: TOPIC_V,
+        rights: rightsTag({
+          license,
+          licenseEvidence: 'api',
+          author: Array.isArray(d.author_display) ? d.author_display.join(', ') : null,
+          publishedAt: d.publication_date ?? null,
+          sourceUrl,
+        }),
+      },
       // 적재 직전에 떼어 낸다 — 컬럼이 아니다. 중복으로 안 들어간 글의 몫을 돌려주는 데 쓴다.
       _topic: tp.topic,
     })

@@ -17,7 +17,9 @@ reject·분석 누락·CEFR 초과는 사용 차단. 발췌 위치만 있으면 
 배치 전 캐시 백업은 `.agent-logs`에 기록한다. 복구는 해당 배치의 이전 값만 복원하며 원문/정답을 덮지 않는다.
 원문 수정은 별도 revision 조건·본문 해시·앵커 영향 검증이 필요하다. 캐시 재검증은 내용 AI 판정을 대신하지 않는다.
 VOA ingestion은 관측된 댓글 안내 문단 제거 후 최소 길이를 검사한다. 기존 450편은 문항 100개(4편)의 위치 영향 때문에 보존한다.
-미판정 raw 는 **보관 판정 → 발췌 → 발췌 판정** 순서다(2026-09-24). 보관 판정은 **전문**을 읽는다(`plos-raw-triage-export` · 기준 `docs/SOURCE_JUDGMENT_CRITERIA.md` · 절차 `scripts/csat/plos-raw-triage-brief.md`) — 30편 대조에서 앞 800어 판정은 보관할 17편 중 12편을 버렸고 서론·고찰 판정은 버릴 5편을 남겼다. 판정자 흔들림은 이중 판정 κ 로 관리한다. 길이·어휘·V-Level 은 순서에만 쓰고 버리는 데 쓰지 않는다. 결과는 `csat_fit.gate.retain` 에만 쓰이고 게시 적격은 열지 않는다. `plos-extract` 는 보관 판정된 원본만 자르고, 발췌본에 판정을 스스로 붙이지 않는다(판정 드레인이 읽는다).
+미판정 raw 는 **보관 판정 → 발췌 → 발췌 판정** 순서다(2026-09-24). 보관 판정은 **전문**을 읽는다(`plos-raw-triage-export` · 기준 `docs/source-check/criteria.md` · 절차 `scripts/csat/plos-raw-triage-brief.md`) — 30편 대조에서 앞 800어 판정은 보관할 17편 중 12편을 버렸고 서론·고찰 판정은 버릴 5편을 남겼다. 판정자 흔들림은 이중 판정 κ 로 관리한다. 길이·어휘·V-Level 은 순서에만 쓰고 버리는 데 쓰지 않는다. 결과는 `csat_fit.gate.retain` 에만 쓰이고 게시 적격은 열지 않는다. `plos-extract` 는 보관 판정된 원본만 자르고, 발췌본에 판정을 스스로 붙이지 않는다(판정 드레인이 읽는다).
+
+**권리 표지 · PLOS 일괄 표기(DD-75 · 2026-09-24).** 라이선스로 원문을 버리지 않는다 — 적재기는 찾은 표기를 `license` 에 그대로 적고(없으면 `unknown`), 원문마다 `csat_fit.rights`(`rights-tag.ts`: class · evidence · attribution · needsResolution)를 붙인다. 서비스 차단은 여전히 `acp_classify_license` 트리거 → `copyright_safe_in_kr` 와 발행 적격 법적 축이 맡는다. ⚠️ 기존 PLOS 원본 **47,938행**은 수확기가 글마다 확인하지 않고 `CC BY 4.0` 을 일괄로 박은 것이다 — Solr `copyright` 필드로 보면 공유저작물 선언 글이 섞여 있다(`q=copyright:"public domain"` 18,185편). 이 행들은 원문 단위 확인이 필요하며 백필하지 않았다. 새 수확(`harvest-plos`)은 `copyright` 문장에서 license 를 읽고(evidence `api`), 발췌(`plos-extract`)는 원본 표지를 물려받되 없으면 `collection-default` 로 적는다.
 
 일일 읽기 전용 workflow `csat-source-audit.yml`은 DB/cache/snapshot drift와 모순을 exit 1로 알린다.
 기본 브랜치 반영 및 기존 Supabase secrets 설정 후 일정 실행이 활성화된다. 자동 데이터 수정은 없다.

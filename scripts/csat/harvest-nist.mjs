@@ -54,6 +54,7 @@ import path from 'node:path'
 
 import { fitRecord, scoreArticle } from './lib-fit.mjs'
 import { classify, TOPIC_KEYS, TOPIC_V } from './lib-topic.mjs'
+const { rightsTag } = await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -274,7 +275,7 @@ for (const it of candidates) {
   await sleep(GAP_MS)
   if (!got) continue
 
-  // ⚠️ **길이·창 점수로 원문을 버리지 않는다**(2026-09-24 · docs/SOURCE_JUDGMENT_CRITERIA.md §0). 짧거나 창이 없어도
+  // ⚠️ **길이·창 점수로 원문을 버리지 않는다**(2026-09-24 · docs/source-check/criteria.md §0). 짧거나 창이 없어도
   //   담고 기록만 한다 — 보관 여부는 내용 판정이 가른다. 본문이 **비면**(0어) 파서 고장 신호라 담지 않되,
   //   처분(`disposed`)에 넣지 않는다 — 파서를 고치면 다음 회차에 다시 받는다.
   if (!got.words) {
@@ -336,7 +337,20 @@ for (const it of candidates) {
     feed_id: 'harvest',
     feed_label: `겨냥 수확 · ${feed.label} · ${tp.topic}`,
     // 소재를 **적재 시점에 함께 적는다** — 안 적으면 전수 집계에서 이 행들이 빠진다.
-    csat_fit: { ...fitRecord(got.content), topic: tp.topic, topicMargin: tp.margin, topicV: TOPIC_V },
+    csat_fit: {
+      ...fitRecord(got.content),
+      topic: tp.topic,
+      topicMargin: tp.margin,
+      topicV: TOPIC_V,
+      // 연방정부 저작물이라는 **소스 단위** 표기다 — 글마다 확인한 것이 아니다(needsResolution=true, DD-75).
+      rights: rightsTag({
+        license: 'Public Domain (US Government)',
+        licenseEvidence: 'collection-default',
+        author: got.author ?? null,
+        publishedAt: got.published_at ?? null,
+        sourceUrl: got.url,
+      }),
+    },
     _path: it.path,
   })
   process.stderr.write(`\r  본문 ${hit.articles} · 받음 ${passed.length}   `)

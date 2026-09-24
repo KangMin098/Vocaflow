@@ -631,6 +631,8 @@ export function parseVoaArticle(
     author: voaAuthorName(ld) ?? 'VOA Learning English',
     language: 'en',
     license: 'PD-Government',
+    // 소스 단위 표기다 — 글 페이지에서 읽은 값이 아니다(권리 표지 evidence, DD-75).
+    license_evidence: 'collection-default',
     published_at: safeDate(publishedAt),
     content,
     estimated_cefr: hintLevel ? VOA_LEVEL_TO_CEFR[hintLevel] : null,

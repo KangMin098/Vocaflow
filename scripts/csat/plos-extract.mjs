@@ -35,11 +35,29 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 
 import { fitRecord, windowsOf, splitSentences, W } from './lib-fit.mjs'
-import { hardReject, retentionOf } from './gate-rules.mjs'
+import { hardReject, retentionOf, retainValueOf } from './gate-rules.mjs'
 import { loadRuler, CEFR } from './lib-cefr-ruler.mts'
 import { classify, TOPIC_V } from './lib-topic.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
 import { protectAbbr, restoreAbbr, SENT_DROP, cleanSentence } from './lib-plos.mjs'
+const { rightsTag } = await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
+
+/**
+ * 발췌는 원본의 권리를 **물려받는다**(DD-75). 원본에 `csat_fit.rights` 가 있으면 그대로 복사하고,
+ * 없으면 원본 `license` 를 쓰되 evidence 를 'collection-default' 로 적는다 — 2026-09-24 이전 PLOS 원본은
+ * 수확기가 글마다 확인하지 않고 'CC BY 4.0' 을 박아 두었기 때문이다(needsResolution=true).
+ */
+function inheritedRights(row) {
+  const parent = row.csat_fit?.rights
+  if (parent && typeof parent === 'object' && parent.v === 1) return parent
+  return rightsTag({
+    license: row.license ?? 'unknown',
+    licenseEvidence: 'collection-default',
+    author: row.author ?? null,
+    publishedAt: null,
+    sourceUrl: row.source_url ?? null,
+  })
+}
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -242,7 +260,7 @@ while (papers < LIMIT) {
     //   버릴 논문(30편 중 13편)에서도 발췌가 나와 판정 드레인이 그것을 다시 읽고 버렸다.
     //   판정 없는 원본은 먼저 `plos-raw-triage-export` 드레인으로 간다.
     const gate = row.csat_fit?.gate
-    if (retentionOf({ purpose: 'raw', verdict: gate?.verdict, retain: gate?.retain?.verdict }) !== 'keep-pending-extraction') {
+    if (retentionOf({ purpose: 'raw', verdict: gate?.verdict, retain: retainValueOf(gate?.retain) }) !== 'keep-pending-extraction') {
       drop.notKept += 1
       continue
     }
@@ -322,8 +340,9 @@ while (papers < LIMIT) {
             title: `${String(row.title ?? '').slice(0, 120)} — 발췌`,
             author: row.author,
             language: 'en',
-            license: row.license ?? 'CC BY 4.0',
-            copyright_safe_in_kr: true,
+            // 원본 표기를 그대로 — 없으면 'unknown'(트리거가 restricted 로 막는다). 'CC BY 4.0' 을 지어내지 않는다.
+            //   `copyright_safe_in_kr` 는 적지 않는다 — BEFORE INSERT 트리거가 license 로 도출한다.
+            license: row.license ?? 'unknown',
             content: text,
             content_hash: hash,
             word_count: W(text).length,
@@ -335,6 +354,7 @@ while (papers < LIMIT) {
               topic: t.topic,
               topicMargin: t.margin,
               topicV: TOPIC_V,
+              rights: inheritedRights(row),
               // ⚠️ **판정을 스스로 붙이지 않는다**(2026-09-24). 예전에는 `verdict:'use'` 를 찍어 넣었다 —
               //   아무도 안 읽은 발췌가 「사용」으로 보였고, 나중에 전문 판정이 24%를 버렸다.
               //   verdict 없이 넣으면 `gate-article-export`(발췌 피드는 대상에 든다)가 판정 청크로 뽑는다.

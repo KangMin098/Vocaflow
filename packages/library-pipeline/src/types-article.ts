@@ -37,6 +37,8 @@ export type ArticleSource =
   | 'worldbank' // World Bank 개방 보고서 (CC BY). CHECK 는 열려 있고 재고는 아직 0
   | 'manual'
 
+import type { RightsEvidence } from './ingest-article/rights-tag'
+
 export interface RawArticle {
   source: ArticleSource
   source_id: string
@@ -45,6 +47,8 @@ export interface RawArticle {
   author?: string
   language: string
   license: string
+  /** 라이선스를 어디서 읽었는가 — 권리 표지(`rights-tag.ts`)의 evidence 로 넘어간다. 없으면 'feed'. */
+  license_evidence?: RightsEvidence
   published_at: Date | null
   content: string
   /** ingester 가 알고 있는 사전 추정 CEFR (예: VOA Level 2 → B1). 없으면 analyze 단계에서 자동 감지 */

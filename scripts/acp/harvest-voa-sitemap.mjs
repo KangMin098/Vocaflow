@@ -85,6 +85,7 @@ const lib = {
   ...(await import('../../packages/library-pipeline/src/ingest-article/voa.ts')),
   ...(await import('../../packages/library-pipeline/src/ingest-article/harvest-cursor.ts')),
   ...(await import('../../packages/library-pipeline/src/textbook/readability.ts')),
+  ...(await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')),
 }
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
@@ -427,17 +428,28 @@ for (const [i, e] of queue.entries()) {
     if (haveIds.has(article.source_id)) {
       stat.dup++
     } else {
+      const publishedIso =
+        article.published_at && !Number.isNaN(article.published_at.getTime())
+          ? article.published_at.toISOString()
+          : null
       const row = {
         source: 'voa',
         source_id: article.source_id,
         title: article.title,
         author: article.author ?? null,
         source_url: article.source_url,
-        published_at:
-          article.published_at && !Number.isNaN(article.published_at.getTime())
-            ? article.published_at.toISOString()
-            : null,
+        published_at: publishedIso,
         license: article.license,
+        // 새 행이라 덮을 csat_fit 키가 없다 — 권리 표지만 적는다(DD-75).
+        csat_fit: {
+          rights: lib.rightsTag({
+            license: article.license,
+            licenseEvidence: article.license_evidence ?? 'feed',
+            author: article.author ?? null,
+            publishedAt: publishedIso,
+            sourceUrl: article.source_url,
+          }),
+        },
         content: article.content ?? '',
         audio_url: article.audio_url ?? null,
         // ⚠️ NULL 로 두면 `resolveArticleRegister` 가 소스 기본값('news')으로 떨어진다

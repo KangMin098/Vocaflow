@@ -284,6 +284,9 @@ let shortSaved = 0
 const emptyBodies = []
 const failures = []
 
+// 권리 표지(DD-75) — 라이선스로 버리지 않고 원문마다 표지를 붙여 `csat_fit.rights` 에 넘긴다.
+const { rightsTag } = await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
+
 /** 수집기가 준 기사를 `queued` 로 담는다. 중복이면 `'dup'`, 실패면 오류 문구. */
 async function enqueueArticle(article, feedId, statusMessage) {
   // ⚠️ `admin_enqueue_article` RPC 를 쓰지 않는다. 그 함수는 첫 줄에서
@@ -299,6 +302,10 @@ async function enqueueArticle(article, feedId, statusMessage) {
     .eq('source_id', article.source_id)
     .maybeSingle()
   if (dup) return 'dup'
+  const publishedIso =
+    article.published_at && !Number.isNaN(article.published_at.getTime())
+      ? article.published_at.toISOString()
+      : null
   const { error } = await db.from('library_articles').insert({
     source: article.source,
     source_id: article.source_id,
@@ -306,11 +313,18 @@ async function enqueueArticle(article, feedId, statusMessage) {
     author: article.author ?? null,
     source_url: article.source_url,
     // Invalid Date 방어 — NaN 이면 toISOString() 이 throw 한다.
-    published_at:
-      article.published_at && !Number.isNaN(article.published_at.getTime())
-        ? article.published_at.toISOString()
-        : null,
+    published_at: publishedIso,
     license: article.license,
+    // 새 행이라 덮을 csat_fit 키가 없다 — 권리 표지 하나만 적는다. evidence 는 수집기가 아는 경우만.
+    csat_fit: {
+      rights: rightsTag({
+        license: article.license,
+        licenseEvidence: article.license_evidence ?? 'feed',
+        author: article.author ?? null,
+        publishedAt: publishedIso,
+        sourceUrl: article.source_url,
+      }),
+    },
     content: article.content ?? '',
     audio_url: article.audio_url ?? null,
     // ⚠️ 이걸 빠뜨려 37편이 NULL 로 들어갔다(2026-08-20 실측). `feed_id` 가 없으면

@@ -367,6 +367,9 @@ export async function ingestPlosArticle(itemUrl: string): Promise<RawArticle> {
     author: decodeEntities(author).trim(),
     language: 'en',
     license: 'CC-BY-4.0', // PLOS = CC BY 4.0 → 발행 허용
+    // ⚠️ 글에서 읽은 값이 아니라 소스 단위 표기다 — PLOS 에는 공유저작물 선언 글도 있다(Solr `copyright`).
+    //   권리 표지에는 'collection-default' 로 남겨 해소가 필요하다고 표시한다(DD-75).
+    license_evidence: 'collection-default',
     published_at: safeDate(publishedAt),
     content,
     estimated_cefr: null,

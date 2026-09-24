@@ -64,7 +64,10 @@ const META = {
  * SciELO 도 같다 — 확보 30편 중 `BY-NC-ND/4.0` 3 · `BY-NC/4.0` 2 (저널 단위 `v541`).
  * NC·ND 는 DD-75 의 R3·R4(사실·논지만 취해 재저작) 입력이지 **그대로 싣는 원문이 아니다.**
  *
- * 통과: CC BY · CC BY-SA · CC0 · PD.  탈락: NC 계열 · ND 계열 · 라이선스 없음.
+ * 통과: CC BY · CC BY-SA · CC0 · PD.  해소 필요: NC 계열 · ND 계열 · 라이선스 없음.
+ * ⚠️ 해소 필요도 **버리지 않고 담는다**(DD-75) — 찾은 표기가 `license` 에 남아 DB 트리거가
+ *   restricted 로 분류하고 서비스에서 막는다. `evidence` 는 행의 권리 필드를 읽었으면 'api',
+ *   원천 단위 기본값(META.license)뿐이면 'collection-default' — 원문 단위로 확인한 척하지 않는다.
  */
 function derivationAllowed(raw, m) {
   const parts = []
@@ -74,7 +77,18 @@ function derivationAllowed(raw, m) {
     else if (Array.isArray(v)) parts.push(...v.filter((x) => typeof x === 'string'))
   }
   // rightsKeys 가 없는 원천(openalex)은 질의 필터가 곧 라이선스다.
-  if (!parts.length) return { ok: (m.rightsKeys ?? []).length === 0, license: m.license }
+  if (!parts.length) {
+    return {
+      ok: (m.rightsKeys ?? []).length === 0,
+      license: m.license ?? 'unknown',
+      evidence: m.license ? 'collection-default' : 'none',
+    }
+  }
+  const out = derivationFromParts(parts)
+  return { ...out, evidence: 'api' }
+}
+
+function derivationFromParts(parts) {
   const joined = parts.join(' | ')
   const lower = joined.toLowerCase()
   if (/-nc|noncommercial|non-commercial/.test(lower)) return { ok: false, license: joined }
@@ -92,6 +106,8 @@ function derivationAllowed(raw, m) {
   }
   return { ok: false, license: joined }
 }
+
+const { rightsTag } = await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
 
 const W = (t) => (String(t ?? '').match(/[A-Za-z][A-Za-z'-]*/g) ?? []).length
 
@@ -174,15 +190,17 @@ for (const d of wanted) {
   if (W(prose) < 300) short++ // 기록만 한다(300어는 기출 지문 규격보다 길다 — 버릴 이유가 아니다)
 
   const raw = m.raw ?? {}
-  // 개작 불가·라이선스 없음은 **그대로 싣는 원문이 아니다**(R3·R4 재저작 입력이다).
+  // 개작 불가·라이선스 없음은 그대로 싣는 원문이 아니지만(R3·R4 재저작 입력) **버리지 않는다**(DD-75) —
+  //   세기만 하고 담는다. 서비스 차단은 license → license_class 트리거가 맡는다.
   const lic = derivationAllowed(raw, m)
-  if (!lic.ok) { blockedByLicense++; byLicenseSource[d.source] = (byLicenseSource[d.source] ?? 0) + 1; continue }
+  if (!lic.ok) { blockedByLicense++; byLicenseSource[d.source] = (byLicenseSource[d.source] ?? 0) + 1 }
+  const sourceUrl = raw[m.urlKey] ? String(raw[m.urlKey]) : null
   const row = {
     source: d.source,
     source_id,
     title: String(raw.title ?? d.topic_ko ?? suffix).slice(0, 500),
     author: null,
-    source_url: raw[m.urlKey] ? String(raw[m.urlKey]) : null,
+    source_url: sourceUrl,
     published_at: null,
     // 원천이 준 값이 있으면 그것, 없으면 META 의 사람 읽는 표기. 슬러그를 넣지 않는다.
     // 정규화된 사람 읽는 표기 — 등급 슬러그를 넣으면 트리거가 재파싱한다.
@@ -191,6 +209,10 @@ for (const d of wanted) {
     audio_url: null,
     feed_id: null,
     status: 'queued',
+    // 새 행이라 덮을 키가 없다 — 권리 표지만 적는다.
+    csat_fit: {
+      rights: rightsTag({ license: lic.license, licenseEvidence: lic.evidence, author: null, publishedAt: null, sourceUrl }),
+    },
   }
   n++
   if (!COMMIT) { inserted++; continue }
@@ -204,7 +226,7 @@ ${COMMIT ? '적재' : 'dry-run'}   ${inserted}편
 건너뜀(이미 있음) ${skipped}편
 건너뜀(빈 본문) ${empty}편
 적재 중 300어 미만 ${short}편 (버리지 않음 · 기록용)
-건너뜀(개작 불가·라이선스 없음) ${blockedByLicense}편  ${JSON.stringify(byLicenseSource)}
+라이선스 해소 필요(담음) ${blockedByLicense}편  ${JSON.stringify(byLicenseSource)}
 실패        ${failures.length}편`)
 for (const f of failures.slice(0, 10)) console.log('  ' + f)
 if (failures.length > 10) console.log(`  … 외 ${failures.length - 10}건`)

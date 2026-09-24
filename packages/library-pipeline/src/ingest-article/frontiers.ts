@@ -221,6 +221,16 @@ export function frontiersLicenseCode(url: string | null): string | null {
   return m ? `CC-${m[1]!.toUpperCase()}-${m[2]}` : null
 }
 
+/**
+ * 적재할 license 문자열(DD-75 — 라이선스로 버리지 않는다). 아는 CC 꼴은 우리 표기로, 모르는 꼴은
+ * 찾은 주소 그대로, 없으면 'unknown'. 통과 목록 밖이면 DB 트리거가 restricted 로 분류해 서비스에서 막는다.
+ */
+export function frontiersLicenseString(url: string | null): string {
+  const u = (url ?? '').trim()
+  if (!u) return 'unknown'
+  return frontiersLicenseCode(u) ?? u
+}
+
 /** Crossref `date-parts` → ISO 날짜. 부분 날짜(연도만)도 받는다. */
 export function frontiersPublishedAt(published: CrossrefWork['published']): string | null {
   const p = published?.['date-parts']?.[0]
@@ -634,6 +644,8 @@ export interface FrontiersFetched {
   url: string
   content: string
   licenseUrl: string | null
+  /** 라이선스를 어디서 읽었나 — Crossref(`api`) · JATS `<permissions>`(`jats`) · 못 찾음(null). */
+  licenseEvidence: 'api' | 'jats' | null
   body: FrontiersBodyResult
   words: number
 }
@@ -658,7 +670,9 @@ export async function fetchFrontiersArticle(
   const body = frontiersBodyText(xml)
   if (!body.text) return null
 
-  const licenseUrl = opts.crossrefLicenseUrl ?? frontiersJatsLicenseUrl(xml)
+  const jatsLicenseUrl = opts.crossrefLicenseUrl ? null : frontiersJatsLicenseUrl(xml)
+  const licenseUrl = opts.crossrefLicenseUrl ?? jatsLicenseUrl
+  const licenseEvidence = opts.crossrefLicenseUrl ? 'api' : jatsLicenseUrl ? 'jats' : null
   const title = frontiersJatsTitle(xml) ?? opts.title ?? ''
   const words = (body.text.match(/[A-Za-z][A-Za-z'-]*/g) ?? []).length
   return {
@@ -667,6 +681,7 @@ export async function fetchFrontiersArticle(
     url: `${FRONTIERS}/journals/${slug}/articles/${lower}/full`,
     content: body.text,
     licenseUrl,
+    licenseEvidence,
     body,
     words,
   }
@@ -685,16 +700,15 @@ export async function ingestFrontiersArticle(doiOrUrl: string): Promise<RawArtic
   if (!got) throw new Error(`Frontiers 본문을 못 받았다: ${doi}`)
   // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
   const shortBody = got.words < FRONTIERS_MIN_WORDS
-  if (!frontiersLicenseAllowed(got.licenseUrl)) {
-    throw new Error(`Frontiers 라이선스가 통과 목록 밖이다(${got.licenseUrl ?? '없음'}): ${doi}`)
-  }
+  // 라이선스로 던지지 않는다(DD-75) — 찾은 표기를 남기고, 서비스 차단은 DB 트리거가 맡는다.
   const article: RawArticle = {
     source: 'frontiers',
     source_id: sourceKey('frontiers', { doi: got.doi }),
     title: got.title || '(제목 미상)',
     source_url: got.url,
     language: 'en',
-    license: frontiersLicenseCode(got.licenseUrl) ?? 'CC-BY-4.0',
+    license: frontiersLicenseString(got.licenseUrl),
+    ...(got.licenseEvidence ? { license_evidence: got.licenseEvidence } : {}),
     published_at: null,
     content: got.content,
     estimated_cefr: null,

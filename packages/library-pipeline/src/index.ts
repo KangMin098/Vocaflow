@@ -1162,3 +1162,6 @@ export type {
 // 경계를 넘는 조각이 지면까지 갔다.
 export { disjointChunks, looksLikeHeading } from './textbook/excerpt-chunks'
 export type { ChunkBounds, ExcerptChunk, ParagraphUnit } from './textbook/excerpt-chunks'
+// 권리 표지(DD-75) — 라이선스로 버리지 않고 원문마다 표지를 붙여 csat_fit.rights 로 넘긴다.
+export { rightsClassOf, rightsTag } from './ingest-article/rights-tag'
+export type { RightsClass, RightsEvidence, RightsTag, RightsTagInput } from './ingest-article/rights-tag'
