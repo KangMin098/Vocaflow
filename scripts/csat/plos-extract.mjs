@@ -21,7 +21,14 @@
 //   모든 관문을 통과한다. 그래서 "지우고 통과시키기" 가 아니라 **"깨질 것 같으면 버리기"** 로
 //   설계했다. 공급을 잃는 쪽이 깨진 영어를 학생에게 보내는 쪽보다 싸다.
 //
-// 실행: node scripts/csat/plos-extract.mjs [--limit 200] [--commit] [--curl]
+// ── 창 고르기 (2026-09-24) ──────────────────────────────────────────
+// 보관 판정(`gate.retain`)을 받은 원본만 자르고, 창은 **정본 자로 재서 쉬운 것부터** 고른다(`selectWindows`).
+// 논문마다 무엇을 냈고 왜 못 냈는지를 원본 행 `csat_fit.extract` 에 남긴다 — 예전에는 콘솔에만 찍혀
+// 원본 3만 편에 왜 발췌가 없는지 잴 수 없었다. 보관 판정이 끝난 행만 쓰므로 판정 청크의 CAS 와 부딪치지 않는다.
+//
+// 실행(TS 패키지 @vocaflow/wlp 를 쓰므로 tsx):
+//   pnpm exec tsx scripts/csat/plos-extract.mjs --limit 200 --compare     # 예행 — 옛 끊기와 새 선택을 같은 논문으로 비교
+//   pnpm exec tsx scripts/csat/plos-extract.mjs --limit 200 --commit [--curl]
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -29,6 +36,7 @@ import crypto from 'node:crypto'
 
 import { fitRecord, windowsOf, splitSentences, W } from './lib-fit.mjs'
 import { hardReject, retentionOf } from './gate-rules.mjs'
+import { loadRuler, CEFR } from './lib-cefr-ruler.mts'
 import { classify, TOPIC_V } from './lib-topic.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
 import { protectAbbr, restoreAbbr, SENT_DROP, cleanSentence } from './lib-plos.mjs'
@@ -42,6 +50,7 @@ const arg = (k, d) => {
   return i > 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : d
 }
 const COMMIT = process.argv.includes('--commit')
+const COMPARE = process.argv.includes('--compare')
 const LIMIT = Number(arg('limit', 200))
 const SHOW = Number(arg('show', 0))
 // ⚠️ **구간을 나눠 여러 프로세스가 동시에 돌 수 있게 한다.** 커서 하나로는 논문 36,340편을
@@ -84,7 +93,45 @@ function keepSections(text) {
 
 // 약어 보호·문장 관문·인용 처리는 `lib-plos.mjs` 가 정본이다 — 재검사기와 **같은 표**를 본다.
 
-/** 남은 문장을 목표 어수 근처로 묶는다 — 문장 경계만 쓴다. */
+/**
+ * **창을 난이도로 고른다**(2026-09-24).
+ *
+ * 예전 `chop()` 은 문장을 앞에서부터 310어가 찰 때마다 끊었다 — 경계가 **어느 창이 쉬운지와 무관하게**
+ * 정해졌다. 실측(yield-funnel-20260924): 발췌 2편 이상인 논문 1,560편 중 42%가 발췌끼리 CEFR 이 다르고,
+ * 탈락의 99.9%가 `cefr_above_band` 였다. 같은 서론 안에서 쉬운 자리를 고르면 살아날 창이 있었다.
+ *
+ * 그래서: 모든 문장을 시작점으로 삼아 310어 이상이 되는 가장 짧은 창을 만들고(후보), 기계 규칙·모양을
+ * 통과한 후보를 **정본 자(lib-cefr-ruler)로 재서 쉬운 것부터** 겹치지 않게 고른다. 고른 창은 원문 순서로 낸다.
+ * 난이도는 **고르는 데만** 쓴다 — 어려운 창도 겹치지 않으면 낸다(버리는 것은 적격 판정이 한다).
+ */
+function selectWindows(sents, ruler) {
+  const words = sents.map((s) => W(s).length)
+  const cands = []
+  const why = { tooShort: 0, gate: 0, band: 0 }
+  for (let s = 0; s < sents.length; s++) {
+    let n = 0
+    let e = s
+    while (e < sents.length && n < TARGET_WORDS) n += words[e++]
+    if (n < TARGET_WORDS) {
+      why.tooShort += 1
+      break // 뒤로 갈수록 더 짧다
+    }
+    const text = sents.slice(s, e).join(' ')
+    if (hardReject(text).length) { why.gate += 1; continue }
+    const f = fitRecord(text)
+    if (!f.pass) { why.band += 1; continue }
+    const m = ruler(text)
+    cands.push({ s, e, text, f, cefr: m.level, fre: m.fre, rank: CEFR.indexOf(m.level) })
+  }
+  // 쉬운 것부터(같으면 Flesch 높은 것), 겹치지 않게.
+  cands.sort((a, b) => a.rank - b.rank || b.fre - a.fre || a.s - b.s)
+  const taken = []
+  for (const c of cands) if (taken.every((t) => c.e <= t.s || c.s >= t.e)) taken.push(c)
+  taken.sort((a, b) => a.s - b.s)
+  return { picked: taken, candidates: cands.length, why }
+}
+
+/** 옛 방식 — `--compare` 에서만 쓴다(새 선택이 실제로 나은지 같은 논문으로 잰다). */
 function chop(sents) {
   const out = []
   let acc = []
@@ -132,6 +179,21 @@ console.log(`  이어서 시작: ${cur.id || '(처음)'} · 이번에 볼 논문
 
 const drop = { notKept: 0, noSection: 0, sentDrop: {}, structCite: 0, tooShort: 0, gate: 0, band: 0 }
 let papers = 0
+const B2 = CEFR.indexOf('B2')
+const cmp = { papers: 0, old: { n: 0, easy: 0 }, new: { n: 0, easy: 0 } }
+const ruler = await loadRuler(db)
+
+/**
+ * 논문마다 무엇을 냈고 왜 못 냈는지를 **원본 행에 남긴다**(`csat_fit.extract`).
+ * jsonb 는 통째로 덮지 않고 읽은 값에 키 하나만 더한다(덮으면 게이트·보관 판정이 날아간다).
+ * `updated_at` 으로 CAS — 그 사이 누가 행을 바꿨으면 기록을 건너뛰고 센다(조용히 덮지 않는다).
+ */
+async function recordExtract(row, rec) {
+  if (!COMMIT) return
+  const next = { ...(row.csat_fit ?? {}), extract: { v: 1, at: new Date().toISOString(), ruler: 'canonical-no-llm', ...rec } }
+  const { data, error } = await db.from('library_articles').update({ csat_fit: next }).eq('id', row.id).eq('updated_at', row.updated_at).select('id')
+  if (error || data?.length !== 1) drop.recordFail = (drop.recordFail ?? 0) + 1
+}
 let made = 0
 let inserted = 0
 let firstInsertErr = null
@@ -142,7 +204,7 @@ while (papers < LIMIT) {
     () =>
       db
         .from('library_articles')
-        .select('id,title,source_url,author,license,content,gate:csat_fit->gate')
+        .select('id,title,source_url,author,license,content,updated_at,csat_fit')
         .eq('source', 'plos')
         // ⚠️ 전에는 `csat_fit->gate->>purpose = 'raw'` 로 걸렀다. 인덱스가 없어서 매 요청마다
         //   75,000행의 jsonb 를 파싱했고, 커서가 뒤로 갈수록 첫 응답이 안 왔다(회차를 여러 번 잃음).
@@ -160,19 +222,39 @@ while (papers < LIMIT) {
   )
   if (!data?.length) break
 
+  // ⚠️ **이미 발췌가 있는 원본은 다시 자르지 않는다.** 새 선택은 경계가 달라 옛 발췌와 겹치는 창을 낸다 —
+  //   그대로 넣으면 같은 문단이 두 번 들어간다. 옛 발췌에는 문항이 붙어 있을 수 있어 지울 수도 없다.
+  //   (옛 발췌를 새 선택으로 갈아 끼우는 일은 문항 이관이 필요한 별도 작업이다 · 여기서는 세기만 한다.)
+  const extracted = new Set()
+  {
+    const urls = data.map((r) => r.source_url).filter(Boolean)
+    const { data: ex } = await retry(
+      () => db.from('library_articles').select('source_url').eq('feed_id', 'plos-extract').in('source_url', urls),
+      '기존 발췌 조회',
+    )
+    for (const r of ex ?? []) extracted.add(r.source_url)
+  }
+
   for (const row of data) {
     papers += 1
     cursor = row.id
     // ⚠️ **보관 판정을 받은 원본만 자른다**(2026-09-24). 예전에는 원본 전량을 잘랐다 — 읽어 보면
     //   버릴 논문(30편 중 13편)에서도 발췌가 나와 판정 드레인이 그것을 다시 읽고 버렸다.
     //   판정 없는 원본은 먼저 `plos-raw-triage-export` 드레인으로 간다.
-    if (retentionOf({ purpose: 'raw', verdict: row.gate?.verdict, retain: row.gate?.retain?.verdict }) !== 'keep-pending-extraction') {
+    const gate = row.csat_fit?.gate
+    if (retentionOf({ purpose: 'raw', verdict: gate?.verdict, retain: gate?.retain?.verdict }) !== 'keep-pending-extraction') {
       drop.notKept += 1
+      continue
+    }
+    // 예행 비교(--compare)는 옛 발췌가 있는 논문도 잰다 — 새 선택의 효과는 바로 그 논문들에서 드러난다.
+    if (!COMPARE && (row.csat_fit?.extract || extracted.has(row.source_url))) {
+      drop.alreadyExtracted = (drop.alreadyExtracted ?? 0) + 1
       continue
     }
     const kept = keepSections(String(row.content ?? ''))
     if (!kept) {
       drop.noSection += 1
+      await recordExtract(row, { candidates: 0, emitted: 0, levels: {}, reason: 'no-introduction' })
       continue
     }
     const good = []
@@ -190,22 +272,36 @@ while (papers < LIMIT) {
       }
       good.push(c.text)
     }
-    const pieces = chop(good)
-    if (!pieces.length) {
-      drop.tooShort += 1
+    const sel = selectWindows(good, ruler)
+    if (COMPARE) {
+      // 같은 논문을 옛 끊기로도 잘라 같은 자로 잰다 — 새 선택이 나은지는 이 비교로만 말한다.
+      for (const text of chop(good)) {
+        if (hardReject(text).length || !fitRecord(text).pass) continue
+        cmp.old.n += 1
+        if (CEFR.indexOf(ruler(text).level) <= B2) cmp.old.easy += 1
+      }
+      for (const p of sel.picked) {
+        cmp.new.n += 1
+        if (p.rank <= B2) cmp.new.easy += 1
+      }
+      cmp.papers += 1
+    }
+    const levels = {}
+    for (const p of sel.picked) levels[p.cefr] = (levels[p.cefr] ?? 0) + 1
+    await recordExtract(row, {
+      candidates: sel.candidates,
+      emitted: sel.picked.length,
+      levels,
+      ...(sel.picked.length ? {} : { reason: sel.why.tooShort && !sel.candidates && !sel.why.gate && !sel.why.band ? 'too-few-sentences' : 'no-valid-window' }),
+      rejectedWindows: { gate: sel.why.gate, band: sel.why.band },
+    })
+    if (!sel.picked.length) {
+      if (!sel.candidates && !sel.why.gate && !sel.why.band) drop.tooShort += 1
+      else if (sel.why.gate >= sel.why.band) drop.gate += 1
+      else drop.band += 1
       continue
     }
-    for (const text of pieces) {
-      const codes = hardReject(text)
-      if (codes.length) {
-        drop.gate += 1
-        continue
-      }
-      const f = fitRecord(text)
-      if (!f.pass) {
-        drop.band += 1
-        continue
-      }
+    for (const { text, f, cefr } of sel.picked) {
       made += 1
       // ⚠️ 눈으로 읽지 않고 적재하지 않는다 — 이 파이프라인이 막으려는 것이
       //   "기계는 통과하는데 사람이 보면 깨진 영어" 다.
@@ -252,7 +348,9 @@ while (papers < LIMIT) {
                 at: new Date().toISOString(),
               },
               make: {
-                v: 1,
+                v: 2,
+                // 고를 때 잰 난이도 — 적격 판정은 분석 단계가 다시 잰 `cefr_level` 로 한다. 둘이 어긋나면 자를 의심한다.
+                cefrAtExtract: cefr,
                 words: W(text).length,
                 sents: splitSentences(text).length,
                 paras: 1,
@@ -302,6 +400,15 @@ for (const [k, n] of Object.entries(drop.sentDrop).sort((a, b) => b[1] - a[1])) 
 }
 console.log(`    묶을 문장 부족      ${drop.tooShort}`)
 console.log(`    보관 판정 없음·폐기  ${drop.notKept}`)
+console.log(`    이미 발췌 있음(건너뜀) ${drop.alreadyExtracted ?? 0}`)
 console.log(`    기계 규칙           ${drop.gate}`)
 console.log(`    대역 미달           ${drop.band}`)
+if (drop.recordFail) console.log(`    ⚠ 원본 기록 실패     ${drop.recordFail} (행이 그 사이 바뀜 — 다시 돌리면 이어서 간다)`)
+if (COMPARE) {
+  const pct = (x) => (x.n ? ((x.easy / x.n) * 100).toFixed(1) : '0')
+  console.log(`
+  비교(같은 논문 ${cmp.papers}편 · 같은 자):`)
+  console.log(`    옛 끊기  창 ${cmp.old.n} · B2 이하 ${cmp.old.easy} (${pct(cmp.old)}%)`)
+  console.log(`    새 선택  창 ${cmp.new.n} · B2 이하 ${cmp.new.easy} (${pct(cmp.new)}%)`)
+}
 if (!COMMIT) console.log(`\n  예행이었다. 적재하려면 --commit`)
