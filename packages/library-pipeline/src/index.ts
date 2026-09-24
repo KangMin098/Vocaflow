@@ -513,6 +513,8 @@ export type { BookLemmaIndex } from './analyze/extract-lemmas'
 export { analyzeArticle } from './analyze/analyze-article'
 export type { AnalyzeArticleOptions } from './analyze/analyze-article'
 export { ensureArticleVocab } from './analyze/ensure-article-vocab'
+export { releaseArticleVocab, shouldKeepArticleVocab } from './analyze/release-article-vocab'
+export type { VocabRetentionInput } from './analyze/release-article-vocab'
 export type {
   EnsureArticleVocabDeps,
   EnsureArticleVocabResult,
