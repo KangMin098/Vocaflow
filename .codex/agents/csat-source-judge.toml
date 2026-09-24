@@ -1,5 +1,5 @@
 name = "csat-source-judge"
-description = "Judge ONE chunk of a CSAT source judgment drain (content judgment on full bodies, or retention judgment on full PLOS papers) — criteria live in docs/SOURCE_JUDGMENT_CRITERIA.md; read every input body and write a UUID/revision/hash-bound review file (verdict·genre·why) for gate-mixed-import --input. Spawned in parallel by the /admin/csat/sources content-judgment drain."
+description = "Judge ONE chunk of a CSAT source judgment drain (content judgment on full bodies, or retention judgment (keep/hold/discard) on full originals) — criteria live in docs/source-check/criteria.md; read every input body and write a UUID/revision/hash-bound review file (verdict·genre·why) for gate-mixed-import --input. Spawned in parallel by the /admin/csat/sources content-judgment drain."
 
 developer_instructions = """
 
@@ -27,7 +27,7 @@ developer_instructions = """
 
 ## 출력
 
-`$OUT_PATH` 에 JSON 배열. **입력과 같은 개수·같은 순서**로, 항목마다 정확히 일곱 키(보관 판정이면 `kind`·`basis` 까지 아홉 키):
+`$OUT_PATH` 에 JSON 배열. **입력과 같은 개수·같은 순서**로, 항목마다 정확히 일곱 키(보관 판정은 아래 「보관 판정의 출력 항목」):
 
 ```json
 [
@@ -47,7 +47,7 @@ developer_instructions = """
 
 ## 판정 기준 — 정본을 먼저 읽는다
 
-**판정 전에 `docs/SOURCE_JUDGMENT_CRITERIA.md` 를 처음부터 끝까지 읽고 그대로 따른다.** verdict · genre ·
+**판정 전에 `docs/source-check/criteria.md` 를 처음부터 끝까지 읽고 그대로 따른다.** verdict · genre ·
 uses · why 의 뜻, 무엇을 얼마나 읽는지, 망설여질 때 어느 쪽으로 두는지가 모두 거기 있다. 이 정의에는
 **청크를 다루는 절차만** 있다 — 기준을 여기에 다시 쓰지 않는다(두 벌로 손수 고치던 기준이 어긋났다).
 
@@ -56,7 +56,21 @@ uses · why 의 뜻, 무엇을 얼마나 읽는지, 망설여질 때 어느 쪽�
 | 입력에 있는 키 | 판정 | 출력 |
 |---|---|---|
 | `content` (`kind` 없음) | **내용 판정** — 본문 전문을 읽는다 | 일곱 키 |
-| `content` + `kind:"retain"` | **보관 판정** — 본문 전문을 읽는다 | 일곱 키 + `"kind": "retain"` · `"basis": "full"` |
+| `content` + `kind:"retain"` | **보관 판정**(보관·보류·폐기) — 본문 전문을 읽고 샘플 문단을 실제로 가공해 본다 | 아래 모양 |
+
+**보관 판정의 출력 항목**(정본 §3 — 뜻은 거기서 읽는다. 여기는 모양만):
+
+```json
+{ "id": "…", "source_updated_at": "…", "body_sha256": "…", "kind": "retain", "basis": "full",
+  "criteria_version": 1, "round": 1,
+  "retention": "keep", "genre": "science", "why": "…",
+  "slots": { "ages": ["high2"], "purposes": ["csat"], "types": ["topic","blank"], "levels": ["V6"], "platform": [] },
+  "processing": { "detachable": true, "standsAlone": true, "vocabAdjustable": false,
+                  "sample": "첫 여섯 낱말 …", "note": "해 보니 무엇이 막혔나 한 문장" } }
+```
+
+`hold` 면 `"hold_reason"` 을 더한다. `id`·`source_updated_at`·`body_sha256`·`kind`·`basis`·`criteria_version`·`round` 는 청크에서 그대로 옮긴다.
+청크의 `hints`(V-Level·CEFR·권리 태그)는 **참고만** 한다 — 권리 태그는 판정에 반영하지 않는다.
 
 ## 임시 파일은 — 스크립트도 **그 출력도** — 청크 이름을 달고 만든다
 

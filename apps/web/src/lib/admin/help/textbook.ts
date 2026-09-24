@@ -302,7 +302,17 @@ export const TBP_HELP: HelpRegistry = {
             done: '`gate-raw-with-items-ids.mjs`의 withItems가 0이 되고, 그만큼 적격 문항 수가 늘어 있습니다(2026-09-20 실측: 기사 309편 → 문항 105,294 → 119,559 · 11.97% → 13.59%).',
           },
           {
-            title: 'PLOS 원본 보관 판정 드레인',
+            title: '원문 점검 회차(보관 판정 기준 다듬기)',
+            detail:
+              '⚠️ **대량 보관 판정은 회차 루프가 먼저다**(docs/source-check/criteria.md §10 · 2026-09-24 사용자 결정). ' +
+              '① `node --tls-max-v1.2 scripts/csat/source-round-export.mjs --round N`(예행, 소스별 후보 수) → `--write`: 보관 판정이 없는 원천을 소스당 20건씩 청크로 뽑는다 — 읽기 전용 · 같은 회차는 같은 표본(재실행 안전) · 열 청크 중 하나는 이중 판정. ' +
+              '② 판정자(`csat-source-judge`)가 정본을 읽고 보관·보류·폐기 + 쓰임새 칸 + 샘플 문단 가공 시도를 쓴다. ' +
+              '③ `gate-reviews-verify.mjs` → `node scripts/csat/source-round-report.mjs --round N` 이 `docs/source-check/round-N.md`(소스·칸 집계 · κ · 사람 확인 표본)를 쓴다. ' +
+              '④ **회차마다 멈추고** 사람 확인 → 오판 분석 → 기준 개정(버전 · changelog) → `--compare` 로 재판정 변동 수. 적재(`gate-mixed-import --input`)는 그 회차 판정이 확정된 뒤다.',
+            done: '`round-N.md` 가 쓰였고 사람 확인·오판 분석이 채워졌다. 대량 판정은 κ 가 안정되고 승인을 받은 뒤 아래 드레인으로 한다.',
+          },
+          {
+            title: 'PLOS 원본 보관 판정 드레인 (회차 안정·승인 후)',
             detail:
               '① `node --tls-max-v1.2 scripts/csat/plos-raw-triage-export.mjs`(예행, 편수만) → `--write --max N`: **전문**을 V-Level 낮은 것부터 20편씩 `scripts/csat/plos-raw-triage/` 에 뽑는다 — 읽기 전용, **이미 보관 판정됐거나 이미 청크에 든 원본은 건너뛰므로 재실행 안전**. 후보는 적격 캐시에서 고르므로 새로 수확한 원본은 캐시 갱신 뒤에 보인다. ' +
               '② 에이전트(`csat-source-judge`)가 `scripts/csat/plos-raw-triage-brief.md` 를 따라 `chunk-NNN.out.json` 을 쓴다(`kind:"retain"` · `basis:"full"` · 20편에 약 26만 토큰 추정). 열 청크 중 하나는 두 번째 판정자가 따로 판정하고 `gate-reviews-agreement.mjs` 로 κ 를 잰다 — 0.6 미만이면 그 배치는 적재하지 않는다. ' +

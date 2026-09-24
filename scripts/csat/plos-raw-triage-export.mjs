@@ -13,13 +13,13 @@
 // 거쳐 온 길(같은 30편 대조): 앞 800어 판정은 전문이 보관한 17편 중 **12편을 버렸고**, 서론·고찰 판정은
 // 버린 것은 0이지만 전문이 버린 5편을 보관했다. 정확성이 기준이므로 전문을 읽힌다.
 // 판정자마다 기준이 흔들린다(서론·고찰 800편에서 청크별 보관 75~99%) — 일부 청크를 두 판정자가
-// 따로 읽고 `gate-reviews-agreement.mjs` 로 일치도를 잰다(docs/SOURCE_JUDGMENT_CRITERIA.md §9).
+// 따로 읽고 `gate-reviews-agreement.mjs` 로 일치도를 잰다(docs/source-check/criteria.md §9).
 //
 // **순서**: V-Level 낮은 것부터(발췌 수율 V5 46% · V6 20% · V7 2% — yield-funnel-20260924). 순서일 뿐
 // 버리지 않는다 — 길이·어휘·V-Level 로 원문을 제외하지 않는다(SOURCE_INTAKE_DESIGN).
 //
 // ⚠️ 이 판정은 `gate.retain` 에만 들어간다(`kind:"retain"`) — **보관 여부**다. 게시 적격은 발췌본의 판정이 연다.
-// 기준: docs/SOURCE_JUDGMENT_CRITERIA.md · 절차: scripts/csat/plos-raw-triage-brief.md.
+// 기준: docs/source-check/criteria.md · 절차: scripts/csat/plos-raw-triage-brief.md.
 //
 // 재실행 안전: 읽기만 한다. 이미 보관 판정(`gate.retain`)이나 전문 내용 판정(`gate.verdict`)이 있는 원본과
 //   이미 어떤 청크에 들어간 원본은 건너뛰고, 청크 번호는 비어 있는 가장 작은 번호를 쓴다.
@@ -31,6 +31,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
+
+import { CRITERIA_VERSION } from './gate-rules.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -132,7 +134,7 @@ for (let i = 0; i < pending.length; i += PER) {
   const items = []
   for (const r of rows.sort((a, b) => meta.get(a.id).k - meta.get(b.id).k)) {
     // 캐시가 낡았을 수 있다 — 판정 여부와 상태는 원본 행에서 다시 본다.
-    if (r.gate?.retain?.verdict || r.gate?.verdict) { skippedJudged += 1; continue }
+    if (r.gate?.retain?.retention || r.gate?.retain?.verdict || r.gate?.verdict) { skippedJudged += 1; continue }
     if (!['ready', 'published'].includes(r.status)) { skippedStatus += 1; continue }
     const m = meta.get(r.id)
     items.push({
@@ -142,6 +144,7 @@ for (let i = 0; i < pending.length; i += PER) {
       source_updated_at: r.updated_at,
       body_sha256: crypto.createHash('sha256').update(r.content ?? '').digest('hex'),
       kind: 'retain',
+      criteria_version: CRITERIA_VERSION,
       basis: 'full',
       v_level: m.v,
       words: m.words,

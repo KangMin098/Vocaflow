@@ -14,6 +14,7 @@
 import fs from 'node:fs'
 
 import { HARMFUL, UNFIT, SOURCE_USES } from './gate-rules.mjs'
+import { retainProblems } from './retain-record.mjs'
 
 // ⚠️ **적재기와 같은 집합을 써야 한다.** 여기 손으로 적어 두었더니 `poetry-drama` 가 빠져 있었고,
 //   그 조합(`use` + `poetry-drama`)은 이 검사를 통과한 뒤 `gate-mixed-import` 에서 throw 했다 —
@@ -23,6 +24,8 @@ const BLOCKED = new Set([...HARMFUL, ...UNFIT, 'poetry-drama'])
 // 그 전에 끝난 판정 파일에는 없으므로 **없어도 통과시키되**, 채운 비율을 출력에 찍는다
 // (조용히 비어 있으면 전량을 다시 읽어야 하는 것을 나중에야 알게 된다).
 const KEYS = ['id', 'verdict', 'genre', 'why', 'source_updated_at', 'body_sha256', 'uses', 'basis', 'kind']
+// 보관 판정(`kind:"retain"` · docs/source-check/criteria.md §3)의 키 — 규칙은 retain-record.mjs 가 적재기와 함께 쓴다.
+const RETAIN_KEYS = ['id', 'kind', 'basis', 'source_updated_at', 'body_sha256', 'retention', 'hold_reason', 'genre', 'why', 'slots', 'processing', 'uses', 'criteria_version', 'round']
 const pairs = process.argv.slice(2)
 if (!pairs.length || pairs.length % 2) throw new Error('<export.json> <reviews.json> 쌍으로 넘긴다')
 
@@ -39,12 +42,20 @@ for (let i = 0; i < pairs.length; i += 2) {
   const whyCount = new Map()
   for (const [n, r] of (Array.isArray(reviews) ? reviews : []).entries()) {
     const at = `#${n + 1}`
-    const extra = Object.keys(r ?? {}).filter((k) => !KEYS.includes(k))
+    const extra = Object.keys(r ?? {}).filter((k) => !(r?.kind === 'retain' ? RETAIN_KEYS : KEYS).includes(k))
     if (extra.length) problems.push(`${at} 여분 키: ${extra.join(',')}`)
     const src = byId.get(r?.id)
     if (!src) { problems.push(`${at} export 에 없는 id: ${r?.id}`); continue }
     if (seen.has(r.id)) problems.push(`${at} 중복 id: ${r.id}`)
     seen.add(r.id)
+    if (r.kind === 'retain') {
+      problems.push(...retainProblems(r, at))
+      if (Date.parse(r.source_updated_at) !== Date.parse(src.source_updated_at)) problems.push(`${at} 리비전 불일치: ${r.id}`)
+      if (r.body_sha256 !== src.body_sha256) problems.push(`${at} 본문 해시 불일치: ${r.id}`)
+      if (src.kind !== 'retain') problems.push(`${at} kind 불일치: 청크 ${src.kind ?? 'content'} · 판정 retain`)
+      whyCount.set(r.why, (whyCount.get(r.why) ?? 0) + 1)
+      continue
+    }
     if (!['use', 'narrative', 'reject'].includes(r.verdict)) problems.push(`${at} verdict 값이 아니다: ${r.verdict}`)
     if (typeof r.genre !== 'string' || !r.genre) problems.push(`${at} genre 없음`)
     if (typeof r.why !== 'string' || r.why.trim().length < 10) problems.push(`${at} why 가 10자 미만`)

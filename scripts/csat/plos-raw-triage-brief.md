@@ -1,6 +1,6 @@
 # PLOS 원본 보관 판정 드레인 — 절차
 
-> **판정 기준은 [docs/SOURCE_JUDGMENT_CRITERIA.md](../../docs/SOURCE_JUDGMENT_CRITERIA.md) 하나다.** 여기에는 기준을 쓰지 않는다 —
+> **판정 기준은 [docs/source-check/criteria.md](../../docs/source-check/criteria.md) 하나다.** 여기에는 기준을 쓰지 않는다 —
 > 이 파일은 청크를 뽑고, 판정을 맡기고, 일치도를 재고, 적재하는 순서만 적는다.
 
 ## 순서

@@ -278,18 +278,43 @@ export function decide({ purpose, verdict, genre, codes }) {
  *   `retain` 은 **보관만** 가른다. 게시 적격은 여전히 발췌본의 전문 판정이 연다.
  */
 export function retentionOf({ purpose, verdict, retain } = {}) {
+  // `retain` — 보관 판정(docs/source-check/criteria.md v1: keep·hold·discard). 옛 기록은 use·narrative·reject 를
+  //   담고 있으므로 둘 다 읽는다. 보관 판정이 있으면 **모든 소스에서** 그것이 이긴다(원천 단위 판정).
+  const r = retain === 'keep' || retain === 'use' || retain === 'narrative' ? 'keep'
+    : retain === 'discard' || retain === 'reject' ? 'discard'
+    : retain === 'hold' ? 'hold' : null
+  if (r === 'hold') return 'hold'
   if (purpose === 'raw') {
-    const v = retain ?? verdict
-    if (v === 'reject') return 'discard'
-    if (v === 'use' || v === 'narrative') return 'keep-pending-extraction'
+    const v = r ?? (verdict === 'reject' ? 'discard' : verdict === 'use' || verdict === 'narrative' ? 'keep' : null)
+    if (v === 'discard') return 'discard'
+    if (v === 'keep') return 'keep-pending-extraction'
     return 'undecided'
   }
+  if (r) return r
   if (verdict === 'use' || verdict === 'narrative') return 'keep'
   if (verdict === 'reject') return 'discard'
   return 'undecided'
 }
 
-export const RETENTION = new Set(['keep', 'keep-pending-extraction', 'discard', 'undecided'])
+/** 보관 기록(`gate.retain`)에서 `retentionOf` 에 넘길 값 — 새 기록은 `retention`, 옛 기록은 `verdict`. */
+export const retainValueOf = (retain) => retain?.retention ?? retain?.verdict ?? undefined
+
+export const RETENTION = new Set(['keep', 'keep-pending-extraction', 'hold', 'discard', 'undecided'])
+
+// ── 보관 판정 어휘 — 정본 docs/source-check/criteria.md §3 과 **같아야 한다**(judge-criteria.test 가 대조한다) ──
+
+/** 기준 버전. 판정 기록마다 남긴다 — 개정 뒤 재판정 대상을 이것으로 가른다. */
+export const CRITERIA_VERSION = 1
+export const RETENTION_VERDICTS = new Set(['keep', 'hold', 'discard'])
+export const HOLD_REASONS = new Set(['criteria-gap', 'processing-unclear', 'incomplete-source', 'borderline'])
+export const SLOT_AGES = new Set(['elem', 'mid', 'high1', 'high2', 'high3', 'adult'])
+export const SLOT_PURPOSES = new Set(['school', 'mock', 'csat', 'reading', 'vocab'])
+/** 시중 교재 표준 발문 41종이 대응하는 우리 유형 16종(`textbook/market-spec.json` typeCoverage). */
+export const SLOT_TYPES = new Set(['topic', 'title', 'main_point', 'claim', 'purpose', 'summary', 'blank', 'order', 'insert', 'irrelevant',
+  'content_match', 'mood', 'long_reference', 'vocab_choice', 'grammar_choice', 'grammar_fix'])
+/** 플랫폼 고유 유형의 원천 속성 — **잠정 [추론]**. 회차 실측으로 확정·폐기한다. */
+export const SLOT_PLATFORM = new Set(['audio', 'data-claim', 'myth-rebuttal', 'claim-evidence', 'then-now'])
+export const SLOT_LEVEL = /^V(?:[0-9]|1[01])$/
 
 /**
  * **규칙 판(版). 판정 결과를 바꾸는 수정을 하면 반드시 올린다.**
