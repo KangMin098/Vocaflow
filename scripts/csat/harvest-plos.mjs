@@ -1,6 +1,11 @@
 // scripts/csat/harvest-plos.mjs
 //
-// **적재하기 전에 채점한다 — 통과한 것만 넣는다.**
+// **적재하기 전에 채점한다 — 소재 몫이 남은 칸에 담는다.**
+//
+// ⚠️ **2026-09-24 부터 길이·모양 점수로 버리지 않는다.** 아래 설명 중 「통과한 것만 적재」는 옛 설계다.
+//   채점(`csat_fit.pass`)은 기록만 하고, 보관 여부는 내용 판정(`gate.retain` ·
+//   docs/SOURCE_JUDGMENT_CRITERIA.md)이 가른다. 이유: 버린 원문은 흔적이 없어 무엇이 왜 빠졌는지
+//   잴 수 없고, 적격 판정은 이미 길이 차단을 걷어냈다(2026-09-23 · SOURCE_INTAKE_DESIGN).
 //
 // ── 지금 경로가 왜 부족한가 ─────────────────────────────────────────
 // 지금은 「목록을 받아 → 글마다 HTML 을 다시 GET → 적재 → 나중에 채점」이다. 그래서
@@ -298,10 +303,14 @@ for (let p = 0; p < PAGES; p++) {
     seen++
     if (!d.body || !d.id) continue
     const text = cleanBody(Array.isArray(d.body) ? d.body.join('\n') : d.body)
-    if (text.length < 800) continue
+    // 본문이 비면 담을 것이 없다 — 이것은 길이 기준이 아니라 빈 값 방지다.
+    if (!text.trim()) continue
+    // ⚠️ **길이·모양으로 원문을 버리지 않는다**(2026-09-24 · SOURCE_INTAKE_DESIGN 「길이로 원문을 제외하지 않는다」).
+    //   예전에는 800자 미만이거나 기출 길이 창이 하나도 없으면(`pass <= 0`) **적재 자체를 안 했다** —
+    //   적격 판정에서 길이 차단을 걷어낸 뒤에도(2026-09-23) 여기서는 원문이 흔적 없이 사라지고 있었다.
+    //   창 점수는 기록만 한다(`csat_fit.pass`). 보관 여부는 내용 판정(`gate.retain`)이 가른다.
     const sc = scoreArticle(text)
-    if (sc.pass <= 0) continue
-    fitOk++
+    if (sc.pass > 0) fitOk++
     // 제목은 소재의 가장 강한 단서다 — 분류기에 **반드시 함께 넘긴다**.
     // 넘기지 않으면 같은 글이 적재 경로와 `backfill-topic.mjs` 에서 다른 칸으로 간다.
     const title = String(d.title_display ?? '').replace(/<[^>]+>/g, '').trim()

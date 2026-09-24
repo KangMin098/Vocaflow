@@ -7,8 +7,9 @@
 //
 // ── 이 스크립트가 지키는 것 ───────────────────────────────────────────
 // · **재실행 안전** — `source_id` 로 이미 있는 것을 먼저 세고 건너뛴다. 건너뛴 수를 출력한다.
-// · **빈 값을 넣지 않는다** — 본문이 300어 미만이면 넣지 않는다(빈 값이 들어가면 구멍이
-//   영영 남는다 · AGENTS.md 드레인 규칙).
+// · **빈 본문은 넣지 않는다** — 빈 값이 들어가면 구멍이 영영 남는다.
+//   ⚠️ **길이로는 버리지 않는다**(2026-09-24). 예전에는 300어 미만을 건너뛰었다 — AGENTS.md 의 드레인 규칙
+//   (「LLM 이 채운 빈 값·너무 짧은 값」)을 원문 길이에 잘못 옮긴 것이었다. 짧은 원문은 적재하고 편수만 따로 센다.
 // · **`--commit` 없이는 아무것도 쓰지 않는다.**
 // · **`count ?? 0` 을 쓰지 않는다** — 없는 테이블도 head 요청엔 count=null 이다.
 //   오류를 0 으로 삼키면 「이미 있음 0」으로 읽혀 전량 중복 적재된다.
@@ -157,7 +158,7 @@ for (let i = 0; i < sourceIds.length; i += 200) {
 console.log(`이미 있음 ${existing.size}편`)
 
 // ── 적재 ──────────────────────────────────────────────────────────────
-let inserted = 0, skipped = 0, tooShort = 0, blockedByLicense = 0
+let inserted = 0, skipped = 0, empty = 0, short = 0, blockedByLicense = 0
 const byLicenseSource = {}
 const failures = []
 let n = 0
@@ -169,7 +170,8 @@ for (const d of wanted) {
   if (existing.has(source_id)) { skipped++; continue }
 
   const prose = cleanProse(bodies.get(d.id))
-  if (W(prose) < 300) { tooShort++; continue } // 빈 값·너무 짧은 값을 넣지 않는다
+  if (!prose.trim()) { empty++; continue } // 빈 본문만 건너뛴다 — 길이 기준이 아니다
+  if (W(prose) < 300) short++ // 기록만 한다(300어는 기출 지문 규격보다 길다 — 버릴 이유가 아니다)
 
   const raw = m.raw ?? {}
   // 개작 불가·라이선스 없음은 **그대로 싣는 원문이 아니다**(R3·R4 재저작 입력이다).
@@ -200,7 +202,8 @@ for (const d of wanted) {
 console.log(`
 ${COMMIT ? '적재' : 'dry-run'}   ${inserted}편
 건너뜀(이미 있음) ${skipped}편
-건너뜀(300어 미만) ${tooShort}편
+건너뜀(빈 본문) ${empty}편
+적재 중 300어 미만 ${short}편 (버리지 않음 · 기록용)
 건너뜀(개작 불가·라이선스 없음) ${blockedByLicense}편  ${JSON.stringify(byLicenseSource)}
 실패        ${failures.length}편`)
 for (const f of failures.slice(0, 10)) console.log('  ' + f)
