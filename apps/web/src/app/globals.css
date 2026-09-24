@@ -10,7 +10,7 @@
 @import '@vocaflow/design-tokens/tokens.css';
 /* 화면 스킨 — <html data-skin="tines"> 일 때만 켜진다(DD-68). */
 @import '@vocaflow/design-tokens/skins/tines.css';
-/* Admin 앱 스킨 — /admin 이하([data-area="admin"])에서만 켜진다(DD-76). tines.css 뒤에 와야 이긴다. */
+/* Admin 앱 스킨 — /admin 이하([data-area="admin"])에서만 켜진다(DD-82). tines.css 뒤에 와야 이긴다. */
 @import '@vocaflow/design-tokens/skins/admin-app.css';
 
 @tailwind base;
@@ -1109,12 +1109,13 @@ body.studying .sidebar:hover { opacity: 1; }
   border-radius: 999px;
 }
 /* 대화상자 뒤 막 — 참조는 화면을 검게 덮지 않는다(검색은 막 없이 뜨는 유리 막대). 옅은 라벤더 + blur 12px */
-:root[data-skin="tines"] [class*="fixed"]:is(.bg-black/40, .bg-black/50, .bg-black/60) {
+/* `/` 는 선택자에서 이스케이프해야 한다 — 안 하면 브라우저는 이 규칙을 버리고 CSS 압축기는 빌드를 멈춘다(2026-09-24 발견). */
+:root[data-skin="tines"] [class*="fixed"]:is(.bg-black\/40, .bg-black\/50, .bg-black\/60) {
   background-color: rgba(236, 232, 253, 0.55);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
-:root[data-skin="tines"][data-theme="dark"] [class*="fixed"]:is(.bg-black/40, .bg-black/50, .bg-black/60) {
+:root[data-skin="tines"][data-theme="dark"] [class*="fixed"]:is(.bg-black\/40, .bg-black\/50, .bg-black\/60) {
   background-color: rgba(25, 18, 38, 0.6);
 }
 /* 입력 — 참조 1px #d7c4fa, 포커스 때 보라 */

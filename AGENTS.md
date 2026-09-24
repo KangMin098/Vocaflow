@@ -126,7 +126,7 @@ API 키를 기다리며 "막혔다" 고 보고하지 않는다 — **지금 돌�
 - CSAT 원문 배치: 새 도구 전 기존 자산 검색 → `csat-sources-audit` → 사유별 대상·dry-run → 소량 검증 → 재감사. 적격 정본은 `evaluateSource`; 내용 판정은 UUID·본문 해시·revision에 묶는다. 상세 `.agents/skills/csat-source-audit/SKILL.md`.
 
 **LCP** 9 외부 소스 → 도서 큐레이션(auto_curate_book 게이트 + 4축 난이도) · **VCB** seed → enrichment → shared_words(cast-2000 audit chain) · **VRL** 4축 분류(V-Level 0-11 · Track 6 · Domain 8 · Skill 5) + 진단 5종 · **ACP** 14 소스 수집(`scripts/acp/collect-daily.mjs`) → `library_articles`. **arXiv 는 없다**(`20260614240000_acp_remove_arxiv_source`, CHECK 제약이 재삽입 차단). 상세 [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md).
-Admin Console: `/admin/*`(route group 미사용) · 액센트 = Deep Ink `--p` + `ShieldCheck` + 「Admin」 텍스트(2026-09-18 결정 · 보라 금지는 DD-66 으로 삭제) · 상세 [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md).
+Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldCheck` + 「Admin」 텍스트 · 값은 앱 스킨 `skins/admin-app.css`(먹색 · Inter · 보라 0 — DD-82, 2026-09-24) · 상세 [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md).
 
 ## 자동화 정책 (사용자 standing authorization · 2026-06-08)
 

@@ -114,7 +114,7 @@ const fontTinesMono = Space_Mono({
   preload: false,
 });
 
-// ── Admin 앱 스킨(DD-76) — 레퍼런스 앱의 InterVariable 은 Inter(OFL) 그대로다. 변수는 skins/admin-app.css 가 읽는다.
+// ── Admin 앱 스킨(DD-82) — 레퍼런스 앱의 InterVariable 은 Inter(OFL) 그대로다. 변수는 skins/admin-app.css 가 읽는다.
 // 고정폭(Geist Mono)은 next 14.2 폰트 목록에 없어 이미 싣는 JetBrains Mono 로 대체한다. preload 를 끈다 — /admin 밖에서는 받지 않는다.
 const fontAdminSans = Inter({
   subsets: ["latin"],
