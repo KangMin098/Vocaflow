@@ -1,5 +1,5 @@
 name = "csat-source-judge"
-description = "Judge ONE chunk of the scoped CSAT source content drain — read each full body and write a UUID/revision/hash-bound review file (verdict·genre·why) for gate-mixed-import --input. Spawned in parallel by the /admin/csat/sources content-judgment drain."
+description = "Judge ONE chunk of a CSAT source judgment drain (content judgment on full bodies, or retention judgment on PLOS sections) — criteria live in docs/SOURCE_JUDGMENT_CRITERIA.md; read every input body and write a UUID/revision/hash-bound review file (verdict·genre·why) for gate-mixed-import --input. Spawned in parallel by the /admin/csat/sources content-judgment drain."
 
 developer_instructions = """
 
@@ -19,7 +19,7 @@ developer_instructions = """
 | `title` · `source` | 제목과 출처 |
 | `source_updated_at` | 본문 개정 시각 — **그대로 옮긴다**(적재기의 CAS 가 이걸로 잠근다) |
 | `body_sha256` | 본문 전체 해시 — **그대로 옮긴다**(적재기가 본문 변경을 이걸로 잡는다) |
-| `content` | **본문 전문.** 발췌가 아니다 |
+| `content` | **본문 전문.** 발췌가 아니다 (보관 판정 청크에는 없고 대신 `sections` · `sections_found` · `words` · `has_items`) |
 | `currentGate` | 지금 게이트 값(대개 `null` 또는 verdict 없음) |
 
 ⚠️ `id` · `source_updated_at` · `body_sha256` 은 **한 글자도 고치지 않는다.** 이 셋이 판정을
@@ -27,7 +27,7 @@ developer_instructions = """
 
 ## 출력
 
-`$OUT_PATH` 에 JSON 배열. **입력과 같은 개수·같은 순서**로, 항목마다 정확히 일곱 키:
+`$OUT_PATH` 에 JSON 배열. **입력과 같은 개수·같은 순서**로, 항목마다 정확히 일곱 키(보관 판정이면 `basis` 까지 여덟 키):
 
 ```json
 [
@@ -45,91 +45,27 @@ developer_instructions = """
 
 본문(`content`)을 출력에 **다시 쓰지 않는다** — 파일만 커지고 적재기는 안 읽는다.
 
-## verdict — 셋 중 하나
+## 판정 기준 — 정본을 먼저 읽는다
 
-| 값 | 언제 |
-|---|---|
-| `use` | 설명·논증문으로 읽힌다. 한 편의 글로 논지가 서고 자족적이다 |
-| `narrative` | 이야기·전기·회고 — 사건이 시간순으로 흐른다 (심경 19번·장문 43~45번 유형용) |
-| `reject` | 아래 차단 장르 중 하나다 |
+**판정 전에 `docs/SOURCE_JUDGMENT_CRITERIA.md` 를 처음부터 끝까지 읽고 그대로 따른다.** verdict · genre ·
+uses · why 의 뜻, 무엇을 얼마나 읽는지, 망설여질 때 어느 쪽으로 두는지가 모두 거기 있다. 이 정의에는
+**청크를 다루는 절차만** 있다 — 기준을 여기에 다시 쓰지 않는다(두 벌로 손수 고치던 기준이 어긋났다).
 
-`narrative` 는 **탈락이 아니다.** 서사를 통째로 막았다가 `mood`·`long_reference` 지문이 재고에서
-사라진 적이 있다(2026-09-06 · `gate-rules.mjs` 주석). 이야기면 `narrative` 라고 정확히 적는다.
+청크가 어느 판정인지는 입력으로 안다:
 
-## genre
-
-**`reject` 면 genre 는 반드시 아래 차단 장르 9종 중 하나여야 한다.**
-
-| genre | 뜻 |
-|---|---|
-| `fragmentary` | 캡션·표 조각·문장 중간에서 끊긴 덩어리. 앞뒤 없이 뜻이 안 선다 |
-| `reference` | 사전 항목·목록·참고문헌·방법 절차·수치 나열 — 읽는 글이 아니다 |
-| `mixed` | 서로 다른 글이 섞였다. 주제가 중간에 갈아엎힌다 |
-| `bias` | 특정 집단에 대한 편견이 전제로 깔렸다 |
-| `doctrine` | 교리·신조를 사실로 제시한다 |
-| `pseudoscience` | 의사과학 |
-| `obsolete-fact` | 지금은 폐기된 사실을 현재형으로 말한다 |
-| `polemic` | 선동·일방적 정치 논박 |
-| `poetry-drama` | 운문·희곡 |
-
-**`use`·`narrative` 의 genre 는 주제 분류다** — 아래에서 고른다(새 낱말을 만들지 않는다):
-`health` `science` `social` `technology` `nature` `space` `climate` `history` `education`
-`economics` `news` `art` `essay` `psychology` `language` `sports` `environment` `engineering`
-`culture` `geography` `energy` `literature` `fiction` `biography` `memoir` `travel` `food` `agriculture`
-
-⚠️ **`use`/`narrative` 에 차단 장르를 쓰면 적재기가 조용히 게시한다.** 검사기가 잡지만, 애초에 쓰지 않는다.
-
-## uses — 이 원문으로 어떤 교재를 만들 수 있는가
-
-**`use`·`narrative` 면 하나 이상. `reject` 면 빈 배열.** 정본은 `gate-rules.SOURCE_USES`.
-
-⚠️ **이것은 수능 목록이 아니다.** 아래 대응은 `textbook/market-spec.json` — 시중 영어 교재 **79종**
-(94문서 · 5,229쪽 · 초등 6 · 중등 10 · 고등 30권)에서 실측한 표준 발문 41종의 매핑이다.
-
-| 태그 | 읽어서 판단할 것 | 이 재료가 여는 시중 유형 |
+| 입력에 있는 키 | 판정 | 출력 |
 |---|---|---|
-| `argument` | 논지가 한 편으로 선다 | 주제·제목·요지·주장·목적·요약·빈칸 |
-| `structured` | 단락·문장 경계가 뚜렷해 떼고 끼울 수 있다 | 순서·문장삽입·무관한 문장 |
-| `sequence` | 사건·절차가 시간순으로 이어진다 | 장문 지칭·서사 지문 |
-| `mood` | 인물의 심경·분위기가 읽힌다 | 심경 |
-| `factual` | 확인 가능한 사실 진술이 여럿이다 | 내용 일치 |
-| `vocab` | 문맥으로 뜻이 잡히는 어휘가 있다 | 어휘 선택·어휘 빈칸·어휘 교재 |
-| `grammar` | 문장이 정확해 어법 문항을 만들 수 있다 | 어법 선택·어법 수정·배열 |
-| `spoken` | 대화·구어체다 | 듣기·받아쓰기·낭독 |
+| `content` | **내용 판정** — 본문 전문을 읽는다 | 일곱 키 |
+| `sections` · `basis:"sections"` | **보관 판정** — 서론·고찰 절을 전부 읽는다 | 일곱 키 + `"basis": "sections"` |
 
-⚠️ **길이로 고르지 않는다.** 「짧아서 장문은 안 되겠다」 같은 판단을 하지 말라 —
-어수창과 밴드는 기계가 이미 잰다(`compose-unit.itemWordSpec`). 당신이 답할 것은
-**그 재료가 이 글에 있는가**뿐이다. 1,000어짜리에도 `mood` 가 있을 수 있고
-100어짜리에도 `argument` 가 있을 수 있다.
+## 임시 파일은 — 스크립트도 **그 출력도** — 청크 이름을 달고 만든다
 
-넉넉히 달지 말고 **실제로 그 재료가 있는 것만** 단다. 전부 여덟 개를 다는 글은 거의 없다.
-
-## why
-
-**한국어 한 문장 · 12자 이상.** 라벨이 말하지 않는 것을 적는다 — 무엇이 이 글을 그 판정으로 만들었는가.
-「좋은 글이다」처럼 되짚을 수 없는 말은 쓰지 않는다. 나중에 이 판정을 뒤집으려는 사람이 읽을 문장이다.
-
-## 판정 요령 (실측)
-
-- **자족성이 첫 축이다.** 지문 밖(그림·앞 장·원본 쪽)을 가리켜야 뜻이 서면 `reject`/`fragmentary`.
-- **VOA 기사**: 본문 끝에 댓글 안내·구독 권유·기자 소개가 붙어 오는 것이 있다. 그 덩어리 때문에
-  글 자체를 버리지 않는다 — 본문이 한 편으로 서면 `use`/`narrative` 다. 잔재 제거는 다른 공정이다.
-  반대로 **본문이 링크 목록·프로그램 편성표뿐**이면 `reject`/`reference`.
-- **Gutenberg 발췌**(300~400어): 소설·전기 조각이 많다. 사건이 흐르면 `narrative`, 논설·수필이면 `use`.
-  **문장 중간에서 시작하거나 끝나면** 그것만으로 버리지 않는다 — 발췌는 원래 그렇다. 한 덩어리로
-  뜻이 서는지만 본다. 장면이 두 개 이상 겹쳐 주제가 갈리면 `mixed`.
-- **논문 본문**(수천 어): 서론 1~2단락이 통념→반전→물음으로 서면 `use`. 그러나 Methods·Results 수치
-  나열, 저자 기여·연구비 진술이 본문의 중심이면 `reference`.
-- **인용 표시**(`[12]` · `(Smith et al., 2019)`)가 남아 있는 것만으로는 탈락이 아니다.
-  기계 규칙(`gate-rules.mjs`)이 따로 본다. 여기서는 **글로서 읽히는가**만 본다.
-- **소재가 민감하다는 이유만으로 버리지 않는다.** 종교·전쟁·범죄가 소재인 것과, 교리를 사실로
-  제시하거나(`doctrine`) 폭력을 전시하는 것은 다르다. 판단은 **그 본문이 실제로 하는 말**에 건다.
-
-## 임시 파일은 청크 이름을 달고 만든다
-
-본문을 슬라이스로 읽으려고 보조 스크립트를 쓴다면 **파일명에 청크 이름을 넣는다**(`dump-<청크>.mjs`).
-`dump.mjs` 처럼 흔한 이름을 스크래치패드에 쓰면 **같이 도는 다른 청크의 에이전트가 덮어쓴다.**
-실측 2026-09-20 에 한 번, 2026-09-23 에 또 한 번 그렇게 됐다 — 두 번째는 판정 직전에 잡혔다.
+본문을 슬라이스로 읽으려고 보조 스크립트를 쓴다면 **스크립트와 그 출력 파일 모두 파일명에 청크 이름을
+넣는다**(`dump-<청크>.mjs` · `out-<청크>-a.txt`). `dump.mjs` · `p2.txt` 처럼 흔한 이름을
+스크래치패드에 쓰면 **같이 도는 다른 청크의 에이전트가 덮어쓴다.**
+실측 2026-09-20 에 한 번, 2026-09-23 에 두 번 그렇게 됐다. 셋째 사고가 **스크립트가 아니라 덤프 파일**
+(`p2.txt`)에서 났다 — 스크립트 이름만 지키면 막히지 않는다. 세 번 다 판정 직전에 잡혔지만,
+잡힌 것은 **제목 대조를 했기 때문**이다.
 
 ⚠️ 이 사고는 **오류를 내지 않는다.** 남의 청크 본문을 읽고 내 청크 `id` 에 판정을 붙이면
 검사기도 적재기도 통과한다(`id`·리비전·해시는 내 청크 것이니까). 그래서 **파일명으로 막는 수밖에 없다.**

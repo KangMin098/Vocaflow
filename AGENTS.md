@@ -32,6 +32,7 @@
 | UI / 컴포넌트 | [DESIGN.md](./DESIGN.md)(방향·화면별 골격·서명) · [DESIGN_SYSTEM](./docs/DESIGN_SYSTEM.md) · [MODULES](./docs/MODULES.md) · 발명 참고 [vocaflow-design](./.claude/skills/vocaflow-design/SKILL.md) |
 | DB / 마이그레이션 | [DB_SCHEMA](./docs/DB_SCHEMA.md) · [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md) |
 | 라이브러리 큐레이션 | [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md) · [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md) |
+| 원문 판정(내용·보관) | [SOURCE_JUDGMENT_CRITERIA](./docs/SOURCE_JUDGMENT_CRITERIA.md) — 판정 기준 정본. 판정자 정의·청크 지시에 기준을 다시 쓰지 않는다 |
 | 만화(CCP) | [CCP_LIBRARY_INTEGRATION](./docs/CCP_LIBRARY_INTEGRATION.md) · [COMIC_PIPELINE_DESIGN](./scripts/comic/docs/COMIC_PIPELINE_DESIGN.md) |
 | 학습 모듈 | [LEARNING_MODEL](./docs/LEARNING_MODEL.md) · [MODULES](./docs/MODULES.md) |
 | 학습자 관리 / 목표 / B2B | [LEARNER_MANAGEMENT](./docs/LEARNER_MANAGEMENT.md) · [VOCAB_LAYERS](./docs/VOCAB_LAYERS.md) |
