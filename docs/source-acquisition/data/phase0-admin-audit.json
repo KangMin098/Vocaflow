@@ -1,0 +1,1730 @@
+{
+ "contract": "phase0-audit/v1",
+ "auditedAt": "2026-09-23T23:46:37.093Z",
+ "scope": "/admin/csat 아래 page.tsx 12개 전수 + /api/admin/csat · /api/csat 라우트 8개",
+ "evidence": {
+  "코드": "apps/web/src/app/admin/csat/**/page.tsx · apps/web/src/lib/csat/** · apps/web/src/lib/textbook/**",
+  "DB": "Supabase jajenrevcbmrpaliomxv — @supabase/supabase-js (scripts/lib/supabase-client.mjs) 로 직접 질의",
+  "판정표": "docs/source-acquisition/criteria.md §G0-2"
+ },
+ "dbMeasuredAt": "2026-09-23T23:46:37.096Z",
+ "dbFacts": {
+  "library_articles": 68604,
+  "library_articles_by_status": {
+   "ready": 63852,
+   "archived": 3491,
+   "published": 250,
+   "queued": 1009,
+   "failed": 2
+  },
+  "csat_source_eligibility": 64102,
+  "csat_source_eligibility_grades": {
+   "usable": 10560,
+   "blocked": 22484,
+   "unjudged": 31058
+  },
+  "csat_source_eligibility_latest_measured_at": "2026-09-23T21:14:12.143Z",
+  "csat_source_eligibility_history": 97486,
+  "csat_source_snapshots_latest": {
+   "taken_at": "2026-09-23T18:20:00.072Z",
+   "rows_total": 109047,
+   "taken_by": "cron"
+  },
+  "textbook_shelf_refreshed_at": "2026-09-23T18:00:00.070Z",
+  "textbook_shelf_inventory_items": 880337,
+  "textbook_shelf_inventory_explained": 875618,
+  "csat_dcp_items_exact_partial": {
+   "V1": 1140,
+   "V2": 8885,
+   "V3": 9459,
+   "V4": 25105,
+   "V8": 1097,
+   "V9": 57,
+   "V10": 0,
+   "V11": 0,
+   "subtotal": 45743,
+   "unmeasured": [
+    "V5",
+    "V6",
+    "V7",
+    "v_level=null"
+   ]
+  },
+  "csat_dcp_items_kind_book": 808,
+  "csat_item_state_blocked": {
+   "review_revise": 202,
+   "review_fail": 90
+  },
+  "csat_item_reviews": {
+   "total": 963,
+   "revise": 501,
+   "pass": 303,
+   "fail": 159
+  },
+  "csat_pipeline_approvals": {
+   "total": 290,
+   "press/approved": 1
+  },
+  "textbook_volume_renders": 19,
+  "csat_source_registry": 22,
+  "csat_source_targets": 6,
+  "library_books": 401,
+  "gutenberg_rows": 0
+ },
+ "screens": [
+  {
+   "route": "/admin/csat",
+   "file": "apps/web/src/app/admin/csat/page.tsx",
+   "loaders": [
+    "loadFactoryLine (lib/csat/factory.ts)",
+    "fetchTextbookShelf (lib/textbook/shelf.ts)",
+    "loadFreedomView (lib/textbook/freedom-load.ts)",
+    "measureProduction (lib/textbook/production-stages.ts)"
+   ],
+   "tables": [
+    "csat_stage_gates",
+    "csat_source_snapshots",
+    "textbook_volume_renders",
+    "user_textbook_selections",
+    "shared_dictionary"
+   ],
+   "rpcs": [
+    "csat_coverage",
+    "textbook_shelf_inventory",
+    "textbook_shelf_refreshed_at",
+    "textbook_curriculum_vocab_counts",
+    "textbook_shelf_sources"
+   ],
+   "snapshots": [
+    {
+     "file": "apps/web/src/lib/textbook/source-eligibility-snapshot.json",
+     "measuredAt": "2026-09-23T01:43:28.769Z",
+     "staleBy": "DB csat_source_eligibility 대비 -23,618행",
+     "note": "factory.ts:34 — 홈이 composable 13,730 을 여기서 읽는다(홈도 저장소 스냅샷을 읽는다)"
+    },
+    {
+     "file": "apps/web/src/lib/textbook/volume-contents.json",
+     "measuredAt": "2026-09-23T01:02:00.245Z",
+     "staleBy": "조판 기록 19권과 시리즈·단 조합 일치"
+    },
+    {
+     "file": "DB 표 csat_source_snapshots (저장소 파일 아님 · 크론 20 */6 * * *)",
+     "measuredAt": "2026-09-23T18:20:00.072Z",
+     "staleBy": "rows_total 109,047 vs library_articles 68,604 = -40,443"
+    },
+    {
+     "file": "DB MV textbook_shelf_inventory_mv (저장소 파일 아님)",
+     "measuredAt": "2026-09-23T18:00:00.070Z",
+     "staleBy": "셀 수 있던 밴드(V1~4·8·9)에서 DB 실측과 완전 일치"
+    },
+    {
+     "file": "docs/reports/textbook-publisher-benchmark.json",
+     "measuredAt": "2026-09-17T04:48:04.641Z",
+     "staleBy": "7일"
+    },
+    {
+     "file": "docs/reports/textbook-publisher-benchmark-volume.json",
+     "measuredAt": "2026-09-17T12:02:12.376Z",
+     "staleBy": "7일"
+    }
+   ]
+  },
+  {
+   "route": "/admin/csat/strategy",
+   "file": "apps/web/src/app/admin/csat/strategy/page.tsx",
+   "loaders": [
+    "loadMarketView (lib/csat/factory-views.ts)",
+    "readBench (lib/csat/factory-bench.ts)"
+   ],
+   "tables": [
+    "csat_item_attempts",
+    "textbook_volume_renders"
+   ],
+   "rpcs": [],
+   "snapshots": [
+    {
+     "file": "docs/reports/textbook-publisher-benchmark.json",
+     "measuredAt": "2026-09-17T04:48:04.641Z",
+     "staleBy": "7일 · itemsMeasured 880,252 vs MV 880,337 (+85)"
+    },
+    {
+     "file": "docs/reports/textbook-publisher-benchmark-volume.json",
+     "measuredAt": "2026-09-17T12:02:12.376Z",
+     "staleBy": "7일 · 420문항(인쇄분 한정)"
+    }
+   ]
+  },
+  {
+   "route": "/admin/csat/blueprint",
+   "file": "apps/web/src/app/admin/csat/blueprint/page.tsx",
+   "loaders": [
+    "loadBlueprintView (lib/csat/factory-views.ts)",
+    "countItemCells (lib/csat/item-count.ts)"
+   ],
+   "tables": [
+    "csat_dcp_items",
+    "csat_stage_gates"
+   ],
+   "rpcs": [],
+   "snapshots": []
+  },
+  {
+   "route": "/admin/csat/sourcing",
+   "file": "apps/web/src/app/admin/csat/sourcing/page.tsx",
+   "loaders": [
+    "loadSourceConsole (lib/csat/source-console.ts)",
+    "getKidSourcePanel (lib/textbook/kid-source-stats.ts)",
+    "retakeSourceSnapshotAction (sourcing/actions.ts · 쓰기)"
+   ],
+   "tables": [
+    "csat_source_snapshots",
+    "csat_source_registry",
+    "csat_source_targets",
+    "csat_stage_gates",
+    "library_articles",
+    "library_books"
+   ],
+   "rpcs": [
+    "csat_source_snapshot_take (버튼 · 쓰기)"
+   ],
+   "snapshots": [
+    {
+     "file": "DB 표 csat_source_snapshots (저장소 파일 아님 · 크론 20 */6 * * *)",
+     "measuredAt": "2026-09-23T18:20:00.072Z",
+     "staleBy": "rows_total 109,047 vs 지금 68,604 = -40,443. payload.sources 에 gutenberg n=40,519 (ready 23,618 · archived 16,894) 이 그대로",
+     "note": "2026-09-24 00:20·06:20 UTC 실행분이 없다"
+    }
+   ]
+  },
+  {
+   "route": "/admin/csat/authoring",
+   "file": "apps/web/src/app/admin/csat/authoring/page.tsx",
+   "loaders": [
+    "loadAuthorView (lib/csat/factory-line-views.ts)",
+    "loadDcpInventory (lib/csat/item-count.ts)",
+    "loadItemState (lib/csat/item-state.ts)"
+   ],
+   "tables": [
+    "csat_item_state"
+   ],
+   "rpcs": [
+    "textbook_shelf_inventory",
+    "textbook_shelf_refreshed_at"
+   ],
+   "snapshots": [
+    {
+     "file": "DB MV textbook_shelf_inventory_mv (저장소 파일 아님)",
+     "measuredAt": "2026-09-23T18:00:00.070Z",
+     "staleBy": "합 880,337문항 · gutenberg 삭제(2026-09-23T22:25Z) 이전 값이지만 셀 수 있던 밴드에서 DB 와 일치"
+    }
+   ]
+  },
+  {
+   "route": "/admin/csat/explain",
+   "file": "apps/web/src/app/admin/csat/explain/page.tsx",
+   "loaders": [
+    "loadExplainView (lib/csat/factory-line-views.ts)",
+    "loadDcpInventory"
+   ],
+   "tables": [],
+   "rpcs": [
+    "textbook_shelf_inventory",
+    "textbook_shelf_refreshed_at"
+   ],
+   "snapshots": [
+    {
+     "file": "DB MV textbook_shelf_inventory_mv (저장소 파일 아님)",
+     "measuredAt": "2026-09-23T18:00:00.070Z",
+     "staleBy": "해설 875,618 / 문항 880,337"
+    }
+   ]
+  },
+  {
+   "route": "/admin/csat/review",
+   "file": "apps/web/src/app/admin/csat/review/page.tsx",
+   "loaders": [
+    "loadReviewView (lib/csat/factory-line-views.ts)",
+    "loadReviewDefects (lib/csat/review-defects.ts)"
+   ],
+   "tables": [
+    "textbook_volume_renders",
+    "csat_item_reviews",
+    "csat_dcp_items"
+   ],
+   "rpcs": [],
+   "snapshots": []
+  },
+  {
+   "route": "/admin/csat/press",
+   "file": "apps/web/src/app/admin/csat/press/page.tsx",
+   "loaders": [
+    "loadPressView (lib/csat/factory-line-views.ts)",
+    "decideVolumeAction (press/actions.ts · 쓰기)",
+    "recordApproval (lib/csat/approvals.ts · 쓰기)"
+   ],
+   "tables": [
+    "textbook_volume_renders",
+    "csat_pipeline_approvals"
+   ],
+   "rpcs": [],
+   "snapshots": [
+    {
+     "file": "apps/web/src/lib/textbook/volume-contents.json",
+     "measuredAt": "2026-09-23T01:02:00.245Z",
+     "staleBy": "seriesHasContents 게이트에만 쓴다"
+    }
+   ]
+  },
+  {
+   "route": "/admin/csat/catalog",
+   "file": "apps/web/src/app/admin/csat/catalog/page.tsx",
+   "loaders": [
+    "loadSeriesCatalog (lib/csat/series-view.ts)",
+    "loadDcpInventory"
+   ],
+   "tables": [
+    "textbook_volume_renders"
+   ],
+   "rpcs": [
+    "textbook_shelf_inventory",
+    "textbook_shelf_refreshed_at"
+   ],
+   "snapshots": [
+    {
+     "file": "DB MV textbook_shelf_inventory_mv (저장소 파일 아님)",
+     "measuredAt": "2026-09-23T18:00:00.070Z",
+     "staleBy": "위와 같음"
+    }
+   ]
+  },
+  {
+   "route": "/admin/csat/new",
+   "file": "apps/web/src/app/admin/csat/new/page.tsx",
+   "loaders": [
+    "loadOrderView (lib/csat/order-view.ts)",
+    "loadDcpInventory"
+   ],
+   "tables": [
+    "csat_types",
+    "csat_type_reports",
+    "csat_items",
+    "csat_item_analyses",
+    "csat_analysis_reviews",
+    "csat_exams",
+    "textbook_volume_renders"
+   ],
+   "rpcs": [
+    "textbook_shelf_inventory",
+    "textbook_shelf_refreshed_at"
+   ],
+   "snapshots": [
+    {
+     "file": "docs/reports/textbook-market-series.json",
+     "measuredAt": "2026-09-06T07:27:40.737Z",
+     "staleBy": "18일 · 저장소 밖 코퍼스 manifest 2026-09-01"
+    },
+    {
+     "file": "docs/reports/textbook-market-benchmark.json",
+     "measuredAt": "2026-08-30T12:49:22.698Z",
+     "staleBy": "25일 — 이 콘솔이 읽는 것 중 가장 낡음"
+    },
+    {
+     "file": "DB MV textbook_shelf_inventory_mv (저장소 파일 아님)",
+     "measuredAt": "2026-09-23T18:00:00.070Z",
+     "staleBy": "재고 칸"
+    }
+   ]
+  },
+  {
+   "route": "/admin/csat/evidence",
+   "file": "apps/web/src/app/admin/csat/evidence/page.tsx",
+   "loaders": [
+    "loadEvidenceOperations (lib/csat/evidence-operations-loader.ts)",
+    "loadEvidence (lib/csat/evidence.ts)",
+    "loadDissectionCatalog (lib/csat/dissect-catalog.ts)"
+   ],
+   "tables": [
+    "csat_exams",
+    "csat_types",
+    "csat_type_reports",
+    "csat_items",
+    "csat_item_analyses",
+    "csat_analysis_reviews",
+    "csat_items_public (view)"
+   ],
+   "rpcs": [],
+   "snapshots": [
+    {
+     "file": "apps/web/src/lib/csat/dissect-anchors.json",
+     "measuredAt": null,
+     "staleBy": "시각 필드가 없어 낡음을 잴 수 없다"
+    }
+   ]
+  },
+  {
+   "route": "/admin/csat/sources",
+   "file": "apps/web/src/app/admin/csat/sources/page.tsx",
+   "loaders": [
+    "buildSourceEligibilityPanel (lib/textbook/source-eligibility-view.ts)",
+    "buildSourceInventoryPanel (lib/textbook/source-inventory-view.ts)",
+    "loadEligibilityDrift (lib/textbook/eligibility-drift.ts)",
+    "parseSourceWorkspace (lib/textbook/source-workspace.ts)"
+   ],
+   "tables": [],
+   "rpcs": [
+    "csat_source_eligibility_tally"
+   ],
+   "snapshots": [
+    {
+     "file": "apps/web/src/lib/textbook/source-inventory-snapshot.json",
+     "measuredAt": "2026-09-19T02:32:50.290Z",
+     "staleBy": "scanned 109,043 vs DB 68,604 = -40,439"
+    },
+    {
+     "file": "apps/web/src/lib/textbook/source-eligibility-snapshot.json",
+     "measuredAt": "2026-09-23T01:43:28.769Z",
+     "staleBy": "total 87,720 vs DB 64,102 = -23,618"
+    },
+    {
+     "file": "apps/web/src/lib/textbook/extraction-defect-snapshot.json",
+     "measuredAt": "2026-09-15T11:14:53.672Z",
+     "staleBy": "scanned 87,626 vs DB ready+published 64,102 = -23,524"
+    },
+    {
+     "file": "apps/web/src/lib/textbook/type-inventory-snapshot.json",
+     "measuredAt": "2026-09-15T13:35:54.121Z",
+     "staleBy": "totalItems 841,826 vs MV 880,337 = +38,511"
+    },
+    {
+     "file": "apps/web/src/lib/textbook/item-fill-plan.json",
+     "measuredAt": "2026-09-15T13:05:47.911Z (computedAt)",
+     "staleBy": "inventoryMeasuredAt 2026-09-15T11:12 에 묶여 있다"
+    },
+    {
+     "file": "apps/web/src/lib/textbook/item-drain-audit-snapshot.json",
+     "measuredAt": "2026-09-13T12:46:15.335Z",
+     "staleBy": "blocked 311 vs csat_item_state blocked 292"
+    },
+    {
+     "file": "apps/web/src/lib/textbook/source-yield-snapshot.json",
+     "measuredAt": "2026-09-15T03:54:14.012Z",
+     "staleBy": "totalStock 87,094 중 gutenberg 23,520 이 DB 에 없다"
+    }
+   ]
+  }
+ ],
+ "apiRoutes": [
+  {
+   "route": "/api/admin/csat/evidence",
+   "methods": [
+    "GET"
+   ],
+   "calledBy": [
+    "/admin/csat/evidence — EvidenceConsole.tsx:133 (fetch)"
+   ],
+   "loaders": [
+    "loadEvidenceOperations"
+   ],
+   "tables": [
+    "csat_exams",
+    "csat_types",
+    "csat_type_reports",
+    "csat_items",
+    "csat_item_analyses",
+    "csat_analysis_reviews",
+    "csat_items_public"
+   ],
+   "rpcs": []
+  },
+  {
+   "route": "/api/admin/csat/guide",
+   "methods": [
+    "GET"
+   ],
+   "calledBy": [
+    "/admin/csat/evidence — EvidenceConsole.tsx:815,818 (다운로드 링크)"
+   ],
+   "loaders": [
+    "loadCsatGuideSource (lib/csat/guide.ts)",
+    "renderGuideMarkdown"
+   ],
+   "tables": [
+    "csat_types",
+    "csat_items",
+    "csat_item_analyses",
+    "csat_type_reports"
+   ],
+   "rpcs": []
+  },
+  {
+   "route": "/api/admin/csat/items",
+   "methods": [
+    "GET"
+   ],
+   "calledBy": [
+    "/admin/csat/evidence — EvidenceInspector.tsx:62"
+   ],
+   "loaders": [
+    "loadCsatItemAudit · loadCsatItemFull (lib/csat/items.ts)"
+   ],
+   "tables": [
+    "csat_items",
+    "csat_item_analyses",
+    "csat_analysis_reviews"
+   ],
+   "rpcs": []
+  },
+  {
+   "route": "/api/admin/csat/sources",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "calledBy": [
+    "/admin/csat/sources — SourceQueryConsole.tsx:35 · SourceOperations.tsx:8"
+   ],
+   "loaders": [
+    "evaluateSource (@vocaflow/library-pipeline)",
+    "lastDrainRun (lib/csat/drain-runs.ts)"
+   ],
+   "tables": [
+    "csat_source_eligibility",
+    "csat_source_eligibility_history",
+    "library_articles",
+    "csat_dcp_items",
+    "textbook_volume_renders",
+    "csat_item_attempts",
+    "csat_drain_runs"
+   ],
+   "rpcs": [],
+   "note": "POST 는 csat_source_eligibility 에 upsert 한다 — /admin/csat 아래 유일한 API 쓰기 경로"
+  },
+  {
+   "route": "/api/csat/lecture",
+   "methods": [
+    "GET"
+   ],
+   "calledBy": [
+    "학습자 화면 LectureStage.tsx — /admin/csat 아님"
+   ],
+   "tables": [],
+   "rpcs": []
+  },
+  {
+   "route": "/api/csat/paper",
+   "methods": [
+    "POST"
+   ],
+   "calledBy": [
+    "학습자 reflow lib/csat/reflow/read-paper.ts — /admin/csat 아님"
+   ],
+   "tables": [],
+   "rpcs": []
+  },
+  {
+   "route": "/api/csat/session/record",
+   "methods": [
+    "GET",
+    "POST",
+    "DELETE"
+   ],
+   "calledBy": [
+    "학습자 세션 lib/csat/session/store.ts — /admin/csat 아님"
+   ],
+   "tables": [
+    "csat_session_attempts",
+    "csat_review_queue"
+   ],
+   "rpcs": []
+  },
+  {
+   "route": "/api/csat/session/reveal",
+   "methods": [
+    "POST"
+   ],
+   "calledBy": [
+    "학습자 세션 — /admin/csat 아님"
+   ],
+   "tables": [],
+   "rpcs": []
+  }
+ ],
+ "snapshotFreshness": [
+  {
+   "file": "apps/web/src/lib/textbook/source-inventory-snapshot.json",
+   "measuredAt": "2026-09-19T02:32:50.290Z",
+   "usedBy": [
+    "/admin/csat/sources"
+   ],
+   "verdict": "STALE — 없는 재고를 보여 준다",
+   "drift": "scanned 109,043 vs library_articles 68,604 (-40,439). gutenberg 40,519편이 표에 있으나 DB count=0(실측). 2026-09-19 이후 생긴 scielo 25 · olh 21 · openalex 16 · econstor 14 · african_storybook 4 는 표에 없다"
+  },
+  {
+   "file": "apps/web/src/lib/textbook/source-eligibility-snapshot.json",
+   "measuredAt": "2026-09-23T01:43:28.769Z",
+   "usedBy": [
+    "/admin/csat/sources",
+    "/admin/csat"
+   ],
+   "verdict": "STALE — 화면 옆 loadEligibilityDrift 가 차이를 낸다(설계대로)",
+   "drift": "total 87,720 vs csat_source_eligibility 64,102 (-23,618). 등급: usable 9,115→10,560 · unjudged 43,477→31,058 · blocked 16,074→22,484. 스냅샷의 excerpt 4,615 · excerpt-blind 14,439 등급은 지금 tally 에 0건(등급 체계가 3종으로 줄었다)"
+  },
+  {
+   "file": "apps/web/src/lib/textbook/extraction-defect-snapshot.json",
+   "measuredAt": "2026-09-15T11:14:53.672Z",
+   "usedBy": [
+    "/admin/csat/sources"
+   ],
+   "verdict": "STALE",
+   "drift": "scanned 87,626 vs DB status in (ready,published) 64,102 (-23,524). 결함 표본에 gutenberg 가 들어 있다(html-attr 27건 등)"
+  },
+  {
+   "file": "apps/web/src/lib/textbook/type-inventory-snapshot.json",
+   "measuredAt": "2026-09-15T13:35:54.121Z",
+   "usedBy": [
+    "/admin/csat/sources"
+   ],
+   "verdict": "STALE",
+   "drift": "totalItems 841,826 vs textbook_shelf_inventory 합 880,337 (+38,511)"
+  },
+  {
+   "file": "apps/web/src/lib/textbook/item-fill-plan.json",
+   "measuredAt": "2026-09-15T13:05:47.911Z (computedAt)",
+   "usedBy": [
+    "/admin/csat/sources"
+   ],
+   "verdict": "STALE (파생)",
+   "drift": "inventoryMeasuredAt 2026-09-15T11:12 — type-inventory 와 같은 스캔에 묶여 있다"
+  },
+  {
+   "file": "apps/web/src/lib/textbook/item-drain-audit-snapshot.json",
+   "measuredAt": "2026-09-13T12:46:15.335Z",
+   "usedBy": [
+    "/admin/csat/sources"
+   ],
+   "verdict": "STALE (작은 차이)",
+   "drift": "blocked 311 vs csat_item_state status=blocked 292 (review_revise 202 · review_fail 90). filled 2,240 은 대응 표가 없어 못 비교"
+  },
+  {
+   "file": "apps/web/src/lib/textbook/source-yield-snapshot.json",
+   "measuredAt": "2026-09-15T03:54:14.012Z",
+   "usedBy": [
+    "/admin/csat/sources"
+   ],
+   "verdict": "STALE — 없는 재고의 수율을 보여 준다",
+   "drift": "totalStock 87,094 중 gutenberg 23,520편이 DB 에 없다. plos 44,853 vs 지금 47,939"
+  },
+  {
+   "file": "apps/web/src/lib/textbook/volume-contents.json",
+   "measuredAt": "2026-09-23T01:02:00.245Z (generatedAt)",
+   "usedBy": [
+    "/admin/csat",
+    "/admin/csat/press"
+   ],
+   "verdict": "FRESH",
+   "drift": "reading/syntax/vocab × band 1~7 — textbook_volume_renders 19행(reading 7 · syntax 6 · vocab 6)과 조합 일치"
+  },
+  {
+   "file": "docs/reports/textbook-publisher-benchmark.json",
+   "measuredAt": "2026-09-17T04:48:04.641Z",
+   "usedBy": [
+    "/admin/csat",
+    "/admin/csat/strategy"
+   ],
+   "verdict": "OK (7일)",
+   "drift": "itemsMeasured 880,252 vs MV 880,337 (+85)"
+  },
+  {
+   "file": "docs/reports/textbook-publisher-benchmark-volume.json",
+   "measuredAt": "2026-09-17T12:02:12.376Z",
+   "usedBy": [
+    "/admin/csat",
+    "/admin/csat/strategy"
+   ],
+   "verdict": "OK (7일)",
+   "drift": "420문항(7권×60 인쇄분) — 조판 기록 19권 items 합 1,620 과 스코프가 달라 직접 비교 불가"
+  },
+  {
+   "file": "docs/reports/textbook-market-series.json",
+   "measuredAt": "2026-09-06T07:27:40.737Z",
+   "usedBy": [
+    "/admin/csat/new"
+   ],
+   "verdict": "STALE (18일)",
+   "drift": "저장소 밖 코퍼스(d:/workspace/textbook-corpus · manifest 2026-09-01) 기준 — DB 로 대조할 수 없다"
+  },
+  {
+   "file": "docs/reports/textbook-market-benchmark.json",
+   "measuredAt": "2026-08-30T12:49:22.698Z",
+   "usedBy": [
+    "/admin/csat/new"
+   ],
+   "verdict": "STALE (25일)",
+   "drift": "시중 교재 79종 기준 — DB 로 대조할 수 없다"
+  },
+  {
+   "file": "apps/web/src/lib/csat/dissect-anchors.json",
+   "measuredAt": null,
+   "usedBy": [
+    "/admin/csat/evidence"
+   ],
+   "verdict": "UNKNOWN",
+   "drift": "시각 필드가 없어 낡음을 잴 수 없다"
+  },
+  {
+   "file": "DB 표 csat_source_snapshots (저장소 파일 아님 · 크론 20 */6 * * *)",
+   "measuredAt": "2026-09-23T18:20:00.072Z",
+   "usedBy": [
+    "/admin/csat",
+    "/admin/csat/sourcing"
+   ],
+   "verdict": "STALE — 저장소 파일이 아니라 DB 스냅샷이 낡았다",
+   "drift": "rows_total 109,047 vs library_articles 68,604 (-40,443). payload.sources 에 {src: gutenberg, n: 40519, ready: 23618, archived: 16894} 이 그대로. 크론 20 */6 * * * 의 2026-09-24 00:20·06:20 UTC 실행분이 없다. 화면의 「지금 다시 잰다」(csat_source_snapshot_take)가 고친다"
+  },
+  {
+   "file": "DB MV textbook_shelf_inventory_mv (저장소 파일 아님)",
+   "measuredAt": "2026-09-23T18:00:00.070Z",
+   "usedBy": [
+    "/admin/csat",
+    "/admin/csat/authoring",
+    "/admin/csat/explain",
+    "/admin/csat/catalog",
+    "/admin/csat/new"
+   ],
+   "verdict": "OK — 갱신은 멈췄지만 셀 수 있던 밴드에서 DB 와 일치",
+   "drift": "합 880,337문항 · 해설 875,618. gutenberg 삭제(2026-09-23T22:25Z) 이후 갱신 없음이지만, V1 1,140 · V2 8,885 · V3 9,459 · V4 25,105 · V8 1,097 · V9 57 · V10 0 · V11 0 이 csat_dcp_items 실측과 델타 0 으로 일치했다. V5·V6·V7(MV 합 834,594)은 8초 timeout 으로 못 셌다"
+  }
+ ],
+ "sourceTable": [
+  {
+   "source": "plos",
+   "label": "PLOS",
+   "registryActive": true,
+   "licenses": {
+    "CC-BY-4.0": 22664,
+    "CC BY 4.0": 25274,
+    "cc_by": 1
+   },
+   "licenseClasses": {
+    "cc_by": 47938,
+    "restricted": 1
+   },
+   "displayOnly": 0,
+   "adaptedRows": 1,
+   "origins": 47939,
+   "spans": 47939,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2020": 45,
+    "2021": 59,
+    "2022": 2913,
+    "2023": 2202,
+    "2024": 6400,
+    "2025": 3806,
+    "2026": 14276,
+    "2000-2009": 232,
+    "2010-2019": 6400
+   },
+   "yearsNull": 11606,
+   "registers": {
+    "argumentative": 1533,
+    "expository": 46406
+   },
+   "status": {
+    "ready": 45081,
+    "archived": 2843,
+    "published": 15
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 11310,
+    "unjudged": 31058,
+    "usable": 2728
+   },
+   "stockUsable": 2728,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 11606편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "voa",
+   "label": "VOA Learning English",
+   "registryActive": true,
+   "licenses": {
+    "PD-Government": 10646,
+    "public_domain": 17
+   },
+   "licenseClasses": {
+    "public_domain": 10646,
+    "restricted": 17
+   },
+   "displayOnly": 0,
+   "adaptedRows": 17,
+   "origins": 10663,
+   "spans": 10663,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2020": 652,
+    "2021": 657,
+    "2022": 631,
+    "2023": 572,
+    "2024": 456,
+    "2025": 108,
+    "2010-2019": 5175,
+    "2000-2009": 2411,
+    "1980-1999": 1
+   },
+   "yearsNull": 0,
+   "registers": {
+    "narrative": 459,
+    "news": 5767,
+    "expository": 4430,
+    "null": 7
+   },
+   "status": {
+    "ready": 10620,
+    "queued": 7,
+    "published": 29,
+    "archived": 7
+   },
+   "route": "R0",
+   "routeBasis": "library_articles.license_class 최빈값 = public_domain → criteria.md §G0-2",
+   "eligibility": {
+    "usable": 5303,
+    "blocked": 5346
+   },
+   "stockUsable": 5303,
+   "unfilled": []
+  },
+  {
+   "source": "futurity",
+   "label": "Futurity",
+   "registryActive": true,
+   "licenses": {
+    "CC-BY-4.0": 2879,
+    "cc_by": 6
+   },
+   "licenseClasses": {
+    "cc_by": 2879,
+    "restricted": 6
+   },
+   "displayOnly": 0,
+   "adaptedRows": 6,
+   "origins": 2885,
+   "spans": 2885,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2023": 388,
+    "2024": 1142,
+    "2025": 952,
+    "2026": 397
+   },
+   "yearsNull": 6,
+   "registers": {
+    "expository": 2885
+   },
+   "status": {
+    "ready": 2781,
+    "published": 72,
+    "archived": 32
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 2115,
+    "usable": 738
+   },
+   "stockUsable": 738,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 6편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "frontiers",
+   "label": "Frontiers",
+   "registryActive": false,
+   "licenses": {
+    "CC-BY-4.0": 1961
+   },
+   "licenseClasses": {
+    "cc_by": 1961
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 1961,
+   "spans": 1961,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2020": 249,
+    "2021": 500,
+    "2022": 739,
+    "2023": 24,
+    "2024": 42,
+    "2025": 46,
+    "2026": 43,
+    "2010-2019": 318
+   },
+   "yearsNull": 0,
+   "registers": {
+    "expository": 1958,
+    "null": 3
+   },
+   "status": {
+    "ready": 1958,
+    "queued": 3
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 1487,
+    "usable": 471
+   },
+   "stockUsable": 471,
+   "unfilled": []
+  },
+  {
+   "source": "original",
+   "label": "우리 저작",
+   "registryActive": true,
+   "licenses": {
+    "CC0 1.0": 888,
+    "CC0-1.0 (Vocaflow Original)": 631
+   },
+   "licenseClasses": {
+    "cc0": 1519
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 1519,
+   "spans": 1519,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {},
+   "yearsNull": 1519,
+   "registers": {
+    "null": 888,
+    "news": 630,
+    "expository": 1
+   },
+   "status": {
+    "queued": 888,
+    "ready": 631
+   },
+   "route": "R0",
+   "routeBasis": "library_articles.license_class 최빈값 = cc0 → criteria.md §G0-2",
+   "eligibility": {
+    "usable": 613,
+    "blocked": 18
+   },
+   "stockUsable": 613,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 1519편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "europe_pmc",
+   "label": "Europe PMC",
+   "registryActive": false,
+   "licenses": {
+    "CC-BY-4.0": 1300
+   },
+   "licenseClasses": {
+    "cc_by": 1300
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 1300,
+   "spans": 1300,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2024": 2,
+    "2025": 103,
+    "2026": 1195
+   },
+   "yearsNull": 0,
+   "registers": {
+    "argumentative": 1299,
+    "null": 1
+   },
+   "status": {
+    "ready": 1299,
+    "failed": 1
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 1244,
+    "usable": 55
+   },
+   "stockUsable": 55,
+   "unfilled": []
+  },
+  {
+   "source": "usgs",
+   "label": "USGS",
+   "registryActive": true,
+   "licenses": {
+    "Public Domain (US Government)": 728,
+    "public_domain": 10
+   },
+   "licenseClasses": {
+    "public_domain": 728,
+    "restricted": 10
+   },
+   "displayOnly": 0,
+   "adaptedRows": 10,
+   "origins": 738,
+   "spans": 738,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2020": 3,
+    "2021": 19,
+    "2022": 27,
+    "2023": 16,
+    "2024": 15,
+    "2025": 8,
+    "2026": 7,
+    "2010-2019": 60
+   },
+   "yearsNull": 583,
+   "registers": {
+    "expository": 738
+   },
+   "status": {
+    "ready": 530,
+    "published": 28,
+    "archived": 180
+   },
+   "route": "R0",
+   "routeBasis": "library_articles.license_class 최빈값 = public_domain → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 321,
+    "usable": 237
+   },
+   "stockUsable": 237,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 583편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "nasa",
+   "label": "NASA",
+   "registryActive": true,
+   "licenses": {
+    "PD-Government": 403,
+    "public_domain": 19
+   },
+   "licenseClasses": {
+    "public_domain": 403,
+    "restricted": 19
+   },
+   "displayOnly": 0,
+   "adaptedRows": 22,
+   "origins": 422,
+   "spans": 422,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2026": 414
+   },
+   "yearsNull": 8,
+   "registers": {
+    "expository": 421,
+    "null": 1
+   },
+   "status": {
+    "ready": 202,
+    "archived": 201,
+    "published": 19
+   },
+   "route": "R0",
+   "routeBasis": "library_articles.license_class 최빈값 = public_domain → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 162,
+    "usable": 59
+   },
+   "stockUsable": 59,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 8편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "elife",
+   "label": "eLife",
+   "registryActive": true,
+   "licenses": {
+    "CC0-1.0": 8,
+    "CC-BY-4.0": 284,
+    "cc_by": 6,
+    "CC-BY-3.0": 3
+   },
+   "licenseClasses": {
+    "cc0": 8,
+    "cc_by": 287,
+    "restricted": 6
+   },
+   "displayOnly": 0,
+   "adaptedRows": 6,
+   "origins": 301,
+   "spans": 301,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2020": 1,
+    "2021": 4,
+    "2023": 3,
+    "2024": 91,
+    "2025": 131,
+    "2026": 54,
+    "2010-2019": 11
+   },
+   "yearsNull": 6,
+   "registers": {
+    "expository": 301
+   },
+   "status": {
+    "published": 8,
+    "ready": 293
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 259,
+    "usable": 42
+   },
+   "stockUsable": 42,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 6편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "frym",
+   "label": "Frontiers for Young Minds",
+   "registryActive": true,
+   "licenses": {
+    "CC-BY-4.0": 152,
+    "cc_by": 1
+   },
+   "licenseClasses": {
+    "cc_by": 152,
+    "restricted": 1
+   },
+   "displayOnly": 0,
+   "adaptedRows": 1,
+   "origins": 153,
+   "spans": 153,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2020": 6,
+    "2021": 19,
+    "2022": 27,
+    "2023": 10,
+    "2024": 9,
+    "2025": 1,
+    "2026": 79,
+    "2010-2019": 1
+   },
+   "yearsNull": 1,
+   "registers": {
+    "expository": 153
+   },
+   "status": {
+    "ready": 119,
+    "archived": 34
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 60,
+    "usable": 59
+   },
+   "stockUsable": 59,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 1편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "storyweaver",
+   "label": "StoryWeaver",
+   "registryActive": true,
+   "licenses": {
+    "CC-BY-4.0": 132,
+    "cc_by": 4
+   },
+   "licenseClasses": {
+    "cc_by": 132,
+    "restricted": 4
+   },
+   "displayOnly": 0,
+   "adaptedRows": 4,
+   "origins": 136,
+   "spans": 136,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {},
+   "yearsNull": 136,
+   "registers": {
+    "narrative": 135,
+    "null": 1
+   },
+   "status": {
+    "ready": 119,
+    "archived": 17
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 22,
+    "usable": 97
+   },
+   "stockUsable": 97,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 136편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "noaa",
+   "label": "NOAA",
+   "registryActive": true,
+   "licenses": {
+    "Public Domain (US Government)": 133,
+    "public_domain": 2
+   },
+   "licenseClasses": {
+    "public_domain": 133,
+    "restricted": 2
+   },
+   "displayOnly": 0,
+   "adaptedRows": 2,
+   "origins": 135,
+   "spans": 135,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2020": 14,
+    "2021": 18,
+    "2022": 28,
+    "2023": 19,
+    "2024": 20,
+    "2025": 13,
+    "2010-2019": 17
+   },
+   "yearsNull": 6,
+   "registers": {
+    "expository": 117,
+    "null": 18
+   },
+   "status": {
+    "published": 15,
+    "archived": 67,
+    "ready": 35,
+    "queued": 18
+   },
+   "route": "R0",
+   "routeBasis": "library_articles.license_class 최빈값 = public_domain → criteria.md §G0-2",
+   "eligibility": {
+    "usable": 30,
+    "blocked": 20
+   },
+   "stockUsable": 30,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 6편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "simple_wikipedia",
+   "label": "Simple Wikipedia",
+   "registryActive": true,
+   "licenses": {
+    "CC-BY-SA-4.0": 99
+   },
+   "licenseClasses": {
+    "cc_by_sa": 99
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 99,
+   "spans": 99,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2026": 34
+   },
+   "yearsNull": 65,
+   "registers": {
+    "expository": 98,
+    "null": 1
+   },
+   "status": {
+    "archived": 43,
+    "ready": 30,
+    "published": 25,
+    "failed": 1
+   },
+   "route": "R2",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by_sa → criteria.md §G0-2",
+   "eligibility": {
+    "usable": 52,
+    "blocked": 3
+   },
+   "stockUsable": 52,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 65편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "wikipedia",
+   "label": "Wikipedia",
+   "registryActive": true,
+   "licenses": {
+    "CC-BY-SA-4.0": 92
+   },
+   "licenseClasses": {
+    "cc_by_sa": 92
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 92,
+   "spans": 92,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2026": 2
+   },
+   "yearsNull": 90,
+   "registers": {
+    "expository": 87,
+    "null": 5
+   },
+   "status": {
+    "ready": 57,
+    "archived": 29,
+    "published": 2,
+    "queued": 4
+   },
+   "route": "R2",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by_sa → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 27,
+    "usable": 32
+   },
+   "stockUsable": 32,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 90편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "the_conversation",
+   "label": "The Conversation",
+   "registryActive": true,
+   "licenses": {
+    "CC-BY-ND-4.0": 71
+   },
+   "licenseClasses": {
+    "cc_by_nd": 71
+   },
+   "displayOnly": 71,
+   "adaptedRows": 0,
+   "origins": 71,
+   "spans": 71,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2026": 71
+   },
+   "yearsNull": 0,
+   "registers": {
+    "argumentative": 71
+   },
+   "status": {
+    "published": 25,
+    "ready": 45,
+    "archived": 1
+   },
+   "route": "R4",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by_nd → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 70
+   },
+   "stockUsable": 0,
+   "unfilled": []
+  },
+  {
+   "source": "space_place",
+   "label": "NASA Space Place",
+   "registryActive": true,
+   "licenses": {
+    "PD-Government": 53,
+    "public_domain": 6
+   },
+   "licenseClasses": {
+    "public_domain": 53,
+    "restricted": 6
+   },
+   "displayOnly": 0,
+   "adaptedRows": 6,
+   "origins": 42,
+   "spans": 59,
+   "spanNote": "source_id 의 # 앞부분 기준 원천 42 → 조각 59 (한 문서에서 여러 문단창을 잘랐다)",
+   "years": {},
+   "yearsNull": 59,
+   "registers": {
+    "expository": 59
+   },
+   "status": {
+    "ready": 37,
+    "archived": 22
+   },
+   "route": "R0",
+   "routeBasis": "library_articles.license_class 최빈값 = public_domain → criteria.md §G0-2",
+   "eligibility": {
+    "usable": 29,
+    "blocked": 8
+   },
+   "stockUsable": 29,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 59편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "scielo",
+   "label": null,
+   "registryActive": null,
+   "licenses": {
+    "CC BY 4.0": 25
+   },
+   "licenseClasses": {
+    "cc_by": 25
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 25,
+   "spans": 25,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {},
+   "yearsNull": 25,
+   "registers": {
+    "null": 25
+   },
+   "status": {
+    "queued": 25
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": null,
+   "stockUsable": 0,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 25편 — DB 에 연도가 없어 못 채움",
+    "csat_source_registry 에 행이 없다 — license_class/역할 공식 등록 없음(library_articles.license_class 로만 판정)"
+   ]
+  },
+  {
+   "source": "nist",
+   "label": "NIST",
+   "registryActive": false,
+   "licenses": {
+    "Public Domain (US Government)": 23
+   },
+   "licenseClasses": {
+    "public_domain": 23
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 23,
+   "spans": 23,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2010-2019": 23
+   },
+   "yearsNull": 0,
+   "registers": {
+    "expository": 10,
+    "null": 13
+   },
+   "status": {
+    "ready": 10,
+    "queued": 13
+   },
+   "route": "R0",
+   "routeBasis": "library_articles.license_class 최빈값 = public_domain → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 8,
+    "usable": 2
+   },
+   "stockUsable": 2,
+   "unfilled": []
+  },
+  {
+   "source": "olh",
+   "label": null,
+   "registryActive": null,
+   "licenses": {
+    "CC BY 4.0": 21
+   },
+   "licenseClasses": {
+    "cc_by": 21
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 21,
+   "spans": 21,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {},
+   "yearsNull": 21,
+   "registers": {
+    "null": 21
+   },
+   "status": {
+    "queued": 21
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": null,
+   "stockUsable": 0,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 21편 — DB 에 연도가 없어 못 채움",
+    "csat_source_registry 에 행이 없다 — license_class/역할 공식 등록 없음(library_articles.license_class 로만 판정)"
+   ]
+  },
+  {
+   "source": "openalex",
+   "label": null,
+   "registryActive": null,
+   "licenses": {
+    "CC BY 4.0": 16
+   },
+   "licenseClasses": {
+    "cc_by": 16
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 16,
+   "spans": 16,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {},
+   "yearsNull": 16,
+   "registers": {
+    "null": 16
+   },
+   "status": {
+    "queued": 16
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": null,
+   "stockUsable": 0,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 16편 — DB 에 연도가 없어 못 채움",
+    "csat_source_registry 에 행이 없다 — license_class/역할 공식 등록 없음(library_articles.license_class 로만 판정)"
+   ]
+  },
+  {
+   "source": "econstor",
+   "label": null,
+   "registryActive": null,
+   "licenses": {
+    "CC BY 4.0": 13,
+    "CC BY-SA 4.0": 1
+   },
+   "licenseClasses": {
+    "cc_by": 13,
+    "cc_by_sa": 1
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 14,
+   "spans": 14,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {},
+   "yearsNull": 14,
+   "registers": {
+    "null": 14
+   },
+   "status": {
+    "queued": 14
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": null,
+   "stockUsable": 0,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 14편 — DB 에 연도가 없어 못 채움",
+    "csat_source_registry 에 행이 없다 — license_class/역할 공식 등록 없음(library_articles.license_class 로만 판정)"
+   ]
+  },
+  {
+   "source": "owid",
+   "label": "Our World in Data",
+   "registryActive": true,
+   "licenses": {
+    "CC-BY-4.0": 13
+   },
+   "licenseClasses": {
+    "cc_by": 13
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 13,
+   "spans": 13,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2026": 8
+   },
+   "yearsNull": 5,
+   "registers": {
+    "argumentative": 13
+   },
+   "status": {
+    "archived": 4,
+    "published": 8,
+    "ready": 1
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": {
+    "usable": 8,
+    "blocked": 1
+   },
+   "stockUsable": 8,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 5편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "wikivoyage",
+   "label": "Wikivoyage",
+   "registryActive": true,
+   "licenses": {
+    "CC-BY-SA-4.0": 8
+   },
+   "licenseClasses": {
+    "cc_by_sa": 8
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 8,
+   "spans": 8,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2026": 2
+   },
+   "yearsNull": 6,
+   "registers": {
+    "reference": 8
+   },
+   "status": {
+    "archived": 8
+   },
+   "route": "R2",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by_sa → criteria.md §G0-2",
+   "eligibility": null,
+   "stockUsable": 0,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 6편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "factbook",
+   "label": "CIA World Factbook",
+   "registryActive": true,
+   "licenses": {
+    "Public Domain (US Government)": 7
+   },
+   "licenseClasses": {
+    "public_domain": 7
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 7,
+   "spans": 7,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {
+    "2026": 3
+   },
+   "yearsNull": 4,
+   "registers": {
+    "reference": 7
+   },
+   "status": {
+    "archived": 3,
+    "published": 4
+   },
+   "route": "R0",
+   "routeBasis": "library_articles.license_class 최빈값 = public_domain → criteria.md §G0-2",
+   "eligibility": {
+    "blocked": 3,
+    "usable": 1
+   },
+   "stockUsable": 1,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 4편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "african_storybook",
+   "label": "African Storybook",
+   "registryActive": false,
+   "licenses": {
+    "CC-BY-3.0": 4
+   },
+   "licenseClasses": {
+    "cc_by": 4
+   },
+   "displayOnly": 0,
+   "adaptedRows": 0,
+   "origins": 4,
+   "spans": 4,
+   "spanNote": "1행 = 1문서 (source_id 의 # 앞부분이 전부 서로 다르다)",
+   "years": {},
+   "yearsNull": 4,
+   "registers": {
+    "narrative": 4
+   },
+   "status": {
+    "ready": 4
+   },
+   "route": "R1",
+   "routeBasis": "library_articles.license_class 최빈값 = cc_by → criteria.md §G0-2",
+   "eligibility": {
+    "usable": 4
+   },
+   "stockUsable": 4,
+   "unfilled": [
+    "시대 분포: published_at 이 null 인 행 4편 — DB 에 연도가 없어 못 채움"
+   ]
+  },
+  {
+   "source": "gutenberg",
+   "label": "Project Gutenberg",
+   "registryActive": true,
+   "status": {
+    "deleted": 40519
+   },
+   "origins": 1809,
+   "spans": 40519,
+   "spanNote": "판정 스냅샷의 books=1809 · rows=40519 — 책 한 권에서 여러 발췌를 잘랐다",
+   "route": "R0",
+   "routeBasis": "public_domain → criteria.md §G0-2. 다만 2026-09-24 지문 원천에서 퇴출(커밋 a20a2bac)",
+   "retired": {
+    "deletedOn": "2026-09-24",
+    "judgementSnapshot": ".agent-logs/retire-gutenberg-20260923.json",
+    "takenAt": "2026-09-23T22:25:27.194Z",
+    "byVerdict": {
+     "reject": 15187,
+     "narrative": 13637,
+     "use": 11694,
+     "(없음)": 1
+    }
+   },
+   "eligibility": null,
+   "stockUsable": 0,
+   "unfilled": [
+    "라이선스 세분·시대·갈래 분포: 행이 DB 에서 사라져 다시 못 잰다. 남은 근거는 .agent-logs/retire-gutenberg-20260923.json 뿐"
+   ]
+  }
+ ],
+ "limits": [
+  "csat_dcp_items 전수 count 는 8초 statement timeout 에 걸린다. v_level 로 쪼개 V1~V4·V8~V11 = 45,743 을 정확히 셌고 V5·V6·V7 과 v_level=null 은 못 셌다 — 「지금 몇 문항인가」는 못 채운 칸이다(플래너 추정 planned=882,870 은 대량 삭제 뒤라 신뢰하지 않는다).",
+  "csat_dcp_items(kind=article)의 ref_id 가 사라진 library_articles 를 가리키는지는 표본으로만 봤다 — uuid 구간 6곳 × 200행, 서로 다른 ref_id 1,189개 중 63개(5.3%)가 없는 글이었다. 전수가 아니므로 「고아가 몇 개인가」는 못 채운 칸이고, 이 비율로 전체를 추정하지 않는다.",
+  "시대 분포(published_at)는 null 이 많다 — plos 11,606 · usgs 583 · wikipedia 90 · simple_wikipedia 65 · original 1,519(전량) 등. 그 행은 어느 시대 칸에도 넣지 않고 yearsNull 로 따로 셌다.",
+  "gutenberg 의 라이선스 세분·갈래·시대 분포는 행이 삭제돼 다시 못 잰다. 남은 근거는 .agent-logs/retire-gutenberg-20260923.json (takenAt 2026-09-23T22:25:27.194Z · rows 40,519 · books 1,809 · byVerdict reject 15,187 / narrative 13,637 / use 11,694) 뿐이다.",
+  "「원천 수 vs 조각 수」는 source_id 의 # 앞부분을 문서 식별자로 보고 갈랐다. 지금 DB 에서 둘이 다른 원천은 space_place 하나뿐(원천 42 → 조각 59)이고 나머지 24개는 1:1 이다. europe_pmc·storyweaver 는 source_id 에 #pN-M 창 표기가 있으나 문서마다 창이 하나라 1:1 이다.",
+  "library_books(401권)는 소스 표에 넣지 않았다 — 2026-09-24 커밋 a20a2bac 가 고전 PD 도서를 지문 원천에서 퇴출했고, csat_dcp_items 의 kind=book 808행이 남아 있으나 library_articles 의 source 축과 단위가 다르다.",
+  "R0~R4 배정은 library_articles.license_class 최빈값 하나로 했다. 같은 원천 안에 restricted 소수 행이 섞여 있고(그 수는 adapted_from_id 보유 행과 대체로 같다 — voa 17/17 · futurity 6/6 · usgs 10/10 · elife 6/6, 다만 nasa 는 restricted 19 vs adapted 22 로 어긋난다), 행 단위로는 경로가 갈린다.",
+  "csat_source_registry 에 없는 원천이 DB 에 4개 있다 — scielo 25 · olh 21 · openalex 16 · econstor 14. 등록부가 아니라 library_articles.license_class 로만 판정했다.",
+  "DB 쓰기는 하지 않았고 낡은 스냅샷을 다시 굽지도 않았다(지시대로 보고만)."
+ ]
+}

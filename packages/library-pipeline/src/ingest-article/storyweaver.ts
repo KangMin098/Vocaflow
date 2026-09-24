@@ -30,7 +30,8 @@
 //   아니라 "모른다" 이고, 모르는 것을 발행하면 그때는 되돌릴 수 없다.
 //
 // API: https://storyweaver.org.in/api/v1/books-search  (목록 · `levels[]` · `per_page` 상한 24)
-//      https://storyweaver.org.in/api/v1/stories/<slug>/read  (본문)
+//      https://storyweaver.org.in/api/v1/stories/<slug>/read?embed=true  (본문)
+//        ⚠️ `?embed=true` 필수 — 없으면 401. 2026-09-24 실측.
 // source_id: "storyweaver:<slug>"
 
 import type { RawArticle } from '../types-article'
@@ -205,7 +206,12 @@ export async function ingestStoryweaverArticle(itemUrl: string): Promise<RawArti
   const slug = itemUrl.match(/stories\/([a-z0-9-]+)/i)?.[1]
   if (!slug) throw new Error(`StoryWeaver URL 에서 slug 를 못 읽었다: ${itemUrl}`)
 
-  const res = await fetchWithTimeout(`${API}/stories/${slug}/read`)
+  // ⚠️ **`?embed=true` 가 없으면 401 이다.** 상류가 `/read` 에 로그인 게이팅을 걸었고
+  //   (2026-09-24 실측: `read` → 401 `"You are not authorized to read this story."` ·
+  //   `read?embed=true` → 200), 공개 임베드 경로만 본문을 준다. 응답 모양은 같다
+  //   (`data.pages[]` · `pageType` · `html`) — 쿼리 한 개 차이이고 파싱은 그대로다.
+  //   이 줄이 없으면 **한 편도 못 받는다.** 파일럿(2026-09-24)이 20/20 으로 확인했다.
+  const res = await fetchWithTimeout(`${API}/stories/${slug}/read?embed=true`)
   if (!res.ok) throw new Error(`StoryWeaver read failed: ${res.status} ${itemUrl}`)
   const json = (await res.json()) as { data?: { pages?: RawPage[]; level?: string } }
   const pages = json.data?.pages ?? []

@@ -1,0 +1,1101 @@
+{
+  "contract": "pilot/v1",
+  "generated": "2026-09-24",
+  "evidence_tags": {
+    "[측정]": "이 파일럿이 직접 잰 값",
+    "[문헌]": "URL 로 확인한 1차 자료",
+    "[추론]": "판정에 쓰지 않음"
+  },
+  "source": {
+    "name": "Global Voices",
+    "homepage": "https://globalvoices.org/",
+    "kind": "CC 시민 저널리즘 · 다국어 번역 네트워크",
+    "register_row": "docs/reports/sources-register.md R1 — 104,378편 · 편당 1,443어 · 문단 44어 · ⚠️맥락 의존 44%"
+  },
+  "access": {
+    "robots_txt": {
+      "url": "https://globalvoices.org/robots.txt",
+      "status": 200,
+      "crawl_delay_s": 10,
+      "disallow": [
+        "/wp-admin/",
+        "/wp-includes/",
+        "/site/"
+      ],
+      "note": "기사 경로는 허용 · UA 위장 안 함 · 요청 간 3.5~4초"
+    },
+    "sitemap": {
+      "index": "https://globalvoices.org/sitemap.xml",
+      "status": 200,
+      "shards": "wp-sitemap-posts-post-1..N.xml",
+      "note": "사이트맵으로 규모는 확인되나 층화가 안 돼 REST API 를 썼다"
+    },
+    "api": {
+      "base": "https://globalvoices.org/wp-json/wp/v2/",
+      "posts": 200,
+      "categories": 200,
+      "users": "200 이지만 name 이 null — 저자는 페이지의 <meta name=\"author\"> 에서 읽었다"
+    },
+    "rate_limit_observed": "기사 60요청(20편 × REST+HTML+저자) 뒤 443 연결 거부. 그 뒤 재시도도 거부 — IP 차단으로 보인다 [측정]"
+  },
+  "sampling": {
+    "frame": "wp/v2/posts, 지역 카테고리 11개 × 날짜 역순 offset 0/700/900/1100/1500/2600/5200/8000",
+    "n": 20,
+    "regions": 11,
+    "distinct_topics": 38,
+    "years": {
+      "min": 2007,
+      "max": 2026,
+      "list": [
+        2007,
+        2009,
+        2009,
+        2010,
+        2010,
+        2010,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2018,
+        2018,
+        2020,
+        2026,
+        2026,
+        2026,
+        2026,
+        2026
+      ]
+    },
+    "method": "지역 11칸에 2편(작은 3칸은 1편) 배정 → 각 칸에서 주제 중복이 가장 적은 후보를 그리디 선택",
+    "caveat": "offset 은 날짜 역순이라 연도 층화는 됐지만 확률 표본이 아니다. n=20 의 비율 추정은 ±20pp 폭을 갖는다"
+  },
+  "g0": {
+    "verdict": "통과 — 20/20 이 R1(CC BY, 원문 확보 가능)",
+    "license_declared_at": "site — 모든 기사 푸터가 같은 문자열 1개. 기사 수준 라이선스 필드는 마크업에 존재하지 않는다 [측정: 20/20 동일]",
+    "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/",
+    "license_url_live": true,
+    "cc_by_only_ratio": "20/20 = 100% (본문 텍스트 기준) [측정]",
+    "route_distribution": {
+      "R0": 0,
+      "R1": 20,
+      "R2": 0,
+      "R3": 0,
+      "R4": 0
+    },
+    "traceability": {
+      "author": "20/20 — <meta name=\"author\">",
+      "year": "20/20 — post.date",
+      "source_url": "20/20",
+      "license_raw": "20/20",
+      "dropouts": 0
+    },
+    "per_article_findings": [
+      {
+        "finding": "기사별 라이선스 변종 = 0",
+        "detail": "20편 모두 푸터 CC BY 3.0 문자열이 글자 단위로 동일. 「기사마다 다를 수 있다」는 경고는 이 표본에서 재현되지 않았다 [측정]"
+      },
+      {
+        "finding": "제휴 전재가 3/20 (15%)",
+        "detail": "858537 Prachatai(태국) · 858165 Istinomer/CRTA(세르비아) · 858247 외부 기고. 본문 머리에 「content partnership agreement 로 재게재」라고 적혀 있으나 라이선스 표기는 사이트 푸터 그대로다 — 제휴 원문에 CC BY 가 전이되는지 마크업으로는 확인 불가 [측정: 본문 문구 · 미해결]"
+      },
+      {
+        "finding": "사진 라이선스가 본문과 다르다 3/20",
+        "detail": "858165(BY-SA 4.0 · CC0) · 858399(BY 2.0 · BY-SA 3.0) · 858247(BY-SA 4.0) — 전부 Wikimedia/Flickr 사진. 본문만 가져오면 무관하지만 사진째 옮기면 SA 가 딸려온다 [측정]"
+      }
+    ],
+    "unresolved": "globalvoices.org/about/global-voices-attribution-policy/ 를 못 읽었다(IP 차단). 제휴 전재분의 CC BY 적용 여부가 이 문서에 있을 수 있다"
+  },
+  "g1": {
+    "slot_target": "C 장문 서사 (가중치 0.51)",
+    "verdict": "부분 적합 — 분모가 104,378 이 아니라 그중 「feature/weblog」 몫이다",
+    "corpus_composition": {
+      "measured_by": "wp/v2/categories 의 count 필드 [측정]",
+      "roundups": 68775,
+      "weblog": 29794,
+      "feature": 13774,
+      "note": "type 분류축의 세 값. 표본 20편에서 roundup 8편은 전부 13~46어 포인터였고, feature/weblog 12편은 285~2,745어였다 — 분리가 완전했다(겹침 0) [측정]",
+      "implication": "roundup 은 어느 창에도 안 들어간다. C 무리 후보 분모는 feature 13,774 + weblog 29,794 이며, 그중에서도 285어 미만은 다시 빠진다"
+    },
+    "context_dependence": {
+      "question": "「맥락 의존 44%」가 맞는가",
+      "measured_all20_pct": 70,
+      "measured_substantive_pct": 58.3,
+      "definition": "특정 국가·인물·사건을 이미 알아야 문장이 가리키는 대상이 생기는 글. 편마다 어떤 전제가 필요한지 한 줄로 적었다",
+      "answer": "44% 가 아니다. 지역 층화 20편에서 14/20 = 70% 가 맥락 의존이다. 200어 이상 12편으로 좁혀도 7/12 = 58.3% 로 여전히 44% 보다 높다 [측정: 20편 전문 읽기]",
+      "ci_note": "n=20 의 95% Wilson 구간은 대략 48~86% 다. 44% 는 그 아래 밖에 있다 — 다만 앞선 44% 가 무엇을 분모로 쟀는지 재현할 수 없으므로 「같은 정의로 다르게 나왔다」고 단정하지 않는다"
+    },
+    "year_distribution": {
+      "2026": 5,
+      "2007-2009": 3,
+      "2010-2014": 8,
+      "2015-2020": 4
+    },
+    "genre": "사건 보도 + 소셜미디어 인용 편집 + 인터뷰 Q&A. 순수 전기·회고 서사는 20편 중 0편 [측정]",
+    "structural_finding": "GV 본문은 임베드(트윗·인스타·인용 블록)를 잇는 연결문이 큰 몫이다. 200어 이상 12편의 인용 블록 몫 중앙 4.9%, 최대 72.7%(649596 인터뷰) · 42.7%(857182) · 35.1%(643079). 인용을 걷으면 「One user shared:」 같은 빈 연결문이 남는다 [측정]"
+  },
+  "g2": {
+    "method": "서로 다른 3편에서 문단 1개씩 골라 지명·인명·단체명을 일반명사로 바꾸고 앞 문맥 의존을 풀었다. 수정량 = 원문 낱말 중 살아남지 못한 비율(LCS 단어 정렬)",
+    "cases": [
+      {
+        "case": "A",
+        "article": 858399,
+        "url": "https://globalvoices.org/2026/09/22/technology-facilitated-trafficking-how-bangladeshi-migrants-become-victims-of-recruitment-in-cambodia/",
+        "where": "body paragraph 2",
+        "before": "Sajjad Hossain was 23 in 2025, a fresh graduate from Comilla city in eastern Bangladesh, when a job advertisement reached him through a WhatsApp group. It promised data-entry work in Phnom Penh, Cambodia, with a wage several times what he could earn at home, and a middleman handling the visa process. Within one month, he had signed the paperwork, paid roughly BDT 450,000 (USD 3,640), and boarded a flight to Cambodia. Within 48 hours of landing in Phnom Penh, his passport had disappeared into a company safe, and so had the job he had been promised.",
+        "after": "A young man of 23 had just finished university in a small city in the east of his country when a job advertisement reached him through a messaging group. It promised data-entry work in a capital city abroad, with a wage several times what he could earn at home, and a middleman handling the visa process. Within one month, he had signed the paperwork, paid roughly ten years of an average local salary, and boarded a flight. Within 48 hours of landing, his passport had disappeared into a company safe, and so had the job he had been promised.",
+        "words_before": 96,
+        "words_after": 99,
+        "kept": 71,
+        "change_rate_vs_before_pct": 26,
+        "cost_grade": "중",
+        "event_survives": "남는다 — 사람 한 명이 광고에 속아 떠나 여권을 빼앗기는 사건이 고유명사 없이 그대로 성립한다"
+      },
+      {
+        "case": "B",
+        "article": 858247,
+        "url": "https://globalvoices.org/2026/09/15/what-indias-cockroach-protests-reveal-about-digital-authoritarianism/",
+        "where": "body paragraph 6",
+        "before": "The CJP's first major victory came on July 25, when Education Minister Dharmendra Pradhan resigned after a 36-day protest at the Jantar Mantar observatory over alleged examination irregularities, with the government also promising no punitive action against protesters. By late August, the CJP accused the government of reneging on its promises and announced a new march for September 5, demanding the withdrawal of all First Information Reports (FIRs), official police reports that mark the first step in a police inquiry, filed against participants. That dispute has since been resolved.",
+        "after": "The movement's first major victory came in midsummer, when the education minister resigned after a 36-day sit-in outside a landmark in the capital over alleged cheating in a national entrance exam, and the government promised that protesters would not be punished. By the end of the summer, the movement accused the government of breaking that promise and announced a new march, demanding that every police case opened against a participant be dropped. That dispute has since been settled.",
+        "words_before": 89,
+        "words_after": 78,
+        "kept": 36,
+        "change_rate_vs_before_pct": 59.6,
+        "cost_grade": "중(사실상 재저작)",
+        "event_survives": "남는다(사건) · 잃는다(의미) — 「운동이 장관을 사퇴시켰다」는 남지만 어느 나라 어느 시험인지가 사라지면서 왜 분노했는지가 함께 사라진다"
+      },
+      {
+        "case": "C",
+        "article": 131062,
+        "url": "https://globalvoices.org/2010/03/29/russia-bloggers-mockery-of-film-poster-upsets-famous-director/",
+        "where": "body paragraph 2",
+        "before": "The poster in question has advertised an upcoming movie of Mikhlakov \"Burnt by the Sun 2\" (the movie trailer is here) where the director depicts the monumental struggle and suffering of people in the Soviet Union during the World War II. The movie is thought as a sequel to the Oscar-winning \"Burnt by the Sun\" released in 1994 that brought an international fame to Mikhalkov. \"Burnt by the Sun 2\" poster depicts the director Mikhalkov, who also plays a leading role in the movie, as a Soviet soldier in the middle of a battle. The poster reads \"The Great Movie About the Great War. Burnt by the Sun 2. Upcoming. Movie by Nikita Mikhalkov.\"",
+        "after": "The poster advertised an upcoming war film in which the director depicts the monumental struggle and suffering of ordinary people during the Second World War. The film was a sequel to an award-winning picture, released sixteen years earlier, that had brought the director international fame. The new poster showed the director himself, who also plays the leading role, as a soldier in the middle of a battle. The poster read: \"The Great Movie About the Great War. Movie by the director himself.\"",
+        "words_before": 114,
+        "words_after": 82,
+        "kept": 54,
+        "change_rate_vs_before_pct": 52.6,
+        "cost_grade": "중(사실상 재저작)",
+        "event_survives": "남는다(사건) · 잃는다(핵심) — 「감독이 자기 얼굴을 자기 전쟁영화 포스터에 넣었다」는 남지만, 그가 거만하다고 알려진 인물이라는 전제가 빠지면 조롱의 이유가 사라진다"
+      }
+    ],
+    "checklist": {
+      "논지를 한 문단 단위로 떼어낼 수 있는가": "2/3 — A 는 완결된 사건 한 토막, B·C 는 앞뒤 문단 없이는 절반만 선다",
+      "고유명사 제거 후 논지 유지": "1/3 (A만) — 합격선 3/3 미달 [측정]",
+      "앞 문맥 의존 제거 가능": "3/3 — 문단 하나 안에서는 지시어를 풀 수 있었다",
+      "어휘 대역 하향 후 내용 유지": "3/3 — GV 어휘는 이미 일반 신문 대역이다"
+    },
+    "cost_grade_overall": "중 — 저맥락 서사 문단은 26%(경~중 경계), 정치 문단은 53~60%(사실상 재저작). 한 원천 안에서 비용이 두 배 갈린다 [측정]"
+  },
+  "g3": {
+    "note": "보조 지표. 이것만으로 합격시키지 않는다",
+    "english_judgement": {
+      "rule": "라틴문자 ≥0.70 AND 기능어 ≥0.15 · 앞 5,000토큰 · 50토큰 미만 판정불가",
+      "english": 12,
+      "unjudgeable_under_50_tokens": 8,
+      "fail": 0,
+      "latin_ratio_median": 0.95965,
+      "function_word_ratio_median": 0.3213
+    },
+    "words": {
+      "median_all20": 335,
+      "median_substantive12": 1013,
+      "mean_all20": 623,
+      "min": 13,
+      "max": 2745,
+      "register_claim": 1443,
+      "register_claim_verdict": "표본 평균 623어 · 중앙 335어. roundup 을 뺀 12편만 보면 중앙 1,013어 — 1,443 은 feature 쪽만 센 값에 가깝다 [측정]"
+    },
+    "paragraph_words_median_substantive": 32.5,
+    "proper_noun_density_per_100w": {
+      "median_all20": 10.845,
+      "median_substantive12": 7.635,
+      "min": 3.32,
+      "max": 31.11,
+      "target_C": 4.25,
+      "verdict": "C 목표의 1.8배 [측정]"
+    },
+    "proper_noun_free_span_ratio_pct": {
+      "paragraph_level_substantive": 24.9,
+      "csat_long_span_level": 0,
+      "target_C": 0,
+      "note": "창 260~400 으로 자른 38조각 중 고유명사 0개는 0조각 — C 무리 기준(0%)과 일치한다"
+    },
+    "window_yield": {
+      "unit": "20편에서 나온 조각 수 / 조각이 1개 이상 나온 기사 수",
+      "school_sentence_6_40": {
+        "spans": 554,
+        "articles": 20
+      },
+      "school_paragraph_40_200": {
+        "spans": 220,
+        "articles": 15
+      },
+      "csat_short_90_200": {
+        "spans": 105,
+        "articles": 12
+      },
+      "csat_long_260_400": {
+        "spans": 38,
+        "articles": 10
+      }
+    },
+    "markers_paragraph_level_substantive": {
+      "prose_paragraphs": 249,
+      "time_order_pct": 20.9,
+      "contrast_pct": 25.7,
+      "quote_start_pct": 2.8,
+      "anaphor_start_pct": 16.4
+    },
+    "markers_csat_long_spans": {
+      "n": 38,
+      "time_order_pct": 81.6,
+      "contrast_pct": 78.9,
+      "quote_start_pct": 2.6,
+      "anaphor_start_pct": 23.7
+    },
+    "vs_C_benchmark": {
+      "benchmark": {
+        "words": 334,
+        "proper_per_100w": 4.25,
+        "time_order_pct": 89.7,
+        "anaphor_start_pct": 0,
+        "quote_start_pct": 0,
+        "proper_free_pct": 0
+      },
+      "measured_on_csat_long_spans": {
+        "words": "260~400(창으로 강제)",
+        "proper_per_100w": 7.635,
+        "time_order_pct": 81.6,
+        "anaphor_start_pct": 23.7,
+        "quote_start_pct": 2.6,
+        "proper_free_pct": 0
+      },
+      "match": "맞는 축 3 — 고유명사 0개 구간 0%(일치) · 시간순 표지 81.6%(목표 89.7 에 근접) · 길이(창으로 맞출 수 있음)",
+      "mismatch": "어긋나는 축 2 — 고유명사 밀도 7.64 vs 4.25(1.8배) · 앞 문맥 지시어로 시작 23.7% vs 0%"
+    },
+    "blockquote_share_pct_median_substantive": 4.85
+  },
+  "articles": [
+    {
+      "id": 858537,
+      "url": "https://globalvoices.org/2026/09/23/thai-student-movement-forms-hope-theatre-making-the-stage-its-new-battleground/",
+      "title": "Thai student movement forms ‘Hope Theatre,’ making the stage its new battleground",
+      "region_stratum": "east-asia",
+      "topics": [
+        "arts-culture",
+        "education",
+        "politics",
+        "protest",
+        "youth"
+      ],
+      "gv_type": "feature",
+      "year": 2026,
+      "author": "Prachatai",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": true,
+      "image_licenses_other_than_by3": [],
+      "words": 1172,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 17,
+      "para_words_median": 66,
+      "proper_per_100w": 6.74,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.9542,
+      "english_function_word_ratio": 0.3197,
+      "window_yield": {
+        "school_sentence": 47,
+        "school_paragraph": 22,
+        "csat_short": 11,
+        "csat_long": 4
+      },
+      "context_dependent": false,
+      "context_dependency_note": "태국 학생운동·형법 112조를 본문이 직접 설명한다. 「학생들이 학교 폭력을 비판하려 극단을 만들었다」는 사건이 사전 지식 없이 읽힌다"
+    },
+    {
+      "id": 540087,
+      "url": "https://globalvoices.org/2015/09/15/as-japans-largest-volcano-erupts-tourists-upload-snapshots-to-instagram/",
+      "title": "As Japan's Largest Volcano Erupts, Tourists Upload Snapshots to Instagram",
+      "region_stratum": "east-asia",
+      "topics": [
+        "citizen-media",
+        "disaster",
+        "media-journalism",
+        "science",
+        "travel"
+      ],
+      "gv_type": "feature",
+      "year": 2015,
+      "author": "Nevin Thompson",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 285,
+      "words_in_blockquotes": 48,
+      "blockquote_share_pct": 14.4,
+      "prose_paragraphs": 7,
+      "para_words_median": 15,
+      "proper_per_100w": 6.32,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.9438,
+      "english_function_word_ratio": 0.3571,
+      "window_yield": {
+        "school_sentence": 18,
+        "school_paragraph": 3,
+        "csat_short": 1,
+        "csat_long": 0
+      },
+      "context_dependent": false,
+      "context_dependency_note": "화산이 터지고 관광객이 사진을 올렸다 — 일본 지리도 본문이 설명한다"
+    },
+    {
+      "id": 643079,
+      "url": "https://globalvoices.org/2018/02/20/themtoo-syrian-women-tell-stories-of-rape-in-regime-prisons/",
+      "title": "#ThemToo: Syrian Women Tell Stories of Rape in Regime Prisons",
+      "region_stratum": "middle-east-north-africa",
+      "topics": [
+        "human-rights",
+        "war-conflict",
+        "women-gender"
+      ],
+      "gv_type": "(무분류)",
+      "year": 2018,
+      "author": "Maria Mattar",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 1314,
+      "words_in_blockquotes": 712,
+      "blockquote_share_pct": 35.1,
+      "prose_paragraphs": 31,
+      "para_words_median": 29,
+      "proper_per_100w": 7.38,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.973,
+      "english_function_word_ratio": 0.3227,
+      "window_yield": {
+        "school_sentence": 58,
+        "school_paragraph": 24,
+        "csat_short": 11,
+        "csat_long": 4
+      },
+      "context_dependent": true,
+      "context_dependency_note": "시리아 내전·아사드 정권·다라 진압·반정부 「야당」의 존재를 전제한다. #MeToo 는 설명하지만 전쟁 구도는 설명하지 않는다"
+    },
+    {
+      "id": 155660,
+      "url": "https://globalvoices.org/2010/08/07/bahrain-expensive-vote-buying/",
+      "title": "Bahrain: Expensive Vote Buying",
+      "region_stratum": "middle-east-north-africa",
+      "topics": [
+        "elections"
+      ],
+      "gv_type": "roundup",
+      "year": 2010,
+      "author": "Amira Al Hussaini",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 28,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 1,
+      "para_words_median": 28,
+      "proper_per_100w": 10.71,
+      "english_verdict": "unjudgeable",
+      "english_latin_ratio": null,
+      "english_function_word_ratio": null,
+      "window_yield": {
+        "school_sentence": 2,
+        "school_paragraph": 0,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "context_dependent": true,
+      "context_dependency_note": "바레인 10월 총선이 무엇인지, Mahmood Al Yousif 가 누구인지 모르면 28어가 가리키는 대상이 없다"
+    },
+    {
+      "id": 434209,
+      "url": "https://globalvoices.org/2013/09/19/global-voices-partners-with-infoamazonia/",
+      "title": "Global Voices Partners with InfoAmazonia",
+      "region_stratum": "latin-america",
+      "topics": [
+        "environment",
+        "indigenous",
+        "media-journalism"
+      ],
+      "gv_type": "weblog",
+      "year": 2013,
+      "author": "Sara Moreira",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": true,
+      "image_licenses_other_than_by3": [],
+      "words": 324,
+      "words_in_blockquotes": 142,
+      "blockquote_share_pct": 30.5,
+      "prose_paragraphs": 5,
+      "para_words_median": 42,
+      "proper_per_100w": 17.9,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.9718,
+      "english_function_word_ratio": 0.3653,
+      "window_yield": {
+        "school_sentence": 10,
+        "school_paragraph": 4,
+        "csat_short": 2,
+        "csat_long": 1
+      },
+      "context_dependent": true,
+      "context_dependency_note": "Global Voices·InfoAmazonia·Rio+20·O Eco 를 이미 아는 독자용 제휴 공지다. 자사 홍보문"
+    },
+    {
+      "id": 63649,
+      "url": "https://globalvoices.org/2009/03/23/cuba-interview-with-blogger-orlando-luis-pardo-lazo/",
+      "title": "Cuba: Interview with Blogger Orlando Luis Pardo Lazo",
+      "region_stratum": "latin-america",
+      "topics": [
+        "digital-activism",
+        "freedom-of-speech",
+        "literature"
+      ],
+      "gv_type": "weblog",
+      "year": 2009,
+      "author": "Claudia Cadelo",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 898,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 12,
+      "para_words_median": 76,
+      "proper_per_100w": 12.14,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.949,
+      "english_function_word_ratio": 0.3394,
+      "window_yield": {
+        "school_sentence": 33,
+        "school_paragraph": 16,
+        "csat_short": 8,
+        "csat_long": 3
+      },
+      "context_dependent": true,
+      "context_dependency_note": "쿠바 국영 출판(Letras Cubanas)·Yoani Sánchez·「반혁명분자」 낙인 구조를 전제. 스페인어 매체명 12개가 설명 없이 나열된다"
+    },
+    {
+      "id": 131062,
+      "url": "https://globalvoices.org/2010/03/29/russia-bloggers-mockery-of-film-poster-upsets-famous-director/",
+      "title": "Russia: Bloggers’ Mockery of Film Poster Upsets Famous Director",
+      "region_stratum": "eastern-central-europe",
+      "topics": [
+        "arts-culture",
+        "film",
+        "humor"
+      ],
+      "gv_type": "weblog",
+      "year": 2010,
+      "author": "Vadim Isakov",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 440,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 6,
+      "para_words_median": 32,
+      "proper_per_100w": 9.32,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.9642,
+      "english_function_word_ratio": 0.3545,
+      "window_yield": {
+        "school_sentence": 14,
+        "school_paragraph": 6,
+        "csat_short": 3,
+        "csat_long": 1
+      },
+      "context_dependent": true,
+      "context_dependency_note": "니키타 미할코프가 누구이며 왜 「거만하다」고 조롱받는지, RuNet·LiveJournal 문화를 모르면 농담이 성립하지 않는다"
+    },
+    {
+      "id": 858165,
+      "url": "https://globalvoices.org/2026/09/20/from-the-streets-to-the-ballot-box-what-hungary-can-teach-serbia/",
+      "title": "From the streets to the ballot box: What Hungary can teach Serbia",
+      "region_stratum": "eastern-central-europe",
+      "topics": [
+        "elections",
+        "good-news",
+        "history",
+        "politics",
+        "protest"
+      ],
+      "gv_type": "feature",
+      "year": 2026,
+      "author": "Istinomer",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": true,
+      "image_licenses_other_than_by3": [
+        "creativecommons.org/licenses/by/4.0/deed.en",
+        "creativecommons.org/licenses/by-sa/4.0/deed.en",
+        "creativecommons.org/publicdomain/zero/1.0/deed.en"
+      ],
+      "words": 2745,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 62,
+      "para_words_median": 39,
+      "proper_per_100w": 3.32,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.9751,
+      "english_function_word_ratio": 0.2926,
+      "window_yield": {
+        "school_sentence": 144,
+        "school_paragraph": 51,
+        "csat_short": 25,
+        "csat_long": 9
+      },
+      "context_dependent": true,
+      "context_dependency_note": "노비사드 역사 캐노피 붕괴·부치치/SNS·오르반/피데스·마자르의 티사당을 전제. 글 전체가 「헝가리 사례를 세르비아에 대 보기」다"
+    },
+    {
+      "id": 36619,
+      "url": "https://globalvoices.org/2007/12/27/nigeria-oils-dirty-business/",
+      "title": "Nigeria: Oil's Dirty Business",
+      "region_stratum": "sub-saharan-africa",
+      "topics": [
+        "environment",
+        "film",
+        "human-rights"
+      ],
+      "gv_type": "roundup",
+      "year": 2007,
+      "author": "Ndesanjo Macha",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 32,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 1,
+      "para_words_median": 32,
+      "proper_per_100w": 28.13,
+      "english_verdict": "unjudgeable",
+      "english_latin_ratio": null,
+      "english_function_word_ratio": null,
+      "window_yield": {
+        "school_sentence": 1,
+        "school_paragraph": 0,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "context_dependent": true,
+      "context_dependency_note": "나이지리아 델타 유전 분쟁과 그 다큐를 모르면 32어짜리 인용이 가리키는 대상이 없다"
+    },
+    {
+      "id": 709956,
+      "url": "https://globalvoices.org/2020/06/16/a-new-game-plays-with-ideas-about-how-disinformation-works-in-east-africa/",
+      "title": "A new game plays with ideas about how disinformation works in East Africa",
+      "region_stratum": "sub-saharan-africa",
+      "topics": [
+        "arts-culture",
+        "censorship",
+        "citizen-media",
+        "development",
+        "digital-activism",
+        "disaster",
+        "freedom-of-speech",
+        "governance",
+        "health",
+        "human-rights",
+        "ideas",
+        "law",
+        "politics",
+        "technology"
+      ],
+      "gv_type": "weblog",
+      "year": 2020,
+      "author": "Amanda Lichtenstein",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 1128,
+      "words_in_blockquotes": 52,
+      "blockquote_share_pct": 4.4,
+      "prose_paragraphs": 31,
+      "para_words_median": 32,
+      "proper_per_100w": 7.89,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.9621,
+      "english_function_word_ratio": 0.3188,
+      "window_yield": {
+        "school_sentence": 45,
+        "school_paragraph": 20,
+        "csat_short": 10,
+        "csat_long": 4
+      },
+      "context_dependent": false,
+      "context_dependency_note": "봇·트롤·딥페이크·게임의 구조를 본문이 모두 정의한다. 동아프리카를 몰라도 읽힌다"
+    },
+    {
+      "id": 858399,
+      "url": "https://globalvoices.org/2026/09/22/technology-facilitated-trafficking-how-bangladeshi-migrants-become-victims-of-recruitment-in-cambodia/",
+      "title": "Technology-facilitated trafficking: How Bangladeshi migrants become victims of recruitment in Cambodia",
+      "region_stratum": "south-asia",
+      "topics": [
+        "citizen-media",
+        "digital-activism",
+        "governance",
+        "human-rights",
+        "international-relations",
+        "law",
+        "media-journalism",
+        "migration-immigration",
+        "protest",
+        "technology",
+        "travel"
+      ],
+      "gv_type": "feature",
+      "year": 2026,
+      "author": "Zulker Naeen",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [
+        "creativecommons.org/licenses/by/2.0/deed.en",
+        "creativecommons.org/licenses/by-sa/3.0/deed.en"
+      ],
+      "words": 1277,
+      "words_in_blockquotes": 71,
+      "blockquote_share_pct": 5.3,
+      "prose_paragraphs": 31,
+      "para_words_median": 33,
+      "proper_per_100w": 5.87,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.9507,
+      "english_function_word_ratio": 0.2827,
+      "window_yield": {
+        "school_sentence": 56,
+        "school_paragraph": 24,
+        "csat_short": 12,
+        "csat_long": 4
+      },
+      "context_dependent": false,
+      "context_dependency_note": "dalal·「사이버 노예」·비용 수치를 모두 본문에서 정의한다. 사람 한 명이 속아 떠나 여권을 빼앗기는 서사가 자족적이다"
+    },
+    {
+      "id": 280379,
+      "url": "https://globalvoices.org/2011/12/26/bhutan-in-search-of-the-ngultrum-identity/",
+      "title": "Bhutan: In Search of the Ngultrum Identity",
+      "region_stratum": "south-asia",
+      "topics": [
+        "economics-business"
+      ],
+      "gv_type": "roundup",
+      "year": 2011,
+      "author": "Aparna Ray",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 13,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 0,
+      "para_words_median": 13,
+      "proper_per_100w": 23.08,
+      "english_verdict": "unjudgeable",
+      "english_latin_ratio": null,
+      "english_function_word_ratio": null,
+      "window_yield": {
+        "school_sentence": 1,
+        "school_paragraph": 0,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "context_dependent": true,
+      "context_dependency_note": "부탄 화폐 응울트럼과 블로거 PaSsu 를 전제한 13어 포인터. 사건 자체가 본문에 없다"
+    },
+    {
+      "id": 649596,
+      "url": "https://globalvoices.org/2018/05/15/trinidadian-photographer-maria-nunes-pays-tribute-to-carnival-dreamers-and-makers-in-new-book/",
+      "title": "Trinidadian photographer Maria Nunes pays tribute to ‘Carnival dreamers and makers’ in new book",
+      "region_stratum": "caribbean",
+      "topics": [
+        "arts-culture",
+        "good-news",
+        "ideas",
+        "literature",
+        "photography"
+      ],
+      "gv_type": "feature",
+      "year": 2018,
+      "author": "Janine Mendes-Franco",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 583,
+      "words_in_blockquotes": 1553,
+      "blockquote_share_pct": 72.7,
+      "prose_paragraphs": 16,
+      "para_words_median": 31,
+      "proper_per_100w": 10.98,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.9571,
+      "english_function_word_ratio": 0.3483,
+      "window_yield": {
+        "school_sentence": 26,
+        "school_paragraph": 11,
+        "csat_short": 5,
+        "csat_long": 2
+      },
+      "context_dependent": true,
+      "context_dependency_note": "트리니다드 카니발의 전통 가면(Blue Devils·Moko Jumbies·mas’·rapso)과 해당 사진집을 전제. 질문만 본문이고 답은 인용이다"
+    },
+    {
+      "id": 85668,
+      "url": "https://globalvoices.org/2009/07/16/jamaica-returning-home/",
+      "title": "Jamaica: Returning Home",
+      "region_stratum": "caribbean",
+      "topics": [
+        "environment",
+        "ideas",
+        "migration-immigration"
+      ],
+      "gv_type": "roundup",
+      "year": 2009,
+      "author": "Janine Mendes-Franco",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 37,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 1,
+      "para_words_median": 37,
+      "proper_per_100w": 5.41,
+      "english_verdict": "unjudgeable",
+      "english_latin_ratio": null,
+      "english_function_word_ratio": null,
+      "window_yield": {
+        "school_sentence": 1,
+        "school_paragraph": 0,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "context_dependent": true,
+      "context_dependency_note": "Francis Wade 가 「동의한다」는 대상(앞선 글)이 본문에 없다. 자메이카 귀환 이민 논쟁을 전제"
+    },
+    {
+      "id": 119059,
+      "url": "https://globalvoices.org/2010/01/23/armeniaazerbaijan-from-home-to-home/",
+      "title": "Armenia/Azerbaijan: From Home to Home",
+      "region_stratum": "central-asia-caucasus",
+      "topics": [
+        "ethnicity-race",
+        "international-relations",
+        "refugees",
+        "war-conflict"
+      ],
+      "gv_type": "roundup",
+      "year": 2010,
+      "author": "Onnik Krikorian",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 45,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 1,
+      "para_words_median": 45,
+      "proper_per_100w": 31.11,
+      "english_verdict": "unjudgeable",
+      "english_latin_ratio": null,
+      "english_function_word_ratio": null,
+      "window_yield": {
+        "school_sentence": 2,
+        "school_paragraph": 1,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "context_dependent": true,
+      "context_dependency_note": "나고르노카라바흐 분쟁을 모르면 「두 마을의 비상한 거래」가 무엇인지 알 수 없다"
+    },
+    {
+      "id": 858247,
+      "url": "https://globalvoices.org/2026/09/15/what-indias-cockroach-protests-reveal-about-digital-authoritarianism/",
+      "title": "What India’s ‘Cockroach’ protests reveal about digital authoritarianism",
+      "region_stratum": "north-america",
+      "topics": [
+        "citizen-media",
+        "education",
+        "freedom-of-speech",
+        "governance",
+        "politics",
+        "protest",
+        "youth"
+      ],
+      "gv_type": "feature",
+      "year": 2026,
+      "author": "Guest Contributor",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [
+        "creativecommons.org/licenses/by-sa/4.0/deed.en"
+      ],
+      "words": 1672,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 23,
+      "para_words_median": 74,
+      "proper_per_100w": 5.62,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.9724,
+      "english_function_word_ratio": 0.3199,
+      "window_yield": {
+        "school_sentence": 67,
+        "school_paragraph": 31,
+        "csat_short": 15,
+        "csat_long": 6
+      },
+      "context_dependent": true,
+      "context_dependency_note": "모디·BJP·NEET·잔타르만타르·인도 대법원 142조를 전제. FIR·lathi 는 주석하지만 정치 구도는 전제"
+    },
+    {
+      "id": 857182,
+      "url": "https://globalvoices.org/2026/08/26/thousands-of-little-penguins-will-be-vaccinated-against-bird-flu-down-under/",
+      "title": "Thousands of little penguins will be vaccinated against bird flu down under",
+      "region_stratum": "oceania",
+      "topics": [
+        "disaster",
+        "environment",
+        "health",
+        "science"
+      ],
+      "gv_type": "feature",
+      "year": 2026,
+      "author": "Kevin Rennie",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 346,
+      "words_in_blockquotes": 258,
+      "blockquote_share_pct": 42.7,
+      "prose_paragraphs": 8,
+      "para_words_median": 19,
+      "proper_per_100w": 14.45,
+      "english_verdict": "english",
+      "english_latin_ratio": 0.9572,
+      "english_function_word_ratio": 0.3032,
+      "window_yield": {
+        "school_sentence": 22,
+        "school_paragraph": 5,
+        "csat_short": 2,
+        "csat_long": 0
+      },
+      "context_dependent": false,
+      "context_dependency_note": "조류독감·백신 접종·「cooker」 속어까지 본문이 설명한다. 호주 정치를 몰라도 사건이 읽힌다"
+    },
+    {
+      "id": 343915,
+      "url": "https://globalvoices.org/2012/08/01/armenia-slacktivism-or-activism/",
+      "title": "Armenia: Activism or Slacktivism?",
+      "region_stratum": "central-asia-caucasus",
+      "topics": [
+        "digital-activism",
+        "politics",
+        "protest",
+        "technology"
+      ],
+      "gv_type": "roundup",
+      "year": 2012,
+      "author": "Onnik Krikorian",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 46,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 1,
+      "para_words_median": 46,
+      "proper_per_100w": 13.04,
+      "english_verdict": "unjudgeable",
+      "english_latin_ratio": null,
+      "english_function_word_ratio": null,
+      "window_yield": {
+        "school_sentence": 2,
+        "school_paragraph": 1,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "context_dependent": true,
+      "context_dependency_note": "아르메니아 블로거 Uzogh·The Armenian Observer 를 전제한 46어 포인터"
+    },
+    {
+      "id": 158403,
+      "url": "https://globalvoices.org/2010/08/23/egypt-my-first-fast/",
+      "title": "Egypt: My First Fast",
+      "region_stratum": "north-america",
+      "topics": [
+        "food",
+        "religion"
+      ],
+      "gv_type": "roundup",
+      "year": 2010,
+      "author": "Eman AbdElRahman",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 41,
+      "words_in_blockquotes": 0,
+      "blockquote_share_pct": 0,
+      "prose_paragraphs": 1,
+      "para_words_median": 41,
+      "proper_per_100w": 12.2,
+      "english_verdict": "unjudgeable",
+      "english_latin_ratio": null,
+      "english_function_word_ratio": null,
+      "window_yield": {
+        "school_sentence": 3,
+        "school_paragraph": 1,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "context_dependent": false,
+      "context_dependency_note": "라마단이 무엇인지 본문이 설명한다. 다만 41어라 사건이랄 것이 없다"
+    },
+    {
+      "id": 473882,
+      "url": "https://globalvoices.org/2014/06/04/other-abdications-in-spanish-history/",
+      "title": "Other Abdications in Spanish History",
+      "region_stratum": "western-europe",
+      "topics": [
+        "citizen-media",
+        "history"
+      ],
+      "gv_type": "roundup",
+      "year": 2014,
+      "author": "Juan Arellano",
+      "license_raw": "This site is licensed as Creative Commons Attribution 3.0. Please read our attribution policy to learn about freely redistributing our work",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "BY",
+      "license_scope": "site-wide footer only — 기사 수준 라이선스 필드·override 가 마크업에 없다",
+      "license_route": "R1",
+      "partner_republished": false,
+      "image_licenses_other_than_by3": [],
+      "words": 42,
+      "words_in_blockquotes": 133,
+      "blockquote_share_pct": 76,
+      "prose_paragraphs": 0,
+      "para_words_median": 21,
+      "proper_per_100w": 21.43,
+      "english_verdict": "unjudgeable",
+      "english_latin_ratio": null,
+      "english_function_word_ratio": null,
+      "window_yield": {
+        "school_sentence": 2,
+        "school_paragraph": 0,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "context_dependent": true,
+      "context_dependency_note": "후안 카를로스 국왕 퇴위 발표(앞선 GV 기사)를 전제하고, 본문 42어 중 본체는 스페인어 인용이다"
+    }
+  ],
+  "verdict": {
+    "g0": "통과 · R1 100%",
+    "g1": "조건부 — C 무리를 채우지만 분모가 104,378 이 아니다",
+    "g2": "중 — 저맥락 서사 26% · 정치 서사 53~60%",
+    "g3": "B — 시간순·고유명사 존재는 C 와 맞고, 고유명사 밀도와 앞 문맥 지시어가 어긋난다",
+    "priority": "중 — StoryWeaver·African Storybook 보다 낮게, A 무리 학술 단행본보다 높게",
+    "recommended_scope": "feature(13,774) 중 800어 이상 · 제휴 전재 제외 · 맥락 의존 판정을 통과한 것만. 20편 표본 비율(비의존 6/20, 그중 285어 이상 5편)을 그대로 대면 feature 13,774편에서 수천 편 규모가 남지만, 이 외삽은 표본이 작아 계획 근거로 쓰지 않는다",
+    "do_not": "roundup(68,775 · 전체의 66%)을 수확 분모에 넣지 않는다. 20/20 에서 roundup 은 어떤 창에도 조각을 내지 못했다 [측정]"
+  },
+  "limits": [
+    "전체 편수와 type 별 편수를 X-WP-Total 로 재확인하지 못했다 — 60요청 뒤 IP 가 막혔다. 지금 쓴 68,775/29,794/13,774 는 wp/v2/categories 의 count 필드다",
+    "GV attribution policy 본문을 못 읽었다(같은 차단). 제휴 전재 3편에 CC BY 가 전이되는지 미해결 — 사용자 법률 판단 대상",
+    "「맥락 의존 44%」의 원래 측정 정의·분모를 모른다. 이 파일럿의 70%/58%는 여기 적은 정의로 잰 값이며 두 수치가 같은 것을 재는지 확인하지 못했다",
+    "n=20 의 비율은 95% 구간이 ±20pp 에 이른다. 어떤 비율도 단독 계획 근거로 쓰지 않는다",
+    "번역 편(GV 는 다국어 네트워크다)이 영어 원문인지 번역문인지 구분하지 않았다 — 번역문이면 문체가 원천의 성질이 아니다",
+    "어휘 대역(NGSL+NAWL 밖 비율)을 안 쟀다 — 목록 로더를 이 세션에서 검증하지 못해 틀린 값을 내느니 비웠다",
+    "정제 잔존율(keep_pct)을 source-doc-inspect 로 재지 않았다. 대신 인용 블록 몫을 직접 쟀다",
+    "roundup/feature 분리는 20편에서 겹침 0 이었지만, 그것이 전 코퍼스에서도 그런지는 20편으로 보증되지 않는다"
+  ]
+}

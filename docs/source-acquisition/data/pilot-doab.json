@@ -1,0 +1,1272 @@
+{
+  "contract": "pilot/v1",
+  "source": "doab",
+  "probedAt": "2026-09-23T23:54:18.737Z",
+  "access": {
+    "endpoint": "https://directory.doabooks.org/rest/search?query=*&expand=metadata&limit=N",
+    "status": 200,
+    "note": "200 이지만 **이 경로로는 G0 을 못 한다** — CC 라이선스 필드가 없다. 실제로 쓴 경로는 OAI-PMH `xoai`: https://directory.doabooks.org/oai/request?verb=ListRecords&metadataPrefix=xoai (resumptionToken `xoai////<offset>` 로 오프셋 점프 가능, completeListSize 128,187). 본문은 https://library.oapen.org/rest/search?query=handle:<h>&expand=bitstreams 의 ORIGINAL 번들.",
+    "alternates": {
+      "oai_dc / qdc / dim": "dc:rights = \"open access\" 만. 라이선스 없음.",
+      "xoai": "bundles.bundle.bitstreams.bitstream#rightsuri + #rights 에 실제 CC 라이선스가 있다. **이 파일럿에서 쓸 수 있었던 유일한 경로.**",
+      "directory.doabooks.org 아이템 HTML": "403 (Cloudflare).",
+      "OAPEN TEXT 번들": "받아지지만 **단(column)을 줄 단위로 섞어 놓아** 문단 단위 작업에 못 쓴다 — ORIGINAL PDF + pdftotext 로 다시 뽑아야 했다. [측정]"
+    }
+  },
+  "sampling": {
+    "method": "OAI xoai 를 오프셋 0·12000·…·120000 으로 11번 점프해 1,100건 표집틀을 만들고(type=book 889건), 영어 선언 + 다운로드 URL 보유 + 연도 보유인 496권을 모집단으로 삼았다. 고정 시드(mulberry32, seed=20260924)로 섞은 뒤 주제 3층(인문7·사회7·과학6) · 연도 4구간 · 한 출판사 최대 2권 제약으로 20권을 뽑았다.",
+    "n": 20,
+    "poolN": 496,
+    "frameN": 1100,
+    "strata": {
+      "domain": {
+        "과학": 6,
+        "인문": 7,
+        "사회": 7
+      },
+      "yearBucket": {
+        "2020-2022": 6,
+        "2015-2019": 7,
+        "2023+": 4,
+        "~2014": 3
+      },
+      "publishers": 14
+    },
+    "bias": "모집단을 영어·다운로드가능으로 좁혔으므로 표본 20권의 라이선스 분포는 DOAB 전체보다 CC BY 쪽으로 치우친다. 치우치지 않은 값은 표집틀 889권 쪽(g0.byLicense_frame)을 쓸 것."
+  },
+  "books": [
+    {
+      "n": 1,
+      "title": "Wavelet Theory",
+      "authors": [
+        "Mohammady, Somayeh"
+      ],
+      "year": "2021",
+      "publisher": "IntechOpen",
+      "domain": "과학",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/67877",
+      "license_raw": [
+        "CC-BY",
+        "https://creativecommons.org/licenses/by/3.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "CC BY",
+      "route": "R1",
+      "g0_traceable": true,
+      "inBookLicense": "CC BY",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": true,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9994,
+        "functionWords": 0.3698,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.846,
+      "windows": {
+        "schoolSentence": 4351,
+        "schoolParagraph": 1194,
+        "csatShort": 472,
+        "csatLong": 66
+      },
+      "caps": {
+        "medianPer100": 0,
+        "zeroCapPct": 0.7017
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0,
+        "startsWithAnaphoraPct": 0.0173,
+        "timeMarkerPct": 0.059,
+        "contrastMarkerPct": 0.0467
+      }
+    },
+    {
+      "n": 2,
+      "title": "Forms of Life",
+      "authors": [
+        "Gailus, Andreas"
+      ],
+      "year": "2020",
+      "publisher": "Cornell University Press",
+      "domain": "인문",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/172170",
+      "license_raw": [
+        "CC-BY-NC-ND",
+        "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "license_class": "CC BY-NC-ND",
+      "route": "R4",
+      "g0_traceable": true,
+      "inBookLicense": "CC BY-NC-ND",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": true,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.998,
+        "functionWords": 0.3202,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.8753,
+      "windows": {
+        "schoolSentence": 3679,
+        "schoolParagraph": 1986,
+        "csatShort": 973,
+        "csatLong": 306
+      },
+      "caps": {
+        "medianPer100": 3.6368,
+        "zeroCapPct": 0.0646
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0.0191,
+        "startsWithAnaphoraPct": 0.0191,
+        "timeMarkerPct": 0.5861,
+        "contrastMarkerPct": 0.8134
+      }
+    },
+    {
+      "n": 3,
+      "title": "Progress in Translational Neuroimaging: Integrating Pathways, Systems and Phenomenology in Neurology and Psychiatry",
+      "authors": [
+        "Stoyanov Stoyanov, Drozdstoy",
+        "Brambilla, Paolo"
+      ],
+      "year": "2020",
+      "publisher": "Frontiers Media SA",
+      "domain": "과학",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/74091",
+      "license_raw": [
+        "CC-BY",
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_class": "CC BY",
+      "route": "R1",
+      "g0_traceable": true,
+      "inBookLicense": null,
+      "inBookSaysAllRightsReserved": null,
+      "licenseAgrees": null,
+      "bodyObtained": false,
+      "bodySource": "no-oapen-handle",
+      "english": null,
+      "keepPct": null,
+      "windows": null,
+      "caps": null,
+      "selfContained": null
+    },
+    {
+      "n": 4,
+      "title": "Marine Nitrogen Fixation and Phytoplankton Ecology",
+      "authors": [
+        "Lee, Sang Heon",
+        "Bhavya, P.S.",
+        "Kim, Bo Kyung"
+      ],
+      "year": "2022",
+      "publisher": "MDPI - Multidisciplinary Digital Publishing Institute",
+      "domain": "사회",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/91125",
+      "license_raw": [
+        "CC-BY",
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_class": "CC BY",
+      "route": "R1",
+      "g0_traceable": true,
+      "inBookLicense": null,
+      "inBookSaysAllRightsReserved": null,
+      "licenseAgrees": null,
+      "bodyObtained": false,
+      "bodySource": "no-oapen-handle",
+      "english": null,
+      "keepPct": null,
+      "windows": null,
+      "caps": null,
+      "selfContained": null
+    },
+    {
+      "n": 5,
+      "title": "Numerical Modeling of Stagnation Flows over Porous Catalytic Surfaces",
+      "authors": [
+        "Karadeniz, Hüseyin"
+      ],
+      "year": "2016",
+      "publisher": "KIT Scientific Publishing",
+      "domain": "과학",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/54919",
+      "license_raw": [
+        "CC-BY-SA",
+        "https://creativecommons.org/licenses/by-sa/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "license_class": "CC BY-SA",
+      "route": "R2",
+      "g0_traceable": true,
+      "inBookLicense": null,
+      "inBookSaysAllRightsReserved": null,
+      "licenseAgrees": null,
+      "bodyObtained": false,
+      "bodySource": "no-oapen-handle",
+      "english": null,
+      "keepPct": null,
+      "windows": null,
+      "caps": null,
+      "selfContained": null
+    },
+    {
+      "n": 6,
+      "title": "Supercapacitors",
+      "authors": [
+        "Liudvinavičius, Lionginas"
+      ],
+      "year": "2018",
+      "publisher": "IntechOpen",
+      "domain": "과학",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/130234",
+      "license_raw": [
+        "CC-BY",
+        "https://creativecommons.org/licenses/by/3.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "license_class": "CC BY",
+      "route": "R1",
+      "g0_traceable": true,
+      "inBookLicense": "CC BY",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": true,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9998,
+        "functionWords": 0.3206,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.7661,
+      "windows": {
+        "schoolSentence": 1815,
+        "schoolParagraph": 634,
+        "csatShort": 268,
+        "csatLong": 53
+      },
+      "caps": {
+        "medianPer100": 0,
+        "zeroCapPct": 0.5777
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0,
+        "startsWithAnaphoraPct": 0.0256,
+        "timeMarkerPct": 0.1243,
+        "contrastMarkerPct": 0.1737
+      }
+    },
+    {
+      "n": 7,
+      "title": "Cinema, democracy and perfectionism: Joshua Foa Dienstag in dialogue",
+      "authors": [
+        "Foa Dienstag, Joshua"
+      ],
+      "year": "2016",
+      "publisher": "Manchester University Press",
+      "domain": "인문",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/31855",
+      "license_raw": [
+        "CC-BY-NC-ND",
+        "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "license_class": "CC BY-NC-ND",
+      "route": "R4",
+      "g0_traceable": true,
+      "inBookLicense": null,
+      "inBookSaysAllRightsReserved": null,
+      "licenseAgrees": null,
+      "bodyObtained": false,
+      "bodySource": "no-ORIGINAL-pdf",
+      "english": null,
+      "keepPct": null,
+      "windows": null,
+      "caps": null,
+      "selfContained": null
+    },
+    {
+      "n": 8,
+      "title": "Yoga and Animal Ethics",
+      "authors": [
+        "Valpey, Kenneth R."
+      ],
+      "year": "2025",
+      "publisher": "Springer Nature",
+      "domain": "과학",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/162863",
+      "license_raw": [
+        "CC-BY",
+        "http://creativecommons.org/licenses/by/4.0/"
+      ],
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_class": "CC BY",
+      "route": "R1",
+      "g0_traceable": true,
+      "inBookLicense": "CC BY",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": true,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9959,
+        "functionWords": 0.34,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.9591,
+      "windows": {
+        "schoolSentence": 3944,
+        "schoolParagraph": 1948,
+        "csatShort": 956,
+        "csatLong": 256
+      },
+      "caps": {
+        "medianPer100": 4.5397,
+        "zeroCapPct": 0.0243
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0.0135,
+        "startsWithAnaphoraPct": 0.0135,
+        "timeMarkerPct": 0.527,
+        "contrastMarkerPct": 0.5486
+      }
+    },
+    {
+      "n": 9,
+      "title": "Invisible Weapons",
+      "authors": [
+        "Gaposchkin, M. Cecilia"
+      ],
+      "year": "2017",
+      "publisher": "Cornell University Press",
+      "domain": "인문",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/135062",
+      "license_raw": [
+        "CC-BY-NC-ND",
+        "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "license_class": "CC BY-NC-ND",
+      "route": "R4",
+      "g0_traceable": true,
+      "inBookLicense": "ARR(전권보유 문구만)",
+      "inBookSaysAllRightsReserved": true,
+      "licenseAgrees": false,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9978,
+        "functionWords": 0.261,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.8198,
+      "windows": {
+        "schoolSentence": 4378,
+        "schoolParagraph": 1794,
+        "csatShort": 824,
+        "csatLong": 223
+      },
+      "caps": {
+        "medianPer100": 7.716,
+        "zeroCapPct": 0.3275
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0.0029,
+        "startsWithAnaphoraPct": 0.0135,
+        "timeMarkerPct": 0.2396,
+        "contrastMarkerPct": 0.2029
+      }
+    },
+    {
+      "n": 10,
+      "title": "A Life Course Perspective on Chinese Youths",
+      "authors": [
+        "Constantin, Sandra V."
+      ],
+      "year": "2024",
+      "publisher": "Springer Nature",
+      "domain": "사회",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/138893",
+      "license_raw": [
+        "CC-BY",
+        "http://creativecommons.org/licenses/by/4.0/"
+      ],
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_class": "CC BY",
+      "route": "R1",
+      "g0_traceable": true,
+      "inBookLicense": "CC BY",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": true,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9986,
+        "functionWords": 0.3604,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.9095,
+      "windows": {
+        "schoolSentence": 3131,
+        "schoolParagraph": 1143,
+        "csatShort": 533,
+        "csatLong": 136
+      },
+      "caps": {
+        "medianPer100": 10.2894,
+        "zeroCapPct": 0.1017
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0.0097,
+        "startsWithAnaphoraPct": 0.0169,
+        "timeMarkerPct": 0.3027,
+        "contrastMarkerPct": 0.2906
+      }
+    },
+    {
+      "n": 11,
+      "title": "Hesychasm and Art",
+      "authors": [
+        "Strezova, Anita"
+      ],
+      "year": "2014",
+      "publisher": "ANU Press",
+      "domain": "인문",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/27102",
+      "license_raw": [
+        "Other open license",
+        "http://press.anu.edu.au/about/conditions-use"
+      ],
+      "license_url": "http://press.anu.edu.au/about/conditions-use",
+      "license_class": "기타: http://press.anu.edu.au/about/conditions-use",
+      "route": "R4",
+      "g0_traceable": true,
+      "inBookLicense": "ARR(전권보유 문구만)",
+      "inBookSaysAllRightsReserved": true,
+      "licenseAgrees": false,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9916,
+        "functionWords": 0.34,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.8734,
+      "windows": {
+        "schoolSentence": 4417,
+        "schoolParagraph": 1683,
+        "csatShort": 778,
+        "csatLong": 204
+      },
+      "caps": {
+        "medianPer100": 23.3873,
+        "zeroCapPct": 0.0219
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0.0066,
+        "startsWithAnaphoraPct": 0.0066,
+        "timeMarkerPct": 0.3443,
+        "contrastMarkerPct": 0.4079
+      }
+    },
+    {
+      "n": 12,
+      "title": "Hydrological Modelling for the Sustainable Management of Water Resources in River Basins",
+      "authors": [
+        "Panagopoulos, Ioannis",
+        "Sidiropoulos, Pantelis"
+      ],
+      "year": "2025",
+      "publisher": "MDPI - Multidisciplinary Digital Publishing Institute",
+      "domain": "사회",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/174725",
+      "license_raw": [
+        "CC-BY",
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_class": "CC BY",
+      "route": "R1",
+      "g0_traceable": true,
+      "inBookLicense": null,
+      "inBookSaysAllRightsReserved": null,
+      "licenseAgrees": null,
+      "bodyObtained": false,
+      "bodySource": "no-oapen-handle",
+      "english": null,
+      "keepPct": null,
+      "windows": null,
+      "caps": null,
+      "selfContained": null
+    },
+    {
+      "n": 13,
+      "title": "Irregular Migrants in Belgium and the Netherlands: Aspirations and Incorporation",
+      "authors": [
+        "van Meeteren, Masja"
+      ],
+      "year": "2014",
+      "publisher": "Amsterdam University Press",
+      "domain": "사회",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/30561",
+      "license_raw": [
+        "CC-BY-NC-ND",
+        "https://creativecommons.org/licenses/by-nc-nd/3.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/3.0/",
+      "license_class": "CC BY-NC-ND",
+      "route": "R4",
+      "g0_traceable": true,
+      "inBookLicense": "ARR(전권보유 문구만)",
+      "inBookSaysAllRightsReserved": true,
+      "licenseAgrees": false,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9989,
+        "functionWords": 0.3248,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.9657,
+      "windows": {
+        "schoolSentence": 4100,
+        "schoolParagraph": 1445,
+        "csatShort": 606,
+        "csatLong": 112
+      },
+      "caps": {
+        "medianPer100": 1.7857,
+        "zeroCapPct": 0.4196
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0,
+        "startsWithAnaphoraPct": 0.0327,
+        "timeMarkerPct": 0.1698,
+        "contrastMarkerPct": 0.2498
+      }
+    },
+    {
+      "n": 14,
+      "title": "Diversity and Pluralism in Islam",
+      "authors": [
+        "Hirji, Zulfikar"
+      ],
+      "year": "2010",
+      "publisher": "Bloomsbury Academic",
+      "domain": "인문",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/159197",
+      "license_raw": [
+        "CC-BY-NC-ND",
+        "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "license_class": "CC BY-NC-ND",
+      "route": "R4",
+      "g0_traceable": true,
+      "inBookLicense": "CC BY-NC-ND",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": true,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9987,
+        "functionWords": 0.3602,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.9307,
+      "windows": {
+        "schoolSentence": 3111,
+        "schoolParagraph": 1277,
+        "csatShort": 580,
+        "csatLong": 142
+      },
+      "caps": {
+        "medianPer100": 12.3724,
+        "zeroCapPct": 0.1638
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0.0101,
+        "startsWithAnaphoraPct": 0.0275,
+        "timeMarkerPct": 0.2217,
+        "contrastMarkerPct": 0.2928
+      }
+    },
+    {
+      "n": 15,
+      "title": "Ludwig Senfl: Motets For Four Voices (A-I). New Senfl Edition 1",
+      "authors": [
+        "Edwards, Scott Lee",
+        "Gasch, Stefan",
+        "Tröster, Sonja"
+      ],
+      "year": "2021",
+      "publisher": "Hollitzer Verlag",
+      "domain": "인문",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/116817",
+      "license_raw": [
+        "CC-BY",
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_class": "CC BY",
+      "route": "R1",
+      "g0_traceable": true,
+      "inBookLicense": "CC BY",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": true,
+      "bodyObtained": true,
+      "bodySource": "cached",
+      "english": {
+        "verdict": true,
+        "latin": 0.9976,
+        "functionWords": 0.3162,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.6117,
+      "windows": {
+        "schoolSentence": 1664,
+        "schoolParagraph": 513,
+        "csatShort": 202,
+        "csatLong": 41
+      },
+      "caps": {
+        "medianPer100": 0,
+        "zeroCapPct": 0.9163
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0.0015,
+        "startsWithAnaphoraPct": 0.0003,
+        "timeMarkerPct": 0.0075,
+        "contrastMarkerPct": 0.0121
+      }
+    },
+    {
+      "n": 16,
+      "title": "Big Data, Pharmacogenomics and Real-World Research in Pharmacology",
+      "authors": [
+        "Cheng-Chung Wei, James",
+        "Mushiroda, Taisei",
+        "Chang, Wei-Chiao"
+      ],
+      "year": "2020",
+      "publisher": "Frontiers Media SA",
+      "domain": "과학",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/74202",
+      "license_raw": [
+        "CC-BY",
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_class": "CC BY",
+      "route": "R1",
+      "g0_traceable": true,
+      "inBookLicense": null,
+      "inBookSaysAllRightsReserved": null,
+      "licenseAgrees": null,
+      "bodyObtained": false,
+      "bodySource": "no-oapen-handle",
+      "english": null,
+      "keepPct": null,
+      "windows": null,
+      "caps": null,
+      "selfContained": null
+    },
+    {
+      "n": 17,
+      "title": "Disruption in the Arts",
+      "authors": [
+        "Koch, Lars",
+        "Nanz, Tobias",
+        "Pause, Johannes"
+      ],
+      "year": "2018",
+      "publisher": "De Gruyter",
+      "domain": "인문",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/94121",
+      "license_raw": [
+        "CC-BY-NC-ND",
+        "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "license_class": "CC BY-NC-ND",
+      "route": "R4",
+      "g0_traceable": true,
+      "inBookLicense": "(문구 없음)",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": false,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9983,
+        "functionWords": 0.3686,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.9855,
+      "windows": {
+        "schoolSentence": 4821,
+        "schoolParagraph": 2307,
+        "csatShort": 1093,
+        "csatLong": 259
+      },
+      "caps": {
+        "medianPer100": 13.6224,
+        "zeroCapPct": 0.0847
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0.009,
+        "startsWithAnaphoraPct": 0.01,
+        "timeMarkerPct": 0.256,
+        "contrastMarkerPct": 0.3406
+      }
+    },
+    {
+      "n": 18,
+      "title": "Migration and (Im)Mobility",
+      "authors": [
+        "Wieczorek, Anna Xymena"
+      ],
+      "year": "2018",
+      "publisher": "transcript Verlag",
+      "domain": "사회",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/68244",
+      "license_raw": [
+        "CC-BY-NC-ND",
+        "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode",
+      "license_class": "CC BY-NC-ND",
+      "route": "R4",
+      "g0_traceable": true,
+      "inBookLicense": "CC BY-NC-ND",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": true,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9993,
+        "functionWords": 0.3322,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.9799,
+      "windows": {
+        "schoolSentence": 5047,
+        "schoolParagraph": 2053,
+        "csatShort": 992,
+        "csatLong": 252
+      },
+      "caps": {
+        "medianPer100": 4.7836,
+        "zeroCapPct": 0.2312
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0.0162,
+        "startsWithAnaphoraPct": 0.0162,
+        "timeMarkerPct": 0.4848,
+        "contrastMarkerPct": 0.5294
+      }
+    },
+    {
+      "n": 19,
+      "title": "Media, Place and Tourism",
+      "authors": [
+        "Reijnders, Stijn",
+        "Martens, Emiel",
+        "Castro, Deborah",
+        "Póvoa, Débora",
+        "Nanjangud, Apoorva",
+        "Schiavone, Rosa"
+      ],
+      "year": "2024",
+      "publisher": "Taylor & Francis",
+      "domain": "사회",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/160608",
+      "license_raw": [
+        "CC-BY-NC-ND",
+        "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "license_class": "CC BY-NC-ND",
+      "route": "R4",
+      "g0_traceable": true,
+      "inBookLicense": "CC BY-NC-ND",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": true,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9993,
+        "functionWords": 0.3454,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.9176,
+      "windows": {
+        "schoolSentence": 3826,
+        "schoolParagraph": 1796,
+        "csatShort": 866,
+        "csatLong": 215
+      },
+      "caps": {
+        "medianPer100": 8.6957,
+        "zeroCapPct": 0.1481
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0,
+        "startsWithAnaphoraPct": 0.0091,
+        "timeMarkerPct": 0.3964,
+        "contrastMarkerPct": 0.4487
+      }
+    },
+    {
+      "n": 20,
+      "title": "The Aesthetics of Global Protest",
+      "authors": [
+        "McGarry, Aidan",
+        "Erhart, Itir",
+        "Eslen-Ziya, Hande",
+        "Jenzen, Olu",
+        "Korkut, Umut"
+      ],
+      "year": "2019",
+      "publisher": "Amsterdam University Press",
+      "domain": "사회",
+      "source_url": "https://directory.doabooks.org/handle/20.500.12854/35382",
+      "license_raw": [
+        "CC-BY-NC-ND",
+        "http://creativecommons.org/licenses/by-nc-nd/3.0/"
+      ],
+      "license_url": "http://creativecommons.org/licenses/by-nc-nd/3.0/",
+      "license_class": "CC BY-NC-ND",
+      "route": "R4",
+      "g0_traceable": true,
+      "inBookLicense": "CC BY-NC-ND",
+      "inBookSaysAllRightsReserved": false,
+      "licenseAgrees": true,
+      "bodyObtained": true,
+      "bodySource": "pdftotext",
+      "english": {
+        "verdict": true,
+        "latin": 0.9991,
+        "functionWords": 0.3504,
+        "tokensSeen": 5000,
+        "why": ""
+      },
+      "keepPct": 0.9848,
+      "windows": {
+        "schoolSentence": 3872,
+        "schoolParagraph": 1707,
+        "csatShort": 783,
+        "csatLong": 185
+      },
+      "caps": {
+        "medianPer100": 10.8108,
+        "zeroCapPct": 0.1016
+      },
+      "selfContained": {
+        "startsWithQuotePct": 0.0028,
+        "startsWithAnaphoraPct": 0.0197,
+        "timeMarkerPct": 0.2553,
+        "contrastMarkerPct": 0.3329
+      }
+    }
+  ],
+  "g0": {
+    "method": "DOAB OAI-PMH `xoai` 포맷의 bundles.bundle.bitstreams.bitstream#rightsuri / #rights 를 원천마다 읽었다. [측정: frame.json]",
+    "criticalFinding": "과제 지시문이 준 접근 경로(`/rest/search?expand=metadata`)에는 CC 라이선스 필드가 아예 없다. dc.rights 는 600건 중 410건이 문자열 \"open access\", 190건은 결측이고, dc.rights.uri·oapen.license 는 0건이다. 이 경로만 쓰면 전건이 \"판정 불가\"가 된다. [측정: survey — meta-0/200/400.json 600건]",
+    "frameN": 889,
+    "byLicense_frame": {
+      "CC BY-NC-SA": 41,
+      "기타: https://www.openedition.org/12554": 25,
+      "(없음)": 86,
+      "CC BY": 310,
+      "CC BY-NC-ND": 304,
+      "CC BY-SA": 30,
+      "기타: http://press.anu.edu.au/about/conditions-use": 6,
+      "CC BY-ND": 10,
+      "기타: https://www.openedition.org/6540?lang=en": 29,
+      "CC BY-NC": 40,
+      "기타: http://www.rand.org/pubs/permissions.html": 7,
+      "기타: http://www.adelaide.edu.au/legals/copyright.html": 1
+    },
+    "routeCounts_frame": {
+      "R3": 81,
+      "R4": 468,
+      "R1": 310,
+      "R2": 30
+    },
+    "notCcBy_frame": {
+      "n": 579,
+      "pct": 0.651
+    },
+    "untraceable_frame": {
+      "n": 102,
+      "pct": 0.115,
+      "breakdown": {
+        "author": 17,
+        "year": 4,
+        "sourceUrl": 0,
+        "license": 86
+      },
+      "note": "넷(저자·연도·URL·라이선스) 중 하나라도 결측이면 G0-4 탈락. 라이선스 결측 86건이 대부분이다. [측정]"
+    },
+    "englishShare_frame": 0.578,
+    "byLicense_sample20": {
+      "CC BY": 9,
+      "CC BY-NC-ND": 9,
+      "CC BY-SA": 1,
+      "기타: http://press.anu.edu.au/about/conditions-use": 1
+    },
+    "routeCounts_sample20": {
+      "R1": 9,
+      "R4": 10,
+      "R2": 1
+    },
+    "licenseUrlsResolve": {
+      "checked": 9,
+      "http200": 9,
+      "note": "표본 20권이 가리키는 서로 다른 라이선스 URL 9개 전부 200. G0-4 의 \"조문 URL 사망\" 탈락은 0건. [측정: curl]"
+    },
+    "metadataVsWork": {
+      "checked": 14,
+      "agree": 10,
+      "disagree": 4,
+      "worksSayingAllRightsReserved": 3,
+      "worksWithNoCcStatement": 4,
+      "detail": [
+        {
+          "n": 9,
+          "publisher": "Cornell University Press",
+          "year": "2017",
+          "meta": "CC BY-NC-ND",
+          "inBook": "ARR(전권보유 문구만)"
+        },
+        {
+          "n": 11,
+          "publisher": "ANU Press",
+          "year": "2014",
+          "meta": "기타: http://press.anu.edu.au/about/conditions-use",
+          "inBook": "ARR(전권보유 문구만)"
+        },
+        {
+          "n": 13,
+          "publisher": "Amsterdam University Press",
+          "year": "2014",
+          "meta": "CC BY-NC-ND",
+          "inBook": "ARR(전권보유 문구만)"
+        },
+        {
+          "n": 17,
+          "publisher": "De Gruyter",
+          "year": "2018",
+          "meta": "CC BY-NC-ND",
+          "inBook": "(문구 없음)"
+        }
+      ],
+      "note": "판권장 문구는 앞 15,000자에서만 읽고, 그림 크레딧 맥락(wikipedia·Source:·Fig.)은 제외했다 — 전문 검색은 제3자 이미지의 CC 표기를 책의 라이선스로 오인한다(De Gruyter #17 에서 실제로 그랬다). [측정]"
+    },
+    "notes": [
+      "컬렉션 라벨을 믿으면 안 된다는 경고가 DOAB 에서 두 겹으로 확인됐다: (1) API 가 주는 dc.rights 는 전건 \"open access\" 뿐이고, (2) 제대로 된 필드(xoai rightsuri)를 읽어도 14권 중 4권은 책 자신이 다르게 말한다. [측정]",
+      "ANU Press #11(2014)은 DOAB 에 open access 로 올라 있지만 ANU 자신의 이용약관이 \"Prior to 2018, all ANU Press books were published under an all rights reserved licence\" 라고 적고 있고, 책 판권장도 All rights reserved 다. 연도를 안 보면 ARR 을 OA 로 잘못 받는다. [문헌: http://press.anu.edu.au/about/conditions-use] [측정: books/b11]",
+      "Taylor & Francis #19 판권장은 라이선스 문자열 안에 제로폭 문자가 박혀 있어(\"CC-B​ Y-N​ C-N​ D\") 정규화 없이 읽으면 BY-NC-ND 가 BY 로 잘못 읽힌다 — OLH 절단 사고와 같은 종류. [측정]",
+      "IntechOpen(#1·#6)은 CC BY 3.0 이지만 판권장이 \"certain images may not be included under the Creative Commons license\" 라고 단서를 단다. 본문만 쓰면 무관하나 그림은 별도 확인이 필요하다. [측정]"
+    ]
+  },
+  "g1": {
+    "slotGroups": {
+      "A": 20,
+      "B": 0,
+      "C": 0
+    },
+    "slotGroupBasis": "20권 전부 학술 단행본(설명·논증)이다. 갈래 판정은 주제 분류(thema)와 표본 문단 읽기로 했다. 실용문(안내·공지·편지)·데이터 기술·서사·전기에 해당하는 책은 0권이었다. [측정: sample20.json subjects + 본문 표본]",
+    "yearRange": [
+      2010,
+      2025
+    ],
+    "yearBuckets": {
+      "2020-2022": 6,
+      "2015-2019": 7,
+      "2023+": 4,
+      "~2014": 3
+    },
+    "domains": {
+      "과학": 6,
+      "인문": 7,
+      "사회": 7
+    },
+    "genres": {
+      "설명": 9,
+      "논증": 5,
+      "서사": 0,
+      "실용문": 0,
+      "전기": 0,
+      "데이터기술": 0,
+      "미측정_본문없음": 6
+    },
+    "genreBasis": "본문을 받은 14권만 나눴다. 대조표지 ≥0.40 을 논증 쪽으로 셌다(#2 0.81 · #8 0.55 · #18 0.53 · #19 0.45 · #11 0.41) → 논증 5 · 설명 9. **본문을 못 받은 6권은 갈래를 매기지 않았다** — 주제만 보고 갈래를 단정하지 않는다. 서사·실용문·전기는 14권 어디에도 없었다. [측정: doab-g3.json]",
+    "archaicOrObsolete": {
+      "n": 0,
+      "basis": "표본 20권의 출판 연도가 2010~2025 다. 고어체·구식 과학·낡은 사실로 걸릴 책은 표본에 없었다(PD 도서에서 47% 가 내용 사유로 걸린 것과 정반대). [측정]"
+    },
+    "priority": "없음",
+    "why": "A 무리는 결손 가중치 0(재고 23,935 · 수요 55.8% · 과잉)이다. 20권이 전부 A 무리를 채우므로 원천 가치 = Σ(슬롯 × 가중치) = 0 이다. 결손이 있는 B(1.00)·C(0.51)를 채우는 책은 표본에 0권이었다. [측정: demand-model.md §4]",
+    "predictionOutcome": "과제의 사전 예상(\"A 무리일 가능성이 높다\")은 **슬롯 축에서는 확인됐다**. 다만 문체 축에서는 예상과 어긋난다 — G3 참조."
+  },
+  "g2": {
+    "attempts": [
+      {
+        "book": "Forms of Life (b02)",
+        "domain": "인문",
+        "publisher": "Cornell University Press",
+        "licenseClass": "CC BY-NC-ND",
+        "before": "Beautiful arts and sciences, which by means of a universally communicable pleasure and an elegance and refinement make human beings, if not morally better, at least better mannered for society, very much reduce the tyranny of sensible tendencies [Tyrannei des Sinnenhanges], and prepare humans for a sovereignty [Herrschaft] in which reason alone shall have power [in welcher die Vernunft allein Gewalt haben soll]. (KU §83 5:433–34; CPJ 301). Much of the literary and aesthetic discourse after Kant will attack his philosophical commitment to moral teleology, and, with it, fundamental tenets of Kant's theory. As they chip away at the philosophical system that enabled Kant to conceive of natural, aesthetic, and moral-political life as elements of a single, if speculative, directed process, authors from Kleist to Musil will flesh out in great detail the dynamics within, and conflicts between, these diverse forms of life. Yet insofar as it was Kant's new vision of mind and nature that made visible these forms as forms of life in the first place, Kant's Critique of the Power of Judgment can be said to open up the conceptual horizon that allowed much of the nineteenth-and twentieth-century German aesthetic and philosophical discourse on life to go beyond it.",
+        "after": "The arts and sciences offer a pleasure that anyone can share, and in doing so they refine manners even when they do not make people morally better. That refinement matters, because it loosens the grip of appetite and prepares people for a condition in which reason alone holds authority. Later writers attacked this picture. They doubted that nature moved toward any moral purpose at all, and once that assumption fell, the system resting on it fell too. What the system had held together was a single idea: that biological life, artistic life and political life were stages of one directed process. The novelists and dramatists who followed spent their careers tracing how these ways of living actually strain against one another. Yet the quarrel was possible only because the earlier account had named them in the first place. A framework can open the ground on which its own successors stand.",
+        "beforeWords": 199,
+        "afterWords": 150,
+        "editRatio": 0.784,
+        "ngram6Shared": 0,
+        "ngram8Shared": 0,
+        "checks": {
+          "고유명사제거후논지": "실패 — Kant·Kleist·Musil 을 일반명사로 바꾸면 \"한 철학자가 체계를 세웠고 뒤 세대가 허물었다\"만 남는다. 이 문단의 논지가 곧 귀속이다. 고유명사가 장식이 아니라 주어다.",
+          "앞문맥해소": "성공 — 원문은 인용부호 없는 블록 인용(칸트 본인의 말)으로 시작해 화자가 누구인지 앞 쪽에 있어야 알 수 있다. 가공본은 인용을 풀어 서술로 바꿔 해소했다.",
+          "어휘하향": "성공 — teleology · tenets · speculative · conceptual horizon 을 풀었다. 독일어 삽입([Tyrannei des Sinnenhanges] 등)과 전거(KU §83 5:433–34)는 통째로 버렸다.",
+          "verdict": "논지는 살아남지만 그 논지가 「특정 철학자에 대한 학설사」라서, 남은 것은 원문의 주장이 아니라 일반론이다. 사실상 새 글이다."
+        },
+        "verdict": "논지는 살아남지만 그 논지가 「특정 철학자에 대한 학설사」라서, 남은 것은 원문의 주장이 아니라 일반론이다. 사실상 새 글이다."
+      },
+      {
+        "book": "A Life Course Perspective on Chinese Youths (b10)",
+        "domain": "사회",
+        "publisher": "Springer Nature",
+        "licenseClass": "CC BY",
+        "before": "5.2.3 \u0007\"Housing [...] Is the Foundation of the Family\" \"Financial autonomy\" (duli shenghuo) from parents, is a central aspect in the respondents' definitions of adulthood. According to Qian, being an adult means no longer depending on financial aid from parents to live (born in 1982, urban, Jilin hukou, PhD). This aspiration is more present in the discourse of male respondents. They feel an obligation, once adult, to be the main provider for their family. In this sense, financial autonomy from parents is less about proving their individualism than it is about them acting as breadwinners and no longer being a burden on their parents. It is about moving from a logic of assistance to a logic of reciprocity based on filial ties. Once schooling is finished, it is up to young people to support themselves financially, or even to help their parents financially. The respondents' comments denote a deep structuring of trajectories by a strong valorization of employment, especially in male paths, with employment being the main vector of financial autonomy.",
+        "after": "For many young adults, becoming grown up means no longer needing money from one's parents. One man interviewed for the study put it simply: an adult is someone who does not depend on family support to live. The idea came up far more often among the men than among the women. Once they considered themselves adult, the men felt bound to become the household's main earner. What they described was not really a claim to independence for its own sake. It was a wish to stop being a cost to their parents and to begin repaying them, a shift from receiving help to returning it, still inside the bonds of family duty. When schooling ends, the obligation reverses: young people are expected to support themselves, and often to support their parents as well. In their accounts, steady work is what makes that reversal possible, and it shapes the men's paths most of all.",
+        "beforeWords": 168,
+        "afterWords": 153,
+        "editRatio": 0.786,
+        "ngram6Shared": 0,
+        "ngram8Shared": 0,
+        "checks": {
+          "고유명사제거후논지": "성공 — Qian → \"한 남성 응답자\", Jilin hukou·duli shenghuo 를 버려도 논지(성인됨 = 부모로부터의 경제적 자립, 남성에 편중)가 온전히 남는다.",
+          "앞문맥해소": "성공 — \"the respondents\" 가 어느 연구의 응답자인지 한 구(\"이 연구의 면접 대상\")로 풀린다. 절 번호 5.2.3 과 소제목은 버린다.",
+          "어휘하향": "성공 — valorization · vector · denote a deep structuring of trajectories 같은 사회과학 술어를 평이한 말로 옮겨도 내용이 남는다.",
+          "verdict": "세 조건 모두 통과. 다만 가공 후 결과물은 B 무리(정보·실용형)가 아니라 여전히 설명문 = A 무리다."
+        },
+        "verdict": "세 조건 모두 통과. 다만 가공 후 결과물은 B 무리(정보·실용형)가 아니라 여전히 설명문 = A 무리다."
+      },
+      {
+        "book": "Wavelet Theory (b01)",
+        "domain": "과학",
+        "publisher": "IntechOpen",
+        "licenseClass": "CC BY",
+        "before": "with. There are decades of research work in literature to remove these artefacts [15, 16]. A range of methods have been proposed to remove the artefacts, starts with a statistical with interpolation method [17] and regression method [18]. The most commonly used approaches are based on Blind Source Separation (BSS) using Independent Component Analysis (ICA) [19, 20]. ICA based approach have been widely explored with statistical measures [21–24], and variant of ICA as FastICA, InfoMax, and Extended InfoMax [25–27]. Wavelet-based approaches are well suited for time-localised short events, as opposed to ICA. This property has been exploited to remove artefacts from single-channel EEG. In contrast to a single channel, wavelet has also been used for multi-channel EEG [28] and in combination with ICA [29–34], in which identified artifactual component is cleaned with wavelet rather than removed. The ICA-based approaches can only be applied to multichannel EEG and need an expert to select artifactual component, which has been",
+        "after": "Recordings of brain activity are never clean. Muscle movement, eye blinks and stray electrical interference all leave marks on the signal, and researchers have spent decades trying to strip them out. The earliest attempts simply filled in the damaged stretches by estimating what should have been there. Later work treated the recording as a mixture of separate sources and tried to pull those sources apart, and that family of methods became the standard choice. It carries one cost: it needs many channels recording at the same time, and it needs a trained eye to decide which of the separated parts is noise. A different approach looks instead at how the signal changes shape from moment to moment. Because it catches brief, sharply placed events well, it can clean a single channel on its own, and rather than throwing a suspect part away it can repair it.",
+        "beforeWords": 147,
+        "afterWords": 146,
+        "editRatio": 0.857,
+        "ngram6Shared": 0,
+        "ngram8Shared": 0,
+        "checks": {
+          "고유명사제거후논지": "부분 실패 — ICA·FastICA·InfoMax·BSS·EEG·DWT 는 고유명사이자 내용 그 자체다. 일반화하면(\"한 방법군\") 문단은 \"어떤 방법들이 있었다\"로 줄어든다.",
+          "앞문맥해소": "원문이 문장 중간(\"with.\")에서 시작한다 — 블록 경계가 문장을 잘랐다. 지시어보다 추출 결함이 먼저 문제다.",
+          "어휘하향": "불가 — 인용부호 20개([15, 16] … [29–34])와 깨진 수식(xðnÞ · x^ðnÞ)을 걷어내면 뼈대가 남지 않는다.",
+          "영어품질": "원문 영어가 비원어민 문장으로 비문이다: \"A range of methods have been proposed to remove the artefacts, starts with a statistical with interpolation method\". 언어 학습 자료의 입력으로 부적격.",
+          "verdict": "가공이 아니라 주제만 받아 새로 쓴 것이다. 전형적인 재저작."
+        },
+        "verdict": "가공이 아니라 주제만 받아 새로 쓴 것이다. 전형적인 재저작."
+      }
+    ],
+    "editRatioMedian": 0.786,
+    "costGrade": "중(사실상 재저작)",
+    "note": "수정량 78.4% / 78.6% / 85.7%. 셋 다 50% 를 크게 넘어 criteria.md 의 \"중(사실상 재저작)\" 등급이다. 6·8-gram 중복은 전부 0 이므로 재저작 가드는 통과하지만, **가드를 통과한다는 것은 곧 원문을 안 썼다는 뜻**이다. [측정: doab-g2.json]",
+    "extractionDefects": "b01(IntechOpen)은 원문 영어 자체가 비문이다(\"A range of methods have been proposed to remove the artefacts, starts with a statistical with interpolation method\"). 인용부호 20개와 깨진 수식(xðnÞ)이 섞인다. Cornell 판본(b02)은 소프트하이픈이 낱말마다 박혀 있어(po­liti­cal) 정규화 전에는 어휘 계산이 전부 틀어진다. [측정]"
+  },
+  "g3": {
+    "bodyObtained": {
+      "n": 14,
+      "of": 20,
+      "pct": 0.7
+    },
+    "bodyAccess": {
+      "note": "과제 지시문이 준 본문 경로 `/rest/bitstreams/{uuid}/retrieve` 는 DOAB 에서 본문을 주지 않는다 — 번들이 THUMBNAIL·EXPORT(marc/onix/ris/tsv) 뿐이다. 본문은 OAPEN 또는 출판사 사이트에 있다. [측정]",
+      "oapenRestOk": 14,
+      "blockedOrAbsent": [
+        {
+          "publisher": "Frontiers Media SA",
+          "n": 2,
+          "why": "OAPEN 미수록 · 다운로드 URL 이 랜딩 페이지(HTML)"
+        },
+        {
+          "publisher": "MDPI",
+          "n": 2,
+          "why": "OAPEN 미수록 · mdpi.com 403"
+        },
+        {
+          "publisher": "KIT Scientific Publishing",
+          "n": 1,
+          "why": "OAPEN 미수록 · ksp.kit.edu 403"
+        },
+        {
+          "publisher": "Manchester University Press",
+          "n": 1,
+          "why": "OAPEN ORIGINAL 번들이 PDF 아님(XHTML5 zip)"
+        }
+      ],
+      "cloudflare": "library.oapen.org/bitstream/… 웹 경로와 mdpi.com 은 curl 기본 UA 에도, 정직하게 자기를 밝힌 UA 에도 403 이다(둘 다 실측). UA 위장은 하지 않았다. 대신 문서화된 공개 REST API(library.oapen.org/rest/…)를 썼고 그쪽은 200 이다. [측정]"
+    },
+    "english": {
+      "passed": 14,
+      "of": 14,
+      "latinMedian": 0.9987,
+      "functionWordsMedian": 0.34,
+      "note": "라틴문자 ≥0.70 그리고 기능어 ≥0.15 기준. 14/14 통과, 기능어 중앙 0.34 로 여유가 크다. 표본이 영어 선언 책으로 한정됐으므로 이 값은 DOAB 전체의 영어 비율이 아니다(전체는 57.8%). [측정]"
+    },
+    "windows": {
+      "perBookMedian": {
+        "학교문장_6_40": 3908,
+        "학교문단_40_200": 1695,
+        "수능짧은_90_200": 780.5,
+        "수능장문_260_400": 194.5
+      },
+      "total14Books": {
+        "학교문장_6_40": 52156,
+        "학교문단_40_200": 21480,
+        "수능짧은_90_200": 9926,
+        "수능장문_260_400": 2450
+      },
+      "note": "정제한 블록을 문장 경계로 잘라 각 창에 들어가는 조각을 셌다. 창끼리 겹쳐 센다. **기계적 절단 수이지 검수를 통과한 편수가 아니다** — G2 가 보여주듯 그대로 쓸 수 있는 조각은 거의 없다. [측정]"
+    },
+    "caps": {
+      "medianPer100": 6.2498,
+      "zeroCapPct": 0.156
+    },
+    "selfContained": {
+      "startsWithQuotePct": 0.0048,
+      "startsWithAnaphoraPct": 0.0166,
+      "timeMarkerPct": 0.2557,
+      "contrastMarkerPct": 0.3128
+    },
+    "keepPct": {
+      "median": 0.9136,
+      "min": 0.6117,
+      "max": 0.9855
+    },
+    "byDomain": {
+      "인문": {
+        "n": 6,
+        "capsMedianPer100": 10.0442,
+        "zeroCapPct": 0.1243,
+        "contrastMarkerPct": 0.3167,
+        "timeMarkerPct": 0.2478,
+        "keepPct": 0.8744
+      },
+      "사회": {
+        "n": 5,
+        "capsMedianPer100": 8.6957,
+        "zeroCapPct": 0.1481,
+        "contrastMarkerPct": 0.3329,
+        "timeMarkerPct": 0.3027,
+        "keepPct": 0.9657
+      },
+      "과학": {
+        "n": 3,
+        "capsMedianPer100": 0,
+        "zeroCapPct": 0.5777,
+        "contrastMarkerPct": 0.1737,
+        "timeMarkerPct": 0.1243,
+        "keepPct": 0.846
+      }
+    },
+    "vsBenchmark": {
+      "A추론형_기준": {
+        "capsMedian": 0,
+        "zeroCapPct": "52~79%",
+        "anaphoraPct": "0~3.6%",
+        "contrastPct": "65~87%"
+      },
+      "C장문서사_기준": {
+        "capsMedian": 4.25,
+        "zeroCapPct": "0%",
+        "timeMarkerPct": "89.7%",
+        "wordsMedian": 334
+      },
+      "DOAB실측": {
+        "capsMedian": 6.2498,
+        "zeroCapPct": 0.156,
+        "anaphoraPct": 0.0166,
+        "contrastPct": 0.3128,
+        "timeMarkerPct": 0.2557
+      },
+      "verdict": "DOAB 학술 단행본은 A 무리의 **문체 기준에도 안 맞는다**. A 는 고유명사 중앙 0 · 0개 지문 52~79% · 대조표지 65~87% 인데, DOAB 는 고유명사 6.25/100어 · 0개 15.6% · 대조표지 31.3% 다. 앞 문맥 지시어 1.7% 만 A 기준(0~3.6%) 안에 든다. 즉 \"과잉인 A 칸을 더 채운다\"는 예상보다 나쁘다 — **A 칸조차 그대로는 못 채운다.** [측정]",
+      "domainSplit": "단, 과학책(#1 Wavelet · #6 Supercapacitors)은 고유명사 중앙 0 · 0개 비율 58~70% 로 A 기준에 맞는다. 인문·사회책이 고유명사를 끌어올린다(#11 23.4 · #17 13.6 · #14 12.4). 평균 하나로 보면 이 분열이 가려진다. [측정]"
+    }
+  },
+  "verdict": {
+    "pass": 0,
+    "fail": 0,
+    "priorityNone": 20,
+    "passRate": 0,
+    "basis": "criteria.md 에서 G0 은 탈락이 아니라 경로 배정이고, G1-1 은 \"채우는 슬롯 0개 = 탈락이 아니라 우선순위 없음\" 이다. 따라서 통과/탈락이 아니라 **20권 전부 「우선순위 없음」**이 정확한 판정이다.",
+    "routeSplit_sample20": {
+      "R1": 9,
+      "R4": 10,
+      "R2": 1
+    },
+    "originalSecurable_sample20": {
+      "R0R1": 9,
+      "of": 20,
+      "pct": 0.45,
+      "note": "R0·R1 만 \"원문 확보\"다. 표본 20권 중 9권(45%) — 전부 CC BY(R1), PD·CC0(R0)은 0권이다. 치우치지 않은 값은 표집틀 889권 기준 34.9%."
+    },
+    "expectedYieldPerBook": {
+      "A": 0,
+      "B": 0,
+      "C": 0
+    },
+    "yieldNote": "창별 기계 절단 수는 권당 수능짧은 780 · 수능장문 195 로 크지만, **가중치가 붙는 슬롯(B·C)의 기대 산출은 0 이다.** A 슬롯은 가중치 0 이라 곱하면 0 이고, 게다가 G3 대조에서 A 의 문체 기준(고유명사 0 · 대조표지 65~87%)에도 못 미친다. 그래서 A 칸 산출도 \"그대로 쓸 수 있는 편수\"로는 세지 않았다.",
+    "recommendation": "수확하지 않는다. 대조군으로서의 목적은 달성했다 — \"과잉인 A 칸이 정말 과잉인가\"에 대한 답은 \"과잉일 뿐 아니라 이 원천은 그 칸의 문체 기준에도 못 미친다\" 였다. 재저작 입력으로만 쓸 수 있고, 그것은 DOAB 이 아니어도 되는 일이다(수정량 중앙 78.6% = 논지만 가져오는 것).",
+    "ifEverHarvested": "그래도 돌린다면: (1) 라이선스는 OAI `xoai` 의 rightsuri 로만 읽고, (2) 연도 + 출판사 정책(ANU 2018 경계 같은 것)을 교차 확인하고, (3) 판권장을 실제로 읽어 메타데이터와 대 보고(14권 중 4권 불일치), (4) 본문은 OAPEN REST 의 ORIGINAL PDF + pdftotext 로 받고 TEXT 번들은 쓰지 않는다."
+  },
+  "limits": [
+    "표집틀이 1,100건(그중 book 889건)이다. DOAB 전체는 OAI completeListSize 128,187(출판사·후원기관 레코드 포함). 오프셋 11곳을 고르게 점프했지만 **전수가 아니다** — 라이선스 분포 34.9% 는 이 표집틀의 값이다.",
+    "`type=book` 889건 기준으로 셌다. chapter 89건은 뺐다. chapter 를 포함하면 분포가 달라질 수 있는데 재지 않았다.",
+    "본문은 20권 중 14권만 받았다. 못 받은 6권(Frontiers 2 · MDPI 2 · KIT 1 · Manchester 1)의 G2·G3 은 **측정하지 않았고 추정하지도 않았다.** 이들이 OA 학술서의 큰 부분(MDPI·Frontiers 는 표집틀 영어책 상위 2위 출판사)이라 G3 중앙값이 그쪽으로 치우쳤는지 모른다.",
+    "판권장 대조는 본문을 받은 14권에만 했다. \"메타 vs 본문 불일치 4/14\" 를 20권·889권으로 확대하지 않았다.",
+    "「메타데이터는 CC, 판권장은 ARR」이 법적으로 무엇을 뜻하는지는 재지 않았다. OA 판과 인쇄판의 권리가 갈리는 경우일 수 있다 — criteria.md 대로 **법률 판단은 사용자 소관**으로 남긴다. 여기서는 \"책 자신이 그렇게 말한다\"는 사실만 기록했다.",
+    "어휘 대역(NGSL+NAWL 밖 비율)은 재지 않았다. G2 에서 off-list 낱말을 손으로 풀어 보기만 했다.",
+    "갈래 판정(설명 13 · 논증 7)은 주제 분류와 표지 비율에 기댄 것으로 경계가 단정적이지 않다. 문단 전수를 눈으로 보지는 않았다.",
+    "G2 는 3권 3문단이다(과제 지시대로). criteria.md 의 \"원천마다 문단 3개\"보다 얕다 — 수정량 중앙 78.6% 는 표본 3개의 중앙값이다.",
+    "고유명사 밀도는 문중 대문자 정규식의 대리 지표다. 독일어 명사 대문자(b02·b17 같은 독일 주제 책)를 고유명사로 셌을 수 있다.",
+    "Cloudflare 가 막은 경로를 우회하지 않았다. 브라우저 UA 위장을 썼다면 6권 중 몇 권을 더 받았을지는 모른다."
+  ]
+}
