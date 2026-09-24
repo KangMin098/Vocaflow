@@ -26,7 +26,7 @@ import {
   SOURCE_QUEUES, SOURCE_GRADES, SOURCE_STATUSES, SOURCE_USE_TAGS, SOURCE_USE_LABELS,
   SOURCE_LIST_SORTS, SOURCE_LIST_SORT_LABELS, SOURCE_PAGE_SIZES, SOURCE_PAGE_SIZE,
   SOURCE_REASON_LABELS, sourceNextAction,
-  type SourceQueue, type SourceGrade, type SourceStatus, type SourceUseTag,
+  type SourceQueue, type SourceGrade, type SourceStatus, type SourceUseTag, type SourceBreakdownReason,
   type SourceListSort, type SourcePageSize, type SourceOperationRow, type SourceInspectorData,
 } from '@/lib/textbook/source-operations'
 import type { DrainRunView } from '@/components/admin/csat/StageFrame'
@@ -58,8 +58,9 @@ type Filters = {
 }
 const EMPTY: Filters = { grade: '', status: '', band: '', cefr: '', uses: [], sort: 'items', pageSize: SOURCE_PAGE_SIZE, q: '' }
 
-function queryString(queue: SourceQueue, f: Filters, page: number) {
+function queryString(queue: SourceQueue, f: Filters, page: number, reason?: SourceBreakdownReason | null) {
   const p = new URLSearchParams({ queue, page: String(page), pageSize: String(f.pageSize), sort: f.sort })
+  if (reason) p.set('reason', reason)
   if (f.grade) p.set('grade', f.grade)
   if (f.status) p.set('status', f.status)
   if (f.band) p.set('band', f.band)
@@ -70,8 +71,9 @@ function queryString(queue: SourceQueue, f: Filters, page: number) {
 }
 
 /** 걸린 거르개를 사람 말로 — 「무엇을 보고 있는가」를 표 위에 한 줄로 둔다. */
-function describe(queue: SourceQueue, f: Filters): string[] {
+function describe(queue: SourceQueue, f: Filters, reason?: SourceBreakdownReason | null): string[] {
   const out: string[] = [SOURCE_QUEUES[queue]]
+  if (reason) out.push(`사유 ${SOURCE_REASON_LABELS[reason] ?? reason}`)
   if (f.grade) out.push(`등급 ${f.grade}`)
   if (f.status) out.push(`판정 ${f.status}`)
   if (f.band) out.push(`V${f.band}`)
@@ -112,9 +114,12 @@ function LastDrain({ view }: { view: DrainRunView }) {
   )
 }
 
-export function SourceQueryConsole({ queue, onQueue }: {
+export function SourceQueryConsole({ queue, onQueue, reason, onReason }: {
   queue: SourceQueue
   onQueue: (next: SourceQueue) => void
+  /** 공정 관문에서 내려온 판정 사유. 큐만으로는 못 좁히는 자리가 있다(예: 반려+문항연결). */
+  reason?: SourceBreakdownReason | null
+  onReason?: (next: SourceBreakdownReason | null) => void
 }) {
   const [filters, setFilters] = useState<Filters>(EMPTY)
   const [page, setPage] = useState(0)
@@ -124,7 +129,7 @@ export function SourceQueryConsole({ queue, onQueue }: {
   const toggleUse = (tag: SourceUseTag) =>
     patch({ uses: filters.uses.includes(tag) ? filters.uses.filter(x => x !== tag) : [...filters.uses, tag] })
 
-  const { data, error, isLoading, mutate } = useSWR<ListReply>(`${API}?${queryString(queue, filters, page)}`, get, { keepPreviousData: true })
+  const { data, error, isLoading, mutate } = useSWR<ListReply>(`${API}?${queryString(queue, filters, page, reason)}`, get, { keepPreviousData: true })
   const { data: counts } = useSWR<{ counts: Record<SourceQueue, number>; drain: DrainRunView }>(`${API}?summary=1`, get)
 
   // 띠는 **지금 쪽에 실제로 온 행**을 그린다 — 원 하나가 한 편, 지름이 그 편에 붙은 문항 수다.
@@ -137,7 +142,7 @@ export function SourceQueryConsole({ queue, onQueue }: {
   const total = data?.count ?? 0
   const size = data?.pageSize ?? filters.pageSize
   const lastPage = Math.max(0, Math.ceil(total / size) - 1)
-  const active = describe(queue, filters)
+  const active = describe(queue, filters, reason)
   const dirty = JSON.stringify({ ...filters, q: filters.q.trim() }) !== JSON.stringify(EMPTY)
 
   return (
@@ -259,6 +264,11 @@ export function SourceQueryConsole({ queue, onQueue }: {
 
       <p className={styles.active} role="status">
         {active.join(' · ')} — {isLoading && !data ? '세는 중' : `${n(total)}편`}
+        {reason && onReason ? (
+          <button type="button" className={styles.dropReason} onClick={() => onReason(null)}>
+            사유 조건 풀기
+          </button>
+        ) : null}
       </p>
 
       {/* ── ④ 한 줄이 한 작업인 표 ─────────────────────────────────────── */}

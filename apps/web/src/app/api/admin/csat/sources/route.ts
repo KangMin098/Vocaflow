@@ -33,6 +33,8 @@ function filterQueue(db: SupabaseClient, queue: SourceQueue, countOnly = false) 
   if (queue === 'cefr') q = q.filter('result->blockers', 'cs', JSON.stringify(['cefr_above_band']))
   if (queue === 'excerpt') q = q.filter('result->blockers', 'cs', JSON.stringify(['excerpt_not_materialized']))
   if (queue === 'quality') q = q.not('quality_flags', 'eq', '{}')
+  if (queue === 'tagged') q = q.not('uses', 'is', null).not('uses', 'eq', '{}')
+  if (queue === 'ready') q = q.eq('result->>grade', 'usable').not('uses', 'is', null).not('uses', 'eq', '{}')
   if (queue === 'p0') q = q.filter('result->blockers', 'cs', JSON.stringify(['content_rejected'])).gt('linked_items', 0)
   return q
 }
