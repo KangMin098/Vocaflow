@@ -512,6 +512,11 @@ export { extractBookLemmas } from './analyze/extract-lemmas'
 export type { BookLemmaIndex } from './analyze/extract-lemmas'
 export { analyzeArticle } from './analyze/analyze-article'
 export type { AnalyzeArticleOptions } from './analyze/analyze-article'
+export { ensureArticleVocab } from './analyze/ensure-article-vocab'
+export type {
+  EnsureArticleVocabDeps,
+  EnsureArticleVocabResult,
+} from './analyze/ensure-article-vocab'
 
 // S3 NORMALIZE + S4 SEGMENT (Phase 5)
 export { normalizeBook, extractBody, normalizePunctuation, reflowSoftHyphens } from './normalize'
