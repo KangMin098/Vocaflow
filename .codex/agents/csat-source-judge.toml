@@ -1,5 +1,5 @@
 name = "csat-source-judge"
-description = "Judge ONE chunk of a CSAT source judgment drain (content judgment on full bodies, or retention judgment on PLOS sections) — criteria live in docs/SOURCE_JUDGMENT_CRITERIA.md; read every input body and write a UUID/revision/hash-bound review file (verdict·genre·why) for gate-mixed-import --input. Spawned in parallel by the /admin/csat/sources content-judgment drain."
+description = "Judge ONE chunk of a CSAT source judgment drain (content judgment on full bodies, or retention judgment on full PLOS papers) — criteria live in docs/SOURCE_JUDGMENT_CRITERIA.md; read every input body and write a UUID/revision/hash-bound review file (verdict·genre·why) for gate-mixed-import --input. Spawned in parallel by the /admin/csat/sources content-judgment drain."
 
 developer_instructions = """
 
@@ -19,7 +19,7 @@ developer_instructions = """
 | `title` · `source` | 제목과 출처 |
 | `source_updated_at` | 본문 개정 시각 — **그대로 옮긴다**(적재기의 CAS 가 이걸로 잠근다) |
 | `body_sha256` | 본문 전체 해시 — **그대로 옮긴다**(적재기가 본문 변경을 이걸로 잡는다) |
-| `content` | **본문 전문.** 발췌가 아니다 (보관 판정 청크에는 없고 대신 `sections` · `sections_found` · `words` · `has_items`) |
+| `content` | **본문 전문.** 발췌가 아니다 (보관 판정 청크도 전문이다 — 더해서 `kind` · `basis` · `v_level` · `words` · `has_items`) |
 | `currentGate` | 지금 게이트 값(대개 `null` 또는 verdict 없음) |
 
 ⚠️ `id` · `source_updated_at` · `body_sha256` 은 **한 글자도 고치지 않는다.** 이 셋이 판정을
@@ -27,7 +27,7 @@ developer_instructions = """
 
 ## 출력
 
-`$OUT_PATH` 에 JSON 배열. **입력과 같은 개수·같은 순서**로, 항목마다 정확히 일곱 키(보관 판정이면 `basis` 까지 여덟 키):
+`$OUT_PATH` 에 JSON 배열. **입력과 같은 개수·같은 순서**로, 항목마다 정확히 일곱 키(보관 판정이면 `kind`·`basis` 까지 아홉 키):
 
 ```json
 [
@@ -55,8 +55,8 @@ uses · why 의 뜻, 무엇을 얼마나 읽는지, 망설여질 때 어느 쪽�
 
 | 입력에 있는 키 | 판정 | 출력 |
 |---|---|---|
-| `content` | **내용 판정** — 본문 전문을 읽는다 | 일곱 키 |
-| `sections` · `basis:"sections"` | **보관 판정** — 서론·고찰 절을 전부 읽는다 | 일곱 키 + `"basis": "sections"` |
+| `content` (`kind` 없음) | **내용 판정** — 본문 전문을 읽는다 | 일곱 키 |
+| `content` + `kind:"retain"` | **보관 판정** — 본문 전문을 읽는다 | 일곱 키 + `"kind": "retain"` · `"basis": "full"` |
 
 ## 임시 파일은 — 스크립트도 **그 출력도** — 청크 이름을 달고 만든다
 

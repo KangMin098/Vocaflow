@@ -17,7 +17,7 @@ reject·분석 누락·CEFR 초과는 사용 차단. 발췌 위치만 있으면 
 배치 전 캐시 백업은 `.agent-logs`에 기록한다. 복구는 해당 배치의 이전 값만 복원하며 원문/정답을 덮지 않는다.
 원문 수정은 별도 revision 조건·본문 해시·앵커 영향 검증이 필요하다. 캐시 재검증은 내용 AI 판정을 대신하지 않는다.
 VOA ingestion은 관측된 댓글 안내 문단 제거 후 최소 길이를 검사한다. 기존 450편은 문항 100개(4편)의 위치 영향 때문에 보존한다.
-미판정 raw 는 **보관 판정 → 발췌 → 발췌 판정** 순서다(2026-09-24). 보관 판정은 서론·고찰만 읽는다(`plos-raw-triage-export` · 지시 `scripts/csat/plos-raw-triage-brief.md`) — 앞 800어 판정은 30편 대조에서 보관할 논문 17편 중 12편을 버려 폐기했다. 결과는 `csat_fit.gate.retain` 에만 쓰이고 게시 적격은 열지 않는다. `plos-extract` 는 보관 판정된 원본만 자르고, 발췌본에 판정을 스스로 붙이지 않는다(판정 드레인이 읽는다).
+미판정 raw 는 **보관 판정 → 발췌 → 발췌 판정** 순서다(2026-09-24). 보관 판정은 **전문**을 읽는다(`plos-raw-triage-export` · 기준 `docs/SOURCE_JUDGMENT_CRITERIA.md` · 절차 `scripts/csat/plos-raw-triage-brief.md`) — 30편 대조에서 앞 800어 판정은 보관할 17편 중 12편을 버렸고 서론·고찰 판정은 버릴 5편을 남겼다. 판정자 흔들림은 이중 판정 κ 로 관리한다. 길이·어휘·V-Level 은 순서에만 쓰고 버리는 데 쓰지 않는다. 결과는 `csat_fit.gate.retain` 에만 쓰이고 게시 적격은 열지 않는다. `plos-extract` 는 보관 판정된 원본만 자르고, 발췌본에 판정을 스스로 붙이지 않는다(판정 드레인이 읽는다).
 
 일일 읽기 전용 workflow `csat-source-audit.yml`은 DB/cache/snapshot drift와 모순을 exit 1로 알린다.
 기본 브랜치 반영 및 기존 Supabase secrets 설정 후 일정 실행이 활성화된다. 자동 데이터 수정은 없다.

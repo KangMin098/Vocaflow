@@ -191,11 +191,11 @@ export const TBP_HELP: HelpRegistry = {
           detail:
             '미절단 원본(`purpose=raw`)은 **게이트를 돌려도 판정이 안 붙는다** — `gate-rules.mjs` 의 `PURPOSE_RULE.raw.verdicts` 가 빈 집합이라 `decide()` 가 판정 전에 되돌아온다(“자르기 전에는 무엇도 게시 불가”). ' +
             '실측: `purpose=raw` 36,337편이 **전부** 판정자 `rule` · verdict 없음이다. 미판정 19,333편 중 **13,459편(70%)이 여기 해당**하므로, 이 줄이 없으면 관리자가 돌지 않을 배치를 돌린다. ' +
-            '처방은 **보관 판정 → 발췌** 순서다(2026-09-24): `plos-raw-triage-export.mjs` 로 서론·고찰만 뽑아 판정 → `gate-mixed-import --input` 이 `gate.retain` 에 적재 → 보관된 것만 `plos-extract` 가 자른다. 보관 판정은 게시를 열지 않는다.',
+            '처방은 **보관 판정 → 발췌** 순서다(2026-09-24): `plos-raw-triage-export.mjs` 로 전문을 V-Level 낮은 것부터 20편씩 뽑아 판정 → `gate-mixed-import --input` 이 `gate.retain` 에 적재 → 보관된 것만 `plos-extract` 가 자른다. 보관 판정은 게시를 열지 않는다.',
         },
         {
           label: "미절단 원본의 처리 경로",
-          detail: "raw 게시 제한은 발췌 작업이 필요하다는 뜻입니다. 내용 reject·학령/CEFR 제한을 무시하는 예외가 아닙니다. 순서는 ① 보관 판정(서론·고찰을 읽고 gate.retain 에 use/narrative/reject) ② 보관된 원본만 plos-extract 로 발췌 ③ 발췌본을 전문 판정입니다. 보관 판정이 없는 raw 는 보관 미결정(undecided)으로 셉니다 — 예전처럼 전량을 '추출 대기 보관'으로 세지 않습니다. ⚠️ 보관 판정을 앞 800어만 읽혀 하면 안 됩니다: 30편 대조에서 보관할 논문 17편 중 12편을 버렸습니다(2026-09-24). 여기서 버린 원본은 다시 읽히지 않으므로 망설여지면 보관 쪽으로 둡니다.",
+          detail: "raw 게시 제한은 발췌 작업이 필요하다는 뜻입니다. 내용 reject·학령/CEFR 제한을 무시하는 예외가 아닙니다. 순서는 ① 보관 판정(본문 전문을 읽고 gate.retain 에 use/narrative/reject — 길이·어휘·V-Level 로는 버리지 않고 순서에만 씁니다) ② 보관된 원본만 plos-extract 로 발췌 ③ 발췌본을 전문 판정입니다. 보관 판정이 없는 raw 는 보관 미결정(undecided)으로 셉니다 — 예전처럼 전량을 '추출 대기 보관'으로 세지 않습니다. ⚠️ 보관 판정을 앞 800어만 읽혀 하면 안 됩니다: 30편 대조에서 보관할 논문 17편 중 12편을 버렸습니다(2026-09-24). 여기서 버린 원본은 다시 읽히지 않으므로 망설여지면 보관 쪽으로 둡니다.",
         },
         {
           label: '연령 × 유형별 원문 요건 (2026-09-06 추가)',
@@ -304,8 +304,8 @@ export const TBP_HELP: HelpRegistry = {
           {
             title: 'PLOS 원본 보관 판정 드레인',
             detail:
-              '① `node --tls-max-v1.2 scripts/csat/plos-raw-triage-export.mjs`(예행, 편수만) → `--write --max N`: 서론·고찰만 담은 청크를 `scripts/csat/plos-raw-triage/` 에 뽑는다 — 읽기 전용, **이미 보관 판정됐거나 이미 청크에 든 원본은 건너뛰므로 재실행 안전**. 후보는 적격 캐시에서 고르므로 새로 수확한 원본은 캐시 갱신 뒤에 보인다. ' +
-              '② 에이전트(`csat-source-judge`)가 `scripts/csat/plos-raw-triage-brief.md` 를 따라 `chunk-NN.out.json` 을 쓴다(`basis:"sections"` · 청크당 약 60만 토큰 추정). ' +
+              '① `node --tls-max-v1.2 scripts/csat/plos-raw-triage-export.mjs`(예행, 편수만) → `--write --max N`: **전문**을 V-Level 낮은 것부터 20편씩 `scripts/csat/plos-raw-triage/` 에 뽑는다 — 읽기 전용, **이미 보관 판정됐거나 이미 청크에 든 원본은 건너뛰므로 재실행 안전**. 후보는 적격 캐시에서 고르므로 새로 수확한 원본은 캐시 갱신 뒤에 보인다. ' +
+              '② 에이전트(`csat-source-judge`)가 `scripts/csat/plos-raw-triage-brief.md` 를 따라 `chunk-NNN.out.json` 을 쓴다(`kind:"retain"` · `basis:"full"` · 20편에 약 26만 토큰 추정). 열 청크 중 하나는 두 번째 판정자가 따로 판정하고 `gate-reviews-agreement.mjs` 로 κ 를 잰다 — 0.6 미만이면 그 배치는 적재하지 않는다. ' +
               '③ `gate-reviews-verify.mjs <chunk> <out>` → `gate-mixed-import.mjs --input <out>` 예행 → `--commit`. 적재기는 `gate.retain` 한 키만 더하고 `gate.verdict` 는 두므로 게시 판정이 바뀌지 않는다. 같은 판정 재적재는 변경 0(재실행 안전). ' +
               '④ 보관이 쌓이면 `plos-extract` 를 돌린다 — 보관 판정 없는 원본은 「보관 판정 없음·폐기」로 건너뛴다.',
             done: '`csat-sources-audit` 의 보관 미결정(undecided) 중 plos 몫이 0 이다.',
