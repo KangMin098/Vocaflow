@@ -20,6 +20,7 @@ import {
   buildEpmcListUrl,
   buildEpmcQuery,
   epmcArticleUrl,
+  epmcBodyParagraphs,
   epmcIntroSection,
   epmcLicenseAllowed,
   epmcLicenseCode,
@@ -201,5 +202,19 @@ describe('열쇠와 주소', () => {
   it('표시 주소가 PMCID 로 만들어진다', () => {
     expect(epmcArticleUrl('PMC13539362')).toBe('https://europepmc.org/article/PMC/13539362')
     expect(epmcArticleUrl('13539362')).toBe('https://europepmc.org/article/PMC/13539362')
+  })
+})
+
+describe('원천 전문 — 서론 발췌는 원천이 아니다(criteria.md §1)', () => {
+  it('본문 전체의 문단을 절을 가로질러 모은다 · 표·그림·인용 번호는 걷는다', () => {
+    const xml =
+      '<article><body><sec><title>Introduction</title><p>Intro one <xref>[1]</xref>.</p></sec>' +
+      '<sec><title>Methods</title><p>Method two.</p><fig><p>caption</p></fig></sec>' +
+      '<sec><title>Discussion</title><sec><title>Sub</title><p>Nested three.</p></sec></sec></body></article>'
+    expect(epmcBodyParagraphs(xml)).toEqual(['Intro one .', 'Method two.', 'Nested three.'])
+  })
+
+  it('본문이 없으면 빈 배열 — 발췌로 물러서지 않는다', () => {
+    expect(epmcBodyParagraphs('<article><front/></article>')).toEqual([])
   })
 })

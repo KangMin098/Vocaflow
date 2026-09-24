@@ -350,10 +350,28 @@ export interface EpmcFetched {
 const NO_SEC_PARAGRAPH_CAP = 6
 
 /**
- * 본문 취득. **서론만 가져온다** — 논문 전체는 지문 규격(90~400어)의 수십 배이고,
- * 방법·결과 절은 통계 표기가 많아 지문이 되지 못한다.
+ * **원천 전문(全文)의 문단** — `<body>` 전체에서 표·그림·인용 번호를 걷은 문단 전부.
+ *
+ * 서론 발췌(`#p<a>-<b>`)는 원천이 아니다(docs/source-check/criteria.md §1 「파생물은 원천이 아니다」).
+ * 보관 판정은 논문 한 편에 붙으므로 원천 행은 본문 전체를 담는다(`scripts/textbook/epmc-ingest.mjs` ·
+ * `originals-backfill.mjs` · 2026-09-24). 절 제목 줄은 넣지 않는다 — 문단만.
  */
-export async function fetchEpmcArticle(pmcid: string): Promise<EpmcFetched | null> {
+export function epmcBodyParagraphs(xml: string): string[] {
+  const body = xml.match(/<body\b[^>]*>([\s\S]*)<\/body>/)?.[1]
+  return body ? epmcParagraphs(body) : []
+}
+
+/** `intro` — 서론 절만(지문 창용 · 예전 동작). `full` — 본문 전체(원천 행용). */
+export type EpmcScope = 'intro' | 'full'
+
+/**
+ * 본문 취득. 기본은 **서론만** 가져온다 — 논문 전체는 지문 규격(90~400어)의 수십 배이고,
+ * 방법·결과 절은 통계 표기가 많아 지문이 되지 못한다. 원천 행은 `scope: 'full'` 로 전문을 받는다.
+ */
+export async function fetchEpmcArticle(
+  pmcid: string,
+  { scope = 'intro' }: { scope?: EpmcScope } = {},
+): Promise<EpmcFetched | null> {
   const res = await fetchWithTimeout(epmcFullTextUrl(pmcid), {
     accept: 'application/xml',
     timeoutMs: 45_000,
@@ -367,7 +385,8 @@ export async function fetchEpmcArticle(pmcid: string): Promise<EpmcFetched | nul
   if (!intro) return null
 
   const all = epmcParagraphs(intro.xml)
-  const paras = secs.length > 0 ? all : all.slice(0, NO_SEC_PARAGRAPH_CAP)
+  const paras =
+    scope === 'full' ? epmcBodyParagraphs(xml) : secs.length > 0 ? all : all.slice(0, NO_SEC_PARAGRAPH_CAP)
   const content = paras.join('\n\n')
   const title = strip(
     xml.match(/<article-title\b[^>]*>([\s\S]*?)<\/article-title>/)?.[1] ?? '',
@@ -405,11 +424,12 @@ export async function fetchEpmcArticle(pmcid: string): Promise<EpmcFetched | nul
 export async function ingestEuropePmcArticle(
   pmcidOrUrl: string,
   listLicense: string | null = null,
+  { scope = 'intro' }: { scope?: EpmcScope } = {},
 ): Promise<RawArticle> {
   const pmcid = pmcidOrUrl.match(/PMC\d+/i)?.[0]?.toUpperCase()
   if (!pmcid) throw new Error(`Europe PMC PMCID 를 못 읽었다: ${pmcidOrUrl}`)
 
-  const got = await fetchEpmcArticle(pmcid)
+  const got = await fetchEpmcArticle(pmcid, { scope })
   if (!got) throw new Error(`Europe PMC 본문을 못 받았다: ${pmcid}`)
   // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
   const shortBody = got.words < EPMC_MIN_WORDS

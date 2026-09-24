@@ -11,7 +11,13 @@
 // `(source, source_id)` 로 먼저 조회해 이미 있으면 건너뛴다. 몇 번 돌려도 같은 결과다.
 // 건너뛴 수를 반드시 출력한다 — 조용히 건너뛰면 "다 넣었다" 와 "이미 있었다" 를 구별할 수 없다.
 //
-// ⚠️ **라이선스를 못 읽은 책은 넣지 않는다.** 어댑터가 `restricted` 를 돌려주면 그건
+// ── 원천 먼저 (2026-09-24) ───────────────────────────────────────────
+// 발췌는 원천이 아니다(docs/source-check/criteria.md §1). 이야기마다 **전문을 원천 행**
+// (`storyweaver:<slug>`)으로 먼저 담고, `--band` 발췌는 조각 행(`#p<a>-<b>` ·
+// `csat_fit.derived_from.kind = 'excerpt'`)으로 덧붙인다. 어휘·자립성 게이트는 조각만 가른다.
+// 예전 발췌만 있던 책의 원천은 `scripts/textbook/originals-backfill.mjs` 가 채운다.
+//
+// ⚠️ **라이선스를 못 읽은 책은 조각을 만들지 않는다**(원천은 DD-75 에 따라 담는다 — 아래 본문 주석). 어댑터가 `restricted` 를 돌려주면 그건
 //   "CC 가 아니다" 가 아니라 "모른다" 이고, 모르는 것을 넣으면 나중에 발행 게이트가
 //   그것을 **통과시킬 수도** 있다. 넣지 않는 편이 되돌리기 쉽다. 건너뛴 수를 출력한다.
 //
@@ -73,6 +79,7 @@ const {
   curriculumFit,
   standaloneFit,
 } = await import('../../packages/library-pipeline/src/index.ts')
+const { ensureOriginal, fragmentCsatFit } = await import('./_originals.mjs')
 
 const targetBand = BAND ? gradeBand(BAND) : null
 if (BAND && !targetBand) {
@@ -82,7 +89,8 @@ if (BAND && !targetBand) {
 
 /** 그림책 쪽 글을 순서대로. 발췌기는 문단 배열을 받는다 — 쪽이 곧 문단이다. */
 async function storyPages(slug) {
-  const res = await fetch(`https://storyweaver.org.in/api/v1/stories/${slug}/read`, {
+  // `?embed=true` 없이는 401 이다(2026-09-24 실측 · 어댑터 `ingestStoryweaverArticle` 과 같은 경로).
+  const res = await fetch(`https://storyweaver.org.in/api/v1/stories/${slug}/read?embed=true`, {
     headers: { 'user-agent': 'Vocaflow-SourceProbe/1.0 (+https://vocaflow.app)' },
   })
   if (!res.ok) return null
@@ -126,6 +134,8 @@ let failed = 0
 let shortBody = 0
 let emptyBody = 0
 let alsoBook = 0
+/** 원천 행 — 새로 담음(dry-run 은 담을 예정). 조각 수(`added`)와 따로 센다. */
+let originalsAdded = 0
 /** 발췌해도 그 칸에 못 든 책. **세서 말한다** — 조용히 건너뛰면 수율을 모른다. */
 let outOfBand = 0
 /** 어휘가 그 학년 밖. */
@@ -166,22 +176,36 @@ for (const item of list) {
     }
   }
 
+  // ── 원천 먼저 (2026-09-24) — 이야기 전문을 원천 행으로 ───────────────
+  // 라이선스·발췌·게이트보다 **앞에** 둔다. 라이선스는 보존 기준이 아니다(DD-75) — 못 읽은
+  //   책은 `license = 'restricted'` 로 담기고 DB 트리거·발행 적격이 서비스를 막는다. 조각은 만들지 않는다.
+  let parent
+  try {
+    parent = await ensureOriginal(db, { article }, { commit: COMMIT })
+  } catch (e) {
+    failed++
+    console.log(`  ✗ ${String(e.message).slice(0, 72)}`)
+    continue
+  }
+  if (parent.status === 'empty') emptyBody++
+  else if (parent.status !== 'existed') originalsAdded++
+  if (bookUrls.has(article.source_url)) alsoBook++
+  console.log(
+    `  ${COMMIT ? '✓' : '·'} 원천 ${String(parent.words).padStart(4)}어  ${parent.status.padEnd(8)} ${article.license.padEnd(11)} ${article.title.slice(0, 40)}`
+  )
+
   if (article.license === 'restricted') {
-    // "모른다" 를 "허용" 으로 바꾸지 않는다. 넣지 않는 편이 되돌리기 쉽다.
+    // "모른다" 를 "허용" 으로 바꾸지 않는다 — 원천은 담았고, 그걸 자른 조각은 만들지 않는다.
     noLicense++
-    console.log(`  ⊘ 라이선스 미확인 — 건너뜀: ${article.title.slice(0, 46)}`)
+    console.log(`  ⊘ 라이선스 미확인 — 조각 건너뜀: ${article.title.slice(0, 46)}`)
     continue
   }
 
   // ── 발췌 모드 ──────────────────────────────────────────────────────
-  // 통째로는 창 밖인 책에서 그 학년 칸에 드는 조각만 떼어 낸다.
-  let row = {
-    source_id: article.source_id,
-    title: article.title,
-    content: article.content,
-    note: null,
-  }
-  if (targetBand) {
+  // 통째로는 창 밖인 책에서 그 학년 칸에 드는 조각만 떼어 낸다. `--band` 가 없으면 원천이 곧 후보다.
+  if (!targetBand) continue
+  let row
+  {
     // 목록 항목은 `id` 를 갖지 않는다 — 주소에서 slug 를 뽑는다.
     //   처음에 `item.id` 를 썼다가 24건 전부 "쪽을 못 읽었다" 로 나왔다.
     const slug = String(item.url).match(/stories\/([a-z0-9-]+)/i)?.[1]
@@ -254,6 +278,7 @@ for (const item of list) {
       license: article.license,
       content: row.content,
       status: 'queued',
+      csat_fit: fragmentCsatFit(article, parent, 'excerpt'),
     })
     if (error) {
       failed++
@@ -261,7 +286,6 @@ for (const item of list) {
       continue
     }
   }
-  if (bookUrls.has(article.source_url)) alsoBook++
   added++
   console.log(
     `  ${COMMIT ? '✓' : '·'} ${String(words).padStart(4)}어  ${article.license.padEnd(11)} ` +
@@ -270,7 +294,7 @@ for (const item of list) {
 }
 
 console.log(
-  `\n추가 ${added} · 이미 있음 ${existed} · 라이선스 미확인 ${noLicense} · ` +
+  `\n원천 ${originalsAdded} · 조각 추가 ${added} · 이미 있음 ${existed} · 라이선스 미확인 ${noLicense} · ` +
     `어휘 밖 ${vocabBlocked} · 자립성 미달 ${notStandalone} · 칸 밖 ${outOfBand} · 실패 ${failed} · 짧은 본문(창 판정으로) ${shortBody} · 빈 본문(파서 확인) ${emptyBody}`
 )
 if (alsoBook)

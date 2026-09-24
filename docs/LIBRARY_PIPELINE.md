@@ -342,6 +342,31 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 회귀: `ingest-article/source-key-contract.test.ts`(14) · `harvest-cursor-contract.test.ts`(10).
 후자는 **목록기를 등록부에 안 적거나, 깊이 캐면서 커서도 이유도 없으면 실패한다.**
 
+### 원천 먼저 — 조각은 `csat_fit.derived_from` 으로 원천에 잇는다 (2026-09-24)
+
+보관 판정은 원천(책·챕터·문서 한 편) 단위다(`docs/source-check/criteria.md` §1 · `gate-rules.derivativeKind`).
+실측 당시 수집기 다섯이 **자른 조각만** 담고 원천은 담지 않았다 — europe_pmc 1,300 중 1,211(`#p<a>-<b>` 서론 발췌) ·
+space_place 59 중 54 · storyweaver 136 중 77 · simple_wikipedia `#lead`/`#lead-trim` 59 · frym `frym:<DOI>` 152(초록만).
+
+- **수집기**(`scripts/textbook/{epmc,space-place,storyweaver,mediawiki-lead,frym}-ingest.mjs`)는 항목마다 먼저
+  원천 행(원본 열쇠 · 전문 · status `queued` · `csat_fit.rights`)을 담고(`scripts/textbook/_originals.mjs`),
+  그다음 원할 때만 조각 행을 `csat_fit.derived_from = { id, source_id, kind }` 과 함께 담는다
+  (kind: `paragraphs` europe_pmc · `excerpt` space_place/storyweaver/frym · `lead` 위키 · `abstract` frym 초록 · `adapt`).
+  창·칸·어휘·자립성 게이트는 **조각만** 가른다 — 창에 드는 조각이 없어도 원천은 담는다(frym-ingest 가 원천까지 버리던 것을 고쳤다).
+- 원천 열쇠: europe_pmc `europe_pmc:PMC…`(본문 전문 · `ingestEuropePmcArticle(…, { scope: 'full' })`) ·
+  위키 `<source>:<pageid>` · frym **`frym-full:<DOI>`** — `frym:<DOI>` 는 초록 행이 차지하고 있어 전문을 따로 둔다
+  (`SOURCE_KEY_SHAPE.frym` 이 두 접두어를 받는다).
+- `derivativeKind({ source_id, feed_id, derived_from })` 는 `derived_from` 이 있으면 그 kind 를 돌려준다 —
+  회차 표집(`source-round-export.mjs`)이 초록 행처럼 열쇠 모양으로 못 가르는 파생물도 뺀다.
+- **되채움**: `pnpm exec tsx scripts/textbook/originals-backfill.mjs [--source <s>] [--limit N] [--commit]` —
+  기존 파생물의 원천을 같은 파서로 받아 한 번만 담고(원천 묶음 단위), 조각의 `csat_fit` 에 `derived_from` 을 합친다
+  (다른 키 보존 · `updated_at` CAS). 기본 dry-run(받아 보기만), 재실행 안전.
+  ⚠️ 조각을 고치면 `updated_at` 이 올라 **적격 캐시가 낡는다**(그 행은 캐시를 다시 채울 때까지 부적격). `--commit` 이 남기는
+  `.agent-logs/originals-backfill-touched-<시각>-partNN.txt`(≤100) 마다 `source-policy-refresh.mjs --ids-file … --output …` →
+  `--plan` → `--commit` 을 돌린다(명령은 스크립트 머리말).
+- 남은 것: europe_pmc 의 **접미어 없는** 89행(`europe_pmc:PMC…`)은 서론 전체가 창에 들어 원본 열쇠로 담긴 **서론뿐인** 행이다.
+  되채움은 이것을 「원천 이미 있음」으로 읽는다 — 전문으로 바꿀지(본문 교체 · 판정 무효화)는 따로 정한다.
+
 
 ### 입력 — 소스별 "얼마나 깊이 들어갈 수 있는가" (실측 2026-08-30)
 

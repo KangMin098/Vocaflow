@@ -39,6 +39,13 @@
 // `scripts/textbook/data/frym-<feed>-cursor.json` 에 진행을 남긴다.
 // 커서에는 **거절한 편도** 적는다 — 그래야 "최적합 제외" 를 다시 GET 하지 않는다.
 //
+// ── 원천 먼저 (2026-09-24) ───────────────────────────────────────────
+// 발췌는 원천이 아니다(docs/source-check/criteria.md §1). 이제 편마다 **전문을 원천 행**
+// (`frym-full:<DOI>`)으로 먼저 담고, 발췌는 조각 행(`frym:<DOI>#p<a>-<b>` ·
+// `csat_fit.derived_from.kind = 'excerpt'`)으로 덧붙인다. 예전에는 창에 드는 조각이 없으면
+// **원천까지 버렸다**(`⊘ 창에 드는 조각이 없다`) — 길이로 원문을 버린 것이라 §0 위반이었다.
+// 어휘·자립성 게이트는 조각만 가른다. 이미 있던 초록·발췌 행의 원천은 `originals-backfill.mjs` 가 채운다.
+//
 // 재실행 안전: **그렇다.** ① `(source, source_id)` 로 먼저 조회해 건너뛰고
 //   ② 커서는 판정 뒤에만 쓰며 ③ dry-run 은 커서를 전진시키지 않는다.
 //   중간에 죽으면 마지막으로 저장된 페이지부터 다시 본다(결과 동일).
@@ -87,6 +94,14 @@ const {
   gradeBand,
   READING_LEVEL_BANDS,
 } = await import('../../packages/library-pipeline/src/index.ts')
+const { ensureOriginal, fragmentCsatFit } = await import('./_originals.mjs')
+
+/**
+ * 원천 열쇠. `frym:<DOI>` 152행이 **초록만** 담은 채 원본 열쇠를 차지하고 있어(2026-09-24 실측 · 평균 136어)
+ * 전문 원천은 `frym-full:<DOI>` 에 둔다. 초록 행은 파생물이다(`derived_from.kind = 'abstract'` ·
+ * `originals-backfill.mjs` 가 잇는다). 열쇠 모양은 `source-key.ts` SOURCE_KEY_SHAPE.frym 이 받는다.
+ */
+const frymFullKey = (key) => String(key).replace(/#.*$/, '').replace(/^frym:/, 'frym-full:')
 
 const targetBand = BAND ? gradeBand(BAND) : null
 if (BAND && !targetBand) {
@@ -171,6 +186,8 @@ let notStandalone = 0
 let failed = 0
 let shortBody = 0
 let emptyBody = 0
+/** 원천 행 — 새로 담음(dry-run 은 담을 예정). 조각 수(`added`)와 따로 센다. */
+let originalsAdded = 0
 
 /**
  * **판정이 끝난 편**을 커서에 적는다 — 넣은 것뿐 아니라 **거절한 것도** 적는다.
@@ -181,12 +198,15 @@ const judged = new Set()
 const mark = (it) => judged.add(stableId('frym', { doi: it.source_id.replace(/^frym:/, '') }))
 
 for (const item of list) {
-  const { data: dup } = await db
+  // 원천 열쇠로 본다 — `frym:<DOI>` 는 초록 행(파생물)이 차지하고 있다(머리말 「원천 먼저」).
+  const fullKey = frymFullKey(item.source_id)
+  const { data: dup, error: dupErr } = await db
     .from('library_articles')
     .select('id')
     .eq('source', 'frym')
-    .eq('source_id', item.source_id)
+    .eq('source_id', fullKey)
     .maybeSingle()
+  if (dupErr) throw new Error(`중복 조회 실패 ${fullKey}: ${dupErr.message}`)
   if (dup) {
     existed++
     mark(item)
@@ -216,6 +236,20 @@ for (const item of list) {
   }
   await new Promise((z) => setTimeout(z, 600))
 
+  // ── 원천 먼저 — 전문을 `frym-full:<DOI>` 원천 행으로 ─────────────────
+  // 발췌·게이트보다 **앞에** 둔다. 창에 드는 조각이 없어도 원천은 남는다(criteria §0).
+  let parent
+  try {
+    parent = await ensureOriginal(db, { article, sourceId: frymFullKey(article.source_id) }, { commit: COMMIT })
+  } catch (e) {
+    failed++
+    console.log(`  ✗ ${String(e.message).slice(0, 72)}`)
+    continue
+  }
+  if (parent.status === 'empty') emptyBody++
+  else if (parent.status !== 'existed') originalsAdded++
+  console.log(`  ${COMMIT ? '✓' : '·'} 원천 ${String(parent.words).padStart(5)}어  ${parent.status.padEnd(8)} ${article.title.slice(0, 44)}`)
+
   // ── 발췌 ────────────────────────────────────────────────────────────
   // 전문은 966~1,692어라 통째로는 창(100~200) 밖이다. 문단 경계에서만 자르고,
   // **자른 뒤 다시 잰다**(발췌는 FK 를 −3.74 ~ +2.05 움직인다 — `textbook/excerpt.ts`).
@@ -226,7 +260,7 @@ for (const item of list) {
   if (!ex) {
     outOfSpec++
     mark(item)
-    console.log(`  ⊘ 창에 드는 조각이 없다 — ${article.title.slice(0, 46)}`)
+    console.log(`  ⊘ 창에 드는 조각이 없다 — 원천만 담는다: ${article.title.slice(0, 40)}`)
     continue
   }
 
@@ -280,6 +314,7 @@ for (const item of list) {
       license: article.license,
       content: row.content,
       status: 'queued',
+      csat_fit: fragmentCsatFit(article, parent, 'excerpt'),
     })
     if (error) {
       failed++
@@ -303,7 +338,7 @@ if (COMMIT && judged.size > 0) {
 }
 
 console.log(
-  `\n추가 ${added} · 이미 있음 ${existed} · 발췌 실패 ${outOfSpec} · ` +
+  `\n원천 ${originalsAdded} · 조각 추가 ${added} · 이미 있음 ${existed} · 발췌 실패(원천만) ${outOfSpec} · ` +
     `어휘 ${vocabBlocked} · 자립성 ${notStandalone} · 실패 ${failed}` +
     ` · 짧은 본문(창 판정으로) ${shortBody} · 빈 본문(파서 확인) ${emptyBody}` +
     (targetBand ? ` (목표 칸 ${targetBand.id})` : ' (드는 칸 아무거나)')

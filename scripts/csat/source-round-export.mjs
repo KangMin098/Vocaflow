@@ -49,7 +49,7 @@ let seen = 0
 for (;;) {
   const { data, error } = await db
     .from('library_articles')
-    .select('id,source,source_id,feed_id,rv:csat_fit->gate->retain->>retention')
+    .select('id,source,source_id,feed_id,derived_from:csat_fit->derived_from,rv:csat_fit->gate->retain->>retention')
     .gt('id', cursor)
     .order('id')
     .limit(1000)

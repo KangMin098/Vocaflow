@@ -67,3 +67,15 @@ test('파생물(발췌·도입부·개작)은 원천이 아니다 — 회차·�
   assert.equal(derivativeKind({ source_id: 'wikipedia:1050773', feed_id: null }), null)
   assert.equal(derivativeKind({ source_id: 'plos:10.1371/journal.pone.0001', feed_id: 'harvest' }), null)
 })
+
+test('csat_fit.derived_from 이 있으면 열쇠 모양과 무관하게 파생물이다 — 원천 우선 수집 · originals-backfill', async () => {
+  const { derivativeKind } = await import('../gate-rules.mjs')
+  // frym 초록 행은 원본 열쇠(`frym:<DOI>`)를 차지하고 있어 모양으로는 못 가른다
+  const abstract = { id: 'u1', source_id: 'frym-full:10.3389/frym.2020.00001', kind: 'abstract' }
+  assert.equal(derivativeKind({ source_id: 'frym:10.3389/frym.2020.00001', derived_from: abstract }), 'abstract')
+  // kind 가 비었으면 'derived' — 연결이 있다는 사실만으로 파생물이다
+  assert.equal(derivativeKind({ source_id: 'space_place:mars', derived_from: { id: 'u2' } }), 'derived')
+  // 연결이 없거나 비었으면 예전 규칙 그대로
+  assert.equal(derivativeKind({ source_id: 'frym-full:10.3389/frym.2020.00001', derived_from: null }), null)
+  assert.equal(derivativeKind({ source_id: 'europe_pmc:PMC1#p1-2', derived_from: {} }), 'paragraphs')
+})

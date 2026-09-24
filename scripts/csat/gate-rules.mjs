@@ -304,7 +304,12 @@ export function retentionOf({ purpose, verdict, retain } = {}) {
  * frym `adapted` 피드(초록만). 회차 판정자가 이것들을 원천으로 받아 「원천 불완전」과 씨름했다(round-2 simple_wikipedia κ 0.44).
  * 판정은 원천에 붙이고 파생물은 원천의 판정을 따른다. 원천이 저장돼 있지 않은 파생물은 수집기가 원천을 받아야 한다.
  */
-export function derivativeKind({ source_id, feed_id } = {}) {
+export function derivativeKind({ source_id, feed_id, derived_from } = {}) {
+  // `csat_fit.derived_from` — 원천 우선 수집기·originals-backfill 이 파생물에 원천 행을 잇는다(2026-09-24).
+  //   있으면 그 kind 가 정본이다. frym 초록 행(`frym:<DOI>`)처럼 열쇠 모양으로는 못 가르는 것이 여기로 온다.
+  if (derived_from && typeof derived_from === 'object' && (derived_from.id || derived_from.source_id)) {
+    return typeof derived_from.kind === 'string' && derived_from.kind ? derived_from.kind : 'derived'
+  }
   const id = String(source_id ?? '')
   if (feed_id === 'plos-extract') return 'extract'
   if (id.startsWith('adapt:')) return 'adapt'
