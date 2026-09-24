@@ -24,7 +24,9 @@ const arg = (k, d) => {
 const ROUND = Number(arg('round', 0))
 if (!Number.isInteger(ROUND) || ROUND < 1) throw new Error('--round <n> (1 이상)')
 const SAMPLE = Number(arg('sample', 10))
-const DIR = path.resolve(`scripts/csat/source-round/round-${ROUND}`)
+// `--dir`·`--name` — 같은 회차 표본을 개정된 기준으로 다시 판정한 결과(예: round-1-v2)를 따로 집계할 때.
+const DIR = path.resolve(arg('dir', `scripts/csat/source-round/round-${ROUND}`))
+const NAME = arg('name', `round-${ROUND}`)
 const COMPARE = arg('compare', '')
 if (!fs.existsSync(DIR)) throw new Error(`회차 디렉터리가 없다: ${DIR}`)
 
@@ -111,7 +113,7 @@ if (COMPARE) {
 const versions = [...new Set(all.map((r) => r.criteria_version))]
 const tbl = (head, rows) => [`| ${head.join(' | ')} |`, `|${head.map(() => '---').join('|')}|`, ...rows.map((r) => `| ${r.join(' | ')} |`)].join('\n')
 const axisTable = (label, m) => tbl([label, '보관 원천 수', '보관 중 비율'], Object.entries(m).sort((a, b) => b[1] - a[1]).map(([k, v]) => [`\`${k}\``, v, pct(v, kept.length)]))
-const md = `# 원문 점검 회차 ${ROUND}
+const md = `# 원문 점검 회차 ${ROUND}${NAME !== `round-${ROUND}` ? ` — ${NAME}` : ''}
 
 > 기준 버전 ${versions.map((v) => `v${v}`).join(' · ')} · 판정 ${total}건 · 소스 ${bySource.length}곳${missing.length ? ` · **판정 파일 없는 소스 ${missing.length}곳**: ${missing.join(', ')}` : ''}
 > 생성: \`node scripts/csat/source-round-report.mjs --round ${ROUND}\` · 근거 태그: 이 문서의 수치는 전부 [측정](이 회차 판정 파일 집계)이다.
@@ -168,7 +170,7 @@ ${compare ? `\`${compare.dir}\` 와 같은 원천 ${compare.both}건 중 **${com
 `
 if (process.argv.includes('--stdout')) console.log(md)
 else {
-  const file = path.resolve(`docs/source-check/round-${ROUND}.md`)
+  const file = path.resolve(`docs/source-check/${NAME}.md`)
   fs.writeFileSync(file, md)
   console.log(JSON.stringify({ written: path.relative(process.cwd(), file), judged: total, sources: bySource.length, missing, doubles: doubles.length, sample: sample.length }))
 }
