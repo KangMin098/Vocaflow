@@ -2010,6 +2010,10 @@ await anon.rpc('get_lcp_config')   // → 에러 없이 호출됨 (내부 파이
 > 그 앞의 `content_gate_publishable` — critical 「추출 비어있음(0단어)」 — 이고 이 가드는 이중 장치다.
 > 즉 **어휘 행이 없는 글은 발행되지 않는다**(메시지는 「콘텐츠 품질 게이트 FAIL」). 근거·보관 범위 계획:
 > [lav-retention-2026-09-24](./reports/lav-retention-2026-09-24.md).
+>
+> **삭제된 RPC**(2026-09-24 · `20260924070635_drop_dead_dict_mining_rpcs` · 사용자 결정): `select_article_coverage(uuid)` ·
+> `select_extraction_residual()` — 호출자 0(코드·함수·`pg_stat_statements`), 읽던 표가 발행·가공 글 몫만 남아 옛 목적을 못 한다.
+> 사전 미등재 낱말 채굴은 `scripts/dict/drain-article-lemmas.mjs` 가 본문에서 직접 한다. 원문: `docs/AI_CONTEXT/rollback/drop_dead_dict_mining_rpcs-rollback.sql`.
 
 ### 왜 보류했나 (그냥 REVOKE 하면 안 되는 이유)
 
