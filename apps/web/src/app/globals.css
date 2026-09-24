@@ -10,6 +10,8 @@
 @import '@vocaflow/design-tokens/tokens.css';
 /* 화면 스킨 — <html data-skin="tines"> 일 때만 켜진다(DD-68). */
 @import '@vocaflow/design-tokens/skins/tines.css';
+/* Admin 앱 스킨 — /admin 이하([data-area="admin"])에서만 켜진다(DD-76). tines.css 뒤에 와야 이긴다. */
+@import '@vocaflow/design-tokens/skins/admin-app.css';
 
 @tailwind base;
 @tailwind components;

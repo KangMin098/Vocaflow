@@ -43,7 +43,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const reportsBadge = await fetchPendingReportsCount()
 
   return (
-    <div className="flex min-h-screen bg-[var(--bg2)]">
+    // data-area="admin" — skins/admin-app.css 가 이 표지를 보고 /admin 이하에만 앱 스킨 토큰을 켠다(DD-76).
+    <div data-area="admin" className="flex min-h-screen bg-[var(--bg2)]">
       <AdminSidebar reportsBadge={reportsBadge} />
       <main className="flex min-w-0 flex-1 flex-col">
         <div className="flex-1">{children}</div>

@@ -8,6 +8,7 @@ import {
   Figtree,
   Hahmlet,
   IBM_Plex_Sans_KR,
+  Inter,
   Lora,
   JetBrains_Mono,
   Petrona,
@@ -113,6 +114,24 @@ const fontTinesMono = Space_Mono({
   preload: false,
 });
 
+// ── Admin 앱 스킨(DD-76) — 레퍼런스 앱의 InterVariable 은 Inter(OFL) 그대로다. 변수는 skins/admin-app.css 가 읽는다.
+// 고정폭(Geist Mono)은 next 14.2 폰트 목록에 없어 이미 싣는 JetBrains Mono 로 대체한다. preload 를 끈다 — /admin 밖에서는 받지 않는다.
+const fontAdminSans = Inter({
+  subsets: ["latin"],
+  variable: "--font-admin-sans",
+  display: "swap",
+  preload: false,
+});
+
+// admin-app.css 가 `--font-mono` 자체를 덮으므로 원래 JetBrains Mono 변수를 가리킬 수 없다 — 별도 변수로 한 번 더 선언한다.
+const fontAdminMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-admin-mono",
+  display: "swap",
+  preload: false,
+});
+
 /**
  * 화면 스킨 — 기본은 `tines`(사용자 결정 2026-09-21 「가장 닮음으로 우선 진행 후 평가」).
  * `NEXT_PUBLIC_SKIN=off` 로 기본을 끄고, 브라우저에서는 `?skin=off|tines` 가 localStorage 에 남는다.
@@ -169,7 +188,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${fontUI.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable} ${fontTinesSans.variable} ${fontTinesSerif.variable} ${fontTinesMono.variable}`}
+      className={`${fontUI.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable} ${fontTinesSans.variable} ${fontTinesSerif.variable} ${fontTinesMono.variable} ${fontAdminSans.variable} ${fontAdminMono.variable}`}
       data-skin={DEFAULT_SKIN === "off" ? undefined : DEFAULT_SKIN}
       suppressHydrationWarning
     >

@@ -1,0 +1,193 @@
+/* packages/design-tokens/src/skins/admin-app.css
+ *
+ * **Admin 앱 스킨 — 레퍼런스 `neon-currant.3b.dev`(Tines 3B 앱 화면) 실측값을 /admin 이하에만 얹는다**
+ * (DD-76 · 사용자 지시 2026-09-24 「/admin 전체 스타일 교체」).
+ *
+ * 켜지는 조건: 페이지 안에 `[data-area="admin"]` 이 있을 때(`app/admin/layout.tsx` 가 건다).
+ *   `:root:has(...)` 에 변수를 두므로 body 로 포털되는 Dialog·Toast 도 같은 값을 받는다. /admin 을 떠나면
+ *   공개·학습자 화면의 스킨(tines.css)으로 그대로 돌아간다.
+ * 값의 출처: docs/design/reference-analysis.md — 레퍼런스 `:root` 변수(display-p3)를 sRGB hex 로 옮긴 값.
+ *
+ * 규칙
+ *   - 보라 0. 레퍼런스도 보라는 차트 계열색에만 쓴다 — 우리 admin 에는 차트 계열색 토큰이 따로 없으므로 뺀다.
+ *   - 1차 행동 = 먹색 컨트롤(`--control-bg` #0d0d17) + 크림 글자. 강조는 색이 아니라 먹색·굵기로.
+ *   - 글자 1·2·3단 모두 흰 면·캔버스·채움면 위 WCAG AA 4.5 이상(reference-analysis §7).
+ *   - 선택자 `:root:has()` (0,2,0)는 tines.css 의 `:root[data-skin]` (0,2,0)와 같아서 **이 파일이 뒤에
+ *     import 돼야** 이긴다(globals.css). 다크는 (0,3,0)로 tines 다크와 같고 역시 순서로 이긴다.
+ */
+
+:root:has([data-area="admin"]) {
+  /* ── 1차 행동 — 레퍼런스 --control-bg / --control-fg ── */
+  --p: #0d0d17;
+  --p-hover: #282531;
+  --p-light: #eeebe7;
+  --p-dark: #000000;
+  --on-p: #fcf9f5;
+  --on-p-tint: #0d0d17;
+  --on-semantic: #ffffff;
+
+  /* ── 강조 — 먹색. 옅은 강조면은 gray-200 ── */
+  --ju: #0d0d17;
+  --ju-ink: #0d0d17;
+  --ju-light: #eeebe7;
+  --ju-wash: rgba(84, 50, 0, 0.08);
+  --on-ju: #fcf9f5;
+  --admin: #0d0d17;
+  --admin-strong: #0d0d17;
+  --combo: #0d0d17;
+  --chip-cover-ink: #0d0d17;
+  --chip-cover-brand: #0d0d17;
+
+  /* ── 활성 — 레퍼런스 yellow ── */
+  --active: #da8900;
+  --active-light: #ffe7b0;
+  --on-active: #3b2113;
+  --active-ink: #a05600;
+
+  /* ── 의미색 — 레퍼런스 green/red/yellow/sky 800 · 200 ── */
+  --success: #007442;
+  --success-light: #e4eee7;
+  --success-ink: #005d35;
+  --error: #b02727;
+  --error-light: #ffdfd7;
+  --error-ink: #8c1e1d;
+  --warning: #a05600;
+  --warning-light: #ffe7b0;
+  --warning-ink: #7e4200;
+  --info: #006a9b;
+  --info-light: #e3edf1;
+  --info-ink: #10283b;
+
+  /* ── 지면 — 카드 흰색 · 캔버스 surface-secondary · 채움 gray-200 ── */
+  --bg: #ffffff;
+  --bg2: #fbf9f7;
+  --bg3: #eeebe7;
+  --ti: #ffffff;
+
+  /* ── 글자 — text-primary · text-secondary · 한 단 더 옅은 회색(AA 유지) ── */
+  --t1: #0d0d17;
+  --t2: #5e5f6c;
+  --t3: #62616a;
+  --t4: rgba(13, 13, 23, 0.2);
+
+  /* ── 틴트 면 — 라벤더 자리는 중립 채움으로(보라 면 0) ── */
+  --tint-lavender: #eeebe7;
+  --tint-lavender-ink: #0d0d17;
+  --deep-purple: #32313b;
+  --deep-ink: #1a1815;
+  /* 자두(보라 계열) — 레퍼런스 앱에 없는 색상. 중립 숯으로 */
+  --accent-plum: #4a4744;
+  --ios-purple: #4a4744;
+  --ios-purple-vivid: #4a4744;
+  --ios-purple-tint: #eeebe7;
+  --ios-purple-ink: #1a1815;
+  --track-topic: #4a4744;
+
+  /* ── 선 — border-alpha. 포커스는 레퍼런스 입력 포커스 링(sky) 의 AA 단 ── */
+  --bd: rgba(13, 13, 23, 0.1);
+  --bd-input: rgba(13, 13, 23, 0.14);
+  --bd-strong: #d0cdc9;
+  --bdf: #006a9b;
+  --bde: #b02727;
+
+  /* ── CEFR — C 단이 보라였다. 초록 → 파랑 → 주황 → 빨강 순으로 단계가 뜨거워진다 ── */
+  --cefr-c1: #a05600;
+  --cefr-c2: #b02727;
+
+  /* ── 모서리 — 실측 최빈 8px · 카드 12px · 큰 판 16/24px · 알약 9999px ── */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-2xl: 24px;
+
+  /* ── 그림자 — 면은 0.5px 링, 떠 있는 것은 elevation-low / high ── */
+  --sh-xs: 0 0 0 0.5px rgba(13, 13, 23, 0.1);
+  --sh-sm: 0 0 0 0.5px rgba(13, 13, 23, 0.1);
+  --sh-md: 0 6px 12px 0 rgba(13, 13, 23, 0.04), 0 1px 3px 0 rgba(13, 13, 23, 0.05), 0 0 0 0.5px rgba(13, 13, 23, 0.1);
+  --sh-lg: 0 6px 12px 0 rgba(13, 13, 23, 0.04), 0 1px 3px 0 rgba(13, 13, 23, 0.05), 0 0 0 0.5px rgba(13, 13, 23, 0.1);
+  --sh-xl: 0 25px 25px 0 rgba(13, 13, 23, 0.05), 0 6px 14px 0 rgba(13, 13, 23, 0.06), 0 0 0 0.5px rgba(13, 13, 23, 0.1);
+  --sh-float: 0 55px 33px 0 rgba(13, 13, 23, 0.03), 0 25px 25px 0 rgba(13, 13, 23, 0.05), 0 6px 14px 0 rgba(13, 13, 23, 0.06), 0 0 0 0.5px rgba(13, 13, 23, 0.1);
+  --sh-overlay: 0 55px 33px 0 rgba(13, 13, 23, 0.03), 0 25px 25px 0 rgba(13, 13, 23, 0.05), 0 6px 14px 0 rgba(13, 13, 23, 0.06);
+
+  /* ── 모달 배경막 — 레퍼런스 --modal-backdrop ── */
+  --modal-backdrop: rgba(13, 13, 23, 0.16);
+
+  /* ── 서체 — Inter(OFL) · 고정폭은 JetBrains Mono(OFL, Geist Mono 대체) · 한글 Pretendard ── */
+  --font-display: var(--font-admin-sans), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body: var(--font-admin-sans), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-serif: var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  --font-mono: var(--font-admin-mono), "Pretendard Variable", Pretendard, ui-monospace, monospace;
+}
+
+/* 다크 — 레퍼런스 light-dark() 의 두 번째 값 */
+:root[data-theme="dark"]:has([data-area="admin"]) {
+  --p: #fcf9f5;
+  --p-hover: #eeebe7;
+  --p-light: #252530;
+  --p-dark: #ffffff;
+  --on-p: #0d0d17;
+  --on-p-tint: #fcf9f5;
+  --on-semantic: #0d0d17;
+
+  --ju: #fcf9f5;
+  --ju-ink: #fcf9f5;
+  --ju-light: #252530;
+  --ju-wash: rgba(224, 226, 255, 0.08);
+  --on-ju: #0d0d17;
+  --admin: #fcf9f5;
+  --admin-strong: #fcf9f5;
+  --combo: #fcf9f5;
+  --chip-cover-ink: #fcf9f5;
+  --chip-cover-brand: #fcf9f5;
+
+  --active: #da8900;
+  --active-light: #3b2113;
+  --on-active: #ffe7b0;
+  --active-ink: #ffd88c;
+
+  --success: #4cc38a;
+  --success-light: #032d20;
+  --success-ink: #cae4d4;
+  --error: #ff8f84;
+  --error-light: #3f1918;
+  --error-ink: #ffc8be;
+  --warning: #ffb44d;
+  --warning-light: #3b2113;
+  --warning-ink: #ffd88c;
+  --info: #4fb8e6;
+  --info-light: #10283b;
+  --info-ink: #cae2ed;
+
+  --bg: #181420;
+  --bg2: #0d0d17;
+  --bg3: #252530;
+  --ti: #181420;
+
+  --t1: #fcf9f5;
+  --t2: #a9aab6;
+  --t3: #8d8e9b;
+  --t4: rgba(252, 249, 245, 0.2);
+
+  --tint-lavender: #252530;
+  --tint-lavender-ink: #fcf9f5;
+  --deep-purple: #40414d;
+  --deep-ink: #0d0d17;
+  --accent-plum: #bbbcca;
+  --ios-purple: #bbbcca;
+  --ios-purple-vivid: #bbbcca;
+  --ios-purple-tint: #252530;
+  --ios-purple-ink: #f3f4ff;
+  --track-topic: #bbbcca;
+
+  --bd: rgba(252, 249, 245, 0.08);
+  --bd-input: rgba(252, 249, 245, 0.14);
+  --bd-strong: #40414d;
+  --bdf: #4fb8e6;
+  --bde: #ff8f84;
+
+  --cefr-c1: #ffb44d;
+  --cefr-c2: #ff8f84;
+
+  --modal-backdrop: rgba(13, 13, 23, 0.5);
+}
