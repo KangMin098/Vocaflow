@@ -59,7 +59,7 @@ function PublisherCard({ p, target }: { p: BenchPublisher; target: number }) {
         </div>
         <span
           className="rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]"
-          style={{ background: `${k.color}1F`, color: k.color }}
+          style={{ background: `color-mix(in srgb, ${k.color} 12.2%, transparent)`, color: k.color }}
           title={k.hint}
         >
           {k.label}
@@ -151,7 +151,7 @@ function PlatformGapPanel({ platform }: { platform: MarketView['platform'] }) {
         <span className="font-body text-[11px] text-[var(--t3)]">기출 문항 시도</span>
         <span
           className="font-mono text-[20px] font-[700] tabular-nums"
-          style={{ color: usable ? '#2E7D5A' : '#9C3A30' }}
+          style={{ color: usable ? 'var(--memory-stable)' : 'var(--memory-risk)' }}
         >
           {n == null ? '못 잼' : n.toLocaleString()}
         </span>
@@ -289,7 +289,7 @@ export function MarketClient({ warehouse, volume, benchAgeDays, target, platform
       {staleDays != null && staleDays >= 7 ? (
         <p
           role="status"
-          className="break-keep rounded-[var(--r-md)] border border-[#B5803A] bg-[var(--bg)] p-3 font-body text-[12px] text-[#B5803A]"
+          className="break-keep rounded-[var(--r-md)] border border-[var(--memory-shaky)] bg-[var(--bg)] p-3 font-body text-[12px] text-[var(--memory-shaky)]"
         >
           ⚠ 이 수치는 {staleDays}일 전 리포트다 — 사람이 벤치마크를 다시 돌려야 갱신된다. 그동안
           쌓인 재고는 여기 안 들어 있다.
@@ -299,7 +299,7 @@ export function MarketClient({ warehouse, volume, benchAgeDays, target, platform
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -318,7 +318,7 @@ export function MarketClient({ warehouse, volume, benchAgeDays, target, platform
               title={MODE_KO[m].hint}
               className={`min-h-[44px] rounded-[var(--r-md)] border px-3 font-display text-[13px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50 ${
                 mode === m
-                  ? 'border-[var(--p)] bg-[var(--p)]/10 font-[600] text-[var(--t1)]'
+                  ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] font-[600] text-[var(--t1)]'
                   : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
               }`}
             >

@@ -66,7 +66,7 @@ function CommandRow({ cmd, why, claudeCode }: { cmd: string; why: string; claude
           className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)]"
         >
           {copied ? (
-            <ClipboardCheck size={15} strokeWidth={1.75} className="text-[#2E7D5A]" aria-hidden />
+            <ClipboardCheck size={15} strokeWidth={1.75} className="text-[var(--memory-stable)]" aria-hidden />
           ) : (
             <Copy size={15} strokeWidth={1.75} aria-hidden />
           )}
@@ -74,7 +74,7 @@ function CommandRow({ cmd, why, claudeCode }: { cmd: string; why: string; claude
       </div>
       <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
         {claudeCode ? (
-          <span className="bg-[var(--p)]/12 mr-1 inline-flex items-center gap-0.5 rounded px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
+          <span className="bg-[color-mix(in_srgb,var(--p)_12%,transparent)] mr-1 inline-flex items-center gap-0.5 rounded px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
             <Sparkles size={10} strokeWidth={2} aria-hidden />
             Claude Code
           </span>
@@ -148,7 +148,7 @@ export function OrderWizard({
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -168,7 +168,7 @@ export function OrderWizard({
                 aria-current={here ? 'step' : undefined}
                 className={`flex min-h-[44px] w-full items-center gap-2 rounded-[var(--r-md)] border px-2.5 py-2 text-left font-display text-[12.5px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
                   here
-                    ? 'bg-[var(--p)]/8 border-[var(--p)] font-[700] text-[var(--t1)]'
+                    ? 'bg-[color-mix(in_srgb,var(--p)_8%,transparent)] border-[var(--p)] font-[700] text-[var(--t1)]'
                     : reachable
                       ? 'border-[var(--bd)] bg-[var(--bg)] font-[500] text-[var(--t2)] hover:bg-[var(--bg2)]'
                       : 'cursor-not-allowed border-dashed border-[var(--bd)] bg-transparent font-[500] text-[var(--t3)]'
@@ -217,7 +217,7 @@ export function OrderWizard({
                           }}
                           className={`flex min-h-[44px] flex-col justify-center rounded-[var(--r-sm)] border px-2.5 py-1.5 text-left transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
                             pick === key
-                              ? 'bg-[var(--p)]/8 border-[var(--p)]'
+                              ? 'bg-[color-mix(in_srgb,var(--p)_8%,transparent)] border-[var(--p)]'
                               : 'border-[var(--bd)] bg-[var(--bg2)] hover:bg-[var(--bg3)]'
                           }`}
                         >
@@ -233,7 +233,7 @@ export function OrderWizard({
                             <span
                               aria-hidden
                               className="ml-1"
-                              style={{ color: v.published || ready ? '#2E7D5A' : '#B5803A' }}
+                              style={{ color: v.published || ready ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}
                             >
                               {v.published ? '●' : ready ? '○' : '◔'}
                             </span>
@@ -299,7 +299,7 @@ export function OrderWizard({
                           <span
                             aria-label={c.report ? '유형 리포트 발행됨' : '유형 리포트 없음'}
                             className="ml-0.5"
-                            style={{ color: c.report ? '#2E7D5A' : '#B5803A' }}
+                            style={{ color: c.report ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}
                           >
                             {c.report ? '●' : '○'}
                           </span>
@@ -332,7 +332,7 @@ export function OrderWizard({
           <button
             type="button"
             onClick={() => setAt(2)}
-            className="bg-[var(--p)]/8 hover:bg-[var(--p)]/16 min-h-[44px] w-fit rounded-[var(--r-md)] border border-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+            className="bg-[color-mix(in_srgb,var(--p)_8%,transparent)] hover:bg-[color-mix(in_srgb,var(--p)_16%,transparent)] min-h-[44px] w-fit rounded-[var(--r-md)] border border-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
             규격 보기
           </button>
@@ -372,7 +372,7 @@ export function OrderWizard({
           <button
             type="button"
             onClick={() => setAt(3)}
-            className="bg-[var(--p)]/8 hover:bg-[var(--p)]/16 min-h-[44px] w-fit rounded-[var(--r-md)] border border-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+            className="bg-[color-mix(in_srgb,var(--p)_8%,transparent)] hover:bg-[color-mix(in_srgb,var(--p)_16%,transparent)] min-h-[44px] w-fit rounded-[var(--r-md)] border border-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
             발주 확인
           </button>
@@ -392,21 +392,21 @@ export function OrderWizard({
                   <Check
                     size={14}
                     strokeWidth={2.25}
-                    className="mt-0.5 shrink-0 text-[#2E7D5A]"
+                    className="mt-0.5 shrink-0 text-[var(--memory-stable)]"
                     aria-hidden
                   />
                 ) : (
                   <X
                     size={14}
                     strokeWidth={2.25}
-                    className="mt-0.5 shrink-0 text-[#B5803A]"
+                    className="mt-0.5 shrink-0 text-[var(--memory-shaky)]"
                     aria-hidden
                   />
                 )}
                 <span className="break-keep font-body text-[12.5px] leading-snug text-[var(--t1)]">
                   {g.question}
                   {g.why ? (
-                    <span className="ml-1.5 font-mono text-[11.5px] text-[#B5803A]">{g.why}</span>
+                    <span className="ml-1.5 font-mono text-[11.5px] text-[var(--memory-shaky)]">{g.why}</span>
                   ) : null}
                 </span>
               </li>
@@ -419,7 +419,7 @@ export function OrderWizard({
                 <TriangleAlert
                   size={13}
                   strokeWidth={1.75}
-                  className="mt-0.5 shrink-0 text-[#B5803A]"
+                  className="mt-0.5 shrink-0 text-[var(--memory-shaky)]"
                   aria-hidden
                 />
                 먼저 「{blocked.question}」 를 채운다 — 뒤 관문이 더 나빠 보여도 여기부터 푼다.
@@ -434,7 +434,7 @@ export function OrderWizard({
             <>
               {/* 문구는 `pressPlan()` 이 정한다 — 이 갈래는 걸음 ④ 에서만 보여서 DOM 으로는
                   검증이 안 되기 때문이다(그 이유는 그 함수 머리말). */}
-              <p className="break-keep font-body text-[12.5px] leading-snug text-[#2E7D5A]">
+              <p className="break-keep font-body text-[12.5px] leading-snug text-[var(--memory-stable)]">
                 {pressPlan(chosen, gates.length).note}
               </p>
               <ul className="flex flex-col gap-2 rounded-[var(--r-sm)] bg-[var(--bg2)] p-2.5">

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // scripts/design/admin-purple-scan.mjs
 //
-// /admin 화면의 **계산된** 색에서 보라 계열(색상 245~320°, 채도 있는 것)을 센다(DD-76 검증).
+// /admin 화면의 **계산된** 색에서 보라 계열(색상 245~320°, 채도 있는 것)을 센다(DD-82 검증).
 // 소스 grep 은 토큰이 무엇으로 풀리는지 모른다 — 화면이 실제로 칠하는 값을 본다. 서체도 함께 적는다.
 //
 //   node --env-file=apps/web/.env.local scripts/design/admin-purple-scan.mjs /admin /admin/users [--theme dark]
@@ -27,7 +27,9 @@ let total = 0
 for (const r of routes) {
   const page = await ctx.newPage()
   if (THEME === 'dark') await page.addInitScript(() => { try { localStorage.setItem('theme', 'dark') } catch {} ; document.documentElement.setAttribute('data-theme', 'dark') })
-  await page.goto(`${BASE}${r}`, { waitUntil: 'networkidle', timeout: 120_000 })
+  // 폴링하는 화면은 networkidle 에 영영 닿지 않는다 — load 까지 기다리고 idle 은 짧게만 기다린다.
+  await page.goto(`${BASE}${r}`, { waitUntil: 'load', timeout: 180_000 })
+  await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {})
   if (THEME === 'dark') await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'))
   await page.waitForTimeout(600)
   const res = await page.evaluate(() => {

@@ -122,7 +122,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
                   <th
                     key={r}
                     className={`px-2 py-2 text-center align-top ${
-                      isMax ? 'bg-[var(--error)]/8' : ''
+                      isMax ? 'bg-[color-mix(in_srgb,var(--error)_8%,transparent)]' : ''
                     }`}
                     style={
                       isMax
@@ -196,7 +196,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
                           className="inline-block h-2.5 w-2.5 rounded-full"
                           style={{
                             backgroundColor: sev.bg,
-                            boxShadow: `0 0 0 2px ${sev.ring}33`,
+                            boxShadow: `0 0 0 2px color-mix(in srgb, ${sev.ring} 20%, transparent)`,
                           }}
                           aria-label={`${d.id} impacts ${r}`}
                           title={`${d.severity}`}

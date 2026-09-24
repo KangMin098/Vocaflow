@@ -106,7 +106,7 @@ function Volume({
       title={`${v.title} — ${k.label}`}
       className={`flex min-h-[44px] flex-col items-center justify-center gap-0.5 rounded-[var(--r-sm)] border px-1 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
         picked
-          ? 'border-[var(--p)] bg-[var(--p)]/10'
+          ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)]'
           : 'border-[var(--bd)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
       }`}
     >
@@ -202,7 +202,7 @@ export function SeriesShelf({
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -215,20 +215,20 @@ export function SeriesShelf({
       */}
       <p className="break-keep font-display text-[15px] font-[700] text-[var(--t1)]">
         {unmeasured.length > 0 ? (
-          <span className="text-[#8A8278]">생애를 못 잰 시리즈 {unmeasured.length}개</span>
+          <span className="text-[var(--memory-new)]">생애를 못 잰 시리즈 {unmeasured.length}개</span>
         ) : ready > 0 ? (
-          <span className="text-[#2E7D5A]">찍기만 하면 되는 권 {ready}권</span>
+          <span className="text-[var(--memory-stable)]">찍기만 하면 되는 권 {ready}권</span>
         ) : revising.length > 0 ? (
-          <span className="text-[#B5803A]">개정이 밀린 시리즈 {revising.length}개</span>
+          <span className="text-[var(--memory-shaky)]">개정이 밀린 시리즈 {revising.length}개</span>
         ) : unshipped.length > 0 ? (
-          <span className="text-[#B5803A]">한 번도 안 찍은 시리즈 {unshipped.length}개</span>
+          <span className="text-[var(--memory-shaky)]">한 번도 안 찍은 시리즈 {unshipped.length}개</span>
         ) : (
           /*
             ⚠️ **「다 냈다」로 끝나지 않는다.** 낼 수 있는 권을 다 냈다는 것은 이 시리즈들의
                이번 판이 끝났다는 뜻이지 품목이 끝났다는 뜻이 아니다 — 시중 출판사는 그
                자리에서 다음 라인을 발의한다. 그래서 빈 자리 수를 이어 붙인다(DD-76).
           */
-          <span className="text-[#2E7D5A]">
+          <span className="text-[var(--memory-stable)]">
             이번 판은 다 냈다
             {openSlots > 0 ? (
               <span className="text-[var(--t2)]">{` — 다음은 시장의 빈 자리 ${openSlots}칸`}</span>
@@ -270,8 +270,8 @@ export function SeriesShelf({
                   <span
                     className="rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10.5px]"
                     style={{
-                      background: `${life?.color ?? '#8A8278'}1F`,
-                      color: life?.color ?? '#8A8278',
+                      background: `color-mix(in srgb, ${life?.color ?? 'var(--memory-new)'} 12.2%, transparent)`,
+                      color: life?.color ?? 'var(--memory-new)',
                     }}
                   >
                     {life?.label ?? '못 잼'}
@@ -280,7 +280,7 @@ export function SeriesShelf({
                     {`낸 권 ${r.published}/${r.rungs}`}
                   </span>
                   {r.stale != null && r.stale > 0 ? (
-                    <span className="font-mono text-[10.5px] tabular-nums text-[#B5803A]">
+                    <span className="font-mono text-[10.5px] tabular-nums text-[var(--memory-shaky)]">
                       {`옛 규격 ${r.stale}권`}
                     </span>
                   ) : null}
@@ -392,7 +392,7 @@ export function SeriesShelf({
             <span
               className="rounded-[var(--r-full)] px-2 py-0.5 font-body text-[11px] font-[400]"
               style={{
-                background: `${VOLUME_STATUS_KO[sel.v.status].color}1F`,
+                background: `color-mix(in srgb, ${VOLUME_STATUS_KO[sel.v.status].color} 12.2%, transparent)`,
                 color: VOLUME_STATUS_KO[sel.v.status].color,
               }}
             >

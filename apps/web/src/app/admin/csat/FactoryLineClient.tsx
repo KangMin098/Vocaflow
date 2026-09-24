@@ -63,18 +63,18 @@ function Gauge({ g }: { g: StageGauge }) {
         </span>
       </div>
       {g.num == null ? (
-        <p className="break-keep font-body text-[11px] text-[#8A8278]">
+        <p className="break-keep font-body text-[11px] text-[var(--memory-new)]">
           {g.unmeasuredReason ?? '아직 안 쟀다'}
         </p>
       ) : g.approx && g.unmeasuredReason ? (
-        <p className="break-keep font-body text-[11px] text-[#B5803A]">{g.unmeasuredReason}</p>
+        <p className="break-keep font-body text-[11px] text-[var(--memory-shaky)]">{g.unmeasuredReason}</p>
       ) : g.den ? (
         <div className="h-1.5 overflow-hidden rounded-full bg-[var(--bd)]">
           <div
             className="h-full rounded-full transition-[width] duration-[var(--dur-normal)] ease-[var(--ease)]"
             style={{
               width: `${Math.min(100, pct ?? 0)}%`,
-              background: (pct ?? 0) >= 100 ? '#2E7D5A' : (pct ?? 0) > 0 ? '#B5803A' : '#9C3A30',
+              background: (pct ?? 0) >= 100 ? 'var(--memory-stable)' : (pct ?? 0) > 0 ? 'var(--memory-shaky)' : 'var(--memory-risk)',
             }}
           />
         </div>
@@ -111,7 +111,7 @@ function CommandRow({ cmd, why, writes, claudeCode }: StageState['nextCommands']
           className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)]"
         >
           {copied ? (
-            <ClipboardCheck size={15} strokeWidth={1.75} className="text-[#2E7D5A]" aria-hidden />
+            <ClipboardCheck size={15} strokeWidth={1.75} className="text-[var(--memory-stable)]" aria-hidden />
           ) : (
             <Copy size={15} strokeWidth={1.75} aria-hidden />
           )}
@@ -119,13 +119,13 @@ function CommandRow({ cmd, why, writes, claudeCode }: StageState['nextCommands']
       </div>
       <p className="font-body text-[11.5px] leading-snug text-[var(--t3)]">
         {claudeCode ? (
-          <span className="mr-1 inline-flex items-center gap-0.5 rounded bg-[var(--p)]/12 px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
+          <span className="mr-1 inline-flex items-center gap-0.5 rounded bg-[color-mix(in_srgb,var(--p)_12%,transparent)] px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
             <Sparkles size={10} strokeWidth={2} aria-hidden />
             Claude Code
           </span>
         ) : null}
         {writes ? (
-          <span className="mr-1 rounded bg-[#9C3A30]/12 px-1 py-0.5 text-[10px] font-[600] text-[#9C3A30]">
+          <span className="mr-1 rounded bg-[color-mix(in_srgb,var(--memory-risk)_12%,transparent)] px-1 py-0.5 text-[10px] font-[600] text-[var(--memory-risk)]">
             씀
           </span>
         ) : null}
@@ -165,7 +165,7 @@ function StageDetail({ s }: { s: StageState }) {
         </div>
         <span
           className="shrink-0 rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]"
-          style={{ background: `${st.color}1F`, color: st.color }}
+          style={{ background: `color-mix(in srgb, ${st.color} 12.2%, transparent)`, color: st.color }}
         >
           {st.label}
         </span>
@@ -187,7 +187,7 @@ function StageDetail({ s }: { s: StageState }) {
           <TriangleAlert
             size={13}
             strokeWidth={1.75}
-            className="mt-0.5 shrink-0 text-[#B5803A]"
+            className="mt-0.5 shrink-0 text-[var(--memory-shaky)]"
             aria-hidden
           />
           {s.blocker}
@@ -245,7 +245,7 @@ export function FactoryLineClient({
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -264,7 +264,7 @@ export function FactoryLineClient({
               </span>
             </>
           ) : (
-            <span className="text-[#2E7D5A]">생산 라인이 게이트를 다 넘었다</span>
+            <span className="text-[var(--memory-stable)]">생산 라인이 게이트를 다 넘었다</span>
           )}
           <span className="ml-2 font-mono text-[12px] font-[400] tabular-nums text-[var(--t3)]">
             {passed}/{total}

@@ -149,7 +149,7 @@ export function ExplainClient({ cells, items, explained, inventoryNote, loadErro
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -164,7 +164,7 @@ export function ExplainClient({ cells, items, explained, inventoryNote, loadErro
           <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">유형 × 해설 보유</h3>
           <span className="font-mono text-[12px] tabular-nums text-[var(--t2)]">
             {explained == null || items == null ? (
-              <span className="text-[#8A8278]">못 잼</span>
+              <span className="text-[var(--memory-new)]">못 잼</span>
             ) : (
               <>
                 {explained.toLocaleString()} / {items.toLocaleString()}
@@ -181,7 +181,7 @@ export function ExplainClient({ cells, items, explained, inventoryNote, loadErro
         ) : null}
 
         {rows.length === 0 ? (
-          <p className="font-body text-[12px] text-[#8A8278]">
+          <p className="font-body text-[12px] text-[var(--memory-new)]">
             {loadError ? '집계표를 못 읽었다 — 0건이 아니다.' : '재고가 없다.'}
           </p>
         ) : (
@@ -220,7 +220,7 @@ export function ExplainClient({ cells, items, explained, inventoryNote, loadErro
                       {/* 색만으로 말하지 않는다 — 0 은 글자로도 「없음 0」이다. */}
                       <td
                         className="py-2 pr-3 font-mono tabular-nums"
-                        style={{ color: gap > 0 ? '#9C3A30' : '#2E7D5A' }}
+                        style={{ color: gap > 0 ? 'var(--memory-risk)' : 'var(--memory-stable)' }}
                       >
                         {gap.toLocaleString()}
                       </td>
@@ -231,7 +231,7 @@ export function ExplainClient({ cells, items, explained, inventoryNote, loadErro
                             className="block h-full rounded-full"
                             style={{
                               width: `${pct}%`,
-                              background: gap > 0 ? '#B5803A' : '#2E7D5A',
+                              background: gap > 0 ? 'var(--memory-shaky)' : 'var(--memory-stable)',
                             }}
                           />
                         </span>

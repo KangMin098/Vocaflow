@@ -1,7 +1,7 @@
 /* packages/design-tokens/src/skins/admin-app.css
  *
  * **Admin 앱 스킨 — 레퍼런스 `neon-currant.3b.dev`(Tines 3B 앱 화면) 실측값을 /admin 이하에만 얹는다**
- * (DD-76 · 사용자 지시 2026-09-24 「/admin 전체 스타일 교체」).
+ * (DD-82 · 사용자 지시 2026-09-24 「/admin 전체 스타일 교체」).
  *
  * 켜지는 조건: 페이지 안에 `[data-area="admin"]` 이 있을 때(`app/admin/layout.tsx` 가 건다).
  *   `:root:has(...)` 에 변수를 두므로 body 로 포털되는 Dialog·Toast 도 같은 값을 받는다. /admin 을 떠나면

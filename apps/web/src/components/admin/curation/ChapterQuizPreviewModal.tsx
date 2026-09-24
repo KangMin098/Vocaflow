@@ -51,7 +51,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                 className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4"
               >
                 <div className="mb-2 flex items-center gap-2">
-                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-[var(--r-full)] bg-[var(--p)]/10 font-display text-[11px] font-[700] tabular-nums text-[var(--p-hover)]">
+                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-[var(--r-full)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] font-display text-[11px] font-[700] tabular-nums text-[var(--p-hover)]">
                     {q.qOrder}
                   </span>
                   <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--t2)]">
@@ -76,7 +76,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                         key={i}
                         className={`flex items-start gap-2 rounded-[var(--r-md)] border px-3 py-2 ${
                           isCorrect
-                            ? 'border-[var(--success)]/40 bg-[var(--success-light)]'
+                            ? 'border-[color-mix(in_srgb,var(--success)_40%,transparent)] bg-[var(--success-light)]'
                             : 'border-[var(--bd)] bg-[var(--bg)]'
                         }`}
                       >
@@ -115,7 +115,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                 </ul>
 
                 {q.sourceSnippet && (
-                  <div className="mt-3 flex items-start gap-2 border-t border-[var(--bd)]/60 pt-3">
+                  <div className="mt-3 flex items-start gap-2 border-t border-[color-mix(in_srgb,var(--bd)_60%,transparent)] pt-3">
                     <Quote size={12} aria-hidden className="mt-1 shrink-0 text-[var(--t2)]" />
                     <p className="font-english text-[12px] italic leading-relaxed text-[var(--t2)]">
                       {q.sourceSnippet}

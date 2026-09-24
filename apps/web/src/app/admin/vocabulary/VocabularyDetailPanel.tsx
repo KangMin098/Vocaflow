@@ -315,7 +315,7 @@ function DimCell({
   return (
     <div
       className={`rounded-[var(--r-md)] border p-2 ${
-        changed ? 'border-[var(--p)]/40 bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
+        changed ? 'border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
       <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
@@ -351,7 +351,7 @@ function JsonbCell({
   return (
     <div
       className={`rounded-[var(--r-md)] border p-2 ${
-        changed ? 'border-[var(--p)]/40 bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
+        changed ? 'border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[var(--p-light)]' : 'border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
       <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">

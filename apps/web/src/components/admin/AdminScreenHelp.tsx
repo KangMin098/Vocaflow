@@ -125,7 +125,7 @@ function DocRef({ label, doc }: { label: string; doc: string }) {
 
 function HelpLink({ href, label }: { href: string; label: string }) {
   const cls =
-    'inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--p-hover)] underline decoration-[var(--p)]/40 underline-offset-2 hover:decoration-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
+    'inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--p-hover)] underline decoration-[color-mix(in_srgb,var(--p)_40%,transparent)] underline-offset-2 hover:decoration-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
   if (href.startsWith('/')) {
     return (
       <Link href={href} className={cls}>
@@ -160,7 +160,7 @@ function Cautions({ items }: { items: readonly string[] }) {
     <ul className="mt-3 flex flex-col gap-1">
       {items.map((c) => (
         <li key={c} className="flex gap-2 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">
-          <AlertTriangle size={13} aria-hidden className="mt-1 shrink-0 text-[#B45309]" />
+          <AlertTriangle size={13} aria-hidden className="mt-1 shrink-0 text-[var(--warning)]" />
           <span>{richText(c)}</span>
         </li>
       ))}
@@ -185,10 +185,10 @@ const ACTOR: Record<HelpActor, { label: string; mark: string }> = {
  * 같은 이유로 모양을 갈랐고, 도움말도 같은 규약을 쓴다.
  */
 const STATE: Record<NonNullable<HelpNode['state']>, { label: string; color: string; mark: string }> = {
-  pass: { label: '통과', color: '#2E7D5A', mark: '●' },
-  short: { label: '몫 남음', color: '#B5803A', mark: '◐' },
-  blocked: { label: '막힘', color: '#9C3A30', mark: '■' },
-  unmeasured: { label: '못 잼', color: '#8A8278', mark: '○' },
+  pass: { label: '통과', color: 'var(--memory-stable)', mark: '●' },
+  short: { label: '몫 남음', color: 'var(--memory-shaky)', mark: '◐' },
+  blocked: { label: '막힘', color: 'var(--memory-risk)', mark: '■' },
+  unmeasured: { label: '못 잼', color: 'var(--memory-new)', mark: '○' },
 }
 
 /** 칸 안의 항목 목록 — 「받는 것 셋」처럼 셀 수 있는 것. 문장이 아니라 눈금이다. */
@@ -214,7 +214,7 @@ function NodeCard({ n, order }: { n: HelpNode; order?: number }) {
   return (
     <div
       className="flex min-w-0 flex-1 flex-col gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2"
-      style={st ? { borderColor: `${st.color}66` } : undefined}
+      style={st ? { borderColor: `color-mix(in srgb, ${st.color} 40%, transparent)` } : undefined}
     >
       <p className="flex items-center gap-1 break-keep font-display text-[12px] font-[700] leading-snug text-[var(--t1)]">
         {/* 순서가 있는 그림에서는 몇 번째인지를 **숫자로** 낸다 — 화살표만으로는
@@ -222,7 +222,7 @@ function NodeCard({ n, order }: { n: HelpNode; order?: number }) {
         {order !== undefined && (
           <span
             aria-hidden
-            className="inline-flex h-[17px] w-[17px] shrink-0 items-center justify-center rounded-full bg-[var(--p)]/12 font-mono text-[9.5px] font-[800] text-[var(--p-hover)]"
+            className="inline-flex h-[17px] w-[17px] shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--p)_12%,transparent)] font-mono text-[9.5px] font-[800] text-[var(--p-hover)]"
           >
             {order}
           </span>
@@ -287,10 +287,10 @@ function Lane({
                 className={
                   'flex min-w-0 flex-col justify-center gap-0.5 rounded-[var(--r-md)] border px-2 py-1.5 ' +
                   (here
-                    ? 'border-[var(--p)] bg-[var(--p)]/10 ring-2 ring-[var(--p)]/25'
+                    ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] ring-2 ring-[color-mix(in_srgb,var(--p)_25%,transparent)]'
                     : 'border-[var(--bd)] bg-[var(--bg)]')
                 }
-                style={!here && st ? { borderColor: `${st.color}66` } : undefined}
+                style={!here && st ? { borderColor: `color-mix(in srgb, ${st.color} 40%, transparent)` } : undefined}
               >
                 <p className="flex items-center gap-1 whitespace-nowrap font-display text-[11.5px] font-[700] text-[var(--t1)]">
                   {st && (
@@ -353,7 +353,7 @@ function Io({ nodes, gate }: { nodes: readonly HelpNode[]; gate?: string }) {
           <div
             className={
               'flex min-w-0 flex-1 flex-col gap-1 rounded-[var(--r-sm)] border p-2 ' +
-              (i === 1 ? 'border-[var(--p)]/45 bg-[var(--p)]/[0.06]' : 'border-[var(--bd)] bg-[var(--bg)]')
+              (i === 1 ? 'border-[color-mix(in_srgb,var(--p)_45%,transparent)] bg-[color-mix(in_srgb,var(--p)_6%,transparent)]' : 'border-[var(--bd)] bg-[var(--bg)]')
             }
           >
             <span className="font-mono text-[9.5px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
@@ -406,7 +406,7 @@ function NodeCardBody({ n }: { n: HelpNode }) {
  */
 function Diagram({ d }: { d: HelpDiagram }) {
   return (
-    <figure className="m-0 mt-3 flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--p)]/20 bg-[var(--bg)]/60 p-3">
+    <figure className="m-0 mt-3 flex flex-col gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--p)_20%,transparent)] bg-[color-mix(in_srgb,var(--bg)_60%,transparent)] p-3">
       <figcaption className="break-keep font-display text-[11.5px] font-[800] text-[var(--t2)]">
         {richText(d.caption)}
       </figcaption>
@@ -480,7 +480,7 @@ function Fold({
   children: React.ReactNode
 }) {
   return (
-    <details className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]/50">
+    <details className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_50%,transparent)]">
       <summary className="flex min-h-[44px] cursor-pointer list-none items-center gap-2 px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-reduce:transition-none">
         <ChevronDown size={13} aria-hidden className="shrink-0" />
         {label}
@@ -554,9 +554,9 @@ export function HelpBody({ body }: { body: ScreenHelp }) {
 
       {body.drain && (
         <Fold label="Claude Code 드레인 절차" count={body.drain.procedure.length}>
-        <section className="rounded-[var(--r-md)] border border-[#B0843A]/35 bg-[#B0843A]/[0.06] p-3">
+        <section className="rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--active)_35%,transparent)] bg-[color-mix(in_srgb,var(--active)_6%,transparent)] p-3">
           <h3 className="flex items-center gap-2 font-display text-[12.5px] font-[800] text-[var(--t1)]">
-            <Terminal size={13} aria-hidden className="text-[#B0843A]" />
+            <Terminal size={13} aria-hidden className="text-[var(--active)]" />
             Claude Code 드레인 절차
           </h3>
           <p className="mt-1 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{richText(body.drain.what)}</p>
@@ -576,7 +576,7 @@ export function HelpBody({ body }: { body: ScreenHelp }) {
           <ol className="mt-0.5 flex flex-col gap-2">
             {body.drain.procedure.map((s, i) => (
               <li key={s.title} className="flex gap-2">
-                <span aria-hidden className="font-mono text-[11.5px] font-[800] text-[#B0843A]">
+                <span aria-hidden className="font-mono text-[11.5px] font-[800] text-[var(--active)]">
                   {i + 1}.
                 </span>
                 <span className="min-w-0">
@@ -674,7 +674,7 @@ export function AdminScreenHelp({
         // min-h-[36px] 이었다 — 44px 미만 탭 대상(CLAUDE.md 절대 금지).
         // 이 버튼은 **모든 관리자 화면**에 있어서 하나 고치면 26곳이 함께 낫는다
         // (실측 2026-08-26 · 390px). 관리자가 폰에서 처음 누르는 것이 대개 이것이다.
-        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p)]/8 hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.97] disabled:opacity-50 motion-reduce:transition-none"
+        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[color-mix(in_srgb,var(--p)_8%,transparent)] hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.97] disabled:opacity-50 motion-reduce:transition-none"
       >
         <CircleHelp size={14} aria-hidden />
         화면 도움말
@@ -690,12 +690,12 @@ export function AdminScreenHelp({
           id={panelId}
           role="region"
           aria-label={`${entry.title} 화면 도움말`}
-          className="mt-2 rounded-[var(--r-lg)] border border-[var(--p)]/25 bg-[var(--p)]/[0.04] p-4"
+          className="mt-2 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--p)_25%,transparent)] bg-[color-mix(in_srgb,var(--p)_4%,transparent)] p-4"
         >
           <div className="flex flex-wrap items-baseline gap-2">
             <h2 className="font-display text-[14px] font-[800] text-[var(--t1)]">{entry.title}</h2>
             {scoped && (
-              <span className="rounded-[var(--r-full)] bg-[var(--p)]/14 px-2 py-1 font-display text-[11px] font-[700] text-[var(--p-hover)]">
+              <span className="rounded-[var(--r-full)] bg-[color-mix(in_srgb,var(--p)_14%,transparent)] px-2 py-1 font-display text-[11px] font-[700] text-[var(--p-hover)]">
                 {tab}
               </span>
             )}
@@ -704,7 +704,7 @@ export function AdminScreenHelp({
           <HelpBody body={scoped ?? screenLevel} />
 
           {showScreenFooter && (
-            <section className="mt-4 border-t border-[var(--p)]/20 pt-3">
+            <section className="mt-4 border-t border-[color-mix(in_srgb,var(--p)_20%,transparent)] pt-3">
               <h3 className="font-display text-[11.5px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
                 이 화면 전체
               </h3>

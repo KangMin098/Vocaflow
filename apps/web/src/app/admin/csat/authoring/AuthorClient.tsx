@@ -151,7 +151,7 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -187,7 +187,7 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
             aria-pressed={onlyLadder === v}
             className={`min-h-[44px] rounded-[var(--r-md)] border px-3 font-display text-[13px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
               onlyLadder === v
-                ? 'border-[var(--p)] bg-[var(--p)]/10 font-[600] text-[var(--t1)]'
+                ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] font-[600] text-[var(--t1)]'
                 : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
             }`}
           >
@@ -200,7 +200,7 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
         <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-body text-[11px] text-[var(--t3)]">
           <span className="inline-flex items-center gap-1.5">
             <span
-              className="inline-block h-3 w-4 rounded-[var(--r-sm)] border border-[var(--p)]/50"
+              className="inline-block h-3 w-4 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--p)_50%,transparent)]"
               aria-hidden
             />
             사다리가 쓰는 칸
@@ -211,14 +211,14 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
               <span
                 key={a}
                 className="inline-block h-3 w-4"
-                style={{ background: `rgba(139, 92, 246, ${a})` }}
+                style={{ background: `color-mix(in srgb, var(--p) ${a * 100}%, transparent)` }}
                 aria-hidden
               />
             ))}
             <span className="ml-0.5">적음 → 많음 (로그)</span>
           </span>
           <span>
-            <strong className="text-[#9C3A30]">—</strong> 재고 0 · <strong>?</strong> 못 셈
+            <strong className="text-[var(--memory-risk)]">—</strong> 재고 0 · <strong>?</strong> 못 셈
           </span>
         </div>
         <div className="overflow-x-auto">
@@ -266,19 +266,19 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
                                 : '사다리 밖 — 만들어도 어느 권에도 안 실린다'
                             }
                             className={`inline-block min-w-[52px] rounded-[var(--r-sm)] px-1 py-1 font-mono text-[11px] tabular-nums ${
-                              ladder ? 'border border-[var(--p)]/50' : ''
+                              ladder ? 'border border-[color-mix(in_srgb,var(--p)_50%,transparent)]' : ''
                             }`}
                             style={{
                               // 한 가지 색의 농도만 쓴다(발산·무지개 금지). 진할수록 재고가 많다.
                               background: n
-                                ? `rgba(139, 92, 246, ${(0.06 + 0.5 * heat(n, maxCell)).toFixed(3)})`
+                                ? `color-mix(in srgb, var(--p) ${((0.06 + 0.5 * heat(n, maxCell)) * 100).toFixed(1)}%, transparent)`
                                 : undefined,
                               color:
                                 n == null
-                                  ? '#8A8278'
+                                  ? 'var(--memory-new)'
                                   : n === 0
                                     ? ladder
-                                      ? '#9C3A30'
+                                      ? 'var(--memory-risk)'
                                       : 'var(--t3)'
                                     : 'var(--t1)',
                             }}
@@ -292,7 +292,7 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
                       {sum.toLocaleString()}
                       {unmeasured > 0 && (
                         <span
-                          className="ml-1 text-[10px] text-[#8A8278]"
+                          className="ml-1 text-[10px] text-[var(--memory-new)]"
                           title={`${unmeasured}칸을 못 쟀다 — 실제 합계는 이보다 크다`}
                         >
                           +?

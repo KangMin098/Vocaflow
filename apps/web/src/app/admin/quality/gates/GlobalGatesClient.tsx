@@ -10,9 +10,9 @@ import { useState, useTransition } from 'react'
 import { runGlobalGates, type GateRow } from './actions'
 
 const VERDICT_STYLE: Record<string, { bg: string; fg: string; label: string }> = {
-  PASS: { bg: 'bg-[#2E7D5A]/10', fg: 'text-[#2E7D5A]', label: 'PASS' },
-  FAIL: { bg: 'bg-[#9C3A30]/12', fg: 'text-[#9C3A30]', label: 'FAIL' },
-  WARN: { bg: 'bg-[#B5803A]/12', fg: 'text-[#B5803A]', label: 'WARN' },
+  PASS: { bg: 'bg-[color-mix(in_srgb,var(--memory-stable)_10%,transparent)]', fg: 'text-[var(--memory-stable)]', label: 'PASS' },
+  FAIL: { bg: 'bg-[color-mix(in_srgb,var(--memory-risk)_12%,transparent)]', fg: 'text-[var(--memory-risk)]', label: 'FAIL' },
+  WARN: { bg: 'bg-[color-mix(in_srgb,var(--memory-shaky)_12%,transparent)]', fg: 'text-[var(--memory-shaky)]', label: 'WARN' },
 }
 
 export function GlobalGatesClient() {
@@ -84,7 +84,7 @@ export function GlobalGatesClient() {
         {error && (
           <p
             role="alert"
-            className="mt-3 rounded-[var(--r-md)] border border-[#9C3A30]/40 bg-[#9C3A30]/6 p-3 font-body text-[13px] text-[var(--t1)]"
+            className="mt-3 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--memory-risk)_40%,transparent)] bg-[color-mix(in_srgb,var(--memory-risk)_6%,transparent)] p-3 font-body text-[13px] text-[var(--t1)]"
           >
             못 쟀습니다 — {error}
           </p>
@@ -99,7 +99,7 @@ export function GlobalGatesClient() {
         {rows && rows.length > 0 && (
           <div
             className={`mt-4 rounded-[var(--r-md)] border p-4 ${
-              allGreen ? 'border-[#2E7D5A]/40 bg-[#2E7D5A]/6' : 'border-[#9C3A30]/40 bg-[#9C3A30]/6'
+              allGreen ? 'border-[color-mix(in_srgb,var(--memory-stable)_40%,transparent)] bg-[color-mix(in_srgb,var(--memory-stable)_6%,transparent)]' : 'border-[color-mix(in_srgb,var(--memory-risk)_40%,transparent)] bg-[color-mix(in_srgb,var(--memory-risk)_6%,transparent)]'
             }`}
           >
             <div className="flex flex-wrap items-center justify-between gap-4">
@@ -117,7 +117,7 @@ export function GlobalGatesClient() {
               </div>
               <div
                 className={`grid h-14 w-14 place-items-center rounded-full text-[22px] font-[800] ${
-                  allGreen ? 'bg-[#2E7D5A] text-white' : 'bg-[#9C3A30] text-white'
+                  allGreen ? 'bg-[var(--memory-stable)] text-white' : 'bg-[var(--memory-risk)] text-white'
                 }`}
               >
                 {allGreen ? '✓' : criticalFails.length}
@@ -133,7 +133,7 @@ export function GlobalGatesClient() {
           className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6"
         >
           <h2 className="mb-4 flex items-center gap-3">
-            <span className="rounded-[var(--r-sm)] bg-[var(--p)]/10 px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
+            <span className="rounded-[var(--r-sm)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
               {pipeline}
             </span>
           </h2>

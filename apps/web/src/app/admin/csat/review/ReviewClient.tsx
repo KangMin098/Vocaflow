@@ -129,7 +129,7 @@ export function ReviewClient({
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -168,7 +168,7 @@ export function ReviewClient({
                 {defects.itemsAllPass?.toLocaleString()}
               </>
             ) : (
-              <span className="text-[#8A8278]">못 잼</span>
+              <span className="text-[var(--memory-new)]">못 잼</span>
             )}
           </span>
         </div>
@@ -177,7 +177,7 @@ export function ReviewClient({
           둘이 갈라져 있으면 조판 뒤에 들어온 판정이 있다는 뜻이다 — 다시 찍어야 한다.
         </p>
         {!defects.available ? (
-          <p className="font-body text-[12px] text-[#8A8278]">
+          <p className="font-body text-[12px] text-[var(--memory-new)]">
             {defects.loadError ?? '검수 기록을 못 읽었다'} — 0건이 아니다.
           </p>
         ) : defects.matrix.length === 0 ? (
@@ -200,19 +200,19 @@ export function ReviewClient({
                     <td className="py-2 pr-3 font-mono text-[var(--t1)]">
                       {m.vLevel == null ? (
                         // 문항을 못 찾은 판정 — 「없다」가 아니라 「못 찾았다」.
-                        <span className="text-[#8A8278]">못 찾음</span>
+                        <span className="text-[var(--memory-new)]">못 찾음</span>
                       ) : (
                         `V${m.vLevel}`
                       )}
                     </td>
                     <td className="py-2 pr-3 font-mono tabular-nums text-[var(--t2)]">{m.items}</td>
-                    <td className="py-2 pr-3 font-mono tabular-nums" style={{ color: '#2E7D5A' }}>
+                    <td className="py-2 pr-3 font-mono tabular-nums" style={{ color: 'var(--memory-stable)' }}>
                       {m.pass}
                     </td>
-                    <td className="py-2 pr-3 font-mono tabular-nums" style={{ color: '#B5803A' }}>
+                    <td className="py-2 pr-3 font-mono tabular-nums" style={{ color: 'var(--memory-shaky)' }}>
                       {m.revise}
                     </td>
-                    <td className="py-2 font-mono tabular-nums" style={{ color: '#9C3A30' }}>
+                    <td className="py-2 font-mono tabular-nums" style={{ color: 'var(--memory-risk)' }}>
                       {m.fail}
                     </td>
                   </tr>
@@ -257,20 +257,20 @@ export function ReviewClient({
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums text-[var(--t2)]">{v.items}</td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
-                    <span style={{ color: v.autoPassed >= v.autoTotal ? '#2E7D5A' : '#B5803A' }}>
+                    <span style={{ color: v.autoPassed >= v.autoTotal ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}>
                       {v.autoPassed}/{v.autoTotal}
                     </span>
                     {v.failedChecks.length ? (
-                      <span className="ml-1 break-keep text-[10.5px] text-[#B5803A]">
+                      <span className="ml-1 break-keep text-[10.5px] text-[var(--memory-shaky)]">
                         {v.failedChecks.join(' · ')}
                       </span>
                     ) : null}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.answerBias == null ? (
-                      <span className="text-[#8A8278]">기록 없음</span>
+                      <span className="text-[var(--memory-new)]">기록 없음</span>
                     ) : (
-                      <span style={{ color: v.answerBias.biased ? '#9C3A30' : '#2E7D5A' }}>
+                      <span style={{ color: v.answerBias.biased ? 'var(--memory-risk)' : 'var(--memory-stable)' }}>
                         {v.answerBias.chi2.toFixed(1)} · {v.answerBias.cramersV.toFixed(3)}
                         {v.answerBias.biased ? ' 편향' : ' 균등'}
                       </span>
@@ -278,9 +278,9 @@ export function ReviewClient({
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.proofread == null ? (
-                      <span className="text-[#8A8278]">기록 없음</span>
+                      <span className="text-[var(--memory-new)]">기록 없음</span>
                     ) : (
-                      <span style={{ color: v.proofread.defective ? '#B5803A' : '#2E7D5A' }}>
+                      <span style={{ color: v.proofread.defective ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}>
                         {v.proofread.defective}/{v.proofread.passages}
                       </span>
                     )}
@@ -290,20 +290,20 @@ export function ReviewClient({
                       「덜 봤다」와 「봤는데 막혔다」를 가른다 — 할 일이 정반대다. */}
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.personaReview == null ? (
-                      <span className="text-[#8A8278]">기록 없음</span>
+                      <span className="text-[var(--memory-new)]">기록 없음</span>
                     ) : (
                       <>
                         <span
                           style={{
                             color:
-                              v.personaReview.passed >= v.personaReview.items ? '#2E7D5A' : '#B5803A',
+                              v.personaReview.passed >= v.personaReview.items ? 'var(--memory-stable)' : 'var(--memory-shaky)',
                           }}
                         >
                           {v.personaReview.passed}/{v.personaReview.items}
                         </span>
                         {v.personaReview.settled != null &&
                         v.personaReview.settled > v.personaReview.passed ? (
-                          <span className="ml-1 break-keep text-[10.5px] text-[#9C3A30]">
+                          <span className="ml-1 break-keep text-[10.5px] text-[var(--memory-risk)]">
                             {v.personaReview.settled - v.personaReview.passed}건 막힘
                           </span>
                         ) : null}

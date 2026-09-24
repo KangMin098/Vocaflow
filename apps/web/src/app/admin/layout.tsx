@@ -43,10 +43,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const reportsBadge = await fetchPendingReportsCount()
 
   return (
-    // data-area="admin" — skins/admin-app.css 가 이 표지를 보고 /admin 이하에만 앱 스킨 토큰을 켠다(DD-76).
+    // data-area="admin" — skins/admin-app.css 가 이 표지를 보고 /admin 이하에만 앱 스킨 토큰을 켠다(DD-82).
     <div data-area="admin" className="flex min-h-screen bg-[var(--bg2)]">
       <AdminSidebar reportsBadge={reportsBadge} />
-      {/* 레퍼런스 앱 골격 — 사이드바는 캔버스와 한 면이고, 본문은 캔버스 위에 떠 있는 흰 패널이다(DD-76). */}
+      {/* 레퍼런스 앱 골격 — 사이드바는 캔버스와 한 면이고, 본문은 캔버스 위에 떠 있는 흰 패널이다(DD-82). */}
       <main className="flex min-w-0 flex-1 flex-col p-2 md:py-3 md:pl-0 md:pr-3">
         <div className="flex-1 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">{children}</div>
       </main>

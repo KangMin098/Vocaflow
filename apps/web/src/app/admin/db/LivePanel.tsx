@@ -215,7 +215,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
             type="button"
             onClick={() => void pull()}
             disabled={busy}
-            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)]/40 bg-[var(--p)]/8 px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--p-hover)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)]/15 active:scale-[0.98] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[color-mix(in_srgb,var(--p)_8%,transparent)] px-2.5 py-1 font-display text-[11px] font-[600] text-[var(--p-hover)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[color-mix(in_srgb,var(--p)_15%,transparent)] active:scale-[0.98] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <RefreshCw
               size={11}

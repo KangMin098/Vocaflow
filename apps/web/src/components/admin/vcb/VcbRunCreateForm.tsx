@@ -168,7 +168,7 @@ export function VcbRunCreateForm() {
             onClick={() => setStep((step + 1) as Step)}
             disabled={!canAdvance}
             className="min-h-[44px] inline-flex items-center gap-2 px-5 py-2 rounded-[var(--r-md)] font-display text-sm font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90"
-            style={{ background: 'var(--p)', color: '#FFFFFF', boxShadow: 'var(--sh-xs)' }}
+            style={{ background: 'var(--p)', color: 'var(--on-p)', boxShadow: 'var(--sh-xs)' }}
           >
             다음
             <ArrowRight className="w-4 h-4" />
@@ -179,7 +179,7 @@ export function VcbRunCreateForm() {
             onClick={handleSubmit}
             disabled={isPending || !metaValid}
             className="min-h-[44px] inline-flex items-center gap-2 px-5 py-2 rounded-[var(--r-md)] font-display text-sm font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90"
-            style={{ background: 'var(--success)', color: '#FFFFFF', boxShadow: 'var(--sh-xs)' }}
+            style={{ background: 'var(--success)', color: 'var(--on-semantic)', boxShadow: 'var(--sh-xs)' }}
           >
             {isPending ? (
               <>
@@ -225,7 +225,7 @@ function Stepper({ currentStep }: { currentStep: Step }) {
                     : isActive
                       ? 'var(--p)'
                       : 'var(--bg2)',
-                  color: isCompleted || isActive ? '#FFFFFF' : 'var(--t3)',
+                  color: isCompleted || isActive ? 'var(--on-p)' : 'var(--t3)',
                   border: `1px solid ${
                     isCompleted ? 'var(--success)' : isActive ? 'var(--p)' : 'var(--bd)'
                   }`,

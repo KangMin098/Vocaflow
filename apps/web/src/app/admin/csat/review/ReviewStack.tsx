@@ -38,7 +38,7 @@ function judge(l: ReviewLayer): { done: boolean; measured: boolean; pct: number 
 
 /** 모양으로도 가른다 — 색약에서 초록↔주황이 겹친다(ΔE 7.8). */
 function LayerGlyph({ done, measured }: { done: boolean; measured: boolean }) {
-  const color = !measured ? '#8A8278' : done ? '#2E7D5A' : '#B5803A'
+  const color = !measured ? 'var(--memory-new)' : done ? 'var(--memory-stable)' : 'var(--memory-shaky)'
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden focusable="false">
       {!measured ? (
@@ -64,12 +64,12 @@ export function ReviewStack({ layers }: { layers: ReviewLayer[] }) {
       {layers.map((l, i) => {
         const { done, measured, pct } = judge(l)
         const below = stopAt >= 0 && i > stopAt
-        const color = !measured ? '#8A8278' : done ? '#2E7D5A' : '#B5803A'
+        const color = !measured ? 'var(--memory-new)' : done ? 'var(--memory-stable)' : 'var(--memory-shaky)'
         return (
           <li
             key={l.id}
             className={`rounded-[var(--r-md)] border bg-[var(--bg)] p-3 transition-opacity duration-[var(--dur-normal)] ease-[var(--ease)] ${
-              i === stopAt ? 'border-[#B5803A]' : 'border-[var(--bd)]'
+              i === stopAt ? 'border-[var(--memory-shaky)]' : 'border-[var(--bd)]'
             } ${below ? 'opacity-55' : ''}`}
           >
             <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
@@ -87,7 +87,7 @@ export function ReviewStack({ layers }: { layers: ReviewLayer[] }) {
                     ) : null}
                   </>
                 ) : (
-                  <span className="text-[#8A8278]">못 잼</span>
+                  <span className="text-[var(--memory-new)]">못 잼</span>
                 )}
               </span>
             </div>
@@ -107,7 +107,7 @@ export function ReviewStack({ layers }: { layers: ReviewLayer[] }) {
             </p>
 
             {l.unmeasuredReason ? (
-              <p className="mt-1 break-keep font-body text-[11px] leading-snug text-[#8A8278]">
+              <p className="mt-1 break-keep font-body text-[11px] leading-snug text-[var(--memory-new)]">
                 {l.unmeasuredReason}
               </p>
             ) : null}

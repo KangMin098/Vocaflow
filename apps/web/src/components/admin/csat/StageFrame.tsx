@@ -89,12 +89,12 @@ export function StageBlocked({ status, blocks }: { status: StageStatus; blocks: 
     <section
       aria-label="지금 막힌 것"
       className="flex flex-col gap-2 rounded-[var(--r-md)] border p-4"
-      style={{ borderColor: `${st.color}55`, background: `${st.color}0F` }}
+      style={{ borderColor: `color-mix(in srgb, ${st.color} 33.3%, transparent)`, background: `color-mix(in srgb, ${st.color} 5.9%, transparent)` }}
     >
       <div className="flex flex-wrap items-center gap-2">
         <span
           className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[11px] font-[700]"
-          style={{ background: `${st.color}1F`, color: st.color }}
+          style={{ background: `color-mix(in srgb, ${st.color} 12.2%, transparent)`, color: st.color }}
         >
           {status === 'pass' ? null : <TriangleAlert size={11} strokeWidth={2} aria-hidden />}
           {st.label}
@@ -112,7 +112,7 @@ export function StageBlocked({ status, blocks }: { status: StageStatus; blocks: 
             <span className="break-keep font-body text-[12.5px] text-[var(--t1)]">{b.what}</span>
             {b.count == null ? (
               // ⚠️ 못 잰 것을 0 으로 적지 않는다. 할 일이 정반대다.
-              <span className="font-mono text-[12px] text-[#8A8278]">
+              <span className="font-mono text-[12px] text-[var(--memory-new)]">
                 못 잼{b.unmeasuredReason ? ` — ${b.unmeasuredReason}` : ''}
               </span>
             ) : (
@@ -185,7 +185,7 @@ function CommandRow({ cmd, why, writes, claudeCode }: StageCommand) {
           className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)]"
         >
           {copied ? (
-            <ClipboardCheck size={15} strokeWidth={1.75} className="text-[#2E7D5A]" aria-hidden />
+            <ClipboardCheck size={15} strokeWidth={1.75} className="text-[var(--memory-stable)]" aria-hidden />
           ) : (
             <Copy size={15} strokeWidth={1.75} aria-hidden />
           )}
@@ -193,13 +193,13 @@ function CommandRow({ cmd, why, writes, claudeCode }: StageCommand) {
       </div>
       <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
         {claudeCode ? (
-          <span className="mr-1 inline-flex items-center gap-0.5 rounded bg-[var(--p)]/12 px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
+          <span className="mr-1 inline-flex items-center gap-0.5 rounded bg-[color-mix(in_srgb,var(--p)_12%,transparent)] px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
             <Sparkles size={10} strokeWidth={2} aria-hidden />
             Claude Code
           </span>
         ) : null}
         {writes ? (
-          <span className="mr-1 rounded bg-[#9C3A30]/12 px-1 py-0.5 text-[10px] font-[600] text-[#9C3A30]">
+          <span className="mr-1 rounded bg-[color-mix(in_srgb,var(--memory-risk)_12%,transparent)] px-1 py-0.5 text-[10px] font-[600] text-[var(--memory-risk)]">
             씀
           </span>
         ) : null}
@@ -232,7 +232,7 @@ export function StageDrain({
       </div>
 
       {approvalNote ? (
-        <p className="flex items-start gap-1.5 break-keep font-body text-[11.5px] leading-snug text-[#B5803A]">
+        <p className="flex items-start gap-1.5 break-keep font-body text-[11.5px] leading-snug text-[var(--memory-shaky)]">
           <ShieldAlert size={13} strokeWidth={1.9} className="mt-0.5 shrink-0" aria-hidden />
           {approvalNote}
         </p>
@@ -258,7 +258,7 @@ function LastRun({ runs }: { runs: DrainRunView }) {
     // ⚠️ 「저장소가 없다」와 「안 돌렸다」는 다른 사실이다. 할 일도 다르다
     //    (마이그레이션 적용 vs 드레인 실행).
     return (
-      <span className="font-body text-[11px] text-[#8A8278]">
+      <span className="font-body text-[11px] text-[var(--memory-new)]">
         실행 기록 저장소가 없다 — 마이그레이션 <code className="font-mono">csat_drain_runs</code> 미적용
       </span>
     )
@@ -267,7 +267,7 @@ function LastRun({ runs }: { runs: DrainRunView }) {
     return <span className="font-body text-[11px] text-[var(--t3)]">아직 한 번도 안 돌렸다</span>
   }
   const r = runs.run
-  const tone = r.status === 'failed' ? '#9C3A30' : r.status === 'running' ? '#B5803A' : '#2E7D5A'
+  const tone = r.status === 'failed' ? 'var(--memory-risk)' : r.status === 'running' ? 'var(--memory-shaky)' : 'var(--memory-stable)'
   return (
     <span className="font-mono text-[11px] tabular-nums" style={{ color: tone }}>
       {r.mode} · {r.status}
@@ -319,7 +319,7 @@ export function StageFailures({
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">{title}</h3>
         <span className="font-mono text-[12px] tabular-nums text-[var(--t2)]">
-          {total == null ? <span className="text-[#8A8278]">못 잼</span> : `${total.toLocaleString()}건`}
+          {total == null ? <span className="text-[var(--memory-new)]">못 잼</span> : `${total.toLocaleString()}건`}
         </span>
       </div>
 
@@ -352,7 +352,7 @@ export function StageFailures({
               </div>
               {/* 사유가 없으면 「없다」고 적는다 — 빈 줄은 「깨끗하다」로 읽힌다. */}
               <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t2)]">
-                {r.says ?? <span className="text-[#8A8278]">사유가 기록되지 않았다</span>}
+                {r.says ?? <span className="text-[var(--memory-new)]">사유가 기록되지 않았다</span>}
               </p>
             </li>
           ))}
