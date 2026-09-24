@@ -28,6 +28,7 @@ import {
   loadPlan,
   loadVideoConsole,
 } from '@/lib/admin/video-console'
+import { loadRequestBoard } from '@/lib/admin/video-requests'
 
 import { VideoConsoleClient } from './VideoConsoleClient'
 
@@ -46,6 +47,8 @@ export default async function AdminVideoPage() {
     loadEvaluation(db),
     loadPlan(db),
   ])
+  // 요청 대상은 기획 보드와 같은 출처 — 그래서 plan 을 받은 뒤에 읽는다
+  const requests = await loadRequestBoard(db as never, plan)
 
   return (
     <VideoConsoleClient
@@ -54,6 +57,7 @@ export default async function AdminVideoPage() {
       queue={queue}
       evaluation={evaluation}
       plan={plan}
+      requests={requests}
     />
   )
 }

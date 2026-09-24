@@ -121,11 +121,24 @@ export interface DesignCheck {
   detail: string
 }
 
+/**
+ * **원료로 채운 모습** — 검토자가 보는 것. 초안에는 `{{이름}}` 만 있어서 그대로 보여 주면
+ * 「중학 3학년 학년에」 같은 겹침이나 어색한 수치 표기를 사람이 볼 수 없다.
+ */
+export interface ResolvedPreview {
+  title: string
+  subtitle: string
+  scenes: { kind: string; caption: string; narration?: string }[]
+  evidence: { label: string; value: string; source: string }[]
+}
+
 export interface DesignChecks {
   ok: boolean
   /** 예상 길이(초) — 음성을 굽기 전 자막 길이 계산 */
   seconds: number
   items: DesignCheck[]
+  /** 원료가 있을 때만(드레인 import) — 앱 화면은 원료가 없다 */
+  preview?: ResolvedPreview
 }
 
 /** 빌린 컷이 가져올 수 있는 종류 — 초안이 직접 만들 수 없는 것들 */

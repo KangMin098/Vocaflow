@@ -137,3 +137,11 @@ describe('requestVideoId', () => {
     expect(requestVideoId('여름 특강', 'abcdef12')).toBe('req-custom-abcdef')
   })
 })
+
+describe('검토 미리보기', () => {
+  it('원료가 있으면 자리표시를 채운 모습을 함께 낸다', () => {
+    const r = checkDesign(plan, good(), meta, ctx)
+    expect(r.preview?.scenes[1]?.caption).toBe('이 권에는 문항 24,396개가 있어요.')
+    expect(r.preview?.evidence.some((e) => e.source.includes('rungs[step=4].items'))).toBe(true)
+  })
+})

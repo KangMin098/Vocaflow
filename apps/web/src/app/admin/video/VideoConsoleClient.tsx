@@ -26,14 +26,18 @@ import {
   type VideoConsole,
   type VideoRow,
 } from '@/lib/admin/video-console-shape'
+import type { RequestBoard } from '@/lib/admin/video-requests'
+
+import { RequestsPanel } from './RequestsPanel'
 
 // 종류 순서는 `KIND_LABEL` 의 키 순서다 — **여기서 다시 적지 않는다.**
 // 손으로 적었더니 종류를 둘 더한 날 `/video` 에서 11편이 조용히 사라졌고, 이 화면의
 // 구성요소 탭도 같은 목록을 따로 갖고 있어 같은 방식으로 새 종류를 빠뜨리고 있었다.
 const ORDER = KIND_ORDER
 
-// 순서는 파이프라인 순서다 — 기획 → (제작) → 평가. 「현황」이 제작 관측이다.
-const TABS = ['현황', '기획', '평가', '구성요소', '수치 낡음', '내보내기'] as const
+// 순서는 파이프라인 순서다 — 요청 → 기획 → (제작) → 평가. 「현황」이 제작 관측이다.
+// 「요청」이 맨 앞인 이유: 이 화면에서 사람이 **결정하는** 곳은 거기뿐이다(나머지는 관측).
+const TABS = ['요청', '현황', '기획', '평가', '구성요소', '수치 낡음', '내보내기'] as const
 type Tab = (typeof TABS)[number]
 
 function pct(n: number, d: number): string {
@@ -113,6 +117,8 @@ export function VideoConsoleClient({
   queue,
   evaluation,
   plan,
+  requests,
+  initialTab = '요청',
 }: {
   data: VideoConsole
   drift: EvidenceDrift[]
@@ -121,8 +127,12 @@ export function VideoConsoleClient({
   /** 평가 열이 아직 없으면 null — 같은 이유로 통째로 안 그린다. */
   evaluation: EvalSummary | null
   plan: PlanBoard
+  requests: RequestBoard
+  /** 처음 펼칠 탭. 테스트가 서버 렌더로 다른 탭을 보려고 쓴다 */
+  initialTab?: Tab
 }) {
-  const [tab, setTab] = useState<Tab>('현황')
+  const [tab, setTab] = useState<Tab>(initialTab)
+  const waiting = requests.requests.filter((r) => r.phase === 'designed').length
 
   const stat = useMemo(() => {
     const total = data.rows.length
@@ -148,7 +158,7 @@ export function VideoConsoleClient({
       <AdminPageHeader
         icon={Clapperboard}
         title="영상 공장"
-        description="플랫폼 구성요소 → PR 영상. 화면은 밀린 것을 보여 주고, 실행할 명령을 건넨다."
+        description="요청 → 기획 → 설계 → 검토 → 적용 → 평가. 사람은 요청과 검토를, 드레인과 공장이 나머지를 한다."
         actions={<AdminScreenHelp screen="video" tab={tab} />}
       />
 
@@ -167,6 +177,7 @@ export function VideoConsoleClient({
           >
             {t}
             {t === '현황' && problems > 0 ? ` · ${problems}` : ''}
+            {t === '요청' && waiting > 0 ? ` · 검토 ${waiting}` : ''}
           </button>
         ))}
       </nav>
@@ -178,6 +189,8 @@ export function VideoConsoleClient({
           내보내기 탭의 마지막 단계(publish)를 돌리고 manifest를 커밋하세요.
         </p>
       )}
+
+      {tab === '요청' && <RequestsPanel board={requests} />}
 
       {tab === '현황' && (
         <section>

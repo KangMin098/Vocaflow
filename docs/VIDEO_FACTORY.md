@@ -157,6 +157,28 @@ Admin 「기획」 탭. Admin 은 커밋된 원천 + **DB 실측**으로 같은 
 
 ---
 
+## 2-3. 요청 순환 — 요청 → 기획 → 설계 → 검토 → 적용 → 평가 (2026-09-24)
+
+규칙 8개가 만드는 73편 **옆에** 사람이 요청하는 편이 선다. 규칙 편은 그대로 돈다.
+
+| 칸 | 누가 | 어디 |
+|---|---|---|
+| 요청 | 관리자 | `/admin/video` 「요청」 탭 — 분야 · 대상 · 목적(학습/구매) · 수요자 · 규격 · 메모 |
+| 기획 + 설계 | 에이전트 | `pnpm video requests:export` → `video-request-designer` → `requests:import --commit` |
+| 검토 | 관리자 | `/admin/video/requests/[id]` — 승인 · 수정 요청(코멘트 → 다음 설계) · 반려 |
+| 적용 | 에이전트 | `requests:pull` → 기존 `voice` · `render` · `loudness` · `thumbs` · package · publish |
+| 평가 | 에이전트 | `pnpm video requests`(큐 → 요청 상태) · `evaluate <id>`(규격 + 목적) |
+
+- **분야는 설정이다** — `video_domains` 한 행(`target_kinds` = 기획 후보 종류). 대상 목록은 기획 보드와 같은 출처다.
+- **수치는 초안에 적을 수 없다.** 초안은 `{{이름}}` + 번들 경로(`series[id=reading].rungs[step=4].items`)만 갖고, 값은 `to-spec` 이 원료에서 채운다. 자리표시 밖의 숫자는 import 가 떨어뜨린다(「4단계」「3권」 같은 차례 이름은 예외).
+- **이야기 구조를 기계가 본다** — 첫 장면은 문제(자막 3초 안), 해결 장면 1개 이상, 마지막은 다음 행동(closing). 근거 없는 효과 주장(보장·성적 향상·최상급·배수)은 금칙.
+- **규칙 편 흡수** — 초안이 `borrow` 로 규칙 편의 장면(서가·계단·문항·커버리지)을 가져온다. 근거도 같이 온다. 대상이 규칙 편이면 그 설계도가 출발점(`baseline`)으로 청크에 실린다.
+- **승인 없이 적용 없음** — `video_request_advance` 가 현재 rev 에 approve 결정이 없으면 `applying` 을 거절한다.
+- **검토자는 채운 모습을 본다** — import 가 원료로 채운 미리보기(`checks.preview`)를 함께 저장한다. 실측 2026-09-24: 자리표시만 보여 줄 때 「{{band}} 학년에」 → 「중학 3학년 학년에」 겹침을 화면에서 못 봤다.
+- **목적 평가** — `funnel_events` 의 `video_started` · `video_completed` 를 `meta.videoId` 로 센다. 재생 30회 미만은 비율을 내지 않는다(「못 잼」). CTA 클릭은 영상 계측에 아직 없다. 관리자 미리보기는 계측 없는 `<video>` 라 평가에 섞이지 않는다.
+- 요청 편 설계도는 `work/request-specs.json`(커밋 안 함)에 굳고, `allSpecs()` 가 규칙 편과 합쳐 음성·렌더·포장·Remotion 루트에 넘긴다. 같은 id 면 규칙 편이 이긴다.
+- **도구**: Remotion + Edge TTS 유지. 교체 제안은 근거와 함께 여기에만 적고, 승인 뒤 바꾼다(지금 제안 없음).
+
 ## 3. 3단 드레인 (CLAUDE.md §🤖 와 같은 구조)
 
 | 단계 | 명령 | 하는 일 | 재실행 안전 |

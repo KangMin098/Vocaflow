@@ -14,7 +14,7 @@ import { totalFrames } from '../spec/validate'
 import { timingAudience } from './audiences'
 import { PLACEHOLDER, strayDigits } from './facts'
 import { buildRequestSpec, type BuildContext, type RequestMeta } from './to-spec'
-import type { DesignCheck, DesignChecks, DraftScene, RequestDesign, RequestPlan } from './types'
+import type { DesignCheck, DesignChecks, DraftScene, RequestDesign, RequestPlan, ResolvedPreview } from './types'
 
 /** 첫 장면 안에 문제를 짚어야 하는 시간(초) */
 export const HOOK_MAX_SEC = 3
@@ -134,10 +134,19 @@ export function checkDesign(
 
   // ── 설계도까지 지어 본다 ─────────────────────────────────────
   let seconds = design.scenes.reduce((n, s) => n + captionFrames(s.caption, audience), 0) / FPS
+  let preview: ResolvedPreview | undefined
   if (ctx) {
     const built = buildRequestSpec(design, meta, ctx)
     items.push(...built.problems)
-    if (built.spec) seconds = totalFrames(built.spec) / FPS
+    if (built.spec) {
+      seconds = totalFrames(built.spec) / FPS
+      preview = {
+        title: built.spec.title,
+        subtitle: built.spec.subtitle,
+        scenes: built.spec.scenes.map((s) => ({ kind: s.kind, caption: s.caption, narration: s.narration })),
+        evidence: built.spec.evidence,
+      }
+    }
   }
 
   const formats: FormatId[] = meta.formats
@@ -148,5 +157,10 @@ export function checkDesign(
     w('learn-length', `${seconds.toFixed(0)}초 — 학습 영상은 ${LEARN_MAX_SEC}초 안에 한 가지만`)
   }
 
-  return { ok: !items.some((i) => i.level === 'error'), seconds: Math.round(seconds * 10) / 10, items }
+  return {
+    ok: !items.some((i) => i.level === 'error'),
+    seconds: Math.round(seconds * 10) / 10,
+    items,
+    ...(preview ? { preview } : {}),
+  }
 }

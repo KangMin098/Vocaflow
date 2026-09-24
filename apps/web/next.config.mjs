@@ -258,6 +258,7 @@ const nextConfig = {
     '@vocaflow/types',
     '@vocaflow/design-tokens',
     '@vocaflow/ui-shared',
+    '@vocaflow/video-factory',
   ],
   // 도서 원천 표지/삽화 이미지 (next/image 서버 캐시·webp·리사이즈). 핫링크 회피 + 최적화.
   //   - Project Gutenberg: pg{id}.cover.medium.jpg

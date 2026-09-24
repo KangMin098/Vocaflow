@@ -254,6 +254,11 @@ guard · nomock) + 전역 검사. `--fail-under=<점수>` 로 게이트(`pnpm ad
 
 ## /admin/video — VFP (영상 공장) · 2026-09-13 신설
 
+> **2026-09-24 — 요청 순환.** 「요청」 탭(맨 앞)과 상세 `/admin/video/requests/[id]` 가 생겼다. 이 화면에서
+> 사람이 결정하는 곳은 둘뿐이다: 요청 만들기 · 검토(승인 · 수정 요청 · 반려). 나머지 칸은 복사할 명령이다.
+> 쓰기는 Server Actions(`app/admin/video/actions.ts`) → RPC `video_request_create` · `video_request_review` ·
+> `video_request_cancel` 만. 반려 · 거두기는 되돌릴 수 없다. 상세: VIDEO_FACTORY §2-3.
+
 플랫폼 구성요소마다 PR 영상 한 편. **실행 버튼이 없는 유일한 파이프라인 콘솔**이다.
 
 ### 왜 실행이 없나

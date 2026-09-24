@@ -9,6 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- 영상 공장 요청 순환 화면·드레인: `/admin/video` 「요청」 탭 + `/admin/video/requests/[id]`(스테퍼 · 채운 미리보기 · 승인/수정/반려), `pnpm video requests[:export|:import|:pull]`, 설계 서브에이전트 `video-request-designer`. 초안은 숫자를 못 쓰고 번들 경로만 인용, 규칙 편 장면은 borrow 로 흡수. 교재 권별 요청 1건으로 요청→수정 요청→rev 2→승인→음성→렌더(가로)까지 실측.
 - 영상 공장 요청 순환 DB(`20260924120000_video_requests`): 분야 설정 표 + 요청·설계 rev·검토·평가 4표, phase 전이는 RPC 6개로만 — 현재 rev 승인 없이는 적용 불가. `video_jobs.kind` 에 `request` 추가.
 
 - 기출 분석 방법론: 「난이도는 소재가 아니라 형식(유형)」 실측 절 신설(CSAT_TYPE_ANALYSIS §1-1) — 802편 전수, 유형 간 격차 95포인트. 신호를 바꾸면 절대 수준은 바뀌어도 유형 순서는 유지된다는 대조를 함께.

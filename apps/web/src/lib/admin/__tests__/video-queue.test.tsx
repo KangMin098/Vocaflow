@@ -9,7 +9,15 @@
 // 살아 있는 표 없이 확인할 수 있는 것만 본다: **넘긴 값으로 무엇을 그리는가.**
 
 import { renderToString } from 'react-dom/server'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+
+// 요청 탭의 Server Actions 는 서버 전용 모듈(쿠키·캐시)을 끌고 온다 — 이 파일은 그리기만 본다
+vi.mock('@/app/admin/video/actions', () => ({
+  createVideoRequestAction: vi.fn(),
+  reviewVideoRequestAction: vi.fn(),
+  cancelVideoRequestAction: vi.fn(),
+}))
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }))
 
 import { VideoConsoleClient } from '@/app/admin/video/VideoConsoleClient'
 import {
@@ -19,6 +27,7 @@ import {
   type PlanBoard,
   type VideoConsole,
 } from '../video-console-shape'
+import type { RequestBoard } from '../video-requests'
 
 const emptyConsole: VideoConsole = {
   builtAt: new Date().toISOString(),
@@ -28,6 +37,9 @@ const emptyConsole: VideoConsole = {
   views: { started: {}, completed: {}, byId: {} },
   storageError: null,
 }
+
+/** 요청 탭 — 이 파일은 현황 탭을 보므로 비워 둔다 */
+const noRequests: RequestBoard = { ready: true, domains: [], targets: [], requests: [] }
 
 /** 아무 후보도 없는 기획판 — 기본값. 개별 검사가 필요한 곳에서 덮어쓴다. */
 const emptyPlan: PlanBoard = {
@@ -62,7 +74,9 @@ const queue: JobQueue = {
 describe('큐 패널', () => {
   it('큐가 없으면(마이그레이션 전) 패널을 아예 안 그린다', () => {
     const html = renderToString(
-      <VideoConsoleClient data={emptyConsole} drift={[]} queue={null} evaluation={null} plan={emptyPlan} />,
+      <VideoConsoleClient
+        requests={noRequests}
+        initialTab="현황" data={emptyConsole} drift={[]} queue={null} evaluation={null} plan={emptyPlan} />,
     )
     // 빈 표를 그리면 "큐가 비었다" 로 읽힌다 — 그건 거짓이다.
     expect(html).not.toContain('마지막 움직임')
@@ -71,7 +85,9 @@ describe('큐 패널', () => {
 
   it('큐가 있으면 단계 여섯이 **0 인 것까지** 나온다', () => {
     const html = renderToString(
-      <VideoConsoleClient data={emptyConsole} drift={[]} queue={queue} evaluation={null} plan={emptyPlan} />,
+      <VideoConsoleClient
+        requests={noRequests}
+        initialTab="현황" data={emptyConsole} drift={[]} queue={queue} evaluation={null} plan={emptyPlan} />,
     )
     // 0 인 단계를 빼면 그 단계가 사라진 걸로 읽힌다.
     expect(JOB_STAGES.length).toBe(6)
@@ -85,7 +101,9 @@ describe('큐 패널', () => {
 
   it('실패한 편은 **어디서 멈췄는지와 이유**를 함께 낸다', () => {
     const html = renderToString(
-      <VideoConsoleClient data={emptyConsole} drift={[]} queue={queue} evaluation={null} plan={emptyPlan} />,
+      <VideoConsoleClient
+        requests={noRequests}
+        initialTab="현황" data={emptyConsole} drift={[]} queue={queue} evaluation={null} plan={emptyPlan} />,
     )
     expect(html).toContain('type-blank')
     expect(html).toContain('에서 멈춤')
@@ -96,6 +114,8 @@ describe('큐 패널', () => {
     const clean: JobQueue = { ...queue, counts: { ...queue.counts, failed: 0 }, failed: [] }
     const html = renderToString(
       <VideoConsoleClient
+        requests={noRequests}
+        initialTab="현황"
         data={emptyConsole}
         drift={[]}
         queue={clean}
@@ -155,6 +175,8 @@ const plan: PlanBoard = {
 const withPlan = () =>
   renderToString(
     <VideoConsoleClient
+        requests={noRequests}
+        initialTab="현황"
       data={emptyConsole}
       drift={[]}
       queue={queue}
@@ -215,6 +237,8 @@ describe('평가 탭 — 없음과 0 을 가른다', () => {
   it('평가 기록이 없으면(마이그레이션 전) 빈 표를 그리지 않는다', () => {
     const html = renderToString(
       <VideoConsoleClient
+        requests={noRequests}
+        initialTab="현황"
         data={emptyConsole}
         drift={[]}
         queue={queue}
@@ -229,6 +253,8 @@ describe('평가 탭 — 없음과 0 을 가른다', () => {
   it('평가 값을 받아도 컴포넌트가 죽지 않는다', () => {
     const html = renderToString(
       <VideoConsoleClient
+        requests={noRequests}
+        initialTab="현황"
         data={emptyConsole}
         drift={[]}
         queue={queue}

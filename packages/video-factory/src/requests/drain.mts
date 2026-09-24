@@ -28,6 +28,7 @@ import type { Scorecard } from '../spec/evaluate'
 import type { FormatId } from '../spec/format'
 import type { VideoSpec } from '../spec/types'
 import { NEEDS } from './audiences'
+import { PHASE_LABEL, nextStepText } from './phases'
 import { checkDesign } from './design'
 import { REQUEST_SPECS_PATH, writeRequestSpecs } from './store'
 import { buildRequestSpec, type BuildContext, type RequestMeta } from './to-spec'
@@ -202,20 +203,6 @@ async function syncApplying(db: SupabaseClient): Promise<{ applied: number; fail
   return { applied, failed }
 }
 
-/** 다음에 무엇을 해야 하는지 — 화면과 같은 문장 */
-export const NEXT_STEP: Record<RequestPhase, string> = {
-  requested: 'pnpm video requests:export → 설계자 → requests:import --commit',
-  changes_requested: '코멘트를 반영해 다시 설계: requests:export → 설계자 → requests:import --commit',
-  designed: '/admin/video 에서 검토(승인 · 수정 요청 · 반려)',
-  approved: 'pnpm video requests:pull',
-  applying: 'pnpm video voice <id> → render <id> → loudness --fix → thumbs <id> → package → publish',
-  applied: 'pnpm video evaluate <id>',
-  evaluated: '끝 — 평가가 다음 기획의 입력이 된다',
-  failed: '오류를 보고 고친 뒤 pnpm video requests:pull',
-  rejected: '끝(반려)',
-  cancelled: '끝(거둠)',
-}
-
 export async function cmdRequests(): Promise<number> {
   const db = requireServiceClient()
   const s = await syncApplying(db)
@@ -231,10 +218,11 @@ export async function cmdRequests(): Promise<number> {
     return 0
   }
   for (const [phase, list] of byPhase) {
-    console.log(`\n${phase} ${list.length}건 — 다음: ${NEXT_STEP[phase]}`)
+    console.log(`\n${PHASE_LABEL[phase]} ${list.length}건`)
     for (const r of list) {
       console.log(`  ${r.id.slice(0, 8)}  ${r.domain_id.padEnd(10)} ${r.target_label}  rev ${r.current_rev}` +
         (r.video_id ? `  ${r.video_id}` : '') + (r.error ? `  ✗ ${r.error}` : ''))
+      console.log(`            다음: ${nextStepText(r.phase, r.video_id)}`)
     }
   }
   return 0
