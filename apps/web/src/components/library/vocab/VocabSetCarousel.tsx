@@ -11,8 +11,8 @@
 
 import Image from 'next/image'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, Check, Eye, Loader2, Plus } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
+import { Check, Eye, Loader2, Plus } from 'lucide-react'
 
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { coverFamilyOf } from '@/lib/vcb/covers/design'
@@ -33,7 +33,8 @@ import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 import { categoryImportance, VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
 
 const IOS_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)'
-const DURATION = 600
+/** 선반 한 판에 서는 권 수 */
+const SHELF_SIZE = 5
 
 /**
  * 유형 색은 `lib/library/book-cover` 의 `categoryIdentity` 한 곳에서 온다.
@@ -54,29 +55,6 @@ const NEUTRAL_IDENTITY = {
 }
 const identityOf = (id: string) => categoryIdentity(id) ?? NEUTRAL_IDENTITY
 
-function cardTransform(offset: number) {
-  const abs = Math.abs(offset)
-  if (abs > 3) {
-    return {
-      transform: `translate3d(${Math.sign(offset) * 1180}px, 0, 0) scale(0.92)`,
-      opacity: 0,
-      zIndex: 0,
-      pointer: 'none' as const,
-    }
-  }
-  // shopify.com 카드 레일 문법 — 원근·회전 없이 같은 높이로 나란히(카드 270 + 간격 24).
-  //   가운데만 온전한 크기, 옆은 살짝 작고 옅게 — 겹치지 않는다.
-  const x = offset * 294
-  const scale = abs === 0 ? 1 : 0.92
-  const opacity = abs === 0 ? 1 : abs === 1 ? 0.75 : abs === 2 ? 0.45 : 0.2
-  return {
-    transform: `translate3d(${x}px, 0, 0) scale(${scale})`,
-    opacity,
-    zIndex: 30 - abs,
-    pointer: 'auto' as const,
-  }
-}
-
 interface Props {
   sets: PublishedVocabSet[]
   subscribedIds: Set<string>
@@ -95,7 +73,6 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
   const [activeCat, setActiveCat] = useState<string>(categories[0]?.id ?? 'csat')
   const [active, setActive] = useState(0)
   const [detail, setDetail] = useState<DetailVariant | null>(null)
-  const touchStartX = useRef<number | null>(null)
 
   async function openDetail(set: PublishedVocabSet) {
     const cat = VOCAB_CATEGORIES.find((c) => c.id === set.category)
@@ -175,16 +152,6 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
     return () => window.removeEventListener('keydown', onKey)
   }, [prev, next])
 
-  function onTouchStart(e: React.TouchEvent) {
-    touchStartX.current = e.touches[0]?.clientX ?? null
-  }
-  function onTouchEnd(e: React.TouchEvent) {
-    if (touchStartX.current == null) return
-    const delta = (e.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current
-    if (Math.abs(delta) > 50) (delta > 0 ? prev : next)()
-    touchStartX.current = null
-  }
-
   if (items.length === 0) return null
 
   return (
@@ -259,62 +226,44 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
         })}
       </div>
 
-      {/* Coverflow stage */}
-      <div className="relative w-full overflow-hidden">
-        <div
-          className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center"
-                    onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
-        >
-          {items.map((set, idx) => {
-            const offset = idx - active
-            const tf = cardTransform(offset)
-            const isCenter = idx === active
-            return (
-              <div
-                key={set.id}
-                className="absolute left-1/2 top-1/2"
-                style={{
-                  transform: `translate(-50%, -50%) ${tf.transform}`,
-                  opacity: tf.opacity,
-                  zIndex: tf.zIndex,
-                  pointerEvents: tf.pointer,
-                  transition: `transform ${DURATION}ms ${IOS_EASING}, opacity ${DURATION}ms ${IOS_EASING}`,
-                  transformStyle: 'preserve-3d',
-                  willChange: 'transform, opacity',
-                }}
-              >
-                <CoverCard
-                  set={set}
-                  isCenter={isCenter}
-                  isSubscribed={subscribedIds.has(set.id)}
-                  isPending={pendingId === set.id}
-                  onActivate={() => (isCenter ? void openDetail(set) : setActive(idx))}
-                />
+      {/*
+        벽 선반 — 참조(shopify Editions 서가): 옅은 회색 벽에 흰 선반 판, 표지가 판 위에 정면으로 선다.
+        한 판에 5권. 고른 권은 살짝 들리고 테두리로 말한다(색 하나로만 가르지 않는다).
+      */}
+      <div className="relative w-full overflow-hidden rounded-[16px] bg-[radial-gradient(120%_90%_at_50%_0%,#ffffff_0%,#ececec_55%,#dcdcdc_100%)] px-10 pb-10 pt-14">
+        <div className="mx-auto flex max-w-[1040px] flex-col gap-14">
+          {Array.from({ length: Math.ceil(items.length / SHELF_SIZE) }, (_, row) => (
+            <div key={row} className="relative">
+              <div className="relative z-10 flex items-end justify-center gap-6 px-6">
+                {items.slice(row * SHELF_SIZE, row * SHELF_SIZE + SHELF_SIZE).map((set, i) => {
+                  const idx = row * SHELF_SIZE + i
+                  const isCenter = idx === active
+                  return (
+                    <div
+                      key={set.id}
+                      className={`w-[168px] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] ${
+                        isCenter ? '-translate-y-2' : 'hover:-translate-y-1'
+                      }`}
+                    >
+                      <CoverCard
+                        set={set}
+                        isCenter={isCenter}
+                        isSubscribed={subscribedIds.has(set.id)}
+                        isPending={pendingId === set.id}
+                        onActivate={() => (isCenter ? void openDetail(set) : setActive(idx))}
+                      />
+                    </div>
+                  )
+                })}
               </div>
-            )
-          })}
+              {/* 선반 판 — 윗면 흰 판 + 아래로 떨어지는 그림자 */}
+              <div
+                aria-hidden
+                className="relative h-[10px] rounded-[2px] bg-gradient-to-b from-white to-[#f1f1f1] shadow-[0_14px_18px_-6px_rgba(0,0,0,0.28),0_2px_3px_rgba(0,0,0,0.12)]"
+              />
+            </div>
+          ))}
         </div>
-
-        {/* 좌우 화살표 */}
-        <button
-          type="button"
-          onClick={prev}
-          disabled={active === 0}
-          aria-label="이전 단어장"
-          className="absolute left-2 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white transition-colors hover:bg-[#3f3f46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:bg-[#d4d4d8] md:left-6"
-        >
-          <ChevronLeft size={20} aria-hidden />
-        </button>
-        <button
-          type="button"
-          onClick={next}
-          disabled={active === last}
-          aria-label="다음 단어장"
-          className="absolute right-2 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white transition-colors hover:bg-[#3f3f46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:bg-[#d4d4d8] md:right-6"
-        >
-          <ChevronRight size={20} aria-hidden />
-        </button>
       </div>
 
       {/* 중앙 단어장 메타 + 구독 */}
@@ -467,11 +416,11 @@ function CoverCard({
       tabIndex={isCenter ? undefined : -1}
       aria-hidden={isCenter ? undefined : true}
       aria-label={isCenter ? `${set.title} 미리보기` : `${set.title} 선택`}
-      className="focus-visible:ring-[var(--p)]/40 block rounded-[16px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-4"
+      className="focus-visible:ring-[var(--p)]/40 block w-full rounded-[3px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-4"
     >
       <div
-        className={`relative w-[270px] overflow-hidden rounded-[16px] transition-shadow ${
-          isCenter ? 'shadow-[0_24px_48px_rgba(0,0,0,0.18)]' : ''
+        className={`relative w-full overflow-hidden rounded-[3px] transition-shadow ${
+          isCenter ? 'shadow-[0_10px_22px_rgba(0,0,0,0.30)] ring-2 ring-black' : 'shadow-[0_6px_12px_rgba(0,0,0,0.18)]'
         }`}
         style={{
           // 판형은 규격이 정한다 — 카드와 같은 이유로 `aspect-[3/4]` 를 뺐다.
