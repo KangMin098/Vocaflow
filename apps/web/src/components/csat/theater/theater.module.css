@@ -378,3 +378,6 @@
 .diff [data-hit='true'] b { color: var(--success, #2E7D5A); }
 .diff [data-hit='false'] b { color: var(--risk, #9C3A30); }
 .diff [data-hit='na'] b { color: var(--t3); }
+/* 차이 카드 아래 — 출제자 설계의 이유(설계 주석이 있는 문항만) */
+.diffWhy { display: grid; gap: 6px; padding: 10px 12px; border-top: 1px solid var(--bd); background: var(--bg2); font-size: 12.5px; line-height: 1.75; color: var(--t2); }
+.diffWhy b { margin-right: 6px; font-weight: 600; color: var(--t1); }

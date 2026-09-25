@@ -8,16 +8,16 @@ const KEY = { answer: 3, evidence: [3, 4] }
 
 describe('공개 게이트 — 채점', () => {
   it('근거 문장과 정답을 따로 채점한다', () => {
-    expect(grade({ sentence: 4, choice: 3, confidence: 3 }, KEY)).toEqual({ sentenceHit: true, choiceHit: true, overconfident: false })
-    expect(grade({ sentence: 0, choice: 3, confidence: 2 }, KEY)).toEqual({ sentenceHit: false, choiceHit: true, overconfident: false })
+    expect(grade({ sentence: 4, choice: 3, confidence: 3 }, KEY)).toMatchObject({ sentenceHit: true, choiceHit: true, overconfident: false })
+    expect(grade({ sentence: 0, choice: 3, confidence: 2 }, KEY)).toMatchObject({ sentenceHit: false, choiceHit: true, overconfident: false })
   })
   it('확신 4 이상인데 틀리면 따로 표시한다', () => {
     expect(grade({ sentence: 3, choice: 1, confidence: 4 }, KEY).overconfident).toBe(true)
     expect(grade({ sentence: 3, choice: 1, confidence: 3 }, KEY).overconfident).toBe(false)
   })
   it('「모르겠어요」와 채점할 수 없는 문항은 null — 틀림으로 세지 않는다', () => {
-    expect(grade({ sentence: null, choice: null, confidence: 1 }, KEY)).toEqual({ sentenceHit: null, choiceHit: null, overconfident: false })
-    expect(grade({ sentence: 2, choice: 2, confidence: 5 }, { answer: null, evidence: [] })).toEqual({ sentenceHit: null, choiceHit: null, overconfident: false })
+    expect(grade({ sentence: null, choice: null, confidence: 1 }, KEY)).toMatchObject({ sentenceHit: null, choiceHit: null, overconfident: false })
+    expect(grade({ sentence: 2, choice: 2, confidence: 5 }, { answer: null, evidence: [] })).toMatchObject({ sentenceHit: null, choiceHit: null, overconfident: false })
   })
 })
 

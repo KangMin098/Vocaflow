@@ -10,6 +10,7 @@
 
 import { useState } from 'react'
 
+import { CUE_LABEL, PATTERN_LABEL, TRANSFORM_LABEL, topicQuestion, topicSentences, type PassageDesign, type Pattern, type Transform } from '@/lib/csat/design'
 import type { GateCommit, GateKey, GateResult } from '@/lib/csat/reveal-gate'
 import { CIRCLED } from '@/lib/csat/theater'
 
@@ -19,12 +20,19 @@ const CONFIDENCE = ['찍음', '약간', '반반', '꽤', '확실'] as const
 
 export function PredictGate({
   sentences,
+  design,
   onCommit,
 }: {
   /** 문장 길이들(골격) — 막대 폭만 쓴다. 비어 있으면 근거 문장 칸을 건너뛴다 */
   sentences: number[]
+  /** 출제 설계 주석 — 있으면 주제문 · 구조 패턴 · 정답 표현 변환도 묻는다(S2 · S3) */
+  design?: PassageDesign | null
   onCommit: (commit: GateCommit) => void
 }) {
+  const [topic, setTopic] = useState<number | null>(null)
+  const [pattern, setPattern] = useState<Pattern | null>(null)
+  const [transform, setTransform] = useState<Transform | null>(null)
+  const askDesign = Boolean(design && sentences.length && design.roles.length === sentences.length)
   const [sentence, setSentence] = useState<number | null>(null)
   const [choice, setChoice] = useState<number | null>(null)
   const [confidence, setConfidence] = useState<number | null>(null)
@@ -41,14 +49,38 @@ export function PredictGate({
           <legend>정답이 기대는 문장</legend>
           <div className={styles.gateSentences}>
             {sentences.map((chars, i) => (
-              <button key={i} type="button" aria-pressed={sentence === i} onClick={() => setSentence(sentence === i ? null : i)}>
+              <button key={i} type="button" aria-pressed={sentence === i} onClick={() => setSentence(sentence === i ? null : i)} aria-label={`근거 후보 ${i + 1}번째 문장`}>
                 <span className={styles.gateNo}>{i + 1}</span>
                 <span className={styles.gateBar} style={{ width: `${Math.max(12, Math.round((100 * chars) / max))}%` }} aria-hidden />
-                <span className="sr-only">{i + 1}번째 문장</span>
               </button>
             ))}
           </div>
         </fieldset>
+      ) : null}
+
+      {askDesign && design ? (
+        <>
+          <fieldset className={styles.gateField}>
+            <legend>{topicQuestion(design)}</legend>
+            <div className={styles.gateRow}>
+              {sentences.map((_, i) => (
+                <button key={i} type="button" aria-pressed={topic === i} onClick={() => setTopic(topic === i ? null : i)} aria-label={`주제문 후보 ${i + 1}번째 문장`}>
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+          <fieldset className={styles.gateField}>
+            <legend>출제자가 고른 지문의 뼈대는?</legend>
+            <div className={styles.gateRow}>
+              {(Object.keys(PATTERN_LABEL) as Pattern[]).map((p) => (
+                <button key={p} type="button" aria-pressed={pattern === p} onClick={() => setPattern(pattern === p ? null : p)}>
+                  {PATTERN_LABEL[p]}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+        </>
       ) : null}
 
       <fieldset className={styles.gateField}>
@@ -62,6 +94,21 @@ export function PredictGate({
         </div>
       </fieldset>
 
+      {askDesign && design && design.transform !== 'none' ? (
+        <fieldset className={styles.gateField}>
+          <legend>정답 선지는 지문 표현을 어떻게 바꿨을까요?</legend>
+          <div className={styles.gateRow}>
+            {(Object.keys(TRANSFORM_LABEL) as Transform[])
+              .filter((t) => t !== 'none')
+              .map((t) => (
+                <button key={t} type="button" aria-pressed={transform === t} onClick={() => setTransform(transform === t ? null : t)}>
+                  {TRANSFORM_LABEL[t]}
+                </button>
+              ))}
+          </div>
+        </fieldset>
+      ) : null}
+
       <fieldset className={styles.gateField}>
         <legend>확신도</legend>
         <div className={styles.gateRow}>
@@ -74,7 +121,7 @@ export function PredictGate({
       </fieldset>
 
       <div className={styles.gateActions}>
-        <button type="button" className={styles.gatePrimary} disabled={!ready} onClick={() => ready && onCommit({ sentence, choice, confidence })}>
+        <button type="button" className={styles.gatePrimary} disabled={!ready} onClick={() => ready && onCommit({ sentence, choice, confidence, topic, pattern, transform })}>
           확정하고 대조하기
         </button>
         <button type="button" className={styles.gateQuiet} onClick={() => onCommit({ sentence: null, choice: null, confidence: 1 })}>
@@ -102,6 +149,20 @@ export function GateDiff({ commit, result, gateKey }: { commit: GateCommit; resu
       theirs: CIRCLED[gateKey.answer],
       hit: result.choiceHit,
     })
+  const d = gateKey.design
+  if (d && commit.topic !== undefined) {
+    const t = topicSentences(d)
+    rows.push({
+      label: d.roles.includes('topic') ? '주제문' : '화행 문장',
+      mine: commit.topic == null ? '고르지 않음' : `${commit.topic + 1}번째`,
+      theirs: t.map((i) => `${i + 1}번째`).join(' · ') || '—',
+      hit: result.topicHit ?? null,
+    })
+  }
+  if (d && commit.pattern !== undefined)
+    rows.push({ label: '지문 뼈대', mine: commit.pattern ? PATTERN_LABEL[commit.pattern] : '고르지 않음', theirs: PATTERN_LABEL[d.pattern], hit: result.patternHit ?? null })
+  if (d && d.transform !== 'none' && commit.transform !== undefined)
+    rows.push({ label: '표현 변환', mine: commit.transform ? TRANSFORM_LABEL[commit.transform] : '고르지 않음', theirs: TRANSFORM_LABEL[d.transform], hit: result.transformHit ?? null })
   rows.sort((a, b) => Number(a.hit === true) - Number(b.hit === true))
   return (
     <section className={styles.diff} aria-label="내 예측과 출제자 설계의 차이" data-testid="gate-diff">
@@ -118,6 +179,25 @@ export function GateDiff({ commit, result, gateKey }: { commit: GateCommit; resu
           </div>
         ))}
       </dl>
+      {d ? (
+        <div className={styles.diffWhy}>
+          {d.selection ? (
+            <p>
+              <b>왜 이 지문인가</b> {d.selection}
+            </p>
+          ) : null}
+          {d.transform !== 'none' && d.transform_note ? (
+            <p>
+              <b>정답은 이렇게 바뀌었다</b> {d.transform_note}
+            </p>
+          ) : null}
+          {d.cues.length ? (
+            <p>
+              <b>순서를 정하는 단서</b> {d.cues.map((c) => CUE_LABEL[c]).join(' · ')}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
     </section>
   )
 }
