@@ -9,7 +9,8 @@
     ".": "./src/index.ts",
     "./tokens.css": "./src/tokens.css",
     "./skins/tines.css": "./src/skins/tines.css",
-    "./skins/admin-app.css": "./src/skins/admin-app.css"
+    "./skins/admin-app.css": "./src/skins/admin-app.css",
+    "./skins/shop.css": "./src/skins/shop.css"
   },
   "files": ["src"]
 }

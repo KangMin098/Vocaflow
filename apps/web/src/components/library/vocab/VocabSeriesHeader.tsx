@@ -16,8 +16,6 @@
 // ⚠️ 상태를 **색으로만** 가르지 않는다(색맹 대응) — 숫자·라벨을 함께 쓴다.
 
 import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
-import { AreaHero } from '@/components/layout/AreaHero'
-import { MATERIAL_TONE, TINT_CLASS, TINT_ROTATION } from '@/lib/design/tone'
 
 import type { LadderFill } from '@/lib/library/vocab/rung'
 
@@ -38,27 +36,50 @@ export function VocabSeriesHeader({
   // 상품 위를 차지한 것: 헤더 309px(제목 40px + 설명 72px) · 카테고리 200px · 정렬 100px.
   // 같은 자로 잰 NE능률 모바일은 첫 상품 0.29화면 · 상품 3개다.
   // 데스크톱은 이미 시장을 넘으므로(이미지 면적 22.0%) **모바일에서만** 줄인다.
+  const stats = [
+    { label: '전체 권수', value: `${totalVolumes}권` },
+    { label: '표제어', value: totalWords.toLocaleString() },
+    { label: '학령 사다리', value: `${fill.rungs.length}단` },
+    ...(fill.unplaced > 0 ? [{ label: '학령 밖', value: `${fill.unplaced}권` }] : []),
+  ]
   return (
     <header className="flex flex-col gap-3 md:gap-4">
       {/*
-        이웃 서가(도서 · 기사 · 교재)와 **같은 판**(DD-68 · tines-mapping §24) — 범주 색 진한 면에
-        눈썹 · 제목 · 한 줄 · 수치 알약. 눈썹의 시리즈 이름은 판권면 브랜드와 같은 상수에서 온다
-        (여기에 문자열을 적으면 정본이 둘이 된다). 타일은 390px 에서 판이 알아서 숨긴다.
-        못 앉힌 권도 알약으로 센다 — 학령 사다리 밖(성인 수준)이라는 사실 자체가 정보다.
+        shopify.com 메인 히어로 문법(skins/shop.css) — 검정 판 · 무게 330 초대형 제목 · 흰 알약 CTA ·
+        「What winning looks like」 처럼 큰 숫자 + 작은 라벨의 지표 줄. 눈썹의 시리즈 이름은 판권면
+        브랜드와 같은 상수에서 온다. 수치는 모두 실측(I5) — 못 앉힌 권도 센다.
+        모바일에서 판 높이를 억제한다(첫 화면에 상품이 보여야 한다 — 위 실측 참조).
       */}
-      <AreaHero
-        kicker={VOCAB_SERIES_BRAND}
-        title="단어장"
-        sub="한 낱말을 여러 각도로 다시 만나게 엮은 서가입니다. 뜻마다 예문을 따로 두고, 함께 쓰이는 말과 갈라져 나온 말을 같이 싣습니다."
-        tile="tile-decks"
-        tint={MATERIAL_TONE.word_set.tint}
-        stats={[
-          { label: '전체', value: `${totalVolumes}권` },
-          { label: '표제어', value: totalWords.toLocaleString() },
-          { label: '사다리', value: `${fill.rungs.length}단` },
-          ...(fill.unplaced > 0 ? [{ label: '학령 밖', value: `${fill.unplaced}권` }] : []),
-        ]}
-      />
+      <section className="relative overflow-hidden rounded-[16px] bg-black px-5 py-7 text-white sm:px-10 sm:py-12 md:px-14 md:py-16">
+        {/* 레퍼런스 히어로의 흐린 타원 빛 — 장식 */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(rgba(193,251,212,0.28),transparent_65%)]"
+        />
+        <p className="font-body relative text-[13px] font-[500] text-[#a1a1aa]">{VOCAB_SERIES_BRAND}</p>
+        <h1 className="shop-dsp relative mt-3 max-w-[16ch] break-keep text-[40px] sm:text-[56px] md:text-[72px]">
+          다시 만나게 엮은 단어장
+        </h1>
+        <p className="font-body relative mt-4 max-w-[52ch] break-keep text-[15px] leading-relaxed text-[#d4d4d8] sm:text-[17px]">
+          뜻마다 예문을 따로 두고, 함께 쓰이는 말과 갈라져 나온 말을 같이 싣습니다.
+        </p>
+        <div className="relative mt-6 flex flex-wrap gap-3">
+          <a
+            href="#vocab-shelf"
+            className="font-body inline-flex min-h-[44px] items-center rounded-full bg-white px-6 text-[15px] font-[600] text-black transition-colors hover:bg-[#d4d4d8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            서가 둘러보기
+          </a>
+        </div>
+        <dl className="relative mt-8 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-[#3f3f46] pt-6 sm:mt-12 sm:grid-cols-4">
+          {stats.map((s) => (
+            <div key={s.label}>
+              <dt className="font-body text-[12px] text-[#a1a1aa]">{s.label}</dt>
+              <dd className="shop-dsp mt-1 text-[26px] tabular-nums sm:text-[34px]">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
 
       {/*
         사다리 — 가로 스크롤. 모바일에서 7칸을 우겨넣으면 글자가 깨지므로
@@ -101,8 +122,8 @@ function RungTile({
       // 내 계단은 테두리 + 글자 + `aria-current` 3중으로 말한다. 색 하나로만 가르면
       // 색맹 학습자에게는 아무 표시도 없는 것과 같다.
       aria-current={isLearner ? 'step' : undefined}
-      // DD-68 · tines-mapping §17 — 참조 격자처럼 칸마다 옅은 면을 돌린다(면 안 글자는 그 색상의 짙은 글자).
-      className={`${TINT_CLASS[TINT_ROTATION[(step - 1) % TINT_ROTATION.length]]} flex min-w-[104px] flex-col gap-1 rounded-[12px] border px-3 py-2.5 transition-colors ${
+      // shop 스킨 — 레퍼런스 카드처럼 shade-10 면 한 가지(색 면을 돌리지 않는다).
+      className={`flex min-w-[112px] flex-col gap-1 rounded-[16px] border bg-[var(--bg3)] px-4 py-3 transition-colors ${
         isLearner ? 'border-[var(--t1)] ring-2 ring-[var(--t1)]' : 'border-transparent'
       }`}
     >

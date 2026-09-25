@@ -1,0 +1,125 @@
+/* packages/design-tokens/src/skins/shop.css
+ *
+ * **Shop 스킨 — 레퍼런스 `www.shopify.com` 메인 소스 실측값을 단어장 서가(/library/vocab)에만 얹는다**
+ * (사용자 지시 2026-09-25 「shopify.com 메인을 분석해 /library/vocab 을 참조 화면처럼 전환」).
+ *
+ * 켜지는 조건: 페이지 안에 `[data-area="shop"]` 이 있을 때(`app/(main)/library/vocab/page.tsx` 가 건다).
+ *   `:root:has(...)` 에 두므로 body 로 포털되는 미리보기 모달·토스트도 같은 값을 받는다.
+ * 레퍼런스 실측(2026-09-25, 메인 HTML 672KB 인라인 CSS):
+ *   - CTA  `--color-theme-bg-cta` #000 · hover #3f3f46 · active #71717a · disabled #d4d4d8 (다크 면에서는 반전 #fff)
+ *   - 회색 `--color-shade-10..70` #f4f4f5 #e4e4e7 #d4d4d8 #a1a1aa #71717a #52525b #3f3f46 (zinc 계단)
+ *   - 서체 Shopify-Inter → 우리는 Inter(OFL, `--font-admin-sans` 재사용) · 제목 무게 330 · 자간 -0.02em
+ *   - 모서리 `--radius-md/lg/xl/2xl` 6 · 8 · 12 · 16px · 버튼은 알약
+ *   - 색은 거의 흑백이고 강조는 `--color-aloe-10` #c1fbd4(연녹) 한 점뿐이다.
+ * 선택자 특이성은 admin-app.css 와 같다 — **tines.css 뒤에 import** 돼야 이긴다(globals.css).
+ */
+:root:has([data-area="shop"]) {
+  /* ── 1차 행동 — 레퍼런스 CTA 먹색 ── */
+  --p: #000000;
+  --p-hover: #3f3f46;
+  --p-light: #f4f4f5;
+  --p-dark: #000000;
+  --on-p: #ffffff;
+  --on-p-tint: #000000;
+  --ju: #000000;
+  --ju-ink: #000000;
+  --ju-light: #f4f4f5;
+  --on-ju: #ffffff;
+  /* 유일한 색 강조 — aloe */
+  --active: #0f7a3e;
+  --active-light: #c1fbd4;
+  --on-active: #04260f;
+  --active-ink: #0a5c2d;
+  /* ── 지면 — 흰 판 · 캔버스도 흰색 · 채움 shade-10 ── */
+  --bg: #ffffff;
+  --bg2: #ffffff;
+  --bg3: #f4f4f5;
+  /* ── 글자 — 흑 · zinc-600 · zinc-600(AA) ── */
+  --t1: #000000;
+  --t2: #52525b;
+  --t3: #52525b;
+  --t4: #a1a1aa;
+  /* ── 틴트 면 — 레퍼런스는 색 면을 쓰지 않는다. 전부 shade-10 · 진한 면은 검정 ── */
+  --tint-lavender: #f4f4f5;
+  --tint-lavender-ink: #000000;
+  --tint-green: #f4f4f5;
+  --tint-green-ink: #000000;
+  --tint-peach: #f4f4f5;
+  --tint-peach-ink: #000000;
+  --tint-yellow: #f4f4f5;
+  --tint-yellow-ink: #000000;
+  --tint-pink: #f4f4f5;
+  --tint-pink-ink: #000000;
+  --tint-teal: #f4f4f5;
+  --tint-teal-ink: #000000;
+  --deep-purple: #000000;
+  --deep-green: #000000;
+  --deep-orange: #000000;
+  --deep-magenta: #000000;
+  --deep-ink: #000000;
+  /* ── 선 — shade-20 · 포커스는 검정 ── */
+  --bd: #e4e4e7;
+  --bd-input: #d4d4d8;
+  --bd-strong: #a1a1aa;
+  --bdf: #000000;
+  /* ── 모서리 ── */
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-2xl: 16px;
+  /* ── 그림자 — 레퍼런스 카드는 그림자 대신 면 대비 ── */
+  --sh-xs: none;
+  --sh-sm: 0 0 0 1px #e4e4e7;
+  --sh-md: 0 0 0 1px #e4e4e7;
+  --sh-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --dialog-backdrop: rgba(0, 0, 0, 0.5);
+  --dialog-blur: 0px;
+  /* ── 서체 — Inter + 한글 Pretendard ── */
+  --font-display: var(--font-admin-sans), "Pretendard Variable", Pretendard, -apple-system, system-ui, sans-serif;
+  --font-body: var(--font-admin-sans), "Pretendard Variable", Pretendard, -apple-system, system-ui, sans-serif;
+  --font-serif: var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif;
+}
+
+:root[data-theme="dark"]:has([data-area="shop"]) {
+  --p: #ffffff;
+  --p-hover: #d4d4d8;
+  --p-light: #27272a;
+  --on-p: #000000;
+  --ju: #ffffff;
+  --ju-ink: #ffffff;
+  --ju-light: #27272a;
+  --on-ju: #000000;
+  --bg: #0a0a0a;
+  --bg2: #000000;
+  --bg3: #18181b;
+  --t1: #ffffff;
+  --t2: #a1a1aa;
+  --t3: #a1a1aa;
+  --t4: #52525b;
+  --tint-lavender: #18181b;
+  --tint-lavender-ink: #ffffff;
+  --tint-green: #18181b;
+  --tint-green-ink: #ffffff;
+  --tint-peach: #18181b;
+  --tint-peach-ink: #ffffff;
+  --tint-yellow: #18181b;
+  --tint-yellow-ink: #ffffff;
+  --tint-pink: #18181b;
+  --tint-pink-ink: #ffffff;
+  --tint-teal: #18181b;
+  --tint-teal-ink: #ffffff;
+  --bd: #27272a;
+  --bd-input: #3f3f46;
+  --bdf: #ffffff;
+  --sh-sm: 0 0 0 1px #27272a;
+  --sh-md: 0 0 0 1px #27272a;
+}
+
+/* 레퍼런스 표시 서체 — 무게 330 · 음수 자간 · 촘촘한 행간(`.text-dsp` / `.text-t1`) */
+[data-area="shop"] .shop-dsp {
+  font-family: var(--font-display);
+  font-weight: 330;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
