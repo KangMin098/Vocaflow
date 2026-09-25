@@ -120,20 +120,32 @@ const freeChunk = () => {
 let made = 0
 let skippedJudged = 0
 let skippedStatus = 0
-for (let i = 0; i < pending.length; i += PER) {
+// ⚠️ 청크를 **정해진 편수까지 채운다**(2026-09-25). 예전에는 후보를 PER 편씩 잘라 그 안에서 판정된 것을 뺐다 —
+//   캐시(csat_source_eligibility)가 낡으면 청크가 4~13편으로 쪼그라들었다(실측 v7b 두 묶음: 후보 240·280편 중
+//   112·269편이 이미 판정). 판정자 한 명이 4편을 읽는 것은 낭비라, 빠진 만큼 다음 후보로 채운다.
+let at = 0
+while (at < pending.length) {
   if (MAX && made >= MAX) break
-  const slice = pending.slice(i, i + PER)
   const rows = []
-  for (let j = 0; j < slice.length; j += 10) {
-    const ids = slice.slice(j, j + 10).map((c) => c.id)
+  const meta = new Map()
+  let live = 0
+  while (live < PER && at < pending.length) {
+    const slice = pending.slice(at, at + 10)
+    at += slice.length
+    const ids = slice.map((c) => c.id)
     const { data, error } = await db
       .from('library_articles')
       .select('id,title,source,status,updated_at,content,gate:csat_fit->gate')
       .in('id', ids)
     if (error || data.length !== ids.length) throw new Error(`본문 조회 — ${error?.message ?? `${data.length}/${ids.length}`}`)
-    rows.push(...data)
+    for (const c of slice) meta.set(c.id, { ...c, k: meta.size })
+    for (const r of data) {
+      const judged = r.gate?.retain?.retention || r.gate?.retain?.verdict || r.gate?.verdict
+      if (!judged && ['ready', 'published'].includes(r.status) && live < PER) { rows.push(r); live += 1 }
+      else if (judged) skippedJudged += 1
+      else if (!['ready', 'published'].includes(r.status)) skippedStatus += 1
+    }
   }
-  const meta = new Map(slice.map((c, k) => [c.id, { ...c, k }]))
   const items = []
   for (const r of rows.sort((a, b) => meta.get(a.id).k - meta.get(b.id).k)) {
     // 캐시가 낡았을 수 있다 — 판정 여부와 상태는 원본 행에서 다시 본다.
