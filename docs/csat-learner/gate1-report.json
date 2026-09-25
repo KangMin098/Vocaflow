@@ -1,6 +1,6 @@
 {
   "gate": 1,
-  "at": "2026-09-25T06:25:55.991Z",
+  "at": "2026-09-25T07:40:41.652Z",
   "sample_exams": [
     "2026",
     "M2706"
@@ -13,28 +13,28 @@
   "sample": {
     "items": 56,
     "boundary": 1,
-    "text_mean": 0.9950535714285714,
-    "choices_ok": 0.9090909090909091,
+    "text_mean": 1,
+    "choices_ok": 1,
     "choices_ok_reflow": 1,
     "choice_mismatch": {
-      "db_noise": 4,
+      "db_noise": 0,
       "reflow": []
     },
-    "sentence_anchor": 0.9923224568138196,
-    "quote_found": 0.9941520467836257
+    "sentence_anchor": 1,
+    "quote_found": 1
   },
   "all": {
     "items": 802,
     "boundary": 1,
-    "text_mean": 0.9950274314214456,
-    "choices_ok": 0.8912,
+    "text_mean": 1,
+    "choices_ok": 1,
     "choices_ok_reflow": 1,
     "choice_mismatch": {
-      "db_noise": 68,
+      "db_noise": 0,
       "reflow": []
     },
-    "sentence_anchor": 0.9899660616792091,
-    "quote_found": 0.9943747295543055
+    "sentence_anchor": 1,
+    "quote_found": 1
   },
   "unknown_file": {
     "detect_boundary": 1,
@@ -49,568 +49,130 @@
     {
       "exam": "2014A",
       "items": 23,
-      "ms": 10,
+      "ms": 19,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": null,
       "exam_id_ok": false,
       "boundary": 1,
-      "text_mean": 0.9958260869565215,
-      "text_ge_95": 0.9565217391304348,
-      "choices_ok": 0.8333333333333334,
-      "sentence_anchor": 0.9883040935672515,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 26,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.833,
-          "blame": "db-noise",
-          "sent": "8/8",
-          "quotes": "2/2"
-        },
-        {
-          "no": 28,
-          "type": "R-VOCAB",
-          "reason": null,
-          "text": 0.994,
-          "choices": null,
-          "blame": null,
-          "sent": "8/9",
-          "quotes": "1/1"
-        },
-        {
-          "no": 36,
-          "type": "R-BLANK2",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "8/9",
-          "quotes": "2/2"
-        },
-        {
-          "no": 37,
-          "type": "R-ORDER",
-          "reason": null,
-          "text": 1,
-          "choices": 0.75,
-          "blame": "db-noise",
-          "sent": "8/8",
-          "quotes": "4/4"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.922,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "1/1"
-        },
-        {
-          "no": 40,
-          "type": "R-MOOD",
-          "reason": null,
-          "text": 1,
-          "choices": 0.5,
-          "blame": "db-noise",
-          "sent": "13/13",
-          "quotes": "5/5"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "2014B",
       "items": 23,
-      "ms": 8,
+      "ms": 12,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": null,
       "exam_id_ok": false,
       "boundary": 1,
-      "text_mean": 0.9946521739130436,
-      "text_ge_95": 0.9565217391304348,
-      "choices_ok": 0.8333333333333334,
-      "sentence_anchor": 0.9844559585492227,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 34,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.875,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 36,
-          "type": "R-BLANK2",
-          "reason": null,
-          "text": 0.989,
-          "choices": 1,
-          "blame": null,
-          "sent": "11/13",
-          "quotes": "1/1"
-        },
-        {
-          "no": 37,
-          "type": "R-BLANK2",
-          "reason": null,
-          "text": 0.985,
-          "choices": 1,
-          "blame": null,
-          "sent": "5/6",
-          "quotes": "1/1"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.935,
-          "choices": null,
-          "blame": null,
-          "sent": "8/8",
-          "quotes": "2/2"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 42,
-          "type": "X-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "2015",
       "items": 28,
-      "ms": 8,
+      "ms": 16,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2015",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9951785714285715,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.8571428571428571,
-      "sentence_anchor": 0.9907834101382489,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 22,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.833,
-          "blame": "db-noise",
-          "sent": "6/6",
-          "quotes": "1/1"
-        },
-        {
-          "no": 24,
-          "type": "R-FACT",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "6/6",
-          "quotes": "5/5"
-        },
-        {
-          "no": 34,
-          "type": "R-BLANK2",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "6/7",
-          "quotes": "3/3"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.945,
-          "choices": null,
-          "blame": null,
-          "sent": "8/8",
-          "quotes": "0/0"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.945,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "2/2"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "8/9",
-          "quotes": "2/2"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "2016",
       "items": 28,
-      "ms": 7,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2016",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9948928571428571,
-      "text_ge_95": 0.9642857142857143,
-      "choices_ok": 0.8571428571428571,
-      "sentence_anchor": 0.9863945578231292,
-      "quote_found": 0.9827586206896551,
-      "weak": [
-        {
-          "no": 22,
-          "type": "R-TOPIC",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "9/9",
-          "quotes": "5/5"
-        },
-        {
-          "no": 29,
-          "type": "R-VOCAB",
-          "reason": null,
-          "text": 1,
-          "choices": null,
-          "blame": null,
-          "sent": "10/11",
-          "quotes": "1/1"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.944,
-          "choices": null,
-          "blame": null,
-          "sent": "9/9",
-          "quotes": "1/1"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 0.75,
-          "blame": "db-noise",
-          "sent": "7/8",
-          "quotes": "1/1"
-        }
-      ]
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     },
     {
       "exam": "2017",
       "items": 28,
-      "ms": 12,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2017",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9942142857142857,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.8571428571428571,
-      "sentence_anchor": 0.9745762711864406,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 22,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "7/7",
-          "quotes": "1/1"
-        },
-        {
-          "no": 29,
-          "type": "R-VOCAB",
-          "reason": null,
-          "text": 1,
-          "choices": null,
-          "blame": null,
-          "sent": "6/7",
-          "quotes": "1/1"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.833,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.944,
-          "choices": null,
-          "blame": null,
-          "sent": "9/9",
-          "quotes": "1/1"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.947,
-          "choices": null,
-          "blame": null,
-          "sent": "8/8",
-          "quotes": "1/1"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "6/7",
-          "quotes": "1/1"
-        },
-        {
-          "no": 41,
-          "type": "X-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "12/14",
-          "quotes": "1/1"
-        },
-        {
-          "no": 42,
-          "type": "X-BLANK2",
-          "reason": null,
-          "text": 0.984,
-          "choices": 1,
-          "blame": null,
-          "sent": "12/14",
-          "quotes": "1/1"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "2018",
       "items": 28,
-      "ms": 12,
+      "ms": 14,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2018",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9944285714285714,
-      "text_ge_95": 0.9642857142857143,
-      "choices_ok": 0.9047619047619048,
-      "sentence_anchor": 0.9959677419354839,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 22,
-          "type": "R-TOPIC",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "7/7",
-          "quotes": "3/3"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.938,
-          "choices": null,
-          "blame": null,
-          "sent": "8/8",
-          "quotes": "4/4"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.991,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "5/6",
-          "quotes": "4/4"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "2019",
       "items": 28,
-      "ms": 13,
+      "ms": 15,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2019",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9945,
-      "text_ge_95": 0.9642857142857143,
-      "choices_ok": 0.9090909090909091,
-      "sentence_anchor": 0.9922178988326849,
-      "quote_found": 0.9855072463768116,
-      "weak": [
-        {
-          "no": 25,
-          "type": "R-CHART",
-          "reason": null,
-          "text": 1,
-          "choices": null,
-          "blame": null,
-          "sent": "1/2",
-          "quotes": "0/1"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.944,
-          "choices": null,
-          "blame": null,
-          "sent": "9/9",
-          "quotes": "3/3"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "4/5",
-          "quotes": "5/5"
-        }
-      ]
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     },
     {
       "exam": "2020",
       "items": 28,
-      "ms": 10,
+      "ms": 15,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2020",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9952142857142857,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.9090909090909091,
-      "sentence_anchor": 0.9960474308300395,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "6/6",
-          "quotes": "5/5"
-        },
-        {
-          "no": 27,
-          "type": "R-NOTICE",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "4/5",
-          "quotes": "1/1"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.949,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "4/4"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.947,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "3/3"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.99,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "2021",
@@ -621,348 +183,92 @@
       "exam_id_from_text": "2021",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9953214285714286,
-      "text_ge_95": 0.9642857142857143,
-      "choices_ok": 0.9090909090909091,
-      "sentence_anchor": 0.9840637450199203,
-      "quote_found": 0.9850746268656716,
-      "weak": [
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.945,
-          "choices": null,
-          "blame": null,
-          "sent": "8/8",
-          "quotes": "4/4"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.991,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "10/11",
-          "quotes": "1/1"
-        },
-        {
-          "no": 43,
-          "type": "X-ORDER",
-          "reason": null,
-          "text": 0.997,
-          "choices": 1,
-          "blame": null,
-          "sent": "27/28",
-          "quotes": "4/4"
-        },
-        {
-          "no": 44,
-          "type": "X-REFER",
-          "reason": null,
-          "text": 0.997,
-          "choices": 1,
-          "blame": null,
-          "sent": "27/28",
-          "quotes": "5/5"
-        },
-        {
-          "no": 45,
-          "type": "X-FACT",
-          "reason": null,
-          "text": 0.997,
-          "choices": 1,
-          "blame": null,
-          "sent": "27/28",
-          "quotes": "2/2"
-        }
-      ]
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     },
     {
       "exam": "2022",
       "items": 28,
-      "ms": 11,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2022",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9954999999999999,
-      "text_ge_95": 0.9642857142857143,
-      "choices_ok": 0.9090909090909091,
-      "sentence_anchor": 0.9959514170040485,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.833,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.941,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "5/5"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.995,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "8/9",
-          "quotes": "2/2"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "2023",
       "items": 28,
-      "ms": 12,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2023",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9953214285714286,
+      "text_mean": 1,
       "text_ge_95": 1,
-      "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.996,
-      "quote_found": 0.974025974025974,
-      "weak": [
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.875,
-          "blame": "db-noise",
-          "sent": "9/9",
-          "quotes": "5/5"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 0.986,
-          "choices": 0.875,
-          "blame": "db-noise",
-          "sent": "7/7",
-          "quotes": "4/5"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.995,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "7/8",
-          "quotes": "2/3"
-        }
-      ]
+      "choices_ok": 1,
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     },
     {
       "exam": "2024",
       "items": 28,
-      "ms": 14,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2024",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9956071428571428,
-      "text_ge_95": 0.9642857142857143,
-      "choices_ok": 0.9090909090909091,
-      "sentence_anchor": 0.9909502262443439,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 27,
-          "type": "R-NOTICE",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "4/5",
-          "quotes": "2/2"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.942,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "5/5"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "7/8",
-          "quotes": "4/4"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "2025",
       "items": 28,
-      "ms": 11,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2025",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9955,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.9917695473251029,
-      "quote_found": 0.9882352941176471,
-      "weak": [
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.875,
-          "blame": "db-noise",
-          "sent": "6/6",
-          "quotes": "5/5"
-        },
-        {
-          "no": 27,
-          "type": "R-NOTICE",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "3/4",
-          "quotes": "2/3"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "9/9",
-          "quotes": "2/2"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.946,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "5/5"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.947,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "4/4"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "6/7",
-          "quotes": "4/4"
-        }
-      ]
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     },
     {
       "exam": "2026",
       "items": 28,
-      "ms": 11,
+      "ms": 14,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2026",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9954285714285714,
-      "text_ge_95": 0.9285714285714286,
+      "text_mean": 1,
+      "text_ge_95": 1,
       "choices_ok": 1,
-      "sentence_anchor": 0.9961240310077519,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.947,
-          "choices": null,
-          "blame": null,
-          "sent": "8/8",
-          "quotes": "5/5"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.945,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "5/5"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "7/8",
-          "quotes": "5/5"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "M1809",
@@ -973,1011 +279,236 @@
       "exam_id_from_text": "M1809",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9951785714285714,
+      "text_mean": 1,
       "text_ge_95": 1,
-      "choices_ok": 0.8571428571428571,
-      "sentence_anchor": 0.9903381642512077,
-      "quote_found": 0.984375,
-      "weak": [
-        {
-          "no": 22,
-          "type": "R-TOPIC",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "8/8",
-          "quotes": "3/3"
-        },
-        {
-          "no": 29,
-          "type": "R-VOCAB",
-          "reason": null,
-          "text": 1,
-          "choices": null,
-          "blame": null,
-          "sent": "9/10",
-          "quotes": "1/1"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.833,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "8/9",
-          "quotes": "3/3"
-        }
-      ]
+      "choices_ok": 1,
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     },
     {
       "exam": "M2006",
       "items": 28,
-      "ms": 8,
+      "ms": 12,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2006",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9963928571428571,
+      "text_mean": 1,
       "text_ge_95": 1,
-      "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.987012987012987,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 21,
-          "type": "R-IMPLY",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "8/10",
-          "quotes": "2/2"
-        },
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.875,
-          "blame": "db-noise",
-          "sent": "5/5",
-          "quotes": "4/4"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.99,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "5/6",
-          "quotes": "3/3"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "M2106",
       "items": 28,
-      "ms": 13,
+      "ms": 10,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2106",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.993464285714286,
-      "text_ge_95": 0.9642857142857143,
-      "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.9854545454545455,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "9/9",
-          "quotes": "3/3"
-        },
-        {
-          "no": 25,
-          "type": "R-CHART",
-          "reason": null,
-          "text": 1,
-          "choices": null,
-          "blame": null,
-          "sent": "1/2",
-          "quotes": "2/2"
-        },
-        {
-          "no": 27,
-          "type": "R-NOTICE",
-          "reason": null,
-          "text": 0.951,
-          "choices": 1,
-          "blame": null,
-          "sent": "11/13",
-          "quotes": "4/4"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.875,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.949,
-          "choices": null,
-          "blame": null,
-          "sent": "9/9",
-          "quotes": "4/4"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.995,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "7/8",
-          "quotes": "2/2"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "M2109",
       "items": 28,
-      "ms": 10,
+      "ms": 17,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2109",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9931785714285715,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.9877049180327869,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "8/8",
-          "quotes": "5/5"
-        },
-        {
-          "no": 25,
-          "type": "R-CHART",
-          "reason": null,
-          "text": 1,
-          "choices": null,
-          "blame": null,
-          "sent": "0/1",
-          "quotes": "2/2"
-        },
-        {
-          "no": 30,
-          "type": "R-VOCAB",
-          "reason": null,
-          "text": 0.99,
-          "choices": null,
-          "blame": null,
-          "sent": "8/9",
-          "quotes": "4/4"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.945,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "3/3"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.934,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "5/5"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.991,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "7/8",
-          "quotes": "4/4"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "M2206",
       "items": 28,
-      "ms": 10,
+      "ms": 14,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2206",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9943928571428573,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.9758064516129032,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "5/5",
-          "quotes": "4/4"
-        },
-        {
-          "no": 29,
-          "type": "R-GRAMMAR",
-          "reason": null,
-          "text": 1,
-          "choices": null,
-          "blame": null,
-          "sent": "5/6",
-          "quotes": "3/3"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.833,
-          "blame": "db-noise",
-          "sent": "6/6",
-          "quotes": "3/3"
-        },
-        {
-          "no": 37,
-          "type": "R-ORDER",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "11/12",
-          "quotes": "4/4"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.937,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "3/3"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.948,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "4/4"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.977,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "4/5",
-          "quotes": "5/5"
-        },
-        {
-          "no": 43,
-          "type": "X-ORDER",
-          "reason": null,
-          "text": 0.997,
-          "choices": 1,
-          "blame": null,
-          "sent": "31/32",
-          "quotes": "3/3"
-        },
-        {
-          "no": 44,
-          "type": "X-REFER",
-          "reason": null,
-          "text": 0.997,
-          "choices": 1,
-          "blame": null,
-          "sent": "31/32",
-          "quotes": "5/5"
-        },
-        {
-          "no": 45,
-          "type": "X-FACT",
-          "reason": null,
-          "text": 0.997,
-          "choices": 1,
-          "blame": null,
-          "sent": "31/32",
-          "quotes": "5/5"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "M2209",
       "items": 28,
-      "ms": 11,
+      "ms": 20,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2209",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9952142857142857,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.9090909090909091,
-      "sentence_anchor": 0.9895833333333334,
-      "quote_found": 0.989010989010989,
-      "weak": [
-        {
-          "no": 25,
-          "type": "R-CHART",
-          "reason": null,
-          "text": 1,
-          "choices": null,
-          "blame": null,
-          "sent": "0/1",
-          "quotes": "2/3"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.948,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "4/4"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.948,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "3/3"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.99,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "9/10",
-          "quotes": "3/3"
-        }
-      ]
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     },
     {
       "exam": "M2306",
       "items": 28,
-      "ms": 14,
+      "ms": 15,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2306",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9953928571428572,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.9090909090909091,
-      "sentence_anchor": 0.9954128440366973,
-      "quote_found": 0.9882352941176471,
-      "weak": [
-        {
-          "no": 25,
-          "type": "R-CHART",
-          "reason": null,
-          "text": 1,
-          "choices": null,
-          "blame": null,
-          "sent": "1/2",
-          "quotes": "1/2"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.833,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.949,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "4/4"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.948,
-          "choices": null,
-          "blame": null,
-          "sent": "9/9",
-          "quotes": "2/2"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.995,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        }
-      ]
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     },
     {
       "exam": "M2309",
       "items": 28,
-      "ms": 11,
+      "ms": 12,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2309",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9952499999999999,
+      "text_mean": 1,
       "text_ge_95": 1,
-      "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.996268656716418,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "9/9",
-          "quotes": "3/3"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.988,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "7/8",
-          "quotes": "5/5"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "M2406",
       "items": 28,
-      "ms": 10,
+      "ms": 14,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2406",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9951785714285714,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.9872340425531915,
-      "quote_found": 0.9902912621359223,
-      "weak": [
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.875,
-          "blame": "db-noise",
-          "sent": "8/8",
-          "quotes": "4/4"
-        },
-        {
-          "no": 29,
-          "type": "R-GRAMMAR",
-          "reason": null,
-          "text": 1,
-          "choices": null,
-          "blame": null,
-          "sent": "7/8",
-          "quotes": "5/5"
-        },
-        {
-          "no": 30,
-          "type": "R-VOCAB",
-          "reason": null,
-          "text": 0.991,
-          "choices": null,
-          "blame": null,
-          "sent": "7/8",
-          "quotes": "4/4"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 37,
-          "type": "R-ORDER",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "7/8",
-          "quotes": "5/5"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.948,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "5/5"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.945,
-          "choices": null,
-          "blame": null,
-          "sent": "10/10",
-          "quotes": "5/5"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.99,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        }
-      ]
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     },
     {
       "exam": "M2409",
       "items": 28,
-      "ms": 9,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2409",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9960714285714286,
+      "text_mean": 1,
       "text_ge_95": 1,
-      "choices_ok": 0.9545454545454546,
-      "sentence_anchor": 0.9955156950672646,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.995,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "8/9",
-          "quotes": "4/4"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "M2506",
       "items": 28,
-      "ms": 11,
+      "ms": 16,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2506",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9952142857142857,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.9090909090909091,
-      "sentence_anchor": 0.9957627118644068,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.875,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.944,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "3/3"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.942,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "3/3"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 0.75,
-          "blame": "db-noise",
-          "sent": "5/6",
-          "quotes": "2/2"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "M2509",
       "items": 28,
-      "ms": 10,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2509",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9955,
-      "text_ge_95": 0.9285714285714286,
-      "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.9915966386554622,
+      "text_mean": 1,
+      "text_ge_95": 1,
+      "choices_ok": 1,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "8/8",
-          "quotes": "5/5"
-        },
-        {
-          "no": 28,
-          "type": "R-NOTICE",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "2/3",
-          "quotes": "4/4"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.948,
-          "choices": null,
-          "blame": null,
-          "sent": "8/8",
-          "quotes": "3/3"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.946,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "5/5"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "9/10",
-          "quotes": "4/4"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "M2606",
       "items": 28,
-      "ms": 11,
+      "ms": 23,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2606",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9935357142857143,
-      "text_ge_95": 0.9285714285714286,
+      "text_mean": 1,
+      "text_ge_95": 1,
       "choices_ok": 1,
-      "sentence_anchor": 0.9890909090909091,
+      "sentence_anchor": 1,
       "quote_found": 1,
-      "weak": [
-        {
-          "no": 27,
-          "type": "R-NOTICE",
-          "reason": null,
-          "text": 0.99,
-          "choices": 1,
-          "blame": null,
-          "sent": "4/6",
-          "quotes": "3/3"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.933,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "5/5"
-        },
-        {
-          "no": 39,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.949,
-          "choices": null,
-          "blame": null,
-          "sent": "7/7",
-          "quotes": "3/3"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "7/8",
-          "quotes": "4/4"
-        }
-      ]
+      "weak": []
     },
     {
       "exam": "M2609",
       "items": 28,
-      "ms": 10,
+      "ms": 14,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2609",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9956428571428572,
-      "text_ge_95": 0.9642857142857143,
+      "text_mean": 1,
+      "text_ge_95": 1,
       "choices_ok": 1,
-      "sentence_anchor": 0.9870689655172413,
-      "quote_found": 0.975,
-      "weak": [
-        {
-          "no": 28,
-          "type": "R-NOTICE",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "2/4",
-          "quotes": "0/2"
-        },
-        {
-          "no": 38,
-          "type": "R-INSERT",
-          "reason": null,
-          "text": 0.946,
-          "choices": null,
-          "blame": null,
-          "sent": "8/8",
-          "quotes": "5/5"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "8/9",
-          "quotes": "4/4"
-        }
-      ]
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     },
     {
       "exam": "M2706",
       "items": 28,
-      "ms": 10,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2706",
       "exam_id_ok": true,
       "boundary": 1,
-      "text_mean": 0.9946785714285715,
+      "text_mean": 1,
       "text_ge_95": 1,
-      "choices_ok": 0.8181818181818182,
-      "sentence_anchor": 0.9885931558935361,
-      "quote_found": 0.9873417721518988,
-      "weak": [
-        {
-          "no": 24,
-          "type": "R-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 0.889,
-          "blame": "db-noise",
-          "sent": "9/9",
-          "quotes": "3/3"
-        },
-        {
-          "no": 27,
-          "type": "R-NOTICE",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "3/4",
-          "quotes": "0/1"
-        },
-        {
-          "no": 28,
-          "type": "R-NOTICE",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "6/7",
-          "quotes": "5/5"
-        },
-        {
-          "no": 32,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 0.857,
-          "blame": "db-noise",
-          "sent": "7/8",
-          "quotes": "3/3"
-        },
-        {
-          "no": 36,
-          "type": "R-ORDER",
-          "reason": null,
-          "text": 1,
-          "choices": 0.75,
-          "blame": "db-noise",
-          "sent": "9/9",
-          "quotes": "5/5"
-        },
-        {
-          "no": 40,
-          "type": "R-SUMMARY",
-          "reason": null,
-          "text": 0.968,
-          "choices": 0.667,
-          "blame": "db-noise",
-          "sent": "0/0",
-          "quotes": "0/0"
-        }
-      ]
+      "choices_ok": 1,
+      "sentence_anchor": 1,
+      "quote_found": 1,
+      "weak": []
     }
   ]
 }
