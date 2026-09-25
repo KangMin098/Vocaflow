@@ -128,6 +128,18 @@ export const SOURCE_GUIDE: Record<SourceKey, SourceGuide> & Record<string, Sourc
     label: '우주',
     says: 'NASA 가 어린이·청소년을 위해 쓴 우주 설명글입니다.',
   },
+  global_voices: {
+    label: '세계 소식',
+    says: '세계 곳곳의 시민기자가 쓴 기사. 다른 나라의 사회·문화 쟁점을 만납니다.',
+  },
+  global_storybooks: {
+    label: '이야기',
+    says: '아프리카에서 시작된 어린이 그림책 이야기입니다. 짧고 쉬운 문장으로 쓰였습니다.',
+  },
+  gdl: {
+    label: '이야기',
+    says: '세계 어린이를 위한 공개 그림책. 읽기 수준별로 나뉜 이야기입니다.',
+  },
   storyweaver: {
     label: '이야기',
     says: '전 세계 아이들을 위해 쓰인 그림책 이야기입니다. 짧고, 사람이 나오고, 끝이 있습니다.',

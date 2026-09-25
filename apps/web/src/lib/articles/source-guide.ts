@@ -64,6 +64,10 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   econstor: ['argumentative', 'expository'],
   scielo: ['argumentative', 'expository'],
   openalex: ['argumentative', 'expository'],
+  // 소스GET 3차 (2026-09-25)
+  global_voices: ['news', 'expository'],
+  global_storybooks: ['narrative'],
+  gdl: ['narrative'],
   wikivoyage: ['reference'], // 여행 목적지 가이드 (CC-BY-SA → 발행 가능 · reference 보강)
   usgs: ['expository'], // 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 가능)
   noaa: ['expository'], // 기후과학 explainer (PD US Gov → 발행 가능)
@@ -133,6 +137,9 @@ export const SOURCE_LABEL: Record<string, string> = {
   frym: 'Frontiers for Young Minds',
   nist: 'NIST',
   storyweaver: 'StoryWeaver',
+  global_voices: 'Global Voices',
+  global_storybooks: 'Global Storybooks',
+  gdl: 'Global Digital Library',
   space_place: 'NASA Space Place',
   ocean_facts: 'NOAA Ocean Facts',
   worldbank: 'World Bank',

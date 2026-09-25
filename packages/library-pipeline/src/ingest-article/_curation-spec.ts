@@ -63,6 +63,13 @@ export type SourceKey =
   | 'econstor'
   | 'scielo'
   | 'openalex'
+  // ── 소스GET 3차 (2026-09-25) — 20편 파일럿 실측 · docs/reports/sources-register.md §6 ──
+  //   global_voices     WP REST `/wp-json/wp/v2/posts` · 글마다 푸터 `rel=license` CC BY 3.0
+  //   global_storybooks GitHub `global-asp/asp-source/en` · 이야기 파일 끝줄 `License: [CC-BY]`(NC 섞임 3/20)
+  //   gdl               WP REST `/wp-json/wp/v2/book` → EPUB · 책마다 license 필드(NC 섞임)
+  | 'global_voices'
+  | 'global_storybooks'
+  | 'gdl'
   | 'original'
 
 export interface FeedSpec {
@@ -475,6 +482,37 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 300,
     noiseKeywords: ['correction', 'retraction', 'erratum', 'dumps', 'braindump', 'practice test'],
     maxItems: 200,         // API per_page 상한
+  },
+  // ── 소스GET 3차 (2026-09-25) ────────────────────────────────────────
+  global_voices: {
+    recencyDays: null,     // 국제 시민기자 기사 — 쟁점 해설이 오래 산다
+    minDescriptionLen: 0,
+    minTitleLen: 10,
+    sourceWeight: 0.72,    // 파일럿 중앙 1,330어 — 절단 대상 · 캡션·연재 안내 줄 정제 필요(13/20)
+    levelBonus: -0.05,
+    idealDescLen: 200,
+    noiseKeywords: ['podcast', 'newsletter', 'roundup'],
+    maxItems: 20,          // WP REST per_page — 사이트가 ~90요청 뒤 응답을 끊었다(2026-09-25)
+  },
+  global_storybooks: {
+    recencyDays: null,     // 그림책은 시의성이 없다(storyweaver 와 같다)
+    minDescriptionLen: 0,
+    minTitleLen: 3,
+    sourceWeight: 0.88,
+    levelBonus: 0.05,
+    idealDescLen: 120,
+    noiseKeywords: [],
+    maxItems: 40,
+  },
+  gdl: {
+    recencyDays: null,
+    minDescriptionLen: 0,
+    minTitleLen: 3,
+    sourceWeight: 0.84,    // 후원사 문장이 끝에 붙는 책 ~4/20 — 정제 대상
+    levelBonus: 0.05,
+    idealDescLen: 120,
+    noiseKeywords: [],
+    maxItems: 20,
   },
   plos: {
     recencyDays: 3650,     // 연구 — stale 관대
@@ -1055,6 +1093,45 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     //   ③ 초록 null·10어 미만 10.8%
     preferredFeedMix: [],
   },
+  // ── 소스GET 3차 (2026-09-25) ────────────────────────────────────────
+  // 라이선스는 **행마다** 읽는다 — 여기 적힌 것은 다수값이다. NC 로 읽힌 행은
+  // 적재기(scripts/csat/source-get/import.mjs)가 그 표기를 그대로 남겨 restricted 로 떨어진다.
+  global_voices: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 20,
+    minScore: 0.40,
+    bulkPriority: 4,
+    license: 'CC BY 3.0',  // 글마다 푸터 `rel=license` 실측 20/20
+    attributionRequired: true,
+    topicDomain: ['society', 'culture', 'economy', 'environment', 'technology'],
+    styleGuide: '세계 시민기자 국제·사회 기사 · 중앙 1,330어(절단 대상) · 맥락 의존 44% 주의',
+    preferredFeedMix: [],
+  },
+  global_storybooks: {
+    targetLevels: ['beginner'],
+    targetCefr: { min: 'A1', max: 'A2' },
+    maxItemsPerBatch: 40,
+    minScore: 0.30,
+    bulkPriority: 2,
+    license: 'CC BY 4.0',  // African Storybook 원작 표기를 따른다 · NC 3/20
+    attributionRequired: true,
+    topicDomain: ['story', 'family', 'animals', 'everyday'],
+    styleGuide: '초등 그림책 서사 · 중앙 123어 · 레벨 필드 없음(African Storybook 과 본문 겹침)',
+    preferredFeedMix: [],
+  },
+  gdl: {
+    targetLevels: ['beginner'],
+    targetCefr: { min: 'A1', max: 'A2' },
+    maxItemsPerBatch: 20,
+    minScore: 0.30,
+    bulkPriority: 3,
+    license: 'CC BY 4.0',  // 책마다 cc-by-4-0 · cc-by-nc-4-0 · cc-by-sa-4-0
+    attributionRequired: true,
+    topicDomain: ['story', 'school', 'animals', 'everyday'],
+    styleGuide: '초등 그림책 · 중앙 460어 · 토픽 태그에 읽기 수준(level-1~4·emergent) · StoryWeaver·Let\'s Read 와 중복',
+    preferredFeedMix: [],
+  },
   plos: {
     targetLevels: ['advanced'],
     targetCefr: { min: 'C1', max: 'C2' },
@@ -1243,6 +1320,9 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   econstor: 'argumentative',
   scielo: 'argumentative',
   openalex: 'argumentative',
+  global_voices: 'news',
+  global_storybooks: 'narrative',
+  gdl: 'narrative',
   voa: 'news',
   nasa: 'expository',
   nih: 'expository',
@@ -1544,6 +1624,10 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   econstor: getSourcePolicy('econstor'),
   scielo: getSourcePolicy('scielo'),
   openalex: getSourcePolicy('openalex'),
+  // 소스GET 3차 (2026-09-25)
+  global_voices: getSourcePolicy('global_voices'),
+  global_storybooks: getSourcePolicy('global_storybooks'),
+  gdl: getSourcePolicy('gdl'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──
