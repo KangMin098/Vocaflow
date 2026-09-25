@@ -1,0 +1,695 @@
+[
+ {
+  "id": "4298d53b-a4ce-4874-8f46-c249d2de5157",
+  "source_updated_at": "2026-09-25T04:01:52.004314+00:00",
+  "body_sha256": "15a06cdcabdcc5651551623f8e946c4a6901f30612ba4e67a19a67d626744829",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "엄마가 먹이고 눕히고 업어도 우는 'When ~, Matende cried' 반복이 사건 순서로 이어져 초등 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This is Matende. Matende cried",
+   "note": "반복 구문이라 순서 배열 문항으로 쉽게 바뀌었고 nappies 만 diapers 로 바꾸면 된다."
+  }
+ },
+ {
+  "id": "fa64f7ba-85d7-45e7-952b-1f863b603cfd",
+  "source_updated_at": "2026-09-25T04:01:41.776758+00:00",
+  "body_sha256": "fdf9adf0bbe944df7fc359e687fe347245ace5c6df06f7c42970ffbfde61c0b7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "마타이의 어린 시절→유학→귀국 후 나무 심기→노벨상까지 전기 흐름이 뚜렷해 초·중등 요지·순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "order",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V2",
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "When she had finished her studies,",
+   "note": "귀국 후 단락이 앞 문맥 없이 서고 persuaded·realised 정도만 쉬운 말로 바꾸면 된다."
+  }
+ },
+ {
+  "id": "21aa874d-5c7a-470e-8e3f-4061d413f5a4",
+  "source_updated_at": "2026-09-25T04:01:23.678812+00:00",
+  "body_sha256": "2960f5ce62f6a6481cb6b51d275f7afffa64c779f0f0ffa969b1053e35107f97",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "울보 악어가 나비 친구의 경고로 사냥꾼을 물리치고 자기다움을 받아들이는 결말이 서서 초·중등 심경·순서·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "mood",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The next day Sniffles saw men",
+   "note": "menacingly·took to their heels 를 바꾸면 V3 로 내려가고 인물 이름만 소개하면 선다."
+  }
+ },
+ {
+  "id": "ec1a07f1-3d4b-4259-9d62-a8dbb41b6afa",
+  "source_updated_at": "2026-09-25T04:01:28.036665+00:00",
+  "body_sha256": "25a0a008ddba551be7c5285d21528ffc7977b00e5a982aa0cbfa1667b2769b9a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "사과 떨어진 소리에 동물들이 차례로 따라 뛰는 누적 반복 구조와 소년의 반전 결말이 있어 초등 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "They met a dog. Dog asked,",
+   "note": "누적 대사가 길어 몇 동물로 줄이면 순서 문항이 되고 오타 'feel'은 가공 때 고친다."
+  }
+ },
+ {
+  "id": "bdbb5546-eb73-46dd-aff6-214f04d8fbe4",
+  "source_updated_at": "2026-09-25T04:01:25.535918+00:00",
+  "body_sha256": "b865e3272c25d90ac291a94467e7fa8ee2780dd5358ab81b7f2384ff303b8d36",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "새들의 왕 뽑기에서 작은 새가 독수리 날개에 숨어 이기고 올빼미가 밤에만 사냥하게 된 유래담으로 인과가 뚜렷해 초·중등 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match",
+    "title",
+    "long_reference"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Goose flew for one day,",
+   "note": "비행 경쟁 단락이 독립적으로 서고 soared·exhausted 만 쉬운 말로 바꿨다."
+  }
+ },
+ {
+  "id": "b7061b8d-3ae7-40c6-8a8d-3c3416f5cd75",
+  "source_updated_at": "2026-09-25T04:01:24.570778+00:00",
+  "body_sha256": "d1d9dc6cad45f896dda1444c08d16156f6ae78060f8401dd0ccb698b014aecec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "discard",
+  "genre": "poetry-drama",
+  "why": "씨앗부터 망고를 먹기까지를 각운 맞춘 2행 연으로 적은 동시라 차단 장르 운문으로 폐기한다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Tiny shoot begins to show, A",
+   "note": "전체가 운율 맞춘 운문이라 산문 지문으로 가공할 문단이 없다."
+  }
+ },
+ {
+  "id": "525d53cc-2c80-42ec-8888-fd3d321fa802",
+  "source_updated_at": "2026-09-25T04:02:23.064268+00:00",
+  "body_sha256": "931c75a784609ab46273daaded780b1047bcef18705964d680d616eb784e96a7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "거북이 뱀에게 수영을 가르치다 뱀이 빠지자 구조하는 사건 순서가 분명해 초등 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "As they were floating, Tortoise started",
+   "note": "propel·imitating 을 move·copy 로 바꾸니 V1~V2 로 내려간다."
+  }
+ },
+ {
+  "id": "089f25e1-59b9-4454-bbc7-842dacdf2712",
+  "source_updated_at": "2026-09-25T04:01:54.075794+00:00",
+  "body_sha256": "d56e7f5583ec0adbaccd6418bb477bd3aa4b3bf4c448f036925cb078bb51137f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "그네가 멈추지 않아 뛰어내리다 다친 케케를 선생님이 달래는 사건과 심경 변화가 이어져 초등 심경·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "mood",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After a while Keke wanted to",
+   "note": "감탄사 반복만 줄이면 겁남→안도 심경 문항이 바로 된다."
+  }
+ },
+ {
+  "id": "0c545785-25da-4046-82cf-a6961619c207",
+  "source_updated_at": "2026-09-25T04:02:38.549588+00:00",
+  "body_sha256": "c51bf5d88629f61b2d740e874807965de020ae54249a84f6492eaa042ee49dae",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "하늘·잎·바나나·피 색깔에 대한 문답이 서로 이어지지 않는 나열이라 초등 최소선(문장 사이 연결)에 못 미쳐 폐기한다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Why is the sky blue? It",
+   "note": "문답 쌍마다 소재가 바뀌어 한 문단으로 묶을 사건·이유 흐름이 없다."
+  }
+ },
+ {
+  "id": "8ab06e69-5e37-4304-9d3a-cfe762ac29f5",
+  "source_updated_at": "2026-09-25T04:01:44.908358+00:00",
+  "body_sha256": "c4327f7ca9b6a7d9dc3463ea090e8b443c496200fdee0d68d8ad8b63525e68dc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "읽어 줄 사람을 찾아 가족마다 묻다가 모두 바빠 혼자 읽기로 하는 찾기-묻기-결말 반복 패턴이라 초등 칸 최소선을 넘는다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V0",
+    "V1"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Who can I read for? The",
+   "note": "마침표 없는 캡션형 문장이라 구두점과 연결어를 넣어야 한 문단이 선다."
+  }
+ },
+ {
+  "id": "09d8b907-ffe0-4469-a2c3-f328a6c34fa8",
+  "source_updated_at": "2026-09-25T04:02:14.990232+00:00",
+  "body_sha256": "5ae98e6a197438f8f67e9d3f58320f00f33594b56cb2516b5393c9fb0cfc10f0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "눈먼 어머니를 버리고 떠난 아들이 습격자에게 죽는 교훈 설화라 죽음이 교훈의 중심이어서 고1 이상 칸만 두고 주제·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order",
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Lodipo told Akitela that they could",
+   "note": "떠나는 장면부터 선다; 투르카나어 노래 구절은 가공 때 걷어낸다."
+  }
+ },
+ {
+  "id": "4e986a16-a1f4-4ea9-bf5c-89239fa037c2",
+  "source_updated_at": "2026-09-25T04:02:01.996204+00:00",
+  "body_sha256": "8adeccb51d256b76945c4bf6a06f646bcab7d5992b7a43a789b535b49a13f9f1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "소·토끼·말·닭·개에 대한 서로 무관한 특징 문장 나열이라 v4 초등 최소선에 못 미쳐 폐기한다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Look at our animals we keep",
+   "note": "문장마다 다른 동물이고 이유·순서 연결이 없어 문단으로 가공이 안 된다."
+  }
+ },
+ {
+  "id": "1e120288-67d9-41eb-8c3a-f9488e1c2a0d",
+  "source_updated_at": "2026-09-25T04:01:48.219612+00:00",
+  "body_sha256": "4b4ffc99225c19e2fb83c4cd50a284dc76ae3ed5155f8a96de8e579d685b94b6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "메뚜기 떼를 쫓으려 소리·냄비·불을 써도 안 되다 잡아 먹고 결국 밭이 망가지는 사건 흐름이 있어 초등 순서·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "We tried to chase the locusts",
+   "note": "'But they would not go' 반복이 시도 순서를 만들어 순서 문항이 쉬웠다."
+  }
+ },
+ {
+  "id": "36e8a2a6-43ba-4da1-8180-d4f2d6d2d2c8",
+  "source_updated_at": "2026-09-25T04:01:40.622888+00:00",
+  "body_sha256": "84f00a474e126d5a9fa4e5a378dc5a44a7528ebc6796c908d00fa8ca4be82a60",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "hold",
+  "hold_reason": "borderline",
+  "genre": "fiction",
+  "why": "휴대폰 다섯 대의 용도 나열이 본문 대부분이고 인물 소개 뒤 사건은 약해 초등 최소선 경계에 있어 보류한다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "She has five cellphones. When she",
+   "note": "색깔별 용도 나열은 특징 목록에 가깝고 인물 행동 부분만 짧게 이어진다."
+  }
+ },
+ {
+  "id": "6b5a1d7d-1640-4ee2-856d-a8ef11bd3ec6",
+  "source_updated_at": "2026-09-25T03:34:48.642657+00:00",
+  "body_sha256": "641c97333e2ec835d322056a36a08f395e22cc3157b870506ece018c83aced4f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "길에서 주운 가방을 이고 오다 뱀이 나와 도망치는 짧은 사건이 인과로 이어져 초등 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "On the way, they saw a",
+   "note": "이름이 길어 father·son 으로 바꾸니 바로 선다; slithered 만 쉬운 말로."
+  }
+ },
+ {
+  "id": "ad609328-aa55-4aff-b0bb-d4063843c726",
+  "source_updated_at": "2026-09-25T04:02:02.83398+00:00",
+  "body_sha256": "a25ac99ecef18ce58212b61b08cb33d9e4cf86702a8ed3be077fe6011c815b1f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "sports",
+  "why": "경기 응원·감독 연설·장비 받는 장면의 화자와 시간 순서가 뒤섞여 사건 흐름을 세울 수 있을지 애매해 보류한다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "mood"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Wonderful Chiefs, the cup must come",
+   "note": "누가 말하는지·경기가 이미 끝났는지가 그림 없이 정해지지 않았다."
+  }
+ },
+ {
+  "id": "e0353a42-7cb3-496b-b85c-5cb0f8a32604",
+  "source_updated_at": "2026-09-25T04:02:34.802045+00:00",
+  "body_sha256": "957c11ba6a5d055b5c1ce1d352976b5f0d62b2abfe272463a511ff6f027e189d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "discard",
+  "genre": "fragmentary",
+  "why": "'Why are they in such a hurry' 처럼 그림을 봐야 이어지는 캡션 문장뿐이라 폐기한다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Sipho goes to town with his",
+   "note": "서두르는 이유가 본문에 없어 그림 없이 사건이 서지 않는다."
+  }
+ },
+ {
+  "id": "6237f055-1a17-4bd7-bff3-5d583e9b77cf",
+  "source_updated_at": "2026-09-25T04:02:16.946205+00:00",
+  "body_sha256": "3a10752824883edd02ef5bc4b0e0e2112aa805ec2db3a6ec6ca9fe607e0f5835",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "discard",
+  "genre": "fragmentary",
+  "why": "동물마다 '무슨 색일까' 하고 그림을 보라는 캡션형 질문과 무관한 특징 나열이고 끝에 편집 메모까지 남아 폐기한다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "This is the elephant. The males",
+   "note": "색·갈기 질문은 그림이 있어야 하고 특징 문장끼리 연결이 없다."
+  }
+ },
+ {
+  "id": "2774ccc3-64e7-45ba-8874-2ed3bdcee3cb",
+  "source_updated_at": "2026-09-25T04:02:23.255333+00:00",
+  "body_sha256": "3bc81217b1ec00077655f9486d0f11edde110256600b713ad1942444d6fb6bb5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "강을 건너려다 머리 큰 친구가 가라앉고 비웃던 파리 입이 찢어지는 유래담으로 사건이 이어져 초등 순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "They came to the edge of",
+   "note": "말다툼→도약→결말이 짧게 이어져 순서 배열 문항이 바로 된다."
+  }
+ },
+ {
+  "id": "3ed7cdfd-ae2a-463d-be41-242754d303ec",
+  "source_updated_at": "2026-09-25T04:01:22.734987+00:00",
+  "body_sha256": "c2752bfbafaad86f92e4b2e945a814dfcafe2b16ae2da4b739bf12b622f62b7d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "'Imagine a day' 로 시작하는 서로 무관한 소망 문장 나열이라 문장 사이 연결이 없어 폐기한다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Imagine a day.... when everyone knows",
+   "note": "문장마다 소재가 달라 논지나 사건으로 묶을 수 없다."
+  }
+ }
+]
