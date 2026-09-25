@@ -24,7 +24,15 @@ export interface DissectionCatalog extends LearnerCatalog {
   families: string[]
   audit: { total: number; fields: Record<string, number>; excluded: { id: string; missing: string[] }[] }
 }
-export interface Prediction { item: string; type: string; step: 1 | 2 | 3; hit: boolean; at: number; family?: string }
+export interface Prediction {
+  item: string; type: string; step: 1 | 2 | 3; hit: boolean; at: number; family?: string
+  /** 어디서 남겼나 — 'theater' 는 출제 사고 화면의 공개 게이트(`lib/csat/reveal-gate.ts`). 없으면 해부 세션 */
+  source?: 'theater'
+  /** 게이트에서 고른 근거 문장(0-기반) · 정답 선지 · 확신도(1~5). null 은 「모르겠어요」 */
+  sentence?: number | null
+  choice?: number | null
+  confidence?: number
+}
 export interface DissectionDraft { phase: 'scan' | 'predict1' | 'compare1' | 'predict2' | 'compare2' | 'predict3' | 'compare3' | 'blueprint' | 'formula'; selection: string | null; answers: { step: number; hit: boolean; selection: string }[] }
 export interface Formula { tag: string; text: string; type: string; sources: string[] }
 export interface DissectionRecord {

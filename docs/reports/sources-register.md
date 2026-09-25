@@ -277,5 +277,68 @@ AgEcon(AWS WAF) · Liverpool/White Rose 본사(403).
 
 ---
 
+## 6. 3차 외부 목록 검증 · 파일럿 (2026-09-25)
+
+외부 조사 목록(3차)을 받아 **robots.txt · 약관 원문을 직접 읽고, 즉시 수집 원천은 20편씩 실제로 받았다.**
+수집기: `scripts/csat/source-get/<key>-fetch.mjs` · 공용 적재기: `scripts/csat/source-get/import.mjs` ·
+기준 코퍼스: `scripts/csat/source-get/bench-fetch.mjs`. DB 쓰기 0 — 새 키 셋은 CHECK 제약 마이그레이션
+`_pending_source_get_round3_sources.sql` 승인 대기.
+
+### 6-1. 목록의 주장 중 틀린 것 (실측으로 정정)
+
+| 주장 | 실측 | 근거 |
+|---|---|---|
+| CLEAR 메타데이터 MIT | **틀림** — 전체가 CC BY-NC-SA 4.0, MIT 언급 없음 | CLEAR-Corpus README |
+| GDL 베타 JSON API 「바로」 | **틀림** — `api.digitallibrary.io` DNS 소멸. 지금은 WP REST `content.digitallibrary.io/wp-json/wp/v2/book` → EPUB | 파일럿 |
+| Wikinews 덤프와 같은 경로(API 가능) | robots.txt 가 `/w/`(api.php) 를 막는다 — **대량은 덤프만**(`dumps.wikimedia.org/enwikinews` 200) | robots.txt |
+| OpenStax 「CC BY 저장소」 | osbooks 55개 중 CC BY **13**, 그중 **영어 5**(business · intellectual-property · life-liberty · physics · statistics). 인문 전부 NC-SA | 저장소별 LICENSE |
+| DailyDialog 배포처 | yanran.li 는 **주차 도메인**. HF 미러만 남음 | 직접 접속 |
+
+맞은 것: Aeon 계약 필요 · Lit2Go 프로젝트당 25파일(비상업 한정) · SNE 서면 허가 · OneStopEnglish/QA CC BY-SA 4.0 · Knowable CC BY-ND · Noba CC BY-NC-SA 4.0 · NPS API 무료 키 · Wonderopolis 폐쇄.
+
+### 6-2. 파이프라인에 넣은 것 (20편 파일럿)
+
+| 키 | 경로 | 라이선스(행 단위 실측) | 중앙 어수 | 경로(§1) | 문제 |
+|---|---|---|---:|---|---|
+| `global_voices` **신규** | WP REST `/wp-json/wp/v2/posts` | 푸터 `rel=license` CC BY 3.0 **20/20** | 1,330 | R1 · 절단 | 캡션·연재 안내 줄 13/20(필터 고침 · 재수집 전) · **~90요청 뒤 응답 끊김** |
+| `global_storybooks` **신규** | GitHub `global-asp/asp-source/en` | CC-BY 17 · **CC-BY-NC 3** | 123 | R1 / NC→R3 | 레벨 없음 · African Storybook 과 같은 본문 |
+| `gdl` **신규** | WP REST → EPUB | cc-by 8 · **cc-by-nc 12** | 460 | R1 / NC→R3 | 후원 문장 ~4/20 · StoryWeaver 와 중복 |
+| `wikinews` 기존 키 | MediaWiki API(표본) → 대량은 덤프 | CC BY 2.5 18 · PD 2 | 177 | R1 | 2006~08 단신 · 스포츠 2 제외 |
+| `openstax` 기존 키 | GitHub CNXML(CC BY 저장소만) | CC BY 4.0 20/20 | 1,018 | R1 · 절단 | life-liberty 는 활동지형 산문 |
+
+NC 행은 **버리지 않고 표기 그대로 담는다** — 트리거가 restricted 로 막고, R3 재저작 입력이 된다(DD-75).
+
+### 6-3. 기준 코퍼스 — 발행 불가, 잣대 전용 (`bench-fetch.mjs`)
+
+| 키 | 라이선스 | 규모 |
+|---|---|---|
+| RACE | 비상업 연구 전용 | 지문 27,933(중 7,139 · 고 20,794) · 문항 97,687 |
+| DREAM | 비상업 연구 전용 | 대화 6,444 · 문항 10,197 |
+| CLEAR | CC BY-NC-SA 4.0 | 발췌 4,724 |
+| OneStopEnglish | CC BY-SA 4.0 | 189편 × 3수준 |
+| OneStopQA | CC BY-SA 4.0 | 30편 · 문항 486 |
+| WeeBit | — | **공개 경로 없음**(저자 요청) |
+
+### 6-4. 확인만 한 것
+
+| 원천 | 판정 | 근거 |
+|---|---|---|
+| EIA Energy Kids | **바로** · PD(연방) · robots 허용 | eia.gov/about/copyrights_reuse.php |
+| NIH News in Health | **바로** · 본문 비저작권(사진 제외) · curl 403(WAF) | /about-us |
+| SciJinks | PD 이나 접속 실패 | — |
+| NPS API | 무료 키 필요 | developer.nps.gov |
+| Bloom Library | `api.bloomlibrary.org/v1/books` 키 없이 응답 · 라이선스 필드 없음 | — |
+| Book Dash | 책 페이지 CC-BY-4.0 · 본문 위치 미확인 | — |
+| Let's Read | 공개 API 없음 · 일부 CC-BY-NC | — |
+| StoryWeaver · African Storybook | 기존 수집기 있음 | `storyweaver-ingest.mjs` · `kid-source-probe.mjs` |
+| CK-12 · Smarthistory · Noba · OpenLearn · DailyDialog | NC → R3 | 약관 |
+| Knowable | ND → R4 · GPTBot 차단 | /page/republish |
+| Science News Explores · 1000-Word Philosophy | 허가 필요 → R4 · SNE GPTBot 차단 | 약관 |
+| Lit2Go | 25파일·비상업 → 본문은 PD 원본, 학년 라벨만 | /lit2go/welcome/license |
+| Aeon · Psyche · TED · British Council | 계약·유료·NC-ND → R4 | 약관 |
+| Wonderopolis · ICDL | 폐쇄 | familieslearning.org |
+
+---
+
 *관련: [v1](./sources-discovery.md) · [v2](./sources-discovery-v2.md) · [v3](./sources-discovery-v3.md) ·
 [sources-scorecard](./sources-scorecard.md) · ACP §20 사실 재저작 · `scripts/csat/compose-drain-export.mjs`*

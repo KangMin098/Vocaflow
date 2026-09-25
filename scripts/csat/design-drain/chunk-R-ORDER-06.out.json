@@ -1,0 +1,41 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-ORDER",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2015#36",
+      "roles": ["topic", "example", "example", "support", "example", "example", "example", "conclusion", "example", "example"],
+      "alternatives": [{ "index": 7, "role": "example" }],
+      "pattern": "general_specific",
+      "selection": "색의 영향이라는 총론 아래 공장 실험과 미식축구 탈의실 두 사례를 놓고, 미완으로 끝난 공장 실험을 닫는 블록이 먼저 와야 하는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — ‘같은 수준’의 온도가 도입의 수치를 받고, (A)의 탈의실을 (B)가 홈·원정 방으로 나눈다.",
+      "cues": ["repetition", "article", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2014B#38",
+      "roles": ["topic", "support", "support", "conclusion", "example", "example", "support", "support"],
+      "alternatives": [{ "index": 3, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "형태 항상성을 문 사례로 풀면서 ‘정면일 때만’ 조건을 뒤집는 블록과 같은 어구를 심은 다른 사례 블록을 두어, 표면 어휘 겹침이 아닌 논리 조건을 따라가게 한 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 다른 각도 조건이 사다리꼴을 부정관사로 도입하고, 정관사로 받는 (A)와 유사 연결어의 (B)가 뒤따른다.",
+      "cues": ["article", "connective", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2014A#37",
+      "roles": ["background", "topic", "example", "example", "example", "example", "example", "example"],
+      "alternatives": [{ "index": 1, "role": "background" }],
+      "pattern": "narrative",
+      "selection": "병 편지라는 일반론 뒤에 콜럼버스 일화 하나를 세 조각으로 잘라, 인물 지칭의 정밀도와 시간 흐름으로 순서를 복원하게 한 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 전체 이름과 연도로 여는 (B), 성만 쓰는 (A), 대명사와 종이를 받는 지시어의 (C) 순이다.",
+      "cues": ["pronoun", "time", "repetition"],
+      "data_defect": "⑤ 선지 끝에 쪽번호로 보이는 ‘7’이 붙어 있다 — 원문 추출 잡음."
+    }
+  ]
+}

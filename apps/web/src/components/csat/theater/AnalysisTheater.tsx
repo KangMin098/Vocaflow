@@ -58,10 +58,13 @@ import { useTheaterSfx } from '@/lib/csat/theater-sfx'
 import { track } from '@/lib/analytics/client'
 import { withView } from '@/lib/csat/continuity'
 import { loadDissectionRecord, saveDissectionRecord } from '@/lib/csat/session/store'
+import type { Prediction } from '@/lib/csat/dissect'
+import { OPEN_BEFORE_COMMIT, committedOf, grade, maskChip, maskName, toPrediction, type GateCommit, type GateKey } from '@/lib/csat/reveal-gate'
 
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 
 import { ItemPaper } from './ItemPaper'
+import { GateDiff, PredictGate } from './PredictGate'
 import styles from './theater.module.css'
 
 const RATES = [0.9, 1, 1.15] as const
@@ -103,6 +106,8 @@ export function AnalysisTheater({
   siblings,
   examLabel,
   paper,
+  gate,
+  typeId,
 }: {
   title: string
   typeName: string | null
@@ -123,6 +128,9 @@ export function AnalysisTheater({
   examLabel: string
   /** 왼쪽 열 원본 — 기기의 문제지 추출본을 읽는다(서버는 원문을 보내지 않는다) */
   paper: { catalog: LearnerCatalog; examId: string; no: number }
+  /** 공개 게이트의 정답 열쇠 — 확정 전에는 화면에 쓰지 않는다 */
+  gate: GateKey
+  typeId: string
 }) {
   const lec = useLecture()
   // 연 문항을 기록에 남긴다 — 넓이 · 「최근 연 문항」 · 공백 판정의 재료(ia-design §2-5)
@@ -136,6 +144,23 @@ export function AnalysisTheater({
     }
   }, [itemId])
   const back = (to: 'home' | 'type' | 'browse') => () => track({ name: 'csat_item_back', props: { to } })
+  // 공개 게이트 — undefined = 기록 읽는 중 · null = 아직 확정 안 함
+  const [committed, setCommitted] = useState<Prediction | null | undefined>(undefined)
+  useEffect(() => {
+    let alive = true
+    void loadDissectionRecord().then((record) => {
+      if (alive) setCommitted(committedOf(record, itemId))
+    })
+    return () => {
+      alive = false
+    }
+  }, [itemId])
+  const revealed = committed != null
+  const commit = (c: GateCommit) => {
+    const p = toPrediction(itemId, typeId, c, grade(c, gate), Date.now())
+    setCommitted(p)
+    void loadDissectionRecord().then((record) => saveDissectionRecord({ ...record, predictions: [...record.predictions, p] }))
+  }
   const sfx = useTheaterSfx()
   const [cursor, setCursor] = useState(0)
   const [all, setAll] = useState(steps.length === 0)
@@ -169,6 +194,13 @@ export function AnalysisTheater({
     return shown
   }, [all, blockKeys, cursor, steps])
 
+  // 확정 전엔 머리 · 「재는 것」만 — 차례·「전부 펼치기」와 무관하게 닫아 둔다
+  const shownOpen = revealed ? open : new Set(blocks.filter((b) => OPEN_BEFORE_COMMIT.has(b.kind)).map((b) => b.key))
+  const label = (name: string, kind: string) => (revealed ? name : maskName(name, kind))
+  const mine: GateCommit | null = committed
+    ? { sentence: committed.sentence ?? null, choice: committed.choice ?? null, confidence: committed.confidence ?? 1 }
+    : null
+  const diff = mine ? <GateDiff commit={mine} result={grade(mine, gate)} gateKey={gate} /> : null
   const step = steps[cursor] ?? null
   const liveKey = step ? blockKeyForTarget(step.targetKey, blockKeys) : null
 
@@ -268,8 +300,14 @@ export function AnalysisTheater({
             </button>
           ) : null}
           {lec ? (
-            <button type="button" className={styles.play} onClick={() => (status === 'idle' ? lec.start(cursor, 'start') : lec.toggle())}>
-              <MainIcon size={15} aria-hidden /> {mainLabel}
+            <button
+              type="button"
+              className={styles.play}
+              disabled={!revealed}
+              title={revealed ? undefined : '예측을 확정하면 상영할 수 있어요'}
+              onClick={() => (status === 'idle' ? lec.start(cursor, 'start') : lec.toggle())}
+            >
+              <MainIcon size={15} aria-hidden /> {revealed ? mainLabel : '예측 후 상영'}
             </button>
           ) : null}
         </div>
@@ -361,15 +399,25 @@ export function AnalysisTheater({
                 </p>
                 <div className={styles.paneBody}>
                   <p className={styles.lead}>
-                    <b>{step?.name ?? '분석 읽기'}</b>{' '}
+                    <b>{step ? label(step.name, step.kind) : '분석 읽기'}</b>{' '}
                     <code>
                       {String(cursor + 1).padStart(2, '0')} / {String(Math.max(1, steps.length)).padStart(2, '0')}
                     </code>
                   </p>
-                  {map ? (
-                    <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
+                  {committed === undefined ? (
+                    <p className={styles.quiet} aria-busy="true">기록을 확인하는 중…</p>
+                  ) : !revealed ? (
+                    <PredictGate sentences={map ? map.sentences.map((x) => x.chars) : []} onCommit={commit} />
+                  ) : map ? (
+                    <>
+                      {diff}
+                      <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
+                    </>
                   ) : (
-                    <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못해 지도가 없어요. 분석은 오른쪽에서 그대로 읽을 수 있어요.</p>
+                    <>
+                      {diff}
+                      <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못해 지도가 없어요. 분석은 오른쪽에서 그대로 읽을 수 있어요.</p>
+                    </>
                   )}
                   <dl className={styles.kv}>
                     <div>
@@ -393,7 +441,7 @@ export function AnalysisTheater({
                   <ChevronDown size={12} aria-hidden />
                   <em>
                     {tab === 'analysis'
-                      ? `${[...open].length} / ${blocks.length} BLOCKS`
+                      ? `${[...shownOpen].length} / ${blocks.length} BLOCKS`
                       : tab === 'run'
                         ? `${steps.length} STEPS`
                         : `${siblings.length} ITEMS`}
@@ -414,10 +462,10 @@ export function AnalysisTheater({
                         data-kind={b.kind}
                         data-live={b.key === liveKey}
                         className={styles.block}
-                        hidden={!open.has(b.key)}
+                        hidden={!shownOpen.has(b.key)}
                       >
                         <div className={styles.chips}>
-                          {b.chips.map((c) => (
+                          {b.chips.filter((c) => revealed || !maskChip(c.text)).map((c) => (
                             <span key={c.text} className={styles.chip} data-tone={c.tone ?? 'plain'}>
                               {c.text}
                             </span>
@@ -430,9 +478,14 @@ export function AnalysisTheater({
                         {b.quote ? <blockquote lang="en">{b.quote}</blockquote> : null}
                       </article>
                     ))}
-                    {!all && steps.length && blocks.length > open.size ? (
+                    {!revealed ? (
                       <p className={styles.pending}>
-                        <b>{blocks.length - open.size}개가 아직 닫혀 있어요</b>
+                        <b>{blocks.length - shownOpen.size}개가 아직 닫혀 있어요</b>
+                        왼쪽에서 근거 문장 · 정답 · 확신도를 확정하면 정답 근거와 오답 설계가 열립니다.
+                      </p>
+                    ) : !all && steps.length && blocks.length > shownOpen.size ? (
+                      <p className={styles.pending}>
+                        <b>{blocks.length - shownOpen.size}개가 아직 닫혀 있어요</b>
                         차례를 넘기면 그 자리에서 열립니다. 지금 전부 읽으려면 위의 «전부 펼쳐 읽기».
                       </p>
                     ) : null}
@@ -474,8 +527,8 @@ export function AnalysisTheater({
                             style={{ width: `${seg.pct}%` }}
                             data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}
                             onClick={() => goto(seg.index)}
-                            title={`${seg.kind} · ${seg.name} · ${Math.round(seg.sec)}초`}
-                            aria-label={`${seg.index + 1}단계 ${seg.name} · ${Math.round(seg.sec)}초`}
+                            title={`${seg.kind} · ${label(seg.name, seg.kind)} · ${Math.round(seg.sec)}초`}
+                            aria-label={`${seg.index + 1}단계 ${label(seg.name, seg.kind)} · ${Math.round(seg.sec)}초`}
                           />
                         ))}
                       </div>
@@ -491,7 +544,7 @@ export function AnalysisTheater({
                           <button type="button" onClick={() => goto(seg.index)}>
                             <span className={styles.runNo}>{String(seg.index + 1).padStart(2, '0')}</span>
                             <span className={styles.runKind}>{seg.kind}</span>
-                            <span className={styles.runName}>{seg.name}</span>
+                            <span className={styles.runName}>{label(seg.name, seg.kind)}</span>
                             <span className={styles.runSec}>{Math.round(seg.sec)}초</span>
                           </button>
                         </li>
@@ -540,7 +593,7 @@ export function AnalysisTheater({
                     onClick={() => goto(s.index)}
                     aria-current={state === 'live' ? 'step' : undefined}
                   >
-                    <b>{s.name}</b>
+                    <b>{label(s.name, s.kind)}</b>
                     <span>
                       <em>{String(s.index + 1).padStart(2, '0')}</em>
                       <i>{s.kind}</i>
@@ -553,7 +606,7 @@ export function AnalysisTheater({
             </nav>
           ) : (
             <nav className={styles.cards} aria-label="분석 블록으로 이동">
-              {blocks.map((b) => (
+              {blocks.filter((b) => revealed || OPEN_BEFORE_COMMIT.has(b.kind)).map((b) => (
                 <button key={b.key} type="button" className={styles.card} data-state="done" data-tint={BLOCK_TINT[b.kind]} onClick={() => jumpToBlock(b.key)}>
                   <b>{b.title}</b>
                   <span>

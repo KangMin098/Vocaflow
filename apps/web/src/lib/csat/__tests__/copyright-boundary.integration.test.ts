@@ -80,25 +80,23 @@ describe.skipIf(skip)('기출 원문 저작권 경계 (실 DB)', () => {
 
   // **경계가 어디에 그어져 있는지** — 이 목록이 곧 결정이다.
   //
-  //   나가면 안 되는 것: `passage` · `choices` — 평가원이 고른 글과 다섯 선지가 그 저작물의 알맹이다.
-  //   나가도 되는 것:   `stem`(발문) · `answer`(정답 번호) · `points`(배점).
-  //     발문은 수십 년째 같은 문장이 되풀이되는 **기능 문구**이고, 정답과 배점은 평가원이
-  //     정답표로 **이미 공개**한다. 셋 다 감출 이유가 없고, 감추면 계획 화면이 배점을 못 적는다.
+  //   나가면 안 되는 것: `passage` · `choices` · `stem`.
+  //     발문은 「기능 문구」라 공개 가능하다고 봤으나(2026-09-23), 144문항의 발문에 영어 원문이
+  //     들어 있다 — 문장 삽입의 「주어진 문장」 · 밑줄 구절(2026-09-25 실측). 그래서 컬럼 권한으로 닫았다
+  //     (`20260925120000_csat_items_public_hide_stem`).
+  //   나가도 되는 것:   `answer`(정답 번호) · `points`(배점) — 평가원이 정답표로 이미 공개한다.
   //
   // 즉 이 테스트가 지키는 것은 "다 가려라" 가 아니라 **선이 옮겨 다니지 않는 것**이다.
-  it('학습자용 뷰는 지문·선지 컬럼 자체를 갖지 않는다', async () => {
-    const { data, error } = await learner.from('csat_items_public').select('*').limit(1)
+  it('학습자용 뷰는 지문·선지 컬럼 자체를 갖지 않고, 발문은 읽히지 않는다', async () => {
+    const { data, error } = await learner.from('csat_items_public').select('id, exam_id, no, type_id, answer, points').limit(1)
     expect(error, `학습자가 csat_items_public 을 못 읽으면 화면이 빈다: ${error?.message}`).toBeNull()
     expect(data?.length, '뷰가 비어 있으면 이 단언이 아무것도 안 지킨다').toBe(1)
-    const cols = Object.keys(data![0])
-    // 컬럼이 아예 없어야 한다. `passage: null` 로 있으면 나중에 누군가 채운다.
-    for (const forbidden of ['passage', 'choices']) {
-      expect(cols, `csat_items_public 에 ${forbidden} 가 있다`).not.toContain(forbidden)
+    for (const forbidden of ['passage', 'choices'] as const) {
+      const r = await learner.from('csat_items_public').select(forbidden).limit(1)
+      expect(r.error, `csat_items_public 에 ${forbidden} 가 있다`).not.toBeNull()
     }
-    // 계획 화면이 배점을 적으려면 이 셋은 있어야 한다 — 지운 줄 모르고 지우면 화면이 조용히 빈다
-    for (const needed of ['stem', 'answer', 'points']) {
-      expect(cols, `csat_items_public 에서 ${needed} 가 사라졌다`).toContain(needed)
-    }
+    const stem = await learner.from('csat_items_public').select('stem').limit(1)
+    if (!stem.error) expect(stem.data ?? [], '학습자가 발문을 읽었다').toHaveLength(0)
   })
 
   it('학습자가 읽는 분석·검수는 published 만 보인다', async () => {

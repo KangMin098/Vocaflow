@@ -1,0 +1,27 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1",
+  "type": "R-PURPOSE",
+  "items": [
+    {
+      "id": "M2706#18",
+      "roles": ["background", "support", "background", "speech_act", "support", "support", "closing", "closing"],
+      "alternatives": [{ "index": 1, "role": "background" }],
+      "pattern": "request_letter",
+      "selection": "용건(참가 요청)을 네 번째 문장의 뒤쪽 절에 한 번만 두고 앞뒤를 칭찬·대회 소개로 두껍게 감싼 편지라, 소재 명사가 아니라 수신자에게 요구하는 행동을 찾아야 목적이 잡힌다.",
+      "transform": "speech_act_verb",
+      "transform_note": "‘참가해 달라고 청한다’는 요청 화행 문장이 선지의 ‘참가를 요청하려고’로 목적어(대회 참가)까지 그대로 옮겨졌다.",
+      "cues": []
+    },
+    {
+      "id": "M2609#18",
+      "roles": ["background", "background", "support", "support", "speech_act", "support", "closing", "closing", "closing"],
+      "alternatives": [{ "index": 5, "role": "speech_act" }],
+      "pattern": "request_letter",
+      "selection": "등록 감사 → 정원 초과 → 장소 이동 결정 → 변경 전후 강의실이 인과 사슬로 이어져, 사슬의 어느 고리가 수신자에게 알리는 결정인지 가려내야 하는 통보형 편지다.",
+      "transform": "speech_act_verb",
+      "transform_note": "‘장소를 옮기기로 결정했다’는 결정 통보가 선지의 ‘장소 변경을 알리려고’로 화행(알림)과 내용(장소 변경)이 함께 바뀌었다.",
+      "cues": []
+    }
+  ]
+}

@@ -137,7 +137,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | 라우트 | 파일 | 설명 |
 |---|---|---|
 | `/csat` | `(app)/csat/page.tsx` + `SpaceScreen.tsx` · `home/CsatRail.tsx` · `home/ContinueCard.tsx` · `home/ContinuePanel.tsx` | **기출분석공간 홈(앱 셸 없음 · 3B 앱 메인 결)** — docs/csat/ia-design.md. 메뉴(홈 · 이어서·복습 · 내 기록 · 전체 서가 / 목적별 5 / 유형별 / 회차별) · 띠 위 상태 카드(첫 방문 · 재방문 · 공백 복귀 — 밀린 복습 ≤3 압축) · 도구줄(찾기 · 칩 · 덮은 넓이) · 유형/함정 표(「본 문항」). 쿼리: `?need=killer` · `?tab=trap` · `?view=continue`(이어서 · 복습 판) |
-| `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` + `AnalysisTheater.tsx` | **해설 극장** — 왼쪽 레일에 강의 큐(12~14개)가 차례로 쌓이고, 오른쪽에 지문 지도(`PassageMap`)와 분석 블록(재는 것 · 의도 · 정답 근거 · 오답마다 · 절차 · 어휘)이 같은 박자로 열린다. 바닥 장 카드로 점프. 효과음 4종(큐 경계) · 배속 3단 · 「전부 펼쳐 읽기」. 강의가 없는 문항은 상영 없이 블록만 |
+| `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` + `AnalysisTheater.tsx` | **출제 사고**(옛 이름 「해설 극장」→「출제 분석」→「사고 역추적」 · 2026-09-25 개명) — 왼쪽 열 = 기출문제 원본(학습자가 놓은 PDF 의 기기 추출본 · 개발 서버는 로컬 PDF 자동), 가운데 탭(분석 · 진행 · 같은 유형) + 두 판(지문 지도 `PassageMap` | 분석 블록: 재는 것 · 의도 · 정답 근거 · 오답마다 · 절차 · 어휘), 하단 도크 = 강의 차례(12~14칸). 효과음 4종(큐 경계) · 배속 3단 · 「전부 펼쳐 읽기」. 강의가 없는 문항은 상영 없이 블록만 |
 | `/csat/dissect` | `(main)/csat/dissect/page.tsx` + `SessionRunner.tsx` · `ItemScreen.tsx` | 정답 선공개 · 예측 3수 후 분석 인라인 · 설계도 · 공식 저장/3일 뒤 재확인 · 두 문항 대조 후 전이. `?set=<슬러그,…>`와 `?formula=<태그>` 검증 |
 | `/csat/formulas` | `(main)/csat/formulas/page.tsx` + `ProgressView.tsx` | 기기에 모은 공식 · 최근 30예측 적중률 · 계열 커버리지. 유형별 펼치기와 해당 공식 다시 확인 |
 | `/csat/space` | `(app)/csat/space/page.tsx` | 옛 주소 — `/csat` 으로 redirect |
@@ -307,6 +307,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | 라우트 | 설명 |
 |---|---|
 | `POST /api/csat/paper` | 본문에 **SHA-256 64자만** 받아 회차를 찾고 **문항 번호 좌표만**(쪽·단·x·y) 돌려준다 — 글자도 분석도 없다. 모르는 해시면 `known:false`(오류 아님 — 브라우저가 그 자리에서 번호를 찾는다). POST 인 이유: 해시가 URL 에 남으면 「어느 회차를 열었는지」가 따라다닌다. 로그인 문턱(401) |
+| `GET /api/csat/dev-paper?exam=` | **개발 서버 전용**(`NODE_ENV=development` · 프로덕션은 무조건 404). 이 PC 의 로컬 기출 문제지 PDF 바이트를 돌려준다 — 브라우저가 학습자가 놓은 파일과 **같은 길**로 기기 안에서 뽑는다. 폴더 `CSAT_LOCAL_PAPER_DIRS`(`;` 구분), 끄기 `CSAT_LOCAL_PAPERS=off`. 로그인 문턱(401) |
 | `GET · POST · DELETE /api/csat/session/record` | 본인 기출 세션 풀이 기록. GET = 최근 1,000건 · POST `{ attempts }` = 새 풀이 올리기(모양 검사 · 최대 200 · 겹치면 무시) 후 **복습 큐를 서버가 다시 계산**(`sync.ts#replayReviews`) · DELETE = 내 기록 지우기(게이트 하네스·초기화). 쓰기는 RLS(본인 행) · 로그인 문턱(401) |
 | `POST /api/csat/session/reveal` | 본문 `{ item: '<슬러그>' }` → 정답 · 근거 설명(≤3문장) · 오답별 한 줄 · 함정 · 「한 줄」 · 골격(문장 길이열 + 인용) · 강의 길이. **기존 풀이 클라이언트 호환 API다. 새 해부 화면에서는 호출하지 않는다.** 고른 답은 받지 않는다(기록은 기기에). 로그인 문턱(401) · 슬러그 모양 검사 |
 | `GET /api/csat/lecture?item=<슬러그>` | 문항 해설 **강의 대본**(큐 목록). 해설 화면의 서버 렌더에는 길이(초)만 싣고, 학습자가 재생을 누른 뒤 여기서 받는다 — 대본이 화면 HTML 에 남지 않게. 로그인 문턱(401) · 슬러그 모양 검사(값이 파일 이름으로 흘러간다) · 커밋된 `lib/csat/lecture-data/*.json` 을 읽는다(DB 0) |

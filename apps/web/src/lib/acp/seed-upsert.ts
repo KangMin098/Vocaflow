@@ -45,6 +45,12 @@ export type SeedSource =
   | 'econstor'
   | 'scielo'
   | 'openalex'
+  // 소스GET 3차 (2026-09-25) — 정본 SourceKey 와 같이 간다(source-key-parity)
+  | 'global_voices'
+  | 'global_storybooks'
+  | 'gdl'
+  | 'eia_kids'
+  | 'nih_news_in_health'
 
 interface ArticleScore {
   total: number

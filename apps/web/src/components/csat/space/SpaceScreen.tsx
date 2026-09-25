@@ -22,9 +22,7 @@ import Link from 'next/link'
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import {
   ArrowUpRight,
-  ChevronDown,
   Crosshair,
-  Gauge,
   Layers,
   Microscope,
   Search,
@@ -120,7 +118,6 @@ export function SpaceScreen({
   }, [rec])
   const [draft, setDraft] = useState('')
   const [openKey, setOpenKey] = useState<string | null>(null)
-  const [showGauges, setShowGauges] = useState(false)
   const listId = useId()
   const firstRow = useRef<HTMLButtonElement>(null)
   const openedCount = useRef(0)
@@ -193,8 +190,6 @@ export function SpaceScreen({
     [openKey],
   )
 
-  const namedPct = Math.round((100 * head.named) / head.distractors)
-  const recentPct = Math.round((100 * head.recentTotal) / head.distractors)
 
   return (
     <div className={styles.root} data-csat-space>
@@ -211,7 +206,7 @@ export function SpaceScreen({
         <header className={styles.topbar}>
           <span className={styles.topPill}>
             <Microscope size={13} aria-hidden="true" />
-            기출 <b>{n(head.items)}</b>문항 · 오답 <b>{n(head.distractors)}</b>
+            기출 <b>{n(head.items)}</b>문항
             <span className={styles.topPillWide}>
               {' '}
               · {head.yearMin}–{head.yearMax}
@@ -250,16 +245,6 @@ export function SpaceScreen({
                   <span className={styles.tabCount}>{n(counts[key])}</span>
                 </button>
               ))}
-              <button
-                type="button"
-                className={styles.tabsRight}
-                aria-expanded={showGauges}
-                onClick={() => setShowGauges((v) => !v)}
-              >
-                <Gauge size={14} aria-hidden="true" />
-                채움 현황
-                <ChevronDown size={13} aria-hidden="true" style={{ transform: showGauges ? 'rotate(180deg)' : undefined }} />
-              </button>
             </div>
 
             <form
@@ -314,41 +299,9 @@ export function SpaceScreen({
               </p>
             </form>
 
-            {showGauges ? (
-              <div className={styles.gauges}>
-                <div className={styles.gauge}>
-                  <b>
-                    {n(head.analyzed)} / {n(head.items)}
-                  </b>
-                  분석이 붙은 문항
-                  <span className={styles.gaugeBar}>
-                    <span className={styles.gaugeFill} style={{ width: `${Math.round((100 * head.analyzed) / head.items)}%` }} />
-                  </span>
-                </div>
-                <div className={styles.gauge}>
-                  <b>
-                    {n(head.named)} / {n(head.distractors)}
-                  </b>
-                  계열 이름이 붙은 오답 · {namedPct}%
-                  <span className={styles.gaugeBar}>
-                    <span className={styles.gaugeFill} style={{ width: `${namedPct}%` }} />
-                  </span>
-                </div>
-                <div className={styles.gauge}>
-                  <b>
-                    {n(head.recentTotal)} / {n(head.distractors)}
-                  </b>
-                  {head.recentFrom}학년도 이후의 오답 · {recentPct}%
-                  <span className={styles.gaugeBar}>
-                    <span className={styles.gaugeFill} style={{ width: `${recentPct}%` }} />
-                  </span>
-                </div>
-              </div>
-            ) : null}
 
             <div className={styles.tableHead} aria-hidden="true" hidden={view === 'continue'}>
               <span>{tab === 'type' ? '유형' : '함정'}</span>
-              <span>갖춘 것</span>
               <span>걸친 범위</span>
               <span>{head.recentFrom}학년도 이후</span>
               <span>예시 기출</span>
@@ -384,9 +337,8 @@ export function SpaceScreen({
               링크는 문장 안이 아니라 **밖**이다: 문장 안 13px 링크는 44px 하한에 걸린다(실측). */}
           <div className={styles.foot}>
             <p>
-              수치는 전부 구운 코퍼스 <code>trap-atlas.json</code> 에서 옵니다 — 기출 {n(head.items)}문항의 오답{' '}
-              {n(head.distractors)}개를 센 값이고, 마지막으로 센 때는 {head.builtAt.slice(0, 10)} 입니다. 지문·선지 원문은
-              이 화면에 오지 않습니다(기기의 PDF 에서만 열립니다).
+              기출 {n(head.items)}문항을 분석한 기록에서 셌습니다({head.builtAt.slice(0, 10)} 기준). 지문·선지 원문은 서버에
+              싣지 않아요 — 받은 문제지 PDF 를 놓으면 이 기기에서만 보여요.
             </p>
             <Link className={styles.footLink} href="/csat/browse">
               전체 기출 서가로
@@ -434,14 +386,6 @@ function Row({
               {seen ? <span data-testid="row-seen">· 본 문항 {seen}</span> : null}
             </span>
           </span>
-        </span>
-
-        <span className={styles.badges}>
-          {row.badges.map((badge) => (
-            <span key={badge.label} className={`${styles.badge} ${TONE_CLASS[badge.tone]}`}>
-              {badge.label}
-            </span>
-          ))}
         </span>
 
         <span className={styles.cell}>

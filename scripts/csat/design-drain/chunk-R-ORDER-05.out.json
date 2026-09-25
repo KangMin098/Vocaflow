@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-ORDER",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2020#36",
+      "roles": ["topic", "example", "support", "support", "support", "turn", "support"],
+      "alternatives": [{ "index": 2, "role": "conclusion" }],
+      "pattern": "problem_solution",
+      "selection": "영화가 지배 문화를 재생산한다는 명제 뒤에 반문·답·예시가 한 블록씩 배치되어, 물음을 받는 정관사 답변구와 반문의 역접이 사슬을 정하는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — (B)의 ‘이 물음에 대한 답’이 (C)의 반문을, (B) 끝의 만족스러운 이야기가 (A)의 관습 예시를 부른다.",
+      "cues": ["connective", "pronoun", "article", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2019#37",
+      "roles": ["background", "support", "conclusion", "support", "support", "topic", "support"],
+      "alternatives": [{ "index": 0, "role": "concession" }],
+      "pattern": "contrast",
+      "selection": "도식 지식의 이로움만 말한 도입을 해로움으로 뒤집는 블록이 먼저 와야 하고, 평행한 두 ‘빈틈 채우기’ 문장을 유사 연결어가 가르는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 역접 블록이 첫 자리, ‘정상’ 개념의 지시어 되받기와 병렬 연결어가 나머지를 정한다.",
+      "cues": ["connective", "pronoun", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2019#36",
+      "roles": ["topic", "support", "turn", "support", "support", "example", "support"],
+      "alternatives": [{ "index": 2, "role": "conclusion" }, { "index": 5, "role": "support" }],
+      "pattern": "problem_solution",
+      "selection": "심리학 연구의 어려움을 예고한 뒤 난점 항목을 두 블록에 나누고 그 난점 전체를 뒤집는 보상 블록을 두어, 복수 지시어가 받을 목록이 다 쌓였는지로 순서가 갈리는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — (B) 끝의 반응성 용어를 (C)가 풀고, 난점 전체를 받는 (A)가 마지막에 선다.",
+      "cues": ["pronoun", "connective", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2018#37",
+      "roles": ["background", "support", "support", "support", "conclusion", "support", "topic", "example"],
+      "alternatives": [{ "index": 7, "role": "support" }],
+      "pattern": "contrast",
+      "selection": "현대인과 원시인의 질병관을 맞세우고 원시인 쪽 설명을 세 블록에 나누어, 신들을 받는 대명사와 공동체를 되받는 지시 형용사가 배열을 못박는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — (C)가 처음 등장시킨 신들을 (A)의 대명사가 받고, (A)의 원시 공동체를 (B)의 ‘그런 사회’가 받는다.",
+      "cues": ["pronoun", "repetition", "logic"],
+      "data_defect": "(C) 블록 첫 문장에 빈칸 표시(______)가 잘못 끼어 있다 — 원문 추출 잡음."
+    },
+    {
+      "id": "2018#36",
+      "roles": ["topic", "support", "support", "example", "example", "turn", "support", "support", "support", "support"],
+      "alternatives": [{ "index": 4, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "잡지 수익원을 구독·단일호로 나눈 뒤 세 블록을 모두 연결사로 시작시켜, 연결사가 받을 대상이 어디 있는지를 따지게 만드는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 역접이 단일호 진술을, 첨가가 첫 이유를, 예시가 전문 잡지 진술을 받는다.",
+      "cues": ["connective", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2017#37",
+      "roles": ["background", "topic", "turn", "turn", "support", "support", "example", "example", "conclusion", "support"],
+      "alternatives": [{ "index": 2, "role": "concession" }],
+      "pattern": "cause_effect",
+      "selection": "진화 예측 → 관측 확인 → 통념 반박 → 결과 합산의 흐름을 세 블록 모두 지시어로 시작시켜, 지시 대상이 실제로 앞에 있는지로만 가르게 한 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 예측을 받는 (B), 관측된 적응을 받는 (A), 두 사실을 합산하는 (C) 순이다.",
+      "cues": ["pronoun", "logic", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "2017#36",
+      "roles": ["topic", "support", "support", "conclusion", "example", "support", "support", "support"],
+      "alternatives": [{ "index": 6, "role": "conclusion" }],
+      "pattern": "general_specific",
+      "selection": "관찰의 두 효과를 예고한 뒤 한쪽 극단만 서술하고 끝내, 나머지 극단을 채우는 블록 → 일반 규칙 → 조언 순서를 논리로 복원하게 하는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 무대 공포 사례와 ‘다른 극단’이 두 효과를 갖춘 뒤에야 일반 규칙과 결과 연결어가 설 수 있다.",
+      "cues": ["repetition", "connective", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2016#36",
+      "roles": ["background", "turn", "example", "support", "conclusion", "topic", "support", "example"],
+      "alternatives": [{ "index": 5, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "도입이 현상만 서술하고 이름을 붙이지 않아, 그 현상에 용어를 처음 부여하는 블록이 먼저 오고 부정관사로 등장한 아이를 정관사로 받는 블록이 뒤따르는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 용어 정의 블록의 지시어, 역접으로 한계를 여는 블록, 관사 전환이 순서를 정한다.",
+      "cues": ["pronoun", "article", "connective", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "2016#35",
+      "roles": ["background", "concession", "example", "turn", "support", "turn", "topic", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 3, "role": "support" }],
+      "pattern": "contrast",
+      "selection": "변하지 않는 사람과 변하는 사람을 맞세우며 양보-반전 짝과 질문-답 짝을 동시에 요구해, 대명사로 시작하는 블록의 선행사를 찾게 만든 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 양보 뒤의 역접 블록, 두 번째 집단을 받는 대명사, 질문에 답하는 블록 순이다.",
+      "cues": ["connective", "pronoun", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2015#37",
+      "roles": ["topic", "support", "example", "example", "support", "example", "example", "example"],
+      "alternatives": [{ "index": 4, "role": "topic" }],
+      "pattern": "contrast",
+      "selection": "두 블록을 똑같은 대명사 문장으로 시작시켜, 두 부류를 처음 이름 붙이는 블록과 각 블록 끝이 누구를 말하는지로만 대명사의 정체를 가르게 한 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 두 부류를 도입하는 (B) 뒤로 앞 블록 끝의 주어가 다음 블록 대명사의 선행사가 된다.",
+      "cues": ["pronoun", "repetition", "logic"],
+      "data_defect": null
+    }
+  ]
+}

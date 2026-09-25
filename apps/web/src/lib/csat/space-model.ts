@@ -87,8 +87,8 @@ export function typeRows(): SpaceRow[] {
     const named = pct(type.named, type.distractors)
     const example = exampleOf(traps, type.id)
     const coverage = { label: `계열 이름 ${named}%`, pct: named }
-    const badges: SpaceBadge[] = [{ label: coverage.label, tone: toneAt(i) }]
-    if (example) badges.push({ label: '예시 있음', tone: toneAt(i + 3) })
+    // 학습자 화면에는 제작 공정 지표(계열 이름 % · 예시 있음)를 싣지 않는다 — 재설계안 v1 결정 6 (2026-09-25)
+    const badges: SpaceBadge[] = []
     return {
       key: type.id,
       kind: 'type' as const,
@@ -96,7 +96,7 @@ export function typeRows(): SpaceRow[] {
       tone: toneAt(i),
       live: type.status === 'active',
       liveLabel: type.status === 'active' ? '출제 중' : '지금은 안 나옴',
-      meta: [`문항 ${type.items}`, `오답 ${type.distractors}`],
+      meta: [`문항 ${type.items}`],
       badges,
       coverage,
       reach: `함정 ${traps.length}종`,
@@ -118,8 +118,7 @@ export function trapRows(): SpaceRow[] {
     const example = trap.examples[0] ?? null
     const share = pct(trap.n, CORPUS.named)
     const coverage = { label: `이름 붙은 오답의 ${share}%`, pct: share }
-    const badges: SpaceBadge[] = [{ label: coverage.label, tone: toneAt(i) }]
-    if (example) badges.push({ label: '예시 있음', tone: toneAt(i + 3) })
+    const badges: SpaceBadge[] = []
     return {
       key: trap.key,
       kind: 'trap' as const,
@@ -127,7 +126,7 @@ export function trapRows(): SpaceRow[] {
       tone: toneAt(i),
       live: universal,
       liveLabel: universal ? '유형을 가로지름' : '유형에 매임',
-      meta: [`오답 ${trap.n}`, `문항 ${trap.items}`],
+      meta: [`문항 ${trap.items}`],
       badges,
       coverage,
       reach: `${trap.types}유형`,
@@ -216,11 +215,8 @@ export function stepsFor(row: SpaceRow): SpaceStep[] {
       tone: toneAt(0),
     })
     steps.push({
-      title: '얼마나 남아 있나',
-      body:
-        row.coverage.pct >= 100
-          ? '이 유형의 오답은 전부 계열 이름이 붙었다 — 예측 보기를 만들 재료가 다 있다.'
-          : `오답의 ${row.coverage.pct}% 에만 계열 이름이 붙었다 — 나머지는 아직 이름이 없다.`,
+      title: '얼마나 자주 나오나',
+      body: `${row.reach}에 걸친다. 최근 4개년에도 ${row.recent}번 나왔다.`,
       tone: toneAt(1),
     })
   } else {
@@ -240,7 +236,7 @@ export function stepsFor(row: SpaceRow): SpaceStep[] {
     body: row.example ? `${row.example.label} ${row.example.no}번` : '골라 둔 예시가 아직 없다.',
     tone: toneAt(2),
     href: row.example ? `/csat/item/${row.example.slug}` : undefined,
-    hrefLabel: '해설 극장에서 열기',
+    hrefLabel: '출제 사고로 열기',
   })
   steps.push({
     title: '서가에서 보기',
