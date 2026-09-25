@@ -28,8 +28,9 @@ import type {
 import { blankFrags } from './pdf-frags'
 
 /** 추출기 판. 규칙을 바꾸면 올린다 — 기기에 남은 옛 추출을 버리게 한다.
- *  2 (2026-09-25): 그린 선으로 된 빈칸을 `______` 로 복원한다(`pdf-frags.blankFrags`). */
-export const REFLOW_VERSION = 2
+ *  2 (2026-09-25): 그린 선으로 된 빈칸을 `______` 로 복원한다(`pdf-frags.blankFrags`).
+ *  3 (2026-09-25): 줄 끝에 걸린 빈칸(문장 부호 없이 일찍 끝나고 다음 줄이 이어짐)을 복원한다. */
+export const REFLOW_VERSION = 3
 
 const CIRC = '①②③④⑤'
 
@@ -199,6 +200,11 @@ export function readingLines(pages: PageFrags[], anchors: ReflowAnchors): Reflow
         const left = Math.min(...g.map((f) => f.x))
         const prev = groups[i - 1]
         if (prev && left - colLeft > 40 && rightOf(prev) > colRight - 15 && !/^[①②③④⑤(\[*]/.test(text)) text = `${GAP} ${text}`
+        // **줄 끝에 걸린 빈칸** — 문장 부호 없이 단 끝보다 40pt 넘게 일찍 끝났는데 다음 줄이 이어지면(문단 끝이 아니면)
+        // 빈칸이 줄 끝을 차지한 것이다(M2109#32 · M2306#34 실측: 한 낱말 뒤 250pt 넘게 빔).
+        const next = groups[i + 1]
+        if (next && rightOf(g) < colRight - 40 && /[A-Za-z,]$/.test(text) && !/[①②③④⑤]/.test(text) && !/[①②③④⑤]/.test(joinLine(next)))
+          text = `${text} ${GAP}`
         out.push({ p: pg.p, col, y: g[0].y, h: Math.max(...g.map((f) => f.h)), text })
       })
     }

@@ -6,7 +6,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { blankFrags, hlinesOfOps } from '../pdf-frags'
-import { summaryBlanks } from '../reflow'
+import { readingLines, summaryBlanks } from '../reflow'
 import type { PdfFrag } from '../types'
 
 const frag = (str: string, x: number, w: number, y = 700): PdfFrag => ({ str, x, y, w, h: 12 })
@@ -38,6 +38,21 @@ describe('blankFrags — 빈칸 선과 밑줄 · 상자선을 가른다', () => 
   })
   it('겹쳐 그린 이중선은 하나로 친다', () => {
     expect(blankFrags(row, [{ x0: 473, x1: 521, y: 698 }, { x0: 473.5, x1: 521, y: 698.2 }])).toHaveLength(1)
+  })
+})
+
+describe('readingLines — 줄 끝에 걸린 빈칸(REFLOW_VERSION 3)', () => {
+  const anchors = { form_pages: 1, items: [{ no: 31, p: 1, col: 0, x: 90, y: 760, w: 10, h: 10 }] }
+  const page = (rows: [string, number, number][]) => [
+    { p: 1, w: 842, h: 1191, frags: rows.map(([str, x, w], k) => ({ str, x, y: 700 - k * 17, w, h: 12 })) },
+  ]
+  it('문장 부호 없이 일찍 끝나고 다음 줄이 이어지면 줄 끝에 틈 표식을 둔다', () => {
+    const lines = readingLines(page([['full line of text here', 99, 306], ['a word', 99, 30], ['continues the sentence.', 99, 306]]), anchors)
+    expect(lines[1].text).toMatch(/word ⁣$/)
+  })
+  it('문장 부호로 끝난 짧은 줄(문단 끝)에는 두지 않는다', () => {
+    const lines = readingLines(page([['full line of text here', 99, 306], ['the end.', 99, 30], ['New paragraph starts', 99, 306]]), anchors)
+    expect(lines[1].text).toBe('the end.')
   })
 })
 
