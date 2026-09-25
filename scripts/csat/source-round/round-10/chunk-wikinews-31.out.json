@@ -1,0 +1,953 @@
+[
+ {
+  "id": "17d01d0c-9807-4c40-ab3b-c07f26d3e490",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6482410201db710159700bae933004ee6205c6011e4f3741dbc491a022a8d2bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "분리주의 무장조직 군사 책임자 체포 → 양국 공조 치하 → 조직의 사망자 책임과 경력 설명으로 이어져 고1 이상 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The ETA organization is blamed by",
+   "note": "배경 단락은 「1960년대부터 분리 국가를 요구하며 820명 사망 책임」이 홀로 서고 campaigning 만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "17d41c44-6fad-4882-9022-48dfc832298e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "fdb3a488828231f88e475381d355398b695933c053057bbdfbea71190dc774a6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "사료 리콜 원인이 쥐약이 아니라 중국산 밀 글루텐의 멜라민으로 좁혀지는 과정이 서서 요지·내용일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Menu Foods has determined that melamine",
+   "note": "원인 단락은 「새 공급처 글루텐에서만 나왔다」가 홀로 서고 contamination·sourced 를 바꾸면 V6 로 맞다."
+  }
+ },
+ {
+  "id": "17d6311e-e05c-482f-8860-b832fb1ab4c7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "54f529de01d6edaf7783fba4740ab2f3b1990148cbe81ff7165d78ec16074237",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "손님은 많은데 수입 재료값 폭등으로 이익이 없어 철수하고 국산 재료 체인으로 바꾼다는 인과가 서서 요지·빈칸·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The company blames the closure of",
+   "note": "원인 단락은 「독일산 재료 수입비와 불황」이 홀로 서고 운영자의 「양파 1kg이 위스키 한 병 값」 비유는 빈칸 재료로 좋았다."
+  }
+ },
+ {
+  "id": "17da01c6-faf6-4922-8a12-f7147aa27e21",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f20b0b9faec0c1025654968022ba1b607ead62f6ba7efa72b28e127e54bb0579",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "국경일 이름 변경 법안이 「사회 불화」 판단으로 부결되고 발의자가 다민족 사회의 통합일을 주장하는 흐름이 서서 주장·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mr Dunne said the reason for",
+   "note": "발의 이유 단락은 「불만의 날이 아니라 모두의 날이어야 한다」는 주장이 홀로 서고 grievance 하나만 바꾸면 V4 다."
+  }
+ },
+ {
+  "id": "17db2c6e-f67f-4217-823d-1d95f5f2311a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3305b60747e56304f0281cbfa4fbf3ae910b2e9efd5bb66913ae0fb1f174e2ff",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "10만 년 전 거대 낙타 화석 발견 → 낙타 기원지 주장 → 현생의 두 배 크기 → 인간 사육 여부 불확실로 이어져 중등 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Jammous stated that the animal is",
+   "note": "크기 단락은 「현생 낙타의 두 배인 4m」라는 비교가 홀로 서고 초등 밴드로 내리려면 fossils·unearthed 만 풀면 됐다."
+  }
+ },
+ {
+  "id": "17df3d1a-d3ca-4eca-8354-a48a5c06783c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3d6dafbaf44434f26cd564d4a1616015c0b544f14f2de4bb159399e5a9c230bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "팬 사이트 도메인을 넘기라는 교단의 소송 위협과 운영자의 「의견일 뿐」 반박이 맞서 주장 칸을 채운다(둘째 단락 주어가 링크와 함께 빠졌다).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The owners of scienTOMogy.info have posted",
+   "note": "운영자 반박 단락은 홀로 서지만 둘째 단락은 주어가 빠져 「The site」를 채워야 했고 notorious 같은 기자 판단은 걷는다."
+  }
+ },
+ {
+  "id": "17e30de2-3659-4337-bafd-2937ba4c917e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "076360a8dc0553c0af69610b7a8617f216ec57c4bc4529a8ad8e57e775167064",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "위험견 법안의 취지·정의와 발의 의원의 「심각한 상해만 대상」 설명, 계기가 된 사망 사건이 서서 주장·내용일치 칸을 채운다(조항 목록은 문장으로 푼다).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The dog would be legally defined",
+   "note": "정의 단락은 「지금은 개 공격에 관한 규정이 없다」는 공백이 홀로 서고 euthanized 만 바꾸면 V5 다."
+  }
+ },
+ {
+  "id": "17e315c7-5fcd-41cd-b734-93f981e6d8fb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "13ee1496e71303327d991ee6971494168641f1d7138163a54d9c767bca7092f8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "광고 판매원의 사망 → 전날 비행기 착륙 사고에서 머리를 맞은 일 → 가족 성명 → 출연 방송 소개로 이어져 내용일치·서사 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to reports, he was a",
+   "note": "비행기 단락은 「짐에 머리를 맞고도 치료를 안 받았다」가 홀로 서서 사인과의 연결을 묻는 문항 재료가 됐다."
+  }
+ },
+ {
+  "id": "17e5025e-ba09-48ad-b959-5436d8563ede",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7bc21d0b1aa3720acae35b9f9b019e40b68a6444858ec23ecb13a59a89e97260",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "조종사 사망 보고서가 비상 산소 손잡이의 세 결함을 짚고, 공군의 「주의 집중」 설명과 유족 소송의 반론이 맞서 요지·주장·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Haney's death has been attributed by",
+   "note": "사인 단락은 공군 설명과 보고서의 의문이 한 문단에 있어 떼기 좋았지만 channelized attention 은 풀어 써야 했다."
+  }
+ },
+ {
+  "id": "17e6511d-3976-4c76-8722-5c1f2b3c4133",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "68c462b89aa490406599b4b1b1466f785fffd788bb791585166e9591a78b8b2c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "genre": "social",
+  "why": "편집 없이 실은 후보 답변이 종교적 가치 회복과 「기후변화는 인위적이지 않다」는 주장을 사실처럼 펴서, 후보 인터뷰를 주장 칸으로 둘지 기준에 없어 갈린다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "One misconception about our party is",
+   "note": "오해 단락은 「단일 쟁점 정당이 아니다」는 주장이 홀로 서지만 근거가 정책 이름 나열뿐이고 기후 답변은 사실 검증 없이 쓸 수 없었다."
+  },
+  "hold_reason": "criteria-gap"
+ },
+ {
+  "id": "17e6cf06-33a9-42f9-8a44-2a28f09ef1c8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c400b63f6192ffda0ef25383a0f0a3c89aa04aa3e7ec6e227a1f756a6a3a4078",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "language",
+  "why": "80어 두 단락이지만 수년간 공식 인정을 요구한 끝에 ISO 코드를 받았고 이웃 방언은 소멸 위기라는 대비가 서서 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "For several years the Alliance of",
+   "note": "인정 운동 단락은 「오래 요구했고 이제 둘째 등록 언어가 됐다」가 홀로 서고 단체 이름만 「지역 단체들」로 바꾸면 된다."
+  }
+ },
+ {
+  "id": "17e6ff44-3572-47fb-b98d-4d5a8d1db11e",
+  "source_updated_at": "2026-09-25T08:51:39.959912+00:00",
+  "body_sha256": "a7a6a659af4248e84dd37e6e5a7750276d84833b9439c8b86976ad5a6e303be0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "선거 결과와 함께 선거인단 제도로 득표에서 져도 이길 수 있는 원리를 설명하고 승복 연설·항의 시위로 이어져 요지·내용일치·장문 칸을 채운다(끼워 넣은 트윗은 빠져 있다).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to law, the citizens vote",
+   "note": "선거인단 단락은 「주별 승자 독식이라 전국 득표가 적어도 이긴다」는 원리가 홀로 서서 설명문 지문으로 바로 쓸 만했다."
+  }
+ },
+ {
+  "id": "17e84c59-abfb-4991-b770-7317307ceee2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e092c10c2bb72f94c726640a373f0123168179ce715a24e5169ea1bdc817faf8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "형량 배심 선정 첫날 피고의 네 차례 소란과 퇴정, 판사의 배심 후보 지시로 이어지는 법정 경과가 서서 고1 이상 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A jury pool of 18 members,",
+   "note": "배심 단락은 판사가 「소란이 판단에 영향을 주면 적으라」고 한 까닭이 홀로 서고 alternates 만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "17e85bb6-3123-4850-9d0d-dbbeb9ebae6b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d756243d1941a404347c9fe1fa2c10a7d999f0a7c3687aac2fcaf0cd309536ea",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "출시 지연 우려에 기능을 덜어 2006년 출시를 약속했다는 짧은 기사로 인과가 서서 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This is expected to be the",
+   "note": "둘째 단락은 XP 이후 첫 출시라는 맥락이 홀로 서지만 사실 두 개뿐이라 첫 단락의 지연·기능 삭감과 붙였다."
+  }
+ },
+ {
+  "id": "17eb3ecb-2332-4798-b1cc-6762db224722",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "def07de68416536ea9816bebf850d52aa75bcf9d77eff6f24cb882ee24ab5e49",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "대낮 보석상 단독 절도 → 외부 흔적 없음 → 이웃 가게 증언 → 지난해 핑크 팬더 사건과 비교로 이어져 중등 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Last December, several thieves made a",
+   "note": "앞선 사건 단락은 「국제 조직이 1억 달러를 털었다」가 홀로 서고 heist 하나만 바꾸면 V4 다."
+  }
+ },
+ {
+  "id": "17ebccb5-fb43-4ace-949b-8464ebe859d4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "35874947c293c88fafeeb27e42d7818f00bddabf6ae0acc30325e68bf403351c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "아질산염 우유로 영아 사망 → 목장 폐쇄·용의자 구금 → 범죄인지 보관 사고인지 불분명 → 잇단 식품 오염 사례로 이어져 요지·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This is the second food contamination",
+   "note": "잇단 사례 단락은 클렌부테롤·멜라민 사건과 이어 「반복되는 식품 오염」 요지가 서고 additive·laced 만 바꾸면 V5 다."
+  }
+ },
+ {
+  "id": "17ee4983-69dd-4254-bbfe-1ea1faea5b55",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f00b794bb990252b243fc478917da5ab40e5d29b55e1ca1eb0e73ada2b5dc2d5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "버마 난민 신청자의 역외 구금을 두고 변호사·녹색당의 「공정한 기회」 주장과 정부 방침, 나우루의 반발이 맞서 고2 이상 주장·장문 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "long_reference",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Ashmore Reef, already excised from Australia's",
+   "note": "법적 지위 단락은 「이주 구역에서 빠져 법원에 호소할 수 없다」는 핵심이 서지만 excised·entitlement 는 바꾸면 뜻이 흐려져 V6 에 둔다."
+  }
+ },
+ {
+  "id": "17f12d4b-f1f5-493f-a0f6-5a0571ca5a40",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b37764e6af1798b3cac0422cef4dae560a25d19dff925f876e69d35fba16e8eb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "사흘째 산불 → 만 명 대피 → 부시장의 「너무 늦었다」 호소 → 강풍 설명과 2007년 대비로 이어져 내용일치·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Athens Prefect Yannis Sgouras told state",
+   "note": "강풍 단락은 「바람이 불을 키워 진화가 어렵다」가 홀로 서고 prefect 만 「지사」로 풀면 V4 다."
+  }
+ },
+ {
+  "id": "17f189c6-478f-4c80-bd3f-27edd8d93975",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2d1ba62453f7368fb78b0ee2c40c0a0275f83ac4a63aecd94ba22036a96feca5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "투표 지연의 까닭(노트북 없이 종이 명부 확인)과 집권당·신생 야당의 대결 구도가 서서 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However, SWAPO is being challenged by",
+   "note": "신생 야당 단락은 「당 대표 경선에서 진 사람이 만든 당」이라는 기원이 홀로 서고 약어만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "17f9e82c-554c-4e82-87e3-815053cdfc64",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e03d0530f57b5ae415ad6acddaebc92e33e8accc1895985c2b4cdba48688662e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "강진 → 여진 → 해일 경보와 해제 → 정전으로 통가가 경보를 못 받은 역설로 이어져 중등 내용일치 칸을 채운다(좌표·시각 숫자는 걷는다).",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "No major damage or injuries have",
+   "note": "피해 단락은 「정전 때문에 정작 통가가 경보를 못 받았다」는 역설이 홀로 서서 좌표 숫자를 걷고도 문항이 됐다."
+  }
+ },
+ {
+  "id": "17fbbfc7-d74e-49f1-8820-069e716f090f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "fe2b287861167b1e5a70f8b36fca323cfc260b275bf3f882d8494a1570c86781",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "부총리가 뒷돈 조사위에서 전문 처리 절차와 「기억나지 않는다」「업무에 파묻혔다」는 해명을 이어 가는 장문 증언 기사라 고2 이상 장문·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "long_reference",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "When questioned by Mr Agius about",
+   "note": "해명 단락은 「새 부처 일에 파묻혀 후속 조치를 못 했다」는 변명이 홀로 서지만 portfolio·ministerial 이 반복돼 V6 아래로는 어렵다."
+  }
+ },
+ {
+  "id": "17fc6a1a-7ff6-4607-ad91-ab15c27b58bd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "560ecc6a2871841ca2832f3355108652863787c29d5f9768a7c8044aaeba7d9b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "최대 은행이 유닉스에서 리눅스로 옮기는 까닭(안정성·지원 부족·기존 소프트웨어)과 중국 내 확산 흐름이 서서 요지·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Zhou described the reasons for the",
+   "note": "이유 단락은 「안정성과 보안, 그리고 SCO 의 빈약한 지원」이 홀로 서고 migration 하나만 바꾸면 V5 다."
+  }
+ },
+ {
+  "id": "17fc7ce1-9645-4060-9aeb-642a696fde73",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2aacb588b5208e20bf4f0a4f72743b2306d9306f55e5bf3f4b1cfbae904aabdb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "섬 사이 항공 보조금 폐지에 맞선 청원 → 의원들의 비판 → 의회 대표의 반박으로 찬반이 서서 주장·목적·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "claim",
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The council's decision to remove the",
+   "note": "보조금 단락은 「좌석 75%가 비어 있다」는 의회 근거가 홀로 서서 청원 쪽 주장과 맞세우는 문항 재료가 됐다."
+  }
+ },
+ {
+  "id": "17fd9e6c-81a8-4f7f-a1dd-9726538b2b6f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "36fca26eb5c412198049af30e621633241e835c3438ebeac8cb0a4134004bd30",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "헌법 초안 막바지 쟁점이 연방제이고, 수니파가 석유 분배에서 밀릴까 두려워한다는 이유와 원칙 합의 소식이 서서 요지·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The controversy caused by the sudden",
+   "note": "수니파 우려 단락은 「석유가 북부·남부에 몰려 있어서」라는 이유가 홀로 서지만 federalism·autonomy 를 풀어도 V6 에 머문다."
+  }
+ },
+ {
+  "id": "17ff4dcc-0f9f-4f78-82ef-67c1f5f888a6",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7280e47ec87e3825892a8962ea4978aa2720e57d664e10d4753704159a64dd41",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "누적 감염·사망 수치와 나라별 봉쇄 연장 조치의 나열이라 떼어 낸 문단에 논지나 사건 흐름이 서지 않아 보관 최소선에 못 미친다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Around the world, countries announced stricter",
+   "note": "조치 단락을 떼 보니 모스크바·포르투갈·사우디·태국·오하이오의 날짜 목록뿐이라 문항으로 엮을 문장이 없었다."
+  }
+ }
+]

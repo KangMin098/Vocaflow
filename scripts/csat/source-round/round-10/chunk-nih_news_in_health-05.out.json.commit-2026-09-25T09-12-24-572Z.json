@@ -1,0 +1,1589 @@
+[
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "20fd52fb-33c3-497a-8111-679a286eceea",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c6f49b5759e8767cf86545718da7bee0ea14abe74ec22191e6d5d36ba2248fff",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "땅콩을 일찍 먹이면 알레르기가 81% 준다는 LEAP 연구(P5)가 옛 회피 권고를 뒤집은 흐름(P6~P10)이라 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The new guidelines may come as",
+          "note": "P9 의 「20년 전엔 피하라 했다가 철회했다」는 권고의 뒤바뀜이라 앞 문맥 없이 시대 대비 빈칸으로 가공됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.574Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2017/03/understanding-food-allergies",
+          "year": 2017,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "2130711e-af24-4878-9000-ec34259b4461",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fbd1b68e550cb4baf54803848035ac9fd8b105f172496ccf1a94e1b1e7ad64f9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "여드름이 음식·더러움 탓이라는 통념을 모공 막힘 기제(P2~P5)로 바로잡는 구조라 주장·빈칸 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "If the plugged follicle stays beneath",
+          "note": "P4 「블랙헤드는 때가 아니라 공기에 닿은 기름」은 통념 교정 문장이라 빈칸 문항으로 바로 쓰였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.575Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2010/01/understanding-acne",
+          "year": 2010,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "2139d5bc-dddd-4b06-a953-6167dc451878",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b7156bc456a8379de701fb7f25fa6c52964bb758d1ba55a4873e951f3027cf01",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "자해가 강한 감정을 다루는 해로운 방식이라는 설명과 주변의 대응법(P0~P11)이 서지만 자해 소재라 고1 이상 칸만 단다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Those are the key ages because",
+          "note": "P3 의 「환경이 바뀌는 나이라 자해가 많다」는 설명은 자해 방법 묘사 없이 떼어져 고등 지문으로 쓸 수 있었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.575Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2017/09/hurtful-emotions",
+          "year": 2017,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "21936d26-a4d3-41ca-be70-bc52f4c5da5f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4b9a8f6ddfa57b1cfe578c02363b47fe3b7b72b700110e8c568421f307f72057",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "sports",
+        "why": "NIH 가 아이와 부모·코치에게 운동 부상 예방 만화 책자를 읽으라고 까닭(P2)을 들어 권하는 공지라 목적 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "school",
+            "mock"
+          ],
+          "types": [
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The booklet gives tips on how",
+          "note": "P2 의 운동 이점·부상 위험 대비는 책자 이름 없이도 서고, P4 의 주소·전화번호는 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.575Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/11/bilingual-booklet-sports-injuries",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "21cee022-2759-4a22-ae12-3f7700024daa",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a0c55be709d416c4b09c807c5b2b767e0fa7212987ae53bedd7e0483e04475d3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "공포·불안이 시각에서 비롯한다는 설명(P2)과 가상현실로 불안·녹내장을 연구하는 흐름(P4~P13)이 문답으로 서 내용일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Huberman: We discovered that people with",
+          "note": "P7 의 「불안한 사람은 시선 탐색이 다르다」 답변은 1인칭만 3인칭으로 바꾸면 한 단락 연구 소개가 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.575Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/07/qa-dr-andrew-huberman-virtual-reality-research",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "21de0f9f-a0ac-42ec-a000-221236cd3412",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "debfb701b3b67b6a85be95aa5ae0a1b22b626239538d1befdc4c74dc32b62bc9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "NIH 가 행동·사회과학 연구를 소개하는 새 영상을 보라고 권하며 「행동을 이해하면 건강의 주인이 된다」는 까닭(P1)을 대는 안내라 목적 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "purpose"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The videos feature prominent scientists describing",
+          "note": "P2 의 영상 주제 네 가지는 문장으로 남기고 끝의 두 URL 은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.575Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/12/videos-highlight-behavior-health",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "21dedf68-1d27-4472-a379-bd8f86cbae37",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a56a018c53cce6330ba7f2bc22722d8809c20a1834576a7e67d07d0323decd68",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "art",
+        "why": "음악이 감정·기억·운동 영역을 켜고 음치·음악 교육·뇌졸중 치료와 이어진다는 연구들(P3~P19)이 한 편으로 서 주제·빈칸·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "insert",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Meanwhile, a different brain area that’s",
+          "note": "P9 의 즉흥 연주 때 자기 감시 영역이 꺼진다는 대목은 앞 단락과 묶어야 서서 P8~P9 을 한 문단으로 합쳤다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.575Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2010/01/strike-chord-health",
+          "year": 2010,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "22518196-a3ec-4e5d-a5e2-8265b9e9d946",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0b3848c0a9e85df17c4f71fb17c32d1e5e04002ca84c2929f821f58336e476ed",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "쇼그렌 증후군의 기제·진단이 늦는 까닭·치료(P2~P11)가 이어져 성인 대상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Sjögren’s syndrome arises when the body’s",
+          "note": "P2 의 면역계가 수분 세포를 공격한다는 설명은 lupus 예시만 빼면 한 단락으로 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.575Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/03/dry-eyes-mouth",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "228faf77-d11f-4260-bec2-abf7bcb31528",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f806304f601d57156b8ba4014f1643db1d38c7768435b5c4255991663b9cbefc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "뇌전증이 요란한 경련만이 아니라 미묘한 발작이 흔하다는 교정(P0·P5~P7)과 표적 치료 연구가 서 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Such subtle seizures—sometimes called partial or",
+          "note": "P6 의 미묘한 발작(데자뷔·멍하니 보기) 묘사는 전문어가 괄호로 풀려 있어 조정 없이 떼어졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2015/11/look-epilepsy",
+          "year": 2015,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "22918e4d-30e5-408a-a423-cc1df643d538",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8c999f364bae1494d3fb6d802183fb56509840b156b08025aad948148276ca9b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "백신이 나뿐 아니라 이웃을 지킨다는 주장(P4~P5)을 홍역 유입·천연두 박멸·Hib 감소 사례(P2·P8~P9)로 받쳐 주장·요지 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“Epidemiologists think of infections as chain",
+          "note": "P7 의 「감염은 연쇄반응」 비유는 Lipsitch 인용을 풀면 집단면역 원리를 한 단락에 담은 빈칸 문장이 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2011/10/community-immunity",
+          "year": 2011,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "22a6323c-2ba9-4439-925c-2f9e25ac5b11",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bc5cbe36b848ddb9dc00165294c08dfb5bcf69a4563fbd6ee726ab61c4bb7073",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "젊은 나이에 오는 전두측두 치매의 증상·진단 어려움·운동 효과(P0~P7)가 서 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“Symptoms may also tend to ebb",
+          "note": "P4 는 「says Boeve」의 Boeve 가 앞에서 소개되지 않은 채 나와 이름을 걷고 「experts say」로 바꿔야 떼어졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2023/06/what-are-frontotemporal-disorders",
+          "year": 2023,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "2330fba3-f8c1-401d-990a-e091b0630aa0",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e24a273242e1a586e61a1820486a11cca4a8ce0ea7f39035680e66a8727c4aa2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "한 사람의 게놈으로 질병 위험·약 반응을 예측한 사례와 윤리 과제(P0~P5)가 짧게 서 요지·요약 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "summary",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Scientists today can figure out the",
+          "note": "P1 의 게놈 해독이 빨라지고 싸졌다는 단락은 쉬운 말로 되어 있어 조정 없이 떼어졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2010/06/patients-genome-reveals-medical-risks",
+          "year": 2010,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "2347e880-3da8-40ae-b162-e744aba812fc",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "97d9e2371f77e90d09e91f7534ab195d4c3b647eb007b2d16e8c438e13e467d6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "백신이 빨리 나왔어도 같은 기준의 실험실·임상 3상을 거쳤다는 설명(P2~P3)이 서 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "There are three phases of clinical",
+          "note": "P3 의 임상 1~3상 설명은 단계 표지가 뚜렷해 순서 배열 문항으로 쪼개기 가장 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2021/05/how-are-vaccines-tested",
+          "year": 2021,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "2380abe6-4d0a-47c8-a0a8-d32e52d31728",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5d2c3a26ac324cf21ec6ee0ce8ef3c17952de22d53cc5d45b093068ccd45ab3e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "입원 중 안전을 지키는 요령(동반자·책임자 확인·손씻기·질문·기록, P3~P12)이 차례로 이어져 요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Don’t feel like you’re wasting your",
+          "note": "P10 「흰 가운은 갑옷이 아니라 천 조각」 비유는 이름만 빼면 요지 빈칸 문장으로 바로 쓰였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/12/staying-hospital",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "244d3885-2e6e-4d62-98d0-8b315c09feea",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "50a85478f3f0205f5522d7c7b85e6ff079b9d571770205b86ed44537c514b914",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "새해 결심을 지키는 전략(작은 목표·계획·동기·환경·기록, P3~P15)이 연구 근거와 함께 이어져 요지·순서·삽입 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "To make a long-lasting change in",
+          "note": "P6 의 「남 때문이 아니라 내게 의미 있어야 오래간다」는 인용이 요지 자체라 떼어 빈칸으로 만들었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2010/12/making-your-resolutions-stick",
+          "year": 2010,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "24522340-9f3c-45c8-905f-3fdb5ca6f96e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7c3a302728289281ba9ba58a84e23f9f6033976d420af5cbe4e3a82f14357732",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "발진이 피부 면역세포의 반응이라는 설명(P1)과 습진·접촉성·감염성·약물 발진의 구분(P4~P14)이 이어져 주제·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Your immune system might not react",
+          "note": "P8 의 「처음엔 반응이 없다가 나중에 예민해진다」는 알레르기 감작 원리를 한 단락에 담아 떼어 쓰기 좋았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/04/red-itchy-rash",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "24b751fd-d6c5-4a83-9563-dada8c3a87ff",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ec697e22eee50c33c9ffbc9590d88e6c0bcc4c4af51e0ef7d32f984548717a24",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "뇌진탕 뒤 뇌 표면에서 일어나는 손상과 3시간 치료 창을 찾은 연구(P2~P6)가 서 요약·순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "summary",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Immediately after brain injury, high levels",
+          "note": "P5 의 67%·51% 수치는 「빨리 바를수록 효과가 컸다」로 줄여도 논지가 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2014/01/insights-brain-injury",
+          "year": 2014,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "25019153-c2fe-4007-9715-92b8a74b1dce",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bac2642ee847f61306f27b451544578511199d7bbc14f7ca6c4f80a89da0b007",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "도시 청소년 천식의 계절성 악화를 약물 추가로 거의 없앤 임상시험(P3~P5)이 서 요약·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "To see how asthma outcomes might",
+          "note": "P3 의 실험 설계 단락은 omalizumab 을 「a new drug」로 바꾸니 V5 로 내려갔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2011/05/drug-helps-relieve-asthma-young-people",
+          "year": 2011,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "250d2b2a-712f-4d07-b072-dc5b219f8cca",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8347b40f9c9f5530431d2f875114e0ddd33f754fe39b976c27474f24a726b305",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "당뇨 유형별 기제(P3~P7)와 자가관리 부담, 인공췌장 기술 연구(P12~P17)가 이어져 주제·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "With type 1 diabetes, your body",
+          "note": "P4 의 1형 당뇨 기제는 hormone 앞 정의 조각을 지우면 인과가 깔끔한 단락이 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2017/12/managing-diabetes",
+          "year": 2017,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "25453181-71b6-453e-bf3d-6ccdb9391bad",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3356c41c5eb86c5da747d4032e5411a773cfce1bf53b0adc50a7036e103c0f50",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "카페인이 아데노신을 막아 잠을 쫓고 내성이 생기는 기제(P2~P5)와 개인차·주의점이 이어져 중등·고1 빈칸 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Caffeine blocks adenosine from working on",
+          "note": "P4 의 카페인이 아데노신을 막고 몸이 적응한다는 순서는 인과가 둘로 딱 나뉘어 빈칸·순서 문항에 모두 맞았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.577Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2020/10/tired-or-wired",
+          "year": 2020,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "2573fbc3-637d-48ea-92e9-aed502f40cda",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3d6f4aabeaa8cf14ea277d6696b998122478ba4cf9b7f92be9d4a34084dc4508",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "신생아 청력 선별 검사 두 가지와 후속 절차(P1~P5)를 설명해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The otoacoustic emissions (OAEs) test measures",
+          "note": "P2 의 이음향방사 검사는 「echo」 비유 덕분에 전문어를 빼도 원리가 전해졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.577Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2022/03/testing-baby-s-hearing",
+          "year": 2022,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "25d62c51-ef4f-4c15-aecd-b4a1bebb6b9c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "49966f0c37481e343eb200dcb467704c84e9c5859b3eb6e2f063f093131cc4a1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "혈액 단백질로 나이를 예측하고 세 시기에 크게 바뀐다는 연구(P1~P3)가 짧게 서 요약·내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The researchers found that proteins in",
+          "note": "P2 의 34·60·78세 세 물결은 수치가 곧 사실이라 남기고 plasma 만 빼면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.577Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2020/02/blood-proteins-change-across-lifespan",
+          "year": 2020,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "25fff2f6-699d-4db6-9546-f324dd4420ba",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7cf772eebe1bb03fcf42c0995ddeb15c8b3593111809d01d0f9b982062c8e2ea",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "NIH 가 요가를 고려하는 사람에게 효과·안전 연구를 담은 새 영상을 보라고 권하는 안내(P0~P1)라 목적 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "purpose"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A new online video from NIH",
+          "note": "P1 의 영상 소개는 권유 문장이 들어 있어 그대로 쓰고 P2 의 주소는 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.577Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/09/video-looks-science-yoga",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "266b12a7-1277-4587-a196-baf1e7e42212",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cb5cacc679dd707fc1db0ec7c4f0bdb190344ee8f1ec50ac25a3e5077e39525d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "폐경의 정의·전환기 증상·치료 판단(P0~P3)을 짧게 설명해 성인 대상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The menopausal transition often begins between",
+          "note": "P1 의 전환기 증상 나열은 문장형이라 그대로 떼어지지만 성 관련 한 문장은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.577Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2023/04/what-menopause",
+          "year": 2023,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-24-572Z",
+    "id": "26b902dd-e2c2-4be2-9998-f7aaf2af1585",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "951910aa7543e096078efa69b1e6a29c9526745a7cef2f454ef5a1b5695ba8e8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "정신질환 청소년 절반이 치료를 못 받고 소수 집단에서 더 심하다는 조사(P1~P3)가 서 요지·내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Overall, 55% of those with a",
+          "note": "P3 의 치료 접근 격차는 수치 없이 「소수 집단이 덜 치료받는다」로 줄여도 논지가 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:24.577Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2010/01/mental-disorders-youth",
+          "year": 2010,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  }
+]

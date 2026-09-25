@@ -1,0 +1,1818 @@
+[
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13abaa58-06e4-4db7-9753-0cff6d2fb578",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e082a06179e4802f6d20380dda5f1e238fdd5aa68500eacf37644f1d4b9e509b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "신화통신 납치 보도 → 폭탄 위협 보도 → 아프간·NATO 부인으로 이어지는 오보 정정 흐름이 한 편에서 서 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "title"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Earlier the Chinese news agency Xinhua",
+          "note": "둘째 문단은 보도가 바뀐 순서만 남기면 떨어지고, diverted·denied 를 쉬운 말로 바꾸니 V4 에 맞았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.915Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/No_bomb_threat%2C_hijacking_of_plane_in_China's_Xinjiang_region_according_to_Afghan_officials",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.736,
+          "words": 193,
+          "english": 0.421
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13b0cb77-3e44-4db8-8acd-d5876b74391c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "27ecaf8e3952a9be16154610c756b4339f542c40c40a58a10a0ab955cf40ea7e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "진앙·여진·피해·단층을 차례로 전하는 지진 보도로 사실 진술이 많아 내용 일치 칸을 채우고 여진 확률 문단이 수치 칸을 준다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "USGS predicts a 30% chance of",
+          "note": "여진 확률 문단은 수치를 두세 개로 줄여도 뜻이 서고 aftershocks 만 풀어 주면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.916Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/5.6_earthquake_strikes_California",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.367
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13b239d5-a07d-456a-8a73-54bde1fe2cfb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2ba5d67037fe5d2f97e3d6557a4c48de791301e6e4a1277f201e884353ea7053",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "윌킨스 빙붕의 분리 위험·면적 손실·해수면 영향·온난화 근거가 짧게 이어져 내용 일치와 주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic",
+            "title"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Scientists say that the shelf, if",
+          "note": "빙붕이 이미 떠 있어 해수면이 안 오른다는 문장을 골라 detaches→breaks off 로 바꾸니 중등 밴드로 내려갔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.916Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Massive_ice_shelf_expected_to_break_away_from_Antarctica",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.348,
+          "words": 184,
+          "english": 0.366
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13bf0fde-bafc-42a5-99b5-5be2aa7a0654",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0cf5cb40e17719993029771956d80c96a4a87ed7056634c61fe63b7033844d66",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "지진 피해 문화재 마을 롤롤 복구에 자원봉사자·학생·악단이 참여했다는 짧은 기사로 내용 일치 칸 하나를 사건으로 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Previously, 35 students of Tourism in",
+          "note": "학생 봉사 문단은 기관 이름을 걷어도 서지만 글이 짧아 한 문항 이상 만들기는 어렵다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.916Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Volunteers_collaborate_in_reconstruction_of_Lolol%2C_Chile",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.289,
+          "words": 152,
+          "english": 0.389
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13c58053-e408-47f0-b10d-f70c14316ecb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c93ab735ca6713e8916de28fdf36d0bc665a857a4866a31986d5c615218a403f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "JFK 연료시설 폭파 모의 적발을 체포자·계획·정찰 순서로 전하는 사건 보도로 고등 이상 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Defreitas traveled from Guyana to JFK",
+          "note": "정찰 문단은 인물 한 명만 남기면 서지만 테러 소재라 고2 이상 칸으로만 두었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.916Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Four_arrested_in_plot_to_bomb_infrastructure_at_JFK_International_Airport%2C_New_York_City",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.389
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13c599fa-9ed0-4311-a5e8-7b22eaccf218",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3c1668e1cc8e47308100435b33a633b6c00db056ec38cc846925a61b763d623d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "agriculture",
+        "why": "꿀벌 군집 붕괴의 규모 → 원인 가설(진드기·바이러스·농약) → 식량 영향으로 설명이 이어져 주제·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V4",
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Scientists say that the cause of",
+          "note": "원인 가설 문단은 독립적으로 서고 disoriented·lethal 두 낱말만 바꾸면 되며, 끝의 나라 목록은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.916Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/World_agricultural_honeybee_disappearance",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13c77510-2bc3-49f9-a99a-7283077eb67d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dd979a401700cf4a8ff011a2c54da6f185ee44bcac062d67d09c313bbedacb75",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "종말 예언 실패와 교주의 아동 성범죄 기소를 차례로 전하는 기사로 사건 흐름이 서지만 소재상 성인 칸 내용 일치로만 둔다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Members of the Lord Our Righteousness",
+          "note": "신도들이 금요일 밤 승천을 믿었다는 문단은 떨어지지만 뒤 문단이 성범죄 기소라 학생 칸으로 옮기기 어려웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.916Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Mexico-based_charismatic_leader_fails_to_predict_doomsday%2C_again",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.351
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13cce5b3-1286-4fac-86d1-99cdb33eafa7",
+    "revision": "2026-09-25T08:54:11.876171+00:00",
+    "body_sha256": "3c5ec2a5205c6825c810b125f2360cd21a06a9dffd4ae52411e81a7549a79fed",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "득표율·축하 연설·부정 의혹·OSCE 평가·재임 경력이 이어진 선거 보도로 내용 일치와 무관한 문장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "irrelevant",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Vladimir Putin first became President of",
+          "note": "재임 경력 문단은 앞 문맥 없이 서고 term-limit restrictions 만 풀어 주면 V5 로 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.916Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Vladimir_Putin_wins_fourth_term_as_President_of_Russia",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.325
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13d4c1f2-a29b-4ab6-849c-d3d299e18617",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b5fd38b214b004671532fabb1d03d1732596829dac9685deaa7f51ff4d2c6ebf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "참롱이 탁신 퇴진 요구에 가세한 까닭(통신 규제 변경과 주식 매각 이익)이 짧게 서 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The main thrust of calls for",
+          "note": "퇴진 요구의 이유 문단은 떨어지지만 main thrust·netting 같은 표현을 둘 바꿔야 고2 밴드에 맞는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.916Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Leader_of_1992_pro-democracy_uprising_joins_calls_for_Thaksin's_resignation",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.955,
+          "words": 177,
+          "english": 0.374
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13d73c64-cb54-486b-84f3-5dff63125ab8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fa9e1085b5e89b37589818cdd47ae1354702591b8433d71672aa60874cac0d53",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "캐나다 병사 사망 경위와 누적 전사자 수를 전하는 전쟁 보도로 사실 진술이 많아 고등 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In all, 24 Canadian soldiers and",
+          "note": "누적 전사자 문단은 짧게 서지만 첫 문단이 한 덩어리 긴 문단이라 쪼개기가 필요했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/5th_Canadian_soldier_in_a_week_killed_in_Afghanistan",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.33
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13dc5e35-72a7-4a25-a870-06035200ef2f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f2cbfd196a90e70f64e71157c1f1fe2ebdf0036b6b322279c0f5afacd3412afd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "비서실장 교체 사실·배경(지지율 하락)·후임 경력·향후 거취를 짧게 전해 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Card will remain as chief of",
+          "note": "거취 문단은 speculated 하나만 바꾸면 V4 에 맞고 앞 문맥 없이 읽힌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/White_House_Chief_of_Staff_Andrew_Card_resigns",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.202,
+          "words": 129,
+          "english": 0.461
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13de5604-ac82-4020-bd1a-49d7c68664d8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b6c9f9df1101a5873056a10b55f36f9f99dc8fe84abf35b891f0e29f43064130",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "sports",
+        "why": "끝 두 문단이 「Wong said:」「said to Wikinews:」 로 인용을 예고하고 인용 본문이 빠져 글이 중간에서 끊겼고 영어 문장도 거칠다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "In the starting of the 3rd",
+          "note": "타이어 파열 문단을 떼 보니 어법이 틀린 문장(damn hot weather·rose up)이 많아 고쳐 써야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2008_Tour_de_Taiwan_Stage_1%3A_A_triple-crown_honor_for_Kam-po_Wong",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.351
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13e1bd89-2004-4c06-8741-98bbea8be73c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8311a7ff6b4b4acec3381bf1a2e3bc504b369341726a14851d010d26a4a459fa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "판결 요지 → 재판부 인용 → 표결 → 앞선 법 → 타주 비교로 이어져 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In 2004, the state ruled that",
+          "note": "2004년 동거관계 문단은 서지만 inherit·belongings 를 풀어도 법률 문장이 길어 한 번 끊어야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Jersey's_State_Supreme_Court_says_gay_couples_have_same_rights_as_heterosexual_couples",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.397
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13e3af21-255a-4a76-b9ac-79ea087d453f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0363dd46090d1fd5003d5288b9d09189a029a7537bcfce273d8038a8ad70e154",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "BT 임금 제안 거부와 파업 찬반투표 절차를 노조·회사 입장 대비로 전해 내용 일치·요지 칸을 채우지만 영국식 노사 용어가 많다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Any ballot would run for a",
+          "note": "투표 절차 문단은 떨어지나 ballot·notice·industrial action 을 바꾸면 절차 뜻이 흐려져 어휘 조정이 어려웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Strike_ballot_to_go_ahead_despite_British_Telecom's_belated_new_pay_offer",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.308
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13e67230-b3f3-4c81-89b9-19f9d26db2cb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c4b77822c83300658de5ffbc05cbe9ff90bbfa415e096f434eb39fe6ca66b9f3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "화이자 감원 규모 → 원인(신약 폐기) → 지역 경제 타격 → 주지사 대응으로 인과가 서 내용 일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The money spent researching the drug",
+          "note": "신약 폐기 손실 문단은 인과가 분명하고 coupled with 만 바꾸면 V3 까지 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pfizer_to_cut_jobs_in_Michigan",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13e691f3-8364-4760-8dfe-d2939bf36ea1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0cc850f9fdb19152379e4cde5ef5c27fcdb0193fed61aaa3c79baa96aba166aa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대테러 개정안 급송과 위협 정보의 실체에 대한 반론이 이어지나 마지막 문단이 정부를 단정 비난해 가공 때 걷고 내용 일치 칸만 둔다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Some commentators noted that the nation's",
+          "note": "경보 수준이 그대로였다는 반론 문단은 쓸 만하고, 끝의 「track record of misleading」 논평 문단은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Anti-terror_amendments_to_be_rushed_through_Australian_parliament_because_of_new_'potential_threats'",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.438
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13e7cec2-722e-4115-8536-e70857c7d6b6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23a6bccdf4d4fdf190d73847e298cb8e9c34acf48d7e13957f02d85bfd780f89",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "다르푸르 평화유지 공백 경고와 수단 정부의 반발을 인용 대비로 전해 내용 일치 칸을 채우되 성폭력 통계가 있어 고등 이상으로 둔다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The U.N. is discussing a draft",
+          "note": "UN 결의 문단은 떨어지지만 intervention·domestic force 대비가 핵심이라 낱말을 바꾸면 뜻이 흐려졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Amnesty%3A_%22looming_human_rights_crisis%22_in_Darfur",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.357
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13e80a23-febf-4676-9dc9-f4dcbd270aac",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "889f3ee3d740166e9aa2ec1a313953ae946da7d8da51dca43a00cd639d563ff7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "니아스 섬에 지원이 닿지 않은 까닭(아체 집중·기반시설 파괴)과 이재민 규모가 서 내용 일치 칸을 채우며 끝 링크 안내는 걷는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Although the number of dead in",
+          "note": "이재민 문단은 수치 둘만 남기면 서고, see links below·NOTE 줄은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Nias_Yet_to_Receive_Aid_10_Days_After_Quake",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13e8d348-1152-47c0-b40f-4e4b4688375a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "955cca127df9eada47346ba9ff63db26139dcf62310a3a9e6bd1da45a3c7c430",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "선거일 발표와 영장 미발부라는 이례적 절차·야당 반발·군소정당 경쟁이 이어져 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The election process is expected to",
+          "note": "영장 발부 문단은 짧아 떼기 쉽지만 writs 는 바꿀 쉬운 말이 없어 설명을 덧붙여야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Queensland_state_Premier_announces_March_24_election_date",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13f34fbc-9d8f-402f-9e1d-cb6a47643dd4",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c3e10478bdf276160dedfdd7020404c9190c8cf8eef0207e982169b5f5f70e2e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "건강보험 개혁 찬성 의원들에 대한 위협 사례와 양당 지도자의 반응이 짧게 서 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "House Minority leader John Boehner said",
+          "note": "베이너 발언 문단은 폭력 반대 논지가 서고 channel it into 만 풀면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Security_threats_directed_at_US_Democrats",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.545,
+          "words": 176,
+          "english": 0.311
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13f931df-df0f-466e-83f8-19ac3d2d369a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6b5f11b465491dca02c0c79cae0d561ac1e978ba4dc9c5f6e414c1ee48509c57",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "요한 바오로 1세 시복식·생애·시복 요건·사망 음모론 반박이 이어져 내용 일치 칸을 채우며 교리를 사실로 내세우지 않고 전한다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Born impoverished in northern Italy in",
+          "note": "생애 문단은 연도 순서라 순서 배열로 쓰기 좋고 ordained·pontiff 를 바꾸면 V6 에 맞는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pope_Francis_beatifies_short-lived%2C_'smiling_Pope'_John_Paul_I",
+          "year": 2022,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.383
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13fa43be-6848-4b3c-94b2-885fc22655a2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "18322be5bd1f225ddc5ef536544f109325ef431129d44ed803d4bea2c2e7442e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "테넌트 하차 발표·소감·후속 특집·경력이 이어진 연예 기사로 내용 일치와 무관한 문장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Tennant had initially been interested in",
+          "note": "캐스팅 이력 문단은 연도가 많아 두셋 걷으니 중등 밴드로 읽혔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/David_Tennant_announces_exit_from_Doctor_Who",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.39
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "13fe8f56-446c-48c0-b413-3b61b548b4f6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1000b589e11c9f3f59bbf288579ee73de538183a15f8fe1e97359e0257897d44",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "TSA 가 승객 개인정보 이전에 대해 부정확한 진술을 했다는 감사 보고를 요지로 세워 내용 일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "According to the report, the data",
+          "note": "항공사 목록 문단은 목록을 걷으면 anonymized 한 문장이 남는데 이 낱말은 바꾸기 어렵고 인용부호가 문단 사이에서 끊겨 있다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_Transportation_Security_Administration_%22made_inaccurate_statements%22_about_passenger_privacy%2C_says_Department_of_Homeland_Security_report",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.364
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "140070d8-43ec-4b00-ace5-28d1e3734aa5",
+    "revision": "2026-09-25T08:53:28.341732+00:00",
+    "body_sha256": "ce5c8030bd9283e9e130faccf2f5f8158fec719b493b8bce620e995efe63dad0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "키르쿠크 탈환 경위와 유전·독립투표 배경을 전하는 분쟁 보도로 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The Prime Minister said Iraq had",
+          "note": "총리 발언 문단은 떨어지지만 Peshmerga·referendum 배경 설명 없이는 고2 에게 어렵다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iraqi_army_regains_control_over_Peshmerga_fighters'_occupied_Kirkuk",
+          "year": 2017,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.328
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-17-913Z",
+    "id": "14025781-0702-445f-ab90-09c42bfce51f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8300ad6d708900bc1bca2f0e376be86a554f9128abc5e85b216659c63fde8eea",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "세계은행 보고서의 미국 여성 격차 항목 → 과거 입법 성과 → 인식 변화 → 국가 비교가 이어져 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Many of the legislative victories for",
+          "note": "입법 성과 문단은 연도순이라 순서 문항에도 맞고 suffrage·consent 두 낱말을 바꾸면 V5 로 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:17.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2012_Report_on_Gender_Equality_and_Development_says_US_women_have_room_for_progress",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

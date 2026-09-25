@@ -1,0 +1,1844 @@
+[
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16c30a07-badb-44b4-85cb-d3bf57322b71",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fac856ac39a52bad356777986aa8f63ebe7c82b418a56bb8388e4aeb8749c199",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "종이 투표의 투명한 절차 설명 → 기계 반대론(불투명·장관 승인 문제) → 옹호론(비용·시간 절약)으로 찬반 논지가 서서 요지·주장·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "As in the United States, there",
+          "note": "반대론 단락은 「대중이 이해하는 공개 개표를 믿어야 하는 불투명 과정으로 바꾼다」는 논지가 홀로 서고 entail·discrepancies 만 바꾸면 V6 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.670Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Electronic_voting_disputed_in_France",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.357
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16c5b55c-8110-471f-9be6-18e2523a25a6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dc2ed9224a3abacf2ffa2fb25fb3e225c937abdd6ad8c66cd225205db68ed8c1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "9·11 연결 연설 → 민주당 비판·여론조사 → 병력 증파 질문 답변으로 흐르는 장문이지만 서술에 기자 논평(괄호 반박)이 섞여 가공 전제로 고2 이상 칸만 단다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "long_reference"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Opinion polling conducted this week by",
+          "note": "여론조사 단락은 「처음으로 과반이 이라크전과 테러전을 별개로 본다」가 서지만 앞 단락의 괄호 반박 같은 논평은 가공 때 걷어야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.671Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/United_States_President_George_W._Bush_makes_speech_to_rally_support_for_war_in_Iraq",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.405
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16c97235-82d7-442e-a21c-67cd345b13dd",
+    "revision": "2026-09-25T08:49:30.499468+00:00",
+    "body_sha256": "cfabdfa7e6b500a77257f1283e9d37494370483db1ea9cc49bf5ec28699480c9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "쇼핑센터 앞 흉기 사건 → 헬기 이송·퇴원 → 용의자 체포·기소로 이어지는 짧은 사건 기사라 고1 이상 내용일치 칸만 단다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The suspect, not named by authorities,",
+          "note": "용의자 단락은 한 문장이라 다음 기소 단락과 붙여야 서고, 청소년 흉기 사건이라 연령 칸을 고1 이상으로 묶었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.671Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/16-year-old_girl_charged_with_attempted_murder_in_Melbourne%2C_Australia",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.882,
+          "words": 119,
+          "english": 0.375
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16d342a8-1a4e-44db-91ee-014b750b8798",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "db8d10cd19d42769d71f528f00764889c24ca5e6bbe4d1c05e62343a9cc6ed67",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대통령 호위 헬기 추락 → 사상자 → 기술 결함 추정 → 지진 2주년 방문 목적으로 이어져 내용일치 칸을 채운다(첫 문장이 줄바꿈으로 둘로 갈렸다).",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The helicopters were visiting the scene",
+          "note": "방문 목적 단락은 「지진 1주기를 기리러 가던 길」이 홀로 서고 anniversary 는 문맥으로 잡혀 바꿀 낱말이 거의 없었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.671Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Four_killed_as_helicopter_escorting_Pakistani_President_Pervez_Musharraf_crashes",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.667,
+          "words": 120,
+          "english": 0.35
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16d49413-c64c-42bf-8384-b5d65a3a2fd8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a5dc9234a0e5c53db11f4f3802051aef50e307a3a08cfe51c76a4424da777bf9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "115세 최고령자 사망과 장수 비결 인용(술·담배를 안 했다), 다음 최고령자로 이어져 중등 내용일치 칸을 채운다(인용이 줄바꿈으로 끊겼다).",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Baines, who was born on April",
+          "note": "출생 단락은 줄바꿈으로 갈린 두 줄을 이으면 「앞선 최고령자 사망 뒤 최고령이 됐다」가 서고 longevity 하나만 풀면 V3 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.671Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/World's_oldest_person_dies_in_California_at_age_115",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.154,
+          "words": 130,
+          "english": 0.355
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16d67777-e563-499d-b67b-1190f9a26069",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8a86b82d3f0c5d8dff4b98940b78f7cc5d1647f90361e58859c95c9e23bce146",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "장관 탑승 헬기 추락 → 목격담 → 대통령·총리 애도 → 고인의 소말리아 파병 역할과 이력으로 이어져 내용일치·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "long_reference"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Saitoti, who personally told the public",
+          "note": "파병 발표 단락은 고인의 역할이 홀로 서지만 assurances·aftermath 가 겹쳐 두 낱말을 바꾸니 겨우 V5 였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.671Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Kenyan_helicopter_crash_kills_security_minister",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.317
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16e03966-94c0-4f1c-87aa-9df8917c1467",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a477ed33a01570a40c86c33314dd1bfb44c7b574979f296c4e9a4e431e3817c4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "언론사 건물 공습을 두고 IDF 의 「통신 거점」 해명과 기자 부상·제네바 협약 조항이 맞서는 구도가 서서 고2 이상 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Though the IDF admits they knew",
+          "note": "해명 단락은 「알았지만 표적은 아니었다」는 주장이 홀로 서지만 human shields 같은 표현을 바꾸면 논지가 흐려져 V6 에 둔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.671Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Israeli_Defense_Force_admits_to_targeting_media_center_in_Gaza_City_airstrike",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.363
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16e04eac-68b0-4f6d-8398-bf504b3804ef",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4aa9d48d2058b2545d7f93d3d806a8f57e26268fa21495d1066da0c8d2688fb5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "가방 속 금속통 → 공항 대피 → 무혐의 석방 → 연휴 전 재개장으로 사건이 순서대로 흘러 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The airport fully reopened just after",
+          "note": "재개장 단락은 연휴 인파를 앞두고 문을 열었다는 흐름이 서고 precaution 이 없는 단락이라 V5 로 맞추기 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.671Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Scientist_detained_after_bomb_scare_closes_Miami_airport",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16e7b1e6-25f2-4a5f-91a2-34b7e987645e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "18341ff5f9bcf617a44d4d11c0fceab75b40d4f2bc43c24f7e131827d120de6f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "두 보안 결함의 원리와 대응 패치를 설명한 앞 절이 서고, 뒤쪽 설정 메뉴 단계 목록은 가공 때 걷는 조건으로 내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A number of changes have been",
+          "note": "허용 사이트 단락은 「설치 목록에 기본으로 들어가 표적이 됐다」는 까닭이 서지만 끝의 클릭 단계 두 묶음은 조작 안내라 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.671Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Major_security_flaws_found_in_Mozilla_Firefox_browser",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.415
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16f166a4-6bb0-4c0b-9232-59897f599418",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e63cfe4e509d559b054a0f57f8a91023c1b5f2876453af1274ac9ecfe56e3237",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "실질 임금 40% 하락 주장 → 파업 찬성 투표 → 노조 인용 → 고용주의 「소수」 반론으로 찬반이 서서 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Universities and Colleges Employers' Association",
+          "note": "고용주 단락은 「위협을 거두면 협상」이라는 조건부 주장이 홀로 서고 industrial action 만 풀면 V5 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.671Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/British_University_academics_vote_for_strike_action",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.389
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16f26dc4-66a2-4c66-bbf7-8875b68b55fc",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0bf1d68de0f2bc0c85dfd8386d75c9763003cc4adab7c45acf8274f138514f7b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "「소파에서 일어나라」 캠페인이 첫 투표자 참여를 끌어내려는 까닭을 인용과 투표율로 대며 목적·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "purpose",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The 2005 election showed that 1",
+          "note": "2005년 결과 단락은 수치가 많아 약하지만 「10% 지지를 모으겠다」는 목표와 붙이면 캠페인 목적이 선다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/The_Socialist_Left_Party%E2%80%99s_election_initiative_starts_in_Norway",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.67,
+          "words": 194,
+          "english": 0.363
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16f27ad4-1ad4-43e3-ac2a-597d0d8f4f8c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d74a002ef2d6829f647d5cf03f93f90ba7e04bfed15cd564a92084a7393dd0ab",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대세가 기운 경선에서 허커비가 두 주를 이겨 물러서지 않겠다는 흐름과 「수학 대신 기적을 전공했다」 인용이 서서 내용일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Though Romney, Huckabee's chief rival among",
+          "note": "경쟁자 사퇴 단락은 「길을 비켜 주지 않겠다」가 홀로 서고 presumptive·suspended 두 낱말을 바꾸면 V5 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Huckabee_wins_Kansas_and_Louisiana",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.32
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16f981ef-8e04-4558-a873-53c206d204f7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "172ba12c0d50a6e912076a13b4f300dec630c678d47ec5c8a38cd9f2c7ea5596",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "산불 진화 대원 수송 헬기 추락 → 생존자 화상 이송 → 원인 조사 → 진화 현장 설명으로 이어져 고1 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The firefighters had been fighting flames",
+          "note": "진화 현장 단락은 대원들이 어디서 무엇을 하던 중이었는지 홀로 서고 contained 하나만 풀어 쓰면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Nine_presumed_dead_in_helicopter_crash_in_California%2C_United_States",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.372
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "16fb6a4e-1812-4801-ad16-de420fba1f22",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c4fa1e97633eb294113231b98927fc3972091e4766d423b11cb729d09d79e2d0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "구호 통로 보장 촉구 → 약탈 피해 증언 → 휴전 불이행 → 두 장군 대립의 배경까지 인과가 긴 글로 서서 고2 이상 장문·주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "long_reference",
+            "claim",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The two generals disagreed over the",
+          "note": "배경 단락은 「민주 이행 방식과 군 통합 지휘권 다툼」이 홀로 서지만 paramilitary·integrated 를 바꿔도 이름과 약어가 남아 V6 에 머문다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UN_humanitarian_chief_Martin_Griffiths_urges_guarantees_of_safe_passage_for_aid_amid_Sudan_conflict",
+          "year": 2023,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.387
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "1704e249-8007-464c-b31b-ff198f905c87",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a9a2a61e99ead8aa9dfaadcd2a4922bd63fcf4dafb29d57a57a68621204ba7ae",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "시위대 공항 점거 → 총리 귀국 저지 목적 → 경제 타격 우려 → 폭발·협상 거부로 이어져 내용일치·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "long_reference",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Deputy Prime Minister Olarn Chaipravat expressed",
+          "note": "경제 우려 단락은 투자 신뢰·관광 피해의 인과가 홀로 서고 adverse·dented 두 낱말을 바꾸면 V5 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Third_day_of_'King_Taksin_operation'_sees_Bangkok_airport_closed",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.353
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "1706a3c5-f1e0-4ee4-9897-b35fe2b2beac",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f682d7eff48c75648a8aa1a085942d3f191dfb851bea236cfe6489bd0ff32084",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "비 안 온 독립기념일 경험이 공화당 성향을 높인다는 연구 결론과 수치, 공저자의 해석·후속 연구 필요로 이어져 요지·수치 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "David Yanagizawa-Drott, a public policy professor",
+          "note": "해석 단락은 「가치가 공화당에 가깝다」와 「더 연구가 필요하다」가 한 문단에 서서 빈칸·요지 문항으로 바로 쓸 수 있었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_children_who_celebrate_Independence_Day_more_likely_to_become_Republicans%2C_says_Harvard_study",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.388
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "1706e312-1a0a-4c3a-83b6-f17b5de79df1",
+    "revision": "2026-09-25T08:53:57.740665+00:00",
+    "body_sha256": "8df5a6bf68dd03fb6b3faf0f60308f4deb70ef3f33b95dd980fdd75bcda500b4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "요양병원 화재 → 연기 흡입 사망 → 스프링클러 부재 해명 → 잇단 화재와 대통령 지시로 원인·교훈이 서서 고1 이상 내용일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In a press briefing, Seok Gyeong-sik,",
+          "note": "해명 단락은 「작아서 스프링클러가 없었고 새 법이 6월까지 요구한다」가 홀로 서서 가공할 낱말이 거의 없었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/South_Korea%3A_Fire_in_hospital_housing_elderly_people_kills_at_least_37",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.377
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "170c6e0f-d591-4601-8bb0-0c814b51fb46",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4014ff4e9f8b4dbd6c5f4406a3fbc23d2a49caf0b29b4b469ad39693976ea8c7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "지지율 수치 뒤에 「진전의 느낌이 없다」는 해석과 카르자이 감사 인용이 붙어 수치 나열을 넘어 까닭이 서므로 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"There's no good news on Afghanistan,",
+          "note": "해석 인용 단락은 「다쳤다·죽었다는 소식뿐이라 진전이 안 보인다」는 이유가 홀로 서서 수치 단락보다 문항 재료가 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ipsos_Reid%3A_Poll_shows_more_Canadians_oppose_Afghan_mission",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.33
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "170df353-c920-4c7b-b4fd-aeb84807f56a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0af5bc84cbd238ffaf116686a5060c386565a3de0d7c7fa0b64a5c6b19102fc5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "히잡 금지로 수업에서 배제된 학생의 소송과 「세속 사회 유지에 합리적」이라는 판결 논리가 맞서 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The ban was reasonable as a",
+          "note": "판결 단락은 논지가 서지만 인용문이 「there had to be borne in mind」 같은 법정 문체라 낱말 몇 개로는 V6 아래로 못 갔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/EU's_human_rights_court_endorses_Turkish_headscarf_ban",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.52,
+          "words": 177,
+          "english": 0.451
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "170f433f-bc02-49a2-b5c7-a5b5ac0d35dd",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eebb757069b991b93ee43497d5bf9c53483c67c93586d48387f0a018309665cf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "두 의원을 다르게 대했다는 이중잣대 비판과 「유죄 인정 여부가 다르다」는 반론이 짝을 이뤄 고2 이상 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to Democratic leaders, they let",
+          "note": "비판·반론 단락은 한 문단에 양쪽 주장이 다 있어 떼기 쉬웠고, 성 추문 소재라 연령 칸을 고2 이상으로 둔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Republican_leaders_accused_of_double_standard_after_Larry_Craig's_resignation",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.667,
+          "words": 150,
+          "english": 0.393
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "17130389-356e-42fb-bf1c-118306a8708a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8938f8eb26edbbd1aa828e7bd16fd6a4f6cecdd5821c26ae7ec0c2724075c1cc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "자금난으로 문을 닫는 단체가 자평한 성과와 선거 부정·몰래카메라 추문의 이력이 대비되어 고2 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The group, founded in 1970, played",
+          "note": "이력 단락은 「주목받다가 추문으로 무너졌다」가 서지만 성매매 알선 언급 때문에 고2 이상으로 묶었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Non-profit_ACORN_plans_to_shut_down",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.352,
+          "words": 179,
+          "english": 0.348
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "171c92d2-a7da-462f-b5dd-754a67b8f8b2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2dc33cd439fc32e0535fa739082acace500c112727cf51692e412d1b8715c6c1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "동성혼 법안을 예산안과 묶어 신임 투표로 만든 전략과 야당·당내 반발, 부결 시 내각 사퇴 조건이 서서 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "At least three Liberal MPs have",
+          "note": "이탈 의원 단락은 「부결되면 정부가 물러난다」가 서지만 confidence vote·backbencher 는 캐나다 의회 배경 없이 풀기 어려웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canadian_PM_vows_to_push_ahead_with_same-sex_marriage_bill",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.79,
+          "words": 167,
+          "english": 0.341
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "171e3706-8caf-4246-a8f7-eda122fb5ef8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8913bd260575e0fbc77d22b55d5b8824bc6603c18438838395cdee5feb8c352d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "레저 박람회 참가 기업·행사 소개에 에너지 효율 주제로 자전거가 밀린 까닭과 전자 업계가 빠진 결과가 붙어 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A major topic in the trade",
+          "note": "에너지 단락은 「그래서 자전거를 밀었다」 인과가 홀로 서지만 한 문장뿐이라 앞 행사 소개와 붙여 썼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2008_Leisure_Taiwan_launched_in_Taipei_World_Trade_Center",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.698,
+          "words": 149,
+          "english": 0.333
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "1720641a-fe91-49e0-8a10-ebe15c3a0384",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4747545511fbcd4d04b13f24aa7e276142b8f17ceb511cae755a3b17a37f7457",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "경호원 폭탄 부상 → ETA 소행 지목 → 며칠 전 정당 간부 체포라는 배경으로 이어지는 짧은 기사라 고1 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It comes days after suspected leaders",
+          "note": "배경 단락은 「체포를 선전포고라 불렀다」가 홀로 서지만 앞 두 단락 없이는 무엇의 배경인지가 비어 붙여 썼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Basque_city_car_bomb_injures_bodyguard",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.54,
+          "words": 113,
+          "english": 0.363
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-28-668Z",
+    "id": "17247253-8f40-4697-a0a4-19ed35ba5880",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a7bacbf79dab17fc9d537f86c95c0f76594ae68bb3b054de5a58b4d495b418b4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "정부군 점령 하루 만의 반군 탈환 주장과 비행금지구역 요구 확산이 이어져 고1 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "As the violence continues, calls for",
+          "note": "비행금지 단락은 아랍연맹 표결과 프랑스 설득이 홀로 서고 no-fly zone 만 풀어 쓰면 V4 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:28.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Libyan_rebels_retake_town_of_Brega",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.072,
+          "words": 138,
+          "english": 0.357
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

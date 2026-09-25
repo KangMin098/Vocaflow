@@ -185,6 +185,24 @@ function stripTemplates(t) {
     // 숫자를 싣는 템플릿 — 통째로 지우면 「within of」「It flew for before」처럼 숫자가 빠진다
     //   (회차 8 판정자가 여러 편에서 짚었다 · 덤프 실측 formatnum 154 · money 58 · convert 6 · currency 4).
     //   {{formatnum:1234}} → 1234 · {{convert|5|km|mi}} → 5 km · {{money|12|USD}} / {{currency|12|USD}} → 12 USD
+    // 인용 템플릿 {{cquote|본문|출처…}} · {{quote|…}} · {{quotation|…}} · {{rquote|정렬|본문}} — 덤프 ~570곳.
+    //   통째로 지워 「Stanley said:」 뒤가 비었다 — 판정자들이 incomplete-source 로 되풀이해 보류한 주원인(회차 6·8·10).
+    //   본문은 **첫 번째 위치 인자**(rquote 는 둘째 — 첫째가 left/right 정렬). `[[a|b]]` 안의 `|` 에서는 나누지 않는다.
+    t = t.replace(/\{\{\s*(cquote|quote|quotation|rquote|quote box|blockquote)\s*\|([^{}]*)\}\}/gi, (_, name, body) => {
+      const parts = []
+      let depth = 0, cur = ''
+      for (let i = 0; i < body.length; i++) {
+        const two = body.slice(i, i + 2)
+        if (two === '[[') { depth++; cur += two; i++; continue }
+        if (two === ']]') { depth = Math.max(0, depth - 1); cur += two; i++; continue }
+        if (body[i] === '|' && depth === 0) { parts.push(cur); cur = ''; continue }
+        cur += body[i]
+      }
+      parts.push(cur)
+      const positional = parts.filter((p) => !/^\s*[a-z_ ]+\s*=/i.test(p))
+      const pick = /^rquote$/i.test(name) && /^\s*(left|right|center)\s*$/i.test(positional[0] ?? '') ? positional[1] : positional[0]
+      return `\n\n“${String(pick ?? '').trim()}”\n\n`
+    })
     // Wikinews 자체 단위 템플릿 {{km to mi|1000}} · {{M to ft|260}} · {{F to C|90}} — 덤프 실측 ~165곳.
     //   이게 주된 원인이었다(「It flew for {{km to mi|1000}} before」 → 「It flew for before」). 첫 단위로 숫자를 살린다.
     t = t.replace(/\{\{\s*(km|mi|m|ft|feet|f|c|in|cm)\s+to\s+(?:km|mi|m|ft|feet|f|c|in|cm)\s*\|\s*([^{}|]+)(?:\|[^{}]*)?\}\}/gi, (_, u, n) => {
