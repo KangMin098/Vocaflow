@@ -1,0 +1,874 @@
+[
+  {
+    "id": "58eef832-9cf7-42e9-a1e7-bfd90c32cbe7",
+    "source_updated_at": "2026-09-23T21:04:50.049626+00:00",
+    "body_sha256": "dee81c0c8f8c3f71f9eeadee18690da56eb9f31c4844e6e87a7661436eaa16f6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "history",
+    "why": "16세기 모하치 집단묘 두개골 병변을 결핵으로 좁혀 가는 감별 진단 절차가 한 편의 논증으로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although once thought to have been conquered",
+      "note": "해부 용어(clivus·osteolytic)를 「두개저」「뼈가 녹은 자리」로 풀면 서고, 고찰의 감별 진단 네 갈래는 순서 지문이 된다."
+    }
+  },
+  {
+    "id": "58f8b170-a531-4f94-8070-7e544ef442f4",
+    "source_updated_at": "2026-09-15T15:04:52.067361+00:00",
+    "body_sha256": "6afd28eef78501e24e5f8efce5367fa7867db55c038a7a9207d47e5c7cc0e9e4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "소 백신의 비용 절감 설계를 항생제·유도제·기계 파쇄 제거라는 세 근거로 잇는 고찰 단락이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cattle can harbor bacteria in their digestive",
+      "note": "균주명과 플라스미드 이름을 걷어도 「값싸야 보급된다」는 논지가 남는다."
+    }
+  },
+  {
+    "id": "590579b8-f66b-4a35-89db-9e3a2a77eff6",
+    "source_updated_at": "2026-09-25T07:00:27.026062+00:00",
+    "body_sha256": "90e3405a71577b81cb4d70c76296fcd10fde3d78b29bd7f69b2e7829794b7a47",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "BRCA1 단백질 안정성을 세포주기에 맞춘 유비퀴틴 경로로 설명하고 치료 표적까지 잇는 고찰이 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "PARPi therapy has shown promising efficacy in",
+      "note": "효소 약어가 촘촘해 어휘 교체로는 밴드가 크게 내려가지 않는다 — 고찰 앞부분만 발췌해야 한다."
+    }
+  },
+  {
+    "id": "59082e31-9c67-4219-b9e9-a60bb347d8f0",
+    "source_updated_at": "2026-09-13T06:49:48.644045+00:00",
+    "body_sha256": "5248eb0d92abea72bef980c437401800edb7802466a956ab77e3858705e9ddc5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "면역억제제와 항리슈만 약 사이의 교차내성을 실험 순서대로 세우는 고찰이 한 편의 주장-근거 구조를 이룬다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The primary challenge in immunosuppressed patients with",
+      "note": "본문 절반이 단백질 목록 표라 그 부분은 가공 때 통째로 걷고 고찰만 쓴다."
+    }
+  },
+  {
+    "id": "5908e436-3b28-47dd-8fe6-2bcab495097a",
+    "source_updated_at": "2026-09-05T23:47:30.405542+00:00",
+    "body_sha256": "9258810be1ff306c2385245ae8bd86bd6affdbf7ba41f7dd27fb4326728d4b48",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "한약 과립의 성분을 흡수 성분으로 좁힌 뒤 면역 과잉 반응 억제로 잇는 고찰이 다단 논증으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Influenza is a highly contagious acute respiratory",
+      "note": "성분 이름 나열은 「여러 성분」으로 묶으면 되고, 서론의 면역 양면성 단락이 그대로 지문이 된다."
+    }
+  },
+  {
+    "id": "5917e70a-4286-48fa-ba28-294bd795a497",
+    "source_updated_at": "2026-09-15T15:04:54.225977+00:00",
+    "body_sha256": "f575144b51de21b78037bd5089c942a14a45a523674d1fd4061c0efc20ff6773",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "콜롬비아 두 식물의 피부 관련 효소 억제 결과를 전통 지식·생물다양성 논의와 함께 묶는 고찰이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The study of plant species from contrasting",
+      "note": "고찰 첫 단락은 수치 없이 논지만으로 서고, 측정값은 걷어도 흐름이 유지된다."
+    }
+  },
+  {
+    "id": "593a198d-35d6-40ef-97f0-ee41ce4735cd",
+    "source_updated_at": "2026-09-13T06:58:35.642237+00:00",
+    "body_sha256": "ec95b4aa620fba9a502f50277bce77239bf62fa78ea209d4702566e988474fff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "식물 병원균이 흙과 물에서 살아남는 방식을 유전자 발현 변화로 설명하는 고찰이 사례-일반화 구조로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As an environmental pathogen, R. solanacearum can",
+      "note": "유전자 이름을 「스트레스 대응 유전자」로 묶으면 중등 상위까지 내려가고 논지는 그대로다."
+    }
+  },
+  {
+    "id": "596a5e59-d119-49c3-a27b-71ab1653f485",
+    "source_updated_at": "2026-09-25T07:00:52.557064+00:00",
+    "body_sha256": "7d9fe70ea23ae964570def921d1497e84ab2d0a76c7fdc81da7a173364246978",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "알레르기 비염에서 수용체 결손이 전구세포 단계까지 영향을 준다는 주장을 한계까지 적어 내려가는 고찰이 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The biological effects of chemokines are initiated",
+      "note": "세포 표지 기호(CD34⁺CCR3⁺)가 문장마다 나와 어휘 조정만으로는 밴드가 잘 내려가지 않는다."
+    }
+  },
+  {
+    "id": "5986e4a4-596f-4d60-9af5-df4515809603",
+    "source_updated_at": "2026-09-25T07:01:03.20387+00:00",
+    "body_sha256": "8392afb356464b706a67106e9ac21b528fbc1c051485eea721dc1b44ffefda10",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "본문 대부분이 후보 유전자 점수표와 데이터 출처 설명이라 떼어 낼 논지 단락이 어디인지 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Identification of sequence variants between the C3Fe",
+      "note": "문단을 떼면 「S26 Table」 같은 표 지시가 남고, 표를 걷으면 문장이 텅 빈다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "5991530c-f653-4456-8ae1-2d54b62489b0",
+    "source_updated_at": "2026-09-25T07:01:05.700669+00:00",
+    "body_sha256": "6a54ffbdf5d0f8d2eee9f61480594f8634a779338a5439c548f96ced12455bad",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "소 브루셀라증 혈청양성률의 연도·계절·지역 차이를 해석 한계까지 밝히는 결론이 수치 나열을 넘어선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This study provides a province-wide description of",
+      "note": "지역명·신뢰구간을 걷으면 「계절 차이는 보고 관행 탓일 수 있다」는 논지가 오히려 또렷해진다."
+    }
+  },
+  {
+    "id": "5999b113-ecb4-4303-9d31-9a1207c34b91",
+    "source_updated_at": "2026-09-13T06:43:11.931754+00:00",
+    "body_sha256": "fa351897ed254fd6befb93659ea32595038aed588f401b1176086fc1e27afb6b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "예상과 달리 효소 결손이 천식 반응을 바꾸지 않았다는 음성 결과를 근거를 들어 해석하는 고찰이 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mast cells are known to initiate a",
+      "note": "「가설은 이랬는데 결과는 아니었다」는 구조라 빈칸·요지 문항에 그대로 쓰인다."
+    }
+  },
+  {
+    "id": "599dcaa0-bf18-4f41-9d2d-0050ba4a202f",
+    "source_updated_at": "2026-09-13T07:14:42.526002+00:00",
+    "body_sha256": "3384634281669f0b7072314679d98863428eda4cfd68014a1c41e03d15d394ef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "비부호화 변이의 영향을 예측하는 두 접근을 나누고 한계를 견주는 서론이 그 자체로 비교 논증이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Most reported disease-associated variation for complex traits",
+      "note": "도구 이름이 많아 「한 방식/다른 방식」으로 바꿔야 하고, 그러면 두 문단짜리 비교문이 된다."
+    }
+  },
+  {
+    "id": "599f9b2d-000a-4d78-be02-29716a527aca",
+    "source_updated_at": "2026-09-15T15:05:08.018768+00:00",
+    "body_sha256": "e346971de8c12ead52371fc6367685ed36d5fd443cb99b62852158e9d27da11f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "늙은 관절의 회복력 저하를 대식세포 분화 실패로 설명하고 한 유전자 과발현으로 되돌린 결론이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In recent study, a young systemic environment",
+      "note": "「젊은 관절과 늙은 관절」 대조가 뼈대라 용어를 풀어도 흐름이 무너지지 않는다."
+    }
+  },
+  {
+    "id": "59b096b4-46d8-496b-9eca-e51ec5dd2159",
+    "source_updated_at": "2026-09-13T07:10:37.926597+00:00",
+    "body_sha256": "d155bbfa780825f4a9c770d11702c693dfe74808f7e6197488fa9c114f815755",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "기생충 감염에서 어떤 수용체가 방어 반응을 켜는지 후보를 하나씩 지워 가는 결과 서술이 절차 논증으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cryptosporidium is a leading cause of diarrheal",
+      "note": "그림 지시(Fig 5A)는 걷어야 하지만 후보를 배제하는 순서 자체가 남아 순서 문항 재료가 된다."
+    }
+  },
+  {
+    "id": "59b24305-d92c-4c14-8906-a544b3fe59fb",
+    "source_updated_at": "2026-09-25T07:01:11.555206+00:00",
+    "body_sha256": "d3811e13b9a7b0ed2e510ba0717973e049726877985d4f079138555e4a4f5693",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "테라헤르츠 흡수체가 입사각·편광에 얼마나 견디는지 까닭까지 붙여 설명하는 단락이 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The observed angular stability up to large",
+      "note": "주파수·감도 수치가 문장마다 박혀 있어 걷어내면 문장이 짧아지지만 인과 설명은 남는다."
+    }
+  },
+  {
+    "id": "59b8f693-cdfa-4969-a465-011952878ad9",
+    "source_updated_at": "2026-09-15T15:05:09.413033+00:00",
+    "body_sha256": "272571c277a8aee37197518c7792e6ad4b9fd3f7723ef5c480c5f058f613a2dd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "카드뮴이 게 아가미에서 신호 경로를 거쳐 세포 손상에 이르는 과정을 시간 단계로 정리한 결론이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Summing up previous study and our study",
+      "note": "초기·중기·후기 3단 구성이 그대로 순서 문항이 되고, 효소 약어만 풀면 된다."
+    }
+  },
+  {
+    "id": "59c4b5a1-30c3-49e3-a496-c942ce071e31",
+    "source_updated_at": "2026-09-13T06:53:28.948193+00:00",
+    "body_sha256": "f6ac40ae2f58d3cd91e67edf0fb43e9e4fa2cbed6ea64dcb806127b878266869",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "세균 검출이 왜 빨라야 하는지 산업·식품·의료 순으로 세운 서론이 배경 설명 없이도 한 편으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bacillus subtilis, a gram-positive bacterium ubiquitously presented",
+      "note": "결과 절은 검출 한계 수치뿐이라 못 쓰고, 서론 두 문단만 떼어 쓴다."
+    }
+  },
+  {
+    "id": "59c7cb0e-9116-41d9-ab3c-86415996b343",
+    "source_updated_at": "2026-09-25T07:01:16.290517+00:00",
+    "body_sha256": "cb59e509052677f95c2540271503aeed85f307461339464008d0b9313f5a6c91",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "아스타잔틴이 동맥경화와 대사 이상을 함께 줄인 까닭을 지방조직 염증으로 묶는 고찰이 인과 논증으로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Other organs, such as the liver, skeletal",
+      "note": "세포 분류 기호를 「염증 세포」로 묶으면 고1 상위까지 내려간다."
+    }
+  },
+  {
+    "id": "59d21d5f-08aa-45ad-b229-72945a858119",
+    "source_updated_at": "2026-09-13T06:42:27.848763+00:00",
+    "body_sha256": "c1b191f410134f1e8eb306b1819fd06e01effba29d472d3d9d9bdf9defca26ef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "항체의 결합력을 낮추는 편이 치료 폭을 넓힌다는 역설적 주장을 결합자리 장벽 이론으로 뒷받침한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Nearly four decades ago Weinstein and colleagues",
+      "note": "「더 세게 붙을수록 좋다」는 통념을 뒤집는 구조가 뚜렷해 통념 교정 재료가 된다."
+    }
+  },
+  {
+    "id": "59d3a859-92f3-4ce0-8696-325af1a033f6",
+    "source_updated_at": "2026-09-25T07:01:17.712976+00:00",
+    "body_sha256": "cfafb1cfa13868adc8cae288a3a18ecd8b59bcefab17be4b5f93085d8c379bd4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "숨은 역방향 전사가 대개 해롭지만 일부는 조절에 쓰인다는 양면 결론을 고찰에서 근거와 함께 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Antisense transcription is an evolutionarily ancient and",
+      "note": "유전자·단백질 이름을 걷으면 「정확한 전사를 지키는 장치」라는 논지만 남아 요약 문항에 맞는다."
+    }
+  }
+]

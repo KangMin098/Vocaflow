@@ -1,0 +1,886 @@
+[
+  {
+    "id": "544d304b-dbd9-4ae6-8b1e-8385b4bceb5c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:35.309692+00:00",
+    "body_sha256": "0ec7572a57f930161663bd13acdc6c89d3aee18e1b081e83725e56864abad944",
+    "retention": "keep",
+    "genre": "health",
+    "why": "숙주 지향 치료라는 개념을 소개하고 내성 문제로 까닭을 세우는 서론·고찰 단락이 따로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "One strategy to overcome drug resistance is",
+      "note": "합성 절차·NMR 수치 절은 걷어야 하고 화합물 번호는 대명사로 바꿔야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "546dcaf1-d4f2-4473-a135-99bc3a8fa39b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:37.426098+00:00",
+    "body_sha256": "bd46f5ebaa0d392b78a2dcbde9a2ec7c4ded502a5d04571859e00a42e0490c78",
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "무화과 산업의 경제적 비중에서 병해 위협으로 이어지는 서론이 문맥 없이 시작해도 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ficus carica L. (Moraceae), the common fig",
+      "note": "분류·기재 절은 수치 나열이라 못 쓰고 서론·고찰만 쓴다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "548a45fa-d3c4-4ed1-aa2f-51d7e776aae9",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:39.571676+00:00",
+    "body_sha256": "012f1190b87d8ec6bb628150f7e255fc5fa6ea2fd77082aa391b93f9f124ee28",
+    "retention": "keep",
+    "genre": "health",
+    "why": "분쟁 지역 재활 치료라는 사회적 맥락과 한계를 논하는 단락이 고유명사를 걷어도 성립한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Few studies have explored scar management techniques",
+      "note": "화상·수술 묘사가 구체적이지 않아 고등 칸에 무리가 없다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab",
+      "structured"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5490f0fd-2766-48b2-9137-a5ca4ef1709e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:44:42.413658+00:00",
+    "body_sha256": "bb937fb5d7056369e2342639ddb4f4736dfcc953d6299c113310d35b6ad2cc4e",
+    "retention": "keep",
+    "genre": "science",
+    "why": "강물 오염과 항생제 내성 확산을 잇는 고찰 결론부가 유전자 표 없이도 주장으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The presence of pathogens in river water causes",
+      "note": "본문 절반이 유전자 이름 표라 가공 때 통째로 걷어야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5495b299-818d-401f-8737-4f737c5a32c2",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:23:21.097376+00:00",
+    "body_sha256": "1380f1ace67aaa99df3dd07bd101d6d50cd447c6516493e610c5c8d121431b39",
+    "retention": "keep",
+    "genre": "health",
+    "why": "표지자 탐색의 필요를 세우는 서론과 한계를 인정하는 마무리가 짧게 떼어 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Breast cancer has become the leading cause",
+      "note": "통계 수치가 많아 두세 개만 남기고 걷으면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "54976176-3816-4693-afa4-4dd6b21f928b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:02:39.611936+00:00",
+    "body_sha256": "47fecffc2371bf74af75c60c68e9381600c2170dea0e6f2f126086c0ff9c3e7e",
+    "retention": "keep",
+    "genre": "health",
+    "why": "아디포넥틴의 역설적 작용을 통념과 반증 구조로 설명하는 고찰이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Theoretically, based on biological grounds, an inverse",
+      "note": "효과 크기를 두 사람 예로 풀어 설명한 단락이 그대로 지문감이다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "549b4548-6807-4c25-a5a8-5022a0d63fd1",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:41.227984+00:00",
+    "body_sha256": "5dafc8a9c011acb12c4a0e44df1dfaddf7687e6106d68b72a91577058b903839",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "사람 시각의 게슈탈트 원리를 끌어와 설계 동기를 세우는 서론 단락이 수식 없이 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Neuroscientific insights into visual processing suggest that",
+      "note": "수식 자리표시자가 박힌 절은 못 쓰고 서론·관련연구·실패사례 분석만 쓴다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "549f48ef-f5ec-4b1f-a243-b41f7f0dfd86",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:41.762583+00:00",
+    "body_sha256": "62af33bfde5b4a6a93315e866d1ba8361f80f6b9f3f757f9e5ca49d2f9fdf54c",
+    "retention": "keep",
+    "genre": "health",
+    "why": "토마토 성분이 신장 손상을 더는 경로를 설명하는 서론과 임상 번역 한계 단락이 따로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "While our findings demonstrate that lycopene attenuates",
+      "note": "단백질 약어가 빽빽해 두세 개만 남기고 풀어써야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "54c96660-01ea-4d52-b26b-66412cedcee5",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:44.823668+00:00",
+    "body_sha256": "c3386330a67803d42398ff6409d792ac762372c7655a2e5b23a407b81c81b4da",
+    "retention": "keep",
+    "genre": "environment",
+    "why": "양식장 항생제 잔류라는 문제를 세우고 기존 분석법의 한계로 잇는 서론이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "insert"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tetracycline (TET) is a broad-spectrum antibiotic",
+      "note": "한계·전망 절이 번호 매긴 단락이라 순서 문항 재료로 쓸 만하다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "54ddea92-2856-4b2f-ae06-99517e1f3fef",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:57:50.081628+00:00",
+    "body_sha256": "86ec6114ed7b29e121367ab696c70b47273e431c9b26f2977500fcc22593861b",
+    "retention": "keep",
+    "genre": "health",
+    "why": "천연물에서 항암 후보를 찾는 까닭을 세우는 서론과 경로 설명 고찰이 떼어 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "As cancer disparities increase as the years",
+      "note": "세포주 이름과 시약 농도가 문장마다 붙어 걷어내면 남는 분량이 얇다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "54edbd45-ab2c-448a-bf15-fb69f51a2124",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-08T05:55:12.024281+00:00",
+    "body_sha256": "ec09fbca6617ce9d0c58ea38cc5f2a57ca7c09f6857a4b591dc26b8d4dcbb8d2",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "nature",
+    "why": "분류 기재·검색표·표본 라벨이 본문의 대부분이라 떼어 쓸 산문 단락이 서론과 고찰 일부뿐이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Lampyrinae Rafinesque, 1815 is the largest",
+      "note": "학명과 형질 번호가 문장 안에 박혀 걷으면 뜻이 무너진다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "54f08d94-c533-48cb-b97a-d5e44ea0436c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:49.90865+00:00",
+    "body_sha256": "303dad494b78d16cc46dbda1b4736427c79664346d15cbac5665a677f747c84a",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "수작업 특징에서 딥러닝으로 넘어온 흐름을 정리한 서론·관련연구가 시간순으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prior to the emergence of deep learning",
+      "note": "수식 자리표시자 절은 버리고 서론·관련연구·결론만 쓴다."
+    },
+    "uses": [
+      "argument",
+      "sequence",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "54f3db82-992c-469c-b642-6d3b4beda721",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:50.495145+00:00",
+    "body_sha256": "8416b195524bbed55800454a3cfb3698614c06fdcbfee507069bbbe6beb1f6ef",
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "health",
+    "why": "내용은 서지만 비문과 어색한 영어가 문장마다 있어 그대로는 지문 원천으로 쓰기 어렵다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Breast cancer is one of the leading",
+      "note": "「it is investigated and performed」 같은 비문이 잦아 개작이 아니라 재작성이 필요하다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "54f8c50c-fff6-45a6-9ac4-8f1621c5e7e2",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:51.344189+00:00",
+    "body_sha256": "384aea55a9b77e6423081c1e7bed206daddfd5c5e188d586a5d1504acebc1aa3",
+    "retention": "keep",
+    "genre": "health",
+    "why": "트로이 목마 가설을 세우고 그 한계를 스스로 짚는 고찰 단락이 실험 표 없이도 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Cryptococcal meningitis is a leading cause",
+      "note": "저자 요약이 이미 평이한 말로 다시 쓰여 있어 발췌 출발점으로 좋다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5511d82e-3718-4744-9fcb-afbc637029fb",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:52.258803+00:00",
+    "body_sha256": "cb2b07ae1794143cbb69a6f64d4abd7677d7775270dc7a00b0e5d169f354b2b5",
+    "retention": "keep",
+    "genre": "health",
+    "why": "종양 미세환경과 면역세포의 상호작용을 설명하는 서론과 치료 전략 결론이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Hepatocellular carcinoma (HCC) is one of",
+      "note": "유전자·세포주 약어가 매우 많아 한 문단에 셋 이하로 줄여야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5512d11b-66c7-4f58-8411-a40526dcee46",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:55:56.904922+00:00",
+    "body_sha256": "ed938ee41c25ce799ce4b60d09abbc6ad4784cfb81027d494c7fe79127a001b6",
+    "retention": "keep",
+    "genre": "health",
+    "why": "백신 설계가 적응면역에만 매달려 왔다는 통념을 훈련면역으로 뒤집는 서론 구조가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Traditionally, vaccine design has focused on",
+      "note": "고찰 뒷부분의 「남은 질문」 단락도 그대로 한 편이 된다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5519bf1b-65e3-41c4-bd4b-86df38c0c779",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:53.3274+00:00",
+    "body_sha256": "8ef2394f4871409d54fb3f56017a760e6ec50eb53d598745b6aed6592b357a60",
+    "retention": "keep",
+    "genre": "science",
+    "why": "분비계가 퇴화하며 오히려 독성이 커졌다는 역설을 진화 서사로 풀어내 한 편으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Generally, T6SS, which is widely present",
+      "note": "에너지 비용과 전략을 견주는 고찰 단락이 유전자 이름을 걷어도 흐름이 남는다."
+    },
+    "uses": [
+      "argument",
+      "sequence",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "552a6bb9-f1c3-465e-b8a8-a84eaf0d9ecf",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:56.071874+00:00",
+    "body_sha256": "5fb33e68777db23aae2ac000efe104bd9003e254039e3ecc2e291f464308ac29",
+    "retention": "keep",
+    "genre": "health",
+    "why": "이차 퇴행과 일차 허혈 손상을 가르는 논지가 짧은 고찰 안에서 대조로 완결된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The distinct patterns of vascular involvement",
+      "note": "분량이 짧고 약어가 적어 가공 손이 가장 덜 간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "552baca0-10bb-4354-9a89-3d496b0093b9",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:02:56.220232+00:00",
+    "body_sha256": "4c076efa9d391bef6750876887b9449d714b106c788c0c571cd164a18a744102",
+    "retention": "keep",
+    "genre": "science",
+    "why": "세균이 숙주 대사를 갈아타 살아남는다는 큰 그림을 서론이 표 없이 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Macrophages serve essential functions in preserving",
+      "note": "저자 요약이 평이해 그쪽을 발췌 출발점으로 삼는 편이 낫다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "553420ef-9b10-442c-b5cf-ec24394213cf",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:56.947103+00:00",
+    "body_sha256": "8eb94664284d9e3ec62a82f9f1a5899fbecca23dbbe85c26eaec11e41c622b08",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "고정 기준치가 놓치는 「숨은 급성신손상」을 궤적으로 다시 본다는 논지가 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "We look after many critically ill",
+      "note": "저자 요약이 이미 일반 독자용 평이체라 고2 밴드까지 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  }
+]
