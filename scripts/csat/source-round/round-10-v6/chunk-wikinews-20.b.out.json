@@ -1,0 +1,1001 @@
+[
+  {
+    "id": "1405510d-00b3-44b9-985c-8f8fb1dc0188",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9a9d8cc21efec3889cd1d37fe1044bf3ce461f01c1d8a838e0a210cec3e1ecdc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "안개 속 세 번째 착륙 시도 → 추락·화재 → 구조·사상자 → 당국 조사 착수로 원인·결과·다음 절차가 이어져 순서·내용일치 칸을 채운다(사망 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The plane crashed at Cork Airport",
+      "note": "둘째 단락은 활주로 번호를 걷어도 추락 경위가 서고 impacting 을 hitting 으로 바꾸면 V5 안이다."
+    }
+  },
+  {
+    "id": "14064c7b-eeb1-4b89-aa39-6e4bf7ab5527",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "42fff9f7853d278b4a4f8391337a1a03689b01244ebe7d55a9bdf07eaa5c0dcb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "격추 주장 → 러시아의 반론 → 영상 속 기체 꼬리 모양이라는 근거로 주장과 반증이 맞서 내용일치·요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Georgia countered that the video, which",
+      "note": "셋째 단락은 영상→기종→러시아기라는 추론이 한 단락에 있어 떼기 좋았고 arsenal 만 weapons 로 바꿨다."
+    }
+  },
+  {
+    "id": "140a9cae-f55a-49b0-bdc8-f0f81408bde4",
+    "source_updated_at": "2026-09-25T08:48:22.173585+00:00",
+    "body_sha256": "f84225e834d9cf5dea85652c0e4afcbe51a7ddafd40d1afb31afef8598a63cf6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "science",
+    "why": "복원용 표본 채취 → 같은 개체의 복제임을 발견 → 유전 다양성이 장수를 설명한다는 해석으로 과학 논지가 서서 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The scientists discovered the plant was",
+      "note": "둘째 단락에서 연구자 감탄 인용을 걷고 genetic markers 를 DNA tests 로 바꾸니 발견 과정이 중등 문장으로 남았다."
+    }
+  },
+  {
+    "id": "140bc42a-2f34-42e6-ac4c-0e5ccab18bb8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3af195477068514c4782adf2eb8d90bc32369e67a9890d81580991389407606e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연정 약화 → 스스로 신임투표 요청 → 하원 통과·상원 접전 전망 → 사퇴 압력으로 원인과 다음 절차가 이어져 내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, Thursday's vote in the Senate",
+      "note": "넷째 단락은 However 로 시작해 앞 문장을 전제하므로 접속어를 걷고 정당 이름을 a small party 로 바꿔 떼었다."
+    }
+  },
+  {
+    "id": "140c286a-d3b5-4fd6-a989-654efbc874d3",
+    "source_updated_at": "2026-09-25T08:55:31.383321+00:00",
+    "body_sha256": "28d9b32b57d39f355b5d278e0ce746021d11d3ae63a95ee522109eff5bb8a817",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "판사의 기각 → 항소법원 집행정지 → 수사 배경(코언 유죄) 설명으로 절차가 이어져 내용일치·순서 칸을 채운다(인용문 한 곳이 빠졌으나 흐름은 선다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The Manhattan district attorney's office began",
+      "note": "「Marrero rejected this argument:」 뒤 인용이 비어 그 줄은 걷어야 하고, subpoena·stay 같은 법률어는 바꾸면 절차가 틀려져 조정이 어려웠다."
+    }
+  },
+  {
+    "id": "140ebb91-9271-4dcf-950f-9b1bad3c01f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "76e9304eab00b6905e082c8c30314dc267d62b877a05079a851712ac5df07c22",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "미국의 대중 수출 통제 → 3개월 협상 → 네덜란드의 장비 통제 발표 → ASML·중국 반응으로 원인·반응이 이어져 요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "It comes after at least three",
+      "note": "미국 통제를 설명하는 단락은 It 를 The Dutch plan 으로 바꾸면 떼어지나 lithography·efficacy 는 풀이 없이 낮출 수 없었다."
+    }
+  },
+  {
+    "id": "14101c90-fec1-4784-9fe7-fad0844ce335",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1c2ff62db5ba09b2020ba2dd7c82f926f657ab83027edc29d641357f1b7d5e64",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "126어 단신이지만 경매 통보 → 부모 창고 정리 → 가방 속 영아 발견 → 신고로 사건이 문장마다 이어져 내용일치 칸이 선다(죽음 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A woman was emptying her deceased",
+      "note": "둘째 단락은 deceased·fetus 를 dead·baby 로 바꾸면 쉬워지나 소재가 무거워 연령 칸만 좁혔다."
+    }
+  },
+  {
+    "id": "1411a928-e8be-4c39-a802-6079ba952041",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "498d2de704fe8293a46fb418cb4ff97f070c341a4dcbbd95ea46abfa564ccea7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "세력 강화 예보 → 진로 예측 → 텍사스·루이지애나의 대비와 비상 선포로 결과·다음 절차가 이어져 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dean could hit the mainland of",
+      "note": "셋째 단락은 Therefore 로 예측과 대비가 한 문장씩 이어져 짧은 인과 지문으로 바로 떼어졌다."
+    }
+  },
+  {
+    "id": "141850de-ec26-4c11-b908-72bdde9203fd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5dbd5dabb90221ae884c2de8ed20f52c16b10d06901974465b095388a08d1726",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "129어 단신이지만 지진 발생 → 주민이 거리로 뛰쳐나옴 → 규모 수정 발표 → 학교 휴교로 반응·다음 절차가 문장으로 이어져 단신 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The earthquake caused residents of Sinaloa",
+      "note": "둘째 단락은 주민 반응과 규모 수정이 이어져 있어 셋째 단락의 휴교와 묶으면 수치 나열이 아닌 사건 지문이 된다."
+    }
+  },
+  {
+    "id": "141f11ac-7994-4f5a-af15-160f8d43ece0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e368fe6ae98818039ea37dff0469eb6bd13e25a9b1ee8742d48afff4700df278",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "살인 → 도주 경로 추적 → 캐나다 모텔에서 사망 발견으로 사건이 이어져 내용일치 칸이 선다(훼손 묘사가 구체적이라 성인 칸만).",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Jenkins's boat was found on Wednesday,",
+      "note": "넷째 단락의 도주 경로는 지명만 걷으면 순서 문항이 되지만 셋째 단락 시신 묘사는 반드시 걷어야 한다."
+    }
+  },
+  {
+    "id": "1420c7f9-28e3-4110-9ab1-42a26163dde1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f2582ea879da2e4b8d8ed383aa1ab2aa7869ca847b9d4949c7b687f4785206f8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "해체 발표 → 결성 내력 → 마지막 투어 일정 → 비틀스 협업 희망으로 이어져 중등 이상 내용일치 칸이 선다(끝의 사진첩 안내는 걷는다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The group, which consists of DJs",
+      "note": "둘째 단락은 DJ 이름을 three DJs 로 줄이니 결성 이야기만 남아 쉬웠고, 넷째 단락 끝 「image gallery」 문장은 걷는다."
+    }
+  },
+  {
+    "id": "1420ff45-0e81-493c-8e37-e6278f57aab5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "815b39b1617f5b6e62b629c81de8e543b17b94a493d73afed30d18889ba35309",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "임명 의혹 질의 → 불신임 동의 부결 → 연일 추궁 → 이사 사퇴로 요일별 사건이 이어져 순서·내용일치 칸을 채운다(의회 절차가 많아 성인 쪽).",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Swan moved a censure motion to",
+      "note": "불신임 동의 단락은 censure·standing orders·division 같은 의회 용어가 뼈대라 걷으면 사건이 사라졌고 줄바꿈이 인용 중간에 끊겨 있다."
+    }
+  },
+  {
+    "id": "1423d07e-a840-4ce6-92b9-5b756dc48d28",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2cb1bedfe79874e1a5c7e6df32bcd30c846a9be50dacf48c885935940995f296",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "92어 부고지만 사망 → 대통령의 추모(반응) → 문단과 거리를 둔 삶·교직 은퇴로 생애가 문장으로 이어져 내용일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 1989, Gracq's work was published",
+      "note": "마지막 단락은 출판사 이름을 걷어도 「행사를 멀리하고 교사로 은퇴」라는 삶의 태도가 남아 사실 확인 문항이 된다."
+    }
+  },
+  {
+    "id": "1425b17d-da09-4a76-8734-56a029d6b552",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dcd7d4554d8ccc093ef42e2e4b9923637bca5e2f24559f0c41d4fc9137bcfe82",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "블랙홀 용어에 처음엔 반대했다 받아들인 일 → 맨해튼 계획 → 교육자 경력으로 생애가 시간순으로 이어져 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wheeler was born July 9, 1911,",
+      "note": "셋째 단락은 출생→박사→보어→귀국이 연대순이라 순서 문항 재료로 좋았고 fission 은 풀이로 처리했다."
+    }
+  },
+  {
+    "id": "1427b679-425e-4eb9-b0f7-8f491b17c83a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "70d7cf9e4bf884850c741ff8ee7b13366e23799297460d73f8e0d4bbeeb7ec18",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "녹음 공개 → 추가 공격 위협과 그 조건 → 정보기관의 해석으로 발언과 반응이 이어져 내용일치 칸이 선다(테러 선전 인용이라 고2 이상, 미화가 아닌 보도).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The recording lasted one minute. While",
+      "note": "마지막 단락은 테러범 인용 없이 녹음의 의미 해석만 담아 떼어 쓰기에 가장 안전했다."
+    }
+  },
+  {
+    "id": "142b467b-681f-4058-9d8b-d9a1d2818ff5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "406cf731842299d936cd36f10986cf98d1f8e57247dff322e13637fe7e44153c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "IP 수집 → 개인정보법 위반 판정 → 과태료 경고 → 집단소송 예고로 원인·결과·다음 절차가 이어져 주제·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Antipiratbyrån is an organization representing the",
+      "note": "둘째 단락은 단체 이름을 an anti-piracy group 으로 바꾸면 선다; repercussions 를 punishment 로 바꿨다."
+    }
+  },
+  {
+    "id": "142db629-4708-4091-9744-343c7e3091df",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "36076f249711f533cd438df482b4772022f99ae301180836366b64f35d73696c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "개종 사실 → 성장 배경과 체첸전 수치심이라는 이유 → 독살 경위로 원인이 문장으로 설명돼 내용일치·요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mr. Zakayev said that Mr. Litvinenko",
+      "note": "둘째 단락은 개종 이유 셋이 나란해 요지 문항에 맞았고 atrocities 를 cruel acts 로 바꿨다."
+    }
+  },
+  {
+    "id": "1439e7b4-e8d3-4cf3-bd5a-2f4544a8b2eb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "30bed8bda6a758b74bb5fe17c6a2374ffa06b3849e68b7a920a85279589b0c67",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "침몰 참사 → 선사가 조사 중지 소송 → 편향 주장·손해배상 청구 → 하원 조사 착수로 반응과 다음 절차가 이어져 내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sulpicio told the Manila Regional Trial",
+      "note": "둘째 단락은 법 이름 둘을 「shipping laws」로 줄이니 선사의 논리만 남아 주장 파악 문항이 됐다."
+    }
+  },
+  {
+    "id": "1439e8ea-9592-4a49-b12b-c4ee56be1bef",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dbd0c9cd0aa64169572a133e64746fa51168592083123fec8284e4e11b48ba22",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망 발표 → 다리 절단에도 휠체어 연주 → 대표작 → 동료의 추모로 생애와 반응이 이어져 내용일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Martyn had to have his right",
+      "note": "셋째 단락은 amputated 를 cut off 로 바꾸면 V4 로 내려가고 역경을 이긴 이야기로 선다."
+    }
+  },
+  {
+    "id": "143a807a-eafa-4703-bc3d-fb171e7ded29",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23a98058b5122d05c969a9beb08f0852cc84d0e2eebe6da027ca81c6153d6e5e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "129어 단신이지만 약혼 발표 → 축하 반응 → 교제 시작과 공개 → 협업 곡으로 사건이 이어져 중등 내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to The Hollywood Reporter, the",
+      "note": "둘째 단락은 매체 이름을 걷어도 교제→공개→인터뷰 순이 남아 날짜 문항이 쉬웠다."
+    }
+  },
+  {
+    "id": "1440acd1-9718-46b0-9a85-fc7f2c85e8f3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fdc1ce3a6875501c31a4dcb55a7649d1360f954686285538743344cd646a8788",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "느린 폭풍 → 폭우·정전·휴교 → 재난 선포 → 가뭄 해소라는 역설로 원인·결과가 이어져 내용일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "State climatologist David Zierden told the",
+      "note": "다섯째 단락은 폭우 원인을 한 문장으로 설명해 인과 빈칸 문항이 됐고 system 에만 풀이를 달았다."
+    }
+  },
+  {
+    "id": "14468d3d-382a-4527-8be6-43c8d4559b3c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "31b495e2e51de9265e7a96a1c1b52bf53cbf56811b23bb0b4d3a1ffba8cf7c13",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "발병 확인 → 격리 → 국제기구 파견·검사소 설치 → 이웃 나라 경계로 대응 절차가 이어져 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "MSF, who now have 14 experts",
+      "note": "다섯째 단락은 물자 수송의 어려움(도로 사정→사흘)이 인과로 이어져 문장 삽입 자리가 분명했다."
+    }
+  },
+  {
+    "id": "14497bd9-f654-4067-8261-d697a8f3bf86",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "94642bbabded41345a14bbedf11cd5da1412c9234bf7a3861e6ebab3d4d616df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "협상 결렬 → 파업 선언 → 시장 비난 → 대체 교통 대책으로 사건이 이어져 순서·심경 칸이 서며, 뒤쪽 도로 통제 목록은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The TWU had asked the MTA",
+      "note": "넷째 단락은 시각 표기를 걷으니 「최종안을 기다렸지만 파업은 피할 수 없었다」는 긴장만 남아 심경 재료가 됐다."
+    }
+  },
+  {
+    "id": "1449f482-4462-4cbe-a95d-a49b0eb97d32",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fd4b9f2bff0ee1bf37f951922e7f7ebdc73d8a3792c9d834eef946533c67912d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "탈영 → 버스 탈취 → 기내 인질 시도 → 장교 저지·체포로 사건이 시간순으로 흘러 순서·내용일치 칸을 채운다(사망 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The two soldiers, Leandro Cerezo Sirut",
+      "note": "둘째 단락은 병사 이름을 two young soldiers 로 바꾸니 탈취→인질→저지가 한 단락에서 서 순서 문항으로 잘랐다."
+    }
+  },
+  {
+    "id": "144b2ae3-8f5f-4b10-9004-d197ca56fb49",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a1e61a989ce3b765fa2f7f207244de80c58cc6a3851aee4596168d05e830107",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "제보 사실 인정 → 불법 도청 주장과 규모 추정 → 해고 경위로 주장과 근거가 이어져 요지·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "President Bush admitted ordering the NSA",
+      "note": "셋째 단락은 대통령 인정 범위와 제보자 주장의 차이가 대비돼 요지 문항이 됐고 warrants 만 풀었다."
+    }
+  }
+]

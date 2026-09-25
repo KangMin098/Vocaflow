@@ -1,0 +1,971 @@
+[
+  {
+    "id": "1ad8ae57-6843-4bc1-9896-0ea49f4e76f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "59b19480546d88bb34d43d0e24aa7e01e9425f1b90c53a3d0965afe11027c43b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "해군의 난민선 역송 → 표류·구조 증언 → 총리의 「닫힌 책」 옹호 → 유엔난민기구의 국제법 우려가 이어져 주장·반박 칸(요지·내용 일치)을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "main_point"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United Nations Refugee Agency (UNRA)",
+      "note": "유엔 단락은 대변인 이름을 걷어도 「보호가 필요한 이에게 심사 절차를 줘야 한다」 논지가 서고 obligations→duties 로 풀었다."
+    }
+  },
+  {
+    "id": "1ade816e-8dc7-4aba-a6f6-9f3c7db93150",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e1b6ce2856f2eeaaa932b40091993bc50fc1c6161351de0029deb578689e370d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이륙 중 추락·적 공격 배제 → 며칠 전 다른 전세 헬기 격추 → 도로 사정 때문에 민간 헬기를 빌린다는 까닭이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Roads in Afghanistan are often difficult",
+      "note": "끝 단락이 「길이 험하다 → 러시아 헬기를 빌린다」는 까닭을 한 문장으로 주고 traverse→cross 하나로 V4 가 됐다."
+    }
+  },
+  {
+    "id": "1ade8f7f-070b-48f0-ade1-549ae2635353",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9fef034813c168993eec35ddd4d9881782b6488013b93c827add364567e41b5f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "뉴욕포스트의 부통령 교체설 → 설의 출처와 근거 → 캠프·당사자의 부인이 이어져 주장·반박 칸 — 첫 단락 끝 문장이 「during the.」에서 잘려 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Biden, 68, previously confirmed to The",
+      "note": "확인 단락은 「우드워드 설 → 본인이 이미 확인」 흐름이 인명 일부만 남겨도 서고 swap→replace 로 풀었다 — 잘린 문장은 걷는다."
+    }
+  },
+  {
+    "id": "1ae055bb-f8f6-4467-82bf-30ff0ed402c5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a72ad7ae9dbe6c38682e880f4504eb771071165dd121391f0a1bfe299dcc9161",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "space",
+    "why": "우박 → 연료탱크 손상 → 수리 후 반점 우려(컬럼비아 사고의 원인과 연결) → 무사 발사로 원인·결과가 이어져 순서·빈칸·내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The mission, STS-117 has been dogged",
+      "note": "수리 단락은 임무 번호를 「The mission」으로 줄이면 떼어지고 dogged→troubled 로 풀었다 — 끝의 추문 단락은 무관한 문장 문항 재료다."
+    }
+  },
+  {
+    "id": "1ae2216f-b157-4ff6-9da7-6aca9a5ba99f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0e70cf1d495035cf8415def3b8be2b94fa651020aac551164b504d3064462238",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "에너지 장관 지명 → 레이저 냉각 노벨상·탄소중립 에너지 연구라는 이력이 지명 이유로 이어져 짧은 인물 기사로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the past, Chu was the",
+      "note": "이력 단락은 연구소 이름을 걷어도 「태양·기후·탄소중립 연구 → 에너지 장관감」이 서고 carbon-neutral 만 풀면 됐다."
+    }
+  },
+  {
+    "id": "1ae577b8-56b2-4b38-b014-87b5b77f3f46",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "976c9058a0e89567e5dfe3ee0e0e33f7126791791056aa2d31e86ab39ae3cdda",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "예상보다 이른 조류독감 → 한파로 러시아에서 내려온 백조라는 원인 → 가금 산업 우려 → 실내 사육·수입 금지 조치가 이어져 요지·순서 칸.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "European health officials had expected wild",
+      "note": "예상 단락은 「봄 아프리카발 예상 → 한파로 동쪽에서 먼저」 대비가 지명 몇 개만 남겨도 서고 migrating→moving 으로 V4 쪽이 됐다."
+    }
+  },
+  {
+    "id": "1ae98833-a0a5-49ae-ade8-57680f466a9a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d0cacea5fb051685e50f75f129f009b926c169ff2ae846e49f35ce637214595a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "도시 아동 셋 중 하나가 빈민가 → 도시계획에서 소외 → 빈곤이 영양·위생·교육·범죄로 이어짐 → 예방 가능한 병 재유행이 이어져 요지·주제 칸.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Often between 50 and 80 percent",
+      "note": "소득 단락은 「수입 대부분이 식비 → 도시에선 불가 → 병 재유행」 인과가 서고 prevalent→common·remedies→ways 로 풀었다."
+    }
+  },
+  {
+    "id": "1aeeac82-52c2-43e5-a88a-aba5bb0151ac",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3d292253e39f2971fc8b7114a0ad1e985fe6b245a674f2f3bed0bfac5f74243e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "장관의 면허 취소 경고 → 무가베 비판 보도라는 계기 → 영미 위선론 → 언론계의 반응이 이어져 주장·반박 칸과 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Shamu drew parallels with British and",
+      "note": "위선론 단락은 이름을 「The minister」로 바꾸면 논지가 서고 draconian→very strict 로 바꿔야 밴드가 내려갔다."
+    }
+  },
+  {
+    "id": "1af729b3-6866-4cea-bbef-be82690768cc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "935210d3ae6f5d3937efd082724c49178c391a75d444a823f4fd755ca892daa6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "무선망 침입 → 스니퍼 설치 → 카드 번호 탈취·판매 → 돈세탁이라는 범행 절차가 시간순으로 이어져 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the Justice Department, after",
+      "note": "수법 단락은 세 문장이 절차 순서로 이어져 순서 문항이 바로 나왔고 sniffer program→spy software 로 풀었다 — 소매점 목록은 걷는다."
+    }
+  },
+  {
+    "id": "1af7d560-dba3-44a6-bc5c-688bb53671f2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8cc6a4de72edb5534404c1e9546e55f78cf6517ad26658894a71e2c36cb575c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "근소한 재선 발표 → 개표 이의 → 부족 간 충돌 → 통금·방송 금지·사살 명령으로 원인과 대응이 이어지나 폭력 묘사가 있어 고2 이상 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The clashes have been along tribal",
+      "note": "충돌 단락은 부족명을 「two ethnic groups」로 바꾸면 선거 → 충돌 연결이 서고 curfew 만 풀면 V4 쪽이 됐다."
+    }
+  },
+  {
+    "id": "1b054d61-93f5-498f-8972-28277ef3e83a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "936b3f29f65514e98467153318f368bc6472192c725359a3912f3df08137663f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "자폭 공격 → 종파 긴장 고조 우려 → 과거 암살 시도·당시 정황 → 추종자 소요로 결과·반응이 이어지나 시신 수습 묘사로 성인 칸만.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The death of Allama Hassan Turabi",
+      "note": "긴장 단락은 인명을 「The cleric」으로 바꾸면 「종파 폭력이 잦은 도시 → 긴장」이 서고 셋째 단락의 시신 묘사는 걷는다."
+    }
+  },
+  {
+    "id": "1b12397f-8a65-46bf-a39b-f6d4dbd1dfde",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7839a6707e7b6994ad9f9fcf17d2b6a581e9b707fbaaabb3389429373321a0c9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "라디오 방송국 앞 총격전 → 대배심 위증 → 징역·벌금 선고로 원인과 결과가 이어져 짧아도 사건 흐름이 서서 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The fight broke out in front",
+      "note": "다툼 단락은 그룹명을 「a rival group」으로 바꾸면 「모욕하는 노래 → 대치」가 서서 첫 단락 앞에 놓는 순서 문항이 됐다."
+    }
+  },
+  {
+    "id": "1b129213-03b3-4c60-911f-9915ae667ecd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3883fe36f1a69146e98b6a4c09ff3b383f645bc68640fdf9f85e8dad5015aa3a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "전날 밤 통신실 총격 → 법원 밖 매복 사격 → 교회 대치·자살 → 아내 시신 발견으로 사건이 이어지나 총격 묘사가 구체적이라 성인 칸만.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The incident started when 30 shots",
+      "note": "시작 단락은 「사람들을 밖으로 끌어내려 했다」는 추정이 인명 없이 서지만 탄수 수치는 줄이고 ambush-style 만 풀었다."
+    }
+  },
+  {
+    "id": "1b13d88a-bb99-44e8-9170-27066f15bf26",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ac5ead48e0574fc24d619292c2868057cb44247744072004129dc0d7851393af",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "BBC 페르시아어 사이트 차단 주장 → 설명 없음 → 개혁 성향 사이트까지 막아 온 검열 이력이 이어져 짧아도 배경과 흐름이 서므로 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Iranian internet providers routinely block pornographic",
+      "note": "검열 이력 단락은 신문 이름을 걷어도 「음란물 외에 개혁 사이트도 막는다」가 서고 routinely→often 로 풀었다."
+    }
+  },
+  {
+    "id": "1b186c8a-6d2a-4d7d-9a90-a8ed72967f8e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "77d55424e4a0b7458fa819fb4e96132a1d765eaa37fe7d5af4ab1b52fc57b5bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "다우 급락 → 중국 증시 폭락이 계기 → 분석가들이 든 세 가지 원인 → 거래 제한 조치가 이어져 원인 나열 구조로 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Analysts blamed the slide on a",
+      "note": "원인 단락은 번호 목록을 문장으로 풀면 「과열 → 조정 필요 · 가격 과대 · 경기 침체」가 서고 correction→drop 으로 풀었다."
+    }
+  },
+  {
+    "id": "1b1b9478-722d-425a-b395-f31a40a1496a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "366f11ba471188aab5b352accd7412d1cd984fc712faf74d52af47e022a29ae2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "반 페일린 집회 예고 → 라디오 진행자의 연락처 공개·욕설 → 협박 전화 → 그래도 열린 집회와 찬반 발언이 이어지나 혐오 발언 인용이 많아 성인 칸만.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Eddie Burke, a KBYR talk radio",
+      "note": "공개 단락은 「연락처 방송 → 청취자에게 전화하라 → 협박」 인과가 서지만 욕설 인용을 걷어야 해 가공 때 그 줄들을 뺀다."
+    }
+  },
+  {
+    "id": "1b218f37-bc6d-4b6b-b87c-02f3232ffd6f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "314becd9f8f7ac6dab8030e7da552fcc3a4ff1ee05831cc104ef50010bf19634",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "10% 감축 발표 → 이라크군 역량 향상이라는 이유 → 2003년 4만6천에서 8천5백으로 준 추이가 이어져 이유·시기 비교 칸(내용 일치)을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Reid told the House of Commons;",
+      "note": "발언 단락은 「이라크인이 스스로 지킬 수 있어서 줄인다, 하지만 갈 길이 멀다」가 이름 없이 서고 commitment→promise 로 풀었다."
+    }
+  },
+  {
+    "id": "1b283e65-209c-4864-a0fb-54af980cbbd1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "39d83b4befddd308d5b599f9a137d9c648b12a53c981c4af7b5ef8633e6bb17e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "송유관 개통 → 러시아·이란을 피하려는 미국의 이유 → 수입 기대와 테러 우려가 이어져 짧아도 목적과 걱정이 서므로 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The countries who are involved in",
+      "note": "뒤 두 단락은 「수입을 늘리길 바란다 · 테러가 걱정이다」가 국명 없이 서고 revenues→income 하나로 V4 에 가까워졌다."
+    }
+  },
+  {
+    "id": "1b32041e-890f-49c3-a4fe-3da14a2a2f96",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "272c5a1037bacb1a8277d7a6f130891f52b9431816a0fb1638c81224808cf68b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "hold",
+    "genre": "art",
+    "why": "미술관 두 전시 개막 안내지만 첫 단락이 「아래 사진」을 가리키고 나머지는 기간·무료 입장·버스 안내라 목적 칸 최소선에 걸치는지 애매하다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "purpose"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "REFLECTIONS: A Series of Changing Displays",
+      "note": "전시 소개 단락을 떼 보니 권유의 까닭 없이 작가·대여처·기간만 남아 안내문 목적 칸으로 서는지 판단이 서지 않았다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "1b3808f8-3e3c-4667-b06f-fc700323dbe3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "948770806552de64868f0d01b288ff22d7e36c5ca13173222b68f7bd0c83292d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "위성 자료로 1,066개 습·건 사건 분석 → 강도와 지구 평균기온의 상관 → 연구자·타 학자의 해석과 전망이 이어져 수치 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "They identified 1,066 regions that experienced",
+      "note": "분석 단락은 위성 약어를 「satellites」로 줄이면 「2015년 이후 강도 증가」 주장이 서고 pluvial→wet period·algorithm→method 로 풀었다."
+    }
+  },
+  {
+    "id": "1b392616-2375-494e-868b-ccd0ab50dc60",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9bfcdef3b40b01dd5f47c5deaea76cf5cde5b6797e08366f5199032f4618fde6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "보석 기대 → 기각 소식 → 가족의 좌절과 항변 → 판사가 전자발찌·보증인·모스크 기부를 받아들이지 않은 이유가 이어져 심경·주장-근거 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "mood",
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The family feels frustrated and says",
+      "note": "가족 단락은 이름을 「his sister」로 바꾸면 좌절의 까닭이 서서 심경 문항 재료가 됐고 flight risk→chance he would run 으로 풀었다."
+    }
+  },
+  {
+    "id": "1b3a1075-6a4c-43b6-9c9c-2fe0eacb10ba",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d1dcdacc0fee3c0f1499dd7633e6ad6d0a3d6d34115279fcc05a601c1f711aea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이륙 10분 뒤 추락 → 탑승자 전원 사망 → 밀밭 화재·전선 충돌 → 관제 교신 두절 진술로 결과와 조사가 이어져 사망 사고라 고1 이상 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pakistan's private Geo Television station also",
+      "note": "현장 단락은 방송사명을 걷어도 추락 지점과 피해가 서고 cordoned off→closed 로 풀었다 — 불탄 시신 인용은 걷는다."
+    }
+  },
+  {
+    "id": "1b44e861-2dc1-4e36-be76-e95bfe632dcc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a18af86ecbae0f8e3702dc0fee099bb5a2ad47ef44964943229eeb76ed41747d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "화산재로 결항 → 숙식 지원 의무 불이행 178건 → 다른 항공사와의 대비 → 벌금 3백만 유로로 원인·결과가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the civil aviation authority",
+      "note": "규정 단락은 기관명을 「Italian officials」로 바꾸면 「결항 → 지원 의무 → 불이행」이 서고 mandatory→required 로 풀었다."
+    }
+  },
+  {
+    "id": "1b48b4db-077e-4cab-948b-d6145fd343e7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3f33a4986e278cee5a79b9ceb25ebce5598413cd0858b4801b02c18734889de4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "몬순 폭우 → 강둑 28곳 범람 → 16명 사망·18만 대피 → 몇 주 전 비하르 홍수에 이어진다는 비교가 이어져 수치 나열을 넘어 원인·결과 칸.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The new flooding comes just weeks",
+      "note": "비교 단락은 강 이름을 「a river」로 바꾸면 「둑이 터져 마을이 잠겼다」가 서고 embankment→bank 로 V4 에 가까워졌다."
+    }
+  },
+  {
+    "id": "1b4b7b6f-fef0-42eb-8c1c-6c9ba1171aef",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "35cc4af88b9113942051a223836d795b016a9f10e6237443b8d8b27c64c0d8bb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "유세 후 피격 → 사망 → 지지자 소요 → 정부·각국 지도자의 규탄과 선거 보이콧이 이어져 결과·반응 칸(순서·내용 일치) — 암살 소재라 고2 이상.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Her supporters, once informed of the",
+      "note": "소요 단락은 도시 이름을 줄여도 「소식 → 분노 → 방화」가 서지만 지도자를 향한 욕설 구호는 가공 때 걷는다."
+    }
+  }
+]

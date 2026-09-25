@@ -1,0 +1,976 @@
+[
+  {
+    "id": "10657c3c-866a-4857-b05a-c68874e62de3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "999f8d892942e8a645fb94bb1c444d8268cce9e99dc0a81f181b1e9dfaa68ac6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "셋째 단락이 섹스팅이 문제가 된 까닭(불법인 줄 모름·유포)과 법안의 취지를 잇고 넷째 단락 인용이 목적을 밝혀 주제·요지 칸이 선다 — 소재상 고2 이상.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Senger says that sexting has become",
+      "note": "「Senger says」를 「Lawmakers say」로 바꾸면 떼어지고, distributed→shared·prevalent→common 으로 V5 에 맞았다."
+    }
+  },
+  {
+    "id": "106a77cd-55e9-47a0-a3cc-6c2b8e0c7563",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ef04250f9b6ea4cbda032fb70df3e8ceb301ea07746a7db264e35810ef790a62",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "항모 추가 배치 → 공격 권한 위임(정책 전환) → 전문가의 효과 회의로 조치·반응이 이어져 내용 일치·요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Becca Wasser, a senior fellow at",
+      "note": "전문가 회의론 단락은 인물 이름을 「One analyst」로 걷어도 논지가 서고 deterring→stopping·understated→ignored 로 쉬워졌다."
+    }
+  },
+  {
+    "id": "106dc9ca-0975-4a98-a11a-f92edee60236",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a13bdefcc64f10df28e041f9c2f0865a4b9cd6751f140e1233f674c1b7471742",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "의원의 폭로 → 정부 위기·시장 하락 → 의회 조사위 설치를 둘러싼 공방으로 원인·결과·반응이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Brazilian Senate and the Chamber",
+      "note": "조사위 단락은 정당 약어만 풀면 혼자 서고, allegations→claims·endorse→support 두 낱말로 V5 가 됐다."
+    }
+  },
+  {
+    "id": "10709822-b766-40e7-b4cb-7f2775785954",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9d9090a19eaad6bee26e11f5e3e0fbe0b2e7dda72b6233757d1935a22fb12273",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "history",
+    "why": "마지막 단락이 여섯 노동자의 결성 이유 → 체포 → 추방 → 석방을 시간순으로 풀어 역사 서사 칸(순서·내용 일치)을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There were six men in the",
+      "note": "마지막 단락은 나무 이야기 없이도 노동조합 기원 일화로 서고 bargaining strength→power 정도만 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "1073b6d4-360b-4052-865a-7020f02db71f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "653ee533ca112d8f0fea0c82d8bb72bb4bf9bb81a78656df35b338868103616a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "살모넬라 검출 → 대규모 회수 → 의회 청문·FDA 책임 공방 → 업체 해명으로 원인과 반응이 이어져 내용 일치·요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the FDA, peanut products",
+      "note": "업체 책임 단락은 PCA 를 「the company」로 바꾸면 서고, 끝 단락의 전화번호·웹 주소는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "10752bc2-c07e-4dd9-a16f-591348f47eff",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e91bf27a1b4d21ea0f45358061fbb35a34a4f9f99253ab09ae3f13e81a03d286",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "후보 목록 뒤에 지지 기반·선거 결과와 후보별 노선·평이 이어져 목록 나열이 아니라 선거 구도 기사로 서므로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The Green party didn't get any",
+      "note": "득표율 단락은 떼면 서지만 후보 이름을 걷으면 경선 기사가 비어 standsAlone 은 안 됐다 — 목록은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "1076de71-0e2a-46ae-90bf-d3603c78fbe8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0b284cec12cdcc9670f2f345fa6f74acf74902a33326abd2a7c4ef0db8290e8d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "오염 피해(배수구·해양·동물)가 금지의 이유로 제시되고 벌금 단계·유예 기간이 이어져 요지·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Plastic pollution has led to the",
+      "note": "오염 단락은 루피 금액을 걷어도 금지 이유가 서고 minimise→reduce·offence→violation 으로 V5 에 맞췄다."
+    }
+  },
+  {
+    "id": "107c7548-aa52-48db-a780-f9c5a51a60f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a6994388972072e70451be7f75e9ae007eee43086b3aaef82edcf588126c6cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "폭풍 형성 → 이동 예측 → 성수기 설명 → 저활동 해에도 경계하라는 당부로 예측과 까닭이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Meteorologists predict that Danielle will be",
+      "note": "성수기 단락은 인용 출처만 걷으면 서고 activity→storms 로 바꾸니 V4 문장이 됐다 — 끝 인용은 따옴표가 닫히지 않아 걷는다."
+    }
+  },
+  {
+    "id": "107e23ad-ad46-49d8-913d-32e9aeb25897",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e290efb095d79ec2d4f34ab267043d0084739769592402d9ae367ac7d69283b1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "어미에게 버림받음 → 사육사가 손으로 키움 → 너무 커져 놀 수 없게 됨이 인과로 이어져 초등·중등 사건 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When Knut was born a year",
+      "note": "셋째 단락은 Knut 이름만 있어도 혼자 서고 reared→raised·bruises→hurts 두 낱말로 초등 밴드가 된다 — 출생률 농담은 걷는다."
+    }
+  },
+  {
+    "id": "107fe008-e35f-45bc-a2d5-2c02c30a9e6d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1f849f03a56b4d4d88dc58ebb2806c72a9a43ab82bb9dda38ec8ee90b6bf4b4f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "종래 관행(정부가 날짜 선택)과 그 문제 → 고정 선거일 법의 취지·예외 조항이 이어져 주제·요지·빈칸 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since confederation, a sitting government could",
+      "note": "관행 단락은 법안 번호를 걷어도 「정부가 유리할 때 선거」라는 논지가 서고 writs·no confidence 만 풀면 V6 이다."
+    }
+  },
+  {
+    "id": "10802149-6af2-411b-b8db-1debce86c83e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d122f1fb312399bb7949fbf754407074588f4654e8fe19358eccd6639755dbc6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뇌손상 → 급식관 제거·재삽입을 되풀이한 법정 공방 → 사망 · 부검 예정이 시간순으로 이어져 순서·내용 일치 칸 — 죽음 소재라 고1 이상.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Michael Schiavo argued before the courts",
+      "note": "법정 공방 단락은 연도 흐름이 분명해 순서 문항으로 자르기 쉬웠고 reinserted→put back 으로 V5 가 됐다."
+    }
+  },
+  {
+    "id": "1083fb21-fcca-4143-b0de-a4073aa18f41",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cbdd735b2231f32fb03e49842931345024b564c6dfc2fb3350c8068e8b2b2467",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "education",
+    "why": "금서 주간 활동 소개 뒤 이의 제기 20% 증가와 실제 소각 사례가 이어져 짧아도 행사의 까닭이 서므로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Attempts to ban books from library",
+      "note": "둘째 단락은 도서 제목을 걷어도 「이의 제기가 늘었다 → 불태우기까지」 흐름이 서고 curriculum 만 풀면 된다."
+    }
+  },
+  {
+    "id": "1091ceee-754e-490b-b930-85695a22bcc8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9a71daa640b42b8d36e7429aa5c90a1ed228132b40bbd05cd237e29d35a6d608",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "식당 다툼 → 총격 → 체포·기소 → 목격 증언이 이어져 사건 흐름이 서므로 내용 일치 칸 — 폭력 묘사가 구체적이라 고2 이상.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police have arrested Jamar B. Siler,",
+      "note": "체포 단락은 이름을 「a classmate」로 바꾸면 서고 custody→jail 로 쉬워지지만 목격 인용의 피 묘사는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "109cd493-1bd3-4cf8-958c-378809d110b1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b65f08aaa65be01c5be43490ee983ce4e6567789c5d85f769012f596f53f3c0c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "hold",
+    "genre": "technology",
+    "why": "WiMAX 기회와 보안 위협을 대비하려는 글이지만 둘째 단락에 빈 따옴표가 있고 문장 대부분이 비문이라 떼어 쓸 단락이 애매하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "It's a real deal that the",
+      "note": "마지막 단락을 고쳐 쓰려 했더니 문법을 거의 새로 써야 해 가공이 아니라 재저작이 됐다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "10a3bf56-c053-4cbd-a8fe-900d7b552659",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5ee66f356de66195479c0b5d1493632363775ff061f8cab1da5afd2ebf757d50",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "포위로 사람·식량 이동이 막힘 → 정부 작전에 대한 보복이라는 까닭 → 단체 배경이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The community of the town of",
+      "note": "첫 단락은 지명을 걷어도 포위와 그 이유가 서고 retaliation→revenge·interfering→blocking 로 V5 쪽으로 내려간다."
+    }
+  },
+  {
+    "id": "10a49ac0-6332-46ed-8740-3c436d81d0cc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b478bf295d33a263bb7e55d57f106c82f751f5fab89af50b5d9c9a2bf593c995",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "science",
+    "why": "캐스케이드 모형(끝나야 규모를 안다)을 먼저 세우고 초기 P파 연구가 이를 뒤집는 구조라 요지·빈칸·통념 교정 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to a traditional theory, called",
+      "note": "통념 단락은 fault·rupture 만 풀면 수능 빈칸 지문처럼 서고 앞 단락의 초기파 예측과 붙이면 반증 구조가 된다."
+    }
+  },
+  {
+    "id": "10a74602-030d-4d12-9638-844f3325705b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7a531056796c6e545b490b5df3a8e2a43a5525a78ac83149d1be0c2d904c7cf6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "의원의 부시-히틀러 비유 발언 → 해명 → 공화당의 비난으로 발언과 반응이 이어져 일방 논박이 아니라 논란 보도로 서므로 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Speaking to a group of atheists",
+      "note": "발언 단락은 떼면 서지만 인물·사건 이름을 걷으면 논란 자체가 사라져 standsAlone 은 안 됐다."
+    }
+  },
+  {
+    "id": "10afb4b2-e760-4195-962c-923715bc1d42",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "be6da8729f1d6cb9c6b5e543f84082d6917252f2c47f937e0f66259479337077",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "양측 승리 예측 → 야당의 부정 주장 → 식량 원조 보류·선거요원 해임이라는 근거가 이어져 주장-근거 칸과 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The government recently withheld food aid",
+      "note": "원조 보류 단락은 MDC 를 「the opposition」으로 바꾸면 혼자 서고 withheld→held back 으로 V5 가 된다."
+    }
+  },
+  {
+    "id": "10b6248d-799f-4b7b-900f-9c64ec752659",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "31b70b06e473f5d57c1654f2ac70bb8409f83c2a3c3428c7bc7cfab47a3b48c4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "경찰 조사 결과(범죄 없음) → 총리의 발언 수정 → 야당 반박으로 결과와 반응이 이어져 내용 일치·요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Controversy had also been raised today",
+      "note": "총리 발언 단락은 「불법 → 무책임」으로 말을 바꾼 흐름이 인물명 없이도 서고 retract→take back 으로 쉬워졌다."
+    }
+  },
+  {
+    "id": "10b63bd0-6d11-4d6f-b57a-6011ed161b91",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2c5065a73cace67b20f0d22e7271918b59937b2a621d18502b463e7a428dce69",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "두 단락이 치하한 의원 이름·재임 대통령 수·법안 이름만 바꿔 되풀이하고 문장 사이를 잇는 사건이 없어 §3-2 단신 기준상 폐기다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Dingell has been instrumental in drafting,",
+      "note": "법안 단락을 떼 보니 법 이름을 걷으면 「여러 법에 기여했다」 한 줄만 남아 논지도 사건도 없었다."
+    }
+  },
+  {
+    "id": "10b6a405-7e56-48c5-94a5-9d71028ff91a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6e5a3bd75096e79cfc990af17c45ea2542e6e1c8f7b0bd9a800f3dbe4e331722",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "공연 후 이동 → 무장 청년들의 강도·총격 → 경찰 출동 → 보상으로 사건이 시간순으로 흐르고 당사자 심경도 읽혀 순서·심경 칸 — 고1 이상.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to those at the scene,",
+      "note": "현장 단락은 인용을 3인칭으로 풀어야 했지만 사건이 분명해 순서 문항으로 잘렸고 fled→ran away 정도만 바꿨다."
+    }
+  },
+  {
+    "id": "10b97cc2-da68-4164-9599-19507d03e702",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3199a85ed615f63fd305b09e9cdad43819248b1220c07ba83e4f5942a12dbaad",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "공습 보도 뒤 남동부 매복 공격 → 의회 승인 → 공습이라는 원인과 미국의 우려가 이어져 수치 나열이 아니라 분쟁 흐름으로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ankara had threatened to attack PKK",
+      "note": "배경 단락은 도시명을 「Turkey」로 바꾸면 공습의 이유가 서고 ambushes→surprise attacks 로 풀었다."
+    }
+  },
+  {
+    "id": "10bd0891-9ae0-42c5-b231-e67cb014a2aa",
+    "source_updated_at": "2026-09-25T08:58:52.667935+00:00",
+    "body_sha256": "5073eddec6915d7a076a86fb9755eb9fdb93ece8075628146e334f7544c421f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "행정명령의 내용과 정의 조항 → 여권 X 표기 폐지 → 인권단체 반발 → 2021년 도입 경위가 이어져 성인 대상 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The first passport with the \"X\"",
+      "note": "여권 도입 단락은 떼면 서지만 명령 원문 인용이 길고 법률 어휘가 몰려 두세 낱말로는 V6 아래로 안 내려갔다."
+    }
+  },
+  {
+    "id": "10c07111-1982-4745-b9a0-1b3003731c4d",
+    "source_updated_at": "2026-09-25T08:47:47.318705+00:00",
+    "body_sha256": "fd7dc914a4d365f168ea446a14495c8cd0d948501a0b3912f017a9196286f219",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "충돌 → 헬기 탑승자 사망·비행기 탑승자 부상 → 퇴원 → NTSB 조사라는 결과와 다음 절차가 문장으로 이어져 §3-2 기준상 짧아도 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Federal Aviation Administration (FAA) said",
+      "note": "둘째 단락은 기종명을 「a helicopter/a small plane」으로 바꾸니 사고 결과가 또렷이 서서 내용 일치 문항 하나가 나왔다."
+    }
+  },
+  {
+    "id": "10c1b134-fac7-44c6-b148-d50d9ff866f1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "93967d84b878e8b94c2af5cde38fdd9a96bc4e2a66a39ae188ca62dc8b63f929",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 10,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "상륙 → 비를 반기는 주민 → 급류 위험과 물에 들어가지 말라는 경고 → 북상 피해가 이어져 내용 일치·요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The storm system is moving quite",
+      "note": "기상학자 인용 단락은 산악 지형 때문에 급류가 난다는 까닭이 서고 monitor→watch 하나로 V4 에 맞았다."
+    }
+  }
+]
