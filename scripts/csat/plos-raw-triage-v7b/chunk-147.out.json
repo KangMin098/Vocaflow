@@ -1,0 +1,859 @@
+[
+ {
+  "id": "764e77c5-f704-4314-8805-9cf93e22c323",
+  "source_updated_at": "2026-09-15T15:19:28.188223+00:00",
+  "body_sha256": "a7b0b5e744680b9b85ceb3c22bbc01fbd6604344c9d31751408321f6e4e1e87a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "옴 진드기 감염의 가려움이 왜 기존 항히스타민제로 안 듣는지 문제를 세우고 고찰에서 두 경로 가설로 답한다 — 서론 두 단락이 그대로 논지가 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "With an annual global prevalence of",
+   "note": "수용체 약어(PAR-2, MRGPRX2)를 「가려움 수용체」로 풀면 서고, 통계 수치를 걷어도 문제-해법 흐름이 남는다."
+  }
+ },
+ {
+  "id": "7653827f-0f7e-4d82-82b6-543381cbb83c",
+  "source_updated_at": "2026-09-15T15:19:29.823037+00:00",
+  "body_sha256": "e0eee6ecbd8b40ff43b1230c8981f9c5217a87c5495628e46b50448aedd7c320",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "가나의 장티푸스 진단이 왜 어려운지 서론에서 세우고 고찰에서 비장티푸스균이 독소 유전자를 가졌다는 발견으로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Salmonella enterica is a Gram-negative",
+   "note": "혈청형·유전자 이름 나열은 걷어야 하고, 걷으면 「진단 도구의 한계」 논지가 남는다."
+  }
+ },
+ {
+  "id": "766691f4-2a9c-4325-864e-31efd8d80f8d",
+  "source_updated_at": "2026-09-15T15:19:31.751478+00:00",
+  "body_sha256": "ca579324258164b66ee8e3859daf48d84e58c7aead0f9b890f2d3ff0b8bd3ff7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "저농도 카드뮴이 상추를 잘 자라게 하면서 동시에 안전 기준을 넘게 한다는 역설을 세우고 산화아연 나노입자 처리로 답한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The intensification of agricultural and industrial",
+   "note": "효소 약어(SOD·POD·PAL)는 걷어도 「잘 자라지만 먹기엔 위험하다」는 역설이 그대로 선다."
+  }
+ },
+ {
+  "id": "766e808e-c1bb-4e7e-ab23-a24fb07358b3",
+  "source_updated_at": "2026-09-25T07:27:45.695747+00:00",
+  "body_sha256": "6857712949d37499c7bf40459f64d527c241ecfb391a00805f54f58498068b66",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "미분화 갑상선암에서 EpCAM을 줄이면 세포가 다시 분화한다는 발견을 가설-검증 순서로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Anaplastic thyroid cancer is a small",
+   "note": "세포주 이름(FRO·ACT-1)은 「공격적인 암세포」로 묶으면 되고, 고찰 첫 두 단락이 발췌하기 좋다."
+  }
+ },
+ {
+  "id": "76733994-3d54-4767-b298-f4485faed2ea",
+  "source_updated_at": "2026-09-13T07:13:06.356974+00:00",
+  "body_sha256": "36f81c2a6b010d45a956ac1dd803e7252443b5a517a533eb14a260178b534c5e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "녹농균의 배출펌프 조절 유전자 변이가 환경이 아니라 계통에 묶여 유지된다는 결론까지 논지가 이어진다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Pseudomonas aeruginosa, a free-living microorganism",
+   "note": "본문 가운데 91균주 표가 통째로 섞여 있어 가공 때 표를 먼저 걷어야 하고, 남는 서론·고찰만으로도 논지는 선다."
+  }
+ },
+ {
+  "id": "769af3de-5ed4-49e1-af02-8864133c9616",
+  "source_updated_at": "2026-09-06T00:08:09.973643+00:00",
+  "body_sha256": "23511053ace68ff80eb4a170f438cef95a5fc1243a4129ea1d5b412d23523d55",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "기후변화가 만성질환을 키우는데도 감염병과 달리 눈에 안 띈다는 통념 교정 구조로 한 편이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Climate change acts as an NCD",
+   "note": "전문 용어가 거의 없고 「왜 우리는 움직이지 않나」 단락이 그대로 수능형 지문 길이다."
+  }
+ },
+ {
+  "id": "76a33009-b171-4684-bf34-1feb0eb20516",
+  "source_updated_at": "2026-09-13T07:34:33.328213+00:00",
+  "body_sha256": "1a5ef5e3074aa9e5190b0a59b04dd6afa0543ad91ed2bbbf18e689fac0518441",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "근긴장성 이영양증에서 회백질은 널리 줄었는데 연결망 지표는 그대로라는 대비를 보상 기전 가설로 설명한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Myotonic dystrophy type 1 is the",
+   "note": "그래프 이론 지표 이름을 걷어도 「부피는 줄었는데 기능은 남았다」는 대비가 논지로 선다."
+  }
+ },
+ {
+  "id": "76a64356-e45e-450b-9563-08676364f2a3",
+  "source_updated_at": "2026-09-13T07:40:26.207754+00:00",
+  "body_sha256": "546764f1326cbb10b6be3c111c9518e29cb937659d4717bc87e80c5b99fc67cb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "CT로는 안 보이는 생쥐 복부 장기를 MRI로 겨냥한다는 문제-해결 구조가 서론과 고찰에서 한 편으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It is prerequisite, when translating preclinical",
+   "note": "장비명·시퀀스 약어(bSSFP·CPMG)는 걷으면 되고, 「보이지 않으면 겨눌 수 없다」는 뼈대가 남는다."
+  }
+ },
+ {
+  "id": "76a7d091-f3fd-4101-bfb8-0964ad8019fd",
+  "source_updated_at": "2026-09-25T07:27:49.417669+00:00",
+  "body_sha256": "12e9200e82e7beaa54779fc751cbaf551c2cc5977c0d34cb0b91c9eddc611afc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "나이지리아 학령기 아동의 주혈흡충 유병률이 뜻밖에 높다는 결과를 관리 프로그램의 한계로 해석해 잇는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Schistosomiasis is one of the most",
+   "note": "오즈비 수치 나열은 걷고 서론·고찰만 쓰면 위생 환경과 감염의 인과가 남는다."
+  }
+ },
+ {
+  "id": "76af496b-5102-4fdf-b786-fad3e57a24f4",
+  "source_updated_at": "2026-09-25T07:27:50.339781+00:00",
+  "body_sha256": "585a9dfbb2ae7b42e09b887d537ba69867b88852f11f77a93789c29e1dbb4fc6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "장내 세균이 만드는 인돌이 처음엔 기생충을 괴롭히지만 적응 뒤엔 오히려 정착을 돕는다는 반전 구조가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Entamoeba histolytica is a pathogenic amoeba",
+   "note": "저자 요약(author summary)이 이미 일반 독자용이라 그대로 발췌 후보가 된다."
+  }
+ },
+ {
+  "id": "76b43158-f19b-40f1-a001-d87c525846a3",
+  "source_updated_at": "2026-09-13T06:28:23.726187+00:00",
+  "body_sha256": "88444d62681406a3c633e0ddb3302134ff41121f0a5eb222487d63fc18d06459",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "Nox4가 PECAM-1을 조절할 것이라는 가설이 검증에서 부정되고 다른 결합단백으로 방향을 돌리는 흐름이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Diabetic Retinopathy is a common neurovascular",
+   "note": "「가설이 빗나갔다」는 고찰 구조가 드물어 쓸모 있고, 유전자 약어는 「혈관 이음새 단백질」로 풀린다."
+  }
+ },
+ {
+  "id": "76c2e113-b86f-4127-9a36-75033669eb0d",
+  "source_updated_at": "2026-09-13T06:56:39.125207+00:00",
+  "body_sha256": "0caa824ac4b73887d60ad9658d23c0f7d470829067c931dc6e4487be9c8a7369",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "천연이라 안전하다는 통념을 동반질환 상황에서 검증한다는 문제 설정이 서론에 서고 고찰이 답한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It is estimated that 80% of",
+   "note": "혈액·생화학 표를 걷으면 「천연이 곧 안전은 아니다」는 논지가 그대로 남는다."
+  }
+ },
+ {
+  "id": "76d26d3e-9cb4-4ab2-850a-26384d7f7fee",
+  "source_updated_at": "2026-09-13T07:40:29.127479+00:00",
+  "body_sha256": "ea73b7e596734e83784e844c4208ea098a64d30e1f27956ec88f4fa8e9bb9006",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "당뇨 혈관장애에서 PDTC가 항염증이 아니라 항산화 경로로 작동한다는 것을 가설 배제 과정으로 보인다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Diabetes mellitus is the most prevalent",
+   "note": "효소 약어(DDAH·ADMA)가 빽빽해 두세 개를 풀어야 하지만, 「예상한 이유가 아니었다」는 흐름은 남는다."
+  }
+ },
+ {
+  "id": "76de3d87-cfa1-4416-a1bc-3c72cdcca983",
+  "source_updated_at": "2026-09-25T07:27:54.40555+00:00",
+  "body_sha256": "5b4e300615319bf29f6a2df1186461e06ed994646bfde6717e54a1fcea93bc6d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "갈륨이 세균막을 막는 까닭을 특정 효소 유전자 하나로 좁혀 가는 과정이 서론과 결론에서 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Intramedullary implants are indispensable in bone",
+   "note": "실험 절차 절은 걷어야 하고, 서론과 결론 단락만으로 「왜 임플란트 감염이 안 낫나」가 선다."
+  }
+ },
+ {
+  "id": "76e997a7-49d4-490c-bf1b-4a665ca911e0",
+  "source_updated_at": "2026-09-25T07:27:56.016794+00:00",
+  "body_sha256": "ca2cf78f2235aa1b882be695181f6dd9ba7cdbb2f322fbaeae3b16f2ca9efa51",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "hold",
+  "genre": "science",
+  "why": "야자바구미 유충 효소의 최적 온도·pH 논의는 서지만 본문의 수식이 모두 「[수식]」 자리표시자로 빠져 모델 설명 절이 뜻을 잃었다.",
+  "hold_reason": "incomplete-source",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Enzymes play a fundamental role in",
+   "note": "수식이 빠진 2.5절은 문장이 이어지지 않아 발췌 불가이고, 서론·고찰만 남기면 분량이 얇아진다."
+  }
+ },
+ {
+  "id": "76ee4495-7490-49a2-9c10-7ac942585bca",
+  "source_updated_at": "2026-09-13T06:29:57.363427+00:00",
+  "body_sha256": "f48ac32c77a698a0a2a5aa77f8df2bff5dff6abb7acc7e8f14bc455b58c0a559",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "코돈쌍 재배열로 바이러스를 약화시킨 백신 후보가 온도 스트레스에서 어떻게 되돌아가는지 추적하는 흐름이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Codon-pair deoptimization is a strategy for",
+   "note": "돌연변이 표기(M2-1[I87K])가 문장마다 박혀 있어 서론 앞 세 단락 말고는 걷어내기 어렵다."
+  }
+ },
+ {
+  "id": "7716f31a-2f8a-47a5-ad65-80dfc3856d39",
+  "source_updated_at": "2026-09-15T15:19:47.395936+00:00",
+  "body_sha256": "b74402de6cdef4a2c041d944d01c33dce8f25b47fe4dc31492198210945fe42d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "거식증의 뇌 구조 변화가 평균이 아니라 개인차로 나타난다는 것을 세 가지 분석으로 보이고 아형 구분은 부정한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Anorexia nervosa is an eating disorder",
+   "note": "저자 요약이 평이해 그대로 쓰이고, 「평균은 개인을 말해 주지 않는다」는 논지가 뚜렷하다."
+  }
+ },
+ {
+  "id": "771e68c7-d34a-4522-a963-0e417cd2f126",
+  "source_updated_at": "2026-09-13T06:52:53.276097+00:00",
+  "body_sha256": "8b22ad2445d70a7016166bccb55512b7908c2c8704ae7904f1a55f74dc95d1d0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "인공감미료와 당뇨의 관계를 관찰연구의 한계에서 출발해 유전 도구로 다시 묻는 구조가 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Diabetes mellitus represents a significant and",
+   "note": "통계 기법 약어는 걷고 고찰의 「커피에만 왜 나타났나」 설명 단락을 쓰면 논지가 선다."
+  }
+ },
+ {
+  "id": "7736720a-de13-4231-a891-60665827ebbc",
+  "source_updated_at": "2026-09-13T07:04:01.794325+00:00",
+  "body_sha256": "63a44071d9a429b45fc606d6f5f27487f0adfae51f4481c8b8ed89add92cc19f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "네 가지 세균막 검사법을 금표준과 견주어 어느 것이 쓸 만한지 가르는 과정이 한 편으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Bacterial biofilms are an organized community",
+   "note": "항생제 내성 표는 통째로 걷어야 하고, 남는 서론·고찰로 「간단한 검사가 왜 필요한가」가 선다."
+  }
+ },
+ {
+  "id": "773eb146-d87e-4d7b-bfe3-0c9bcc06a424",
+  "source_updated_at": "2026-09-13T06:59:42.66316+00:00",
+  "body_sha256": "1f6c3831847b7fea0578ba94d535479b8765e0dabf46bbec4bed69bfe3149f12",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "미페프리스톤의 수명 연장이 산란 억제 때문이 아니라 지질 대사 감소 때문임을 생식세포 제거 실험으로 가른다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Mifepristone is a synthetic steroid with",
+   "note": "초파리 유전자 표기와 수명 표가 빽빽해 고찰 앞부분 말고는 떼어 쓰기 어렵다."
+  }
+ }
+]
