@@ -242,7 +242,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
         키보드: 표지 묶음은 탭 정지 하나(roving tabindex) — ←/→ 한 권, ↑/↓ 한 선반, Home/End 처음·끝.
       */}
       <div
-        className="relative mx-[calc(50%-50vw)] self-stretch overflow-hidden bg-[#cdcdcd]"
+        className="relative mx-[calc(50%-50vw)] self-stretch overflow-hidden bg-[var(--bg2)]"
         style={{ fontFamily: 'var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif' }}
       >
         {activeSet && (
@@ -259,7 +259,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
                 type="button"
                 onClick={() => void openDetail(activeSet)}
                 aria-label={`${activeSet.title} 상세`}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#dedede] text-[#2b2b2b] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--bg3)] text-[#2b2b2b] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
               >
                 <Eye size={16} aria-hidden />
               </button>
