@@ -1,0 +1,869 @@
+[
+  {
+    "id": "8e6b5733-e21b-48b2-b7dc-dbb1d697fbec",
+    "source_updated_at": "2026-09-25T04:01:36.195104+00:00",
+    "body_sha256": "a17c203332f151393a5674b53955f0c130daa11a2684600605316f2a4d1750c3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "쌍둥이가 식인 거인에게서 탈출하는 설화가 긴장 속 사건 연쇄로 이어져 초중등 장문 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "long_reference",
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Once upon a time, there was",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "8ea99424-788c-4c4f-8042-4f2e284029d2",
+    "source_updated_at": "2026-09-25T04:01:38.731912+00:00",
+    "body_sha256": "be03d340927623c6e8601c4f9076724d824d1046e7a204850f9af278a216cbf8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "처음 본 무지개를 두고 마을이 다투다 이방인이 이름을 알려 주는 흐름이 서 초등 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One afternoon, Kobole was out picking",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "8ed11b87-4cfb-401d-88c2-e4d44ac5a360",
+    "source_updated_at": "2026-09-25T04:01:24.359046+00:00",
+    "body_sha256": "8c3abb08569679baeeaf8f43e53f6d1e5fe38029d92fc921becc539a9183c2a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "쥐를 이곳저곳 찾다 가방에서 찾는 반복 탐색 패턴이라 초등 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Where is it ? A a",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "8f8b9230-373b-4f9d-a094-becb386be57b",
+    "source_updated_at": "2026-09-25T04:01:29.231634+00:00",
+    "body_sha256": "044f6d65f8071639970538e7a99b616a202fea2e428e155d1f4ccd693562d659",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "나이·음식·전화번호 등 서로 무관한 자기소개 문장의 나열이라 초등 칸도 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "My favourite food is fried fish",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "8fa9765f-9341-4d53-9973-33f1aeccdb92",
+    "source_updated_at": "2026-09-25T04:02:25.338505+00:00",
+    "body_sha256": "7c93209190770e63c18fbb61392cea2829e994ca18cbf84949f22ee157dd8c3f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "무지개 집의 부분별 색깔을 나열할 뿐 사건·이유 연결이 없어 초등 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "I love all the colours of",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "917195e9-07d4-45ea-a81b-db225cfcb8ac",
+    "source_updated_at": "2026-09-25T04:02:14.661708+00:00",
+    "body_sha256": "22cc5dbb0c12a408ca027fe64b22444369881bcc220361eee65f25df66022033",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "「All of you」라는 이름 꾀로 음식을 독차지한 거북 유래담이 인과로 이어져 초등 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The journey started at 8:00 am.",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "91b69e2a-329a-429e-bb7a-f7645fc4f88d",
+    "source_updated_at": "2026-09-25T03:34:47.126099+00:00",
+    "body_sha256": "7e8dfc3afdd6f16218314c880e155d7453bd805ce9fcbd0256d6fb18e1c65167",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "택시비 사건이 개·염소·소의 오늘 행동을 설명하는 유래담으로 이유 연결이 분명하다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Goat, Dog, and Cow were great",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9520fd01-3819-4646-8f0e-830662133652",
+    "source_updated_at": "2026-09-25T04:01:28.663602+00:00",
+    "body_sha256": "c2bc886affd17cb3326e36962e4216a60f1468455cc76f24c9964852f0dc01d4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "무지개 이야기의 1인칭 판으로 발견-논쟁-설명 흐름이 서서 초등 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "My name is Kobole. I live",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "95500550-c402-4482-a237-314fd6e51bd2",
+    "source_updated_at": "2026-09-25T03:34:50.04908+00:00",
+    "body_sha256": "d6e573fa1e97687fee320ede90012ad7d3f7b40f23446724b2007bd03c00c4d2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "장애를 딛고 패럴림픽 금메달을 딴 자서전이 시간순으로 이어져 초중등 전기 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I was born in summer, in",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9571b14a-b753-426c-a1d2-6f2d59c35095",
+    "source_updated_at": "2026-09-25T04:01:41.063841+00:00",
+    "body_sha256": "e474a029d244880c39ac72a25febc0e35f2ae51577d30d81173de0c7f24a1608",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "해를 업고 가다 털이 벗겨진 자칼 유래담이 원인-결과로 이어져 초등 요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Long ago, there was a foolish",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "97af8108-ad81-4b39-a4f8-2093f4d68c6e",
+    "source_updated_at": "2026-09-25T04:02:38.754708+00:00",
+    "body_sha256": "d03a21a2f5036d07deb432a295884d3e40c03b60c9c457d06fd4614e522cd745",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "잃어버린 방망이를 이곳저곳 찾는 반복 탐색 패턴이라 초등 최소선은 넘는다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I have lost my bat, and",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "987cf6bc-70de-40ae-bac5-826bf2a31b9e",
+    "source_updated_at": "2026-09-25T04:02:39.720199+00:00",
+    "body_sha256": "ab76b997fa6dced7150199682163f214c37ac486920300c9cd6167d4b569a008",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "사자를 만난 남자가 나무에서 떨어져 함께 달아나는 사건 흐름이 서서 초등 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Once upon a time, there was",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9991fa08-6640-4c17-9023-bbf72bd49fb7",
+    "source_updated_at": "2026-09-25T04:01:36.598705+00:00",
+    "body_sha256": "f13b2ede4259bc5df78daeb567c323b0be4433756a2761b3227cd88c8b48304a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "학교에서 하는 일을 한 줄씩 나열할 뿐 문장 사이 연결이 없어 초등 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "I also go to garden with",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "9a5cb56c-c2f3-4e67-9d76-3e9157906898",
+    "source_updated_at": "2026-09-25T08:01:13.831502+00:00",
+    "body_sha256": "76e910326e241740829b56710985041a2fd5aacea1b2cb14eec359f463a4212b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "인형을 잃어 걱정하다 엄마가 빨아 돌려주는 사건 흐름이 서서 초등 심경 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "mood",
+        "order"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This is a girl called Norah.",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9a623723-4a9e-4a32-a62a-089c9c32cc18",
+    "source_updated_at": "2026-09-25T04:01:30.111496+00:00",
+    "body_sha256": "1161ff5c4ac937f11cc81c96e426e9f8081dff7b927b6536d1ed75df7871a756",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "「Sane at the bus stop」식 그림 캡션이 이어져 그림 없이는 누가 무엇을 하는지 뜻이 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "I went to buy a birthday",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "9a7b0518-76e2-4ac0-8f98-b88482208add",
+    "source_updated_at": "2026-09-25T04:02:28.990386+00:00",
+    "body_sha256": "52ca0ef2f93db955d3b91fa6ad501a3b8311bcad200ded9d6aa6ff5c2ea29cc2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "「갈색 ○○」 명사구를 나열한 말놀이라 문장 사이 연결이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "And what is this? A clean",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "9b9537f9-8afe-45d9-aede-23065910cf15",
+    "source_updated_at": "2026-09-25T04:01:47.98662+00:00",
+    "body_sha256": "2deb3f58b639a86f752281a6595d28f9d86eeb64701de27a44b37f11ee3e9ca8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "교복값을 치르고 남은 거스름돈으로 셔츠를 살 수 있게 되는 인과가 짧게 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hamisi needs a new school uniform.",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9e29ad82-567e-4c3f-a22c-dbbf8cc4ad59",
+    "source_updated_at": "2026-09-25T04:02:29.831028+00:00",
+    "body_sha256": "117653300888c94be5e74d0d433ce7aad8e8722c63c3603c106b2b14556e8ad7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "뜨거운 물 시험을 꾀로 통과한 토끼 이야기가 사건 흐름으로 이어지나 어법 오류가 많아 가공이 필요하다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Once upon a time, there lived",
+      "note": "어법 오류를 고쳐 쓴다."
+    }
+  },
+  {
+    "id": "9e54067c-1ba9-41c5-b1eb-e3027e4721de",
+    "source_updated_at": "2026-09-25T04:02:06.65734+00:00",
+    "body_sha256": "dfe79b57bdd6d1be258e81e74aa944b5a82a189a436585e5d3e43130bd5007f6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "시골쥐·집쥐 우화가 덫 사건과 교훈 문장으로 끝나 초중등 요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Once upon a time, there lived",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9e5439cb-abbb-47f1-bfd1-f561addf82d4",
+    "source_updated_at": "2026-09-25T04:02:04.204508+00:00",
+    "body_sha256": "3eee24632cac699882e37e21184bf95b567c3182729895a20e987bde6e27d4d1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "마을 축제의 흥을 찾아 세 부족에게서 선물을 받는 여정이 반복 구조로 이어져 장문 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "long_reference",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Winter cold had passed. Spring",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9e9a070d-9efe-452e-ac75-3a8847c9a5c0",
+    "source_updated_at": "2026-09-25T04:02:38.123888+00:00",
+    "body_sha256": "5c671728b4afff581090dbfccdb949bd1047cbdab04a28712b5838d71939dce2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "심부름 대신 놀던 아이가 괴물 위기를 겪고 순종을 배우는 인과가 서나 구두점을 손봐야 한다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "once upon a time the was",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9ecb8e89-bbbf-43c8-bfbc-07eedb3d45e6",
+    "source_updated_at": "2026-09-25T04:01:39.392435+00:00",
+    "body_sha256": "e321590b0dd5c18cc61df019737e27fb3ca6a82508e551135df7b21766bc1a42",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "인형과 보내는 하루가 아침부터 잠자리까지 순서로 이어져 초등 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After I wake up I wash",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9f0dd084-a25f-458a-b931-19848f6121b5",
+    "source_updated_at": "2026-09-25T04:02:20.650745+00:00",
+    "body_sha256": "d3181528f10225ed8c7bbda3e78bf850983872141f8028108cc890122d997dd4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "가뭄에 우물을 판 동물들과 꾀 많은 토끼의 연속 사건이 길게 이어져 장문 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "long_reference",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It happened one year that the",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9fca3f9f-fd5b-4335-9846-a04d5d6695aa",
+    "source_updated_at": "2026-09-25T04:02:22.299497+00:00",
+    "body_sha256": "e5fcd62531c8a9b02a38453ae8adeb174976a2bd0ba068b004d74d7dd96a678a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "poetry-drama",
+    "why": "애완동물 후보를 연마다 운을 맞춰 늘어놓는 운문 그림책이라 차단 장르다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "My name is Maddy Moona, And",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "a025e3b5-becf-4bbe-8571-3ccb7803855f",
+    "source_updated_at": "2026-09-25T04:01:25.300059+00:00",
+    "body_sha256": "39c0a50d040878b4f8129a9165756608e24fa53589c075ff2434f70facaee158",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "아울 하우스를 만든 헬렌의 생애를 올빼미 화자가 시간순으로 들려주는 전기라 중등 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Meet my friend Helen. She was",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  }
+]

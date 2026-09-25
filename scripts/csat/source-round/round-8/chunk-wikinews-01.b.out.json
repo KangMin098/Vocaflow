@@ -1,0 +1,1013 @@
+[
+  {
+    "id": "0001d66a-f035-426a-9463-00936c6729e6",
+    "source_updated_at": "2026-09-25T08:05:49.936402+00:00",
+    "body_sha256": "33972d8531612c2d5eefef5308a412a94a1da60a65313adf9d416fbda02485cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아로요 탄핵안 부결과 서명 수 계산이 인과로 이어져 고등 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Philippine congressional committee has voted",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0008749b-32ee-4ff4-936f-de8f92d254c9",
+    "source_updated_at": "2026-09-25T07:06:39.604135+00:00",
+    "body_sha256": "1d3e4c312a71a8455b01e92b4c2b8d86ce1aac2c66b6f52e5630c26eddc2b54a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시의원 후보 문답에서 개발 속도 관리 답변이 주장-근거로 서 성인 주장 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The upcoming 2006 Brampton municipal election,",
+      "note": "문답 형식을 걷고 답변 하나를 뗀다."
+    }
+  },
+  {
+    "id": "000b6f58-0605-4389-ab5d-43921e53f4b6",
+    "source_updated_at": "2026-09-25T07:58:41.714335+00:00",
+    "body_sha256": "5aab30b1059489a139814047f688437a2307f283446f4866d9bdefb15f491ea1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카다피 정권 협력 외국인 판결과 각국 반응이 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A court in Libya has sent",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "000d9230-4dd3-4f9d-a431-085a46692b4f",
+    "source_updated_at": "2026-09-25T07:40:47.439207+00:00",
+    "body_sha256": "39b80ece38805c2daf48c19d9df42fac3d20a3370cbee8f45879bb28209d46bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "소말리아 해적의 화물선 납치와 순찰의 한계가 서술돼 고등 내용일치·주제 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Somali pirates have seized a cargo",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "000f5472-1227-4bc1-908b-c04b2c1bc53d",
+    "source_updated_at": "2026-09-25T07:58:41.740469+00:00",
+    "body_sha256": "d44242d6fe2aa3ecfb6e081bb6adac6bd1b0fbf190dca6658de5d5e106583bf6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "나이지리아 조스 인근 종족 충돌 기사로 살상 묘사가 구체적이라 성인 칸으로만 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least thirteen people were killed",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "000f56c5-fd63-4bc5-b676-50ca8f67ebaf",
+    "source_updated_at": "2026-09-25T06:57:39.959226+00:00",
+    "body_sha256": "4327b307ea350ddab382dbd9f31ae677aaf7346f6afd4b43ef035ce0560b5ee3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "2005 허리케인 시즌 기록을 폭풍 이름별로 나열할 뿐 논지·흐름이 없어 내용일치 칸 하나로는 모자란다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The National Hurricane Center tonight have",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "001302e7-5eae-48a5-86cc-8ce534a0ec8e",
+    "source_updated_at": "2026-09-25T06:55:02.693867+00:00",
+    "body_sha256": "d75d8901eb899130f1f68a2c753c32b72fe96e74da04d63f8e523f554e0d2714",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "허블 자이로 두 개 운용의 이유와 보완 방식이 인과로 설명돼 고등 설명문 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "NASA's Hubble Space Telescope entered a",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "00199083-c849-4508-90b2-d7bd62fc2f39",
+    "source_updated_at": "2026-09-25T06:57:23.418925+00:00",
+    "body_sha256": "0e470a358dbb60b40e4789ffdee42b11904fc6ae9916a7fdfe7ffa5a0c71f858",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "독일 전 차관 가족 납치 경위와 요구가 이어져 고등 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Jürgen Chrobog, former Secretary of State",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "001cde8e-c742-4a44-87fb-a675943a541d",
+    "source_updated_at": "2026-09-25T06:46:18.232418+00:00",
+    "body_sha256": "5e18d8b178f933b54e5593595895e890bba6f86273e24e864643bb77487cd52d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "동성애 주제 예수극의 줄거리와 작가 인터뷰가 서술돼 성인 읽기 칸으로만 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Brazilian plastic artist Alexandre Linhares has",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "001f91e6-a464-41ca-a0f9-a05b5a7610bf",
+    "source_updated_at": "2026-09-25T06:47:35.283907+00:00",
+    "body_sha256": "2c48e34a357bb9b340a1b6ae03fbf9fa00706fa62d5decc748323f552b64973e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "루마니아 기자 인질 시한 연장과 여론·정부 입장이 이어져 고3·성인 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Iraqi terrorists extended the ultimatum by",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "00206b11-a1cd-4d29-84e9-37fff5db057a",
+    "source_updated_at": "2026-09-25T07:44:32.163902+00:00",
+    "body_sha256": "4216bf8b0334a8ae1b126c9c1e9538869bf7c3c590f3a11ffcbcb674fec87d88",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "암흑에너지 연구로 우주 영구 팽창을 결론짓는 과정이 짧게 서서 고등 설명 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A study of the amount of",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "00213c19-96dc-4d87-889d-2168e573e494",
+    "source_updated_at": "2026-09-25T06:56:07.552512+00:00",
+    "body_sha256": "17df4653c607ebb16f173bcfd6793f947c7d614db5610b4b918647cee9ee9e59",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "IRA 무장해제 발표와 증인·반응이 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In a lunchtime press conference in",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "00254f8f-bff2-4bd1-b174-c2d35c98ea2f",
+    "source_updated_at": "2026-09-25T08:14:01.542756+00:00",
+    "body_sha256": "d507b2871112f806cd88d6c7a393657cffdfc0db671ef67543e11c8cd4b36d08",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "베이루트 차량 폭탄과 표적 수사관 배경이 서술돼 고2 이상 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lebanese officials say a car bomb",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "00259d80-aa63-4efb-b211-e1796d19495a",
+    "source_updated_at": "2026-09-25T07:41:38.713522+00:00",
+    "body_sha256": "fc5cb679d313ab36f6921109a117d3be7077cfff2eebdcb960a461e275ab1c80",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "1912 남극 비행기 잔해 발견 경위와 해빙 설명이 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A team of expeditioners from Australia",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "00266034-fbb6-4e43-979b-78babb0880ac",
+    "source_updated_at": "2026-09-25T07:32:29.789172+00:00",
+    "body_sha256": "4c6ee5c59549bcb59d0c2baf8c195dc22f42ef3bbd13b0d470ebf6cd22e8aa3e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "미 청소년 위험행동 조사 수치와 집단 비교가 있어 성인 수치 검증 칸이 되나 성 관련 내용이 많다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On June 4, a report published",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "002947df-29ab-41d2-bd3b-d00f390b642c",
+    "source_updated_at": "2026-09-25T07:58:41.79732+00:00",
+    "body_sha256": "e972fad5ffe49de9f849560283cdf8ea42290d0f72628e8496c730524141cfc1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뉴리 법원 차량폭탄과 반체제 공화파 배경이 서술돼 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A bombing outside the courthouse in",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "002c9b5e-dcc1-4962-bbcd-92552f6f45a8",
+    "source_updated_at": "2026-09-25T07:32:40.977168+00:00",
+    "body_sha256": "43349e34a4f9f8cb2ce77b496120e072cb5064fb6fc351b83e3eb349fbf13a49",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "버펄로 마구간 붕괴와 철거를 둘러싼 소유주·주민 입장이 대립 구조로 서 고등 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Reports say that a large three-story",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "00312417-85aa-4ab9-bb48-af9bd455f1a4",
+    "source_updated_at": "2026-09-25T07:49:22.492493+00:00",
+    "body_sha256": "ef801f5e7cefdcf6c67fd857766bee63312550fc3df6941e2a9f8d9e824f03c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "바퀴벌레 신종 39종 발견 방법과 의의가 설명돼 고등 과학 설명 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Heidi Hopkins, a taxonomic researcher and",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "00362ee5-b07e-4a16-820e-0fe1b40075e0",
+    "source_updated_at": "2026-09-25T07:32:14.870048+00:00",
+    "body_sha256": "88693e8f230b1b3ce5b35d5259372592440ceb1b864a2ec83afdd54d09020191",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "컴퓨텍스 수상 제도 설명 뒤 대부분이 수상 제품 목록이라 읽는 글이 아니다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "2008 COMPUTEX Taipei, the largest trade",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "0044781e-91f6-4e49-8203-60a79f745db3",
+    "source_updated_at": "2026-09-25T07:58:41.877205+00:00",
+    "body_sha256": "dc4d8faaa02d63866fbd73e0389d43cbfea6f84935080240f456a98d95ba913b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이란 반정부 활동가 사형 선고와 분석가 해설이 이어져 고3·성인 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Iran's Revolutionary Court has sentenced an",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0047d757-d879-41a0-afbd-bd8e516917ee",
+    "source_updated_at": "2026-09-25T07:58:41.90244+00:00",
+    "body_sha256": "2449561f40cb317676356641cfbb7b34a8b68d4d78677b404dbbe499bb1819f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "압둘라의 결선 불참 선언과 각국 반응이 길게 이어져 고등 장문·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Afghan presidential candidate Abdullah Abdullah said",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "00490fe4-9f89-42b3-85d2-5425599d69ed",
+    "source_updated_at": "2026-09-25T07:40:43.223641+00:00",
+    "body_sha256": "2583fd2c1f6eae480f5e7f1d6a00b5811fff0a4776862ba85b6303d1c4d71eb5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "베를린 장벽 붕괴 20주년 행사와 지도자 발언이 서술돼 고등 내용일치·주제 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Leaders from around the world are",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0049a102-48dc-403f-8a25-80c73a6537f7",
+    "source_updated_at": "2026-09-25T07:41:47.454113+00:00",
+    "body_sha256": "ecd907efbf94fb84ac535696c1f992db97c64275d37341890ce929ef41ef1947",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "BBC 확장과 PRS 계약을 비판하는 창업자 답변이 주장-근거로 서나 비속어가 있어 성인 칸으로 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Digital radio listeners in the UK",
+      "note": "비속어·과장 농담을 걷어 낸다."
+    }
+  },
+  {
+    "id": "004bbf4d-a5a8-4c0c-83cc-51ff37a0e772",
+    "source_updated_at": "2026-09-25T07:35:13.435674+00:00",
+    "body_sha256": "d35e04a186884462dbed6ebb7af056aaeeb9505a2656d6d9e7eb6d7f4cca6e68",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "스페인 저가항공 운항 중단과 배경이 짧게 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Spanish budget air carrier LTE International",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0054c13d-9312-418a-9bec-51c93783ed67",
+    "source_updated_at": "2026-09-25T07:53:10.492714+00:00",
+    "body_sha256": "40df9d1917434124e5f916fc7d82fde03633d1340dca7c348fb6707e28440346",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "여행기 출판 소개가 번역투로 짧고 원주민 서식지를 「wretched」로 묘사한 인용이 있어 칸 판단이 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Russian Wikinews attended Russian travel writer",
+      "note": "떼어 볼 수는 있으나 무엇을 칸으로 삼을지 기준이 갈린다."
+    },
+    "hold_reason": "borderline"
+  }
+]
