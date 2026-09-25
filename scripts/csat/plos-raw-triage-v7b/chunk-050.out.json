@@ -1,0 +1,861 @@
+[
+ {
+  "id": "28786222-402b-42a3-ba81-ed6cbaddefcb",
+  "source_updated_at": "2026-09-15T14:41:45.748096+00:00",
+  "body_sha256": "baca349392f5860e35f694f284fb387a2eb8abcf2809b5859bc3caa8ffd0f6ef",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "1994년 헨드라 바이러스 발생을 서사로 열고 생태·예방까지 논지를 이어, 「역사」 절 문단을 그대로 떼어 쓸 수 있다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In early September 1994, a pregnant",
+   "note": "바이러스 계통 용어를 「바이러스」로 바꾸면 서고, 말 사육장 사건 서사가 그대로 남는다."
+  }
+ },
+ {
+  "id": "2882c8b4-5da8-460a-899e-3319d490018f",
+  "source_updated_at": "2026-09-08T05:39:49.155642+00:00",
+  "body_sha256": "af357175d87a1ed1a67d2ab658196a0a9473028b19e3210e844acde4faa71711",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "전립선비대 증상이 선상피 증식과 연결된다는 단일 논지를 고찰에서 선행 연구와 대조하며 끌고 간다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pioneer views assuming that BPH predominantly",
+   "note": "CNN1·KRT19 약어를 「근육 표지」·「상피 표지」로 바꾸면 서지만, 상관계수 문장은 걷어내야 한다."
+  }
+ },
+ {
+  "id": "2891ea84-d585-48a4-9c74-cf4097f824b5",
+  "source_updated_at": "2026-09-15T14:41:49.001488+00:00",
+  "body_sha256": "c89605de6196d5aa27ca503418ee3cfc1a99bda9d26988714593dbcc534777e9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "반복 유산과 miRNA 변이의 연관을 묻고 두 변이만 유의했다는 결과를 한 편으로 끌고 간다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The etiology of RPL is complex",
+   "note": "유전자 기호 나열이 많아 서론 문단이 가장 낫고, 한계 서술 문단은 논지가 뚜렷하다."
+  }
+ },
+ {
+  "id": "289ac6db-05e6-4741-a042-b0df98e7f1c5",
+  "source_updated_at": "2026-09-13T07:38:41.751204+00:00",
+  "body_sha256": "7c3cf5afb073667b50958ff14d03106519db50c68d00f8e9b9c26bffc0a27290",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "양에서 결핵 감염 모형을 세우고 두 백신을 견준 뒤 BCG만 병변을 줄였다는 결론까지 인과가 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This is the first report of",
+   "note": "균주명과 CFU 수치를 걷어도 「백신을 맞은 무리가 덜 아팠다」는 대비가 남는다."
+  }
+ },
+ {
+  "id": "28a64c73-7d1d-4593-a3c2-e8c2d80114ea",
+  "source_updated_at": "2026-09-25T07:27:55.573118+00:00",
+  "body_sha256": "a87265f7601ba1fa5345d6051a058384e02a81e1d38247f5682da6c331d15f36",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "에콰도르 강 유역 메기의 숨은 종 다양성을 형태·유전 증거로 갈라 보이고 보전 필요까지 잇는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Astroblepids exhibit a restricted distribution, influenced",
+   "note": "학명과 분석 도구 이름을 걷으면 「생김새가 같아도 다른 종일 수 있다」는 논지가 선명히 남는다."
+  }
+ },
+ {
+  "id": "28a90d37-0e2d-46c1-afaf-34a108bf52e4",
+  "source_updated_at": "2026-09-25T07:27:56.649113+00:00",
+  "body_sha256": "3011b3e5583d0f1034c3368ee59457b88aaa77f4df153933097d539ab4125ced",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "곰팡이 교배를 막는 조절 단백질이 오히려 같은 성끼리의 융합을 억제한다는 뜻밖의 결과를 저자 요약이 평이하게 정리한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Analogous to processes observed in many",
+   "note": "저자 요약(Author summary)은 유전자 기호가 적어 그대로 쓸 만하고, 결과 절은 약어가 빽빽해 어렵다."
+  }
+ },
+ {
+  "id": "28ad7742-01ea-412b-b93f-18389590f715",
+  "source_updated_at": "2026-09-25T07:27:57.211748+00:00",
+  "body_sha256": "3822672b4941c4eeda0ca04b2b8a2d5db1fd3372b2bbb274e5044dfe9aa98698",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "펩타이드만 받는다고 알려진 수용체가 대사산물에도 반응한다는 반전 구조로 통념·반증·결론이 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "So far, all the characterized regulators",
+   "note": "고찰 첫 문단이 통념을 세우고 뒤집어 떼기 쉽고, 균주 기호는 「이 세균」으로 바꾸면 선다."
+  }
+ },
+ {
+  "id": "28aecbaf-4077-42ee-9380-4cd491cd15d9",
+  "source_updated_at": "2026-09-25T07:27:57.652363+00:00",
+  "body_sha256": "f257068d605498cb22024fdcd83219dc8683fbb334c4f5fd5d8a1a4fa97d6fb1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "물·비료·피복 조합이 토양과 과실 품질을 어떻게 바꾸는지 고찰에서 이유를 들어 설명한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "irrelevant"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Irrigation and fertilizer management are essential",
+   "note": "처리 코드(W2F2A3)와 수식 자리를 걷으면 「적게 대고 짚을 덮는 편이 낫다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "28b391b3-cb73-4bc9-8c9e-369452cb2110",
+  "source_updated_at": "2026-09-25T07:27:58.042048+00:00",
+  "body_sha256": "52ef3ee632399cd7f1a06bcc102599ceeb5a16085aad17bf221417a4bfa47344",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "위염이 위축성으로 넘어가는 길목에 한 효소가 있다는 가설을 자료 분석과 동물 실험으로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The persistent inflammatory reaction in the",
+   "note": "서론 문단은 약어를 풀어 주면 서지만, 결과 절은 그림 번호와 p값이 문장마다 끼어 있다."
+  }
+ },
+ {
+  "id": "28b66554-9be6-43ac-8e4e-8bd5fd2d38a0",
+  "source_updated_at": "2026-09-25T07:27:58.487647+00:00",
+  "body_sha256": "866e6ec00c258065a93e8ab988c73a12d58698701f7c130a16535005bde7b1bf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "약이 두 효소를 못 가려 부작용이 난다는 문제를 세우고 선택성이 접촉망의 협동에서 온다는 결론으로 닫는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Poly(ADP-ribose) polymerase (PARP) inhibitors are widely",
+   "note": "저자 요약이 잔기 번호 없이 논지를 다 담아 떼기 좋다."
+  }
+ },
+ {
+  "id": "28ca5ecc-455c-4c2d-b31d-d8d304e62b3a",
+  "source_updated_at": "2026-09-13T06:47:49.425675+00:00",
+  "body_sha256": "a77dbbbeaacd6c8a27e021a1576b057789ae58302a543df9e7d20764cf252b6f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항생제 내성이 생기는 동안 대사물질이 늘어난다는 관찰을 다른 세균 사례와 견주어 논지로 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Using the metabolomics approach, it is",
+   "note": "기기·소프트웨어 이름은 통째로 걷히고, 고찰의 대사물질별 설명 문단이 가장 읽힌다."
+  }
+ },
+ {
+  "id": "28cb505e-b568-48ea-bf12-9d3b1a56d7be",
+  "source_updated_at": "2026-09-25T07:28:02.28364+00:00",
+  "body_sha256": "bc67746bf5c9363aa7be6375f04f3e5d34aa070fa267548f31928fd047d5095f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스가 왜 감염 초기에 증식을 스스로 억누르는가를 묻고, 억제 단백질을 없앴을 때의 결과로 답한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Human papillomaviruses (HPVs) are common viruses",
+   "note": "저자 요약은 유전자 기호가 적어 그대로 서고, 결과 절은 실험 약어가 문장마다 끼어 있다."
+  }
+ },
+ {
+  "id": "28dcc3e9-8f91-4121-b9de-8e088da3ecd3",
+  "source_updated_at": "2026-09-25T07:28:05.164056+00:00",
+  "body_sha256": "e898e2dce1b599536f6a2123c1190e746cc8672fe6c3991628af95bd35291c40",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "세 가설을 나란히 세워 각각의 난점을 짚는 해설 구조라 논지와 근거가 문단마다 짝을 이룬다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "insert",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Invented by the Chinese between 200",
+   "note": "나침반 도입 문단은 고유명사만 걷으면 중등까지 내려가고, 세 가설 문단은 그대로 대조 지문이 된다."
+  }
+ },
+ {
+  "id": "28ee00b1-2587-4706-8ef0-5cbd1165667d",
+  "source_updated_at": "2026-09-25T07:28:06.370214+00:00",
+  "body_sha256": "4f6448cacc696a42c6e8bfd2f3705986baba3e050e7d79a5ca103d16ebe7c2b8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "폐 이식 후 기능 저하를 미리 알 신호를 찾는 목적이 서고, 평이한 저자 요약이 결과를 정리한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Patients that receive a life-saving lung",
+   "note": "「연구자들이 무엇을 했나」 절은 유전자 이름이 없어 바로 쓰이고, 결과 절은 목록이 길다."
+  }
+ },
+ {
+  "id": "28f24067-fa6f-4ea8-af42-2a9b9f3ffd5d",
+  "source_updated_at": "2026-09-13T06:30:41.125417+00:00",
+  "body_sha256": "22930caa225d7ced37c1e6d7ceb3aad5eaf5beabb97c5e2df0e55414a0a1d784",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "병원체가 숙주의 하루 리듬을 타고 장기마다 다르게 움직인다는 논지를 기관별 사례로 쌓아 간다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Earth’s rotation governs day and",
+   "note": "머리말과 「간」·「피부」 절은 유전자 기호를 몇 개만 바꾸면 서고, 문단 경계가 뚜렷해 떼기 쉽다."
+  }
+ },
+ {
+  "id": "28f29a0b-c517-4d08-ac32-7a105298e039",
+  "source_updated_at": "2026-09-13T06:42:41.916671+00:00",
+  "body_sha256": "39761aab8dfe34bc377452276cfc41168aaa56a634afe039b11c7b60a1cf1bdf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기생 흔적이 화석으로 덜 남는 이유를 응력 계산으로 따져, 문제 제기와 해석이 한 편으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Parasitism is the most common and",
+   "note": "표본 번호와 MPa 수치를 걷어도 「부푼 쪽이 더 잘 깨진다」는 추론이 남는다."
+  }
+ },
+ {
+  "id": "291bfbc0-a80d-485a-ae0d-29cdd4b9c75d",
+  "source_updated_at": "2026-09-15T14:42:05.913303+00:00",
+  "body_sha256": "e5ce2fce38bd7552f48ceeccbec2dfa636c31c03308ebcdc0508737679496ef7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "hold",
+  "genre": "health",
+  "why": "뇌동맥류 역학 서술은 쓸 만하나 문장 사이 띄어쓰기·어순이 무너져 발췌하면 비문이 그대로 남는다.",
+  "hold_reason": "processing-unclear",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Intracranial aneurysms represent one of the",
+   "note": "낱말을 바꾸는 수준이 아니라 문장을 다시 써야 해 가공 판단이 갈린다."
+  }
+ },
+ {
+  "id": "291efc10-35e7-44fe-819f-fcc32af07c35",
+  "source_updated_at": "2026-09-13T06:52:54.632298+00:00",
+  "body_sha256": "df41f0d6d4bf343a791c9a01fc393c2549d1cd4bb65374cf731a73ccdbd82f85",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기존 연구가 암수와 뇌 부위를 뭉뚱그렸다는 공백을 세우고 그것을 갈라 본 이유를 서론에서 논증한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Alzheimer’s disease (AD) is a complex",
+   "note": "서론과 고찰 앞부분만 쓸 수 있고, 유전자 기호 표가 본문의 절반이라 그 구간은 버린다."
+  }
+ },
+ {
+  "id": "292a0d34-b276-4af8-a01a-abd4ebcd9756",
+  "source_updated_at": "2026-09-13T07:12:53.187183+00:00",
+  "body_sha256": "db8f69b0a925b58240482cfd2bc7c6f8ef77d48ce636ff83435dcf02fa595b35",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "응급 자궁경부 봉합의 성패를 미리 가를 표지를 찾는 문제 설정이 서고 고찰이 표지마다 이유를 단다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "PTX3, a prototype of the long",
+   "note": "고찰의 단백질별 문단은 떼기 좋고, 표와 수치 문장은 통째로 걷어야 한다."
+  }
+ },
+ {
+  "id": "294b4756-fa93-475b-a3a2-a38967b4c83a",
+  "source_updated_at": "2026-09-15T14:42:09.54806+00:00",
+  "body_sha256": "6756e45042f2df05b9b5a0681781ddc682a0d858d8525cbb94f0e9942ab244f5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "지질 비율 한 지표로 급성 췌장염 사망 위험을 가를 수 있는지 묻고 한계까지 스스로 짚는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Acute pancreatitis (AP) is a common",
+   "note": "한계 문단은 수치가 없어 그대로 서고, HDL 약어는 「좋은 콜레스테롤」로 바꾸면 내려간다."
+  }
+ }
+]

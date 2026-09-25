@@ -1,0 +1,953 @@
+[
+ {
+  "id": "24bed803-3276-4ea9-9e8a-a1d03edf01a9",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:33.96699+00:00",
+  "body_sha256": "d836e853012682b969818c7c49d8291e467ffc4af6ffc133a80476938e6f09ee",
+  "retention": "keep",
+  "genre": "health",
+  "why": "기생충 감염 경로와 예방 조치를 사건 흐름과 논지로 잇는 종설이다 — 「Prevention」 절이 그대로 발췌감이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Eating untested raw and undercooked meat",
+   "note": "조리 온도·냉동 기준 수치를 걷어도 「익혀 먹으라」는 논지가 남고, larvae 를 「애벌레」로 바꾸면 밴드가 내려간다."
+  },
+  "uses": [
+   "argument",
+   "structured",
+   "factual",
+   "vocab"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "24c8ad68-7c4c-48de-ba12-917e95d9aaf1",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-15T14:39:54.994403+00:00",
+  "body_sha256": "ee63c0d6dd7616a49502b27d4f8f32d16c49aa104c3f47d8560223aeb68a9c19",
+  "retention": "keep",
+  "genre": "health",
+  "why": "알레르기 비염과 세포 노화를 잇는 서론·고찰이 논지를 세운다 — 다만 결과 절은 유전자 기호 나열이라 발췌 자리가 좁다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Cellular senescence is a state of",
+   "note": "서론 둘째 문단은 떼어져도 서지만, 결과 절의 유전자·데이터베이스 기호는 바꿔 쓸 수 없어 발췌를 서론·고찰로 한정해야 한다."
+  },
+  "uses": [
+   "argument",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "24ca442b-e06f-4fad-bb4e-1ca7d6212998",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:34.322274+00:00",
+  "body_sha256": "949c42204708a1c40f7eea315d0d27de50e003a6aba7a491cecd9a1a15d12307",
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스가 면역 신호를 어떻게 피하는지 가설-실험-결론으로 이어 읽히는 글이다 — 고찰 첫 단락이 발췌 가능.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The JAK/STAT signaling pathway is crucial",
+   "note": "단백질 약어를 「신호 전달 단백질」로 풀면 서고, 도표 번호는 걷어도 논지가 남는다."
+  },
+  "uses": [
+   "argument",
+   "structured",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "24cf826f-383b-406d-93c1-1b933bf46c09",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T06:42:37.437954+00:00",
+  "body_sha256": "9d7cc3c360a4698b390c0739c9a8887daaf9a2e90a165ad459ef40436fdd7db1",
+  "retention": "keep",
+  "genre": "science",
+  "why": "식물로 만든 가축 백신이 왜 필요한지 배경-시험-의의 순서로 이어져 고찰만 떼어도 한 편이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Immunity against AHSV is serotype-specific and",
+   "note": "역가 수치(1:320 등)를 걷어도 「기존 생백신의 위험 대 새 후보」라는 대조 구조가 그대로 남는다."
+  },
+  "uses": [
+   "argument",
+   "structured",
+   "factual",
+   "vocab"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "24d8b13a-c0c3-439d-b083-ab9cab3bb4bc",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T07:38:51.837608+00:00",
+  "body_sha256": "b6133ccc24ec46cdac4dd70dba18f863b22ce6d42dfcec9a7ace0626769d8878",
+  "retention": "keep",
+  "genre": "health",
+  "why": "수술 뒤 합병증을 값싼 장비로 미리 잡아내려는 문제-대안 구조가 서론에 또렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cerebral hyperperfusion syndrome (HPS) is defined",
+   "note": "검사 장비 약어가 빽빽해 두세 개를 「뇌혈류 측정법」으로 묶어야 하고, 그 뒤에는 대비 논지가 선다."
+  },
+  "uses": [
+   "argument",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "24f8bbac-1022-49c1-a1d2-490177598579",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-15T14:40:00.768633+00:00",
+  "body_sha256": "980fe458cc827f930e66bcbb5cad44f8f1a41081d47b20c3b1b13b7007a1396e",
+  "retention": "keep",
+  "genre": "health",
+  "why": "면역 세포의 조직 침윤을 막아 증상이 줄었다는 주장과 근거가 한 방향으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our study provides compelling evidence that",
+   "note": "결론 문단은 실험 약어 없이도 서고, 사이토카인 이름을 「염증 물질」로 바꾸면 읽힌다."
+  },
+  "uses": [
+   "argument",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "24fbbdbc-323f-487a-b077-f2c7cbf32d3e",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-15T14:40:01.594056+00:00",
+  "body_sha256": "4fe340ccee901ccc1a8487fbb6243162665b655729f01412cd91fdf39d3a1ed4",
+  "retention": "keep",
+  "genre": "health",
+  "why": "연결성이 높은 유전자를 곧 원인으로 읽으면 안 된다는 한계 논의가 이 글의 축이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "We acknowledge that centrality-based hub selection",
+   "note": "한계 문단만 논지가 서고 결과 절은 데이터셋 번호·유전자 기호라 발췌 대상이 아니다."
+  },
+  "uses": [
+   "argument",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "250532c7-9e58-4a36-8ef4-14489b8e9755",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:41.062212+00:00",
+  "body_sha256": "8383d5b650ffafb31fea2034dd3e4f9d4cd0bb57d913aaf7bdabe3c6f1339eab",
+  "retention": "keep",
+  "genre": "essay",
+  "why": "일화를 불신하는 의학계 통념을 세우고 되짚는 수필로, 장면과 논지가 함께 흐른다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "purpose",
+    "summary",
+    "blank",
+    "mood",
+    "long_reference"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Of course, like any physician trained",
+   "note": "강연장 장면과 논지 단락이 각각 독립해 서고, 의학 용어가 적어 손볼 낱말이 두세 개뿐이다."
+  },
+  "uses": [
+   "argument",
+   "structured",
+   "sequence",
+   "mood",
+   "vocab",
+   "grammar"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "250de73e-35e3-40b5-a00a-58882f597770",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:41.542045+00:00",
+  "body_sha256": "443b306522609d7443255b7e6f71e674b63d8b78ef2a1d219c44e162d7164f46",
+  "retention": "keep",
+  "genre": "science",
+  "why": "신경 세포가 어떤 축삭을 감쌀지 고르는 기준이라는 물음을 서론이 또렷하게 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Nervous system function critically depends on",
+   "note": "서론 첫 두 단락은 전문 용어 서너 개만 풀면 읽히고, 방법 절은 장비·통계라 쓸 수 없다."
+  },
+  "uses": [
+   "argument",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "2518e152-958f-463b-8b4e-a9ee01f3dd0d",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:42.425144+00:00",
+  "body_sha256": "ab22109667f1724a0b248f6702e5c55863f7b5945121d8e88ff069bb1a183334",
+  "retention": "keep",
+  "genre": "science",
+  "why": "양식장 세균이 항생제 내성의 저수지가 된다는 주장을 서론과 결론이 함께 받친다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Vibrio species are gram-negative, halophilic bacteria",
+   "note": "유전체 통계(핵심 유전자 수 등)를 걷으면 식품 안전 논지가 깔끔히 남는다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "vocab"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "251eb8aa-240b-47b0-9059-4876184fdc2e",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-15T14:40:05.235255+00:00",
+  "body_sha256": "a66ee4b53f38d03657a8964f18139cf47098067540667d1e2e6f1aab839dc38b",
+  "retention": "keep",
+  "genre": "health",
+  "why": "약과 암의 겉보기 연관이 역인과로 설명된다는 전개가 통념 교정 구조로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Apparent harmful associations between PPI use",
+   "note": "오즈비 수치를 걷어도 「진단 직전 처방이 연관을 만든다」는 논지가 그대로 서서 빈칸 문항에 맞다."
+  },
+  "uses": [
+   "argument",
+   "structured",
+   "factual",
+   "vocab"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "2528ae92-44be-4787-a6a4-75e8895a63d3",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T07:18:09.293396+00:00",
+  "body_sha256": "ad7d24ef97cde968314e805a1a9dec548c123a871d471a6076937bcab5f71c88",
+  "retention": "keep",
+  "genre": "health",
+  "why": "검진과 항바이러스제 보급이 생존율을 바꿨다는 시기 비교가 축이라 대조 구조가 분명하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Liver cancer is the 5th most",
+   "note": "코호트 구분(2000~2004 등)을 「이른 시기·늦은 시기」로 바꾸면 시대 비교 글로 선다."
+  },
+  "uses": [
+   "argument",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "252ede04-898c-4be4-bff5-1f80c33b0790",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:43.367022+00:00",
+  "body_sha256": "3bee0490870849c3645d95756f3de32b6aa30f7d6aefaf84fe8a7ef6c1389f41",
+  "retention": "keep",
+  "genre": "science",
+  "why": "장 감염을 막는 유전자가 면역 세포를 불러 모은다는 기전을 저자 요약이 한 편으로 정리한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Bacterial enteritis is one of the",
+   "note": "저자 요약은 독립해 서지만 본문 방법 절은 프라이머 서열이라 통째로 버려야 한다."
+  },
+  "uses": [
+   "argument",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "25322134-e265-42ce-b3c3-844a82e0ce84",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:44.135653+00:00",
+  "body_sha256": "cbc2dcf034861a406135fd82958550492c66080c5ab0bd979963b38156b71dfe",
+  "retention": "keep",
+  "genre": "technology",
+  "why": "변압기 주변 전자기장이 금속 스텐트에 미치는 힘을 기준치와 견주는 검증형 글이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Transformers are core components of modern",
+   "note": "지수 표기 수치를 「기준치보다 훨씬 낮다」로 바꾸면 안전 판정 논지가 남는다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "vocab"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "25357cc5-391e-442f-b679-9e9e31bce790",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T07:03:04.346794+00:00",
+  "body_sha256": "d364d6d64d3b30418c6f87d3a2c5e4d89843aea5cbfe537ce4523c8def064309",
+  "retention": "keep",
+  "genre": "science",
+  "why": "유전자 가위가 세포의 기존 수선 장치와 겹치지 않는다는 결론까지 물음이 한 줄로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "At present, genome editing in living",
+   "note": "고찰 첫 단락은 효소 이름 두어 개만 풀면 서고, 실험 조건 절은 시약 목록이라 못 쓴다."
+  },
+  "uses": [
+   "argument",
+   "structured",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "25392ed8-d7da-4175-b782-651062ef5fe6",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T06:48:52.12748+00:00",
+  "body_sha256": "4862cb4fd5bb806de353f750c25967101b13fa88f540a19a15bf0bee500b6bbb",
+  "retention": "keep",
+  "genre": "science",
+  "why": "세균 단백질이 왜 세포 표면에 놓이는지 가설로 닫는 고찰이 한 편의 논지를 이룬다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Based on this study we propose",
+   "note": "유전자 번호(REQ_…)가 섞인 문장이 많아 발췌하려면 고찰 끝 단락으로 좁혀야 한다."
+  },
+  "uses": [
+   "argument",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "2543662d-4bcb-4a51-8bee-162b841c05a2",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-15T14:40:07.646057+00:00",
+  "body_sha256": "71c426e1152198ad13d80a6b0d3944a7dbf2ebf84e318898de5f99d2f9659064",
+  "retention": "keep",
+  "genre": "health",
+  "why": "감염 뒤 자가면역 질환 진단이 늘었다는 주장을 연구 설계의 한계와 함께 내놓는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Emerging evidence suggests that viral infections",
+   "note": "질환 약어를 풀어 쓰면 초록만으로도 한 편이 되고, 비율 수치는 걷어도 된다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "vocab"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "254db5bd-fa23-445d-b00a-ee27f51a81b0",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-15T14:40:09.236114+00:00",
+  "body_sha256": "0b7f71547a40ef0c9531a681be9877d94c04267a5c6817f66d13af2ed00fe9d3",
+  "retention": "keep",
+  "genre": "science",
+  "why": "굶기고 다시 먹이는 주기가 지방 조직의 지질 구성을 바꾼다는 흐름이 초록과 요약에 또렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In summary, the present study demonstrated",
+   "note": "지질 분류 이름이 문장마다 겹쳐 두세 개를 바꿔도 밴드가 크게 내려가지 않는다."
+  },
+  "uses": [
+   "argument",
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "25523d03-49d8-4831-80cc-9621f2497df0",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:46.18064+00:00",
+  "body_sha256": "f611b588a1aac726368a8f5775bbfb63e667c0f941244ac5684a81b5af1348e6",
+  "retention": "keep",
+  "genre": "health",
+  "why": "금속 나노입자 연고가 상처 회복을 앞당겼다는 비교 실험이 결론까지 한 줄로 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The wound healing process comprises four",
+   "note": "서론의 네 단계 설명은 순서 문항 재료가 되고, 측정 지표 약어는 걷어도 흐름이 남는다."
+  },
+  "uses": [
+   "argument",
+   "structured",
+   "sequence",
+   "factual",
+   "vocab"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ },
+ {
+  "id": "2553f796-bc57-4aaa-b51e-754113adf679",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:46.626414+00:00",
+  "body_sha256": "e7cf9ca4407eb0cc4b98b923f24c0fd6f2211c554e8b4c416600489c94ecb35e",
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "science",
+  "why": "내용은 서지만 결론 문장에 뜻이 어긋난 낱말이 섞여 있어 그대로 쓸 수 있을지 갈린다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "This study presents a comprehensive in",
+   "note": "「innovation evasion」 「validation detritus essential」처럼 뒤바뀐 낱말이 문장마다 나와 어휘 교체가 아니라 다시 쓰기가 필요하다."
+  },
+  "uses": [
+   "factual"
+  ],
+  "criteria_version": 4,
+  "round": 4
+ }
+]
