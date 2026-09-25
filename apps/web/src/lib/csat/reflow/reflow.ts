@@ -25,11 +25,56 @@ import type {
   ReflowItem,
   ReflowLine,
 } from './types'
+import { blankFrags } from './pdf-frags'
 
-/** 추출기 판. 규칙을 바꾸면 올린다 — 기기에 남은 옛 추출을 버리게 한다. */
-export const REFLOW_VERSION = 1
+/** 추출기 판. 규칙을 바꾸면 올린다 — 기기에 남은 옛 추출을 버리게 한다.
+ *  2 (2026-09-25): 그린 선으로 된 빈칸을 `______` 로 복원한다(`pdf-frags.blankFrags`). */
+export const REFLOW_VERSION = 2
 
 const CIRC = '①②③④⑤'
+
+/**
+ * **줄 안의 넓은 틈** 표식(보이지 않는 구분자 U+2063). 어떤 문제지는 빈칸을 선으로도 글자로도 남기지
+ * 않고 **틈만** 남긴다(2023 수능 5쪽 오른 단 — 가로 선 0 · 밑줄 문자 0 · 줄 안 틈 55pt · blank-probe).
+ * 줄을 이을 때 틈 자리에 표식을 두고, 문항 유형이 빈칸 유형일 때만 `______` 로 바꾼다 — 안내문 표 ·
+ * 도표의 칸 사이 틈까지 빈칸으로 만들지 않게 유형으로 가른다. `\s` 에 걸리지 않아 공백 정리에서 살아남는다.
+ */
+const GAP = '⁣'
+const GAP_RE = /\s*⁣\s*/g
+/** 빈칸이 있는 유형과 빈칸 개수 — 이 유형의 틈만 빈칸이고, 선으로 찾은 빈칸이 이보다 적을 때만 틈을 쓴다 */
+export const BLANK_COUNT: ReadonlyMap<string, number> = new Map([
+  ['R-BLANK', 1],
+  ['X-BLANK', 1],
+  ['R-BLANK2', 2],
+  ['X-BLANK2', 2],
+  ['R-SUMMARY', 2],
+])
+export const BLANK_TYPES: ReadonlySet<string> = new Set(BLANK_COUNT.keys())
+const unGap = (t: string) => t.replace(GAP_RE, ' ').replace(/\s+/g, ' ').trim()
+
+/**
+ * **요약문의 빈칸 = 요약 문장 안의 (A) · (B) 라벨.** 요약 상자의 빈칸은 라벨과 그 아래 선으로 그려지는데,
+ * 선이 기준선보다 깊이 그려진 문제지(3.3pt)는 선으로 찾히지 않고, 틈 표식은 선지 표 머리와 뒤섞인다
+ * (blank-audit: 요약문 28 중 10). 라벨은 어느 문제지에나 있으므로 라벨을 기준으로 삼는다.
+ * 선지 표 머리처럼 「(A) (B)」 가 나란히 붙은 것은 라벨이 아니다. (A) · (B) 가 한 번씩 남을 때만 바꾼다.
+ */
+export function summaryBlanks(passage: string): string {
+  const flat = passage.replace(/_{3,}/g, ' ').replace(GAP_RE, ' ')
+  const labels = [...flat.matchAll(/\(([AB])\)/g)].filter((m) => {
+    const around = flat.slice(Math.max(0, m.index! - 6), m.index! + 9)
+    return !/\(A\)\s*\(B\)/.test(around)
+  })
+  const a = labels.filter((m) => m[1] === 'A')
+  const b = labels.filter((m) => m[1] === 'B')
+  if (a.length !== 1 || b.length !== 1) return passage
+  let out = ''
+  let at = 0
+  for (const m of [a[0], b[0]].sort((x, y) => x.index! - y.index!)) {
+    out += flat.slice(at, m.index!) + `(${m[1]}) ______`
+    at = m.index! + m[0].length
+  }
+  return (out + flat.slice(at)).replace(/[ \t]+/g, ' ').trim()
+}
 
 /**
  * ①~⑤ 가 **본문에 박히는** 유형 — 별도 선지 블록이 없다.
@@ -96,12 +141,19 @@ export function gutterOf(anchors: ReflowAnchors): number {
 /** 같은 기준선의 조각을 x 순으로 잇는다. 조각 사이 틈이 있으면 한 칸을 끼운다. */
 function joinLine(frags: PdfFrag[]): string {
   const fs = [...frags].sort((a, b) => a.x - b.x)
+  // 선지 줄은 칸을 벌려 배치한다(① … ② … 한 줄에 둘) — 그 틈은 빈칸이 아니다
+  // 요약문 선지 표의 머리 줄(「(A)   (B)」)도 칸을 벌린 줄이다 — 라벨만 있는 줄
+  const choiceRow =
+    fs.some((f) => /[①②③④⑤]/.test(f.str)) || /^(\s*\([A-C]\)\s*)+$/.test(fs.map((f) => f.str).join(' '))
   let out = ''
   let end = -Infinity
   for (const f of fs) {
     const gap = f.x - end
     const h = f.h || 10
-    if (out && gap > h * 0.15 && !/\s$/.test(out) && !/^\s/.test(f.str)) out += ' '
+    // 틈 한쪽에는 영어 낱말이 있어야 한다 — 요약 화살표 같은 기호 앞 틈은 빈칸이 아니다
+    const wordSide = /[A-Za-z,]\s*$/.test(out) || /^\s*[A-Za-z]/.test(f.str)
+    if (out && !choiceRow && wordSide && gap > Math.max(28, h * 2.2) && !/______\s*$/.test(out) && !f.str.startsWith('______')) out += ` ${GAP} `
+    else if (out && gap > h * 0.15 && !/\s$/.test(out) && !/^\s/.test(f.str)) out += ' '
     out += f.str
     end = Math.max(end, f.x + f.w)
   }
@@ -120,7 +172,8 @@ export function readingLines(pages: PageFrags[], anchors: ReflowAnchors): Reflow
     const headerCut = Number.isFinite(topNo) ? topNo + 6 : pg.h * 0.87
     const footerCut = pg.h * 0.07
     for (const col of [0, 1]) {
-      const fr = pg.frags
+      // 빈칸은 그린 선이다 — 글자만 읽으면 사라진다. 선을 조각으로 바꿔 같은 줄에 끼운다.
+      const fr = [...pg.frags, ...blankFrags(pg.frags, pg.lines ?? [])]
         .filter((f) => (f.x < gutter ? 0 : 1) === col && f.y <= headerCut && f.y >= footerCut)
         .sort((a, b) => b.y - a.y)
       const groups: PdfFrag[][] = []
@@ -130,11 +183,22 @@ export function readingLines(pages: PageFrags[], anchors: ReflowAnchors): Reflow
         if (g && Math.abs(g[0].y - f.y) <= tol) g.push(f)
         else groups.push([f])
       }
-      for (const g of groups) {
-        const text = joinLine(g)
-        if (isChrome(text)) continue
+      // 단의 왼쪽 여백 · 오른쪽 끝 — 줄 머리에 걸린 빈칸을 찾는 데 쓴다(아래)
+      const starts = groups.map((g) => Math.min(...g.map((f) => f.x))).sort((a, b) => a - b)
+      const colLeft = starts[Math.floor(starts.length * 0.1)] ?? 0
+      const rightOf = (g: PdfFrag[]) => Math.max(...g.map((f) => f.x + f.w))
+      const colRight = Math.max(...groups.map(rightOf), 0)
+      groups.forEach((g, i) => {
+        let text = joinLine(g)
+        if (isChrome(text)) return
+        // **줄 머리에 걸린 빈칸** — 앞줄이 단 끝까지 차 있는데 이 줄이 왼쪽 여백보다 40pt 넘게 들어가
+        // 시작하면, 빈칸이 줄 머리를 차지한 것이다(2023#33 · M2309#31 실측: 99 → 379, 448 → 611).
+        // 틈 표식으로 남기고, 빈칸 유형일 때만 빈칸이 된다.
+        const left = Math.min(...g.map((f) => f.x))
+        const prev = groups[i - 1]
+        if (prev && left - colLeft > 40 && rightOf(prev) > colRight - 15 && !/^[①②③④⑤(\[*]/.test(text)) text = `${GAP} ${text}`
         out.push({ p: pg.p, col, y: g[0].y, h: Math.max(...g.map((f) => f.h)), text })
-      }
+      })
     }
   }
   return out
@@ -375,15 +439,23 @@ export function reflowExam(
     }
     const own = joinLines(passageLines)
     const shared = joinLines(setBody)
-    const passage = shared ? (own ? `${shared}\n\n${own}` : shared) : own
+    let passage = shared ? (own ? `${shared}\n\n${own}` : shared) : own
+    // 틈 표식 — 빈칸 유형이고 선으로 찾은 빈칸이 그 유형의 개수보다 적을 때만 빈칸이다.
+    // 그 밖에는 공백으로 지운다(요약문은 (A) 는 선으로, (B) 는 틈으로 찾히는 문제지가 있다).
+    const want = type != null ? BLANK_COUNT.get(type) ?? 0 : 0
+    if (type === 'R-SUMMARY') passage = summaryBlanks(passage)
+    const gapBlank = want > 0 && (passage.match(/______/g) ?? []).length < want
+    passage = gapBlank
+      ? passage.replace(GAP_RE, ' ______ ').replace(/[ \t]+/g, ' ').trim()
+      : passage.split('\n\n').map(unGap).join('\n\n')
 
     if (!passage) reason = 'empty-passage'
     out.set(a.no, {
       no: a.no,
-      stem: high && !HIGH_SCORE.test(stem) ? `${stem} [3점]` : stem,
+      stem: unGap(high && !HIGH_SCORE.test(stem) ? `${stem} [3점]` : stem),
       passage,
-      notes,
-      choices,
+      notes: notes.map(unGap),
+      choices: choices.map(unGap),
       inline,
       ok: reason !== 'empty-passage',
       reason,

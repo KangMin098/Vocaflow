@@ -25,7 +25,9 @@ describe('로컬 문제지 파일 이름 대응', () => {
 })
 
 describe('개발 모드에서만 켜진다', () => {
-  afterEach(() => vi.unstubAllEnvs())
+  afterEach(() => {
+    vi.unstubAllEnvs()
+  })
   it('프로덕션에서는 로컬 경로를 내주지 않는다', () => {
     vi.stubEnv('NODE_ENV', 'production')
     expect(localPaperPath('2026')).toBeNull()

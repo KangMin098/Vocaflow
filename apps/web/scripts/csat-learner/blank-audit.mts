@@ -20,8 +20,8 @@ import { arg, localPapers, pdfPages, serviceDb } from './env.mts'
 const BLANK = /_{3,}|＿{2,}/g
 const count = (s: string | null | undefined) => (s ? (s.match(BLANK) ?? []).length : 0)
 /** 빈칸이 둘인 유형(요약문 (A)(B) · 2개 빈칸) — 기대 개수가 2 */
-const TWO = new Set(['R-SUMMARY', 'R-BLANK2', 'R-LONG-BLANK2'])
-const ONE = new Set(['R-BLANK', 'R-LONG-BLANK'])
+const TWO = new Set(['R-SUMMARY', 'R-BLANK2', 'X-BLANK2'])
+const ONE = new Set(['R-BLANK', 'X-BLANK'])
 const expected = (type: string | null) => (type && TWO.has(type) ? 2 : type && ONE.has(type) ? 1 : 0)
 
 const db = await serviceDb()
@@ -36,6 +36,7 @@ const tally = { items: 0, dbOk: 0, reflowOk: 0, both: 0, dbOnly: 0, reflowOnly: 
 const byType = new Map<string, { n: number; db: number; rf: number }>()
 const reflowBad: string[] = []
 const dbBadReflowOk: string[] = []
+const place = { n: 0, same: 0, diff: [] as string[] }
 
 for (const exam of exams) {
   const anchors = JSON.parse(fs.readFileSync(path.resolve(`src/lib/csat/anchor-data/${exam}.json`), 'utf8')) as ReflowAnchors & {
@@ -67,6 +68,14 @@ for (const exam of exams) {
     else if (dbOk) tally.dbOnly++
     else if (rfOk) tally.reflowOnly++
     else tally.neither++
+    // 자리 대조 — 둘 다 빈칸이 1개면(서로 독립인 두 추출) 빈칸 바로 앞 세 낱말이 같아야 한다
+    if (want === 1 && dbOk && rfOk) {
+      const before = (s: string) =>
+        s.split(/_{3,}|＿{2,}/)[0].toLowerCase().replace(/[^a-z\s]/g, ' ').trim().split(/\s+/).slice(-3).join(' ')
+      place.n++
+      if (before(r.passage!) === before(rf.passage)) place.same++
+      else place.diff.push(r.id)
+    }
     if (!rfOk) reflowBad.push(`${r.id}(${r.type_id} 기대 ${want} · reflow ${count(rf.passage)})`)
     if (!dbOk && rfOk) dbBadReflowOk.push(r.id)
     const t = byType.get(r.type_id ?? '?') ?? { n: 0, db: 0, rf: 0 }
@@ -81,5 +90,6 @@ console.log(`\n=== 빈칸 표시 개수 감사 · ${tally.items}문항 ===`)
 console.log(`DB 맞음 ${tally.dbOk} · reflow 맞음 ${tally.reflowOk} · 둘 다 ${tally.both} · DB만 ${tally.dbOnly} · reflow만 ${tally.reflowOnly} · 둘 다 틀림 ${tally.neither} · reflow 없음 ${tally.noReflow}`)
 console.log('\n유형별 (문항 · DB 맞음 · reflow 맞음) — 한쪽이라도 틀린 유형만:')
 for (const [t, v] of [...byType].sort()) if (v.db < v.n || v.rf < v.n) console.log(`  ${t} ${v.n} · ${v.db} · ${v.rf}`)
+console.log(`\n빈칸 자리 대조(둘 다 1개인 문항 · 앞 세 낱말): ${place.same}/${place.n} 일치${place.diff.length ? ' · 어긋남 ' + place.diff.join(' ') : ''}`)
 console.log(`\nDB 는 틀리고 reflow 는 맞은 문항 ${dbBadReflowOk.length}개`)
 console.log(`reflow 가 틀린 문항 ${reflowBad.length}개${reflowBad.length ? ':\n  ' + reflowBad.join('\n  ') : ''}`)
