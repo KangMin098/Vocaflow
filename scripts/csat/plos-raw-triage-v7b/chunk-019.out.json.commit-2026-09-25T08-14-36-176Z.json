@@ -1,0 +1,2044 @@
+[
+  {
+    "runId": "2026-09-25T08-14-36-176Z",
+    "id": "0d207a19-fc3b-4061-9821-d581258f363c",
+    "revision": "2026-09-25T07:30:58.285886+00:00",
+    "body_sha256": "ae8e78e820e791788739256fab23a7d04705c85c7ac1f432970cabb4f79a2bcb",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:32.521Z",
+        "by": "chunk-llm",
+        "why": "경험적 복약 관행의 한계를 지적하고 최적화 설계를 대안으로 제시하는 흐름이 한 편의 논증으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:12.273Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "2bd1a08379eec015b4974a8cfe9db2ca069f351d02b5d84ac11f0d5537853cd9"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "복약 설계 단락은 수식 없이도 서고 약동학 용어만 풀어 쓰면 됐다.",
+          "sample": "Executing effective oral drug therapy for",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:32.521Z",
+        "by": "chunk-llm",
+        "why": "경험적 복약 관행의 한계를 지적하고 최적화 설계를 대안으로 제시하는 흐름이 한 편의 논증으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:12.273Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "2bd1a08379eec015b4974a8cfe9db2ca069f351d02b5d84ac11f0d5537853cd9"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "복약 설계 단락은 수식 없이도 서고 약동학 용어만 풀어 쓰면 됐다.",
+          "sample": "Executing effective oral drug therapy for",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 고정 용량 한계 → 부하·유지 용량 최적화 논지와 고찰의 임상 함의 단락이 주제·빈칸·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In clinical practice, every therapeutic intervention implicitly",
+          "note": "수식 없는 임상 목표 단락은 떼어도 서고, pharmacodynamic·liberation 두셋만 바꾸면 V6대로 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:36.180Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:32.521Z",
+          "by": "chunk-llm",
+          "why": "경험적 복약 관행의 한계를 지적하고 최적화 설계를 대안으로 제시하는 흐름이 한 편의 논증으로 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "claim",
+              "blank",
+              "summary"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:12.273Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "2bd1a08379eec015b4974a8cfe9db2ca069f351d02b5d84ac11f0d5537853cd9"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "복약 설계 단락은 수식 없이도 서고 약동학 용어만 풀어 쓰면 됐다.",
+            "sample": "Executing effective oral drug therapy for",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:42:07.865Z",
+      "topicMargin": 8.59
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-36-176Z",
+    "id": "0d34da88-c76a-4e77-8aac-44b4f7f50202",
+    "revision": "2026-09-25T07:30:59.093754+00:00",
+    "body_sha256": "3023b32b9498f17c8b65f8bd7804a90257e7c8121522ef3ae1fd3356dc7e3d9f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:32.521Z",
+        "by": "chunk-llm",
+        "why": "암 대사 재프로그래밍이라는 개념을 먼저 세우고 종양 유형별 차이로 좁혀 가는 서론과 결론이 논지를 갖는다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V10"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:12.376Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "f52829af172a18518f987582a2bda11afed931536789a812dec4f4a5ea4aaf9f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "첫 개념 단락만 자족적이고 나머지는 유전자 약어 목록이라 쓸 수 있는 분량이 좁았다.",
+          "sample": "Metabolic reprogramming is central to cancer",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:32.521Z",
+        "by": "chunk-llm",
+        "why": "암 대사 재프로그래밍이라는 개념을 먼저 세우고 종양 유형별 차이로 좁혀 가는 서론과 결론이 논지를 갖는다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V10"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:12.376Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "f52829af172a18518f987582a2bda11afed931536789a812dec4f4a5ea4aaf9f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "첫 개념 단락만 자족적이고 나머지는 유전자 약어 목록이라 쓸 수 있는 분량이 좁았다.",
+          "sample": "Metabolic reprogramming is central to cancer",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론 첫 단락의 암세포 대사 재편과 치료 불일치 논지가 요지·빈칸 칸을 채우나 결과 절은 유전자명 나열이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Cancer cells survive and proliferate by",
+          "note": "유전자 약어를 걷고 대사 재편→획일 치료의 문제로 요약하면 서며, reprogramming·proliferate 정도를 바꾸면 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:36.182Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:32.521Z",
+          "by": "chunk-llm",
+          "why": "암 대사 재프로그래밍이라는 개념을 먼저 세우고 종양 유형별 차이로 좁혀 가는 서론과 결론이 논지를 갖는다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match"
+            ],
+            "levels": [
+              "V10"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:12.376Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "f52829af172a18518f987582a2bda11afed931536789a812dec4f4a5ea4aaf9f"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "첫 개념 단락만 자족적이고 나머지는 유전자 약어 목록이라 쓸 수 있는 분량이 좁았다.",
+            "sample": "Metabolic reprogramming is central to cancer",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:34.733Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-36-176Z",
+    "id": "0d40c57e-6576-49b3-81c8-34fbfed749df",
+    "revision": "2026-09-25T07:30:59.888393+00:00",
+    "body_sha256": "3da2d37517b1e2df6b56f04d5d90305d8ce6ade33b6303d975ccb2decc959774",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:32.522Z",
+        "by": "chunk-llm",
+        "why": "태반이 왜 면역 특권 조직인지 설명한 뒤 감염이 그 균형을 깨는 과정을 따라가는 저자 요약이 평이하다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "vocab"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:15.829Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "974541e4b1255c246707a855b9f9b42ca82a618bf3641fa6c5d3f05082b90a8d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 세포 이름을 풀어 쓴 덕에 그대로 지문이 됐고, 결과 절 단일세포 분석은 버렸다.",
+          "sample": "DENV infection during pregnancy can lead",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:32.522Z",
+        "by": "chunk-llm",
+        "why": "태반이 왜 면역 특권 조직인지 설명한 뒤 감염이 그 균형을 깨는 과정을 따라가는 저자 요약이 평이하다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "vocab"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:15.829Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "974541e4b1255c246707a855b9f9b42ca82a618bf3641fa6c5d3f05082b90a8d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 세포 이름을 풀어 쓴 덕에 그대로 지문이 됐고, 결과 절 단일세포 분석은 버렸다.",
+          "sample": "DENV infection during pregnancy can lead",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "저자 요약 단락이 감염→대식세포 신호→호중구 자기증폭→태아 성장 저해의 인과 흐름을 평이하게 세워 순서·요약 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "DENV infection during pregnancy can lead",
+          "note": "저자 요약은 이미 쉬운 말로 쓰여 CXCL2 같은 기호만 걷으면 독립 지문이 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:36.183Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:32.522Z",
+          "by": "chunk-llm",
+          "why": "태반이 왜 면역 특권 조직인지 설명한 뒤 감염이 그 균형을 깨는 과정을 따라가는 저자 요약이 평이하다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading",
+              "vocab"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:15.829Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "974541e4b1255c246707a855b9f9b42ca82a618bf3641fa6c5d3f05082b90a8d"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약은 세포 이름을 풀어 쓴 덕에 그대로 지문이 됐고, 결과 절 단일세포 분석은 버렸다.",
+            "sample": "DENV infection during pregnancy can lead",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 3,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:40:20.275Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-36-176Z",
+    "id": "0d41bcfb-5bdf-4204-b423-1d60d84a7e64",
+    "revision": "2026-09-25T07:31:00.451056+00:00",
+    "body_sha256": "05a5a7fe02c7fcfd7fc38c920f3dd175c762a8332d0483461e07c66dc62f309b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:32.523Z",
+        "by": "chunk-llm",
+        "why": "당뇨발 궤양이 왜 낫지 않는지를 혈관 생성·염증·기질 재편으로 설명하는 도입이 자족적이다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:15.867Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "1418657d1f9632a2b1119a228dbe5dae713c05db49325c9411dfbab5ea22f5c0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "도입 단락은 떼어도 서지만 본문은 기계학습·단일세포 용어가 이어져 어휘 하향이 막혔다.",
+          "sample": "Diabetic foot ulcers (DFUs) represent a",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:32.523Z",
+        "by": "chunk-llm",
+        "why": "당뇨발 궤양이 왜 낫지 않는지를 혈관 생성·염증·기질 재편으로 설명하는 도입이 자족적이다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:15.867Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "1418657d1f9632a2b1119a228dbe5dae713c05db49325c9411dfbab5ea22f5c0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "도입 단락은 떼어도 서지만 본문은 기계학습·단일세포 용어가 이어져 어휘 하향이 막혔다.",
+          "sample": "Diabetic foot ulcers (DFUs) represent a",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 당뇨발 궤양 혈관신생 장애 설명과 고찰의 한계 단락이 주제·빈칸 칸을 채우고 방법 절은 절차 나열이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Among the pathological processes involved in",
+          "note": "VEGF·PI3K 같은 기호를 빼도 혈관신생이 치유를 좌우한다는 논지가 서고 neovascularization 정도만 바꾸면 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:36.184Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:32.523Z",
+          "by": "chunk-llm",
+          "why": "당뇨발 궤양이 왜 낫지 않는지를 혈관 생성·염증·기질 재편으로 설명하는 도입이 자족적이다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match"
+            ],
+            "levels": [
+              "V9",
+              "V10"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:15.867Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "1418657d1f9632a2b1119a228dbe5dae713c05db49325c9411dfbab5ea22f5c0"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "도입 단락은 떼어도 서지만 본문은 기계학습·단일세포 용어가 이어져 어휘 하향이 막혔다.",
+            "sample": "Diabetic foot ulcers (DFUs) represent a",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:10:57.687Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-36-176Z",
+    "id": "0d44c165-a793-4318-92ab-6886bddebc22",
+    "revision": "2026-09-25T07:31:00.84655+00:00",
+    "body_sha256": "d589c44c8412f60530ce8ac632db644747ef9bb098394f028696f52e2052dd40",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.591Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락(장 조직은 줄기세포 증식과 분화세포 죽음의 균형으로 유지된다 → 정상 조건의 죽음 방식은 모른다)이 물음 제기 구조로 서서 주제·빈칸·순서 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:15.904Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ecf9bf7a95663c05921f55143862b7db832415be1f8c9c5c4e85c0f6fb3ffd18"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "erebosis·enterocyte를 「새 세포 죽음 방식」「장 세포」로 풀면 균형 논지가 서지만 apoptosis·necrosis 등 용어가 남아 V8 아래로는 어렵다.",
+          "sample": "Dynamic tissue homeostasis of the gut",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.591Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락(장 조직은 줄기세포 증식과 분화세포 죽음의 균형으로 유지된다 → 정상 조건의 죽음 방식은 모른다)이 물음 제기 구조로 서서 주제·빈칸·순서 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:15.904Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ecf9bf7a95663c05921f55143862b7db832415be1f8c9c5c4e85c0f6fb3ffd18"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "erebosis·enterocyte를 「새 세포 죽음 방식」「장 세포」로 풀면 균형 논지가 서지만 apoptosis·necrosis 등 용어가 남아 V8 아래로는 어렵다.",
+          "sample": "Dynamic tissue homeostasis of the gut",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론의 장 세포 교체와 새 세포사 에레보시스 소개, 고찰의 헴-줄기세포 균형 단락이 제목·빈칸·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dynamic tissue homeostasis of the gut",
+          "note": "줄기세포 분열과 세포 죽음의 균형이라는 뼈대는 쉽게 떼어지고, enterocyte·homeostasis 두 낱말 풀이면 V6대가 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:36.185Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:33.591Z",
+          "by": "chunk-llm",
+          "why": "서론 첫 단락(장 조직은 줄기세포 증식과 분화세포 죽음의 균형으로 유지된다 → 정상 조건의 죽음 방식은 모른다)이 물음 제기 구조로 서서 주제·빈칸·순서 칸을 채운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "order"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:15.904Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "ecf9bf7a95663c05921f55143862b7db832415be1f8c9c5c4e85c0f6fb3ffd18"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "erebosis·enterocyte를 「새 세포 죽음 방식」「장 세포」로 풀면 균형 논지가 서지만 apoptosis·necrosis 등 용어가 남아 V8 아래로는 어렵다.",
+            "sample": "Dynamic tissue homeostasis of the gut",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:49.725Z",
+      "topicMargin": 26.56
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-36-176Z",
+    "id": "0d4abdb4-50a9-498c-9c54-aed57630668e",
+    "revision": "2026-09-25T07:31:01.552337+00:00",
+    "body_sha256": "ff8d54423625d88d15057c2a163906db6966b75b46866db9a056ea08a32de472",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.592Z",
+        "by": "chunk-llm",
+        "why": "일반 고찰의 동기·인지 부담 단락(음모론 성향이 있어도 서사 대신 어휘로만 드러난다, 실험실엔 설득 동기가 없다)이 가설 반증 → 해석 구조로 주제·요지·빈칸·순서 칸을 채운다.",
+        "basis": "full",
+        "genre": "psychology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "insert",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:15.938Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c337c0222d8d4ef8244d4636de4087cec7b458495dfa8a8315544293b8ee4b25"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "conspiracism을 「음모론적 사고 성향」으로, integration·constraints 두세 낱말을 바꾸면 V6 권에 든다; 인용 괄호만 걷으면 된다.",
+          "sample": "One plausible explanation involves the cognitive",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.592Z",
+        "by": "chunk-llm",
+        "why": "일반 고찰의 동기·인지 부담 단락(음모론 성향이 있어도 서사 대신 어휘로만 드러난다, 실험실엔 설득 동기가 없다)이 가설 반증 → 해석 구조로 주제·요지·빈칸·순서 칸을 채운다.",
+        "basis": "full",
+        "genre": "psychology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "insert",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:15.938Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c337c0222d8d4ef8244d4636de4087cec7b458495dfa8a8315544293b8ee4b25"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "conspiracism을 「음모론적 사고 성향」으로, integration·constraints 두세 낱말을 바꾸면 V6 권에 든다; 인용 괄호만 걷으면 된다.",
+          "sample": "One plausible explanation involves the cognitive",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "음모론 성향이 서사가 아닌 어휘로만 드러난다는 반전 결과와 동기·인지부담 해석 단락들이 주제·주장·순서 칸을 넓게 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "claim",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant"
+          ],
+          "levels": [
+            "V6",
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "One plausible explanation involves the cognitive demands",
+          "note": "인지 부담 단락은 수치 없이 서사 구성 대 낱말 사용 대비로 선다. conspiracism 한 낱말만 풀면 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:36.187Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:33.592Z",
+          "by": "chunk-llm",
+          "why": "일반 고찰의 동기·인지 부담 단락(음모론 성향이 있어도 서사 대신 어휘로만 드러난다, 실험실엔 설득 동기가 없다)이 가설 반증 → 해석 구조로 주제·요지·빈칸·순서 칸을 채운다.",
+          "basis": "full",
+          "genre": "psychology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "order",
+              "insert",
+              "summary"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "myth-rebuttal",
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:15.938Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "c337c0222d8d4ef8244d4636de4087cec7b458495dfa8a8315544293b8ee4b25"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "conspiracism을 「음모론적 사고 성향」으로, integration·constraints 두세 낱말을 바꾸면 V6 권에 든다; 인용 괄호만 걷으면 된다.",
+            "sample": "One plausible explanation involves the cognitive",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "교육·언어",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:19.733Z",
+      "topicMargin": 7.26
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-36-176Z",
+    "id": "0d79c437-c4a0-411b-a291-1f311f0d24c7",
+    "revision": "2026-09-25T07:31:05.298872+00:00",
+    "body_sha256": "d12ce308d0cfab9069ce7690dcf6c3d1845c52ff52f294bf05d9f9e8f8a72610",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.597Z",
+        "by": "chunk-llm",
+        "why": "서론의 장내 미생물-뇌 축 단락과 구강 미생물로 넓히는 단락이 선행 근거 → 빈틈 → 연구 물음으로 이어져 주제·순서·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:19.955Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "61c910868d7c87f941feb78a088de6e4d5403653c537c4ad68a013eea87559d7"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "균 이름 두 개와 인용을 걷고 dysbiosis·pathobionts를 풀면 V6 권 설명문이 된다; 동물 실험 문단은 쓰지 않는다.",
+          "sample": "In recent years, the gastrointestinal tract",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.597Z",
+        "by": "chunk-llm",
+        "why": "서론의 장내 미생물-뇌 축 단락과 구강 미생물로 넓히는 단락이 선행 근거 → 빈틈 → 연구 물음으로 이어져 주제·순서·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:19.955Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "61c910868d7c87f941feb78a088de6e4d5403653c537c4ad68a013eea87559d7"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "균 이름 두 개와 인용을 걷고 dysbiosis·pathobionts를 풀면 V6 권 설명문이 된다; 동물 실험 문단은 쓰지 않는다.",
+          "sample": "In recent years, the gastrointestinal tract",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 우울증 치료 한계→장·구강 미생물 축 논지가 주제·빈칸 칸을 채우나 결과·고찰은 속명 나열이 많다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In recent years, the gastrointestinal tract,",
+          "note": "속명을 걷고 미생물-장-뇌 축 증거 흐름만 남기면 서며, dysbiosis·germ-free 두 낱말 풀이가 필요하다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:36.187Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:33.597Z",
+          "by": "chunk-llm",
+          "why": "서론의 장내 미생물-뇌 축 단락과 구강 미생물로 넓히는 단락이 선행 근거 → 빈틈 → 연구 물음으로 이어져 주제·순서·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "order",
+              "blank",
+              "insert"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:19.955Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "61c910868d7c87f941feb78a088de6e4d5403653c537c4ad68a013eea87559d7"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "균 이름 두 개와 인용을 걷고 dysbiosis·pathobionts를 풀면 V6 권 설명문이 된다; 동물 실험 문단은 쓰지 않는다.",
+            "sample": "In recent years, the gastrointestinal tract",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:10.891Z",
+      "topicMargin": 0.41999999999999993
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-36-176Z",
+    "id": "0d95b4ff-0c6e-48ce-8b0b-0708fb8bae4a",
+    "revision": "2026-09-25T07:31:07.441834+00:00",
+    "body_sha256": "681621fb946ef0d63990d7558a20a105164105eefbe3632f81c6c91794f74449",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.597Z",
+        "by": "chunk-llm",
+        "why": "서론·고찰의 물 교환 비용과 한계 단락, 토착 세균으로 질소를 없애는 대안 단락이 문제 → 해결 흐름으로 주제·빈칸·무관한 문장 칸을 채운다.",
+        "basis": "full",
+        "genre": "agriculture",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "irrelevant",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:21.192Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ce8d78eab0917bb2d281cf2b5bab61b91d0d7e3cc91f6f99336584cdd6a57de9"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "학명과 mg/L 수치를 걷고 nitrification을 「질소 변환」으로 바꾸면 물 절약 대안이라는 논지가 V6 권에서 선다.",
+          "sample": "Water exchange is commonly implemented to",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.597Z",
+        "by": "chunk-llm",
+        "why": "서론·고찰의 물 교환 비용과 한계 단락, 토착 세균으로 질소를 없애는 대안 단락이 문제 → 해결 흐름으로 주제·빈칸·무관한 문장 칸을 채운다.",
+        "basis": "full",
+        "genre": "agriculture",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "irrelevant",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:21.192Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ce8d78eab0917bb2d281cf2b5bab61b91d0d7e3cc91f6f99336584cdd6a57de9"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "학명과 mg/L 수치를 걷고 nitrification을 「질소 변환」으로 바꾸면 물 절약 대안이라는 논지가 V6 권에서 선다.",
+          "sample": "Water exchange is commonly implemented to",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "agriculture",
+        "why": "서론의 저염도 새우 양식 질소 독성과 물 교환 비용 대 토착 세균 대안이 주제·빈칸 칸을 채우고 결과는 수치·속명 나열이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The accumulation of nitrogenous compounds is a",
+          "note": "물 교환의 한계와 세균 정화 대안의 대비는 떼어도 서고, nitrogenous·bioremediation 풀이면 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:36.189Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:33.597Z",
+          "by": "chunk-llm",
+          "why": "서론·고찰의 물 교환 비용과 한계 단락, 토착 세균으로 질소를 없애는 대안 단락이 문제 → 해결 흐름으로 주제·빈칸·무관한 문장 칸을 채운다.",
+          "basis": "full",
+          "genre": "agriculture",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "irrelevant",
+              "summary"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:21.192Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "ce8d78eab0917bb2d281cf2b5bab61b91d0d7e3cc91f6f99336584cdd6a57de9"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "학명과 mg/L 수치를 걷고 nitrification을 「질소 변환」으로 바꾸면 물 절약 대안이라는 논지가 V6 권에서 선다.",
+            "sample": "Water exchange is commonly implemented to",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:14.360Z",
+      "topicMargin": 12.13
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-36-176Z",
+    "id": "0d9e2d9f-2084-407e-ac17-c5c7a03490b0",
+    "revision": "2026-09-25T07:31:09.347338+00:00",
+    "body_sha256": "fbf315c733cc574e0fb9f2daa6ed21e66807d3fb295e7639027953c7cf064d1a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.599Z",
+        "by": "chunk-llm",
+        "why": "저자 요약(Author summary)이 일반 독자용 문장으로 연구 이유·방법·의미·한계를 차례로 설명해 주제·요약·순서·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "order",
+            "blank",
+            "purpose"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:23.456Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0940639252e0f8189c549bf9f1573e5be68fac1e776196857158ff8192cc7691"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 이미 쉬운 말이라 DRN만 풀어 쓰면 바로 V6 권 지문이다; 본론 수치 문단은 쓰지 않는다.",
+          "sample": "Diabetic retinal neurodegeneration is an early",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.599Z",
+        "by": "chunk-llm",
+        "why": "저자 요약(Author summary)이 일반 독자용 문장으로 연구 이유·방법·의미·한계를 차례로 설명해 주제·요약·순서·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "order",
+            "blank",
+            "purpose"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:23.456Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0940639252e0f8189c549bf9f1573e5be68fac1e776196857158ff8192cc7691"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 이미 쉬운 말이라 DRN만 풀어 쓰면 바로 V6 권 지문이다; 본론 수치 문단은 쓰지 않는다.",
+          "sample": "Diabetic retinal neurodegeneration is an early",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "저자 요약의 왜·무엇을·의미 세 문단과 서론의 늦은 선별 검사 문제가 요약·빈칸 칸을 채우며 결과 절은 지표 수치 나열이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "These findings suggest that a simple",
+          "note": "혈액 검사로 망막 신경 손상 위험을 미리 가린다는 요약 문단은 이미 평이해 거의 그대로 쓸 수 있다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:36.190Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:33.599Z",
+          "by": "chunk-llm",
+          "why": "저자 요약(Author summary)이 일반 독자용 문장으로 연구 이유·방법·의미·한계를 차례로 설명해 주제·요약·순서·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "order",
+              "blank",
+              "purpose"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:23.456Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "0940639252e0f8189c549bf9f1573e5be68fac1e776196857158ff8192cc7691"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약은 이미 쉬운 말이라 DRN만 풀어 쓰면 바로 V6 권 지문이다; 본론 수치 문단은 쓰지 않는다.",
+            "sample": "Diabetic retinal neurodegeneration is an early",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:27:07.135Z"
+    }
+  }
+]

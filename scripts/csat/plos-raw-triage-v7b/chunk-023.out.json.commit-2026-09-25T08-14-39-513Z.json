@@ -1,0 +1,2023 @@
+[
+  {
+    "runId": "2026-09-25T08-14-39-513Z",
+    "id": "1002f7d3-f342-41d3-9586-64369c626725",
+    "revision": "2026-09-25T07:32:05.046193+00:00",
+    "body_sha256": "9a907768aaa4887548210fefe0e8f1ca978bf9a4cda75f09d3e227b327f6ec19",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:36.783Z",
+        "by": "chunk-llm",
+        "why": "바이러스 단백질이 DNA 감지기를 직접 붙들어 면역을 끈다는 기전이 요약 한 편으로 선다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:11.840Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "30baae8237d92889cd326ac351a94f9d9eb7ad3089deb8121944082d2973f5ad"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "요약은 자족적이나 감지기와 신호 단백질 약어가 남아 밴드를 내리기 어렵다.",
+          "sample": "Type I interferon (IFN-I) restricts viral",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:36.783Z",
+        "by": "chunk-llm",
+        "why": "바이러스 단백질이 DNA 감지기를 직접 붙들어 면역을 끈다는 기전이 요약 한 편으로 선다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:11.840Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "30baae8237d92889cd326ac351a94f9d9eb7ad3089deb8121944082d2973f5ad"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "요약은 자족적이나 감지기와 신호 단백질 약어가 남아 밴드를 내리기 어렵다.",
+          "sample": "Type I interferon (IFN-I) restricts viral",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 절이 기존 회피 기전 사례를 늘어놓은 뒤 US1 구조 공통 펩타이드라는 자기 발견으로 수렴해 한 편의 논지가 선다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The cGAS-STING signaling pathway is crucial",
+          "note": "단락은 앞 문맥 없이 떼어지나 cGAS·IFN-β 등 약어가 논지의 뼈대여서 낱말 교체로는 밴드가 내려가지 않았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:39.518Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:36.783Z",
+          "by": "chunk-llm",
+          "why": "바이러스 단백질이 DNA 감지기를 직접 붙들어 면역을 끈다는 기전이 요약 한 편으로 선다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:11.840Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "30baae8237d92889cd326ac351a94f9d9eb7ad3089deb8121944082d2973f5ad"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "요약은 자족적이나 감지기와 신호 단백질 약어가 남아 밴드를 내리기 어렵다.",
+            "sample": "Type I interferon (IFN-I) restricts viral",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:59.084Z",
+      "topicMargin": 14.08
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-39-513Z",
+    "id": "1012ef9f-f897-41ae-b415-b19bd20c232c",
+    "revision": "2026-09-25T07:32:05.815855+00:00",
+    "body_sha256": "40b48ffaf8de19eb42593e8340d9764c408be7e20c3563007e7bcad9f6552ad0",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:36.785Z",
+        "by": "chunk-llm",
+        "why": "인공호흡기가 중증도의 표지인가 그 자체 위험인가를 가르려는 물음이 한 편으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim",
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:11.910Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6b9dccd63362f82cb3190730a8883d5f3d1170a99abc0b2abfc638a76962246f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론과 고찰 문단은 자족적이고 통계 기법 이름만 걷어내면 읽힌다.",
+          "sample": "Acute respiratory distress syndrome (ARDS) is",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:36.785Z",
+        "by": "chunk-llm",
+        "why": "인공호흡기가 중증도의 표지인가 그 자체 위험인가를 가르려는 물음이 한 편으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim",
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:11.910Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6b9dccd63362f82cb3190730a8883d5f3d1170a99abc0b2abfc638a76962246f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론과 고찰 문단은 자족적이고 통계 기법 이름만 걷어내면 읽힌다.",
+          "sample": "Acute respiratory distress syndrome (ARDS) is",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론이 인공호흡기의 이점과 손상 위험을 대비시켜 연구 물음을 세우고, 고찰이 수치 주장과 그 한계를 함께 다룬다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Acute respiratory distress syndrome (ARDS) is",
+          "note": "hypoxemic·compliance 등 서너 낱말을 쉬운 표현으로 바꾸니 고유명사를 걷어도 논지가 그대로 섰다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:39.519Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:36.785Z",
+          "by": "chunk-llm",
+          "why": "인공호흡기가 중증도의 표지인가 그 자체 위험인가를 가르려는 물음이 한 편으로 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "claim",
+              "blank"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "data-claim",
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:11.910Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "6b9dccd63362f82cb3190730a8883d5f3d1170a99abc0b2abfc638a76962246f"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론과 고찰 문단은 자족적이고 통계 기법 이름만 걷어내면 읽힌다.",
+            "sample": "Acute respiratory distress syndrome (ARDS) is",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:03.915Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-39-513Z",
+    "id": "10199cd4-5813-4080-b795-94f0f716c6ae",
+    "revision": "2026-09-25T07:32:06.643453+00:00",
+    "body_sha256": "6d25537b416648e3abe58968d353a104b49ecb96da4ee662dd0a365d7ad27b83",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:36.788Z",
+        "by": "chunk-llm",
+        "why": "바이러스가 매개 곤충의 행동까지 바꾼다는 주장을 사례로 이어 가는 종설이라 논지가 뚜렷하다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence",
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:13.656Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4a2d6b59f7a70645a3614672f4ea532c01fac8e98e3b3d7708d44bd0f5f1b0bb"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "종설이라 문단 경계가 뚜렷하고 바이러스 약어를 일반어로 바꿔도 논지가 유지된다.",
+          "sample": "As obligate intracellular parasites, most animal",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:36.788Z",
+        "by": "chunk-llm",
+        "why": "바이러스가 매개 곤충의 행동까지 바꾼다는 주장을 사례로 이어 가는 종설이라 논지가 뚜렷하다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence",
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:13.656Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4a2d6b59f7a70645a3614672f4ea532c01fac8e98e3b3d7708d44bd0f5f1b0bb"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "종설이라 문단 경계가 뚜렷하고 바이러스 약어를 일반어로 바꿔도 논지가 유지된다.",
+          "sample": "As obligate intracellular parasites, most animal",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "식물바이러스가 매개충의 수동적 승객이 아니라는 통념 반박을 표제로 세우고 사례로 뒤집는 종설이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "As obligate intracellular parasites, most animal",
+          "note": "서론 첫 단락은 바이러스 이름을 일반어로 바꿔도 전달 방식 분류 설명이 그대로 유지됐다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:39.520Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:36.788Z",
+          "by": "chunk-llm",
+          "why": "바이러스가 매개 곤충의 행동까지 바꾼다는 주장을 사례로 이어 가는 종설이라 논지가 뚜렷하다.",
+          "basis": "full",
+          "genre": "nature",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "claim",
+              "summary",
+              "blank"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence",
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:13.656Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "4a2d6b59f7a70645a3614672f4ea532c01fac8e98e3b3d7708d44bd0f5f1b0bb"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "종설이라 문단 경계가 뚜렷하고 바이러스 약어를 일반어로 바꿔도 논지가 유지된다.",
+            "sample": "As obligate intracellular parasites, most animal",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:55.966Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-39-513Z",
+    "id": "102465d8-4e69-49b6-8ef9-f1d7a8fe5daa",
+    "revision": "2026-09-25T07:32:07.224985+00:00",
+    "body_sha256": "4466d630b90cad09c70da3369d88c4eb4f3bd06c454a2ad5d93427a6df8439da",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:01.590Z",
+        "by": "chunk-llm",
+        "why": "본문 마지막 문장이 중간에서 끊겨(「analyzing complex.」) 기준 §3-5 「글이 중간에서 끊긴 경우」로 보류한다 — 고찰 문단 자체는 온전하다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:13.692Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "1fb5c4559253ba90529b851c5a0769d9bec9a049416ab27abe76346cd7397e3d"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "모델명을 \"the system\"으로 바꾸고 cognitive/prioritization 등 두세 낱말을 풀면 선다; 결론 끝 문장이 \"analyzing complex.\"로 끊겨 있으나 쓸 단락은 온전하다.",
+          "sample": "From a practical application perspective, CSAT-DRM",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:01.590Z",
+        "by": "chunk-llm",
+        "why": "본문 마지막 문장이 중간에서 끊겨(「analyzing complex.」) 기준 §3-5 「글이 중간에서 끊긴 경우」로 보류한다 — 고찰 문단 자체는 온전하다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:13.692Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "1fb5c4559253ba90529b851c5a0769d9bec9a049416ab27abe76346cd7397e3d"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "모델명을 \"the system\"으로 바꾸고 cognitive/prioritization 등 두세 낱말을 풀면 선다; 결론 끝 문장이 \"analyzing complex.\"로 끊겨 있으나 쓸 단락은 온전하다.",
+          "sample": "From a practical application perspective, CSAT-DRM",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "서론과 고찰은 기존 모델의 시간 비동기 가정 문제를 짚고 대안을 제시해 논지가 서지만, 방법 절은 수식 나열이라 쓰지 못한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "However, existing Transformer-based anomaly detection methods",
+          "note": "서론 단락은 떼어지지만 모델 약어(CSAT-DRM·TranAD)가 논지에 붙어 있어 어휘를 낮추기 어려웠다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:39.522Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:01.590Z",
+          "by": "chunk-llm",
+          "why": "본문 마지막 문장이 중간에서 끊겨(「analyzing complex.」) 기준 §3-5 「글이 중간에서 끊긴 경우」로 보류한다 — 고찰 문단 자체는 온전하다.",
+          "basis": "full",
+          "genre": "technology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "insert"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:13.692Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "1fb5c4559253ba90529b851c5a0769d9bec9a049416ab27abe76346cd7397e3d"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "모델명을 \"the system\"으로 바꾸고 cognitive/prioritization 등 두세 낱말을 풀면 선다; 결론 끝 문장이 \"analyzing complex.\"로 끊겨 있으나 쓸 단락은 온전하다.",
+            "sample": "From a practical application perspective, CSAT-DRM",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "hold_reason": "incomplete-source",
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:37:50.692Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-39-513Z",
+    "id": "102b6d2b-26a5-4db1-b024-2049c927ebb6",
+    "revision": "2026-09-25T07:32:08.142281+00:00",
+    "body_sha256": "10f136de087a64d1a9f05d726619e50c6d6f8e843ccace5f2853dbb98dd59daa",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:01.591Z",
+        "by": "chunk-llm",
+        "why": "결과 절이 분리 균주 특성에서 P46 녹아웃(Fig 4)으로 건너뛰어 Fig 3·5–8 결과가 통째로 없고, 고찰의 GETV 확산 단락은 내용 일치 칸만 된다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:15.498Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "22c5340e52ea6f55bf25f0e7ccc958e5cd1b6e17e12db3ae6f2a023d7911065f"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "확산 단락은 떼지지만 지명·연도·수치를 걷으면 논지가 남지 않고, 본문 결과 절 일부가 빠져 있다.",
+          "sample": "GETV is an emerging and widespread",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:01.591Z",
+        "by": "chunk-llm",
+        "why": "결과 절이 분리 균주 특성에서 P46 녹아웃(Fig 4)으로 건너뛰어 Fig 3·5–8 결과가 통째로 없고, 고찰의 GETV 확산 단락은 내용 일치 칸만 된다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:15.498Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "22c5340e52ea6f55bf25f0e7ccc958e5cd1b6e17e12db3ae6f2a023d7911065f"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "확산 단락은 떼지지만 지명·연도·수치를 걷으면 논지가 남지 않고, 본문 결과 절 일부가 빠져 있다.",
+          "sample": "GETV is an emerging and widespread",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론이 재출현 경위와 농가 피해를 시간 흐름으로 정리하고 고찰이 숙주 단백질 P46의 역할로 논지를 모은다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "In recent years 2022–2025, GETV is",
+          "note": "지명·연도를 걷어도 유행 확산 서술은 남았으나 nsP2·유비퀴틴화 용어는 대체어가 없었다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:39.523Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:01.591Z",
+          "by": "chunk-llm",
+          "why": "결과 절이 분리 균주 특성에서 P46 녹아웃(Fig 4)으로 건너뛰어 Fig 3·5–8 결과가 통째로 없고, 고찰의 GETV 확산 단락은 내용 일치 칸만 된다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "content_match"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:15.498Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "22c5340e52ea6f55bf25f0e7ccc958e5cd1b6e17e12db3ae6f2a023d7911065f"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "확산 단락은 떼지지만 지명·연도·수치를 걷으면 논지가 남지 않고, 본문 결과 절 일부가 빠져 있다.",
+            "sample": "GETV is an emerging and widespread",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "hold_reason": "incomplete-source",
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 16,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:41.384Z",
+      "topicMargin": 13.909999999999998
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-39-513Z",
+    "id": "10718c8d-330c-43a3-917f-7dec0dca0943",
+    "revision": "2026-09-25T07:32:14.392354+00:00",
+    "body_sha256": "9948af69a2d1a142512464d01aad12e96ef80030f3465e226c79cf979c47154b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.261Z",
+        "by": "chunk-llm",
+        "why": "살모넬라 하위집단이 서로 역할을 나눠 협력한다는 논지가 고찰 절에서 한 편으로 선다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:22.396Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "68febc6b08b38d285a9c5952648e81713641f417c3e1cb730354060fbd568c2e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 지시어 없이 떼어지나 SPI-2·SsrB 같은 고유 약어가 남아 밴드를 못 내린다.",
+          "sample": "To establish a replicative niche inside",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.261Z",
+        "by": "chunk-llm",
+        "why": "살모넬라 하위집단이 서로 역할을 나눠 협력한다는 논지가 고찰 절에서 한 편으로 선다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:22.396Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "68febc6b08b38d285a9c5952648e81713641f417c3e1cb730354060fbd568c2e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 지시어 없이 떼어지나 SPI-2·SsrB 같은 고유 약어가 남아 밴드를 못 내린다.",
+          "sample": "To establish a replicative niche inside",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론이 분업과 도박 헤징이라는 일반 개념으로 시작해 세균 하위집단 협력이라는 논지를 세운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "To establish a replicative niche inside",
+          "note": "첫 단락은 유전자 이름이 없어 낱말 두셋만 바꿔도 읽히지만 결과 절은 균주 표기가 빽빽해 쓰기 어렵다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:39.525Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:02.261Z",
+          "by": "chunk-llm",
+          "why": "살모넬라 하위집단이 서로 역할을 나눠 협력한다는 논지가 고찰 절에서 한 편으로 선다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "summary"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:22.396Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "68febc6b08b38d285a9c5952648e81713641f417c3e1cb730354060fbd568c2e"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 단락은 지시어 없이 떼어지나 SPI-2·SsrB 같은 고유 약어가 남아 밴드를 못 내린다.",
+            "sample": "To establish a replicative niche inside",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 14,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:38.459Z",
+      "topicMargin": 10.69
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-39-513Z",
+    "id": "107a3e43-7249-4f03-983e-6875626af19d",
+    "revision": "2026-09-25T07:32:16.213139+00:00",
+    "body_sha256": "f130a0eeea7d9e5b26c12f08e28bd42a89185aeec211b1df9535518a83ba456a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.262Z",
+        "by": "chunk-llm",
+        "why": "용균성 파지와 용원성 파지의 생활사 대비를 세우고 생물막 구조로 승패가 갈린다고 논증한다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:23.720Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6576389ced53804499500b7074250f2fbe3d10ddd3707dfa40fb2fee23e892b5"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "두 전략의 대비 단락은 lytic/lysogenic 두 낱말만 풀어 주면 자족한다.",
+          "sample": "Temperate and obligately lytic (virulent) phages",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.262Z",
+        "by": "chunk-llm",
+        "why": "용균성 파지와 용원성 파지의 생활사 대비를 세우고 생물막 구조로 승패가 갈린다고 논증한다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:23.720Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6576389ced53804499500b7074250f2fbe3d10ddd3707dfa40fb2fee23e892b5"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "두 전략의 대비 단락은 lytic/lysogenic 두 낱말만 풀어 주면 자족한다.",
+          "sample": "Temperate and obligately lytic (virulent) phages",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "용균성과 용원성이라는 두 생활사를 대비시켜 생물막 구조가 승패를 가른다는 결론까지 한 편으로 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Temperate and obligately lytic (virulent) phages",
+          "note": "대비 구조가 단락 안에서 닫혀 있어 균주 이름을 걷고 용어 셋을 풀어 쓰니 그대로 읽혔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:39.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:02.262Z",
+          "by": "chunk-llm",
+          "why": "용균성 파지와 용원성 파지의 생활사 대비를 세우고 생물막 구조로 승패가 갈린다고 논증한다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:23.720Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "6576389ced53804499500b7074250f2fbe3d10ddd3707dfa40fb2fee23e892b5"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "두 전략의 대비 단락은 lytic/lysogenic 두 낱말만 풀어 주면 자족한다.",
+            "sample": "Temperate and obligately lytic (virulent) phages",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 5,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:06.181Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-39-513Z",
+    "id": "10ad39af-376c-48c2-80f0-d01db11a07f3",
+    "revision": "2026-09-25T07:32:20.052832+00:00",
+    "body_sha256": "0b14a9423b063ab0709176baf660babc471cf7d1c9ee17c016ce4df7b0e9774c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.263Z",
+        "by": "chunk-llm",
+        "why": "수면 개선이 발작 억제보다 먼저 온다는 시간 순서 주장을 근거와 한계까지 갖춰 편다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:26.329Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "a552f6dad7130756da766dae708a90f30e09a0a6d4f0fcba155d19ed2b54adfe"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "수면-뇌전증 악순환 단락은 약물명만 일반어로 바꾸면 고3 밴드로 내려온다.",
+          "sample": "The bidirectional relationship between sleep and",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.263Z",
+        "by": "chunk-llm",
+        "why": "수면 개선이 발작 억제보다 먼저 온다는 시간 순서 주장을 근거와 한계까지 갖춰 편다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:26.329Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "a552f6dad7130756da766dae708a90f30e09a0a6d4f0fcba155d19ed2b54adfe"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "수면-뇌전증 악순환 단락은 약물명만 일반어로 바꾸면 고3 밴드로 내려온다.",
+          "sample": "The bidirectional relationship between sleep and",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "수면과 발작의 악순환을 세운 뒤 약효가 수면에 먼저 나타난다는 시간 순서를 근거로 제시한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The bidirectional relationship between sleep and",
+          "note": "척도 약어(CSHQ·SWI)를 풀어 쓰면 고찰 단락이 일반 독자용 설명문으로 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:39.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:02.263Z",
+          "by": "chunk-llm",
+          "why": "수면 개선이 발작 억제보다 먼저 온다는 시간 순서 주장을 근거와 한계까지 갖춰 편다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:26.329Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "a552f6dad7130756da766dae708a90f30e09a0a6d4f0fcba155d19ed2b54adfe"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "수면-뇌전증 악순환 단락은 약물명만 일반어로 바꾸면 고3 밴드로 내려온다.",
+            "sample": "The bidirectional relationship between sleep and",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:01.098Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-39-513Z",
+    "id": "10cd89da-4c57-4d91-85bb-67cc0c5aaa30",
+    "revision": "2026-09-25T07:32:24.017043+00:00",
+    "body_sha256": "f06c85f3ca0ea88ef45eb87f2d121043bc0b6f392ce1eeee7c3d569268fe0ac6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.265Z",
+        "by": "chunk-llm",
+        "why": "백신주 기준을 야외 분리주에 그대로 쓰면 안 된다는 안전 논지가 고찰에서 분명히 선다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:28.660Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "fb81c4d6103d46c54153f21319eb78a4a9e3efc03a315b5a201d515cbc663f63"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 가열=조리, 포름알데히드=접착이라는 비유가 있어 그대로 쓸 만하다.",
+          "sample": "Brucella remains a significant zoonotic pathogen",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.265Z",
+        "by": "chunk-llm",
+        "why": "백신주 기준을 야외 분리주에 그대로 쓰면 안 된다는 안전 논지가 고찰에서 분명히 선다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:28.660Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "fb81c4d6103d46c54153f21319eb78a4a9e3efc03a315b5a201d515cbc663f63"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 가열=조리, 포름알데히드=접착이라는 비유가 있어 그대로 쓸 만하다.",
+          "sample": "Brucella remains a significant zoonotic pathogen",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약이 가열을 조리에, 포르말린을 접착에 빗대 두 방법의 차이를 일상어로 풀어내 자족적이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Brucellosis is a widespread zoonotic disease",
+          "note": "저자 요약 단락은 비유로 논지가 서서 어휘 조정이 쉬웠고, 결과 절은 단백질 목록이라 버렸다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:39.528Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:02.265Z",
+          "by": "chunk-llm",
+          "why": "백신주 기준을 야외 분리주에 그대로 쓰면 안 된다는 안전 논지가 고찰에서 분명히 선다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:28.660Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "fb81c4d6103d46c54153f21319eb78a4a9e3efc03a315b5a201d515cbc663f63"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약은 가열=조리, 포름알데히드=접착이라는 비유가 있어 그대로 쓸 만하다.",
+            "sample": "Brucella remains a significant zoonotic pathogen",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:01.690Z"
+    }
+  }
+]
