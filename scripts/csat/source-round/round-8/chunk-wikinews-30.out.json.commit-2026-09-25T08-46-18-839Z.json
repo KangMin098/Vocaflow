@@ -1,0 +1,1847 @@
+[
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "0988a4de-5402-4d2d-b01f-0eb61ef2d47b",
+    "revision": "2026-09-25T07:20:53.890093+00:00",
+    "body_sha256": "61c6b2dccfad1c3d24209d4b1822585d950fc0b32c78855ccd5756a544eb7568",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "낙하 놀이기구 케이블 사고 → 같은 제조사 기구 연쇄 운행 중단의 인과가 서지만 신체 절단 묘사가 있어 고등 이상 내용일치 칸만 단다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The rides that have been shut",
+          "note": "운행 중단 공원 목록 단락은 나열이라 줄이고 인과만 남긴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.841Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Thrill_rides_in_U.S.%2C_Canada_shut_down_after_girl's_feet_are_severed",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "098dd49f-7569-4101-b709-9bc5ce300518",
+    "revision": "2026-09-25T08:09:16.405291+00:00",
+    "body_sha256": "39e269316849bfafb6c25a43ebdaf05946568420990db025d1fddd2e1d174520",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아랍계 의원의 과거 작전 비교와 이스라엘 총리·법무장관의 입장이 인용으로 맞서 고3·성인 주장 대조 칸을 채운다 — 한쪽 인용이 격해 연령 제한.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Olmert told Israeli legislators today that;",
+          "note": "「cowards」 같은 비방 인용과 「마을을 밀어버려야」 발언은 가공 때 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.842Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Current_Israel_Hezbollah_conflict_being_compared_with_%22Operation_Grapes_of_Wrath%22",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.37
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "098e9a5c-6acf-4ee0-88b7-9cb457251271",
+    "revision": "2026-09-25T06:59:01.421667+00:00",
+    "body_sha256": "71b684473d6ece42dbfa16f44e01487028b3e8b5b9a6459fd3fab22692d8987e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "행진 폭력 사태에 더해 아일랜드 분단과 북아일랜드 분쟁의 배경 설명 단락이 있어 고등 이상 내용일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Troubles is an ongoing conflict",
+          "note": "배경 설명 단락은 앞 문맥 없이 서서 독해 지문으로 바로 쓸 만했다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.843Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Dublin_unionist_march_turns_violent",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.373
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "098fad80-6e9d-46b0-93a8-197fd8cdc27d",
+    "revision": "2026-09-25T08:27:05.246171+00:00",
+    "body_sha256": "d29863fa1ff40d2d0b74d3bd3504d8d7bd9b745a73af38cde510a245cceffdb2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "철거 명령이 난 건물이 철거 직전 무너진 경위와 인근 붕괴 전력이 이어져 내용일치 칸을 채운다 — 끝 단락의 어긋난 문장은 걷어낸다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The building is reported to have",
+          "note": "마지막 문단은 두 문장이 잘못 붙어 뜻이 엉켜 가공 때 뺀다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.843Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Two_dead_after_building_collapse_in_Kenya",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "098fdc0b-8e12-4c63-8388-2159c0c5e95a",
+    "revision": "2026-09-25T07:48:11.222981+00:00",
+    "body_sha256": "18704fcc5dda82b78ffee0ec41df5f9e22124097684e9651fdc3e9eba2fcf43c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "미성년 전환치료 금지법 서명과 주지사·인권단체의 근거 인용이 이어져 고등 이상 내용일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In a statement to the San",
+          "note": "찬성 쪽 인용만 있어 주장 문항으로 걸 때 출처를 밝힌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.843Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/California_passes_law_banning_gay-to-straight_therapy",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "099060ca-3187-4f9c-a2f4-5fc4e521aaaa",
+    "revision": "2026-09-25T07:37:20.017074+00:00",
+    "body_sha256": "48f3c3e374fccad83d13ccec7b1152e9d2496174ef5ac55a90dc3d14587502c9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "하수 규정과 신앙이 충돌해 수감을 택한 농부의 판결 경과와 발언이 서서 심경·주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood",
+            "claim"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The ruling shocked about a dozen",
+          "note": "outhouse·contempt of court 두 낱말만 풀면 중등에 맞았다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.843Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pennsylvania_Amish_farmer_jailed_for_outhouse_violations",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.584,
+          "words": 197,
+          "english": 0.342
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09907cc6-0136-43e1-b68f-94fb7bed7d48",
+    "revision": "2026-09-25T08:34:37.191235+00:00",
+    "body_sha256": "920d964e7a55560a4b63c33d0d13f535b8655bc298dfc36b1f2ab6f2878d2f3d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "영국군 6명 살해 사건 재판에서 증거 부족 기각과 경찰관 증언·국방부 반응이 이어져 고등 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Judge Balee Hamdi told The Guardian",
+          "note": "증언 인용이 길어 요약 가공이 필요하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.844Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Baghdad_judge_clears_pair_of_murdering_six_foreign_soldiers",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.411
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09932056-ab0f-4913-a7e3-fb5210139f40",
+    "revision": "2026-09-25T06:55:18.248327+00:00",
+    "body_sha256": "5708d997bee9aa5b90e83dc31d46cdcdb5dd1faef7f204241767169b11162c35",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "토성 D 고리가 어두워지고 안쪽으로 옮겨 간 발견과 다른 고리의 변화, 행성 형성 연구와의 연관이 서서 내용일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The rings, which are now iconic",
+          "note": "Jovian 을 giant 로 바꾸면 중등으로 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.844Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Astronomers_find_changes_in_Saturn's_rings",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.4
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "099988a5-a08b-473c-96d3-7fac752480af",
+    "revision": "2026-09-25T08:16:41.009561+00:00",
+    "body_sha256": "5ac22b4bd441f42ed12465eb39de3e2110634e39c902cf1188137efd3af9875c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "민간인을 반군으로 위장한 전과 부풀리기 스캔들 → 장성 사임 → 인권 비판의 인과가 서서 고등 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "An investigation showed that the military",
+          "note": "inflating their successes 를 풀어 쓰면 뜻이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.844Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Colombian_army_general_resigns_over_civilian_deaths",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.763,
+          "words": 186,
+          "english": 0.36
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "099afdef-a4d6-4b61-8d17-1c3d9a362222",
+    "revision": "2026-09-25T07:49:50.999637+00:00",
+    "body_sha256": "2fa575e618974ddc1d3f52069dc5f910ad554bd3caeb9811ae7318242498befd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "잔해 발견 → 관제 교신 시각별 경과 → 속도 부족 실속 가능성 → 조사 질문이 이어져 순서·빈칸·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "blank",
+            "long_reference"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Controllers conferred with Singapore and agreed",
+          "note": "관제 교신 두 단락이 시각 순서로 떼어져 순서 문항이 쉬웠다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.844Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/AirAsia_disaster%3A_Bodies%2C_wreckage_found",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7,
+          "words": 200,
+          "english": 0.293
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09a110b8-351e-4f5d-8317-3f760a3eef46",
+    "revision": "2026-09-25T08:06:32.290428+00:00",
+    "body_sha256": "dd822bbab519be5ca03c6a1a955e4b929814fa1a913b20d0c3fdd5b5dc4e6ff1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "미확인 메모 보도 → 농담이냐 진심이냐 엇갈린 해석 → 유출자 기소와 공개 요구가 맞서 고등 이상 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "While a UK Government official was",
+          "note": "공무상 비밀법 조문 인용 단락은 걷어내야 읽힌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.844Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Alleged_Bush-Blair_Al-Jazeera_bombing_transcript_leaked",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.39
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09a46eb5-c809-46fc-9fe1-13ff5c666850",
+    "revision": "2026-09-25T08:03:29.374747+00:00",
+    "body_sha256": "3931f6c0d98623a6127fc5f2cc3879608e7cc49a5354e62ac4e6cf7d72eec862",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "포르투갈 학생 투옥 기사 → 앰네스티 창립 → 180만 회원 단체로의 성장이 짧게 이어져 중등 내용일치·제목 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "title"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The organisation was initially formed in",
+          "note": "prisoners of conscience 를 풀이하면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.844Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Founder_of_Amnesty_International_dies%2C_aged_83",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.969,
+          "words": 161,
+          "english": 0.373
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09a4ba55-9029-46c2-a5a6-6378e7cd67a7",
+    "revision": "2026-09-25T07:25:14.332501+00:00",
+    "body_sha256": "559216e13bbd9d33390467bd2b82493f503ac018b23cc6267b28d57146a018fe",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "오디션 우승 발표와 공연 순서, 우승자·준우승자의 소감 인용이 이어져 중등 내용일치·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"'Keep positive, keep on the positive",
+          "note": "공연곡 나열 단락은 걷어내고 소감 단락만 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.844Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Brian_Melo_crowned_winner_of_Canadian_Idol",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.281
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09a7b2bb-b72a-4732-9a1d-363edc122133",
+    "revision": "2026-09-25T07:23:00.560354+00:00",
+    "body_sha256": "ac45c553b230c630a33ba4f177bff1ecb227b5040226092a54caaefb7d57c6fa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "붕괴 원인을 두고 광산주는 지진, 지질조사국은 아니라고 맞서는 대목이 있어 내용일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The United States Geological Survey (USGS)",
+          "note": "직함 나열(CEO, President…)은 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Six_miners_trapped_in_Utah_mine_after_possible_earthquake",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09ac4bf5-73da-44ad-be21-2fc9ba6c1aa8",
+    "revision": "2026-09-25T08:41:34.504961+00:00",
+    "body_sha256": "e9607e795bfb29f54f3d684f62683e0cfdcda117c3050bf70d0dfe00b0a12e47",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "득표 결과와 참관단의 부정 지적, 선관위 반박, 3선 제한 배경이 이어져 고등 내용일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "European observers, including those from the",
+          "note": "ballot stuffing 을 풀어 써야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Putin_elected_to_third_term%3B_observers_express_concern",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.348
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09af59b6-d751-46e4-b522-fc8d6a08f143",
+    "revision": "2026-09-25T07:48:08.160035+00:00",
+    "body_sha256": "a2abec7c0d1a2e3bccc2c602e749e5fedf1a783e7ada0958b8597bda1a7e3154",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "비준 두 나라로 발효 → 보호 대상 → 보장 권리 목록이 이어져 고등 내용일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to the UN, the convention",
+          "note": "collective bargaining 에 풀이를 달면 고1 에 맞는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UN's_Convention_on_Domestic_Workers_expected_to_take_effect_in_2013",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.521,
+          "words": 163,
+          "english": 0.381
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09b37f67-7d6f-4a00-81e3-2f022b935b73",
+    "revision": "2026-09-25T05:31:17.063608+00:00",
+    "body_sha256": "b4f5a23c13e12e5c7ea1a9df197025a317d22743e34272c7c5f39d96c813bc5c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "밀렵으로 20마리가 줄어든 경위와 케냐 이송 계획, 뿔 암거래 가격이 이어져 중등 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In 2003, about 30 rhinos lived",
+          "note": "poaching 에 풀이만 달면 중1 까지 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/White_rhinos_fly_to_safety",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09b6ae87-cee2-4930-8cb4-8e653a102936",
+    "revision": "2026-09-25T07:33:24.401647+00:00",
+    "body_sha256": "ff5f2b3d14ac34b8526a562c10738a0a4c78ba9d603a9ccde3eb5b99903b3d66",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "art",
+        "why": "팬 영화 제작 동기·과정과 「끝까지 포기하지 말라」는 조언이 인터뷰 문답으로 서서 요지·심경·구어 재료 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Eric Saussine: Never, ever abandon your",
+          "note": "마지막 조언 문답은 따로 떼어 요지 문항이 바로 됐다 — 줄거리 요약 단락의 살해 장면은 가볍다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_interviews_Eric_Saussine%2C_director_of_the_James_Bond_fan_film_Shamelady",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.392
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09b8bd03-b2d4-40f2-9516-80ae46bf8a38",
+    "revision": "2026-09-25T08:18:07.723697+00:00",
+    "body_sha256": "a00a557e3a3721c7a5e4b6431ae2bf980c559330e28cb7b494326412f492ed97",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "멜라민 분유 사건 판결과 사건 경위·배상·사형 반대 논쟁이 길게 이어져 고등 이상 장문·주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "long_reference",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Melamine is normally used to make",
+          "note": "멜라민 설명 단락은 떼어 쓰기 쉬웠지만 판결 단락은 인명·수치가 밀집해 크게 줄여야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Death_sentences_in_2008_Chinese_tainted_milk_scandal",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.303
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09b9b5b5-e4f7-4614-b84a-49c86750c494",
+    "revision": "2026-09-25T07:30:25.273679+00:00",
+    "body_sha256": "83ba9c7f80fc5be468a0f7e21d6fb8f088efccb5f9548e089f92cb9913e144d5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "교육 블로그 → 학부모 우려 → 교육청 폐쇄 명령 → 교사 측 반응의 인과가 서서 요지·주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Upton originally had support from his",
+          "note": "endeavouring 을 trying 으로 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/South_Australian_educational_blog_shut_down",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.397
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09b9c692-8fb0-4003-a018-63fbb0300fae",
+    "revision": "2026-09-25T07:50:48.79108+00:00",
+    "body_sha256": "6fb598fc7cc6167ab2fc375773c839c472178730142a72eef341bd326063bdae",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "news",
+        "why": "「Oakland mayor Libby Schaaf:」 뒤에 올 시장 발언이 통째로 빠져 본문이 중간에서 끊겼다 — 화재 경위 자체는 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Efforts to rescue partygoers were compounded",
+          "note": "빠진 인용 한 줄만 걷으면 쓸 수 있어 재수집 대상이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Oakland%2C_California_record_release_party_catches_fire",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09ba34d4-6c58-449e-91b5-2e6515ec5dfd",
+    "revision": "2026-09-25T08:06:17.990957+00:00",
+    "body_sha256": "aae37eea9106a5ce89c602d3ca56eabe3c8ac2812f3e7b70d76ce5d6091eeeea",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "교내 총격 → 금속탐지기 설치 → 지역 갈등이 학교로 번진다는 대변인 설명이 이어져 고2 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Earlier this year, high schools in",
+          "note": "대변인 인용의 there/their 오류는 가공 때 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/High_School_shooting_in_Michigan%2C_USA_injures_one",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.385
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09bb8323-c6e0-4792-a1d3-eac698c027ea",
+    "revision": "2026-09-25T07:03:49.265661+00:00",
+    "body_sha256": "a551433ccfd11b6673b1ffa281b20854678cc718eb7e91340cab4c3f75013cea",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "죽은 흑고니 조류독감 확인 → 반경 봉쇄 → 동물원 조치가 이어져 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "For the moment, all birds in",
+          "note": "pathogenic 을 dangerous 로 바꾸면 V4 로 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Swan_in_German_zoo_tests_positive_for_H5N1_virus",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.417
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09bc2cc2-cc40-414f-9fee-fda905c7ea8d",
+    "revision": "2026-09-25T07:49:02.402098+00:00",
+    "body_sha256": "e448f82e6465b41af16c269414857a84c71e4d9ab6e4f3e560f82761ddf8089e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "개막 소식에 다이빙 쇼 탑을 나무에 고정해야 했던 사연이 있어 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The dive show's owner and producer",
+          "note": "마지막 단락이 작은 사건 흐름을 갖춰 떼어 쓰기 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/98th_annual_East_Texas_State_Fair_opens_in_Tyler%2C_Texas",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.332
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-18-839Z",
+    "id": "09bcf787-1046-41fb-9983-df6677f333ed",
+    "revision": "2026-09-25T06:57:08.610967+00:00",
+    "body_sha256": "397fa54866a30d65b5d04f5b3c99c84d2f7cba55e22f13a33427e5c7b9396eb3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "아이티 대선 후보 두 명이 치안과 경제성장을 우선 과제로 내세운 주장과 근거가 서서 고등 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Baker added that if elected he",
+          "note": "첫 단락이 한 문장에 삽입절이 많아 두세 문장으로 쪼개야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:18.845Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Security_is_important_for_potential_presidents_in_Haiti",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.378
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

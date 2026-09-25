@@ -1,0 +1,997 @@
+[
+ {
+  "id": "079d7612-4fd6-4657-86ce-2a5ecb67c192",
+  "source_updated_at": "2026-09-25T08:07:21.160568+00:00",
+  "body_sha256": "89a482ab08a64a5dd164f857fd98e2ba0dbeab5ba70dcfcae34aa2c6f90527ec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "베이루트 대규모 행진에서 나스랄라와 미국 측이 무함마드 만평 시위를 두고 서로 비난하는 발언이 대비돼 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Speaking Wednesday at a joint news",
+   "note": "「피로써 지킨다」 발언은 보도된 인용으로 두되 고등 이상으로 제한했다."
+  }
+ },
+ {
+  "id": "07a1675d-a9b8-4fe4-8aa8-5aad333a4478",
+  "source_updated_at": "2026-09-25T06:58:30.674884+00:00",
+  "body_sha256": "5d0b9d5649d558dcd09ddb3f3bc1b0a7cc1d5d95bf63bdeaead1d4b0443bc5e7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "휴대전화를 삼킨 줄 알았던 여성이 실은 폭행 피해자였다는 수사 반전이 짧게 이어져 성인 읽기 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Police Sgt. Allen Kintz told the",
+   "note": "연인 폭력 소재라 성인으로 제한; 경찰 인용 단락이 반전을 담는다."
+  }
+ },
+ {
+  "id": "07b1e1bd-8566-402e-a641-20b356615fb5",
+  "source_updated_at": "2026-09-25T07:09:43.561797+00:00",
+  "body_sha256": "39cbf7cb8dc9ce5cf1dccefd213be5cb356e890eb3893dbc77739f4648b5fe89",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "카자흐스탄 하레 크리슈나 마을 철거를 두고 미 대사관·위원회가 종교 자유 침해를 지적하는 근거가 서서 주장·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"The forceful eviction of homeowners in",
+   "note": "위원장 인용 끝 단락이 주장 문장으로 바로 쓰인다."
+  }
+ },
+ {
+  "id": "07b34b07-ac4b-4500-a07d-2c3486d555ba",
+  "source_updated_at": "2026-09-25T07:52:18.302802+00:00",
+  "body_sha256": "080216a577d98d0ba99e85c6cc59470004db18de120cd7b96ee81a90a9f82c9f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "화성 헬리콥터 인저뉴어티가 첫 밤을 견딘 방법(단열·히터·태양광)과 희박한 대기에서의 비행 조건이 설명으로 서서 주제·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "insert",
+    "topic"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mars just has 1% of atmosphere",
+   "note": "화성 대기 1%와 회전 속도 단락이 설명문으로 좋다."
+  }
+ },
+ {
+  "id": "07b4eeec-0391-49d1-b598-48c964c0742c",
+  "source_updated_at": "2026-09-25T07:52:11.628809+00:00",
+  "body_sha256": "1871a8047b64f96e2a47e5ab33c00ca98ef7f709da06f9815d657a5c6807f848",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "바이든 당선 예측과 통합 호소, 트럼프의 불복 발언이 대비돼 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Biden said in a statement, \"I",
+   "note": "양측 발언 단락이 짝으로 떨어진다; 선거인단 수치는 줄인다."
+  }
+ },
+ {
+  "id": "07b94ac2-0663-43d7-90b5-f563d209bdcb",
+  "source_updated_at": "2026-09-25T08:13:01.683468+00:00",
+  "body_sha256": "2c5c625a93457e5351da50d764d724867980db11b187a2d6b74175067d33fee7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "105세로 죽은 아일랜드 공화주의자의 생애가 독립전쟁부터 연금 거부까지 시간순으로 서서 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Keating remained an IRA member for",
+   "note": "매복·사살 서술이 있어 고등 이상; 연금 거부 단락이 이유 구조로 선다."
+  }
+ },
+ {
+  "id": "07bb6040-2ea2-4538-9276-887c5fee9eb0",
+  "source_updated_at": "2026-09-25T07:19:54.185397+00:00",
+  "body_sha256": "e6af5c4aa6e974c395bcf6a42cf4a69497b35e820b8b2ab8e749ace5070b014d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "메이플 시럽 견학 뒤 폭우 속 학생 버스 전복 사고와 원인(미끄러짐)이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It is thought the accident occurred",
+   "note": "경찰 대변인 원인 설명 단락이 떼기 쉽다."
+  }
+ },
+ {
+  "id": "07c17441-e1b1-4a30-a28a-1fc4f06c0039",
+  "source_updated_at": "2026-09-25T08:04:07.015384+00:00",
+  "body_sha256": "cb89fa2f90d57e2d8a14ebfdb07fb76c58a77ad76a68ad271479d07ef228de8b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "웬디스 칠리 속 손가락 사건의 새 단서(표범에게 잘린 손가락)와 소송 취하가 이어져 읽기 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"Somebody might be able to say",
+   "note": "신체 절단 소재라 고등 이상; DNA 검사가 필요하다는 인용 단락이 선다."
+  }
+ },
+ {
+  "id": "07c4b4f7-53a8-47ef-bff6-ccf4615a09ed",
+  "source_updated_at": "2026-09-25T07:05:54.665649+00:00",
+  "body_sha256": "c1d1459144227e29819e180e368d554d9f458604969fbb51021b125f0d393194",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "영국 공동체장관이 지역 공동체의 극단주의 척결과 통합을 촉구한 연설이 근거와 함께 서서 주장·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "She also warned that communities were",
+   "note": "「단일 정체성을 피하려다 고립을 낳았나」 질문 단락이 요지 칸 재료다."
+  }
+ },
+ {
+  "id": "07d420ac-eeca-41d9-8b37-ba6076d1795d",
+  "source_updated_at": "2026-09-25T07:47:11.439961+00:00",
+  "body_sha256": "4c2fae040b1553592a72e35467366511186d03802532b07785d9722a77b58843",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "레비슨 조사에서 전 기자가 전화 해킹이 미러지의 일상 수단이었다고 증언하고 전 편집장 주장과 엇갈려 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Hipwell told the inquiry he believed",
+   "note": "증언과 반박 단락이 짝으로 떨어진다; 속어 「bog-standard」는 풀어 쓴다."
+  }
+ },
+ {
+  "id": "07e19459-e761-4d46-afc7-6ff7a15cf390",
+  "source_updated_at": "2026-09-25T07:39:11.7827+00:00",
+  "body_sha256": "c3763817ae23d3f383ace2728bd910747a2d6b2c460f55efe941e6b4a7af67c9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "history",
+  "why": "걸프전 실종 조종사의 유해를 18년 만에 찾은 경위(격추→상태 변경→재수색→발견)가 시간순으로 서서 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Once the current war in Iraq",
+   "note": "수색 재개 단락들이 순서 문항으로 좋다."
+  }
+ },
+ {
+  "id": "07edae3e-ec1d-4b5b-b56a-4a77b2391c56",
+  "source_updated_at": "2026-09-25T07:13:15.446016+00:00",
+  "body_sha256": "4ceef481d7c03727f6c76306e2c7bf6ddf96806a0af11f486443a44b90bdaf3e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "핀란드 록밴드 로디의 공포영화 출연 소식과 영화 소개가 이어져 읽기 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Lordi are famed for their monster",
+   "note": "공포 소재지만 묘사가 없어 중등부터 둔다."
+  }
+ },
+ {
+  "id": "07efaf1a-a442-4aec-878a-bd6ca657156f",
+  "source_updated_at": "2026-09-25T07:35:49.108856+00:00",
+  "body_sha256": "74dcda11725197f518bf075e6985a83ea27c547cc5f777b4b571d71d6ec46200",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": ".tel 최상위 도메인 출시와 용도·신청 조건이 이어져 읽기 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "It is intended to be used",
+   "note": "CEO 홍보 인용과 상표 조건 문구가 많아 둘째 단락 용도 설명만 쓴다; 인용 중간 줄바꿈은 이어 붙인다."
+  }
+ },
+ {
+  "id": "07f04728-b9e3-4085-ac74-3db334a8124e",
+  "source_updated_at": "2026-09-25T07:51:50.464889+00:00",
+  "body_sha256": "e3e254277ea7b981a24b8177ec169574761497cd7869d8d9165c9d3085d61f60",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "홍콩 송환법 철회 발표와 이를 믿지 못하는 시위대·국제앰네스티 반응이 대비돼 주장·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"Our citizens, police and reporters have",
+   "note": "람 장관 인용과 반응 인용들이 대비 구조로 떨어진다."
+  }
+ },
+ {
+  "id": "07f1c4b6-5650-44a3-82d1-e11159f9ab81",
+  "source_updated_at": "2026-09-25T06:58:36.515137+00:00",
+  "body_sha256": "c1eef4061ff47c3887017e7300d25c1ba9a3824bb92cf432a840eb289665d09b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "덴마크 무함마드 만평 파문을 표현의 자유와 종교 모욕 양쪽 논리로 길게 다뤄 주장·요약·장문 칸을 채운다; 끝의 퀸즐랜드 곁가지는 걷는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "summary",
+    "long_reference"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In the past month, the controversy",
+   "note": "기자의 비꼬는 논평 구절과 끝 곁가지를 걷으면 양측 논리 단락이 선다."
+  }
+ },
+ {
+  "id": "07f624c3-a785-460b-a896-40094c8f40d4",
+  "source_updated_at": "2026-09-25T08:06:17.751765+00:00",
+  "body_sha256": "d3b501ec6549b46f6418adf178c49785ff0ab2b687d1d08009611a84374996ff",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "스페인 판사가 기자 사망 사건으로 미군 3명에 체포영장을 낸 이유와 미국 측 반박이 대비돼 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pedraz resorted to issuing the warrant",
+   "note": "판사가 영장을 낸 이유 단락이 이유 구조로 선다."
+  }
+ },
+ {
+  "id": "07fd30bf-8d02-4200-ab48-fca0570cfbfa",
+  "source_updated_at": "2026-09-25T07:01:24.042161+00:00",
+  "body_sha256": "cc515ebf27f10fd98f45ae571fdd8e2998c403631d5a8eeec4d16b9f2bd24c17",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "호주 상원의원의 수자원 연방 관리 제안과 주 환경장관의 반박이 대비돼 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mr Heffernan has accused the states",
+   "note": "두 사람 인용 단락이 짝으로 떨어진다."
+  }
+ },
+ {
+  "id": "0807d7fc-5ac9-4bde-bced-b1f346e6dc17",
+  "source_updated_at": "2026-09-25T07:03:03.389495+00:00",
+  "body_sha256": "7007ddf40a4100f914a556b4c2d81016df6f5ec2eab47f9213b4185bf736b79d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "부시의 동성혼 금지 개헌 추진 근거와 민주당 의원들의 반대 논리가 대비돼 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Bush criticized judges who overturned state",
+   "note": "양측 인용이 뚜렷해 주장-근거 짝 찾기에 맞는다."
+  }
+ },
+ {
+  "id": "080cd93b-285f-4bfa-b19a-cb0214d8b34c",
+  "source_updated_at": "2026-09-25T07:58:48.539809+00:00",
+  "body_sha256": "2c549a54915622707080b06fc0a4df418964d50593ddee1ed675f56a25db904a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "자카르타 사무실 건물 화재가 배터리 폭발로 시작된 경위와 진화가 짧게 이어져 읽기 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "City police chief Susatyo Purnomo Condro",
+   "note": "세 단락이 원인→진화로 이어진다."
+  }
+ },
+ {
+  "id": "080e444e-e60d-4da8-bb8d-9c159d38e79b",
+  "source_updated_at": "2026-09-25T07:58:48.563754+00:00",
+  "body_sha256": "48b60ac25e7b5971324e625034d0ca3d979ba1ae38445c770c50b6f65d8fd7a9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "health",
+  "why": "텍사스 첫 엠폭스 관련 사망 발표와 보건 당국의 경고가 짧게 이어져 읽기 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Commissioner of the Texas Department",
+   "note": "당국자 경고 인용 단락이 떼기 쉽다."
+  }
+ },
+ {
+  "id": "08103ab8-ea38-45fb-9a1d-4e9bf71839e9",
+  "source_updated_at": "2026-09-25T06:46:24.119363+00:00",
+  "body_sha256": "9b0b55ace3346a1d5e62731fadeca13a95fe26164262ab66fb7d3fde67da5446",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "카시니가 엔켈라두스 대기를 자기장 휘어짐으로 찾아낸 원리와 의미가 설명으로 서서 주제·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The atmosphere was detected using a",
+   "note": "자력계 원리 단락이 설명문으로 좋고 어휘 두셋을 풀면 내려간다."
+  }
+ },
+ {
+  "id": "081245d0-e235-42ee-8d21-b5deb001a4d7",
+  "source_updated_at": "2026-09-25T07:12:28.019332+00:00",
+  "body_sha256": "c9c1d957f070297ec5848b10dc35a0fe8bdab714f093a651e936be5823854330",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "뉴욕 학생들의 현관 계단 문화 되살리기 캠페인을 문답으로 소개해 구어 재료이자 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Feldman I'd run this project in",
+   "note": "「비만 도시」 발언은 가공 때 걷는다; 계기 설명 답변이 떼기 쉽다."
+  }
+ },
+ {
+  "id": "0812a7ec-9f1e-4820-b28d-4a3ecc0e9239",
+  "source_updated_at": "2026-09-25T07:58:48.585471+00:00",
+  "body_sha256": "1c441b56f469aaa2c1f80c658f256f5b5da19c0ee13ef4e47169bab88456af64",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "history",
+  "why": "미국과 북한의 한국전 전사자 유해 발굴 재개 합의와 중단 이유가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "They had started work on the",
+   "note": "중단 이유 둘째 단락이 이유 구조로 선다."
+  }
+ },
+ {
+  "id": "0812b783-10f8-42a0-9fd9-513a90e20f11",
+  "source_updated_at": "2026-09-25T07:40:23.219657+00:00",
+  "body_sha256": "0613f681f4f543cb256257229c319e56a754cc77536d4bd7b2730e08d63b37bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "글렌 벡 풍자 사이트 도메인 분쟁에서 양측이 표현의 자유와 명예훼손 논리를 다투는 기사라 성인 칸의 주장·내용 일치를 채운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In a court filing Tuesday in",
+   "note": "도메인 이름 자체가 강간·살인 문구라 성인으로 제한; 스트라이샌드 효과 끝 단락은 쉽게 떨어진다."
+  }
+ },
+ {
+  "id": "0812cf2c-7b86-4752-8088-bb68f5758c31",
+  "source_updated_at": "2026-09-25T07:58:48.60785+00:00",
+  "body_sha256": "9f0c4ab5e411265e3a63888b478911c5c65513e19aed7a294c3d50a72f5fd4d2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "메카 대모스크 크레인 붕괴의 원인(강풍)과 성지순례를 앞둔 공사 배경이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The crane accident comes just ten",
+   "note": "피 묻은 시신 사진 언급은 걷고 하지 배경 단락을 쓴다."
+  }
+ }
+]

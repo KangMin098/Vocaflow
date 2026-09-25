@@ -1,0 +1,963 @@
+[
+ {
+  "id": "06636b23-0d32-4881-bf48-3f26623f090d",
+  "source_updated_at": "2026-09-25T07:25:25.830794+00:00",
+  "body_sha256": "39419a9256ebdf94ac965acbd2ba12d49239aa1d3a6688e5dc5814cfa0ec07cf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "마이크로소프트 대만 기술 행사가 태풍으로 하루 줄어든 채 열린 경위와 주제 소개가 이어져 읽기 자료 내용 일치 칸 하나는 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Microsoft Tech·Ed Taiwan 2007, organized by",
+   "note": "비문이 많아(「Except from」 등) 어휘·문장을 손봐야 하고 제품 코드명 나열은 걷는다."
+  }
+ },
+ {
+  "id": "06640597-646a-4bdd-a222-0f2f65ab1006",
+  "source_updated_at": "2026-09-25T07:58:47.055832+00:00",
+  "body_sha256": "431f0227bf8978211c6a51af596d948d1ff3f59903a64c816e9bb0c6dd8f0d04",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "바그다드 경찰학교 자폭 공격 기사로 공격 경위·배후 추정·이전 공격 비교가 이어져 고등 이상 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "As of yet, no group has",
+   "note": "신체 훼손 인용이 있어 고1 이상으로 제한; 배후 추정 단락은 인용 없이 선다."
+  }
+ },
+ {
+  "id": "066cb46f-0c1a-4835-b1d7-0a8aefc9be81",
+  "source_updated_at": "2026-09-25T07:58:47.129233+00:00",
+  "body_sha256": "4d7b60cb1e83ff3c1ac84ac8c8e1de4d36c03b780f11b31bec5394a627476f70",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "보스턴 비즈니스 제트기 추락의 원인(점검 생략→잠금장치 체결 이륙→제동 지연)과 제조사·당국 책임이 인과로 서서 순서·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The plane set off with the",
+   "note": "「안주는 조종석에 설 자리가 없다」로 맺는 끝 단락이 요지 칸 재료이기도 하다."
+  }
+ },
+ {
+  "id": "06721a7e-5c35-42cd-b396-f4d197d862a5",
+  "source_updated_at": "2026-09-25T07:58:47.155766+00:00",
+  "body_sha256": "e769e10b1a8fc22acbc26ca6f785ca2f4c8e67ca544d0fc4a583e9950a9885d9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "바이든이 유엔 대이란 제재 시점과 중국·이스라엘의 태도를 전망한 기사로 발언과 배경이 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Biden also said that Israel has",
+   "note": "「[t]veryone」 오탈자는 가공 때 고친다; 이스라엘-이란 배경 단락이 떼기 쉽다."
+  }
+ },
+ {
+  "id": "06752e79-d5f2-4f55-b5fd-adcf94152de7",
+  "source_updated_at": "2026-09-25T06:59:34.689168+00:00",
+  "body_sha256": "c241de4e3a17ff4e46fbc02cdebfc33f51f70a49d67577eb56a44b183e07eef3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "영국 3월 눈폭풍 기사로 이례적인 3월 눈과 일요일이라 학교는 영향이 없었다는 이유가 이어져 중등 읽기 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Snow storms and strong winds have",
+   "note": "63어 한 단락이라 전체가 표본이고 쉬운 어휘라 조정이 거의 필요 없다."
+  }
+ },
+ {
+  "id": "06762936-d6bb-4312-8b10-5445a733c9ea",
+  "source_updated_at": "2026-09-25T08:08:12.660864+00:00",
+  "body_sha256": "a3888c9759e3ba96a91539e33bb478ac3f1e6aec4e48be8c14a9af638ba5923f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "나르마다 댐 반대 단식 농성이 강제 이송된 경위와 댐 찬반 근거(가뭄 해소 대 이주민 재정착)가 대비돼 주장·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"We urge Medha Patkar to break",
+   "note": "중간 줄바꿈이 문장을 가르지만 이어 붙이면 된다; 끝 두 단락 배경이 떼기 쉽다."
+  }
+ },
+ {
+  "id": "067a4d7c-1cbd-4593-acd0-021636391788",
+  "source_updated_at": "2026-09-25T07:06:17.966694+00:00",
+  "body_sha256": "9bc38087f97172300783ceb49d0f7a2f64cbc3226d086f65eebf7e6983024db3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "history",
+  "why": "바웬사가 연대노조를 떠난 이유와 연대노조의 역사적 역할이 서서 내용 일치·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Lech Walesa, the founder of the",
+   "note": "마지막 연대노조 역사 단락이 이름 없이도 선다."
+  }
+ },
+ {
+  "id": "067a9e93-1ee4-41d9-a156-575ec2fdd8fc",
+  "source_updated_at": "2026-09-25T06:46:33.031768+00:00",
+  "body_sha256": "9a18ec2264ef31514bee1c302338019e87470ea5bc8fe1f2018ce65677864d82",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "인도의 첫 자국산 항공모함 건조 계획과 해군 현대화 배경이 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The announcement represents a historic military",
+   "note": "국가 역량 설명 둘째 단락이 쉽게 떨어진다."
+  }
+ },
+ {
+  "id": "067c9f5b-9d3f-42f3-81fa-9b361deb2a84",
+  "source_updated_at": "2026-09-25T07:58:47.210558+00:00",
+  "body_sha256": "65a1c48260e0386699b6aef68774096809ddd4d759d59ede239407760bb0f47b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "터키 결혼식 무장 습격 기사로 수사·동기(가문 간 원한) 추정이 이어지나 대량 살상 묘사라 성인 읽기 칸만 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "\"According to our investigations so far",
+   "note": "사망자 다수가 여성·아동인 총격 묘사라 성인으로 제한했다."
+  }
+ },
+ {
+  "id": "067f629c-7c9e-41ae-a4a5-2b81d717698a",
+  "source_updated_at": "2026-09-25T06:45:54.324461+00:00",
+  "body_sha256": "8b01c7ae603f4e2fce4da028d5b4ad788fb34908176afaeca399253002a5d1c5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "파이어폭스 보안 업데이트 발표와 설치형에 따른 충돌 문제·해결법이 문제→해결로 이어져 읽기 내용 일치 칸 하나가 선다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However the updated Windows version has",
+   "note": "다운로드 버튼 안내 같은 절차 문장은 걷고 충돌 문제 단락을 쓴다."
+  }
+ },
+ {
+  "id": "0682544b-4aa7-42cc-a2cf-4f2854f62f35",
+  "source_updated_at": "2026-09-25T06:47:26.697013+00:00",
+  "body_sha256": "822b7ceb93721a3f5527389d1abed7ad8c7fc0d9abab1f19a3d7f9c6378d2f92",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "멜버른 엑스터시 1톤 적발 경위(엑스레이 이상→감시→체포)가 시간순으로 서서 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Police then monitored the shipping container",
+   "note": "마약 소재라 고등 이상; 감시·체포 단락이 순서 문항으로 좋다."
+  }
+ },
+ {
+  "id": "0687c071-e51f-4346-b833-c2236e0dff65",
+  "source_updated_at": "2026-09-25T07:07:02.071243+00:00",
+  "body_sha256": "b2db54f12c07857da2859921c2831a0ae055ee8bd9fe34c394b10ed61d95eb56",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "캐나다 자유당 선두 후보의 토론 불참 이유와 이를 두고 엇갈린 해석이 대비돼 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"His camp would say participating in",
+   "note": "전략가 해석 단락이 두 해석을 한데 담아 떼기 쉽다."
+  }
+ },
+ {
+  "id": "06885033-103d-401d-8be9-d5bfdb8487ea",
+  "source_updated_at": "2026-09-25T07:10:12.065992+00:00",
+  "body_sha256": "b43a2bfd14c5f343dbe82b828342b261fbb4a18bd5e862a4d671f7b32334a366",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "휴대전화로 아프리카 에이즈 자료를 모으는 사업의 필요(유선망 부족)와 방식이 이유로 서서 주제·내용 일치·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Africa lacks fixed-line telephone as well",
+   "note": "유선망 부족 단락이 문제-해결 구조로 쉽게 떨어진다."
+  }
+ },
+ {
+  "id": "068d6ff4-5545-4c8b-996d-0be80c59b275",
+  "source_updated_at": "2026-09-25T08:12:43.067154+00:00",
+  "body_sha256": "7bb766f8c7e989c79f38e1e61a056fb5220a8037a3dee35af9f2a86a7ddcf1da",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "나이트클럽 화재 책임자의 가석방을 유족이 지지하는 용서의 이야기가 인용으로 서서 심경·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "mood",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Board chairwoman Lisa Holley told journalists",
+   "note": "유족 편지 인용이 심경 문항 재료가 되고 이름은 걷어도 선다."
+  }
+ },
+ {
+  "id": "06978a47-87c1-4dcd-8194-9f69ed4bc71c",
+  "source_updated_at": "2026-09-25T07:58:47.283698+00:00",
+  "body_sha256": "e8361ab5b942883dd7d35c0834fcf4d50590305674d795dc950765bbd953a08e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "hold",
+  "genre": "news",
+  "why": "우크라이나 추모 행진 기사인데 셋째 단락이 「Klitschko said,」로 끝나고 인용이 통째로 빠져 원천이 중간에서 끊겼다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Thousands of Ukrainians in Kyiv took",
+   "note": "인용 누락 외 단락은 사건으로 서지만 빠진 발언을 메울 수 없다."
+  },
+  "hold_reason": "incomplete-source"
+ },
+ {
+  "id": "0698e25d-f470-4fb1-83eb-e057b4b91cbc",
+  "source_updated_at": "2026-09-25T07:58:47.30552+00:00",
+  "body_sha256": "48bd3aacbefac8581dfe512d26fe40823b1068fc8a0a426237f405fc86f13fe8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "미 연방대법원 동성혼 합법화 판결과 찬반 대법관 의견·사회 반응이 서서 내용 일치·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "On Friday, the United States Supreme",
+   "note": "판결 표결 단락과 반응 단락이 따로 떨어진다."
+  }
+ },
+ {
+  "id": "06a35836-d6be-4d6c-a891-38beddad678e",
+  "source_updated_at": "2026-09-25T06:57:42.563087+00:00",
+  "body_sha256": "ae11e80077b554b17e041ab6c863c97e209aad6fe71f03b5c669130c1388de95",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "윈도 메타파일 취약점 긴급 패치와 이전 임시 대응이 대비돼 읽기 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Previous methods of protection included unregistering",
+   "note": "기술 용어가 많아 2~3개를 풀어 써야 하지만 이전 대응 단락은 선다."
+  }
+ },
+ {
+  "id": "06a4ba6a-1d98-44f1-9c1c-58b4d2e34e7b",
+  "source_updated_at": "2026-09-25T07:47:21.912551+00:00",
+  "body_sha256": "3e24613f91afb303fb6056c552d3cf62184f8af3609a50af1f256c8592a78bbc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "mixed",
+  "why": "위키뉴스 단신 묶음으로 해병 재판·아르메니아 법안·파푸아뉴기니 산사태가 서로 무관하게 이어져 한 편의 글이 아니다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "United States Marine Corp staff sergeant",
+   "note": "꼭지마다 두 문장뿐이라 떼어도 칸 하나를 못 채운다."
+  }
+ },
+ {
+  "id": "06ab34e7-041c-439d-8dfe-d044a5684dbb",
+  "source_updated_at": "2026-09-25T07:50:26.271623+00:00",
+  "body_sha256": "0e616eabf6a62e3047e23c2981a57c9774c0fbb37a20cae6a4801bc825ab8942",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "위켄드의 첫 그래미 수상 기사로 수상·후보 경합이 이어져 읽기 자료 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Weeknd also won the Grammy",
+   "note": "성인 소설 언급 한 구절은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "06b1b3d4-bdde-4a17-872f-c091b042bb17",
+  "source_updated_at": "2026-09-25T07:48:47.440059+00:00",
+  "body_sha256": "97feb363853e59ef0594fadf726ed92d1a82a97400c1ba1ab440a0292b76f5d4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "energy",
+  "why": "태양광 비행기 솔라 임펄스의 첫 구간 비행과 조종 여건·재생에너지 의의가 서서 주제·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Borschberg and Piccard hope the plane",
+   "note": "피카르 인용 단락이 기술의 의의를 요지로 담아 떼기 좋다."
+  }
+ },
+ {
+  "id": "06b31500-ef3c-4153-979c-e50a18401280",
+  "source_updated_at": "2026-09-25T08:20:08.547892+00:00",
+  "body_sha256": "2fae84f1a9d96415879b057070c0d72db882925750a75ee50a0274fae036b436",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "중국 탄광 폭발 사고와 광산 안전 통계·은폐 문제가 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "China is reported to have some",
+   "note": "마지막 안전 기록 단락이 원인·추세를 담아 떨어진다."
+  }
+ },
+ {
+  "id": "06b3be58-d32d-4f54-97ba-5d847da97a4d",
+  "source_updated_at": "2026-09-25T07:22:05.786081+00:00",
+  "body_sha256": "38b68e07b6e93f41c838cc5b15ea7f7dd3093d443419a6b2528405131006dfde",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "뉴욕 그랜드센트럴 인근 증기관 폭발의 경위·대응·원인 추정이 이어져 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to a press conference with",
+   "note": "시장 발표 끝 단락이 원인 설명으로 선다."
+  }
+ },
+ {
+  "id": "06b7ad6d-9ae5-4a83-9467-05935ab49102",
+  "source_updated_at": "2026-09-25T07:08:32.701035+00:00",
+  "body_sha256": "7d677d6a1e5362fae9d1c2d43c38114032c1239e7208cd6cea30a8a70eb4019e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "보석 소매업체 인수 협상 기사로 인수 이유(재자본화)와 두 회사 개요가 이어져 읽기 내용 일치 칸 하나는 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Randy McCullough, the President and CEO",
+   "note": "CEO 발언 단락이 이유를 담는다; 비문 몇 곳은 고친다."
+  }
+ },
+ {
+  "id": "06c74aea-8be4-42f2-9ab7-c73c9e2f0b6c",
+  "source_updated_at": "2026-09-25T07:43:32.750704+00:00",
+  "body_sha256": "f26924caa11d41455eba44eeadd0aa206589eac165e2eb32eb74022933561877",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "이란에 억류된 프랑스 강사의 체포→재판→벌금 석방 경위가 시간순으로 서서 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Iranian officials arrested Reiss as she",
+   "note": "둘째 단락이 길어 두 토막으로 나누면 순서 문항이 된다."
+  }
+ },
+ {
+  "id": "06c8e8c5-224c-407e-829e-3ae476bada67",
+  "source_updated_at": "2026-09-25T06:57:03.976327+00:00",
+  "body_sha256": "73d0b4993180af983cca68bbb73febc00ab6ae9090b9a76afc40c668004ab638",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "history",
+  "why": "카친스키의 폴란드 대통령 취임과 새 헌법 구상이 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In his speech, Kaczyński stated that",
+   "note": "취임 연설 단락이 이름을 줄여도 선다."
+  }
+ }
+]

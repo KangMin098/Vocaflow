@@ -1,0 +1,954 @@
+[
+ {
+  "id": "0580087e-926a-4e92-9521-7ff05f581221",
+  "source_updated_at": "2026-09-25T07:45:09.507885+00:00",
+  "body_sha256": "6cd7df85f3ca32623e9831821d96699ab1d16ec8042f12964209eb2d7a862a98",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "미 정부가 위키리크스에 외교 전문 공개 중단을 요구한 서한의 논거와 어산지의 반박, 분석가들의 해석이 이어져 주장·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Analysts have said that the letter",
+   "note": "공개 위험 주장과 「책임 회피」 반박이 짝으로 선다."
+  }
+ },
+ {
+  "id": "0583d5a8-751c-4b83-acb6-292a1fb17219",
+  "source_updated_at": "2026-09-25T07:00:48.83945+00:00",
+  "body_sha256": "5f4e005effb9c6fb85e2bd1a8d0f6a6c17376c5bc81acfad3d141c2e964adf8a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "닌텐도가 새 콘솔 이름 Wii 의 뜻(「우리」·두 개의 i)을 설명한 발표문과 영어 속어와 겹친다는 비판이 이어져 요지·어휘·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock",
+    "vocab"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Wii sounds like \"we,\" which emphasizes",
+   "note": "이름 풀이 문단이 짧고 쉬워 중등 요지 문항으로 바로 쓴다."
+  }
+ },
+ {
+  "id": "0585324b-6437-4e73-8c82-6eb3e075e042",
+  "source_updated_at": "2026-09-25T08:08:16.484446+00:00",
+  "body_sha256": "d46272c11775f6039ff380b922acd9e5d87e5f321646c8151c65359496c73bc1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "네팔 국왕의 시위 유혈 진압과 통금·언론 통제, 직접 통치의 배경과 변호사회 시위 피격이 이어져 고1 이상 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Gyanendra assumed direct rule in February",
+   "note": "직접 통치의 명분과 정당 요구 대립 문단이 따로 선다."
+  }
+ },
+ {
+  "id": "05898548-8762-46ef-bc10-8eb06c335805",
+  "source_updated_at": "2026-09-25T07:12:36.653816+00:00",
+  "body_sha256": "8f7e6353d0560020ca558d8c3b4c5bd4d2e67bfc8475ad2f39929f751097502d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "mixed",
+  "why": "이란인 억류·펠로시 시리아 방문·클린턴 강연·오바마 모금 등 서로 무관한 단신 넷이 「Sources」 줄과 섞여 한 편의 글이 아니다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "President Bashar al-Assad met with Nancy",
+   "note": "단신 하나를 떼면 두세 문장뿐이고 원천 단위로는 주제가 갈아엎힌다."
+  }
+ },
+ {
+  "id": "058ebca7-6e4f-474f-a750-949618f219dd",
+  "source_updated_at": "2026-09-25T07:58:46.317303+00:00",
+  "body_sha256": "4c02256c6594da4e71426528db2534f4dbae91def9be6a00e6254f208a4e9c90",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "바그다드 시아파 모스크 인근 연쇄 차량 폭탄과 사상자 추정, 알카에다 보복이라는 당국 발언이 이어져 고1 이상 내용 일치 칸 하나가 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A top official accused al-Qaeda as",
+   "note": "보복 동기 문단이 짧게 선다."
+  }
+ },
+ {
+  "id": "059372e2-db5a-40c5-8c2b-1d37b3b2e464",
+  "source_updated_at": "2026-09-25T08:06:25.308905+00:00",
+  "body_sha256": "d8891701360eccc67b866c05f3b268af43b8f0ff10af22e2375612d37e9c2e6f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "늦가을 토네이도가 켄터키에서 오하이오강을 건너 인디애나를 휩쓴 경로와 이례적 시기라는 설명이 이어져 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Peak storm season for the region",
+   "note": "「이 시기엔 드물다」 문장이 요지로 선다."
+  }
+ },
+ {
+  "id": "05966554-59fc-4776-afb6-0e91d2ac5e14",
+  "source_updated_at": "2026-09-25T07:58:46.360083+00:00",
+  "body_sha256": "d577975f472373316d76b24dcb16b07d11d6942165e5a2af779e9f590206abc9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "이라크 방송인 피살 경위와 국경없는기자회의 처벌 촉구, 2003년 이후 언론인 피살 통계가 이어져 고1 이상 내용 일치·주장 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Human rights organization Reporters Without Borders",
+   "note": "「99%가 처벌되지 않았다」 인용이 주장의 근거로 선다."
+  }
+ },
+ {
+  "id": "0596c439-fe8e-4187-a26e-21c0e7fcf93e",
+  "source_updated_at": "2026-09-25T06:57:53.331036+00:00",
+  "body_sha256": "20f9c520cd6450e5d3ea6c2b635e1dee73d31626986df1eaa2085c13ac084ed2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "혼다의 올해의 차·트럭 동시 수상과 신차 피트 출시, 미국 시장 의존도와 연비 경쟁이 이어져 내용 일치 칸이 된다(사양 나열 문단은 걷는다).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Many automakers expect industry wide sales",
+   "note": "시장 맥락 문단은 떼어지고 사양 문단은 수치 나열이라 뺀다."
+  }
+ },
+ {
+  "id": "059839bc-69e9-4050-ba50-92dad3c1e425",
+  "source_updated_at": "2026-09-25T08:09:51.16583+00:00",
+  "body_sha256": "c12d35da028d1793a379f0ffe373d70e921b07343bdcfb35760050b2b8a8c64a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "전기 끊긴 아파트에서 촛불로 번진 화재와 목격자의 구조 시도·후회가 이어져 고1 이상 심경·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Witness Al Tillman, 32, said that",
+   "note": "구조자의 「다른 아이들도 구했으면」 인용이 심경 재료로 선다."
+  }
+ },
+ {
+  "id": "0598b39e-afe5-4cc9-b73e-cffb633c1f47",
+  "source_updated_at": "2026-09-25T05:30:15.9339+00:00",
+  "body_sha256": "d475cd2acfe5686c3d8f29e6fe39803599bd2f0e50fd0380a9770c2530b64798",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "경제학자 푸르타두의 별세와 사인, 장례 일정이 세 문장으로 이어진 50어 부고로 짧은 내용 일치 칸 하나가 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Brazilian Economist Celso Furtado, aged",
+   "note": "사망→사인→장례 순서뿐이라 얇지만 앞 문맥 없이 선다."
+  }
+ },
+ {
+  "id": "059a41dc-ab7e-4865-a7a7-919aafeaa6a3",
+  "source_updated_at": "2026-09-25T07:20:31.283935+00:00",
+  "body_sha256": "c8e7a4d0e7285107ed867f8b163673fec844610cd9a1d02d80c1edeaba919514",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "EU 「클린 스카이」 항공 배출·소음 저감 사업의 목표와 산업 경쟁력 논거, 재원 분담·세부 과제가 이어져 요지·요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "If the project goes ahead, funding",
+   "note": "여섯 과제 문단이 떼어지고 경제 효과 인용은 걷는다."
+  }
+ },
+ {
+  "id": "059aaab7-593f-409d-8cbd-124f8fb6b37b",
+  "source_updated_at": "2026-09-25T08:09:23.633548+00:00",
+  "body_sha256": "55d87b1a778a847fa1841a659e915a36c75881a48a90fa7fa8fa38b1b727ebc8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "차가 속 빈 나무를 들이받아 벌 떼가 구조대를 공격한 사건과 소방대장의 입담, 여름에 벌이 예민한 이유가 이어져 내용 일치·심경 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"Those bees were mad,\" said Volunteer",
+   "note": "생물학 교수의 설명 문단이 원인으로 선다."
+  }
+ },
+ {
+  "id": "059b536d-2540-4407-92fc-6a380605eda3",
+  "source_updated_at": "2026-09-25T07:58:46.426152+00:00",
+  "body_sha256": "5e40cd364130dc200a3db32acb314cb2a58389ace018f7874d15b12a38e6ab6d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "맥크리스털 사령관의 증원 요구 보고서와 「자원 부족은 실패의 처방」 논지, 백악관의 「전략 먼저」 입장과 아프간 대사의 지지가 맞서 고2 이상 주장·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "On the president's aircraft Monday, White",
+   "note": "「자원을 먼저 정하면 전략이 뒤따른다」 반론 문단이 선다."
+  }
+ },
+ {
+  "id": "059cee5a-3fa9-428f-a8b4-d57eaa3a9cd1",
+  "source_updated_at": "2026-09-25T08:07:24.693299+00:00",
+  "body_sha256": "d009cb98f4535536be0c1799b9ee1aa91a83a651dc85505ff15430686f48addb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "health",
+  "why": "조류독감 대유행의 네 시나리오별 사망·경제 손실 추정과 질병으로 인한 노동 손실까지 넣은 모형 설명이 이어져 내용 일치·빈칸 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Prof. McKibbin says that his economic",
+   "note": "「사망보다 병가·돌봄이 더 큰 손실」 문단이 빈칸 재료로 선다."
+  }
+ },
+ {
+  "id": "05a0367f-34bc-408c-b367-262bba626a7d",
+  "source_updated_at": "2026-09-25T06:48:04.100803+00:00",
+  "body_sha256": "6656609693b3d4b439e30df4994f79cb309f9fbaeca0d92ca8518967a5448f5d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "history",
+  "why": "아랍인 변호사가 사재로 연 홀로코스트 박물관의 목적(상호 이해로 대화 조성)과 양쪽의 비판이 논지로 서서 주장·요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mahameed believes contributions such as his",
+   "note": "인용 문단 중간 줄바꿈 잘림은 가공 때 잇는다."
+  }
+ },
+ {
+  "id": "05a71587-177b-49a1-8810-0b1071f8f643",
+  "source_updated_at": "2026-09-25T08:08:17.817038+00:00",
+  "body_sha256": "01f3cc8677a7717ea7e8ab5838f469817a5697f5a6647d9d20f8c3c2609c6faf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "열 살 소녀 살해 사건의 발견·체포 경위가 있지만 범행 계획·시신 훼손 묘사가 구체적이라 성인 칸의 내용 일치 하나만 단다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The girl was last seen on",
+   "note": "실종→경보→검문 문단만 떼어지고 나머지는 묘사가 과해 걷으면 사건이 남지 않는다."
+  }
+ },
+ {
+  "id": "05aade96-4f04-4536-b210-9ca8913bd98a",
+  "source_updated_at": "2026-09-25T07:08:28.302487+00:00",
+  "body_sha256": "cfe5d0d15ccad569f1cbc3a31616bfa398f31c7d12e15a8a3a47ff5de59106e3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "운전 중 휴대전화 금지 요구와 단속 어려움, 교통부·경찰의 입장, 「금지국에서도 행동은 안 바뀐다」는 반론이 이어져 주장·주제·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Many countries already have a ban",
+   "note": "「문제는 행동 변화」 결론 문장이 빈칸 재료로 선다."
+  }
+ },
+ {
+  "id": "05ac2c2e-a166-4118-84b1-bbd64e71249c",
+  "source_updated_at": "2026-09-25T07:36:29.112096+00:00",
+  "body_sha256": "bf8d05f01d5ea45cdfb21bba64a133d9a613513c295210da69fe8e72fd51308a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "health",
+  "why": "여덟 쌍둥이 출산과 일곱으로 예상했다 여덟째를 발견한 경위, 1998년 유일한 전례가 이어져 쉬운 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Staff at the center had expected",
+   "note": "예상 밖 여덟째 문단이 짧고 쉽게 선다."
+  }
+ },
+ {
+  "id": "05b2d1dc-1316-4a66-8ef4-df6763f0bcc8",
+  "source_updated_at": "2026-09-25T07:27:44.545671+00:00",
+  "body_sha256": "6cd3c24310fff9b78011928e5ae7a2244b55a3671ef893f684fdc661f41dc7fa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "스타트피오르 유전 원유 유출의 규모·원인(거친 바다 선적 중)과 「오염자 부담」 원칙, 해안 도달 가능성 평가가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The accident occurred in rough seas",
+   "note": "원인·책임 문단이 떼어지고 수치 단위만 정리하면 된다."
+  }
+ },
+ {
+  "id": "05b45d36-6aea-4f18-9021-696a1b7a2510",
+  "source_updated_at": "2026-09-25T06:47:54.828906+00:00",
+  "body_sha256": "2d3f29e1b9616e65316002ef9dfd9bcaad8653784c6419831e59db534f0d0143",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "하버드 광장 봄 축제의 분필 그림·자선 삭발·목소리 수집 행사가 이어진 현장 기사로 쉬운 내용 일치 칸이 된다(사진 참조 한 곳은 걷는다).",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Alice Hoffman Breast Cancer Center",
+   "note": "자선 삭발 문단이 목적과 함께 선다."
+  }
+ },
+ {
+  "id": "05b4a155-3a0c-449a-8689-60211fa4e026",
+  "source_updated_at": "2026-09-25T07:28:55.684276+00:00",
+  "body_sha256": "e7f0a6fa075c8ae07d8d8ee4ce91c9d80ef3aae43d3fc31d527a7b5ae6441b1f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "성촉절 마멋 그림자 점의 유래(독일 미신·캔들마스)와 올해 결과, 캐나다 마멋의 다른 예측이 이어져 쉬운 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This year, Phil did see his",
+   "note": "그림자를 보면 겨울이 길다는 풍습 설명이 짧게 선다."
+  }
+ },
+ {
+  "id": "05ba12b4-b1e8-4e14-b20e-390871193dfc",
+  "source_updated_at": "2026-09-25T05:31:27.395521+00:00",
+  "body_sha256": "b00d752b195104b9b51a7dc902051b3f0d2cfaefa567a29d9d08a8678eb092b5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아바스가 가자 북부에 보안군을 배치해 대이스라엘 공격을 막기로 한 조치와 이스라엘의 대화 재개가 이어져 짧은 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It is part of a plan",
+   "note": "「2000년 이후 처음」 의미가 한 문장에 선다."
+  }
+ },
+ {
+  "id": "05ba3bf9-a2d4-47e0-85f5-1e93ca12c689",
+  "source_updated_at": "2026-09-25T07:36:19.079658+00:00",
+  "body_sha256": "0b5e1cbfea74c5b81193577d1dc847c69324735344b1c5ea60d7b7fdaae1e65e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "대통령 전용차 「비스트」의 방탄 사양과 역대 대통령 차의 역사(매킨리·루스벨트·태프트)가 이어져 내용 일치 칸과 시대 비교 재료가 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "President William McKinley was the first",
+   "note": "역대 대통령 차 문단이 앞 문맥 없이 서고 타이어 규격 문단은 걷는다."
+  }
+ },
+ {
+  "id": "05babadb-03a1-4100-aead-db3f183941c2",
+  "source_updated_at": "2026-09-25T07:29:30.675131+00:00",
+  "body_sha256": "170881d227f873ae59739e9d38df937918467be2d05f72523222805cc6ec5eb5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "bias",
+  "why": "신나치 후보가 인종별 출산·백인 지위 상실 같은 인종 편견을 답변마다 전제로 펴는 인터뷰라 떼어 낼 문단 대부분이 편견의 주장이다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "I am running as \"The White",
+   "note": "편견 문장을 걷으면 경력 답변 몇 줄만 남아 가공이 되지 않았다."
+  }
+ },
+ {
+  "id": "05bf8906-e3fc-488f-a332-bd6f727fbd6b",
+  "source_updated_at": "2026-09-25T07:08:05.391842+00:00",
+  "body_sha256": "3683e1eefdb38e0b2078e3faf05c027276c4c848ac8d7db91073cdfcd02b3e29",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "science",
+  "why": "메타물질로 마이크로파에서 구리 원통을 부분적으로 숨긴 실험과 연구자의 「완벽하진 않지만 원리를 보였다」 평가가 이어져 짧은 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"It's not exactly perfect — we",
+   "note": "metamaterial 을 「실험실에서 만든 새 소재」로 풀면 V5."
+  }
+ }
+]

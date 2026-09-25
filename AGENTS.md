@@ -102,13 +102,13 @@ API 키를 기다리며 "막혔다" 고 보고하지 않는다 — **지금 돌�
 **수요 측** — 이 줄이 이 문서에서 가장 중요하다. 공급이 아무리 늘어도 여기가 안 늘면 진단은 `risk` 다.
 
 - 가입자 **4** (프로필 4) · 학습기록 **671** · 읽기 세션 287 · 일별 활동 72 · 점수 79
-- 교사 채널: 학급 **1** · 학급 구성원 0 · 학급 과제 **0** · 퍼널 이벤트 11,557
+- 교사 채널: 학급 **1** · 학급 구성원 0 · 학급 과제 **0** · 퍼널 이벤트 11,602
 
 **공급 측**
 
 - `shared_dictionary` **49,244** row · meaning_ko 100%
 - `library_books` **401** — published 312 · archived 83 · queued 6
-- `library_articles` **91,254** — ready 78,290 · archived 10,084 · queued 2,626 · published 250 · failed 4
+- `library_articles` **91,254** — ready 84,017 · archived 3,655 · queued 3,324 · published 250 · failed 7 · analyzing 1
 - `shared_word_sets` 11,312 (published 11,099) · `library_chapter_quiz` 2,453
 - `texts` 278 · `vocabularies` 2,269
 - 만화: `pd_comic_issues` 969 · 시리즈 101 · 발행 `comic_books` 1

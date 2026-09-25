@@ -1,0 +1,1867 @@
+[
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b60c555-c4f9-4e68-9f57-cdde31ab660d",
+    "revision": "2026-09-25T06:58:27.493381+00:00",
+    "body_sha256": "1115bb2e40e42df1393316b31ed96b1e404fde72081d6eeca775fb0456caf6f6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "예인선 충돌 → 연료 유출 → 어업·해양동물 피해 우려 → 조사로 이어지고 「항만 안이라 최악의 장소」라는 이유 단락이 고1~고2 빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Wildlife Protection Association of Australia",
+          "note": "WPAA 단락은 공기 호흡 동물이 수면에 올라와 피해를 본다는 이유가 떼어도 서고 dugongs 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.489Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Queensland's_biggest_oil_spill_in_35_years",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.357
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b6e409a-286f-49c2-a5e5-d1c2fc95c574",
+    "revision": "2026-09-25T08:11:59.106064+00:00",
+    "body_sha256": "cd6d3ed0acf59ee2aff3b3416acf00bd06bd8626fbcf63aa99719ca04f8d5d8b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "쇠약 → 영양 공급 중단 → 가족 곁 임종의 부고와 남편의 「평생 동역자」 추모 성명이 고2 이상 내용 일치·심경 칸을 채운다(임종 소재).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "mood"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Ruth was my life partner, and",
+          "note": "추모 성명 단락은 떼어도 심경이 읽히고 integral 만 바꾸면 된다. 신앙 표현은 인물의 말로만 남긴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.490Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ruth_Bell_Graham_dies_at_87",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.442
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b70675c-b83f-4ced-80e3-0cd05ac42b21",
+    "revision": "2026-09-25T08:25:16.161589+00:00",
+    "body_sha256": "8f67d5e08f1ca3d7b77af8bda920f90ea629c68b55c49b599ecacda08c9103ec",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "나토 오폭으로 아프간 보안군이 숨졌다는 국방부 발표와 아군 오인 사격 부상에 대한 익명 증언·ISAF 부인이 맞서 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This however has been denied by",
+          "note": "ISAF 대변인 단락은 떼어도 「오인 사격 확인 불가」 반론이 서고 friendly fire 만 풀면 된다(전사 소재)."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.490Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/NATO_airstrike_kills_seven_Afghan_security_forces_members",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.688,
+          "words": 192,
+          "english": 0.297
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b7159f7-30d0-4fea-9645-6338d84414e9",
+    "revision": "2026-09-25T07:03:03.976454+00:00",
+    "body_sha256": "42eb4d42545c1b0e9246f9ac9832838dca1cbf0ecf857a17fbfbdab385862e9d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "CIA 의 군벌 자금 지원 의혹과 「그 지원이 오히려 이슬람주의 지지를 키웠다」는 전직 관리들의 주장·근거가 고3 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Michael Zorick, former Somalia political officer",
+          "note": "조릭 단락은 인명을 걷어도 「군벌 지원 → 역효과 → 정부 지원해야」 논지가 서고 perpetuating 만 바꾸면 V7."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.490Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Somali_%22Anti-Terrorism_Alliance%22_gets_US_funds%3B_so_do_%22Blackhawk_Down%22_warlords",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.356
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b793969-34e4-4332-a23e-da46e5c41900",
+    "revision": "2026-09-25T08:04:43.048646+00:00",
+    "body_sha256": "116bd1499c9dfe515d4b5db640ada726e7b9c09d995d2d4be6a674c3f556c069",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "158일 억류된 프랑스 기자와 통역의 석방, 건강 상태와 귀국 소식이 이어진 세 단락이라 중등~고1 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "They had been held hostage in",
+          "note": "세 단락이 모두 짧지만 억류 기간 → 석방 → 귀국이 이어지고 어려운 낱말이 거의 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/French_journalist_held_hostage_in_Iraq_freed",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.797,
+          "words": 79,
+          "english": 0.403
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b7ae4f8-37ce-4d40-8d40-2ee5d2794628",
+    "revision": "2026-09-25T07:10:38.314915+00:00",
+    "body_sha256": "4a78d00b7dc41f0ec858813e612204f71adb67f60353443cef1b18d0549fb3b7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "별빛이 잠시 어두워지는 것으로 행성 통과를 잡는 원리와 지상 관측과의 차이를 설명한 단락이 고1~고2 요지·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"These create a 'starquake' that sends",
+          "note": "「The telescope will take images」 단락은 원리가 두 문장에 서고 dim·gas giants 는 문맥으로 잡혀 V5 까지 내린다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/European_telescope_searches_for_planets",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.37
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b7e05d4-f738-4ce9-b32b-0e55758effad",
+    "revision": "2026-09-25T07:45:43.614199+00:00",
+    "body_sha256": "ef1b736a482a9b2f5cbb6bf2f9932a3bc5eed5e4d82ec119fbbeb788d1dc59b1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "fragmentary",
+        "why": "사진 에세이의 도입 세 단락뿐이라 「이 사진 특집에서 살펴본다」는 사진을 가리키고 본문 없이 피해 수치만 남아 뜻이 서지 않는다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "A week ago today, at 2:46",
+          "note": "첫 단락은 떼어도 지진 사실은 서지만 글의 목적이 사진 안내라 가공할 본문이 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/In_pictures%3A_Japan_earthquake_and_tsunami",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.556,
+          "words": 108,
+          "english": 0.33
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b8369dc-24a2-471f-8105-c8238ca3ffbf",
+    "revision": "2026-09-25T07:38:18.373134+00:00",
+    "body_sha256": "8b93d2faef453891693e33f0a037b9146f412146cc7e28362a63a5c4806d6d6d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "파산을 피하려 판매점 1,100곳을 닫는 이유(적자 소규모 점포)와 전체의 18% 이지만 매출 7% 라는 대비가 고2 이상 빈칸·내용 일치·수치 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“They’re dealerships that are in most",
+          "note": "부사장 발언 단락은 떼어도 폐쇄 이유가 서고 underperforming 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._automaker_GM_plans_to_close_1%2C100_dealerships",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.394
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b8513c7-cc1a-464c-9db4-069223b1dc28",
+    "revision": "2026-09-25T07:37:53.179302+00:00",
+    "body_sha256": "26a827b1126820d9f834fd0b66345e7d3af8b00c734ce3799970b4c9a41ea895",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "휘발유로 청소하고 담배를 던져 불을 낸 사건 경위와 흡연 화재가 건수에 비해 사망률이 높다는 통계 단락이 고1~고2 순서·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Krajniak never called the fire department",
+          "note": "「Krajniak never called」 단락은 어리석은 대처 → 피해 확대가 떼어도 서고 extensively 만 바꾸면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Arson_charge_for_man_who_cleaned_home_with_gasoline",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.383
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b8b461c-dc65-4102-98ec-2daecfb2ae16",
+    "revision": "2026-09-25T07:10:03.070628+00:00",
+    "body_sha256": "5afc6ec534a385407bd442add1923f43ffd88a303b0d702426533e14a6e4bd8f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "회담 날짜와 참석 장관 명단, 예상 의제 나열뿐인 다섯 줄 공지라 사건 흐름·논지가 없어 보관 최소선에 못 미친다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Two top US Officials will be",
+          "note": "국경 신분증 우려 문장 하나를 떼도 이유만 한 줄 남아 칸이 서지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canada%2C_U.S._officials_to_meet_about_border_security",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.455,
+          "words": 110,
+          "english": 0.291
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b8bf430-7f60-4a4a-b3d1-8ffd9a51c535",
+    "revision": "2026-09-25T07:03:40.920237+00:00",
+    "body_sha256": "5b0aeaa48be445d5a628561b32ae3f5186481be22a54834941f8bfff6378f565",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "니코틴이 뇌에 닿아 중독을 일으키는 경로와 백신 항체가 이를 막아 흡연 보상을 줄이는 원리 단락이 고1~고2 요지·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When tobacco smoke is inhaled, the",
+          "note": "둘째 단락은 원인 → 차단 → 효과가 떼어도 서고 neuro-receptors·antibodies 를 풀어 쓰면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/University_of_California%2C_San_Francisco_inviting_tobacco_users_to_test_new_nicotine_vaccine",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.556,
+          "words": 180,
+          "english": 0.359
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b8e267e-3fa6-4cd8-9090-e0df1a694193",
+    "revision": "2026-09-25T07:32:22.235911+00:00",
+    "body_sha256": "dc414993329d2bd7c813a356a7c0942ef296fba29cc20d0460188620ce9ca212",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "일부다처 종파 지도자의 아동 「영적 결혼」 수사를 다룬 긴 기사로 수사 경과와 양육권 재판이 이어져 성인 장문 내용 일치 칸을 채운다(아동 성범죄 묘사가 구체적).",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The FLDS group has approximately 10,000",
+          "note": "종파 역사 단락은 떼어도 서지만 혐의 묘사 단락은 가공 때 걷어 낸다(성인 칸 한정)."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Texas_authorities_obtain_DNA_from_jailed_FLDS_leader_Warren_Jeffs",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.344
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b92d852-b954-4e6d-b0b6-077c1b256786",
+    "revision": "2026-09-25T07:08:52.83398+00:00",
+    "body_sha256": "388f75adbcee4fcf198165da52f178d68f9e474bf886c551d74e606a06e455e9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "자동 색인은 조작될 수 있으니 사람 판단에 기댄 검색이 낫다는 발상과 구글 검색의 스팸 예시가 고1~고2 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Jimmy Wales, the founder of Wikipedia,",
+          "note": "첫 단락은 주장-이유가 떼어도 서고 indexing 만 풀면 된다. 인터뷰의 비속어는 가공 때 걷어 낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikipedia_founder_Jimmy_Wales_to_start_wiki-based_search_engine",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.639,
+          "words": 194,
+          "english": 0.421
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b94deff-1e6d-43de-b6d4-dac7f7ce6fac",
+    "revision": "2026-09-25T07:49:42.435362+00:00",
+    "body_sha256": "2223d4d95e8a0a62a8997e8ef494aeed1d94cd86a592dba8ab2850aa2b9fa686",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "시진핑 방인 중 투자·철도·국경 협상 합의와 남중국해·파키스탄을 둘러싼 긴장이 대비된 단락이 고3 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "China would set up two industrial",
+          "note": "둘째 단락은 합의 내용이 떼어도 서지만 나열이 길어 가공 때 두세 개로 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Chinese_President_signs_multiple_trade_deals_with_India",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.353
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b975b4a-8240-406f-93c7-5f54d5e0be74",
+    "revision": "2026-09-25T07:35:37.808851+00:00",
+    "body_sha256": "b32473307c54c63a830fb6c0f79738e5763eb8225cdd70dca5a6dd95bd828034",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "생중계 자살 사건과 방관한 시청자, 모방 위험을 경고하는 정신의학자의 주장이 이어져 성인 내용 일치·주장 칸을 채운다(자살 방법 묘사가 구체적).",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mental health professionals have warned about",
+          "note": "셰퍼 박사 단락은 「미화된 영상은 문턱을 낮춘다」 주장이 떼어도 서지만 방법 묘사 단락은 가공 때 걷어 낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Teen_broadcasts_suicide_online",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.308
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b98e3bd-f317-461f-ae12-a08548004728",
+    "revision": "2026-09-25T07:34:04.48496+00:00",
+    "body_sha256": "b28b7544dd27f8717610530c62ee6c98cc1b3696ccd420a508222c28e3331752",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "셔틀 퇴역 후 5년 공백 동안 러시아 소유스에 기대야 하는데 조지아 분쟁으로 관계가 나빠졌다는 이유 단락이 고2 이상 빈칸·요지·시대 비교 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "If NASA chooses not to continue",
+          "note": "마지막 단락은 조건 → 대안 → 걸림돌이 떼어도 서고 transpired 만 바꾸면 V6."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/NASA_considers_continuing_shuttle_use_after_2010",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.423
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0b9ae07b-9898-4132-b655-f2cc643a94b1",
+    "revision": "2026-09-25T07:58:51.432661+00:00",
+    "body_sha256": "2fefb972eb77209eb4054bdc4bd32245a6d4aca0668ebcde5bd3bd5fa0e9237f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이민단속 요원 총격 사망을 두고 국토안보부의 「정당방위」 주장과 주지사·시장의 반박이 맞서 고2 이상 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "DHS spokesperson Tricia McLaughlin stated that",
+          "note": "대변인 단락은 떼어도 한쪽 주장이 서고 weaponized 만 바꾸면 된다. 양쪽 단락을 짝으로 써야 균형이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Homeland_Security_says_Minneapolis_woman_shot_by_ICE_officer_dies",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.363
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0ba27b67-a2ae-4240-bc0e-0f0cffeac53b",
+    "revision": "2026-09-25T07:32:44.790394+00:00",
+    "body_sha256": "56249135babd678ac1dc7b8bc80d77ae23315abd11287639a8423b2a5db8941e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "mixed",
+        "why": "짐바브웨 야당 대표 체포, 셔틀 착륙, 가수 무죄 평결이 「Sources」 표시로만 갈린 서로 무관한 단신 셋이라 한 편의 글로 서지 않는다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Morgan Tsvangirai has been arrested again",
+          "note": "단신 하나씩은 두세 문장이라 떼어도 칸을 채울 흐름이 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_Shorts%3A_June_15%2C_2008",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.263,
+          "words": 171,
+          "english": 0.361
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0ba344ee-48b3-4b2d-91ed-44fb83775153",
+    "revision": "2026-09-25T07:08:50.884654+00:00",
+    "body_sha256": "68941ed1ff0ba31a59a5ab78faf1a1b3e9d0da9a5c265c3dc723cc62985382a5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "energy",
+        "why": "한파로 수요 급증 → 독일 송전선 고장 → 연쇄 차단으로 대륙 정전을 막은 인과 단락이 고1~고2 순서·빈칸·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A sudden cold snap across Europe",
+          "note": "첫 단락은 원인-결과 사슬이 떼어도 서고 cascade 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Europe_suffers_widespread_power_cuts",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.091,
+          "words": 197,
+          "english": 0.314
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0ba667a5-828e-4cf5-a42f-7c69f111035a",
+    "revision": "2026-09-25T07:35:35.984489+00:00",
+    "body_sha256": "bfe6f0627b2049c019363367c5e390344100e11af1dcbc6a251b2f4c462b08f2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "정착촌이 제네바 협약 위반이라는 유엔 보고서와 가자 봉쇄·언론 출입 금지 비판, 이스라엘의 반론 한 줄이 고3 이상 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The statement by Ban Ki-Moon was",
+          "note": "보고서 인용 단락은 떼어도 위반 근거 나열이 서지만 한쪽 출처 비중이 커 가공 때 이스라엘 측 입장을 함께 싣는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UN_reports_condemn_West_Bank_settlement",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2,
+          "words": 200,
+          "english": 0.379
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0baf5764-6fd4-4b5a-92cb-6baeec14f498",
+    "revision": "2026-09-25T05:31:38.038992+00:00",
+    "body_sha256": "999719dd9282fe97d5c4694617e7c01f74f3c85b7e3adda0645a590b9e048f65",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "특허 관료주의가 혁신을 해친다는 오픈소스 개발자들의 우려에 IBM·선이 특허를 공개한 이유 단락이 고2 이상 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The move follows a recent move",
+          "note": "넷째 단락은 우려 → 대응이 떼어도 서고 placate 만 바꾸면 V6."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Sun_donates_Solaris_operating_system%2C_1%2C600_patents_to_community",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0bb23732-e702-402a-95f5-0b3c255a1191",
+    "revision": "2026-09-25T07:46:41.719459+00:00",
+    "body_sha256": "242cfe2a9f0bcbd61c02bef12efd6340f0bdba1927fc16c7b8198964f36610f1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "시트콤 배우의 대선 출마 선언과 경력, 리얼리티 쇼를 발판 삼는 전략이 이어져 고2 이상 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Last month, Barr premiered in a",
+          "note": "리얼리티 쇼 단락은 떼어도 「쇼 = 출마 발판」 요지가 서지만 쇼 제목의 비속어와 대마 공약은 가공 때 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Sitcom_star_Roseanne_Barr_announces_run_for_U.S._president",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.386
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0bb375ad-fd45-4d01-b564-ca75c81d08da",
+    "revision": "2026-09-25T07:35:20.261758+00:00",
+    "body_sha256": "4faae94d971f8f8e0fcdd7f8942928e8b6080ba94c96684f89bfe7295f35561a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "산악 마라톤 도중 홍수로 1,700명이 고립되고 구조·대피가 이어지는 현장 증언이 중등~고1 내용 일치·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "mood"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"The mountain rescue teams are still",
+          "note": "광산 주인 증언 단락은 떼어도 혼란과 구조 요청이 서고 어려운 낱말이 적다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/1700_runners_still_unaccounted_for_in_UK's_Lake_District_following_flood",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.424
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0bbb73aa-11c8-4e85-b8ee-0c9e5568a871",
+    "revision": "2026-09-25T08:04:32.119659+00:00",
+    "body_sha256": "c0808bcdeb6f93ed94b3a750782e659427886eb02a882b7decb3bb10365e5602",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "비트토렌트가 불법 복제본을 제공한다는 영화협회 성명을 네트워크 구조로 반박하는 단락이 고1~고2 주장·요지 칸과 통념 교정 속성을 갖는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It should be noted that the",
+          "note": "「It should be noted」 단락은 떼어도 반박 논리가 서고 by design 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Illegal_version_of_Star_Wars_III_hits_the_internet_hours_after_world-premiere",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.36
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-39-488Z",
+    "id": "0bbe6f6d-22c1-4a92-9d6b-cbf2ab54763c",
+    "revision": "2026-09-25T07:48:06.523406+00:00",
+    "body_sha256": "16bd4a3fc1c31e1a98673ba005bc80a13a10691858c4c9070beb36314a6ede2a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대의원 과반 달성 → 공식 지명 → 부통령 후보 지명 → 본선 대결 예고로 이어진 전당대회 기사가 고1~고2 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Romney reached the required 1,144 vote",
+          "note": "둘째 단락은 지명 과정이 떼어도 서고 threshold·caucuses 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:39.491Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Mitt_Romney_officially_nominated_at_Republican_National_Convention",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

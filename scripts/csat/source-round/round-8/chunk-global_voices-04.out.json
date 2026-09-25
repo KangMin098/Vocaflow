@@ -1,0 +1,213 @@
+[
+ {
+  "id": "f302ca45-47f6-4618-96ae-7efaa9b95d59",
+  "source_updated_at": "2026-09-25T07:12:15.680114+00:00",
+  "body_sha256": "0ec611b1cc0383e7feb0fb53aa1c848eb311fc960743ddf0bd171a73148eb1fa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "크로아티아 주민들이 대규모 양계 시설 계획에 맞서 환경영향평가의 쪼개기 문제를 제기하고 일부 철회를 끌어낸 과정이 서서 내용일치·요지 칸이 된다; 투자자 도박업 이력 단락은 곁가지라 걷어낸다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "They fear failing to account for",
+   "note": "시설별로 나눠 평가받으면 누적 영향을 못 본다는 단락이 자족적이고 circumvent·cumulative 를 바꾸면 V6 이하가 된다."
+  }
+ },
+ {
+  "id": "f904e3f6-cf62-4cf3-b6eb-b15bcdb4a017",
+  "source_updated_at": "2026-09-25T07:13:37.387914+00:00",
+  "body_sha256": "beb3d9b7ab2504ffe2e461af9de57c26757e5190c3fcea8d3e9422531df69603",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "네팔 살 잎 접시가 플라스틱보다 탄소가 적다는 설명과 공동체 산림·여성 기업이 기후 취약성을 생계로 바꾼다는 결론까지 흐름이 서서 주제·요지·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "“The production of sal leaf plates",
+   "note": "살 잎 접시의 저탄소·무화학 장점 단락이 짧고 자족적이며 leach 를 release 로 바꾸면 V4 까지 내려간다."
+  }
+ },
+ {
+  "id": "f999f506-bb12-43b6-baf0-9e0948d78e6b",
+  "source_updated_at": "2026-09-25T07:12:09.301645+00:00",
+  "body_sha256": "995bd1c8fb72f5961e751b3df747f6619602bd5c82756937466b96d93568b604",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "energy",
+  "why": "리비아 동부의 반복 정전이 물 공급을 끊는 사례를 날짜순으로 보이고 자원 부족이 아니라 계획·거버넌스 실패라는 결론을 세워 요지·순서·빈칸 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "World Bank data put Libya’s population",
+   "note": "풍부한 자원에도 정전이 계속되는 것은 거버넌스 실패라는 단락이 서고 persistent·accountability 만 바꾸면 V6 이다."
+  }
+ },
+ {
+  "id": "fa64b17f-693a-4bef-ac59-776b310e63de",
+  "source_updated_at": "2026-09-25T07:13:14.793309+00:00",
+  "body_sha256": "47bf8ca92853bd6ca61cf78533249b23a5218228d2753066d8308c395516287b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "아프리카 청년의 AI 평화 구축을 다룬 정책 보고서를 강점·한계로 나눠 평하는 서평형 글로, 「기술은 사람을 대신하지 않고 증폭한다」는 결론이 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Perhaps most importantly, the report avoids",
+   "note": "기술이 인간관계를 대체하지 않는다는 단락이 짧고 자족적이며 substitute 정도만 바꾸면 V5 다."
+  }
+ },
+ {
+  "id": "fc9d2796-bf42-400e-9db7-afd97f41b537",
+  "source_updated_at": "2026-09-25T07:13:42.363831+00:00",
+  "body_sha256": "bfe57df05c1d5f44704617e91ee8fc9ba88a06a617416532acfc8c96a24bd769",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "memoir",
+  "why": "멕시코에 망명한 베네수엘라인이 고향의 지진을 휴대폰으로만 지켜보는 무력감과 죄책감을 1인칭으로 적은 에세이로 심경 칸이 뚜렷하다; 재난·죽음 소재라 고1 이상.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "mood",
+    "long_reference"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "I usually talk to Gaby in",
+   "note": "「earthquake」 한 낱말 문자 뒤 침묵과 통화 장면이 한 단락에 서서 심경 문항이 되고 encapsulated 만 바꾸면 V5 다."
+  }
+ }
+]

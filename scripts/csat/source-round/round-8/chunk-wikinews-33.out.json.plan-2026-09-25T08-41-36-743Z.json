@@ -1,0 +1,1852 @@
+[
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a688a52-e049-491a-89b7-24a5b1f59bb2",
+    "revision": "2026-09-25T07:43:25.394422+00:00",
+    "body_sha256": "f2bf7ed2e163971fd6d5590a1bbc615e940bd671ee1a0ae18b23ce800ba74878",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "블랙박스 위치 좁혀짐 → 「파리만 한 땅에서 신발 상자 찾기」 비유 → 사고 원인 후보 → 수색 연장이 이어져 내용일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The French government and military officials",
+          "note": "해군 대변인의 비유가 빈칸 문항 재료로 좋았다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.745Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Black_boxes_from_Air_France_Flight_447_localized",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.04,
+          "words": 198,
+          "english": 0.409
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a699b54-e42a-47b3-b46a-ae4fc59842e8",
+    "revision": "2026-09-25T07:30:15.650196+00:00",
+    "body_sha256": "9b83d58f05fc453a7bb2748f0bd591b3694e658d842bf3ef5df5c6b296aa43a6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "수마트라 근해 지진의 규모·거리·시각만 적은 한 단락 토막이라 떼어 낸 문단에 사건 흐름이나 논지가 없다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "An earthquake has hit the sea",
+          "note": "수치를 걷으면 「지진이 났다」 한 문장만 남는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.746Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_Shorts%3A_March_17%2C_2008",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.143,
+          "words": 42,
+          "english": 0.436
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a6ee17c-05dd-4c8e-ba2a-94acfa4ab29f",
+    "revision": "2026-09-25T06:56:04.698048+00:00",
+    "body_sha256": "100bfb4c963d24ce59be96cfacfc2f94ca51a6cad65102cc3f2be68e049f3008",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "난방유 할인 협정의 경위와 하원의원의 「인도적 조치」 주장, 비판자의 반론이 맞서 주장·요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Representative Delahunt said \"This is a",
+          "note": "의원 반박 단락이 주장-근거 짝으로 바로 떼어졌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.746Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Venezuela_provides_discounted_heating_oil_to_Massachusetts",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.316
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a709ac9-2ae5-4acf-ae40-d918f1da191c",
+    "revision": "2026-09-25T07:32:10.91605+00:00",
+    "body_sha256": "9f0c6e5ebcd39c0cd649335f7391107466813304a0b58a1ddd0806632f7c8a5b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "사무총장의 구호 인력 허용 발표와 「보여야 믿는다」는 국제 단체들의 회의론이 맞서 요지·주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "International observers and aid organizations met",
+          "note": "skepticism 을 doubt 로 바꾸면 한 밴드 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.746Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Myanmar_to_allow_foreign_aid_says_UN's_Ban_Ki_Moon",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.4
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a7423f7-dae4-483a-bbdb-6a3950dc1a82",
+    "revision": "2026-09-25T06:59:28.885036+00:00",
+    "body_sha256": "bfbcc03104ab1e7cd165da12d5405102984b2207bd145311655d4fb20a2ca18a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "여섯 번째 대멸종 주장과 멸종 속도·핫스폿·양서류 곰팡이·기후변화 근거가 단락별로 이어져 요지·빈칸·삽입·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "insert",
+            "long_reference",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Disease is the bullet that's killing",
+          "note": "기후변화와 곰팡이 단락은 비유가 선명해 빈칸 문항이 바로 됐다 — 2006년 수치는 연도를 밝혀 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.746Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Largest_mass_extinction_in_65_million_years_underway%2C_scientists_say",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a77719c-2398-48f1-959d-196e986a4c7e",
+    "revision": "2026-09-25T08:34:09.825414+00:00",
+    "body_sha256": "017e440623e172e3f863f1f09e1c7fa053fc18d14370efa289d7dc7a05e81a57",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "흑백 통합 학교 등교를 막힌 1957년 사건과 이후 삶, 동료의 회고가 이어져 순서·심경·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "As a student at Dunbar Junior",
+          "note": "integrate 를 풀어 쓰면 중등으로 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Little_Rock_Nine_member_Jefferson_Thomas_dies_aged_67",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.377
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a797afb-d750-46b1-bc3f-c42d112e23e7",
+    "revision": "2026-09-25T06:49:00.42943+00:00",
+    "body_sha256": "d12d262232a95c8528b6fa77925bd700d19726138aa38e090ae63dd29ab73b70",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "180년 된 수산시장 이전과 가격 상승·마피아 개입 우려가 이어져 중등 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Some restaurant food buyers expressed concern",
+          "note": "overhead 를 costs 로 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fulton_Fish_Market_leaves_Manhattan_after_more_than_180_years",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.063,
+          "words": 158,
+          "english": 0.357
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a7b6aab-5882-4c40-b818-cfd1beddcf8c",
+    "revision": "2026-09-25T08:14:13.534393+00:00",
+    "body_sha256": "a3d0f3d6b339ebc0fe3cfc4d530c413413ccee067b1d76749c2664fa687f45bb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "몰래카메라 자백에도 재체포하지 않은 법원 판단과 변호인 설명이 이어져 고2 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Van der Sloot's lawyer Bert van",
+          "note": "시신 유기 진술 대목 때문에 연령을 올렸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Van_der_Sloot_not_re-arrested_in_Holloway_case",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.813,
+          "words": 187,
+          "english": 0.344
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a7b9164-7f52-4a6c-940e-41d7b12beca0",
+    "revision": "2026-09-25T06:45:59.274303+00:00",
+    "body_sha256": "99925e8f305d33312c76bae0fb1e05125973798ff38d5f761680976f18e8e495",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "홀로코스트 부정론자 추방 판결과 유대 단체·변호인 반응, 독일 체포와 보안 인증서 법 논란이 이어져 고등 이상 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Upon arriving in Germany, Zündel, 65,",
+          "note": "부정론을 비판적으로 보도하는 글이라 차단 장르가 아니며 출판물 제목 나열은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ernst_Z%C3%BCndel_expelled_from_Canada",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a7dbcd8-c947-4e7c-bf40-9cfe7f74219b",
+    "revision": "2026-09-25T07:47:27.943416+00:00",
+    "body_sha256": "b0f1f741347671681fe5f5ad5a286eacec4ce0f78c5ca42107f851f014282234",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "mixed",
+        "why": "이란 인터넷 차단·워싱턴주 동성혼 합법화·여왕 조롱 벌금 세 토막이 「Sources」로만 갈려 원천 한 편으로 주제가 서지 않는다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "The Iranian government has blocked the",
+          "note": "토막별로는 서지만 서로 다른 글의 묶음이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_Shorts%3A_February_14%2C_2012",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.393
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a7e50fb-da57-49f5-96cc-8e6938ba3432",
+    "revision": "2026-09-25T07:58:50.569109+00:00",
+    "body_sha256": "f66cc0542936637a29e6f8a432e6b1dc2fae1dd2a4ee0e187965a81cb936ca7d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "낙태 시술 기관 총격 → 5시간 대치 → 투항과 기관의 보안 절차·극단주의 우려 성명이 이어져 고2 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Vicki Cowart, president of the Rocky",
+          "note": "총격 소재라 연령을 올렸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Gunman_attacks_Planned_Parenthood_clinic%2C_killing_three%2C_before_surrendering",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.333
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a7edb5b-1639-421c-8d7e-3588467508bb",
+    "revision": "2026-09-25T08:27:09.57609+00:00",
+    "body_sha256": "20b8978d690f4f8b2736d74225f76751e6c7acc83bcff0eef47993718dabf9b2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "자치 확대 주민투표 부결 결과와 대통령 환영, 찬성 측 근거가 짧게 맞서 내용일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Supporters of greater autonomy, however, have",
+          "note": "투표율 수치는 한 쌍만 남긴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/French_Guiana_and_Martinique_reject_referendum_for_increased_autonomy",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.167,
+          "words": 120,
+          "english": 0.328
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a80edad-fe06-4f53-a281-8cc59bbfdb98",
+    "revision": "2026-09-25T07:34:49.16264+00:00",
+    "body_sha256": "c8f9a7086fa5eee07dfed0469e5076106b69da2fbf7088804456063aa21db4c7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "담뱃갑 경고 그림 도입 근거(문자 경고의 금연 효과)와 흡연자 단체의 「강압」 반론이 맞서 주장·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Not everyone is welcoming the new",
+          "note": "찬반이 한 단락씩이라 주장 대조 문항이 쉬웠다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/United_Kingdom_to_introduce_graphic_images_on_cigarette_packets",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a8365a9-fce4-4761-8021-c1073b58bbed",
+    "revision": "2026-09-25T08:19:11.675878+00:00",
+    "body_sha256": "64004ce6f21842fd8fa739e8651ce57286bf23359a805b261404e6c9474991cb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "학교 총기 난사의 경과가 시각별로 구체적으로 서술돼 사건 순서는 서지만 살해 묘사가 구체적이라 성인 읽기 칸만 단다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "During the manhunt, police stormed the",
+          "note": "총기 보관 단락은 폭력 묘사 없이 서지만 원천 전체는 v4 §8 대로 adult 로 제한했다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Teenage_gunman_kills_15_in_south-west_Germany",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.359
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a86010b-a8e7-47fc-9252-3a8923226880",
+    "revision": "2026-09-25T07:07:16.81575+00:00",
+    "body_sha256": "f07a8613ac300713ef3c352d518c580e8dad8960963e50bb9ac308abd0527f7b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "후세인-알카에다 연계가 없다는 상원 보고서와 기자 문답 속 대통령 답변이 맞서 고등 이상 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ken Herman - What did Iraq have",
+          "note": "문답 부분이 구어라 듣기 재료로도 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_Senate_Select_Committee_on_Intelligence_finds_no_link_between_Saddam_Hussein_and_al-Qaeda",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.348
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a8838ba-13cf-42dc-a8ee-3a629c1b5e69",
+    "revision": "2026-09-25T08:11:22.941739+00:00",
+    "body_sha256": "89059af962d6a161b4faadfe01b2a2c5f1a38bf8757487dae86f6d776965df03",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "의회 내 카페 폭탄 → 검문 통과 경로 추정 → 경호원 반입 의혹이 이어져 고2 이상 내용일치·추론 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In order for the bomber to",
+          "note": "폭탄 반입 경로 추론 단락이 떼어 쓰기 좋았다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Two_Iraqi_MPs_killed_in_bombing_at_parliament",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.422
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a9b9e7d-ed79-4b2d-8e13-b961311951c4",
+    "revision": "2026-09-25T07:50:52.535555+00:00",
+    "body_sha256": "c5c81c7b3b97329d15b4b9cb2a13dcb926163cf250cc0db8b9002d1d0b45fd56",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "공룡 배아 치아 성장선을 세어 부화 기간을 잰 방법과 긴 부화가 멸종에 불리했다는 추론이 서서 요지·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "order",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to the research team, this",
+          "note": "「나이테 같지만 매일 생긴다」 비유가 빈칸 문항으로 바로 쓰였다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Slow-cooking_dinosaur_eggs_may_have_contributed_to_extinction%2C_say_scientists",
+          "year": 2017,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.322
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0a9dfd30-2e98-4de9-be96-f7e737bf6f33",
+    "revision": "2026-09-25T08:11:15.052807+00:00",
+    "body_sha256": "0eba0bcace51f1d988723780664550be176ed0580362cc6387fbaa9a96639e64",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "우간다군 철수 요구와 우간다 측 반박, 평화유지군 피습 경과가 이어져 고등 이상 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Reacting to the comments, Paddy Ankunda,",
+          "note": "약어(AU·UPDF)가 많아 풀어 써야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Eritrean_minister_warns_of_war_over_Ugandan_troops_in_Somalia",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.394
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0aa17991-555b-4c60-b505-d5352a3a4025",
+    "revision": "2026-09-25T08:19:32.794976+00:00",
+    "body_sha256": "80fd654aa3d51db14fc6d80307b5afcfcd3d9cc1fb19f7faa9b583b27e087e33",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "라디오 기자 피살 경위와 경력, 동료가 기억하는 취재 습관이 이어져 고2 이상 내용일치·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"News ran through his veins and",
+          "note": "개를 데리고 취재한 일화 단락은 살인 묘사 없이 따로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Longtime_New_York_radio_reporter_found_stabbed_to_death",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.426
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0aa51fd0-7948-47d1-9ae3-61eddbff2803",
+    "revision": "2026-09-25T07:38:25.492499+00:00",
+    "body_sha256": "64adf24147b405ae966256eec408c9ee979433d3a01bbf9d6d1561d1e4594c89",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "젊은 유럽의회 후보가 입문 계기와 리스본 조약·노동권·인터넷 권리에 대한 주장을 근거와 함께 문답으로 펼쳐 주장·요지·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "long_reference"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In European elections the problem is",
+          "note": "투표 무관심을 두 유형으로 가르는 답변이 요지 문항으로 좋았다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Interview_with_Anna_Mikkola%2C_Finnish_Left_Alliance_candidate_for_European_Parliament",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7,
+          "words": 200,
+          "english": 0.442
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0aa8751f-ead9-443c-ba9f-26347d5c7a43",
+    "revision": "2026-09-25T07:33:52.285634+00:00",
+    "body_sha256": "58781bb72449dffca57465a500044b1262f501b20e915b796075daf98de8d1fd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "빅풋 시신 발견 주장과 증거 부족·과거 조작 전력·의상 판매자의 반박이 이어져 주장 검증형 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Tom Biscardi, founder of the Great",
+          "note": "의사과학을 사실로 주장하는 글이 아니라 조작 의혹을 짚는 보도라 보관한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/'Bigfoot'_hunters_claim_to_have_found_corpse_of_mythical_creature_in_Georgia%2C_USA",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.435
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0aaaa873-bef3-4fe1-b393-96bba768c38b",
+    "revision": "2026-09-25T07:58:50.763037+00:00",
+    "body_sha256": "7563e2856502c04edfffafedb853f115998b049aac41db00aaf4e1a3e659e6a5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "무죄 주장과 사형 구형 방침, 변호인의 반발과 지지자 모금이 이어져 고2 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mangione's not guilty plea came the",
+          "note": "「folk hero」 대목은 미화가 아니라 반응 보도라 유지한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Luigi_Mangione_pleads_not_guilty_to_federal_charges_involving_murder_of_UnitedHealthcare_CEO_Brian_Thompson",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.769,
+          "words": 156,
+          "english": 0.363
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0aad52a1-d6b1-4031-a566-b29783d2b856",
+    "revision": "2026-09-25T07:39:23.55914+00:00",
+    "body_sha256": "738b547e0c95ec78a84ae1b5d36265ab29643e47155d08e4e32b6b6f32bea708",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "예상보다 높은 성장률 → 전망 상향 → 수출·소비 회복 설명과 불확실성 경고가 맞서 고등 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"The GDP data was much better",
+          "note": "seasonally adjusted 는 걷어도 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.747Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Hong_Kong's_recession_ends%2C_economy_grows_3.3%25",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.59,
+          "words": 161,
+          "english": 0.365
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0ab2aae5-d27a-46fb-a1fa-2c5923f88205",
+    "revision": "2026-09-25T07:00:24.766551+00:00",
+    "body_sha256": "bd5faa9b4dea1f22f308ebb825e79771f0049acfc204ff032b9b8a8a96a59063",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "광우병 1차 검사 불확정 → 추가 검사 → 식품 유통 차단 확인이 짧게 이어져 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Further tests are being conducted at",
+          "note": "inconclusive 를 not clear 로 바꾸면 V4 로 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.748Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canada_tests_cow_for_mad_cow_disease",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.505,
+          "words": 111,
+          "english": 0.321
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-36-743Z",
+    "id": "0ab30e4c-429c-4b7c-a250-627acefcacc5",
+    "revision": "2026-09-25T06:59:57.748379+00:00",
+    "body_sha256": "8e0d55ffe7c93ba0d593456c7ba0db943612aba91ebbedb53964be72f7278396",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "새 운영체제 기능 통합이 경쟁법 위반일 수 있다는 경고와 「에어백 없는 차」 비유의 반론이 맞서 주장·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Microsoft's top lawyer in Europe, Horacio",
+          "note": "antitrust 를 competition law 로 풀면 고1 에 맞는다 — 청크 27 의 비스타 출시 기사와 짝지으면 시대 비교도 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:36.748Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/EU_warns_Microsoft%3A_forthcoming_Vista_risks_antitrust_breach",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.31
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

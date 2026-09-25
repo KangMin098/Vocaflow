@@ -37,7 +37,8 @@ async function main() {
     await readRobots('https://api.github.com'),
   ]
   const list = await politeFetch(`https://api.github.com/repos/${REPO}/contents/en?ref=${BRANCH}`, { as: 'json' })
-  const files = list.filter((f) => f.type === 'file' && f.name.endsWith('.md')).sort((a, b) => a.name.localeCompare(b.name))
+  // 이야기 파일만 — `NNNN_slug.md`. README 같은 색인 파일을 이야기로 받았다(회차 8 판정자가 5,300낱말 색인표를 짚었다).
+  const files = list.filter((f) => f.type === 'file' && /^\d{4}_.+\.md$/.test(f.name)).sort((a, b) => a.name.localeCompare(b.name))
   const samples = []
   for (const f of files) {
     if (samples.length >= limit) break
