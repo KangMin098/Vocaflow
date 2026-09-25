@@ -1,0 +1,1011 @@
+[
+ {
+  "id": "1a593fbc-5a08-496a-a3e6-033fb70d38c9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "891b66030f83aa57d70ada9622ce89db1d25641e639921c3eecf253d68a91c77",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "콧물·가래가 귀찮은 것이 아니라 몸의 방어막이라는 통념 뒤집기(P1~P6)와 색깔·질환 설명이 이어져 주장·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In the next hour, you’re going",
+   "note": "P4 의 「한 시간에 세균 수천 마리를 들이마신다」→섬모가 밀어낸다는 순서는 cilia 만 풀면 순서 문항으로 딱 맞았다."
+  }
+ },
+ {
+  "id": "1af3cb7a-ced4-4681-a627-3dc668aee8a0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7ee5bbc644c47cdff691d6672bb7cf5b375c977cf9ba0b1f339b280eedbaaebe",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "오존·미세먼지가 폐와 심장을 해치는 기제(P3~P9)와 대기질 지수에 따른 행동 요령(P10~P13)이 이어져 주제·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Ozone’s effects can come on quickly",
+   "note": "P6 「나쁜 공기의 영향은 다음 날 더 크다」는 통념과 다른 사실이라 인용을 풀어 빈칸 문장으로 만들었다."
+  }
+ },
+ {
+  "id": "1b0cc325-ca0a-452b-bdf9-512538d153a5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9427a342034b950975725bf22d64cb0df635c3264f8271ebaf84ff3c83cad083",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "80세 이상 슈퍼에이저의 뛰어난 기억이 새 뇌세포 생성과 이어진다는 연구(P1~P3)가 짧게 서 요지·요약 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "main_point"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The team looked for newly formed",
+   "note": "P2 의 「새 뇌세포가 더 많고 분자 구성이 다르다」는 molecular make-up 을 「makeup」 한 낱말로 두면 V5 로 내려갔다."
+  }
+ },
+ {
+  "id": "1b41de4a-c0cb-4d35-84d3-bd7265ae8e0b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0d5f83d817e39158d2a3d7865d09de4716234173f3a617c1ddfbb581405a473b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "운동 효과가 유전자에 따라 다르지만 누구나 이득을 본다는 논지(P2~P13)와 장내세균 연구가 이어져 주장·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Bamman’s team has found a set",
+   "note": "P12~P13 의 「근육이 덜 늘어도 힘은 늘었다」는 대목은 두 단락을 합치면 반전 있는 한 단락으로 섰다."
+  }
+ },
+ {
+  "id": "1b5df054-cfa8-4675-974e-5bb5d58ce02b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4dcdc1f98733079516551cc57ccc1a3434abf636725ccbf6ce1c7054086f36e4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "백내장이 수정체 단백질 뭉침에서 생기고 수술로 고친다는 설명(P1~P5)이 짧게 서 중등 내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Around age 40, the proteins in",
+   "note": "P1 의 40세 무렵 단백질이 뭉친다는 설명은 짧고 쉬워 조정 없이 떼어졌다."
+  }
+ },
+ {
+  "id": "1bc297fb-60a3-41a5-873c-cbd1ae67ac30",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c830c9e7cf13ec7bf9d6b332d99cd3abd8512000e6114835098ce027ac361a3b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "안경·수술로 못 고치는 저시력의 원인 질환과 남은 시력을 살리는 방법(P1~P4)이 이어져 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Unfortunately, low vision is often permanent.",
+   "note": "P3 「저시력은 대개 영구적이지만 남은 시력을 살릴 수 있다」는 전환 문장이 떼어도 뜻이 섰다."
+  }
+ },
+ {
+  "id": "1c16b9d4-970d-49ab-ba00-eb7d242a7c82",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "70f4a0172553772d06429463c3f04c4d81697b480027da724d894dddbc6716d0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "시력교정술 적합 연령·조건(P2~P9)과 수술 뒤 통증 연구(P11~P14)가 문답으로 서 성인 대상 내용일치·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "blank",
+    "main_point"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "When you perform refractive eye surgery,",
+   "note": "P14 의 「신경이 더 예민하게 회복돼 건조하지 않은데 건조하게 느낀다」는 답변은 1인칭만 바꾸면 역설 빈칸 문단이 됐다."
+  }
+ },
+ {
+  "id": "1c1bcab0-75c6-4d03-bee2-7541e4f670cf",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d1a840d6ac66979bf9a7c00cdf6579a3631da71e55bd89159b855efd9cb842d6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "중이염이 귀관 막힘으로 생기는 기제(P1~P4)와 항생제 절제·바이오필름 연구(P7~P12)가 이어져 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In older children and adults, the",
+   "note": "P4 의 어른과 아이의 귀관 모양 대비는 짧은 비교 단락이라 eustachian 만 풀면 떼어졌다."
+  }
+ },
+ {
+  "id": "1cf6fda4-d923-4667-879c-5625c02a3eb7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f288fef1c1164ed85144c88b1937d5e5b29a5260e294327fd6fd9896fa3d6aa8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "비만 치료는 부모와 아이를 함께 바꿔야 하고 감시가 아니라 칭찬이 통한다는 주장(P2~P5)과 즉시 보상 설명(P7~P10)이 서 주장·요지 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Policing is when a parent asks,",
+   "note": "P5 의 「음식 경찰 대신 칭찬」 대목은 대화체 인용을 걷고 3인칭으로 바꾸니 주장 단락이 그대로 섰다."
+  }
+ },
+ {
+  "id": "1d01a9e5-f7c1-4122-838f-072ba07a2f10",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3ef7a594456460be79d29f6c79ffe01ca794c18fdbcc49ded5412967f053c4f5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH 가 심장 영상 검사 여섯 가지를 소개하는 새 웹페이지를 보고 의사와 상의하라고 권하는 안내(P1~P4)라 목적·내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Two other techniques—coronary angiography and coronary",
+   "note": "P3 의 두 검사가 막힌 동맥을 찾는다는 단락은 angiography 를 「a dye test」로 바꾸니 V5 로 내려갔다."
+  }
+ },
+ {
+  "id": "1d34b1fa-5f27-461e-b707-3fdc5d6cafdb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "23ad8f79faf124b11aa3c2fde0a6ed35456cd6615607d1865ae332043f274a5b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "수두를 앓은 사람의 대상포진 위험과 백신(P0~P4)을 짧게 설명해 중등·고1 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After you’ve had chickenpox, the virus",
+   "note": "P1 의 수두 바이러스가 숨었다 다시 깬다는 설명은 인과가 단순해 초급 내용일치로 바로 쓰였다."
+  }
+ },
+ {
+  "id": "1d8da638-a752-4b8d-aa14-aeb198585719",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ecb2b7c996e855bad9e506d20c9897905fa0f385021a545836c56eb564b32a0f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "크라톰이 널리 쓰이지만 안전성·효과가 검증되지 않았다는 요지(P0~P4)가 서 요지·내용일치 칸이 된다. 약물 소재라 고1 이상.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Kratom has been reported to have",
+   "note": "P2 의 각성·진정 두 효과 대비는 선지로 쪼개기 좋았고, P6 의 정정 편집자 주는 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "1de6afdf-52d1-4901-a941-3838408c9681",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9f0daed9b0d757a4d20d3932b884055561967c6173fb8890aebf2752eddee74c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "건강이 생물·행동·환경 모두의 결과라는 전인 건강 관점(P0~P3)이 짧은 논지로 서 요지·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "topic"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Whole person health looks at all",
+   "note": "P1 의 「건강과 질병은 한 길의 양 방향」 비유가 요지 자체라 떼어 주제 문항 단락으로 삼았다."
+  }
+ },
+ {
+  "id": "1e286129-71e1-4881-bcb1-17ff37eac26d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "de1fe00f604d99b323463f1efbfcb770b25ef6cefb5fe162349670dd80084b45",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "혈뇌장벽이 막는다고 여겨진 전조→통증 경로를 쥐 실험으로 찾은 흐름(P1~P3)이 서 순서·요약 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "order",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "To learn more, researchers looked at",
+   "note": "P2 의 뇌척수액 틈 발견은 blood-brain barrier 를 쉽게 바꾸면 수수께끼 자체가 사라져 V5 아래로는 못 내렸다."
+  }
+ },
+ {
+  "id": "1eaf0f8e-c1be-4df6-9613-a4b25e14aa1b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9bbfa2ec0a3b02cc95ce489a47d34d07f8db0866be998c44536e37d933e90880",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "같은 류머티즘 관절염이라도 관절마다 후성유전 표지가 다르다는 뜻밖의 결과(P3~P6)가 서 요지·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "main_point"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In the new study, the scientists",
+   "note": "P3 의 무릎·엉덩이 표지 차이는 epigenetic 을 풀면 뜻이 빠져 어휘 조정으로는 V6 아래가 안 됐다."
+  }
+ },
+ {
+  "id": "1ed01669-d8f7-4d4c-b295-59d5b83ad8c7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c5c43fc6fea69b3f6cf745fd5ad2f40451e20551e59b00497e9d58ef3a65e46f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "무료 증상 검사 앱의 진단 정확도가 낮고 지나치게 조심스럽다는 평가 연구(P2~P6)가 서 요지·내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The symptom checkers were tested by",
+   "note": "P3 의 34%·58% 는 수치 문항용으로 두고 본문은 「첫 진단이 맞은 건 셋에 하나」로 바꿔 한 단락으로 만들었다."
+  }
+ },
+ {
+  "id": "1ee38ac1-6d95-41f4-b105-cbbc0e7f866a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a7ad81c9d41ed781fd7244671b5c056418e90cac0e97496aab76d2e79675bd28",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "입속 미생물이 치매·암·알레르기와 이어진다는 연구(P8~P16)와 표적 치료제 개발(P19~P24)이 이어져 주제·빈칸·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "“When you kill all of the",
+   "note": "P20 「다 죽이면 나쁜 균이 더 빨리 돌아온다」는 인용은 역설이라 이름만 걷으면 빈칸 문장으로 좋았다."
+  }
+ },
+ {
+  "id": "1f661f21-7b2a-4a00-95a6-008cadfc90b3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c6a0763a27e8930e2ace93ae61a98fa74887d2dec5c06e7fbb2772767c52843c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH 백신연구센터가 말라리아 예방 시험에 참여할 건강한 자원자를 까닭(백신이 없다, P1)과 절차를 밝혀 모집하는 공지라 목적 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Some volunteers will be given the",
+   "note": "P2 의 모기에 물리게 한 뒤 모두 치료한다는 절차는 짧고 분명해 내용일치 선지로 쓰기 좋았다."
+  }
+ },
+ {
+  "id": "1f8e8005-a035-4ea6-982f-173db5aaed4b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "08a1efd3b13bb729048bdb38f43687963fd41190be33d16ccc944fd582c6fc2b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "마음챙김 훈련이 DASH 식단 지키기와 혈압 하락을 도왔다는 실험(P1~P3)이 문제→방법→결과로 서 요약·순서 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The study enrolled about 200 volunteers",
+   "note": "P2 의 실험 설계 단락은 수치가 적고 절차가 분명해 조정 없이 떼어졌다."
+  }
+ },
+ {
+  "id": "1fbbfbde-719c-4ec7-9994-f007e6ebcff7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d4f154ab3dcf2ca70b8a07dee8cca87b1f82e5e6ec582bd69ba32a5e069aa135",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "화상 1~4도의 깊이별 차이(P2~P4)와 영상·전기 붕대 연구, 예방 강조(P11~P12)가 이어져 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "topic"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Second-degree burns are deeper. They affect",
+   "note": "P3 의 2도 화상 단락은 skin grafting 을 문장 안에서 풀어 줘 추가 조정이 거의 필요 없었다."
+  }
+ },
+ {
+  "id": "1fe25adf-6469-4700-846f-6765c1353022",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8af9ab7fc290cb8629e6af03ff7d3ffaef49bff99dfb675a9b398a4020705f1d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "DASH 식단의 원칙과 생활습관 결합(P1~P5)을 짧게 풀어 중등·고1 내용일치·주제 칸이 선다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Following the DASH food plan doesn’t",
+   "note": "P2 의 「특별한 음식이 필요 없다」 단락은 짧고 쉬워 초급 내용일치 재료로 바로 썼다."
+  }
+ },
+ {
+  "id": "1feca875-e1d3-461c-bd07-f47ea6b1f27c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "acc6b5894b0fc2e4319ae5558df3dbcba7a6c065b883944ef69777d2958d89c1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "헤르페스가 평생 숨어 있고 대부분 모른 채 옮긴다는 설명(P0~P8)이 서지만 성병 소재라 칸을 고3·성인으로만 둔다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "“Once people are infected with herpes",
+   "note": "P2 의 바이러스가 신경세포에 숨었다 다시 나온다는 설명은 성 관련 표현 없이 떼어 쓸 수 있는 유일한 단락이었다."
+  }
+ },
+ {
+  "id": "2013e4e3-5b41-4d2b-a256-3a10b02452eb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ae293e8b7a496ca40df2179db3bcfc5d2ad00703ce2ef133c2c242934d7affde",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "신장결석의 원인이 탈수라는 요지(P5~P6)와 진단·치료·재발 연구(P7~P11)가 이어져 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "“Probably one of the most important",
+   "note": "P5 「결석의 가장 큰 까닭은 탈수」 인용은 Kirkali 이름만 빼면 요지 빈칸으로 바로 쓰였다."
+  }
+ },
+ {
+  "id": "207b7101-21e7-4901-b1fa-f431355db00e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "af348ac8519530b201e51d0efd443189931ccab0d6a849ff8fd0c67d09aa9631",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "치실 무용론 보도를 대규모 연구가 어려운 까닭(P2~P6)으로 반박하고 손해 없으니 하라는 결론(P7)이 서 주장·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "blank",
+    "main_point",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Another research challenge is that large,",
+   "note": "P5 의 「사람들은 옳다고 여기는 답을 보고한다」는 연구 방법의 한계 설명이라 빈칸 추론 문항에 딱 맞았다."
+  }
+ },
+ {
+  "id": "208c0aa1-ef93-4ee4-864e-785e621f0cea",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4b19da3444490d0cf6284d8a694f8374a671f193e6108298bd119b64d9e34f96",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "대장암 조기 검진 방법 세 가지와 권장 나이(P1~P4)를 짧게 설명해 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A colonoscopy uses a tool called",
+   "note": "P1 의 대장내시경 중 용종을 떼어 암을 막는다는 단락은 짧고 인과가 분명해 떼어졌다."
+  }
+ }
+]

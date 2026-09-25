@@ -1,0 +1,1040 @@
+[
+ {
+  "id": "42cbd42b-0a70-4b8c-abd1-40fa41c2f9ea",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8ffcf6bf60b890f381c3fea2e7d5d1c41443165c8e8d3d01234275ef9d288ca7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "아이 섭취 열량의 40%가 빈 열량이고 가당 음료가 10%라는 조사 결과로 「가당 음료를 줄여야 한다」는 결론이 서서 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Experts recommend that kids limit their",
+   "note": "권장치 대비 실제치 단락은 수치 대조가 뚜렷해 내용 일치용으로 곧장 쓰이고 whopping·intake 만 바꾸면 V4가 된다."
+  }
+ },
+ {
+  "id": "42cff2a5-b3a3-4ad9-ab89-540244d83ece",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6db5dee9e36b261e021f8e5ed8a961cb8d27ae73515b0ebd901fdfebd2ae170d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "중등도 저산소 COPD 환자에게 산소 요법이 생존·증상에 차이를 내지 못했다는 무작위 시험 결과로 논지가 서서 요지·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "NIH-funded scientists set out to determine",
+   "note": "연구 설계 단락과 결과 단락을 붙이면 「중증엔 효과 → 중등도엔?」 물음과 답이 한 문단에 서고 enrolled·randomly divided 정도만 쉬운 말로 바꾼다."
+  }
+ },
+ {
+  "id": "43ae0b6c-6154-4a73-a0ec-b04cc75752ac",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0235a684789fc29b7ef07ebd9644b44eeb7f4135aefb2df129b984a0ee3cdf82",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "소젖 분유 단백질이 1형 당뇨를 부른다는 가설을 두 분유 비교 시험이 뒤집는 구조라 주제·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The results showed that the chance",
+   "note": "결과 단락은 앞 가설 한 문장만 끌어오면 통념-반증 한 쌍이 되고, 끝의 제목 수정 공지는 걷는다."
+  }
+ },
+ {
+  "id": "43b525ee-548d-4651-8abe-1fe8b85245e3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "07f69fd0b47f3e14e32abd18da9b67fe556ba4699c0f2b7765511d7b81f95bf8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "채식의 건강 이점이 식단 때문인지 생활습관 때문인지 가려야 한다는 논점과 재림교인 대규모 연구로 논지가 서서 주제·요지·빈칸·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "To tease out the effects of",
+   "note": "교란 요인을 떼어 내려는 연구 설계 단락은 떼어도 서고 tease out·account for 를 separate·consider 로 바꾸면 V5에 맞는다."
+  }
+ },
+ {
+  "id": "43bb6bcd-0517-4286-bf7b-f56efd2a7ff7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a9f84a80218dc701337029d6a9bd191868c0025d00b455b785233b19b5b284dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "나이대별 전립선 질환(50세 미만 전립선염, 이상 비대증, 암)과 치료를 차례로 설명해 주제·내용 일치 칸을 채운다(생식 관련 서술이 있어 고2 이상 칸).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "For men over 50, the most",
+   "note": "비대증 단락은 인과가 짧게 이어져 떼기 쉽지만 urethra·hyperplasia 같은 해부 용어는 바꿀 말이 없어 밴드를 내리기 어렵다."
+  }
+ },
+ {
+  "id": "43bfae5c-be1a-45c6-8a70-9fda8f4ba255",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1ae0a9f97ee5dd2d7b87cd3a201f9a27249e6c5cf981c4facee157af161ef450",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "유방촬영의 사망 감소 효과와 과잉진단·위양성이라는 단점을 맞세운 단락이 서서 요지·빈칸·내용 일치 칸을 채운다(질병 소재라 고1 이상 칸).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mammograms, though, can have some drawbacks.",
+   "note": "단점 단락과 다음 「그럼에도」 단락을 이으면 양면 논지가 한 지문에 서고 false-positive 를 풀어 쓰면 V5로 내려간다."
+  }
+ },
+ {
+  "id": "43e25543-cbf3-47b5-8cc9-8cb5da46d7a9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "781ed87aa6cd2b3dddfc5de7c40d1dfdb7ab98edaf1b6608bd1f22a807a72601",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "NIH 가 가족에게 무료 심장 건강 요리책을 받아 보라고 알리고 그 까닭(포화지방·나트륨을 줄인 조리)을 대는 공지라 목적 칸을 채운다(기준 v5 공지문 조항).",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The recipes were developed by David",
+   "note": "요리책 구성 단락은 권유의 근거로 서지만 끝의 웹 주소·전화번호 단락은 목록이라 걷어야 목적 지문이 된다."
+  }
+ },
+ {
+  "id": "43e8be8c-f27a-46e1-9bc6-9c423e4e31f8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c558a249f27ec6b3de14f8ff0c48dcdadf110b1532999f67cf8aa361ee28afbb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "갑상선 기능 저하와 항진을 증상·빈도로 대조하고 혈액 검사 진단을 덧붙인 짧은 설명문이라 내용 일치·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "An overactive thyroid, or hyperthyroidism, is",
+   "note": "항진증 단락은 저하증 단락과 짝을 이뤄 대조가 선명하고 irritable·irregular 를 쉬운 말로 바꾸면 V4까지 내려간다."
+  }
+ },
+ {
+  "id": "4407f2a1-d4d9-4cd5-ae00-6d08d0a2157a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "60a1e7fe0e533f046ed7d7c8cc954093cbe4d7512057250b7d408262ad995d09",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "요가·물리치료·교육 세 집단 비교에서 요가가 진통제 끊기에 도움이 됐다는 결과와 저소득층 대상의 까닭이 서서 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The participants were randomly assigned to",
+   "note": "세 집단 설명 단락은 First·second·third 로 나뉘어 순서 문항으로 자르기 쉽고 어휘도 대부분 평이하다."
+  }
+ },
+ {
+  "id": "443405d4-655e-44d4-acd3-a3ce4ccfdfd0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ba3631a1021995766a8ec8098e964a4ab89daf45f365ce53e713771d9359320c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "뼈가 늘 허물어지고 다시 지어진다는 원리에서 골다공증·골절 예방(칼슘·비타민D·운동·낙상 방지)으로 이어지는 설명문이라 주제·요약·삽입·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "insert",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Exercise, especially weight-bearing exercise, helps bones,",
+   "note": "체중 부하 운동 단락은 「근육이 당기면 뼈세포가 밀도를 유지한다」는 인과가 한 문단에 있어 빈칸에 좋고, 특별호 안내·낙상 요령 목록은 걷는다."
+  }
+ },
+ {
+  "id": "444d365d-10ef-4a49-9413-f2b3dff1bb6a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "95ea7b11a76fea5d062339d59f9b146da7ca2684cb88af60cc65e78bcef6da42",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "근시의 원리(안구가 길어 초점이 망막 앞에 맺힘)와 「실내 독서가 원인」이라던 통념을 「야외 활동 부족」 연구가 바꾸는 단락이 서서 주제·빈칸·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Researchers are looking to see if",
+   "note": "원인 연구 단락이 In the past → Recent studies 로 통념-반증을 담아 혼자 서고 prominent 같은 낱말은 없어서 거의 손대지 않아도 된다."
+  }
+ },
+ {
+  "id": "44688d8d-e4c8-4f48-9bdd-99c1a826bfb9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b331bd90e16d27bd7e448f1e78499752fabb36a4f6a949db660e34ca22dd89d2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "간의 기능에서 지방간·바이러스 간염·약물 손상으로 이어지는 설명과 「비음주 지방간 증가는 비만 탓」이라는 논점이 서서 주제·요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Drinking too much alcohol can cause",
+   "note": "지방간 증가 단락은 짧지만 원인 대조(술 ↔ 비만)가 분명하고, 끼어든 cirrhosis·hepatitis 풀이 문구는 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "44d15d44-c223-4139-947e-3114c31bfcb6",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a3a5dbdb035913588894005105976eeb648fc875d91a35ea6db5cbe6659fa91d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "치매는 병이 아니라 증상 묶음이고 손상 부위에 따라 증상·치료가 달라진다는 논지가 서서 주제·요지·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The symptoms of dementia can vary,",
+   "note": "좌뇌 언어·우뇌 사회행동 단락은 대조가 선명하지만 frontotemporal·amyloid 같은 용어가 뼈대라 어휘를 내리기 어렵다."
+  }
+ },
+ {
+  "id": "4514593e-0e94-4fcd-a33a-31b650d3fd02",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "630a1a387dcf133aa1853d9745d97e904a051a92bacaaaf25cc1b569703d0933",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "빈혈의 정의와 철 결핍·B12 결핍·용혈성 세 유형을 원인과 함께 나눈 짧은 설명문이라 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A condition called hemolytic anemia occurs",
+   "note": "용혈성 빈혈 단락은 한 문장 정의와 원인 셋이라 짧게 떼어지고 inherited 하나만 바꾸면 중등용이 된다."
+  }
+ },
+ {
+  "id": "45d38462-334e-41e3-8d3f-94f34df15678",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "edb929b306893f1edafe2ce2cff36840aa7aefd5ed36dbe7460bd9605fe67709",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "경계성 성격장애를 성인 질환으로만 보던 관점을 아동기 위험 신호 연구가 바꾸는 흐름이라 주제·요지·빈칸 칸을 채운다(자해·자살 언급이 있어 고1 이상 칸).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Adults with BPD tend to be",
+   "note": "성인 증상 단락은 짧은 문장이 이어져 쉽지만 논지는 뒤의 거절 민감성 단락에 있어 둘을 합쳐야 하고, 끝의 988 안내는 걷는다."
+  }
+ },
+ {
+  "id": "47130886-51bc-4087-aa35-5a3d134c8472",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b76a72f2544f9162f04c72951d265f27c33cae0ee47ee3af2a4eab6bd708cbec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "운동을 해도 오래 앉아 있으면 사망 위험이 오른다는 연구로 「좌식은 운동 부족의 반대가 아니다」 논지가 서서 주장·빈칸·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "An NIH-funded study by Matthews and",
+   "note": "24만 명 연구 단락은 수치를 걷어도 「운동이 좌식의 해를 다 막지 못한다」로 서고 adverse·prolonged 를 bad·long 으로 바꾸면 쉬워진다."
+  }
+ },
+ {
+  "id": "4762a5b0-840c-47dd-8ecb-6b1e854cb76d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8674c98089399fc54dd64777ac9738820d6893ac086fd70acda9c1e28a4dfe9c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "당뇨를 모르는 700만 명을 들어 NIH 가 공복 없이 받는 A1C 검사 안내서를 알리는 공지로 누가·누구에게·무엇을이 서서 목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The new fact sheet covers a",
+   "note": "안내서 내용 단락은 짧게 서지만 권유의 까닭은 첫 두 단락에 있어 함께 써야 하고, 끝의 주소·전화·이메일 단락은 걷는다."
+  }
+ },
+ {
+  "id": "4799d951-f615-440a-a48a-fe6e410af037",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b1fe13d78f43e0db6f40119ec436982cea9af14dd085e6b487316bbeb2081637",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "납은 어떤 양도 안전하지 않다는 전제에서 페인트·수도관·도자기·장난감 경로와 아이 피해를 짧은 문장으로 이어 목적·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In the US, lead used to",
+   "note": "휘발유·페인트 단락은 과거→현재 인과가 한 줄로 이어져 초등 최소선도 넘고 leaches 하나만 바꾸면 V3가 된다."
+  }
+ },
+ {
+  "id": "47ce2517-2c3d-4e06-beb7-a074af2d1d91",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c8598d35b28f68659f3bb592cd43227fb50fc8f238a12e0b17192b0281d18980",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "불필요한 생검을 피하려고 18개 유전자로 공격적 암을 가리는 소변 검사를 만든 과정과 97% 정확도가 서서 요약·순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Scientists have been looking for ways",
+   "note": "10년 전 검사의 한계 단락은 「조기 발견은 되지만 가려내지 못했다」는 문제를 세워 다음 단락과 순서 배열이 쉽다."
+  }
+ },
+ {
+  "id": "48855425-2527-43b9-a8ed-5439c16e6e86",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "33a731e142ba6f66ccfcfac4e566e1e4b1d3d5041ebd26ef039b4c982ec8338b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "휴대 기기가 아이의 집행 기능·수면에 미치는 영향과 부모가 함께 비판적으로 보라는 권유로 논지가 서서 요지·주장·목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Parents may find it hard to",
+   "note": "부모 추정치 단락은 「두 시간 쓰는데 3분의 1만 맞혔다」는 대조가 한 문단에 있어 바로 쓰이고 어휘도 V4 그대로다."
+  }
+ },
+ {
+  "id": "488cb709-d29c-42fa-b9b5-e975f5b84665",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "aabbc156c265a7bf48f248088f84a84de7c3deb8bdfe579f17bc915a4ca12927",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "미생물군이 자리를 차지해 감염을 막고 대사를 조절한다는 설명과 분변 이식 치료 연구가 이어져 주제·요약·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Researchers have developed a type of",
+   "note": "분변 이식 단락은 「전체를 옮기는 까닭」 문장과 붙이면 서고 fecal·intestine 을 풀어 쓰면 V5로 내려가지만 소재상 중등 칸은 달지 않는다."
+  }
+ },
+ {
+  "id": "494c5da8-a969-4d66-a96d-ed7f01d0a4f4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "bbf943cc998e599dbb6e04f1226160f9422a9c8f7073375194f4f6b545d90fdf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "부부 갈등의 적대성이 상처 치유·스트레스 호르몬에 영향을 주고 다양한 사회적 관계가 감기를 막는다는 연구로 논지가 서서 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "When marriages are full of conflict,",
+   "note": "부부 갈등 실험 단락은 떼어도 서고, 노년 성생활 단락 둘은 연령 칸을 좁히므로 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "4b2bc996-974f-4d77-8072-5f6f805db0c5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b30a5a6e076a880efd4fa3f0d6c648e1e142de7465dc15356610e074701d440a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "신장병 식이를 금지 목록이 아니라 「무엇으로 바꿀까」로 보라는 인터뷰 답변이 주장 한 편으로 서서 주장·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Waldman: Patients tell me that, often,",
+   "note": "세 번째 답변 세 단락은 질문 표기만 걷으면 수동→능동 전환을 권하는 논지 한 편이 되고 holistic 같은 낱말은 앞 답변에만 있다."
+  }
+ },
+ {
+  "id": "4b32f69b-5df7-42c2-aa6b-bef69f69efb0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "46806ab94de23eb088d9f03e940da28c9d2be86c87471138991cd59f429e48c7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "백일해가 백신으로 줄었다가 무세포 백신의 짧은 방어로 다시 도는 까닭과 임신 중 접종 권고가 이어져 요지·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Since 1997, all pertussis vaccines in",
+   "note": "무세포 백신 단락은 「부작용은 적지만 방어가 빨리 준다」는 맞교환이 한 문단에 있어 빈칸용으로 좋고 acellular 는 풀이가 안에 있다."
+  }
+ },
+ {
+  "id": "4c26764a-a0e1-4f73-a45d-7d0dbbc5c462",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "016f2c9e1b434734e874385eebefb81f5446946404d8da04400b8568d2fc1766",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "완화의료를 호스피스와 구별하고 조기 도입을 권하는 논지와 AI 사망 점수의 윤리 문제가 이어져 주제·요지·빈칸 칸을 채운다(죽음 소재라 고1 이상 칸).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match",
+    "irrelevant"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Knowing the mortality score has the",
+   "note": "사망 점수 단락은 인용이 길어 간접화법으로 줄여야 하지만 윤리 쟁점이 한 문단에 서서 수능형 빈칸 재료가 된다."
+  }
+ }
+]

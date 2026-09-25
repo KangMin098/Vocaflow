@@ -1,0 +1,1026 @@
+[
+  {
+    "id": "eeebfaa0-e31c-4f9f-9082-c359589586c3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ee22d0c2669da5c00b75ce8b35b8eae2b3b618c84133231c0b71ab7d209c04df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "가정 곰팡이 3종과 소아 천식을 잇는 코호트 연구를 가설·방법·결과·한계 순으로 서술해 요지·빈칸·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "To learn more about the link",
+      "note": "연구 방법 문단은 앞 문맥 없이 서고 dust samples·mold scores 만 풀어 쓰면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "eeed3259-ed94-4188-bfe7-33793c7ab51d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "09f2aa1e8183fa29648a6f787db0fc46dd662112f8c8bf7559ebdc3fef5d53e2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "NIH 가 신장질환 환자에게 NEPTUNE 연구 참여를 권하는 공지로 누가·누구에게·무엇을이 한 편 안에서 서 목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Kidneys are the organs in the",
+      "note": "신장 기능 설명 문단은 쉽게 떼어지나 MCD·FSG 같은 약어는 가공 때 걷어야 했다."
+    }
+  },
+  {
+    "id": "eef4952a-47d4-4e0e-a994-d6b8d7c86f91",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0899e2fc36319455b56839fd0d4d588f0d3420142f08156b5a3a4e0e7d74e857",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "가족 병력 기록을 연휴 선물로 권하는 안내문으로 까닭(위험 예측)과 행동(도구 사용)이 모두 있어 목적·주장 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "claim",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the future, tests may make",
+      "note": "유전자 검사 전망 문단은 In the meantime 연결만 손보면 홀로 서고 URL 은 본문에 없다."
+    }
+  },
+  {
+    "id": "ef936104-da50-4d48-a8ba-6b0ba06ed06d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9d3bcd6b3180a005be9640aae4903f008e192508601944d7d9bce9d0a88389c9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "의료 AI 의 영상 진단·챗봇 한계·편향 문제를 전문가 인용으로 짚는 장문 설명문이라 주제·순서·삽입 칸이 넉넉하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "order",
+        "insert",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As AI moves into more areas",
+      "note": "편향 문단은 These systems learn from human data 인용 하나로 논지가 서서 빈칸 문항으로 바로 가공됐다."
+    }
+  },
+  {
+    "id": "efbaa613-eb23-4045-b5ad-690ad8c96f2d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "46b2d51bb8277ca8b6a2c132da78158d6a7144069f977614feacc97837062ce5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "39주 유도분만 무작위 대조 연구를 물음·설계·결과로 제시해 요약·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prior research has shown that inducing",
+      "note": "선행 연구 문단은 cesarean section 을 surgery 로 바꾸니 V4 로 무리 없이 내려갔다."
+    }
+  },
+  {
+    "id": "effd4601-db5d-42d1-a69e-969d7973a011",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b394beda0c69332cc7d3fdde105e9de72667addffc4b4c8a86115d8af8ef162f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "녹지·도로·식품사막이 건강에 미치는 영향을 연구 사례와 공동체 행동으로 이어 주제·요지·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "insert",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Roads and highways are noisy to",
+      "note": "도로 소음 문단은 앞 IVF 사례 없이도 소음→스트레스→질병 인과가 서서 순서 배열에 좋았다."
+    }
+  },
+  {
+    "id": "f0403d84-9b99-4141-93de-9a0100a42bdd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4b53b694470ddc58425b5c13f4443ca8960156e78e7651d66accaa3475fb6f56",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "노년층 백신 접종을 권하는 짧은 안내로 이유(면역 약화)와 행동(접종 일정)이 서 목적·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Staying up to date on vaccines",
+      "note": "면역 약화 문단은 두 문장 인과가 분명해 쉽게 떼어졌으나 백신 목록 문단은 걸러야 했다."
+    }
+  },
+  {
+    "id": "f06180dd-35f7-4fc5-b147-57708754b800",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "559a789713a8ce589dddacba3c82756416ed10522699cd2d4b44392e2a898bb9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "식중독 원인·증상·예방을 차례로 설명하는 안내로 목적·내용일치·순서 칸을 채운다; 용어 풀이 삽입구가 문장을 끊는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Germs can get into your food",
+      "note": "오염 경로 문단은 잘 떨어지지만 다른 문단의 weakened The system that… 풀이 삽입구는 가공 때 걷어야 한다."
+    }
+  },
+  {
+    "id": "f10e2e86-f98e-491b-a6a8-57075272c0e2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "840e5963c99081942a7fe75950e4ca0a62fa382929d8fa8b518fe8d4ae0484e3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "암 검진 격차를 가정 검진·환자 안내인·임상시험 접근 세 해법으로 풀어 주제·요지·삽입 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "But a traditional Pap smear requires",
+      "note": "Pap smear 문단은 But 로 시작해 접속사만 지우면 섰고 health insurance 설명은 그대로 두었다."
+    }
+  },
+  {
+    "id": "f13a10bb-f108-4278-aa7b-afbb50d58fba",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a671215f685b87e95e73ff428d0bb843de7ac80f01f390dba19292aeae98bf89",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "뇌졸중 위험요인이 인지 저하를 예측한다는 대규모 연구를 물음·결과·권고로 제시해 요지·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Your chances of having a stroke",
+      "note": "위험요인 문단은 질문 두 개로 끝나 빈칸보다 순서 문항에 맞았고 첫 문단의 풀이 삽입구는 걷어야 한다."
+    }
+  },
+  {
+    "id": "f17e315b-6126-43d2-9f11-c44163fb1833",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "27d185a0cc2be6629ac9c1d429f63741fb0b4ced5cc8804df4bf9e6513f8f5e0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "요가가 스트레칭보다 나을 거라는 예상이 실험으로 뒤집힌 연구라 통념-반증 구조로 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "“We expected back pain to ease",
+      "note": "연구자 인용 문단이 예상과 결과를 한데 담아 빈칸 핵심 문장으로 곧장 쓸 수 있었다."
+    }
+  },
+  {
+    "id": "f181932a-3742-4a0d-81a8-57ae2752c9d1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f15e9f2a690ec4569c83c58b9f65fceb51367ecf89879bd28f73ffa15bec1a55",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "노인 음주 위험을 알리고 NIHSeniorHealth 자료를 안내하는 글로 까닭이 앞 세 문단에 서 목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Aging lowers the body’s tolerance for",
+      "note": "내성 저하 문단은 인용을 요약하니 홀로 섰고 마지막 URL 안내 문단은 걷는다."
+    }
+  },
+  {
+    "id": "f205b908-2f9c-4ba0-a4ad-7ec02fd74fa4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f95f9a11125bafb6d7b382f8d2350e264a663508e5103f32ac5b39803da9cf84",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "부모에게 10대 자녀의 주의 분산 운전을 막는 법을 권하는 안내로 까닭과 행동 목록이 한 편에서 서 목적 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "school"
+      ],
+      "types": [
+        "purpose",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "First, be a good example. Be",
+      "note": "부모 모범 문단은 짧고 명령문이라 쉬웠으며 인포그래픽 링크 문단은 걷는다."
+    }
+  },
+  {
+    "id": "f214bd23-62cf-49dc-a284-c50315819531",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "685a0734948ac42bc682955e976ece6a7fb6c1ca8cdba57ff80a1b7aa8fa0bd4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "가정 화학물질(납·내분비교란물질·PFC·난연제)의 위험과 줄이는 법을 차례로 풀어 주제·순서·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "insert",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Some toxic chemicals cause no immediate",
+      "note": "납 문단은 예시→증상→규제 순이 뚜렷해 순서 문항으로 잘 잘렸고 fertility 만 쉬운 말로 바꿨다."
+    }
+  },
+  {
+    "id": "f29ef095-0b14-4837-884c-6178ddf29241",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b4df5fa8e2f3ded87e93c905de53a7a13a1d0ef31ac85201292d76b212142b2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "science",
+    "why": "조현병 관련 유전 부위 108곳 발견을 방법·결과·한계로 전해 요지·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The researchers note that the genetic",
+      "note": "한계 문단은 짧게 서지만 genetic sites·variations 같은 낱말은 바꿔도 V5 아래로는 안 내려갔다."
+    }
+  },
+  {
+    "id": "f2b541a2-c783-4be0-a171-956e84be997a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6ae2ba52a59af859d47be0dfadde0387e248be795a1c09aa3ad3b611979481ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "섬유근육통의 진단 어려움·원인·운동 치료를 전문가 인용으로 풀어 주제·요지·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "What causes fibromyalgia isn`t fully understood.",
+      "note": "원인 문단은 뇌-몸 신호 변화라는 논지가 한 문단에 서지만 이어지는 유전자 문단의 풀이 삽입구는 걷어야 한다."
+    }
+  },
+  {
+    "id": "f2f311fc-7edc-4f2f-802e-f2739ac3085e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9b48be0615d75a3f605b55cbe1d86ddcbaaadecba37a7007bf691a6cdff2408d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "science",
+    "why": "미토콘드리아 질환을 수영선수 조의 사연과 연구 설명으로 엮어 서사·설명 칸을 함께 채운다; 증상 목록의 낡은 용어는 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "insert",
+        "content_match",
+        "long_reference"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Each cell in the body contains",
+      "note": "mtDNA 문단은 모계 유전 대비가 한 문단에 서서 삽입 문항에 좋았고 끝 증상 목록의 Mental retardation 은 가공 때 뺀다."
+    }
+  },
+  {
+    "id": "f32a0114-a42b-4485-901e-487626381d4f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba70ef3621cb72b1c248e0fb2005c6d6ee89fbf75fe95b637f8cc0f1e6cc427f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "당뇨 예방 프로그램 DPP 결과와 약물·생활습관 선택을 설명해 요지·주장·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For those over age 60, the",
+      "note": "60세 이상 결과 문단은 수치 두 개를 빼도 조기 종료라는 사건이 남아 섰다."
+    }
+  },
+  {
+    "id": "f32bf868-d394-4ab0-8160-9654ddcff17a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "899f7c0b4b5ce5b628939ff132be9dcd5d748e611795515e017f86d5b3c34cbf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "산후우울 증상이 3년까지 지속될 수 있다는 연구로 네 집단 비율과 선별 기간 제안이 요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Currently, doctors screen mothers for postpartum",
+      "note": "선별 기간 문단은 수치 없이도 여섯 달이 짧다는 주장이 서 요지 문항으로 바로 쓸 수 있었다."
+    }
+  },
+  {
+    "id": "f38c64ce-8fe4-4bfd-99a6-1ef79eec00f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0134a67953a010f2a3df534512f54e20b2b3300608effe8aa96762b007afbb5d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "건강한 관계와 학대 관계의 신호, 초기 애착의 영향을 설명해 주제·요지 칸을 채운다; 가정폭력 소재라 고1 이상 칸으로 제한한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Secure emotional bonds help children and",
+      "note": "Secure emotional bonds 문단은 인과 사슬이 한 문단에 서서 빈칸에 좋았고 핫라인 번호 문단은 걷는다."
+    }
+  },
+  {
+    "id": "f39de6bf-6de3-4ab5-aa2c-73cb066fafb0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8aa70b190b0eb73b5d273a578d93b059b80bed28360a8396e5bdc40f0a89a66f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "신생아 비타민K 주사 거부 증가를 수치와 전문가 경고로 전해 요지·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Most babies born in the U.S.",
+      "note": "주사 필요성 문단은 without it 인과가 분명해 떼기 쉬웠고 akin to gambling 인용은 다른 문단에 남긴다."
+    }
+  },
+  {
+    "id": "f3a0ce8f-5ae6-4203-9fee-592086023be4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "09b41ab715825ad9b7606b7447425cb77ce959a23e28de85c93c27c22989987f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "발 건강 문제의 원인과 관리를 설명하는 글로 원인 나열·조언이 문단별로 갈려 순서·무관한 문장·목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "If left untreated, foot problems may",
+      "note": "방치 시 악화 문단은 연쇄 인과가 뚜렷해 순서 문항으로 쉽게 잘렸다."
+    }
+  },
+  {
+    "id": "f3aaed20-8131-456f-bd56-01353fc96868",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e4842e793e2365546176594db1235d0dd9131baaaed20a118141665f8346cdc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "테플리주맙이 1형 당뇨 발병을 늦춘 임상시험을 대조군과 비교해 요약·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "People given the drug were diagnosed",
+      "note": "결과 문단은 수치를 빼면 늦춰졌다는 요점만 남아 요약문 빈칸으로 가공됐다."
+    }
+  },
+  {
+    "id": "f3fecf00-5c8b-4407-8004-eb033719c627",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6e069952eeb3196704fee0ba853428acc37eb933d3c2689fcd65a3c0aa02fc35",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "여드름의 원리와 음식 원인설 반박, 치료를 풀어 주제·빈칸 칸을 채운다; 풀이 삽입구가 두 곳 끼어 있다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sometimes hair, oil, and dead skin",
+      "note": "모공 막힘 문단은 과정 순서가 분명하나 immune system 앞 풀이 삽입구는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "f42a53df-0ded-4a8d-b860-98bb67ba5440",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eaf2ae592c502cc4f87a3b409ffa8a97406fbaa2f3ddb771f3684b3d5b6cc0a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "미세바늘 독감 백신 패치와 주사를 비교한 연구로 문제·해결·결과 흐름이 서 요지·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "To help increase these numbers, scientists",
+      "note": "패치 설명 문단은 A new study shows 만 다듬으면 서고 hypodermic 만 바꾸면 V4 가 된다."
+    }
+  }
+]

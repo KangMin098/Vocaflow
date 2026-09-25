@@ -1,0 +1,1828 @@
+[
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14a1790c-1264-4301-8f7d-804d67c349cc",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "68ce00e46857bdcf4f567041d3bcb34af6af10db5fb9583d9e460ed3c9655abf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "글래스고 공항 차량 돌진 테러를 목격담·체포·경계 상향·공항 통제 순으로 전해 고등 이상 순서·내용 일치 칸을 채우며 목격자의 인종 표현은 가공 때 걷는다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Officials at Edinburgh Airport have said",
+          "note": "타 공항 대응 문단은 테러 묘사 없이 떨어져서 골랐고, 「Asian men」 반복 표현은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.433Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Car_driven_into_Glasgow_International_Airport",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.377
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14a1b2ab-21ff-430b-8e65-eb7acd7e63ab",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bfdfc5f7a66162f9908aeef812e5b0f8860ceb337c9b9e2bedd3dfd5b00252cd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "수치 석방 서명 보도와 조건부 석방 전망·변호인 입장·가택연금 내력이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Suu Kyi's lawyer had earlier said",
+          "note": "변호인 문단은 20년 연금과 1990년 선거 무효화까지 배경이 서고 nullified 를 cancelled 로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.434Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Aung_San_Suu_Kyi_release_orders_'signed'",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.618,
+          "words": 178,
+          "english": 0.373
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14a3ae74-48dd-430d-b564-0a54fe8b7678",
+    "revision": "2026-09-25T08:50:57.293462+00:00",
+    "body_sha256": "bf29f27e4e9d3346a4174606a07791d627d54e878d451baaf33f50b2904c24d0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "부활절 공원 자폭 테러의 피해·기독교인 표적 주장·국제 애도·헌혈이 이어지나 목격 묘사가 생생해 고3·성인 내용 일치 칸으로 둔다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Reuters reported hundreds of citizens donated",
+          "note": "헌혈·애도 문단은 참상 묘사 없이 서지만 두 문장뿐이라 앞 성명 문단과 붙여야 문항 길이가 나왔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.434Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bomb_explosion_in_Lahore_kills_more_than_65_on_Easter",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.355
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14a4ab75-9995-49ca-8cfb-257ccfb56844",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b4bc6f2e51bb5ad5863ebff177a220553320f121cf6a6fdfcbab368f59a312e9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "사후피임약 연령 판결과 FDA 정치 개입 비판·보수단체 반발이 맞서 주장·내용 일치 칸을 채우나 소재상 고3·성인으로 둔다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The lawsuit was filed in 2005",
+          "note": "소송 문단은 판사의 「political considerations」 비판이 주장으로 서고 blasted 를 criticized 로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.434Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Morning-after_pill_to_be_made_available_to_17-year-olds%2C_U.S._federal_judge_rules",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.391
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14a5cd4a-2e54-46ed-859b-6b5b1753df33",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a7c169f3aee1a5ee2bc50afffaa19fd17447dadef5b75c9d2cbb458537bada7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "자유·국민당 연합의 결별과 일주일 만의 재결합, 그 조건이 된 네 정책 요구를 인과로 전해 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "At the time of the reunion,",
+          "note": "재결합 조건 문단은 네 요구가 목록 없이 한 문장에 들어 있어 떨어지고 moratorium 은 다른 문단이라 손대지 않았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.434Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_Coalition_reunite_after_one_week",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2,
+          "words": 200,
+          "english": 0.4
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14a857aa-7d8a-4369-9c95-786cb3137c43",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "53e7eaf4394030fbeab02870f4e96d8493fc5df212dfa1127cf55f1476a6f056",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "플린트 시장의 건강상 사임 발표와 그 뒤의 소환·경찰청장 기소 등 추측 배경·반응·승계 절차가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Williamson first stepped onto the political",
+          "note": "정치 이력 문단은 연도순으로 서지만 인명이 빠지면 누가 누구를 이겼는지 흐려져 고유명사를 줄이기 어려웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Mayor_of_Flint%2C_Michigan_resigns_for_health_reasons",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.337
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14a93c74-5af7-47ac-9480-b6e2f0697107",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "283d6435d0e828a9045f607739f9b3fb31806ce2f60cd932b9e3c011faf5d31c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "사이클론 시드르 상륙 전 대피 규모와 대피소 우려, 1991년 참사와의 대비가 짧게 서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In spite of those concerns, however,",
+          "note": "1991년 대비 문단은 대피 노력 덕에 피해가 적으리라는 논지가 서고 casualty rate 를 number of deaths 로 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Cyclone_Sidr_smashes_Bangladesh's_coastline%2C_millions_evacuated",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.401,
+          "words": 147,
+          "english": 0.324
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14ad01d7-12c0-4619-a200-ab677cc88361",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e6e68caa06d1ae235e956f08085d4c5566f774dbdde5cd8a25fb74c14c8e0fa6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아시아나 214편 착륙 사고의 피해·목격담·원인 미상·공항 폐쇄와 결항 여파가 이어져 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The airport was closed to all",
+          "note": "공항 폐쇄 문단은 수치 몇 개를 걷어도 여파의 흐름이 서고 diverted 만 바꾸면 V4 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Asiana_Boeing_777_crashes_upon_landing_at_San_Francisco_International_Airport",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.365
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14aedd8a-1c1a-4c61-9e19-a5e2459a3645",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eb253d5de996f16bdd7cd257d09ba28901f7cdb04d334f85a9d9b272d44e30c2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "energy",
+        "why": "의회 위원회가 발전 설비 공백으로 정전 위기를 경고하고 원전 지연·가스발전 필요·환경단체 반응을 붙여 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Clean and renewable generating methods will",
+          "note": "원전 지연 문단은 2016 폐쇄와 2017 가동의 틈이 「generation gap」 빈칸으로 서고 shortfall 을 shortage 로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Britain_could_face_electricity_blackouts",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.338
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14b0b7b8-e01a-4e4c-af1a-c0006d2d2881",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "00bd402b273a62487791e31a03956c9b62a7a3aebf985f4f6bb079abf5d742c8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "블레어의 유임 의지와 브라운 측 이양 압박·당 규정·지지율 하락 원인이 이어져 내용 일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "If Blair tries to hang on",
+          "note": "반란 가능성 문단은 70명 서명 규정이 조건으로 서고 backbench 를 ordinary 로 바꾸니 뜻이 유지됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/I'm_staying_for_at_least_a_year%3A_British_PM_Tony_Blair",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14b13fc6-7cb2-47be-bda4-96046053bb52",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a897e52b7a17517fb5e7b8aeb5a973eedd7913dbf57c4488dad7a7128c1e44a7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "쿠마리의 자진 은퇴 사유·미국 방문 논란·선정 조건과 지위 상실 조건·인권 청원이 이어져 내용 일치·요지 칸을 고등 이상으로 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "irrelevant"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Some human rights activists have petitioned",
+          "note": "인권 청원 문단은 「정상적 삶을 빼앗는다」는 논지가 서고, 네팔 개관 문단은 무관한 문장 문항 재료가 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Nepali_goddess_retires_at_age_11",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.366
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14b265b1-f76b-4938-ad65-81e92e3bf563",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4e166265163f163ab83fd1c1309d08744a471a5d4b645ef656ee66e4a80d71e5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "법률사무소 인질극의 발생·요구·동기·항복 과정의 총격이 이어지나 문단 순서가 뒤섞여 있어 재배열 전제로 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In a news conference Monday night,",
+          "note": "동기 문단은 국선 변호인에 대한 불만이 서지만 원문 문단이 시간순이 아니라 가공 때 재배열해야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Couple_takes_lawyer_hostage_and_said_to_have_explosives",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.459
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14b32473-23bf-4708-81bd-32349c91bbe5",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e693e4794086deeda5e61013359ee5544990289d9f590064bfb9eb16894a09cf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "시리아의 이란 핵 지지와 NPT 조항을 근거로 한 양측 논리가 이어져 주장·근거 칸을 채우나 조약 해설 문단은 기자 해설이라 걷는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "President Bashar Assad of Syria, a",
+          "note": "아사드 발언 문단은 평화적 핵기술 권리라는 주장과 이유가 서지만 enrichment·non-proliferation 은 바꿀 수 없었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Syria_voices_support_of_Iran's_nuclear_program",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2,
+          "words": 200,
+          "english": 0.388
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14b725ec-f2df-4f7f-a461-949835fc6c89",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b90d080a3bba01f97bfc2cc17b5e551961cbb7579da2e4a2de55ab0f6a2cf55f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "인터넷전화 911 통화가 일반 신고센터로 바로 가지 못하던 문제와 퀘스트 합의로 풀린 경위가 인과로 서 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "With the exception of Rhode Island,",
+          "note": "지연 원인 문단은 행정 사무실로 가던 통화가 지연됐다는 인과가 서고 public-safety answering point 를 풀어 썼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/VoIP_penetrates_emergency_calling_infrastructure",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14b7b2b4-1523-4d60-994b-439430364faf",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bc591aff4191c6777b2363857ff5cdd53246bf82a1abf61091e6a980dde93e9f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고양이 H5N1 감염 실험 결과와 한계·권고가 이어진 연구 보도라 주제·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The experiments were performed on eight",
+          "note": "실험 문단은 여덟 마리·세 경로·전부 감염이라는 결과가 서고 exposed 를 given 으로 바꿔 중등에 맞췄다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Cats_could_play_significant_role_in_transmitting_bird_flu_to_humans%2C_say_Dutch_researchers",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14b81b12-d2d2-44ce-a295-9d638716b026",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cc97ebd7766ea6128ce3af3bf4d1c299781b995ee20f60f2dcd87be7ec80d16b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "북한 3차 핵실험 준비 보도의 근거(위성 사진)·로켓 발사 논쟁·과거 실험 패턴이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "North Korea previously tested two nuclear",
+          "note": "과거 실험 문단은 미사일 발사 뒤 한두 달 안 핵실험이라는 패턴이 서서 추론 빈칸으로 쓸 만했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Report%3A_North_Korea_planning_third_nuclear_bomb_test",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.367
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14b84ec8-8a06-4835-96ab-2bec6b4ff8f2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ff1daf56034818fa81f927db3a0ea8349868346e494252facf30c55ba1222518",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "콜간 항공 추락 원인으로 조종 실수·훈련 부족·피로·조종실 잡담을 짚고 전자기기 주의분산 사례로 넓혀 요지·빈칸·주장-근거 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The chairwoman of the NTSB, Deborah",
+          "note": "전자기기 위험 문단은 주장 하나에 뒤 세 사고가 근거로 붙어 떼어 쓰기 좋고 phenomenon 만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/NTSB_says_pilot_error_caused_crash_of_Colgan_Air_Flight_3407",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.367
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14b85010-0789-455e-9ca1-6d7a2133ba7f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e9948121c812d190c9ea28f211d5b478b263381e68f632aab3a19770f40767fe",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "인디애나 웨스트나일 환자 두 명 보도에 바이러스 숙주·감염 경로 설명이 붙어 짧지만 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "West Nile virus' (WNV) is a",
+          "note": "바이러스 설명 문단은 모기 감염 경로가 핵심으로 서고 Flaviviridae·antigenic complex 를 걷으니 중등도 읽혔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Two_new_cases_of_West_Nile_Virus_reported_in_Indiana",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.217,
+          "words": 115,
+          "english": 0.316
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14b8d9a4-63b6-46c0-aafc-47f5f58417c8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1c9a482da710c657713a88f58ac4ef7ec1843cdaada55ce398ab013057595c09",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "제재로 떠났던 미국 석유회사가 19년 만에 리비아로 돌아가는 인과(1986 제재→2004 해제→복귀)가 짧게 서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The sanctions, enforced by Ronald Reagan's",
+          "note": "제재 문단은 부과 이유와 해제 연도가 한데 있어 떨어지고 sanctions 는 설명을 달면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Libya_allows_US_oil_company_to_return",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.383,
+          "words": 94,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14bad75b-3056-4c69-85ec-74c880a04236",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "090148b1692363064c4e9ef1809c81bbd75bf2925d617d0a74c3c35fabd8a31a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "하워드 총리의 군주제 이후 발언을 공화파와 군주파가 서로 다르게 해석하는 대비 구조라 주장·요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Monarchists are urging people not to",
+          "note": "군주파 문단은 「grasping at straws」 관용구가 요지라 풀어 쓰면 되고 대비가 선명했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australians_may_choose_to_change_head_of_state_beyond_Queen_Elizabeth_II%3A_Howard",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.455
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14c30fd7-c1fe-491e-aa02-f6ef66ee2678",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6ce143c03267d32559912e928c2c2e595cd1d6739ae8a6a40410b1ea3cc90997",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "주류판매점 파업 하루 전 잠정 합의와 핵심 쟁점(매각 금지 약속)·앞선 부결이 한 문단에 서 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Ontario Public Service Employees Union",
+          "note": "한 문단짜리라 노조 문장부터 떼어 보니 매각 금지라는 이유가 서고 tentative 만 풀면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Tentative_deal_averts_Ontario_liquor_stores_strike",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.333,
+          "words": 90,
+          "english": 0.322
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14c4c1e2-45eb-42bf-a304-3ba5941549cc",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f4632be9fbf27a6835b03c197646577ce03387ab28d2e701ea4b001706d74d90",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "그리스 사회당 총선 승리와 전 총리 사임·득표율·의석·당선 연설이 짧게 이어져 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"We stand here united before the",
+          "note": "당선 연설 문단은 희망·법·연대라는 약속이 서고 solidarity 하나만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Greek_Socialist_party_wins_general_elections",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.806,
+          "words": 155,
+          "english": 0.373
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14c613b2-4a63-47b9-8cbc-032dde4f3497",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8330935798bc7ffd7d1f8f607bb613c226aae85e40d1af99989da4bfd49edfda",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "브라우저 독점 우려에서 시작해 선택 화면 합의·기간·기대 효과·경위로 이어져 요지·순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The complaint regarding the alleged browser",
+          "note": "경위 문단은 2009년 1월 제소→7월 동의→최종 합의 순서가 서서 순서 문항에 맞다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/EU%2C_Microsoft_agree_on_browser_ballot",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14c7d39a-bfb9-4dbb-b3c6-fa8179e7919c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e5a70ed510c037f1f2e4503568167836b7b386348a3ca9138f6999cc935c6225",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "콜롬비아 경찰의 베네수엘라 FARC 자금 주장과 에콰도르·베네수엘라의 반박·국경 긴장이 맞서 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Colombia, Venezuela and Ecuador are involved",
+          "note": "분쟁 배경 문단은 국경 넘은 공습이 갈등의 원인으로 서고 raid 를 attack 으로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Colombian_police_claim_that_Venezuelan_government_paid_FARC_rebels_%24300_million",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.402
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-21-432Z",
+    "id": "14cac7f5-da33-420f-ac22-d3cf55f22570",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a09a207cea5686b7ebefbe4c8ba77a1548e6244df9823989598107f263d35a66",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "기자와 탈레반 포로 맞교환에 대한 동맹국 비판과 이탈리아 여론 찬반이 이어져 주장·요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Maxime Verhagen, Foreign Minister of the",
+          "note": "네덜란드 장관 발언 문단은 교환이 납치를 부추긴다는 논리가 한 문장에 서서 요지 문항으로 좋았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:21.435Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Italy_confirms_swapping_Taliban_for_Mastrogiacomo",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.373
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

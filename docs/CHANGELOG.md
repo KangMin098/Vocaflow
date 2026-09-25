@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **대량 판정 회차 10 — NIH 전량 · Wikinews 둘째 몫 1,760편 적재**(2026-09-25 · DB: gate.retain 1,760 · 본문 254 갱신 · 판정 18 제거 · 파생 표시 24): 지름길 검산 SUSPECT 0 · WARN 0. 이중 판정 nih 일치 98.8% · wikinews 94.0%(κ 0.550 — 짧은 사실 단신 최소선이 v6 후보). 수집 결함: wikinews **인용 템플릿 `{{cquote}}` 등 ~570곳을 지워 「said:」 뒤가 비었다** → 수집기 수정 · 254편 갱신. 그림책 원천 간 진짜 중복 24편(Jaccard ≥0.6)을 `derived_from kind=duplicate` 로 묶음. 기록 `docs/source-check/round-10.md`.
 - **원문 6문항 반영 · 골격 802/802 · 설계 주석 3유형 198/198**(2026-09-25 · 사용자 직접 실행 `regen-passages --commit --mark-ok` · migration 0): REFLOW_VERSION 3 원문 6문항 적재 · 남은 body_ok=false 0 → 골격 전 문항(802 · 유출 0). 딱지가 풀린 빈칸 5문항 주석(r3) → 목적·빈칸·순서 198문항 전부 설계 주석.
 - **판정 기준 v5 검증 · NIH 두 회차 연속 통과**(2026-09-25 · DB: gate.retain 40): 기관 공지문 조항으로 nih 회차 7 재판정 일치 85%→**100%** · 회차 9 새 표본 100%. 적재 40편. 기록 `docs/source-check/round-9.md`.
 - **대량 보관 판정 회차 8 — 1,706편 적재**(2026-09-25 · DB: gate.retain 1,706 · source_id 20,935 정정 · 본문 116 갱신): 두 회차 연속 통과 4곳을 판정자 11로 판정 · 보관 90.0% · 이중 판정 합산 κ 0.696. 새 검산기 `retain-shortcut-scan.mjs`(가공 시도를 건너뛴 판정 탐지 — 이중 판정자 7/7 적발) · 적재기 `--rebase-unjudged`(본문 같고 판정 없는 행의 메타 갱신은 허용). 판정자가 짚은 수집 결함 셋 수정: wikinews 단위 템플릿 숫자 누락(116편) · **source_id 이중 접두어 20,935편** · storybooks README 색인. 기록 `docs/source-check/round-8.md`.

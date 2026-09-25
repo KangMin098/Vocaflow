@@ -1,0 +1,1046 @@
+[
+ {
+  "id": "69defb95-6e9d-407a-9440-e3541072ecda",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ed31ac1f3b29bde4c1ae3afce4809de82aca0ef135fe998bbf31e9a20ec202db",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "백신이 천연두·소아마비를 없앴고 접종률이 떨어지면 홍역이 되살아난다는 근거와 집단 면역의 원리로 「접종은 이웃도 지킨다」 논지가 서서 주장·요지·빈칸·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence",
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "When enough people are vaccinated, the",
+   "note": "집단 면역 단락은 정의-효과-보호 대상이 한 문단에 있어 빈칸·요지 모두 되고 fend off 하나만 쉬운 말로 바꾼다."
+  }
+ },
+ {
+  "id": "69f1e3ec-acf8-41f1-a8bc-5dc1432c996f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8784e61ac1313ec07779ca248090b627e9995e325c6cc4efdfd41d107d217c32",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH 가 건강 위험 뉴스를 가늠하도록 한 쪽 안내서를 알리며 위험의 뜻과 스스로 던질 질문, 바꿀 수 있는 것과 없는 것을 설명해 목적·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "You have the power to change",
+   "note": "바꿀 수 있는 것·없는 것 단락은 짧은 문장이 However 로 대조를 이뤄 초등 최소선을 넘고 어휘도 이미 쉽다."
+  }
+ },
+ {
+  "id": "6a931a0c-5bed-4886-9c5a-10ce5863ef17",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e284a86620e1ac1b171acad9867bb895f8c0ad37dd2791fd9dc32484f5629ad8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "눈도 뼈도 없는 예쁜꼬마선충이 302개 신경세포·투명한 몸·짧은 수명 덕에 노벨상 연구의 토대가 됐다는 설명으로 「기초 연구의 힘」 논지가 서서 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Like humans, C. elegans has a",
+   "note": "단순함 단락은 다음 인용(인간 뇌 수십억 개)과 이어 대조가 서고 학명은 the worm 으로 바꿔도 뜻이 남는다."
+  }
+ },
+ {
+  "id": "6b323a82-4b20-432a-b6b1-06921c660cd8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "352eb795fbc229a3cff01733a2eef0c2efa7153aa0c90b675cf9b9077f66291b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "이명의 원인(소음·노화·약)과 진단·치료, 이명이 청력 손실 뒤 뇌를 활성 상태로 지킬 수 있다는 뜻밖의 연구가 이어져 주제·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Zeng says that, in certain cases,",
+   "note": "보호 가설 단락은 「이명이 오히려 인지 저하를 막을 수도」라는 반전이 서서 빈칸에 좋고, 끼어든 cognitive 풀이 문구만 걷는다."
+  }
+ },
+ {
+  "id": "6b5d9d47-8ad4-4d70-88c1-e8c875689618",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "df18e3aa3050ca10e971302509ba569b905394b669d54dd594f9158ba38b967f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "실어증의 유형(베르니케·브로카)과 언어가 뇌에 분산돼 있어 회로를 다시 이을 수 있다는 원리, 집중 대본 훈련이 이어져 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Different types of aphasia affect language",
+   "note": "두 유형 대조 단락은 For example 로 증상이 선명하게 갈려 내용 일치 선택지로 쓰기 좋고 어휘가 쉽다."
+  }
+ },
+ {
+  "id": "6ba8dcaf-186c-4cf7-bc00-04df7eb1d422",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5d0c25e60b1d6edf805225460110a2e087e53676a911e538ac13d878471abd5f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "메트포르민에 더할 네 약을 5천 명에게 비교해 넷 다 혈당을 낮췄지만 4분의 3이 목표를 못 지켰다는 결과가 서서 내용 일치·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "After about five years, all four",
+   "note": "결과 단락은 떼어지지만 약 이름 넷(liraglutide 등)이 뼈대라 the second drug 로 바꾸면 내용 일치 재료가 줄어든다."
+  }
+ },
+ {
+  "id": "6bba6908-245f-48ce-a9e8-b4a9e8416a1a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1fba130d083f5090b5adeb0c631e30bee5712d34e6a0fc0800f3d99899fd2fe3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "알코올 사용 장애 성인 중 7.3%만 치료받고 약물 치료는 1.6%뿐이라는 조사로 「효과적 치료가 거의 쓰이지 않는다」 요지가 서서 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Treatment rates were low. Only 7.3%",
+   "note": "치료율 단락은 짧은 두 문장이라 앞의 「효과적 치료가 있다」 단락과 합쳐야 대조 요지가 서고 어휘는 쉽다."
+  }
+ },
+ {
+  "id": "6c95eb1e-ba74-4523-b5f1-3bb94abd6c1e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "740cbd6d5cd4ef3253ea055cfb8f738cfd649c686fd0febe783ea84687d6f989",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "1만1천 명 가족력이 30~50세에 크게 바뀐다는 분석으로 30세까지 가족력을 정리하고 5~10년마다 의사에게 알리라고 권해 목적·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The analysis showed that family histories",
+   "note": "분석 결과 단락은 권고가 근거와 함께 한 문단에 서고 comprehensive 하나만 바꾸면 V4가 된다."
+  }
+ },
+ {
+  "id": "6ce3b625-0ae9-4aee-a546-6360973a1cf3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d8b02f0a76c843eede812943e583a2d1df3acec732fc952a426716f7f8c7d6dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "불안장애 유형(사회·범불안·공황)과 뇌 연결 영상으로 치료 반응을 예측하는 연구, 회피 전략이 해가 되는 까닭과 인지행동치료가 이어져 주제·요지·빈칸·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But these strategies can turn harmful",
+   "note": "회피 단락은 학회 불참 예시로 「불안은 덜지만 기회를 잃는다」가 서서 빈칸에 좋고 For instance 이하가 구체적이라 떼기 쉽다."
+  }
+ },
+ {
+  "id": "6cfcabe5-8a96-4de8-aad3-8b981d88914c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f680d67692ab405dcb5dcb7ea910ecde363492806917fc688b42666e7cbd2ab2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "영양소를 따로가 아니라 음식 안에서 봐야 하고 몸속 포화지방은 대부분 탄수화물에서 만들어진다는 인터뷰 답변이 통념 교정 논지로 서서 주장·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Krauss: While it is generally felt",
+   "note": "포화지방 답변 두 단락은 「흔한 생각 → 실제 출처는 탄수화물 → 섬유 속 탄수화물은 무해」로 이어져 질문 표기만 걷으면 수능형 지문이다."
+  }
+ },
+ {
+  "id": "6d2f1511-81cb-4b8f-8b63-c49803583d6a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "896abcf73c8e9b16c9f5bf33bc0536fb9120b8f2b919fba8c80687f76a1f87b1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "아이도 중증·MIS-C 위험이 있고 인구의 20%라 집단 면역에 필요하며 학교·운동 활동을 되찾게 한다는 세 까닭으로 접종을 권하는 인터뷰라 주장·목적·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "purpose",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Walter: Children make up a significant",
+   "note": "집단 면역 답변은 85%·20% 산술이 논지를 받쳐 수치 문항이 되지만 질문자 표기와 끼어든 inflammation 풀이는 걷는다."
+  }
+ },
+ {
+  "id": "6dc44be9-2318-47c8-9920-1eed59aaae88",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0ffc1b9739d38d66027e1fdfaa13c1d6998ff02855eb84d91b190139805023af",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH 가 임신 예정 여성에게 21세까지 아이를 추적하는 국가 아동 연구에 참여하라고 알리고 그 까닭(유전자와 환경의 영향 규명)을 대는 공지라 목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "By analyzing this information, researchers expect",
+   "note": "연구 목적 단락이 권유의 까닭을 한 문장으로 세우고, 앞 단락의 연구 장소 주소 괄호는 걷는다."
+  }
+ },
+ {
+  "id": "6e18e2df-7e97-4a3f-a262-3c796242448d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "27ab2715ddbdb0fc2127794a2607de983be0dd77cdd667cf1bd04e082ed853ee",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "건선의 달을 계기로 면역 과민이 피부세포를 며칠 만에 밀어 올려 쌓이게 한다는 기전과 전신 질환 위험, 치료를 안내해 주제·순서·목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Normally, skin cells take about a",
+   "note": "정상-건선 대비 단락은 「한 달 → 며칠 → 쌓임 → 붉어짐」 순서라 순서 문항에 좋고 mature 하나만 풀면 된다."
+  }
+ },
+ {
+  "id": "6e231c2b-af20-4d87-823d-c17281158352",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5c16b8920196e0d5e10378bfb2dbbb8762d7c1e56283b036245ac8d6b89925c6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "세포 분열 질서가 깨진 것이 암이고 유전자 손상이 쌓이는 데 시간이 걸려 예방할 기회가 많다는 논지와 금연·식단·운동·백신 대책이 이어져 요지·주장·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But when cancer develops, this orderly",
+   "note": "질서 붕괴 단락은 앞 정상 분열 단락과 짝을 이뤄 대조가 서고 문장이 짧아 중등 설명문으로 바로 쓰인다."
+  }
+ },
+ {
+  "id": "6ec414bf-4cef-49e3-aacf-33719d659d32",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "72797bb40c589c19a46076db6f708856a6881bc5132fd125301d1a13a3ab2228",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "혈전 제거술 허용 시간을 6시간에서 16시간으로 늘려 본 시험이 사망을 줄여 조기 종료되고 지침까지 바꿨다는 흐름이라 요약·내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Using a brain imaging technology called",
+   "note": "시험 설계 단락은 촬영-선별-무작위 배정이 시간순이라 순서 배열에 좋고 perfusion imaging 은 a brain scan 으로 바꾼다."
+  }
+ },
+ {
+  "id": "6f341782-6a4f-444d-8547-0272e62e0b97",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6440c70ae3f8a76e7c1e3b8754642f3195f1b9fbadc91043053ff12d9f3810fa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "알레르기 주사에 차단 분자를 더한 치료가 주사만보다 증상을 더 줄이고 끝난 뒤에도 효과가 남았다는 고양이 알레르기 시험이 서서 요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Some people get allergy shots to",
+   "note": "알레르기 주사 단락은 「조금씩 노출 → 반응 안 하게 훈련 → 그러나 한계」로 문제를 세워 다음 시험 단락과 잇기 쉽다."
+  }
+ },
+ {
+  "id": "6fcf3a9a-7575-49a8-a51f-12a5656acb4d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "008b3b1744b0946e53a1065860566f8ac4075a7c4049471816ea1e96d4acf6b6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고체온의 단계(열경련·열탈진·열사병)와 노인이 땀·혈류로 식히는 힘이 약해 선풍기가 오히려 체온을 올렸다는 연구로 목적·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Neither of these works as well",
+   "note": "선풍기 단락은 「노인에겐 선풍기가 체온을 올린다」는 뜻밖의 결과와 까닭이 한 문단에 서서 빈칸에 딱 맞다."
+  }
+ },
+ {
+  "id": "70468063-049c-41a0-b85d-0277f6792c5d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "052e6fb4d5c918a0e4a066d80585032c54950068d0eb2148d04d7aece11302b5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "골수 이식 환자 160명 무작위 시험과 43개 연구 종합에서 완화의료가 삶의 질·증상은 개선하되 생존은 늘리지 않았다는 결과가 서서 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In one study, researchers followed 160",
+   "note": "시험 단락은 설계가 짧고 분명해 다음 결과 단락과 합치면 요약 문항이 되고 undergoing 정도만 바꾼다."
+  }
+ },
+ {
+  "id": "70a5172e-b71d-4750-82f3-6a399117775b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b713bbcad1150297e3a1cac8b34771c8dcdf74c91b2ec30967885ac41de469f1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "보이지도 냄새도 없는 라돈이 땅에서 집으로 스며 폐암을 일으키는 경로와 검사·저감 권유가 이어져 목적·순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "order",
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Radon gas breaks down quickly, giving",
+   "note": "분해 단락은 「입자 방출 → 폐에 갇힘 → 에너지 방출 → 조직 손상」 사슬이라 순서 문항에 좋고, 뒤쪽 전화번호·URL 단락은 걷는다."
+  }
+ },
+ {
+  "id": "712bb9aa-8c31-40e0-9201-534807035122",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "abab61a436593a413fed04b7743ad66cad92821b9c1463d6e4abb879d398a695",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH 가 5년 안에 2형 당뇨 진단을 받은 사람에게 메트포르민 병용 약 비교 연구(GRADE)에 참여하라고 알리고 그 까닭(장기 비교 연구 부재)을 대는 공지라 목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "To address this issue, NIH launched",
+   "note": "연구 목적 단락은 앞 단락의 공백과 이어져 권유 까닭이 서고, 무료 약 관리 조건은 내용 일치 선택지로 쓰고 끝의 주소는 걷는다."
+  }
+ },
+ {
+  "id": "71301618-fe68-4bd3-842c-a136f513c4b7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "450df4027c5812c1695996448a977fe1bb77b8d49e41023d61f102b9135ed673",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "소금이 혈압을 올리는 관계와 하루 3그램만 줄여도 수만 명을 살린다는 모형, 영국의 감염 정책 성과, 가공식품 속 숨은 소금으로 논지가 서서 주장·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Some countries have tried to lower",
+   "note": "영국 사례 단락은 정책 셋과 결과 수치가 한 문단에 있어 수치 검증형·빈칸에 좋고 consumption 정도만 바꾼다."
+  }
+ },
+ {
+  "id": "71532751-7dd8-470a-91e5-bf824627278e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "482716022aedf88a0f249b29fdf00aac4d65d0d3f67f28660cba605ab78be5f4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "뇌졸중 실어증 환자 99명의 검사와 뇌 영상으로 언어 체계가 뜻/형태·인식/산출 네 요인으로 나뉘고 서로 다른 영역에 걸린다는 발견이 서서 요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The team examined brain scans to",
+   "note": "영상 비교 단락은 In contrast 로 인접 영역과 분산망이 대비되지만 distributed network 등 추상어가 많아 밴드를 내리기 어렵다."
+  }
+ },
+ {
+  "id": "71660396-e332-4f61-88e1-c6800757f1af",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "54f3c5cedf28c66c343a7b0c883d25aacbf17274fa39cc4d3a34a178ebabcd42",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "차량 카메라·센서 자료로 초보 10대 운전자가 전화 걸기·물건 집기 때 사고 위험이 7~8배 높았다는 결과가 서서 요지·내용 일치·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Experienced adults were more than twice",
+   "note": "숙련자 대비 단락은 「통화 자체보다 손을 뻗는 것이 문제」라는 반전이 있어 빈칸에 좋고 near miss 만 풀면 된다."
+  }
+ },
+ {
+  "id": "7264207f-c747-4733-8215-1495703c7ef4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6c4b808f0174935ce0c7abf0640bdad0e5073c43b5d13ed4826eb4ac25db192e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "녹내장 환자 절반이 모른다는 사실과 산동 검사로 조기 발견할 수 있다는 근거로 고위험군에게 1~2년마다 검사를 권하는 안내라 목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "With early detection, glaucoma can be",
+   "note": "조기 치료 단락은 두 문장으로 권유 근거가 되지만 짧아 고위험군 단락과 합쳐야 하고, 끝의 영상·URL 안내는 걷는다."
+  }
+ },
+ {
+  "id": "7277d33c-f5fa-40b6-909b-9bb2feaae4d5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0519fafbb31597e4a4aa49b56511fc43009c39cb0ee9309f57c8fc5977fbc56e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "우울증 양성 성인의 3분의 2가 치료를 못 받고 치료받는 사람 다수는 양성이 아니었다는 어긋남으로 「중증도에 맞춘 치료」 요지가 서서 요지·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In addition, about 8% of participants",
+   "note": "치료군 단락은 앞 단락과 거울처럼 대칭(미치료 양성 ↔ 치료 음성)을 이뤄 빈칸에 좋고 In addition 만 걷는다."
+  }
+ }
+]

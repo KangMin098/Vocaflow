@@ -1,0 +1,1053 @@
+[
+ {
+  "id": "0f81db46-b6c0-45cd-a4bf-171708a29fd2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f92b76b529e7254d50ec5a1f628e4881aafab88ca02beec6c2f2aa2ba641a28f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "링고 스타의 명예의 거리 입성을 첫 야간 행사·멤버별 별 현황·인용으로 전해 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The late John Lennon was also",
+   "note": "매카트니만 남았다는 문단은 비틀스 네 명의 별 현황이 서서 추론형 내용일치가 되고 낱말이 쉬웠다."
+  },
+  "uses": [
+   "factual",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0f92a7b9-f536-49f0-b73a-b063dbb19cbf",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "fb3c6adc5a547cc58bff003bcbe3aac811d9ab6c6a4c2ade8d81ecd14b39977c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "건강보험 의무가입 합헌 판결과 오바마·롬니·캔터의 상반된 해석을 맞세워 주장·요약·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Republican presidential candidate Mitt Romney also",
+   "note": "롬니 성명 문단은 「합헌이지 좋은 법이란 뜻은 아니다」 구분이 서서 요지 재료가 됐고 repeal 만 풀었다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "spoken",
+   "structured"
+  ]
+ },
+ {
+  "id": "0f984bd0-5a2e-45d4-bf65-cf1620743916",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "122a38529b52b3d53300528249920708b00c85dc14ee06965fd6241edfccbb0d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "세계 최대 바이오디젤 공장 계획을 팜유 조달이 부르는 삼림 파괴·탄소 논쟁과 예산 우려로 풀어 주장·빈칸·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The new plant will increase demand",
+   "note": "그린피스 문단은 이탄지 개간→탄소 방출→화석연료 10배 주장과 회사 반론이 맞서 서고 peaty 만 풀면 됐다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "structured",
+   "vocab"
+  ]
+ },
+ {
+  "id": "0f98c056-9f0d-4ef9-9b0e-0a2fc942dc71",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "18532cabcc07d4a81cb28d35ed3eef6924b58de221fafdc07dbd8c2b9e6a1a93",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "space",
+  "why": "디스커버리호 마지막 발사 지연을 누출·컴퓨터 결함·날씨로 이어 전해 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The launch was originally scheduled for",
+   "note": "지연 이력 문단은 가스 누출→이틀 연기→컴퓨터 결함이 서지만 짧아 다음 문단과 묶어야 흐름이 됐다."
+  },
+  "uses": [
+   "factual",
+   "sequence"
+  ]
+ },
+ {
+  "id": "0f9bf3fe-d763-436b-9421-fbbff10fab5c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "154e39443cbf572ae66c0818cab72c4f144fc8de9923e11a91e3620a2e557f8b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "윈도 98·Me 지원 종료의 이유와 7천만 사용자 보안 위험을 전해 내용일치 칸을 채운다(2006년 시점 사실).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "IDC analysts say that seventy million",
+   "note": "영향 문단은 7천만 사용자·보안 위험의 인과가 두 문장에 서서 exploited 만 풀면 됐다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0f9f8ca6-4f99-40b1-ad9e-6fd0ed603ace",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7672bcb34e04693053b499408e04f6a9306188f2c0f70dbb6be0f4f281f1c289",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "콜롬비아 기자 피살과 세 갈래 수사·언론인 위험국 평가를 짧게 전해 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Jose Leon, chief of the local",
+   "note": "수사 방향 문단은 세 갈래 단서를 나열해 서지만 짧아 사건 문단과 함께 써야 했다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0fa299c1-057b-4e7d-b1b9-86d0b04b9e0f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "31988b0dba4eb3b5558887407db93a3baa03991bfa32a1e589e6691254b5244a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "혐오 발언 혐의로 국가안보법이 처음 적용된 바룬 간디 사건을 전해 고3·성인 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Gandhi surrendered to the district court",
+   "note": "자수 문단은 보석 기대→NSA 적용→추가 혐의가 서고 dashed·inciting 을 바꾸니 V6 이 됐다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0fa31829-b2b0-46c9-86cb-284c7d5bb1f5",
+  "source_updated_at": "2026-09-25T08:48:14.550272+00:00",
+  "body_sha256": "11d6f68cf3b0fe00cd55444ed20beb4a14c23a4858e6500d52d98da23824a4ba",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "중·EU 정상회담을 의제 목록과 단위 빠진 교역액으로만 전해 논지·흐름 없이 나열에 그친다.",
+  "slots": {
+   "ages": [
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Swedish Prime Minister, Fredrik Reinfeldt, said",
+   "note": "회담 문단을 떼어 보니 의제 이름 나열뿐이고 교역액도 단위가 빠져 수치를 걷으면 남는 사건이 없었다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0fa65bdd-6f30-41c2-95f6-01611b45b863",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "fa2b2321012603065235b291d1529ce9b22feabeda639e0978b7dccc66c47564",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "리스 존스 총격 피살 수사의 추가 체포와 목격자 제보 호소를 전해 내용일치·목적 칸을 채운다(총기 소재라 고2 이상).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chief Superintendent Chris Armitt urged the",
+   "note": "경찰 호소 문단은 두려움을 인정하며 제보를 권하는 구조가 서서 목적형 재료가 됐고 총격 묘사가 없다."
+  },
+  "uses": [
+   "factual",
+   "spoken",
+   "argument"
+  ]
+ },
+ {
+  "id": "0fa89a26-fac3-4592-bbaa-f9660b92767e",
+  "source_updated_at": "2026-09-25T08:50:26.778764+00:00",
+  "body_sha256": "5ca4e44d9bed5fb361916bdc558ba9243fcd37b6840339232c8e8cfb08d93da9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "러시아의 시리아 공습 개시를 명분·요청 경위·미국의 의문·민간인 피해 주장으로 전해 주장·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The US State Department said US",
+   "note": "미국 반응 문단은 소통 채널 합의와 표적 의문이 대비돼 서고 unintended 만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "argument"
+  ]
+ },
+ {
+  "id": "0fb6068f-6356-41a0-b816-37d6abdf4259",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "758c5a2c2978d80316ffc30e626a7d1f13402670a4336868e35670684bf20843",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "파키스탄 대법원장 복직 판결과 무샤라프 정부에 대한 의미를 전해 내용일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chaudhry, an opponent of Musharraf, had",
+   "note": "의미 문단은 혐의 기각이 정부에 타격이라는 해석이 한 문장에 서서 quashed 만 풀면 됐다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0fba59fe-2a80-444f-9d74-19cd46eb5bb0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a8136c801d13487221470925383ff1eec0d6f4ae47f89aae6c08b7566d4dfa3d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "경찰 추격 끝 충돌로 일가족 아이들이 숨진 사고를 경위와 안전벨트 미착용으로 전해 고2 이상 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Both vehicles collided with lemon trees",
+   "note": "충돌 지점 문단은 도난차 탑승자 신원 미상까지 서지만 아이들 사망 묘사가 있어 연령을 올렸다."
+  },
+  "uses": [
+   "factual",
+   "sequence"
+  ]
+ },
+ {
+  "id": "0fbacd4e-864e-4c55-b63e-5c2b7b0206f6",
+  "source_updated_at": "2026-09-25T08:53:11.624753+00:00",
+  "body_sha256": "fc19929ece5edeff7e83bdcdca6c72628d771b0294c9a921ef8c98d0ebb078f1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "인도 소수자 대상 폭도 폭력 항의 시위를 발단·배경(소 보호 자경단)·총리 발언으로 전해 고3·성인 내용일치·목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "There have been several instances where",
+   "note": "배경 문단은 소 숭배·쇠고기 금지·자경단 폭력의 인과가 서서 사회 맥락을 설명했고 lynched 만 풀었다."
+  },
+  "uses": [
+   "factual",
+   "argument",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0fbc1bea-7e8e-4d86-9985-62d7ee825f63",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "66c574cb04c6b52492bb78411e4f89cae00cc4c86340133263e61d5b7102d897",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "콩고 40여 년 만의 선거 운동 종료를 카빌라 연설·폭력·유엔 감시로 전해 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "International observers, such as the Carter",
+   "note": "감시단 문단은 언론 독점 우려→항의→사망이 순서로 서고 irregularities 만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "sequence"
+  ]
+ },
+ {
+  "id": "0fbfd91f-6e09-4c8d-9ed2-6fb547d69a55",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "096beecadd64943b9efeeb96f59ff893a80e5b8f643004bdbc81d0898f10df49",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "이민자에게 「기본 가치」 수용을 요구한 야당 대표 발언과 장관 반박을 맞세워 주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "If you don't accept these fundamentals",
+   "note": "인용 문단은 가치 목록 앞 문단과 이어야 뜻이 서지만 목록을 한 문장으로 합치니 주장과 장관 반박이 짧게 섰다."
+  },
+  "uses": [
+   "argument",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0fc0d2ff-317d-4e52-af21-ef9d522e80ae",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "eeb22ec12680d7f6d1ba387a2f0c11d43acfd4237a439aac1d41ad41c9170923",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "라트비아 정부의 파렉스 은행 인수를 금융위기 속 국유화 흐름과 예금 인출로 전해 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The deal was first announced on",
+   "note": "합의 문단은 각국 은행 국유화 흐름과 연결해 서서 금융위기 맥락이 드러났고 takeovers 만 풀었다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0fc8231f-5674-4fcb-98c6-5ccb6a9cfa12",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "580a9bef67460ddf1087db1ccbb19d9d49c7e2992b1449773fe6da717f1ad4c6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "슈퍼 화요일 결과를 주별 승자와 비례 배분 설명으로 전하고 경선 국면 변화를 정리해 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In both parties, Super Tuesday was",
+   "note": "분수령 문단은 「한두 주 승리로 기세 만들던 단계 끝, 이제 대의원 경쟁」이 서서 watershed 만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "argument"
+  ]
+ },
+ {
+  "id": "0fd17f44-3305-4437-8f2c-6e2cdd399ffb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f79343ca886f4d652a2fea03864d82d96964381fe1f7fb1ead685ea2a676e5a5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "카르자이의 결선 수용과 선거 부정·관리 교체·향후 난관을 전해 주장·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "There are nevertheless difficulties ahead in",
+   "note": "난관 문단은 산악·폭설·치안 위험을 이유로 들어 짧게 서고 inaccessible 만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "spoken",
+   "structured"
+  ]
+ },
+ {
+  "id": "0fd4f249-084f-4543-a62b-9d85dcfc4c35",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "98d5098d694a7a8fb547b2957ecac28c04f353d5efe1876513df2e9dcb334162",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "타투이스트의 24시간 기록 도전 모금을 참가자·단체 목표·편견 회고로 전해 내용일치·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Vitamin Angels is the only organization",
+   "note": "단체 문단은 비타민 A 결핍 퇴치 목표와 「20/20」 연도 선택 까닭이 서서 빈칸형으로도 쓸 만했다."
+  },
+  "uses": [
+   "factual",
+   "mood",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0fd53a0e-1a30-448d-895a-b5684a773296",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c05966c6412b4af88754019d5c7f3987fdf14203382844597e31f64b64bc5907",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "런던 이중 총격 사망 사건을 피해자·수사 상황으로 전해 내용일치 칸을 채우되 인종으로 쓴 용의자 묘사는 걷어낸다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "The MPS, which is appealing for",
+   "note": "경찰 호소 문단은 동기 미상·열린 마음 인용으로 서지만 마지막 문단의 인종 기반 용의자 묘사는 가공 때 걷는다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0fdd37c8-3efa-4f6f-b73e-1e637e98c68b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "60ccf934aef189f386770b2535d2911af5de0789dc4d16e096c65ca0b5395401",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "런던 폭탄 테러범을 부인하고 경찰 협조를 거부한 성직자의 발언을 전하는 기사로 성인 대상 주장·내용일치 칸만 채운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The cleric also believes Islam does",
+   "note": "이웃과 싸우지 말라는 문단은 성직자의 교리 해석이 인용 하나로 서지만 테러 부인 맥락이라 성인 칸으로 뒀다."
+  },
+  "uses": [
+   "argument",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0fddfba3-e213-4dda-8707-2c98483d0666",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b488603fec11d48eab60eb6c607af0b23741589d523c1f2c550d0454a4338543",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "영국 짙은 안개가 항공·도로·철도에 준 혼란을 교통수단별로 전해 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Road travel has also been affected",
+   "note": "도로 문단은 시야 50피트→연쇄 추돌→우회 정체 인과가 서고 pile-up 만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "structured"
+  ]
+ },
+ {
+  "id": "0fded55e-36e4-4503-af69-35dd74f17968",
+  "source_updated_at": "2026-09-25T08:51:16.452683+00:00",
+  "body_sha256": "f1b2ba82c68377b5210adb748575b8cc1d4b592306314bd08bae80aef7f8b1b2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "터키 쿠데타 실패를 반란 선언·봉쇄·시민 저항·배후 지목 순으로 전해 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "During Erdoğan's address to citizens, coup",
+   "note": "항복 문단은 대통령 연설→시민 반대→전차 버리고 항복 순서가 서서 순서 재료가 됐다."
+  },
+  "uses": [
+   "factual",
+   "sequence"
+  ]
+ },
+ {
+  "id": "0fe6a22f-a666-4388-83d6-1edaf165c3c9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a77ebc61fe61fcf8a0fc5551157e4a4b9f445f08ac470b97900611ed04816789",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "하와이 코키 개구리 퇴치 예산을 외래종 유입·천적 부재·생태 위협의 인과로 설명해 빈칸·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school"
+   ],
+   "types": [
+    "content_match",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Native to the Caribbean, the coqui",
+   "note": "유입 문단은 식물 수입→천적 없음→개체 급증→소음 피해 인과가 서고 infestation 은 걷어 쉬웠다."
+  },
+  "uses": [
+   "factual",
+   "argument",
+   "structured"
+  ]
+ },
+ {
+  "id": "0ff05cf0-6103-46a7-a48a-cfd60a8f16f8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ea0aee9b25f0a9409ba93637ec7fc49f50e809bb36de4d0583a389da79d9c4ee",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "history",
+  "why": "규슈 국립박물관 개관을 역사 중심 방향과 다자이후의 역사적 의미로 설명해 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dazaifu, Fukuoka is a historic site",
+   "note": "다자이후 문단은 행정·외교 중심→전쟁터→신사로 역사 층위가 서지만 문장이 어색해 두어 곳 다듬어야 했다."
+  },
+  "uses": [
+   "factual",
+   "structured"
+  ]
+ }
+]
