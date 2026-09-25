@@ -327,7 +327,7 @@ export const RETENTION = new Set(['keep', 'keep-pending-extraction', 'hold', 'di
 // ── 보관 판정 어휘 — 정본 docs/source-check/criteria.md §3 과 **같아야 한다**(judge-criteria.test 가 대조한다) ──
 
 /** 기준 버전. 판정 기록마다 남긴다 — 개정 뒤 재판정 대상을 이것으로 가른다. */
-export const CRITERIA_VERSION = 5
+export const CRITERIA_VERSION = 6
 export const RETENTION_VERDICTS = new Set(['keep', 'hold', 'discard'])
 export const HOLD_REASONS = new Set(['criteria-gap', 'processing-unclear', 'incomplete-source', 'borderline'])
 export const SLOT_AGES = new Set(['elem', 'mid', 'high1', 'high2', 'high3', 'adult'])
