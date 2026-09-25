@@ -1,6 +1,6 @@
 {
   "gate": 1,
-  "at": "2026-09-25T07:40:41.652Z",
+  "at": "2026-09-25T09:05:22.272Z",
   "sample_exams": [
     "2026",
     "M2706"
@@ -49,7 +49,7 @@
     {
       "exam": "2014A",
       "items": 23,
-      "ms": 19,
+      "ms": 24,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": null,
@@ -65,7 +65,7 @@
     {
       "exam": "2014B",
       "items": 23,
-      "ms": 12,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": null,
@@ -81,7 +81,7 @@
     {
       "exam": "2015",
       "items": 28,
-      "ms": 16,
+      "ms": 12,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2015",
@@ -97,7 +97,7 @@
     {
       "exam": "2016",
       "items": 28,
-      "ms": 13,
+      "ms": 36,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2016",
@@ -113,7 +113,7 @@
     {
       "exam": "2017",
       "items": 28,
-      "ms": 13,
+      "ms": 141,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2017",
@@ -161,7 +161,7 @@
     {
       "exam": "2020",
       "items": 28,
-      "ms": 15,
+      "ms": 25,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2020",
@@ -177,7 +177,7 @@
     {
       "exam": "2021",
       "items": 28,
-      "ms": 12,
+      "ms": 20,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2021",
@@ -193,7 +193,7 @@
     {
       "exam": "2022",
       "items": 28,
-      "ms": 13,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2022",
@@ -209,7 +209,7 @@
     {
       "exam": "2023",
       "items": 28,
-      "ms": 13,
+      "ms": 19,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2023",
@@ -225,7 +225,7 @@
     {
       "exam": "2024",
       "items": 28,
-      "ms": 13,
+      "ms": 17,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2024",
@@ -241,7 +241,7 @@
     {
       "exam": "2025",
       "items": 28,
-      "ms": 13,
+      "ms": 14,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2025",
@@ -257,7 +257,7 @@
     {
       "exam": "2026",
       "items": 28,
-      "ms": 14,
+      "ms": 20,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2026",
@@ -273,7 +273,7 @@
     {
       "exam": "M1809",
       "items": 28,
-      "ms": 11,
+      "ms": 12,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M1809",
@@ -305,7 +305,7 @@
     {
       "exam": "M2106",
       "items": 28,
-      "ms": 10,
+      "ms": 16,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2106",
@@ -321,7 +321,7 @@
     {
       "exam": "M2109",
       "items": 28,
-      "ms": 17,
+      "ms": 23,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2109",
@@ -337,7 +337,7 @@
     {
       "exam": "M2206",
       "items": 28,
-      "ms": 14,
+      "ms": 16,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2206",
@@ -353,7 +353,7 @@
     {
       "exam": "M2209",
       "items": 28,
-      "ms": 20,
+      "ms": 27,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2209",
@@ -369,7 +369,7 @@
     {
       "exam": "M2306",
       "items": 28,
-      "ms": 15,
+      "ms": 23,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2306",
@@ -385,7 +385,7 @@
     {
       "exam": "M2309",
       "items": 28,
-      "ms": 12,
+      "ms": 20,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2309",
@@ -401,7 +401,7 @@
     {
       "exam": "M2406",
       "items": 28,
-      "ms": 14,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2406",
@@ -417,7 +417,7 @@
     {
       "exam": "M2409",
       "items": 28,
-      "ms": 13,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2409",
@@ -433,7 +433,7 @@
     {
       "exam": "M2506",
       "items": 28,
-      "ms": 16,
+      "ms": 29,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2506",
@@ -449,7 +449,7 @@
     {
       "exam": "M2509",
       "items": 28,
-      "ms": 11,
+      "ms": 16,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2509",
@@ -465,7 +465,7 @@
     {
       "exam": "M2606",
       "items": 28,
-      "ms": 23,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2606",
@@ -481,7 +481,7 @@
     {
       "exam": "M2609",
       "items": 28,
-      "ms": 14,
+      "ms": 16,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2609",
@@ -497,7 +497,7 @@
     {
       "exam": "M2706",
       "items": 28,
-      "ms": 13,
+      "ms": 19,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2706",
