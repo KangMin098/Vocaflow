@@ -137,7 +137,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | 라우트 | 파일 | 설명 |
 |---|---|---|
 | `/csat` | `(app)/csat/page.tsx` + `SpaceScreen.tsx` · `home/CsatRail.tsx` · `home/ContinueCard.tsx` · `home/ContinuePanel.tsx` | **기출분석공간 홈(앱 셸 없음 · 3B 앱 메인 결)** — docs/csat/ia-design.md. 메뉴(홈 · 이어서·복습 · 내 기록 · 전체 서가 / 목적별 5 / 유형별 / 회차별) · 띠 위 상태 카드(첫 방문 · 재방문 · 공백 복귀 — 밀린 복습 ≤3 압축) · 도구줄(찾기 · 칩 · 덮은 넓이) · 유형/함정 표(「본 문항」). 쿼리: `?need=killer` · `?tab=trap` · `?view=continue`(이어서 · 복습 판) |
-| `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` + `AnalysisTheater.tsx` | **출제 분석**(옛 이름 「해설 극장」 · 2026-09-25 개명) — 왼쪽 열 = 기출문제 원본(학습자가 놓은 PDF 의 기기 추출본 · 개발 서버는 로컬 PDF 자동), 가운데 탭(분석 · 진행 · 같은 유형) + 두 판(지문 지도 `PassageMap` | 분석 블록: 재는 것 · 의도 · 정답 근거 · 오답마다 · 절차 · 어휘), 하단 도크 = 강의 차례(12~14칸). 효과음 4종(큐 경계) · 배속 3단 · 「전부 펼쳐 읽기」. 강의가 없는 문항은 상영 없이 블록만 |
+| `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` + `AnalysisTheater.tsx` | **사고 역추적**(옛 이름 「해설 극장」→「출제 분석」 · 2026-09-25 개명) — 왼쪽 열 = 기출문제 원본(학습자가 놓은 PDF 의 기기 추출본 · 개발 서버는 로컬 PDF 자동), 가운데 탭(분석 · 진행 · 같은 유형) + 두 판(지문 지도 `PassageMap` | 분석 블록: 재는 것 · 의도 · 정답 근거 · 오답마다 · 절차 · 어휘), 하단 도크 = 강의 차례(12~14칸). 효과음 4종(큐 경계) · 배속 3단 · 「전부 펼쳐 읽기」. 강의가 없는 문항은 상영 없이 블록만 |
 | `/csat/dissect` | `(main)/csat/dissect/page.tsx` + `SessionRunner.tsx` · `ItemScreen.tsx` | 정답 선공개 · 예측 3수 후 분석 인라인 · 설계도 · 공식 저장/3일 뒤 재확인 · 두 문항 대조 후 전이. `?set=<슬러그,…>`와 `?formula=<태그>` 검증 |
 | `/csat/formulas` | `(main)/csat/formulas/page.tsx` + `ProgressView.tsx` | 기기에 모은 공식 · 최근 30예측 적중률 · 계열 커버리지. 유형별 펼치기와 해당 공식 다시 확인 |
 | `/csat/space` | `(app)/csat/space/page.tsx` | 옛 주소 — `/csat` 으로 redirect |

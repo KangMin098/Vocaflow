@@ -236,7 +236,7 @@ export function stepsFor(row: SpaceRow): SpaceStep[] {
     body: row.example ? `${row.example.label} ${row.example.no}번` : '골라 둔 예시가 아직 없다.',
     tone: toneAt(2),
     href: row.example ? `/csat/item/${row.example.slug}` : undefined,
-    hrefLabel: '출제 분석에서 열기',
+    hrefLabel: '사고 역추적으로 열기',
   })
   steps.push({
     title: '서가에서 보기',
