@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2706#33",
+      "roles": ["background", "topic", "example", "example", "support", "example", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 6, "role": "conclusion" }, { "index": 2, "role": "support" }, { "index": 3, "role": "support" }],
+      "pattern": "cause_effect",
+      "selection": "감정이 지각을 왜곡한다는 인과를 겁쟁이·연인 사례로 보여 주고 빈칸을 비교 구문 뒷마디에 두어, 감정의 강도와 오인의 문턱 사이 방향을 스스로 계산해야 풀리는 글이다.",
+      "transform": "inference",
+      "transform_note": "작은 유사성으로도 오인이 생긴다는 전제와 감정이 클수록 더 치우친다는 결론을 결합해, 필요한 유사성이 줄어든다는 관계를 논리로 복원해야 한다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#34",
+      "roles": ["topic", "example", "support", "conclusion", "support", "example"],
+      "alternatives": [{ "index": 4, "role": "example" }],
+      "pattern": "general_specific",
+      "selection": "첫 문장 빈칸 뒤에 두 사람·두 대안의 예시와 추첨의 필요성·역사가 이어져, 일반 진술을 뒤의 구체 논의로부터 거꾸로 채워야 하는 구조다.",
+      "transform": "paraphrase",
+      "transform_note": "추첨을 사회적 결과로 허용해야 한다는 진술이 선지에서 무작위화나 동점 처리 수단을 요구한다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#33",
+      "roles": ["topic", "support", "example", "example", "concession", "turn"],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "숲이 다양하다는 사실을 무엇의 근거로 삼으면 안 되는지를 앞절에 두고, 영국 임업위원회의 습지 조림 사례와 생태학자의 비판으로 그 대상을 드러내 뒤의 사례에서 원리를 끌어내게 한다.",
+      "transform": "abstraction",
+      "transform_note": "습지를 배수·시비해 숲으로 바꾼 구체 사업이 선지에서 비숲을 숲으로 전환하는 일의 정당화라는 일반 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#32",
+      "roles": ["background", "topic", "support", "support", "support", "conclusion", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "concession" }, { "index": 5, "role": "support" }],
+      "pattern": "myth_rebuttal",
+      "selection": "공감이 널리 칭송된다는 통념을 깔고 비판론자의 주장을 연쇄로 쌓은 뒤 결론 표지로 빈칸을 요약 자리에 두어, 논지의 부정 방향을 유지하는지를 보게 했다.",
+      "transform": "paraphrase",
+      "transform_note": "공감이 갈등을 더 악화시킨다는 진술이 선지에서 갈등 상황에서 흔히 역효과를 낸다는 같은 수준의 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#31",
+      "roles": ["background", "topic", "example", "example", "example", "example", "example", "example", "example"],
+      "alternatives": [{ "index": 0, "role": "topic" }, { "index": 4, "role": "turn" }],
+      "pattern": "general_specific",
+      "selection": "포식자의 지각을 조작한다는 틀을 먼저 세우고 바우어새의 장식 배치 사례를 길게 이어, 사례의 표면 행동이 아닌 틀 개념을 빈칸으로 옮기는지를 보는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "큰 물건을 가까이 작은 물건을 멀리 두어 수컷이 커 보이게 하는 강제 원근의 구체 사례가 선지에서 지각 편향이라는 상위 개념으로 묶였다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#34",
+      "roles": ["background", "topic", "support", "support", "concession", "turn", "support", "support"],
+      "alternatives": [{ "index": 5, "role": "conclusion" }, { "index": 6, "role": "example" }],
+      "pattern": "other",
+      "selection": "루소의 주장을 먼저 세우고 그의 자족 갈망을 양보로 길게 끼운 뒤 역접으로 되돌리는 주장-양보-재주장 구조라 목록 패턴 어디에도 딱 맞지 않으며, 양보부의 낱말에 끌리지 않고 인용문으로 빈칸을 풀어야 한다.",
+      "transform": "compression",
+      "transform_note": "자아가 타인의 능동적 개입으로 실현된다는 진술과 친절·공감이 집합적 존재의 열쇠라는 진술이 선지에서 정서적 애착에 의한 개인의 형성이라는 한 구로 압축됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#33",
+      "roles": ["topic", "support", "support", "example", "support", "support", "example"],
+      "alternatives": [{ "index": 4, "role": "example" }],
+      "pattern": "myth_rebuttal",
+      "selection": "보행자가 많으면 좋은 도시라는 통념을 뒤집고 로마의 머무는 사람들로 도시의 질을 증명하는 글이라, 필요가 아닌 무엇 때문에 머무는지를 구문 대비로 가려야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "머물고 싶은 유혹이 많아 계속 움직이기 어렵다는 진술이 선지에서 도시의 질이 그만큼 끌어당긴다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#32",
+      "roles": ["background", "topic", "support", "example", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "통신 투자가 수익성을 따른다는 일반 진술을 아프리카 광케이블 사례로 뒷받침하는 글인데, 빈칸 문장에 보장이 없다는 부정이 걸려 있어 지문이 배제한 쪽을 골라야 하는 부정문 계산을 요구한다.",
+      "transform": "negation_flip",
+      "transform_note": "개발이 공동체 수요가 아니라 투자 기회를 따랐다는 부정 진술의 대상이 선지에서 다수에게 가장 적절한 형태라는 긍정형으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#33",
+      "roles": ["background", "background", "topic", "support", "example", "example"],
+      "alternatives": [{ "index": 3, "role": "background" }, { "index": 5, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "주관적 경험과 환경이 결합 체계라는 추상 명제에서 빈칸이 제도의 역할을 정의하고, 뒤의 연구·제도 목록이 그 작용 방향을 구체화해 추상 진술을 뒤의 사례로 확정하게 만든다.",
+      "transform": "paraphrase",
+      "transform_note": "다양한 제도적 관행이 우리의 결정에 영향을 준다는 연구 진술이 선지에서 우리의 주관적 경험과 해결책에 영향을 준다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#32",
+      "roles": ["background", "background", "topic", "support", "support", "conclusion", "support"],
+      "alternatives": [{ "index": 2, "role": "turn" }],
+      "pattern": "myth_rebuttal",
+      "selection": "창의성의 통상적 정의를 먼저 제시하고 그 정의가 놓치는 측면으로 논지를 옮기는 글이라, 빈칸 요약이 정의가 아닌 이후 단계(평가·선별)를 담는지를 가려야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "아이디어 생성이 최종 목표인 경우는 드물다는 진술이 선지에서 창의성은 생성에서 멈추지 않는다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

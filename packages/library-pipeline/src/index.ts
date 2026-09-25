@@ -589,6 +589,15 @@ export {
   learnerPriority,
 } from './compose/topic-fitness'
 export type { TopicFitness } from './compose/topic-fitness'
+// 모음 단계 사전검증 — 분류·제목·앞부분 (2026-09-25)
+export {
+  precheckArticle,
+  precheckPolicy,
+  PRECHECK_POLICY,
+  PRECHECK_VERSION,
+  HEAD_THRESHOLDS,
+} from './ingest-article/precheck'
+export type { PrecheckResult, PrecheckInput, PrecheckPolicy, PrecheckMode } from './ingest-article/precheck'
 
 // 초안 검수 — 게이트가 보지 않는 것. 잰 것과 판단이 필요한 것을 나눠 돌려준다.
 export { REVIEW_JUDGE_CHECKLIST, reviewDraft } from './compose/review'

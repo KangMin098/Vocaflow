@@ -21,9 +21,12 @@ const OUT = arg('out', '.')
 const LIMIT = Number(arg('limit', 20))
 const START_PAGE = Number(arg('page', 1))
 
+// 요청 간격 — 기본 2.5초. 2026-09-25 파일럿에서 1.1초·병렬 ~90요청 뒤 사이트가 IP 를 반나절 끊었다.
+const GAP_MS = Math.max(1100, Number(arg('gap', 2500)))
+
 let last = 0
 async function get(url) {
-  const wait = last + 1100 - Date.now()
+  const wait = last + GAP_MS - Date.now()
   if (wait > 0) await new Promise((r) => setTimeout(r, wait))
   last = Date.now()
   const res = await fetch(url, { headers: { 'User-Agent': UA } })
@@ -65,25 +68,51 @@ async function main() {
   console.log(`robots.txt: wp-json ${blocked ? 'DISALLOWED' : 'allowed'}`)
   if (blocked) process.exit(1)
 
-  const out = []
+  fs.mkdirSync(OUT, { recursive: true })
+  const file = path.join(OUT, 'ft-global_voices-samples.json')
+  // 이어받기 — 2026-09-25 에 194편째 502 한 번으로 전량이 날아갔다(끝에서만 저장했다).
+  //   이제 20편마다 저장하고, 다시 돌리면 이미 받은 id 는 건너뛴다.
+  const out = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : []
+  const have = new Set(out.map((r) => String(r.id)))
+  const save = () => fs.writeFileSync(file, JSON.stringify(out, null, 2))
+  let failed = 0
   let page = START_PAGE
-  while (out.length < LIMIT && page < START_PAGE + 10) {
+  // 페이지 상한은 목표 편수에서 잡는다 — 예전 `+10` 은 200편에서 멈췄다(짧은 글·라이선스 없음 건너뜀 포함 여유 3배).
+  const MAX_PAGE = START_PAGE + Math.ceil((LIMIT * 3) / 20)
+  while (out.length < LIMIT && page < MAX_PAGE) {
     const url = `${BASE}/wp-json/wp/v2/posts?per_page=20&page=${page}&_embed=author&_fields=id,date,link,title,content,_links,_embedded`
-    const posts = await (await get(url)).json()
+    let posts
+    try {
+      posts = await (await get(url)).json()
+    } catch (e) {
+      console.log(`목록 실패 page ${page}: ${e.message} — 30초 뒤 한 번 더`)
+      await new Promise((r) => setTimeout(r, 30000))
+      try { posts = await (await get(url)).json() } catch { console.log('목록 재시도 실패 — 멈춘다(받은 것은 저장됨)'); break }
+    }
     if (!posts.length) break
     for (const p of posts) {
       if (out.length >= LIMIT) break
+      if (have.has(String(p.id))) continue
       const body = htmlToProse(p.content?.rendered ?? '')
       const words = body ? body.split(/\s+/).length : 0
       if (words < 150) continue
-      const html = await (await get(p.link)).text()
+      let html
+      try {
+        html = await (await get(p.link)).text()
+      } catch (e) {
+        // 글 하나의 5xx 는 건너뛴다 — 수집 전체를 멈추지 않는다. 다음 실행이 다시 시도한다.
+        failed++
+        console.log(`skip (${e.message.split(' ')[0]}): ${p.link}`)
+        continue
+      }
       const lic = html.match(/rel=['"]license['"][^>]*href=['"](https:\/\/creativecommons\.org\/licenses\/[^'"]+)['"][^>]*title=['"]([^'"]+)['"]/i)
       if (!lic) {
         console.log(`skip (no license on page): ${p.link}`)
         continue
       }
       out.push({
-        id: `global_voices:${p.id}`,
+        // 원천 접두어를 붙이지 않는다 — 적재기가 `global_voices:` 를 붙인다(겹치면 `global_voices:global_voices:…`).
+        id: String(p.id),
         title: decode(p.title?.rendered ?? '').trim(),
         url: p.link,
         license: `${lic[2]} (${lic[1]})`,
@@ -93,14 +122,14 @@ async function main() {
         body_text: body,
         words,
       })
+      have.add(String(p.id))
       console.log(`ok ${out.length}/${LIMIT} ${words}w ${p.link}`)
+      if (out.length % 20 === 0) save()
     }
     page++
   }
-  fs.mkdirSync(OUT, { recursive: true })
-  const file = path.join(OUT, 'ft-global_voices-samples.json')
-  fs.writeFileSync(file, JSON.stringify(out, null, 2))
-  console.log(`wrote ${out.length} → ${file}`)
+  save()
+  console.log(`wrote ${out.length} → ${file} · 글 실패(건너뜀) ${failed}`)
 }
 
 main().catch((e) => {

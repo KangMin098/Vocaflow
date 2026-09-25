@@ -96,13 +96,13 @@ const IMPORT: SourceGetGuide = {
 /** 소스GET 3차 (2026-09-25) — 원천별 수집기가 표본 파일을 쓰고, 공용 적재기가 담는다. */
 function fetchImport(source: string, sample: string, full: string, caution?: string): SourceGetGuide {
   const fetcher = `scripts/csat/source-get/${source}-fetch.mjs`
-  const imp = `node --tls-max-v1.2 scripts/csat/source-get/import.mjs --source ${source} --dir <폴더>`
+  const imp = `pnpm dlx tsx scripts/csat/source-get/import.mjs --source ${source} --dir <폴더>`
   return {
     script: fetcher,
     kind: 'import',
     steps: [
       { title: '표본 받기 (읽기 전용)', command: `node ${fetcher} --out <폴더> ${sample}`, note: '원천 서버에서 받아 <폴더>/ft-' + source + '-samples.json 에 쓴다. DB 에는 안 쓴다. 본문을 몇 편 열어 정제 상태를 눈으로 본다.', writes: false },
-      { title: '대조 (dry-run)', command: imp, note: '이미 있는 source_id · 빈 본문 · 라이선스 해소 필요(NC·ND) 수를 출력한다. 아무것도 안 쓴다.', writes: false },
+      { title: '대조 (dry-run)', command: imp, note: '이미 있는 source_id · 빈 본문 · 라이선스 해소 필요(NC·ND) · 사전검증(분류·제목·앞부분) 막음·표시 수를 출력한다. 아무것도 안 쓴다. 막음 사유가 많으면 적재 전에 사유별 표본을 본다.', writes: false },
       { title: '제약 확인용 1편', command: `${imp} --commit --limit 1`, note: 'CHECK 제약(library_articles_source_check)이 이 원천을 받는지 1편으로 확인한다.', writes: true },
       { title: '본 수집 → 적재', command: `node ${fetcher} --out <폴더> ${full}` + ' 뒤 ' + `${imp} --commit`, note: '재실행 안전 — source_id 로 건너뛰고 건너뛴 수를 출력한다.', writes: true },
       PROCESS,
@@ -126,7 +126,7 @@ const GUIDES: Record<string, SourceGetGuide> = {
     '원 사이트는 Cloudflare 챌린지(JS)라 자동 접근이 막힌다 — 우회하지 않고 Internet Archive 사본(web.archive.org)에서 받는다. Wayback 503 은 재시도한다. 「Featured Website」 소개 꼭지는 뺀다.'),
   wikinews: {
     ...acp('wikinews'),
-    caution: 'Wikinews 는 2026-05-04 부터 읽기 전용 고정 아카이브다. robots.txt 가 /w/(api.php)를 막으므로 대량은 덤프(dumps.wikimedia.org/enwikinews) 경로를 쓴다. 덤프 수집: `node scripts/csat/source-get/wikinews-fetch.mjs --dump --out <폴더>` → `node --tls-max-v1.2 scripts/csat/source-get/import.mjs --source wikinews --dir <폴더> --commit`. 2026-09-25 에 발행 22,109 중 19,366편 적재(스포츠 2,557 · 표기 잔여 100 제외) — 아카이브가 고정이라 다시 돌릴 일은 거의 없다.',
+    caution: 'Wikinews 는 2026-05-04 부터 읽기 전용 고정 아카이브다. robots.txt 가 /w/(api.php)를 막으므로 대량은 덤프(dumps.wikimedia.org/enwikinews) 경로를 쓴다. 덤프 수집: `node scripts/csat/source-get/wikinews-fetch.mjs --dump --out <폴더>` → `pnpm dlx tsx scripts/csat/source-get/import.mjs --source wikinews --dir <폴더> --commit`. 2026-09-25 에 발행 22,109 중 19,366편 적재(스포츠 2,557 · 표기 잔여 100 제외) — 아카이브가 고정이라 다시 돌릴 일은 거의 없다.',
   },
   wikipedia: acp('wikipedia'),
   wikivoyage: acp('wikivoyage'),
@@ -149,8 +149,8 @@ const GUIDES: Record<string, SourceGetGuide> = {
   econstor: IMPORT,
   scielo: IMPORT,
   openalex: IMPORT,
-  global_voices: fetchImport('global_voices', '--limit 20', '--limit 400',
-    '2026-09-25 파일럿에서 ~90요청(병렬 포함) 뒤 사이트가 응답을 끊었다. 한 프로세스로만, 요청 간격을 2초 이상 둔다.'),
+  global_voices: fetchImport('global_voices', '--limit 20', '--limit 100',
+    '사이트가 대량 수집을 막는다 — 2026-09-25 에 1.1초 간격 ~90요청, 2.5초 간격 ~100편 뒤 두 번 모두 연결이 끊겼다(반나절 뒤 풀림). 한 프로세스로 하루 100편 이하씩 받는다. 수집기는 20편마다 저장하고, 다시 돌리면 이미 받은 글을 건너뛰고 이어받는다.'),
   global_storybooks: fetchImport('global_storybooks', '--limit 20', '--limit 1000',
     'African Storybook 과 같은 이야기다. 이야기마다 License 줄을 읽는다 — CC-BY-NC 는 담기지만 restricted 로 막힌다.'),
   gdl: fetchImport('gdl', '--limit 20', '--limit 500',
