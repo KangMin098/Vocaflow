@@ -7,7 +7,9 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 export const UA = 'VocaflowSourceGet/1.0 (killerapp51@empal.com)'
-const GAP_MS = 1100
+let GAP_MS = 1100
+/** 요청 간격(ms)을 늘린다 — 기본 1.1초보다 짧게는 못 줄인다. */
+export function setGap(ms) { GAP_MS = Math.max(1100, ms) }
 let last = 0
 
 export function parseArgs(argv = process.argv.slice(2)) {
