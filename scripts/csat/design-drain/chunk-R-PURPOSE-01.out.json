@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1",
+  "type": "R-PURPOSE",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2606#18",
+      "roles": ["background", "background", "background", "speech_act", "support", "speech_act", "closing"],
+      "alternatives": [{ "index": 2, "role": "support" }],
+      "pattern": "request_letter",
+      "selection": "전시 관람 소감과 광산 경력을 앞에 길게 깔아 감상문처럼 보이게 하고 문의 화행을 두 번 나눠 심은 편지라, 소재가 아니라 수신자에게 묻는 행동을 찾아야 목적이 잡힌다.",
+      "transform": "speech_act_verb",
+      "transform_note": "자원봉사 안내자 자리가 있는지 궁금하다는 간접 질문이 선지의 ‘자리가 있는지 문의하려고’로 화행 동사화되었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#18",
+      "roles": ["background", "speech_act", "support", "support", "support", "closing", "closing", "closing"],
+      "alternatives": [{ "index": 4, "role": "speech_act" }],
+      "pattern": "request_letter",
+      "selection": "할인·식사 패키지·쿠폰 같은 세부 항목을 나열해 한 항목을 목적으로 착각하게 만드는 판촉 안내문이라, 항목들을 묶는 상위 제안을 찾아야 한다.",
+      "transform": "abstraction",
+      "transform_note": "독점 프로모션 제공과 그 구성 항목들이 선지의 ‘여행 상품 판촉 행사를 안내하려고’로 상위 개념화되었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#18",
+      "roles": ["closing", "background", "background", "support", "support", "support", "speech_act", "closing", "closing"],
+      "alternatives": [{ "index": 0, "role": "background" }, { "index": 8, "role": "speech_act" }],
+      "pattern": "problem_solution",
+      "selection": "채널 인사와 댓글창의 두 문제를 차례로 제시한 뒤 요청을 붙인 글이라, 인사나 ‘부적절’이라는 낱말에 끌리지 않고 문제와 요청을 이어 읽어야 목적이 선다.",
+      "transform": "compression",
+      "transform_note": "두 종류의 문제 댓글과 ‘이것들을 유념해 달라’는 요청이 선지의 ‘부적절한 댓글을 쓰지 않도록 요청’으로 압축되었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#18",
+      "roles": ["background", "background", "background", "speech_act", "support", "speech_act", "support", "closing", "closing"],
+      "alternatives": [{ "index": 5, "role": "support" }],
+      "pattern": "request_letter",
+      "selection": "도로 공사·안전 우려라는 배경 뒤에 Therefore 로 요청을 이어 붙여, 배경 문장 하나를 목적으로 잡으면 공사 설명이나 안전 수칙 당부로 새게 되는 전형적 요청 편지다.",
+      "transform": "speech_act_verb",
+      "transform_note": "학부모 교통 지도 봉사자를 구한다는 문장이 선지의 ‘교통안전 봉사 참여를 요청하려고’로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#18",
+      "roles": ["background", "support", "support", "speech_act", "support", "support", "closing", "closing"],
+      "alternatives": [{ "index": 4, "role": "speech_act" }],
+      "pattern": "request_letter",
+      "selection": "재개장 날짜·무료 입장·먹거리·새 시설을 늘어놓아 나열 항목과 초대 화행을 구분하는지 재는 안내 편지다.",
+      "transform": "speech_act_verb",
+      "transform_note": "회원들을 행사에 초대하고 싶다는 문장이 선지의 ‘재개장 행사에 초대하려고’로 그대로 동사화되었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2309#18",
+      "roles": ["background", "speech_act", "support", "support", "support", "support", "support", "closing", "closing"],
+      "alternatives": [{ "index": 6, "role": "speech_act" }],
+      "pattern": "other",
+      "selection": "요구 문장 없이 응원·자부심만 쌓은 격려 편지라 요청형 패턴에 맞지 않으며, 요구가 없을 때 알림 화행 자체를 목적으로 읽어야 하는지를 시험한다.",
+      "transform": "speech_act_verb",
+      "transform_note": "끝까지 지지한다는 것을 알리고 싶다는 문장이 선지의 ‘선수를 응원하려고’로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2306#18",
+      "roles": ["background", "background", "background", "support", "speech_act", "closing", "closing"],
+      "alternatives": [{ "index": 2, "role": "support" }],
+      "pattern": "request_letter",
+      "selection": "예약 사실·인원 증가·다른 수영장 정보라는 배경 수치를 앞에 두고 요구는 맺음 직전 한 문장에만 둔 문의 편지다.",
+      "transform": "speech_act_verb",
+      "transform_note": "추가 대여가 가능한지 알려 달라는 부탁이 선지의 ‘추가 대여 가능 여부를 문의하려고’로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2209#18",
+      "roles": ["background", "background", "background", "speech_act", "support", "support", "closing", "closing", "closing"],
+      "alternatives": [],
+      "pattern": "request_letter",
+      "selection": "자선 음악회라는 소재 아래 모금·연주·관람 같은 이웃 사건을 깔고 수신자를 향한 초대 동사 하나에 화행을 건 요청 편지다.",
+      "transform": "speech_act_verb",
+      "transform_note": "음악회 개막 무대에 초대하고 싶다는 문장과 피아니스트 명성 언급이 선지의 ‘연주자로 참여해 달라고 요청’으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": "서명 ‘Thomas A. Cobb’ 이 약어 마침표에서 두 문장(7·8)으로 잘못 분할됨."
+    },
+    {
+      "id": "M2206#18",
+      "roles": ["speech_act", "background", "background", "support", "support", "support", "closing", "closing", "closing"],
+      "alternatives": [{ "index": 3, "role": "speech_act" }],
+      "pattern": "general_specific",
+      "selection": "첫 문장에서 멤버십 새 소식을 예고한 뒤 기념·할인·전시 등 다른 소재를 나열해, 알림의 대상이 무엇인지 예고와 혜택 문장을 이어 읽어야 하는 통보 편지다.",
+      "transform": "abstraction",
+      "transform_note": "무료 입장·기념품 할인·전시 초대 등 세부 혜택이 선지의 ‘회원을 위한 추가 혜택을 알려 주려고’로 묶였다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#18",
+      "roles": ["background", "background", "background", "background", "support", "speech_act", "closing", "closing"],
+      "alternatives": [{ "index": 1, "role": "speech_act" }],
+      "pattern": "request_letter",
+      "selection": "공모전 출품 수·주제 등 정보를 길게 깔고 요구는 마지막 긴 문장의 뒷절에만 넣어, 앞부분만 보고 목적을 단정하면 어긋나게 만든 요청 편지다.",
+      "transform": "speech_act_verb",
+      "transform_note": "갤러리 공간을 빌리기를 바란다는 희망 표현이 선지의 ‘전시 장소 대여를 문의하려고’로 화행 동사화되었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

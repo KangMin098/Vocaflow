@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2023#32",
+      "roles": ["background", "support", "example", "support", "example", "topic", "support"],
+      "alternatives": [{ "index": 1, "role": "background" }],
+      "pattern": "cause_effect",
+      "selection": "도시가 사람들 사이의 잦은 접촉 때문에 언어·취향 변화의 발원지가 된다는 인과를 쌓아 올린 뒤 그 원인을 빈칸 이유절로 접는 글이라 빈칸 추론에 맞다.",
+      "transform": "paraphrase",
+      "transform_note": "가장 많은 사람이 가장 많은 사람과 듣고 말하는 곳이라는 조건문 귀결이 선지에서 타인에 대한 노출을 가장 많이 제공한다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": "⑤ 선지 끝에 깨진 글자 '8' 이 붙어 있다."
+    },
+    {
+      "id": "2023#31",
+      "roles": ["topic", "support", "support", "turn", "conclusion"],
+      "alternatives": [{ "index": 2, "role": "example" }],
+      "pattern": "contrast",
+      "selection": "스포츠 기자의 넓은 독자층·높은 보수와 낮은 직업적 위신을 맞세운 역설의 글이라, 빈칸이 두 항 중 적다고 서술된 쪽을 골라내게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "독자 규모에 걸맞은 위신이 없고 하는 일의 가치가 깎인다는 진술이 선지에서 존경받지 못한다는 한 낱말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2022#34",
+      "roles": ["background", "turn", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "topic" }],
+      "pattern": "contrast",
+      "selection": "정밀성을 좇는 과학과 관점을 늘리는 역사 서술을 대비한 글로, 마지막 빈칸에서 역사 쪽이 의심하는 대상을 앞 문장에서 되짚어 채워야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "이전의 확정성과 정밀성이라는 환상을 벗긴다는 진술이 선지에서 이미 얻은 듯 보이는 확실성과 정밀성이라는 명사구로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2022#31",
+      "roles": ["topic", "support", "support", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 3, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "유머의 인지적 이탈을 참·거짓을 따지지 않음으로 정의하고 정정 일화로 보여 준 뒤 마지막에 그 축을 비운 구조라, 앞의 정의로 돌아가 빈칸을 채우게 한다.",
+      "transform": "negation_flip",
+      "transform_note": "진짜인지 참인지를 따지지 않는다는 부정 진술이 선지에서 정확한 정보라는 대상 낱말로 바뀌어 부정 구문 안에 놓였다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2021#34",
+      "roles": ["topic", "support", "example", "example", "support", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "성공적 통합을 초점이 기술에서 교육 목적으로 옮겨 가는 것으로 정의한 뒤 마지막 부정 결론의 조건절을 비워, 정의를 뒤집어 적용하게 만든 글이다.",
+      "transform": "negation_flip",
+      "transform_note": "초점이 기술에서 목적으로 옮겨 가면 통합된 것이라는 긍정 정의가 선지에서 초점이 아직 기술 자체에 머문 상태로 뒤집혔다.",
+      "cues": [],
+      "data_defect": "빈칸 표시가 2번 문장(볼펜 기제가 다양하다는 자리)에 잘못 붙었고, 실제 빈칸인 5번 문장은 조건절 주어·동사가 빠진 채 이어진다."
+    },
+    {
+      "id": "2020#31",
+      "roles": ["topic", "support", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "background" }],
+      "pattern": "cause_effect",
+      "selection": "과학주의의 정의에서 비과학적 접근이 폄하되는 귀결을 끌어내는 인과의 글이라, 빈칸이 그 폄하의 방향을 한 명사로 잇게 한다.",
+      "transform": "inference",
+      "transform_note": "과학적 서술만이 유일한 진리라는 정의에서 비과학적 접근은 세계 서술에 거의 가치가 없다는 귀결을 논리로 채워야 한다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#33",
+      "roles": ["topic", "support", "support", "support", "support", "example", "conclusion"],
+      "alternatives": [{ "index": 5, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "유산을 현재의 요구에 따라 선별되고 다시 폐기되는 자원으로 설명한 뒤 Thus 로 요약하는 구조라, 선택과 폐기를 한 구로 묶는 판단을 요구한다.",
+      "transform": "compression",
+      "transform_note": "과거에서 선택된다는 서술과 나중에 버려지거나 재발명된다는 서술이 선지에서 기억만큼 망각에 관한 것이라는 한 구로 압축됐다.",
+      "cues": [],
+      "data_defect": "0번 문장 중간(기억 뒤)에 빈칸 표시가 잘못 들어가 있다."
+    },
+    {
+      "id": "2019#31",
+      "roles": ["example", "example", "example", "example", "topic", "support", "support", "example", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "background" }, { "index": 4, "role": "support" }],
+      "pattern": "study_implication",
+      "selection": "벨기에 국왕 사망 소식의 사회적 공유 연구를 소개하고 그 함의(공유가 많을수록 기억이 고정된다)를 끌어내는 글이라, 빈칸이 공유의 양을 형용사로 압축하게 한다.",
+      "transform": "compression",
+      "transform_note": "많이 공유될수록 더 고정된다는 비교 구문이 선지에서 반복적이라는 형용사 하나로 압축됐다.",
+      "cues": [],
+      "data_defect": "0번 문장(연구 소개)에 빈칸 표시가 잘못 붙어 있다 — 실제 빈칸은 마지막 문장뿐이다."
+    },
+    {
+      "id": "2017#31",
+      "roles": ["topic", "support", "support", "support", "support", "support", "support", "example"],
+      "alternatives": [{ "index": 1, "role": "example" }],
+      "pattern": "problem_solution",
+      "selection": "과잉 구조화가 창의성과 인지적 호기심을 없앤다는 문제를 과학 교육 사례로 풀어 가는 글이라, 빈칸이 결론이 정해진 놀이 도구의 성격을 한 낱말로 요구한다.",
+      "transform": "abstraction",
+      "transform_note": "미리 정해진 결론을 가진 놀이 도구라는 서술이 선지에서 그 자체로 목적인 것이라는 한 낱말로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2016#31",
+      "roles": ["topic", "support", "support", "support", "example", "turn", "example"],
+      "alternatives": [{ "index": 5, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "문화 요소가 쓰임과 기존 특성과의 조화에 따라 선별 수용된다는 일반 진술 뒤에 두 사례를 대비 배치한 글이라, 빈칸이 뒤 사례의 상위어를 추상화하게 한다.",
+      "transform": "abstraction",
+      "transform_note": "필요에 맞는데도 거부된 미터법 사례가 선지에서 새 문물이라는 상위어로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

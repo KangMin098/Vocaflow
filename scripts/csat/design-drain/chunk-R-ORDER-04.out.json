@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-ORDER",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2025#36",
+      "roles": ["topic", "example", "conclusion", "example", "support", "example", "example", "support"],
+      "alternatives": [{ "index": 4, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "평판 자본이 시장 집행력을 높인다는 추상 명제를 농부·지주 공동체라는 구체 장면으로 풀어 가는 글이라, 행위자 첫 소개와 '마찬가지로'의 병렬 짝이 순서를 정한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 농부의 태만 목록과 지주의 태만 목록이 '마찬가지로'로 짝지어 (B)-(A)가 고정된다.",
+      "cues": ["connective", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2024#37",
+      "roles": ["topic", "support", "support", "support", "support", "support", "turn", "support", "support", "support", "support"],
+      "alternatives": [{ "index": 6, "role": "support" }],
+      "pattern": "narrative",
+      "selection": "규범이 한 사람의 행동에서 시작해 타인의 동조로 퍼지는 과정을 단계적으로 서술하는 글이라, 단수 인물과 복수 타인을 가리키는 대명사 사슬이 순서를 잠근다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 복수 대명사가 '다른 이들'이 처음 나온 (C) 뒤를 요구하고 '일부'를 '다른 일부'가 받는다.",
+      "cues": ["pronoun", "connective", "time", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2024#36",
+      "roles": ["background", "support", "example", "support", "example", "topic", "support"],
+      "alternatives": [{ "index": 0, "role": "topic" }, { "index": 2, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "협상의 정의에서 목적(공통·갈등 영역 식별)으로, 다시 적대적 관계라는 특수 유형과 그 부수 기능으로 좁혀 가는 글이라 유형을 받는 지시어가 마지막 자리를 정한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — '이러한 형태의 협상'이 (A) 끝 적대적 사례를 받아 (B)가 마지막이다.",
+      "cues": ["pronoun", "logic", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "2023#37",
+      "roles": ["topic", "support", "support", "support", "support", "conclusion", "support", "support"],
+      "alternatives": [{ "index": 5, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "성과 기반 가격의 대표인 성공보수를 적용 분야·작동 방식·의뢰인 관점의 이점 순으로 풀고 일반 원리로 맺는 글이라, 결론 연결어와 두려움-해소 짝이 순서를 정한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — '그러므로'가 보수 지급 방식 서술을 요구하고 수임료 두려움을 무보수 보장이 푼다.",
+      "cues": ["connective", "logic", "repetition", "pronoun"],
+      "data_defect": null
+    },
+    {
+      "id": "2023#36",
+      "roles": ["topic", "support", "support", "example", "example", "conclusion", "support", "support"],
+      "alternatives": [{ "index": 3, "role": "support" }, { "index": 4, "role": "support" }],
+      "pattern": "cause_effect",
+      "selection": "물벼룩의 조건부 방어 발달을 제시하고 에너지 비용으로 이점을 설명한 뒤 적응이라는 결론으로 맺는 인과 구조라, 지시대명사와 결론 표지가 자리를 정한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — '그것은 영리한 수법'이 조건부 발달을 받고 '그래서'가 비용 논리를 적응으로 맺는다.",
+      "cues": ["pronoun", "connective", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2022#37",
+      "roles": ["topic", "support", "conclusion", "support", "turn", "background", "support"],
+      "alternatives": [{ "index": 5, "role": "support" }, { "index": 4, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "허구 세계가 실제와 다른 한 가지 점을 인간 정신 일반의 여과에서 또 다른 의식, 끝으로 저자로 좁혀 가며 밝히는 글이라 특정화 방향과 관사 전환이 순서를 정한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 익명의 '또 다른 의식'을 저자로 지명하는 블록이 뒤, 부정관사 정신이 앞이다.",
+      "cues": ["article", "connective", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2022#36",
+      "roles": ["topic", "example", "example", "support", "support", "example", "conclusion"],
+      "alternatives": [{ "index": 3, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "가격 상승이 절약·혁신을 부른다는 시장 반응 모형을 과세 원리 → 환경세 사례 → 결과 순으로 구체화하는 글이라, '그러한' 되받기와 결과 명사가 순서를 정한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 과세를 처음 꺼내는 블록 뒤에 '그러한 환경세', 쓰레기 봉투 사례 뒤에 결과 블록이 온다.",
+      "cues": ["pronoun", "article", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2021#37",
+      "roles": ["background", "background", "support", "support", "support", "support", "example", "turn"],
+      "alternatives": [{ "index": 7, "role": "topic" }],
+      "pattern": "other",
+      "selection": "비용 효율성이 에너지 효율 투자의 요건이라는 전제를 뒤집어 그 계산이 외부효과·거시·개인 층위의 이점 때문에 단순하지 않음을 나열하는 글로, 전환 연결어와 층위 대조·마감 부사가 순서를 정한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 비용 효율성을 되받는 전환 블록이 첫 자리, 총체 층위 뒤 개인 층위와 '마지막으로'가 끝이다.",
+      "cues": ["connective", "pronoun", "time", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "2021#36",
+      "roles": ["background", "support", "support", "support", "topic", "support", "example", "support", "support", "support"],
+      "alternatives": [{ "index": 0, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "전쟁의 더 큰 목적이 무엇인지 비워 두고 정치적 목적으로 채운 뒤 그 조건(의지·표현·전달·귀속)을 차례로 풀어 가는 글이라, 낱말 넘겨받기 사슬이 순서를 정한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — '정치적이려면'이 정치적 목적 진술을, 소유격 의지가 처음 세운 의지를 받는다.",
+      "cues": ["repetition", "article", "connective", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2020#37",
+      "roles": ["background", "support", "support", "background", "background", "turn", "example", "support", "topic"],
+      "alternatives": [{ "index": 5, "role": "topic" }, { "index": 8, "role": "conclusion" }],
+      "pattern": "myth_rebuttal",
+      "selection": "쿤이 정리한 전통 과학사의 목표를 부연한 뒤 1950년대에 드러난 결함을 항목별로 나열하는 통념-반박 글이라, 목표를 받는 지시어와 부정 병렬 표지가 순서를 못박는다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 지시어가 전통 목표를 받아 (B)가 처음, 부정문 뒤 '~도 아니다'가 (C)를 끝에 둔다.",
+      "cues": ["pronoun", "connective", "logic", "time"],
+      "data_defect": null
+    }
+  ]
+}

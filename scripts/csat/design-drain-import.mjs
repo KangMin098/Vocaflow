@@ -74,7 +74,7 @@ for (const r of rows) {
   if ((r.alternatives ?? []).some((a) => !ROLES.includes(a.role) || a.index < 0 || a.index >= n)) { bump('대안 역할 오류'); continue }
   if (!r.selection?.trim() || r.selection.trim().length < 20) { bump('selection 비었거나 짧음'); continue }
   if (!r.transform_note?.trim() || r.transform_note.trim().length < 20) { bump('transform_note 비었거나 짧음'); continue }
-  if (quotesSource(r.selection + ' ' + r.transform_note, it.passage)) { bump('원문 12자 넘게 인용'); continue }
+  if (quotesSource(r.selection + ' ' + r.transform_note, it.passage)) { bump('원문 12자 넘게 인용'); console.log(`  인용 초과: ${r.id} (${r._file})`); continue }
   if (r.data_defect) defects.push(`${r.id} — ${r.data_defect}`)
 
   const { data: a } = await db
@@ -99,7 +99,10 @@ for (const r of rows) {
     ...(r.data_defect ? { data_defect: r.data_defect } : {}),
   }
   const prev = a.answer_locus?.passage_design
-  const key = (d) => JSON.stringify([d.criteria, d.roles, d.alternatives, d.pattern, d.selection, d.transform, d.transform_note, d.cues, d.data_defect ?? null])
+  // ⚠️ jsonb 는 객체 키 순서를 바꾼다 — 객체를 통째로 JSON.stringify 해 비교하면 매번 「다름」이 된다(AGENTS).
+  //    대안은 「번호:역할」 문자열로 펴서 비교한다.
+  const key = (d) =>
+    [d.criteria, d.roles.join(','), (d.alternatives ?? []).map((x) => `${x.index}:${x.role}`).sort().join(','), d.pattern, d.selection, d.transform, d.transform_note, (d.cues ?? []).join(','), d.data_defect ?? ''].join('')
   if (prev && key(prev) === key(design)) { same++; continue }
   if (COMMIT) {
     // 기존 answer_locus 를 읽어 키 하나만 더한다 — 통째로 덮으면 quote/reasoning 이 날아간다
