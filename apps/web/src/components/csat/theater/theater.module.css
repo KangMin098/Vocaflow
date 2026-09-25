@@ -334,3 +334,5 @@
 @media (prefers-reduced-motion: reduce) {
   .workspace * { transition-duration: var(--dur-fast); }
 }
+/* 개발 서버에서 로컬 문제지를 읽었다는 표시 — 배포에서는 나오지 않는다 */
+.devBadge { align-self: flex-start; padding: 2px 8px; border: 1px dashed var(--bd); border-radius: 999px; font-family: var(--font-mono), monospace; font-size: 10.5px; color: var(--t3); }

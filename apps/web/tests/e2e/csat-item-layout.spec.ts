@@ -69,10 +69,11 @@ test.describe('재설계 뒤에만', () => {
 
   test('왼쪽 열 · 도크 · 탭 · 근거 · 상영 · 같은 유형', async ({ browser }) => {
     const page = await open(browser, 'M2706-31')
-    // 왼쪽 열 — 새 기기라 문제지가 없다 → 놓는 칸
+    // 왼쪽 열 — 새 기기다. 개발 서버면 로컬 문제지를 스스로 읽고, 아니면 놓는 칸이 뜬다
     await expect(page.getByRole('complementary', { name: '기출문제 원본' })).toBeVisible()
-    await expect(page.getByTestId('item-paper-missing')).toBeVisible()
-    await expect(page.getByTestId('paper-input')).toHaveCount(1)
+    await expect(
+      page.getByTestId('item-paper').or(page.getByTestId('item-paper-crop')).or(page.getByTestId('item-paper-missing')),
+    ).toBeVisible({ timeout: 90_000 })
     await expect(page.getByText('이 문항으로 무엇을 할까요?')).toBeVisible()
 
     // 도크 = 강의 차례 — 누르면 그 차례로, 화살표로 다음
@@ -121,7 +122,10 @@ test.describe('재설계 뒤에만', () => {
       : undefined
     test.skip(!file, '로컬 문제지 PDF 없음')
     const page = await open(browser, '2026-32')
-    await page.getByTestId('paper-input').setInputFiles(path.join(PAPERS, file!))
+    // 개발 서버는 로컬 문제지를 스스로 읽는다 — 놓는 칸이 뜬 경우(배포 모드)에만 놓는다
+    const input = page.getByTestId('paper-input')
+    await expect(input.or(page.getByTestId('item-paper')).or(page.getByTestId('item-paper-crop'))).toBeVisible({ timeout: 90_000 })
+    if (await input.count()) await input.setInputFiles(path.join(PAPERS, file!))
     await expect(page.getByTestId('item-paper').or(page.getByTestId('item-paper-crop'))).toBeVisible({ timeout: 90_000 })
     await page.waitForTimeout(800)
     await page.screenshot({ path: path.join(SHOTS, `after-2026-32-paper-1440.png`) })
@@ -132,6 +136,18 @@ test.describe('재설계 뒤에만', () => {
     await page.waitForTimeout(800)
     await page.screenshot({ path: path.join(SHOTS, `after-2026-21-paper-390.png`), fullPage: true })
     expect(await noOverflow(page)).toBe(true)
+    await page.context().close()
+  })
+
+  test('개발 서버는 로컬 문제지를 기본으로 읽는다(놓지 않아도)', async ({ browser }) => {
+    const page = await open(browser, 'M2706-31')
+    await expect(page.getByTestId('item-paper')).toHaveAttribute('data-source', 'dev-local', { timeout: 90_000 })
+    await expect(page.getByText('개발 모드 · 로컬 문제지에서 읽음')).toBeVisible()
+    await page.waitForTimeout(800)
+    await page.screenshot({ path: path.join(SHOTS, 'after-M2706-31-devpaper-1440.png') })
+    // 같은 회차 다음 문항은 기기에 남은 추출본으로 — 다시 받지 않는다
+    await page.goto('/csat/item/M2706-32')
+    await expect(page.getByTestId('item-paper')).toHaveAttribute('data-source', 'device', { timeout: 90_000 })
     await page.context().close()
   })
 
