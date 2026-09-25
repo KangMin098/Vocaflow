@@ -77,13 +77,42 @@ for (let i = 0; i < sourceIds.length; i += 200) {
 console.log(`이미 있음 ${existing.size}편`)
 
 const W = (t) => (String(t ?? '').match(/[A-Za-z][A-Za-z'-]*/g) ?? []).length
+
+/**
+ * **끝 문단의 크레디트를 걷는다** — 그림책 원천은 이야기 뒤에 번역자·후원사·제작 워크숍 문단을 붙인다.
+ * 본 수집 실측(2026-09-25): global_storybooks 368편 중 57 · gdl 300편 중 64. 지우지 않으면
+ * V-Level 이 튄다(gdl 파일럿 최대 V9 — 그림책인데). 뒤에서부터 크레디트 문단만 떼고, 본문 중간은 건드리지 않는다.
+ */
+const CREDIT = [
+  /^\*\s*(Translated|Written|Illustrated|Adapted)\s+By\b/i,
+  /^(Generously\s+)?supported by\b/i,
+  /\b(Foundation|workshop)\b.*\b(collaboration|conducted|supported|funded|developed)\b/i,
+  /\bcollaborated to (write|create|develop)\b/i,
+  /^(This (book|story) (was|is)|Published by|Licensed under)\b/i,
+  // 문장 중간의 후원 표기 — 「Books in Homes is supported by …」·「In collaboration with and generously supported by …」
+  /\bsupported by\b/i,
+  /\bFoundation\b.*\b(led|workshops?)\b/i,
+  // 작가·삽화가 소개 문단 — 끝이 직함이다(「… Kyung-sil Roh Writer」)
+  /\b(Writer|Illustrator|Author|Translator)\.?$/,
+]
+function stripCredits(text) {
+  const paras = String(text).split(/\n{2,}/)
+  let removed = 0
+  // 90어 상한 — 「supported by」 같은 넓은 규칙이 이야기의 진짜 끝 문단을 떼지 않게 한다(크레디트 문단 실측 ≤ 70어).
+  const isCredit = (p) => W(p) <= 90 && CREDIT.some((re) => re.test(p.trim()))
+  while (paras.length > 1 && isCredit(paras.at(-1))) { paras.pop(); removed++ }
+  return { text: paras.join('\n\n').trim(), removed }
+}
+let creditsStripped = 0
 let inserted = 0, skipped = 0, empty = 0, short = 0, restricted = 0, n = 0
 const failures = []
 for (const r of rows) {
   if (LIMIT && n >= LIMIT) break
   const source_id = `${SOURCE}:${r.id}`
   if (existing.has(source_id)) { skipped++; continue }
-  const content = String(r.body_text ?? '').trim()
+  const cleaned = stripCredits(String(r.body_text ?? '').trim())
+  if (cleaned.removed) creditsStripped++
+  const content = cleaned.text
   if (!content) { empty++; continue }
   if (W(content) < 100) short++
   const lic = licenseOf(r.license)
@@ -119,6 +148,7 @@ ${COMMIT ? '적재' : 'dry-run'}   ${inserted}편
 건너뜀(이미 있음) ${skipped}편
 건너뜀(빈 본문) ${empty}편
 100어 미만 ${short}편 (버리지 않음 · 기록용)
+끝 크레디트 걷음 ${creditsStripped}편
 라이선스 해소 필요(담음 · restricted) ${restricted}편
 실패        ${failures.length}편`)
 for (const f of failures.slice(0, 10)) console.log('  ' + f)
