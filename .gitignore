@@ -252,3 +252,7 @@ apps/web/playwright-auth/
 # 드레인 실행 기록 — 되돌릴 근거라 로컬에 남기되 추적하지 않는다(수천 행 · 실행마다 새로 생김).
 # 무엇이 돌았는지는 `csat_drain_runs` 가 갖고 있고 화면이 그것을 읽는다.
 scripts/acp/title-entity-repair.*.json
+
+# 출제 설계 주석 드레인 — 청크에 기출 원문이 실린다. 커밋하는 것은 *.out.json(라벨 · 한국어 설명)뿐
+scripts/csat/design-drain/chunk-*.json
+!scripts/csat/design-drain/*.out.json
