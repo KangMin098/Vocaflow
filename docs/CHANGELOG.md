@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- Claude Code on the web: SessionStart 훅 `.claude/hooks/session-start.sh` 추가 — 원격 컨테이너(`CLAUDE_CODE_REMOTE=true`)에서만 `pnpm install --frozen-lockfile` 을 동기 실행해 lint·typecheck·test 가 세션 시작부터 돈다. 로컬 세션은 no-op.
+
 - 기출 분석 방법론: 「난이도는 소재가 아니라 형식(유형)」 실측 절 신설(CSAT_TYPE_ANALYSIS §1-1) — 802편 전수, 유형 간 격차 95포인트. 신호를 바꾸면 절대 수준은 바뀌어도 유형 순서는 유지된다는 대조를 함께.
 
 - 관리자 옛 AI-보라 전량 교체(Gate 4 (i) · DD-59): 66파일 318건 → 토큰(`--p` 계열), 평균 신호 라쳇 `admin.ai-purple` **318 → 0**. 코드모드 2개 신설(기본 예행 · 정확 일치만). 부작용으로 생긴 다크 AA 미달 20줄은 기준선을 올리지 않고 `text-[var(--on-p)]` 로 고쳤다. 화면도움말 「보라 테두리」 3곳 동기화.
