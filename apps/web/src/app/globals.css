@@ -12,8 +12,6 @@
 @import '@vocaflow/design-tokens/skins/tines.css';
 /* Admin 앱 스킨 — /admin 이하([data-area="admin"])에서만 켜진다(DD-82). tines.css 뒤에 와야 이긴다. */
 @import '@vocaflow/design-tokens/skins/admin-app.css';
-/* Shop 스킨 — /library/vocab([data-area="shop"])에서만 켜진다(shopify.com 실측). */
-@import '@vocaflow/design-tokens/skins/shop.css';
 
 @tailwind base;
 @tailwind components;

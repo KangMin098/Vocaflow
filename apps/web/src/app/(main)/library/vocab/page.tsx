@@ -68,8 +68,7 @@ export default async function LibraryVocabPage() {
 
   return (
     <Screen width="wide" background="bg2" padX="md">
-      {/* data-area="shop" — skins/shop.css 가 이 표지를 보고 이 화면에만 shopify.com 실측 토큰을 켠다. */}
-      <div data-area="shop" className="flex flex-col gap-3 py-4 sm:gap-5 sm:py-6 md:py-8">
+      <div className="flex flex-col gap-3 py-4 sm:gap-5 sm:py-6 md:py-8">
         <VocabSeriesHeader
           fill={ladder}
           learnerStep={learnerStep}
@@ -82,7 +81,6 @@ export default async function LibraryVocabPage() {
           </div>
         )}
 
-        <div id="vocab-shelf" className="scroll-mt-4" />
         <VocabSetGrid
           sets={sets}
           subscribedIds={Array.from(subscribedSet)}
