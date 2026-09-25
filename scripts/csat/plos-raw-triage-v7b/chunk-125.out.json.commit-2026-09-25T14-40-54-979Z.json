@@ -1,0 +1,2062 @@
+[
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "65f354e0-e641-42e5-a146-acd5b2858a23",
+    "revision": "2026-09-13T07:29:26.778414+00:00",
+    "body_sha256": "721564bdbe2b5da3c84a787dbd7d712cd4b9644a0606a106213664c58812aaf7",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:57:22.558Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:57:22.558Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "발작 뒤 BK 채널 β4 소단위가 줄어 신경 흥분성이 높아진다는 논지를 고찰의 「KCNMB4 전사 조절」 절이 한 편으로 세운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Early single-channel studies from synaptosomal",
+          "note": "고찰 첫 절은 앞 문맥 없이 서지만 채널 약어(BK·β4·IBTX)가 논지의 뼈대라 쉬운 말로 바꾸면 뜻이 무너진다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.983Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:57:22.558Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 18,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:10:13.704Z",
+      "topicMargin": 12.74
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "65f9c666-a911-4661-bffb-eeb33e85ab3b",
+    "revision": "2026-09-25T07:34:41.929267+00:00",
+    "body_sha256": "007af3e392547b044fdd1cd02e83134107a355874bda76961b8e7a3754d79735",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:57:22.558Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:57:22.558Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "아플 때의 무기력·식욕저하가 혈연 선택으로 진화했다는 Eyam 가설을 통념(Hart 가설) 제시 후 반증으로 뒤집는 구조로 편다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "claim",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Conserving energy to maintain fever",
+          "note": "전문 용어가 「sickness behavior」 하나뿐이라 「아플 때의 행동」으로 바꾸면 그대로 내려가고, 반박 단락이 문장 단위로 떼진다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.984Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:57:22.558Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 4,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:39:07.934Z",
+      "topicMargin": 13.05
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "660a27d2-d400-4b84-8141-0e603ff4b53e",
+    "revision": "2026-09-13T06:59:48.502428+00:00",
+    "body_sha256": "62bfacf0fd75feaff56ba26de17d85c9c85fff5f50d76d85f3db932142f8842d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:57:22.558Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:57:22.558Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "칸디다 생물막 전사인자의 상분리 능력이 병원성의 조건이라는 논지가 고찰에서 실험 갈래별로 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "C. albicans filamentation and biofilm formation",
+          "note": "본문 절반이 플라스미드·프라이머 번호 나열이라 가공 때 재료·방법을 통째로 걷어야 하고, 남는 고찰만 지문이 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.986Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:57:22.558Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 10,
+      "type": "R-BLANK",
+      "shape": 29,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T07:35:57.389Z",
+      "topicMargin": 19.71
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "661aab20-9574-47f1-9284-8cc267859347",
+    "revision": "2026-09-25T07:34:46.355895+00:00",
+    "body_sha256": "5c78e9b892ebb1888460430e02cbe7cdf213b732c1d4eace7a926eb41ead576c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "구제역 Asia1형이 다른 혈청형과 달리 균형 잡힌 항체 반응을 부른다는 대조가 고찰 앞부분에서 한 편으로 선다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Humoral immunity is often characterized",
+          "note": "잔기 번호와 항체 이름이 촘촘해 결과 절은 못 쓰고, 면역우세를 설명하는 고찰 두 단락만 떼면 문맥 없이 읽힌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.987Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 11,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:36.661Z",
+      "topicMargin": 15.780000000000001
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "661d5a8c-6c6c-429c-8809-1d0f61859280",
+    "revision": "2026-09-15T15:11:12.048684+00:00",
+    "body_sha256": "5981bbf0d0ad7d0de77f4b6eaa581d219621500dd673e8e47758c71bb2433ac2",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "해양 포유류를 바다 건강의 감시자로 보는 서론과 육상 계통과 구분되는 균주를 논하는 고찰이 하나의 논지로 이어진다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The North American Pacific coastline is",
+          "note": "서론은 종 이름을 몇 개만 남기면 그대로 서고, ST 번호와 유전자 약어는 걷어도 한 해양·인간 건강 논지가 남는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.987Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:40:22.841Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "661d65f0-a984-4603-a808-c886dc5797c6",
+    "revision": "2026-09-15T15:11:12.390289+00:00",
+    "body_sha256": "7f3d410a25c00903f5b055aa7a0845e563fb416057e374ed021a849fcb1bb0e6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "간호사 주도 진정 관리가 인공호흡 기간을 줄였다는 결과를 한계와 함께 조심스럽게 해석하는 고찰이 논증문으로 읽힌다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In this retrospective observational cohort study",
+          "note": "RASS·CPOT 같은 척도 이름을 「진정 평가 척도」로 풀면 내려가고, 신뢰구간 수치를 걷어도 인과를 단정하지 않는 논지가 남는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.988Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:25:52.671Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "661d7f16-5611-49ca-bf57-f6c0341754f7",
+    "revision": "2026-09-25T07:34:46.702537+00:00",
+    "body_sha256": "4c017f0ef69f849cdc1faf6f6a271d436dbd6f7d37a8b086def7033932a61203",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "산호초 감소를 배경으로 난자 동결보존에 지질을 더하는 까닭을 서론이 원인과 목적 순으로 세운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "blank",
+            "order",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Coral reefs, which are crucial to",
+          "note": "지방산 이름을 「불포화 지방」 정도로 묶으면 서론 두 단락이 고등 밴드로 내려가고 백분율은 걷어도 흐름이 남는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.988Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:37:42.622Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "66225fb0-ed91-4112-931a-98e38a2d3662",
+    "revision": "2026-09-15T15:11:13.469721+00:00",
+    "body_sha256": "638282be9d05d92bef3d01c2eeed89ebf71b261ccc4a656b95f22d0597dc54cd",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "pp28의 지질 변형이 바이러스 방출에만 필요하다는 구분이 고찰에서 미리스토일화와의 대비로 정리된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Post-translational palmitoylation, a reversible lipid",
+          "note": "저자 요약이 평이해 도입으로 쓸 수 있으나 고찰 본문은 시스테인 번호가 논지에 박혀 있어 낱말 교체가 어렵다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.989Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:56.350Z",
+      "topicMargin": 18.21
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "663a8464-bfb9-40ae-88b8-bf4696f2967c",
+    "revision": "2026-09-25T07:34:49.740822+00:00",
+    "body_sha256": "0061ec74beb00f8b8e5b016b9591467cb5d04f1ca21b5d24f1b17b9ba794cbb1",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "기온이 오를수록 약용 식물의 광합성이 무너지는 과정을 35도라는 임계점을 축으로 단계별로 잇는다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Based on both morphological and physiological",
+          "note": "고찰 첫 절은 단백질 아이소폼 번호만 걷으면 서고, 온도별 감소율은 「크게 줄었다」로 바꿔도 논지가 유지된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.990Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:36:21.779Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "663f6982-c7d5-4931-8517-5919a261d600",
+    "revision": "2026-09-15T15:11:17.131467+00:00",
+    "body_sha256": "6c4eabf3f91e98ec1e982c095e1635da6996db8195b57d44e6af56e914c4b686",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "장 조직의 세균 수로는 개 만성 장염의 치료 반응을 가릴 수 없다는 부정적 결론을 근거를 대며 밀고 간다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Neutrophilic inflammation is commonly linked",
+          "note": "항생제 남용을 경계하는 단락이 수치 없이 논증만으로 서고, 균 이름은 「특정 세균」으로 묶으면 밴드가 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.991Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 3,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:34.890Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "664da3b8-f775-49e7-89d7-a3ab6234b7a2",
+    "revision": "2026-09-25T07:34:51.604806+00:00",
+    "body_sha256": "420592b36777d35f14eda3362374ec66d99dece9bb998e68b0b3f2310167a854",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "기후 재난이 성별·생애주기에 따라 다른 정신건강 부담을 낳는다는 주제를 세 갈래(어머니·아버지·청소년)로 나눠 논증한다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "claim",
+            "purpose",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The second theme examines how climate-related",
+          "note": "주제별 절이 각각 한 편으로 서고 인용 발화를 걷어도 논지가 남지만, 폭력·성 관련 서술이 있어 연령 칸을 고1 이상으로 제한한다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.992Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "심리·인지",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:06.164Z",
+      "topicMargin": 1.7699999999999996
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "66557edf-96b1-4998-9fc6-e28f25390f84",
+    "revision": "2026-09-13T07:14:19.446018+00:00",
+    "body_sha256": "cc1dca835bc84e721a2826d308b714b365c97e27102a7346cbd25f5bcfe13df9",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "면역이 살아 있는 생쥐에서 백혈병 잔존세포 모형을 만든 까닭과 한계를 고찰이 기존 모형과 견주어 설명한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "In this study, we generated a",
+          "note": "고찰의 사람·생쥐 수명 환산 대목은 그대로 서지만, 아클론 이름과 유전자 복제수가 문장마다 박혀 어휘 조정이 어렵다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.993Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 14,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:02:50.669Z",
+      "topicMargin": 30.08
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "66573674-2088-4c4c-bbf6-3625806aca71",
+    "revision": "2026-09-25T07:34:52.695025+00:00",
+    "body_sha256": "57e02031241aeb9a080fe40bb1cf426fc732fe37d61388df7640167ef5894090",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "약물 내성 때문에 한 표적이 아니라 여러 표적을 동시에 막아야 한다는 서론의 논지가 근거와 사례로 이어진다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Despite notable advancements in diagnostic imaging",
+          "note": "내성 기전을 설명하는 서론 단락만 쓸 수 있고, 도킹 점수·PDB 번호가 이어지는 결과 쪽은 나열이라 가공 때 버린다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.995Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 4,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:44.245Z",
+      "topicMargin": 19.58
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "666138e3-463b-4645-8451-0df038067506",
+    "revision": "2026-09-25T07:34:53.083799+00:00",
+    "body_sha256": "8c4028a4857d6d931c75a02ee3f1a66642ce154da30222a949bd60ffbaa1b19f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "같은 자극이 왜 정반대 결과를 내는지를 「켜짐-꺼짐」 통념 대신 분기 개념으로 다시 설명하는 구조다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "claim",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Deep brain stimulation has transformed the",
+          "note": "저자 요약이 전문 용어 없이 통념 교정 구조를 그대로 담아 한 편이 되고, 칼륨 농도 수치는 걷어도 논지가 선다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.995Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:22.822Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "66643df1-8aab-4d3a-b119-51e6bf8e9ea2",
+    "revision": "2026-09-25T07:34:53.845404+00:00",
+    "body_sha256": "9ecb4a58085aebb64643edc69bb279998af46373e0f3f949c5c639bc83966f8a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "HIV 자연 억제와 관련된 변이가 동반 감염 바이러스 반응까지 바꾼다는 가설을 고찰이 기전 단계별로 밀고 간다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Earlier GWAS studies reported the impact",
+          "note": "rs 번호와 HLA 대립유전자 표기가 논지의 주어라 바꿀 수 없고, 저자 요약 정도만 쉬운 밴드로 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:41.779Z",
+      "topicMargin": 12.66
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "666b5081-2af1-4325-b64f-98f2c3e98a4e",
+    "revision": "2026-09-25T07:34:54.705579+00:00",
+    "body_sha256": "e68ee16e3234803c5dd4e6a1a0c553085206f4b6d3364b30e6fde1265433cbeb",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "필수 아미노산 대사가 세 갈래로 갈리며 혈관 플라크에 다르게 작용한다는 설명이 서론에서 자족적으로 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Tryptophan is an essential amino acid",
+          "note": "서론은 유전자 약어가 적어 「트립토판」만 살리면 내려가지만, 결과 절은 데이터셋 번호와 지표 나열이라 걷어야 한다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:38.533Z",
+      "topicMargin": 18.03
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "6674837c-8167-4288-98df-ea9da6b12cdf",
+    "revision": "2026-09-25T07:34:55.179329+00:00",
+    "body_sha256": "5b09b0ad84da2e5ea03ccf692473054a70f9287633652921387bf8da0e062325",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "항균제와 질산염이 왜 문제인지와 기존 공정의 한계를 짚은 서론이 새 공정의 필요를 논증으로 잇는다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The contamination of water sources with",
+          "note": "서론 앞 세 단락은 떼면 서지만 결과 절은 농도·효율 백분율 나열이고 화학식이 본문 곳곳에 남아 있어 손질이 많이 든다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.998Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:34.812Z",
+      "topicMargin": 9.74
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "669bc68d-1370-42f8-b327-99b0b5f8ddc1",
+    "revision": "2026-09-15T15:11:28.897227+00:00",
+    "body_sha256": "6517079c13c0fa4ee09f79c530ab27120a9325b7b4154d3ea12e178d4192bb1c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "뼈에서 인이 빠져나오는 정도와 배변 습관이 약 용량 요구를 가른다는 해석을 고찰이 기전으로 설명한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "TRACP-5b is a reliable marker",
+          "note": "고찰은 논지가 뚜렷하나 지표 약어(TRACP-5b·BSFS)가 주어 자리라 풀어쓰면 문장이 길어져 밴드가 내려가지 않는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.999Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:36.523Z",
+      "topicMargin": 5.390000000000001
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "66a1bd59-6650-4b5c-8f3a-5c0738305fdf",
+    "revision": "2026-09-25T07:35:01.578317+00:00",
+    "body_sha256": "5138d22d7559fb622d5e63c2383614b623f59ffe14555bde278729bd54542949",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "면역세포 사이의 접촉 신호가 곰팡이를 죽이는 세포를 깨운다는 이야기를 저자 요약이 평이한 한 편으로 세운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The innate immune system is the",
+          "note": "저자 요약은 수용체 이름을 「세포 표면 수용체」로 바꾸면 그대로 서지만, 결과 본문은 생쥐 계통 표기가 촘촘해 쓰기 어렵다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:54.999Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:27:45.637Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-40-54-979Z",
+    "id": "66ba0ddb-6579-4c7d-8e19-ca562e13e8fa",
+    "revision": "2026-09-13T07:22:52.850959+00:00",
+    "body_sha256": "229c6f0d5c6ebc5625b24a74bcc8364d7ef480baf37a1fb1c732338c28c8f102",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:02:06.863Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "걷기가 아픈 환자 일부에서 운동 뒤 콩팥 손상이 생기는 까닭을 허혈-재관류로 설명하는 서론이 자족적이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Peripheral arterial disease (PAD) is characterised",
+          "note": "서론은 지표 약어 두 개만 풀면 내려가고, 유전자 이름이 줄지어 나오는 연결망 분석 절은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:40:55.000Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:02:06.863Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:15:17.752Z",
+      "topicMargin": 21.98
+    }
+  }
+]

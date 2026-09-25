@@ -1,0 +1,795 @@
+[
+ {
+  "id": "62fb5760-8239-4bd4-be3e-fcd6c4521dc9",
+  "source_updated_at": "2026-09-13T07:31:31.745342+00:00",
+  "body_sha256": "486460e1df4166dfca77d89fcb3856229286813a6f5067623799a5884cdbeba0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 쾌감 상실과 스트레스 모델 논의가 서론의 에피쿠로스 도입과 함께 논지를 세워 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Since the time of Epicurus, pleasure",
+   "note": "약물 약어(NHT·SSRI)를 풀어 쓰고 인용 번호를 걷으면 서론 첫 단락이 홀로 선다."
+  }
+ },
+ {
+  "id": "63039d74-26a2-499a-a00a-75e1b6b271ff",
+  "source_updated_at": "2026-09-25T07:33:07.60372+00:00",
+  "body_sha256": "7c82380923693efb392953106d132f0b7d863a8052058d8ccdccdaa89b9db785",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 인 과잉이 혈관 석회화와 혈전을 부르는 기전 설명이 인과로 이어져 요지·순서 칸에 쓸 수 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Hyperphosphatemia has been implicated in the",
+   "note": "수치(HR·mmol/L)를 걷으면 인 과잉이 혈전으로 가는 세 경로가 순서대로 남는다."
+  }
+ },
+ {
+  "id": "631a8bc0-4095-4a33-99ed-001d94f410a9",
+  "source_updated_at": "2026-09-25T07:33:11.696652+00:00",
+  "body_sha256": "e1dea415566c5e6ce51ab8ae695c315d5cecaa4ee15e2527a0fe3c98723e20e0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "저자 요약과 서론의 각막 부상 깊이·회복 시간 설명이 자족적이라 요약·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Injuries to the cornea are a",
+   "note": "저자 요약 단락은 약어가 적어 basement membrane 정도만 풀면 바로 쓸 수 있다."
+  }
+ },
+ {
+  "id": "6327bd61-77f6-4253-9949-12ef8d2cf0ba",
+  "source_updated_at": "2026-09-25T07:33:12.862444+00:00",
+  "body_sha256": "9bce3a00b502b90cef01d837fad9079b409590d4e792b185c9434c14047684a3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "sports",
+  "why": "생리 반응·영양 전략 고찰이 대회 거리별 비교로 논지를 세워 요지·내용 일치 칸에 맞는다; 끝의 Key message 머리는 비어 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The studies found suggest nutritional strategies",
+   "note": "탄수화물·수분 전략 단락에서 수치를 줄이면 주장과 근거가 선명하고, 끝의 빈 머리는 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "6327f6d4-3208-4c31-b472-3aa83926d843",
+  "source_updated_at": "2026-09-25T07:33:13.335854+00:00",
+  "body_sha256": "31e41317e7dd2ee6ea145f2d13fac09200456da469e709935c001ffaf8a2200b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "서론의 생물 광물화와 생체 효과 설명, 고찰의 종 특이성 논지가 이어져 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Calcium carbonate (CaCO₃) biomineralization is a key",
+   "note": "종 학명과 Mg/Ca 수치를 걷으면 온도 대리지표에 대한 경고라는 논지가 남는다."
+  }
+ },
+ {
+  "id": "6329324e-7dbc-4056-a837-188a40378a7f",
+  "source_updated_at": "2026-09-25T07:33:13.965084+00:00",
+  "body_sha256": "f18f03c6e3b215cb7cd6fa8f7bbed03feaded84c8abe431d2fb6846c2a56204d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 당뇨발 궤양 부담과 동물실험 대안 논의가 자족적이라 주제·목적 칸에 쓸 수 있다; 고찰 절이 중복 수록돼 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "irrelevant",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Diabetes mellitus (DM) is a disorder",
+   "note": "같은 고찰 절이 두 번 실려 있어 가공 때 한 벌만 쓰고 약어(OoC·DFU)를 풀어야 한다."
+  }
+ },
+ {
+  "id": "632cc731-7bb3-461a-9822-e187a1b268d4",
+  "source_updated_at": "2026-09-13T07:39:31.147865+00:00",
+  "body_sha256": "4201a1c00e6e984b21b682dbe59b767989fce9e4b21f9751997be0915a793e90",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 사회적 고립과 미엘린 변화 사례가 뇌 가소성 논지로 이어져 주제·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "insert",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Myelin sheaths play pivotal roles as",
+   "note": "미엘린·희소돌기아교세포 두 낱말만 풀면 행동 실험 세 사례가 근거로 선다."
+  }
+ },
+ {
+  "id": "6335caa1-b132-471c-b587-9df109c9d485",
+  "source_updated_at": "2026-09-13T06:27:59.219644+00:00",
+  "body_sha256": "1e81de023906ee20785d11209464f3988b643fb67c84c75ca884518afa1ee3f9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "서론의 돼지 위축성 비염 전파·증상 설명과 고찰의 동물실험 감축 논의가 자족적이라 내용 일치·요지 칸에 맞는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Swine atrophic rhinitis (AR), a common",
+   "note": "균 학명 두 개를 「두 세균」으로 바꾸면 질병 진행 순서가 그대로 선다."
+  }
+ },
+ {
+  "id": "6346a133-9df4-4a35-be64-a6dae84a568e",
+  "source_updated_at": "2026-09-25T07:33:16.857801+00:00",
+  "body_sha256": "c8ff052b63fff68559fe4fc9129780fa099c4a1cdf2d6e0487c68e9883915730",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "저자 요약의 파이토플라스마가 식물 꽃을 잎으로 바꾸는 현상 설명이 자족적이라 주제·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Phytoplasmas are minute bacteria that inhabit",
+   "note": "저자 요약은 전문어가 phyllody 하나뿐이라 풀어 쓰면 바로 선다."
+  }
+ },
+ {
+  "id": "6346cc1d-89bd-43d9-aaeb-b2206cb7ace9",
+  "source_updated_at": "2026-09-13T07:16:43.583954+00:00",
+  "body_sha256": "dfea1d256c5a3fa102f672e27d180c53329373cbfe8780ac3ad328a7a1fb75f4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "고찰의 Tyzzer와 Vetterling 생활사 논쟁 서술이 학설 교정 구조라 요지·순서 칸과 통념 교정 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Edward Tyzzer in his initial description",
+   "note": "종 학명과 meront 용어를 「분열 단계」로 바꾸면 교과서 통념이 뒤집히는 흐름이 남는다."
+  }
+ },
+ {
+  "id": "635ba9e5-131f-4b47-90bb-bf74f9510ce1",
+  "source_updated_at": "2026-09-25T07:33:20.298942+00:00",
+  "body_sha256": "a77ba7dd210d13ae546fc2ff5531919262e2754d7a302e52b74dc3069e85436a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 mTOR 억제와 신경 노화 논의가 표적 치료의 필요로 이어져 주제·빈칸 칸에 쓸 수 있다; 결과 절 한 문장이 깨져 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Despite this promise, a challenge for",
+   "note": "결과 절의 깨진 문장(relthood)은 쓰지 않고 서론 넷째 단락만 발췌한다."
+  }
+ },
+ {
+  "id": "637572dc-0cad-4724-900e-4cd776432c54",
+  "source_updated_at": "2026-09-25T07:33:22.117247+00:00",
+  "body_sha256": "b81a5177fd21df32f8bf82ddc0d26f045e7a0ec5759671028fdc9e5e6016ea88",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 헬멧·두개골이 폭발파 방향을 바꾼다는 논의와 반복 충격 설명이 자족적이라 요지·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "insert",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Blast-induced trauma is strongly influenced by",
+   "note": "임피던스 용어만 「충격 전달」로 바꾸면 방향에 따른 손상 차이 논지가 선다."
+  }
+ },
+ {
+  "id": "638e8201-ad01-485e-bf4f-4c315845ec5f",
+  "source_updated_at": "2026-09-25T07:33:25.502676+00:00",
+  "body_sha256": "9d4bcaad86104f68b4ba4c8b0d186d8e153bbaeaf4f2eee7e8bfc0bc133c7042",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "서론의 카사바 번식 한계와 인공 종자 기술 소개가 문제-해결 구조라 주제·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cassava (Manihot esculenta Crantz) is a",
+   "note": "학명과 삽목 용어를 풀면 줄기 꺾꽂이의 약점에서 인공 종자로 가는 흐름이 남는다."
+  }
+ },
+ {
+  "id": "63a00283-aa38-4caf-b551-c0e5b97447c0",
+  "source_updated_at": "2026-09-25T07:33:26.839866+00:00",
+  "body_sha256": "95cdd11c938672cf4ee502419dda5c502dd13bf5aabd8ae2bd1a5313e4d918b5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 포충증 전파와 수술 범위 논쟁이 장단점 비교로 서서 요지·빈칸 칸에 맞는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A prerequisite for curative treatment of",
+   "note": "낭 층 이름(germinal·adventitial)을 「안쪽·바깥 층」으로 바꾸면 두 수술법 비교가 선다."
+  }
+ },
+ {
+  "id": "63ba4517-ad37-44f8-9466-925ae5f32717",
+  "source_updated_at": "2026-09-13T07:16:11.189528+00:00",
+  "body_sha256": "52d21e8bbbe1d30920c416732e631342fcec74348b6d9092e112dcc97ced25b3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "서론의 세포 주변 기질 강도 측정 방법 비교가 장단점 나열로 이어져 요약·빈칸 칸 경로가 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The mechanical properties of cell microenvironments",
+   "note": "AFM·Brillouin 방법명을 풀어야 해 문단 하나만 떼어 쓰는 편이 낫다."
+  }
+ },
+ {
+  "id": "63c1d46e-1d53-4f02-b12f-abc11de17f51",
+  "source_updated_at": "2026-09-25T07:33:29.951482+00:00",
+  "body_sha256": "c17ac9c86b0b9a0a5c8966c95215ff2f928d50fb08b749319ba8505f15bf94a4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "에세이 서론의 세균과 인간이 같은 면역 부품을 쓴다는 통념 교정과 비용-편익 논의가 자족적이라 주제·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Historically, immunology research has focused largely",
+   "note": "용어집 상자는 걷고 서론 첫 단락만 쓰면 통념-반증 구조가 그대로 선다."
+  }
+ },
+ {
+  "id": "63d03543-8534-45c1-aeb9-9248f5b8aa47",
+  "source_updated_at": "2026-09-25T07:33:31.554199+00:00",
+  "body_sha256": "71cb99be0333acd384a3ae63ba4cd562d695ac8fe7214243c6c0e8b5d21bcf0e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 기능성 소화불량과 장벽 기능 설명, 미주신경 자극 소개가 한 흐름이라 주제·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Functional dyspepsia (FD) is one of",
+   "note": "대식세포 표현형 설명은 전문어가 많아 첫 단락의 질환 정의만 발췌한다."
+  }
+ },
+ {
+  "id": "63d49030-6958-4f03-ad67-7e128f04e19e",
+  "source_updated_at": "2026-09-13T06:58:04.303544+00:00",
+  "body_sha256": "d01841de89bcea7912bdbf540cdc6c9a253ab209513cdeca0225339150a8c977",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "서론의 중금속 오염과 6가 크롬 유해성 설명이 제거 필요로 이어져 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The accelerated industrialization and urbanization in",
+   "note": "화학식(Cr(VI)·CrO4)을 「독성 크롬」으로 바꾸면 오염원-피해-대책 순서가 선다."
+  }
+ },
+ {
+  "id": "63d8aa01-f4e1-44b7-8e5e-1a49d1f7e191",
+  "source_updated_at": "2026-09-25T07:33:32.837986+00:00",
+  "body_sha256": "cc8790e338fb60627442833d0d359bac1bfca20242703ff9c6788ff96d8dc0bd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "저자 요약의 소나무재선충 확산과 세 유전자군 역할 설명이 자족적이라 요약·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The PWN is an invasive species",
+   "note": "유전자군 약어(BolA·DGAT·PLCP)를 역할로 바꿔 쓰면 저자 요약이 그대로 선다."
+  }
+ }
+]

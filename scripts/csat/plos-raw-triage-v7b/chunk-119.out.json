@@ -1,0 +1,853 @@
+[
+ {
+  "id": "60da5fc5-c816-421b-aabd-e09dfd35b213",
+  "source_updated_at": "2026-09-13T07:14:06.603186+00:00",
+  "body_sha256": "893f87e14bde6381bff684859c4bd1633b2ac896e90e8062e424b76cd4db8c2b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "인터페론 유도 유전자가 SARS-CoV-2를 막는 과정을 서론과 고찰에서 논지로 이어 간다 — 고찰의 OAS1 절이 발췌 가능.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A robust IFN response is critical",
+   "note": "유전자 약어(ISG·CRISPRa)를 「면역 유전자」로 바꾸면 서고, 실험 수치는 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "60e1aafe-9444-44fd-b760-053a0bc198d9",
+  "source_updated_at": "2026-09-13T07:29:23.047872+00:00",
+  "body_sha256": "4085adb1ba8581abc474df437c082c598bbec4b79a4f701eee616aad4e2aae62",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "science",
+  "why": "서론은 이온 통로 구조를 설명하지만 본문 대부분이 돌연변이 하나하나의 pH 값 나열이라 발췌할 단락이 서론에 한정된다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Pentameric ligand-gated ion channels are key",
+   "note": "잔기 기호(E35·D86)를 치환할 일반 낱말이 없어 수치를 걷으면 문장이 남지 않는다."
+  }
+ },
+ {
+  "id": "60e52bb6-4d9f-445b-9f29-6aa9d0e91b10",
+  "source_updated_at": "2026-09-25T07:32:12.840769+00:00",
+  "body_sha256": "5836d8a0cf8dc5ffb2cfdb04512f17f3474b8191e96e1813b12986e4f02e17d3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기생충 효소를 약 표적으로 삼는 까닭을 저자 요약과 고찰이 한 편의 논지로 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Schistosomiasis, a devastating neglected tropical",
+   "note": "효소 약어(TGR·NADPH)를 「항산화 효소」로 바꾸면 서고, 구조 좌표는 걷어도 주장이 남는다."
+  }
+ },
+ {
+  "id": "60ea32e5-ceeb-4d28-ac02-d2f136663516",
+  "source_updated_at": "2026-09-05T23:58:10.358842+00:00",
+  "body_sha256": "19a881690a82461a2bb506643ab2d84b6b02e0112aeae7728c95d9cde195d371",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "마취 보조제가 국소마취제 농도를 낮춘다는 임상 시험의 목적·방법·결과가 짧게 정리돼 있다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Arthroscopic shoulder surgery offers the advantages",
+   "note": "약품명을 「진통제」로 바꾸면 서고, 서론 첫 단락이 앞 문맥 없이 시작한다."
+  }
+ },
+ {
+  "id": "60f0200e-4785-4105-a772-38d01d70d215",
+  "source_updated_at": "2026-09-13T07:21:44.705938+00:00",
+  "body_sha256": "5824ee47d3949993ee0f11871658cd7f3480b30d0807fed381d7b04ac1ea35fd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "두 종류 호르몬 처치가 유전자 발현에 다르게 작용한다는 비교 구도가 서론과 고찰에서 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Hormone therapy effectively reduces menopausal symptoms",
+   "note": "유전자 집합 표는 걷어야 하지만 서론의 모델 동물 설명은 그대로 선다."
+  }
+ },
+ {
+  "id": "61019a46-2586-4187-8796-fefbeab5efd9",
+  "source_updated_at": "2026-09-25T07:32:16.569485+00:00",
+  "body_sha256": "10dee5e2229f05d62e078bacdf7a39e6f049fbdc5327cf6bfa12c3bc76c14802",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "한 유전자를 없애면 요관 근육이 생기지 않는다는 인과가 서론부터 고찰까지 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The mammalian ureters consist of two",
+   "note": "유전자 기호를 「전사 인자」로 바꾸면 서고, 저자 요약이 그대로 발췌 후보다."
+  }
+ },
+ {
+  "id": "61070a45-9ffb-47ed-8356-4773829b435a",
+  "source_updated_at": "2026-09-25T07:32:17.16766+00:00",
+  "body_sha256": "ad41a85852967ee9850072ecf5beea4f7618a9366bdb99ac0246eb394baa7d86",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "혈중 지질과 자궁내막증의 유전적 연관을 놓고 근거의 한계까지 밝히는 논증이 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Endometriosis is a prevalent condition among",
+   "note": "유전자 이름 목록은 걷어야 하지만 「근거가 인과를 증명하지 않는다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "610be14d-9112-4ce0-aa5b-ecf45069f134",
+  "source_updated_at": "2026-09-25T07:32:18.150727+00:00",
+  "body_sha256": "3fa06e5db44d43eba290a4e80db513236929c413ea07189e234073719512af85",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "심장 판막 수술 뒤 증상 경험을 환자 말로 네 차원에 나누어 서술한 질적 연구다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "mood",
+    "long_reference"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Patients reported diverse physical symptoms following",
+   "note": "환자 인용이 심경 지문 재료가 되고, 의학 용어는 몇 개만 바꾸면 내려간다."
+  }
+ },
+ {
+  "id": "611f29a9-808c-4fbf-974c-c8df1b154292",
+  "source_updated_at": "2026-09-25T07:32:21.935653+00:00",
+  "body_sha256": "d42fe7425fd9479652dcac2df6ae78b210bffc14977d774cd541ba907a7c628d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "간염과 지방간이 겹친 환자의 대사 신호를 찾는 목적과 한계를 고찰이 논지로 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chronic hepatitis B, caused by persistent",
+   "note": "대사물 이름을 「아미노산」으로 바꾸면 서고, 과적합을 인정하는 대목이 논지의 축이다."
+  }
+ },
+ {
+  "id": "6122937a-80f2-4d8e-a945-d6b55d3f370a",
+  "source_updated_at": "2026-09-13T06:27:15.886025+00:00",
+  "body_sha256": "a6e11b2e80b87bd15dab31db68b27bf0a14ac2b3073b33f5a2a5519a306b4cfc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "식물 씨앗에서 얻은 펩타이드가 지방 분해 효소를 막는 과정을 서론이 배경부터 설명한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Obesity and hyperlipidemia, two interrelated metabolic",
+   "note": "실험 조건 표는 걷어야 하지만 비만과 지질 흡수를 잇는 서론은 그대로 선다."
+  }
+ },
+ {
+  "id": "6126dde1-bc82-43a1-a07c-536f698629ef",
+  "source_updated_at": "2026-09-25T07:32:22.733966+00:00",
+  "body_sha256": "5229344e1eed3e93187692d001fd8f733159cbdec5fc3d5a4daba01b1711227d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "미토콘드리아 분열과 융합이 암 치료 표적이 되는 까닭을 개관 논문이 차례로 논증한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mitochondria are double-membrane-bound organelles often referred",
+   "note": "개관이라 단락마다 논지가 서고, 단백질 기호만 바꾸면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "613526dd-f05e-4bc2-882e-8ba00899258f",
+  "source_updated_at": "2026-09-25T07:32:23.59546+00:00",
+  "body_sha256": "7ac0001c112ac86b27eb3ab24418506960f4696216b2bfba453d981fcc80554b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "유방암 환자의 영양 지표와 생존을 견주어 체형 지표보다 혈액 지표가 갈랐다고 정리한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Breast cancer survival is influenced by",
+   "note": "수치를 걷어도 「체중만으로는 예후를 못 잰다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "615dd2f3-5dab-4453-b93d-d9d1a5ad1ad7",
+  "source_updated_at": "2026-09-23T21:04:51.81818+00:00",
+  "body_sha256": "b43c49e243bdd3166b090388318bd2b9f8bf325e3ecf3429501a2227dc9de1c6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "인터페론이 젖소 자궁 염증 반응을 낮추는 경로를 전사체 결과로 설명한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Endometritis is a reproductive system disease",
+   "note": "서론과 고찰은 서지만 품질 관리 절은 수치 나열이라 가공 때 통째로 걷어야 한다."
+  }
+ },
+ {
+  "id": "6163c4c7-8082-45eb-bb67-e1edf707ffdf",
+  "source_updated_at": "2026-09-13T07:09:18.311399+00:00",
+  "body_sha256": "5b27d15c6f50e8642daf9a8111377d1c4fa08d7a2c20512fcf0ed688aa3b294b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "흉부 자궁내막증 병변의 분포와 재발을 임상 관찰로 정리하고 원인 가설을 견준다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Catamenial pneumothorax is defined as recurrent",
+   "note": "해부 위치 기호는 걷어야 하지만 「공기가 두 경로로 들어온다」는 설명이 그대로 선다."
+  }
+ },
+ {
+  "id": "6167e811-b7dd-4e9a-a902-173d7961fdbd",
+  "source_updated_at": "2026-09-15T15:08:53.088352+00:00",
+  "body_sha256": "a7fa0009c0da7e53ea3218951d3076f398cc5f5c77c737743fcb221270ee7b85",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "엽산·종합비타민 보충과 자폐 위험의 연관을 기존 메타분석들을 모아 다시 재는 우산 리뷰다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Autism spectrum disorder is a pervasive",
+   "note": "통계 기호를 걷어도 「예방이 치료보다 낫다」는 논지가 남아 고1 밴드까지 내려간다."
+  }
+ },
+ {
+  "id": "616f66f0-f3d0-480e-95ae-5cf148dfe63c",
+  "source_updated_at": "2026-09-25T07:32:27.231056+00:00",
+  "body_sha256": "c6e7ce6a4baa3611eb3eb1086ed15fcbaf15264895fb1f9c77d303ccc575b4d6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "뇌종양 영상 분할에서 전역 맥락과 국소 경계의 상충을 어떻게 푸는지 논지로 밀고 간다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Precise brain tumor segmentation requires a",
+   "note": "모델 이름과 수치를 걷어도 「전역과 국소의 절충」이라는 주장이 남는다."
+  }
+ },
+ {
+  "id": "6175ade2-6105-4a0a-8680-d0bff7dd7486",
+  "source_updated_at": "2026-09-25T07:32:28.890381+00:00",
+  "body_sha256": "bc6db8a1f28e5c46e8c0a6d4fd6a56e947d8e930772211592ac6f63f9a69b128",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "프로파지가 숙주의 당 수송을 낮춰 다른 바이러스 감염을 막는다는 기전을 저자 요약이 한 편으로 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Bacteriophages are abundant viruses that infect",
+   "note": "균주 기호를 「대장균」으로 바꾸면 서고, 영양과 감염의 맞바꿈 논지가 남는다."
+  }
+ },
+ {
+  "id": "61795427-a7d7-4e53-9b2d-49e50592b4a4",
+  "source_updated_at": "2026-09-25T07:32:29.375815+00:00",
+  "body_sha256": "c9f695fc2e72c877a66aec33976ab1e4010d6263cf61331e4f055dbc65268ab0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "유산소 운동이 대사 이상을 낮추는 분자 경로를 가설로 세우고 동물 실험으로 확인한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A collection of metabolic disorders known",
+   "note": "유전자 기호를 「조절 인자」로 바꾸면 서고, 운동의 효과라는 논지가 남는다."
+  }
+ },
+ {
+  "id": "617cb431-15c0-43bc-b00d-bed8f23d4537",
+  "source_updated_at": "2026-09-25T07:32:29.780575+00:00",
+  "body_sha256": "ead8e9ad02b87d0acc169a15ab3b5b824a6f748f506044b707163ebf55e179ca",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "임플란트에서 떨어진 티타늄 입자가 뼈세포 신호를 바꾼다는 결론까지 실험이 단계로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Titanium-based implants have sought high popularity",
+   "note": "세포주 이름과 농도는 걷어야 하지만 서론의 임플란트 실패 설명은 그대로 선다."
+  }
+ },
+ {
+  "id": "6187ebba-722d-4bdc-aba8-e6144c23fdad",
+  "source_updated_at": "2026-09-15T15:08:56.816568+00:00",
+  "body_sha256": "de453b0e14cf23465c7afdf5c8f0a1ddcaa74c694d6e9f29211ec6327a99398f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "담석과 무증상 관상동맥 경화의 연관을 플라크 종류로 갈라 본 관찰 연구다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Coronary artery disease stands as a",
+   "note": "통계 기호를 걷어도 「선행 연구가 갈린 까닭」이라는 논지가 남는다."
+  }
+ }
+]
