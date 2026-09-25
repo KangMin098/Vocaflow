@@ -154,6 +154,8 @@ function joinLine(frags: PdfFrag[]): string {
     const wordSide = /[A-Za-z,]\s*$/.test(out) || /^\s*[A-Za-z]/.test(f.str)
     if (out && !choiceRow && wordSide && gap > Math.max(28, h * 2.2) && !/______\s*$/.test(out) && !f.str.startsWith('______')) out += ` ${GAP} `
     else if (out && gap > h * 0.15 && !/\s$/.test(out) && !/^\s/.test(f.str)) out += ' '
+    // 안내문의 가운뎃점 · 전각 줄표는 조각 틈이 좁아도 띄운다(「∙ Dates:」 · 「9:00 a.m. － 6:00」 — 붙이면 읽기 어렵다)
+    else if (out && !/\s$/.test(out) && (/[∙•－]$/.test(out) || /^[∙•－]/.test(f.str))) out += ' '
     out += f.str
     end = Math.max(end, f.x + f.w)
   }
