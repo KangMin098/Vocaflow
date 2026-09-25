@@ -11,6 +11,7 @@
 'use client'
 
 import { Bot, ClipboardCheck, Copy, X } from 'lucide-react'
+import { SourceNameButton } from '@/components/admin/SourceProfileDialog'
 import { useEffect, useRef, useState } from 'react'
 
 import { SOURCE_LABEL } from '@/lib/articles/source-guide'
@@ -125,7 +126,7 @@ export function PipelineBoard({
               {visible.map((r) => (
                 <tr key={r.source} className="border-b border-[var(--bd)] last:border-0">
                   <th scope="row" className="px-4 py-2 text-left align-middle">
-                    <span className="block font-display text-[13px] font-[700] text-[var(--t1)]">{label(r.source)}</span>
+                    <span className="block font-display text-[13px] font-[700] text-[var(--t1)]"><SourceNameButton source={r.source} label={label(r.source)} /></span>
                     <span className="font-mono text-[11px] text-[var(--t3)]">{r.source}</span>
                   </th>
                   {PIPELINE_STAGES.map((s) => {
