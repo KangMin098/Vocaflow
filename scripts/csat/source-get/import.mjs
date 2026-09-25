@@ -103,17 +103,24 @@ function stripCredits(text) {
   while (paras.length > 1 && isCredit(paras.at(-1))) { paras.pop(); removed++ }
   return { text: paras.join('\n\n').trim(), removed }
 }
+const STORYBOOK = new Set(['global_storybooks', 'gdl'])
 let creditsStripped = 0
+let markup = 0
 let inserted = 0, skipped = 0, empty = 0, short = 0, restricted = 0, n = 0
 const failures = []
 for (const r of rows) {
   if (LIMIT && n >= LIMIT) break
   const source_id = `${SOURCE}:${r.id}`
   if (existing.has(source_id)) { skipped++; continue }
-  const cleaned = stripCredits(String(r.body_text ?? '').trim())
+  // ⚠️ 그림책 원천에만 — 뉴스·교재의 끝 문단은 본문이다. 처음엔 전 원천에 걸어 wikinews 32편의
+  //   마지막 문단(「…supported by the UN」 따위)을 뗐다(2026-09-25, `--repair-content` 로 되돌림).
+  const raw = String(r.body_text ?? '').trim()
+  const cleaned = STORYBOOK.has(SOURCE) ? stripCredits(raw) : { text: raw, removed: 0 }
   if (cleaned.removed) creditsStripped++
   const content = cleaned.text
   if (!content) { empty++; continue }
+  // 위키 표기 잔여(`{{…}}` · `[[…` · 표 파이프) — 덤프 19,486편 중 ~130편. 정제로 안 풀리는 원문 표기 오류라 뺀다.
+  if (SOURCE === 'wikinews' && /[{}|]|\[\[/.test(content)) { markup++; continue }
   if (W(content) < 100) short++
   const lic = licenseOf(r.license)
   if (!lic.ok) restricted++
@@ -147,6 +154,7 @@ console.log(`
 ${COMMIT ? '적재' : 'dry-run'}   ${inserted}편
 건너뜀(이미 있음) ${skipped}편
 건너뜀(빈 본문) ${empty}편
+건너뜀(위키 표기 잔여) ${markup}편
 100어 미만 ${short}편 (버리지 않음 · 기록용)
 끝 크레디트 걷음 ${creditsStripped}편
 라이선스 해소 필요(담음 · restricted) ${restricted}편
