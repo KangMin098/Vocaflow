@@ -9,6 +9,7 @@
 // 이 파일은 순수 함수만 둔다 — 무엇이 새는지(가리기) · 맞았는지(채점) · 무엇이 어긋났는지(차이 카드).
 
 import type { DissectionRecord, Prediction } from './dissect'
+import { topicSentences, type Pattern, type PassageDesign, type Transform } from './design'
 
 /** 학습자가 확정한 것. null 은 「모르겠어요」. */
 export interface GateCommit {
@@ -16,6 +17,10 @@ export interface GateCommit {
   choice: number | null
   /** 1(찍음) ~ 5(확실) */
   confidence: number
+  /** 설계 주석이 있는 문항만 — 주제문 · 구조 패턴 · 정답 표현 변환 예측(고르지 않으면 null) */
+  topic?: number | null
+  pattern?: Pattern | null
+  transform?: Transform | null
 }
 
 export interface GateKey {
@@ -23,6 +28,8 @@ export interface GateKey {
   answer: number | null
   /** 정답 근거가 걸친 문장 번호들(0-기반) — 골격이 자리를 못 찾았으면 빈 배열 */
   evidence: number[]
+  /** 출제 설계 주석(S2 · S3) — 없으면 그 칸을 묻지 않는다 */
+  design?: PassageDesign | null
 }
 
 export interface GateResult {
@@ -30,13 +37,21 @@ export interface GateResult {
   choiceHit: boolean | null
   /** 확신 4 이상인데 틀림 — 가장 학습 가치가 큰 지점이라 따로 센다 */
   overconfident: boolean
+  topicHit?: boolean | null
+  patternHit?: boolean | null
+  transformHit?: boolean | null
 }
 
 export function grade(commit: GateCommit, key: GateKey): GateResult {
   const sentenceHit = key.evidence.length && commit.sentence != null ? key.evidence.includes(commit.sentence) : null
   const choiceHit = key.answer != null && commit.choice != null ? commit.choice === key.answer : null
+  const d = key.design
+  // 설계 칸은 고른 것만 채점한다 — 고르지 않은 칸은 null(틀림으로 세지 않는다)
+  const topicHit = d && commit.topic != null ? topicSentences(d).includes(commit.topic) : null
+  const patternHit = d && commit.pattern ? commit.pattern === d.pattern : null
+  const transformHit = d && d.transform !== 'none' && commit.transform ? commit.transform === d.transform : null
   const wrong = sentenceHit === false || choiceHit === false
-  return { sentenceHit, choiceHit, overconfident: wrong && commit.confidence >= 4 }
+  return { sentenceHit, choiceHit, overconfident: wrong && commit.confidence >= 4, topicHit, patternHit, transformHit }
 }
 
 /** 이 문항에서 게이트를 이미 통과했는가 — 출제 사고 화면이 남긴 예측이 있으면 열린 채로 연다 */
@@ -57,6 +72,9 @@ export function toPrediction(itemId: string, typeId: string, commit: GateCommit,
     sentence: commit.sentence,
     choice: commit.choice,
     confidence: commit.confidence,
+    ...(commit.topic != null ? { topic: commit.topic } : {}),
+    ...(commit.pattern ? { pattern: commit.pattern } : {}),
+    ...(commit.transform ? { transform: commit.transform } : {}),
   }
 }
 

@@ -59,6 +59,7 @@ import { track } from '@/lib/analytics/client'
 import { withView } from '@/lib/csat/continuity'
 import { loadDissectionRecord, saveDissectionRecord } from '@/lib/csat/session/store'
 import type { Prediction } from '@/lib/csat/dissect'
+import type { Pattern, Transform } from '@/lib/csat/design'
 import { OPEN_BEFORE_COMMIT, committedOf, grade, maskChip, maskName, toPrediction, type GateCommit, type GateKey } from '@/lib/csat/reveal-gate'
 
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
@@ -159,6 +160,8 @@ export function AnalysisTheater({
   const commit = (c: GateCommit) => {
     const p = toPrediction(itemId, typeId, c, grade(c, gate), Date.now())
     setCommitted(p)
+    // 예측 패널이 길어 판을 내린 채 확정하면 차이 카드가 판 위쪽 밖에 열린다 — 그리로 데려간다
+    requestAnimationFrame(() => document.querySelector('[data-testid="gate-diff"]')?.scrollIntoView({ block: 'start', behavior: 'smooth' }))
     void loadDissectionRecord().then((record) => saveDissectionRecord({ ...record, predictions: [...record.predictions, p] }))
   }
   const sfx = useTheaterSfx()
@@ -198,7 +201,15 @@ export function AnalysisTheater({
   const shownOpen = revealed ? open : new Set(blocks.filter((b) => OPEN_BEFORE_COMMIT.has(b.kind)).map((b) => b.key))
   const label = (name: string, kind: string) => (revealed ? name : maskName(name, kind))
   const mine: GateCommit | null = committed
-    ? { sentence: committed.sentence ?? null, choice: committed.choice ?? null, confidence: committed.confidence ?? 1 }
+    ? {
+        sentence: committed.sentence ?? null,
+        choice: committed.choice ?? null,
+        confidence: committed.confidence ?? 1,
+        // 설계 칸은 고른 것만 기록된다 — 없으면 undefined 로 두어 차이 카드에서 그 줄을 빼게 한다
+        ...(committed.topic !== undefined ? { topic: committed.topic } : {}),
+        ...(committed.pattern ? { pattern: committed.pattern as Pattern } : {}),
+        ...(committed.transform ? { transform: committed.transform as Transform } : {}),
+      }
     : null
   const diff = mine ? <GateDiff commit={mine} result={grade(mine, gate)} gateKey={gate} /> : null
   const step = steps[cursor] ?? null
@@ -407,7 +418,7 @@ export function AnalysisTheater({
                   {committed === undefined ? (
                     <p className={styles.quiet} aria-busy="true">기록을 확인하는 중…</p>
                   ) : !revealed ? (
-                    <PredictGate sentences={map ? map.sentences.map((x) => x.chars) : []} onCommit={commit} />
+                    <PredictGate sentences={map ? map.sentences.map((x) => x.chars) : []} design={gate.design} onCommit={commit} />
                   ) : map ? (
                     <>
                       {diff}

@@ -32,6 +32,10 @@ export interface Prediction {
   sentence?: number | null
   choice?: number | null
   confidence?: number
+  /** 설계 주석 예측(주제문 문장 · 구조 패턴 · 정답 표현 변환) — `lib/csat/design.ts` 의 라벨 */
+  topic?: number
+  pattern?: string
+  transform?: string
 }
 export interface DissectionDraft { phase: 'scan' | 'predict1' | 'compare1' | 'predict2' | 'compare2' | 'predict3' | 'compare3' | 'blueprint' | 'formula'; selection: string | null; answers: { step: number; hit: boolean; selection: string }[] }
 export interface Formula { tag: string; text: string; type: string; sources: string[] }

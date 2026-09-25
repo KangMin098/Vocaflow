@@ -127,6 +127,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       gate={{
         answer: item.answer != null && !item.answer_unknown ? item.answer : null,
         evidence: skeleton?.anchors.find((x) => x.id === 'answer')?.sentences ?? [],
+        design: item.design,
       }}
       typeId={item.type_id ?? ''}
       source={{ url: paper.paperUrl ?? paper.listUrl, direct: paper.paperUrl != null, reason: paper.reason }}

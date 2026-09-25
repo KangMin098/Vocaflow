@@ -383,6 +383,7 @@ export async function loadCsatPlan(): Promise<CsatPlan> {
 // 여기서는 부르는 쪽의 import 경로를 유지하려고 다시 내보낸다.
 export { fromItemSlug, toItemSlug } from './item-slug'
 import { toItemSlug } from './item-slug'
+import { parseDesign, type PassageDesign } from './design'
 
 export interface CsatItemBrief {
   id: string
@@ -425,6 +426,8 @@ export interface CsatItemExplain {
   procedure: { step: string; on_fail?: string }[]
   required_vocab: string[]
   time_budget_sec: number | null
+  /** **출제 설계 주석** — 문장 역할 · 구조 패턴 · 정답 표현 변환(`lib/csat/design.ts`). 주석 없는 문항은 null */
+  design: PassageDesign | null
 }
 
 type AnalysisRow = {
@@ -433,7 +436,7 @@ type AnalysisRow = {
   answer_unknown: boolean
   measured_ability?: string | null
   design_intent?: string | null
-  answer_locus: { quote?: string; reasoning?: string } | null
+  answer_locus: { quote?: string; reasoning?: string; passage_design?: unknown } | null
   choice_analysis: {
     n: number
     verdict?: string
@@ -595,6 +598,7 @@ export async function loadCsatItemExplain(
       why_correct: correct?.why_correct ?? null,
       evidence_quote: capQuoteWords(a?.answer_locus?.quote ?? null),
       evidence_reasoning: a?.answer_locus?.reasoning ?? null,
+      design: parseDesign(a?.answer_locus?.passage_design),
       distractors: chs
         .filter((c) => c.verdict === 'distractor')
         .map((c) => ({
