@@ -81,7 +81,16 @@ export const PIPELINE_STAGES: readonly StageDef[] = [
     says: '원본 전문을 읽고 보관 · 보류 · 폐기를 가른다(원문 점검 기준)',
     needs: '없음 — 다만 대량 판정은 그 원천의 판정자 일치도(κ)가 두 회차 연속 0.6 이상일 때',
   },
-  { key: 'extract', no: '③', name: '발췌', who: 'auto', says: '보관된 원본에서 지문으로 쓸 구간을 잘라 조각을 만든다', needs: '② 원문 점검에서 「보관」 — 판정 없는 원본은 건너뛴다' },
+  // 2026-09-25 사용자 결정: 원문 점검 뒤 전량을 미리 자르지 않는다 — 발췌는 교재를 만들 때 주문에 모자란 칸만.
+  //   그래서 「보관됐지만 아직 안 자른 원본」은 남은 일(주황)이 아니라 교재 재료 창고다.
+  {
+    key: 'extract',
+    no: '③',
+    name: '발췌',
+    who: 'auto',
+    says: '교재를 만들 때, 주문에 모자란 학년·유형 칸만 보관된 원본에서 잘라 조각을 만든다',
+    needs: '② 원문 점검에서 「보관」 + 교재 주문에 모자란 칸 — 미리 전량을 자르지 않는다',
+  },
   { key: 'level', no: '④', name: '학년 분석', who: 'auto', says: '글의 학년 수준·어휘·문체를 잰다', needs: '원문 또는 조각이 창고에 있어야 한다' },
   { key: 'judge', no: '⑤', name: '내용 판정', who: 'claude', says: '본문을 읽고 교재에 쓸지 · 갈래 · 재료를 적는다', needs: '④ 학년 분석' },
   { key: 'usable', no: '⑥', name: '실을 수 있음', who: 'result', says: '적격 7축을 모두 통과해 교재에 실을 수 있는 편수', needs: '① ~ ⑤' },
@@ -118,11 +127,12 @@ export function cellOf(row: PipelineRow, stage: StageKey): Cell {
     }
     case 'extract':
       if (row.keepPending === 0 && row.pieces === 0) return { value: '—', note: '자를 원본 없음', tone: 'na', ratio: null }
+      // 안 자른 보관 원본은 쌓인 일이 아니다 — 교재 주문이 부를 때 자른다(주황으로 칠하지 않는다).
       return {
         value: n(row.pieces),
-        note: row.keepPending ? `${n(row.keepPending)} 발췌 대기` : '끝',
-        tone: row.keepPending ? 'pile' : 'ok',
-        ratio: row.keepPending ? row.pieces / (row.pieces + row.keepPending) : 1,
+        note: row.keepPending ? `보관 ${n(row.keepPending)} · 교재 만들 때 자름` : '끝',
+        tone: 'ok',
+        ratio: null,
       }
     case 'level': {
       const left = row.total - row.levelled
@@ -250,8 +260,16 @@ export function howTo(row: PipelineRow, stage: StageKey, nextRound: number): How
       if (row.keepPending === 0) return null
       return {
         steps: [
-          { cmd: 'pnpm exec tsx scripts/csat/plos-extract.mjs --limit 200 --compare', why: '예행 — 200편에서 무엇이 잘리는지 본다(쓰지 않음)', writes: false },
-          { cmd: 'pnpm exec tsx scripts/csat/plos-extract.mjs --limit 200 --commit', why: '보관된 원본 200편을 잘라 조각으로 넣는다', writes: true },
+          {
+            cmd: 'pnpm exec tsx scripts/csat/plos-extract.mjs --pending-only --v 7 --limit 50',
+            why: '예행 — 교재 주문에 모자란 학년(예: V7)의 보관 원본에서 무엇이 잘리는지 본다(쓰지 않음). 모자란 칸이 없으면 돌리지 않는다',
+            writes: false,
+          },
+          {
+            cmd: 'pnpm exec tsx scripts/csat/plos-extract.mjs --pending-only --v 7 --limit 50 --commit',
+            why: '모자란 만큼만 잘라 조각으로 넣는다 — 전량을 미리 자르지 않는다',
+            writes: true,
+          },
         ],
         claude: null,
         rerun: '보관 판정이 없는 원본은 건너뛰고, 이미 자른 원본은 다시 자르지 않는다',

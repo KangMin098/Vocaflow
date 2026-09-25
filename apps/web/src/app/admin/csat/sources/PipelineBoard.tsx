@@ -79,7 +79,7 @@ export function PipelineBoard({
   const [showAll, setShowAll] = useState(false)
   // 처음에는 **남은 일이 가장 많은 원천 8개**만 편다 — 스물다섯 줄을 한꺼번에 늘어놓으면 표가 곧 벽이 된다.
   const remaining = (r: PipelineRow) =>
-    r.undecided + r.keepPending + Math.max(0, r.total - r.levelled) + Math.max(0, r.total - r.judged)
+    r.undecided + Math.max(0, r.total - r.levelled) + Math.max(0, r.total - r.judged)
   const open = rows.filter((r) => !rowDone(r)).sort((a, b) => remaining(b) - remaining(a))
   const done = rows.filter(rowDone)
   const TOP = 8
