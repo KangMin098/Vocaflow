@@ -9476,7 +9476,7 @@
           "role": "strategy",
           "target": {
             "kind": "anchor",
-            "id": "sentence:6"
+            "id": "sentence:7"
           },
           "segments": [
             {
@@ -9533,7 +9533,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:24"
+            "id": "sentence:25"
           },
           "segments": [
             {
@@ -9562,7 +9562,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:14"
+            "id": "sentence:15"
           },
           "segments": [
             {
@@ -9591,7 +9591,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:22"
+            "id": "sentence:23"
           },
           "segments": [
             {
@@ -9911,7 +9911,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:25"
+            "id": "sentence:26"
           },
           "segments": [
             {
@@ -9936,7 +9936,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:26"
+            "id": "sentence:27"
           },
           "segments": [
             {
@@ -9965,7 +9965,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:26"
+            "id": "sentence:27"
           },
           "segments": [
             {
@@ -10303,7 +10303,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:16"
+            "id": "sentence:17"
           },
           "segments": [
             {
@@ -10328,7 +10328,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:18"
+            "id": "sentence:19"
           },
           "segments": [
             {
@@ -10485,7 +10485,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:7"
+            "id": "sentence:8"
           },
           "segments": [
             {

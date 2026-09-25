@@ -15,13 +15,14 @@
 //   (gitignore — 원문이 들어 있다). 되돌리기: 같은 파일로 `--restore <파일>`.
 //
 // 원문은 출력하지 않는다 — 수치와 문항 번호만.
-//   npx tsx scripts/csat-learner/regen-passages.mts [--exams 2026,M2706] [--commit] [--restore <backup.json>]
+//   npx tsx scripts/csat-learner/regen-passages.mts [--exams 2026,M2706] [--commit] [--mark-ok] [--restore <backup.json>]
+//   --mark-ok: 원문이 이미 정본과 같은데 옛 body_ok=false 딱지가 남은 문항만 body_ok=true 로 고친다
 
 import fs from 'node:fs'
 import path from 'node:path'
 
 import { splitSentences } from '../../src/lib/csat/passage-skeleton'
-import { reflowExam } from '../../src/lib/csat/reflow/reflow'
+import { BLANK_COUNT, reflowExam } from '../../src/lib/csat/reflow/reflow'
 import type { ReflowAnchors } from '../../src/lib/csat/reflow/types'
 import { arg, flag, localPapers, pdfPages, serviceDb } from './env.mts'
 
@@ -77,6 +78,9 @@ const simHist = { lt90: 0, s90: 0, s95: 0, s99: 0 }
 const fromBad: string[] = []
 const skipped: string[] = []
 const writes: { id: string; passage?: string; choices?: string[] }[] = []
+/** 원문은 정본과 같은데 body_ok=false 딱지가 남은 문항(`--mark-ok` 로 고친다) */
+const markOk: string[] = []
+const keepBad: string[] = []
 // 하류 영향 — 문장 수가 바뀌면 골격 · 강의 문장 앵커(`sentence:k`) · 설계 주석(roles) 의 번호가 어긋난다
 const lectured = new Set<string>()
 for (const f of fs.readdirSync(path.resolve('src/lib/csat/lecture-data')).filter((f) => f.endsWith('.json') && f !== 'index.json')) {
@@ -129,6 +133,10 @@ for (const exam of exams) {
       choicesOk && JSON.stringify(rf.choices.map(norm)) !== JSON.stringify((r.choices ?? []).map(norm)) ? rf.choices : undefined
     if (!newPassage && !newChoices) {
       tally.same++
+      // 원문이 이미 reflow 정본과 같은데 옛 딱지(pdftotext 기준 body_ok=false)가 남은 문항 — 딱지만 고친다
+      // 단, 빈칸 개수가 유형 기대치와 맞을 때만 — reflow 도 빈칸을 못 찾은 문항(blank-audit 의 12개)은 딱지를 둔다
+      if (!r.body_ok && blanks(r.passage) === (BLANK_COUNT.get(r.type_id ?? '') ?? 0)) markOk.push(r.id)
+      else if (!r.body_ok) keepBad.push(r.id)
       continue
     }
     if (newPassage && newChoices) tally.both++
@@ -163,6 +171,15 @@ if (good.length) console.log(`  body_ok=true 인데 문장 수 바뀜: ${good.ma
 console.log(`DB 와 낱말 유사도 분포: <0.90 ${simHist.lt90} · 0.90~0.95 ${simHist.s90} · 0.95~0.99 ${simHist.s95} · ≥0.99 ${simHist.s99}`)
 console.log(`건너뜀: 추출 실패 ${tally.skipOk} · 유사도 < 0.9 ${tally.skipSim} · 재추출이 더 짧음 ${tally.skipShort} · 로컬 PDF 없음(회차) ${tally.noPdf}`)
 if (skipped.length) console.log(`  ${skipped.join(' ')}`)
+
+console.log(`원문은 정본과 같은데 body_ok=false 딱지가 남은 문항 ${markOk.length}${markOk.length ? ` — --mark-ok 로 true 로 고친다` : ''}`)
+if (keepBad.length) console.log(`  빈칸 개수가 안 맞아 딱지를 두는 문항 ${keepBad.length}: ${keepBad.join(' ')}`)
+if (flag('mark-ok') && markOk.length) {
+  // 옛 딱지는 pdftotext 원문의 잘림 신호였다. 원문을 reflow 정본으로 바꿨으니 그 신호는 더는 맞지 않는다.
+  const { error } = await db.from('csat_items').update({ body_ok: true }).in('id', markOk)
+  if (error) throw error
+  console.log(`body_ok=true 로 고침 ${markOk.length}문항`)
+}
 
 if (COMMIT && writes.length) {
   const out = path.resolve(`test-results-csat-learner/regen-backup-${new Date().toISOString().replace(/[:.]/g, '-')}.json`)
