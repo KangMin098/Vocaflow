@@ -227,23 +227,83 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
       </div>
 
       {/*
-        벽 선반 — 참조(shopify Editions 서가): 옅은 회색 벽에 흰 선반 판, 표지가 판 위에 정면으로 선다.
-        한 판에 5권. 고른 권은 살짝 들리고 테두리로 말한다(색 하나로만 가르지 않는다).
+        벽 선반 — 참조 shopify.com/editions(WebGL 서가) 렌더 실측 2026-09-25 @1440:
+          · 벽 #cdcdcd 단색, 선반 **뒤에만** 흰 조명이 타원으로 번진다(선반 위 벽이 가장 밝다).
+          · 선반 판은 표지 줄보다 양쪽으로 길다(뷰포트 ~82%) — 흰 윗면 + 얇은 앞면 + 아래로 긴 그림자.
+          · 표지는 정면이 아니라 **아래를 축으로 살짝 뒤로 기댄다**(윗변이 약간 좁다). 권 사이 ~28px.
+          · 화면 글자는 작고 회색(13–14px · Inter) — 무게는 표지가 진다. 주 행동만 검정 알약.
+        고른 권은 들림 + 검정 테두리로 말한다(색 하나로만 가르지 않는다).
       */}
-      <div className="relative w-full overflow-hidden rounded-[16px] bg-[radial-gradient(120%_90%_at_50%_0%,#ffffff_0%,#ececec_55%,#dcdcdc_100%)] px-10 pb-10 pt-14">
-        <div className="mx-auto flex max-w-[1040px] flex-col gap-14">
+      <div className="relative w-full overflow-hidden bg-[#cdcdcd]"
+        style={{ fontFamily: 'var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif' }}>
+        {/* 좌상단 — 고른 권의 이름과 한 줄(참조 「Everything new across Shopify.」 자리) · 우상단 — 행동 */}
+        {activeSet && (
+          <div className="relative z-20 flex items-start justify-between gap-6 px-5 pt-4">
+            <div key={activeSet.id} className="min-w-0" style={{ animation: `fadeInUp 0.5s ${IOS_EASING}` }}>
+              <h2 className="break-keep text-[15px] font-[500] leading-snug text-black [font-family:inherit]">{activeSet.title}</h2>
+              <p className="break-keep text-[14px] leading-snug text-[#5c5c5c]">
+                <span className="tabular-nums">{activeSet.wordCount.toLocaleString()}</span> 단어
+                {activeSet.description ? ` · ${activeSet.description}` : ''}
+              </p>
+            </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                type="button"
+                onClick={() => void openDetail(activeSet)}
+                aria-label={`${activeSet.title} 상세`}
+                // 참조 음소거 버튼 — 옅은 원(44px)
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/60 text-black transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              >
+                <Eye size={16} aria-hidden />
+              </button>
+              <button
+                type="button"
+                onClick={() => onToggle(activeSet)}
+                disabled={pendingId === activeSet.id}
+                // 참조 「Start for free」 — 검정 알약 · 흰 글자 · 15px/600. 이 화면의 주 행동.
+                className={`inline-flex min-h-[44px] items-center gap-2 rounded-full px-5 text-[15px] font-[600] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:opacity-60 ${
+                  subscribedIds.has(activeSet.id)
+                    ? 'bg-white text-black hover:bg-[#f4f4f5]'
+                    : 'bg-black text-white hover:bg-[#3f3f46]'
+                }`}
+              >
+                {pendingId === activeSet.id ? (
+                  <Loader2 size={15} className="animate-spin" aria-hidden />
+                ) : subscribedIds.has(activeSet.id) ? (
+                  <>
+                    <Check size={15} aria-hidden /> 추가됨
+                  </>
+                ) : (
+                  <>
+                    <Plus size={15} aria-hidden /> {isLoggedIn ? '내 단어장에 추가' : '담기'}
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className="relative mx-auto flex max-w-[1180px] flex-col gap-[64px] px-16 pb-14 pt-14">
           {Array.from({ length: Math.ceil(items.length / SHELF_SIZE) }, (_, row) => (
             <div key={row} className="relative">
-              <div className="relative z-10 flex items-end justify-center gap-6 px-6">
+              {/* 선반 뒤 조명 — 흰 타원이 벽에 번진다 */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -inset-x-8 -top-20 bottom-[-8px] bg-[radial-gradient(55%_65%_at_50%_72%,#ffffff_0%,rgba(255,255,255,0.96)_40%,rgba(255,255,255,0.4)_70%,rgba(255,255,255,0)_100%)]"
+              />
+              <div className="relative z-10 flex items-end justify-center gap-6">
                 {items.slice(row * SHELF_SIZE, row * SHELF_SIZE + SHELF_SIZE).map((set, i) => {
                   const idx = row * SHELF_SIZE + i
                   const isCenter = idx === active
                   return (
                     <div
                       key={set.id}
-                      className={`w-[168px] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] ${
-                        isCenter ? '-translate-y-2' : 'hover:-translate-y-1'
-                      }`}
+                      className="w-[160px] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)]"
+                      style={{
+                        // 아래를 축으로 뒤로 기댄다 — 권마다 기울기가 조금씩 다르다(참조 표지들도 같지 않다).
+                        transform: `perspective(900px) rotateX(${4 + (idx % 3)}deg)${isCenter ? ' translateY(-8px)' : ''}`,
+                        transformOrigin: '50% 100%',
+                      }}
                     >
                       <CoverCard
                         set={set}
@@ -256,105 +316,47 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
                   )
                 })}
               </div>
-              {/* 선반 판 — 윗면 흰 판 + 아래로 떨어지는 그림자 */}
-              <div
-                aria-hidden
-                className="relative h-[10px] rounded-[2px] bg-gradient-to-b from-white to-[#f1f1f1] shadow-[0_14px_18px_-6px_rgba(0,0,0,0.28),0_2px_3px_rgba(0,0,0,0.12)]"
-              />
+              {/* 선반 판 — 흰 윗면(4px) + 앞면(8px) + 벽으로 길게 떨어지는 그림자 */}
+              <div aria-hidden className="relative -mx-8">
+                <div className="h-[4px] bg-[#fbfbfb]" />
+                <div className="h-[8px] bg-gradient-to-b from-[#f2f2f2] to-[#e2e2e2] shadow-[0_28px_44px_-6px_rgba(0,0,0,0.32),0_6px_10px_rgba(0,0,0,0.12)]" />
+              </div>
             </div>
           ))}
         </div>
-      </div>
 
-      {/* 중앙 단어장 메타 + 구독 */}
-      {activeSet && (
-        <div
-          key={activeSet.id}
-          className="flex max-w-md flex-col items-center gap-2 px-4 text-center"
-          style={{ animation: `fadeInUp 0.5s ${IOS_EASING}` }}
-        >
-          <h2 className="font-display text-[20px] font-[700] leading-tight text-[var(--t1)]">
-            {activeSet.title}
-          </h2>
-          <p className="font-display text-[13px] text-[var(--t2)]">
-            <span className="font-[800] tabular-nums text-[var(--t1)]">
-              {activeSet.wordCount.toLocaleString()}
-            </span>{' '}
-            단어
-            {activeSet.description ? ` · ${activeSet.description}` : ''}
-          </p>
-          <div className="mt-2 flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => void openDetail(activeSet)}
-              // 44px 하한 — 실측 80x38
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+        {/*
+          하단 목차 — 참조 「2026 / Spring / Everywhere」 세 줄 열. 여기서는 급 · 단어 수 · 이름.
+          권 선택 탭을 겸한다(점 인디케이터를 대신한다). 44px 히트영역 유지.
+        */}
+        {items.length > 1 && (
+          <div className="relative z-10 mx-4 border-t border-black/15">
+            <div
+              role="tablist"
+              aria-label="단어장 선택"
+              className="flex items-start gap-8 overflow-x-auto px-6 py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
-              <Eye size={14} aria-hidden /> 상세
-            </button>
-            <button
-              type="button"
-              onClick={() => onToggle(activeSet)}
-              disabled={pendingId === activeSet.id}
-              // 44px 하한 — 실측 156x36. 이 화면의 **주 행동**이라 가장 먼저 지켜야 한다.
-              className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-5 py-2 font-display text-[13px] font-[700] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60 ${
-                subscribedIds.has(activeSet.id)
-                  ? 'border-[var(--success)]/30 border bg-[var(--success-light)] text-[var(--success-ink)]'
-                  : 'bg-[var(--ju)] text-[var(--on-ju)] hover:bg-[var(--ju-ink)]'
-              }`}
-              // v07 — 유형 색은 표지와 칩이 말한다. **행동은 주묵**이다 — 유형마다 버튼 색이
-              //   바뀌면 「담기」가 어디 있는지 매번 다시 찾아야 한다(수능·내신에선 인디고였다).
-            >
-              {pendingId === activeSet.id ? (
-                <Loader2 size={14} className="animate-spin" aria-hidden />
-              ) : subscribedIds.has(activeSet.id) ? (
-                <>
-                  <Check size={14} aria-hidden /> 추가됨
-                </>
-              ) : (
-                <>
-                  <Plus size={14} aria-hidden /> {isLoggedIn ? '내 단어장에 추가' : '담기'}
-                </>
-              )}
-            </button>
+              {items.map((s, idx) => {
+                const on = idx === active
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={on}
+                    onClick={() => setActive(idx)}
+                    className="flex min-h-[44px] shrink-0 flex-col items-start text-left text-[12px] leading-[16px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  >
+                    <span className="text-[#6b6b6b]">{s.cefrLevel ?? '—'}</span>
+                    <span className="tabular-nums text-[#6b6b6b]">{s.wordCount.toLocaleString()} 단어</span>
+                    <span className={`whitespace-nowrap ${on ? 'font-[600] text-black' : 'text-[#2b2b2b]'}`}>{s.title}</span>
+                  </button>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Dot indicator
-          점은 작아야 하지만 손가락 타겟은 44px 이어야 한다(CLAUDE.md 절대 금지 항목).
-          버튼을 44px 히트영역으로 두고 **안쪽 span 만** 점으로 그린다 — 실측 6x6 이었다.
-          `overflow-x-auto` + `shrink-0` 은 한 쌍이다: 세트가 늘면 44px×N 이 뷰포트를 넘고,
-          축소를 허용하면 다시 44px 아래로 눌린다(LibraryGrid 에서 실제로 두 번 다 겪었다). */}
-      {items.length > 1 && (
-        <div
-          role="tablist"
-          aria-label="단어장 선택"
-          className="flex max-w-full items-center gap-2 overflow-x-auto px-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {items.map((s, idx) => (
-            <button
-              key={s.id}
-              type="button"
-              role="tab"
-              aria-selected={idx === active}
-              aria-label={`${idx + 1} / ${items.length}: ${s.title}`}
-              onClick={() => setActive(idx)}
-              className="flex h-11 w-11 shrink-0 items-center justify-center"
-            >
-              <span
-                aria-hidden
-                className="h-1.5 rounded-full transition-all"
-                style={{
-                  width: idx === active ? '24px' : '6px',
-                  backgroundColor: idx === active ? 'var(--t1)' : 'var(--t4)',
-                  display: 'block',
-                }}
-              />
-            </button>
-          ))}
-        </div>
-      )}
+        )}
+      </div>
 
       <style jsx>{`
         @keyframes fadeInUp {
@@ -420,7 +422,7 @@ function CoverCard({
     >
       <div
         className={`relative w-full overflow-hidden rounded-[3px] transition-shadow ${
-          isCenter ? 'shadow-[0_10px_22px_rgba(0,0,0,0.30)] ring-2 ring-black' : 'shadow-[0_6px_12px_rgba(0,0,0,0.18)]'
+          isCenter ? 'shadow-[0_12px_24px_rgba(0,0,0,0.28)] ring-2 ring-black' : 'shadow-[0_8px_16px_rgba(0,0,0,0.20)]'
         }`}
         style={{
           // 판형은 규격이 정한다 — 카드와 같은 이유로 `aspect-[3/4]` 를 뺐다.
