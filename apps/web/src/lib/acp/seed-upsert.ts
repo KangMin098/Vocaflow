@@ -49,6 +49,8 @@ export type SeedSource =
   | 'global_voices'
   | 'global_storybooks'
   | 'gdl'
+  | 'eia_kids'
+  | 'nih_news_in_health'
 
 interface ArticleScore {
   total: number

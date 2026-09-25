@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **소스GET 4차 — Wikinews 덤프 · 그림책 전량 · 연방 PD 원천 둘**(2026-09-25 · migration `20260925053055_source_get_round4_pd_sources` · 적재 21,255편): Wikinews 덤프 19,366편(robots 가 막는 api.php 대신 · 분석은 표본 500편만) · global_storybooks 368 · gdl 298(끝 크레디트 정제, NC 136편 restricted) · `eia_kids` 63(PD) · `nih_news_in_health` 800(원 사이트 Cloudflare 챌린지 → Internet Archive 사본). 공용 적재기 끝 크레디트 정제를 그림책 원천에만 한정(전 원천에 걸어 wikinews 32편 끝 문단을 뗐다가 복구). global_voices 는 사이트가 IP 를 막아 보류.
 - **출제 설계 주석 드레인(S2·S3) 적재 — 목적·빈칸·순서 115문항**(2026-09-25 · 사용자 승인 · migration 0 · jsonb 키 `answer_locus.passage_design`): 문장 역할 · 구조 패턴 · 지문 선정 이유 · 정답 표현 변환 · 순서 단서. 기준 v1 → v1.1(두 판정자 일치율 233문장: 역할 허용 0.93 · κ 0.83 · 경계 규칙 추가). 재실행 안전(쓸 것 0 · 이미 같음 115). **원문 결함**: body_ok=true 115 중 22문항(빈칸 표시 위치 오류 · 블록 표지 밀림 · 선지 끝 쪽 번호) — `docs/csat-learner/design-drain-defects.md`. body_ok=false 83문항은 제외(빈칸 115 중 80 · 원문 재추출 필요).
 - **출제 사고 — 공개 게이트(먼저 예측 · 확정 뒤 대조)**(2026-09-25 · 재설계안 v1 Phase 1 · 라우트 0 · migration 0): 근거 문장 · 정답 선지 · 확신도(5단계)를 확정해야 정답 칩 · 지도 앵커 · 정답/오답 블록 · 상영이 열린다. 「모르겠어요」도 확정. 확정 전 단계 이름 중 답이 새는 것(「오답 ② 지우기」·「4번째 문장」)은 「확정 뒤 열림」으로 가린다. 확정 뒤 차이 카드(어긋난 곳 먼저 · 확신 4↑인데 틀리면 경고). 기록은 `predictions` 에 `source:'theater'`·`sentence`·`choice`·`confidence` 로(서버 동기화 그대로). 판정 `lib/csat/reveal-gate.ts` · 회귀 `reveal-gate.test.ts` 6 · e2e 7.
 - **「사고 역추적」 → 「출제 사고」 확정**(2026-09-25 · 사용자 선택 · 라우트 그대로): 출제자의 사고 자체를 대상으로 삼는다는 뜻. 홈 링크 「출제 사고로 열기」 · ROUTES · MODULES.

@@ -70,6 +70,11 @@ export type SourceKey =
   | 'global_voices'
   | 'global_storybooks'
   | 'gdl'
+  // ── 소스GET 4차 (2026-09-25) — 퍼블릭 도메인 연방 어린이·건강 글 ──
+  //   eia_kids            eia.gov/kids 메뉴 BFS · 63편 · PD(연방)
+  //   nih_news_in_health  원 사이트가 Cloudflare 챌린지 → Wayback 사본 · 800편 · 「not copyrighted」(사진 제외)
+  | 'eia_kids'
+  | 'nih_news_in_health'
   | 'original'
 
 export interface FeedSpec {
@@ -513,6 +518,27 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 120,
     noiseKeywords: [],
     maxItems: 20,
+  },
+  // ── 소스GET 4차 (2026-09-25) ────────────────────────────────────────
+  eia_kids: {
+    recencyDays: null,     // 에너지 원리 설명 — 시의성 없음(본문의 최신 통계 문장은 주의)
+    minDescriptionLen: 0,
+    minTitleLen: 3,
+    sourceWeight: 0.80,
+    levelBonus: 0.03,
+    idealDescLen: 200,
+    noiseKeywords: ['quiz', 'game', 'glossary', 'teacher'],
+    maxItems: 70,
+  },
+  nih_news_in_health: {
+    recencyDays: null,     // 2010~2026 월간 호 — 건강 설명문은 오래 산다
+    minDescriptionLen: 0,
+    minTitleLen: 5,
+    sourceWeight: 0.82,
+    levelBonus: 0.0,
+    idealDescLen: 250,
+    noiseKeywords: ['featured website'],
+    maxItems: 100,
   },
   plos: {
     recencyDays: 3650,     // 연구 — stale 관대
@@ -1132,6 +1158,31 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     styleGuide: '초등 그림책 · 중앙 460어 · 토픽 태그에 읽기 수준(level-1~4·emergent) · StoryWeaver·Let\'s Read 와 중복',
     preferredFeedMix: [],
   },
+  // ── 소스GET 4차 (2026-09-25) ────────────────────────────────────────
+  eia_kids: {
+    targetLevels: ['beginner', 'intermediate'],
+    targetCefr: { min: 'A2', max: 'B1' },
+    maxItemsPerBatch: 70,
+    minScore: 0.35,
+    bulkPriority: 3,
+    license: 'Public Domain',  // eia.gov/about/copyrights_reuse.php
+    attributionRequired: false,
+    topicDomain: ['science', 'environment', 'technology', 'history'],
+    styleGuide: '어린이용 에너지 설명문 · 중앙 345어 · 과학자 전기 ~30편',
+    preferredFeedMix: [],
+  },
+  nih_news_in_health: {
+    targetLevels: ['intermediate'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 100,
+    minScore: 0.38,
+    bulkPriority: 3,
+    license: 'Public Domain',  // 기사 바닥글 「Our material is not copyrighted」 — 사진은 제외
+    attributionRequired: true,  // 출처 표기 요청
+    topicDomain: ['health', 'science', 'psychology', 'everyday'],
+    styleGuide: '일반인용 건강 설명문(NIH 월간) · 중앙 531어 · Wise Choices 상자 373편',
+    preferredFeedMix: [],
+  },
   plos: {
     targetLevels: ['advanced'],
     targetCefr: { min: 'C1', max: 'C2' },
@@ -1323,6 +1374,8 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   global_voices: 'news',
   global_storybooks: 'narrative',
   gdl: 'narrative',
+  eia_kids: 'expository',
+  nih_news_in_health: 'expository',
   voa: 'news',
   nasa: 'expository',
   nih: 'expository',
@@ -1628,6 +1681,9 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   global_voices: getSourcePolicy('global_voices'),
   global_storybooks: getSourcePolicy('global_storybooks'),
   gdl: getSourcePolicy('gdl'),
+  // 소스GET 4차 (2026-09-25)
+  eia_kids: getSourcePolicy('eia_kids'),
+  nih_news_in_health: getSourcePolicy('nih_news_in_health'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

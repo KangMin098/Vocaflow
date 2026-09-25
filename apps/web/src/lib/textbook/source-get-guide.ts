@@ -120,6 +120,10 @@ const GUIDES: Record<string, SourceGetGuide> = {
   nasa: acp('nasa'),
   nih: acp('nih'),
   the_conversation: acp('the_conversation'),
+  eia_kids: fetchImport('eia_kids', '--limit 20', '',
+    '메뉴를 따라 /kids/ 전체를 훑는다(71쪽 중 63편) — 전량이 작아 상한이 필요 없다. 본문의 「In 2025, …」 같은 최신 통계 문장은 시점이 박힌다.'),
+  nih_news_in_health: fetchImport('nih_news_in_health', '--limit 20', '--limit 1000',
+    '원 사이트는 Cloudflare 챌린지(JS)라 자동 접근이 막힌다 — 우회하지 않고 Internet Archive 사본(web.archive.org)에서 받는다. Wayback 503 은 재시도한다. 「Featured Website」 소개 꼭지는 뺀다.'),
   wikinews: {
     ...acp('wikinews'),
     caution: 'Wikinews 는 2026-05-04 부터 읽기 전용 고정 아카이브다. robots.txt 가 /w/(api.php)를 막으므로 대량은 덤프(dumps.wikimedia.org/enwikinews) 경로를 쓴다. 덤프 수집: `node scripts/csat/source-get/wikinews-fetch.mjs --dump --out <폴더>` → `node --tls-max-v1.2 scripts/csat/source-get/import.mjs --source wikinews --dir <폴더> --commit`. 2026-09-25 에 발행 22,109 중 19,366편 적재(스포츠 2,557 · 표기 잔여 100 제외) — 아카이브가 고정이라 다시 돌릴 일은 거의 없다.',

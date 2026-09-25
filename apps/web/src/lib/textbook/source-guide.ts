@@ -140,6 +140,14 @@ export const SOURCE_GUIDE: Record<SourceKey, SourceGuide> & Record<string, Sourc
     label: '이야기',
     says: '세계 어린이를 위한 공개 그림책. 읽기 수준별로 나뉜 이야기입니다.',
   },
+  eia_kids: {
+    label: '에너지',
+    says: '미국 에너지정보청이 어린이를 위해 쓴 에너지 설명글입니다.',
+  },
+  nih_news_in_health: {
+    label: '건강',
+    says: '미국 국립보건원이 일반 독자를 위해 쓰는 건강 소식지입니다.',
+  },
   storyweaver: {
     label: '이야기',
     says: '전 세계 아이들을 위해 쓰인 그림책 이야기입니다. 짧고, 사람이 나오고, 끝이 있습니다.',

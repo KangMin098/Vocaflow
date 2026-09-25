@@ -22,7 +22,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const SOURCES = ['global_voices', 'global_storybooks', 'gdl', 'wikinews', 'openstax']
+const SOURCES = ['global_voices', 'global_storybooks', 'gdl', 'wikinews', 'openstax', 'eia_kids', 'nih_news_in_health']
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -69,8 +69,8 @@ console.log(`${SOURCE} 표본 ${rows.length}편 (${file})`)
 
 const sourceIds = rows.map((r) => `${SOURCE}:${r.id}`)
 const existing = new Set()
-for (let i = 0; i < sourceIds.length; i += 200) {
-  const { data, error } = await db.from('library_articles').select('source_id').eq('source', SOURCE).in('source_id', sourceIds.slice(i, i + 200))
+for (let i = 0; i < sourceIds.length; i += 50) { // 50 — 긴 슬러그 id(nih_news_in_health)는 200개면 URL 이 넘쳐 fetch failed
+  const { data, error } = await db.from('library_articles').select('source_id').eq('source', SOURCE).in('source_id', sourceIds.slice(i, i + 50))
   if (error) throw new Error(`기존 조회 실패 — ${error.message}`)
   for (const r of data ?? []) existing.add(r.source_id)
 }

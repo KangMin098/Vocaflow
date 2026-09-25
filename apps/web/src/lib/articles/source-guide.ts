@@ -68,6 +68,8 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   global_voices: ['news', 'expository'],
   global_storybooks: ['narrative'],
   gdl: ['narrative'],
+  eia_kids: ['expository'],
+  nih_news_in_health: ['expository'],
   wikivoyage: ['reference'], // 여행 목적지 가이드 (CC-BY-SA → 발행 가능 · reference 보강)
   usgs: ['expository'], // 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 가능)
   noaa: ['expository'], // 기후과학 explainer (PD US Gov → 발행 가능)
@@ -140,6 +142,8 @@ export const SOURCE_LABEL: Record<string, string> = {
   global_voices: 'Global Voices',
   global_storybooks: 'Global Storybooks',
   gdl: 'Global Digital Library',
+  eia_kids: 'EIA Energy Kids',
+  nih_news_in_health: 'NIH News in Health',
   space_place: 'NASA Space Place',
   ocean_facts: 'NOAA Ocean Facts',
   worldbank: 'World Bank',
