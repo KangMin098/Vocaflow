@@ -15,9 +15,14 @@
 //   `license` 칸에 등급 슬러그를 넣지 않는다(트리거가 재파싱한다 — 2026-09-23 재고 80편 사고).
 //
 // 사용:
-//   node --tls-max-v1.2 scripts/csat/source-get/import.mjs --source gdl --dir <폴더>            (dry-run)
-//   node --tls-max-v1.2 scripts/csat/source-get/import.mjs --source gdl --dir <폴더> --commit --limit 1
-//   node --tls-max-v1.2 scripts/csat/source-get/import.mjs --source gdl --dir <폴더> --commit
+//   pnpm dlx tsx scripts/csat/source-get/import.mjs --source gdl --dir <폴더>            (dry-run)
+//   pnpm dlx tsx scripts/csat/source-get/import.mjs --source gdl --dir <폴더> --commit --limit 1
+//   pnpm dlx tsx scripts/csat/source-get/import.mjs --source gdl --dir <폴더> --commit
+//   ⚠️ tsx 로 돈다 — 사전검증(precheck.ts)을 패키지에서 가져온다. 맨 node 는 TS 의 확장자 없는 import 를 못 푼다.
+//
+// ── 사전검증 (2026-09-25) ──
+// 적재 전에 분류·제목·앞부분을 규칙으로 본다(`packages/library-pipeline/src/ingest-article/precheck.ts`).
+// 결과는 `csat_fit.precheck` 에 남는다. 원천 정책이 'block' 인 단계에 걸린 글만 건너뛰고 **사유별로 센다.**
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -46,6 +51,7 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
   auth: { persistSession: false },
 })
 const { rightsTag } = await import('../../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
+const { precheckArticle } = await import('@vocaflow/library-pipeline')
 
 /** 행의 라이선스 표기를 사람이 읽는 꼴로 정규화한다. 개작 가능 여부도 함께 준다. */
 function licenseOf(raw) {
@@ -106,6 +112,9 @@ function stripCredits(text) {
 const STORYBOOK = new Set(['global_storybooks', 'gdl'])
 let creditsStripped = 0
 let markup = 0
+const blockedBy = {}
+let blockedTotal = 0
+let flagged = 0
 let inserted = 0, skipped = 0, empty = 0, short = 0, restricted = 0, n = 0
 const failures = []
 for (const r of rows) {
@@ -121,6 +130,13 @@ for (const r of rows) {
   if (!content) { empty++; continue }
   // 위키 표기 잔여(`{{…}}` · `[[…` · 표 파이프) — 덤프 19,486편 중 ~130편. 정제로 안 풀리는 원문 표기 오류라 뺀다.
   if (SOURCE === 'wikinews' && /[{}|]|\[\[/.test(content)) { markup++; continue }
+  const pre = precheckArticle({ source: SOURCE, title: r.title, content, categories: r.categories ?? null })
+  if (pre.verdict === 'block') {
+    blockedTotal++
+    for (const reason of pre.reasons) if (pre.blockedBy.includes(reason.split(':')[0])) blockedBy[reason] = (blockedBy[reason] ?? 0) + 1
+    continue
+  }
+  if (pre.verdict === 'flag') flagged++
   if (W(content) < 100) short++
   const lic = licenseOf(r.license)
   if (!lic.ok) restricted++
@@ -140,6 +156,7 @@ for (const r of rows) {
     status: 'queued',
     csat_fit: {
       rights: rightsTag({ license: lic.license, licenseEvidence: evidence, author: r.author ?? null, publishedAt: r.published_at ?? null, sourceUrl }),
+      precheck: pre,
       ...(r.level != null ? { source_level: String(r.level) } : {}),
     },
   }
@@ -158,6 +175,8 @@ ${COMMIT ? '적재' : 'dry-run'}   ${inserted}편
 100어 미만 ${short}편 (버리지 않음 · 기록용)
 끝 크레디트 걷음 ${creditsStripped}편
 라이선스 해소 필요(담음 · restricted) ${restricted}편
+사전검증 막음 ${blockedTotal}편  사유 ${JSON.stringify(blockedBy)}
+사전검증 표시만(담음) ${flagged}편
 실패        ${failures.length}편`)
 for (const f of failures.slice(0, 10)) console.log('  ' + f)
 if (!COMMIT) console.log('\n※ dry-run 이다. 실제로 쓰려면 --commit')

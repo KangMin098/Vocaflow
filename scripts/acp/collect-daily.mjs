@@ -281,6 +281,8 @@ let saved = 0
 //   본문이 있으면 `queued` 로 담아 내용 판정이 가르게 하고, 빈 본문(0어)은 파서 고장
 //   신호라 담지 않고 따로 센다. 둘 다 예전에는 실패 줄 하나로 사라졌다.
 let shortSaved = 0
+let precheckBlocked = 0
+const precheckReasons = {}
 const emptyBodies = []
 const failures = []
 
@@ -302,6 +304,20 @@ async function enqueueArticle(article, feedId, statusMessage) {
     .eq('source_id', article.source_id)
     .maybeSingle()
   if (dup) return 'dup'
+  // 사전검증(2026-09-25) — 분류·제목·앞부분. 원천 정책이 'block' 인 단계에 걸린 글만 담지 않는다.
+  //   'flag' 는 담고 `csat_fit.precheck` 에 사유를 남긴다(② 원문 점검의 우선순위 재료).
+  const pre = lib.precheckArticle({
+    source: article.source,
+    title: article.title,
+    content: article.content ?? '',
+    categories: article.categories ?? null,
+    feedId,
+  })
+  if (pre.verdict === 'block') {
+    precheckBlocked++
+    for (const r of pre.reasons) precheckReasons[r] = (precheckReasons[r] ?? 0) + 1
+    return 'blocked'
+  }
   const publishedIso =
     article.published_at && !Number.isNaN(article.published_at.getTime())
       ? article.published_at.toISOString()
@@ -324,6 +340,7 @@ async function enqueueArticle(article, feedId, statusMessage) {
         publishedAt: publishedIso,
         sourceUrl: article.source_url,
       }),
+      precheck: pre,
     },
     content: article.content ?? '',
     audio_url: article.audio_url ?? null,
@@ -450,6 +467,10 @@ for (const s of targets) {
       }
       try {
         const res = await enqueueArticle(article, feed.id, statusMessage)
+        if (res === 'blocked') {
+          // 막힌 글은 `have` 에 넣지 않는다 — 규칙을 고치면 다음 회차에 다시 판정된다.
+          continue
+        }
         if (res && res !== 'dup') {
           failures.push(`${label} ${item.url}: ${res}`)
           continue
@@ -471,9 +492,11 @@ console.log(
   `\n밀려 있는 새 글 ${totalNew}` +
     (commit
       ? ` · 담은 것 ${saved} (피드당 최대 ${PER_FEED})` +
-        ` · 그중 짧은 본문 ${shortSaved} · 빈 본문(파서 확인) ${emptyBodies.length}`
+        ` · 그중 짧은 본문 ${shortSaved} · 빈 본문(파서 확인) ${emptyBodies.length}` +
+        ` · 사전검증 막음 ${precheckBlocked}`
       : ''),
 )
+if (precheckBlocked) console.log(`사전검증 사유 ${JSON.stringify(precheckReasons)}`)
 if (emptyBodies.length) {
   console.log(`\n빈 본문(파서 확인) ${emptyBodies.length} — 담지 않았다. 파서를 고치면 다음 회차에 다시 받는다:`)
   for (const f of emptyBodies.slice(0, 12)) console.log(`  · ${f}`)

@@ -1042,6 +1042,23 @@ v06.25 브릿지 — `shared_word_sets` 에 `category_id` + `additional_category
 
 ---
 
+## 모음 단계 사전검증 (2026-09-25)
+
+`packages/library-pipeline/src/ingest-article/precheck.ts` — 원문을 창고에 넣기 **전에** 비용 낮은 순서로 본다.
+두 수집 경로(`scripts/acp/collect-daily.mjs` · `scripts/csat/source-get/import.mjs`)가 같은 함수를 부른다.
+
+| 단계 | 보는 것 | 비용 |
+|---|---|---|
+| ① 분류 | 원천이 준 카테고리·태그(`categoryBlock`) | 0 |
+| ② 제목 | `topic-fitness` 부적합 신호 + 원천별 `noiseKeywords` | 0 |
+| ③ 앞부분 | 앞 200어의 기능어 비율(영어) · 100어당 문장 끝 수(산문) · 짧은 본문의 안내문 표지 | 0 |
+| ④ 전문 | ② 원문 점검(LLM) — 여기서 하지 않는다 | 높음 |
+
+- 원천마다 단계별 `off / flag / block` (`PRECHECK_POLICY`). 기본은 전부 `flag` — **표시만 하고 담는다**. 결과는 `csat_fit.precheck`.
+- `block` 은 실측으로 오판이 드문 자리에만: wikinews 제목(부적합 표본 전부 정확) · 건강·그림책은 제목 `off`(「Heart Attack」 「Shock! Crash!」 오판).
+- 이미 담긴 대기분 소급: `pnpm dlx tsx scripts/csat/source-get/precheck-backfill.mjs [--source X] [--commit]` — 막힌 글은 지우지 않고 `archived` + `status_message='precheck:…'`. 되돌리기 `--restore --commit`(이 스크립트가 보관한 것만).
+- 규칙이 정당한 글을 걸면 글이 아니라 규칙을 고친다 — 오판 사례는 `precheck.test.ts` 에 회귀로 고정한다.
+
 ## Migration 시드 인프라
 
 | 스크립트 | 용도 |
