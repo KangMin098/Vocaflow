@@ -151,6 +151,16 @@ test.describe('재설계 뒤에만', () => {
     await page.context().close()
   })
 
+  test('홈에 제작 공정 지표가 없다(채움 현황 · 갖춘 것 · 계열 이름 %)', async ({ browser }) => {
+    const ctx = await browser.newContext({ storageState: storage, viewport: { width: 1440, height: 900 } })
+    const page = await ctx.newPage()
+    await page.goto('/csat', { waitUntil: 'domcontentloaded' })
+    await expect(page.getByRole('tab', { name: /유형/ }).first()).toBeVisible({ timeout: 90_000 })
+    for (const t of ['채움 현황', '갖춘 것', '계열 이름', '예시 있음', '오답 3']) await expect(page.getByText(t, { exact: false })).toHaveCount(0)
+    await page.screenshot({ path: path.join(SHOTS, 'after-csat-home-1440.png'), fullPage: true })
+    await ctx.close()
+  })
+
   test('다른 문항에도 같은 골격', async ({ browser }) => {
     for (const slug of ['2025-24', 'M2609-40', '2024-37']) {
       const page = await open(browser, slug)

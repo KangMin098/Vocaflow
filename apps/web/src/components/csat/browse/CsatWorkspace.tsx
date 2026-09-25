@@ -211,7 +211,7 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
 
           <div className={styles.foot}>
             <p>
-              점선 칸은 해설 강의가 아직 없는 문항, 옅은 칸은 이미 연 문항이에요. 지문·선지는 평가원 저작물이라 싣지 않아요 — 문항을 열면 근거
+              점선 칸은 해설 강의가 아직 없는 문항, 옅은 칸은 이미 연 문항이에요. 지문·선지는 평가원 저작물이라 서버에 싣지 않아요 — 받은 문제지 PDF 를 놓으면 이 기기에서만 보여요. 문항을 열면 근거
               자리와 오답 설계를 차례로 봅니다.
             </p>
           </div>
