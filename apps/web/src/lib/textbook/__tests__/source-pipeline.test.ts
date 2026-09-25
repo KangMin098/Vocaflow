@@ -84,7 +84,10 @@ describe('회차 — 대량 판정 가능 여부', () => {
     ])
     // 보관 비율은 **가장 최근 회차**의 것이다 — 회차가 늘 때마다 값이 바뀌므로 「마지막 회차 이름」만 고정한다
     //   (round-4 가 더해지며 80 을 박아 둔 단언이 깨졌다 · 2026-09-25).
+    //   ⚠️ 「마지막 회차」가 아니라 **PLOS 가 실린 마지막 회차**다 — 다른 원천만 다룬 회차(round-10 · wikinews)가
+    //   더해지며 마지막 파일 이름을 고정한 단언도 깨졌다(2026-09-26).
     const lastRound = files
+      .filter((f) => /\|\s*plos\s*\|/.test(f.md))
       .map((f) => f.name.replace(/\.md$/, ''))
       .filter((r) => /^round-\d+$/.test(r))
       .sort((a, b) => Number(a.slice(6)) - Number(b.slice(6)))

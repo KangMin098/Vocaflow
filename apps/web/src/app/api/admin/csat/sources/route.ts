@@ -58,7 +58,7 @@ export async function GET(request: Request) {
     const params = new URL(request.url).searchParams
     // 「지금 다시 세기」 단추 — 첫 화면(page.tsx)과 **같은 함수**로 센다. 못 셌으면 503 과 이유
     // (0 으로 뭉개지 않는다 — 화면이 「판정 0편」과 「못 셌다」를 가른다).
-    if (params.has('live')) {
+    if (params.get('live') !== null) {
       const live = await loadSourceLive(db)
       return reply(live, live.ok ? 200 : 503)
     }

@@ -59,6 +59,10 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   { route: 'csat/lecture', why: '기출 강의 대본 — 재생을 누른 학습자에게만(로그인 확인은 라우트 안)' },
   { route: 'csat/paper', why: '기출 문제지 해시 → 문항 번호 좌표(글자 없음) — 로그인 확인은 라우트 안' },
   {
+    route: 'csat/dev-paper',
+    why: '개발 서버 전용 로컬 기출 PDF — 프로덕션은 devPaperEnabled() 로 무조건 404, 개발에서도 로그인 확인은 라우트 안',
+  },
+  {
     route: 'csat/session/record',
     why: '기출 세션 — 본인 풀이 기록 읽기·올리기·지우기. 로그인 확인은 라우트 안, 쓰기는 RLS(본인 행만)',
   },
