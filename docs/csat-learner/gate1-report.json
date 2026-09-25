@@ -1,6 +1,6 @@
 {
   "gate": 1,
-  "at": "2026-09-17T09:15:01.320Z",
+  "at": "2026-09-25T06:25:55.991Z",
   "sample_exams": [
     "2026",
     "M2706"
@@ -20,7 +20,7 @@
       "db_noise": 4,
       "reflow": []
     },
-    "sentence_anchor": 0.9942418426103646,
+    "sentence_anchor": 0.9923224568138196,
     "quote_found": 0.9941520467836257
   },
   "all": {
@@ -33,8 +33,8 @@
       "db_noise": 68,
       "reflow": []
     },
-    "sentence_anchor": 0.9886380404308691,
-    "quote_found": 0.9948074426655128
+    "sentence_anchor": 0.9899660616792091,
+    "quote_found": 0.9943747295543055
   },
   "unknown_file": {
     "detect_boundary": 1,
@@ -49,7 +49,7 @@
     {
       "exam": "2014A",
       "items": 23,
-      "ms": 8,
+      "ms": 10,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": null,
@@ -126,7 +126,7 @@
     {
       "exam": "2014B",
       "items": 23,
-      "ms": 4,
+      "ms": 8,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": null,
@@ -135,19 +135,9 @@
       "text_mean": 0.9946521739130436,
       "text_ge_95": 0.9565217391304348,
       "choices_ok": 0.8333333333333334,
-      "sentence_anchor": 0.9740932642487047,
+      "sentence_anchor": 0.9844559585492227,
       "quote_found": 1,
       "weak": [
-        {
-          "no": 33,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "8/9",
-          "quotes": "5/5"
-        },
         {
           "no": 34,
           "type": "R-BLANK",
@@ -175,7 +165,7 @@
           "text": 0.985,
           "choices": 1,
           "blame": null,
-          "sent": "4/6",
+          "sent": "5/6",
           "quotes": "1/1"
         },
         {
@@ -213,7 +203,7 @@
     {
       "exam": "2015",
       "items": 28,
-      "ms": 4,
+      "ms": 8,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2015",
@@ -222,7 +212,7 @@
       "text_mean": 0.9951785714285715,
       "text_ge_95": 0.9285714285714286,
       "choices_ok": 0.8571428571428571,
-      "sentence_anchor": 0.9815668202764977,
+      "sentence_anchor": 0.9907834101382489,
       "quote_found": 1,
       "weak": [
         {
@@ -284,33 +274,13 @@
           "blame": "db-noise",
           "sent": "8/9",
           "quotes": "2/2"
-        },
-        {
-          "no": 41,
-          "type": "X-TITLE",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "14/15",
-          "quotes": "1/1"
-        },
-        {
-          "no": 42,
-          "type": "X-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "14/15",
-          "quotes": "5/5"
         }
       ]
     },
     {
       "exam": "2016",
       "items": 28,
-      "ms": 3,
+      "ms": 7,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2016",
@@ -377,7 +347,7 @@
     {
       "exam": "2017",
       "items": 28,
-      "ms": 3,
+      "ms": 12,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2017",
@@ -474,7 +444,7 @@
     {
       "exam": "2018",
       "items": 28,
-      "ms": 4,
+      "ms": 12,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2018",
@@ -521,7 +491,7 @@
     {
       "exam": "2019",
       "items": 28,
-      "ms": 3,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2019",
@@ -530,7 +500,7 @@
       "text_mean": 0.9945,
       "text_ge_95": 0.9642857142857143,
       "choices_ok": 0.9090909090909091,
-      "sentence_anchor": 0.9844357976653697,
+      "sentence_anchor": 0.9922178988326849,
       "quote_found": 0.9855072463768116,
       "weak": [
         {
@@ -544,16 +514,6 @@
           "quotes": "0/1"
         },
         {
-          "no": 31,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "8/9",
-          "quotes": "2/2"
-        },
-        {
           "no": 32,
           "type": "R-BLANK",
           "reason": null,
@@ -562,16 +522,6 @@
           "blame": "db-noise",
           "sent": "0/0",
           "quotes": "0/0"
-        },
-        {
-          "no": 33,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "6/7",
-          "quotes": "1/1"
         },
         {
           "no": 38,
@@ -598,7 +548,7 @@
     {
       "exam": "2020",
       "items": 28,
-      "ms": 3,
+      "ms": 10,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2020",
@@ -665,7 +615,7 @@
     {
       "exam": "2021",
       "items": 28,
-      "ms": 3,
+      "ms": 12,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2021",
@@ -742,7 +692,7 @@
     {
       "exam": "2022",
       "items": 28,
-      "ms": 3,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2022",
@@ -789,7 +739,7 @@
     {
       "exam": "2023",
       "items": 28,
-      "ms": 3,
+      "ms": 12,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2023",
@@ -799,7 +749,7 @@
       "text_ge_95": 1,
       "choices_ok": 0.8636363636363636,
       "sentence_anchor": 0.996,
-      "quote_found": 0.987012987012987,
+      "quote_found": 0.974025974025974,
       "weak": [
         {
           "no": 24,
@@ -829,14 +779,14 @@
           "choices": 0.667,
           "blame": "db-noise",
           "sent": "7/8",
-          "quotes": "3/3"
+          "quotes": "2/3"
         }
       ]
     },
     {
       "exam": "2024",
       "items": 28,
-      "ms": 3,
+      "ms": 14,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2024",
@@ -893,7 +843,7 @@
     {
       "exam": "2025",
       "items": 28,
-      "ms": 4,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2025",
@@ -902,7 +852,7 @@
       "text_mean": 0.9955,
       "text_ge_95": 0.9285714285714286,
       "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.9876543209876543,
+      "sentence_anchor": 0.9917695473251029,
       "quote_found": 0.9882352941176471,
       "weak": [
         {
@@ -962,7 +912,7 @@
           "text": 1,
           "choices": 0.667,
           "blame": "db-noise",
-          "sent": "5/7",
+          "sent": "6/7",
           "quotes": "4/4"
         }
       ]
@@ -970,7 +920,7 @@
     {
       "exam": "2026",
       "items": 28,
-      "ms": 7,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "2026",
@@ -1017,7 +967,7 @@
     {
       "exam": "M1809",
       "items": 28,
-      "ms": 4,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M1809",
@@ -1074,7 +1024,7 @@
     {
       "exam": "M2006",
       "items": 28,
-      "ms": 4,
+      "ms": 8,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2006",
@@ -1131,7 +1081,7 @@
     {
       "exam": "M2106",
       "items": 28,
-      "ms": 3,
+      "ms": 13,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2106",
@@ -1140,7 +1090,7 @@
       "text_mean": 0.993464285714286,
       "text_ge_95": 0.9642857142857143,
       "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.9818181818181818,
+      "sentence_anchor": 0.9854545454545455,
       "quote_found": 1,
       "weak": [
         {
@@ -1184,16 +1134,6 @@
           "quotes": "0/0"
         },
         {
-          "no": 34,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "6/7",
-          "quotes": "1/1"
-        },
-        {
           "no": 39,
           "type": "R-INSERT",
           "reason": null,
@@ -1218,7 +1158,7 @@
     {
       "exam": "M2109",
       "items": 28,
-      "ms": 4,
+      "ms": 10,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2109",
@@ -1305,7 +1245,7 @@
     {
       "exam": "M2206",
       "items": 28,
-      "ms": 3,
+      "ms": 10,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2206",
@@ -1422,7 +1362,7 @@
     {
       "exam": "M2209",
       "items": 28,
-      "ms": 3,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2209",
@@ -1489,7 +1429,7 @@
     {
       "exam": "M2306",
       "items": 28,
-      "ms": 3,
+      "ms": 14,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2306",
@@ -1556,7 +1496,7 @@
     {
       "exam": "M2309",
       "items": 28,
-      "ms": 3,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2309",
@@ -1603,7 +1543,7 @@
     {
       "exam": "M2406",
       "items": 28,
-      "ms": 4,
+      "ms": 10,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2406",
@@ -1612,7 +1552,7 @@
       "text_mean": 0.9951785714285714,
       "text_ge_95": 0.9285714285714286,
       "choices_ok": 0.8636363636363636,
-      "sentence_anchor": 0.9829787234042553,
+      "sentence_anchor": 0.9872340425531915,
       "quote_found": 0.9902912621359223,
       "weak": [
         {
@@ -1643,16 +1583,6 @@
           "choices": null,
           "blame": null,
           "sent": "7/8",
-          "quotes": "4/4"
-        },
-        {
-          "no": 31,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "8/9",
           "quotes": "4/4"
         },
         {
@@ -1710,7 +1640,7 @@
     {
       "exam": "M2409",
       "items": 28,
-      "ms": 3,
+      "ms": 9,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2409",
@@ -1737,7 +1667,7 @@
     {
       "exam": "M2506",
       "items": 28,
-      "ms": 3,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2506",
@@ -1746,7 +1676,7 @@
       "text_mean": 0.9952142857142857,
       "text_ge_95": 0.9285714285714286,
       "choices_ok": 0.9090909090909091,
-      "sentence_anchor": 0.9915254237288136,
+      "sentence_anchor": 0.9957627118644068,
       "quote_found": 1,
       "weak": [
         {
@@ -1758,16 +1688,6 @@
           "blame": "db-noise",
           "sent": "0/0",
           "quotes": "0/0"
-        },
-        {
-          "no": 34,
-          "type": "R-BLANK",
-          "reason": null,
-          "text": 1,
-          "choices": 1,
-          "blame": null,
-          "sent": "6/7",
-          "quotes": "1/1"
         },
         {
           "no": 38,
@@ -1804,7 +1724,7 @@
     {
       "exam": "M2509",
       "items": 28,
-      "ms": 3,
+      "ms": 10,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2509",
@@ -1881,7 +1801,7 @@
     {
       "exam": "M2606",
       "items": 28,
-      "ms": 3,
+      "ms": 11,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2606",
@@ -1938,7 +1858,7 @@
     {
       "exam": "M2609",
       "items": 28,
-      "ms": 5,
+      "ms": 10,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2609",
@@ -1985,7 +1905,7 @@
     {
       "exam": "M2706",
       "items": 28,
-      "ms": 4,
+      "ms": 10,
       "detect_boundary": 1,
       "detect_form_pages_match": true,
       "exam_id_from_text": "M2706",
@@ -1994,7 +1914,7 @@
       "text_mean": 0.9946785714285715,
       "text_ge_95": 1,
       "choices_ok": 0.8181818181818182,
-      "sentence_anchor": 0.9923954372623575,
+      "sentence_anchor": 0.9885931558935361,
       "quote_found": 0.9873417721518988,
       "weak": [
         {
@@ -2034,7 +1954,7 @@
           "text": 1,
           "choices": 0.857,
           "blame": "db-noise",
-          "sent": "8/8",
+          "sent": "7/8",
           "quotes": "3/3"
         },
         {
