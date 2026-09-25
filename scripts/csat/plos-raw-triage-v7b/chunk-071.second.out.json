@@ -1,0 +1,928 @@
+[
+  {
+    "id": "39b5e91a-379e-4fc2-8565-af5338836b2c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:28:43.332372+00:00",
+    "body_sha256": "8b3c38cd684aaf0aa34bd923fe1b4a77d2142953a483a3b8b5093e9c625c8ad3",
+    "retention": "keep",
+    "genre": "health",
+    "why": "비소 저용량 노출이 시상하부 호르몬 수용체와 미토콘드리아를 즉시 바꾼다는 논지가 고찰에서 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Globally, more than 150 million people",
+      "note": "서론 첫 단락은 오염 실태로 독립되나 수용체 약어가 많아 어휘 하향은 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "39b997cc-3136-430d-9a3e-223f06831255",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:25:46.456+00:00",
+    "body_sha256": "7e5588ec364b9a41d2de6474b26b9d9f3c3c5468e818ac85f915cc7db51a006c",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "health",
+    "why": "본문 다수가 선정·제외 기준과 평가 항목 목록이어서 떼어 낼 논지 단락이 서론과 고찰에 한정된다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Pheochromocytoma and paraganglioma (PPGL) are rare",
+      "note": "시험계획서 특성상 목록을 걷으면 남는 분량이 적어 가공 가능성이 불확실하다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "39e7fba5-b2be-470a-aef5-57b6cf3aec45",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:49:46.930532+00:00",
+    "body_sha256": "4d8dbc03427675d42db95c0f386939c02a522cc3efa684dd147ba26033995318",
+    "retention": "keep",
+    "genre": "health",
+    "why": "환경 오염물질 BPA가 피부근염 위험을 높일 수 있다는 주장과 근거가 고찰에서 순서대로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "claim"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bisphenol A (BPA), also known as",
+      "note": "BPA 용도 설명 단락은 유전자명을 걷으면 그대로 읽힌다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "39f14efd-821f-4bbe-bb7f-e08355f39963",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:49:47.94883+00:00",
+    "body_sha256": "0fe023406d8b3c6455bec942101b151d52fd7f754f15110bfc034b8da4c48438",
+    "retention": "keep",
+    "genre": "social",
+    "why": "팬데믹 중 비팬데믹 임상연구를 이어 간 경위와 교훈이 사례 서술로 자족적으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The COVID-19 pandemic disrupted research systems",
+      "note": "기관 약어만 풀면 일반 독자용 논설로 바로 쓸 수 있다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "sequence",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "39fe7aad-c7c4-41fd-a17f-2627779f7b0a",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:07.158194+00:00",
+    "body_sha256": "47b5ece27931508f18a7b53acd6c4ad6fb456132d0fb29a855d4c355df4200f2",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "science",
+    "why": "합성 화합물 스펙트럼 수치 나열이 본문의 큰 몫이어서 읽는 글로 남는 부분이 적다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Antimicrobial resistance (AMR) is a major",
+      "note": "서론은 독립되나 NMR·수율 목록을 걷으면 본문 대부분이 사라진다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "39ff0c32-2fef-41af-b00b-1b795847f8ff",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:51:06.011733+00:00",
+    "body_sha256": "bb8234f2a67de7a4ee73ff36a9d24722fc6b32398a9169afee484e9c866c4ae0",
+    "retention": "keep",
+    "genre": "health",
+    "why": "호산구가 기생충을 공격하는 여러 방식과 환자군 차이가 고찰에서 논지로 정리된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Eosinophils, constituting 1–5% of human blood",
+      "note": "고찰 첫 단락은 떼어 내도 서지만 면역 용어 교체가 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a051de6-10e2-4fa6-bcab-14c798460e6e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:07.964165+00:00",
+    "body_sha256": "c57e4a35360f2b478a5ff9c09dd10d765af2f000b1d32b3b1b08e89fe3755425",
+    "retention": "keep",
+    "genre": "science",
+    "why": "숙주 영양 상태가 세균의 병원성 장치를 대신할 수 있다는 통념 뒤집기 구조가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "claim"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Salmonella Typhimurium is a leading cause",
+      "note": "저자 요약 단락이 그림 참조 없이 그대로 지문이 된다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a06da63-e49d-4759-b0b3-5dec8fd2227e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:08.340366+00:00",
+    "body_sha256": "49414cedf476780c7b59ca7b996972fbd49f858b861a8e0cb8a13b2289526127",
+    "retention": "keep",
+    "genre": "health",
+    "why": "세포외기질 성분과 면역세포 이동이 중증도를 좌우한다는 기전 설명이 한 편으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "SARS-CoV-2 infection continues to cause thousands",
+      "note": "저자 요약은 독립되나 수용체 약어가 많아 밴드 하향은 제한적이다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a08031a-9397-4d60-bd15-ab5052b79895",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:08.81853+00:00",
+    "body_sha256": "9622a6084ee00dca19094b8e5c8d81d227c0f6c0646c4f74489cf4ed9f4cb8dc",
+    "retention": "keep",
+    "genre": "education",
+    "why": "벡터심전도 교육의 빈자리를 짚고 저가 실습 장치로 메운다는 논지가 교육 논의로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The educational landscape in cardiac electrophysiology often",
+      "note": "교육 격차 단락은 회로 용어 없이 그대로 읽힌다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a0c6eb5-478e-4c34-bfd0-1e90d736ef3b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:27:48.775494+00:00",
+    "body_sha256": "05ba0b0b777280a56e895d5f259fcf799de2c94d9ec74753ab82a832bb592242",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "engineering",
+    "why": "행렬·정리 증명이 본문을 채워 떼어 낸 단락이 수식 없이는 뜻이 서지 않는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The inception of smart grid technology",
+      "note": "서론은 독립되나 이후 절은 수식 참조 없이 읽히지 않는다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a1c89bb-ff7e-4f44-93ef-f018067b549f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:11.472705+00:00",
+    "body_sha256": "d9ea93d19077cadbd38c71ada1c5cd7d5067ba8a85a244962b75265dfbf2319f",
+    "retention": "keep",
+    "genre": "science",
+    "why": "유전자 전면 탐색으로 바이러스 침입 보조 인자를 찾아가는 과정이 저자 요약에서 자족한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Porcine astroviruses are common causes of",
+      "note": "저자 요약은 그림 참조가 없어 떼기 쉽지만 단백질명이 많다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a47b7c0-3020-4851-9ce7-c2ea596dfc00",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:15.693635+00:00",
+    "body_sha256": "9d45c0392ffcfcb980e446a9a69233595a69e3c8c4b5d72cd4a04e9b14c70cf2",
+    "retention": "keep",
+    "genre": "science",
+    "why": "항바이러스 단백질이 오히려 바이러스 입자에 실린다는 뜻밖의 발견이 논지로 정리된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "claim"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Infected cells release interferons that induce",
+      "note": "저자 요약은 독립되나 잔기 번호 표기가 어휘 하향을 막는다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a6268d2-08a6-4266-843f-1f6abd8440b4",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:19:30.288404+00:00",
+    "body_sha256": "22ac05c49824c2e8c84afb88fc25fa62158b7c3a10cb4517f2d27c84984e9fdc",
+    "retention": "keep",
+    "genre": "science",
+    "why": "모발 단면 분석으로 약물 섭취 시각까지 되짚는다는 논지가 결론까지 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Drugs or chemicals may enter the",
+      "note": "모발에 약물이 남는 이유를 설명한 단락은 장비 이름 없이 읽힌다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a6be145-eb0a-4c3b-a996-aee1eae45254",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:20.466673+00:00",
+    "body_sha256": "3e3e5289092b23e083570f0d5267cb9bfd27c9ce3e0b834fd1607d589de1fc03",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "science",
+    "why": "본문이 기호로 대체된 수식과 그 유도로 이어져 떼어 낸 단락만으로 논지가 서지 않는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The early twentieth century witnessed a",
+      "note": "서론 역사 단락만 독립하고 나머지는 수식 자리표시 때문에 못 쓴다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a746cdd-bf2a-43ff-be16-49b7014abc03",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:50:04.071029+00:00",
+    "body_sha256": "1595da41038598291c60857685a15d5bf5cd1850c0f72fd13cc91228598b35f3",
+    "retention": "keep",
+    "genre": "health",
+    "why": "당뇨 상처에서 감염과 호르몬 처치의 효과 차이를 견주는 논지가 고찰에서 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Diabetes mellitus individuals with foot ulcers",
+      "note": "서론 역학 단락은 균주 표기를 걷으면 그대로 읽힌다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a7592e4-5d07-47eb-97a2-cf053e47b282",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:21.756078+00:00",
+    "body_sha256": "006f3ee886827a0da62f778719ac91317f677f4c50700e40240db63c41384feb",
+    "retention": "keep",
+    "genre": "science",
+    "why": "장비 제약 안에서 관찰 범위를 넓혔다는 주장과 한계 서술이 고찰에서 한 편으로 이어진다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Mouse models are a cornerstone of",
+      "note": "서론은 독립되나 형광 표지 목록이 많아 어휘 조정이 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3a773a20-12a3-4894-a51e-d48503b54626",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:22.116155+00:00",
+    "body_sha256": "9d9b7e118862eddf2ba74ea1833af1a29aee5077568df29c29fc933983de6b12",
+    "retention": "keep",
+    "genre": "science",
+    "why": "수만 종을 뒤져도 억제제를 못 찾았다는 음성 결과를 논지로 세운 드문 구조다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "claim"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Remarkably, despite discovery in the 1960s",
+      "note": "특이 억제제가 없다는 서론 단락은 장비 설명 없이 논지가 선다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3aa92ce7-a83f-4fea-9ec8-de98f37ef5c4",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:50:09.863246+00:00",
+    "body_sha256": "92b8e9617fac60fb5d7b617b176e003744b5150b97bdf53f07f3e07a081d9aea",
+    "retention": "keep",
+    "genre": "food",
+    "why": "낙타유 혼입 판별에서 단백질 대신 DNA를 쓰는 까닭이 서론에서 논증된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The growing consumer demand for camel",
+      "note": "수요 증가와 혼입 유인을 설명한 단락은 시약명 없이 읽힌다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3ab2f6e3-3728-4fdb-a847-b03a01f1938a",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-23T21:04:43.17354+00:00",
+    "body_sha256": "57bc1e2860e2a4aa4249944d5526ca1f88937d1f75f51cab68493c4f192c92eb",
+    "retention": "keep",
+    "genre": "health",
+    "why": "환경 화학물질 노출과 요산 수치의 연관을 성별 차이까지 짚어 논증한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Phthalates (PAEs) are ubiquitous environmental contaminants",
+      "note": "프탈레이트 노출 경로 단락은 대사체 약어를 걷으면 선다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "3ab526c7-77e3-4e4b-bc67-f3e552b8e920",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:50:11.068905+00:00",
+    "body_sha256": "1d4e3915c9129bdb8e313c4d0ba2598f60fbd00820560c9953e8e814f7d24596",
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "70년 미해결이던 돼지 귀 괴사의 원인균을 대조 실험으로 좁혀 가는 흐름이 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since its description over 70 years",
+      "note": "원인 가설을 훑는 서론 단락은 균주 표기만 걷으면 그대로 쓰인다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "sequence",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  }
+]
