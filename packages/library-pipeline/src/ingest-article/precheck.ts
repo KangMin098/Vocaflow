@@ -21,7 +21,8 @@
 import { classifyTopic } from '../compose/topic-fitness'
 import { FEED_SPECS, SOURCE_DEFAULT_SPEC, type FeedSpec } from './_curation-spec'
 
-export const PRECHECK_VERSION = 1
+// v2 (2026-09-25) — wikinews · global_voices 제목 막음 해제. 판본이 바뀌면 backfill 이 다시 판정한다.
+export const PRECHECK_VERSION = 2
 
 export type PrecheckMode = 'off' | 'flag' | 'block'
 export type PrecheckStage = 'category' | 'title' | 'head'
@@ -43,10 +44,13 @@ const DEFAULT: PrecheckPolicy = { category: 'flag', title: 'flag', head: 'flag' 
  * 적재분 전량에 대 보고 부적합 표본을 눈으로 본다(AGENTS.md — 일화로 권고하지 않는다).
  */
 export const PRECHECK_POLICY: Record<string, PrecheckPolicy> = {
-  // 뉴스형 — 제목 부적합이 정확하다(wikinews 표본 확인). 스포츠는 수집기가 이미 뺀다.
+  // 뉴스형 — 제목은 **표시만**. 처음엔 막았다(제목 표본을 눈으로 보고 「정확하다」고 판단) — 틀렸다.
+  //   원문 점검 회차 6 에서 사전검증이 막은 7편을 판정자 둘이 전부 읽었더니 **보관 13/14 판정**이었다
+  //   (가짜 폭탄 탐지기 → 통념 교정 · 의무투표 항소 → 주장-근거 · 기후 토론). 제목의 사건 신호는
+  //   「지문으로 못 쓴다」가 아니다. 6,434편은 --restore 로 되돌렸다. 스포츠는 수집기가 이미 뺀다.
   wikinews: {
     category: 'block',
-    title: 'block',
+    title: 'flag',
     head: 'block',
     categoryBlock: [/sport|football|cricket|olympic|baseball|basketball|tennis|golf|rugby|motorsport|obituar|crime/i],
   },

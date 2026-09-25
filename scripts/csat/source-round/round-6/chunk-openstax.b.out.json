@@ -1,0 +1,771 @@
+[
+  {
+    "id": "fedd8d91-9625-4298-9a47-a25d3fc649ad",
+    "source_updated_at": "2026-09-25T03:34:42.366455+00:00",
+    "body_sha256": "1e046cbca4c86b49b8566c3014563400479ecdf23226cec568d7d8eca011d800",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "교사용 수업 진행 지시(학생에게 무엇을 시키라)만 있고 문서 자체는 없어 읽는 글이 아니므로 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Use this lesson with the Mercy",
+      "note": "지시문이라 떼어도 논지·사건이 없고 앞뒤 문서 참조가 전부였다."
+    }
+  },
+  {
+    "id": "0636f66f-0c6b-47be-8a21-6bb8294b35c2",
+    "source_updated_at": "2026-09-25T03:34:43.569284+00:00",
+    "body_sha256": "e153bc20ab82dedcbb5bf292006f1d6c9e68bc3f0b07f09b76e44b33184f3e14",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "물리학의 가지(고전·현대) 역사와 상대성 설명 단락이 자족적이라 주제·빈칸·순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Gravity, the force that holds us",
+      "note": "시간 지연 단락은 앞 문맥 없이 서고 continuum·dilation 을 풀어 쓰면 V5로 내려간다."
+    }
+  },
+  {
+    "id": "fd115284-c9f7-445b-bc28-7ffe13ec675c",
+    "source_updated_at": "2026-09-25T03:34:42.118003+00:00",
+    "body_sha256": "4755bacaa66b21e5066b79c53960d6d5e85ef058cc8801d895d384ffea26809f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "history",
+    "why": "프렌치-인디언 전쟁의 발단부터 1763 선포령까지 시간순 서술이라 순서·삽입·내용일치·장문 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match",
+        "topic",
+        "long_reference"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In an ill-advised surprise dawn attack,",
+      "note": "주몽빌 사건 단락은 고유명사를 줄여도 사건이 서고 encroaching·capitulation 을 바꾸면 V6이 된다."
+    }
+  },
+  {
+    "id": "3652f387-1c0d-4610-af81-0b63c6ebb87b",
+    "source_updated_at": "2026-09-25T03:34:43.018989+00:00",
+    "body_sha256": "4836c3b82d4bc0ca2eb60d6376ec329c9c3fc99f38c529d69a94b63a2eba00c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "history",
+    "why": "도로시아 딕스의 정신질환자 처우 개혁 활동을 한 단락으로 완결되게 소개해 주제·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the first half of the",
+      "note": "짧지만 자족적이고 almshouses·abysmal 을 풀면 V4~5로 내려간다."
+    }
+  },
+  {
+    "id": "ea7a508d-7533-4f13-bc45-7a3d398f2cbf",
+    "source_updated_at": "2026-09-25T03:34:44.094141+00:00",
+    "body_sha256": "e0dd1eaa8e7a81403ad1240b65902205130410fa9d00a7c50fead09aeb54969b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "작용-반작용을 발가락·수영·헬리콥터·로켓 예시로 설명하는 단락이 서서 주제·빈칸·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "irrelevant",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Other examples of Newton’s third law",
+      "note": "수식이 빠진 단락은 버려야 하지만 예시 단락은 그대로 서고 어휘 조정도 쉽다."
+    }
+  },
+  {
+    "id": "2971427c-bbef-4842-9703-99f6c7a28edd",
+    "source_updated_at": "2026-09-25T03:34:41.706572+00:00",
+    "body_sha256": "e16fbbc0b611f9b79539874af77dd8c80e15959610fb5b5ec528026eb2999285",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "특허 소송의 소장·답변서·반소 절차를 연방민사소송규칙 인용과 함께 나열하는 법률 절차문이라 읽는 글 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Once the decision to file suit",
+      "note": "앞 절 참조로 시작하고 규칙 번호를 걷으면 절차 목록만 남아 논지가 서지 않았다."
+    }
+  },
+  {
+    "id": "bcf77569-71d6-45cf-b8df-6293772417a1",
+    "source_updated_at": "2026-09-25T03:34:38.78008+00:00",
+    "body_sha256": "2df814c0b11519a1174ffb52c708727decb5659dcf9d300c84c5bf972487cdb2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "프랜차이즈의 정의·계약 내용·준비 요령 단락이 자족적이라 요지·요약·내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "main_point",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A franchise agreement is a contract",
+      "note": "계약 조건 단락은 브랜드명 없이도 서고 어휘가 평이하다."
+    }
+  },
+  {
+    "id": "338eb05a-33b4-46fa-a8a5-3918883036f8",
+    "source_updated_at": "2026-09-25T03:34:40.844822+00:00",
+    "body_sha256": "a965b5a9e6dfb818c802d7f0a93bdde62a3e73bc4356669e286e2d4a1980cf01",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "아이디어 대 응용 구분과 소프트웨어 특허 반대론을 두 근거로 반박하는 단락이 주장·요지·빈칸 칸과 통념 교정 구조를 준다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "You cannot patent an idea for",
+      "note": "아이디어-응용 구분 단락은 사례 번호를 걷어도 논지가 서고 non-obvious 를 풀면 V7이 된다."
+    }
+  },
+  {
+    "id": "20964ed9-3a13-4346-90d6-d4baf8051a58",
+    "source_updated_at": "2026-09-25T03:34:44.296151+00:00",
+    "body_sha256": "2d901696c82e144b9c93f36dde036cb6d2f74e6bb199484d14c94597feb5673c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "수식과 그림이 빠져 「we can find the length x if we know h and by using .」처럼 문장이 비어 뜻이 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "For the analytical method of vector",
+      "note": "본문 대부분이 빠진 수식·그림을 가리켜 떼어 낼 문단이 없었다."
+    }
+  },
+  {
+    "id": "e520c906-acb4-423e-bff2-2d4c0c58cd4f",
+    "source_updated_at": "2026-09-25T03:34:38.333407+00:00",
+    "body_sha256": "ded5aae0e7410f4916ea65f3a611d6b557eefe52da7a6b80d82b0f52bd62beff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "경제공동체·자유무역협정 정의와 NAFTA·EU 사례 단락이 서서 주제·내용일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nations that frequently trade with each",
+      "note": "첫 단락은 정의부터 시작해 자족적이며 preferential tariff 만 풀면 된다."
+    }
+  },
+  {
+    "id": "08adb26c-2b66-4cd8-9d77-f1bfb53537f3",
+    "source_updated_at": "2026-09-25T03:34:41.170632+00:00",
+    "body_sha256": "c0d420a58b2c32fb3cdb7067360fe6d91828f40e544467b966c72c487221a412",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "청구항을 너무 넓게도 좁게도 쓰면 안 된다는 단락과 원클릭 예시가 논지를 세워 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Some applicants make the opposite mistake",
+      "note": "picture claims 단락은 떼어도 서고 draftsperson 등을 바꾸면 V6이 된다."
+    }
+  },
+  {
+    "id": "a2a34003-4882-4c69-83d3-fa9f0472e8a8",
+    "source_updated_at": "2026-09-25T03:34:41.449475+00:00",
+    "body_sha256": "ea6e040cc598a4b6103a50df3c2575dafbfe5f6945e4fc8d3bf3a7d4846e9fec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "hold",
+    "genre": "technology",
+    "why": "엄격책임·균등론 단락은 서지만 끝에서 「Several options exist」라 해 놓고 선택지 절이 통째로 빠진 채 끝났다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Even if some elements of a",
+      "note": "균등론 단락은 서지만 법률 용어가 많아 두세 낱말로는 밴드가 안 내려갔다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "b28cb73a-b9e6-4317-9e21-387d134bc8e6",
+    "source_updated_at": "2026-09-25T03:34:43.83448+00:00",
+    "body_sha256": "bc17961680dab372c6e02c3fe27b556f288c2bf618076f725f3b1ae6deb3983a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "속력과 속도의 차이를 왕복 운전 예로 설명하는 단락이 서서 내용일치·빈칸·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock"
+      ],
+      "types": [
+        "blank",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Earlier, you have read that distance",
+      "note": "Earlier 를 걷으면 단락이 서고 displacement 만 풀면 V4다."
+    }
+  },
+  {
+    "id": "8dca8c47-0803-4d47-928f-579a28afdaf1",
+    "source_updated_at": "2026-09-25T03:34:42.803839+00:00",
+    "body_sha256": "270fc1f8f51073167b569c63efe30a80529f003dfe289074586f450d08a949d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "history",
+    "why": "외국인·선동법과 켄터키·버지니아 결의의 배경을 한 단락에 완결되게 설명해 내용일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On February 21, 1797, Secretary of",
+      "note": "자족적 사건 서술이고 naturalized·sedition 을 풀면 V5~6이다."
+    }
+  },
+  {
+    "id": "f6820cf2-2d1d-4999-b6f9-ef3267980af5",
+    "source_updated_at": "2026-09-25T03:34:37.904146+00:00",
+    "body_sha256": "9a0f2f33698fd9d5b90d6db907bb4825f8da2629a24c29cacaa3ded7b0bdb4b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "social",
+    "why": "공리주의·의무론·정의·권리 네 윤리관을 사례로 비교하는 단락이 논지를 세워 주제·요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The philosophy that says people should",
+      "note": "의무론 단락은 기술자 딜레마로 스스로 서고 deontology 만 설명하면 된다."
+    }
+  },
+  {
+    "id": "6f0b4847-6cd2-4819-99c1-a0784443cdba",
+    "source_updated_at": "2026-09-25T03:34:39.633993+00:00",
+    "body_sha256": "44fa6be7dceeb90b2aad01e038326a98651c0fdd04856e429c185ce06a84bdc3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "위기관리 원칙·세계 경영의 시간관 차이·와이프로 사례 단락이 서서 요지·빈칸·순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "How a manager gets results, wins",
+      "note": "시간관 비교 단락은 떼어도 논지가 서고 linear·cyclical 대조가 빈칸에 알맞다."
+    }
+  },
+  {
+    "id": "3f491d64-3e07-47e1-a07a-1661f040895f",
+    "source_updated_at": "2026-09-25T03:34:39.136492+00:00",
+    "body_sha256": "678c6381378d289975a26f5c412b6b84aaa5adefceb75a833a7940f82fefc39b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "hold",
+    "genre": "economics",
+    "why": "중소기업청 프로그램·대출액·연락처를 나열하는 기관 안내문이라 내용일치 외 칸이 서는지 판단이 갈린다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The SBA offers financial assistance to",
+      "note": "대출 보증 단락은 떼지만 수치·프로그램 나열이 대부분이라 논지 흐름이 약했다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "6919f51f-a869-43d3-a3ce-484cc5799fb8",
+    "source_updated_at": "2026-09-25T03:34:44.545172+00:00",
+    "body_sha256": "be79a6189480227d92b1dcd455975394b735b54e3ab4d3aaf09ea0f754153ead",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "접선 속력과 빙판 헛바퀴 예시 단락이 수식 없이도 서서 빈칸·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock"
+      ],
+      "types": [
+        "blank",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, there are cases where linear",
+      "note": "빙판 단락은 수식 기호 없이 서고 tangential 만 풀면 된다(나머지 단락은 수식 결락)."
+    }
+  },
+  {
+    "id": "2e35018b-90c0-4699-baaa-3abe715af446",
+    "source_updated_at": "2026-09-25T03:34:42.584929+00:00",
+    "body_sha256": "bdd1ff5ddafd9013c64d237d69f48223d3a9c5bb1b14272b998c4e235ae03e48",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "history",
+    "why": "1797~98 준전쟁과 의회 난투 경위 서술은 그림 없이 서고 마지막 두 문장만 그림 묘사라 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On March 2, 1797, the Directory",
+      "note": "그림 묘사 두 문장을 걷으면 사건 흐름이 온전히 선다."
+    }
+  },
+  {
+    "id": "9eb312f5-9112-4ad0-b4f4-2f717992c761",
+    "source_updated_at": "2026-09-25T03:34:40.283417+00:00",
+    "body_sha256": "6cedfb508bfe4effbc681371fa87ec47d9e9b18d91ae4ef4511be15b50de47c3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "history",
+    "why": "미국 특허제도의 여섯 특징(저렴한 수수료·간소 절차·심사 등)을 영국과 대조해 논증하는 단락이 주장·요지·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "order",
+        "insert",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Founders greatly simplified administrative procedures",
+      "note": "영국 34개 관청 대비 단일 특허청 단락은 떼어도 서고 wherewithal·gauntlet 을 바꾸면 V6이 된다."
+    }
+  }
+]

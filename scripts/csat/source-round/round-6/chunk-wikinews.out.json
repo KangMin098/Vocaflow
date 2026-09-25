@@ -1,0 +1,777 @@
+[
+  {
+    "id": "58c428c4-1d76-48b4-8e4b-0238a9563c2b",
+    "source_updated_at": "2026-09-25T06:15:23.607899+00:00",
+    "body_sha256": "805b85cc5395fdf0981cad7fe5ed9c61fa11d1ad1731ddc5779edad5bae99638",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭탄 탐지기 기사가 「원리 주장 → 기판 분해·Sandia 시험 반증 → 사기 결론」으로 흘러 통념 교정·주장-근거 칸과 내용일치·장문을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "content_match",
+        "long_reference",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The device, manufactured by ATSC Ltd.",
+      "note": "기기 구조 단락은 고유명사를 걷어도 「전원 없는 탐지기」 주장이 서고 electrostatic 등 두세 낱말만 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "b13248bb-518f-4011-96aa-39316869b22e",
+    "source_updated_at": "2026-09-25T07:25:04.989076+00:00",
+    "body_sha256": "7ef6f902c2afbad5f621b0de6e161878ceb7bd753b7c2c1642277a80eefd0e82",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "세 단락 짧은 리콜 기사지만 납 페인트 위험→중국 생산 의존→성수기 품귀 우려로 인과가 서서 주제·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Toy manufacturer Mattel announced today that",
+      "note": "μg/dL 수치만 풀어 쓰면 중등 밴드로 내려가고 인과 흐름은 그대로 남는다."
+    }
+  },
+  {
+    "id": "e4c29bdf-06a7-4443-bf07-13555ad2db24",
+    "source_updated_at": "2026-09-25T06:29:38.960642+00:00",
+    "body_sha256": "b1042df55a8d2a2768065affcf324b455e90dc4f3d3e68a75ca015b7a708b401",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "브리스톨 화재 기사는 신고→구조→현장 소방관 증언→조사 착수가 시간순으로 이어져 사건 흐름형 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Speaking on behalf of Avon Fire",
+      "note": "소방관 인용 단락이 앞 문맥 없이 서고 engulfing 정도만 바꾸면 된다. 어린이 사망이라 소재 선별은 내용 판정 몫이다."
+    }
+  },
+  {
+    "id": "db970fe7-a9ef-43e4-b7ae-b62903788fc7",
+    "source_updated_at": "2026-09-25T06:28:44.488304+00:00",
+    "body_sha256": "d76da7698ba6aed61d8b9f6f36e4faac04b0b92b2a4e59662ed75cfc85a2d6b1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "선거 포럼 기사가 네 후보의 기후 정책 주장과 질의응답을 단락별로 대조해 요약·주장·장문·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "claim",
+        "content_match",
+        "long_reference",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "One questioner asked about what the",
+      "note": "직접공기포집 질의 단락은 떼어도 서지만 후보 이름·정당이 많아 걷으면 대조 구조가 흐려지고 정책 용어가 밴드를 붙잡는다."
+    }
+  },
+  {
+    "id": "cfc56bce-0950-435a-92bf-53fb0309de38",
+    "source_updated_at": "2026-09-25T07:01:26.961916+00:00",
+    "body_sha256": "68655af52a95665cede0818258cf2173444966cc7ea01e33996df1d3bf26c50e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "hold",
+    "genre": "news",
+    "why": "콜베어 만찬 풍자 기사가 「Colbert didn't spare the White House correspondents, either:」로 인용을 예고하고 인용 본문이 통째로 빠져 끊겼다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Colbert's character, which shares his name,",
+      "note": "예고한 인용이 없고 풍자는 미국 정치 맥락을 알아야 서서 가공이 막혔다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "25cf0904-0314-42bf-a23b-6de047a2ac0e",
+    "source_updated_at": "2026-09-25T06:48:51.433402+00:00",
+    "body_sha256": "0741fddba7a0fe5fca3721a2cde19d8f01a413aa88fa6270ea34594fe185b432",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "시아보 부검 기사가 식물인간 논쟁의 쟁점과 부검 결과를 대조해 주장-근거·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Terri Schiavo case, another chapter",
+      "note": "사건 배경 단락은 persistent vegetative state 를 풀어 쓰면 V6 로 내려가고 안락사 쟁점이 선다."
+    }
+  },
+  {
+    "id": "b408fbbb-8727-4105-8b38-dab93eb095da",
+    "source_updated_at": "2026-09-25T07:02:44.982185+00:00",
+    "body_sha256": "447a4a164edbf52780f823c60ba53496182c94d58917a816eb5d44f38f144268",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "킹스크로스 역 폐쇄 기사는 두 단락뿐이나 가스통 폭발 우려라는 폐쇄 이유와 재개 예정이 분명해 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In a recent update on June",
+      "note": "폐쇄 이유 단락이 홀로 서고 hospitalised·radius 만 바꾸면 된다. 사건은 얇지만 인과가 있다."
+    }
+  },
+  {
+    "id": "28190020-ec85-4966-aac1-785dbcfca8de",
+    "source_updated_at": "2026-09-25T07:22:51.977147+00:00",
+    "body_sha256": "2b6e4857122152fef48f80e8c8f55cb08974fac692cb9b015c19dcc07f71ed67",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "빅토리아주 내각 기사는 첫 단락 뒤가 장관 이름과 부처 나열뿐이라 떼어 낼 논지·사건 흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "John Brumby has the role of",
+      "note": "본문 대부분이 이름·부처 목록이라 문단으로 가공할 거리가 없었다."
+    }
+  },
+  {
+    "id": "cf331235-d9a3-4f69-855c-d44d4a28fd08",
+    "source_updated_at": "2026-09-25T07:04:38.086583+00:00",
+    "body_sha256": "50807a16b66d1f52e636bee71ce2143ed7478c485634a6ccb45fc61e1862ef90",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "인터넷 필터 기사가 야당의 ISP 단 필터 주장과 정부·업계의 반론(비용·망 성능·부모 감독)을 짝지어 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The IIA said that providing users",
+      "note": "업계 입장 단락은 기관명을 걷어도 「부모 감독이 더 낫다」 주장이 서고 apex·heavy handed 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "c4ac826d-d2ed-4051-ba9c-d35edb7b30ef",
+    "source_updated_at": "2026-09-25T07:14:35.471935+00:00",
+    "body_sha256": "ba90d1786d0137566af781d60763e52babb736e91d4c08f81e54bc424df0277d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시리아 반체제 인사 선고 기사가 선고→혐의 배경→인권단체·백악관 반응→변호인 항소로 이어져 내용일치·장문 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Labwani was convicted of inciting a",
+      "note": "혐의 단락은 떼어도 서지만 인명·단체명이 사건을 떠받쳐 걷으면 줄거리가 얇아진다."
+    }
+  },
+  {
+    "id": "e6339478-1107-4b56-ab11-55ecca37205e",
+    "source_updated_at": "2026-09-25T07:48:38.289025+00:00",
+    "body_sha256": "207f5adf2077069a65ecf4fe734166f5d252451447608f8db7aa3ae0a9a9151f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "박물관장 사임 기사가 사임 사유(원거리 부부)와 경력 이력을 담아 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sayers was contracted for five years,",
+      "note": "경력 단락은 떼어도 서지만 이력 나열 성격이라 인용문 단락과 묶어야 사연이 선다."
+    }
+  },
+  {
+    "id": "a2381150-64ab-442f-a192-a5c6fe4d75b4",
+    "source_updated_at": "2026-09-25T07:34:49.975209+00:00",
+    "body_sha256": "acbc053c94b5e2f8023a55e24e66d23367cae7650dfe83aba5962cbe5516597d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카이로 국립극장 화재 기사가 발화→진화→원인 확인 순으로 흘러 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ataba Square was filled with thick",
+      "note": "진화 장면 단락이 홀로 서고 extinguish·inhalation 두 낱말만 바꾸면 중등으로 내려간다."
+    }
+  },
+  {
+    "id": "2aef5f3f-bcb8-4436-a5e2-60df18e18e2a",
+    "source_updated_at": "2026-09-25T06:13:22.042161+00:00",
+    "body_sha256": "9f230816837e6539e63d8109f5d00b529276c2350205a75a515472232a36aab2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "펠로시 탄핵 조사 기사가 발표 경위 뒤 탄핵 절차와 과거 두 대통령 사례를 설명해 내용일치·요지 칸과 시대 비교 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Impeachment is the process by which",
+      "note": "탄핵 절차 설명 단락은 인명 없이도 서고 Misdemeanors 등 법률어 두셋만 풀면 V7 로 맞는다."
+    }
+  },
+  {
+    "id": "6181b764-81c2-4fb5-b894-3ca56eb56a2c",
+    "source_updated_at": "2026-09-25T06:49:20.237479+00:00",
+    "body_sha256": "b3eed46caad1e318176ab811b1833f274ddc2d339539831e9c136f1a6bdf773f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "클린턴의 매드 매거진 비유 발언과 공화당 반발을 담은 세 단락 기사로 발언-반응 구조가 있어 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "She claimed that Bush's attitudes towards",
+      "note": "비유가 알프레드 E. 뉴먼을 알아야 서서 고유명사를 걷으면 요점이 사라진다 — 칸은 얇다."
+    }
+  },
+  {
+    "id": "dc1719bc-f97c-4c0c-8b38-75f041ac0dfb",
+    "source_updated_at": "2026-09-25T06:28:47.430465+00:00",
+    "body_sha256": "273a08b6982bc86fafb0a214c266ddf9850dcc114c4170ed395845ebf0c62237",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뭄바이 연쇄살인 기사가 새 피해자 발견→수법 공통점→수사팀 구성을 전해 내용일치 칸을 채우나 성폭력·살해 묘사가 있어 게시는 내용 판정이 걸러야 한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although the latest killing appears to",
+      "note": "수사 단락은 떼어도 서지만 끝의 제보 전화번호는 걷어야 하고 소재 탓에 성인 칸만 남긴다."
+    }
+  },
+  {
+    "id": "d2b6f507-0b11-4f3e-8006-e6aa065fe3bc",
+    "source_updated_at": "2026-09-25T07:00:18.544671+00:00",
+    "body_sha256": "db415498eb41279c13152cfdb489fea1accc02a76e51ba4e6c3d4742f47e5550",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "social",
+    "why": "난민 아동 보상 기사가 구금 경위·피해 증언·정부 반론·야당 비판·판례 의미를 단락마다 나눠 요지·주장·장문·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "content_match",
+        "long_reference",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Compared with similar countries, Australia has",
+      "note": "호주 구금 정책 단락이 앞 문맥 없이 서고 languish·mandatory 만 바꾸면 V7 에 실린다."
+    }
+  },
+  {
+    "id": "39b62303-e19d-4d34-b59f-3cd1cccf5d37",
+    "source_updated_at": "2026-09-25T07:26:40.212649+00:00",
+    "body_sha256": "b321952fda34ead67822ca9856285135c55e3d6a07b692b6b8d88a6849f925ba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "hold",
+    "genre": "culture",
+    "why": "사탄교회 대표 인터뷰는 구어 문답이라 받아쓰기·요지 칸 후보지만 강간·낙태·태아 가치·타인 비방 발언이 교리적 자기주장으로 이어져 학령 칸을 가를 기준이 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "PG: Satanism begins with atheism. We",
+      "note": "「무신론에서 시작한다」 답변은 떼면 서지만 교리 주장 그대로라 doctrine 경계에 걸리고 가공으로 중립화하기 어렵다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "db25d5da-aad2-4532-a35d-5c44ec01e3b4",
+    "source_updated_at": "2026-09-25T06:49:41.047688+00:00",
+    "body_sha256": "9890cae6a7f07e0a1ac3b1acbed2b9b4a21f53f282744f98c2a38c1080de06ca",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "뭄바이 기록적 폭우 기사가 강수량·교통 마비·피해액을 전하고 세계 기록 주장을 정정문으로 바로잡아 내용일치와 수치 주장 검증 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Trains and city buses were shut",
+      "note": "교통 마비 단락이 홀로 서고 submerged·commenced 만 바꾸면 된다. 본문의 틀린 세계 기록 문장은 정정과 함께 써야 한다."
+    }
+  },
+  {
+    "id": "ec676f66-c237-4c6c-ba2b-a053e0f3db3c",
+    "source_updated_at": "2026-09-25T06:30:27.722339+00:00",
+    "body_sha256": "5d3a3dbaea4d9712140e698fab178667ac6ebab19dc59445daf3c12cd598fa82",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "테스코 폭탄 위협 기사는 짧지만 폐쇄 경위와 경찰·직원 발언이 사건을 이뤄 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Witnesses say that authorities received a",
+      "note": "지역명 나열을 걷으면 사건이 더 또렷해지고 precaution 하나만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "76817be4-dcb1-4490-ba1d-b41dfbf48984",
+    "source_updated_at": "2026-09-25T06:16:46.583076+00:00",
+    "body_sha256": "86e25c9f63b1360c64dbd490405b85d9dc0810c9b13d47b7b6322de69dff0d68",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "social",
+    "why": "의무투표 상고 기각 기사가 「투표는 권리인가 의무인가」 주장과 법원 판단·심급 경과를 담아 주장·요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Anders Holmdahl cited \"fundamental distinction\" between",
+      "note": "권리·의무 구별 단락은 서지만 special leave to appeal 등 법률 절차어가 많아 낱말 두셋 교체로는 밴드가 안 내려간다."
+    }
+  }
+]

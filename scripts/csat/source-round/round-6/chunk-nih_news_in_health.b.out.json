@@ -1,0 +1,857 @@
+[
+  {
+    "id": "983e87d2-503e-4ee8-b549-164130aafa11",
+    "source_updated_at": "2026-09-25T05:35:26.570435+00:00",
+    "body_sha256": "176e20544a2e64b2126281cc9aa8538a6c53d639c707ed92a336bba3a5f396b2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "수면 전후가 기억 형성·강화에 하는 역할을 연구자 발언과 수치로 설명하는 본문 전체가 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Memories seem to become more stable",
+      "note": "REM 단락은 인명 없이 논지가 서고 prime·privileged 를 바꾸면 V5로 내려간다."
+    }
+  },
+  {
+    "id": "06bc94b0-f9f9-4200-be82-04ce637dee2c",
+    "source_updated_at": "2026-09-25T05:34:09.178667+00:00",
+    "body_sha256": "e161194a2ed78296b6c923e319348b60495792d8442c9a64e8182963514c7bf8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "보호자 연구 참가자 모집 공지 다섯 단락이 수능 목적 유형의 안내문 틀과 그대로 맞아 목적·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Are you the parent or caregiver",
+      "note": "모집 공지 전체가 한 덩어리로 떨어지고 stressors·perceptions 만 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "359160e1-e698-44b5-8876-93419cc73a12",
+    "source_updated_at": "2026-09-25T05:33:19.814378+00:00",
+    "body_sha256": "dbe7b837b212a7b7f9ee48b1ba72dfd93557cb179f52fe2bff2ae055310362c4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "진드기 매개 질환 확산과 붉은 고기 알레르기(AGS) 발견 단락이 사실·인과로 서서 내용일치·빈칸·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "insert",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Most tick-related illnesses are caused",
+      "note": "AGS 단락은 앞 문맥 없이 서고 anaphylaxis·gastrointestinal 을 바꾸면 V4에 맞는다."
+    }
+  },
+  {
+    "id": "1d8da638-a752-4b8d-aa14-aeb198585719",
+    "source_updated_at": "2026-09-25T05:33:30.240337+00:00",
+    "body_sha256": "ecb2b7c996e855bad9e506d20c9897905fa0f385021a545836c56eb564b32a0f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "크라톰의 효능 주장과 검증 부족·부작용을 대비하는 짧은 설명문이 요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Kratom has been reported to have",
+      "note": "편집자 주·링크만 걷으면 한 편으로 서고 withdrawal·contaminants 교체가 쉽다."
+    }
+  },
+  {
+    "id": "a2bd98a1-34d6-4a93-915a-2c86bb36d223",
+    "source_updated_at": "2026-09-25T05:33:14.088103+00:00",
+    "body_sha256": "1d4d2e368ccdd68bbef5abb1fc467378844094fef7aecf2d49fab246d6be43f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "시민과학 참여 방식과 지역사회 공동연구(Our Voice·애틀랜타 토양 납) 사례가 주장-사례 구조로 주제·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "claim",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Several NIH-supported citizen science projects involve",
+      "note": "공동체 단락은 인명을 걷어도 서지만 용어 정의 끼인 문장은 지워야 한다."
+    }
+  },
+  {
+    "id": "fd8f00b2-bbe2-48ee-8cde-7384628edc69",
+    "source_updated_at": "2026-09-25T05:32:49.911888+00:00",
+    "body_sha256": "782801fe19204128d02d10ed2d0b5dd21016c5db7158a9f8fa17cfd5bf423096",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "항암치료가 빠르게 분열하는 정상세포까지 해치는 원리와 부작용 완화 연구를 설명해 주제·순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Most of the cells in your",
+      "note": "세포 분열 단락은 독립적이고 crossfire·peripheral neuropathy 를 풀어 쓰면 V5 안이다."
+    }
+  },
+  {
+    "id": "24b751fd-d6c5-4a83-9563-dada8c3a87ff",
+    "source_updated_at": "2026-09-25T05:35:19.122074+00:00",
+    "body_sha256": "ec697e22eee50c33c9ffbc9590d88e6c0bcc4c4af51e0ef7d32f984548717a24",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "뇌진탕 후 세포사와 3시간 치료 창을 쥐 실험 순서로 보여 주는 연구 요약이 순서·내용일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "To take a closer look, the",
+      "note": "실험 흐름은 서지만 수치(67%·51%)를 걷으면 결론 근거가 약해진다."
+    }
+  },
+  {
+    "id": "3616e6cf-49e5-4bf1-81de-9458e503358a",
+    "source_updated_at": "2026-09-25T05:36:05.132166+00:00",
+    "body_sha256": "b05e175e621de39991a4e6b587f485c62d7be5c228cdb30ae3170309c522f609",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "정상적인 건망증과 치매를 가르는 설명(알츠하이머 대 혈관성 치매 대조 단락)이 주제·빈칸·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Occasional forgetfulness is a normal part",
+      "note": "열쇠 비유 문장이 요지를 잡아 주고 hamper 만 바꾸면 V4다. 끼인 용어 정의는 걷어야 한다."
+    }
+  },
+  {
+    "id": "845686f7-35ec-497b-914d-d36a035417ba",
+    "source_updated_at": "2026-09-25T05:34:49.281269+00:00",
+    "body_sha256": "e5aabeda9132a159b57db900f204d8c2751c4801ad025b432672720fec007913",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "절대위험과 상대위험, 통계 프레이밍이 판단을 바꾼다는 논지가 예시와 함께 서서 요지·빈칸·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank",
+        "summary",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Often, however, you might hear numbers",
+      "note": "절대·상대위험 두 단락을 묶으면 앞 예시만 옮겨 오면 서고 수치가 곧 논지라 걷을 수 없다."
+    }
+  },
+  {
+    "id": "302d4e16-21b6-44a0-a0bf-85a71e442d91",
+    "source_updated_at": "2026-09-25T05:34:58.201409+00:00",
+    "body_sha256": "300fe705212f03aa9636d240192a2d3fb28c81b9b099fc50962df940594dfbd5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "social",
+    "why": "비공식 돌봄의 보람과 건강 비용을 대비하고 REACH 지원 프로그램으로 잇는 전개가 주제·요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "insert",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Studies have shown that some people",
+      "note": "보람-부담 대비 단락은 떼어 내도 서고 thrive·substantial 교체만으로 충분하다."
+    }
+  },
+  {
+    "id": "3ccdc318-2591-4f47-9d77-ecaedf22957d",
+    "source_updated_at": "2026-09-25T05:33:48.788788+00:00",
+    "body_sha256": "a8728e95c3bbd163f705c9589e5d47d4046c757525a1a50ccd684842c174ea69",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "회복자 약 200명의 면역 기억이 수개월 유지된다는 연구 요약이 내용일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Almost everyone had antibodies that block",
+      "note": "항체·세포 단락은 서지만 수치 서술이 중심이라 논지형 칸은 좁다."
+    }
+  },
+  {
+    "id": "af110f88-c813-469b-bac0-ea6fdfa0e5a3",
+    "source_updated_at": "2026-09-25T05:32:47.215962+00:00",
+    "body_sha256": "6cb2c3e6aee58c513108be8ac7f907b03a4b7f7c6535b90fc7dd5dbe936e855a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "뇌졸중 재활의 재매핑 원리와 가정용 고강도 재활·뇌자극 실어증 치료 사례가 주제·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "insert",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Skills are lost when brain cell",
+      "note": "재매핑 단락은 독립적이고 끝의 상자 목록만 걷으면 된다."
+    }
+  },
+  {
+    "id": "1332050f-10dd-450a-b08a-9812fac5b3e8",
+    "source_updated_at": "2026-09-25T05:33:29.012407+00:00",
+    "body_sha256": "328244618f1b9c792436d8b3cec8d1c5683ca9f861a7aeeb443d3d342841f705",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "엠폭스의 명칭 유래·증상·세 가지 전파 경로를 사실로 나열해 내용일치 칸을 채우고 전파 단락은 순서형으로도 쓸 수 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anyone who has been in close",
+      "note": "전파 경로 단락은 앞 문맥 없이 서지만 첫 문장이 시의성에 묶여 걷어야 한다."
+    }
+  },
+  {
+    "id": "c99abd31-7753-41a0-9bec-012461a43141",
+    "source_updated_at": "2026-09-25T05:34:51.836474+00:00",
+    "body_sha256": "f3c1856ab22e90b00093a6adc0dae60b0e4b7f4c5ecfc0af59dd76b87c4aed8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "language",
+    "why": "실어증 원인과 베르니케·브로카 실어증 대조 단락이 짧지만 한 편으로 서서 내용일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two of the most common types",
+      "note": "두 유형 대조 단락은 떼어도 서고 impaired·omit 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "55327d1f-1fd8-402f-be70-194ef02b0c3d",
+    "source_updated_at": "2026-09-25T05:34:47.607088+00:00",
+    "body_sha256": "0c6cb56727204861e90c31fe8fb4a7d5d8032f4fcb0f7db892c4af6628f5a263",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "무작위 대조시험과 관찰연구의 차이(상관은 인과를 증명 못 함)를 설명하는 단락이 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The ideal way to prove that",
+      "note": "안내서 소개 문장과 다운로드 안내를 걷으면 연구 유형 대비만으로 논지가 선다."
+    }
+  },
+  {
+    "id": "a7cd9afe-a09f-47de-97c0-79a6718d8e67",
+    "source_updated_at": "2026-09-25T05:35:37.168305+00:00",
+    "body_sha256": "7c121336b021519eab39dd641666857fac5abb1ba4abc4b631f6f8eb77165e9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "빗물 유출이 해변을 오염시키는 경로와 육지 습관이 물 품질을 좌우한다는 결론이 순서·빈칸·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "blank",
+        "main_point",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Natural water sources, including lakes, rivers",
+      "note": "유출 경로 단락은 인과 순서가 뚜렷해 순서 배열로 바로 쓰이고 runoff·feces 만 손보면 된다."
+    }
+  },
+  {
+    "id": "3a07acb1-95c3-48af-9544-dc7f2107ac04",
+    "source_updated_at": "2026-09-25T05:33:16.743089+00:00",
+    "body_sha256": "bcab510e4a3d84986d9b2e89dc6449285a5fdc6936355d191e04d419aec36de4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서 있을 때 혈류를 올리는 정상 기전과 POTS 에서 그 신호가 무너지는 대비 단락이 순서·빈칸·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "blank",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Normally, when a person stands up,",
+      "note": "정상-이상 대비 두 단락이 붙어서 떼어 내기 쉽고 약어 풀이 단락은 걷는다."
+    }
+  },
+  {
+    "id": "c84ccbd5-5019-4e6b-90ab-3aa861ccfb95",
+    "source_updated_at": "2026-09-25T05:34:54.433837+00:00",
+    "body_sha256": "9f33347d6bcbec37fd07c23a7d904cd61b090093f9a04da83ec4ddee56039f4e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "모기가 가장 치명적인 동물이라는 비교 수치와 백신 개발 현황 단락이 내용일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "data-claim",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The diseases spread by mosquito bites",
+      "note": "동물별 사망 비교 단락은 수치가 논지라 걷기 어렵고 2015~16년 시점 표현을 손봐야 한다."
+    }
+  },
+  {
+    "id": "5e3da4d1-eaff-4eca-8da9-349967a7fe35",
+    "source_updated_at": "2026-09-25T05:35:40.953672+00:00",
+    "body_sha256": "063bb7db4f0f126fb0f8ce1366277f3e8b97c4d2fbb86c570446c5cfa6071204",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "갇힌 동료를 초콜릿과 같은 가치로 풀어 주는 쥐 실험 순서가 공감의 생물학적 뿌리라는 결론으로 이어져 주제·순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "order",
+        "blank",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The scientists then tried giving rats",
+      "note": "실험 단계가 시간순이라 순서·삽입이 쉽고 restrained·liberated 를 바꾸면 V4다."
+    }
+  },
+  {
+    "id": "508877db-878f-4055-8a25-c4869f7bfcc3",
+    "source_updated_at": "2026-09-25T05:34:04.956759+00:00",
+    "body_sha256": "4bd8a90e3eebf0548a5445e0d4b2b866048827b918da889f99f238d05cf2abcd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "health",
+    "why": "피부염의 면역 반응 원리와 가려움이 통증과 별개의 감각이라는 발견 단락이 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For a long time, people questioned",
+      "note": "가려움 통념-반증 단락은 짧지만 서고 끼인 용어 정의 문장은 걷어야 한다."
+    }
+  }
+]

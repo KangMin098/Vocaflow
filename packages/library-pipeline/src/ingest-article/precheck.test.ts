@@ -10,11 +10,16 @@ const NEWS_BODY =
   'Residents will be able to comment on the design next month. The mayor called it an important step for the town.'
 
 describe('precheckArticle', () => {
-  it('뉴스 원천은 제목 부적합이면 막는다 (wikinews 실측 — 표본 전부 정확)', () => {
-    const r = precheckArticle({ source: 'wikinews', title: 'Heavy storm hits Philippines, kills fourteen', content: NEWS_BODY })
-    expect(r.verdict).toBe('block')
-    expect(r.blockedBy).toEqual(['title'])
+  it('wikinews 도 제목 부적합은 표시만 한다 — 회차 6 판정자가 막힌 7편 중 13/14 판정을 보관으로 냈다', () => {
+    const r = precheckArticle({ source: 'wikinews', title: 'UK bans export of fraudulent bomb detector; arrests director', content: NEWS_BODY })
+    expect(r.verdict).toBe('flag')
+    expect(r.blockedBy).toEqual([])
     expect(r.reasons).toContain('title:unfit')
+  })
+
+  it('제목 규칙으로 막는 원천은 하나도 없다 — 새로 막으려면 원문 점검 회차로 먼저 검산한다', async () => {
+    const { PRECHECK_POLICY } = await import('./precheck')
+    expect(Object.entries(PRECHECK_POLICY).filter(([, p]) => p.title === 'block').map(([k]) => k)).toEqual([])
   })
 
   it('건강 원천은 제목 규칙을 끈다 — 「Heart Attack」 기사는 사고가 아니다', () => {

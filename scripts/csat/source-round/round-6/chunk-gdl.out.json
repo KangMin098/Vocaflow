@@ -1,0 +1,781 @@
+[
+ {
+  "id": "4d84ba98-30ff-4e84-b6ad-aabfb65df236",
+  "source_updated_at": "2026-09-25T04:03:07.300423+00:00",
+  "body_sha256": "b13ba27e5064e2a9a34d74a7acfaec87ba5a9ce13263dff7233d2099275b32a3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "싫던 황마 신발이 길 잃은 날 발자국으로 집을 찾게 해 준다는 짧은 이야기와 황마 설명 노트로 심경 변화·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school"
+   ],
+   "types": [
+    "mood",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V1",
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "I did not like the shoes.",
+   "note": "심경 전환(싫음→사랑)이 한 문단 흐름으로 서고 jute 설명 노트는 따로 내용일치로 뗄 수 있다."
+  }
+ },
+ {
+  "id": "4fef8a5d-a205-4506-ab28-263fe1879e9b",
+  "source_updated_at": "2026-09-25T04:03:00.044546+00:00",
+  "body_sha256": "50bead975c376256bca258bb4927bb46e5e2301cfc8f5ca1125efee6d8d55959",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "Tinuk 이 약초음료를 맛·병·상표·전단으로 고쳐 가며 자전거 값을 모으는 사건 흐름이 뚜렷해 순서·삽입·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "mock"
+   ],
+   "types": [
+    "order",
+    "insert",
+    "mood",
+    "summary",
+    "long_reference"
+   ],
+   "levels": [
+    "V2",
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Tinuk would make different flavored herbal",
+   "note": "시행착오 단락들이 시간순으로 뚜렷해 순서 배열용으로 떼기 쉽다; concoctions 등 두어 낱말만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "53a49a44-71f3-48d9-8955-f79642b02907",
+  "source_updated_at": "2026-09-25T04:02:59.070909+00:00",
+  "body_sha256": "627ffbf6fc7196742dafc0279444e4823d56bce1e567d88648b7caf6255d69d8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "엄마가 없는 동안 엄한 할아버지와 부딪치다 그도 엄마를 그리워함을 알게 되는 전개가 심경·장문 지칭 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "mock"
+   ],
+   "types": [
+    "mood",
+    "long_reference",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V2",
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Alia went to look for Mbah",
+   "note": "할아버지의 눈물 장면에서 심경 변화가 분명하다; Mbah Kung 호칭 주석만 정리하면 된다."
+  }
+ },
+ {
+  "id": "567762b7-3850-498b-8ea8-9d203d10e071",
+  "source_updated_at": "2026-09-25T04:03:19.89005+00:00",
+  "body_sha256": "53b1e77f42a7e87f9a3f4363714a863795aaa14dd2034088314bea5a24113e6d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "장난꾸러기 곰에게 동물들이 복수하고 늙은 염소가 화해를 묻는 우화로, 뒤쪽 교훈 단락이 요지·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school"
+   ],
+   "types": [
+    "main_point",
+    "topic",
+    "order"
+   ],
+   "levels": [
+    "V2",
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "If we continue to revenge one",
+   "note": "의성어·대문자 표기가 어지러워 정리가 필요하지만 복수의 악순환이라는 교훈 단락은 떼어도 선다."
+  }
+ },
+ {
+  "id": "2b769c1d-b382-4a63-8a4e-61c2b4f5c583",
+  "source_updated_at": "2026-09-25T04:03:42.179277+00:00",
+  "body_sha256": "943bc99cd94641d6a856a2dba7212b8c465a0fffb8f1accb2dd7ba1f76358f08",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "discard",
+  "genre": "fragmentary",
+  "why": "개의 시점 짧은 문장들이 그림 없이는 이어지지 않고 끝이 action sentences 연습 활동으로 바뀌어 채울 칸이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "We are a family of four.",
+   "note": "문장마다 그림 장면에 기대 흐름이 없고 뒷부분은 학습지 지시문이라 뗄 문단이 없다."
+  }
+ },
+ {
+  "id": "69b24d68-8c08-42b1-83af-2bc48699d14e",
+  "source_updated_at": "2026-09-25T04:02:56.723684+00:00",
+  "body_sha256": "251c10e06521402ca5a0bdaf01a7e21b7d5957abe9dc5b71ac41e8c6dd068736",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "귀 때문에 놀림받아 학교를 피하는 Rajib 이 형에게 털어놓고 해결되는 전개로 심경·장문 칸을 채운다(민감 소재지만 다루는 방식이 적절).",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "mock"
+   ],
+   "types": [
+    "mood",
+    "long_reference",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V2",
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Rajib’s mother notices that he stands",
+   "note": "불안→안도 심경이 뚜렷하고 거울 앞 장면은 떼어도 선다; 네팔어 호칭 주석만 걷어 내면 된다."
+  }
+ },
+ {
+  "id": "caba7ce5-db02-47bb-b739-b5f1a9726ba7",
+  "source_updated_at": "2026-09-25T04:02:48.007864+00:00",
+  "body_sha256": "7664f1e5338770881014935ea3d138195c49f172ea90f3eae53fb56b772c349c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "농약과 버려진 용기가 친구들을 아프게 했음을 메뚜기가 말하는 환경 우화로, 원인-결과 흐름과 CI 노트가 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school"
+   ],
+   "types": [
+    "order",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V2",
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Grasshopper thinks he knows what is",
+   "note": "원인을 밝히는 단락이 앞 사건 요약 없이도 거의 선다; pesticide 류 낱말은 이미 쉽게 풀려 있다."
+  }
+ },
+ {
+  "id": "412ece44-2d2c-4ca2-ae05-b0261bfd9da8",
+  "source_updated_at": "2026-09-25T04:03:15.363974+00:00",
+  "body_sha256": "888a90711d30c31cfe55cc9c7a775417a1b4391951461ac17c8a4586ed9108eb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "같은 문답 틀이 여섯 번 반복되며 꽃 이름을 익히는 누적 이야기라 초등 어휘·읽기 칸만 좁게 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V0",
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "\"Which flower is this, friend?\" I",
+   "note": "반복 구조라 논지·심경 문항은 안 되고 꽃 이름 어휘와 단순 내용일치만 된다."
+  }
+ },
+ {
+  "id": "82b713e0-0173-418d-971b-5cc798bf8054",
+  "source_updated_at": "2026-09-25T04:03:23.72545+00:00",
+  "body_sha256": "4755740563e8225761d2de9d07f2637bf552487e5f50c0ed11fa70c426ed4dc8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "무섭다던 숲에서 나무·아기원숭이·동물학교를 도우며 용기를 얻는 모험담으로, 세 사건의 반복 구조가 순서·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school"
+   ],
+   "types": [
+    "order",
+    "insert",
+    "main_point"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Suddenly, the ground started shaking, And",
+   "note": "에피소드가 one step, then another 로 갈려 떼기 쉽다; 끝의 NGO 홍보문은 걷어 내야 한다."
+  }
+ },
+ {
+  "id": "301df829-8615-48d5-aca6-4e8eb2e9dc61",
+  "source_updated_at": "2026-09-25T04:03:45.138868+00:00",
+  "body_sha256": "68661f730da161572a31390c8279699421e11881971664adbbd100e52582a4c0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "discard",
+  "genre": "fragmentary",
+  "why": "인형 축제에 가자는 부름과 노래 가사가 반복될 뿐 그림 없이는 Tuntun 이 무엇인지도 서지 않아 채울 칸이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "\"Knock, knock, knock, Tip, are",
+   "note": "대사만 이어져 화자·사건이 그림에 기대고 두 번의 노래 가사는 운문이라 뗄 산문 단락이 없다."
+  }
+ },
+ {
+  "id": "e64d9650-7640-49ce-a214-2a8d2b01e8ed",
+  "source_updated_at": "2026-09-25T04:03:30.763822+00:00",
+  "body_sha256": "1d6b9db8599765f65037c55209b2f18379adb775a815587b177cfbca09ee2367",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "칠판이 안 보이던 Jimmy 가 친구 도움으로 말하고 안경을 쓰게 되는 시간순 이야기로 심경·순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school"
+   ],
+   "types": [
+    "mood",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Jimmy squints at the chalkboard. The",
+   "note": "두려움→자신감 변화가 분명하고 단락 경계가 뚜렷해 순서 배열에 바로 쓸 수 있다."
+  }
+ },
+ {
+  "id": "1109dc0f-ef0a-4402-b7bd-975d4f4f4c30",
+  "source_updated_at": "2026-09-25T04:03:25.890737+00:00",
+  "body_sha256": "28e95a5931699b0ad610a717ea48166786666cd1bb758de60ace750ac341a360",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "무슬림 소년을 뒷자리로 보낸 교사에게 사제 아버지가 사과를 요구하는 회고로, 차별·화해 주제가 심경·요지·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "mood",
+    "main_point",
+    "order",
+    "insert",
+    "long_reference"
+   ],
+   "levels": [
+    "V3",
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"No child is less than another",
+   "note": "사제의 말 단락이 요지로 서고 사건 흐름이 선명하다; 첫 줄 번역 안내문만 걷어 내면 된다."
+  }
+ },
+ {
+  "id": "9a5a564f-0fae-4906-b872-b0ecaf7c876e",
+  "source_updated_at": "2026-09-25T04:03:39.565671+00:00",
+  "body_sha256": "eb011fcfbb9b2d6fb84a61ab4fb2b54031ce0f7c61dd7554932b540988dc5750",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "학생 발표 속 Edhi 동시와 부모용 노트의 나눔 논지가 있어, 노트 단락이 요지·내용일치 칸을 채운다(동시 부분은 쓰지 않는다).",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Late Abdul Sattar Edhi had a",
+   "note": "본문 가운데는 운문이라 못 쓰지만 노트 단락은 나눔이 마음을 키운다는 논지와 사실로 선다."
+  }
+ },
+ {
+  "id": "e6f8f646-d974-4b2e-96ad-a9320cc52ed4",
+  "source_updated_at": "2026-09-25T03:34:55.068816+00:00",
+  "body_sha256": "e967c84d89f51bb058d9c366a1b749c531959433ba788bb9a8ef9ab47c735829",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "엄마의 잠다니 사리 무늬 이야기와 제작법 노트가 문화유산 설명으로 서서 내용일치·주제·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "topic",
+    "mood"
+   ],
+   "levels": [
+    "V3",
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Jamdani is one of the",
+   "note": "노트 단락은 떼어도 완결된 설명문이다; apprentice·intangible 을 쉬운 말로 바꾸면 중등으로 내려간다."
+  }
+ },
+ {
+  "id": "75acd00b-9e89-43d9-aee1-126283bb1588",
+  "source_updated_at": "2026-09-25T04:03:17.415369+00:00",
+  "body_sha256": "5bb87bd9f0c02459eefaba5d3d787cae345fb24fdb8d4c7bded38a5bf1516821",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "엄마가 만든 떡 네 가지를 추억과 묶어 소개하고 피타 노트가 붙어 있어 내용일치·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pithas are traditional rice cakes which",
+   "note": "노트 단락은 떼어도 서지만 10 0 같은 OCR 깨짐을 고쳐야 한다."
+  }
+ },
+ {
+  "id": "228bf85b-bd83-4b90-b3de-8132509d289f",
+  "source_updated_at": "2026-09-25T04:02:46.995688+00:00",
+  "body_sha256": "8f8601f7aed863f5ef0fd740d877988e20ebd08b2849473c991544671a86af4a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "바쁜 벌·쇠똥구리를 지나 길 잃은 새끼 거미를 도와 친구가 되고 나비가 된 뒤에도 우정이 이어지는 이야기로 순서·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school"
+   ],
+   "types": [
+    "order",
+    "main_point",
+    "mood"
+   ],
+   "levels": [
+    "V1",
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "She soon heard someone crying. She",
+   "note": "만남 에피소드가 차례로 갈려 순서 배열이 쉽다; 오타(at, Kate)만 바로잡으면 된다."
+  }
+ },
+ {
+  "id": "5bcaebe7-5bc5-46a3-a072-d17581c81fde",
+  "source_updated_at": "2026-09-25T04:03:14.069071+00:00",
+  "body_sha256": "7da6a91792c7ac83808ed58a7044b8ee68ba56633fae9387673ac67d5d0cc69c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "벵골 새해 전날 준비부터 행진·판타밧 식사까지 하루를 따라가고 유네스코 노트가 붙어 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "topic"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Bengali calendar is split into",
+   "note": "노트 단락은 사실 진술이 여럿이라 내용일치로 바로 쓰인다; 본문 대사 속 벵골어는 주석이 필요하다."
+  }
+ },
+ {
+  "id": "bc227e34-7419-42ca-a786-3dd878035e30",
+  "source_updated_at": "2026-09-25T03:34:53.158261+00:00",
+  "body_sha256": "081d9505549617c7fd5ba7a694f77bf071e080575b07218fbfc03c656e4ff1a9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "수줍은 코뿔소가 숨바꼭질에서 친구들을 차례로 찾고 도마뱀까지 찾아 자신감을 얻는 이야기로 심경·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school"
+   ],
+   "types": [
+    "mood",
+    "order"
+   ],
+   "levels": [
+    "V1",
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Rhino sits down, trying not to",
+   "note": "수줍음→자신감 심경은 서고 동물 나열 단락도 그림 없이 읽힌다; 쉬운 어휘라 조정이 거의 필요 없다."
+  }
+ },
+ {
+  "id": "55a674fc-51d9-485d-b1c2-14b6a5f0b5eb",
+  "source_updated_at": "2026-09-25T04:03:38.113726+00:00",
+  "body_sha256": "a26ff9fd7cb5e30628ad1611d2251dc2bc8feffa6cc61c432c90f63e2ef2c110",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "학교 가기 싫던 Nima 가 새 친구를 만나 매일 가고 싶어지는 아주 짧은 이야기로 초등 읽기·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "mood"
+   ],
+   "levels": [
+    "V0",
+    "V1"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "At school, there are so many",
+   "note": "짧지만 싫음→기쁨 심경 전환이 완결되어 있다; 이미 최저 밴드라 조정할 낱말이 없다."
+  }
+ },
+ {
+  "id": "2b2416aa-0b64-4ce3-a194-74107e1d32d6",
+  "source_updated_at": "2026-09-25T04:03:33.901964+00:00",
+  "body_sha256": "74310c3d1f251b372479844898b9242aa71db81c675ba637e95113dadc9b63c2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 6,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "전기가 없는 마을에서 Nora 가 횃불·램프·뚜껑으로 차례차례 문제를 풀어 길을 밝히는 문제해결 이야기로 순서·삽입·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "mock"
+   ],
+   "types": [
+    "order",
+    "insert",
+    "summary",
+    "mood"
+   ],
+   "levels": [
+    "V2",
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Nora could feel the wind blowing",
+   "note": "시도와 실패가 원인과 함께 단락별로 나뉘어 순서·삽입용으로 떼기 좋다; proclaimed 등은 쉬운 말로 바꿨다."
+  }
+ }
+]

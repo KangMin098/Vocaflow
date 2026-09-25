@@ -1057,6 +1057,7 @@ v06.25 브릿지 — `shared_word_sets` 에 `category_id` + `additional_category
 - 원천마다 단계별 `off / flag / block` (`PRECHECK_POLICY`). 기본은 전부 `flag` — **표시만 하고 담는다**. 결과는 `csat_fit.precheck`.
 - `block` 은 실측으로 오판이 드문 자리에만: wikinews 제목(부적합 표본 전부 정확) · 건강·그림책은 제목 `off`(「Heart Attack」 「Shock! Crash!」 오판).
 - 이미 담긴 대기분 소급: `pnpm dlx tsx scripts/csat/source-get/precheck-backfill.mjs [--source X] [--commit]` — 막힌 글은 지우지 않고 `archived` + `status_message='precheck:…'`. 되돌리기 `--restore --commit`(이 스크립트가 보관한 것만).
+- **판본 2 (2026-09-25)** — 원문 점검 회차 6 이 wikinews 제목 막음을 검산했더니 막은 7편 중 판정 13/14 가 보관이었다 → **제목으로 막는 원천 0**(테스트가 고정). 보관했던 6,434편은 되돌렸다. 기록: `docs/source-check/round-6.md` §5.
 - 규칙이 정당한 글을 걸면 글이 아니라 규칙을 고친다 — 오판 사례는 `precheck.test.ts` 에 회귀로 고정한다.
 
 ## Migration 시드 인프라
