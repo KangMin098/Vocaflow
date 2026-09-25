@@ -1,0 +1,418 @@
+[
+ {
+  "id": "7e06785f-d996-4468-bc6b-b80bf14c3c67",
+  "source_updated_at": "2026-09-25T07:30:49.961387+00:00",
+  "body_sha256": "cb54f79d817be559dd6fdc374515af03a734001cedff7d33076785f403224153",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "분자 도킹 절의 일반 설명 단락이 약물 탐색 과정을 떼어 내 읽을 수 있게 설명해 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Molecular docking is a computational technique",
+   "note": "화합물 번호·수치를 걷고 도킹 원리 설명 단락만 쓰면 선다."
+  }
+ },
+ {
+  "id": "7e17ef33-e1aa-4e9b-905d-7a101796fc3d",
+  "source_updated_at": "2026-09-13T05:59:26.038594+00:00",
+  "body_sha256": "e121d5fdf34c64555a26f97568e47fcd7d2fc458ee7108717de5bc112e633d2b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 혈관 가설 단락이 달팽이관 혈류와 호모시스테인을 인과로 이어 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The cochlea is particularly vulnerable to",
+   "note": "SSNHL 약어를 sudden hearing loss 로 바꾸면 앞 문맥 없이 선다."
+  }
+ },
+ {
+  "id": "7e1828a4-c9cc-46d7-aecb-3238cbbf6af7",
+  "source_updated_at": "2026-09-13T07:39:05.136477+00:00",
+  "body_sha256": "e593331a11db96fe1a26ca2917e55a121c52913e9a458c1eb167b4e5039c9177",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "서론과 고찰이 명상의 부정적 경험과 해석 틀을 논지 있게 전개해 주장·요지·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However, the limited focus on the",
+   "note": "용어(nyams·makyō)를 걷으면 「건강 효과만 보는 것은 근대 서구의 창작」 논지가 선다."
+  }
+ },
+ {
+  "id": "7e220550-9959-4935-b609-d8b2c14c96af",
+  "source_updated_at": "2026-09-15T15:22:57.211367+00:00",
+  "body_sha256": "beb068bae7a54ccd6bb8cb105c954fcda2c91a4e14f61fe4f9863222f9e06bf1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 뇌 림프관 발견 설명과 고찰의 맥락 의존성 단락이 떼어 읽히는 설명문이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "While the brain has been considered",
+   "note": "VEGF-C·MLV 약어를 풀어 쓰면 뇌 배수 체계 설명이 자족적이다."
+  }
+ },
+ {
+  "id": "7e2fe278-08a6-4b5e-ab6d-b4086bac1036",
+  "source_updated_at": "2026-09-13T07:32:13.644585+00:00",
+  "body_sha256": "e9d99d50b3bb3acaecc0318244ead7373e9db13bc12bbf379148aad3fa533da8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 스트레스와 과민대장증후군 성차 설명이 인과로 이어져 요지·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Irritable bowel syndrome (IBS) is a",
+   "note": "IBS 를 풀어 쓰고 인용 번호를 걷으면 여성 유병률 설명이 선다."
+  }
+ },
+ {
+  "id": "7e3498b0-e758-4da6-a50b-30f81a54b708",
+  "source_updated_at": "2026-09-25T07:30:54.737246+00:00",
+  "body_sha256": "eb0eb0a41e639a312008c593310592504e8c8978af3979b5d176389dccb84985",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 자가포식과 바이러스 관계 단락이 세포의 재활용 과정을 설명해 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Autophagy is a catabolic process in",
+   "note": "catabolic·hijack 을 쉬운 말로 바꾸면 V8 로 내려가나 뒤 절은 약어가 많다."
+  }
+ },
+ {
+  "id": "7e353c79-7425-45c2-a22b-2fdc8b56c006",
+  "source_updated_at": "2026-09-13T07:00:56.160544+00:00",
+  "body_sha256": "de899f79f1d6875fdb2eb1c99fb23444ef8d6a87f5a34042cb21939af544fa52",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 태아 영상 기술 비교 단락이 초음파·CT·MRI 장단을 대조해 내용 일치·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "topic",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In order to acquire in utero",
+   "note": "측정 수치 절은 걷고 영상 기술 비교 단락만 쓰면 선다."
+  }
+ },
+ {
+  "id": "7e48cf78-a997-474e-840e-1f92a7f80190",
+  "source_updated_at": "2026-09-25T07:30:56.384985+00:00",
+  "body_sha256": "bdba8c7967e0a784515e8d097df6d7a6e33e2160c216c6c23629116ebb4a6e70",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 근육과 혈당 조절 설명 단락이 운동이 염증을 줄이는 흐름을 이어 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Skeletal muscle, which makes up about",
+   "note": "NLRP3·IL-18 을 「염증 물질」로 바꾸면 운동-염증 논지가 선다."
+  }
+ },
+ {
+  "id": "7e4fabe5-e729-4c00-9d53-b29552aa04b4",
+  "source_updated_at": "2026-09-15T15:23:02.454242+00:00",
+  "body_sha256": "b232b161230f87bc31c0f3d59bd9c0279daa1d835a1af4d98a6d4be207c7d9ed",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 인구 고령화와 복합만성질환 설명이 문제와 해결 방향을 이어 목적·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Globally people are ageing at an",
+   "note": "LMIC 약어를 풀고 수치를 줄이면 노년 돌봄 필요성 논지가 선다."
+  }
+ },
+ {
+  "id": "7e61a1fd-6e17-4e6e-b479-7b2332b88168",
+  "source_updated_at": "2026-09-25T07:30:57.290505+00:00",
+  "body_sha256": "0e3cf7dddccbad4bb8c2f0ccea88fb37e6e1bd0b469dc6255faa2b87d7132a3f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "저자 요약 단락이 간 손상과 심장 부담의 연결을 쉬운 말로 풀어 요지·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The liver and heart are intimately",
+   "note": "저자 요약은 거의 그대로 쓰이고 dual blood supply 만 풀면 된다."
+  }
+ }
+]

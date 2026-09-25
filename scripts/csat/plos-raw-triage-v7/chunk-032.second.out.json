@@ -1,0 +1,758 @@
+[
+  {
+    "id": "15f209dd-0d76-48f9-97ff-b5215601b9a3",
+    "source_updated_at": "2026-09-13T06:27:06.234936+00:00",
+    "body_sha256": "b3f29b5ef7fc8f83104e01fdf08e866a72587cbf03dbbe7a6965649d2082c529",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "표적 단백질 분해라는 통념적 한계를 세우고 새 E3 리가아제 발굴로 뒤집는 서론·고찰이 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Targeted protein degradation (TPD) has emerged",
+      "note": "서론 첫 문단은 떼어도 서지만 PROTAC·E3 같은 약어가 촘촘해 밴드를 내리기 어렵다."
+    }
+  },
+  {
+    "id": "15ff3664-b81f-48fc-b95e-30a8be6bc099",
+    "source_updated_at": "2026-09-15T14:22:33.557384+00:00",
+    "body_sha256": "8affa63772868b11d9cf0d19a732bb678253f458fbd5c24e36017b89040597f4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "적격 판정이 곧 신뢰라는 오해를 「신뢰 인플레이션」으로 규정하고 세 가지 이유·두 가지 처방으로 논지를 편다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "First, baseline-and-credit systems are subject to",
+      "note": "「첫째/둘째/셋째」 단락이 그대로 순서·빈칸 재료가 되고 eligibility→qualification 정도로 낱말을 낮출 수 있다."
+    }
+  },
+  {
+    "id": "16016114-bc51-45c7-8c65-67c66117ecf8",
+    "source_updated_at": "2026-09-13T07:20:07.382308+00:00",
+    "body_sha256": "8b7946aa2fca8321e984529e62f1854f8d57e9c6003d3680632b8f0f1b7f66df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "탈모 치료제의 부작용이라는 문제 제기에서 식물 추출물 대안 검증까지 고찰이 이어져 논지가 잡힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The proportion of appearance among modern",
+      "note": "고찰 앞 단락은 외모·탈모라는 일상 소재라 고유명사만 걷으면 서고, 신호전달 용어 단락은 쓰기 어렵다."
+    }
+  },
+  {
+    "id": "1613d91b-ab4e-4933-8fb4-bb4de098c4f6",
+    "source_updated_at": "2026-09-15T14:22:41.443298+00:00",
+    "body_sha256": "4527b9d8a57ceb7a8ecf5cd432628ca481805513fe319adc3286903ab80aed2a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "environment",
+    "why": "결과 절 번호가 3.2에서 3.6.2로, 다시 3.6.3에서 3.6.5로 건너뛰어 예고된 절이 통째로 빠져 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "In recent years, excessive nitrogen has",
+      "note": "서론은 질소 오염 문제로 떼어 낼 만하나 결과 절이 빠져 원천의 완결성을 확인할 수 없다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "1615261d-3b91-4aef-b9f1-d3a2ad5dfbcd",
+    "source_updated_at": "2026-09-13T06:42:53.218431+00:00",
+    "body_sha256": "3cdb7a66c56e7e387b47372ae7145f2838fbc7ee8532a8a012201655c3060abe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "갯벌 퇴적물이 불투명해 관찰이 어렵다는 문제에서 하이드로겔 일곱 종 비교·선택까지 절차와 결론이 모두 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A suitable hydrogel needs to be:",
+      "note": "요구 조건을 열거한 단락이 그대로 근거 짝짓기 재료가 되고, 투명도·물함량 같은 낱말은 쉬운 말로 바꿔진다."
+    }
+  },
+  {
+    "id": "161e2918-08c8-466d-898f-f07323d55772",
+    "source_updated_at": "2026-09-15T14:22:47.917702+00:00",
+    "body_sha256": "0eb91334e88c1969112646eaf32e544c83e211e9f8a6ac36acb23d3c412b4311",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "결과가 Fig 1 다음 Fig 3·Fig 5로 건너뛰고 초록이 예고한 DNA 결합·복제 실험 절이 본문에 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Liquid-liquid phase separation (LLPS) is the",
+      "note": "서론 개념 설명은 떼어 낼 만하지만 결과 절 결손으로 원천 전체를 판정하기 어렵다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "16305ac8-254b-437b-8e29-c8e49c17ecd7",
+    "source_updated_at": "2026-09-23T21:04:34.707499+00:00",
+    "body_sha256": "051cab697573fe42b5e9ea721378e58f989cd6cf0112d2ed1776a39fdd300364",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "결과에 항체 분리 절 하나만 남고 초록이 예고한 유도진화·구조 분석 결과 절이 빠진 채 고찰로 넘어간다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The ongoing evolution and emergence of",
+      "note": "서론은 범용 항체 필요성으로 자족하나 결과 결손 탓에 보관 여부를 확정하지 못했다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "163d7c68-91bd-4b3d-8609-9f6d196d7306",
+    "source_updated_at": "2026-09-15T14:23:03.467179+00:00",
+    "body_sha256": "e37bfae8900ef56fbbd554ea7aab65c05b8bd12218a3f66f53aa31dd67519c94",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "결과가 설계 절 하나로 끝나고 초록이 말한 생존 연장·프로테옴 분석 결과 절이 통째로 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The human PrPV127 mutation, discovered in",
+      "note": "쿠루 유행지 V127 변이 단락은 이야기로 서지만 결과 절 결손이 걸린다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "16406553-0b1c-470a-8f99-34aeaef30e75",
+    "source_updated_at": "2026-09-15T14:23:05.372757+00:00",
+    "body_sha256": "35813f1d81e527a83335af4179fe42ff61b66386edc6fc38116627d7d574af4a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "방법이 환자 선정 한 절에서 끊겨 본문이 쓰는 1·2차 평가변수 정의와 통계 절이 빠져 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "One of the main disadvantages of",
+      "note": "서론은 재협착 설명으로 읽히나 약어와 수치가 빽빽하고 방법 절이 잘려 있다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "16498e39-1bf2-49a8-a118-63a473e6184e",
+    "source_updated_at": "2026-09-15T14:23:08.932465+00:00",
+    "body_sha256": "bf59ff43f3d8a7e008e1a63e972ea1c192028a22aa60163d9c171697a170eb66",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "environment",
+    "why": "결과가 3.1에서 3.3으로 건너뛰어 3.2 절이 통째로 빠졌고 고찰은 그 절을 전제로 말한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Forest degradation has severely disrupted nutrient",
+      "note": "서론의 산림 복원 개념 단락은 가공할 만한데 결과 절 결손이 보관 판단을 막았다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "164d52d0-7019-4008-b008-ece61a26a36f",
+    "source_updated_at": "2026-09-15T14:23:16.252122+00:00",
+    "body_sha256": "e1fb72bf297eda05c1fc1cf7e6ca59c78b586bb706bb0a358c1e263ef516f203",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "주혈흡충과 음주의 상승·길항 두 가설을 나란히 세우고 21편 근거로 가르는 종설이라 논지 전개가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Alcohol consumption also follows its own",
+      "note": "시간 흐름을 다룬 고찰 단락은 고유명사를 걷어도 서고 hazardous→heavy 정도로 낱말을 낮출 수 있다."
+    }
+  },
+  {
+    "id": "1659d4fd-cb5a-4623-9b49-1529feceaeb6",
+    "source_updated_at": "2026-09-15T14:23:20.876422+00:00",
+    "body_sha256": "c146cb9fd4aa557883e27f094daad9b3146393148f994cff18b03c5298ce6f5b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "psychology",
+    "why": "방법이 과제 설명에서 끊기고 결과에 초록이 예고한 뇌파 대역별 수치 절이 없는데 고찰은 그 결과를 논한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mediumistic trance refers to a complex",
+      "note": "서론의 문화 현상 규정 단락은 그대로 읽히지만 결과·방법 절 결손이 남는다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "165e4a1e-7364-4179-9ee4-2cf0c019c010",
+    "source_updated_at": "2026-09-15T14:23:23.61661+00:00",
+    "body_sha256": "62e620b9ccacb6a242b3b16749aaa8005ccde6edb43a40dc39f95f1eddf5bee0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "가와사키병 후유증이 성인 급성관상동맥증후군의 기질이 될 수 있는가라는 물음이 결론까지 끝까지 이어진다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Kawasaki disease (KD) is an acute",
+      "note": "서론 첫 단락과 임상 시사점 절은 떼어 내 쓸 만하나 영상 약어가 많아 밴드를 못 내린다."
+    }
+  },
+  {
+    "id": "1667dfe9-7d05-48f3-aea2-727b903f68ea",
+    "source_updated_at": "2026-09-15T14:23:27.360367+00:00",
+    "body_sha256": "be20386861846643dd38d6bfc69233cf8c440d1eeca74ec7fa246bf3cf453b2b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "자궁절제가 난소암을 줄인다는 통설을 연도별 역전 근거로 흔들고 불확실하다고 매듭짓는 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Conversely, several biological mechanisms support the",
+      "note": "상반된 기전을 대비한 단락이 잘 떨어지고, 결과 절에 남은 그림 캡션 찌꺼기는 지우면 된다."
+    }
+  },
+  {
+    "id": "16681409-6f42-463d-ad0b-d03643e197f5",
+    "source_updated_at": "2026-09-13T06:59:25.319467+00:00",
+    "body_sha256": "e50ae1ee957779214942447a2b698c341d2e956332d6e79c363976657bf7c773",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "파파인이 각질층을 못 넘는다는 문제에서 두 소포체 비교와 안전성 결론까지 이어져 논지가 자족한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Skin is the largest organ of",
+      "note": "피부 구조를 설명한 서론 첫 단락은 문맥 없이 시작되고 stratum corneum 정도만 풀어 쓰면 내려간다."
+    }
+  },
+  {
+    "id": "16774a42-6799-4400-a758-e516736fe6c7",
+    "source_updated_at": "2026-09-15T14:23:38.276637+00:00",
+    "body_sha256": "bc4d1f8d5b160f7d87d9a4d3aff2ba4c240ae1b5e3cdf56efabc014d59455c7d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "결과가 Fig 3에서 Fig 6으로 건너뛰어 증식·세포주기 결과 절이 없는데 고찰은 유세포 결과를 인용한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Pancreatic cancer is characterized as a",
+      "note": "서론은 췌장암 예후 설명으로 읽히나 결과 절 결손이 원천의 완결을 흔든다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "167f8556-d8aa-4e5c-a9a8-a6ae3bcba68b",
+    "source_updated_at": "2026-09-13T07:38:59.783406+00:00",
+    "body_sha256": "1548ba66b7804c6efedfc818cee215f03348ad1e2fd540a693df9c940d4f637e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "장의 신호전달이 신경계 학습에 관여한다는 가설을 돌연변이·조직별 구제 실험으로 끌고 가 결론까지 닿는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "How could TORC2/SGK-1 signaling acting in",
+      "note": "고찰의 물음 단락은 그대로 논지가 서지만 유전자 이름이 많아 어휘 조정이 어렵다."
+    }
+  },
+  {
+    "id": "168627ac-44cb-4d5d-8415-62c9fe8eb517",
+    "source_updated_at": "2026-09-13T07:28:21.587024+00:00",
+    "body_sha256": "1157c960b4f972240b53bfe60a7514036603e887fc02021ac48559b4078a9fcd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "어느 혈청형이 어느 뇌 부위·세포를 감염시키는가라는 실용적 물음이 배양·생체 비교로 일관되게 답해진다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Adeno-associated viruses (AAVs) are the most",
+      "note": "서론 첫 단락은 바이러스 벡터 개요로 자족하나 혈청형 표기가 촘촘해 밴드를 못 낮춘다."
+    }
+  },
+  {
+    "id": "168c76ef-f4f2-436a-87f9-bbd66cd92e3e",
+    "source_updated_at": "2026-09-13T06:54:36.856835+00:00",
+    "body_sha256": "329bcab08bd31e1c193680ae4ea6878956b91422c085bd2a3c39a8a748c2adb1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "한 경로를 막으면 다른 경로가 보상한다는 관찰에서 병용 시너지 결론까지 고찰이 한 줄로 이어진다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Patients with chronic kidney disease (CKD)",
+      "note": "서론 첫 단락은 인 축적 문제로 떼어지고 hyperphosphatemia를 풀어 쓰면 한 단계 내려간다."
+    }
+  },
+  {
+    "id": "16929578-ac87-44d5-a294-669bb9dfe6de",
+    "source_updated_at": "2026-09-15T14:24:02.163028+00:00",
+    "body_sha256": "a601e9792d30fb3c5cb89d9cd7346fae6aa58d9f3b70fad6e6d474f102be195a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "결과가 Fig 1·3·4에서 끊겨 초록이 예고한 VP4 유비퀴틴화·3C 절단 부위 결과 절이 본문에 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Enterovirus A71 (EV-A71), a member of",
+      "note": "서론의 수족구병 배경 단락은 읽히지만 결과 절이 빠져 보류로 둔다."
+    },
+    "hold_reason": "incomplete-source"
+  }
+]

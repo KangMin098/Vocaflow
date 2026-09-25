@@ -1,0 +1,210 @@
+[
+  {
+    "id": "15b8646b-41aa-4a7e-912d-fc729e99a011",
+    "source_updated_at": "2026-09-13T07:05:14.646746+00:00",
+    "body_sha256": "8e83f9ee5a43b02dc6640f6615f9b9225410dc14f6e4b10a93b260914f671872",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론 첫 단락이 감수분열과 재조합 검문점을 앞 문맥 없이 차례로 설명해 고3·수능 고난도 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V10",
+        "V11"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In sexually-reproducing organisms, chromosome distribution to",
+      "note": "감수분열 설명 단락은 떼어지나 synaptonemal 등 전문어를 두세 개 바꿔도 밴드가 크게 내려가지 않는다."
+    }
+  },
+  {
+    "id": "15b9ae93-6f92-4ae6-a285-f2855b9474f8",
+    "source_updated_at": "2026-09-13T07:34:05.895142+00:00",
+    "body_sha256": "2eb63c8a4566bc3150e890fe882f1c06e76d5bf7c9359100bb3a277d9f99fd32",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 시스타틴 C 단락이 신장 지표를 넘어 심혈관 위험 지표라는 논지를 근거와 함께 세워 요지·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On the other hand, elevated cystatin",
+      "note": "첫 연결어를 걷고 catabolized·glomeruli를 풀어 쓰니 논지가 유지된 채 밴드가 한 단계 내려갔다."
+    }
+  },
+  {
+    "id": "15cfe7cd-2e3c-4d02-a2d4-ee25275977eb",
+    "source_updated_at": "2026-09-13T06:54:04.412034+00:00",
+    "body_sha256": "c9fa4534b63fe9fdb007fc881da8f1d7166830f19d5c9cf74b827ec0d54947b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "파킨슨병과 다계통위축증 연구사가 연도순으로 흐르고 프리온 균주 가설로 두 병을 잇는 논지가 서서 순서·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "blank",
+        "content_match",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 1817, James Parkinson published",
+      "note": "첫 단락은 앞 문맥 없이 시작하고 inclusions·dexterity를 바꾸니 고3 밴드로 내려온다."
+    }
+  },
+  {
+    "id": "15d1b319-3439-4176-b4d1-ce93d38ee640",
+    "source_updated_at": "2026-09-15T14:22:16.349059+00:00",
+    "body_sha256": "6c482e53446a67af57deb27cc3270e938d36a9cfc287c7dc2b0020c4d7f58ae3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "science",
+    "why": "결과 절이 그림 1에서 그림 4로 건너뛰고 PUP-IT 실험·모사 펩타이드 종양 억제 결과 절이 빠져 예고한 절이 통째로 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V10",
+        "V11"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Clinically approved anti-PD-L1 therapies target",
+      "note": "고찰 단락은 떼어지나 약어와 분자명을 걷으면 논지가 남지 않았다."
+    }
+  },
+  {
+    "id": "15dcc706-a5c0-4a3a-a38c-9004225353e7",
+    "source_updated_at": "2026-09-13T06:46:45.685431+00:00",
+    "body_sha256": "e189a33c4e446b3f2da034176f05531062282ded1fdde1e4bebf3c6024f6ffa6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 당뇨·골다공증 동반 위험 단락과 고찰의 메트포르민 선행 연구 대조가 논지를 세워 주제·요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the wake of accelerated urbanization",
+      "note": "수치 1.7배를 두어도 논지가 서고 escalation·counterparts를 쉬운 낱말로 바꾸니 고2 밴드에 가깝다."
+    }
+  }
+]
