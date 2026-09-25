@@ -1,0 +1,662 @@
+[
+  {
+    "id": "7da3b8ea-ad3d-4a7e-af29-12c537200444",
+    "title": "What is Palliative Care?",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:33:15.842685+00:00",
+    "body_sha256": "6bd2ab7df4f7a515eec280db43594eee2be3e43dde3c9d504f8199e5153fe8f9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 233,
+      "v_level": 4,
+      "cefr": "B1",
+      "has_audio": false,
+      "published_at": "2023-10-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2023/10/what-palliative-care",
+          "year": 2023,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Palliative care is a specialized type of medical care for people who have a serious or life-threatening illness. It can help relieve pain, discomfort, stress, and other symptoms. It aims to improve quality of life when a person is seriously ill.\n\nYou may receive palliative care while getting treatment for a serious illness. It can help you deal with side effects of medical treatments. You might consider it if you have pain or other symptoms caused by any serious illness. This can include cancer, heart disease, multiple sclerosis, kidney failure, and more.\n\nPalliative care can be provided in a hospital, during outpatient visits, or at home. It involves a team of specialists who focus on ways to improve quality of life for patients and their families. The team may include doctors, nurses, social workers, nutritionists, and others.\n\nPalliative care is different from hospice care. Hospice focuses on the final months of life. People in hospice always receive palliative care to help relieve suffering. But you don’t have to be at the end of life or in hospice to receive palliative care.\n\nIf you think you might need palliative care, talk to your health care provider. Ask how to access palliative care in your area. You may need a referral to get palliative care services. It’s never too early to start palliative care if you have a serious illness. Learn more about palliative care."
+  },
+  {
+    "id": "69b5d05c-9f23-469b-b412-f8751084fa1f",
+    "title": "Gene Pattern Spells Freedom from Medications",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:35:59.34202+00:00",
+    "body_sha256": "581df7193e5ac2631ba37824389a043f26b2f3f47bd6e436c3713396c9698675",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 201,
+      "v_level": 6,
+      "cefr": "C1",
+      "has_audio": false,
+      "published_at": "2010-07-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2010/07/gene-pattern-spells-freedom-medications",
+          "year": 2010,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Most patients who’ve received a kidney transplant have to take special drugs—called immunosuppressants—for the rest of their lives. Otherwise, their body’s own The system that protects your body from invading bacteria and other microscopic threats. immune system will attack and destroy the transplanted organ.\n\nIn rare cases, a transplant survives even after the patient stops taking medications. NIH-funded scientists have now analyzed Stretches of DNA, a substance you inherit from your parents, that define characteristics such as how your immune system works. gene activity in immune cells from these unusual patients and discovered a distinctive pattern. The finding may help identify other transplant recipients who could safely reduce or end their use of harsh drugs that block rejection.\n\nTwo independent research teams studied over 35 patients whose kidney transplants survived without immunosuppressants. Both teams identified an activity pattern in 3 genes that was far more common in these patients than in transplant recipients who still took the drugs.\n\nLarger studies will be needed to see if the pattern can reliably identify patients who could be safely weaned off their drugs. The researchers stress that transplant patients should never consider reducing or changing their medication regimen unless under the direct supervision of a physician."
+  },
+  {
+    "id": "fa15ff26-a179-4074-b94a-d97dcb6b5ebd",
+    "title": "Treating Eye Vein Blockages",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:33:31.676702+00:00",
+    "body_sha256": "c45e789782b18184450d21a918ea51663e3f2be3c773025bbda311dc9965558e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 236,
+      "v_level": 6,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2022-06-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2022/06/treating-eye-vein-blockages",
+          "year": 2022,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Fluid buildup at the back of the eye can cause swelling and leaky blood vessels. This is called macular edema. If left untreated, it can lead to blurred vision and eventually blindness. Retinal vein occlusions are one cause of it. These are blockages in veins in the retina (the light-sensing tissue in the back of your eye). A new study showed that treating blockages brings long-lasting benefits.\n\nThe study compared two drugs: aflibercept (Eylea) and bevacizumab (Avastin). Both block a family of molecules called VEGFs. VEGFs are released when blood flow is disrupted, leading to macular edema.\n\nResearchers treated 330 people with macular edema caused by severe retinal vein blockages. Participants received an injection with an anti-VEGF drug once a month for at least six months. After one year, participants continued treatments at their doctor’s discretion.\n\nThe research team assessed participants five years after their initial treatment. They found that most doctors reduced the frequency of injections after 12 months. Some switched their patients to the other anti-VEGF drug. After five years, many showed improvement in the sharpness of their vision compared with the start of the study. Both drugs had similar results.\n\n“This five-year study tells us a lot about what’s happening with retinal vein occlusion patients in the real world,” says Dr. Ingrid U. Scott of Penn State University. “It also underscores the importance of disease monitoring and individualized treatment to achieve the best possible vision.”"
+  },
+  {
+    "id": "44928e45-3709-4e0b-a082-b23e440494fa",
+    "title": "Weight Loss Helps Knee Arthritis",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:34:23.55331+00:00",
+    "body_sha256": "2cbaa2d2a8aaee86dfd7b212d4396556f21f47f81aca12ed093f767a6390d8cd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 237,
+      "v_level": 5,
+      "cefr": "B1",
+      "has_audio": false,
+      "published_at": "2018-09-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2018/09/weight-loss-helps-knee-arthritis",
+          "year": 2018,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Recent research shows that people who are overweight can reduce their symptoms of knee arthritis by losing at least 20% of their weight.\n\nMillions of older adults have stiff, painful knees caused by arthritis. Arthritis causes a breakdown of the cushion of tissue inside the knee joint. Without this cushion, bone can rub against bone. That may cause pain and swelling. Being overweight could make the symptoms worse.\n\nExperts generally advise adults who are overweight or obese to lose at least 10% of their weight to reduce symptoms of knee arthritis. Recently, an NIH-funded research team wondered whether 20% weight loss would help reduce symptoms even more.\n\nThe study included 240 overweight and obese adults over 55 with painful knee arthritis. The research team helped them to exercise and diet to lose weight.\n\nThe researchers compared the people who lost 20% or more body weight with those who lost 5%. The people who lost 20% or more reported less pain. They could walk farther in a 6-minute test. In addition, blood tests revealed a much lower level of a substance related to pain and swelling.\n\n“The importance of our study is that a weight loss of 20% or greater—double the previous standard—results in better clinical outcomes and is achievable without surgical or pharmacologic intervention,” says lead researcher Stephen P. Messier at Wake Forest University.\n\nThe researchers are planning to enroll three times as many people for their next study of pain reduction from diet and exercise."
+  },
+  {
+    "id": "a9f601c6-f6c5-42cf-958f-9c2a12960a2c",
+    "title": "Halting Hypothermia",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:34:58.816704+00:00",
+    "body_sha256": "bfb4bc2979e085b8b75b97ab53f7a032a89815731b25862b6c672d9e19beafec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 639,
+      "v_level": 4,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2015-12-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2015/12/halting-hypothermia",
+          "year": 2015,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "The frosty air of winter can be invigorating. But cold air can also pose threats to your health, whether you’re indoors or outside. If your body temperature drops too low, it can lead to a serious, sometimes deadly condition known as hypothermia. Learn to recognize the signs of this condition, and take steps to keep yourself and your family warm and safe during this chilly season.\n\nA normal body temperature is 98.6 °F. Just a few degrees lower—below 95°—can be dangerous, especially for the very young and very old.\n\n“The body is finely tuned to operate within a narrow temperature range inside the body, despite large differences in temperature outside the body. We have all sorts of mechanisms—like adjusting the size of our small blood vessels and shivering—to help us maintain a healthy body temperature,” says NIH’s Dr. Basil Eldadah, who oversees research on the medical care of older adults. “But older adults and young children are more susceptible to the effects of outside temperature changes. When the body’s inside temperature strays beyond that narrow range, body functions don’t operate well.”\n\nLow body temperatures can impair vital organs. When cold affects the body, people may have trouble thinking clearly, talking properly, or moving well. They may not realize what’s happening, or they might not be able to take steps to warm up or ask for help.\n\nAnyone who spends much time outdoors in very cold weather can get hypothermia. But hypothermia can happen anywhere—not just outside and not just in bitter winter weather. It can strike when temperatures are cool—for example, if a person becomes chilled from rain, sweat, or being in cold water.\n\n“Even during the heat of summer, older people and very small children are at risk if air conditioning makes their homes too cold,” Eldadah says. Certain medications and alcohol can also raise the risk for hypothermia.\n\nLeft untreated, hypothermia can quickly turn dangerous. Several hundred people in the U.S.—half of them age 65 or older—die from hypothermia each year.\n\n“If you suspect that someone you know or love may be at risk of hypothermia, it’s important to know the signs and symptoms, and take quick action if needed,” Eldadah says. “First get the person out of the cold or wet environment if possible, remove any wet clothes, and cover the person with dry blankets or whatever’s handy.” Offer the person something warm to drink, but avoid alcohol or caffeinated beverages like coffee.\n\n“Also avoid things like a hot-water bath or a heating pad,” says Eldadah. “External heat sources for hypothermia can be risky because of the potential for things like burns, low blood pressure, or irregular heart rhythms. Active rewarming techniques are best used in settings where doctors can closely monitor a patient’s vital signs, so getting professional help is important.”\n\nTo help prevent hypothermia in the first place, Eldadah says, “Follow some of the common sense advice that we’ve probably all heard. Dress in layers; cover up with blankets; and if you expect to be out in the wind, rain or snow, wear a jacket with a waterproof and windproof outer shell.”\n\nTo keep warm at home, wear socks, slippers, and a cap or hat. Set your heat at 68° or higher when it’s cold outside. To save on heating bills, close off rooms you’re not using. If you need help paying your home heating bills, you may qualify for an energy assistance program. Learn more.\n\nIf you see these warning signs of hypothermia, call 911.\n\nEarly Signs:\n\nCold feet and hands; Puffy or swollen face; Pale skin; Shivering (although people with hypothermia don’t always shiver); Slower speech or slurring words; Acting sleepy; Being angry or confused.\n\nLater Signs:\n\nSlow or clumsy movement, trouble walking; Stiff and jerky arm or leg movements; Slow heartbeat that is not regular; Slow, shallow breathing; Blacking out or losing consciousness."
+  },
+  {
+    "id": "52c8fee2-7185-42a2-b790-247a09ae0660",
+    "title": "Be Sweet to Your Feet",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:34:49.707856+00:00",
+    "body_sha256": "e500f4d404800571a2d8c25cc0737e40e6d4b1e14fcc6b198ec755d9f028f321",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 180,
+      "v_level": 4,
+      "cefr": "B1",
+      "has_audio": false,
+      "published_at": "2016-09-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/09/be-sweet-your-feet",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Your feet work hard to get you where you need to be. But years of wear and tear can be rough on them. So can disease, bad circulation, poorly trimmed toenails, and wearing shoes that don’t fit.\n\nSo be kind to your feet. Exercise, especially walking, is a great way to increase blood flow, which helps your feet stay healthy. Try simple foot exercises, such as sitting and rotating your ankles one way, then the other.\n\nFoot problems are sometimes the first sign of more serious medical conditions such as arthritis, diabetes, and nerve or circulatory disorders. Check your feet often, looking for cuts, blisters, or ingrown toenails. Talk with a doctor if you notice numbness or severe pain in your feet.\n\nWash your feet regularly, especially between your toes. Wear clean socks. Wear well-fitting, comfy shoes. Wear shoes when you’re outside. Put your feet up when you’re sitting, to help circulation. If you’re sitting for a long time, stand up and move around every now and then. If you cross your legs when sitting, reverse or uncross them often."
+  },
+  {
+    "id": "30dcf685-fe52-44a8-9111-be3f70617e18",
+    "title": "Appendix Pain",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:33:09.113783+00:00",
+    "body_sha256": "ad8e073fab5941188cf2b40cb9ca77810a11772637af2a44f87fbfdff37f2ecc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 598,
+      "v_level": 6,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2024-04-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2024/04/appendix-pain",
+          "year": 2024,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "The appendix is a finger-like pouch that branches off from your large intestine. No one is sure what it does or why it evolved. But when something goes wrong, it can be dangerous.\n\n“We do know that it causes problems,” says Dr. Nicole Wilson, a pediatric surgeon at the University of Rochester. “And we do know that people do just fine without it.”\n\nSome studies suggest that your appendix may help your body’s disease defenses, or immune system. But some people get appendicitis, or Heat, swelling, and redness caused by the body’s protective response to injury or infection. inflammation of the appendix. This can happen for different reasons. Sometimes the tiny opening that leads from the appendix to the large intestine gets blocked by stool. Other times an infection can be the cause. Swelling from inflammation can lead to pain in your abdomen, the cavity that holds your organs.\n\n“The classic symptoms of appendicitis are pain that starts around the belly button and kind of migrates down to the right lower side of the belly,” Wilson explains. Other symptoms include an upset gut, like nausea, vomiting, or not wanting to eat. Sometimes appendicitis also comes with a fever.\n\nIf you have these symptoms, get medical care right away. The sooner appendicitis is caught, the better. You’re less likely to have complications like a perforated, or “burst,” appendix. This is when a hole forms in your appendix. The hole lets bacteria leak into your abdomen, which can be life threatening.\n\nDoctors diagnose appendicitis based on symptoms and lab and imaging tests. Treatment depends on the severity of inflammation and whether your appendix has burst. You may only need antibiotics. But often, patients require both surgery and antibiotics. If your appendix bursts, you’ll need surgery.\n\nPatients with a perforated appendix are at risk for getting an abscess, Wilson says. This is a pocket of pus that forms within the abdomen. People who get these internal infections are usually hospitalized. They’re given IV antibiotics for days or weeks.\n\nWilson’s research focuses on a new way to prevent infections from a perforated appendix. It’s called photo-dynamic therapy, or PDT. The technique uses laser light and a light-reactive dye. When combined, they produce molecules that cause bacteria to burst open and die. Surgeons might use the technique to sterilize the abdomen after removing the appendix.\n\nWith antibiotics alone, some bacteria can survive. They can develop resistance to the drugs. But PDT kills all the bacteria. Wilson and her colleague, Dr. Timothy Baran, are testing PDT in animal models and on bacteria collected from patients with perforated appendicitis.\n\nBaran’s work has already shown that the technique can be used to treat abscesses in people. Now, Wilson and Baran are testing whether PDT can be used to prevent and treat internal infections.\n\n“For a long time, we’ve treated appendicitis the same way, and this is one of the first studies that I know of looking at new and innovative ways to add to the treatment of it,” Wilson says. “It’s probably years down the road, but I’m really excited about it.”\n\nThe most common symptom of appendicitis is pain in your belly. This pain may:\n\nBegin near your belly button and move lower and to your right. Start suddenly and may even wake you if you’re sleeping. Get worse when you move around, take deep breaths, cough, or sneeze. Be severe and may feel different than any pain you’ve ever felt. Happen before other symptoms, and worsen in a matter of hours. Other symptoms may include loss of appetite, nausea or vomiting, or a fever."
+  },
+  {
+    "id": "de40056f-d1a6-489e-a40d-7b4145586dc1",
+    "title": "Sleeping With Artificial Light Linked to Obesity",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:34:08.734566+00:00",
+    "body_sha256": "2a34e73d7bbd4e09e79fc2a353f212b3d2be1ebe99885a2907b8b213493e4197",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 248,
+      "v_level": 4,
+      "cefr": "B1",
+      "has_audio": false,
+      "published_at": "2019-09-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/09/sleeping-artificial-light-linked-obesity",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Sleep is important for your physical and mental health. A lack of quality sleep increases your risk for certain health conditions, including obesity. A recent study found that sleeping with an artificial light on may also raise your risk of weight gain and obesity.\n\nYour body uses light to control your sleep cycle. The natural light pattern from the sun helps you stay awake during the day and sleep at night. But you can also be exposed to light at night in many ways, such as a room light, streetlight, television, or mobile device. That may disrupt your sleep.\n\nResearchers asked over 43,000 women, ages 35–74, whether they slept with no light, a small nightlight, light outside the room, or a light or television on in the room. The women also gave their height, weight, body mass index, and waist and hip sizes. After about five and a half years, scientists gathered the women’s new measurements.\n\nWomen who slept with a light or television on were 17% more likely to have gained about 11 pounds or more during the study. Light from outside the room had less of an impact. Women who slept with a small nightlight or no light had no difference in weight gain.\n\nOther factors may have also contributed to the weight gain, but the researchers took any known factors into account. “Unhealthy, high-calorie diets and sedentary behaviors have been the most commonly cited factors to explain the continuing rise in obesity,” says NIH researcher Dr. Yong-Moon (Mark) Park."
+  },
+  {
+    "id": "1c008c57-52c5-438a-9d34-66f89328ffc5",
+    "title": "Increases in Problem Drinking",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:35:02.609274+00:00",
+    "body_sha256": "b67382c31e772c0b2f66075e757d71026fee249ff02b3f8b3e5c760710d42341",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 246,
+      "v_level": 5,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2015-08-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2015/08/increases-problem-drinking",
+          "year": 2015,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Alcohol use disorder is becoming more common, a new study found, but few people seek treatment. The findings highlight the need to better educate people about problem drinking and its treatment.\n\nAlcohol use disorder, or AUD, is the clinical term for problem drinking that causes mild to severe harm or distress. Excessive drinking can interfere with work, school, and relationships. It also raises the risk of many ailments, including heart disease, high blood pressure, liver disease, depression, and some cancers.\n\nDoctors diagnose AUD using guidelines that were updated in 2013. The new guidelines combined 2 different disorders—alcohol abuse and alcohol dependence—into the single disorder of AUD.\n\nA team led by NIH’s Dr. Bridget F. Grant wanted to find out how many Americans would be diagnosed with AUD based on the new guidelines. They conducted face-to-face interviews with over 36,000 U.S. adults.\n\nThey found that about 14% of the adults met the criteria for having AUD within the previous year. Almost 1 in 3 people they interviewed had AUD at some time in their lives. Of these, only about 20% sought treatment or help for their AUD.\n\nProblem drinking was more common in men than in women. It was also more common in young adults than in older adults.\n\n“These findings underscore that alcohol problems are deeply entrenched and significantly under-treated in our society,” says NIAAA Director Dr. George F. Koob. “The new data should provide further impetus for scientists, clinicians, and policymakers to bring AUD treatment into the mainstream of medical practice.”"
+  },
+  {
+    "id": "e4556d33-b179-49b4-a327-abda2e09984c",
+    "title": "Disruptive Leg Movement?",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:33:43.707437+00:00",
+    "body_sha256": "d8497353920b03ebb42aaefec03bf76b7ea274af3bdb355c394db0d74467d26a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 564,
+      "v_level": 5,
+      "cefr": "B1",
+      "has_audio": false,
+      "published_at": "2021-07-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2021/07/disruptive-leg-movement",
+          "year": 2021,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Do you feel an overwhelming need to move your legs when sitting or lying down? Do these sensations make it hard to fall or stay asleep? These can be signs of restless legs syndrome, also known as RLS.\n\nRLS is caused by problems with the way the nerves in the brain and body communicate with each other. These problems result in a strong, sometimes overwhelming urge to move the legs. This urge often comes with unpleasant feelings like tingling, burning, or throbbing.\n\nUp to 7 to 10% of people in the U.S. may have RLS. Women are more likely than men to have the condition. Stretches of DNA you inherit from your parents. They define features like your risk for certain diseases. Genes appear to play some role in who’s at risk.\n\nSymptoms may be mild and not interfere with daily life. But they can get worse over time. Four core symptoms define the disorder, explains Dr. Christopher Earley, a nervous system specialist at Johns Hopkins University.\n\nOne is the urgent need to move the legs. Second, leg discomfort is triggered by rest, like sitting or lying down. The third is that discomfort is relieved by movement.\n\n“People feel better as soon as they get up and walk around,” Earley says.\n\nFourth, symptoms get worse throughout the day, peaking in the evening and night.\n\nSevere symptoms can affect people’s everyday lives. They can particularly impact your ability to get a good night’s sleep. This can, in turn, make it hard to work, drive, or do other daily activities.\n\nTreatment for RLS depends on its severity. Certain lifestyle changes can help some people with mild to moderate symptoms (see the Wise Choices box for tips). If lifestyle changes don’t help, medications may bring some relief.\n\nThe medications used for RLS affect different chemicals in the brain. It may be necessary to try different ones to see which work for you.\n\nDrugs used to treat seizures can help rebalance the brain chemicals involved in RLS. Other drugs mimic the effect of a brain chemical called dopamine. Dopamine helps regulate movement and other functions. Certain pain medications and anti-anxiety drugs may also help.\n\nRecent research suggests a lack of iron in the brain can trigger RLS. Doctors now often recommend iron supplements as part of treatment. Tests for iron in blood samples don’t show whether the brain lacks iron. Some people with RLS have normal blood levels of iron, but still benefit from extra iron, Earley explains.\n\nHis team tested whether high doses of iron, given by IV, help people with RLS. The treatment improved some people’s symptoms—even if they didn’t have low levels of iron in their blood.\n\nHigh doses of iron may prevent RLS from developing, too. But first, Earley says, they need to learn how to tell who’s at risk of RLS because of low iron in the brain.\n\nFor now, symptoms are the only way to diagnose RLS. If you have think you may have this condition, talk with your health care provider. They can help you find ways to get some relief.\n\nCut back on caffeine and alcohol. Avoid tobacco. Try a hot bath. Give yourself a leg massage. Use a heating pad or ice pack on your legs. Talk with your health care provider if these changes don’t help. A specialist can help you try different types of medications to reduce symptoms."
+  },
+  {
+    "id": "42e201b1-a41f-4ece-8479-8263e1975b4f",
+    "title": "Study Raises Doubts About Virus and Chronic Fatigue",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:35:47.584599+00:00",
+    "body_sha256": "b82ba2ca9d24876992e9160f3db8c35a6f4a9d840e84c598c979878669d34bad",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 288,
+      "v_level": 5,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2011-07-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2011/07/study-raises-doubts-about-virus-chronic-fatigue",
+          "year": 2011,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "A virus previously tied to prostate cancer and chronic fatigue syndrome (CFS) is unlikely to be responsible for either, new research shows. The virus, called XMRV, appears to have arisen in the laboratory. The link to human disease was probably due to contamination of samples.\n\nXMRV is a mouse-related virus. It was first found in samples from a human prostate tumor in 2006. Then in 2009, a study found XMRV in the blood of nearly 70% of people with CFS. However, several research teams questioned the results. When they conducted their own tests, they couldn’t detect XMRV in samples from people with prostate cancer or CFS.\n\nTo take a closer look, a team of scientists led by NIH investigators looked for the origins of XMRV in human samples. Cancer researchers often study the biology of human tumors by growing them on mouse tissues in the laboratory. The NIH team suspected that XMRV might have originally come from the mice and then contaminated the human samples.\n\nA series of experiments confirmed that the original samples of human prostate tumors didn’t contain XMRV. But the virus was found in tumor samples after they had been grown on mice and then regrown to make more tumor cells. XMRV seems to have infected the human cells while they were in mice.\n\nA related study could find no link between XMRV and CFS, even in the same patients from the 2009 study. The scientists concluded that the earlier results likely stemmed from laboratory contamination.\n\n“Taken together, these results essentially close the door on XMRV as a cause of human disease,” says study co-author Dr. John Coffin of Tufts University School of Medicine. Some evidence still suggests that these diseases may arise from viruses, but not from XMRV."
+  },
+  {
+    "id": "4e7ff9cc-dacd-4826-ae5d-15bea9d1798c",
+    "title": "Mind and Body Therapy for Fibromyalgia",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:35:12.6201+00:00",
+    "body_sha256": "2f73b9dd4bd8aaecfdabb311fea22ad514139190a089db1921908fbbb89448f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 161,
+      "v_level": 6,
+      "cefr": "C1",
+      "has_audio": false,
+      "published_at": "2014-08-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2014/08/mind-body-therapy-fibromyalgia",
+          "year": 2014,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Fibromyalgia is a long-lasting disorder marked by widespread pain, tenderness, fatigue, and other symptoms that can interfere with daily life. An estimated 5 million American adults have the condition. It most often affects women, although men and children also can have the disorder. Unfortunately, despite ongoing research, its causes remain unknown.\n\nFibromyalgia can be difficult to diagnose and treat. Individualized therapy may include conventional medications as well as mind and body approaches, such as exercise, strength training, massage, and acupuncture. But what does the science say about mind and body practices for fibromyalgia? To help you learn more, NIH developed an easy-to-read list—6 Things To Know About Mind and Body Practices for Fibromyalgia—that outlines the current evidence.\n\nThe research is still preliminary, but encouraging results suggest that tai chi, qi gong, yoga, massage therapy, acupuncture, and balneotherapy (hydrotherapy) may help relieve some fibromyalgia symptoms.\n\nBe sure to speak with your health care provider before starting to use any mind and body practice."
+  },
+  {
+    "id": "adf2ba1f-e8ea-406e-809b-8d69d2ec7f58",
+    "title": "Health in Rural America",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:33:34.878662+00:00",
+    "body_sha256": "7ee83736d11af8bc233c29c8bb587252d82423d99813e307330651d1b8218102",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 1162,
+      "v_level": 4,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2022-03-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2022/03/health-rural-america",
+          "year": 2022,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "About 20% of Americans live in rural parts of the country. Rural areas have more space, fewer people, and scenic landscapes. Residents often have a common sense of community. But living in a rural area can also bring challenges for staying healthy.\n\nStudies have found that rural Americans are more likely to die prematurely from the leading causes of death in the U.S. These include heart disease, cancer, lung disease, and stroke. They have higher rates of obesity and diabetes. And they’re at greater risk of fatal car crashes, suicide, and drug overdoses.\n\nExperts are studying why some health problems are more common in rural areas. They’re also looking at ways to help.\n\nHow does where you live affect your health? The answer is complicated. Different places have different resources. Access to housing, education, jobs, health care, and healthy foods varies across America. And all can impact your health.\n\n“Poverty, unemployment, low education, and inadequate transportation are all known to contribute to poorer health,” says Dr. Brian Rivers, a cancer care expert at Morehouse School of Medicine. These factors are often found at higher rates in rural communities.\n\nMany rural communities are geographically isolated. Fewer people and more space can mean fewer local businesses and services. That can make it harder to get the things you need to stay healthy.\n\nMany rural Americans, for example, live far from grocery stores. Convenience stores may be the only nearby option. These stores tend to carry fewer fresh foods, like fruits and vegetables, and more processed, packaged foods. Processed foods are usually high in salt, sugar, and fat. Studies suggest that eating too much of them can lead to health problems such as heart disease, diabetes, and obesity.\n\nRural residents can also face more barriers to getting physical activity. Roads may not have sidewalks. This makes it more difficult to safely exercise. Rural areas may also lack parks for recreational activity.\n\n“In many rural settings, folks don’t have access to fitness centers,” adds Dr. Suzanne Judd, who studies heart disease in rural communities at the University of Alabama at Birmingham. Not getting enough physical activity can put you at higher risk for cancer, obesity, and heart disease.\n\nRural areas also tend to have more older adults. Older adults experience more chronic health issues than younger people. But rural residents may live far from hospitals and be less likely to have health insurance.\n\nAnother major obstacle can be finding a doctor. In many rural communities, there is a shortage of doctors.\n\n“It’s more difficult to provide many types of health care services in rural communities simply because there’s a lower availability of health care professionals,” says Dr. Ty Borders, an expert on rural health at the University of Kentucky.\n\nThis can make it hard to get specialty care for things like cancer or drug addiction, Borders explains. Many people have to travel a long way to reach a specialist or hospital. And those providers may not have the latest health technology.\n\n“In rural communities, folks don’t necessarily have access to state-of-the-art equipment—the CT scanners, MRIs—that you might need to diagnose certain things,” Judd says. “These are particularly important when we’re talking about brain health and stroke.”\n\nAnd finding a doctor is getting harder in some rural areas. “An increasing number of health systems in rural areas are closing their doors, mostly because of funding,” says Rivers. That means people may be forced to drive hours for health care.\n\nVirtual visits may be one option for rural patients. Telehealth—delivering care on the phone or computer—has been expanding in recent years. Physicians can monitor patients with chronic conditions without the need for them to come into the office.\n\nThis is critical for certain health conditions where providers are scarce. Someone with diabetes, for example, can take a blood sugar reading during a virtual visit with their doctor. Patients with depression and other mental health conditions can get online counseling.\n\n“Telehealth may be preferable for many patients and may make treatment easier,” Borders says.\n\nBorders is studying how telehealth can be used to deliver treatment for opioid use disorder in rural communities. Most rural counties don’t have medical professionals who specialize in treating addiction. The rates of drug overdose deaths are rising in rural areas and are now greater than in urban communities.\n\nBut telehealth can’t address every health issue. Some things require an in-person visit. And some rural areas have limited broadband service.\n\nOther approaches have the potential to improve rural health. Mail-order pharmacies make getting medications easier. Mobile health units—where health services are provided on a customized van—can bring care to residents where they live.\n\n“We’re a huge nation with a lot of land. Many people live in very rural settings,” Judd says. “We need to find ways to make sure that the whole country is connected and has access to medicine and health care.”\n\nIf you live in a rural area and are looking to improve your health, Rivers suggests first identifying your health needs. Then figure out your obstacles.\n\nIs it transportation? Distance? Cost? Look for resources available in your community to help. Local faith-based organizations, social service agencies, and libraries are good places to start.\n\n“See if there are community health workers or health navigators in your area,” Rivers says. “Most rural communities have some type of health ambassador who can provide a very high level of support.”\n\nAsk health care providers if they offer telehealth options. If you have limited internet access, you might be able to talk with a doctor over the phone.\n\nMany health apps can help you improve your health and work even when not connected to the internet.\n\nThere may also be ways you can help build a healthier community. Consider getting together with neighbors and working with local officials to create change. You may be able to make safer places for people to get physical activity, like building trails or parks. Or organize farmers markets or community gardens to bring more fresh fruits and vegetables to your area.\n\nFind more resources on the Rural Health Info Hub or USDA’s Rural Development website.\n\nPeople in rural areas are at higher risk for certain health issues. To help safeguard your health:\n\nStay physically active. Adults should get at least 2 and a half hours of moderate-intensity physical activity a week. Learn more about different types of physical activity. Follow a healthy diet. Eat more vegetables, fruits, and whole grains. Include lean meats, poultry, fish, beans, eggs, and nuts. Limit salt, added sugars, and saturated and trans fats. Quit smoking. Get free help at smokefree.gov, call 1-800-QUIT-NOW (1-800-784-8669), or text QUIT to 47848. Get checked for high blood pressure and certain cancers. Get help for mental health and substance use disorders. Call SAMHSA’s free national helpline at 1-800-662-HELP. If you’re in crisis, call the National Suicide Prevention Lifeline at 1-800-273-TALK. You can also text “HOME” to the Crisis Text Line at 741741. Wear a seat belt. Car accident deaths are higher in rural areas."
+  },
+  {
+    "id": "3502a9ea-cb19-41f6-afd5-76a29260c69a",
+    "title": "Spanish-Language Health Materials",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:34:43.023095+00:00",
+    "body_sha256": "9a28f828a56245f07eb8dbf0272ceaa4fc48809f2a5ee480e84a23515ce54e65",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 181,
+      "v_level": 4,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2017-05-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2017/05/spanish-language-health-materials",
+          "year": 2017,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "For people looking for reliable health material in Spanish, the amount of information on the web can be overwhelming. NIH prides itself on providing evidence-based health information to the public, and seeks to empower everyone with knowledge about their health. This is particularly important in Spanish-speaking communities that are disproportionally affected by certain illnesses and diseases.\n\nThe NIH Spanish Health Information Portal offers a wealth of free, science-based health information in Spanish, from across NIH in one place. The mobile-friendly site includes translations of many health articles from NIH News in Health and clinical trials information from the Clinical Research Trials and You website. It also features a monthly column called Ask Carla (Pregunta a Carla), designed for readers to ask their own questions about NIH’s Spanish-language resources.\n\nThe Spanish portal now offers a free monthly e-newsletter featuring NIH health information in Spanish on topics from allergies to Zika. Each month, the e-newsletter highlights new resources for the Spanish-speaking public and their friends and family members.\n\nYou can visit the portal and sign up for the newsletter at salud.nih.gov!"
+  },
+  {
+    "id": "3379bcec-3364-49f4-b516-80ad3273a2b6",
+    "title": "An Ounce of Prevention",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:33:00.725004+00:00",
+    "body_sha256": "acbb5c045a3bfc6f6fad1ec25f7b0d0d23d5a8cfc0156320f29793c1448367c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 620,
+      "v_level": 4,
+      "cefr": "B1",
+      "has_audio": false,
+      "published_at": "2025-03-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2025/03/ounce-prevention",
+          "year": 2025,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Lots of diseases start silently. Conditions like high blood pressure, high cholesterol, and even cancer may have no symptoms at the start. Screening refers to looking for signs of disease in seemingly healthy people. Finding problems early can help you start treatment and make helpful lifestyle changes as soon as possible. Some screening tests have been shown to improve health and are widely recommended.\n\n“We have great screening tests that have really lowered our rates of death and disease,” says Bob McNellis, a public health expert at NIH. Teams of experts develop guidelines for who should be screened with these tests, and how often.\n\nA new study looked at how screening contributed to help lower cancer deaths in the U.S. over the last five decades. “We found that 8 out of 10 cancer deaths averted over the last 45 years were due to prevention and screening efforts,” says Dr. Katrina Goddard, a cancer control expert at NIH. Screening was the main cause of the drop in deaths from cervical cancer and colorectal cancer.\n\nBut screenings don’t always make sense for everyone. Some tests may have potential downsides, or harms. “These could be physical harms. They can also be things like stigma or psychological stress,” McNellis explains. For example, a test may suggest that you have a disease when you actually don’t. This is called a false positive result and can lead to stress and unnecessary follow-up testing that may come with a risk of side effects. Other times, tests may miss cases of a disease. These are called false negative results.\n\nSometimes, a screening test finds a real disease that never would have caused issues over the person’s lifetime. But that person may receive treatment because of the test results. This is called overdiagnosis and overtreatment. “Basically, there are no perfect tests,” McNellis notes.\n\nExperts continue to track the impact of screening tests over time and adjust recommendations. For example, screening tests for prostate cancer used to be common for older men. But studies found high levels of overdiagnosis. This led to many men having major surgery they didn’t need. So prostate cancer screening is not commonly recommended for men 70 and older.\n\n“Screening guidelines do change over time,” Goddard explains. This happens because new research is always being done. For example, guidelines now suggest that many people start screening for colorectal cancer at age 45 instead of 50. Cancer rates have been rising in younger people, “and we have new evidence that they may benefit from colorectal cancer screening,” McNellis says.\n\nYour doctor will take many factors into account when recommending screening tests. These include your age, overall health, and personal preferences. Talk with your doctor before having a screening test.\n\nQuestions to ask can include: What are the potential harms of the test? How often do they occur? What’s the chance of finding a disease that wouldn’t have caused a problem? How effective are the treatment options if you find something? Am I healthy enough to have treatment if you discover a disease?\n\nMany screening tests need to be repeated regularly to get the most accurate results, McNellis says. So even if you’ve been given a clean bill of health, let your doctor know if you experience any worrisome symptoms in between tests.\n\nTalk to your doctor about the benefits and harms of screening tests. Common tests look for:\n\nHigh blood pressure. Elevated blood lipids, including cholesterol. Diabetes and prediabetes, including during pregnancy. Depression and anxiety. Sexually transmitted infections and blood-borne diseases, including HIV, syphilis, hepatitis B and C, gonorrhea, and chlamydia. Cancer, including colorectal, cervical, breast cancer, and lung cancer in some current and former smokers. Substance use disorders. Reduced bone density (osteoporosis).\n\nAdapted from the U.S. Preventive Services Task Force."
+  },
+  {
+    "id": "3f0b6a21-42f1-49a4-b287-acc5e261ca26",
+    "title": "Mingling Senses",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:34:15.344653+00:00",
+    "body_sha256": "5887f21f43b4d350f27ac145a4299e602302f779d5e07306cb6a155c30d90e0e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 564,
+      "v_level": 4,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2019-05-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/05/mingling-senses",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "What does the color blue taste like? Does guitar music smell sweet or spicy? These questions might sound like nonsense. But for people with a condition called synesthesia, they describe real experiences.\n\nWe have five senses: touch, sight, taste, sound, and smell. Most people experience their senses one at a time. In synesthesia, one sense can be experienced at the same time as another. For example, a person with synesthesia might feel something rough brush against their hand every time they smell a flower.\n\nThey can also experience the same sense in two ways. For example, seeing letters or numbers in a specific color, like the letter “A” always being red no matter what color it’s written in. This is the most common type of synesthesia.\n\nSynesthesia isn’t very common. It sometimes runs in families. This makes researchers think that Stretches of DNA you inherit from your parents that define features, like your risk for certain diseases. genes may play a role.\n\nSynesthesia isn’t dangerous, and rarely causes problems for people. Most people with synesthesia say they enjoy their special senses.\n\nFor researchers, “studying synesthesia allows us to think about what the brain does,” explains Dr. Krish Sathian, a neurologist at Pennsylvania State University.\n\nScientists don’t know what happens in the brain to cause synesthesia. “There are a few explanations that have been put forward,” Sathian says. These involve the way neurons talk to each other. Neurons are the brain cells that process information from the senses.\n\nSome researchers think that people with synesthesia have extra connections between neurons in some areas of the brain. Others think that the direction that information can flow between brain cells might be different.\n\nSathian’s lab uses imaging tests to watch how the brain works. They’ve found that, even in people without synesthesia, the senses often work together in ways previously unrealized.\n\nFor example, when you touch an object and try to identify its shape, the part of your brain that processes sight becomes active along with the area that processes touch.\n\nSathian’s team showed that people had more difficulty sensing an object’s shape by touch when the brain area that processes sight was blocked using magnets.\n\nHis team has wondered if synesthesia is an extreme version of these brain collaborations. They tested whether people with synesthesia are better at tasks that use more than one area of the brain. People with synesthesia performed faster at a task that linked language with a specific shape than people without the condition. But they weren’t any better at other tasks requiring more than one sense.\n\nSynesthesia remains a mystery for now. But Sathian and other NIH-funded researchers plan to keep studying it. The condition may hold keys to understanding things that are fundamental to being human, such as language and memory.\n\n“It’s been shown that people with synesthesia have better memories than people who don’t,” Sathian says. “Maybe understanding synesthesia could give us insight into some of the mechanisms that underlie memory. And then perhaps eventually to some better treatments for people who have memory disorders.”\n\nSynesthesia is different for everyone who has it. People with the condition may experience:\n\nSeeing certain letters or numbers in specific colors; Having a certain taste in your mouth triggered by hearing a word; Feeling a sensation of touch when you smell something; Seeing a color or shape in response to hearing a sound."
+  },
+  {
+    "id": "c392ee47-ce4c-4267-b351-5c9d972ff3ea",
+    "title": "Relieving Rosacea",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:33:58.924403+00:00",
+    "body_sha256": "cd3d1f8e615ecb3cdb8789555d6831f80276540b320d14841a4467f9ddef228b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 594,
+      "v_level": 5,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2020-07-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2020/07/relieving-rosacea",
+          "year": 2020,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "We all get red in the face sometimes. It might be from blushing, an allergic reaction, or a sunburn. But if face redness lasts for a long time it could be a skin condition called rosacea (pronounced ro-ZAY-shah). Rosacea often starts as redness or flushing on the cheeks, nose, chin, and forehead.\n\n“There is extraordinary redness in the central part of the face,” says Dr. Richard Gallo, professor and skin expert at the University of California, San Diego. “And then over time, many people with rosacea also develop many small blood vessels on the skin of their face.”\n\nRosacea can also cause red bumps that look like acne. It most often affects women ages 30 to 60. It’s more common among people who are fair-skinned. And it can be uncomfortable.\n\n“Sometimes the skin feels like it’s hot, it can be burning, and sometimes a little bit itchy,” Gallo says.\n\nIn an extreme form, skin can thicken and enlarge the nose. This is much more common in men. Sometimes, rosacea can also affect the eyes. They can look bloodshot and feel dry or itchy. It can cause blurred vision and other vision problems.\n\nRosacea often comes and goes in cycles. Symptoms can flare up and then diminish, only to return later. Rosacea can be quite disfiguring and cause a lot of psychological distress, Gallo says.\n\nIt’s important to pay attention to the things that trigger rosacea. “Rosacea is a very individual disease,” Gallo says. Sunlight, stress, alcohol, spicy foods, and hormonal fluctuations are common triggers.\n\nThe causes of rosacea aren’t completely understood, but genes probably play a role. Studies show that rosacea involves issues with the body’s The system that protects your body from invading viruses, bacteria, and other microscopic threats. immune system.\n\n“We’ve learned that rosacea is a problem with how the skin senses the outside environment,” says Gallo. “The immune sensing system in their skin is too sensitive. So many different things can trigger it, like eating spicy foods, The microscopic creatures like bacteria, fungi, and viruses that live in and on your body. microbes, or too much sunlight. And that causes the skin to become red and have flushing reactions.”\n\nGallo and his team are studying the role of molecules called antimicrobial peptides. These work like natural antibiotics in the skin, killing some bacteria. But they also trigger the body’s immune system, Gallo explains. He and his team discovered that some people with rosacea make too many antimicrobial peptides. This discovery could eventually lead to new treatments.\n\nRight now, there are several medications doctors can prescribe to treat rosacea. Some work by affecting the microbes that live on the skin. Others help reduce redness by constricting blood vessels in the face.\n\nLaser treatments can also help with redness and improve skin’s appearance. They destroy extra blood vessels in the face. However, laser treatment only addresses the symptoms of rosacea and not the causes.\n\nIf you have symptoms of rosacea, a doctor who treats skin disorders, called a dermatologist, can help. For tips on living with rosacea, see the Wise Choices box.\n\nTo figure out triggers, keep a written record of what seems to make your rosacea worse. Use sunscreen (SPF 15 or higher) every day. Use a moisturizer on your face if it helps. But avoid products that irritate your skin. Consider trying a green-tinted makeup to make your skin look less red. Talk with your health care provider if you feel sad or have other signs of depression. This may happen to some people with rosacea because of how they feel about their skin."
+  },
+  {
+    "id": "a0afe87a-e6b3-40fc-862a-00734d047bce",
+    "title": "Kids’ Sleep Linked to Brain Health",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:33:27.818041+00:00",
+    "body_sha256": "b858cf93eb2d95847ccd5707c83f0a1c1da3545aae62427d446fcdf6220bcfd1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 223,
+      "v_level": 4,
+      "cefr": "B1",
+      "has_audio": false,
+      "published_at": "2022-10-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2022/10/kids-sleep-linked-brain-health",
+          "year": 2022,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Experts suggest that children ages 6 to 12 get at least nine hours of sleep each day. But many don’t get that much. A new NIH-funded study shows that getting enough sleep may be especially important for preteen brains.\n\nResearchers identified more than 4,000 children, ages 9 or 10, who got at least nine hours of sleep per day, according to their parents. This group was compared to a similar number of kids who got less than nine hours of sleep.\n\nThe children who got less sleep had more mental health and behavioral challenges than those who got enough sleep. Less sleep was linked to stress, depression, anxiety, and aggressive behavior. Kids who lacked sleep also had problems with making decisions, solving conflicts, and learning. Differences between the groups continued two years later.\n\nBrain scans were taken at the start of the study and two years later. These showed that the groups also had differences in brain structure. The findings suggest that sleep affects learning and behavior through specific brain changes.\n\n“Children who had insufficient sleep had smaller volume in certain areas of the brain responsible for attention, memory, and inhibition control, compared to those with healthy sleep habits,” says study lead Dr. Ze Wang of the University of Maryland. More studies are needed to confirm these findings and to see if these brain changes can be reversed."
+  },
+  {
+    "id": "8d450279-b289-414f-8bef-f0298b890617",
+    "title": "Considering Hip Replacement?",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:35:33.793959+00:00",
+    "body_sha256": "4288b34e40be9edabde3966cf9acb9a7eee98bbc1152ef2da76fd4a776168102",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 175,
+      "v_level": 5,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2012-08-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/08/considering-hip-replacement",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Hip replacement is an operation in which a damaged hip joint is removed and replaced with an artificial joint. If you or someone you know is considering hip replacement, you can learn more about this surgery at NIHSeniorHealth.gov, a website for older adults.\n\nThe new hip replacement topic at nihseniorhealth.gov/hipreplacement/whoneeds/01.html describes some of the reasons for having the surgery, how to prepare for and recover from it, and ways to avoid complications.\n\nMaking a decision to have hip replacement can be difficult. “Surgery of any type involves risk,” says Dr. Stephen I. Katz, director of NIH’s National Institute of Arthritis and Musculoskeletal and Skin Diseases. “But if less invasive treatments such as medications and physical therapy have not helped, hip replacement has proven to be an effective way to relieve pain and restore function.”\n\nThe hip replacement topic on the NIHSeniorHealth site joins nearly 60 other research-based health topics of interest to older adults. Additional topics include physical activity, disorders such as stroke and Alzheimer’s disease and safe use of medicines."
+  },
+  {
+    "id": "8a073414-6fe9-4762-b005-f5555b35985b",
+    "title": "Keep Your Mouth Healthy",
+    "source": "nih_news_in_health",
+    "feed_id": null,
+    "source_updated_at": "2026-09-25T05:35:01.131709+00:00",
+    "body_sha256": "a5a598c141f92661d26e4a89e1d4fabe34ecaf682189f39ccc80551dfec1adbd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "hints": {
+      "status": "ready",
+      "words": 647,
+      "v_level": 5,
+      "cefr": "B2",
+      "has_audio": false,
+      "published_at": "2015-10-01T00:00:00+00:00",
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2015/10/keep-your-mouth-healthy",
+          "year": 2015,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    },
+    "content": "Oral health is important for people of all ages. But the simple routine you learned as a kid—brush your teeth twice a day and floss regularly—can become more of a challenge as you get older. Among adults ages 75 and up, about 1 in 4 has lost all natural teeth, largely because of gum disease and tooth decay.\n\nYou can take steps to keep your mouth healthy throughout your lifetime. And if you’re a caregiver for an older adult, you can help ensure that he or she gets proper oral care. Tooth decay and gum disease don’t have to be a part of getting older.\n\n“We have to worry about the same conditions throughout life, although some conditions are more prevalent at certain ages,” says Dr. Dena Fischer, a dental health expert at NIH. The 2 most common oral health problems are tooth decay (Small holes in teeth caused by decay. cavities) and gum disease. “Gum disease is more common when you’re older,” Fischer explains. “But cavities can happen at any age, as long as you have natural teeth.” Both are largely preventable with proper care.\n\nCavities develop as Sticky, colorless film that can lead to tooth decay and gum disease. plaque builds up on your teeth and under chipped fillings, producing acids that can eventually eat away at the tooth’s hard outer surface.\n\nGum disease is an infection of the gums and surrounding tissues that hold your teeth in place. Gum problems arise as plaque builds up along and under your gum line. In severe cases, the bone and tissue that hold teeth in place can break down, and teeth may eventually become loose and have to be removed.\n\nReduce your risk of developing tooth decay and gum disease by brushing daily with fluoride toothpaste and flossing. Also visit the dentist regularly for a cleaning and checkup.\n\nAnother common problem for older adults is dry mouth. Dry mouth occurs when you don’t have enough saliva, or spit, to keep your mouth wet. “Saliva is very important,” Fischer says. “The protective factors in saliva prevent cavities, gum disease, and fungal infections.”\n\nDry mouth can be caused by medications; alcohol or tobacco; or medical conditions, such as poorly controlled diabetes. Dry mouth is usually treatable, so talk with your doctor or dentist if you’re having problems.\n\nOlder adults are also at increased risk for oral cancer. Symptoms include a sore, irritation, or lump in the mouth or throat that lasts more than two weeks; it may be painful or may cause numbness. It’s important to catch oral cancer early, because treatment works best before the disease has spread. Be on the lookout for any changes in your mouth, especially if you smoke or drink.\n\nIf you serve as a caregiver to an older adult, you can help that person overcome oral health challenges. Encourage him or her to use an electric or large-handled toothbrush, so it’s easier to grip. You might place your hand over his/hers to help guide the toothbrush. Dentures should soak in water overnight and once a week with a denture cleaner. Dentures should also be rinsed after each meal and brushed daily.\n\nA healthy mouth can help you eat well, avoid pain, and feel good about yourself. Take steps to keep your mouth healthy, whatever your age.\n\nDrink fluoridated water and use fluoride toothpaste. Fluoride protects against dental decay at all ages.; Floss and brush teeth daily. (If you’re a caregiver for someone who can’t brush or floss his/her own teeth, you’ll need to help.); Visit your dentist regularly, even if you have no natural teeth and have dentures.; Avoid tobacco and alcohol. They can raise the risk for oral and throat cancers.; If medicines lead to a dry mouth, ask your doctor if other drugs might be used instead. If dry mouth continues, drink plenty of water, chew sugarless gum, and avoid tobacco and alcohol.."
+  }
+]

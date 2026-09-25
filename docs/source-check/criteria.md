@@ -1,6 +1,6 @@
-# 원문 점검·판정 기준 — 정본 · v4
+# 원문 점검·판정 기준 — 정본 · v5
 
-> **기준 버전 v4 · 2026-09-25**(v2: 회차 1 이중 판정 반영 · v3: 회차 2 — 파생물 제외 · `incomplete-source` 좁힘 · v4: 회차 6 — 초등 최소선 · 민감 소재 연령 칸 · 설화 속 고정관념 — [changelog.md](./changelog.md)). 개정 내역과 근거 사례는 [changelog.md](./changelog.md), 회차별 집계·오판 분석은 `round-{n}.md`.
+> **기준 버전 v5 · 2026-09-25**(v2: 회차 1 이중 판정 반영 · v3: 회차 2 — 파생물 제외 · `incomplete-source` 좁힘 · v4: 회차 6 — 초등 최소선 · 민감 소재 연령 칸 · 설화 속 고정관념 · v5: 회차 7 — 기관 공지문 — [changelog.md](./changelog.md)). 개정 내역과 근거 사례는 [changelog.md](./changelog.md), 회차별 집계·오판 분석은 `round-{n}.md`.
 > 판정 기록은 반드시 이 버전(`criteria_version`)을 함께 남긴다 — 버전 없는 판정은 개정 후 재판정 대상을 가를 수 없다.
 >
 > **원문 판정(내용 판정 · 보관 판정)의 기준은 이 파일 하나다.** 판정자(`csat-source-judge` — `.claude/agents/` ·
@@ -115,6 +115,12 @@
 서로 무관한 특징 문장의 나열(「이빨은 ~하다. 이빨은 ~하다.」)은 초등 칸이라도 `discard` / `reference` 다.
 그림을 봐야 뜻이 서는 캡션 반복은 이미 `fragmentary` 다(§5)
 [측정 회차 6: global_storybooks 「Teeth」「Cooking」이 한 판정자는 「초등 어휘 칸만」 보관, 다른 판정자는 폐기].
+
+**기관 안내·공지문 — 목적(`purpose`) 칸의 최소선.** 수능 목적 유형의 지문은 원래 편지·공지·안내문이므로 공지문이라는 이유로 버리지 않는다.
+**누가 · 누구에게 · 무엇을 하라고(참여·신청·이용·주의)** 알리는지가 한 편 안에서 서면 `keep` — `purpose` 칸(필요하면 `content_match`).
+본문이 **주소·경로·자료 목록·전화번호 나열**에 그치고 권유·안내의 까닭이 서지 않으면 `discard` / `reference`.
+앞 문단은 권유이고 뒤는 목록이면 `keep` 하고 목록은 가공 때 걷는다(`processing.note`)
+[측정 회차 7: nih 「Spanish-Language Health Materials」 보관(목적) ↔ 폐기(reference) · 「Considering Hip Replacement?」 보류 ↔ 폐기 · 「Mind and Body Therapy for Fibromyalgia」 보관 ↔ 보류].
 
 ### 3-3. 텍스트 지표 — 보조만
 
