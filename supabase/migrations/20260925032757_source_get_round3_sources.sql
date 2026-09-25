@@ -1,7 +1,7 @@
--- supabase/migrations/_pending_source_get_round3_sources.sql
+-- supabase/migrations/20260925032757_source_get_round3_sources.sql
 --
 -- **`library_articles.source` 에 소스GET 3차 원천 셋을 연다** — `global_voices` · `global_storybooks` · `gdl`.
--- ⚠️ 승인 대기 — 사용자 승인 전에는 적용하지 않는다(AGENTS.md).
+-- 2026-09-25 사용자 승인 후 적용(MCP apply_migration · version 20260925032757).
 --
 -- 목록은 **2026-09-25 DB 의 실제 제약값**(pg_get_constraintdef)을 그대로 옮기고 셋만 더했다.
 -- 손으로 다시 적으면 남의 재고를 막는다(2026-09-05 gutenberg 31,543편 · 2026-09-23 frontiers 등 3,288행).
