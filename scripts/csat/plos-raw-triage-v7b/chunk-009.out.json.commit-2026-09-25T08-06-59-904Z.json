@@ -1,0 +1,2087 @@
+[
+  {
+    "runId": "2026-09-25T08-06-59-904Z",
+    "id": "05a24fcb-30c7-4bb1-b3b0-5428d69820d0",
+    "revision": "2026-09-25T07:27:42.757008+00:00",
+    "body_sha256": "cbdde5a3ded0eb6d6f6bcb1b14ba63792d2b77063e223fa47c4b019e432e599e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:38.840Z",
+        "by": "chunk-llm",
+        "why": "뇌졸중 후 운동 회복을 두 자극 기법으로 맞붙인 비교라 대조 구조와 사실 진술이 함께 나온다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading",
+            "mock"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:17.289Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "f35c32f9228199d481bd1462e0eaaf55c61c2a15108f6ac4f054ef4def62d889"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 부담 단락은 약어표를 안 봐도 읽혀 고2 밴드로 내려간다.",
+          "sample": "Stroke remains one of the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:38.840Z",
+        "by": "chunk-llm",
+        "why": "뇌졸중 후 운동 회복을 두 자극 기법으로 맞붙인 비교라 대조 구조와 사실 진술이 함께 나온다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading",
+            "mock"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:17.289Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "f35c32f9228199d481bd1462e0eaaf55c61c2a15108f6ac4f054ef4def62d889"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 부담 단락은 약어표를 안 봐도 읽혀 고2 밴드로 내려간다.",
+          "sample": "Stroke remains one of the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 rTMS 한계→LIFU 대안 단락과 고찰의 「사후 점수 무차이≠동등 효과」 해석 단락이 논지로 서서 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Despite these within-group gains, no statistically",
+          "note": "수치·척도명을 걷어도 「자연 회복·집중 재활 때문에 단기 비교로는 차이를 잡기 어렵다」는 논지가 서고, neuromodulation·subacute 등 세 낱말을 바꾸니 V7 안으로 들어왔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:59.911Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:38.840Z",
+          "by": "chunk-llm",
+          "why": "뇌졸중 후 운동 회복을 두 자극 기법으로 맞붙인 비교라 대조 구조와 사실 진술이 함께 나온다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match",
+              "blank",
+              "summary"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "reading",
+              "mock"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:17.289Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "f35c32f9228199d481bd1462e0eaaf55c61c2a15108f6ac4f054ef4def62d889"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 부담 단락은 약어표를 안 봐도 읽혀 고2 밴드로 내려간다.",
+            "sample": "Stroke remains one of the",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:12:54.802Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-59-904Z",
+    "id": "05c87044-e800-4f72-8483-5af3811ab786",
+    "revision": "2026-09-25T07:27:46.903458+00:00",
+    "body_sha256": "8f83cabb3f55e8b515eee4d3457865c8bd37f3532a4b3ed3d4eb3c3df031b2ba",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:38.842Z",
+        "by": "chunk-llm",
+        "why": "바이러스 단백질이 식물 방어를 꺾어 매개 곤충을 끌어들인다는 삼자 관계가 한 편의 이야기로 전개된다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:19.114Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b82b07c18a298073751efcbac56bf546f46a2ecf7cfffea3263d8455a302768f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 단락이 논지를 통째로 담고 있어 이 청크에서 가장 짧은 손질로 지문이 됐다.",
+          "sample": "During virus infection, plants mount",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:38.842Z",
+        "by": "chunk-llm",
+        "why": "바이러스 단백질이 식물 방어를 꺾어 매개 곤충을 끌어들인다는 삼자 관계가 한 편의 이야기로 전개된다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:19.114Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b82b07c18a298073751efcbac56bf546f46a2ecf7cfffea3263d8455a302768f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 단락이 논지를 통째로 담고 있어 이 청크에서 가장 짧은 손질로 지문이 됐다.",
+          "sample": "During virus infection, plants mount",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론의 매개충 선호가 전파 효율을 정한다는 단락과 고찰의 「SA 축적에도 기피가 없다」 역설 단락이 설명문으로 서서 주제·순서·빈칸 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "During a virus acquisition-transmission cycle, arthropod",
+          "note": "약어(SA·BV1·SLCMV)를 「식물 방어 호르몬」「바이러스 단백질」로 풀면 흐름이 서지만, viruliferous·inoculum 을 바꿔도 V8 아래로는 잘 안 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:59.915Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:38.842Z",
+          "by": "chunk-llm",
+          "why": "바이러스 단백질이 식물 방어를 꺾어 매개 곤충을 끌어들인다는 삼자 관계가 한 편의 이야기로 전개된다.",
+          "basis": "full",
+          "genre": "nature",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "summary",
+              "blank",
+              "insert"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:19.114Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "b82b07c18a298073751efcbac56bf546f46a2ecf7cfffea3263d8455a302768f"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 첫 단락이 논지를 통째로 담고 있어 이 청크에서 가장 짧은 손질로 지문이 됐다.",
+            "sample": "During virus infection, plants mount",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:25:45.739Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-59-904Z",
+    "id": "05d94b33-2ebf-44ee-9312-72fc5518b0b5",
+    "revision": "2026-09-25T07:27:49.514912+00:00",
+    "body_sha256": "06dd7d4feb44aa47a5b35c4f774690a52e40ebb3f6d3e86c2b2f40973a4cf899",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.912Z",
+        "by": "chunk-llm",
+        "why": "증강이 성능을 올린다는 통념을 절제 실험으로 뒤집고 데이터 다양성으로 설명하는 단락이 있어 통념-반증 구조가 그대로 쓰인다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:21.778Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "07f1f89613d0eba75b6dafbfad0710e50f126839ffb367c9ab68c1a4e74f74e2"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "앞머리의 「Tables 3, 4 and 5」 지시만 걷으면 서고, Swin·CNN 같은 고유명사를 「두 종류의 모형」으로 바꾸면 한 밴드 내려간다.",
+          "sample": "The systematic ablation analysis from Tables",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.912Z",
+        "by": "chunk-llm",
+        "why": "증강이 성능을 올린다는 통념을 절제 실험으로 뒤집고 데이터 다양성으로 설명하는 단락이 있어 통념-반증 구조가 그대로 쓰인다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:21.778Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "07f1f89613d0eba75b6dafbfad0710e50f126839ffb367c9ab68c1a4e74f74e2"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "앞머리의 「Tables 3, 4 and 5」 지시만 걷으면 서고, Swin·CNN 같은 고유명사를 「두 종류의 모형」으로 바꾸면 한 밴드 내려간다.",
+          "sample": "The systematic ablation analysis from Tables",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "고찰의 전역·국소 두 관점을 잇는 결합 모델 설명 단락과 「데이터 증강이 오히려 성능을 낮췄다」 절제 연구 단락이 통념-반증 구조로 제목·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "claim"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The proposed FetCAT model performed well",
+          "note": "모델명을 「이 AI」로 바꾸면 큰 그림과 세부를 함께 본다는 비유가 쉬운 영어로 그대로 서고, 수식·표 참조 절은 건너뛰어야 한다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:59.917Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:39.912Z",
+          "by": "chunk-llm",
+          "why": "증강이 성능을 올린다는 통념을 절제 실험으로 뒤집고 데이터 다양성으로 설명하는 단락이 있어 통념-반증 구조가 그대로 쓰인다.",
+          "basis": "full",
+          "genre": "technology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "claim",
+              "blank",
+              "irrelevant"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:21.778Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "07f1f89613d0eba75b6dafbfad0710e50f126839ffb367c9ab68c1a4e74f74e2"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "앞머리의 「Tables 3, 4 and 5」 지시만 걷으면 서고, Swin·CNN 같은 고유명사를 「두 종류의 모형」으로 바꾸면 한 밴드 내려간다.",
+            "sample": "The systematic ablation analysis from Tables",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:58.470Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-59-904Z",
+    "id": "05f811ba-5b6a-4970-80a4-06926565915a",
+    "revision": "2026-09-25T07:27:51.029706+00:00",
+    "body_sha256": "4e8632f46c59388e9f620a784a02a24ecce2d427ab9256710546f0f6fe80a90c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.914Z",
+        "by": "chunk-llm",
+        "why": "저자 요약이 「핵이 물러진다」는 한 문장 주장 아래 밀도·라미나·바깥 당김 세 근거를 나란히 놓아 주장-근거 짝이 분명하다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:23.266Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b188cab35922d1bdfa2498de6bb54dba6700ad3e692f34f14406244260203bcf"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 단락은 그림 참조가 전혀 없어 그대로 지문이 되고, 라미나·삼투압을 풀어 쓰면 V7 로 내려온다.",
+          "sample": "DNA viruses take over the host",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.914Z",
+        "by": "chunk-llm",
+        "why": "저자 요약이 「핵이 물러진다」는 한 문장 주장 아래 밀도·라미나·바깥 당김 세 근거를 나란히 놓아 주장-근거 짝이 분명하다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:23.266Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b188cab35922d1bdfa2498de6bb54dba6700ad3e692f34f14406244260203bcf"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 단락은 그림 참조가 전혀 없어 그대로 지문이 되고, 라미나·삼투압을 풀어 쓰면 V7 로 내려온다.",
+          "sample": "DNA viruses take over the host",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "「핵막은 굳는데 핵 전체는 물러진다」는 모순을 모델로 푸는 계산 모형 절과 고찰의 밀도·삼투압 설명 단락이 논지로 서서 주제·요약·빈칸 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Our experimental data indicated that the",
+          "note": "AFM·LINC 같은 약어를 걷고 lamina·osmotic 을 풀어 쓰면 「겉보기 모순→가설 검증」 흐름이 앞 문맥 없이 시작된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:59.920Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:39.914Z",
+          "by": "chunk-llm",
+          "why": "저자 요약이 「핵이 물러진다」는 한 문장 주장 아래 밀도·라미나·바깥 당김 세 근거를 나란히 놓아 주장-근거 짝이 분명하다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "main_point",
+              "summary",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:23.266Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "b188cab35922d1bdfa2498de6bb54dba6700ad3e692f34f14406244260203bcf"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약 단락은 그림 참조가 전혀 없어 그대로 지문이 되고, 라미나·삼투압을 풀어 쓰면 V7 로 내려온다.",
+            "sample": "DNA viruses take over the host",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 13,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:57.883Z",
+      "topicMargin": 11.34
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-59-904Z",
+    "id": "060c7e24-fa92-41a5-85f0-f3b691afaffd",
+    "revision": "2026-09-25T07:27:53.783345+00:00",
+    "body_sha256": "8aa41ca68a746e84f06aa77d0316a90e0da16a625106dfced489d973c037ccb8",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.917Z",
+        "by": "chunk-llm",
+        "why": "신종 기재부는 배양 특성 나열이지만 앞머리 단락이 병원성 계통과 부생 계통을 견주어 병원성의 기원을 묻는 논지를 세운다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:24.898Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ca2660edaec74a1f2afc6131c855eb9c6cfd8e873c41c7c637832668561564ea"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "앞머리 종합 단락만 쓸 수 있고 본문 대부분은 기질 목록·라틴 기재라 발췌 창이 좁다.",
+          "sample": "The fungal genus Cryptococcus includes several",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.917Z",
+        "by": "chunk-llm",
+        "why": "신종 기재부는 배양 특성 나열이지만 앞머리 단락이 병원성 계통과 부생 계통을 견주어 병원성의 기원을 묻는 논지를 세운다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:24.898Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ca2660edaec74a1f2afc6131c855eb9c6cfd8e873c41c7c637832668561564ea"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "앞머리 종합 단락만 쓸 수 있고 본문 대부분은 기질 목록·라틴 기재라 발췌 창이 좁다.",
+          "sample": "The fungal genus Cryptococcus includes several",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론의 1894년 두 발견이 한 속명으로 합쳐지는 역사 단락과 고찰의 멜라닌 유전자 전용(굴절적응) 단락이 사건 흐름·논지로 서서 순서·내용일치·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "topic",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The basidiomycete genus Cryptococcus was formally",
+          "note": "인명·연도를 남겨도 발견→재명명 순서가 분명해 순서 문항이 쉽게 서고, ascospore·granulomatous 두 낱말만 바꾸면 V7이 된다. 종 기재 절은 표 나열이라 쓰지 않는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:59.925Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:39.917Z",
+          "by": "chunk-llm",
+          "why": "신종 기재부는 배양 특성 나열이지만 앞머리 단락이 병원성 계통과 부생 계통을 견주어 병원성의 기원을 묻는 논지를 세운다.",
+          "basis": "full",
+          "genre": "nature",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:24.898Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "ca2660edaec74a1f2afc6131c855eb9c6cfd8e873c41c7c637832668561564ea"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "앞머리 종합 단락만 쓸 수 있고 본문 대부분은 기질 목록·라틴 기재라 발췌 창이 좁다.",
+            "sample": "The fungal genus Cryptococcus includes several",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 6,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:51.886Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-59-904Z",
+    "id": "060e2146-8cfd-4dc1-9a73-55712d43c0d2",
+    "revision": "2026-09-25T07:27:54.241473+00:00",
+    "body_sha256": "3cefa858635cc42bcbcade6b336eae937b89332e37843f0cf333d6c325cbe06f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.917Z",
+        "by": "chunk-llm",
+        "why": "진단 시약이 정작 필요한 저소득 지역에서 비싸다는 형평 문제를 세우고 값싼 나노항체로 답하는 구조가 뚜렷하다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "claim",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:24.958Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "93d9c130e560009073d3965007aafe52c2ebb90fc8573305f8656253613fd9a2"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 두 단락이 그림 참조 없이 이어지고, 낭포·항원을 풀어 쓰면 고2 밴드까지 내려간다.",
+          "sample": "Diarrheal diseases caused by infectious agents",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.917Z",
+        "by": "chunk-llm",
+        "why": "진단 시약이 정작 필요한 저소득 지역에서 비싸다는 형평 문제를 세우고 값싼 나노항체로 답하는 구조가 뚜렷하다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "claim",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:24.958Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "93d9c130e560009073d3965007aafe52c2ebb90fc8573305f8656253613fd9a2"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 두 단락이 그림 참조 없이 이어지고, 낭포·항원을 풀어 쓰면 고2 밴드까지 내려간다.",
+          "sample": "Diarrheal diseases caused by infectious agents",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 값비싼 독점 항체가 필요한 지역에 닿지 못한다는 문제 제기와 고찰의 나노항체 저비용·동물 희생 없음 단락이 주장-근거로 서서 요지·주장·빈칸 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Nabs can be produced at a",
+          "note": "Nab 을 「작은 항체」로 풀고 periplasmic·thermically 를 바꾸니 「싸고 윤리적인 대안이 진단 불평등을 줄인다」는 논지가 V6~V7로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:59.927Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:39.917Z",
+          "by": "chunk-llm",
+          "why": "진단 시약이 정작 필요한 저소득 지역에서 비싸다는 형평 문제를 세우고 값싼 나노항체로 답하는 구조가 뚜렷하다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "main_point",
+              "claim",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:24.958Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "93d9c130e560009073d3965007aafe52c2ebb90fc8573305f8656253613fd9a2"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 첫 두 단락이 그림 참조 없이 이어지고, 낭포·항원을 풀어 쓰면 고2 밴드까지 내려간다.",
+            "sample": "Diarrheal diseases caused by infectious agents",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 8,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:04.092Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-59-904Z",
+    "id": "06184627-c330-404e-9947-00ec145841d9",
+    "revision": "2026-09-25T07:27:55.117212+00:00",
+    "body_sha256": "cc65f6dd6cade93c0dcc2fcc4792182978baa771d21b8a26d3c244cf6b841ee1",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.919Z",
+        "by": "chunk-llm",
+        "why": "자가보고 척도에 기댄 우울 선별의 한계를 문제로 세우고 간기능·전해질·사회경제 지표가 함께 작동한다는 해석까지 간다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:26.363Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e8cbbeb9a7c733eac5ad99f329a53da10cfbbbc72a153d3e3b24a36758f95e7b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "결론 단락이 표 참조 없이 서고 AUC·MLP 를 「정확도」·「신경망」으로 바꾸면 고2 상단까지 내려간다.",
+          "sample": "In conclusion, this study successfully developed",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.919Z",
+        "by": "chunk-llm",
+        "why": "자가보고 척도에 기댄 우울 선별의 한계를 문제로 세우고 간기능·전해질·사회경제 지표가 함께 작동한다는 해석까지 간다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:26.363Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e8cbbeb9a7c733eac5ad99f329a53da10cfbbbc72a153d3e3b24a36758f95e7b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "결론 단락이 표 참조 없이 서고 AUC·MLP 를 「정확도」·「신경망」으로 바꾸면 고2 상단까지 내려간다.",
+          "sample": "In conclusion, this study successfully developed",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 설문 의존 선별의 한계→객관 자료 기반 예측 단락과 표본 작음·과적합 경고 단락이 논지로 서서 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Integrating these diverse risk factors into",
+          "note": "PHQ-9·EHR 을 일반어로 바꾸면 자기보고 편향과 조기 발견의 가치가 독립적으로 서고, 방법 절의 하이퍼파라미터 나열은 쓸 수 없다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:59.929Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:39.919Z",
+          "by": "chunk-llm",
+          "why": "자가보고 척도에 기댄 우울 선별의 한계를 문제로 세우고 간기능·전해질·사회경제 지표가 함께 작동한다는 해석까지 간다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "claim",
+              "summary",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:26.363Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "e8cbbeb9a7c733eac5ad99f329a53da10cfbbbc72a153d3e3b24a36758f95e7b"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "결론 단락이 표 참조 없이 서고 AUC·MLP 를 「정확도」·「신경망」으로 바꾸면 고2 상단까지 내려간다.",
+            "sample": "In conclusion, this study successfully developed",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 1,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:39.557Z",
+      "topicMargin": 6.25
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-59-904Z",
+    "id": "063943cd-9e57-4ed9-9f03-3c8d97b59bd3",
+    "revision": "2026-09-25T07:27:58.633402+00:00",
+    "body_sha256": "7ce210a13251315b73580966c7fdb162ae2e1a9b6317d5a5ab9339685d0dc5c6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.920Z",
+        "by": "chunk-llm",
+        "why": "저자 요약이 알벤다졸의 흡수 한계에서 출발해 나노 전달체로 약물 농도를 병소에 올린다는 해결로 이어진다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:29.614Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "58c5863f34500880aef4804326863430c9e91105529d96ff80a1d364a2507d7b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 그림 없이 서고 PLGA 를 「분해되는 고분자」로 풀면 고2 밴드에 얹힌다.",
+          "sample": "Echinococcosis is a severe chronic zoonotic",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.920Z",
+        "by": "chunk-llm",
+        "why": "저자 요약이 알벤다졸의 흡수 한계에서 출발해 나노 전달체로 약물 농도를 병소에 올린다는 해결로 이어진다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:29.614Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "58c5863f34500880aef4804326863430c9e91105529d96ff80a1d364a2507d7b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 그림 없이 서고 PLGA 를 「분해되는 고분자」로 풀면 고2 밴드에 얹힌다.",
+          "sample": "Echinococcosis is a severe chronic zoonotic",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 수술·알벤다졸 각각의 한계를 대조하는 단락과 고찰의 염증·낭포 압박 두 경로로 섬유화를 설명하는 단락이 구조가 뚜렷해 순서·삽입·빈칸 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "insert",
+            "blank",
+            "topic"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Echinococcus tapeworm infection triggers a hepatic",
+          "note": "「한편으로·다른 한편으로」 짜임은 떼어도 서지만 stellate·extracellular matrix·fibrosis 가 겹쳐 두세 낱말 교체로는 V8 아래로 내려가지 않았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:59.930Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:39.920Z",
+          "by": "chunk-llm",
+          "why": "저자 요약이 알벤다졸의 흡수 한계에서 출발해 나노 전달체로 약물 농도를 병소에 올린다는 해결로 이어진다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:29.614Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "58c5863f34500880aef4804326863430c9e91105529d96ff80a1d364a2507d7b"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약은 그림 없이 서고 PLGA 를 「분해되는 고분자」로 풀면 고2 밴드에 얹힌다.",
+            "sample": "Echinococcosis is a severe chronic zoonotic",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 4,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:39:51.550Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-59-904Z",
+    "id": "065fad43-a0a8-4333-bc2d-c75e4f919ad4",
+    "revision": "2026-09-25T07:28:04.740658+00:00",
+    "body_sha256": "3c40dc96ed673a9d5589f86fa0d2480f22a9371f4e714830417c751d776079b7",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.921Z",
+        "by": "chunk-llm",
+        "why": "혈관 누출이 자기강화 고리를 이룬다는 그림을 세우고 울리나스타틴이 그 고리의 전사 기점을 끊는다는 논지가 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:31.471Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "a045af212085d475c1fea91e90b8006294ed51f5145f580fbab4890021ec9141"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "Ang-2 고리 단락은 자족적으로 읽히지만 PI3K·FoxO1 같은 경로 이름이 논지의 뼈대라 걷어 낼 수 없다.",
+          "sample": "Ang-2 has emerged as a pivotal",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.921Z",
+        "by": "chunk-llm",
+        "why": "혈관 누출이 자기강화 고리를 이룬다는 그림을 세우고 울리나스타틴이 그 고리의 전사 기점을 끊는다는 논지가 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:31.471Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "a045af212085d475c1fea91e90b8006294ed51f5145f580fbab4890021ec9141"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "Ang-2 고리 단락은 자족적으로 읽히지만 PI3K·FoxO1 같은 경로 이름이 논지의 뼈대라 걷어 낼 수 없다.",
+          "sample": "Ang-2 has emerged as a pivotal",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 Ang-2가 스스로를 늘리는 악순환 단락과 고찰의 혈장교환 대비 약물 대안 단락이 인과 사슬로 서서 순서·빈칸·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "blank",
+            "topic",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Angiopoietin-2 (Ang-2) has been identified as",
+          "note": "단백질 이름을 「신호 물질 A·B」로 바꾸면 양의 되먹임 고리가 단계별로 이어져 순서 문항에 맞고, Weibel-Palade·glycocalyx 를 걷으면 V8이 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:59.932Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:39.921Z",
+          "by": "chunk-llm",
+          "why": "혈관 누출이 자기강화 고리를 이룬다는 그림을 세우고 울리나스타틴이 그 고리의 전사 기점을 끊는다는 논지가 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "summary"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:31.471Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "a045af212085d475c1fea91e90b8006294ed51f5145f580fbab4890021ec9141"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "Ang-2 고리 단락은 자족적으로 읽히지만 PI3K·FoxO1 같은 경로 이름이 논지의 뼈대라 걷어 낼 수 없다.",
+            "sample": "Ang-2 has emerged as a pivotal",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 5,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:12:49.937Z"
+    }
+  }
+]

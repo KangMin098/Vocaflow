@@ -1,0 +1,395 @@
+[
+  {
+    "id": "00363f1e-377d-4a27-a2a9-998f55cf6d2a",
+    "source_updated_at": "2026-09-25T02:47:16.190743+00:00",
+    "body_sha256": "06d766ed8bfd70cceb7ef249b6598b1052b405ec8bc32880e9c2b7af788d5ced",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "가뭄 심화에 따른 생리 반응과 유전자 발현을 서론-고찰로 논지 있게 잇는다 — 고찰의 「형태 적응」 절이 발췌 가능.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The significant reduction in plant height",
+      "note": "효소 약어(APX·HMGR)를 「항산화 효소」로 바꾸면 서고, 수치는 걷어도 논지가 남는다."
+    }
+  },
+  {
+    "id": "00398bc2-546d-4365-b9f8-1ce5a9c809b7",
+    "source_updated_at": "2026-09-25T02:47:16.923819+00:00",
+    "body_sha256": "5299c2e5cf27e78fc446c85aa7e192d85034f444ab111988ae0b62d2ab9e3e44",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "알룸과 모링가 씨앗 응집제의 장단점을 비용·환경·안전 축으로 견주는 3.1절이 그대로 논증 지문이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank",
+        "summary",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In addition to the compounding costs",
+      "note": "분량이 커서 절 단위로 잘라야 하지만 3.1.1·3.1.2 는 각각 한 편으로 자족한다."
+    }
+  },
+  {
+    "id": "0045d159-c7e1-4c15-9f87-a408cb2ddb44",
+    "source_updated_at": "2026-09-25T02:47:17.745122+00:00",
+    "body_sha256": "85dccc2827c2f4aa9f02d967030e3c4037bc8d882121323332d01c4b9d7ec4d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "유전형·대립유전자 빈도와 교차비 나열이 본문 대부분이라 떼어 낸 문단이 수치표 낭독에 가깝다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Erythropoietin (EPO) is a glycoprotein",
+      "note": "서론의 EPO 이중 기능 단락만 논지가 서고, 결과·고찰은 OR·p값을 걷으면 남는 말이 없다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "00499edd-383a-4b3d-9498-a392be5591cc",
+    "source_updated_at": "2026-09-25T02:47:18.491648+00:00",
+    "body_sha256": "9c9385cc8c8724ae48c46736f6d528e3c8b5d5524f340fdb42bde7d40441ac0b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "기아와 감염이 같은 지방 동원을 서로 다른 경로로 조절한다는 대비가 저자 요약과 고찰에서 한 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Humans and other animals, including Drosophila",
+      "note": "저자 요약 단락은 유전자 기호가 거의 없어 그대로 서고, 결과 절은 RNAi 표기가 막는다."
+    }
+  },
+  {
+    "id": "00512614-ed87-4028-87a8-1d60d59e47ec",
+    "source_updated_at": "2026-09-25T02:47:19.304251+00:00",
+    "body_sha256": "b7e0132dc9eea630150aa5d7caad53d11c71565d4b66cd25e1981f8d06827c41",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "소아 담췌관 내시경 시술의 장기 결과를 통증·성장·삶의 질로 나눠 논하는 고찰이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The relief of abdominal pain in patients",
+      "note": "삶의 질·영양 상태를 잇는 고찰 단락은 약어를 풀면 서지만 앞부분 정의 절은 목록이라 못 쓴다."
+    }
+  },
+  {
+    "id": "006e7b16-ed99-41cf-9656-f79a1fc36245",
+    "source_updated_at": "2026-09-25T02:47:22.008692+00:00",
+    "body_sha256": "21d7d8f30fd1d95cd44e71e93c0a2fac1141afccbbe138880baee6af6b4d4c6c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "완충액 조성·효소 단위·도면 번호가 문장마다 박혀 있어 떼어 낸 문단이 실험 절차서로만 읽힌다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The key improvements in USPPAR are",
+      "note": "고찰 첫 단락조차 TdT·CuC 같은 자체 약칭에 의존해 낱말을 바꿔도 논지가 서지 않았다."
+    }
+  },
+  {
+    "id": "00785030-1d02-44c1-b6fe-67c7e05e83af",
+    "source_updated_at": "2026-09-25T07:07:57.31415+00:00",
+    "body_sha256": "8bd413d4a72884665b7cdabb55e13bc0fd2ee59d6233e486bc2dfca3cdc5cbc6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "침습 검사 대신 체형·체성분 지표로 인슐린 저항성을 가늠할 수 있다는 주장을 서론과 임상 함의 절이 받친다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "From a clinical standpoint, the feasibility",
+      "note": "임상 함의 절은 지표 약어를 「허리-키 비율」식으로 풀면 수치 없이도 논지가 남는다."
+    }
+  },
+  {
+    "id": "00880d86-1d24-40c9-a2f8-49499815cbf7",
+    "source_updated_at": "2026-09-25T07:08:05.456616+00:00",
+    "body_sha256": "8af72e679e61ecb5b0d47bcd8075896c20822c82620bf2b80f0e7f4912abe819",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "단백질량과 반응 곡선의 대비라는 논지는 뚜렷하나 대립유전자·프로모터 표기가 문단마다 얽혀 가공 여부가 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "A second interesting finding is that",
+      "note": "「선형 대 계단식 반응」 단락은 흐름이 좋은데 프로모터 이름 여섯 개를 못 걷어 냈다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "008fe410-3b30-412b-bda7-578a2ca72afd",
+    "source_updated_at": "2026-09-25T07:08:13.567075+00:00",
+    "body_sha256": "983072a63965829e16a9231f6e72cd418fd720033a0ad3aef7f0e5a38ae798f5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "젖분비세포가 혈액뇌장벽 밖에 있다는 해부 사실에서 말초 제한 약물 설계 근거를 끌어내는 고찰이 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A central design rationale of our",
+      "note": "설계 논거 단락은 화합물 번호를 지우면 그대로 서고, 도킹 좌표가 든 방법 절은 못 쓴다."
+    }
+  },
+  {
+    "id": "00a49392-ab3b-4462-b90a-fedb69403b10",
+    "source_updated_at": "2026-09-25T07:08:23.032989+00:00",
+    "body_sha256": "a96b36da4513b5c9b2c42c8b2dcb9149cd7a47663970f77658b8a4761997ff1f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "본문이 좌표계 정의와 수식 참조로 이어져 서론 밖에는 문장으로 읽히는 단락이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "With the development of the marine",
+      "note": "서론은 선행 연구 나열이고 나머지는 「[수식]」 자리표시가 문장을 끊어 가공이 셋 다 막혔다."
+    }
+  }
+]

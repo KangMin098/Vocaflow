@@ -1,0 +1,527 @@
+[
+  {
+    "id": "037abaa9-328a-4181-9e1c-545ed4a1f083",
+    "source_updated_at": "2026-09-25T07:13:52.249461+00:00",
+    "body_sha256": "b480fc3e9b73b91d655a28d2a24e384f11745147385466fdfae97eb5dcbf028e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 지구력·근력 훈련 대비와 「간섭 효과」 문단, 고찰의 ECM 역할 문단이 논지로 서서 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, skeletal muscle adaptations to CET",
+      "note": "「CET」 약어를 concurrent training 으로 풀고 모듈명·참조를 지우니 통념-제기 구조가 섰다; mutually inhibit 등 2~3어 교체로 V7 가능."
+    }
+  },
+  {
+    "id": "03aa7c91-3e0b-4515-b0d3-330463bd0da3",
+    "source_updated_at": "2026-09-25T07:14:01.397519+00:00",
+    "body_sha256": "163a4b80152e63880ce96145421314a42b24083d61a8723cc3a5dd8c9aeb1269",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 고찰 끝 문단(병원체 저항과 발달 안정성의 맞교환)이 유전자 기호 없이도 논지로 서서 주제·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "L1 arrest enables C. elegans larvae",
+      "note": "유전자명이 없는 마지막 고찰 문단이라 떼기 쉬웠고, decanalization·fecundity 를 풀어 쓰면 V8 로 내려간다."
+    }
+  },
+  {
+    "id": "03ae03e8-09f7-4da6-abb4-0876ce174ebc",
+    "source_updated_at": "2026-09-25T07:14:08.698529+00:00",
+    "body_sha256": "9712b41fd4a058e1162354ea1d79e093d22655b9758d12469f5e97c388fb56f6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론 첫 문단(미생물 운동의 필요와 섬모·편모·아르켈룸 비교)과 저자 요약이 독립 설명문으로 서서 주제·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The ability of microorganisms for cellular locomotion",
+      "note": "앞 네 문장만 잘라 쓰면 단백질 기호 없이 섰고, propel·appendage 정도만 바꾸면 V7 이다; 뒷부분 Arn 단백질 나열은 버렸다."
+    }
+  },
+  {
+    "id": "03af90f3-6cc6-4375-bcbe-3bd33add469d",
+    "source_updated_at": "2026-09-25T07:14:10.684964+00:00",
+    "body_sha256": "a32201acc6f2d615af71f91d711d8dad5171e0b4584c5cd73a404d3dd29acb95",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 첫 문단(선천·적응 면역의 순서와 조절 이상의 위험)만이 일반 설명문으로 서고 나머지는 키나아제 나열이라 주제·내용일치 칸에 한정된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The immune system consists of a complex",
+      "note": "첫 문단은 그대로 떼어지나 PAMPs·acute phase proteins 를 걷어야 하고, 본문 대부분은 약어 목록이라 쓸 곳이 이 문단뿐이었다."
+    }
+  },
+  {
+    "id": "03c06484-722b-464f-9108-b82cdc2387f0",
+    "source_updated_at": "2026-09-25T07:14:17.379882+00:00",
+    "body_sha256": "337a40a02261b2554efe0c2e8029762b3f35135dc3fa23d56b0d76354bb0dd9a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 인공관절 감염·항생제 내성·바이오필름 문단과 「예방이 치료보다 낫다」 문단이 원인-결과로 이어져 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the case of PJI and",
+      "note": "PJI 를 joint infection 으로 풀고 Ti6Al4V·UHMWPE 기호를 metal·plastic 으로 바꾸니 논지가 섰다."
+    }
+  },
+  {
+    "id": "03e5315d-098c-43b8-9b9f-800044f840f5",
+    "source_updated_at": "2026-09-25T07:14:35.136402+00:00",
+    "body_sha256": "b5659ef3db3f6100d9cd3af44949b6a92791b9b28cf951e85e7738903f1e9d69",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 천연물 신약 문단(빈블라스틴·아르테미시닌·파클리탁셀 사례)이 주장-예시 구조로 서서 주제·빈칸·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Natural products have long served as",
+      "note": "인용 괄호만 지우면 바로 서고, malignancies·regimens 두세 낱말을 바꾸면 V6~V7 이다; 도킹 수치 절은 쓰지 않았다."
+    }
+  },
+  {
+    "id": "03e84830-5514-4c10-b26a-2a559ce50a9f",
+    "source_updated_at": "2026-09-25T07:14:44.600612+00:00",
+    "body_sha256": "16f8e1be918c24e32257ab0b50fa882210b4f78c818e10e9f7f789adfd762bcc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "서론의 막달레나 강 환경 위기 문단과 고찰의 이주 시기·중간 형질 불리 문단이 논지로 서서 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Evidence from allopatric and sympatric breeding",
+      "note": "allopatric·sympatric·ecotypes 를 풀어야 했으나 논지(중간 형질이 불리해 분화가 강화된다)는 수치 없이 섰다."
+    }
+  },
+  {
+    "id": "03e88de7-0a0f-4863-8c3e-039ae562c502",
+    "source_updated_at": "2026-09-25T07:14:46.055863+00:00",
+    "body_sha256": "3ddf520bd998ece224b5fb11580b3031a5d6b45071d9cc286a7997ec41f534bb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "health",
+    "why": "위암 통계와 조기 검진 필요를 말하는 서론·고찰 첫 문단만 일반 독자용이고 나머지는 메틸화·유전자 기호라 떼어 낸 문단이 얇아 판단이 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "GC is the fifth most common",
+      "note": "고찰 첫 문단은 떼어지지만 통계 두 문장과 「조기 검진이 중요하다」 한 줄뿐이라 논지로 서기엔 짧았다."
+    }
+  },
+  {
+    "id": "03fd720c-3459-43d1-bcaa-75d0441ca248",
+    "source_updated_at": "2026-09-25T07:14:47.339988+00:00",
+    "body_sha256": "bd706b792206bf81f907d44bec1558c50dbdbaceda5f9b99d74738938852dad0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론 첫 문단이 양식업 확대→질병→항생제 남용→내성균으로 인과가 이어져 주제·빈칸·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Aquaculture has expanded rapidly worldwide in",
+      "note": "종명·생산 비율을 걷고 exophthalmia 등 증상어를 지우니 인과 흐름이 남았고 indiscriminate 교체로 V7 이다."
+    }
+  },
+  {
+    "id": "04032a6e-c573-4fc9-9d52-00b77c8a6d0f",
+    "source_updated_at": "2026-09-25T07:14:54.671729+00:00",
+    "body_sha256": "e5ba34d4ff09053865482f0eb90fc94208d8d0b23baa5d13e8be7f8835c07e55",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약의 탈수초 질환·다발성 경화증 설명과 서론의 M1/M2 대식세포 대비 문단이 설명문으로 서서 주제·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Demyelinating diseases include a range of",
+      "note": "앞 네 문장은 떼어 서지만 TH17·Treg 가 나오는 뒤 문장은 잘라야 했고 immunopathologic 등을 풀면 V8 이다."
+    }
+  },
+  {
+    "id": "0404c1ca-cf54-4c6a-b789-5b441770a5b0",
+    "source_updated_at": "2026-09-25T07:14:55.972196+00:00",
+    "body_sha256": "ec45a66dd6279f05a97ee0916c35f8fd0107ac107f29493e590a9c8c68ef695b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 lncRNA 「전사 잡음인가」 논점과 「위치 보존이 곧 기능은 아니다」 반례 문단이 주장-반증 구조로 서서 주제·빈칸·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Comparative analysis of genomic and transcriptomic",
+      "note": "amphioxus·Hotairm1 같은 고유명을 걷어도 「위치가 같아도 기능은 사례별로 봐야 한다」는 결론이 섰다; syntenic 풀이가 필요하다."
+    }
+  },
+  {
+    "id": "040adc81-ecb2-408b-95e0-e7efcb6014f5",
+    "source_updated_at": "2026-09-25T07:14:57.257903+00:00",
+    "body_sha256": "aa8c89184c41630bfc7dc48dfe48df523547b24648443676b1a95bf50a75dba7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 변이별 피부 증상 차이 원인 두 가지와 발진 잠복기 비교 문단이 원인 설명으로 서서 주제·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The skin lesions in our analysis",
+      "note": "Firstly·Secondly 로 원인이 나뉘어 순서·삽입에 맞고, tropism·Th1/Th2 를 풀어 쓰면 V7~V8 이다."
+    }
+  },
+  {
+    "id": "041418dd-e31f-4f15-afa4-57fc865b6518",
+    "source_updated_at": "2026-09-25T07:14:58.764758+00:00",
+    "body_sha256": "36f475f93b86b5bdbe24082f55b7a131d2e5bc3ee65087fcdd8be752f4b33cd5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 족세포 재생 한계와 소포체 스트레스 적응→부적응 문단이 인과로 서서 주제·빈칸 칸을 채우나 나머지는 데이터셋 절차다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The endoplasmic reticulum (ER) is central",
+      "note": "ER 을 풀어 쓰고 post-mitotic·proteostasis 를 바꾸니 「재생이 어려운 세포라 스트레스 적응이 중요하다」는 논지가 섰다."
+    }
+  }
+]
