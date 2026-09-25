@@ -1,0 +1,1937 @@
+[
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "13d0f003-c908-4d08-b843-59bbe8825151",
+    "revision": "2026-09-15T14:15:24.97409+00:00",
+    "body_sha256": "0035927b67f916f5cbf9fec9846dd96c82e55c2550f50a11a5c3cfd21b738c20",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "통념(보충제가 혈당을 크게 낮춘다)을 메타분석 수치로 눌러 「보조 요법일 뿐」이라는 논지가 고찰에서 한 편으로 선다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Despite promising findings, the current evidence",
+          "note": "고찰 첫 문단은 수치 두 개만 남기고 약물명을 일반어로 바꾸면 그대로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.565Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:04.533Z",
+      "topicMargin": 12.999999999999998
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "13d486a2-4898-4a87-8777-6c32fa206e6f",
+    "revision": "2026-09-15T14:15:28.230872+00:00",
+    "body_sha256": "f67f252f6085e51cd2901910bf6b3d406648efa044c410404c80baccd946f1ab",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "조직 기반 검사의 한계 → 혈장 단독 검사라는 대안 제시가 고찰에서 주장-근거 짝으로 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Currently, ctDNA methodologies predominantly rely",
+          "note": "유전자 패널 이름을 지워도 「조직 없이 피로 검사한다」는 대비가 남아 문단이 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.566Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:35.910Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "13dc436f-1d7b-45c7-a5b2-ad7dfa704b24",
+    "revision": "2026-09-08T05:33:56.68243+00:00",
+    "body_sha256": "4884fb3b0924d8a46e294d545956fadc4a14644b36850d69ec4fd921ac6a8cf6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "해설 논평이라 배경-연구-쟁점-남은 문제 순서가 짧은 한 편으로 완결된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "There are an estimated 250 million",
+          "note": "「Where From Here?」 절은 네 가지 의문을 나열해 순서·삽입 문항 재료로 바로 쓰인다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.566Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:39:06.998Z",
+      "topicMargin": 2.1900000000000004
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "13efaff8-be61-4e89-aa0e-1cba88a223cb",
+    "revision": "2026-09-13T07:10:49.616764+00:00",
+    "body_sha256": "9a2f446e92b8a63184ff499900ea053d0c82564700fb1d21afcc5c46507bfe86",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "한 약에 대한 내성이 다른 약에 대한 감수성을 낳는다는 역설을 도입부가 물음으로 세운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Elucidating the molecular mechanisms that underpin",
+          "note": "본문 대부분이 그림 설명과 수치라 쓸 곳은 도입부와 고찰 앞 두 문단으로 한정된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 37,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:01:59.737Z",
+      "topicMargin": 10.49
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "13f14a16-14f5-4c2e-b598-061cc156869e",
+    "revision": "2026-09-15T14:15:54.283601+00:00",
+    "body_sha256": "810019f05062b3aace928943f26288157c6faff5637283c3bac4f507849891f2",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "processing-unclear",
+        "genre": "science",
+        "why": "수용체·잔기 번호가 문장의 주어와 목적어를 다 차지해, 고유명사를 걷으면 남는 논지가 없었다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Hydroxycarboxylic acid receptors (HCAR) consist of",
+          "note": "도입부 두 문단을 실제로 다듬어 봤으나 잔기 표기(F1073.32 등)를 빼면 문장이 끊긴다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.568Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:22.541Z",
+      "topicMargin": 10
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "13fa96f8-4427-41ab-a641-53aaeac7cd06",
+    "revision": "2026-09-13T07:08:26.739015+00:00",
+    "body_sha256": "b8a184f80d99feb3efafab3d27fac98f3d3981a8975493554f978867386723f5",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "1차 감염은 보호하고 2차 이종 감염은 악화시킨다는 대비가 도입 첫 문단에서 스스로 선다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dengue is a mosquito-borne infectious disease",
+          "note": "항체 클론 표를 뺀 도입부만 떼어도 ADE 설명이 완결되고, 어려운 낱말 두셋은 교체됐다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 22,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T07:55:11.198Z",
+      "topicMargin": 22.3
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "13fd410d-14cd-4b90-b908-b29bedd25451",
+    "revision": "2026-09-15T14:16:37.459922+00:00",
+    "body_sha256": "766e608c2f9de06f60ef4e9844ad6f26ff2738d383cd743e0a8843376564bd3b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약 절이 전파 경로와 야생동물 생태까지 일반 독자용 논지로 정리돼 있다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The contamination of the food chain",
+          "note": "Author summary 는 앞 문맥 없이 시작해 그대로 떼였고 전문어는 두 개만 남았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:59.796Z",
+      "topicMargin": 26.12
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "141df21a-495c-4e05-aa80-b04539376eb7",
+    "revision": "2026-09-13T07:14:20.704082+00:00",
+    "body_sha256": "beeb5c47bd46ee628215aa61827f728e9babc63649d2a2b5f5e28d56a268c64f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "바이러스 유전자가 세포의 분해 장치를 가로챈다는 기제 설명이 도입부에서 인과 사슬로 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The HPV genome has three distinct",
+          "note": "도입 둘째 문단은 인과가 한 줄로 흘러 순서 문항 재료가 되나 실험 절은 쓸 수 없다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 17,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:07:01.361Z",
+      "topicMargin": 19.3
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "142ea56b-a230-4fe1-a878-b9bf1112d07f",
+    "revision": "2026-09-13T07:22:36.484093+00:00",
+    "body_sha256": "fb5b4a9f816f5db022a904c0e904067d80472b564b780194756be79b24530803",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "두 신경세포 집단이 운동과 보상에서 반대로 작용한다는 고전 모형과 그 수정이 도입부에서 대비된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The classic model of striatal involvement",
+          "note": "「고전 모형 → 최근 수정」 문단은 떼면 서지만 수용체 이름은 바꿀 수 없었다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.571Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 10,
+      "type": "R-BLANK",
+      "shape": 31,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T11:12:54.668Z",
+      "topicMargin": 10.05
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "142f6974-2f64-4459-81bd-f30798db6083",
+    "revision": "2026-09-15T14:17:55.324712+00:00",
+    "body_sha256": "91addaf0a5df27e9e914295ea925092ff5808de2dfaa3acb2f8c3408c72c7d52",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "잇몸 세균이 식도암 치료 반응과 이어진다는 뜻밖의 연결이 초록과 결론에서 근거와 함께 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Periodontal disease is often caused by",
+          "note": "구강 건강과 암을 잇는 도입 문단은 통계 표기를 빼면 그대로 읽힌다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.571Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:30.543Z",
+      "topicMargin": 17.17
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "144fc9a9-fc85-41f6-9757-77f173d50b4a",
+    "revision": "2026-09-13T06:26:17.046902+00:00",
+    "body_sha256": "179fb02cf6264b705ee098a9f4c203ddc1cd569a1aa152fd28cf028ec65c712f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "agriculture",
+        "why": "사료 효소가 장내 미생물과 병원균 증식을 바꾼다는 논지가 도입부와 결론에서 같은 선으로 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The intricate relationship between diet and",
+          "note": "결론 문단은 가설과 결과를 함께 담아 요약 문항 재료가 되나 분류군 이름이 많다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.572Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 14,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:41:20.242Z",
+      "topicMargin": 14.87
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "144fee8a-0dfa-4933-b16a-ed872dd070be",
+    "revision": "2026-09-15T14:18:55.348207+00:00",
+    "body_sha256": "bf57a58c1d7e2e03b92e05ded20c19b695f6ed79b39a4558485c697e68648b0a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "보전을 비용으로 보는 기존 생산성 지표를 뒤집는 「생물문화 역설」이 한 편의 논증으로 선다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "claim",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The prevailing economic approach has proven",
+          "note": "도입과 5.1 절은 회귀계수만 지우면 그대로 논설문이 되는, 이 청크에서 가장 다루기 쉬운 본문이다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.573Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:27:47.185Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "1455b051-123c-4b64-a8a4-9c600987045c",
+    "revision": "2026-09-13T07:01:53.895683+00:00",
+    "body_sha256": "3048ecce029b721c07e34e5de37577cebb6f5bd5db729cbc68acbef09eec5070",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "해삼이 몸벽을 벗는 습성과 전통 약재 쓰임을 잇는 도입부가 연구 물음까지 자연스레 이어진다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Philippines is home to diverse",
+          "note": "도입 첫 문단은 화합물 이름을 일반어로 바꿔도 사실 진술이 여럿 남는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.573Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T07:38:17.075Z",
+      "topicMargin": 14.21
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "1474df45-b5de-4aea-b3b8-cf21888ed2ad",
+    "revision": "2026-09-13T07:36:15.447539+00:00",
+    "body_sha256": "b60bea9a8b93b69cb7bc554e44eeed49535e7922ede5e3c14a579838f33a945e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "유전으로 설명되지 않는 몫을 일란성 쌍둥이 불일치로 파고드는 설계 논리가 도입부에서 완결된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Assessing the epigenetic basis of any",
+          "note": "쌍둥이 설계를 정당화하는 문단은 떼어도 앞 참조가 없고 낱말 교체도 쉬웠다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.574Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:14:05.866Z",
+      "topicMargin": 25.04
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "147bab0d-31ed-4d3f-b104-b838a808a090",
+    "revision": "2026-09-15T14:19:32.266088+00:00",
+    "body_sha256": "eb02a67b88cc675824ac6142e113e93aa0fd51894ddfdb1478c775fb29cbc3cd",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "적혈구 모양을 무너뜨리는 요인들을 열거한 도입부가 검사법의 필요로 곧장 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The mature mammalian erythrocytes have a",
+          "note": "쓸 곳은 도입 두 문단뿐이고, 검사법 이름 나열은 그대로 두면 목록에 가깝다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.574Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 12,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:12:59.002Z",
+      "topicMargin": 14.75
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "1484ce97-03ab-4159-994a-90d48d8184d6",
+    "revision": "2026-09-13T07:22:26.674375+00:00",
+    "body_sha256": "028ef1883a0ab01d4802d94b0762fe98e4c74e6ff288c6e63d5114adb07b01dc",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "종양 주변 환경이 암세포 행동을 되바꾼다는 전제가 한약 연구의 물음으로 이어지며 논지가 선다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Cancer development and progression are complex",
+          "note": "도입 첫 문단은 유전자 약어가 없어 그대로 떼였고 뒤 절은 약어가 빽빽하다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.574Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:14:56.851Z",
+      "topicMargin": 14.72
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "149442cd-09b0-4567-9381-0e7453b8e711",
+    "revision": "2026-09-13T06:29:43.555383+00:00",
+    "body_sha256": "a00142e6f443b4412e6bd56c9ce4bcbf5b457c38a75ef5b6cfbfac5f7e39da80",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "수술만으로는 복귀율이 낮다는 문제 제기에서 보조 치료 탐색으로 넘어가는 흐름이 뚜렷하다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Conventional treatment for Achilles tendon injuries",
+          "note": "복귀율·재파열률 수치가 남아 있어 내용 일치 재료로 쓰기 좋았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.575Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:45:57.068Z",
+      "topicMargin": 25.14
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "14a04464-5e2f-4100-a85a-b1c7436eb6b7",
+    "revision": "2026-09-13T07:11:58.23736+00:00",
+    "body_sha256": "99cba02fe3344754b71e78c81a0b05edcf26d74067c383b702d205faa4528c88",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "기존 동물 모형이 사람 질환과 어긋나는 지점들을 나열해 새 모형의 필요를 세운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "While OIR provides a reliable and",
+          "note": "대비 문단은 떼면 서나 망막 해부 용어는 대체어를 찾지 못했다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.575Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 19,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:03:41.504Z",
+      "topicMargin": 9.32
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "14b3de6c-3041-4335-98c1-21ca696a9cad",
+    "revision": "2026-09-13T06:50:02.02048+00:00",
+    "body_sha256": "9dda6bd4bdfd5d5e8dda3d8dec19b3ddf1af67618c63b7acbf776d13176d989b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "병원 감염균의 내성 획득 경로를 설명한 도입부가 새 표적 탐색이라는 결론까지 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Acinetobacter baumannii is an opportunistic Gram-negative",
+          "note": "앞 두 문단은 효소 이름 없이도 내성 문제를 설명해 떼기 쉬웠다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:12:45.871Z",
+      "topicMargin": 29.49
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-05-562Z",
+    "id": "14b8e1b8-6e66-493c-912d-9bf6bb355865",
+    "revision": "2026-09-15T14:19:51.066582+00:00",
+    "body_sha256": "dd7a7179ecbcff7b33f9a6a01d56581599b3fb18caa538fa2d71cfdc3a0d3917",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "전이를 세포 하나 단위로 들여다본다는 총설이라 개념 정의와 전망이 한 편으로 묶인다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Metastatic niches exhibit significant cellular and",
+          "note": "총설이라 실험 수치가 없고 문단 경계가 뚜렷해 순서 문항 재료로 적합했다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:05.576Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:37:16.118Z"
+    }
+  }
+]

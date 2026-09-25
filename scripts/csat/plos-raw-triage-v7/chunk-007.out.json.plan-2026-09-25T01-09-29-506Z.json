@@ -1,0 +1,502 @@
+[
+  {
+    "runId": "2026-09-25T01-09-29-506Z",
+    "id": "042f47e7-db00-43cf-82af-8a5e32184bf0",
+    "revision": "2026-09-13T07:00:36.499385+00:00",
+    "body_sha256": "091e13cf162b92a848798e670d512077599381c24f97a53e1309ca6d486960dc",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰 절이 「Treg 예후 효과는 암종마다 엇갈린다」는 통념 대립을 세우고 니볼루맙 후 Treg 증가라는 역설적 결론으로 닫혀, 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Not all T cells participate in the",
+          "note": "고찰 첫 문단은 지시어 없이 떼어지고 논지도 서지만, FOXP3·TIGIT 같은 유전자 기호가 문장마다 박혀 어휘 치환으로는 밴드를 못 내린다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:09:29.508Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 8,
+      "type": "R-BLANK",
+      "shape": 17,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T07:35:16.946Z",
+      "topicMargin": 20.81
+    }
+  },
+  {
+    "runId": "2026-09-25T01-09-29-506Z",
+    "id": "042f81d9-5f6a-4b3a-95a4-0da203b54cf0",
+    "revision": "2026-09-13T07:03:37.68164+00:00",
+    "body_sha256": "cc492ed26321700973a81aa8a59af1af4c483afc7a23a862aa5d7d817efb4ff8",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "모기 유충-성충 세균상 차이를 환경 교란(수력발전 저수지·부영양화)과 연결하는 고찰이 인과 논지로 이어져 주제·내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Mosquitoes contain a range of symbiotic",
+          "note": "서론의 공생세균 문단은 그대로 떼어져 논지가 서지만, 속명 나열(Desulfovibrio·Aminomonas 등)이 많은 단락은 어휘를 바꿔도 남아 V6 아래로는 못 내린다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:09:29.518Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T07:42:05.533Z",
+      "topicMargin": 21.49
+    }
+  },
+  {
+    "runId": "2026-09-25T01-09-29-506Z",
+    "id": "04339151-4162-4571-8479-fd478a8d78d1",
+    "revision": "2026-09-15T12:52:44.020221+00:00",
+    "body_sha256": "8409b6674dc0248b932c85a593b781510fb85f4919f3786e0f970d62d0fa2071",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "아메바 포식 압력이 포유류 병원성을 낳았다는 가설을 저자 요약이 통념-근거-결론으로 압축해, 논지형 지문과 요지·제목 칸을 바로 연다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A fundamental problem in the field",
+          "note": "저자 요약 문단은 고유명 둘만 남기고 떼어도 논지가 서고 generalist·subvert·phagocytic 세 낱말을 쉬운 말로 바꾸니 밴드가 한 칸 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:09:29.519Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 11,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:21:58.333Z",
+      "topicMargin": 26.5
+    }
+  },
+  {
+    "runId": "2026-09-25T01-09-29-506Z",
+    "id": "0435297d-b625-4a6f-8561-790c76767230",
+    "revision": "2026-09-13T07:08:33.42877+00:00",
+    "body_sha256": "24d886d4fe89d325b4fa514d60e090c9cfb7faf002a9f575e15a53cadcf52e7d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "「대부분의 분리주는 대식세포를 감염시키지 못한다」는 정설을 세포간 전달 실험으로 뒤집는 구성이라 고찰 도입 문단이 그대로 논지 지문이 된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Macrophages are increasingly recognized as HIV-1",
+          "note": "고찰 첫 문단은 앞 그림 참조 없이 떼어지나 Env·CCR5·CXCR4 약어가 논지의 뼈대라 걷으면 문장이 무너져 어휘 하향이 막혔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:09:29.520Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 8,
+      "type": "R-BLANK",
+      "shape": 30,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T07:54:23.651Z",
+      "topicMargin": 21.61
+    }
+  },
+  {
+    "runId": "2026-09-25T01-09-29-506Z",
+    "id": "0435b7ef-68ff-4cd5-9a2e-8c0632d7e38d",
+    "revision": "2026-09-13T07:21:40.797948+00:00",
+    "body_sha256": "2ec26d32a3841caaa23b1b461c9f416e4cdc2e6b99e45929a057969b1986269d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "출생 방식·이유식 도입에 따라 장내 세균 다양성이 늘어난다는 흐름이 서술형으로 이어지고 Ogi 같은 구체 사례가 붙어 요약·내용일치 칸이 넉넉하다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match",
+            "order",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5",
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The diversity of the microbiota increased",
+          "note": "이유식 관련 문단은 표 참조를 빼고도 사건 흐름이 남고 perturbation·abundance·prevalent 를 쉬운 말로 바꾸니 V5 대까지 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:09:29.521Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 12,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:15:36.473Z",
+      "topicMargin": 15.75
+    }
+  }
+]

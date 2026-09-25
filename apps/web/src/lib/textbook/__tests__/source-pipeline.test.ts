@@ -22,14 +22,14 @@ const VOA: PipelineRow = {
 }
 
 describe('칸 판정', () => {
-  it('PLOS — 원문 점검은 판정 전 31,220 이 남아 주황, 발췌는 대기 4,077', () => {
+  it('PLOS — 원문 점검은 판정 전 31,220 이 남아 주황, 안 자른 보관 원본은 남은 일이 아니다(교재 만들 때 자른다)', () => {
     const r = cellOf(PLOS, 'retain')
     expect(r.value).toBe('5,117 / 36,337')
     expect(r.note).toBe('31,220 판정 전')
     expect(r.tone).toBe('pile')
     const x = cellOf(PLOS, 'extract')
-    expect(x.note).toBe('4,077 발췌 대기')
-    expect(x.tone).toBe('pile')
+    expect(x.note).toBe('보관 4,077 · 교재 만들 때 자름')
+    expect(x.tone).toBe('ok')
   })
 
   it('남은 몫이 1% 이하면 「끝」이되 남은 수는 적는다 — 몇 편 때문에 줄을 주황으로 칠하지 않는다', () => {
@@ -71,14 +71,27 @@ describe('회차 — 대량 판정 가능 여부', () => {
     ).toBe(false)
   })
 
-  it('실제 회차 문서를 읽는다 — PLOS 는 round-2 에서 κ 0.643', () => {
+  it('실제 회차 문서를 읽는다 — PLOS 는 round-2 κ 0.643 · round-3 κ 0.847 로 대량 판정 가능', () => {
     const dir = resolve(ROOT, 'docs/source-check')
     const files = readdirSync(dir)
       .filter((n) => /^round-\d+/.test(n))
       .map((name) => ({ name, md: readFileSync(resolve(dir, name), 'utf8') }))
     const rounds = foldRounds(files)
-    expect(rounds.plos?.kappas.at(-1)).toEqual({ round: 'round-2', n: 20, kappa: 0.643 })
-    expect(rounds.plos?.keepPct).toBe(95)
+    // 회차 순서대로 쌓인다 — 이름 순서가 곧 회차 순서다.
+    expect(rounds.plos?.kappas.slice(0, 2)).toEqual([
+      { round: 'round-2', n: 20, kappa: 0.643 },
+      { round: 'round-3', n: 30, kappa: 0.847 },
+    ])
+    // 보관 비율은 **가장 최근 회차**의 것이다 — 회차가 늘 때마다 값이 바뀌므로 「마지막 회차 이름」만 고정한다
+    //   (round-4 가 더해지며 80 을 박아 둔 단언이 깨졌다 · 2026-09-25).
+    const lastRound = files
+      .map((f) => f.name.replace(/\.md$/, ''))
+      .filter((r) => /^round-\d+$/.test(r))
+      .sort((a, b) => Number(a.slice(6)) - Number(b.slice(6)))
+      .pop()
+    expect(rounds.plos?.keepRound).toBe(lastRound)
+    expect(rounds.plos?.keepPct).toBeGreaterThan(0)
+    expect(roundsReady(rounds.plos).ready).toBe(true)
     expect(Object.keys(rounds).length).toBeGreaterThan(10)
   })
 })

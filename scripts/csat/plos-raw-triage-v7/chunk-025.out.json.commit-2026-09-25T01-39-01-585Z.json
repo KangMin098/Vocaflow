@@ -1,0 +1,476 @@
+[
+  {
+    "runId": "2026-09-25T01-39-01-585Z",
+    "id": "102465d8-4e69-49b6-8ef9-f1d7a8fe5daa",
+    "revision": "2026-09-23T21:04:33.612104+00:00",
+    "body_sha256": "1fb5c4559253ba90529b851c5a0769d9bec9a049416ab27abe76346cd7397e3d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "technology",
+        "why": "본문 마지막 문장이 중간에서 끊겨(「analyzing complex.」) 기준 §3-5 「글이 중간에서 끊긴 경우」로 보류한다 — 고찰 문단 자체는 온전하다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "From a practical application perspective, CSAT-DRM",
+          "note": "모델명을 \"the system\"으로 바꾸고 cognitive/prioritization 등 두세 낱말을 풀면 선다; 결론 끝 문장이 \"analyzing complex.\"로 끊겨 있으나 쓸 단락은 온전하다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:01.590Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:37:50.692Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-01-585Z",
+    "id": "102b6d2b-26a5-4db1-b024-2049c927ebb6",
+    "revision": "2026-09-15T14:09:06.357416+00:00",
+    "body_sha256": "22c5340e52ea6f55bf25f0e7ccc958e5cd1b6e17e12db3ae6f2a023d7911065f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "science",
+        "why": "결과 절이 분리 균주 특성에서 P46 녹아웃(Fig 4)으로 건너뛰어 Fig 3·5–8 결과가 통째로 없고, 고찰의 GETV 확산 단락은 내용 일치 칸만 된다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "GETV is an emerging and widespread",
+          "note": "확산 단락은 떼지지만 지명·연도·수치를 걷으면 논지가 남지 않고, 본문 결과 절 일부가 빠져 있다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:01.591Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 16,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:41.384Z",
+      "topicMargin": 13.909999999999998
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-01-585Z",
+    "id": "104b3cd5-22d2-4013-baa5-bea07e02e624",
+    "revision": "2026-09-13T07:39:59.08282+00:00",
+    "body_sha256": "9b3ad043a9b3785b10c56ca42ebd35b1fd7a253ad3fe32346f344759bac8c198",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰의 열 적응 신생 뉴런이 자율 체온조절에는 관여하나 행동 조절에는 관여하지 않는다는 논증이 주제·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The thermal gradient system is one",
+          "note": "온도 구배 장치에서 쥐가 스스로 온도를 고르는 단락은 T s·AraC 기호를 풀어 쓰면 서고, thermoregulation·metabolic 정도만 바꾸면 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:01.592Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 18,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:15:04.524Z",
+      "topicMargin": 22.59
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-01-585Z",
+    "id": "104e4dec-7ed5-47af-8dfa-318e37b012d5",
+    "revision": "2026-09-13T06:55:34.24877+00:00",
+    "body_sha256": "52ba02c82cb633b71d27dc4e1eb26faafe7eaa996af1fc69aefa60654984d569",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "고찰의 젤리류 과소평가 단락(소화가 빨라 식이 분석에서 빠지나 DNA 분석은 더 많이 먹힘을 보인다)이 통념 교정 구조로 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "irrelevant",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Other energetic dead-ends such as the",
+          "note": "인용 번호와 pyrosome 문장을 걷으면 통념-반증 흐름이 서고, gelatinous zooplankton을 jellyfish로 바꾸면 밴드가 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:01.593Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 12,
+      "type": "R-BLANK",
+      "shape": 27,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:21:42.378Z",
+      "topicMargin": 17.28
+    }
+  },
+  {
+    "runId": "2026-09-25T01-39-01-585Z",
+    "id": "10650994-823b-4c10-81af-30cfe856f034",
+    "revision": "2026-09-15T14:09:35.538194+00:00",
+    "body_sha256": "fdffae607b81acbe2ff3b8bb2c13822c50a00e901cbf68a8dd20cf4948c937ad",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 MDR1 약물 배출 펌프와 항암제 내성 단락이 암세포가 약을 밀어내는 기제를 설명해 주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The MDR1 gene encodes a protein",
+          "note": "단락은 떼지지만 짧고 LSR·ChIP-Seq 등 전문어를 풀면 논지가 얇아져 V8 아래로는 잘 안 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:39:01.594Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 3,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:25:01.112Z"
+    }
+  }
+]

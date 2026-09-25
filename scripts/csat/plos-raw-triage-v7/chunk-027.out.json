@@ -1,0 +1,819 @@
+[
+  {
+    "id": "11844cab-1f37-4746-a117-7946c0fd23ae",
+    "source_updated_at": "2026-09-15T14:11:31.465969+00:00",
+    "body_sha256": "2566bb8e5262fcc2b5138ae2a1a96ffadd1cd51640838f559944881e568bbcaa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "노령 취약 → 기존 백신 한계 → 약독화 생백신 후보로 논지가 서고 고찰에 일반화된 주장이 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "During the COVID-19 pandemic caused by",
+      "note": "서론 첫 단락은 고유명사를 줄여도 논지가 남지만 결과 절은 그림 번호에 묶여 떼기 어렵다."
+    }
+  },
+  {
+    "id": "119ab756-56f1-4726-a90e-37a92d31b117",
+    "source_updated_at": "2026-09-13T06:55:12.558795+00:00",
+    "body_sha256": "d836136e51144d672ec0afad44a6b1403e1d2617202bab4e25c0d9165dc15315",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "면역항암제가 일부 환자에만 듣는다는 통념 제시 후 체세포 변이로 설명을 확장하는 서론이 자족적이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Over the last decades, the discovery",
+      "note": "본문에 그림 설명이 그대로 섞여 있어 발췌 전에 Fig 캡션 제거 공정이 반드시 필요하다."
+    }
+  },
+  {
+    "id": "119b8ad2-332f-4556-8c0b-a3ab32918818",
+    "source_updated_at": "2026-09-15T14:11:55.91891+00:00",
+    "body_sha256": "5945cb4a91c6506ec057974f7f924a4e0dd88148be1c12dd20400b0157e05970",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "지면 재질이 발굽 마모를 좌우한다는 단락이 야생·사육 비교로 서술돼 수치 없이도 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ungulate foot health is strongly influenced",
+      "note": "해부 용어를 빼고 기린·말·소 사례만 남겨도 문단이 성립해 어휘 하향이 가장 쉬웠다."
+    }
+  },
+  {
+    "id": "119d1883-71ea-49fb-b7d8-0c34a5a44d8c",
+    "source_updated_at": "2026-09-15T14:12:00.732709+00:00",
+    "body_sha256": "b4d85784a01ed818070ea8327239b68ca2d1fee3bf3236fc166de03f2ab32067",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "면역은 과잉과 부족 사이의 균형이라는 일반 명제를 세우고 구조 예측 도구로 푸는 저자 요약이 한 편으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Innate immunity relies on a finely",
+      "note": "저자 요약은 떼어져도 서지만 결과 절은 단백질 약어 밀도가 높아 치환 대상이 너무 많다."
+    }
+  },
+  {
+    "id": "11a1384d-64d2-46f7-8866-981bc12a6526",
+    "source_updated_at": "2026-09-13T07:14:06.55871+00:00",
+    "body_sha256": "607248932b76d5eda2998c441817baa4a8c182d29a43effe79d124c4aad99abd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "장 속 미량의 산소가 콜레라균 증식에 필수라는 예상 밖 결론까지 고찰이 스스로 근거를 댄다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Respiration promotes growth and proliferation of",
+      "note": "고찰 첫 단락은 균주 기호를 빼도 논지가 남았고 결과 절은 변이주 이름 때문에 막혔다."
+    }
+  },
+  {
+    "id": "11a44934-d338-42d9-92b8-07703356c87b",
+    "source_updated_at": "2026-09-13T06:47:55.229627+00:00",
+    "body_sha256": "773272b86eea3bae1bd727109c14316136f193b6c6c50b88f3bfd4067a631059",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "항생물질을 만드는 방선균의 산업적 중요성으로 여는 서론이 구조 기술과 분리해도 성립한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Streptomycetes are multicellular bacteria with a",
+      "note": "잔기 번호가 문장마다 박힌 결과 절은 가공 불가, 쓸 수 있는 곳은 서론 앞과 고찰 끝뿐이다."
+    }
+  },
+  {
+    "id": "11b9b83f-f088-489d-afea-f7e092a1dbcb",
+    "source_updated_at": "2026-09-15T14:12:21.88102+00:00",
+    "body_sha256": "c039b5cb7e8fbba3cf89d57d28edb3cf2edf8bdee68832bec7c1fd69f8738916",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "세포 부착 신호가 암세포 이동을 좌우한다는 서론과 지표 해석을 경계하는 고찰이 주장으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Gastric cancer remains a major cause",
+      "note": "결과 절 문장은 대부분 그림 번호를 달고 있어 서론·고찰만 발췌 후보로 남는다."
+    }
+  },
+  {
+    "id": "11d0a241-3e09-4b80-88f0-fe66f09742c4",
+    "source_updated_at": "2026-09-13T07:24:30.144818+00:00",
+    "body_sha256": "6c83c585e6fd68c3008db4ed0a28c0d5fa97df36ea88257ed23c2886ca3b4ffe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "위협 소리가 도피 행동을 부르는 회로를 다뤄 소재가 구체적이고 서론이 배경 없이 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mammals have evolved several strategies to",
+      "note": "뇌 부위 약어를 우리말 풀이로 바꾸면 고2 밴드까지 내려갈 여지가 있었다."
+    }
+  },
+  {
+    "id": "11e5317d-4713-498e-b057-39cf206123e9",
+    "source_updated_at": "2026-09-15T14:12:49.105894+00:00",
+    "body_sha256": "4d8dc3ba42d3808fb6a48ba4a1f0c1e4df1d30c2f4a40ea0e5234806a42c7920",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "질소가 적당하면 광합성을 돕고 과하면 해친다는 대비가 결론까지 이어져 한 편의 주장이 된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Like drought in soil, atmospheric nitrogen",
+      "note": "gm·gsc 같은 기호가 문장 뼈대에 박혀 있어 기호를 풀어 쓰는 재작성이 선행돼야 한다."
+    }
+  },
+  {
+    "id": "120f9158-ef27-44bd-8977-fb0af48818c2",
+    "source_updated_at": "2026-09-15T14:12:56.052538+00:00",
+    "body_sha256": "0363f0e3db9ee80729071eb27d5cbec8369ace8173288c64c3014b85d4a29bf5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "비만과 간암을 잇는 대사 중간고리를 묻고 답하는 저자 요약이 평이한 문장으로 완결된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "While it is well-known that adiposity",
+      "note": "저자 요약 문답 구조를 그대로 살리면 대사물 이름 두셋만 바꿔도 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "1245301c-b2a7-4c40-a10a-3784126aafb0",
+    "source_updated_at": "2026-09-15T14:13:07.60372+00:00",
+    "body_sha256": "02eeee11ab9f8c96bc5cae7e6857610da2b6677c71e7083b2aa5f4fa77b4b6d7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "알부민이 혈관 내 삼투압을 지킨다는 기능 설명이 사례와 함께 앞 문맥 없이 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Albumin is a non-glycosylated plasma protein",
+      "note": "비원어민 문장이라 어법 문항 재료로는 못 쓰고, 어휘 교체 자체는 쉬웠다."
+    }
+  },
+  {
+    "id": "12577186-f5eb-48bd-8281-c0136bfed935",
+    "source_updated_at": "2026-09-15T14:13:10.574354+00:00",
+    "body_sha256": "e9a0b48e26973495ed08b2b1e6a759f54c52eb03f3c4d7e621caa0212a045611",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "표정·음성보다 생리 신호가 감정 판별에 믿을 만하다는 대비로 서론이 스스로 논지를 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Emotion recognition, a fundamental application of",
+      "note": "관련 연구 절은 정확도 수치 나열이라 쓸 수 없고 서론·결론만 문단으로 선다."
+    }
+  },
+  {
+    "id": "12596904-30a6-4cf5-9879-e3ec984464c4",
+    "source_updated_at": "2026-09-15T14:13:11.503959+00:00",
+    "body_sha256": "a69e833e102cb046060051ff529aef0854b10580a01815ad7850b73f2ebbd010",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "동남아 풍토 진균증의 확산 배경을 기후·이동으로 설명하는 서론이 사실 진술로 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Talaromyces marneffei (TM) is a significant",
+      "note": "고찰의 이중 기전 설명도 떼어지지만 세포 아형 이름 서너 개는 남겨야 뜻이 선다."
+    }
+  },
+  {
+    "id": "126fde21-6ec9-438b-8e31-4632af2e3c47",
+    "source_updated_at": "2026-09-23T21:04:34.084034+00:00",
+    "body_sha256": "1cade5a1b085e76a7ca9a2dd13a39b68ce21c05119c526c1eca4d6a971bbd33a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "파킨슨병을 중추 질환으로만 보던 시각을 말초 면역으로 넓히는 서론 흐름이 한 편으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Parkinson's disease (PD) is a chronic",
+      "note": "장-뇌 축 단락은 유전자 이름을 걷어내도 인과 설명이 남아 가공이 수월했다."
+    }
+  },
+  {
+    "id": "12954ec5-0eb9-4580-b98a-557db144148a",
+    "source_updated_at": "2026-09-15T14:13:30.140644+00:00",
+    "body_sha256": "c5b1b8bfec61e7f579e741853dae8b470c40e72334258c5a8b76dfc511221ccb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "필수로 여겨진 결합 영역이 사실은 보조적이라는 반전은 좋으나 문장마다 변이·단백질 기호가 뼈대라 발췌가 서는지 불확실하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V10"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Rad26ATRIP is a checkpoint sensor protein",
+      "note": "저자 요약에서 고유명사를 걷어내자 주어가 사라져 문단이 무너졌다 — 재작성 없이는 못 쓴다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "129cb9da-b9bf-4700-8e6b-776d77a5f53e",
+    "source_updated_at": "2026-09-15T14:13:35.224836+00:00",
+    "body_sha256": "492f0c4352c33c1f61d1845b37d539663bafa2ac97c542bf62bd307b99c106f6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "이식 재료가 면역 반응을 부르되 과하면 실패한다는 균형 논지가 서론 한 단락에 담겼다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The extracellular matrix (ECM) serves as",
+      "note": "세포주 이름만 빼면 상처 치유 단계 설명이 그대로 남아 어휘 하향이 가능했다."
+    }
+  },
+  {
+    "id": "129fb75a-aa25-4f6e-b6b5-b85dcc406d07",
+    "source_updated_at": "2026-09-13T06:56:57.680823+00:00",
+    "body_sha256": "1a518dd4b2059fc23a5b8b2dfcb87cc1cab0372fb76414efc8af276eb0f7953c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "말라리아 원충의 분열 방식이 감염 중증도와 이어진다는 서론이 배경 지식 없이도 읽힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Malaria-causing parasites are divergent unicellular eukaryotes",
+      "note": "첫 단락은 단백질 이름이 없어 바로 쓸 수 있으나 결과 절은 현미경 기법 약어에 묶여 있다."
+    }
+  },
+  {
+    "id": "12a88f81-cf7c-48d1-8bef-7c52e22bfa68",
+    "source_updated_at": "2026-09-15T14:13:37.705545+00:00",
+    "body_sha256": "bd9c1af0eef9a2ff04c71e855d313722e001904ab471f705659061f105945926",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "적혈구 수를 조절하는 되먹임이 빈혈마다 다르게 어긋난다는 설명이 저자 요약에서 평이하게 완결된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The number of red blood cells",
+      "note": "호르몬 이름 하나만 풀어 쓰면 고2 밴드로 내려가는, 이 청크에서 가장 가공이 쉬운 글이었다."
+    }
+  },
+  {
+    "id": "12b6f038-e2b1-498b-8500-12628dbd2f08",
+    "source_updated_at": "2026-09-15T14:13:41.02437+00:00",
+    "body_sha256": "7262ac0f893b7f2b8de87890fd7cfce3bfc576d7f039d1ff7241651829aa6f59",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "세계 암 부담 통계로 문을 열어 사실 진술이 여럿 모인 서론이 발췌 단위로 성립한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Malignant tumors remain a leading cause",
+      "note": "서론 앞부분은 수치 진술이라 바로 쓰이지만 본론은 암종 약어 나열이라 버려야 한다."
+    }
+  },
+  {
+    "id": "12eeef72-514e-48c6-a897-f204727dd701",
+    "source_updated_at": "2026-09-15T14:13:57.290455+00:00",
+    "body_sha256": "e170e27d289de5b69dd3bc2f0243181a9cc8f22b0aa3b135009a4b5c7fe458f6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "B군 수막구균만 다당 백신을 만들 수 없는 이유를 설명하는 서론이 원인-결과로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Neisseria meningitidis serogroup B (MenB), one",
+      "note": "원형 RNA가 왜 안정적인지 설명한 단락도 떼어지지만 항원 기호 표기가 걸림돌이다."
+    }
+  }
+]

@@ -91,7 +91,10 @@ for (const f of fs.readdirSync(OUT)) {
     // 반쯤 쓰인 파일은 이번엔 못 읽는다 — 덮지 않는 쪽이 안전하다.
   }
 }
-const pending = candidates.filter((c) => !already.has(c.id))
+// `--v N` — 그 학년만(2026-09-25 · 회차 3 층화 표본). 순서가 V 오름차순이라 지정 없이 --max 로 자르면
+//   표본이 전부 V5 가 된다. 버리는 것이 아니라 **이번에 뽑을 범위**만 좁힌다.
+const V_ONLY = arg('v', '')
+const pending = candidates.filter((c) => !already.has(c.id) && (!V_ONLY || c.v === Number(V_ONLY)))
 const totalWords = pending.reduce((n, c) => n + (c.words ?? 0), 0)
 const byV = {}
 for (const c of pending) byV[`V${c.v ?? '?'}`] = (byV[`V${c.v ?? '?'}`] ?? 0) + 1

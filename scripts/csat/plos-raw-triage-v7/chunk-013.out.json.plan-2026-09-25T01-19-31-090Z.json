@@ -1,0 +1,483 @@
+[
+  {
+    "runId": "2026-09-25T01-19-31-090Z",
+    "id": "08183ddb-43fe-45cf-b5fd-13199afd5c6b",
+    "revision": "2026-09-15T13:32:02.349907+00:00",
+    "body_sha256": "814d3ea9d6f61cbeeb8f6fad45402dfc0330a34770a62badeb7273e19e39232f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰의 화학 손상 모델 대비 RIP3 모델 장단점 단락이 대조 논지로 서서 주제·빈칸·순서 칸을 채운다(결과 절 일부는 빠져 있음).",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Compared with conventional chemically induced models,",
+          "note": "RIP3·RPE 약어를 '세포사 유전자'·'망막 세포층'으로 바꾸고 recapitulate→reproduce 로 고치니 급성 모델 대 만성 모델 대조가 섰다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:19:31.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 5,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:47.739Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T01-19-31-090Z",
+    "id": "082f365f-1637-4a25-9701-6fbfee28f512",
+    "revision": "2026-09-15T13:32:19.22366+00:00",
+    "body_sha256": "69ac005470f85f155067738c91bc9d7b162402745f1dbeaf4d1405ce9322f699",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 인공 타액 대 사람 타액 단락이 효소·면역 성분으로 차이를 설명하는 인과 논지라 요지·빈칸·무관한 문장 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "irrelevant",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In contrast, human saliva harbors a",
+          "note": "면역글로불린 목록을 걷고 proteolytic→protein-breaking, destabilize→weaken 으로 바꾸니 '사람 타액이 바이러스를 더 빨리 없앤다' 논지가 섰다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:19:31.097Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 8,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:21:59.419Z",
+      "topicMargin": 19.55
+    }
+  },
+  {
+    "runId": "2026-09-25T01-19-31-090Z",
+    "id": "08353307-77b3-40d0-b414-bf2983077ca9",
+    "revision": "2026-09-15T13:32:35.378164+00:00",
+    "body_sha256": "98ce73aab1271b0afc503d8db86bd5d223bcdbbb92bd36a29fac8cbf8ef7cd4e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "서론의 기계학습 해석 가능성 단락(블랙박스 한계→SHAP)이 문제-해결 구조로 서서 요지·빈칸 칸을 채운다; 나머지는 수치 나열.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Despite the high accuracy levels achieved",
+          "note": "SHAP 명칭을 '설명 도구'로 일반화하고 elucidating→showing 으로 바꾸니 정확도와 해석 가능성의 긴장이 섰으나 단락이 짧아 앞 ML 단락과 붙여야 한다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:19:31.098Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:54.099Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T01-19-31-090Z",
+    "id": "0837128c-2b3f-42a0-968d-ba02daacea7d",
+    "revision": "2026-09-15T13:32:38.694214+00:00",
+    "body_sha256": "c776832b23237ca452086562f8e507aafe76de8d5963a5fb98933b57571b2154",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "에세이 전체가 교양 설명문이고 멸종 복원 찬반 단락·투구게 합성 대체물 단락이 논지와 사례로 서서 주장·요지·순서·삽입 칸을 넓게 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "topic",
+            "title",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Should de-extinction be considered for marine",
+          "note": "great auk 등 고유명을 걷어도 '멸종 복원 비용 대 생존종 보전' 찬반이 서고 serendipitous→unexpected 교체로 밴드가 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:19:31.100Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:38:34.357Z",
+      "topicMargin": 27.619999999999997
+    }
+  },
+  {
+    "runId": "2026-09-25T01-19-31-090Z",
+    "id": "08374e41-752d-44ad-bdfe-64602270f845",
+    "revision": "2026-09-15T13:32:40.266004+00:00",
+    "body_sha256": "7db0627c1198a67e0620236a69fd067e04a4a6fe3b96b419627baf26f84b3561",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "health",
+        "why": "결과 절이 첫 단락(선별 흐름)에서 끊기고 결과 본문·고찰·결론이 통째로 없다; 서론 뇌출혈 배경 단락만 떼어 쓸 수 있다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Spontaneous intracerebral hemorrhage (ICH) accounts for",
+          "note": "parenchyma→brain tissue, arteriolosclerosis→hardened small vessels 로 바꾸니 원인·예후 설명은 서지만 원천 본문이 결과 도입에서 잘려 있다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T01:19:31.101Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:59.846Z"
+    }
+  }
+]
