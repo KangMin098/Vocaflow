@@ -12,13 +12,21 @@
 // 각 시리즈는 **자기 주소를 가진 서가**다. 클라이언트 상태로 전환하면 그 서가를 공유·북마크할
 // 수 없고, 뒤로가기가 코너를 안 되돌린다. 시중에서 「어휘 코너」는 장소다 — 상태가 아니다.
 //
-// ⚠️ **없는 것을 있다고 하지 않는다.** 어휘·구문은 카탈로그가 `status: 'draft'` 로 적고 있다
-//   (단은 정의됐고 재고도 찼지만 **조판을 한 번도 안 돌렸다**). 그 사실을 칩에 적는다 —
-//   학습자는 그 서가에서 문항을 풀 수 있지만 **인쇄본은 없다.** 둘을 같게 보이면 거짓이 된다.
+// ── 「인쇄본 준비 중」은 상수가 아니라 실측이다 (고침 2026-09-23 · DD-76) ─────────
+// 이 칩은 카탈로그의 `status: 'draft'` 상수를 읽고 있었다. 그런데 그 상수는 시리즈를
+// 정의한 날의 값이라 **찍은 뒤에도 안 바뀐다** — 어휘·구문은 2026-09-06 에 각 6권이
+// 조판돼 `textbook_volume_renders.status='published'` 로 들어갔고 DD-73 이 목차까지
+// 구웠는데, 이 공개 화면은 그 뒤로도 **「인쇄본 준비 중」을 찍고 있었다**(17일).
+//
+// 그래서 목차 스냅샷에서 읽는다 — 학습자가 실제로 받는 인쇄물이 그것이다.
+// 스냅샷에 그 시리즈가 하나도 없으면 진짜로 인쇄본이 없다. 새 시리즈가 생기면 구울
+// 때까지 자동으로 「준비 중」이고, 구우면 자동으로 사라진다 — 고칠 상수가 없다.
 
 import Link from 'next/link'
 
 import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catalog'
+
+import { seriesHasContents } from '@/lib/textbook/volume-contents'
 
 /** 그 시리즈 서가의 주소. 독해도 자기 주소를 갖는다 — 특별 대우하면 링크가 갈린다. */
 export function seriesShelfHref(seriesId: string): string {
@@ -33,6 +41,9 @@ export function SeriesTabs({ current }: { current: string }) {
     >
       {SERIES_CATALOG.map((s) => {
         const active = s.id === current
+        // 접은 시리즈는 매대에 안 올린다 — 못 사는 코너를 표지판에 남기면 거짓이 된다.
+        if (s.intent === 'retired') return null
+        const printable = seriesHasContents(s.id)
         return (
           <Link
             key={s.id}
@@ -58,7 +69,7 @@ export function SeriesTabs({ current }: { current: string }) {
               {s.question}
             </span>
             {/* ⚠️ 조판된 권이 없는 시리즈는 그렇다고 적는다 — 문항은 풀 수 있지만 인쇄본이 없다. */}
-            {s.status === 'draft' && (
+            {!printable && (
               <span
                 className={[
                   'truncate font-mono text-[10px]',

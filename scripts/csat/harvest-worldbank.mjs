@@ -21,11 +21,11 @@
 //      그래서 글 하나를 통째로 담지 않고 **연속 산문 런**(쪽 단위)으로 잘라 담는다.
 //      상세 근거는 `packages/library-pipeline/src/ingest-article/world-bank-okr.ts` 머리.
 //
-// ── ⚠️ 두 가지 잠금장치가 아직 안 열렸다 ─────────────────────────────
-//   **(1) DB 제약** — `library_articles_source_check` 에 `'worldbank'` 가 없다.
-//        마이그레이션이 필요하고, 이 저장소 규칙상 **SQL 만 보이고 적용하지 않는다.**
-//        제약이 열리기 전에 `--commit` 을 주면 23514 로 **한 행도 안 들어간다**(조용히
-//        0건이 아니라 오류로 죽는다 — 그게 옳다).
+// ── ⚠️ 잠금장치 — 하나는 열렸고 하나는 사용자 결정이다 ──────────────
+//   **(1) ~~DB 제약~~ — 2026-09-24 에 `pg_get_constraintdef` 로 읽어 보니
+//        `library_articles_source_check` 에 `'worldbank'` 가 **이미 들어 있다.** 이 잠금은
+//        열려 있다. (언제 누가 열었는지는 저장소 마이그레이션에 없다 — 제약이 저장소 밖에서
+//        수정된 흔적이고, 그래서 **제약 목록은 기억이 아니라 DB 에서 읽는다.**)
 //   **(2) robots.txt** — `openknowledge.worldbank.org/robots.txt` 는 `User-agent: *` 아래
 //        `Disallow: /server/oai/` 와 `Crawl-delay: 10` 을 둔다(DSpace 기본값 그대로.
 //        AI 크롤러 지목 차단·Content-Signal 은 없다). 정찰 리포트가 이 줄을 적지 않았다.

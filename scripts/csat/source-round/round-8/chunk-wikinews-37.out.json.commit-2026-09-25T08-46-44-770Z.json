@@ -1,0 +1,1896 @@
+[
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bc23001-0d24-4fd8-9b6e-015ab806b22e",
+    "revision": "2026-09-25T07:44:57.999154+00:00",
+    "body_sha256": "bc0324c1102a969c3edcaeade1e306db4c1ca0c5dfdda1d02b16a15bae891e77",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "법률 고문 사임 발표와 인터넷 표현 자유 변호사로서의 경력, 온라인 명예훼손에 대한 그의 견해 단락이 고2 이상 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Godwin became the first attorney to",
+          "note": "마지막 단락 인용은 「참여형 매체를 막는 규칙을 막는다」 논지가 떼어도 서고 defamation·smeared 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.774Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikimedia_Foundation_announces_departure_of_general_counsel_Mike_Godwin",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.402
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bc3e17e-553f-45c3-ae33-ca50ea50bfec",
+    "revision": "2026-09-25T08:19:47.522472+00:00",
+    "body_sha256": "abd3ace622d6dce1696eaa81e47c7e62c118488658a652991ff19dfa37250442",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "폭우로 침수된 금광 붕괴와 구조 장비 부족, 소규모 광산의 안전 장비 부재라는 구조적 원인 단락이 고2 이상 빈칸·내용 일치 칸을 채운다(광부 사망 소재).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Tanzania is the third largest producer",
+          "note": "끝 단락은 「대형은 외국 기업, 소규모는 위험」 대비가 떼어도 서고 suffocate 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.776Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Gold_mine_in_Tanzania_collapses%2C_at_least_20_dead",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.37
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bcbf3fb-fc43-41ab-a362-795efbeb0c22",
+    "revision": "2026-09-25T08:06:29.34876+00:00",
+    "body_sha256": "17096f65365a22ac8f332f9a5243207f7e7e2ea2a60cdfb1e64cac1ceb991616",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "원주민 운동 절정기의 저서가 인류학자·정부의 원주민 대하는 방식을 바꿨다는 영향 단락이 고1~고2 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Deloria's books Custer Died For Your",
+          "note": "둘째 단락은 저서 → 변화(유물 반환 운동)가 떼어도 서고 anthropologists 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.776Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Author_Vine_Deloria_dies_at_72",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.618,
+          "words": 89,
+          "english": 0.375
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bd05815-cc1f-49ec-a40c-8eb5fc7ec318",
+    "revision": "2026-09-25T07:36:36.94019+00:00",
+    "body_sha256": "74041aa9fc5a22e7fb1429bbb11d85f72636ece18a9c7f9e710685b4fbbf7a49",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "규제 기관의 노선 배분 결정(승인·조건부·거절)과 1990년대 국철 민영화 배경 단락이 고3 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "order"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Britain's state-owned national railway company British",
+          "note": "민영화 단락은 떼어도 「국철 분할 → 프랜차이즈·오픈액세스」 구조가 서고 franchise 만 풀면 된다. 역 이름 나열은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.776Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Winners_and_losers_on_UK's_East_Coast_rail_line",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.303
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bd78809-a0ce-4947-a991-138e226c9989",
+    "revision": "2026-09-25T07:58:51.522298+00:00",
+    "body_sha256": "43678361a8b0c95ae46f3b6e555267bfd7550a088337af051d0d657cbf467c23",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "서방이 우크라이나에 러시아 영토 타격을 허용한 뒤 푸틴이 비대칭 대응·무기 공급을 경고한 원인-반응 단락이 고2 이상 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Putin also said the decision to",
+          "note": "셋째 단락은 「그들이 하면 우리도 한다」 논리가 떼어도 서고 asymmetric 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.776Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Vladimir_Putin_threatens_to_give_allies_weapons_to_attack_West",
+          "year": 2024,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.368
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bddb0d8-600d-472b-9641-b952c10561da",
+    "revision": "2026-09-25T08:08:35.255777+00:00",
+    "body_sha256": "3d866934131d31a7da3f9da09550b690adb4934408ffe83fe075d96f07e6f12f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "정보공개 소송 → 재판 종료 후 공개 → 음모론 단체의 「비행기가 안 보인다」 반응이 이어져 고2 이상 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On December 15, 2004, a legal",
+          "note": "소송 단락은 떼어도 공개 경위가 서지만 음모론 주장은 인물의 말로만 남기고 가공 때 반론과 함께 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.776Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Department_of_Defense_releases_9%2F11_video_of_plane_hitting_Pentagon",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.364
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bddca46-481f-4b04-81f0-db8043527856",
+    "revision": "2026-09-25T07:07:17.299951+00:00",
+    "body_sha256": "25f6cc4f800477b0bd439c6d60f24797e19092b930f87e299083dbefac7e47d1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "레이건을 넘어 최고령 전직 대통령이 된 포드의 부통령 → 대통령 승계 경위와 「선출되지 않은 유일한 대통령」 사실이 고1~고2 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "After Richard Nixon resigned on August",
+          "note": "닉슨 사임 단락은 떼어도 승계 사건이 서고 impeachment 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.776Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Gerald_Ford_oldest_living_US_President_ever",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.31
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0be3ada8-2b62-4f73-ac18-f279d2e9be35",
+    "revision": "2026-09-25T08:06:54.156557+00:00",
+    "body_sha256": "9798616570f6935f02723e4cc0718a091950e7080213d05cf4779fabb192b381",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "「적 전투원」으로 3년간 기소 없이 구금된 시민을 민간 법정으로 옮기라는 대법원 명령과 혐의 변경이 고3 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "order"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Reportedly a former Chicago gang member,",
+          "note": "둘째 단락은 체포 → 무기소 구금이 떼어도 서고 dirty-bomb 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._Supreme_Court_orders_accused_'Enemy_Combatant'_Jose_Padilla_transferred_from_military_to_civilian_custody",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.716,
+          "words": 134,
+          "english": 0.304
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bed222b-ff99-4fe0-b331-546f7b2589b4",
+    "revision": "2026-09-25T07:25:39.822097+00:00",
+    "body_sha256": "ed383770a3567a2bcd5338203054daee21ebbb588647c31cf85fb3b0b105974c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "예배 중 학생들이 쓰러져 학교 전체가 대피하고 원인 조사·귀가가 이어진 짧은 기사로 중등~고1 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Bloomfield Hills Public Safety Director Rick",
+          "note": "둘째 단락은 대피 → 병원 이송이 떼어도 서고 어려운 낱말이 hazardous 하나뿐이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Students_pass_out_forcing_Michigan_school_to_evacuate",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 8.661,
+          "words": 127,
+          "english": 0.312
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bed3ff4-ec2b-468b-be76-c80725f171d3",
+    "revision": "2026-09-25T07:38:38.95707+00:00",
+    "body_sha256": "6596ecc629228f0d900a8a64221885f491bef6060f1d6112462511912d0cd698",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "감사관 해임을 두고 백악관의 「혼란된 행동」 근거와 당사자의 반박·30일 통지법 위반 지적이 맞서 고3 주장-근거·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Declining to comment on the apparent",
+          "note": "백악관 해명 단락은 떼어도 근거가 서지만 반박 쪽 서술에 기자 논평이 섞여 가공 때 중립 문장으로 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._President_Barack_Obama_fires_Inspector_General_Gerald_Walpin_amid_controversy",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.332
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bf12c50-6e16-40cc-9254-3d0d5a07bb5c",
+    "revision": "2026-09-25T07:13:24.704021+00:00",
+    "body_sha256": "8e7d0bab4739522227b562362a409cde5e7f90f236d72bf94cab9a01c2a73520",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "mixed",
+        "why": "터키 유튜브 차단 해제와 마드리드 ETA 가택연금 반대 시위가 「Sources」로만 갈린 무관한 단신 둘이라 한 편의 글로 서지 않는다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "On Friday, Türk Telekom was informed",
+          "note": "단신 각각은 두세 문장이고 「Related news」 같은 탐색 잔재가 섞여 떼어도 칸이 서지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_Shorts%3A_March_10%2C_2007",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.172,
+          "words": 116,
+          "english": 0.345
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bf1fae8-7d99-44f9-8f7a-b7854974fdbd",
+    "revision": "2026-09-25T06:46:55.759772+00:00",
+    "body_sha256": "0517acabb3efdb18983f93507f2e8994195c95486d629b70a010561fac6dc1c9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "투투 대주교의 아프리카 교황 요청과 유력 후보, 1,500년 만이라는 역사 사실, 나이지리아의 엇갈린 반응이 고2 이상 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Should such an event occur, it",
+          "note": "겔라시우스 단락은 떼어도 서지만 첫 줄의 편집 안내와 괄호 정정 주석은 가공 때 걷어 낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Archbishop_Desmond_Tutu_calls_for_African_Pope",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.372
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bf8a64e-03a6-4607-a40b-bb12272bd2c5",
+    "revision": "2026-09-25T06:58:40.979055+00:00",
+    "body_sha256": "abdce1efe8884269cc6c0aa4a2694aaa85c179c0318d66d24eebf8301d1abaaa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "무함마드 풍자화 파문 → 이란 신문의 홀로코스트 부정 만평 공모 → 덴마크 신문의 게재 계획 철회로 이어진 인과가 고3 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Jyllands-Posten, Denmark's most widely-circulated newspaper, has",
+          "note": "둘째 단락은 「토론 의도 → 폭동」 결과가 떼어도 서고 홀로코스트 부정 주장은 비판 대상으로만 인용된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Jyllands-Posten_reconsiders_printing_holocaust_denial_cartoons",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.373
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bf9b123-1d52-4038-a947-b159d70b370f",
+    "revision": "2026-09-25T07:58:51.637296+00:00",
+    "body_sha256": "0693a2aa9a453f14d1f724559030c38ac12f04ecfa0170f8b9f2ab622e91d2b8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "광물 협정의 조건(우선 투자권·부채 의무 제외·수익 50% 적립)과 양측 평가, 러시아의 비난이 단락별로 갈려 고3 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Ukrainian side would be expected",
+          "note": "수익 적립 단락은 떼어도 기금 구조가 서고 preferential 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ukraine%2C_US_reach_minerals_deal",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.355
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bfd613c-0b1d-436d-a951-c5df4d3f10b2",
+    "revision": "2026-09-25T07:38:09.726143+00:00",
+    "body_sha256": "21b348dc55fe4e46e0ce509250976a528e2a2a597058673caa37df511a2df23c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "금융위기로 커진 노동절 시위를 독일·프랑스·그리스·터키·아시아 순으로 전한 긴 기사로 첫 단락의 원인 요약과 나라별 단락이 고3 요약·장문 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Organized labor advocates worldwide held Friday",
+          "note": "첫 단락은 「실업 → 시위 확대, 일부 폭력」 요지가 떼어도 서고 나라별 단락은 두셋만 골라 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Increased_turnout%2C_reports_of_violence_at_worldwide_May_Day_demonstrations",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.306
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bff0ebc-7875-42a5-88ff-a4b0ee2e540d",
+    "revision": "2026-09-25T08:11:30.581703+00:00",
+    "body_sha256": "ad428d52436ffe2f8fe6f31812471368883e5a4de957f0a4470e705f5d74012d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "소련 기념상 철거를 두고 러시아계는 해방의 상징, 에스토니아 민족주의자는 점령의 상징으로 보는 대립이 폭동의 원인으로 서서 고1~고2 빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Clashes began last night after Estonian",
+          "note": "둘째 단락 한 문장이 원인과 두 시각을 다 담아 떼어도 서고 occupation 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Clashes_over_World_War_II_monument_in_Estonia_continue",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 2.899,
+          "words": 69,
+          "english": 0.309
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0bffea6b-2850-48dd-83af-69794696de75",
+    "revision": "2026-09-25T07:47:32.475517+00:00",
+    "body_sha256": "a510052f9d00866772416c064ec894b33853f7c4d302d3548842007db7788a77",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "1960년대 로커빌리 가수가 자전거로 견인차와 충돌해 중태에 빠진 경위와 광대·단역 경력이 이어져 고1 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Reports indicate that Mr. Knutsen struck",
+          "note": "사고 단락은 떼어도 경위가 서지만 목격 묘사의 말줄임표 인용은 가공 때 풀어 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Terry_Teen%2C_1960s_Rockabilly_artist%2C_injured_in_collision",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.345,
+          "words": 177,
+          "english": 0.324
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0c0013dc-afe2-4a6d-b38c-47be7460435c",
+    "revision": "2026-09-25T07:51:30.558508+00:00",
+    "body_sha256": "532c7932344fc9a3e5658611ff0d6c6f4e56f4e0b0f9f702917d1eee46530e6c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "2016년 페이스북 시험지 유출 → 재시험 → 전국 인터넷 차단이라는 원인-대책과 장관의 「불편하지만 방관할 수 없다」 입장이 고1~고2 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Per the blockage, neither the cellular",
+          "note": "둘째 단락은 유출 사건 → 부분 차단 경위가 떼어도 서고 blockade 만 바꾸면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Algeria_blocks_internet_across_nation_to_prevent_cheating_in_diploma_exams",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.358
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0c00deed-14d6-4c57-a62d-715a1c4be940",
+    "revision": "2026-09-25T08:06:13.589651+00:00",
+    "body_sha256": "a99631169c0049d930493fe53542a89a5884c56db020c265d9d50068c825b98e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "하리리 암살 조사 대상이던 내무장관의 자살 발표와 「희생양 처형」 의혹, 유엔 보고서 일정이 이어져 고3 이상 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The UN report on Hariri's assassination",
+          "note": "유엔 보고서 단락은 떼어도 의혹의 배경이 서지만 자살 방법 묘사는 가공 때 걷어 낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.777Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Syrian_Interior_Minister_dead_from_apparent_suicide",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.368
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0c031005-aadd-44d6-8b37-f5aa7842346e",
+    "revision": "2026-09-25T07:11:11.757058+00:00",
+    "body_sha256": "b87ae7c548d8e95349b6e5fb12d4f1576243c33355b58eacc05f39f16f94a2c7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "화구호 수위 상승 → 라하르 발생 → 경보 체계 작동 → 도로 통제·재개로 이어지고 1953년 참사 지점을 지난 사실이 고1~고2 순서·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The lahar travelled down the Whangaehu",
+          "note": "경로 단락은 떼어도 흐름이 서고 lahar 뜻을 한 번 풀어 주면 V5. 경보 등급 수치 단락은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.778Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Lahar_at_New_Zealand's_Mount_Ruapehu",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0c04b4e2-0c81-49ca-a60b-c6d4745ca254",
+    "revision": "2026-09-25T07:49:14.446315+00:00",
+    "body_sha256": "033c25d9a844bb3077bcd40a6bb14fd7dd6e1c61dccc416f8b0dc13cf44c7a7c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "환경 승인권을 주로 넘기는 「원스톱」 정책을 두고 총리의 「같은 기준, 더 빠른 결정」 주장과 녹색당·보전단체의 「30년 보호 장치 폐기」 반론이 고3 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Tony Abbott argued it would not",
+          "note": "애벗 단락과 워터스 단락을 짝으로 떼면 찬반이 서고 memoranda 만 바꾸면 V6."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.778Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Council_of_Australian_Governments_agree_on_reduced_environmental_regulation",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.451
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0c0ace94-f618-4ed4-853c-6f97cb3bb08d",
+    "revision": "2026-09-25T07:53:39.213+00:00",
+    "body_sha256": "d57a5e0986bd8104a4b6ae9e5b06a015c9742d3529ad433881e2b05ab08b2791",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "해변 유료 주차 도입 의견 수렴의 근거(외지 차량 84%·유지비 수입)와 비용·수입 추산이 고1~고2 목적·주장·수치 검증 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice",
+            "purpose"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Council noted the beaches received",
+          "note": "셋째 단락은 「외지인 많음 → 유료화 → 청소·시설 개선」 논리가 떼어도 서고 amenities 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.778Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Randwick_City_Council_opens_public_consultation_about_parking_near_beaches%3A_''To_pay_or_not_to_pay%3F''",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.332
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0c0bd6c1-fc52-4dc4-b57e-3398bb7022c5",
+    "revision": "2026-09-25T08:44:23.779911+00:00",
+    "body_sha256": "3ee82d961bad1abdf6ba1348c75b57b62e967d13c347d428af35952c0646ac7c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "제한 속도 두 배 과속 추정 탈선과 생존자 증언, 축제 취소와 총리 애도가 이어져 고2 이상 내용 일치·심경 칸을 채운다(사망 묘사가 있다).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "mood"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The train was going from Madrid",
+          "note": "둘째 단락은 과속 원인이 떼어도 서지만 「시신을 봤다」 증언은 가공 때 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.778Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/77_die_in_train_crash_in_Santiago_de_Compostela%2C_Spain",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.435
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0c0c7360-fe23-43c2-a58f-55951763dc6c",
+    "revision": "2026-09-25T07:07:47.500765+00:00",
+    "body_sha256": "b4bf3a395db23f712f726de0b8ee230591483076c71a649d4fd18bf38558a2a5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "북핵 실험 예고에 대한 안보리의 구속력 없는 성명 채택 전망과 제재 문구를 둘러싼 미·일 대 중·러 대립이 고3 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Earlier on Thursday, Japan and the",
+          "note": "넷째 단락은 제재 요구 → 거부권국 반대가 떼어도 서고 embargoes 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.778Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Security_Council_set_to_adopt_non-binding_text_on_N._Korea",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-44-770Z",
+    "id": "0c11f23b-aa25-415b-b207-0e1c016714cf",
+    "revision": "2026-09-25T08:03:39.588227+00:00",
+    "body_sha256": "3aed43f357a271fa68a7893a57dca4687794e60f4a753e3e39520a2a3fd3c758",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "파키스탄의 핵 탑재 가능 미사일 시험 발표와 대통령의 자신감, 인도 언론의 「인도 깊숙이 타격 가능」 지적이 대비돼 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Press Trust of India pointed",
+          "note": "인도 통신 단락은 떼어도 경쟁 구도가 서고 indigenously 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:44.778Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pakistan_test_fires_nuclear-capable_missile",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.348,
+          "words": 184,
+          "english": 0.358
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

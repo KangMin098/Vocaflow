@@ -55,7 +55,7 @@ export function CriticalDefectsSection({ defects }: CriticalDefectsSectionProps)
   if (defects.length === 0) {
     return (
       <section
-        className="flex items-center gap-3 rounded-[var(--r-xl)] border border-dashed border-[var(--success)]/40 bg-[var(--success-light)] p-5"
+        className="flex items-center gap-3 rounded-[var(--r-xl)] border border-dashed border-[color-mix(in_srgb,var(--success)_40%,transparent)] bg-[var(--success-light)] p-5"
         aria-label="critical defects empty state"
       >
         <CheckCircle2 size={18} className="text-[var(--success)]" aria-hidden />

@@ -1,0 +1,297 @@
+[
+  {
+    "id": "0679d4e8-23d3-4fc1-bb9f-6f86f8b3cceb",
+    "source_updated_at": "2026-09-25T07:28:06.847025+00:00",
+    "body_sha256": "dbb38684ee4c1d119ccd09bdb88791ccb63058baf3c78e70f29887397c3efbc8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론이 기존 변전소의 고정 하드웨어 한계 → 가상화·SDN 대안으로 논지를 세워 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "title"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "With the growing complexity of modern",
+      "note": "서론 문단은 고유명사를 걷어도 논지가 서지만, 후반 절은 의사코드·그림 참조와 비문이 많아 발췌 범위를 서론·관련연구로 제한해야 한다."
+    }
+  },
+  {
+    "id": "06911ffc-56ec-4ea2-a965-daa3dcb5e578",
+    "source_updated_at": "2026-09-25T07:28:08.586455+00:00",
+    "body_sha256": "76405bc69c5cd6a62fd63a32a4586841b2dd81cb627da169be4ffe81bf19c474",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약이 바이러스가 숙주 대사를 가로챈다는 논지를 수치 없이 한 편으로 세워 요지·제목 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Viruses are obligate parasites that rely",
+      "note": "서론 첫 문단은 약어를 풀고 바이러스 이름 나열만 줄이면 그대로 지문이 된다."
+    }
+  },
+  {
+    "id": "06c0696e-3d3a-4079-8f4a-f86de8b4f568",
+    "source_updated_at": "2026-09-25T07:28:11.859807+00:00",
+    "body_sha256": "1e2eca0e96594ce6c5ce0e0f65b8c6055b71c7e0ea14faa565f7c196ba2b5b78",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 고찰이 세균 신호물질과 숙주 면역의 상호작용을 설명문으로 풀어 주제·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Second messengers are small signaling molecules",
+      "note": "서론 둘째 문단은 떼어도 서지만 효소 약어(DAC·PDE)가 많아 목표 밴드로 내리려면 용어 치환이 여러 개 필요했다."
+    }
+  },
+  {
+    "id": "06e98ab9-3868-4736-bc98-c31d084b07b2",
+    "source_updated_at": "2026-09-25T07:28:17.896672+00:00",
+    "body_sha256": "c98a75126ca7d2b3331a25b9201cb612af1c1753861d7cfb2fbde613b64dc6ba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "서론이 낮은 변형률의 인장 파괴와 높은 구속압의 전단 파괴를 대비시켜 논지가 서고, 결론은 항목별 사실 진술이 많다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In the dynamic uniaxial compression test",
+      "note": "서론 문단은 수식 없이 인과가 이어지지만, 본문 대부분이 수식·그림 지시라 발췌 가능 구간이 서론과 결론으로 좁다."
+    }
+  },
+  {
+    "id": "070e376a-ba7c-4bdc-9b41-4fbdfc229309",
+    "source_updated_at": "2026-09-25T07:28:22.720078+00:00",
+    "body_sha256": "73384cc28629c45170ec0eed0804e3b324ad99f2a6b1223885c82ff8229f4b11",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약이 보존된 부위를 노려도 중화가 안 된 까닭을 묻고 답하는 구조라 요지·빈칸 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The lack of neutralizing activity and",
+      "note": "고찰 둘째 문단은 RSV 비교가 근거로 붙어 있어 실험 수치를 걷어도 논지가 남았다."
+    }
+  },
+  {
+    "id": "0713c388-f883-408f-8d24-a06f255f1e5b",
+    "source_updated_at": "2026-09-25T07:28:24.362791+00:00",
+    "body_sha256": "9cea761727e732603ca5bc99ad03b7391acc45cfcf193b7273fff2a6f7faa4ed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약이 항체 치료의 한계 → 유전자 전달 대안이라는 문제-해결 구조를 갖춰 제목·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Staphylococcus aureus is a major cause",
+      "note": "저자 요약은 일반 독자를 향해 쓰여 약어 두셋만 풀면 바로 고2 밴드까지 내려갔다."
+    }
+  },
+  {
+    "id": "0716fa22-12f7-4962-9e69-831b61be6ed7",
+    "source_updated_at": "2026-09-25T07:28:24.909457+00:00",
+    "body_sha256": "1ce99c961b214e1575406647e1b5535db06ce4980321103aff5f8cace08282aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 서론이 장내 미생물 균형이 깨지면 숙주 대사가 흔들린다는 인과를 한 편으로 세운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Far beyond its role in digestion",
+      "note": "장내 미생물의 기능을 열거한 문단은 떼어도 서고, 어려운 낱말 두세 개만 바꾸면 밴드가 내려갔다."
+    }
+  }
+]

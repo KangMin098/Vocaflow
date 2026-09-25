@@ -27,3 +27,32 @@ it('missing count is not interpreted as zero inventory', async () => {
   expect(response.status).toBe(503)
   expect(response.headers.get('cache-control')).toBe('no-store')
 })
+
+/* ── 조회 축 (2026-09-23) ──────────────────────────────────────────────────
+ * 새 축은 전부 **화이트리스트**다. 모르는 값이 조용히 무시되면 관리자는 「그 조건으로 걸렀다」고
+ * 믿은 채 안 걸린 목록을 본다 — 빈 결과보다 나쁘다(틀린 것을 맞다고 읽는다). */
+it.each([
+  '?grade=nonsense', '?status=nonsense', '?uses=nonsense', '?sort=nonsense',
+  '?pageSize=7', '?band=12', '?reason=nonsense',
+])('unknown query axis %s is a 400, never a silently unfiltered list', async suffix => {
+  expect((await GET(new Request('http://localhost/api/admin/csat/sources' + suffix))).status).toBe(400)
+  expect(chain).not.toHaveBeenCalled()
+})
+
+it('accepts several blockers at once and ANDs them', async () => {
+  const filter = vi.fn().mockReturnThis()
+  const q = { select: vi.fn().mockReturnThis(), filter, order: vi.fn().mockReturnThis(), range: vi.fn().mockResolvedValue({ data: [], count: 0, error: null }) }
+  chain.mockReturnValue(q)
+  const r = await GET(new Request('http://localhost/api/admin/csat/sources?reason=content_unjudged,cefr_above_band'))
+  expect(r.status).toBe(200)
+  // 겹쳐 건 두 조건이 각각 containment 로 들어갔는가 — 하나만 걸리면 나머지가 조용히 사라진다.
+  expect(filter.mock.calls.filter(([column, op]) => column === 'result->blockers' && op === 'cs')).toHaveLength(2)
+})
+
+it('page size changes the range window, not just the reported number', async () => {
+  const range = vi.fn().mockResolvedValue({ data: [], count: 0, error: null })
+  chain.mockReturnValue({ select: vi.fn().mockReturnThis(), order: vi.fn().mockReturnThis(), range })
+  const r = await GET(new Request('http://localhost/api/admin/csat/sources?pageSize=60&page=2'))
+  expect(await r.json()).toMatchObject({ pageSize: 60, page: 2 })
+  expect(range).toHaveBeenCalledWith(120, 179)
+})

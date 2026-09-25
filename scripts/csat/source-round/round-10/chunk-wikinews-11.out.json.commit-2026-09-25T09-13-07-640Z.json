@@ -1,0 +1,1943 @@
+[
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10c2ae11-63ae-43d7-9aff-c5b9487da6d6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4940abaee437dade3a750b3ed3874ac4349bbc695fa971e37612509f134de47c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "부시가 루마니아를 「특별한 동맹」이라 부른 회담을 파병·기지 이전 등 근거와 함께 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Since the 1999 NATO military intervention",
+          "note": "동맹 배경 문단은 코소보·이라크 파병·기지 이전이 「핵심 동맹」의 근거로 서고 contingent 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.642Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bush_calls_Romania_a_special_ally_of_the_US",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.407
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10c2fc53-c721-4b31-918e-d988f58bf76e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bcdfd2a712acb59e2cfd569566161480b3eacb05ff5fd1ccc08d5adb243ca170",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "원주민 토지 분쟁 책임을 주정부와 연방이 서로 미루는 공방과 지역 시장의 분노를 전해 주장·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "mood"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "They are just playing games right",
+          "note": "시장 인용 문단은 주·연방 떠넘기기에 낀 주민의 답답함이 서서 심경 재료가 됐고 hostages 비유만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "mood",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.644Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/McGuinty_passes_on_Caledonia_dispute_to_federal_government",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.296
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10c54585-c7cc-46c2-93cd-2c3991b93398",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3cb57cb1723c80a0fbe4e4b85a3e5a9dcd5a78da4fe28db21101bb296d54ecea",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "마이클 잭슨 사망으로 영화 「브루노」와 드라마 「이스트엔더스」가 막판 수정된 사례를 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In the United Kingdom, the June",
+          "note": "이스트엔더스 문단은 몇 달 전 녹화하는 드라마에 급히 장면을 끼운 사례가 서서 짧게 떼어졌다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.644Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Death_of_Michael_Jackson_causes_last_minute_changes_to_films_and_dramas",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.077,
+          "words": 195,
+          "english": 0.337
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10c63f22-b84b-498e-ad05-dcc6aa8fcbbb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9dcb5cf56dca32c135cde79ac73b2b92fddbd70e4c8cef5bca3be5d2c424f719",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "거의 모든 동물 종의 동성 행동 연구를 사례·진화적 의미로 설명해 요지·빈칸·내용일치 칸을 채운다(고2 이상).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In some cases the animals are",
+          "note": "초파리·돌고래 문단은 비의도(유전자 결여)와 사회적 유대라는 두 까닭이 대비돼 서고 cater 만 바꾸면 됐다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "structured"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.644Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Study_says_nearly_every_species_of_animal_engages_in_homosexual_behavior",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.351
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10c7fb26-4940-4197-bb6a-bb0e37f6cdf2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e8e2195e06d0d1a11474f8991816ab687a6019845db5de9ce69d028ea39f7865",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "어산지 스웨덴 송환 결정을 성범죄 혐의·정치적 동기 주장·변호인 공방으로 전해 성인 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Geoffrey Robertson QC, lawyer for Assange,",
+          "note": "변호인 공방 문단은 미국 인도 위험 주장과 스웨덴 측 보장이 맞서 서지만 성범죄 혐의 소재라 성인 칸으로 뒀다."
+        },
+        "uses": [
+          "factual",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.644Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikileaks_founder_Julian_Assange_to_be_extradited_to_Sweden",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.362
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10cc7eff-3f14-42cb-b145-1c24c93713d6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "25a9c16122bcbc4827ba49af3157f5860e7f1fe41680d675111be43b2a1e9141",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "첫 안면 이식 수술을 혼합된 얼굴·타인 피부의 이점·윤리와 면역 위험으로 설명해 빈칸·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ethical concerns, psychological impact, concerns relating",
+          "note": "장애 요인 문단은 기술은 됐지만 윤리·면역 문제로 미뤄졌다는 대비가 한 문장에 서서 빈칸 재료가 됐다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "vocab"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.644Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/First_face_transplant_performed_on_French_woman",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10d051a4-c448-4fa9-8187-27f7046602e7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ad52c0dd188dbbf2bc44fff816a7ca7349570ff334d7a8c2c90c6c043142e5b3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "9·11 소방관 암 위험 19% 연구를 비교 설계·한계·보상법 미적용으로 전해 수치 주장 검증형 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dr James Melius from the New",
+          "note": "한계 문단은 「암은 40년 걸려 나타나 아직 다 셀 수 없다」는 반론이 서서 주장-한계 재료가 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.644Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Study_concludes_9%2F11_firefighters_are_19%25_more_likely_to_develop_cancer",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.38
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10d60b42-a586-4bcd-a279-7f872f455404",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b96a05b98191aa69f41dd900b31020b3b13c99df87c6dbe8be1dbc89c3a91f02",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "칠레 쓰나미로 숨진 아이의 시신 신원을 DNA 로 확인한 소식을 전해 고1 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Fishermen in Pichilemu found the body",
+          "note": "발견 문단은 어부 발견→신고가 짧게 서지만 아이 시신 소재라 저학년 칸은 달지 않았다."
+        },
+        "uses": [
+          "factual",
+          "sequence"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.644Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Body_of_child_killed_in_tsunami_identified_by_Chilean_police",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.25,
+          "words": 144,
+          "english": 0.359
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10d8be72-cb97-4079-a21c-e5757c2997a5",
+    "revision": "2026-09-25T08:57:51.799651+00:00",
+    "body_sha256": "b87b660e17388c8442c2a369b32153833252d101943370d1b291244a094eaa17",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "파푸아뉴기니 규모 7.6 지진을 피해 보고·현지 증언·불의 고리 배경으로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Papua New Guinea is in the",
+          "note": "불의 고리 문단은 잦은 지진의 까닭과 2018년 비교가 두 문장에 서서 쉬웠다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.644Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Powerful_earthquake_strikes_Papua_New_Guinea",
+          "year": 2022,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.361
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10db5f63-d276-4753-a15c-fba1a17158e6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f32ec9dbf15a9c35e5516183d9e05eff0dc862f807a92eaa5d9989a80fc6f11d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "남아공의 하마스 초청을 민주화 경험 공유 명분과 러시아 등 다른 초청·이스라엘 우려로 전해 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The South African deputy foreign minister",
+          "note": "남아공 입장 문단은 아파르트헤이트 전환 경험 공유라는 까닭과 이스라엘 비판이 서고 spokesman 오타만 고쳤다."
+        },
+        "uses": [
+          "factual",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.644Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/South_Africa_to_meet_with_Hamas_representatives",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.392
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10de0856-6611-40d9-80e9-fea2eeb6b02e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8ba904fad1001b215a8f475e0129f7037984cea7490a2ba89a9132b52cc5ac1d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "백악관의 세금 쓴 선거 지원 의혹 보고서를 행사 수·증언·공화당 반박으로 맞세워 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Republican Representative Tom Davis, a senior",
+          "note": "공화당 반론 문단은 「역대 정부 모두 그랬다」는 반박이 서서 보고서 결론과 짝이 됐고 feigned 만 풀었다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Oversight_Committee%3A_White_House_attempted_to_influence_Congressional_elections",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.355
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10e94bc3-41fd-4a5d-9466-076bf77b8ded",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5ce68a6c7ca10318b28e003844e1342dbbb4c076d2410d6a657e00c57a41a32e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "페루 공군기 추락을 탑승객의 이륙 반대·추락 순간·93세 희생자 일화로 전해 지칭·심경·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "long_reference",
+            "mood"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Survivors said after the crash that",
+          "note": "생존자 문단은 이륙 반대→군용기라 안전하다는 확답→추락의 아이러니가 서서 심경 재료가 됐다."
+        },
+        "uses": [
+          "sequence",
+          "factual",
+          "mood"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/13_people_killed_in_Peru_plane_crash%3B_passengers_expressed_fears_prior_to_flying",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.426
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10ebfc78-432c-4b99-8242-27329a207840",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4220185b320aea710a654c15a190f6bbf46f6d228c6bcd8ff509f7883da24065",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "EU 보고서의 동예루살렘 병합 비판과 이스라엘의 「선전」 반박을 전하는 기사로 성인 대상 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The EU report claims the Israeli",
+          "note": "차별 주장 문단은 보고서 주장만 담아 이스라엘 반박 문단과 짝지어야 한쪽으로 기울지 않았다."
+        },
+        "uses": [
+          "argument",
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Israel_%22illegally_annexing%22_east_Jerusalem%2C_EU_reports",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.345
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10f7522a-8bfe-495e-9ed6-9e3cd0c60519",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c44c7bc8e280781f4659030da6ae8fb31308d4172160d0f7017d5d8a7c414d98",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "유네스코 세계유산 21곳 추가와 위험 목록 변경을 전하고 세계유산의 뜻을 붙여 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Unesco World Heritage sites have special",
+          "note": "세계유산 설명 문단은 의미·역할·이탈리아 최다가 서서 앞 목록 없이도 떼어졌다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/21_sites_added_to_Unesco_World_Heritage_list",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.195,
+          "words": 154,
+          "english": 0.295
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10f91950-da81-4e36-8e56-8ee72cf87f7b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4642010b70402a4653f0041f1430004bed81088211ac6fe75a2f2d01f0e5392c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "아프간 시아 가족법이 여성 권리를 후퇴시켰다는 비판과 옹호 발언을 맞세워 성인 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The circumstances of the bill's passage",
+          "note": "통과 경위 문단은 토론 없는 비밀 통과와 선거용 의혹이 서서 성적 조항 문단 없이도 쓸 수 있었다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UN_agency_condemns_new_Afghan_%22Shia_family_law%22",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.389
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "10fa5594-915f-494b-893c-45794762131b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "39895af01a17f3ecd0620df3018fcf80ed819575886b1286232dc198662b0bbe",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "창정 3B 로켓의 중싱-9 발사를 궤도 절차와 올림픽 중계용 위성 증설 맥락으로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Chinasat-9 is the last of a",
+          "note": "올림픽 위성 문단은 증설 목적과 실패·취소 사례가 서지만 위성 이름을 바꿀 쉬운 말이 없어 밴드는 못 내렸다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Long_March_3B_rocket_launches_Chinasat-9_satellite",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.379
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "1100070d-0826-46ad-aa5f-c7dc909fad2a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "961bd6f417c316c1a58f30d969de062241bb83cf9be9e7a0ea5b462501275976",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "바르셀로나 성탄 버스 테러 모의 경보와 수색을 전해 내용일치 칸을 채우나 본문 안 연도 불일치를 가공 때 바로잡아야 한다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Las Ramblas, the scene of an",
+          "note": "람블라스 문단은 경계 강화가 서지만 p3 의 「2015 attack」은 앞 문단의 2017 과 어긋나 가공 때 연도를 확인해야 했다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_warns_Spain_of_Christmas_bus_ramming_plot_in_Barcelona",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.368
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "1105d3c7-4602-409d-b4a9-cc044274d49c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0db586853d4461e30fa0a8dd63e376a10fb5fb7476451a402069af442faba940",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "수빅 강간 재판의 경비원 증언과 검사 논지를 전하나 인물 소개가 빠지고 성범죄 소재라 성인 내용일치 칸만 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Ursua, on the other hand, is",
+          "note": "검사 주장 문단은 「피해자의 성격은 강간과 무관」 논지가 서지만 Ursua 가 누구인지 본문에 없어 직함을 채워야 했다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Nicole_relives_ordeal",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.399
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "1117a477-c372-4ae0-b849-79df801a155d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a87d623dfb1b96b07460b73af09e684b05ef7c3d47af23246122f862d4a06f98",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "인도과학원 학회 만찬 총격으로 교수가 숨진 사건을 전해 짧은 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The shooting occurred during a dinner",
+          "note": "총격 문단은 학회 만찬→무차별 사격→교수 사망→봉쇄가 한 문단에 서고 apprehended 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "sequence"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Shooting_at_Indian_Institute_of_Science%2C_Bangalore",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.072,
+          "words": 138,
+          "english": 0.393
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "1117a8d1-45da-42a9-867b-8437735e6018",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3a17819add83c0419e0fa06e5116bc3ac4ed7665392a485c462117882bc5c185",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "예멘 북부 피란민 급증을 생활고·캠프 과밀·신규 캠프 건설로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The UNHCR says the civilian population",
+          "note": "민간인 문단은 이동 제한·전기 물 부족→물가 급등→구매 불능의 인과가 서고 commodities 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Thousands_continue_to_flee_fighting_in_Yemen",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.328
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "11182f13-9cd3-41c6-9c22-3ede80a907c0",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "af338696dae5f3bd45423ba5e0031e951a5ab8b5a44b09a5297287d815f80bc5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "카자 저작권 재판의 최후 변론을 복사기 비유와 스파이웨어 반박으로 맞세워 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Lawyer Tony Meagher argued that Sharman",
+          "note": "복사기 비유 문단은 「도구 제작자는 사용 책임이 없다」 논리가 서서 음반업계 반박 문단과 짝이 됐다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Kazaa_Trial_concluding",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.391
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "111e0028-104c-49dc-91f3-d2a29b0a52a7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "752cc09281e5d9e4e3461935deb9b74a138c271eee92e218f1889ac172bffc67",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "인구 45명 마을 Speed 가 「SpeedKills」로 이름을 바꾸는 과속 방지 캠페인의 까닭과 주민 동참을 전해 목적·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "purpose",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Previously, the government had used various",
+          "note": "과거 캠페인 문단은 광고 실패→사망 25% 증가→새 방식의 까닭이 서고 motorists 만 drivers 로 바꾸니 쉬웠다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "spoken",
+          "vocab"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_town_to_change_name_to_promote_road_safety",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.385
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "11202064-d210-4d8e-9992-231e320c070c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8badd95a0e78b7cff4b9c6321a08ed9193abe66956e40f00942c5f50a49f1ee1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "애완 침팬지가 여성을 공격해 사살된 사건을 이전 전력과 이웃 평판으로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This is not Travis' first encounter",
+          "note": "2003년 문단은 이전 사건을 대비로 세워 떼어도 서고 sedated·tranquilizer 만 풀면 됐다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Large_chimpanzee_shot_and_killed_by_police_in_US_after_it_attacks_woman%2C_officers",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.423
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "1121ad98-b0dc-4e47-bf99-73da4e9074bb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2e91ce3b0732708eea15b4dbaddf33259aed1cc17eb98fc913dc5398c04dca6d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "news",
+        "why": "첫 문단이 「아래 성명」을 예고하지만 성명이 빠진 채 끊겨 받은 본문이 불완전하다.",
+        "slots": {
+          "ages": [
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "The MoD has reported that the",
+          "note": "유족 통보 문단은 한 문장뿐이고 첫 문단이 예고한 국방부 성명이 본문에 없어 떼어 쓸 내용이 모자랐다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Two_British_servicemen_killed_in_roadside_bombing",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.944,
+          "words": 72,
+          "english": 0.493
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-07-640Z",
+    "id": "112b7558-2e96-4c6f-8506-567ee75db9a5",
+    "revision": "2026-09-25T08:53:43.142134+00:00",
+    "body_sha256": "67113847cffa3416875fffb88bc1318355b37247706b79bd9f16283edd66a768",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "남캘리포니아 폭우 산사태를 산불이 만든 불투수층이라는 원인과 구조 장면으로 전해 빈칸·순서·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank",
+            "order",
+            "long_reference"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to the United States National",
+          "note": "산사태 원인 문단은 산불→지표 식생 소실·재층 불투수→진흙 급류의 인과가 서서 impermeable 만 풀면 빈칸이 됐다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "sequence",
+          "structured"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:07.645Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/United_States%3A_At_least_fifteen_dead_in_Southern_California_after_rain_causes_mudslides_and_floods",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

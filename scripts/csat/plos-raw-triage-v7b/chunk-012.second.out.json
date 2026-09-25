@@ -1,0 +1,519 @@
+[
+  {
+    "id": "07e73274-bc65-492c-8a03-41cd039b0396",
+    "source_updated_at": "2026-09-25T07:28:44.040708+00:00",
+    "body_sha256": "8f62a0d91f7474161e9654193a4a51515025e831ce9ffd9d2d27d6f88c0d27ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "고찰의 이진 분류 대 다중 분류 단락이 「단순 분류는 단계별 독성을 가린다」는 논지로 서 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Beyond technical performance, the distinction between",
+      "note": "정소 단계·내분비 용어가 촘촘해 두세 낱말 교체로는 V9 아래로 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "07fc7538-52d9-45bd-b184-f02a3937fbca",
+    "source_updated_at": "2026-09-25T07:28:47.970712+00:00",
+    "body_sha256": "dc4065f8cfb3585026721bd1bf52778f4eb838c427615ccb12d0b112a6b07fb5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 「현행 약은 수용체 아형 교차 반응으로 부작용을 낳아 선택적 약물 설계가 과제」 단락이 문제-해결 논지로 서서 주제·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V10",
+        "V11"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "It is noteworthy that current therapeutics",
+      "note": "본문 대부분이 잔기 번호·돌연변이 나열이라 서론 한 단락만 가공 가능하고 그마저 전문어가 많다."
+    }
+  },
+  {
+    "id": "080dbf2e-7d0d-4a6d-b544-ce8ce51089b0",
+    "source_updated_at": "2026-09-25T07:28:49.041289+00:00",
+    "body_sha256": "ca1c8cdda06d66dffa7d0a50a056b8984735427c21dc18746583d7d4bb635f77",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 보조제 정의 단락과 「보호 상관지표 없이 3상에 간 백신」 사례가 자족적 설명으로 서고, 결론의 면역반응≠보호 논지가 주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Recombinant proteins often lack intrinsic immunostimulatory",
+      "note": "어원 설명(adjuvare)이 있어 어휘 칸에 쓰기 좋고 immunostimulatory 등 두세 낱말을 바꾸면 V9 로 내려간다."
+    }
+  },
+  {
+    "id": "08183ddb-43fe-45cf-b5fd-13199afd5c6b",
+    "source_updated_at": "2026-09-25T07:28:49.794992+00:00",
+    "body_sha256": "6fd8bfba941570def6cd97f0cf85b5a021adc20623618d78e8251d564cbc5bae",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 「화학 손상 모델은 만성 진행을 못 담는다 → 유전자 모델은 보완이지 복제가 아니다」 단락이 대조 논지로 서 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Compared with conventional chemically induced models",
+      "note": "RIP3·drusen 같은 고유명을 걷어도 급성 대 만성 모델 대조가 선다."
+    }
+  },
+  {
+    "id": "082f365f-1637-4a25-9701-6fbfee28f512",
+    "source_updated_at": "2026-09-25T07:28:51.025956+00:00",
+    "body_sha256": "537cf83b0675ac4932a08ae094b8e92c89c963f0ac0812842086d8a593f9fb86",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 인공 침 대 사람 침 비교, DNA·RNA 바이러스 안정성 차이 단락이 원인 설명으로 서서 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Our findings demonstrated that enteric viruses",
+      "note": "효소·면역 성분 이름 두셋을 일반어로 바꾸면 「사람 침이 바이러스를 더 빨리 없앤다」가 V8 에서 선다."
+    }
+  },
+  {
+    "id": "08353307-77b3-40d0-b414-bf2983077ca9",
+    "source_updated_at": "2026-09-25T07:28:52.242786+00:00",
+    "body_sha256": "e81ef4b9bf2fe705d099683b860a4501d37ed2da4ef0a3636e402fca8b8e465b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론의 「정확해도 변수 기여가 불분명하면 임상에서 못 쓴다 → SHAP」 단락과 과적합 설명 단락이 논지로 선다(문장 결함이 있어 어법 칸은 제외).",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite the high accuracy levels achieved",
+      "note": "과적합 단락은 RF·k-NN 약어를 걷으면 개념 설명으로 서지만 원문 문장 오류를 손봐야 한다."
+    }
+  },
+  {
+    "id": "08374e41-752d-44ad-bdfe-64602270f845",
+    "source_updated_at": "2026-09-25T07:28:52.619626+00:00",
+    "body_sha256": "cea62fa9ae87523055878aa76992fb8f0b54d45d83545e20f3e1a56c76c85830",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 「단핵구는 염증, 알부민은 영양·회복력 → 둘을 묶은 지표」 단락이 개념 설명으로 서서 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Albumin is regarded as a negative",
+      "note": "약어(MAR·ICH)를 풀어 쓰면 단락이 앞 문맥 없이 서고 acute-phase 등만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "083e2bce-83a1-4175-9444-ec5353623a0d",
+    "source_updated_at": "2026-09-13T06:37:51.518704+00:00",
+    "body_sha256": "719c98cb2fc7ee5af20f884b16b1168f5e6e060c8c81104646eb84cbb4f6c673",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰 끝의 「특이 표지로 만든 도구가 뇌에도 발현돼 의도한 용도에 실패했다」 부정 결과 논지가 서서 주제·요지 칸을 채운다(본문에 그림 설명이 섞여 있다).",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V10",
+        "V11"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Since this mouse line was developed",
+      "note": "신경 부위·유전자 이름을 걷으면 논지가 얇아지고 전문어 밀도가 높아 어휘 조정이 어렵다."
+    }
+  },
+  {
+    "id": "084a02b9-1d70-4b9a-a956-50a72f5d527a",
+    "source_updated_at": "2026-09-25T07:28:54.375095+00:00",
+    "body_sha256": "132c5dce75fc42d089c9b88d7d4d9f3d0b446140148bcae6ddd7d41825fb64f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론의 젖소 유방염 경제 피해·항생제 한계 단락과 미토콘드리아 융합·분열 균형 단락이 문제 제기 논지로 서서 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mitochondria are central organelles for cellular",
+      "note": "융합·분열 대비가 뚜렷해 빈칸을 만들기 쉽고 homeostasis·apoptosis 를 바꾸면 V9 로 내려간다."
+    }
+  },
+  {
+    "id": "084bbc07-12b6-439a-8980-1029086932f8",
+    "source_updated_at": "2026-09-25T07:28:55.204639+00:00",
+    "body_sha256": "92158860acbaa964cca41600783085c17027f264b726cd70cf1324460860b167",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 집단 세포 이동 개관과 「기울기 기반 화학주성은 완만한 경사에서 멈춘다」 한계 단락이 논지로 서서 주제·빈칸 칸을 채운다(방법 절은 수식 자리표시).",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cell migration is a fundamental biological",
+      "note": "서론 첫 단락은 앞 문맥 없이 서고 morphogenesis·metastasis 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0854a8fd-99ee-4b94-871f-23b2bfbfe750",
+    "source_updated_at": "2026-09-25T07:28:56.610788+00:00",
+    "body_sha256": "6d70d7c7f0ee3d063e9f9a86cfa16eb42db4a7e0dcf9df4ad60280b27b9dc141",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 「모유 속 백혈구가 영아 면역을 기른다」 단락과 고찰의 모체 세포 전달 단락이 설명 논지로 서서 주제·요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Human milk is a dynamic fluid",
+      "note": "첫 단락은 쥐 연구 인용을 걷어도 서고 leukocytes·lymphoid 두세 낱말을 풀면 V8 로 내려간다."
+    }
+  },
+  {
+    "id": "0855d498-8688-4cf0-85fa-1e75b8314ce2",
+    "source_updated_at": "2026-09-13T06:19:48.769039+00:00",
+    "body_sha256": "26b41fea2d9ce81aca67f82cf5be4e8cc71e4e74ee7f88a71cc942a1e0960f7b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "표지 그림 설명문으로 흡연 연구 요약 두 문장이 두 번 반복될 뿐이다. 「가벼운 흡연도 위험」 요지는 서지만 칸을 채울 분량인지 기준이 갈린다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Using data from 22 prospective cohort",
+      "note": "요약 한 덩이라 가공은 되지만 두 문장뿐이라 문항 하나를 세울 재료가 모자라다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "086e5fad-af75-44b7-855f-bd783d2b20d5",
+    "source_updated_at": "2026-09-25T07:28:59.607756+00:00",
+    "body_sha256": "81711907f36c08c15c13fb2d91876bde4fb1670476cf3d896f93c4b15d6069d6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "서론의 「우울·치매·조현병이 서로 얽혀 있고 주관적 진단의 한계가 있다」 단락과 모듈형 뇌 고찰 단락이 논지로 서서 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Depression, schizophrenia, and cognitive decline represent",
+      "note": "인용 괄호와 오타를 정리하면 상호 위험 관계가 선다. amyloid 등은 풀어 써야 한다."
+    }
+  }
+]

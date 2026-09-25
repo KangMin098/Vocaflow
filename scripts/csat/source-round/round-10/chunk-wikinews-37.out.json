@@ -1,0 +1,1010 @@
+[
+ {
+  "id": "19e209bd-bfd1-4713-a9af-673ce76816b4",
+  "source_updated_at": "2026-09-25T08:48:20.289193+00:00",
+  "body_sha256": "9bff8d0dfd1997551943d93182dbe5aae2ca88f10f0d25200ad025c84eea7b5e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "시장 후보 문답에서 출마 이유·공약 답변이 각각 주장으로 서서 주장·요지 칸을 채우나 기후 답변 같은 개인 견해는 가공 때 가린다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "I love my home, the city",
+   "note": "출마 이유 답변은 부실한 시정 → 범죄·쓰레기·학교 문제 → 출마로 논지가 한 문단에 서서 blight 만 바꾸면 됐다."
+  }
+ },
+ {
+  "id": "19e9188a-875b-498d-afd0-549d84a64acd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4da9649390f35c0bd3c370afbd767c4d869fb8296d2d998e28f15e0acd6647b9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "모스크 근처 폭발 참사와 주민 분노가 짧게 이어지지만 시신 묘사가 있어 고2 이상 내용 일치 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The blast caused the largest death",
+   "note": "피해 규모 문단은 종교 분쟁 지역의 올해 최대 참사라는 맥락이 서지만 앞 인용의 시신 묘사 때문에 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "19eb5cce-f955-4056-9f88-7a971abc4ae9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b7902e14db38ec0f72febb1ad0d78bc59473c1edca12c18571a9e809376c5090",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "녹색당 후보 문답에서 토지세·비례대표제 답변이 각각 논지로 서서 주장·요지 칸과 주장-근거 속성을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Ontario’s voters deserve better representation at",
+   "note": "비례대표제 답변은 현행 제도가 낙선 표를 버린다는 근거와 해외 성공 사례로 주장이 서서 주장-근거 문항에 알맞았다."
+  }
+ },
+ {
+  "id": "19ee567c-69e1-4504-b5ae-4e1380554914",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "11b6d20b2ddbf5f99d50c766bdd1a7c6b2bf4adda16ef9c99949f9ea6ebdc5b8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "투표일 선거 현수막 비행기 추락 사고의 경위와 원인 추정이 이어져 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The plane had landed at the",
+   "note": "사고 문단은 착륙 → 재이륙 중 사고 → 현수막 비행 목적으로 이어져 인명 없이도 사건이 섰다."
+  }
+ },
+ {
+  "id": "19f0c0e8-5146-45c5-b893-0528b0b0994a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e620ebbcb94743d2a700f926cd4debb4376aea4ca9a6f8b9bd1a8b5565fa8ae1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "대만 무기 판매 통보와 중국 반발, 미중 관계 긴장이 이어져 요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The act of notifying Congress is",
+   "note": "의회 통보 문단은 통보가 곧 판매는 아니라는 절차 설명이 서지만 minesweepers 같은 무기 이름이 남아 밴드가 버틴다."
+  }
+ },
+ {
+  "id": "19f39dd0-f9db-48e9-91ec-50500abc1d3e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7530b9530eeeb67fa3c15bf6df2faf1db70743443c91402e5f9c496894220b41",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "space",
+  "why": "민간 로켓 발사장 선정과 그 까닭, 기업 계획이 이어져 삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Woomera, named for an Aboriginal spear-throwing",
+   "note": "우메라 내력 문단은 이름 유래와 냉전·수용소 이력이 서서 incarcerate 를 hold 로 바꾸면 V5~6 에 앉는다."
+  }
+ },
+ {
+  "id": "19f737f6-66ad-416d-9ea8-77bff5920abb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6378bcd2b662e9a855af748fb58bf7f17630e031747386dde7d9f854235311a6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "개표 전 투표율·유권자 수 몇 줄뿐인 예고 기사라 수치 나열 말고 채울 칸이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Under New Zealand's MMP system, parties",
+   "note": "의석 규칙 문단은 5% 문턱 한 줄뿐이고 나머지는 투표 마감 전 수치라 떼어도 사건이나 논지가 없었다."
+  }
+ },
+ {
+  "id": "19f79c83-d483-437f-9d7e-2ef384fca0e3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1361a5ca16e65b61d99943e345e8e3dc11a7da47db87f4aedbce2ffe4d79ccf0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "위키백과 장난 편집이 언론 오보로 번진 과정이 이어져 순서·내용 일치 칸과 통념 교정 속성을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A Wikipedia editor known only as",
+   "note": "편집자 문단은 가입 → 가짜 인터뷰 삽입이라는 조작 과정이 서서 fictitious 만 풀면 중등에 맞는다."
+  }
+ },
+ {
+  "id": "1a047705-775d-499d-9ef8-ee4c94896dbb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6ca2acee63631b7f295c7319840b9b0c8819a333b41163cf18c58a6bcd9d227a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "극한 기상 피해의 원인과 비용, 취약 지역을 다룬 보고서 요약이라 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The report placed blame regarding recent",
+   "note": "원인 문단은 기후 변화·인구 변화·빈곤 세 원인을 짚는 한 줄 논지라 떼기 쉬웠고 도시 목록 단락은 걷는다."
+  }
+ },
+ {
+  "id": "1a04ec6f-b19c-4603-9271-c45e768c2868",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "97df0998a1c05170b6c92954c9e82facfec2617b6df86c87d2c392c57c520b2c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "현직 대통령 체포와 선거 불복 배경이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Fighting has been continuing in the",
+   "note": "배경 문단은 선거 불복 → 내전이라는 인과가 두 문장으로 서서 떼어 쓰기 쉬웠다."
+  }
+ },
+ {
+  "id": "1a105879-59b7-44af-b79b-7f7cb7f81a21",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4c1a87eb79bbd84c06a6d5af5e44c84b3eec25633613055c54598e5d04cc1666",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아동 이송을 구조라 주장한 단체와 납치로 본 법원 판단이 맞서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The six French aid workers just",
+   "note": "단체 해명 문단은 구조라는 주장과 고아가 아니었다는 반증이 한 문단에 맞서 떼어 내기 좋았다."
+  }
+ },
+ {
+  "id": "1a10b59a-f3f0-4c44-a745-0051ece6fdfd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e45b5c56b43f7b18854a442fbe8a01df57e2868d4752584175bfdba4b18d60d8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "새 지진과 지난주 쓰나미 피해, 조기 경보 비판이 이어져 심경·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Regions hardest hit, like the small",
+   "note": "피해 지역 문단은 일상 회복과 쓰나미 공포로 귀가를 거부하는 주민 심경이 서서 refuge 만 바꾸면 됐다."
+  }
+ },
+ {
+  "id": "1a11fa0f-44f8-44c0-a7c8-dd20668959c4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9d84344acd98edf3edc1ac8d93147108d9c5dd9002a79e4b9a80f4b3da2ac4fd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "history",
+  "why": "그림 속 디즈니 캐릭터가 히틀러 작품이라는 주장과 근거, 위조 전례가 이어져 주장 칸과 주장-근거 속성을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"I am 100 percent sure that",
+   "note": "관장 인용 문단은 위조라면 숨기지 않았을 것이라는 근거로 주장이 서서 간접화법으로 바꾸니 주장-근거 짝이 됐다."
+  }
+ },
+ {
+  "id": "1a1c55fd-e419-4b89-b87b-e4cd1c00bfb4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "51b525aec251bec88568628b9c572b3cbd7aa503d15fed758a80ae30c0b0d997",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "history",
+  "why": "장제스 기념물 명칭 제거를 둘러싼 진영 간 찬반이 이어져 요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Officials from Taipei City Government and",
+   "note": "찬반 문단은 2·28 사건 유족과 범녹 진영의 찬성이 서지만 사건 설명 괄호를 풀어 써야 하고 욕설 인용 단락은 걷는다."
+  }
+ },
+ {
+  "id": "1a1da7ea-9a48-405f-aef8-cd910111396e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2a6242d6e00884f25cc9f63761b5f172dbbb066736a5c3b6d308561d6cb78d4f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "대통령 당선인의 예방과 무투표 당선 배경이 이어져 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The opposition party in the parliament,",
+   "note": "야당 불참 문단은 단독 후보가 된 까닭이 서서 인명을 걷어도 읽혔지만 사건 자체가 예방 행사라 칸은 하나다."
+  }
+ },
+ {
+  "id": "1a221ee8-204b-4f17-b49a-663cbfdca792",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "97ad7b457466deef2a3d21bb96c2ff0f3a4b32ac79c986516f996041c2095e04",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "총리 별세와 업적, 각국 지도자의 애도가 이어져 심경·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Thompson was best known for restoring",
+   "note": "업적 문단은 당 재건·분권·복지 강화가 나란히 서고 부인 인용이 심경을 더해 decentralizing 만 풀면 됐다."
+  }
+ },
+ {
+  "id": "1a26175c-24c3-4cc6-8a82-5863f8e471e7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d367383eb66c31df7993512a504bf0b0a93eea53846906ddb9c9fb92c47c5b6e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "노래 경연 우승과 동유럽 강세 논란, 세르비아의 의미가 이어져 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "16 out of 24 finalists came",
+   "note": "동유럽 강세 문단은 이웃 나라끼리 표를 주고받는다는 논란이 서서 affiliated 만 바꾸면 V5 에 앉는다."
+  }
+ },
+ {
+  "id": "1a2664a2-5f29-49cb-92e4-d3dce26867a7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3a969ac35f9d69a95c921eaa68c4bc35b867235ba50a4a560ea61d52e89b8769",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "출구조사 결과와 당선 요건, 후보 배경과 투표 혼선이 이어져 요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mrs Kirchner's husband is very popular",
+   "note": "남편 인기 문단은 경제 회복 → 구호 → 부패·물가 우려로 흐름이 서서 inflation 을 그대로 둬도 V6 로 읽혔다."
+  }
+ },
+ {
+  "id": "1a2bbf30-f127-4580-9dac-776782d6b56a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "797eed57cd4d70952b3d59313e399400ee604dd1307ddfa719660bb65b9008af",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "산사태 탈선 사고의 원인과 아슬아슬한 현장이 이어져 고1 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The trains front car hit two",
+   "note": "매달린 객차 문단은 나무 두 그루가 추락을 막았다는 장면이 서서 떼어 쓰기 쉬웠다."
+  }
+ },
+ {
+  "id": "1a2f67d2-5fd7-4259-a2b8-bfbd1de1ce01",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e88e8a77cd16c78bf7b998f31671c169c9f0f30c47cc0107e479d45eed439e67",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "나이트클럽 참사의 원인이 소방 규정 위반으로 모아져 요지·내용 일치 칸을 채우되 사망 규모 때문에 고2 이상만 단다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to the regional security minister,",
+   "note": "원인 문단은 폭죽 → 천장 화재 → 소방 규정 위반이라는 인과가 서서 테러가 아니라는 요지로 다듬기 쉬웠다."
+  }
+ },
+ {
+  "id": "1a3448f3-f1d3-4cda-b8cd-af825b3f557e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "67393ff3b943f3b217830e4d13dc2a9bfb424f795af1afa280485c9a022fd4fc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "재선 발표와 상대 후보의 불복, 거리 시위가 짧게 이어져 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One of Ahmadinejad opponents Mir Hossein",
+   "note": "상대 후보 문단은 승리 선언과 불복 예고가 득표율과 대비돼 서지만 사건이 짧아 칸은 하나다."
+  }
+ },
+ {
+  "id": "1a34a8ba-c780-46f7-bc74-0491f97ac029",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7e6f44f9248ce0a700c85824f5afe14c69a011416021cca2bcc942c17423befd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "energy",
+  "why": "원전 입지 분석의 기준과 지역 반발, 주 법 제약이 이어져 주장·요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "summary"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The institute identified sites based on",
+   "note": "입지 기준 문단은 냉각수 때문에 해안이어야 한다는 까닭이 서서 over-committed 만 풀면 됐다."
+  }
+ },
+ {
+  "id": "1a3e8432-6620-4baf-8356-41955b37fe8c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "42ac67893193c2f459ccc8183cf04e2e6323d94ddd17bf8de97f47df2fa02731",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "특정 단체 세금 감면에 대한 정부 경고와 지자체 사례, 단체 반론이 이어져 주장·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The controversy was the latest in",
+   "note": "과거 분쟁 문단은 자선 지위 거부와 부가세 면제 승소가 대비돼 서지만 VAT·public benefit test 같은 제도 용어가 무겁다."
+  }
+ },
+ {
+  "id": "1a43a84b-86d6-44eb-b714-edd07357ec0c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "448e1fbd68cdab6609465b9e30c22d3d5b0075cc8f9994e0487331ee20b42d67",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "은행 강도 인질극이 시작부터 진압·폭발물 점검까지 시간순으로 이어져 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The rapid response by the Polícia",
+   "note": "농성 문단은 경찰 출동 → 은행 안 고립 → 인질극으로 순서가 서서 barricade 만 풀면 중등 순서 문항이 된다."
+  }
+ },
+ {
+  "id": "1a4548db-96db-4039-b9e9-3c62634e4d7f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "aff3dcdaedf37c049a89c257c96b8f6dee491ffe6c3cf69ef111d97ca73fd0d0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "방송 기자의 별세와 동료의 애도, 투병 경과가 짧게 이어져 심경·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Born and raised in Philadelphia, Bradley",
+   "note": "투병 문단은 진단 → 악화 → 폐렴으로 짧게 이어져 succumbed 만 바꾸면 되지만 글 전체가 짧아 칸은 둘에 그친다."
+  }
+ }
+]

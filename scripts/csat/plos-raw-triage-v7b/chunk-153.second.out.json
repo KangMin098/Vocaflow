@@ -1,0 +1,498 @@
+[
+  {
+    "id": "7a312651-76d3-4f12-a144-16f4eb914b6f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:52:39.317795+00:00",
+    "body_sha256": "7aed2fe946b70fe4f5a1d4e242a306f90b7477264923b20084ce044816b0cda7",
+    "retention": "keep",
+    "genre": "health",
+    "why": "IL-15 융합단백질의 독성 한계와 PD-1 표적 전달이라는 논지가 서론에서 한 편으로 서고, 고찰이 용량별 독성 해석을 근거로 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "IL-2 is an approved immunotherapy (aldesleukin)",
+      "note": "서론 두 번째 단락은 앞 문맥 없이 서지만 수용체 약어가 촘촘해 어휘 두셋 교체로는 밴드가 내려가지 않는다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7a340e25-5443-4341-95f2-b82f96fb5c7e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:21:06.105254+00:00",
+    "body_sha256": "4412ae68ead34c685d9a990882057ee1ccc6b83611acbe054d0b6db011c5c0a2",
+    "retention": "keep",
+    "genre": "health",
+    "why": "염증과 영양 두 지표를 합친 점수가 단독 지표보다 예측이 낫다는 주장이 고찰에서 근거와 함께 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The strength of SII lies in its",
+      "note": "고찰 첫 단락에서 지표명만 풀어 쓰면 수치를 걷어도 논지가 그대로 선다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7a4880cb-5867-4ead-b028-a844e2896411",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:29:13.849942+00:00",
+    "body_sha256": "d8691d2dce81eee92486c2aa91408546d9fe5ec2e5aa375e0158d7525d510245",
+    "retention": "keep",
+    "genre": "science",
+    "why": "유전체 연구가 유럽계에 치우쳐 인도 집단의 신호를 놓친다는 문제 제기와 해결이 저자 요약에 평이한 문장으로 정리돼 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Most genetic studies have focused on",
+      "note": "저자 요약(Author summary)은 유전자 이름 몇 개만 바꾸면 그대로 지문이 된다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7a53bfce-4a81-4aef-95a0-b1a94798a9df",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:29:14.216896+00:00",
+    "body_sha256": "b81d98884bf5ccb9c785d1075c8ec9cbcad1bbff79f53c61cae4dbb5617b1a34",
+    "retention": "keep",
+    "genre": "health",
+    "why": "우울과 장루가 카테터 감염 위험을 높인다는 해석이 자기관리·염증 경로라는 까닭과 함께 고찰에서 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the regression analysis, depression was",
+      "note": "우울-감염 단락은 수치를 걷어도 인과 설명이 남아 떼어 내기 쉬웠다."
+    },
+    "uses": [
+      "argument",
+      "sequence",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7a5addb3-1c6f-44f7-a5cd-437ccb7bd107",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:29:14.684403+00:00",
+    "body_sha256": "75a0d9931209b48e65add43c36adb862951c781331ded8227222eac107129d55",
+    "retention": "keep",
+    "genre": "science",
+    "why": "E형 간염 바이러스의 부담과 치료제 부재를 짚는 서론이 한 편으로 서고, 결론이 두 조절 부위의 역할로 논지를 맺는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Hepatitis E virus (HEV) is the",
+      "note": "서론 앞 두 단락만 자족적이고, 본론은 변이 이름과 도메인 약어가 문장마다 들어가 어휘 조정으로 내려가지 않는다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7a61c689-82d3-45ae-92a5-b57e9a0d3ad6",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:50:59.521501+00:00",
+    "body_sha256": "7248af6eb2a5622029c66150956422744b7e0dd2c953d474ca477ccb3b9b8a03",
+    "retention": "keep",
+    "genre": "health",
+    "why": "기존 검사만으로는 브루셀라 진단이 어렵다는 전제에서 새 표지자 탐색으로 넘어가는 흐름이 짧지만 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Blood cultures are considered the gold",
+      "note": "고찰 첫 단락이 짧고 문장이 단순해 전문 용어 두셋만 바꾸면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7a6a1fe1-b97a-4b7b-821b-5ace0721e802",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:37:14.097791+00:00",
+    "body_sha256": "77103007bcd7282b85d9682044a143e28a17971c9653f799b08d5ac4a6562b59",
+    "retention": "keep",
+    "genre": "health",
+    "why": "고혈압의 저등급 염증에 면역세포 간 통로가 관여한다는 주장이 서론과 고찰에서 근거를 달고 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Hypertension, a worldwide public health problem",
+      "note": "서론 첫 단락은 떼어 내도 서지만 뒤로 갈수록 연결단백질 약어가 늘어 어휘 교체로는 부족하다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7a7a0c85-d9da-4a0d-bce3-deb01b4fc962",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:53:10.814619+00:00",
+    "body_sha256": "8ba246b46135b43d3d14db6d322535fcbd4611eba674a0c164566dcbbf3daeec",
+    "retention": "keep",
+    "genre": "health",
+    "why": "질 미생물총과 자궁근종의 연관을 찾지 못했다는 결과와 그 한계 설명이 고찰에서 한 편으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It has been hypothesized that reproductive",
+      "note": "가설-선행연구-한계로 이어지는 고찰 단락이 표 참조 없이 떼어진다. 인종 관련 서술은 고등 이상 칸으로만 둔다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7a7b79de-c368-483f-a37a-04c088bdd3f3",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:01:07.420462+00:00",
+    "body_sha256": "510e1dcf4d2d367ca73e4c00a94e90c0801673d331ce3910407f6e9618332b67",
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "식물 바이러스의 경제적 피해와 감염성 클론이 왜 필요한가를 설명하는 서론 단락이 실험 절차 없이도 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Plant diseases caused by viruses have",
+      "note": "손실액과 확산 원인을 다룬 단락은 바이러스 약어를 지워도 논지가 남는다. 방법 절은 가공 때 통째로 걷는다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7a8d5722-51f7-4a29-8400-bdefc12e4a57",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:29:19.733887+00:00",
+    "body_sha256": "803dbf3332a8c01fa17844f07a81df314e0adfae5bbe19358e7755432bf026da",
+    "retention": "keep",
+    "genre": "environment",
+    "why": "남조류 번성이 티아민 길항물질로 경쟁자를 눌러 우위를 굳힌다는 가설이 서론부터 결론까지 한 줄기로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The potential niche expansion by cyanoHABs",
+      "note": "부영양화 심화와 비용을 다룬 서론 단락이 유전자 이름 없이 떼어지고, 화합물명을 풀어 쓰면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  }
+]

@@ -1,0 +1,948 @@
+[
+  {
+    "id": "0240d4bd-9373-4097-979e-b758fa4a0f69",
+    "source_updated_at": "2026-09-25T06:56:31.425761+00:00",
+    "body_sha256": "9e91023b5c2f0f02989918c34a80a0c50a7d5dc110b5a4822e4dafcb78c3021a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "스리랑카 폭우로 5만 가구가 피해를 입고 쓰나미 이재민이 거듭 타격받은 사정이 짧게 이어져 고1 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two days of heavy rain caused",
+      "note": "둘째 단락의 반군 원조 협정 문장은 비문이라 걷어내면 재해 기사로 선다."
+    }
+  },
+  {
+    "id": "0242d01f-f690-4264-bcdf-5d9cad1747e2",
+    "source_updated_at": "2026-09-25T07:58:43.472269+00:00",
+    "body_sha256": "7955857c32833c3a2a60710f21555f67a4a67ee7d166b0a9197c8e159ec738b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아웅산 수치의 보궐선거 승리 주장과 22년 연금·군정 49년 배경이 이어져 인물 중심 선거 기사로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The leader of National League for",
+      "note": "선거구 이름을 걷어도 투옥에서 첫 선거로의 대비가 선다."
+    }
+  },
+  {
+    "id": "02433644-dc5e-4cbf-8274-92392331ea18",
+    "source_updated_at": "2026-09-25T07:51:44.848655+00:00",
+    "body_sha256": "8d326c535f5de75abb7e95df2e5cc9364670d569756f2fded41ab68835dc31b2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "타일러 메이커 페어에 나온 3D 프린터·드론·학교 동아리 작품을 소개한 짧은 행사 기사로 중등 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Numerous Maker Clubs from an array",
+      "note": "전시물 나열에 가깝지만 종이비행기 발사 모형 같은 구체 장면이 있어 문단이 선다."
+    }
+  },
+  {
+    "id": "024477d3-b495-4a7f-8d0e-a3c28d61596b",
+    "source_updated_at": "2026-09-25T07:13:49.592326+00:00",
+    "body_sha256": "5ff649278f0334dc3a595584a45d81fd9af25273444c678da7ab529cfa15f305",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "클라크 총리가 마이크로소프트 방문 뒤 뉴질랜드 광대역 낙후를 인정하고 CFO가 태도가 중요하다고 반박한 대비가 요지 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mr Liddell responded that despite New",
+      "note": "리델의 ‘태도가 현 상태만큼 중요하다’ 인용 단락이 떼어도 주장으로 선다."
+    }
+  },
+  {
+    "id": "02460404-0cbb-4a89-b658-4ee510103a8b",
+    "source_updated_at": "2026-09-25T07:58:43.515324+00:00",
+    "body_sha256": "d3359524253cce27ffc18c4a6df39f8ad9682b78b6f5f5e54831a12cb488addc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "런던데리 보행자 사망 사고와 운전자 체포·목격자 호소를 전한 짧은 사고 기사로 고1 이상 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A 23-year-old pedestrian walking along Racecourse",
+      "note": "끝 단락의 다른 사고는 무관한 덧붙임이라 걷어낸다."
+    }
+  },
+  {
+    "id": "0249a7ba-f26d-4abd-8d91-44265ff7110f",
+    "source_updated_at": "2026-09-25T07:11:26.373086+00:00",
+    "body_sha256": "1c8e855a5aedbb6f1b676d4a6332467716fceda78716fa989a1b2296db228c6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "신부가 머리를 자르는 유튜브 영상의 진위 논란이 연기 홍보였다는 반전으로 풀리는 흐름이 서사·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "First, the woman, named Jodie, who",
+      "note": "영상 장면 묘사 단락이 순서 배열 문항에 좋고 어휘가 쉽다."
+    }
+  },
+  {
+    "id": "024a2d3b-e15c-49ef-aa5a-73baa0067859",
+    "source_updated_at": "2026-09-25T07:48:45.735907+00:00",
+    "body_sha256": "a82f6de8f3e362973f33d487adb6d119a843d7d4ae343d75eeb0dd30b8d10f8f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이탈리아 새 정부 취임일 총리실 앞 총격과 연정 구성 배경이 짧게 이어져 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The process of selecting a new",
+      "note": "총격과 취임식의 동시성이 사건의 요점이라 떼어도 선다."
+    }
+  },
+  {
+    "id": "024b2906-9812-4d19-90ee-08fd4a535a8c",
+    "source_updated_at": "2026-09-25T07:27:21.770654+00:00",
+    "body_sha256": "13d6ef0e8ef3e1258377fa017a2a4fb6d2a3f7af1c58c9ed47c0a11d1abadd00",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "앙골라 집단 신경 질환의 원인으로 소금 속 브롬화물 오염을 의심하는 조사 과정이 증상-검사-가설-추가 조사로 이어져 요지·순서 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Results from laboratory tests carried out",
+      "note": "실험 결과 단락이 가설의 근거로 자족적이고 bromide 외 어휘는 쉽게 바뀐다."
+    }
+  },
+  {
+    "id": "024d8ff5-e238-4320-9446-7dcc3afe1af4",
+    "source_updated_at": "2026-09-25T07:50:41.081619+00:00",
+    "body_sha256": "175bcaa5b78ea8c3531b9515a5081c7ff9b9415044ad2b69be1d2fe9ed8e0a4a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "신규 당원의 대표 선거 투표권을 인정한 고등법원 판결과 소송 경위가 설명돼 고2 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This comes after an NEC decision",
+      "note": "등록비·6개월 규정의 인과는 서지만 영국 정당 용어를 풀어야 한다."
+    }
+  },
+  {
+    "id": "024e4b6b-b055-43d3-9c94-14957e32d5f5",
+    "source_updated_at": "2026-09-25T08:18:57.936342+00:00",
+    "body_sha256": "63f640d09a612e26a1faf0cd00d804ff6447af3bbc33a3d35d3f74badeacca91",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "스히폴 추락기의 엔진 고장 가능성을 조사위원장이 추론하는 근거(하강 방식·꼬리 먼저 충돌)가 이어져 추론·내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"This may indicate that the plane",
+      "note": "‘전진 추력을 잃었다’는 추론 단락이 근거와 결론을 함께 갖춰 떼기 좋다."
+    }
+  },
+  {
+    "id": "02526c71-1cc5-43db-9b06-b6173cd66d9a",
+    "source_updated_at": "2026-09-25T07:13:30.719076+00:00",
+    "body_sha256": "446d7d9adb674089544a720bd0d53678d664509689b9ea338e4e1197ff87b0ba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "호주 대학들이 제2외국어 학습 급감을 ‘위기’로 규정하고 의무화·가산점을 제안하는 주장과 수치 근거가 서서 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "summary",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Terming the decline in foreign language",
+      "note": "대학 이름 나열 단락은 무관한 문장 후보로 쓰거나 걷어내면 논지가 선다."
+    }
+  },
+  {
+    "id": "025600f6-36c3-480c-be6a-15c40c417593",
+    "source_updated_at": "2026-09-25T08:13:06.745655+00:00",
+    "body_sha256": "c94403b3cc57572ff221468c05803dc67749486893bec6fe549fc58c1b41b793",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "유가 사상 최고치를 터키의 이라크 쿠르드 공격 우려로 설명하는 인과가 있어 짧지만 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The spike is being blamed on",
+      "note": "시각별 가격 나열은 걷고 원인 단락만 쓰면 선다."
+    }
+  },
+  {
+    "id": "025ce981-a3cc-44da-96b9-2848f3bc7ddc",
+    "source_updated_at": "2026-09-25T07:28:39.279248+00:00",
+    "body_sha256": "935ca583bc1b2c5aed30cd7b00df84106acc505b138302cd2cc713168fc27a8d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "위키백과에 바이러스 코드가 삽입되자 관리자의 대량 삭제가 서버를 멈추게 하고 개발자가 제한을 건 경위가 인과 서사로 서서 순서·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, a major problem arose when",
+      "note": "두 곳에 낱말이 빠진 문장(‘via.’·‘on the deletion’)은 가공 때 고치면 되고 ILOVEYOU 배경 단락은 독립적이다."
+    }
+  },
+  {
+    "id": "0260c4c4-fcde-46f3-be61-643be28f3dca",
+    "source_updated_at": "2026-09-25T08:04:31.843899+00:00",
+    "body_sha256": "48730c0e9e2912b76b1b179676c802cc3ca07cfc893f9d9965767cf87278a132",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "CSIRO 무선랜 특허를 두고 거대 IT 기업의 무효 소송과 연구비 재투자를 내세운 방어 논리가 맞서 주장·내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Australian Government's research arm has",
+      "note": "특허 번호·회사 목록은 걷어도 공공 연구 자금 논지가 선다."
+    }
+  },
+  {
+    "id": "02618f5d-d24c-443f-9700-9e985c9ff1a9",
+    "source_updated_at": "2026-09-25T07:58:43.612469+00:00",
+    "body_sha256": "387b1959b94da78e057da3efaa7b698d2d36a2ab5f64c159527f68478319c31a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "혈흔 하나뿐인 증거로 유죄였던 남성이 재심에서 합리적 의심으로 무죄가 된 논증이 판사 결론까지 이어져 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Forensic scientist Margaret Boyce testified that",
+      "note": "법의학자의 네 가지 가능성 단락이 증거 추론으로 자족적이다."
+    }
+  },
+  {
+    "id": "0261f006-5cf3-4ad2-a60d-49ad2961ff81",
+    "source_updated_at": "2026-09-25T08:13:28.133977+00:00",
+    "body_sha256": "5008ae4014c8c634193e90a15b2121835ba6a95d5e0a2dedf80fa0f192d1475b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카스파로프가 선거 불공정 항의 시위 뒤 체포되고 정부 폭력을 비판한 경위가 이어져 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The protest began peacefully, after a",
+      "note": "집회에서 행진으로 넘어간 순서가 분명하고 체포자 명단은 걷는다."
+    }
+  },
+  {
+    "id": "0262778c-6b92-4855-89f4-90bdd11c59ae",
+    "source_updated_at": "2026-09-25T07:13:51.645+00:00",
+    "body_sha256": "036523eac453385f21831c0d35b16f488e070f1c753f93d508dc3d517a1fcb07",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "mixed",
+    "why": "조류독감 사망·태국 시위·남부 반군·중국 벽돌공장 노예 등 서로 무관한 단신 네 꼭지를 한 편에 묶어 원천 단위로는 주제가 갈린다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "A 20-year-old man from Ha Tay",
+      "note": "꼭지 하나를 떼면 두 문장이라 사건이 겨우 서고 ‘Sources’ 잔재가 끼어 원천 단위 가공이 안 된다."
+    }
+  },
+  {
+    "id": "0263f928-494f-4582-ac43-a833f3cbbc8a",
+    "source_updated_at": "2026-09-25T06:52:20.412048+00:00",
+    "body_sha256": "f628c213616bf08d545596d299ad9850d88ac79974cf64016099dae4f2e636f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "미국의 목재 관세와 NAFTA 판정 불이행에 캐나다가 보복 관세를 검토하는 대립 구조가 서서 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Canada had asked the WTO for",
+      "note": "재무장관 인용이 캐나다 입장을 한 문장으로 요약해 준다."
+    }
+  },
+  {
+    "id": "0265aeab-bd56-47be-9ff8-eb0990b2d0c5",
+    "source_updated_at": "2026-09-25T07:41:29.742868+00:00",
+    "body_sha256": "f55bc5773d36f958fc18fd3b0a9f39453ca493e6ec53f506f3866a53b9090d13",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "미 동부 노리스터의 발생 경로와 롱아일랜드 폭설·정전·구조 피해가 설명돼 중등 이상 내용 일치 칸을 채운다; 제목의 사진은 본문에 없어도 뜻이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The storm originated in the Gulf",
+      "note": "폭풍 발생 단락이 멕시코만→북동 진행으로 자족적이다."
+    }
+  },
+  {
+    "id": "026e8fe3-c334-4bb5-8417-8087c663aaaa",
+    "source_updated_at": "2026-09-25T07:51:50.705396+00:00",
+    "body_sha256": "cf771b88fbc4495224cd9eb2b4dd1d14078eec112dae91c32c0b9f1eaa345b3b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "킬라우에아 용암이 심층수를 데워 질산염을 끌어올려 식물성 플랑크톤이 폭증했다는 가설과 처음 가설의 반전이 논지로 서서 수능형 빈칸·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the hypothesis of the",
+      "note": "질산염 상승 메커니즘 단락은 떼어도 인과가 완결되고 nitrate·upwelling 정도만 풀면 된다."
+    }
+  },
+  {
+    "id": "02708c8d-38ce-47c1-898a-8d1fb0e44880",
+    "source_updated_at": "2026-09-25T07:06:21.617859+00:00",
+    "body_sha256": "1a95ed6c8f67dc040a490ab56ce315a7cc86af478a628de70a7f718d96edd6b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아시아계 승객 12명이 기내 행동 탓에 체포됐다가 증거 없이 풀려난 경위가 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The plane, which had 149 passengers",
+      "note": "승객 불안이 과잉 대응으로 이어진 흐름이 선다; 집단 묘사는 전제가 아니라 사실 전달이다."
+    }
+  },
+  {
+    "id": "0273fefc-9039-4353-a3ef-24513d04b00c",
+    "source_updated_at": "2026-09-25T07:45:14.953815+00:00",
+    "body_sha256": "cba9486524bf2419c650ea3e46455eae86b024bf89e272d4e993565d3076da75",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "영국 휘발유 값 최고치와 AA·RAC가 원인(환율·유류세)과 가계 부담을 설명한 인용이 이어져 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Edmund King, current president of the",
+      "note": "가격 수치는 많지만 AA 회장 인용 단락이 원인과 영향을 함께 담아 떼기 좋다."
+    }
+  },
+  {
+    "id": "02764094-a514-4a90-a61f-d6f7eca0186d",
+    "source_updated_at": "2026-09-25T08:11:45.5571+00:00",
+    "body_sha256": "dee821e9ca7620e686dba068eca3d918a623bf28338a2704863ef382c2d6e946",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이라크 주둔군 50% 감축 구상과 증파 효과·정치적 압력이 함께 설명돼 고2 이상 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The hope of the withdrawals by",
+      "note": "‘Interestingly enough’ 같은 논평조가 섞여 가공 때 중립화해야 하지만 마지막 단락이 목적을 요약한다."
+    }
+  },
+  {
+    "id": "02783127-70aa-4718-ac12-5531e255a0f2",
+    "source_updated_at": "2026-09-25T06:58:53.766041+00:00",
+    "body_sha256": "1956e74ad4bdfdce49a500cd6eda39f457bdb850b347b77a310aa3da97e6a57b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "뉴욕 센트럴파크 27인치 기록 폭설과 공항 폐쇄·제설·철도 운행 중단이 이어져 중등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In New York City, Department of",
+      "note": "학교는 쉬지 않았다는 대목이 가볍게 읽혀 중등에 맞는다."
+    }
+  },
+  {
+    "id": "027a00c7-06ac-4ee1-bf0d-8f00d5777a8b",
+    "source_updated_at": "2026-09-25T07:06:12.936093+00:00",
+    "body_sha256": "364af9ff7e2754c1a6b48e915a678a8bb2c402d75ae61a8d60b31bdc29802e31",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "news",
+    "why": "성인물 박람회 홍보용 상의 탈의 오토바이 행렬과 시장의 한 줄 비판뿐인 69어 단신이라 학습자 칸에 실을 흐름도 논지도 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Thousands of spectators lined Queen St.",
+      "note": "성적 홍보 장면 외에 떼어 쓸 문장이 없고 걷으면 남는 것이 없다."
+    }
+  }
+]

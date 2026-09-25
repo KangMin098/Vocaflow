@@ -32,6 +32,8 @@ export interface Evidence {
 /* ───────────────────────── 컷 ───────────────────────── */
 
 export interface SceneBase {
+  /** 이 컷의 「말하는 자리」 서체 — 생략하면 `voiceFont` 기본값(한글 본문 정체 · 영어 Lora italic). */
+  voice?: VoiceStyle
   /** 화면 아래 자막. **모든 컷의 필수 항목** — 소리를 끄고 봐도 내용이 전달돼야 한다. */
   caption: string
   /**
@@ -235,14 +237,24 @@ export interface VideoSpec {
   title: string
   /** 한 줄 부제 — 90자 이내(CLAUDE.md I4 와 같은 바닥). */
   subtitle: string
-  /** 강조색 — `theme/palette.ts` 의 키만 받는다. 원시 hex 금지. */
-  accent: AccentKey
+  /** 강조색 — `theme/palette.ts` 의 키, 또는 CSS 색 값(hex · rgb() · hsl() …)을 그대로. */
+  accent: Accent
   scenes: SceneSpec[]
   evidence: Evidence[]
   formats: FormatId[]
 }
 
-/** 쓸 수 있는 강조색 — 디자인 토큰에 실재하는 것만. */
+/** 이름 붙은 강조색 — 디자인 토큰 값으로 풀린다. */
 export type AccentKey = 'brand' | 'gold' | 'forest' | 'amber' | 'clay' | 'slate'
+
+/** 강조색 — 이름(`AccentKey`)이면 토큰 값, 아니면 CSS 색 값 그대로(DD-66 으로 원시 색 허용). */
+export type Accent = AccentKey | (string & {})
+
+/** 「말하는 자리」 서체 덮어쓰기. 적은 항목만 기본값을 바꾼다. */
+export interface VoiceStyle {
+  fontFamily?: string
+  fontStyle?: 'normal' | 'italic'
+  fontWeight?: number
+}
 
 export type { Audience, FormatId }

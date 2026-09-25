@@ -67,7 +67,7 @@ export function VcbCurationFilterBar({
               className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-semibold transition-colors"
               style={{
                 borderColor: active ? 'var(--admin-strong)' : 'var(--bd)',
-                background: active ? 'rgba(139, 92, 246, 0.10)' : 'var(--bg)',
+                background: active ? 'color-mix(in srgb, var(--admin-strong) 10%, transparent)' : 'var(--bg)',
                 color: active ? 'var(--admin-strong)' : 'var(--t2)',
               }}
             >

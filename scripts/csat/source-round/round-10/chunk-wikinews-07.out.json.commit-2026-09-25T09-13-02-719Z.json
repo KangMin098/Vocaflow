@@ -1,0 +1,1915 @@
+[
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f1611f5-e8d1-46af-86e7-278f9b7c999f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23cc18277fd6835ec855088bf8f5a1ee4e14311e896a590ee1b8b4a7ff460b38",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "클린턴의 가톨릭 대학 유세를 둘러싼 대주교·대학 입장 대립을 전해 주장·내용일치 칸을 채우되 낙태 쟁점이라 고3 이상.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Democratic Senator held a rally",
+          "note": "대주교 비판 문단은 대학의 독립성 해명과 대주교 반발이 한 문단에서 맞서 서고 pro-choice·archdiocese 만 풀면 됐다."
+        },
+        "uses": [
+          "argument",
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.722Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Clinton's_speech_at_St._Mary's_University_stirs_debate_over_abortion",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f17447f-1d2a-40ad-a8cb-e56b140cb9c0",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dc50f8c88438b5fbf6b682b4b986ba1c987b594fc7bcbf28693b17c2df56a263",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "수도준주의 동성혼 합법화를 표결·연방 도전 예고·과거 거부 이력으로 전해 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The ACT previously passed a bill",
+          "note": "과거 경위 문단은 2006 시민결합→총독 거부→재통과→조항 삭제로 순서가 서고 disallowed 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "sequence",
+          "structured"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_Capital_Territory_legalises_same-sex_marriage",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.293
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f216a21-8050-478e-8f64-b712588b49f0",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d6217799dbb2961c7573507523a16fce200e864168e012d5e4479186ab98b115",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "위키 사이트 두 곳의 광고 수익 분배 방식을 비교하고 수익 공유 확산 배경을 붙여 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Revenue sharing has become a popular",
+          "note": "배경 문단은 각주 숫자(4)만 걷으면 애드센스→블로그→포럼 확산 흐름이 서고 revenue 만 풀면 됐다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wiki_sites_share_ad_revenue_with_editors",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.395
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f32c9a9-d705-4302-902a-7a6b79f9dd4b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1becf645405580a8c0650ac507e487786fc1d60ade9c21f71eca7adac69c5ef6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "프랑스 「아이팟 법」의 상하원안 차이와 찬성 의원·애플·업계의 주장을 맞세워 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Unlike the Assembly version, the Senate",
+          "note": "상원안 문단은 하원안과의 차이·비판이 서서 호환성 쟁점이 드러났고 provisions 만 바꾸면 요약 지문이 됐다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "spoken",
+          "structured"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/French_'iPod_bill'_seeks_digital_music_player_interoperability",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.365
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f334a04-6fa3-41ca-ac14-a163caddae8e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "774e8d4ce35c1f6488e9cca50887ac4b288c5f0e9658aaa841df8da1b4770f2d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "오븐 연기로 아이슬란드에 비상착륙한 여객기 소식을 테러 배제·승객 무사로 전해 짧은 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A spokeswoman from the Iceland Civil",
+          "note": "당국 발표 문단은 「화재로 여겼으나 연기뿐」이라는 반전이 짧게 서고 ruled out 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "sequence"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/British_Airways_flight_makes_emergency_landing_in_Iceland%2C_terrorism_ruled_out",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.207,
+          "words": 111,
+          "english": 0.413
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f377a18-8da8-428a-a747-23cde5f63346",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b74e2de518a728a79a8f2811856500591d86d6fdb71c4dabf98e463cd478a1c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아키하바라 무차별 살상을 경위·추모·보행자 천국 재검토로 이어 장문·내용일치 칸을 채우되 흉기 소재라 고2 이상.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "long_reference"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Local residents, business owners, and government",
+          "note": "보행자 천국 존폐 회의 문단은 사건 묘사 없이 사회적 대응이 서서 쓰기 좋았고 낱말도 쉬웠다."
+        },
+        "uses": [
+          "factual",
+          "sequence"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Man_attacks_people%2C_kills_7_in_Akihabara%2C_Tokyo",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.348
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f39dd78-0d3f-4220-bab0-51a18b464448",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6730fca29f28d8e3bc15b6fb1d6d48dcce44f4a4a34bfcfee82eba6f569e3d7c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "여왕의 미국 국빈 방문을 제임스타운 400주년과 백악관 성명으로 전해 내용일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Jamestown, the first British settlement of",
+          "note": "제임스타운 문단은 한 문장뿐이라 방문 목적 문단과 묶어야 했고 settlement 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Queen_Elizabeth_II_to_visit_the_United_States",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.411
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f3aa5f5-47a5-4617-b37e-a8903374e4db",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3544468c6f973f1e6caa3d876ed655f5246f661b36d3b4fa2e25396e0d27515d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "74어 한 문단에 신제품 이름을 나열할 뿐이라 읽는 글로 설 논지나 사건이 없다.",
+        "slots": {
+          "ages": [
+            "mid"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "In a special media event, Apple",
+          "note": "유일한 문단이 신제품 이름 나열 한 문장이라 떼어 쓸 곳이 없고 사건 흐름도 없었다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Apple_unveils_new_media_technology",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.846,
+          "words": 78,
+          "english": 0.39
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f3cbfde-5d11-4af5-aa14-34b788df08df",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d3a8f767a6e48a04ee6d02be5ed07633c2b55468db5a9d96d5a895c497475f09",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "118번 원소 합성과 앞선 조작 논란을 대비해 과학 검증 과정을 보이는 빈칸·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Researchers at the Lawrence Berkeley National",
+          "note": "1999년 철회 문단은 「발표→재현 실패→조작 의혹」이 서서 과학 검증 과정 빈칸 재료가 됐고 retracted 만 풀었다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "vocab"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Controversy-plagued_Element_118%2C_the_heaviest_atom_yet%2C_finally_discovered",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.922,
+          "words": 153,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f3de620-2d27-478c-b379-44f90c0dd1a1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "575221abf9775e4315a3e3dd43e623a1c275a0998f77c5d73989a34a9f73135e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "A380 투어 지연을 도시별 일정 변경 나열로만 전해 수치·일정 나열 외에 채울 흐름이 없다.",
+        "slots": {
+          "ages": [
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "The massive airliner will then bypass",
+          "note": "경로 변경 문단을 떼어 보니 도시·날짜 일정 나열이라 날짜를 걷으면 남는 사건이 없었다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Engine_troubles_delay_Airbus_superjumbo_tour",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.399
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f3f726a-57e7-40d0-996e-365367a5568e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "37790a53d2179ce6028971f17de230320905771c7e71aff3a2b4b8fd3aebb0c8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "바이든의 해리스 러닝메이트 지명을 여성 부통령 후보의 선례와 함께 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "If elected, Harris would be the",
+          "note": "최초 여성 부통령 문단은 페일린·페라로 선례와 대비해 서고 nominee 만 풀면 됐다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Biden_announces_Kamala_Harris_as_2020_running_mate_in_US_presidential_race",
+          "year": 2020,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.392
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f419cc5-e118-4771-81fe-aa0f4e21fb41",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d6f82e048a59a0686fd9f5056d859b00d090ca914a3da871e2b3353aa74ca2e8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "agriculture",
+        "why": "네브래스카 소 떼 폐사를 큰 몸집·적응 기간 부족이라는 원인으로 설명해 빈칸·삽입·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "blank",
+            "insert",
+            "topic"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Temperatures in eastern portions of the",
+          "note": "적응 문단은 서늘한 봄 → 적응 기회 없음 → 폐사의 인과가 서고 acclimatise 를 get used to 로 바꾸니 V5 가 됐다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "vocab",
+          "structured"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Heat_wave_proves_deadly_for_Nebraska_cattle",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.335
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f4f9a96-4b74-41fc-bc0d-d51cc8459f5b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5f35bb806dd5a3c8362b7c7032333ea6671843cbd6eadb800e0d00e241cd56f4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "항모 추가 배치에 맞선 아마디네자드의 대결 발언과 원심분리기 설치를 전해 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Iran has stated that its nuclear",
+          "note": "평화 목적 주장 문단은 이란 입장과 유엔 제재를 한 문장씩 대비해 짧게 섰다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iran_says_it's_ready_for_standoff_over_nuclear_activities",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.436
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f5a5a62-fd7d-4d19-ab87-40c74d3a0126",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d4a2c8b0994c273b995313a77ab2b03e06bc0425110a852c502f4442196b3577",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "메탈 가수 디오의 부고를 출생·밴드 경력·솔로 활동으로 엮어 전기형 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He performed with several hard rock",
+          "note": "경력 문단은 블랙 사바스 합류와 이전 밴드들이 순서로 서고 frontman 정도만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "sequence"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Metal_singer_Ronnie_James_Dio_dies_aged_67",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.347
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f5b9ad8-58b4-4f3f-85b4-c161fa279791",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b84c8714cc8252aae39702856fa06fd84e679815d468ad7f8be77024418c6752",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "자선단체의 무기·술·담배 투자 의혹과 수익 의무 반론을 맞세워 주장·빈칸·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He said: \"The Charity Commission guidance",
+          "note": "전 의장 인용 문단은 「윤리 투자보다 수익 의무가 법」이라는 역설이 서서 빈칸 재료가 됐고 fiduciary 는 걷었다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "spoken",
+          "vocab"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.724Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Comic_Relief_funds_allegedly_invested_in_arms%2C_alcohol_and_tobacco_firms",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.333
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f5e74fe-84a3-403b-911a-c91f2cc4e82d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a020226f6c730d8d0bad6681e13a9c74e58b8380b22d4dddf7e76ebb7c0cef52",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "화성 생명 발견 소문을 NASA 가 부인한 경위와 실제 토양 분석 결과를 대비해 통념 교정형 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The MECA or Microscopy, Electrochemistry and",
+          "note": "MECA 문단은 약어 풀이를 걷으면 「세균은 못 봤지만 생명 필수 광물·산성 토양」이 서고 acidic 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.725Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/NASA_denies_rumors_of_finding_life_on_Mars",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.402
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f625952-562c-439a-9e3d-1823cca0e021",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "027af64fe1d2a4926e9eb9a5f76caf534dcc5c358aebd3fd90fca0c38003f0c4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "웨일스의 안정판 구상과 민주성 우려에 대한 답을 전하고 오류 실험을 붙여 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "With regard to whether this would",
+          "note": "민주성 우려 답변은 「사회 모델을 바꾸되 마법을 깨지 않게」가 서고 인용이라 구어 재료도 됐다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.725Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikipedia's_Wales_is_considering_a_%22stable%22_version",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.448
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f652480-456a-4aa5-af1b-00e0dbf80676",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3badf553b7a86459e15d9266b9870f6cba4ed1b77f2764cf3326436f354a13ba",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "템스강 고래 폐사를 물 밖에서 못 버티는 골격 설명과 구조 딜레마로 전해 빈칸·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Despite whales' ability to breathe out",
+          "note": "골격 문단은 「숨은 쉬지만 몸무게를 못 버틴다」 설명이 앞 문맥 없이 서서 빈칸으로 바로 쓸 수 있었다."
+        },
+        "uses": [
+          "factual",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.725Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/London_whale_dies",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.878,
+          "words": 123,
+          "english": 0.361
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f735772-6043-45fd-b4b3-f619d91bbab4",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e714995354b5ceb64f50e7a8ba4b88d1c5574e402d953402f02ba91e97c87ef6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "펑크 교수 골드먼 인터뷰로 펑크 정의 답변과 나이지리아 체포 회고가 장문·심경·주장 칸을 채우나 비속어가 많아 성인만.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "long_reference",
+            "mood",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "I went outside and there was",
+          "note": "나이지리아 체포 장면 답변은 긴박→거짓말→구출이 서지만 인터뷰 곳곳 비속어·성적 표현을 가공 때 걷어야 했다."
+        },
+        "uses": [
+          "spoken",
+          "sequence",
+          "mood",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.725Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Vivien_Goldman%3A_An_interview_with_the_Punk_Professor",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.414
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f738b99-7aa5-4e93-aad6-3e3e0c93c8bb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2ce76c94fb462da5c436ec98041c361cfc4cf1614bf41d5bc9c703324c8f4f65",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "3년 늦은 787 첫 인도분 출고를 복합소재 연비·지연 원인·증산 과제로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The plane promises increased fuel efficiency",
+          "note": "연비 문단은 복합소재→경량→연비의 인과가 서지만 주문 수치 문장은 걷고 composites 만 풀었다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.725Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Boeing_rolls_out_first_787_Dreamliner_to_go_into_service",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f779caf-43e5-427c-b0d6-ca9dd026b692",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8dbd2622b152259a7c80f357a4dfd44306c692810319d338fe113b7c9032b979",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "마오 후계자 화궈펑의 부고를 입당·승계·사인방 체포·실각의 순서로 전해 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "After he succeeded Zhou Enlai as",
+          "note": "승계 문단은 총리→후계 지명→문혁 종결·사인방 체포가 순서로 서고 successor 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "sequence"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.725Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Former_communist_leader_Hua_Guofeng_dies_age_87",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.972,
+          "words": 181,
+          "english": 0.328
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f794330-0ed1-4664-804d-a9285497240a",
+    "revision": "2026-09-25T08:54:26.510442+00:00",
+    "body_sha256": "11ecb3d1bdcd14aff2a6ce967babdfceb94fc6fd43e7bdeb8ecd1ca9ba2aad66",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아동 집단 강간 피의자 체포와 사형 입법 흐름을 전하나 범행 묘사가 구체적이라 성인 내용일치 칸만 단다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Last year, Madhya Pradesh assembly passed",
+          "note": "사형 입법 문단은 범행 묘사 없이 아동 강간 사형법 경위가 서서 이 부분만 쓸 만했다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.725Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/India%3A_Madhya_Pradesh_police_arrests_second_accused_of_gang-raping_minor_girl_in_Mandsaur_district",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.324
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f798b23-b56d-4830-83c5-8efee8e15337",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "faa70f870f9073c076d7048f5c3d66ce2b7909a0345294267b1074bf8ad96308",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "퀸즐랜드 보수 양당 통합 추진을 배경·과거 반대·연방 반발로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The idea was originally floated by",
+          "note": "과거 제안 문단은 제안→자유당 반대 까닭(연방당과 멀어질까)이 서고 floated·disassociate 만 바꿨다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.725Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Queensland_Liberal_and_National_parties_move_towards_becoming_a_single_party",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f7d4fba-800c-40dc-bc87-9e301f545a2d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80a2e54527107150e520b0af6a441910ea855c987ae3e6c860e7fee817de5996",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "파월 사임과 라이스 지명·해들리 승계를 짧게 전해 내용일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The San Gabriel Valley Tribune said",
+          "note": "갈등 문단은 한 문장뿐이라 사임 문단과 묶어야 했고 hawkish 를 풀어 쓰니 이해됐다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.725Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Colin_Powell_Resigns_as_U.S._Secretary_of_State%2C_Rice_Likely_Successor",
+          "year": 2004,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-02-719Z",
+    "id": "0f80639c-d8dd-417b-b20f-1eeed9488419",
+    "revision": "2026-09-25T08:48:40.007337+00:00",
+    "body_sha256": "5bc7290f779ce2300ad3654a942200f2941f220297a69c31ab51238e4104664f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "24년 만의 살인 기소를 범인만 알 수 있던 빗 흉기 발언이라는 증거 사슬로 전해 지칭·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "long_reference"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mr Penny was charged by homicide",
+          "note": "재수사 문단은 「범인만 알 수 있는 흉기 세부를 말했다」는 추론이 서서 추리형 흐름이 됐고 disclosed 만 풀었다."
+        },
+        "uses": [
+          "factual",
+          "sequence",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:02.725Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_charged_with_murder_of_two_after_24_years",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.387
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

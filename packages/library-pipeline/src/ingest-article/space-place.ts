@@ -35,6 +35,7 @@
 // source_id: "space_place:<slug>"
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { fetchWithTimeout } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -242,11 +243,10 @@ export async function ingestSpacePlaceArticle(itemUrl: string): Promise<RawArtic
 
   const paras = spacePlaceParagraphs(html)
   const content = paras.join('\n\n')
-  if (content.length < 200) {
-    throw new Error(`Space Place 본문이 너무 짧다: ${content.length}자 ${itemUrl}`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.length < 200
 
-  return {
+  const article: RawArticle = {
     source: 'space_place',
     source_id: `space_place:${slug}`,
     source_url: itemUrl,
@@ -260,4 +260,13 @@ export async function ingestSpacePlaceArticle(itemUrl: string): Promise<RawArtic
     estimated_cefr: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`Space Place 본문이 너무 짧다: ${content.length}자 ${itemUrl}`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

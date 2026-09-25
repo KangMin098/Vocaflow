@@ -64,7 +64,7 @@ export function BandStrip({ bands }: { bands: BandStock[] }) {
           const fill = max > 0 ? Math.round(100 * Math.sqrt(b.n / max)) : 0
           const border =
             st === 'blocked'
-              ? 'border-dashed border-[#9C3A30]'
+              ? 'border-dashed border-[var(--memory-risk)]'
               : st === 'audio'
                 ? 'border-dashed border-[var(--p)]'
                 : st === 'ungated'
@@ -85,7 +85,7 @@ export function BandStrip({ bands }: { bands: BandStock[] }) {
                   className="w-full rounded-[var(--r-sm)] transition-[height] duration-[var(--dur-normal)] ease-[var(--ease)]"
                   style={{
                     height: `${b.n === 0 ? 0 : Math.max(fill, 6)}%`,
-                    background: st === 'audio' ? 'var(--p)' : '#2E7D5A',
+                    background: st === 'audio' ? 'var(--p)' : 'var(--memory-stable)',
                   }}
                   aria-hidden
                 />
@@ -93,7 +93,7 @@ export function BandStrip({ bands }: { bands: BandStock[] }) {
 
               <span
                 className="mt-1 break-keep font-mono text-[11.5px] tabular-nums"
-                style={{ color: st === 'blocked' ? '#9C3A30' : 'var(--t1)' }}
+                style={{ color: st === 'blocked' ? 'var(--memory-risk)' : 'var(--t1)' }}
               >
                 {b.n.toLocaleString()}편
                 <span className="ml-1 font-body text-[10px] font-[400] text-[var(--t3)]">

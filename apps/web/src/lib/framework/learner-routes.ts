@@ -148,9 +148,40 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     kind: 'screen',
     dynamic: true,
   },
-  // 기출 — 2026-09-17 학습자 재설계로 라우트가 셋이다(docs/csat-learner-brief.md A1).
-  // 유형·문항·지형·사정권·계획 화면은 `/admin/kice/*` 로 옮겼고 훈련·오버레이는 걷었다.
-  { path: '/csat', screen: 'csat', label: '기출 — 오늘의 해부', group: 'main', kind: 'screen' },
+  // 기출 — 2026-09-23 「라우트 셋」 제한을 걷었다(docs/csat-learner/analysis-theater.md §9).
+  // 그 제한이 학습자가 열 수 있는 문항을 802개 중 12개로 묶고 있었다. 문항마다 주소를 준다.
+  // 지형·사정권·계획 화면은 그대로 `/admin/kice/*` 에 있고 훈련·오버레이는 걷힌 채다.
+  // 2026-09-24 — 기출분석공간 재설계(docs/csat/ia-design.md): 홈 · 서가 · 내 기록이 같은 메뉴를 쓴다.
+  { path: '/csat', screen: 'csat', label: '기출분석공간', group: 'main', kind: 'screen' },
+  {
+    path: '/csat/browse',
+    screen: 'csat-browse',
+    label: '기출 전체 서가',
+    says: '목적 · 유형 · 회차로 좁혀 번호 칩에서 바로 문항 해설로 간다.',
+    group: 'main',
+    kind: 'screen',
+  },
+  {
+    path: '/csat/record',
+    screen: 'csat-record',
+    label: '기출 내 기록',
+    says: '본 유형 · 연 문항 · 만난 오답 계열 · 학습한 날 · 다음 복습.',
+    group: 'main',
+    kind: 'screen',
+    section: '학습 관리',
+  },
+  // 옛 주소 — 작업 공간이 기출 홈이 됐다(2026-09-24).
+  { path: '/csat/space', screen: 'csat-space', label: '기출 작업 공간(옛 주소)', group: 'main', kind: 'redirect' },
+  {
+    path: '/csat/item/[slug]',
+    screen: 'csat-item',
+    label: '기출 문항 해설',
+    says: '왼쪽에 읽는 차례, 오른쪽에 지문 지도와 분석이 같은 박자로 열린다.',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+    section: '연습과 세션',
+  },
   {
     path: '/csat/dissect',
     screen: 'csat-dissect',

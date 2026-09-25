@@ -20,6 +20,9 @@
 //   말한 뒤 조판이 빈 권을 낸다 — 이 저장소가 이미 겪은 사고다.
 
 import { SERIES_BRAND, SERIES_SPINE, type SeriesItemType, type SeriesRung } from './series'
+// 타입만 가져온다 — `series-lifecycle` 은 이 파일의 `MARKET_SERIES_TOTAL` 을 값으로 쓴다.
+// `import type` 은 컴파일에서 지워지므로 런타임 순환이 생기지 않는다(값으로 바꾸면 생긴다).
+import type { SeriesIntent, SeriesOrigin } from './series-lifecycle'
 
 /** 한 권에 드는 문항 수. 조판 기록 실측(20단원 × 3문항). */
 const ITEMS_PER_VOLUME = 60
@@ -46,13 +49,22 @@ export interface SeriesDef {
    */
   accent: string
   /**
-   * 지금 팔고 있는가.
-   *   · `shipping` — 조판돼 나간 권이 있다
-   *   · `draft`    — 단은 정의됐고 재고도 찼는데 **아직 안 찍었다**
+   * 시장에서 이 시리즈가 앉는 **칸**. 시장 분모(`MARKET_SERIES_BY_KIND`)와 짝이 맞는 키다.
+   * id 와 같아 보이지만 다른 축이다 — 독해 시리즈를 둘 낼 날 id 는 갈리고 kind 는 같다.
    */
-  status: 'shipping' | 'draft'
-  /** `draft` 면 다음 한 걸음. `shipping` 이면 null. */
-  nextStep: string | null
+  kind: string
+  /**
+   * 사람이 정한 **뜻** — 낼 생각인가 · 계속 내는가 · 접었는가.
+   *
+   * ⚠️ 여기에 「팔린다」를 적지 않는다. 그것은 조판 기록이 답하는 물음이고, 상수로 두면
+   *   찍은 뒤에도 안 바뀐다 — 실측 2026-09-23 에 학습자 서가와 광고 번들이 그렇게 틀렸다.
+   *   생애 자리는 `judgeLifecycle()` 이 실측에서 고른다(`series-lifecycle.ts`).
+   */
+  intent: SeriesIntent
+  /** 왜 이 시리즈가 생겼는가 — 계기 · 그때의 근거 · 날짜. 근거 없이는 못 적는다. */
+  origin: SeriesOrigin
+  /** `intent: 'retired'` 면 접은 이유. 아니면 null. */
+  retiredWhy: string | null
 }
 
 /* ───────────────────── 어휘·구문 시리즈의 계단 ───────────────────── */
@@ -150,36 +162,57 @@ const SYNTAX_RUNGS: readonly SeriesRung[] = [2, 3, 4, 5, 6, 7].map((step) =>
 export const SERIES_CATALOG: readonly SeriesDef[] = [
   {
     id: 'reading',
+    kind: 'reading',
     brand: SERIES_BRAND,
     question: '글 전체의 논지를 잡는가',
     marketSeries: 16,
     marketExamples: ['리딩튜터 주니어', '빠른독해 바른독해', '달곰한 Literacy'],
     rungs: SERIES_SPINE,
     accent: '#2E7D5A',
-    status: 'shipping',
-    nextStep: null,
+    intent: 'active',
+    origin: {
+      trigger: 'competition',
+      evidence:
+        '코퍼스 실측 — 시장 시리즈 22종 중 독해가 16종으로 가장 큰 칸이다 (scripts/textbook-corpus/market-series.mjs · 출판사 6곳)',
+      since: '2026-09-06',
+    },
+    retiredWhy: null,
   },
   {
     id: 'vocab',
+    kind: 'vocab',
     brand: VOCAB_BRAND,
     question: '문맥에서 낱말을 고르고 쓰는가',
     marketSeries: 3,
     marketExamples: ['능률VOCA', 'TED 어휘'],
     rungs: VOCAB_RUNGS,
     accent: '#8B5CF6',
-    status: 'draft',
-    nextStep: '조판은 돌아간다 — 60문항 10단원이 조합되고 게이트가 3인 검수 하나로만 막는다 (실측 2026-09-13)',
+    intent: 'active',
+    origin: {
+      trigger: 'supply',
+      evidence:
+        '어휘 재고 28.8만 문항이 담길 책이 없었다 — 단별 실측 V2 1,158 · V3 1,163 · V4 6,935 · V5 67,369 · V6 45,333 · V7 165,651',
+      since: '2026-09-06',
+    },
+    retiredWhy: null,
   },
   {
     id: 'syntax',
+    kind: 'syntax',
     brand: SYNTAX_BRAND,
     question: '문장 구조와 어법을 다루는가',
     marketSeries: 2,
     marketExamples: ['천일문', '빠른독해 바른독해 - 구문독해'],
     rungs: SYNTAX_RUNGS,
     accent: '#B5803A',
-    status: 'draft',
-    nextStep: '조판은 돌아간다 — 60문항 10단원이 조합되고 게이트가 3인 검수 하나로만 막는다 (실측 2026-09-13)',
+    intent: 'active',
+    origin: {
+      trigger: 'supply',
+      evidence:
+        '구문 재고 15.4만 문항이 담길 책이 없었다 — 단별 실측 V2 1,120 · V3 1,152 · V4 4,332 · V5 33,044 · V6 25,887 · V7 88,178',
+      since: '2026-09-06',
+    },
+    retiredWhy: null,
   },
 ] as const
 
@@ -199,17 +232,19 @@ export const SCHOOL_SERIES_BLOCKED =
 /** 시장 시리즈 총수 — 코퍼스 실측(기출 제외). 화면이 분모로 쓴다. */
 export const MARKET_SERIES_TOTAL = 22
 
-/** 지금 조판돼 나가는 시리즈 수 / 정의된 시리즈 수. */
-export function seriesShipping(catalog: readonly SeriesDef[] = SERIES_CATALOG): {
-  shipping: number
+/**
+ * 정의된 시리즈 수 / 시장 시리즈 수.
+ *
+ * ⚠️ **「지금 몇 개가 팔리나」는 여기서 못 센다.** 그것은 `textbook_volume_renders` 만
+ *   아는 사실이고, 상수에서 세던 옛 `seriesShipping()` 이 정확히 그 이유로 틀렸다
+ *   (`series-lifecycle.ts` 머리말). 출고 수가 필요하면 조판 기록을 읽어 `judgeLifecycle()`
+ *   에 넘긴다 — 이 함수는 **분모만** 소유한다.
+ */
+export function seriesDefined(catalog: readonly SeriesDef[] = SERIES_CATALOG): {
   defined: number
   market: number
 } {
-  return {
-    shipping: catalog.filter((s) => s.status === 'shipping').length,
-    defined: catalog.length,
-    market: MARKET_SERIES_TOTAL,
-  }
+  return { defined: catalog.length, market: MARKET_SERIES_TOTAL }
 }
 
 /** 한 시리즈가 한 권에 필요한 문항 수를 채웠는지 판정할 때 쓰는 분모. */

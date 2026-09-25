@@ -38,7 +38,7 @@ const ACTOR_ICON: Record<StageActor, typeof User> = {
 function Cell({ state, label }: { state: StageState; label: string }) {
   const look =
     state === 'done'
-      ? { bg: '#2E7D5A', fg: 'var(--bg)', mark: <Check size={11} strokeWidth={2.5} aria-hidden /> }
+      ? { bg: 'var(--memory-stable)', fg: 'var(--bg)', mark: <Check size={11} strokeWidth={2.5} aria-hidden /> }
       : state === 'unmeasured'
         ? { bg: 'var(--bg3)', fg: 'var(--t3)', mark: <Minus size={11} strokeWidth={2.5} aria-hidden /> }
         : { bg: 'var(--bg2)', fg: 'var(--t3)', mark: null }
@@ -75,7 +75,7 @@ export function TextbookProductionPanel({ report }: { report: ProductionReport }
             <span className="text-[var(--t3)]">· {report.turnStage.label}</span>
           </p>
         ) : (
-          <p className="font-body text-[12px] text-[#2E7D5A]">전 권이 모든 단계를 넘었다</p>
+          <p className="font-body text-[12px] text-[var(--memory-stable)]">전 권이 모든 단계를 넘었다</p>
         )}
       </header>
 
@@ -99,7 +99,7 @@ export function TextbookProductionPanel({ report }: { report: ProductionReport }
                 {report.doneByStage[i] ?? 0}/{report.volumes.length}
               </span>
               {unmeasured > 0 ? (
-                <span className="font-mono text-[11px] tabular-nums text-[#B5803A]">
+                <span className="font-mono text-[11px] tabular-nums text-[var(--memory-shaky)]">
                   못 잼 {unmeasured}
                 </span>
               ) : null}
@@ -160,7 +160,7 @@ export function TextbookProductionPanel({ report }: { report: ProductionReport }
                       </span>
                     </>
                   ) : (
-                    <span className="text-[#2E7D5A]">다 됨</span>
+                    <span className="text-[var(--memory-stable)]">다 됨</span>
                   )}
                 </td>
               </tr>

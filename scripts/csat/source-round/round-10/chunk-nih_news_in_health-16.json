@@ -1,0 +1,827 @@
+[
+ {
+  "id": "7e6ee32a-c858-48cb-9fc2-1a3849eb7081",
+  "title": "App Helps Screen for Autism Spectrum Disorder",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3eb98158975599e82289a58a896d71003c110eae1c010e9cd7b2c31bd6580e75",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 224,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2021-07-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2021/07/app-helps-screen-autism-spectrum-disorder",
+     "year": 2021,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Researchers designed an app to help identify toddlers with autism spectrum disorder (ASD). ASD can cause problems with communication and social behaviors. Symptoms usually appear before a child turns two. But ASD can be tricky to diagnose.\n\nThe new app tracks eye movements while toddlers watch specially designed videos on a tablet or smartphone. Past studies found that toddlers with ASD tend to prefer looking at objects instead of people. The videos have people on one side of the screen—like a man blowing bubbles or two women talking—and objects on the other. The app measures the time spent looking at each.\n\nThe research team tested the app with about 1,000 toddlers at pediatrician visits. The children were 16 to 38 months old.\n\nOf the toddlers in the study, 40 were diagnosed with ASD. The app predicted who would be diagnosed with 90% accuracy.\n\nLarger studies are needed to further test the app. If effective, it could help diagnose ASD early. This allows children to get treatment earlier.\n\n“We hope that this technology will eventually provide greater access to autism screening, which is an essential first step to intervention,” says Dr. Geraldine Dawson of Duke University. She co-led the study with Dr. Guillermo Sapiro. “Our long-term goal is to have a well-validated, easy-to-use app that providers and caregivers can download and use, either in a regular clinic or home setting.”"
+ },
+ {
+  "id": "7ed1c935-db75-4eb1-b0f2-3dc16710d818",
+  "title": "Fighting Bacteria With Viruses",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "815126a8d234ed31cf3eec0399528f3f99d93111c42a251f543e59bbe1872dc7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 239,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2022-08-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2022/08/fighting-bacteria-viruses",
+     "year": 2022,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Bacteria that can’t be killed with antibiotics are a growing problem around the world. These cause serious infections in hospitals and other health care settings.\n\nScientists have been looking for new ways to kill drug-resistant bacteria. One idea has been to use bacteriophages, also called phages. Phages are viruses that infect bacteria but are harmless to people.\n\nIn a new study, researchers treated a man with a life-threating lung infection with phages. The team found two phages that could kill the bacteria he was infected with. The man then received treatment with these phages for over a year. His infection eventually disappeared, and he was able to have a lung transplant.\n\nDoctors from around the world sent 200 bacterial strains from patients with drug-resistant infections to the researchers for phage testing. The scientists first tested which phages could kill the bacteria. Then, they treated 19 other patients with the phages.\n\nIn total, eleven of the patients’ infections improved or went away. Four patients saw no benefit. The results from the other five weren’t clear.\n\nThese results show the promise of using phages to kill bacteria. But more work is needed to make the treatment effective in more people.\n\n“We’ve not yet figured out how to find or engineer phages that will get every strain of bacteria in these patients,” says Dr. Graham Hatfull from the University of Pittsburgh, who helped lead the studies. “That represents one of the major challenges ahead.”"
+ },
+ {
+  "id": "7ee9726c-1511-4def-9604-05732b364ebe",
+  "title": "Helping a Child Who Is Overweight",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a8491ee86d4c70c59c2421f1f0ebcb7174cb2a7302af61b8d75e7292fba3c305",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 225,
+   "v_level": 3,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2023-11-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2023/11/helping-child-who-overweight",
+     "year": 2023,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Children naturally gain weight as they grow and develop. Some kids may gain extra pounds, but lose them as they develop and grow taller. For others, gaining too much weight may lead to obesity. Children with obesity are more likely to have obesity as adults. Over time, excess weight may lead to health problems like heart disease, joint pain, or type 2 diabetes.\n\nGenes and family history can affect a child’s weight. Other factors include getting too little physical activity or having too many high-calorie foods and drinks. Not getting enough sleep and too much screen time may also contribute to excess weight.\n\nAdopting healthy lifestyle habits can help your child reach and stay at a healthy weight. Help them learn healthy habits by being a good role model. Encourage your family to do the same. Replace processed foods with fruits, vegetables, and whole grains. Instead of sugary drinks, serve water or low-fat milk. Encourage fun activities like running, biking, dog-walking, or dancing. Keep bedrooms and mealtimes screen-free. Listen to your child’s concerns and reward your child’s healthy choices with praise and love.\n\nIf you’re concerned about your child’s weight, talk with a health care professional. Some kids who are overweight don’t need to lose weight. They may just need to gain weight more slowly as they grow taller. Learn more about children and weight gain."
+ },
+ {
+  "id": "7fe47e30-8cfc-47b4-ab54-f483d6a07777",
+  "title": "Recognizing Jaundice",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d51e95daa7606a3e5e037c45d7407836ac2abbc1213c88da88f2159856890661",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 680,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2022-10-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2022/10/recognizing-jaundice",
+     "year": 2022,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Some babies have a yellowish tint to their skin or the whites of their eyes right after birth. This is called jaundice. It can happen to adults, too. For adults, it can be a sign of a serious health condition.\n\nYour liver helps rid your body of natural waste products and other harmful substances. If something interferes with this process, toxic compounds can build up in your body.\n\nJaundice happens when you have too much of a compound called bilirubin. Bilirubin forms when your body breaks down old or damaged red blood cells. The most common symptom is a yellow tint to your skin, the whites of your eyes, or the inside of your mouth. You may also have dark urine or pale stools.\n\nBabies become jaundiced when their livers can’t break down all the bilirubin that is produced the first few days after birth. Jaundice in babies usually goes away on its own in a week or two. If it goes on longer than this, they should be evaluated by a doctor.\n\nIn adults, many health conditions can lead to jaundice. One of the more common causes is when bile ducts get blocked. Bile ducts drain bilirubin from the liver into the intestines. They can get blocked by hard, pebble-like pieces of material that form in the gallbladder, called gallstones. Gallstones are usually made of bilirubin or cholesterol (a waxy, fat-like substance). Cancers of the bile duct or pancreas can also cause a blockage.\n\nJaundice can also be a sign of liver disease. Some liver diseases are caused by drinking too much alcohol or taking drugs. Others are caused by too much fat buildup in the liver.\n\nMisusing certain medications, like acetaminophen, can damage the liver and lead to jaundice. So can hepatitis, or Heat, swelling, and redness caused by the body’s protective response to injury or infection. inflammation of the liver. Viruses are the most common cause of hepatitis. But the condition can be caused by other things, like toxins and certain diseases.\n\nIf a liver disease lasts for only a short time, the liver may be able to heal. But if the disease becomes chronic, meaning it lasts for a long time, it can lead to scarring of the liver. This scarring is called cirrhosis. Cirrhosis can impair the liver’s ability to function and may eventually lead to liver failure.\n\nNot everyone who has jaundice has a serious health condition. Some people are born with a condition called Gilbert syndrome. This condition slows the liver’s ability to break down bilirubin. It can lead to short periods of high bilirubin levels and, sometimes, jaundice. But it doesn’t lead to further complications and doesn’t need special treatment.\n\nIf you have any symptoms of jaundice, see a health care provider right away. “Your provider will need to do liver tests to figure out what type of jaundice it is,” says Dr. David Goldberg, a liver specialist at the University of Miami Health System.\n\nTreatment depends on the cause. Gallstones are most commonly treated with surgery to remove the gallbladder. Liver damage that’s caused by medications will often heal once you stop taking the medication. Antiviral drugs can treat hepatitis virus infections. People with a chronic liver disease should limit alcohol use to prevent further liver damage.\n\nGoldberg is one of several NIH-funded researchers studying whether cholesterol-lowering drugs called statins can slow or prevent the progression of liver disease.\n\nYou can take steps to protect yourself from things that damage the liver. See the Wise Choices box for tips on keeping your liver healthy.\n\nEat a healthy diet and maintain a healthy weight. Take steps to prevent hepatitis infections. Get vaccinated against hepatitis A and B. Always wash your hands after using the toilet, changing diapers, and before and after handling or preparing food. Learn more about viral hepatitis. Limit alcohol use. Drinking too much alcohol harms the liver. Quit smoking. You can get free help quitting at 1-800-QUIT-NOW or smokefree.gov. Take medications only as directed. Tell your provider about all the medicines you take, including over-the-counter drugs and supplements."
+ },
+ {
+  "id": "801e8d08-d38e-4625-a280-58985023a26a",
+  "title": "Struggling to Hear?",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "eb4ec29c64811bfd42816be6257dd04984c967eae26e999fa2084b68e74cf7bd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 582,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2018-05-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2018/05/struggling-hear",
+     "year": 2018,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Many people slowly lose their hearing as they get older. Not being able to hear well can make it hard to communicate. That can affect your relationships, emotional well-being, and work performance.\n\nFor those who need them, hearing aids can help. These electronic devices are worn in or behind the ears. They make sounds louder. Close to 29 million adults could benefit from hearing aids, yet only 1 in 4 of them has ever used one.\n\nAn exam of your ears, nose, and throat might detect a physical reason why you’re not hearing as well. You may want to start by talking with your primary care provider or an ear, nose, and throat doctor, also known as an ENT or otolaryngologist.\n\nA doctor can look for ear wax, an infection, injury, or other reason for hearing loss. A hearing test can show the type and amount of hearing loss. For a hearing test, your doctor may refer you to an A hearing care professional who can identify hearing loss, measure it, and suggest treatment options. audiologist.\n\nIf ear wax or an ear infection is the cause, the hearing loss may be temporary. Other causes, such as nerve damage, may lead to more permanent hearing loss. Nerve damage can be caused by loud noises, as a side effect of certain medicines, or for other reasons. Hearing aids may help in these cases.\n\nSome people don’t want to try hearing aids because of how they think it might look to others. “Hearing loss is far more obvious than a hearing aid,” says Dr. Kelly King, an NIH hearing health expert. “The hard work people do to compensate for their hearing loss, and the mistakes they sometimes make when communicating, make the loss more noticeable to those around them than a hearing aid.”\n\nAnd now, advances in technology are making hearing aids less visible. “One of the biggest changes that has taken place in the last 15 years is a major reduction in the size of these devices,” King says. Some can be hidden inside the ear canal. Others are worn over the ear.\n\nChoosing the best device for you will depend on factors like cost, features, and your amount of hearing loss. Today’s hearing aids offer different features. For example, some can connect to your mobile phone, TV, and other devices using Bluetooth technology. That means you can talk on your phone and stream music directly to the speakers within the hearing aids without wires.\n\nIt’s important to understand that hearing aids can’t restore your hearing the way that reading glasses correct vision. Instead, a hearing aid can help you make the most of your remaining hearing by making sounds louder. If it’s been a while since you’ve heard the soft sounds of speech, your brain may need time to re-learn and translate those sounds for you.\n\nDo you think you may need a hearing test? Take the quiz in the Wise Choices box to help you decide.\n\nIf you answer yes to several of these questions, you may want to get a hearing test:\n\nIs it hard to hear or understand others? Do you get frustrated trying to hear things? Do people get frustrated because they need to repeat what they say to you? Do you turn up the TV or radio louder than those around you would like? Do you have trouble hearing what people are saying in restaurants or at the movies? Is your social life, school, or job limited by your problem with hearing?"
+ },
+ {
+  "id": "80925728-a970-45b6-b062-14fc05815bd5",
+  "title": "Online Weight Management Gets Personal",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "69a76eead5d9700b46b1b24a526829f1fc4e88cc49aea7ffc6b266ffbcc30e3a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 548,
+   "v_level": 3,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2016-01-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2016/01/online-weight-management-gets-personal",
+     "year": 2016,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "It’s always a good time to resolve to eat better, be more active, and lose weight. For the more than 2 out of 3 Americans who are either overweight or obese, there’s now a free, research-based tool to help you reach your goals: the NIH Body Weight Planner.\n\n“A lot of people want to change their lifestyle to lose weight and improve their overall health but really don’t know what it takes,” says Dr. Kevin Hall, a senior NIH researcher who created the Planner. “The Body Weight Planner is the first tool of its kind. It uses specific information about the diet and physical activity changes that are needed to help people reach and stay at their goal weight over time.”\n\nKeeping your body at a healthy weight may help you lower your risk of heart disease, type 2 diabetes, and certain types of cancer that can result from being overweight or obese.\n\nTo use the NIH Body Weight Planner, just enter your weight, sex, age, height, and physical activities during work and leisure. Then enter a target date for reaching your goal weight. You can also add details like percent body fat and metabolic rate. The Planner will then calculate your personal calorie and physical activity targets to achieve your goal and maintain it over time.\n\n“In the past, people have relied on simple rules of thumb, such as cutting 500 calories per day to lose 1 pound of body weight per week,” Hall says. “It turns out that this rule overestimates how much weight people actually lose.” The NIH Body Weight Planner uses technology based on years of scientific research to accurately calculate how your body adjusts to changes in your eating habits and physical activity.\n\nNIH recently partnered with the U.S. Department of Agriculture (USDA) to add the NIH Planner to the USDA SuperTracker food and activity tool.\n\nThe NIH Body Weight Planner “has changed my life,” says one user. “At 280 pounds, I decided to make a change. I used the Body Weight Planner and set a goal to reach 220 pounds in 180 days. I tracked my calories, dropped weight, and hit the 220 goal. My doctor was really happy.”\n\nHall says the Body Weight Planner is compatible with most Web and mobile browsers. NIH is also working to develop mobile apps for tracking your body weight and physical activity, and for assessing how well you stick to your plan over time. This will help you change your plan or goals as needed.\n\nTry the NIH Body Weight Planner to take charge of your weight and your health. Be sure to talk with your health care provider about setting realistic and healthy weight goals.\n\nEat Healthy\n\nEat smaller portions. Select a mix of colorful vegetables each day. Choose whole grains. Go easy on fats and oils. Limit added sugars.\n\nBe Active\n\nStick with activities you enjoy. Go for a brisk walk, ride a bike, or do some gardening. Do strengthening activities. Lift canned food or books if you don’t have weights. If you’re short on time, get active for just 10 minutes, several times a day. Every little bit counts!\n\nBuild Healthy Habits\n\nMake a healthy shopping list and stick to it. Keep a food and physical activity diary to track your progress. Be realistic and aim for slow, modest weight loss."
+ },
+ {
+  "id": "80e87c27-3f20-40f7-88d5-59f081826230",
+  "title": "Chocolate Health Claims",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c299124ebf49b529b4cefd3b9ea9efc0785b159e730619069a6dc3f25fd12b3e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 570,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2021-02-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2021/02/chocolate-health-claims",
+     "year": 2021,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Love chocolate? Most of us do. It’s a delicious treat. Or a quick pick-me-up after a long day. You may have heard that dark chocolate has health benefits. But is that true or just wishful thinking?\n\nSmall studies suggest that cocoa, an ingredient in chocolate, may have health benefits. It’s possible that certain nutrients in cocoa could improve heart health and boost brain function, especially in older adults.\n\nResearchers think this may be due to compounds called flavanols. Cocoa beans contain high levels of flavanols. The beans are dried and roasted to make the cocoa powder used in chocolate. Dark chocolate contains more cocoa and flavanols than other types of chocolate. Flavanols are also found in tea, red wine, apples, and berries.\n\nThe evidence linking cocoa beans and heart health has interesting origins. Much of it is based on studies of the Kuna people, who live on islands off the coast of Panama. They consume a lot of cocoa.\n\n“They pull cocoa beans off the tree, they grind them up, and they basically make a hot chocolate,” explains Dr. Laura Baker, an expert in aging at Wake Forest University. “And they treat that like their water, drinking many, many cups per day.”\n\nScientists discovered that the Kuna people had much lower rates of heart disease, even compared to people in the same region. This sparked interest in the health properties of cocoa beans.\n\nToday, researchers are studying whether concentrated doses of cocoa flavanols can improve health. Thousands of participants are involved in studies of how cocoa supplements affect everything from eye disease to heart health, cancer risk, and Related to the ability to think, learn, and remember. cognitive abilities.\n\nCocoa flavanols are believed to improve heart function and blood flow, so scientist think they may also benefit the tiny blood vessels in the brain. Baker is studying whether cocoa supplements can prevent cognitive decline in older adults. She’s examining their impacts on short-term memory, focus, and overall brain function.\n\nMore than 2,000 older adults have participated in the three-year study. But it’s too soon to tell whether cocoa supplements are beneficial for brain health. The study is still ongoing.\n\n“If it works, there are no side effects for cocoa flavanols,” Baker notes. “So imagine, if this works for both heart health and cognition—or just one—this would be a very simple supplement that people could add to their diet.”\n\nBut you won’t get nearly the same amount of cocoa flavanols in that chocolate bar—even if it is dark chocolate.\n\n“The cocoa supplements are way more potent than the darkest of the dark chocolate bars,” Baker says. Eating chocolate just isn’t the same, she explains.\n\nAnd there’s more bitter news. Because of the added sugar and cocoa butter, chocolate contains a lot of calories and saturated fat. So it’s best to enjoy those Valentine’s Day chocolates in small amounts, as part of a balanced diet.\n\nFor tips on enjoying chocolate, see the Wise Choices box.\n\nIf you eat chocolate as a sweet treat, try to keep it as healthy as you can:\n\nWatch your total calories. Chocolate has a lot of calories, and gaining weight will more than wipe out any benefits you might get from the compounds in chocolate. Eat as dark a chocolate as you can. Avoid white and milk chocolates. These contain little or no cocoa. Make hot chocolate with unsweetened cocoa, water or non-fat milk, and little added sugar."
+ },
+ {
+  "id": "812f6c71-987c-4efd-84e4-6ad4cecd58f2",
+  "title": "Home Test Kits Boost Screening for Cervical Cancer",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "37631d63bdf4f463c7d8ee8febfac0601a9cda32c74896d4a73ab45467ac1ce5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 264,
+   "v_level": 5,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2025-08-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2025/08/home-test-kits-boost-screening-cervical-cancer",
+     "year": 2025,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Cervical cancer can be easy to miss. It usually has no symptoms. But you can have a screening test for the virus that causes nearly all cases of cervical cancer. The tests detect human papilloma virus, or HPV. Early diagnosis and treatment can prevent cervical cancer and related deaths.\n\nUnfortunately, many women have never been screened or are behind in their screening. NIH-supported scientists tested to see if screening rates could be improved by at-home collection of samples. The study enrolled nearly 2,500 participants who were overdue for a screening.\n\nOne group received a phone call inviting them to get screened for cervical cancer at a clinic. Another group received a similar call, but were also sent kits to collect their own samples at home. The women could then mail them in for testing. The third group received a call, a kit, and a follow-up call to encourage them to return the kit.\n\nMore than 40% of those who received the at-home kits completed screening for cervical cancer. They were more than twice as likely to get screened as those who got only a phone reminder. The screening rate was even higher for those who received the mail-in kit and a follow-up call. The findings hint that ready access to at-home kits could reduce obstacles to screening for this often preventable cancer.\n\n“These results show that self-collection testing could be a solution to increasing access to screening,” says study lead Dr. Jane Montealegre of the University of Texas MD Anderson Cancer Center. “This, in turn, could reduce the burden of cervical cancer in the U.S.”"
+ },
+ {
+  "id": "8131c3e0-3101-4e3b-ba80-5a7280b217cc",
+  "title": "NIH Teen Video Contest",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "06d3381f8427ed9916a74b9e11e114c2227280e25b340ffc053a441d6a02684b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 212,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2023-03-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2023/03/nih-teen-video-contest",
+     "year": 2023,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The future of science depends on the young people of today. If you’re a teen who loves science, you can enter the Eye on the Future Teen Video Contest. NIH’s National Eye Institute created the contest so they could hear from the next generation of scientists.\n\nVideos can be created in three different categories. “Science in Your World” shows what science means to you and its role in your life. “Science in the Field or Lab” shares something you’ve learned about science and its importance. “Science in Your Future” highlights the role that science will play in our future lives.\n\nTeens currently in high school and living in the U.S. can enter. Videos can be as short as 30 seconds or up to three minutes long. You can work on your own or team up with one or two friends.\n\nThree first-place winners will be selected—one in each category. Videos will be judged based in part on scientific accuracy, creativity, and relevance.\n\nCreators of the winning videos will receive $2,000 in cash and a free trip to the NIH campus in Bethesda, Maryland. The NIH visit will be a day of science, networking, and fun!\n\nThe deadline for video submission is April 16, 2023. Learn more about contest rules and get tips for video creation."
+ },
+ {
+  "id": "81469b97-8403-4e68-9a8e-4d7c51be0ccc",
+  "title": "Creating Healthy Habits",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ad4b98c0c72f9d296ee26f07ee00906975d3055c3723ea4632e6f4867979b350",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1086,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2018-03-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2018/03/creating-healthy-habits",
+     "year": 2018,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "We know that making healthy choices can help us feel better and live longer. Maybe you’ve already tried to eat better, get more exercise or sleep, quit smoking, or reduce stress. It’s not easy. But research shows how you can boost your ability to create and sustain a healthy lifestyle.\n\n“It’s frustrating to experience setbacks when you’re trying to make healthy changes and reach a goal,” says NIH behavior change expert Dr. Susan Czajkowski. “The good news is that decades of research show that change is possible, and there are proven strategies you can use to set yourself up for success.”\n\nLots of things you do impact your health and quality of life, now and in the future. You can reduce your risk for the most common, costly, and preventable health problems—such as heart disease, stroke, cancer, type 2 diabetes, and obesity—by making healthy choices.\n\nRegular things you do—from brushing your teeth to having a few drinks every night—can become habits. Repetitive behaviors that make you feel good can affect your brain in ways that create habits that may be hard to change. Habits often become automatic—they happen without much thought.\n\n“The first step to changing your behavior is to create an awareness around what you do regularly,” explains Dr. Lisa Marsch, an expert in behavior change at Dartmouth College. “Look for patterns in your behavior and what triggers the unhealthy habits you want to change.”\n\nMaybe you eat too much while watching TV or join a friend on smoke breaks even when you don’t want a cigarette. “You can develop ways to disrupt those patterns and create new ones,” Marsch says. For instance, eat meals with the TV off or join friends for healthy activities, like walk breaks.\n\nMake a plan that includes small, reasonable goals and specific actions you’ll take to move toward them.\n\n“If you walk by the vending machine at work and buy junk food every afternoon, try walking a different way to eliminate that decision and bring healthy snacks from home,” Czajkowski says. “Whenever possible, make the healthy choice the easy choice.”\n\nConsider what you think you’ll need to be successful. How can you change things around you to support your goals? You might need to stock up on healthy foods, remove temptations, or find a special spot to relax.\n\nGet friends and loved ones involved. Research shows that people’s health behaviors tend to mirror those of their family and friends. Invite them to join you, support you, and help you stay on track.\n\nIt’s also important to plan for obstacles. Think about what might derail your best efforts to live healthier. How can you still make healthy choices during unexpected situations, in stressful times, or when tempted by old habits?\n\nDoing positive things for yourself can feel exciting and rewarding. But there will also be times when you wonder if you can stick with it.\n\n“Identify negative thoughts and turn them into realistic, productive ones,” Marsch advises.\n\nKeeping a record can help. You can use a paper journal, computer program, or mobile app to note things like your diet, exercise, stress levels, or sleep patterns. A study of people who lost at least 30 pounds and kept the weight off for at least a year found that they often tracked their progress closely.\n\n“Even when you think you’re about to ‘fall off the wagon,’ hold on,” Czajkowski says. “Continue to track your behavior. Sometimes when you feel like you’re failing, you can learn the most.”\n\nMarsch and others are working on digital technologies, like mobile apps, that could support you in a moment of weakness. Her team is also using technology to learn more about how to measure and increase the ability to monitor and control our behavior.\n\n“The more you practice self-control, the better you become at it,” says Dr. Leonard Epstein, who studies behavior change and decision-making at the University at Buffalo. “You develop the capacity to act and react another way.”\n\nEpstein has found that some people have a harder time than others resisting their impulses. He calls this “delay discounting,” where you discount, or undervalue, the larger benefits of waiting in favor of smaller immediate rewards. This can lead to things like overeating, substance abuse, drinking or shopping too much, or risky sexual behavior.\n\n“You can learn to postpone immediate gratification through episodic future thinking, or vividly imagining future positive experiences or rewards,” he explains. “It’s a great way to strengthen your ability to make decisions that are better for you in the long run.”\n\nEpstein is now studying how to use this technique to help people who are at risk for type 2 diabetes prevent the disease.\n\nFocusing on how a change might heal your body and enhance your life can help. When you stop smoking, your risk of a heart attack drops within 24 hours. Reducing stress can lead to better relationships. Even small improvements in your nutrition and physical activity can reduce your health risks and lengthen your life.\n\nSometimes when you’re trying to adopt healthier habits, other health issues can get in the way.\n\n“When you’re really struggling with these behaviors, ask yourself if more is going on,” Czajkowski says. “For example, mental health conditions like depression and anxiety can be tied to unhealthy behaviors.”\n\nA health professional can work with you to address any underlying issues to make change feel easier and to help you be more successful.\n\nYou’re never too out of shape, too overweight, or too old to make healthy changes. Try different strategies until you find what works best for you.\n\n“Things may not go as planned, and that’s okay,” Czajkowski says. “Change is a process. What’s most important is to keep moving forward.”\n\nPlan. Identify unhealthy patterns and triggers. Set realistic goals. Write down steps to help you achieve them. Change your surroundings. Find ways to make healthier choices easy choices. Remove temptations. Work for changes in your community, like safe places to walk. Ask for support. Find friends, family, co-workers, neighbors, or groups for support or ask people to join you. Fill your time with healthy activities. Try exercise, a favorite hobby, or spending time with family and friends. Track your progress. Record how things are going to help you stay focused and catch slip-ups. Imagine the future. Think about future benefits to stay on track. Reward yourself. Give yourself a healthy reward when you’ve achieved a small goal or milestone, like a massage or personal time. Be patient. Improvement takes time, and setbacks happen. Focus on progress, not perfection."
+ },
+ {
+  "id": "81cd4c17-d679-4c62-8d50-04128b7946b7",
+  "title": "Colonoscopies Cut Colon Cancer Deaths",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "33aa519d0934beeb10ea0716657900d9a798035004704541b352fc2684d019ac",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 272,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2012-04-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2012/04/colonoscopies-cut-colon-cancer-deaths",
+     "year": 2012,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Removing Growths on the inside lining of the colon or rectum. polyps during colonoscopy can prevent Cancer of the colon or rectum, both part of the large intestine. colorectal cancer and reduce deaths from the disease for years, a new study finds.\n\nColorectal cancer is one of the most common cancers in both men and women nationwide. The disease is expected to kill more than 52,000 Americans this year alone.\n\nScreening tests like colonoscopies can detect early-stage colorectal cancer before symptoms appear. In a colonoscopy, doctors use a long, lighted, flexible tube to examine inside the rectum and colon. Many growths they see, including polyps, can be removed during the procedure. Most polyps are benign, but some (called adenomas) can become cancer.\n\nTo see if polyp removal during colonoscopy might decrease deaths from colorectal cancer, a team of NIH-funded scientists examined data from over 2,600 patients who had adenomas removed.\n\nDuring an average 16 years of follow-up, more than 1,200 deaths occurred in the group. But only 12 of the deaths were due to colorectal cancer. Among the general population, over 25 patients in a comparable group would have been expected to die from colorectal cancer. This suggests that adenoma removal could reduce the risk of dying from colorectal cancer by up to one half.\n\n“Our findings provide strong reassurance that there is a long-term benefit to removing these polyps and support continued recommendations of screening for colorectal cancer in people over age 50,” says the study’s lead author, Dr. Ann Zauber of the Memorial Sloan-Kettering Cancer Center. Ongoing clinical trials will gather additional evidence to confirm whether colonoscopy screening can also reduce these deaths in the general population."
+ },
+ {
+  "id": "8214dedf-08d4-420f-bf8c-a114747746f0",
+  "title": "Poor Sleep Linked With Higher Blood Sugar",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "175e41b99292b1af4e1528065b9c4b14b43b4af22d25ab18954db7f18479a0be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 229,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2020-07-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2020/07/poor-sleep-linked-higher-blood-sugar",
+     "year": 2020,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "People with diabetes have high levels of blood sugar (or blood glucose). When blood sugar builds up too high, it causes harmful effects.\n\nA study found that African Americans with disrupted sleep have higher blood sugar levels. Previous studies have also found this link in European and Asian populations.\n\nResearchers looked at data from about 800 African American men and women who had home sleep apnea testing. Sleep apnea is a condition where breathing stops or gets very shallow for periods during sleep. The people in the study wore a device that measured when they were awake or asleep for a week. They also kept a sleep diary.\n\nThe researchers examined how long people slept, how often they woke up during the night, and changes in their sleep patterns. They compared these findings with blood glucose levels taken in a clinic.\n\nAbout a third of participants had sleep apnea. Most were not receiving treatment for the condition.\n\nThose with either sleep apnea or disrupted sleep patterns had higher blood glucose levels. People with the most severe sleep apnea had 14% higher blood glucose levels than those without it.\n\nMany people with sleep apnea don’t know they have the condition. “Our results reaffirm the need to improve the screening and diagnosis of sleep apnea, both in African Americans and other groups,” explains Dr. Yuichiro Yano from Duke University, who led the study."
+ },
+ {
+  "id": "8237801c-f19d-47ae-a5f9-8c25541168c6",
+  "title": "Dr. Jenny Radesky on Kids and Smart Devices",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "226da918742c3a3436c2c84162b889c70a6affd3da731ecd37c773812cb57e40",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 609,
+   "v_level": 5,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2022-02-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2022/02/qa-dr-jenny-radesky-kids-smart-devices",
+     "year": 2022,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Excerpts from our conversation with Dr. Jenny Radesky, an NIH-funded expert on kids and media use.\n\nNIHNiH: How do kids interact with media on smartphones and tablets differently from how they watch television?\n\nRadesky: The handheld design makes it harder for parents to watch things with their kids. Someone always wants to grab it and control it. In our lab, we’ve seen that when kids play with a tablet, they do a lot less interacting with their parents. They even move their body position in a way that walls off access for parents to watch what’s happening on the device.\n\nThere’s also the mobility, where kids can take devices into any moment of boredom or discomfort. That is hard to do with TV.\n\nMobile devices are also interactive. Little kids can control them with just swiping and touching. And what they’re playing with interacts back. Many websites and apps learn what your favorite shows are, then offer you more of the same. A lot of these interactive features are very rewarding and can make it tough for kids to transition away from devices to go do something else.\n\nThere’s also stuff going on behind the scenes, like data collection and profiling of users.\n\nAll these things make it harder to parent around new media because it’s everywhere, and it’s much better at grabbing our attention and keeping us engaged.\n\nNIHNiH: What types of questions are researchers hoping to answer about new screen technologies and the developing brain?\n\nRadesky: If you’re always using media that’s feeding you recommendations of the same stuff, are you going to develop the mental flexibility to see things from multiple angles? If media is always providing instant gratification, do kids get enough practice delaying reward and being patient?\n\nIf media is constantly used to help quiet kids down when they’re feeling upset, is that getting in the way of learning emotional management skills?\n\nWith new media use, you never need to pause and work on these things. So we want to know, are there ways that excessive media use or certain types of content get in the way of developing these life skills?\n\nNIHNiH: What are some recommendations for parents who want to know more about what their kids are doing on their devices?\n\nRadesky: I recommend that parents be very choosy. Don’t let kids download their own apps. So many apps are packed with ads, especially the free apps. And these ads can be manipulative, trying to encourage purchases. Some apps have violent ads in them.\n\nThere are also data trackers in some apps played by kids. So, you have to be very intentional about reading up on an app, reading reviews, and trying it out with your child. And then if you don’t like it, just uninstall it.\n\nUse the kids’ version of whatever app your kids are interested in if one is available. That will filter out some creepy or inappropriate content. But you should still watch along, because there may not be anyone checking those videos before they get posted.\n\nVideos that were crafted by people who understand children, like PBS Kids, are still healthy options. Starting around the age of two, kids can start to learn some concepts from those high-quality programs. Maybe you have to go to the PBS Kids app rather than watching it on network TV. But that’s a predictable, familiar source of positive content.\n\nPlaying along with games is harder. And kids don’t want you hovering over them. But you can ask them about what they played today, or some of the cool things they’ve watched. That can also help them transition away from screen time."
+ },
+ {
+  "id": "827c5ad9-24d5-4483-b707-911a31f1c36c",
+  "title": "COVID-19 Disrupts Gut Microbes",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1f50fba770568de051c6e8ceddbbf63c0c604cea013377440d2004ca72ec5a2f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 250,
+   "v_level": 6,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2023-02-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2023/02/covid-19-disrupts-gut-microbes",
+     "year": 2023,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Microbes live all over your body. These include bacteria, fungi, and viruses. People with COVID-19 often have an imbalance in their gut’s microbes. In hospitalized patients, this can lead to serious infections in the blood, called secondary infections. A new study showed that COVID-19 can disrupt the gut’s microbes and allow harmful bacteria into the bloodstream.\n\nThe researchers first studied mice infected with SARS-CoV-2, the virus that causes COVID-19. They found that the virus caused changes to the gut lining. Mice with the virus also had fewer types of microbes in their guts.\n\nNext, the team studied the microbes in stool samples from 96 people with COVID-19. In one of every four samples, a single type of bacteria dominated. Some of these bacteria were resistant to antibiotics, which makes them difficult to kill. The people who had infections in their blood tended to have a less diverse mix of microbes in the gut. The type of bacteria found in their blood was also seen in their gut.\n\nTogether, these results suggest that SARS-CoV-2 can upset the balance of gut microbes. This allows harmful bacteria to thrive in the gut. It also alters the gut lining to let these bacteria more easily spread from the gut to the bloodstream.\n\n“Now that we have uncovered the source of this bacterial imbalance, physicians can better identify those coronavirus patients most at risk of a secondary bloodstream infection,” says Dr. Ken Cadwell of New York University, who co-led the study with colleague Dr. Jonas Schluter."
+ },
+ {
+  "id": "835ed8a6-531b-4724-991a-5994adbbf24f",
+  "title": "Certain Antioxidants May Lower Dementia Risk",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5bb7024dd96f0d16afe6da13cef74825228fbaddd3b67e9e58049aab26e147b1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 252,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2022-07-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2022/07/certain-antioxidants-may-lower-dementia-risk",
+     "year": 2022,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Antioxidants are a type of compound found in vegetables and fruits. They help protect your cells from a certain type of damage. Eating lots of produce can help lower your risk of heart disease and other health problems. A new study found that certain antioxidants in these foods may also reduce the risk for Alzheimer’s disease and other dementias.\n\nDementia, including Alzheimer’s disease, harms your ability to remember, think, and make decisions. Studies have found several lifestyle factors that may help lower the risk of getting dementia. These include eating a healthy diet, being physically active, and socializing with others. Getting enough sleep and doing activities that challenge your brain may also help.\n\nStudies of antioxidants’ effects on dementia have had mixed results. Some have found that they protect the brain. Others have not. These studies asked people to remember what types of foods they’d eaten over a long period of time.\n\nIn a new study, researchers measured antioxidant levels in blood samples from more than 7,000 people. Participants were between the ages of 45 and 90. They were part of a nationwide study tracking their health over 16 years.\n\nBlood levels of certain antioxidants were linked with a lower risk of developing dementia. These included lutein and zeaxanthin, which are found in green, leafy vegetables. They also included beta-cryptoxanthin, which is found in some orange-colored fruits.\n\n“Further studies are needed to test whether adding certain antioxidants to the diet can help protect the brain from dementia,” says NIH’s Dr. May Beydoun, who led the study."
+ },
+ {
+  "id": "835f2dbe-e425-4527-9c2d-556c58aaa133",
+  "title": "Peanut Allergy Therapy Loses Effect After Stopping",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2a52a21d9e8c6c499a400a5b2c8b287f4028d68ff3ea1edcb960f511f551b268",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 212,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2019-11-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2019/11/peanut-allergy-therapy-loses-effect-after-stopping",
+     "year": 2019,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Peanut is one of the most common food allergies. Some studies show oral immunotherapy (OIT) can prevent life-threatening allergic reactions. But a new study shows that OIT’s protection doesn’t always last if it is stopped or reduced.\n\nPeanut allergy is caused by your immune system (the body’s defense system) mistakenly treating peanut proteins as harmful. OIT involves eating small amounts of peanut protein. These doses slowly increase over time. This helps your body gradually get used to, or tolerate, peanut.\n\nResearchers carried out a three-year study with 120 people with peanut allergy. Participants ranged in age from 7 to 55. After two years, most people (83%) given peanut OIT were able to eat peanut without an allergic reaction.\n\nThe researchers then stopped the therapy or reduced the dose to see if its effects lasted. One year later, only 13% of those who had stopped OIT could still tolerate peanut. And only 37% on the reduced peanut dose still had protection.\n\n“We hope that, with more research, blood tests can help us predict who may respond to OIT treatment,” says NIH researcher Dr. Alkis Togias.\n\nResearchers continue to study and develop ways to prevent and treat food allergy. Never give peanut products to someone with an allergy on your own. OIT should only be given under a doctor’s care."
+ },
+ {
+  "id": "8380f671-4cb5-48e1-81e1-8eb1608614a9",
+  "title": "Control Your Cholesterol",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "75249355c35eda05c81cbb7fa25b876a2ea7e6c4cfc3ef85cd1bc48fd2c4d2e9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 583,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2019-02-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2019/02/control-your-cholesterol",
+     "year": 2019,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Have you had your cholesterol checked? Most adults should have a cholesterol test every 4 to 6 years. That’s because nearly 78 million American adults have high levels of the type of cholesterol that’s linked to heart disease and stroke.\n\nCholesterol is a waxy, fat-like substance that your body needs to function properly. It travels through your bloodstream to reach the cells that need it. Your cells use cholesterol for many important functions, like making hormones and digesting fatty foods.\n\nBut too much cholesterol in your blood can cause waxy buildup called plaques in blood vessels. “These plaques can eventually become inflamed and rupture, leading to a clot,” explains cholesterol expert Dr. Ronald Krauss at UCSF Benioff Children’s Hospital Oakland.\n\nIf a clot blocks blood flow through an artery in the heart, it can cause a heart attack. “Or, if this happens in the artery of the brain, it can cause a stroke,” he says.\n\nCholesterol travels through the bloodstream in particles called lipoproteins. There are different types of lipoproteins that have different effects.\n\nLow-density lipoproteins, or LDLs, contribute to plaques. LDL cholesterol is sometimes called “bad” cholesterol.\n\n“Many people in this country have too many of these LDL particles in the blood,” Krauss says. Studies have found that lowering LDL cholesterol levels reduces heart disease and stroke.\n\nThe most common cause of high LDL cholesterol is an unhealthy lifestyle. Excess body weight and eating a lot of animal fats are linked to high levels of LDL cholesterol. The genes that you inherit from your parents, other medical conditions, and certain medicines can also cause high cholesterol.\n\nYou may also have heard about “good” cholesterol: high-density lipoproteins, or HDL. HDL particles absorb cholesterol and carry it to the liver. The liver then flushes it from the body. That’s why scientists previously thought that raising levels of HDL cholesterol might lower your risk for heart disease and stroke.\n\nBut recent research suggests that HDL cholesterol works better in some people than others. And clinical trials haven’t found that medicines aimed at raising HDL cholesterol reduce the risk of heart attack. There’s still a lot to learn about HDL.\n\nLab tests can measure the different types of cholesterol in your blood. How often you should get tested depends on your age and other risk factors, including a family history of high cholesterol or heart disease.\n\nIf tests show that you have a high level of LDL cholesterol, your doctor may order additional tests. You can try to lower it by eating a heart-healthy diet, being physically active, and losing excess weight.\n\nFor some people, lifestyle changes aren’t enough to lower LDL cholesterol. Your biological makeup can be a strong influence on cholesterol buildup, too. In these cases, a type of drug known as a statin is the usual treatment. Doctors may combine statins with other drugs.\n\nIf your LDL cholesterol is very high, Krauss says it’s important that your family members get tested, too. If your genes put you at risk for high cholesterol, your close relatives might have a similar risk.\n\nTalk to your doctor about getting tested. And remember that heart-healthy lifestyle changes can not only lower cholesterol levels but also bring many long-term health benefits.\n\nMaintain a healthy weight. Choose a nutritious diet. Limit red meat and get plenty of fish, nuts, whole grains, beans, fruits, and vegetables. Get enough physical activity. Before starting, ask your doctor what level is right for you. Talk with your doctor to see if medication is right for you."
+ },
+ {
+  "id": "83a8fa6f-9194-435d-81e6-5f78224b9548",
+  "title": "Tracking Symptoms After Brain Injury",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d459687296e3d2b560ffd1fd706dbdb7452e0eba5083009e4b91f2d47d1a6b33",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 240,
+   "v_level": 5,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2020-08-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2020/08/tracking-symptoms-after-brain-injury",
+     "year": 2020,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A fall, car accident, or sports injury can cause a mild traumatic brain injury, or concussion. Most people will recover in a few weeks to months. But some people’s symptoms continue long afterward.\n\nResearchers want to better understand why some people’s brains don’t heal after a concussion. This condition is called post-concussive syndrome. It may involve headaches, fatigue, or dizziness. You can also have problems with concentration. Some develop mental health conditions, like depression or post-traumatic stress disorder (PTSD).\n\nA research team looked for ways to predict who will have long-term problems after a brain injury. They examined blood samples for signs of concussions. Such compounds are called biomarkers. The study included almost 200 military veterans. Their blood was tested for a protein called NfL (for neurofilament light chain). NfL is known to be released by damaged brain cells.\n\nResearchers compared veterans who never had a brain injury, those who had one or two, and those with three or more. People who had three or more brain injuries were more likely to have higher levels of NfL. The veterans with more symptoms of post-concussive syndrome, PTSD, or depression were also more likely to have higher levels of NfL.\n\n“This study brings us closer to identifying biomarkers to predict risk for PTSD, depression, and similar conditions in military personnel and others who have experienced a traumatic brain injury,” says Dr. Jessica Gill, an NIH expert on brain injury who led the study."
+ },
+ {
+  "id": "845686f7-35ec-497b-914d-d36a035417ba",
+  "title": "Understanding Health Risks",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e5aabeda9132a159b57db900f204d8c2751c4801ad025b432672720fec007913",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1184,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2016-10-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2016/10/understanding-health-risks",
+     "year": 2016,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Risks are all around us. A nearby sneeze may raise your risk for catching the flu. Obesity boosts the odds you’ll get diabetes. Smoking increases your risk for many cancers. And if you pay attention to news headlines, you may worry that you’re at risk for food poisoning, Zika infection, shark attacks, and more. How can you know which health risks apply to you?\n\nHealth risks can sometimes be confusing, but they’re important to understand. Knowing the risks you and your family may face can help you find ways to avoid health problems. It can also keep you from fretting over unlikely threats. Knowing the risks and benefits of a medical treatment can help you and your doctor make informed decisions.\n\n“Understanding health risks is key to making your own health care decisions,” says Dr. William Elwood, a psychologist and behavioral scientist at NIH. “It gives you perspective on potential harms and benefits, so you can make smart choices based on facts and not fears.”\n\nA health risk is the chance or likelihood that something will harm or otherwise affect your health. Risk doesn’t mean that something bad will definitely happen. It’s just a possibility. Several characteristics, called risk factors, affect whether your health risks are high or low.\n\nYour personal health risk factors include your age, sex, family health history, lifestyle, and more. Some risks factors can’t be changed, such as your A substance inherited from your parents that defines features such as your risk for certain diseases. genes or ethnicity. Others are within your control, like your diet, physical activity, and whether you wear a seatbelt.\n\nWhen you see health statistics, consider the types of people being described. If they’re not similar to you, or if the category is very broad, then your risks may be different. A general statement like “More than half of Americans over age 45 will develop heart disease at some point” is based on statistical averages across the entire U.S. population. If you’re younger than 45, your heart disease risk will generally be much lower. The more risk factors you have—such as smoking, high blood pressure, or diabetes—the greater your risk. Exercise and a healthy diet, on the other hand, can make your chance of developing heart disease lower than for most other people.\n\n“In many ways, our perception of risk is irrational,” says Elwood. “We sometimes worry over something that’s extremely unlikely, like Ebola in the U.S. And we ignore steps we can take to prevent what’s much more likely to harm us, like heart disease or colon cancer.”\n\nTalking about health risks can seem intimidating. Even doctors sometimes have trouble with risk concepts. That’s why NIH supports research to improve how medical staff and others communicate health risks and prevention strategies to patients and the public.\n\n“Math in general is hard for a lot of people. Yet math is often hidden in everyday activities that affect our health,” says Dr. Russell Rothman, a physician and scientist at Vanderbilt University in Nashville. Rothman’s research focuses on helping people understand and work with numbers, so they can reduce their risks for diabetes and excess weight, including childhood obesity.\n\nStudies show that the way we hear and understand health statistics can be influenced by how the numbers are described, or how they’re “framed.” Different descriptions can affect how clear the information is and also what emotions it stirs. For example, the statement: “More than 20% of Americans will eventually die of cancer” might sound less scary from a different perspective: “Nearly 80% of Americans will not die of cancer.” The same information might seem clearer described as a ratio: “More than 1 in 5 Americans will eventually die of cancer.” Research shows that pictures or diagrams are often the most understandable—for instance, showing 5 human figures with 1 in a different color.\n\nTo understand the potential risks or benefits of a medical treatment or behavior change, it helps to focus on a math concept called “absolute risk.” Absolute risk is the chance of something happening, such as a health problem that might arise over a period of time. For example, a disease might affect 2 in 100 middle-aged men over their lifetimes. If a certain drug lowers their risk for the disease to 1 in 100, the drug has reduced their absolute risk by 1 person in 100, or 1%. Another way to think of it is that you’d need to treat 100 people with this medicine to prevent just 1 additional person from getting the disease.\n\nOften, however, you might hear numbers that use a related concept called “relative risk.” Relative risk compares the absolute risks of one group to another. In the example above, you could also say that the drug reduced the risk of disease by 50%, since 1 is half of 2. Looking at relative risk alone, you may mistakenly think that the drug is highly effective.\n\n“Many times, the relative risk sounds much greater than the absolute risk, which can be confusing,” Rothman explains. When you hear numbers about risk, it’s best to focus on the absolute risk.\n\nHealth risks can be especially hard to grasp when emotions run high, such as when people are faced with a serious illness. One recent NIH-funded study found that people with advanced cancer tended to expect better outcomes and longer survival times from treatment than their doctors did. Most patients didn’t realize that their outlook differed from their doctors. Such misunderstandings might affect whether patients choose to undergo harsh treatments.\n\n“Communication is a 2-way street,” says the study’s lead researcher, Dr. Ronald M. Epstein of the University of Rochester Medical Center in New York. “For effective discussions to occur, doctors must provide encouragement and answers. And patients have to ask important questions.” Epstein and colleagues are developing methods to help doctors and patients have realistic discussions about topics such as emotions, treatment choices, and likely outcomes.\n\n“We’ve shown it’s possible to improve the conversations. It helps if patients come prepared with 3 or 4 big-picture questions to ask their doctors,” Epstein says. For people with advanced cancer, questions might include: How will treatment affect my quality of life? What’s the average survival time for this type of cancer?\n\n“It can feel scary to ask those kinds of questions. Sometimes you don’t really want to know the answers, or you have mixed feelings,” Epstein says. “Doctors can help by opening the door to conversation. They can say, ‘Tell me what’s on your mind. Do you have any questions?’” Such open conversations can help patients and their families make more informed health decisions.\n\nStart by talking with your doctor about your health risks. Ask how you can reduce your risks. And look to trustworthy websites—like NIH’s health.nih.gov—for reliable health information.\n\nWhat are my personal health risks? Are these risk over my lifetime or over a shorter period?; What steps can I take to reduce my health risks? (such as through exercise or a healthy diet); What are my options? (for treatments, screening tests, or making healthy changes); What will the results of this test or therapy tell us about my risks?; What are possible benefits and side effects? What are the chances these might affect me?."
+ },
+ {
+  "id": "847e416f-0dd7-4e47-b3e9-ea1e08667cb5",
+  "title": "Diabetes Drug May Reduce Colorectal Cancer Risk",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "be2b412c614dbb039790de68e5fc418bef639921ce11482627c67c25bfbe7fe5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 231,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2024-03-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2024/03/diabetes-drug-may-reduce-colorectal-cancer-risk",
+     "year": 2024,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "People with obesity are at increased risk for type 2 diabetes and other health problems. Certain drugs that help keep diabetes symptoms in check also promote weight loss. These are called GLP-1RAs. Examples include Ozempic, Trulicity, Wegovy, and Zepbound.\n\nPeople with obesity are also at higher risk for colorectal cancer. Scientists wondered whether people who take GLP-1RAs for diabetes also have a reduced risk for colorectal cancer.\n\nTo find out, researchers examined the medical records of more than 1.2 million people with type 2 diabetes. They followed available patient records for up to 15 years. They compared the risk of colorectal cancer among people taking seven different types of drugs.\n\nThe analysis showed that people with diabetes who took GLP-1RAs had a lower risk of colorectal cancer than those taking other diabetes drugs. The protection was greatest in people with overweight or obesity. People in this group who took GLP-1RAs had a 50% lower risk of colorectal cancer than those who took insulin to manage their diabetes. They had a 42% lower risk than those who took the common diabetes drug metformin.\n\n“This research is critically important for reducing incidence of colorectal cancer in patients with diabetes, with or without overweight and obesity,” says Dr. Nathan Berger, who co-lead the study along with Dr. Rong Xu at Case Western Reserve University. More research is needed to confirm these results and learn more about how these drugs work."
+ },
+ {
+  "id": "84d23fd7-419a-4cfd-a611-55913dd5ac1a",
+  "title": "Curb Your Eating",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d27a02238ea7bf1ecc649c1274e1a537ea899fdc400bbb59d1bd2545d6938bf2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 638,
+   "v_level": 5,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2016-09-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2016/09/curb-your-eating",
+     "year": 2016,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Ever tried to eat just one potato chip, or take just one bite of chocolate cake? It may feel impossible. A little nibble triggers an urge to eat more. Some people feel driven to keep eating to the point where the food’s no longer enjoyable. You know the resulting weight gain will harm your health. So why do you keep eating when it’s not in your best interest?\n\nOut-of-control behaviors around food can look and feel remarkably similar to an addiction to drugs and other substances. In fact, imaging studies have shown that addictive drugs can hijack the same brain pathways that control eating and pleasurable responses to foods. NIH-funded researchers are closely studying the biology of overeating to try to find new ways to help people curb these out-of-control behaviors.\n\n“There’s an addictive element to foods—especially high-fat, high-sugar foods—that drives many of us to overeat,” says Dr. Nora Volkow, director of NIH’s National Institute on Drug Abuse. She’s been studying the brain’s role in drug addiction and obesity for more than 20 years. Volkow and other scientists have found that high-calorie foods, like addictive drugs, can trigger the brain’s reward system, releasing brain chemicals such as dopamine that make you feel terrific. So it’s natural to want more. In fact, wanting more helped early humans survive.\n\n“Our brains are hardwired to respond positively to foods that have a high content of fat or sugar, because these foods helped our ancestors survive in an environment where food was scarce,” Volkow says. “In today’s society, though, highly rewarding foods are everywhere. And our brain’s reward system for foods is now a liability.”\n\nSeeing, smelling, tasting, or even hearing certain cues—from food ads on the radio to the smell of cinnamon buns in a shopping mall—can make us crave fattening foods when we’re not even hungry. Brain studies show that food cues can be especially strong in people who are obese or at risk for weight gain. In one NIH-funded study, volunteers who had a heightened brain response to a sip of a milkshake when they weren’t hungry were more likely to gain weight a year later.\n\nWhile some brain areas drive us to seek sweets and fatty foods, other regions at the front of the brain can help us control our urges. We can help our “rational” brain regions take control by avoiding tasty temptations and developing healthy habits.\n\n“Each of us should be aware if there are certain foods that we can’t stop eating once we start. Avoid having them at home. Don’t buy them or start eating them, because that might trigger binge eating,” Volkow says.\n\nMake healthy eating a part of your everyday routine by swapping unhealthy habits with healthy ones. Eat fruit instead of cookies as a daily dessert, or have a mid-day snack of crunchy carrots instead of potato chips. Instead of walking directly to the refrigerator after work, take a walk through your neighborhood. Over time, healthy habits can become wired in your brain. You’ll do them without even thinking.\n\n“Childhood and teen years are ideal times to develop healthy habits,” Volkow says. “Healthy eating habits will help protect them in the future against the diseases associated with obesity.”\n\nStick to a shopping list. It helps to shop when you’re not hungry. Remove temptation. Don’t bring high-fat or sugary foods into your home. Change your surroundings to avoid overeating. For example, don’t eat while watching TV. Meet friends in places that don’t serve food. Use smaller plates. We tend to eat most of what’s on our plates, no matter the size. Don’t reward successes with food. Choose other rewards you’ll enjoy, like a movie, a massage, or personal time. Seek help. Ask friends and family for support. Consider enrolling in a class or program. Forgive yourself if you overeat. We all have occasional setbacks."
+ },
+ {
+  "id": "84fee643-ebdf-4a6b-99de-6123bf2bc84f",
+  "title": "Built to Move",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7c168ac04815db5a5b77b85aa9e6c416c264deee8a7ba9ddf429a564bdf154f8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 606,
+   "v_level": 2,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2026-08-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2026/08/built-move",
+     "year": 2026,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Physical activity is one of the best things you can do for your health, but getting enough of it might not be just about willpower. Your neighborhood can play a bigger role than you might think. The streets, sidewalks, and nearby destinations around you can affect how much you move each day. Researchers are looking at what elements in neighborhoods encourage more activity.\n\n“A person’s surrounding physical and social environment plays a major role in shaping their behaviors,” says Dr. Abby King, a clinical psychologist and professor at Stanford University. She has spent the last decade studying how our surroundings affect how active we are.\n\nMany people want to live healthier lives. But if their neighborhood makes it hard to walk or find healthy food, it can make it tougher to do so every day.\n\n“Our goal is to make the healthy choice an easy choice. An important way to do that is to make our communities more walkable,” King says.\n\nWalkability describes how easy it is to walk or be active in a given area. That depends on things like how streets connect and whether places like cafes, shops, or libraries are close enough to reach on foot, by bike, or by wheelchair.\n\nThe biggest factors include city block length, how often streets cross, and whether parks and shops are nearby. But smaller features like sidewalks, benches, lighting, and crosswalks are also important for walkability.\n\n“Multiple studies have shown, adding ‘walkability’ features to an area can have positive effects on people’s activity levels regardless of age, gender, weight, and initial activity levels,” says King.\n\nKing and her colleagues’ recent study showed that people who moved to more walkable cities walked about 1,100 more steps each day. Over a week, that adds up to almost an hour of extra activity. More activity means a lower risk of serious conditions like heart disease, diabetes, high blood pressure, and depression.\n\nBut moving to a more walkable city is not an option for most people. That is why King and her team have created tools to help everyday residents make changes in their neighborhoods. They created a program called “Our Voice.” This is a research initiative that captures walkability using a simple app. Local residents record what helps or hurts walkability in their area. The residents can share what they find with local leaders. Then they can partner with them to make real changes in their neighborhoods. The program has been used in over 30 U.S. states and more than 30 countries across six continents.\n\nMaking a neighborhood more walkable does not always mean big, costly projects. Simple upgrades like crosswalks, better lighting, and green spaces can help. If your neighborhood needs work, local community groups are a great place to start. Programs like Our Voice show that people can make real change happen when they work together.\n\nBut you don’t have to wait for your neighborhood to change to add more steps to your day. See the Wise Choices box for simple ways to get more activity in your day.\n\nPark farther away and walk briskly to your destination when running errands. Take the stairs whenever possible. Make a walking date with a friend or family member. Walk your dog a little farther than you normally do. Find and use convenient paths near your home or work. Walk to nearby shops when possible. Find and visit local parks. Take a walk on your lunch break, or schedule a walking meeting. Keep your walking shoes nearby. If you normally go outside to be active but the weather is bad, head to a local mall or shopping area for a climate-controlled environment."
+ },
+ {
+  "id": "854fcf6e-1ca1-4d40-81b2-50644de851e6",
+  "title": "Cone Snail Venom Reveals Insulin Insights",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "bb36bb75c6f30c5e7cb61200672304854a0726fafe5d3c68bcf5f9caf080fc84",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 281,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2016-11-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2016/11/cone-snail-venom-reveals-insulin-insights",
+     "year": 2016,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The marine cone snail has an unusual survival mechanism that offers new insights for managing diabetes. The snail releases an insulin-containing venom that acts within seconds to stun nearby fish, so they’re easier to capture and eat. Scientists have been fascinated by how rapidly this insulin works compared to human insulin.\n\nInsulin is important for people because it helps maintain blood sugar (glucose) levels. When glucose levels rise, such as after a meal, insulin is released into the bloodstream and travels throughout the body. When insulin binds to special cell-surface structures called receptors, it triggers cells to take in the glucose needed for energy. Diabetes arises when this process doesn’t work correctly. Many people rely on injections of synthetic insulin to manage their diabetes, and rapid action can be crucial.\n\nHuman insulin is stored in the body in clusters of 6. To work, the 6 parts must first separate, which might take up to an hour. In contrast, the insulin in cone snails is small and fast acting. It lacks the portion that would hold insulin clusters together.\n\nAn NIH-supported research team, based partly at the University of Utah, analyzed the 3-D structure of cone snail insulin. Despite its smaller structure, the snail insulin could bind and turn on the human insulin receptor.\n\nWe found that cone snail venom insulins work faster than human insulins by avoiding the structural changes that human insulins undergo in order to function—they are essentially primed and ready to bind to their receptors,” says study coauthor Dr. Michael Lawrence of the Walter and Eliza Hall Institute of Medical Research in Australia.\n\nThese findings provide insights that could help scientists design rapid-acting insulins that might help to manage diabetes."
+ },
+ {
+  "id": "856b9910-8da3-439a-a456-66fdb15c4f29",
+  "title": "Biological Blueprints",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "df6ec876a70fe23f01c0855f24aa5d4a7de48cc3371aff2709637f811d6ac9c9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 620,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2011-01-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2011/01/biological-blueprints",
+     "year": 2011,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "How many proteins do you think you have in your body? The answer is in the billions. Proteins deliver oxygen to your tissues, defend against infection, digest food and even make new proteins. These molecules are uniquely designed to carry out their tasks. If we can understand how protein shapes affect what they do, we might be able to understand what goes wrong in some diseases and develop better treatments.\n\nProteins are made of long strings of amino acids. These basic building blocks are chained together in a specific sequence dictated by that protein’s A stretch of DNA, a substance you inherit from your parents, that dictates the order in which amino acids link together to form a protein. gene. In less than a second, the chain twists and buckles into a 3-dimensional structure. Each protein’s shape is unique. The shape lets the protein interact with other molecules to trigger all the reactions that run our bodies.\n\nShape is so important that just one amino acid change can alter a protein’s entire structure—and its performance. These switches can lead to life-threatening disorders like sickle cell disease, cystic fibrosis and Alzheimer’s disease. Knowing a protein’s shape can help scientists design drugs that fix the flawed protein or even block its activity.\n\nProtein structures can also help pinpoint the Achilles’ heels of disease-causing viruses or bacteria. One structure-based success came in 1989, when NIH-funded scientists discovered the shape of HIV protease, a protein that helps the AIDS virus get into our cells. The researchers showed that the protein, like a butterfly, was made up of two equal halves, and the site at the protein’s center was essential for infecting new cells.\n\nEventually, other researchers used this knowledge to come up with a new class of drugs, called protease inhibitors, that are now widely used to block the action of HIV protease and stop the virus from infecting more cells. Protease inhibitors helped to revolutionize the treatment of HIV/AIDS, transforming HIV infection from a death sentence into a treatable condition that people can live with for decades.\n\nUnfortunately, HIV is a moving target. When it reproduces inside the body, it can churn out slightly altered viruses with different protease shapes. The inhibitor drugs might not work on these altered proteins. Some researchers are now developing new generations of HIV protease inhibitors that will combat these drug-resistant viral strains.\n\nScientists have also been using their structural knowledge of HIV to develop other approaches for combating the virus. They recently identified an unchanging region on the HIV surface and isolated human Germ-fighting molecules made by the body. antibodies that react with it. The antibodies were able to stop more than 90% of known global HIV strains from infecting human cells. This advance will hopefully let researchers design more effective HIV vaccines.\n\nMany other scientific problems will benefit from a better understanding of protein shapes. NIH researchers recently used discoveries about the influenza (flu) virus structure to generate antibodies that attack a wide array of influenza viruses in mice, ferrets and monkeys. This accomplishment may point the way to a universal flu vaccine. Trials are already under way in humans to test the approach.\n\nIn the future, research on protein structures could lead to new treatments for a variety of diseases and conditions that are more potent, more convenient to take and have fewer side effects.\n\nDid you know you can help NIH scientists fight AIDS by donating unused time on your home computer? FightAIDS@Home provides free software that you download and install. The software uses your computer’s idle cycles to help researchers discover new drugs and build on our growing knowledge of the structural biology of AIDS. To learn more, go to fightaidsathome.scripps.edu."
+ },
+ {
+  "id": "85d1b98a-f838-40e7-a516-f9d14f9496a3",
+  "title": "Blood Clots Explained",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f55aefa74250ee0e7687ce091cc813fb3cb7671af8768aa83a04820b40497240",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1124,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2021-05-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2021/05/blood-clots-explained",
+     "year": 2021,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Your blood is an amazing, multi-purpose substance. It flows continuously through the body, carrying oxygen and nutrients to your cells. But if you get a scrape or cut, some of this flowing liquid quickly turns to a protective clot.\n\nClots are tangles of molecules and blood cells that clump together. They help prevent blood loss when the skin breaks open. They also help stop infections from getting inside the body. But when clotting happens inside a blood vessel, it can be dangerous.\n\nClots can form on the blood vessel walls to help them heal if they get damaged. Afterward, the clots usually dissolve. But sometimes a clot doesn’t get broken down as it’s supposed to. Clots may also form when they’re not needed.\n\nSometimes, clots break off a vessel wall and travel through the blood to other parts of the body. They may cause a lot of damage, depending on where they block blood flow. Blood clots can potentially harm the brain, heart, lungs, or other organs.\n\nBut researchers have made great progress over the last few decades in managing blood clots. They continue to develop new ways to treat and prevent such blockages.\n\nThree main things can lead to dangerous blood clots, explains Dr. Mitchell Elkind, an expert on stroke at Columbia University. “One is an abnormality in the blood that makes it more likely to clot. For example, Having to do with genes. Genes are stretches of DNA you inherit from your parents. They define features like your risk for certain diseases. genetic causes, cancer, or damage from smoking,” he says. “The second is when blood doesn’t flow properly.” This can be a side effect of diseases and disorders of the heart or blood vessels.\n\nThe third is damage to the lining of blood vessels. One cause of such damage is cholesterol buildup in the blood. Cholesterol is a waxy, fat-like substance that can clump together to form plaques. If a plaque breaks apart, it can damage the blood vessel.\n\nBlood clots can happen to anyone, at any age. But some people are at increased risk. These include older adults and those with certain heart conditions.\n\nMajor surgery or a serious injury also add risk. Obesity, being physically inactive, and some medications can boost the chance of a dangerous clot, too.\n\n“And once you’ve had one blood clot, you’re at high risk of another one,” notes Dr. Nigel Key, an expert on blood disorders at the University of North Carolina.\n\nSome infections may also increase the risk of blood clotting. Recent studies have shown that the virus that causes COVID-19, SARS-CoV-2, can cause blood clots in some people.\n\nBlood clots can occur anywhere in the body. That makes it difficult to find them before they cause a problem, Elkind explains. The symptoms of a blood clot depend on where they are.\n\nA clot blocking blood flow to the brain can lead to a stroke. Strokes can cause sudden difficulty seeing, speaking, or walking. They can also make you feel weak, numb, dizzy, or confused.\n\nA clot that blocks blood flow to the heart can cause a heart attack. The most common signs are crushing chest pain and difficulty breathing. Others range from cold sweats to arm or shoulder pain.\n\nA clot in the lungs can cause shortness of breath, pain when breathing deeply, or even coughing up blood. A clot in a vein deep within the body is called a deep vein thrombosis, or DVT. Symptoms include swelling, pain, warmth, or red or discolored skin. These usually happen in your legs. Long periods of inactivity can increase your risk.\n\n“Compared with a heart attack or stroke, there’s low awareness of the symptoms of deep vein thrombosis,” Key says. Many symptoms overlap with less dangerous conditions, such as a muscle sprain.\n\nIf you have symptoms of a blood clot, call your health care provider or 911 immediately. You may need to go to the hospital to have blood or imaging tests.\n\nTreatment depends on where a clot is and how long you’ve had symptoms. Certain drugs can break up and dissolve some types of clots. But they have to be given within a few hours of when symptoms start.\n\nA type of surgery called a thrombectomy can be used to remove clots in large blood vessels. It can be used even if people don’t get to the hospital in time to receive clot-busting drugs. “That’s been a huge benefit for patients,” says Dr. Waleed Brinjikji, an expert on stroke at the Mayo Clinic.\n\nThis technique has also let researchers study what clots are made of after they’re removed. “We’re starting to realize how different clots can be,” says Brinjikji.\n\nDifferent types of clots might benefit from different removal techniques or drugs. So Brinjikji’s team is now testing ways to identify the type of clot before it’s removed. That way they can start to test which treatments work best.\n\nIf you have a clot that’s forming, certain medications may help shrink it or stop it from growing. These drugs are called anticoagulants. They’re more commonly known as blood thinners.\n\nSometimes, people with certain heart conditions are given blood thinners to prevent blood clots from forming. But blood thinners can have side effects, including an increased risk of bleeding. So doctors don’t give them to everyone.\n\nElkind’s team has been researching which heart conditions may benefit from this type of preventive treatment.\n\nRecent research has shown that blood thinners may help in COVID-19. They might reduce the risk of blood clots and organ damage in people hospitalized with COVID-19. More work is underway to figure out how best to prevent and treat blood clots for those with the disease.\n\nThis work will also help researchers better understand how other viruses can affect the blood, Elkind explains. “I think we’re going to learn a lot about how other infections also trigger clotting from studying COVID-19,” he says.\n\nThere are many things you can do to decrease your risk of harmful blood clots. See the Wise Choices box for tips.\n\nEat a heart-healthy diet. Eat more fruits, vegetables, and whole grains. Limit salt and red meat. Find more tips. Be physically active. Experts recommend adults get at least 150 minutes of moderate-intensity activity per week. Aim for a healthy weight. Excess weight can increase your chances of developing health conditions linked with blood clots. Healthy eating and physical activity can help prevent excess weight. Manage stress. Stress can contribute to high blood pressure and other heart disease risk factors. Find tips for lowering stress. Quit smoking. Get free help to quit smoking at smokefree.gov, 1-800-QUIT-NOW (1-800-784-8669), or by texting QUIT to 47848. Control high blood pressure, high cholesterol, and diabetes. Talk with your doctor about how to manage these conditions."
+ }
+]

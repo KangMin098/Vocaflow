@@ -1,0 +1,852 @@
+[
+ {
+  "id": "22131df5-1d42-4a27-8fb4-f0b83f96ffed",
+  "source_updated_at": "2026-09-13T06:27:23.952299+00:00",
+  "body_sha256": "212af6b476b711591477b08af774ac850d4b3fc9add05161c7f22c4320722ed7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 게놈 복제·DNA 손상 복구 개관 단락이 발췌 가능하나 전문 용어가 매우 많아 성인·고3 칸만 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Complete and accurate genome duplication relies",
+   "note": "MCM·RNR 등 약어를 「복제 효소」로 바꾸면 논지는 서지만 어휘 부담이 크다."
+  }
+ },
+ {
+  "id": "22134d1f-d2a3-4b27-8e68-6c79ac6f221c",
+  "source_updated_at": "2026-09-13T06:46:27.90305+00:00",
+  "body_sha256": "6736f8ba23df957526a92a531ed534932a72b00bb9a7f27bce5c93b804a6b4e9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "서론의 미생물 탄산칼슘 침전으로 모래 투수성을 낮추는 원리 설명과 결론의 고결 패턴 비교가 발췌 가능하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Microbially or biofilm induced calcium carbonate",
+   "note": "인용 번호와 수치를 걷고 cementation을 「굳힘」으로 바꾸면 선다."
+  }
+ },
+ {
+  "id": "2227d960-f5f9-4515-8f78-5b46b877fbbb",
+  "source_updated_at": "2026-09-15T14:38:39.472214+00:00",
+  "body_sha256": "bfca4f24089f0e0c755322f7d73bb9cf7b36995ea9eee621863c6e8743501fd7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "저자 요약의 말라리아·기생충 동시 감염이 빈혈과 면역 반응을 바꾼다는 단락이 자족적으로 논지를 세운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In many low-income regions of the",
+   "note": "저자 요약은 이미 쉬운 어휘라 helminth를 worm으로 바꾸면 충분하다."
+  }
+ },
+ {
+  "id": "22366d06-5a73-42a5-ab4a-f1e30b49c223",
+  "source_updated_at": "2026-09-13T07:40:44.973171+00:00",
+  "body_sha256": "1a84022f449b8d1976301ee1768f0f6afe8fb621b5ead5a9b86f6bcab31b3666",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "서론의 약물 중독과 도파민 결핍 가설 단락, 고찰의 치료 전망 단락이 발췌 가능하나 제제 효과를 강하게 주장하는 어조가 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Addiction to psychoactive drugs poses a",
+   "note": "제품명 KB220Z를 걷고 hypodopaminergic 등을 풀면 서나 홍보성 결론 문장은 가공 때 걷어낸다."
+  }
+ },
+ {
+  "id": "223cb484-f803-4b47-939c-e6da480f2b52",
+  "source_updated_at": "2026-09-25T07:39:29.310622+00:00",
+  "body_sha256": "2a6086219307f9e75757b70e11f33a319be3f2d02a7ab7ea482ff48ff3d74135",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 사막 식물 Cadaba의 전통 약용과 항생제 내성 배경 단락이 자족적으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank",
+    "irrelevant"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The worldwide increase in antibiotic-resistant pathogenic",
+   "note": "화합물 이름 나열부를 빼면 식물 소개와 연구 목적이 선다."
+  }
+ },
+ {
+  "id": "2249d486-fdf4-42b7-90be-4c1d6f6d3116",
+  "source_updated_at": "2026-09-13T06:04:25.579408+00:00",
+  "body_sha256": "23c52cb7006638b4cb1a64f8efa3b246e08470519d5daf624ad963ec8a04344a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "hold",
+  "genre": "health",
+  "why": "학술지 표지 이미지 소개문으로 연구 요약 한 단락이 두 번 반복된 형태라 이 장르의 보관 기준이 없다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Growing evidence implicates gut microbiota and",
+   "note": "단락 자체는 서나 이미지 캡션 장르라 가공 대상인지 기준이 없다."
+  },
+  "hold_reason": "criteria-gap"
+ },
+ {
+  "id": "22546d0a-436b-4692-978e-3384e296676d",
+  "source_updated_at": "2026-09-13T06:49:23.666725+00:00",
+  "body_sha256": "b0b8f53209e57cc70bc19f7778cc8eee2bf22bc423e27ab44e50650fb5cbb252",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 병원체가 숙주 영양분을 가로채는 전략과 고찰의 리슈마니아 지방산 획득 결론 단락이 발췌 가능하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pathogens use various strategies to acquire",
+   "note": "Rab18·miRNA 기호를 「숙주 단백질」로 바꾸면 논지가 선다."
+  }
+ },
+ {
+  "id": "2259b3d8-377a-4bcd-a43e-63cbab500e4a",
+  "source_updated_at": "2026-09-13T07:09:23.209599+00:00",
+  "body_sha256": "35bfa2ca4425f0d254ccf33f8bf667069837d0318c5e3ac9051f8fa7734811a6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 대장균 세포벽 합성과 분해 균형 설명 단락이 발췌 가능하나 단백질 기호가 매우 많다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The maintenance of the PG sacculus",
+   "note": "PBP·Ami 기호를 걷으면 합성-분해 균형 논지가 남는다."
+  }
+ },
+ {
+  "id": "2268dee7-bed0-4431-92f0-345733eced25",
+  "source_updated_at": "2026-09-13T07:19:43.223532+00:00",
+  "body_sha256": "58d85604807005ad1b95bbe86331082901fb14c324b24e7512f6ed9cea2df55d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 항암제 메토트렉세이트 청력 손상 배경과 결론의 귀리 항산화물 보호 효과 단락이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Avenanthramides (AVNs) are phenolic compounds originally",
+   "note": "약어 AVN-C를 「귀리 항산화 성분」으로 바꾸면 선다."
+  }
+ },
+ {
+  "id": "226a2436-ff18-4faa-af31-eb0630858ad9",
+  "source_updated_at": "2026-09-25T07:39:33.308764+00:00",
+  "body_sha256": "922193d859d6e1f5c850abaa6ab846b6432384bb4ac913b01e971195059952d2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "서론의 쌀과 카드뮴 식품 안전 문제, 고찰의 저카드뮴 벼 육종 단락이 논지 있게 발췌된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The rapid industrialization has led to",
+   "note": "유전자 이름을 걷고 accumulation 등을 쉬운 말로 바꾸면 고2 이상 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "2272f52d-77e7-4ad6-a9ce-66740f186136",
+  "source_updated_at": "2026-09-25T07:39:34.24893+00:00",
+  "body_sha256": "3edecf127c199d7832764db8a6727969fdf1ace874c3d05be959ef8bbb2f1ce9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "저자 요약의 식물-세균 화학 신호 IAA와 병원성 설명 단락이 자족적으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Plants live in close association with",
+   "note": "저자 요약이라 phytopathogen을 plant pathogen으로만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "2283c32e-f984-46a4-933d-5afa60342dcb",
+  "source_updated_at": "2026-09-15T14:38:48.87104+00:00",
+  "body_sha256": "ea8840b87e19f60cd538ba9de09c9fa715fd84f39e79a9ac897f3d86d11cba79",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 염증 지표가 노인에서 예측력을 잃는 이유(inflammaging) 단락이 주장-근거 구조로 발췌 가능하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The age-dependent degradation in predictive performance",
+   "note": "AUC 수치를 걷어도 노화 염증 설명 논지가 선다."
+  }
+ },
+ {
+  "id": "22a441a1-9466-400b-b561-4f62582c3222",
+  "source_updated_at": "2026-09-13T07:14:29.980389+00:00",
+  "body_sha256": "b186b2f07cd9aa2c45b17fe89dd825be941d450cc9692f5a0b98c906d9fb79ed",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 산성 환경 세균이 염화물에 약한 이유와 결론의 적응 기전 요약 단락이 발췌 가능하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Leptospirillum ferriphilum is a Gram-negative, and",
+   "note": "acidophile을 「산을 좋아하는 세균」으로 풀면 선다."
+  }
+ },
+ {
+  "id": "22a735a2-8301-406c-803f-5fe0d3bca2f1",
+  "source_updated_at": "2026-09-25T07:39:37.53915+00:00",
+  "body_sha256": "8f5171a29cc190088ce8e8abc20764ed6e508776dadb9788fc392a6564994bb3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "활성산소가 해로운 부산물이라는 통념을 세우고 관절염 연구로 뒤집는 해설 글로 전체가 논지 있게 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "blank",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "For many years, reactive oxygen species",
+   "note": "NADPH oxidase 등을 「효소」로 바꾸면 첫 단락과 끝 단락이 통념-반증 구조로 선다."
+  }
+ },
+ {
+  "id": "22a7522f-7fd2-4472-8027-b9686dd070a1",
+  "source_updated_at": "2026-09-15T14:38:51.43903+00:00",
+  "body_sha256": "cc72558694612ffa63dc6c53a232db6f356e4dc6c5522cfa99feae15d407c722",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "서론의 병어 남획과 인공 번식의 성숙 시기 불일치 문제 단락이 자족적으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pampus argenteus is a commercially important",
+   "note": "학명을 「병어」로 바꾸고 수용체 약어를 걷으면 선다."
+  }
+ },
+ {
+  "id": "22aa4a8e-30cd-42d1-a461-a01bb2faf29e",
+  "source_updated_at": "2026-09-25T07:39:37.979519+00:00",
+  "body_sha256": "5fb47f119882c424b61675d503b35b73fc23a396cc529d98264e21c87daf142e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 궤양성 대장염과 미토파지(손상 미토콘드리아 제거)의 양면 효과 단락이 발췌 가능하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mitophagy is a form of selective",
+   "note": "경로 약어(PINK1 등)를 걷으면 보호-악화 양면 논지가 선다."
+  }
+ },
+ {
+  "id": "22abf0a9-cf2a-40bd-a44c-e06bfc11eab2",
+  "source_updated_at": "2026-09-15T14:38:52.703883+00:00",
+  "body_sha256": "71d0b0be7be261f7fca3ff77f90c733ff67e015a77c0a0f47d5dbe23223a369c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 아동 사시와 굴절 이상(원시·근시) 관계 설명과 고찰의 연령별 선별 권고 단락이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Refractive errors are among the most",
+   "note": "accommodative convergence를 「초점 맞추며 눈이 모이는 작용」으로 풀면 선다."
+  }
+ },
+ {
+  "id": "22b439be-3507-4229-be61-e0616729c0b3",
+  "source_updated_at": "2026-09-13T07:17:45.68953+00:00",
+  "body_sha256": "d5f1fd570cb50f06467c534ace3d06dfcd3412d0981ee1f839d7d83cc7c4424b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 말라리아가 간을 손상시키는 경로 설명 단락이 발췌 가능하나 병리 용어가 많다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Malaria is a life-threatening infectious disease",
+   "note": "Kupffer 세포 등 병리 용어를 걷으면 감염-간손상 흐름이 선다."
+  }
+ },
+ {
+  "id": "22c21a9b-7398-402d-9473-937173d32635",
+  "source_updated_at": "2026-09-25T07:39:40.787357+00:00",
+  "body_sha256": "8fbeaa0e1bacf72bdd0595a1a0a6c71d5b8a54be3b8f7d9c3432ee46612efc67",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 임질 항생제 내성과 클라미디아 동시 감염 치료의 어려움, 약물 재창출 전략 단락이 논지 있게 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "purpose",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Despite recent technological advances, the de",
+   "note": "약물 이름을 걷고 repurposing을 「기존 약 재활용」으로 풀면 선다."
+  }
+ },
+ {
+  "id": "22c23599-6689-49f5-9fdb-ba82179169e0",
+  "source_updated_at": "2026-09-25T07:39:41.453653+00:00",
+  "body_sha256": "679e97c89453f4beba6c674cf83decf77d77ce81af0853df96537ba8edb5ba6d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 기도 섬모가 점액을 밀어 이물질을 내보내는 원리 단락과 저자 요약이 자족적으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mucociliary clearance serves as the primary",
+   "note": "수식 자리가 방법 절에 몰려 있어 서론·요약만 떼면 수식 없이 선다."
+  }
+ }
+]

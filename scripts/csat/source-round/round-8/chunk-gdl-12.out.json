@@ -1,0 +1,117 @@
+[
+  {
+    "id": "fc3d3286-4de8-4916-b477-96940f8f3ea0",
+    "source_updated_at": "2026-09-25T04:02:44.086763+00:00",
+    "body_sha256": "ddbecb39bb1f6075d1e14c916e35b558a8b57e408ae8ebc4eb13148b41ea8cda",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "케이크를 고르다 짐꾼 할머니와 부딪친 예시가 무거운 바구니를 함께 수레로 날라 주며 짐꾼의 수고를 깨닫는 흐름이 초중등 순서·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "main_point"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yesi’s always excited to go to",
+      "note": "바구니를 못 드는 단락이 깨달음으로 이어지고 dadong 같은 현지어는 풀이를 붙인다."
+    }
+  },
+  {
+    "id": "fe4e4b5b-2f8e-418c-8f8e-cc9e206e03e6",
+    "source_updated_at": "2026-09-25T04:03:23.938893+00:00",
+    "body_sha256": "31b0a93bd58eefe34e028e359c452331409b813d68ce7b4cd00b6fd1fa0c4486",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "오빠가 무엇을 기다리는지 니나가 음식 장수마다 짐작하다 아빠의 축복 도시락임을 알게 되는 추측 구조가 초등 순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nina is having fun playing with",
+      "note": "짐작이 차례로 빗나가는 반복이 순서 문항으로 좋고 끝 질문은 걷어낸다."
+    }
+  },
+  {
+    "id": "ff6f8385-e7b6-4647-b54f-bef898f42295",
+    "source_updated_at": "2026-09-25T04:02:45.047955+00:00",
+    "body_sha256": "ce83d16910c1a01ee64df1720d5c1df1e1865c20719f78986da79a580bdf4f3d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "바닷물이 집 안까지 들어와 할아버지와 마쿠가 언덕 위로 이사하기로 하는 흐름이 해수면 상승을 다뤄 초중등 심경·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "mood",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Something wet licked Maku’s toes. “Go",
+      "note": "할아버지의 체념→마쿠의 제안→결심 심경 흐름이 뚜렷하다. 끝의 토론 질문은 걷어낸다."
+    }
+  }
+]

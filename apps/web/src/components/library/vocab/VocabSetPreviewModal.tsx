@@ -3,7 +3,9 @@
 // 공용 단어장 세트 미리보기 모달 (챕터 인식).
 // - on open: 챕터 유무 감지 → 챕터형이면 전체 단어를 챕터별 아코디언으로, 아니면 10개 미리보기.
 //   (하나의 세트가 여러 챕터로 "내부 구성" — shared_words.chapter. 챕터별 세트 아님.)
-// - Esc / 오버레이 클릭 / X 버튼 닫기 · 본 세트 구독 CTA 동봉.
+// - 껍데기는 `ui/Dialog`(DD-68 · tines-mapping §28) — 참조 팝업 골격(빵부스러기 · 큰 제목 ·
+//   윤곽선 태그 · 가로선 · 바닥 알약 버튼). Esc · 바깥 · 뒤로가기 · 포커스 가둠은 그 계약이다.
+//   표지 이모지는 제목 왼쪽 타일로 갔다 — 제목 앞에 붙어 있으면 제목이 40px 일 때 균형이 깨진다.
 //
 // ── 액센트가 왜 보라에서 `--p` 로 바뀌었나 (실측 2026-09-05) ─────────────
 // 이 모달의 액센트 12곳이 `#8B5CF6`/`#6D28D9`/`#7C3AED` 상수였다. 문제가 둘이다:
@@ -19,16 +21,17 @@
 'use client'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { CalendarClock, Check, ChevronDown, Layers, Loader2, Plus, RefreshCw, Volume2, X } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { CalendarClock, Check, ChevronDown, Layers, Loader2, Plus, RefreshCw, Volume2 } from 'lucide-react'
+
+import { Dialog } from '@/components/ui/Dialog'
+import { BTN } from '@/components/ui/tines-kit'
 
 import CourseLauncher from '@/components/game/CourseLauncher'
 import type { ResourceKind } from '@/lib/game/sets'
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 import { VocabColophon } from './VocabColophon'
-import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
-import { useFocusTrap } from '@/lib/ui/use-focus-trap'
 
 interface PWord {
   word: string
@@ -106,9 +109,7 @@ export function VocabSetPreviewModal({
   fromPath = '/library/vocab',
   courseKind = 'wordset',
 }: Props) {
-  // 뒤로가기로 닫는다 — 폰에는 Esc 가 없다(lib/ui/use-close-on-back.ts).
-  useCloseOnBack(!!set, onClose)
-
+  // Esc · 바깥 · 뒤로가기 · 포커스 가둠 · 스크롤 잠금은 `ui/Dialog` 의 계약이다.
   const fromEnc = encodeURIComponent(fromPath)
   const [words, setWords] = useState<PWord[] | null>(null)
   const [chaptered, setChaptered] = useState(false)
@@ -122,7 +123,6 @@ export function VocabSetPreviewModal({
   const [error, setError] = useState<string | null>(null)
   /** 진도-aware 완성 추정(F2) — 구독+로그인+챕터형(전체 단어 로드) 시 사용자 vocab∩세트 교집합 */
   const [learned, setLearned] = useState<number | null>(null)
-  const dialogRef = useRef<HTMLDivElement>(null)
 
   // 모달 열릴 때 단어 fetch — 챕터형이면 전체(아코디언), 아니면 10개 미리보기
   useEffect(() => {
@@ -246,26 +246,6 @@ export function VocabSetPreviewModal({
     }
   }, [set, isSubscribed, words, chaptered])
 
-  // Esc / body scroll lock
-  useEffect(() => {
-    if (!set) return
-    const prevOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', onKey)
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prevOverflow
-    }
-  }, [set, onClose])
-
-  // 포커스: 열 때 모달 안으로 · Tab 순환 · 닫을 때 트리거로 복원.
-  //   이 모달은 열린 뒤에 단어를 받아 오고 챕터 아코디언이 펼쳐지며 버튼이 늘어난다 —
-  //   그래서 트랩은 목록을 keydown 마다 다시 구한다(`lib/ui/use-focus-trap.ts`).
-  useFocusTrap(!!set, dialogRef)
-
   // 챕터별 그룹 (챕터형일 때). label = 챕터 내 note 가 균일하면 그 note(어원 세트 어근 라벨), 아니면 null.
   const chapters = useMemo(() => {
     if (!chaptered || !words) return []
@@ -337,43 +317,57 @@ export function VocabSetPreviewModal({
   )
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="vocab-preview-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose()
-      }}
-    >
-      <div
-        ref={dialogRef}
-        tabIndex={-1}
-        className="flex max-h-[85vh] w-full max-w-[560px] flex-col overflow-hidden rounded-[var(--r-2xl)] bg-[var(--bg)] shadow-[var(--sh-xl)] focus:outline-none"
-      >
-        {/* 헤더 */}
-        <div className="flex items-start justify-between gap-3 border-b border-[var(--bd)] px-6 py-4">
-          <div className="min-w-0 flex-1">
-            <h2 id="vocab-preview-title" className="line-clamp-2 font-display text-[18px] font-[700] text-[var(--t1)]">
-              {set.coverEmoji} {set.title}
-            </h2>
-            <p className="mt-1 font-body text-[12px] text-[var(--t2)]">{subtitle}</p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            // h-9(36px) 이었다 — CLAUDE.md 가 금지하는 44px 미만 터치 타겟이다.
-            // 폰에는 Esc 가 없어서 이 버튼이 **닫는 유일한 길**인데 손가락으로 놓치기 쉬웠다
-            // (실측 2026-08-25 · 390px). 아이콘 크기는 그대로 두고 누를 면적만 넓힌다.
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-            aria-label="미리보기 닫기"
+    <Dialog
+      onClose={onClose}
+      size="lg"
+      crumbs={['단어장', '서가', set.categoryNode?.nameKo ?? set.categoryNode?.nameEn ?? set.category]}
+      title={set.title}
+      byline={subtitle}
+      media={
+        set.coverEmoji ? (
+          <span
+            aria-hidden
+            className="grid h-[52px] w-[52px] place-items-center rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] text-[26px] leading-none"
           >
-            <X size={18} aria-hidden />
+            {set.coverEmoji}
+          </span>
+        ) : undefined
+      }
+      tags={[
+        `${set.wordCount.toLocaleString()}단어`,
+        ...(chaptered ? [`${chapters.length}챕터`] : []),
+        ...(set.cefrLevel ? [set.cefrLevel] : []),
+      ]}
+      footer={
+        <>
+          <button type="button" onClick={onClose} className={BTN.secondary}>
+            닫기
           </button>
-        </div>
-
-        {/* 본문 */}
-        <div className="flex-1 overflow-y-auto px-6 py-4">
+          {isSubscribed ? (
+            <button
+              type="button"
+              onClick={() => onToggle(set)}
+              disabled={isPending}
+              className={`${BTN.soft} ml-auto`}
+            >
+              {isPending ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <Check size={14} aria-hidden />}
+              구독 해지
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => onToggle(set)}
+              disabled={isPending}
+              className={`${BTN.primary} ml-auto`}
+            >
+              {isPending ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <Plus size={14} aria-hidden />}
+              내 단어장에 추가
+            </button>
+          )}
+        </>
+      }
+    >
+      <div className="flex flex-col">
           {loading && (
             <div className="flex items-center justify-center gap-2 py-10 text-[var(--t2)]">
               <Loader2 size={18} className="animate-spin" aria-hidden />
@@ -571,40 +565,7 @@ export function VocabSetPreviewModal({
           )}
 
           <VocabColophon set={set} />
-        </div>
-
-        {/* 푸터 CTA */}
-        <div className="flex items-center justify-end gap-2 border-t border-[var(--bd)] px-6 py-3">
-          <button
-            type="button"
-            onClick={onClose}
-            className="inline-flex min-h-[40px] items-center rounded-[var(--r-md)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)]"
-          >
-            닫기
-          </button>
-          {isSubscribed ? (
-            <button
-              type="button"
-              onClick={() => onToggle(set)}
-              disabled={isPending}
-              className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:opacity-60"
-            >
-              {isPending ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <Check size={14} aria-hidden />}
-              구독 해지
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => onToggle(set)}
-              disabled={isPending}
-              className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:opacity-60"
-            >
-              {isPending ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <Plus size={14} aria-hidden />}
-              내 단어장에 추가
-            </button>
-          )}
-        </div>
       </div>
-    </div>
+    </Dialog>
   )
 }

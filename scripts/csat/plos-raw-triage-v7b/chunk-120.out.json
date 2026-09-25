@@ -1,0 +1,860 @@
+[
+ {
+  "id": "61a1e004-abd9-4fc1-909a-f4db08685e4e",
+  "source_updated_at": "2026-09-13T07:14:45.206905+00:00",
+  "body_sha256": "14093d0eeb7207ae9cb991646058552a5831601e6b0c2c1a8a39f0acbc86679a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 하겐-푸아죄유 설명 단락이 기도 지름과 호흡 저항의 관계를 논지로 세워 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The nasopharynx and oropharynx can",
+   "note": "수식·기호(ΔP, α)를 걷고 「압력 강하」를 「숨쉬기 저항」으로 바꾸면 원리 설명이 선다."
+  }
+ },
+ {
+  "id": "61af8c0f-1e14-4ee7-9e13-95ceaeafb366",
+  "source_updated_at": "2026-09-13T07:20:57.235494+00:00",
+  "body_sha256": "ba455a70106086a15d16775df41cb01ae80983b26b79774bdff2208bee19c9b4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 신장이식 후 골절 감소 추세 단락이 스테로이드 절감이라는 원인을 논지로 제시해 요지·내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although there is variation in",
+   "note": "P값과 약어를 걷고 「immunosuppressive」를 「면역 억제」로 풀면 흐름이 선다."
+  }
+ },
+ {
+  "id": "61f2536f-ddb2-4ad9-a6ea-d30fa4f74e08",
+  "source_updated_at": "2026-09-05T23:58:29.126945+00:00",
+  "body_sha256": "a79b1e1981b9376093819f3a1564797bf7459fe0d48d988d5ed5571102729f98",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "짧은 논평 전체가 고혈압 신약의 효과와 보급 장벽을 한 논지로 잇고 끝 단락이 요지를 맺어 주제·주장 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "title",
+    "summary",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Even with a multitude of",
+   "note": "약물명을 「새 약」으로 묶고 「pervasive」「catalyst」를 쉬운 말로 바꾸면 V6 대로 내려간다."
+  }
+ },
+ {
+  "id": "61f5267f-beca-4793-93a9-8cc4a58db627",
+  "source_updated_at": "2026-09-25T07:32:41.786637+00:00",
+  "body_sha256": "4ef07744b8d60f365a35e57ce703b7c997507acd20f4e2801fa290c05887da58",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 전통 약용 버섯과 항암 연구 동기 단락이 한 흐름으로 서서 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The application of medicinal herbs",
+   "note": "종명 나열과 통계 수치를 걷으면 「부작용 적은 치료법 탐색」 논지가 남는다."
+  }
+ },
+ {
+  "id": "62066892-7711-4764-b9aa-aae43c8e6b37",
+  "source_updated_at": "2026-09-25T07:32:43.181161+00:00",
+  "body_sha256": "ed6b5b4baf3d948c20118e5d1ab62bc46f46f127cb38530f336c1cc96d2771a5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "결과의 이주민 참여·코로나 공백기 단락이 문화 전승의 지속성을 사례와 인용으로 보여 주제·심경·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "order",
+    "insert",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Most significantly, the forced hiatus",
+   "note": "면담 코드(1d-12)를 걷고 「topological invariant」를 「변하지 않는 핵심」으로 바꾸면 선다."
+  }
+ },
+ {
+  "id": "62246529-bd75-4b3f-a1d2-15dc55b8f7b1",
+  "source_updated_at": "2026-09-13T07:37:23.008619+00:00",
+  "body_sha256": "dad1f05511081e85f6b56c9bf718e6c43d676cb8f194372b663239a18627b9c5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 자율신경 반사부전 설명과 고찰의 압수용 반사 기전 단락이 인과 흐름을 갖춰 순서·내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It is known that NTS",
+   "note": "약어(NTS·BRS)를 풀어 쓰고 신경 이름 두셋을 걷으면 혈압 조절 순서가 선다."
+  }
+ },
+ {
+  "id": "6235fdce-29fb-4bf1-9dcc-a0796c541b14",
+  "source_updated_at": "2026-09-15T15:09:14.594281+00:00",
+  "body_sha256": "da710f7aa3c883457096425cbddbff4f777af8d8b0061c0cdf50f45613af0116",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 HPV35가 백신에 빠진 문제 단락이 백신 설계 개선 주장을 근거와 함께 세워 주장·요지 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although 72 smears that tested",
+   "note": "유전형 번호 나열을 줄이고 「predominance」를 쉬운 말로 바꾸면 주장이 선다."
+  }
+ },
+ {
+  "id": "6245418a-3dd4-4287-80e0-a82dea5f852f",
+  "source_updated_at": "2026-09-05T23:58:31.748058+00:00",
+  "body_sha256": "9a0818cafb7f91880e93c4d869c3ab71a2120d9c7e4f097f27a3bec35e5fe3c5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "헤파린 유발 혈소판감소증과 백신 연관 가설을 단계별로 설명하는 본문이 인과 순서를 이뤄 순서·요약 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Heparin-induced thrombocytopenia is a severe",
+   "note": "수용체 기호(FcγRIIA)를 걷고 「autoantibody」를 풀어 쓰면 기전 순서가 남는다."
+  }
+ },
+ {
+  "id": "625250ee-bdec-4085-b25d-a6b598c8f102",
+  "source_updated_at": "2026-09-25T07:32:46.965439+00:00",
+  "body_sha256": "990d9e517824a72f72ee5c8c6ba300774b32f045a05bbdf96a1d71d51d6092bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "방법 앞부분의 「왜 레지스트리인가」 절이 무작위 시험의 한계와 등록 연구의 장점을 논증해 주장·요지 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although RCTs remain the gold",
+   "note": "질환명을 「드문 질환」으로 일반화하면 연구 방법 비교 논지가 선다."
+  }
+ },
+ {
+  "id": "6258c31a-7bef-4be6-a96b-966ed085dcb4",
+  "source_updated_at": "2026-09-25T07:32:47.45811+00:00",
+  "body_sha256": "8c6a3b15f6ff7ec7753b806794add960d177b4d06867d1f1f14c7d9d47d03460",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 치쿤구니야 확산과 치료 공백 단락, 코코아 부산물 활용 단락이 한 흐름을 이뤄 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Since the first reported case",
+   "note": "환자 수 통계를 걷고 「arthralgia」를 「관절통」으로 바꾸면 확산 서술이 선다."
+  }
+ },
+ {
+  "id": "62644764-9474-46bc-a823-d9009dbd61b0",
+  "source_updated_at": "2026-09-25T07:32:49.791282+00:00",
+  "body_sha256": "0624b398e41e0246239b4bc3d9383d37bab57deb98537fd437fcccbcb9cad3d0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "서론의 운무림 단절 분포와 약용 채취 위협 단락, 고찰의 꽃가루·종자 이동 설명이 논지를 세워 주제·내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Direct data on T. sylvatica",
+   "note": "지명 약어와 FST 수치를 걷고 「entomophily」를 「곤충 수분」으로 풀면 선다."
+  }
+ },
+ {
+  "id": "6288df9e-1d0e-437f-87b5-d81ea0758be3",
+  "source_updated_at": "2026-09-13T06:28:20.617376+00:00",
+  "body_sha256": "12ae2c4e7a57f0a30488ea4f161d5da35ad71f42a6db8773e70740ddea94c124",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 루게릭병 환자 인공호흡 조기 적용과 순응도 관계 단락이 원인·결과로 이어져 요지·빈칸 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The majority of patients in",
+   "note": "약어(NIPPV·ALS)를 풀어 쓰고 비율 수치를 걷으면 논지가 남는다."
+  }
+ },
+ {
+  "id": "62a1686c-501b-4025-a912-2b82d8023361",
+  "source_updated_at": "2026-09-15T15:09:26.014409+00:00",
+  "body_sha256": "e5bb34188beae00d778fbd0477beb26c159178fee7594a383a4325bf4247c8a8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 뇌졸중 유전 위험과 원인 불명 뇌졸중 증가 단락이 짧게 논지를 세워 주제·내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Stroke is the second largest",
+   "note": "유전율 수치를 걷고 「cryptogenic」을 「원인 불명」으로 바꾸면 선다; 결과는 유전자명 나열이다."
+  }
+ },
+ {
+  "id": "62afd58c-f4d1-43f0-ab7d-9ffa91b29254",
+  "source_updated_at": "2026-09-13T06:24:53.004409+00:00",
+  "body_sha256": "801ec2fa2c0db23d00e29579c57579e1eb06514135d9be50e00794eefe69b0c1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 샤가스병 약물 개발 난점 단락이 원인 여럿을 근거로 들어 주제·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Anti-Chagasic drug research is challenging.",
+   "note": "약물명을 걷고 「confounded」를 쉬운 말로 바꾸면 난점 나열이 논지로 선다."
+  }
+ },
+ {
+  "id": "62b2d22c-2424-4dd1-a855-61fae300d3dd",
+  "source_updated_at": "2026-09-25T07:32:57.517433+00:00",
+  "body_sha256": "f8535099180cedbaaabd6de6aed62688f92fa3f0e3355a9932dc7af92ba1b35d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "서론의 지속 방출이 내성을 줄이는 원리 단락과 결론의 항생제 절약 논지가 한 편으로 서서 주제·요지 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sustained drug release offers several",
+   "note": "「MIC」「API」 약어를 풀어 쓰면 원리 설명이 V6 대로 내려간다."
+  }
+ },
+ {
+  "id": "62b468c6-f8c8-4738-b67d-14f113e242f0",
+  "source_updated_at": "2026-09-25T07:32:58.03366+00:00",
+  "body_sha256": "65f1b241afbd0ab9c209d129ab7f900dc3e3028528a4f31969781cd34aa5c14e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "서론의 토양 염류화가 농업과 식량 안보를 위협한다는 단락이 원인과 결과를 세워 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Soil salinity stands as one",
+   "note": "면적·비율 수치를 걷어도 염류화 원인·영향 논지가 선다; 결과 절은 수치 나열이다."
+  }
+ },
+ {
+  "id": "62c721f3-4539-4bc0-aa30-346a9fe97aea",
+  "source_updated_at": "2026-09-25T07:33:00.017178+00:00",
+  "body_sha256": "286c630565e9e4a617a0f0732df899b498d0a99aa02b486d6a9863559aa7dd83",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "저자 요약과 고찰이 무증상 말라리아도 침팬지에게 숨은 대가가 있다는 주장을 근거와 함께 세워 주장·요지 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "title",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Malaria parasites infect humans and",
+   "note": "저자 요약 단락은 약어가 거의 없어 그대로 서고 「benign」만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "62ccec68-f2e2-4a07-8725-fd33ee03b9a3",
+  "source_updated_at": "2026-09-13T07:02:47.86302+00:00",
+  "body_sha256": "0584f2c38a41adc0fb752b7ea70c4a13df516afd4776e4050615530c1b615d45",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "배경과 고찰의 섬유모세포 영상 필요성 단락이 비침습 검사의 필요를 논증해 주장·요지 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Currently, FAP expression can only",
+   "note": "약어(FAP·CAF)를 「종양 주변 세포 표지」로 풀면 논지가 선다."
+  }
+ },
+ {
+  "id": "62ebbfc1-593b-464f-b428-a7b8e54016c4",
+  "source_updated_at": "2026-09-13T06:42:56.265501+00:00",
+  "body_sha256": "17f7aa6f313c8b2d58c4a569b9af9edeec34c32566c2bf0757a88c75138181a0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "genre": "science",
+  "why": "본문이 방법 절의 「can be found in the」에서 문장 도중 끊겨 원천이 불완전하나 서론·고찰은 칸을 채울 만하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Host organisms have evolved several",
+   "note": "서론의 세포 자율 면역 단락은 약어를 풀면 서지만 원문 말미가 잘려 있다."
+  },
+  "hold_reason": "incomplete-source"
+ },
+ {
+  "id": "62f96a3a-30b6-46e4-86e0-a06a884a4cda",
+  "source_updated_at": "2026-09-25T07:33:05.311656+00:00",
+  "body_sha256": "f307a1744519e367ff34fe93ac0c8bac459e3a63a029b4ce4fb3cf2f474ebaf5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "저자 요약과 서론이 샤가스 심근병증이 다른 심부전과 다른 생물학을 가진다는 주장을 세워 주장·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chagas disease remains a major",
+   "note": "저자 요약 단락은 단백질명을 빼면 거의 그대로 서고 「neglected」 정도만 바꾸면 된다."
+  }
+ }
+]

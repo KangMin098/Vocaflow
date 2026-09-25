@@ -1,0 +1,724 @@
+[
+  {
+    "id": "56191339-ae7b-4afc-b71c-8dff6051a268",
+    "source_updated_at": "2026-09-15T15:03:22.792068+00:00",
+    "body_sha256": "3d8189acaac7e9a0958fd7842fc889af2687b96117f009690065a562ca47e02d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 고염식 발암 기전과 성별 격차 단락이 논지로 서서 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "High sodium intake promotes stomach carcinogenesis",
+      "note": "약어(DALY·ASMR)를 걷고 mucosa를 lining으로 바꾸면 서고, 수치를 빼도 논지가 남는다."
+    }
+  },
+  {
+    "id": "562a90f1-b3e7-42d3-9e3b-32dfb1f99162",
+    "source_updated_at": "2026-09-15T15:03:24.339902+00:00",
+    "body_sha256": "dbf90438e6fad3228c800a378ead4ff21b4096052deb090451a883f519bfd133",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "discard",
+    "genre": "science",
+    "why": "유전자 결실 실험 절차와 스플라이싱 결과 서술뿐이라 일반 독자용 단락이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "We were interested in understanding why",
+      "note": "서론 가설 단락도 MSI1·엑손 용어 없이는 뜻이 서지 않는다."
+    }
+  },
+  {
+    "id": "5640fd8f-ca84-4222-8bc3-e0e1f56fc38a",
+    "source_updated_at": "2026-09-25T06:56:39.644013+00:00",
+    "body_sha256": "54bef87c9be04ea71d06cc8eaa72b14017f49f6404acf3d3a3824bec2900cd80",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "discard",
+    "genre": "science",
+    "why": "이온 채널 돌연변이별 전류 측정 결과 나열이라 떼어 쓸 논지 단락이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "This study demonstrated that estradiol inhibits",
+      "note": "잔기 번호(F142A 등)를 걷으면 남는 내용이 없다."
+    }
+  },
+  {
+    "id": "56425f77-4e69-4881-9fec-1860888445f5",
+    "source_updated_at": "2026-09-25T06:56:41.217371+00:00",
+    "body_sha256": "5bb16977ebd343571cc01f1b0bba662e209dbe4e8fe185608ef1d01b68326de8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "discard",
+    "genre": "technology",
+    "why": "수식과 모델 구조 설명이 대부분이고 사례 단락도 결과 보고에 그친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "To analyze the temporal evolution of",
+      "note": "웨이보 화제 사례 단락은 그림 수치에 기대어 따로 서기 어렵다."
+    }
+  },
+  {
+    "id": "564b8498-63e5-4a5d-b790-99be4529a3b0",
+    "source_updated_at": "2026-09-25T06:56:42.825012+00:00",
+    "body_sha256": "b03f7608a2800dd34489d22d441f914451888a3bf4958eb24fa771c1e8e35c78",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 한계 절이 대량 수혈과 사망의 인과를 단정할 수 없는 이유를 논증한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This study has several limitations. The",
+      "note": "OLT·UMT 약어를 liver transplant·extreme transfusion으로 풀면 교란 논증이 선다."
+    }
+  },
+  {
+    "id": "564fd592-e0da-437b-b3c9-7c62d76b434f",
+    "source_updated_at": "2026-09-25T06:56:45.870556+00:00",
+    "body_sha256": "a1a6f695bc94ef9aea836e64d2a944460497c8929a111088cb2f29707a6bc121",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "결론의 설하 투여 선호 단락이 편의·자율 근거로 주장을 세워 성인 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When routes of administration are considered,",
+      "note": "출산 유도 소재라 성인 칸으로 제한하고 약품명은 괄호로 풀어 준다."
+    }
+  },
+  {
+    "id": "565143dd-f307-4167-964a-ec3ab2d0e9a0",
+    "source_updated_at": "2026-09-13T06:58:06.398031+00:00",
+    "body_sha256": "e3659ed55d95291b25c474ccab3037d86c39392c78882caeaea470b3f9128a3b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "식수 질산염의 조산 위험 단락과 동물실험 한계 단락이 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Preterm birth (birth prior to 37",
+      "note": "본문에 표가 섞여 있어 가공 때 표 조각을 걷어 낸다."
+    }
+  },
+  {
+    "id": "5652f758-3f7f-46e8-8e47-da49632b28e4",
+    "source_updated_at": "2026-09-25T06:56:48.490547+00:00",
+    "body_sha256": "0b19a2b0ed7521f7964592618fba982ceadcc3e8133e6c91814ae9ce8c20b476",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론의 dsRNA 불안정성과 DNA 올리고 대안 단락이 문제-해결 흐름을 갖는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One of the main limitations in",
+      "note": "oligonucleotide를 short DNA piece로 바꾸면 대비 구조가 그대로 남는다."
+    }
+  },
+  {
+    "id": "565c5680-8eaa-4730-b0e1-4ca53ab9e69b",
+    "source_updated_at": "2026-09-13T06:27:28.046476+00:00",
+    "body_sha256": "e944d4550a7c05910044d27bd670a6252ebffb81255e75878a10a23c424da66c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론의 튀니지 밀 품종 교체와 농약 대안 단락이 배경-필요성 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "purpose",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Tunisia, durum wheat is a",
+      "note": "균 이름(F. culmorum)을 a fungus로 바꾸면 단락이 따로 선다."
+    }
+  },
+  {
+    "id": "565c95fa-f431-4e01-85e4-4777551dbbaf",
+    "source_updated_at": "2026-09-13T06:29:08.119968+00:00",
+    "body_sha256": "3ee2de4c5a3ece3dc8f97a5c746217f959952b849ffbec9ee12bc42a56efdcb3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "discard",
+    "genre": "science",
+    "why": "선충 RNA 가공 경로의 분자 실험 기술이 전부라 가공할 단락이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The Integrator is a metazoan specific",
+      "note": "서론 첫 단락도 snRNA·Integrator 용어가 논지 자체라 바꿀 수 없다."
+    }
+  },
+  {
+    "id": "56653cdc-b490-47c2-93e5-8545eb2fb3a5",
+    "source_updated_at": "2026-09-15T15:03:35.764621+00:00",
+    "body_sha256": "d63c26ace2a2712a475bb3e0dd1af6270a6ec77fc782a2f84028ffe69003357b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 어린이 눈 비비기와 자가 감염 단락이 원인-대책 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pediatric patients are particularly prone to",
+      "note": "MPXROD 약어를 eye disease로 풀면 떼어 쓸 수 있고 분쟁 지역 한계 단락도 쓸 만하다."
+    }
+  },
+  {
+    "id": "5667e43f-733d-4d33-9576-4f262635af3a",
+    "source_updated_at": "2026-09-15T15:03:36.161925+00:00",
+    "body_sha256": "2f75487fc1fa05df7906ebc15f87738c84498654d7b16d1f50710845d16401ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "discard",
+    "genre": "health",
+    "why": "영상 지표 수치 비교가 중심이고 MRI와 CT 비교 단락도 짧아 논지가 약하다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "MRI offers excellent soft-tissue resolution and",
+      "note": "안와 근육 약어와 수치를 걷으면 한두 문장만 남는다."
+    }
+  },
+  {
+    "id": "5673fd3d-05b4-4c0d-8673-2782843623b3",
+    "source_updated_at": "2026-09-15T15:03:38.371106+00:00",
+    "body_sha256": "2cd495f3c72de39359b185c42dcddda5953df92cbb0625b8f4070095b984f5bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "discard",
+    "genre": "science",
+    "why": "마우스 모델의 면역 지표와 조직 분석 결과가 대부분이라 읽기 단락이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Our data demonstrate that orally administered",
+      "note": "Th1·Nrf2 등 용어가 논지의 핵심이라 쉬운 말로 바꾸기 어렵다."
+    }
+  },
+  {
+    "id": "56804c3b-cb08-4b76-8509-8e15d9d21884",
+    "source_updated_at": "2026-09-15T15:03:40.148025+00:00",
+    "body_sha256": "dc2b8587097ac2f49735126451ac91f17a25b6333e3be46d107dcc8633c49115",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "discard",
+    "genre": "science",
+    "why": "단백질 변형 경로 비교가 전문 용어로만 이어져 목표 밴드로 내릴 수 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "A puzzling finding of the present",
+      "note": "예상 밖 결과 단락은 흥미롭지만 carbamylation·MPO 없이 설명되지 않는다."
+    }
+  },
+  {
+    "id": "568c4016-b830-4a36-8ef3-5b0220fa01de",
+    "source_updated_at": "2026-09-15T15:03:41.247646+00:00",
+    "body_sha256": "e165778bdc47b7cf8d9f155859da3d0d5fa72a09c9622c0433ed3f711c98a082",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 중국 B형 간염 부담과 모자 수직감염 단락이 배경 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "HBV is primarily transmitted through blood",
+      "note": "immunoprophylaxis를 vaccines and antibodies로 바꾸면 흐름이 남는다."
+    }
+  },
+  {
+    "id": "56980b11-cd0b-4747-a451-41d0f1123cfa",
+    "source_updated_at": "2026-09-13T07:28:56.225282+00:00",
+    "body_sha256": "b47b3263fceb09c16dfcafafa48a5cd6ab244e5363cee7447d952f92fe5d8227",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 인공관절 감염과 항생제 치료 실패 단락이 신약 필요성을 논증한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "topic",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The goals of PJI treatment are",
+      "note": "PJI·biofilm을 joint infection·bacterial film으로 풀면 논지가 선다."
+    }
+  },
+  {
+    "id": "569959c9-01b6-4e2f-bbea-97fda8248e8e",
+    "source_updated_at": "2026-09-25T06:57:03.91968+00:00",
+    "body_sha256": "313492df08f29fba2494f673d57943e16bfe5184afac588a21ef9755a5bf79fc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "discard",
+    "genre": "science",
+    "why": "바이러스 단백질 분해 경로의 기전 실험이 전부라 떼어 쓸 논지 단락이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Human cytomegalovirus (HCMV) is a ubiquitous",
+      "note": "서론 첫 단락은 감염률 수치 나열뿐이고 나머지는 분자 용어다."
+    }
+  },
+  {
+    "id": "569ae3dd-3719-41f4-8e9f-0c20a418df18",
+    "source_updated_at": "2026-09-25T06:57:05.010435+00:00",
+    "body_sha256": "683940b05e21f122a575fb3bac56fc6b28d31dce857a8c827935df7af3ce0453",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 전통 치료 믿음과 지역 지도자 지원 단락이 결핵 치료 완료 요인을 논증한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rather than framing traditional practices purely",
+      "note": "승산비 수치를 걷어도 요인-결과 논지가 그대로 선다."
+    }
+  },
+  {
+    "id": "569d00ec-5645-4257-b1a6-aacc19305253",
+    "source_updated_at": "2026-09-25T06:57:07.7162+00:00",
+    "body_sha256": "db27e592447bb9e09550e2e918ea4932c014579fc10aac2d882e040974da2253",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 유방암 약제 내성과 식물 유래 신약 탐색 단락이 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Natural products make up about 60%",
+      "note": "화합물 이름을 garlic compounds로 묶으면 떼어 쓸 수 있다."
+    }
+  },
+  {
+    "id": "56acc3ff-2de4-4c7d-b08c-8d9ff65bb67b",
+    "source_updated_at": "2026-09-25T06:57:10.790301+00:00",
+    "body_sha256": "d401520815c083cc80491852f66bb1435b9f7c48827e207c5ce9add3e0225f28",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 은밀한 암컷 선택 개념 단락이 진화 논지로 서서 성인 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Female mate choice can occur both",
+      "note": "생식 생리 소재라 성인 칸만 달고 CFC 약어는 풀어서 쓴다."
+    }
+  }
+]

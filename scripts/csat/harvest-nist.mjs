@@ -54,6 +54,7 @@ import path from 'node:path'
 
 import { fitRecord, scoreArticle } from './lib-fit.mjs'
 import { classify, TOPIC_KEYS, TOPIC_V } from './lib-topic.mjs'
+const { rightsTag } = await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -274,11 +275,14 @@ for (const it of candidates) {
   await sleep(GAP_MS)
   if (!got) continue
 
-  if (got.words < NIST_MIN_WORDS) {
-    n.shortSkip++
-    disposed.add(it.path)
+  // ⚠️ **길이·창 점수로 원문을 버리지 않는다**(2026-09-24 · docs/source-check/criteria.md §0). 짧거나 창이 없어도
+  //   담고 기록만 한다 — 보관 여부는 내용 판정이 가른다. 본문이 **비면**(0어) 파서 고장 신호라 담지 않되,
+  //   처분(`disposed`)에 넣지 않는다 — 파서를 고치면 다음 회차에 다시 받는다.
+  if (!got.words) {
+    n.emptyBody = (n.emptyBody ?? 0) + 1
     continue
   }
+  if (got.words < NIST_MIN_WORDS) n.shortSkip++ // 기록만 — 아래로 계속 간다
   if (got.body.nonAsciiRatio > NIST_MAX_NON_ASCII) {
     n.nonAsciiSkip++
     disposed.add(it.path)
@@ -307,11 +311,7 @@ for (const it of candidates) {
   hit.articles++
 
   const sc = scoreArticle(got.content)
-  if (sc.pass <= 0) {
-    n.fitFail++
-    disposed.add(it.path)
-    continue
-  }
+  if (sc.pass <= 0) n.fitFail++ // 기록만 — 창 점수로 버리지 않는다
   // 제목은 소재의 가장 강한 단서다 — 분류기에 **반드시 함께 넘긴다**.
   const tp = classify(got.content.slice(0, 6000), { title: got.title })
   const room = (quota[tp.topic] ?? 0) - (byTopic[tp.topic] ?? 0)
@@ -337,7 +337,20 @@ for (const it of candidates) {
     feed_id: 'harvest',
     feed_label: `겨냥 수확 · ${feed.label} · ${tp.topic}`,
     // 소재를 **적재 시점에 함께 적는다** — 안 적으면 전수 집계에서 이 행들이 빠진다.
-    csat_fit: { ...fitRecord(got.content), topic: tp.topic, topicMargin: tp.margin, topicV: TOPIC_V },
+    csat_fit: {
+      ...fitRecord(got.content),
+      topic: tp.topic,
+      topicMargin: tp.margin,
+      topicV: TOPIC_V,
+      // 연방정부 저작물이라는 **소스 단위** 표기다 — 글마다 확인한 것이 아니다(needsResolution=true, DD-75).
+      rights: rightsTag({
+        license: 'Public Domain (US Government)',
+        licenseEvidence: 'collection-default',
+        author: got.author ?? null,
+        publishedAt: got.published_at ?? null,
+        sourceUrl: got.url,
+      }),
+    },
     _path: it.path,
   })
   process.stderr.write(`\r  본문 ${hit.articles} · 받음 ${passed.length}   `)
@@ -376,9 +389,9 @@ console.log(`\n  ── 이번 실행 ${'─'.repeat(58)}`)
 console.log(`    사이트맵 ${n.listed.toLocaleString()} · 이미 판정 ${n.seenSkip} · 이미 있음 ${n.dup}`)
 console.log(
   `    본문 받음 ${hit.articles} · 본문 실패 ${n.bodyFail} · 컨테이너 없음 ${n.noContainer} · ` +
-    `${NIST_MIN_WORDS}어 미만 ${n.shortSkip} · 비ASCII 초과 ${n.nonAsciiSkip}`,
+    `${NIST_MIN_WORDS}어 미만(담음) ${n.shortSkip} · 빈 본문(파서 확인) ${n.emptyBody ?? 0} · 비ASCII 초과 ${n.nonAsciiSkip}`,
 )
-console.log(`    창 게이트 탈락 ${n.fitFail} · 몫 참 ${n.quotaFull} · **적재 ${n.inserted}**`)
+console.log(`    창 0개(담음) ${n.fitFail} · 몫 참 ${n.quotaFull} · **적재 ${n.inserted}**`)
 if (Object.keys(byTopic).length) {
   console.log(
     `    소재별 받음: ${Object.entries(byTopic)

@@ -89,8 +89,14 @@ type Scanner = {
  * `upsert(changed)` 로 넘긴다(행마다 PATCH 가 아니다). 09-05/09-06 을 멈춘 경로
  * (수만 행 × 초당 100+)와 자릿수가 다르다 — 그래서 고치라고 요구하지 않고 예산만 옮긴다.
  * 다음에 또 오르면 같은 방식으로 파일 이름을 적는다. 내리는 것은 언제나 환영이다.
+ *
+ * 151 → 158 (2026-09-26):
+ *   +2  scripts/acp/plos-figure-refetch.mts (그림 결함 원본 재수집 · 되돌리기 — 행마다 옛 본문 백업을 먼저 적고 쓴다)
+ *   +1  scripts/acp/plos-piece-seam-scan.mjs (--archive · 이음매 조각 159행 보관함 — 참조 0 확인 뒤)
+ *   둘 다 이미 한 번 돌린 일회성 수리다.
+ *   +4  design/replica-first 통합으로 들어온 다른 세션 커밋분 — 파일 미특정(PR #120 병합 전 확인 필요)
  */
-const BASELINE = 151
+const BASELINE = 158
 
 let scanner: Scanner
 

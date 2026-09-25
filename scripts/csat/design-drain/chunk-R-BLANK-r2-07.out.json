@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2018#32",
+      "roles": ["background", "background", "background", "background", "background", "background", "background", "topic", "support", "support", "conclusion", "turn", "support"],
+      "alternatives": [{ "index": 11, "role": "example" }],
+      "pattern": "myth_rebuttal",
+      "selection": "지난주 점심이 기억나지 않는 것을 ‘기억이 사라졌다’는 통념으로 두고 실은 ‘꺼낼 단서가 없다’로 뒤집는 글이라, 빈칸이 그 결핍의 정체를 비유로 복원하게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "알맞은 단서만 주어지면 떠올린다는 진술이 선지에서 점심 기억의 바다에서 끌어올리는 갈고리라는 비유로 같은 수준에서 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2018#31",
+      "roles": ["background", "support", "support", "support", "support", "topic"],
+      "alternatives": [{ "index": 0, "role": "example" }],
+      "pattern": "contrast",
+      "selection": "원작 소설과 영화의 배경 차이를 여러 문장으로 대비한 뒤 마지막 문장에서 반사실 가정을 세우므로, 실제 선택의 반대편을 떠올려야 풀리는 지문이다.",
+      "transform": "negation_flip",
+      "transform_note": "배경을 당대로 바꾸었다는 진술이 반사실 조건 속에서 원작을 그대로 옮긴 각색이라는 반대 상태로 뒤집혔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2017#34",
+      "roles": ["topic", "support", "support", "support", "support", "example", "example"],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "빈칸이 첫 문장 주제문에 있고 뒤 문장들이 건물 형태가 쓰임새를 알려 준다는 설명과 극장·법정 사례로 이어져, 뒤의 구체를 모아 주제를 복원해야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "형태와 공간 배치가 어떻게 쓰일지 암시를 준다는 진술이 선지에서 건물의 기능을 알아보고 결부시킨다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2017#33",
+      "roles": ["background", "background", "background", "background", "topic", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 4, "role": "example" }],
+      "pattern": "myth_rebuttal",
+      "selection": "슬픔은 없는 편이 낫다는 통념을 질문으로 던진 뒤 부정 감정이 사랑의 진정성을 보증한다고 반박하는 글이라, 느낌이 없을 때 생기는 의심을 논리로 채우게 한다.",
+      "transform": "inference",
+      "transform_note": "사랑하는 동안에도 사랑의 느낌이 없을 수 있다는 간극에서, 지문에 적히지 않은 의심 내용(이제 사랑하지 않는다)을 논리로 복원해야 한다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2017#32",
+      "roles": ["background", "background", "background", "turn", "support", "topic", "support"],
+      "alternatives": [{ "index": 3, "role": "topic" }, { "index": 5, "role": "conclusion" }, { "index": 4, "role": "example" }],
+      "pattern": "general_specific",
+      "selection": "직군마다 다른 시간 해상도를 요구한다는 나열을 한 문장의 일반 원리로 접게 하는 지문이라, 앞부분의 ‘영상이 많을수록 좋다’는 인상을 이겨 내야 한다.",
+      "transform": "abstraction",
+      "transform_note": "기상학자·도시계획가·교통계획가의 각기 다른 요구가 선지에서 탐구의 요구에 맞춘다는 상위 원리로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2016#34",
+      "roles": ["background", "example", "background", "turn", "support", "support", "topic", "support", "conclusion", "support"],
+      "alternatives": [{ "index": 8, "role": "topic" }],
+      "pattern": "contrast",
+      "selection": "옛 시인들의 지면 위 불멸과 휘트먼이 더한 군중 속 명성을 대조한 글이라, 빈칸에서 두 종류의 명성을 끝까지 구분해야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "군중과의 관계로 정의된 명성, 사람들의 환호에 기대는 명성이 선지에서 동시대인의 인정으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2016#33",
+      "roles": ["background", "turn", "support", "support", "support", "conclusion", "support"],
+      "alternatives": [{ "index": 1, "role": "topic" }, { "index": 5, "role": "support" }],
+      "pattern": "cause_effect",
+      "selection": "종자 회사가 모계통을 쥐고 수확 알곡은 다시 심을 수 없다는 두 조건이 합쳐진 결과를 묻는 글이라, 인과를 끝까지 따라가야 답이 고정된다.",
+      "transform": "inference",
+      "transform_note": "채종 길이 두 겹으로 막혔다는 조건에서, 지문에 직접 적히지 않은 ‘매철 회사에서 다시 산다’는 결과를 논리로 채운다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2016#32",
+      "roles": ["background", "support", "turn", "example", "example", "example", "topic", "example"],
+      "alternatives": [{ "index": 2, "role": "topic" }, { "index": 6, "role": "example" }, { "index": 1, "role": "example" }],
+      "pattern": "general_specific",
+      "selection": "좋음과 나쁨의 경계가 상황에 따라 움직인다는 일반 진술 뒤 비바람 속 바위 피난 장면을 들어, 쾌감이 무엇의 방향을 가리키는지 사례에서 끌어내게 한다.",
+      "transform": "abstraction",
+      "transform_note": "바위 뒤에서 느끼는 잠깐의 안도라는 구체 장면이 선지에서 생물학적으로 의미 있는 상황 개선이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2015#33",
+      "roles": ["topic", "support", "support", "support", "turn", "example", "conclusion", "example"],
+      "alternatives": [{ "index": 0, "role": "background" }, { "index": 6, "role": "topic" }],
+      "pattern": "cause_effect",
+      "selection": "큰 인구를 필요조건으로 인정하되 충분조건은 아니라고 한 뒤 경직된 제국을 반례로 들어, 여러 문장에 흩어진 조건을 모두 모아야 빈칸이 채워진다.",
+      "transform": "compression",
+      "transform_note": "규모가 필요하다는 진술, 경직된 통제가 해롭다는 진술, 상업의 부상이 선지 하나에서 크고 느슨하며 경쟁적인 공동체로 압축됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2015#32",
+      "roles": ["background", "topic", "support", "support", "support", "conclusion", "support", "support"],
+      "alternatives": [{ "index": 5, "role": "concession" }, { "index": 7, "role": "conclusion" }],
+      "pattern": "myth_rebuttal",
+      "selection": "과학이 사회악을 못 고쳤다는 친구의 실망을 흔한 오해로 규정하고 지식과 그 쓰임을 가르는 글이라, 양보 뒤 but 자리에 무엇을 부정할지 가려야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "지식 자체와 그 쓰임은 별개라는 진술이 선지에서 사회악 미해결을 지식의 진보와 혼동하는 것은 터무니없다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

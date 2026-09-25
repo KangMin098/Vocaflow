@@ -9,6 +9,7 @@
 //
 // 그래서 아래 검사는 **표시가 사라지는 것**과 **판정이 관대해지는 것**을 함께 잠근다.
 
+import type { EligibilityDrift } from '@/lib/textbook/eligibility-drift'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -21,8 +22,25 @@ import { buildSourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
 import { SourceEligibilityClient } from '../sources/SourceEligibilityClient'
 
+/**
+ * 스냅샷 대비 증감 — **못 읽은 상태**를 표본으로 쓴다.
+ *
+ * 렌더 테스트는 DB 를 안 타므로 「지금 값」이 없는 것이 정상이고, 화면은 그때
+ * 「못 읽었다」고 적어야 한다(0 이 아니다). 그 문장이 안 나오면 이 표본이 거짓으로 통과한다.
+ */
+const DRIFT_UNREAD: EligibilityDrift = {
+  available: false,
+  error: null,
+  snapshotAt: '2026-09-19T02:31:46.502Z',
+  measuredAt: null,
+  snapshotTotal: 0,
+  nowTotal: null,
+  grades: [],
+}
+
 const panel = buildSourceEligibilityPanel(new Date('2026-09-06T12:00:00Z'))
-const html = renderToString(<SourceEligibilityClient panel={panel} inventory={buildSourceInventoryPanel()} />)
+const html = renderToString(<SourceEligibilityClient panel={panel} inventory={buildSourceInventoryPanel()} drift={DRIFT_UNREAD} />)
+
 
 describe('buildSourceEligibilityPanel', () => {
   it('스냅샷 합계가 등급 합과 맞는다 — 어긋나면 밴드 인자와 함께 만든 스냅샷이다', () => {
@@ -51,8 +69,14 @@ describe('buildSourceEligibilityPanel', () => {
   })
 
   it('경과 일수를 기준 시각으로 계산한다 — 화면이 낡음을 스스로 말해야 한다', () => {
-    const later = buildSourceEligibilityPanel(new Date('2026-09-20T12:00:00Z'))
-    expect(later.ageDays).toBeGreaterThan(panel.ageDays)
+    // ⚠️ 기준 시각을 **스냅샷이 잰 날에서** 잡는다. 달력 날짜를 박아 두면 스냅샷을 다시
+    //   구울 때마다 두 값이 모두 0 으로 눌려(경과가 음수면 0) 검사가 조용히 통과하거나
+    //   조용히 떨어진다 — 실제로 2026-09-23 에 그렇게 떨어졌다.
+    const measured = new Date(panel.measuredAt)
+    const day = 86_400_000
+    const near = buildSourceEligibilityPanel(new Date(measured.getTime() + 2 * day))
+    const far = buildSourceEligibilityPanel(new Date(measured.getTime() + 30 * day))
+    expect(far.ageDays).toBeGreaterThan(near.ageDays)
   })
 
   it('다음 한 걸음은 **되돌릴 수 있는** 축 중 가장 큰 것이다', () => {
@@ -500,9 +524,11 @@ describe('원문으로 가는 길', () => {
 describe('도움말 계약', () => {
   const entry = HELP_REGISTRY['csat-sources']
 
-  it('레지스트리 키가 라우트 슬러그와 같다', () => {
+  it('레지스트리 키가 라우트 슬러그와 같고, 제목이 메뉴 라벨과 같다', () => {
     expect(entry).toBeTruthy()
-    expect(entry!.title).toBe('원문 적격')
+    // 도움말 제목과 메뉴 라벨이 다르면 관리자가 자기가 어디 있는지 알 방법이 없다.
+    // 2026-09-23 「원문 적격」 → 「소재 적격」(DD-74). 슬러그·라우트는 안 바뀐다.
+    expect(entry!.title).toBe('소재 적격')
   })
 
   it('드레인 절차가 있고 재실행 안전 여부를 밝힌다', () => {

@@ -10,6 +10,7 @@
 // source_id: "plos:<doi>"
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { decodeEntities, extractFirst, fetchWithTimeout, htmlToPlainText, safeDate } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -227,7 +228,11 @@ function extractProse(articleHtml: string): string {
 
   let work = joinAbstractAndBody(abstract, body)
   // figure/table/미주 블록 제거
-  work = work.replace(/<div[^>]*class="[^"]*\bfigure\b[^"]*"[\s\S]*?<\/div>\s*<\/div>/gi, '\n')
+  // ⚠️ figure div 는 **깊이 추적으로** 지운다(2026-09-25). 예전 정규식 `<div class="figure">[\s\S]*?</div>\s*</div>` 은
+  //   figure 안쪽 div 가 두 겹이 아니면 **figure 를 지나 처음 만나는 `</div></div>` 까지** 삼켰다 — 그 사이의
+  //   본문 절이 통째로 사라졌다. 실측 pone.0356261: 결과 3.2절 4,309자가 한 번에 지워져 「3.1 → 3.3」이 됐고,
+  //   원문 점검(보관 판정) 청크 두 개에서 20편 중 8~9편이 「예고한 절 없음」으로 보류됐다.
+  work = removeDivByClass(work, /\bfigure\b/)
   work = work.replace(/<figure[\s\S]*?<\/figure>/gi, '\n')
   work = work.replace(/<table[\s\S]*?<\/table>/gi, '\n')
   // 인용 상첨자·참조 링크 제거 ([1], [2,3] 등)
@@ -355,11 +360,10 @@ export async function ingestPlosArticle(itemUrl: string): Promise<RawArticle> {
     extractFirst(html, [/<meta\s+name="citation_author"\s+content="([^"]+)"/i]) ?? 'PLOS authors'
 
   const content = extractProse(html)
-  if (content.trim().split(/\s+/).filter(Boolean).length < 200) {
-    throw new Error(`PLOS body too short: ${content.trim().length} chars (${doi})`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.trim().split(/\s+/).filter(Boolean).length < 200
 
-  return {
+  const article: RawArticle = {
     source: 'plos',
     source_id: `plos:${doi}`,
     source_url: url,
@@ -367,10 +371,22 @@ export async function ingestPlosArticle(itemUrl: string): Promise<RawArticle> {
     author: decodeEntities(author).trim(),
     language: 'en',
     license: 'CC-BY-4.0', // PLOS = CC BY 4.0 → 발행 허용
+    // ⚠️ 글에서 읽은 값이 아니라 소스 단위 표기다 — PLOS 에는 공유저작물 선언 글도 있다(Solr `copyright`).
+    //   권리 표지에는 'collection-default' 로 남겨 해소가 필요하다고 표시한다(DD-75).
+    license_evidence: 'collection-default',
     published_at: safeDate(publishedAt),
     content,
     estimated_cefr: null,
     audio_url: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`PLOS body too short: ${content.trim().length} chars (${doi})`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

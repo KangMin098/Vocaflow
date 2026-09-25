@@ -1,0 +1,959 @@
+[
+  {
+    "id": "e63f5a3b-496e-40e5-93c9-adb94996eff4",
+    "source_updated_at": "2026-09-25T04:02:51.049611+00:00",
+    "body_sha256": "79fd04525af649233fc6df4f47bd4aa4c6af04ce5268ddf3ebabcf6ae7508c5c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "모자 쓴 쥐와 교수의 식물 작전이 번번이 실패하는 사건 연쇄가 서서 초등 순서 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Professor Rocca was a plant scientist.",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "e64d9650-7640-49ce-a214-2a8d2b01e8ed",
+    "source_updated_at": "2026-09-25T04:03:30.763822+00:00",
+    "body_sha256": "1d6b9db8599765f65037c55209b2f18379adb775a815587b177cfbca09ee2367",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "칠판이 안 보이던 아이가 도움을 청해 안경을 쓰게 되는 인과가 분명해 초등 요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It is a bright, sunny morning.",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "e6c337dc-5cd3-4c11-802c-d9abb8923780",
+    "source_updated_at": "2026-09-25T04:03:49.972234+00:00",
+    "body_sha256": "903172699fca0e5acfff68b5dda3e972e33277835aafc78c4d2e80f3a6ea28dd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "코코넛 과자를 만드는 단계가 순서로 이어지고 끝의 단순기계 설명이 있어 초등 순서 칸이 겨우 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Ammachi! Ammachi! Could we make coconut",
+      "note": "의성어를 걷어 내면 단계 문장만 남는다."
+    }
+  },
+  {
+    "id": "e6f8f646-d974-4b2e-96ad-a9320cc52ed4",
+    "source_updated_at": "2026-09-25T03:34:55.068816+00:00",
+    "body_sha256": "e967c84d89f51bb058d9c366a1b749c531959433ba788bb9a8ef9ab47c735829",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "잠다니 사리의 무늬와 뜻을 어머니가 설명하고 끝 주석이 공예를 설명해 문화 설명 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ma’s Jamdani wardrobe is a garden",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "e708847c-87d3-41e8-a930-5a3c15bf5be2",
+    "source_updated_at": "2026-09-25T04:03:14.277474+00:00",
+    "body_sha256": "58a5db54f120953028c2be0cce007196da3fb36b9064890948e1b9adae6708c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "하인들을 무시하던 공주가 혼자 지내며 고마움을 깨닫는 인과가 분명해 초등 요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The little princess was angry again.\"No,",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "e99ab808-ee38-4b6a-85e6-68a1bcc41783",
+    "source_updated_at": "2026-09-25T04:03:25.663658+00:00",
+    "body_sha256": "f82134b33ed950a484d61d962a392c89637be504bdcb99d8772d0f1c6acca9ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "벌새·불가사리·왕의 숲 세 우화가 각각 완결되어 떼어 쓰면 요지·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "main_point",
+        "topic",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The author, illustrator, and CANVAS encourage",
+      "note": "세 편을 따로 떼어 쓴다."
+    }
+  },
+  {
+    "id": "eda065b2-6109-43b4-a39d-e54576b01d8f",
+    "source_updated_at": "2026-09-25T04:03:23.079313+00:00",
+    "body_sha256": "0c8fb510dc8bac2fbbaf115a63be432c76e65c25ebee492fc848a81dc1d46066",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "꿀벌이 집을 부순 아기곰의 사정을 듣고 함께 사는 흐름이라 초등 요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"We have to collect a lot",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "ee27a992-e1be-4444-8b86-1fd18e11ad28",
+    "source_updated_at": "2026-09-25T04:03:24.360737+00:00",
+    "body_sha256": "57316b96300bcd6bd0d905e89d9b2056e13951d2d02bccc74bcf68e39766188e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "꼬리가 반쪽인 인어를 친구들이 도와 돌려보내는 과정에 장애 공감이 담겨 초등 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "main_point"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The sun shines brightly, and the",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "ee6c1834-1cec-4148-af5a-824eb636e727",
+    "source_updated_at": "2026-09-25T04:02:59.555828+00:00",
+    "body_sha256": "70110e267ca65d24c4e580f23911fbd244787bb1419bf03dc5d2802839792260",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "literature",
+    "why": "수피 교훈담 「마법의 말」이 긴 사건 연쇄로 이어져 중고등 장문·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "long_reference",
+        "order",
+        "main_point",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "THE TEACHING STORY The Magic Horse",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "efa5d9aa-f8a8-477c-ba19-9f979172069b",
+    "source_updated_at": "2026-09-25T04:03:48.64262+00:00",
+    "body_sha256": "fb84f9358548f483dfda0bd965cbde7b0d2e5e48ad4664c185fed14d34122cdf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "파남 도시의 번영과 쇠퇴를 대화로 설명하고 주석이 사실을 보태 중등 역사 설명 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Mira, do you know there is",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "efd5f11c-42cb-4b33-8847-3815a3130549",
+    "source_updated_at": "2026-09-25T04:02:57.429497+00:00",
+    "body_sha256": "32c798714b1075780cdbddf791ba010e32c70ff7257b5ec83bf336bc56ec741b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "유령이라 믿던 존재가 외계인 친구로 밝혀지는 1인칭 장편 서사라 장문·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "long_reference",
+        "mood",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "My name is Onno. I'm in",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f0577465-ebbc-4dbf-bc26-7c477c67cb8d",
+    "source_updated_at": "2026-09-25T04:03:09.414622+00:00",
+    "body_sha256": "3f2ae6b9e725b146df6bb6c9fcb9db9e251212394e0847d69403c674fe413246",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "날아다니는 코끼리를 따라 낙원에 가는 농부와 탐욕스러운 마을 사람의 대비가 분명해 요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "While the author, illustrator, and publisher",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f060ed67-ae26-45f1-a616-f480c53c6c39",
+    "source_updated_at": "2026-09-25T04:03:33.003618+00:00",
+    "body_sha256": "2e118154a3f5ace2975075f3f648603b30cba951e28cc7a4f8060dfc4492f14b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "의사가 설사의 원인을 괴물이 아닌 세균·기생충으로 밝혀 가는 흐름이 통념 교정 구조로 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Thida grew up in a small",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f0c85019-75d0-4c64-ac7b-d31079add2b7",
+    "source_updated_at": "2026-09-25T04:03:21.550316+00:00",
+    "body_sha256": "8938d79e53f888d71876bf0fdacb795ce64ccb9c83ab6f6aea4697743ae992d7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "양궁 선수 아웅 응게인의 훈련과 성공이 시간순으로 이어져 중등 전기 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Once there was a girl from",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f1120a4a-fd00-45b7-a51b-78f1360d972f",
+    "source_updated_at": "2026-09-25T04:03:16.373663+00:00",
+    "body_sha256": "5e4981c7f025e9e2a2985cdd9e22e50dc784f64ee59e24d486f0c5b42b4f2abb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "시든 화분을 키우려다 이웃에게 배우고 끈기로 싹을 틔우는 흐름이 초등 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "What was wrong with my plants?",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f131a92a-8a11-4a13-bea8-405bc1230e6c",
+    "source_updated_at": "2026-09-25T04:03:26.335722+00:00",
+    "body_sha256": "8c6e473186d1c6d4732edc43e3fdb4120cf40a96998af992d34b84e68d1e63c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "남녀 차별 배식을 역할 바꾸기로 뒤집는 이야기로 편견은 비판 대상이어서 중등 요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Meena is a little a girl",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f213583d-4fff-4ad9-a289-aa4030071495",
+    "source_updated_at": "2026-09-25T04:03:29.013517+00:00",
+    "body_sha256": "55194dfe63ddf6795ffc5d18b12a8335d6903bad747b603aa873e681c2a7fc21",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "행성들이 차례로 명왕성을 찾는 반복 패턴 뒤 명왕성 강등의 이유가 밝혀져 초등 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The sun looked far out into",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f332a0f2-5433-475c-aa27-19a5e1be14d8",
+    "source_updated_at": "2026-09-25T03:34:52.719934+00:00",
+    "body_sha256": "3266e7c0491e0d70b6323446452c5695ae786cd8571f9722c094ae4f4ff8c846",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "비를 좋아해 밖에서 놀다 머리가 젖는 짧은 연결이 있어 초등 최소선을 겨우 넘는다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "My hair is wet from playing",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f3e6edb7-c5ae-43ce-8176-2984db18a9c5",
+    "source_updated_at": "2026-09-25T04:03:34.483109+00:00",
+    "body_sha256": "a9c1becd60bab6032a7a4ea80e0095473f4ac0405454d49ccb9448e8c359b2bb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "게으른 해 때문에 하늘이 낮과 밤을 나눈 유래가 원인-결과로 이어져 초등 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Long ago, the sun was very",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f4f4467d-3d52-4e48-9266-4a31b65b9def",
+    "source_updated_at": "2026-09-25T04:03:15.578749+00:00",
+    "body_sha256": "e8a1ec8379c3e31bd59f90ccc46be6f6f05c5e3d5cf2b21b373dda16fb3723b6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "소녀가 왕의 거짓을 폭로해 여자아이들이 학교에 가게 되는 흐름이 서서 초중등 요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One hundred years ago, there was",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f50a6a56-f23b-4181-832f-c7dd6fefa0e7",
+    "source_updated_at": "2026-09-25T04:03:13.394293+00:00",
+    "body_sha256": "6d98d2a3b5909e82e323dc228e0648f18f749db724774374326c12ddc1a19c49",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "hold",
+    "genre": "science",
+    "why": "본문이 누이-동생 반복 운문이고 끝의 「Find out more」 산문만 천둥 원리를 설명해 운문 차단과 과학 칸 사이에서 갈린다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Sister, sister I wonder... What do",
+      "note": "떼어 볼 수는 있으나 무엇을 칸으로 삼을지 기준이 갈린다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "f589b1de-953a-4d67-b850-53cb724d9ddc",
+    "source_updated_at": "2026-09-25T04:03:24.795883+00:00",
+    "body_sha256": "2842512080f3d7eb6c856c2777eb4510a2d4457a32b229bb87fa2375c3a18917",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "청각장애 소녀가 수어를 배운 사촌 덕에 가족과 어울리는 흐름이라 초등 심경 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "mood",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The ocean makes Maraia smile. She",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "f693972a-a6f9-427a-a168-6c3f892662c6",
+    "source_updated_at": "2026-09-25T04:03:24.158621+00:00",
+    "body_sha256": "4390961422d3db6639dbb51fdffb5a905f849857f48ca89634a71ab6e136d0f5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "물총고기가 무리를 떠났다 굶주림을 겪고 돌아오는 흐름과 맹그로브 설명이 있어 초등 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Look! Look!What’s on that mangrove branch?Archie",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "fba2f114-2c9a-4f32-96fa-c6717c0f8f4c",
+    "source_updated_at": "2026-09-25T04:02:51.694083+00:00",
+    "body_sha256": "8cf2eb969ff27ed2e162c7e3b3611a69dd5d4c5bad44bfdb66b3b72cd11d5171",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "매미 지휘자가 건기 음악회를 준비하며 날씨에 흔들리는 과정이 이어져 초등 순서 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It's hot today, though a cool",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "fbded184-5bac-4cfb-8786-3c59a60a0dca",
+    "source_updated_at": "2026-09-25T04:03:41.39467+00:00",
+    "body_sha256": "ce27eed9849e59a7800018e12f57cd820d3014c69fc80ee665102ecab68bec46",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "혼자 버스를 타고 등교하는 길이 순서대로 이어지고 성취감으로 끝나 초등 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I'm a big sister now. Mom",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  }
+]

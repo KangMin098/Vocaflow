@@ -197,7 +197,7 @@ export default async function AdminQualityPage() {
               className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6"
             >
               <h2 className="mb-4 flex items-center gap-3">
-                <span className="rounded-[var(--r-sm)] bg-[var(--p)]/10 px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
+                <span className="rounded-[var(--r-sm)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]">
                   {stage}
                 </span>
                 <span className="font-display text-[16px] font-[700] text-[var(--t1)]">

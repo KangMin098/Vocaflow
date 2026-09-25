@@ -1,0 +1,827 @@
+[
+ {
+  "id": "dc91726f-6abe-449a-a459-1cf5f76a20b1",
+  "title": "Biosensors and Your Health",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4f3b5d8dac900ba6642b9ba2a32e609ded7560a51e323f5ff09ff762df7cbed8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1108,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2017-07-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2017/07/biosensors-your-health",
+     "year": 2017,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Your body alerts you to many aspects of your health. Your stomach growling tells you when to eat. A powerful yawn lets you know you’re tired. Your body gives off many other valuable signals, but requires technology to detect them. Scientists are looking for new ways to track and use your body’s signals to improve your health and manage disease.\n\nPhysical activity trackers and step counters are now helping people develop and maintain healthy habits. These devices have also opened doors for people to participate in health research. Now, researchers are designing more advanced devices called biosensors that measure biological, chemical, and physical signs of health.\n\n“The variety of biosensors used by researchers, clinicians, and people from every walk of life is growing,” says Dr. Šeila Selimović, a biosensors expert at NIH. “Some speed up test results so treatments can be started promptly. Others provide the benefits of continuous monitoring of health conditions. [Biosensors] function in fascinating ways. [They use] chemical attraction, electrical currents, light-detection systems, and compact wireless-sensing technologies.”\n\nThe mercury thermometer is one of the earliest biosensor technologies used in medicine. In modern thermometers, mercury has been replaced by safer temperature-sensitive probes. But the goal is still the same: to detect changes in your body temperature.\n\nAnother common biosensor used at home is the pregnancy test. Home pregnancy tests use color-changing strips to detect pregnancy Substances produced in one part of the body to signal another part to react a certain way. hormones in urine. Pregnancy tests are still done in doctor’s offices. But the home test has become a reliable alternative since it was first introduced more than 40 years ago.\n\nThe rapid strep test is another commonly used biosensor. If you have a sore throat, your doctor may want to use one to test for bacteria called streptococci. The rapid strep test can provide results from a swab of the back of your throat in a few minutes—with 95% accuracy. Your doctor may still send a throat swab to a lab to confirm a positive test result. But they can use the rapid test results to start treatment immediately.\n\nIn parts of the world where public health care isn’t readily available, researchers hope to introduce rapid tests for people living in remote regions to test for infections like influenza, HIV, and hepatitis C. New biosensor technologies can now be combined with smart phone cameras and wireless signaling. These advances make health tests more portable and affordable than lab-based equipment.\n\nBiosensors can also be used to continuously monitor a health condition. Blood-oxygen monitors are now found throughout hospitals and in patients’ homes. These devices detect changes in the level of oxygen in the bloodstream. A rapid drop in oxygen can cause brain injury and requires quick medical attention. Blood oxygen monitors are ideal for people with lung and heart conditions, those undergoing anesthesia, or those being treated in intensive, neonatal, or emergency care. Other biosensors can be used to continuously monitor your blood sugar levels (for managing diabetes), blood pressure, or heart rate.\n\nFlexible sensors are making even more types of monitoring possible. A team of engineers, led by Dr. Patrick Mercier and Dr. Joseph Wang at the University of California San Diego, is developing a flexible sensor that measures blood alcohol levels. It looks like a temporary tattoo. The sensor releases a sweat-promoting chemical into the skin and detects alcohol in the sweat. The sensor then sends the information wirelessly to a laptop or mobile device. Similar devices are being developed by other groups to monitor cystic fibrosis and other diseases and conditions.\n\nAt the University of Minnesota, a group of researchers led by Dr. Michael McAlpine has developed inks for 3-D printing sensors that are flexible, stretchable, and sensitive. These sensors can be used to detect human movements, such as flexing a finger. They can be printed directly onto skin and used to detect body signals, like a pulse. They can also detect chemicals in the environment and be used to warn of hazards.\n\nNIH also supports research to use sensors to gather data about environmental and other factors involved in childhood asthma. These sensor systems monitor what children are exposed to and their body’s reactions. For example, Dr. Zhenyu Li, a biomedical engineer at George Washington University, is developing a sensor that can be worn on a child’s wrist to detect formaldehyde, an air pollutant that can trigger asthma.\n\n“Researchers don’t have tools at the moment that can monitor environmental triggers, physiological responses, and behavior without interrupting normal activities,” Li says. There are many different asthma triggers, he explains. He expects to have a wearable sensor prototype that he and his clinical partners can begin testing with patients. He’s also working on a device that can be placed in a child’s home to detect multiple air pollutants, like those found in tobacco smoke and some manufactured wood products, such as flooring and furniture.\n\nBiosensors can be placed inside your body as well. Dr. Natalie Wisniewski, a biomedical engineer at a medical device company in San Francisco called Profusa, is developing miniature sensors that can be injected under the skin. These sensors automatically track chemicals in your body without drawing blood. They continuously scan multiple factors at once. Normally, you need to stay in a hospital to have your body chemistry continuously monitored. With this technology, information about the chemicals in your body could be accessed around the clock, from anywhere.\n\nOnce placed under the skin, such biosensors can last for months to years. They can monitor various body functions through chemical changes. All this information can be collected on a cell phone app and shared with your physician, a caretaker, or anyone else you choose.\n\n“Health sensors have the potential to dramatically improve the way we practice medicine and shift the focus away from reactive treatments to preventive maintenance,” Wisniewski explains.\n\nBiosensors are quickly becoming part of our normal health care routines. New sensor technologies are opening avenues to better health. Researchers are working to develop the biosensors of tomorrow. These could provide access to better health in ways we can’t yet imagine.\n\nBiosensors are already used for many health issues. They can:\n\ncontinuously detect your blood pressure without a blood pressure cuff; help a person with diabetes maintain safe blood sugar levels without a finger prick; advise a doctor on whether to start a patient on an antibiotic treatment for strep throat; tell whether a woman is pregnant; record the levels of oxygen in a patient’s blood without a lab test; sense the amount of alcohol in a person’s system from their skin; diagnose patients in low-resource areas that don’t have lab facilities."
+ },
+ {
+  "id": "dd06862e-ca94-409c-aa55-4fb263240d4b",
+  "title": "Certain Proteins May Help Prevent Food Allergies",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c6e6c6f3a690199f317683df6ac34fc4212db811af492e63acd7169861876bb0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 263,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2026-06-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2026/06/certain-proteins-may-help-prevent-food-allergies",
+     "year": 2026,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "In food allergies, the body’s defense system, called the immune system, reacts to harmless food as if it were a threat. To understand why this happens, scientists first need to know how the body develops a tolerance to a food. A new study showed that certain parts of dietary proteins normally act as signals that foods are safe.\n\nResearchers found seven different sensors in specialized immune cells in the mouse gut. The sensors reacted to proteins in mouse chow. Five of the sensors were activated by corn protein found in mouse chow. One was activated by a wheat protein, and the other by a soybean protein.\n\nThe sensors only detected certain parts of the proteins, called epitopes. The most frequently recognized epitope was on a corn protein. The specialized cells that recognized the corn protein first appeared when the mice were four weeks of age. This was about the same time that the mice first ate the food. The cells sent signals to other immune cells not to attack the food protein.\n\nScientists are just starting to understand how the body builds tolerance to food. “For a long time, we thought food tolerance simply meant the immune system was ignoring the foods we eat—that is to say that tolerance is the absence of allergy,” says Dr. Elizabeth Sattely of Stanford University, who co-led the study. “But we now know that tolerance is active and adaptive behavior. Certain cells in our intestines survey the foods we eat, looking for specific proteins. When found, the cells signal the immune system that the food is safe.”"
+ },
+ {
+  "id": "de365273-00e2-4ca0-9b5b-2a3643514606",
+  "title": "What Is Scleroderma?",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "673cb73b96c77a9b03ff1005e604289d362526e92cede520af98f5b35bfed06f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 207,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2025-06-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2025/06/what-scleroderma",
+     "year": 2025,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Scleroderma is a rare disease that affects the body’s connective tissue. Connective tissues support the skin and internal organs. The disease can cause skin, blood vessels, or other tissues to become hard or thick. It can also lead to swelling or pain in your muscles and joints.\n\nThe exact cause of scleroderma is unknown. It’s thought to be an autoimmune disease, which means the body’s disease-fighting system attacks its own cells and tissues. In scleroderma, the damage triggers connective tissue cells to make too much of a protein called collagen. Excess collagen in your skin and other tissues can cause the areas to harden and tighten.\n\nThere are two main types of scleroderma: localized and systemic. Localized scleroderma usually affects only the skin and the structures underneath it. Systemic scleroderma affects many systems in the body. This includes the skin, tissues under it, blood vessels, and major organs like the heart, lungs, and kidneys.\n\nIt can be difficult for doctors to diagnose scleroderma because the symptoms can vary. Treatment depends on your symptoms and which tissues and organs are affected. People with scleroderma often see a rheumatologist for treatment. But different types of doctors may be involved, depending on which organs are affected. Learn more about scleroderma."
+ },
+ {
+  "id": "de685eb0-5675-4330-bf05-7a14f06e0cb2",
+  "title": "Keeping Up in School?",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "442c36b5ad6bd29876fc510d3831446e30369c0da6023e9266af3eb4277bd4cd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1159,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2016-09-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2016/09/keeping-up-school",
+     "year": 2016,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Reading, writing, and math are the building blocks of learning. Mastering these subjects early on can affect many areas of life, including school, work, and even overall health. It’s normal to make mistakes and even struggle a little when learning new things. But repeated, long-lasting problems may be a sign of a learning disability.\n\nLearning disabilities aren’t related to how smart a child is. They’re caused by differences in the brain that are present from birth, or shortly after. These differences affect how the brain handles information and can create issues with reading, writing, and math.\n\n“Typically, in the first few years of elementary school, some children, in spite of adequate instruction, have a hard time and can’t master the skills of reading and writing as efficiently as their peers,” says Dr. Benedetto Vitiello, a child mental health expert at NIH. “So the issue is usually brought up as a learning problem.”\n\nIn general, the earlier a learning disability is recognized and addressed, the greater the likelihood for success in school and later in life. “Initial screening and then ongoing monitoring of children’s performance is important for being able to tell quickly when they start to struggle,” explains Dr. Brett Miller, a reading and writing disabilities expert at NIH. “If you’re not actively looking for it, you can miss opportunities to intervene early.”\n\nEach learning disability has its own signs. A child with a reading disability may be a poor speller or have trouble reading quickly or recognizing common words. A child with a writing disability may write very slowly, have poor handwriting, or have trouble expressing ideas in writing and organizing text. A math disability can make it hard for a child to understand basic math concepts (like multiplication), make change in cash transactions, or do math-related word problems.\n\nLearning difficulties can affect more than school performance. If not addressed, they can also affect health. A learning disability can make it hard to understand written health information, follow a doctor’s directions, or take the proper amount of medication at the right times. Learning disabilities can also lead to a poor understanding of the benefits of healthy behaviors, such as exercise, and of health risks, such as obesity. This lack of knowledge can result in unhealthy behaviors and increased chances for disease.\n\nNot all struggling learners have a disability. Many factors affect a person’s ability to learn. Some students may learn more slowly or need more practice than their classmates. Poor vision or hearing can cause a child to miss what’s being taught. Poor nutrition or exposure to toxins early in life can also contribute to learning difficulties.\n\nIf a child is struggling in school, parents or teachers can request an evaluation for a learning disability. The U.S. Individuals with Disabilities Education Improvement Act requires that public schools provide free special education support to children, including children with specific learning disabilities, who need such services. To qualify for these services, a child must be evaluated by the school and meet specific federal and state requirements. An evaluation may include a medical exam, a discussion of family history, and intellectual and school performance testing.\n\nMany people with learning disabilities can develop strategies to cope with their disorder. A teacher or other learning specialist can help kids learn skills that build on their strengths to counter-balance their weaknesses. Educators may provide special teaching methods, make changes to the classroom, or use technologies that can assist a child’s learning needs.\n\nA child with a learning disability may also struggle with low self-esteem, lack of confidence, and frustration. In the case of a math learning disability, math anxiety may play a role in worsening math abilities. A counselor can help children use coping skills and build healthy attitudes about their ability to learn.\n\n“If appropriate Actions taken to prevent or treat a disorder or to improve health in other ways. interventions are provided, many of these challenges can be minimized,” explains Dr. Kathy Mann Koepke, a math learning disability expert at NIH. “Parents and teachers should be aware that their own words and behavior around learning and doing math are implicitly learned by the young people around them and may lessen or worsen math anxiety.”\n\n“We often talk about these conditions in isolation, but some people have more than one challenge,” Miller says. Sometimes children with learning disabilities have another learning disorder or other condition, such as attention deficit hyperactivity disorder (ADHD).\n\n“ADHD can be confused with a learning problem,” Vitiello says. ADHD makes it difficult for a child to pay attention, stay focused, organize information, and finish tasks. This can interfere with schoolwork, home life, and friendships. But ADHD is not considered a learning disability. It requires its own treatments, which may include behavior therapy and medications.\n\n“Parents play an important role in treatment, especially for children in elementary school,” Vitiello says. Medications and behavioral interventions are often delivered at home. Teachers can usually advise parents on how to help kids at home, such as by scheduling appropriate amounts of time for learning-related activities. Parents can also help by minimizing distractions and encouraging kids to stay on task, such as when doing homework. Effective intervention requires consistency and a partnership between school and home.\n\nMany complex factors can contribute to development of learning disabilities. Learning disorders tend to run in families. Home, family, and daily life also have a strong effect on a child’s ability to learn starting from a very early age. Parents can help their children develop skills and build knowledge during the first few years of life that will support later learning.\n\n“Early exposure to a rich environment is important for brain development,” Mann Koepke says. Engage your child in different learning activities from the start. Before they’re even speaking, kids are learning. “Even if it’s just listening and watching as you talk about what you’re doing in your daily tasks,” she says.\n\nPoint out and talk with children about the names, colors, shapes, sizes, and numbers of objects in their environment. Try to use comparison words like “more than” or “less than.” This will help teach your child about the relationships between things, which is important for learning math concepts, says Mann Koepke. Even basic things, like getting enough sleep and eating a healthy diet, can help children’s brain development and their ability to learn.\n\nNIH is continuing to invest in research centers that study learning challenges and their treatments, with a special focus on understudied and high-risk groups.\n\nAlthough there are no “cures,” early interventions offer essential learning tools and strategies to help lessen the effects of learning disabilities. With support from caregivers, educators, and health providers, people with learning disabilities can be successful at school, work, and in their personal lives.\n\nConsider talking with your doctor if you notice these signs:\n\ndifficulty with reading and/or writing; problems with math skills; difficulty remembering; trouble following directions; difficulty with concepts related to time; problems staying organized."
+ },
+ {
+  "id": "de7573c0-1613-4a3f-95b1-cec443fc6bf5",
+  "title": "How Often Should Women Have Bone Tests?",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5364c0e4280373e449a796dca96719d99907a6b82c770e999b10f4b7245fd501",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 304,
+   "v_level": 4,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2012-03-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2012/03/how-often-should-women-have-bone-tests",
+     "year": 2012,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Experts say that older women should have regular bone density tests to screen for A disease in which bones thin and weaken so that they become fragile and break easily. osteoporosis. But it’s been unclear how often to repeat the tests. A new study suggests that women with healthy bone density on their first test might wait 15 years before getting rescreened.\n\nMore than 40 million people nationwide either have osteoporosis or are at increased risk for broken bones because of low bone mineral density (osteopenia). Osteoporosis is often called a “silent disease” because it usually develops slowly and without symptoms until a fracture occurs.\n\nWhen early screening detects low bone mineral density, patients can try lifestyle changes or therapies to protect their bones.\n\nTo help develop guidance on how often to repeat bone density tests, NIH-funded scientists studied nearly 5,000 women ages 67 and older. When the study began, none of the women had osteoporosis, hip or spine fractures or past treatment with osteoporosis medications.\n\nThe researchers found that less than 1% of women who initially had normal bone mineral density went on to develop osteoporosis during the study. Only 5% of those with mildly low bone density at the start made the transition to osteoporosis.\n\n“If a woman’s bone density at age 67 is very good, then she doesn’t need to be rescreened in 2 years or 3 years, because we’re not likely to see much change,” says lead researcher Dr. Margaret Gourlay of the University of North Carolina at Chapel Hill. “Our study found it would take about 15 years for 10% of women with normal or mildly low bone mineral density to develop osteoporosis. That was longer than we expected, and it’s great news for this group of women.”\n\nAge, past fractures, medications and specific diseases can increase osteoporosis risk. These factors also affect how often a woman should be tested."
+ },
+ {
+  "id": "def2c62a-6752-4c8a-897e-94fb1eace62c",
+  "title": "Bruising Questions",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "67d75030b7c0b4107e72a7720663091df49aed19078d3b6eb3949f2fc26100cc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 648,
+   "v_level": 5,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2022-01-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2022/01/bruising-questions",
+     "year": 2022,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Many things can cause a bruise: minor injuries, falls, small collisions. While bruises may hurt, they’re usually harmless. But sometimes, they might be a sign of a deeper problem.\n\nIf you bump part of your body hard enough, you can break tiny blood vessels under your skin. But if you don’t break the skin, the blood has nowhere to go. It gets trapped under the skin’s surface, causing a bruise.\n\nWhen you first get a bruise, the newly trapped blood makes it look pink or red. Over the next few weeks, the body naturally breaks down the blood and absorbs it. So as the bruise fades, it changes colors. This is part of the normal healing process. Some bruises can take weeks or months to heal.\n\nWhat can contribute to bruising? Some people bruise more easily than others, says Dr. José López, an expert on bleeding disorders at Bloodworks Northwest Research Institute. This can be influenced by many things, including your Stretches of DNA you inherit from your parents that define features, like your risk for certain diseases. genes. Other factors, such as diet, can also affect how easily you bruise. For example, deficiencies in vitamin C or K can make you bruise more easily.\n\nSome people may just be more prone to bumping into things. And skin naturally becomes thinner and bruises more easily as you age.\n\nYou can take steps to make your home safer from minor bumps and falls. Keep walkways clear of clutter and furniture. Good lighting can also help you avoid bumping into things.\n\nBruises may be painful, but they’re usually not dangerous. If a bruise does hurt, an over-the-counter pain killer may help. But some drugs used to treat pain, like aspirin or ibuprofen, can actually increase the tendency to bruise, López explains.\n\nPutting ice on the affected area for a few minutes at a time can help reduce swelling. Wrap the ice in a clean towel to avoid irritating the skin.\n\nIf you notice a change in where or how often you’re bruising, consider talking with a health care professional. “If bruising becomes really common, if it’s not provoked, or if there’s a change in your bruising patterns, get it checked out,” López says.\n\nThese can be signs that bleeding is happening inside the body when it shouldn’t. Others include a rash made of tiny bruises, called purpura. Or tiny, pin-point sized red spots called petechiae.\n\nExcessive bruising can be triggered by many things. Examples include liver problems caused by heavy drinking or certain types of cancer. It can also be a sign of a rare problem like an inherited bleeding disorder. If you notice someone has bruises regularly, it may suggest serious problems in their home, like domestic violence.\n\nMedications can also be a cause of excessive bruising. Almost any medication has the potential to change the way platelets work in the body, López says. Platelets are tiny, disc-shaped cells that play an important role in helping your blood clot. “They’re one of the things that stop you from bleeding,” says López. Let your health care provider know if you notice bruising soon after taking a new drug.\n\nBruises may be a sign of a serious problem, but in most cases, they’re harmless. See the Wise Choices box for signs that bruises may need to be checked out.\n\nTalk with your doctor if you:\n\nget a large bruise or many smaller bruises without a known injury. have signs of infection. These can include streaks of redness around the bruise, oozing, or a fever. have a bruise that does not show signs of healing and fading. get a large or very painful bruise immediately after an injury. This can be a sign of a sprain or broken bone. bruise more easily or more frequently than you used to. notice bruising soon after taking a new drug."
+ },
+ {
+  "id": "df52a81d-7f5d-4296-859e-3788592c15e0",
+  "title": "Contact Lenses Slow Children’s Nearsightedness",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b593b331866664ad24d0c252f3b9465b8798ba7c2700931b1dcd66f290c48b42",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 242,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2020-10-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2020/10/contact-lenses-slow-childrens-nearsightedness",
+     "year": 2020,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Myopia, or nearsightedness, usually starts during childhood and worsens over time. A new study found that a type of contact lens can slow its progression.\n\nPeople with myopia can see close objects clearly, but things farther away are blurry. Those with severe myopia have a greater risk of developing other eye problems later in life.\n\nMyopia is caused by the eye growing too long from front to back. Light then focuses in front of the retina (the light-sensitive tissue at the back of the eye) instead of directly on it. Single-vision contact lenses can focus light mainly back on the retina. But they also focus some light behind the retina. That can cause the eye to grow longer.\n\nResearchers tested whether multifocal contact lenses could slow progression of myopia. These lenses have more than one prescription set in a bullseye pattern. The center focuses light on the retina. The outer part focuses light in front of the retina.\n\nThe study tracked disease progression in 287 nearsighted children, ages seven to 11. Some children wore single-vision contact lenses. Others wore one of two prescription strengths of multifocal contacts.\n\nResearchers measured vision changes over three years. The stronger multifocal lenses slowed progression of nearsightedness the most. These lenses also slowed the eye growth that causes myopia.\n\n“Compared with single-vision contact lenses, multifocal lenses slow myopia progression by about 43% over three years,” says Dr. David A. Berntsen of the University of Houston, one of the study’s leads."
+ },
+ {
+  "id": "dfb43f07-8400-42d0-a731-0b2aebeab7a9",
+  "title": "Power to the Pelvis",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "61726b0a20f6519d22e9c4bc52f4bbdf66321fe7344043203d3310657681958f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 585,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2018-03-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2018/03/power-pelvis",
+     "year": 2018,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Some conditions may feel too embarrassing to discuss with your doctor. Weak pelvic floor muscles can cause such conditions.\n\nYou may have trouble with bladder or bowel control. Urine can leak out when you cough, sneeze, laugh, or exert yourself in any way. You might need to urinate often or urgently.\n\nWeak muscles can also affect the vagina and uterus. You may feel discomfort inside your vagina. Telling your doctor about these conditions can help you get the right treatment.\n\nYour bladder, bowel, vagina, and uterus are held in place by a hammock of muscles called the pelvic floor. Weak muscles can’t hold up these organs. That can cause your bladder to leak and other embarrassing conditions called pelvic floor disorders.\n\nPelvic floor disorders affect women of all ages. Experts estimate that 1 of every 3 women in the United States has a pelvic floor condition. But because so many women don’t tell their doctor, they’re probably much more common.\n\nMany factors—including family history, pregnancy, menopause, weight, and smoking history—can affect your risk for developing a pelvic floor disorder. Dr. Donna Mazloomdoost, a pelvic floor specialist at NIH, says, “Some women are just going to be very prone to these sort of conditions, and others are not.”\n\nDepending on the condition, treatment options may include dietary changes, physical therapy, medications, medical devices, or surgery. NIH is funding studies to develop new and improved treatments.\n\n“Most of the game-changing recommendations have come from studies that the Pelvic Floor Disorders Network has done,” says Mazloomdoost, who is the director of this NIH program. It funds some of the largest, multicenter pelvic health studies across the country.\n\nA recent study from the network showed that women who urinate too often or leak urine may be treated successfully with Botox (botulinum toxin) injections. Another treatment that helps with bladder control uses a surgical implant to electrically stimulate the pelvic muscle nerves. Stimulating the nerves appears to help the bladder relax more.\n\n“My first advice to all women with symptoms would be to see a pelvic floor specialist,” Mazloomdoost says. “Often times, physical therapy is the first treatment recommended because just about every pelvic floor condition will benefit from it. Some conditions, however, may need more than just physical therapy to get better.”\n\nPelvic floor physical therapy often begins with simple pelvic floor exercises. Some of these are known as Kegel exercises. They make the pelvic muscles stronger. Any woman can benefit from these exercises. Ask your health care provider how to do them correctly.\n\nMazloomdoost explains that Kegels performed at home may not work for some women with a pelvic floor condition. This may be because women don’t hold the exercises long enough, and they don’t do enough of them during the day.\n\n“Physical therapy involves monitoring and measuring the amount of strength that the muscles are using and making sure that the correct muscles are being used—and for often enough and long enough,” she says.\n\nWomen who have a pelvic floor condition don’t have to suffer. Treatments are available. “If you have any problem with your bladder function or what your vagina feels like, then I think it’s absolutely important to speak with your doctor about it,” Mazloomdoost advises.\n\nMaintain a healthy weight. Avoid constipation and straining by getting enough fiber and fluids in your diet. Avoid tobacco smoke and triggers of a long-term cough, which weaken the pelvic floor. Do Kegel exercises regularly to keep pelvic floor muscles toned. Ask your health care provider how to do them correctly."
+ },
+ {
+  "id": "dfdd1c90-a296-4264-9cfe-17c2dda0e113",
+  "title": "Can’t See Certain Colors?",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8f8935931ecbb4a20a3bad4e803e4b9ed61e4f832ddf172e74b3f85ec0feb7b1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 268,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2010-02-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2010/02/cant-see-certain-colors",
+     "year": 2010,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "If you’ve headed off to work wearing one red sock and one green, maybe you’ve dressed in the dark—or maybe you have a color vision defect.\n\nAbout 1 in every 76 Americans has a color vision defect, according to the National Center for Health Statistics. The condition is usually inherited from your parents. Men are affected more often than women.\n\nThe defect affects cells in the back of the eye called cones, says Dr. Catherine Cukras, a staff clinician at NIH’s National Eye Institute (NEI).\n\nCones allow us to identify differences between colors. Each of the 3 types of cones is most sensitive to a particular color: red, green or blue. If any of the cone types are damaged or missing, you can’t distinguish between certain colors.\n\nMost people who have color vision defects have trouble seeing differences among colors in the red-green range. Problems with colors in the blue-yellow range are less common. Even more rare is total color blindness, in which the eye can only recognize white, black and shades of gray.\n\nThe defects can vary from person to person. “For some, the differences among colors are just not as obvious as for people who have normal color vision,” Cukras says. “For others, different colors can actually look exactly the same.”\n\nThough color vision defects might be inconvenient for people whose careers depend on discerning colors—such as decorators—most people can adapt relatively easily.\n\n“It just means that a lot of men have women pick out their ties,” Cukras says.\n\nYou can learn more about eye health from NEI’s “Ask the Doctor” series at www.nei.nih.gov/eyeonnei/askthedoctor."
+ },
+ {
+  "id": "e00fb403-b468-42b8-9820-92724c0d3ada",
+  "title": "Therapy Shows Promise for Peanut Allergy",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "19e06989d3151bcb4beb9934d4363e513e38c3dfb705f299eb9d96f371d91539",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 296,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2013-02-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2013/02/therapy-shows-promise-peanut-allergy",
+     "year": 2013,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "An experimental therapy may one day make life easier for people with peanut allergy, who now need to avoid all foods containing peanuts.\n\nFood allergies are caused by your The system that protects your body from harmful microbes. immune system, which normally protects your body from harmful germs. When you’re allergic, the immune system responds to a harmless substance as if it were a threat. Symptoms can range from hives and itching to a life-threatening reaction called anaphylaxis.\n\nPeanuts are one of the most common foods to cause allergic reactions in both children and adults. The only way to prevent symptoms is to completely avoid peanuts and all products made with them. But that’s not easy to do.\n\nAn NIH-funded research team tested an approach called sublingual immunotherapy to treat peanut allergy. The therapy involves placing a small amount of liquid under the tongue and then swallowing it.\n\nThe researchers enrolled 40 people (ages 12 to 37) who had peanut allergy. They were randomly assigned to receive either sublingual immunotherapy or an inactive placebo.\n\nAfter 44 weeks, 14 of the 20 treated patients (70%) could safely swallow at least 10 times more peanut powder than they could at the start of the study. Only 3 of the 20 (15%) taking placebo could similarly increase their dose safely. After 68 weeks of therapy, patients could swallow even more peanut powder.\n\n“Immunotherapy continues to show promise for treating food allergies, but it is not yet ready for widespread use,” says study co-leader Dr. David Fleischer of National Jewish Health in Denver. “This is an experimental treatment—promising, but with potentially serious side effects.” The researchers are now working to improve the technique.\n\nSeveral other trials are testing oral immunotherapy for food allergy. But if you’re allergic, don’t try any type of immunotherapy on your own. You could have a dangerous reaction."
+ },
+ {
+  "id": "e013bc67-1b95-44cf-98d5-6027adf65839",
+  "title": "The Problem That Piles Up",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f9d553e54fee378b14a45ea189428aefec12e2dd1dcab404074d643c87af5e60",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 613,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2018-02-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2018/02/problem-piles-up",
+     "year": 2018,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "You may have seen reality TV shows about people who hoard mail, gadgets, cats, and even trash. Or, maybe for you, the reality is a little closer. It could be a neighbor or a family member.\n\nWhen people aren’t able to throw things away, piles can grow to the ceiling. These piles can make it impossible to use bathrooms, bedrooms, and kitchens.\n\nThe piles may fall over, trap, and injure people. They can catch on fire. Cluttered homes and yards may attract pests. Neighbors may call the police. Parents may lose custody of children.\n\nPeople don’t choose to be hoarders. And they aren’t being sloppy or lazy. “This is a very real mental disorder,” says hoarding disorder expert Dr. David F. Tolin of Hartford Hospital’s Institute of Living. “It is important to recognize that people with hoarding disorder have lost control of their decision-making abilities.”\n\nTolin’s NIH-funded research suggests why it’s hard for people with this disorder to part with items, even things with no real-world value. He found that brain activity was different between people with hoarding disorder and healthy people.\n\n“We’re always puzzled by the fact that many people with hoarding disorder often don’t seem terribly bothered by their circumstance,” he says. “If they don’t have to make a decision, the parts of their brain that are largely in charge of becoming bothered are underactive.”\n\nBut if they are forced to decide about whether to discard something, that part of the brain becomes overactive. “And so, the brain is essentially screaming that everything is important.”\n\nDoctors don’t know what causes hoarding disorder. There’s no X-ray or blood test for a diagnosis. Instead, doctors assess how well people are functioning in their lives.\n\nHoarding disorder can start during a person’s teens or later. It may grow more severe over the decades.\n\nDo you know someone who may need help? For ideas about how to bring up the topic, see the Wise Choices box. Try to be gentle, calm, and patient. It may take several conversations before the person agrees to work on the problem.\n\nTry not to start an argument. “If a person is not really motivated to do something about the problem, they can dig in their heels. Arguing can even make the problem worse,” Tolin warns.\n\nThere’s no effective medication for hoarding disorder, although studies are in progress. Tolin says, “Right now, cognitive behavioral therapy is the only evidence-based treatment we have for hoarding.” This is a type of talk therapy that teaches people how to change their thinking patterns and react differently to situations.\n\nTolin’s team hopes to improve cognitive behavioral therapy so that it’s even better at helping people to discard items. They’re analyzing the brain activities of people before and after they’re successfully treated for hoarding disorder. If the research team can identify the biological mechanisms of successful treatments, they may be able to develop treatments that are even better.\n\nSome people with hoarding disorder are helped by joining a support group with others who have the disorder. There are also organizing professionals who specialize in helping people get rid of clutter. To find more resources for this and other mental health issues, visit www.nimh.nih.gov/health/find-help.\n\nExplain why you’re concerned:\n\n“I’m worried that you could fall or become trapped.” “I’m concerned that you may lose custody of your children.” “I’m afraid your home will catch on fire.”\n\nThen say how to get help:\n\n“I can help you find a therapist who specializes in hoarding.” “We can look for a self-help program on how to let things go.” “We can find support groups for people who hoard.” “We can ask the county for resources.”"
+ },
+ {
+  "id": "e05cdc06-f400-4120-816e-b5bfc80b307e",
+  "title": "Dr. Maria Kovacs on Mood and Depression",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "07c625675dd0f87bb9dd53db0193161ae13a6790c950d009b921df1f3b9d2f62",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1243,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2019-01-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2019/01/dr-maria-kovacs-mood-depression",
+     "year": 2019,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Excerpts from our conversation with Dr. Kovacs, distinguished professor of psychiatry and psychology at the University of Pittsburgh\n\nNIHNiH: What is mood?\n\nKovacs: In general, in clinical psychology, when we talk about mood what you are referring to is an emotion that lasts more than a brief period. Now, it’s a very unsatisfactory definition because nobody has been able to come up with an idea as to how long an emotion has to last for it to be called a mood.\n\nI think that when you ask people, they say “I know when I’m in a bad mood.” So people have their own internal clocks as to how long it has to last before they will say, “I am in a bad mood.” But we’re really talking about something that lasts more than just a few minutes.\n\nNIHNiH: What are the triggers for depression?\n\nKovacs: It’s a question that's not easy to answer. Many different kinds of stresses can trigger depression. There's a lot of research that shows that if you develop clinical depression—which is more than just a negative mood—it means you have all kinds of problems. You start thinking negatively about yourself, you stop interacting with people, you have trouble sleeping, you have trouble eating. It’s very disruptive to functioning. The very first time this happens to people there’s usually some kind of major stressful event. So it doesn't happen that you just wake up and develop a major depression.\n\nThere’s also some evidence that after you’ve had your first episode of being so severely depressed, it takes less and less to start a new episode.\n\nI’m interested in what happens before you have the full-blown depression. In other words, what are the prior changes? One of the things that we’ve been studying is what happens to how people manage their emotions or mood. So, for example, one of the things that we found is that you take kids who are not at high risk for depression—let’s say they start at a new school and they don’t like the teacher or they might have been teased in school—they will usually be a little miserable, a little unhappy but they get over it. Children who are at risk for depression, if you put them in the same situation, very often what happens is they feel miserable and have trouble getting out of that mood—in part because they don’t have the ability to regulate their emotions. That is, it is a problem for them to make their emotions less intense or less persistent.\n\nIf something starts to make you miserable and you don’t know how to get over it, that is a very strong trigger for going into a major depressive episode. Meaning that being persistently miserable can instigate other symptoms. For example, if you continue to feel sad and miserable because something bad happened in school, then the other kids are going to stay away from you because you’re no fun to play with. And if other kids stay away from you, then you start thinking negatively of yourself. And if you start thinking negatively of yourself, then you’re going not going to be so social at home. Then you may have trouble with your parents. So it snowballs.\n\nNIHNiH: What are the strategies to get out of a bad mood?\n\nKovacs: There’s some work that suggests that if you meditate, that really helps. For meditation, the whole idea is to empty your mind and to focus on your breathing so you don’t become over involved with what’s upsetting you. If you get upset about something and you keep thinking about it, then you're going to be more and more upset, right? So think about it, if you have a friend who’s very upset about something, part of what you’re going to tell them is just let it go. Stop thinking about it.\n\nThe opposite is “ruminating.” Ruminating means that you’re constantly preoccupied with something and you can’t let it go. It's all you're thinking about and you can’t think about anything else. Of course, that’s going to make you feel worse if you are preoccupied with a negative matter.\n\nNIHNiH: Are there other strategies, like diet and exercise?\n\nKovacs: Physical activity has been shown to be as effective as antidepressant medication in controlled trials. The problem is that when people are really depressed, they don’t feel motivated to exercise. If they did, they’d feel better. I have patients who ran all the time and that was their way of fending off their negative moods. If they weren't able to run, they start feeling depressed.\n\nAnother way to get out of negative mood is to get involved in some task that demands your attention, like doing a project, washing the car, cooking.\n\nEating is a different matter. Some people eat when they get upset, and it’s going to make them feel better. The problem with that is it’s not a good strategy in the long run, and if you keep doing it you may become obese.\n\nNIHNiH: What is your main takeaway message?\n\nKovacs: I believe that most of the strategies that people use, they use automatically to regulate their emotions. But people can learn deliberate ways of emotion regulation. We now also know for a fact that the vast majority of these strategies are already set in place by the time you’re six or seven years old. Clearly, the actual strategy a child uses is a simpler version of the same strategy that he or she will use when grown up. I think that the early developmental origins of emotion regulation strategies is really critical. It argues for early childhood education and paying more attention to young children’s emotional lives and educating parents.\n\nSome of the regulatory strategies in childhood were learned via automatic modeling. For example, if a child sees that his mother is upset about not having received a present, and the parent deals with this disappointment by running around and slamming things and continuing to be very upset, this kid is going to model this behavior. It’s an automatic social learning process. Of course, it is possible for a mother to sit down and instruct a child by saying “this is what you do when you’re sad,” and this should happen more often.\n\nParents also reinforce certain behaviors and don’t reinforce other behaviors and they may or may not be aware of that route to learning. So, for instance, if your kid falls and starts crying, most parents will pick up that child and say “it’s okay, don’t cry, it will go away,” or “we’ll find some toy to play with.” They’re teaching the child already how to regulate that affect. Or the parent may ask the child to talk about what got him or her sad or upset. Another possibility is to get the child to be involved in a new task like helping to get dinner ready. So, in these ways, you are teaching the child that if you are upset you can pay attention to something else, or you can do something else, in order to feel better.\n\nThe take away message is that emotion regulation is a set of skills, the initial version of which was learned in early development. However, faulty learning can be corrected, and new approaches can be learned. The latter often can be seen during adolescence, when youths learn new strategies from peers and role models external to the family."
+ },
+ {
+  "id": "e09a4246-8970-4437-9cca-0bb3c63458d4",
+  "title": "Teen Suicide",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "943419e279873d36ba07301fb0357b61b06869bf3e765053edb22ec3f2cbb91a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1092,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2019-09-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2019/09/teen-suicide",
+     "year": 2019,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Teenagers have their whole lives ahead of them, they’re often told. The idea that a teen could be thinking about ending that life might be hard for their friends, families, or other people in their community to believe.\n\nBut the risk of suicide should be on the radar of anyone who interacts with teens, says Dr. Jane Pearson, a mental health expert at NIH.\n\nThe rate of teen suicide has increased over the last decade. Suicide is now the second leading cause of death for teens and young adults in the United States.\n\nExperts don’t know why this rate has been rising. But NIH-funded researchers are working on better ways to find and help teens who are thinking of suicide.\n\n“There are some very effective treatments for youth who are suicidal,” Pearson explains. “We’re trying to figure out how to make those treatments more accessible for more youth.”\n\nMany things can increase the risk of suicide in teenagers. One major risk factor is experiencing a mental health issue like depression, anxiety, or trauma. Most people who die by suicide have struggled with a mental health condition.\n\nOther risk factors include a family history of suicide, violence, or substance abuse. Teens also experience many stressful life events for the first time. These can include a breakup with a romantic partner, trouble at school, violence, or conflicts with friends.\n\n“Teens don’t have the life experience to know that these things will be temporary, that they’ll get through it,” Pearson says. And they might think they’d rather be dead than feel the way they do at that moment in time, she adds.\n\nPersistent misunderstandings about suicide can also keep teens from getting the help they need, adds Pearson.\n\n“Many people think that a teen talking about or attempting suicide are so-called gestures, or cries for attention,” Pearson explains. They don’t think that the teen is in real danger.\n\n“That’s definitely a myth,” says Dr. Cheryl King, a suicide-prevention researcher at the University of Michigan. “If someone has been repeatedly suicidal or talking about it for a long time, that should have us more concerned rather than less concerned.”\n\nSome of the warning signs that a teen is thinking about suicide are talking about wanting to die, feeling hopeless, or being trapped or in unbearable pain (see the Wise Choices box for more signs).\n\nIf you are concerned about a teen who may be thinking about suicide, start a conversation, says Dr. Joan Asarnow, a suicide-prevention researcher and clinical psychologist at the University of California, Los Angeles.\n\n“A conversation can just start with ‘are you OK?’ or ‘is there something that feels like it’s too big of a problem?’” Asarnow explains.\n\nPearson recommends that people start these conversations early, when they first start to feel that something’s wrong with a teen. “It’s going to be easier to help somebody before they’ve really decided on a course of action to kill themselves,” she says.\n\nBut many teens have suicidal thoughts that go unrecognized. King and other NIH-funded researchers are studying ways to better identify teens at risk of suicide.\n\nKing is testing a new method to screen teens who come into hospital emergency rooms for suicide risk. While most teens don’t see a mental health specialist, she says, “roughly 1 in 5 goes to the emergency department at least once a year. So, it’s a particularly good place for suicide-risk screening.”\n\nThis is especially true because risk-taking behaviors such as substance abuse and dangerous driving can land teens in the emergency room, King explains. And teens who engage in such behaviors are at higher risk of suicide.\n\nOther researchers are looking at ways to use technology to identify when teens already known to be at risk of suicide are most vulnerable. For example, one team is testing whether smartwatches can detect when teens’ emotions are affecting their body before the teens themselves feel distressed.\n\n“New technologies may provide us with a way to intervene at the moment where the kids really need it, without depending on them to reach out on their own,” Asarnow explains.\n\nTreatments are available that can help teens at risk of suicide. “Underlying mental health issues like depression and trauma are treatable conditions, and there are ways we can help youths with these troubles once we know about them,” says King. Talk therapy and medications can both be effective for many people.\n\nNIH-funded researchers have also developed therapies that can help very high-risk teens—those who have already attempted suicide, sometimes more than once.\n\nAsarnow and her colleagues recently showed that types of intensive counseling for teens and their families can reduce the risk of another suicide attempt by about a third. This counseling, based on treatments called cognitive behavioral therapy (CBT) and dialectical behavior therapy (DBT), teaches coping strategies and life skills.\n\nInvolving the family in suicide prevention seems to be more effective than just treating the teen, Asarnow says. Her program counsels and teaches parents as well as the teens in their care.\n\nOne thing any family can do to help protect a teen thinking of suicide is to talk with a health care provider about putting together a safety plan, she adds. A safety plan is a document the teen and trusted adults create together. It includes coping strategies and contact information for people who have agreed to help in times of crisis.\n\nA safety plan also includes commitments from the family to keeping the teen’s environment safe, such as limiting access to medications and firearms.\n\nThe decision to harm oneself is often made in a split second. A safety plan “makes the best decisions the easy things to do,” Pearson explains. “The family wants that, and the teen wants that.”\n\nIf you or someone you know is thinking about suicide, you can call the National Suicide Prevention Lifeline at 1-800-273-TALK. You can also text “HOME” to the Crisis Text Line at 741741. Experts recommend both parents and teens store these numbers in their smartphones.\n\nThe more warning signs, the greater the risk of suicide.\n\nTalking about wanting to die; Looking for ways to kill oneself; Talking about feeling hopeless or having no purpose; Talking about feeling trapped or in unbearable pain; Talking about being a burden to others; Abusing alcohol or drugs; Acting anxious, agitated, or reckless; Having trouble sleeping; Withdrawing or feeling isolated; Having extreme mood swings; Giving away belongings, including treasured objects.\n\nGet your teen help from a mental health professional or call the National Suicide Prevention Lifeline at 1-800-273-TALK. You can also text “HOME” to the Crisis Text Line at 741741."
+ },
+ {
+  "id": "e0aee997-5c56-4fcd-8243-02af74cafc8d",
+  "title": "Risky Business",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d1efcdbe71f34df932c7daef361afc088e89f49e5943f2ed8942e55f36604eff",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1001,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2011-09-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2011/09/risky-business",
+     "year": 2011,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Adolescence can be a bewildering time—for both teens and their parents. Yet it can also be thrilling to watch kids grow and change. Learning about teenage development and behaviors can help parents nurture their children’s strengths and shepherd them over the rough spots.\n\nWhy does adolescence feel so complicated and intense? It all begins with the brain. NIH-funded scientists have been using advanced imaging tools to take a good look at how the adolescent brain functions. They’ve found something they didn’t expect. Although the 18th birthday means legal adulthood, important regions of the brain are still under construction until about age 25. These still-developing brain areas govern judgment, decision-making and impulse control.\n\nThe adolescent brain can be somewhat like a rider on a racehorse with no reins. “The problem is that the incentive/reward system matures earlier than the The ability to use reason to control impulses and emotions. cognitive control system,” explains Dr. Lisa Freund, a developmental psychologist and neuroscientist at NIH.\n\nIn other words, the brain’s “that’s so cool, I want it now” part develops well before the “stop and think twice” part. That’s why adolescents are especially susceptible to the immediate rewards of addiction, sexual experience, risky driving and more. They have trouble controlling impulses and considering the possible long-term consequences of their actions. What worries parents so much is that kids don’t seem to realize how vulnerable they are to the risks they face.\n\nTake sex. Among U.S. high school students surveyed in 2009, almost half reported that they had engaged in sexual intercourse at least once, and over 400,000 15- to 19-year-old girls gave birth. Of the 19 million new sexually transmitted diseases (STDs) recorded each year, nearly half are among young people who are 15 to 24 years old. This age group is also the fastest-growing group of people living with HIV in the U.S.\n\nIt’s important for parents to take the lead in talking about sex. “Sex is a normal part of life,” says Dr. Lynne Haverkos, an NIH pediatrician specializing in health risk behaviors, “but how do you prevent the STDs, pregnancy and negative emotional consequences that can happen in these relationships? Middle childhood is the time to start talking and listening…then, as they grow, adolescents can develop negotiation skills and learn how to recognize and handle risky situations involving sex. Start communicating early, keep going, don’t ever give up.”\n\n“Communication is absolutely key,” agrees Dr. Bill G. Kapogiannis, an NIH infectious disease expert and scientific director of the Adolescent Trials Network for HIV/AIDS Interventions. The network conducts research and provides information on community-based services for HIV-positive youth. “The earlier you initiate discussion—including risk behavior, sex, mood disorders, drugs and academic performance—the better.”\n\nTalking about sex may feel uncomfortable to some, but parents don’t have to go it alone. You can find helpful resources online and in community and school programs (See our links online). The most effective programs for HIV/STD prevention are taught by trained instructors, are age-appropriate, focus on skill-building and involve parents and health organizations.\n\nYou also need to talk to your teen about other behaviors such as drinking alcohol. Alcohol depresses cognitive control and increases the risk for substance abuse and sexual activity. Alcohol and drug use might also lead to situations where teens can be sexually abused.\n\nTeens may not want limits, but they still need them. Throughout late adolescence and early adulthood, they still need guidance. Setting limits is important because it takes years for kids to master the art of making decisions. Adolescents are similar to preschoolers in that activation in various parts of the brain isn’t yet mature and interconnected. “This makes adolescents more emotionally reactive, especially around peers,” Freund says.\n\nAs the brain’s complex architecture develops, teens do begin to learn from experience and adjust their behavior accordingly. They gain the ability to grasp the wider world in more complex and nuanced ways. This helps them develop their sense of right and wrong, as well as objectivity, empathy and judgment. They may become more motivated by self-esteem and personal achievement.\n\nParents can help by encouraging their teen’s strengths. Talking, listening and channeling an adolescent’s ongoing interests can have a powerful positive effect.\n\nWhen talking with adolescents, “the tone has to be nonjudgmental,” says Kapogiannis. “Talk it through, and reassure them that whatever happens, you still love them. As long as you have communication, you’re gonna get there.”\n\nFreund suggests that parents use technologies—such as texting or mobile phone calls—to stay in contact with their teens. Even if you can’t be there physically, they should know that you’re available and that you care about them. “You’re not hovering, but they need to know you’re around,” Freund says.\n\nIf you have concerns about your teen, and he or she seems unwilling to talk about it, consider making a call to your child’s doctor—ideally, an adolescent medicine specialist. Make an appointment so your teen can talk privately with the care provider.\n\nAdolescence is a stage that does have risks, and some kids may be more vulnerable than others. Yet there’s a lot that parents can do to keep their kids safe, make them feel loved, and help them move through the changes. Adolescence is not a disease, but a journey towards independence. It’s possible for both parents and their kids to enjoy this time—and even treasure it.\n\nRespect your teen’s opinions. Nonjudgmental communication shows your love. Be honest and direct with your teen when talking about sensitive subjects such as drugs, drinking, smoking and sex. Help your teen make healthy choices and plan ahead for difficult situations. Meet and get to know your teen’s friends. Compliment your teen and celebrate your child’s efforts and accomplishments. Respect your teen’s privacy. If your teen uses interactive social media—such as games and instant messaging—encourage caution and limit the time spent online. Have meals together. Teens who eat with the family are more likely to have better grades and less likely to smoke, drink, use drugs, think about suicide or engage in sexual activity."
+ },
+ {
+  "id": "e0e83d26-6dfb-4529-a929-2b37bcd08c50",
+  "title": "The Sorrow of Suicide",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "19bb110adacabed510d9255e5f367fc119ecac9a915679d0888e8fc6c9ac5e27",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1092,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2012-05-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2012/05/sorrow-suicide",
+     "year": 2012,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Suicide is tragic. It cuts a life short, and it devastates the family, friends and loved ones left behind. Those who survive a suicide attempt might end up with severe disability or other injuries. The children of people who die by suicide are more likely to later die by suicide themselves. With such extreme consequences, why would anyone make the dire decision to choose death over life?\n\nThat’s a question scientists have been struggling to answer for decades. “When you’re in a suicidal state, you’re kind of closing down your options. You see it as the only solution. You’re not really able to entertain other ideas,” says Dr. Jane Pearson, who heads a suicide research consortium at NIH. “What’s the science behind that? What’s happening in the brain that leads people to think so dysfunctionally?”\n\nOnly 20 years ago, little was known about the biology of suicide. But NIH-funded research has helped to open up new avenues for exploring the underlying causes of suicide. While the biological details are still being worked out, scientists have uncovered many clues to identify people at greatest risk for suicidal thoughts and actions.\n\nRecognizing those at risk is essential. Suicide is the 10th leading cause of death nationwide, and it’s the 3rd leading cause of death among adolescents. Nearly 37,000 Americans died by suicide in 2009, according to the U.S. Centers for Disease Control and Prevention. More than half of those deaths were from firearms.\n\nPeople of all genders, ages and ethnicities are at risk for suicide. Women are more likely than men to attempt suicide, but men are more likely to die by suicide. That’s because men often choose deadlier methods, such as firearms or suffocation.\n\n“The highest risk groups are older men,” says Pearson. “In fact, white men who are 85 and older have a rate of suicide that’s 4 times the national average.”\n\nSuicide risk is also higher among people who have certain mental disorders, including schizophrenia and bipolar disorder. Depression affects more than half of those who die by suicide. Other risk factors include a prior suicide attempt, a family history of suicide, substance abuse, or having guns or other firearms in the home.\n\nIn the past, many scientists believed that suicide was a terrible side effect of other mental disorders. But why is it that only a small proportion of people with depression or other mental conditions attempt suicide? A growing body of evidence suggests that there is something unique about their biology that can tip them over the edge.\n\n“We’ve found many systems in the brain that are broken with suicide, especially in the front part above the eye—called the orbital prefrontal cortex. That area of the brain is involved in inhibiting behaviors that are damaging, like being unable to inhibit the urge to kill oneself,” says Dr. Victoria Arango, a suicide researcher at the New York State Psychiatric Institute.\n\nOver the decades, Arango and her colleagues have conducted detailed studies of brain structure and biology in hundreds of suicide victims. They’ve found that certain brain regions in suicide have fewer nerve cells and altered receptors for Chemicals that send signals from one nerve cell to another. neurotransmitters. Abnormalities related to the neurotransmitter serotonin have been linked to suicide in many studies. Scientists have not yet figured out if these flaws in serotonin directly contribute to suicide or—more likely—if serotonin is one part of a complicated chemical pathway to suicide. Serotonin is also believed to play a key role in depression and response to stress and trauma.\n\n“Stress and trauma certainly play a big role in suicide, especially early life stress,” says Dr. Douglas Meinecke, an NIH scientist who studies the molecular details of mental disorders. Several research teams have found evidence that traumatic childhood experiences—such as abuse or violence—can “tag” certain Stretches of DNA, a substance you inherit from your parents, that define characteristics such as how likely you are to get certain disorders. genes in the brain. These tags, called epigenetic markers, are actually molecules that attach to genes. They can have a lasting effect on whether the genes are turned off or on.\n\nSome NIH-funded studies have shown that suicide victims who were abused as children have unique epigenetic markers on certain genes. These markers were not found in suicide victims with no history of childhood abuse or in people who died in accidents. More research into how stress affects genes and suicide risk might offer new chances for early intervention.\n\nCurrent approaches to treating or preventing suicide generally aim to relieve the accompanying mental condition or other risk factors. “If you focus on making people who have mental disorders as well as they can be, managing life as well as they can or reducing their suicidal thoughts, you can greatly reduce suicide overall,” says Meinecke.\n\nMedications—such as antidepressants and antipsychotics—can help. Psychotherapy, or “talk therapy,” can also be effective. One type, called cognitive behavioral therapy, can help people learn new ways to deal with stressful situations by training them to consider alternative actions when thoughts of suicide arise.\n\nOne of the most effective tools for preventing suicide is to know the warning signs and take quick action to get the person into treatment. “One of the biggest indicators of suicide risk is when somebody begins talking about suicide,” says Dr. David Brent, a psychiatrist at the University of Pittsburgh who studies suicide in families. “We used to think that talking about suicide meant you weren’t going to do it, but it’s really the opposite. Other warning signs include withdrawal from usual activities, a change in mood or a change in sleep patterns.”\n\nNever ignore someone’s talk of suicide. You can ask directly if the person has ever thought of harming himself or herself. Most people will answer honestly, and the question itself won’t push a person to attempt suicide.\n\nSee the “Wise Choices” box to learn more, or call the National Suicide Prevention Lifeline at 1-800-273-TALK (8255). This free, federally funded service is available to anyone, 24 hours a day, 7 days a week. All calls are confidential.\n\nThe more warning signs, the greater the risk of suicide. Get help from a mental health professional or the National Suicide Prevention Lifeline at 1-800-273-TALK.\n\nTalking about wanting to die; Actively looking for a way to kill oneself; Talking about feeling hopeless or having no purpose; Talking about feeling trapped or in unbearable pain; Talking about being a burden to others; Abusing alcohol or drugs; Acting anxious, agitated or reckless; Having sleep troubles; Withdrawing or feeling isolated; Having extreme mood swings; Giving away belongings, including treasured objects."
+ },
+ {
+  "id": "e1262d58-6147-48dc-b0c7-8acdcd60ed06",
+  "title": "Updated Report on Heroin",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f047591762d2903fcce1e04c4e8dc30fa9c8e20120b915cbd9ae28e04d564fbb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 185,
+   "v_level": 6,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2014-04-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2014/04/updated-report-heroin",
+     "year": 2014,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "NIH recently updated its Heroin Research Report, which provides an overview of heroin use and its consequences. The online report also describes treatment options for those struggling with addiction.\n\nHeroin is an illegal street drug that’s highly addictive. Its use is linked to many serious health conditions, including fatal overdose and infectious diseases like hepatitis and HIV. Unfortunately, the number of people using heroin in the United States has been rising since 2007, especially among young adults from 18 to 25 years old.\n\nRepeated heroin use changes the structure and function of the brain. It creates long-term imbalances in the body’s chemistry and nervous system that aren’t easily reversed.\n\nResearch suggests that abuse of prescription pain relievers known as opioids may open the door to heroin use. Some people report switching to heroin because it’s cheaper and easier to obtain than prescription opioids.\n\nLike many long-term diseases, heroin addiction can be treated. Medications can help reduce drug cravings and withdrawal symptoms to improve the chances of quitting. Medication combined with behavioral therapy is especially effective.\n\nThe Heroin Research Report is available at www.drugabuse.gov/publications/research-reports/heroin."
+ },
+ {
+  "id": "e180aca7-f858-4a35-a049-e8115b0d4706",
+  "title": "You’re Never Too Old",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "cc6fac63bccec3711b9e34609e92bfef9e5fca0677c33ade87d989441addea63",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 590,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2017-12-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2017/12/you-re-never-too-old",
+     "year": 2017,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "We’ve all heard that exercise is good for you. Did you know that it’s as true for older people as it is for any age group? You’re never too old to get moving, get stronger, and improve your health.\n\nFitting exercise and physical activity into your day can enhance your life in so many ways. Regular physical activity can improve your balance and boost or maintain your strength and fitness. It may also improve your mood and help you manage or lessen the impact of conditions like diabetes, heart disease, osteoporosis, and depression.\n\nDespite these proven benefits, exercise and physical activity rates among older people are surprisingly low. Only about 30% of people ages 45 to 64 say they engage in regular leisure-time physical activity. This falls to 15% of those between the ages of 65 and 74 and 5% of people age 85 and older.\n\nExperts recommend four types of exercise for older adults: endurance, balance, strength, and flexibility. Brisk walking, dancing, and other endurance exercises improve the health of your heart, lungs, and circulatory system. These exercises can make it easier for you to mow the lawn, climb stairs, and do other daily activities. Strength exercises include lifting weights or using resistance bands. They can increase muscle strength to help with activities such as carrying groceries or lifting grandchildren. Balance exercises can help prevent falls—a major health risk for older adults. Stretching, or flexibility exercises, can give you more freedom of movement for bending to tie your shoes or looking over your shoulder as you back out of the driveway.\n\n“Even if you haven’t been active previously, it’s important to get started and stay active,” says Dr. Richard J. Hodes, director of NIH’s National Institute on Aging. “We know that people want to live independently for as long as they possibly can. By exercising regularly and including more physical activity in their daily routine, older people can preserve their physical function, which is key to doing the everyday things they want to do.”\n\nTo help you get started and keep moving, NIH brought together some of the nation’s leading experts on aging, exercise, and motivation. They developed a guide to exercise for older adults. The guide serves as the basis for a national exercise and physical activity campaign for people ages 50 and older. It’s called Go4Life.\n\n“Older adults can exercise safely, even those who have physical limitations,” Hodes says. “Go4Life is based on studies showing the benefits of exercise and physical activity for older people, including those with chronic health conditions.”\n\nGo4Life exercises are designed to be done safely at home without special equipment or clothing. The free book Exercise & Physical Activity: Your Everyday Guide from the National Institute on Aging is the core resource for the campaign. Other free materials, such as tip sheets, are also available. Workout to Go, a mini exercise guide, shows you how you can be active anytime, anywhere.\n\nTo learn more, visit the Go4Life website at go4life.nia.nih.gov. You’ll find exercises, success stories, and tips to help you stay motivated. Or call 1-800-222-2225, or e-mail [email protected].\n\nArticle Review. This special issue is a collection of previously published articles. However, articles were updated and re-reviewed by NIH experts prior to inclusion. Published December 2017.\n\nExercise and physical activity can help you:\n\nMaintain and improve your physical strength and fitness. Improve your ability to do everyday things. Improve your balance. Manage and improve diseases like diabetes, heart disease, and osteoporosis. Reduce feelings of depression and may improve mood and overall well-being. Improve your ability to shift quickly between tasks, plan an activity, and ignore irrelevant information."
+ },
+ {
+  "id": "e1bd9df2-944d-420b-88cf-136e253ee262",
+  "title": "Many Doctors Don’t Ask Teens About Alcohol",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a35b3c90f310f200521379979e8acd7badba1f31a36525808a303c1722003f77",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 281,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2013-03-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2013/03/many-doctors-dont-ask-teens-about-alcohol",
+     "year": 2013,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "In a new study, more than one-third of 10th graders reported recent alcohol use. But many didn’t recall their doctors asking them about drinking or talking to them about its effects. Doctors may be missing opportunities to prevent underage alcohol use, the study suggests.\n\nUnhealthy alcohol use is the third-leading preventable cause of death nationwide. Alcohol is the most widely used substance of abuse among youth, and dangerous binge drinking is common among underage drinkers.\n\nMany adults, research shows, cut back on risky drinking if doctors ask about and discuss alcohol. NIH scientists set out to see how often doctors discuss alcohol with teens. They asked more than 2,500 10th graders nationwide about their alcohol use and whether their doctor discussed drinking at their last medical exam.\n\nMore than 1 in 3 students said they had used alcohol in the past month, and about 1 in 4 said they had binged. Binge drinking means having 5 or more drinks per occasion for males and 4 or more for females.\n\nOf the students who had seen a doctor in the past year, 54% said they were asked about drinking, and 40% said they were advised about related harms. Of the students who reported past-month problem drinking (frequent alcohol use, binging or drunkenness), only about 25% were advised to reduce or stop drinking.\n\n“Alcohol is by far the drug of choice among youth,” says NIAAA Acting Director Dr. Kenneth R. Warren. “The findings indicate that we must redouble our efforts to help clinicians make alcohol screening a routine part of patient care for young people in the United States.”\n\nAcademic and/or behavioral problems in school; Changing groups of friends; Less interest in activities or appearance; Slurred speech; Coordination problems; Memory and/or concentration problems."
+ },
+ {
+  "id": "e1bf60a1-6d29-491f-bb61-1288ed7860cf",
+  "title": "Health Newsletter for Native Americans",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a09ce107dfccc31d43a830a367ca9dc303de16e67d803a9765af203902f4d23d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 143,
+   "v_level": 3,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2015-09-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2015/09/health-newsletter-native-americans",
+     "year": 2015,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A new online newsletter, called Honoring Health: Resources for American Indians and Alaska Natives, features a different health topic in each issue. The e-newsletter highlights health-related resources, events, training, and funding opportunities from NIH and other federal agencies.\n\nThe first issue focuses on healthy aging. Learn about NIH’s Go4Life campaign, designed to help older adults add exercise and physical activity to their daily lives. The debut newsletter also includes links to information about Alzheimer’s disease and a toolkit that can help older adults learn to make the most of their medical appointments.\n\nHonoring Health: Resources for American Indians and Alaska Natives is produced by NIH in partnership with the Indian Health Service and the Administration for Community Living’s Administration on Aging—all part of the U.S. Department of Health and Human Services.\n\nTo subscribe to this free email newsletter, visit www.niams.nih.gov/News_and_Events/AIAN_Honoring_Health."
+ },
+ {
+  "id": "e1d98a58-ab46-436e-9e9b-f7d5fb1bb3c1",
+  "title": "Preventing Falls",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3d43105423adf4eae3d9f14f5121e841286cc5db7be3590983e91ff9460fa87f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 617,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2019-09-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2019/09/preventing-falls",
+     "year": 2019,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Each year millions of Americans, especially older adults, go to the emergency department after an injury from a fall.\n\n“These falls can cause serious injuries—back fractures, hip fractures, as well as head trauma,” says Dr. David B. Reuben, a healthy aging expert at the University of California, Los Angeles, who co-leads one of the largest prevention studies for falling. Some people are never able to return to their way of life before an injury.\n\nSeveral kinds of health care providers can help those at risk of falling. “It’s actually a group effort,” Reuben says. Your doctor can be the first step. They can develop a prevention plan and refer you to other types of providers if needed.\n\nThe biggest risk factor for being injured from a fall is being age 65 or older. People younger than that may be at increased risk of falling when they engage in certain activities, like sports, or because of certain health conditions. But children and young adults typically fall without being seriously injured.\n\nPeople with weak bones are more likely to break a bone during a fall. As you get older, your bones become less dense. They get thinner and more spongy. If that goes too far, it’s called osteoporosis. Osteoporosis makes your bones fragile. Having enough calcium and vitamin D can help keep your bones strong. So can getting treatment for osteoporosis if needed.\n\nOther risk factors include finding it challenging to walk or keep your balance. Problems with foot pain or unsafe shoes can make these more difficult. And certain medicines you’re taking might cause you to feel tired or woozy. Some people have a drop in blood pressure when they stand up. That can make you feel dizzy and fall.\n\nAs you age, your eyesight, hearing, and reflexes may not be as sharp as they once were. Those changes can make it more likely you’ll stumble and fall. For older adults who have already fallen, the risk of falling is much greater.\n\nSee the Wise Choices box for ways to lower your risk of falling. Your doctor can help you make a personalized plan for preventing falls. They may encourage you to work with a physical therapist to increase your strength and improve your balance. They can also prescribe devices like special footwear or a walking cane.\n\nYour plan for preventing falls may include getting more physical activity. Studies have shown that both individual and group exercise classes can help older adults prevent falls. Research suggests that this is true even for people 65 and older who are at higher risk of falls only because of their age.\n\nYou may also want to fall-proof your home. An occupational therapist can teach you about the safety hazards in your home. Keep your home tidy and well-lit to avoid stumbling over objects. Also, avoid having small area rugs that you could trip on. Making a habit of holding onto the handrails when you use stairs can keep you safer, too.\n\nIf you fall, it’s important to tell your doctor, especially if you’re an older adult. “This is something that you really want to pay attention to,” Reuben advises. Your doctor can help you make changes in your life to prevent another fall.\n\nTalk openly with your health care provider about falls. Find out about the side effects of any medicine you take. Stay physically active to improve your balance and strength. Have your eyes and hearing checked regularly. See your health care provider about any foot problems. Make sure to discuss proper footwear. Make your home safer. Remove things you can trip over from stairs and walkways. Have grab bars and non-slip mats in bathrooms. Hold on to handrails when using stairs."
+ },
+ {
+  "id": "e232facf-5b5f-4f0b-9b42-0739aef772f9",
+  "title": "Sound Check",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0970febbbb81fcc66fd260d9d86002fa1ffa2b41056146b4550f5e961072e1fa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 619,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2024-08-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2024/08/sound-check",
+     "year": 2024,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Speaking, singing, and making other sounds require many parts of your body to work together. Your brain thinks of ideas. Your lungs move air in and out. Your vocal cords vibrate. Your mouth and nose help shape sound.\n\n“Our whole body participates in the production of voice, speech, and breathing. So we can get a lot of information about our health from them,” says Dr. Yael Bensoussan, a voice researcher at the University of South Florida.\n\nMany conditions can impact the various body parts involved in sound production. These include depression, Parkinson’s disease, Loss of thinking, memory, and reasoning skills that seriously affects your ability to carry out daily activities. dementia, lung problems, and even cancer. Measuring voice, speech, and breathing patterns could help diagnose health problems.\n\nResearchers are testing ways to use apps and other tools to let people measure such information at home. For example, a recent study showed that a computer program could identify patients with Parkinson’s disease by their breathing patterns during sleep.\n\n“Voice, speech, and breathing are easy to access, inexpensive, and non-invasive to measure,” Bensoussan says. “For example, for a test for lung function, you currently have to go to a hospital and blow into a machine. Then you need someone to analyze that test. Just recording your voice or breathing sounds on your phone would be a lot cheaper and easier.”\n\nSpeech pattern analysis has shown promise for diagnosing impairments in memory or thinking abilities, and mental health conditions like depression. The way people speak, the tone of voice, and even the words used can all change when someone develops depression, explains Dr. Gari Clifford, a biomedical engineer at Emory University and Georgia Institute of Technology.\n\nClifford’s team is trying to use speech patterns and facial expression changes to catch depression early in people with dementia. They are now testing their technology in certain tablet and smartphone apps to track changes in people’s daily health. This could help doctors see the effects of depression treatments in real time and change them quickly if needed. It could also provide early warning that someone’s health is declining.\n\nOther NIH-funded research teams are testing speech analysis to screen for additional mental health problems, like anxiety. They’re also looking at speech patterns to help diagnose diseases like amyotrophic lateral sclerosis (ALS) early.\n\nBensoussan’s team is building the world’s largest collection of voice and speech samples related to health information. They’re including people from a wide range of backgrounds and health conditions. They hope this will aid researchers in building new tools for diagnosis.\n\nVoice and speech analysis tools will eventually have to take people’s whole health into account, just like a doctor would, Bensoussan says. “Multiple different diseases can cause the same voice changes. For example, for a hoarse voice, someone with cancer of the throat and someone with laryngitis can sound exactly the same,” she explains.\n\nYou can’t yet talk into your phone and get a full health report. But Bensoussan encourages people to pay attention to changes in their voice and speech. “If you have a voice change for more than two to three weeks, it may indicate an issue with your health,” she says. See the Wise Choices box for signs to look for.\n\nTalk with your doctor if you notice changes in your voice, speech, or breath lasting over a few weeks:\n\nHoarseness or a raspy quality to your voice. Changes in the pitch of your voice (how low or high it is). Your throat feeling raw, achy or strained. Difficulty talking. Repeatedly feeling the need to clear your throat. A cough that doesn’t go away. Problems thinking of the words you want to use or putting words in the right order."
+ },
+ {
+  "id": "e24ad0ca-abbc-4a48-88fd-4c4359dcaefd",
+  "title": "Breaking Bad Habits",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9f45d4bcf02b1870566295aca4870af6bd74d7797b1a172d3de9b10e24cc7477",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1157,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2012-01-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2012/01/breaking-bad-habits",
+     "year": 2012,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "If you know something’s bad for you, why can’t you just stop? About 70% of smokers say they would like to quit. Drug and alcohol abusers struggle to give up addictions that hurt their bodies and tear apart families and friendships. And many of us have unhealthy excess weight that we could lose if only we would eat right and exercise more. So why don’t we do it?\n\nNIH-funded scientists have been searching for answers. They’ve studied what happens in our brains as habits form. They’ve found clues to why bad habits, once established, are so difficult to kick. And they’re developing strategies to help us make the changes we’d like to make.\n\n“Habits play an important role in our health,” says Dr. Nora Volkow, director of NIH’s National Institute on Drug Abuse. “Understanding the biology of how we develop routines that may be harmful to us, and how to break those routines and embrace new ones, could help us change our lifestyles and adopt healthier behaviors.”\n\nHabits can arise through repetition. They are a normal part of life, and are often helpful. “We wake up every morning, shower, comb our hair or brush our teeth without being aware of it,” Volkow says. We can drive along familiar routes on mental auto-pilot without really thinking about the directions. “When behaviors become automatic, it gives us an advantage, because the brain does not have to use conscious thought to perform the activity,” Volkow says. This frees up our brains to focus on different things.\n\nHabits can also develop when good or enjoyable events trigger the brain’s “reward” centers. This can set up potentially harmful routines, such as overeating, smoking, drug or alcohol abuse, gambling and even compulsive use of computers and social media.\n\n“The general machinery by which we build both kinds of habits are the same, whether it’s a habit for overeating or a habit for getting to work without really thinking about the details,” says Dr. Russell Poldrack, a neurobiologist at the University of Texas at Austin. Both types of habits are based on the same types of brain mechanisms.\n\n“But there’s one important difference,” Poldrack says. And this difference makes the pleasure-based habits so much harder to break. Enjoyable behaviors can prompt your brain to release a chemical called A brain chemical that regulates movement, emotion, motivation and pleasure. dopamine. “If you do something over and over, and dopamine is there when you’re doing it, that strengthens the habit even more. When you’re not doing those things, dopamine creates the craving to do it again,” Poldrack says. “This explains why some people crave drugs, even if the drug no longer makes them feel particularly good once they take it.”\n\nIn a sense, then, parts of our brains are working against us when we try to overcome bad habits. “These routines can become hardwired in our brains,” Volkow says. And the brain’s reward centers keep us craving the things we’re trying so hard to resist.\n\nThe good news is, humans are not simply creatures of habit. We have many more brain regions to help us do what’s best for our health.\n\n“Humans are much better than any other animal at changing and orienting our behavior toward long-term goals, or long-term benefits,” says Dr. Roy Baumeister, a psychologist at Florida State University. His studies on decision-making and willpower have led him to conclude that “self-control is like a muscle. Once you’ve exerted some self-control, like a muscle it gets tired.”\n\nAfter successfully resisting a temptation, Baumeister’s research shows, willpower can be temporarily drained, which can make it harder to stand firm the next time around. In recent years, though, he’s found evidence that regularly practicing different types of self-control—such as sitting up straight or keeping a food diary—can strengthen your resolve.\n\n“We’ve found that you can improve your self-control by doing exercises over time,” Baumeister says. “Any regular act of self-control will gradually exercise your ‘muscle’ and make you stronger.”\n\nVolkow notes that there’s no single effective way to break bad habits. “It’s not one size fits all,” she says.\n\nOne approach is to focus on becoming more aware of your unhealthy habits. Then develop strategies to counteract them. For example, habits can be linked in our minds to certain places and activities. You could develop a plan, say, to avoid walking down the hall where there’s a candy machine. Resolve to avoid going places where you’ve usually smoked. Stay away from friends and situations linked to problem drinking or drug use.\n\nAnother helpful technique is to visualize yourself in a tempting situation. “Mentally practice the good behavior over the bad,” Poldrack says. “If you’ll be at a party and want to eat vegetables instead of fattening foods, then mentally visualize yourself doing that. It’s not guaranteed to work, but it certainly can help.”\n\nOne way to kick bad habits is to actively replace unhealthy routines with new, healthy ones. Some people find they can replace a bad habit, even drug addiction, with another behavior, like exercising. “It doesn’t work for everyone,” Volkow says. “But certain groups of patients who have a history of serious addictions can engage in certain behaviors that are ritualistic and in a way compulsive—such as marathon running—and it helps them stay away from drugs. These alternative behaviors can counteract the urges to repeat a behavior to take a drug.”\n\nAnother thing that makes habits especially hard to break is that replacing a first-learned habit with a new one doesn’t erase the original behavior. Rather, both remain in your brain. But you can take steps to strengthen the new one and suppress the original one. In ongoing research, Poldrack and his colleagues are using brain imaging to study the differences between first-learned and later-learned behaviors. “We’d like to find a way to train people to improve their ability to maintain these behavioral changes,” Poldrack says.\n\nSome NIH-funded research is exploring whether certain medications can help to disrupt hard-wired automatic behaviors in the brain and make it easier to form new memories and behaviors. Other scientific teams are searching for genes that might allow some people to easily form and others to readily suppress habits.\n\nBad habits may be hard to change, but it can be done. Enlist the help of friends, co-workers and family for some extra support.\n\nAvoid tempting situations. If you always stop for a donut on your way to work, try a different route. Keep fatty foods, cigarettes, alcohol and other tempting items out of your home. Replace unhealthy behaviors with healthy ones. Try exercise, a favorite hobby or spending time with family. Prepare mentally. If you can’t avoid a tempting situation, prepare yourself in advance. Think about how you want to handle it and mentally practice what you plan. Enlist support. Ask friends, family and co-workers to support your efforts to change. Reward yourself for small steps. Give yourself a healthy treat when you’ve achieved a small goal or milestone."
+ },
+ {
+  "id": "e41e95e6-bd4f-4334-b3a2-9ad31b4966e7",
+  "title": "Guiding Teens Toward Alcohol-Free Parties",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "66feaecbed82a8884bce84b0b68949e3cf61e035ca919d9b2526ceff125649d1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 216,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2017-06-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2017/06/guiding-teens-toward-alcohol-free-parties",
+     "year": 2017,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Are you a parent of a high school student? If so, have you talked with your teen about avoiding alcohol at celebrations like graduation? Research shows that talking with your child about the risks of drinking does make a difference.\n\nAsk your teen to think about the potential consequences of drinking before they celebrate. You can help them prevent a life-changing mistake. Tragedies can—and do—happen. Teens who drink alcohol put themselves and their friends at risk. Drinking to celebrate can lead to alcohol-related traffic crashes, sexual assaults, trips to the emergency room, or worse.\n\nUnderage drinking shouldn’t be a part of any end-of-year celebration. If you’re hosting a party, tell guests you have a no-alcohol policy. Providing alcohol to minors is against the law in all 50 states in most circumstances.\n\nTeach your child about the dangers of alcohol. Drinking lowers your inhibitions, impairs your ability to make sound decisions, and can cause loss of balance, slurred speech, and blurred vision. One of the most serious risks of teen drinking is an overdose. Without immediate medical care, an overdose can cause permanent brain damage or death.\n\nFor advice on how to speak with your teen, read NIH’s fact sheet “Parents—Talk With Your High School Grads About Celebrating Safely” at pubs.niaaa.nih.gov/publications/GraduationFacts/graduationFact.htm."
+ },
+ {
+  "id": "e441692e-e9d3-41ab-98fc-ba41a8a42b46",
+  "title": "Intermittent Fasting and Type 2 Diabetes",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "45d107351bdff9311acc6caf9a196b55a4c51b40199638c03f7c3842dca808ea",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 241,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2024-01-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2024/01/intermittent-fasting-type-2-diabetes",
+     "year": 2024,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Around 1 in 10 Americans live with type 2 diabetes. In this disease, levels of blood glucose, or blood sugar, stay too high for too long. Diabetes can lead to serious health issues.\n\nWeight loss is often recommended for those with excess weight and type 2 diabetes. Reducing calorie intake is a common weight-loss strategy. But many people find it hard to cut back on calories.\n\nAn NIH-funded research team tested a different strategy. It’s called time-restricted eating, or intermittent fasting. With this approach, people eat only during a certain time period each day. During that time, they can eat anything they want.\n\nThe researchers recruited 75 people with obesity and type 2 diabetes. Participants were assigned to one of three diet groups. One group tried intermittent fasting. They ate only between noon and 8 p.m. Another group was asked to reduce their calorie intake by 25%. A third group had no dietary changes.\n\nAfter six months, people in the fasting group had lost an average of 3.6% of their body weight. In comparison, people in the reduced-calorie group did not lose much weight. Both groups had similarly healthy decreases in blood glucose levels.\n\n“Our study shows that time-restricted eating might be an effective alternative to traditional dieting for people who can’t do the traditional diet or are burned out on it,” says Dr. Krista Varady of the University of Illinois Chicago. For safety, people with diabetes who want to try intermittent fasting should talk to their doctor first."
+ },
+ {
+  "id": "e4c393cb-f59b-42a3-9f61-a9b9b3bb8285",
+  "title": "Making Up Sleep May Not Help",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "680ad598b134703fc0bd1e7509452a2de4a8b561b5dedc05c0b2a40e9103a78c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 300,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2019-05-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2019/05/making-up-sleep-may-not-help",
+     "year": 2019,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Catching up on sleep doesn’t reverse damage to the body caused by sleep deprivation, according to a new study. In fact, so-called recovery sleep may make some things worse.\n\nAbout one of every three adults regularly gets less than seven hours of sleep a night. Over time, lack of sleep can lead to changes in Chemical changes in the body that create the energy and substances you need to grow, move, and stay healthy. metabolism. These increase the risk for obesity and diabetes.\n\nSome people try to make up for a lack of sleep by sleeping more on their days off. A research team studied this strategy for two weeks in 36 men and women. After three nights of normal sleep, the participants were split into three groups.\n\nThe first group slept up to nine hours a night. The second group was allowed a maximum of five hours of sleep a night. The third group had a maximum of five hours a night for five days, but were then allowed to sleep in for two days. They then had two more days of sleep deprivation.\n\nThose who had only five hours of sleep a night gained about 3 pounds on average during the study. They also had a 13% decrease in a key measure of metabolism called insulin sensitivity. Insulin sensitivity is the body’s ability to use insulin properly and control blood sugar levels.\n\nThose who had recovery sleep gained about 3 pounds but had a 27% decrease in insulin sensitivity. Their natural body rhythms were also disrupted. They were more likely to wake up during the nights following the period of recovery sleep.\n\n“Catch-up sleep does not appear to be an effective strategy to reverse sleep loss-induced disruptions of metabolism,” says Dr. Kenneth Wright, Jr., who led the study at the University of Colorado."
+ }
+]

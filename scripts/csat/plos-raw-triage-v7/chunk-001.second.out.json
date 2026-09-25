@@ -1,0 +1,204 @@
+[
+  {
+    "id": "00880d86-1d24-40c9-a2f8-49499815cbf7",
+    "source_updated_at": "2026-09-15T12:48:12.866159+00:00",
+    "body_sha256": "1399ef689c3d2dd386b8567133e2c15e98c0fbf856af9e85d2cc36b01142092c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰 「Distinct requirement of Cdc42」 절이 세포가 자라는 데보다 짝짓기·융합에 더 많은 단백질이 필요하고 반응이 문턱형이라는 논지를 세워 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Interesting observations stem from our series",
+      "note": "Cdc42·mitotic·pheromone 을 「핵심 단백질」「세포 분열」「화학 신호」로 바꾸면 논지(생존 문턱 < 번식 문턱, 헌신 확인 장치)는 서지만 전문어가 촘촘해 V7 아래로는 안 내려간다."
+    }
+  },
+  {
+    "id": "008d9ec8-cab5-43a5-acb6-e68dce259c33",
+    "source_updated_at": "2026-09-13T07:32:55.334081+00:00",
+    "body_sha256": "750f16ed58be8708f3c104dda027f28bdfc1c23d4497d7407bd9dd4baaf75c20",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰 「Risk factors and clinical impact」 절이 전극 휘어짐 가설을 뒤집고 집도의 자신의 당기는 습관이 원인이었다고 인정하는 흐름이라 요지·순서·통념 교정 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "topic",
+        "order",
+        "insert",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The hypothesis that dorsal DBS lead",
+      "note": "DBS lead·StimLoc cap·iatrogenic 을 「뇌에 심은 전선」「고정 뚜껑」「수술이 부른」으로 바꾸니 가설→반증→원인 인정→교정이 고유명사 없이 섰고, 수치 표는 버려도 된다."
+    }
+  },
+  {
+    "id": "008fe410-3b30-412b-bda7-578a2ca72afd",
+    "source_updated_at": "2026-09-13T05:58:29.484918+00:00",
+    "body_sha256": "eae991a591e1ef7640ce4ad5c6627b482bbca7309c899598157d2f63956ba332",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 셋째 단락(뇌하수체가 혈뇌장벽 밖에 있다는 점을 이용)과 고찰 끝 「최대가 아니라 균형」 단락이 논지를 세워 주장·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Therefore, the ideal peripherally restricted D2",
+      "note": "Therefore 를 걷고 D2 antagonist·hyperprolactinemia 를 「약」「호르몬 과다」로 바꾸니 「많을수록 좋은 게 아니라 적정 범위」 논지가 서지만 앞 단락의 부작용 설명을 한 문장 끌어와야 한다."
+    }
+  },
+  {
+    "id": "00945738-b551-4c41-8315-e4bbe21f54b5",
+    "source_updated_at": "2026-09-15T12:48:16.980164+00:00",
+    "body_sha256": "ce832e7d909898eeedfa6db98fe4d1707cee5d860ec4a639a2cd35302f89723e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 둘째 단락(연골세포만 보던 관점에서 면역세포 침윤의 악순환으로)과 끝의 「통계적 연관일 뿐 기전이 아니다」 한계 단락이 논지를 세워 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The pathogenesis of OA is complex",
+      "note": "OA·chondrocyte·synovitis 를 「관절염」「연골 세포」「관절 염증」으로 바꾸니 관점 전환→악순환 논지가 섰고, 고찰 대부분은 유전자 이름 나열이라 쓸 데가 없다."
+    }
+  },
+  {
+    "id": "00a49392-ab3b-4462-b90a-fedb69403b10",
+    "source_updated_at": "2026-09-15T12:48:20.947468+00:00",
+    "body_sha256": "1392105711b6d8c35dda68b95c1fbe4162c3cd5aa942e26932c7b961bccf070a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "engineering",
+    "why": "본문 절 대부분이 수식·그림이 빠진 채 한두 문장만 남았고, 서론 첫 단락(선박 흔들림→보정 통로 필요)만 떼어 볼 수 있는데 그 논지가 얇아 칸을 확정하기 어렵다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "With the development of the marine",
+      "note": "heave·gangway 를 「상하 흔들림」「승선 통로」로 바꾸면 읽히지만 수요 증가→문제→해결책 한 줄로 끝나 논지가 서지 않고, 이어지는 문헌 검토는 저자·방법 나열이다."
+    }
+  }
+]

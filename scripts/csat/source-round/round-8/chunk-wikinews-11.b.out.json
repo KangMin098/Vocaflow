@@ -1,0 +1,1016 @@
+[
+  {
+    "id": "039362d8-3a09-4101-a099-dba443f1b795",
+    "source_updated_at": "2026-09-25T07:38:19.309582+00:00",
+    "body_sha256": "6428739201c9ee55c192d56f76d74e7952711713bb1e69646077e39aeff51ff1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "민주당 새 대표 선출과 전임자 사퇴 배경이 이어져 고등 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Japan's opposition party, the Democratic Party,",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0396191e-90bc-43ba-92e1-4eb755bd644b",
+    "source_updated_at": "2026-09-25T07:58:44.572314+00:00",
+    "body_sha256": "901857208bd597bf0cfdcc1adc23be5f7202897dfac33a078e977718f2de7509",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아동음란물 사제 판결 기사로 사실 흐름은 서나 소재가 성범죄라 성인 칸으로만 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Former Roman Catholic priest Bartley Sorensen",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0398d421-0b77-4cf9-bdb4-bfbae880f06a",
+    "source_updated_at": "2026-09-25T08:11:57.668945+00:00",
+    "body_sha256": "c293356a87bfb5f0cd221aae2d1e421a8a1cd2294baaadea8461f4149ffddfb5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "미스터 위저드의 과학 교육 방송 생애가 인용과 함께 서서 고등 전기·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Don Herbert, known to many as",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "039906a9-b91d-43b4-8690-e25c15db9faa",
+    "source_updated_at": "2026-09-25T07:35:06.057625+00:00",
+    "body_sha256": "0d187061a47bf8b15e48d31093b8936b1783ee659588f3abab47695aff0b2d4d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "다우지수가 몇 포인트씩 오르내린 수치 나열이 대부분이라 논지·흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Following a large fall at the",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "039dd3de-908d-47ef-9e5f-5acf2d1bbaeb",
+    "source_updated_at": "2026-09-25T07:29:30.952177+00:00",
+    "body_sha256": "1bf4737e2659bfda12e1d618648cc5cc77d8a77caf859adc977b44b9ecf23b62",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "hold",
+    "genre": "polemic",
+    "why": "무소속 대선 후보가 양당을 「screwing the country」라 공격하는 일방 주장이 대부분이라 인터뷰 칸인지 선동인지 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "While nearly all cover of the",
+      "note": "떼어 볼 수는 있으나 무엇을 칸으로 삼을지 기준이 갈린다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "03a8c61a-aa5d-4789-a88d-e2b94552e629",
+    "source_updated_at": "2026-09-25T07:35:16.868646+00:00",
+    "body_sha256": "006aa1692f32f3d0cd5e3077f7c7734b57cb3c3a3ed2805867a5ff81a780523b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "인도 첫 달 탐사선 발사와 목적·비판이 설명돼 고등 내용일치·주제 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "India's first unmanned lunar mission was",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03aa5568-c628-461d-9baa-96f6d25ca2b6",
+    "source_updated_at": "2026-09-25T07:26:41.473116+00:00",
+    "body_sha256": "802852d160149084111c71dce445244d5d4eeeaf1ccc1ebc9f39604c1fc4870e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "벨기에 무정부 기록과 언어권 갈등 배경이 설명돼 고등 주제·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After federal elections on June 10,",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03afa36c-c461-4643-b353-160d6ddc21da",
+    "source_updated_at": "2026-09-25T08:08:33.662108+00:00",
+    "body_sha256": "6bf11a9cac63606b5a91c0bf2b39cf5bf88f410a11a0cd5f7a87d4de08db03d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "인도 5개 주 선거 결과를 주별 의석 수로 나열할 뿐 흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The ruling Left-Front Party in the",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "03b4ea16-7d6f-4040-a4ef-33137450b517",
+    "source_updated_at": "2026-09-25T06:59:40.001283+00:00",
+    "body_sha256": "05f569eaa69fe17893ec0e921cfc6da8d9b07a6abe20df38a9b759b222982a67",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "신 코퍼레이션 명예훼손 소송 패소와 정치적 맥락이 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Shin Corporation, the multi-billion baht telecom",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03b57969-e695-430a-804a-440b6c4f39ab",
+    "source_updated_at": "2026-09-25T07:38:39.663357+00:00",
+    "body_sha256": "64e95e7316a9e444d810ee6ce561ba40f0e868dcb3a7cff1cabf5d2f47afc069",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "중국동방항공 A320 구매 계약과 이유·승인 절차가 짧게 서서 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "China Eastern Airlines stated on Thursday",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03b6c53b-5f91-43a3-ab55-dc7e4ff2dc71",
+    "source_updated_at": "2026-09-25T08:18:45.856583+00:00",
+    "body_sha256": "3a11b971fd549591f0fb0f3ad8388f27996489b165a9b74a99bcf05f83f66737",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "버펄로 추락기 자동조종 결빙 원인 분석이 인과로 이어져 고등 설명·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Investigators have stated that Continental Connection",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03b9a048-3064-43e5-9009-095004ae0360",
+    "source_updated_at": "2026-09-25T06:58:31.548563+00:00",
+    "body_sha256": "e90b71073cd937331c0091610405b609c083ca0f97f40aab9291d3696435a8d4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "윤초의 원리와 지구 자전 변동을 설명해 고등 설명 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The U.S. Naval Observatory in Washington",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03b9e70a-a255-4ab7-90e8-f478fc3b5cad",
+    "source_updated_at": "2026-09-25T08:05:27.246715+00:00",
+    "body_sha256": "2cced6a00be22a166e8774790e4da05f21d7f146cb46f3f67c8494d9c672d1b6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "7·21 런던 폭탄 용의자 체포 과정이 시간순으로 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yasin Hassan Omar, 24 — suspected",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03bb2b9f-0ef7-4b0a-b4d9-067607212020",
+    "source_updated_at": "2026-09-25T07:07:19.838681+00:00",
+    "body_sha256": "a0cf770a7c65f1b582c8af0f999f66bd394caaaa90f26475e3dbc96870bcf52d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "타이탄 에탄 구름 발견과 과학자 해석이 설명돼 고등 과학 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The spacecraft Cassini-Huygens has discovered ethane",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03bdedbc-ea23-4a2c-a87a-04ce4dcd0cd9",
+    "source_updated_at": "2026-09-25T08:10:21.021065+00:00",
+    "body_sha256": "cc8b00093a6683246f5f089194fbee1b44b430a046f244298ddacdbd1853d890",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이란 혁명수비대 훈련과 지휘관 발언이 짧게 서서 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Iran's Revolutionary Guards began another series",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03c2d06e-af46-4257-8ae2-d15748510d9c",
+    "source_updated_at": "2026-09-25T06:48:11.130771+00:00",
+    "body_sha256": "6abdc4132f71992917808ff5f244cdd2d840151ec0d797576aa575d154080f90",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "석유-식량 계획 할당 의혹과 두 정치인 배경이 설명돼 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A U.S. Senate committee, the Senate",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03cd51e7-1013-420c-89e1-b35a72c3e8f1",
+    "source_updated_at": "2026-09-25T07:33:49.95167+00:00",
+    "body_sha256": "38eab43afdb19a28b273fc1e271760eccf3859064458071891a46ba8eafdb941",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "러시아의 조지아 작전 중단과 전쟁 경과가 시간순으로 서서 고등 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dmitry Medvedev, the President of Russia,",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03d7ef1e-d65a-4846-a9f4-9ef77e9f9823",
+    "source_updated_at": "2026-09-25T07:58:44.740753+00:00",
+    "body_sha256": "77a11825bf634e841292ccccab9a8c8e142e7a3da1a16d84347eb4d758ba4447",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "에펠탑 폭탄 협박 대피와 반복 사례가 짧게 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tourists were evacuated from Paris' Eiffel",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03dc2630-f5a9-4b4b-9673-3d29691bedd6",
+    "source_updated_at": "2026-09-25T07:50:20.118068+00:00",
+    "body_sha256": "e84589ad50ea814177bd187a9fcf199c80f33c58d4cc64e8b370041047e76c55",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사우디 집단 사형 예정과 인권단체 비판이 이어져 고3·성인 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Saudi Arabia, six Shia Muslim",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03dc6210-38d2-45fe-b78c-226ad2f35449",
+    "source_updated_at": "2026-09-25T07:05:55.627335+00:00",
+    "body_sha256": "96fbe148b9f2accde83d0552c7cf8f1422054a95293891534d38f5a33628ca69",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "프랑스의 레바논 파병 확대 결정과 이유가 설명돼 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After a meeting with the government",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03dc969e-ecbc-4c1a-81e4-1a5230164b0e",
+    "source_updated_at": "2026-09-25T07:32:16.329372+00:00",
+    "body_sha256": "a93488d54538cdefb088858845f201a42f52d1e3cad20a1e276c14b1073fb8dd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "유치원 교사가 자폐 의심 아동 퇴출을 투표에 부친 사건과 반응이 이어져 고등 심경·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "mood",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A kindergarten teacher in Port St.",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03df0d1a-6a48-4b1a-a2e3-c0051f4154d1",
+    "source_updated_at": "2026-09-25T07:58:44.763205+00:00",
+    "body_sha256": "dcd78ca95f757e7cb476b82969aaf6b63bd93fb1ff1af5441757dd42b0d7db2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "첫 마오리 총독 폴 리브스의 생애가 서술돼 고등 전기 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sir Paul Reeves, the 78-year-old Anglican",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03df4b8a-9c63-4538-9ec8-7b7a98e84b12",
+    "source_updated_at": "2026-09-25T07:58:44.783044+00:00",
+    "body_sha256": "a3995e8564620dfab4e5727b95886d53ad5014439ea884663274e75a36c05ed1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "위키리크스 아프간 문서 공개와 검증·평가가 짧게 서서 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "WikiLeaks has released a mass of",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03e15245-8a5b-4b7b-bcae-64eebe361cd4",
+    "source_updated_at": "2026-09-25T07:05:08.86666+00:00",
+    "body_sha256": "1a867deceb3202119bd9511f974203782a5e02b660628000a5dfe85daae43596",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "뭄바이 폭우의 교통 피해와 기상 수치가 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Heavy rainfall continued in the city",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "03e24c55-34cf-4ad9-8e4f-1c4e04c400d4",
+    "source_updated_at": "2026-09-25T07:06:07.499647+00:00",
+    "body_sha256": "38ffcbd1d39f09c9061d42ddd87bab2860c155ab4f60d86ca04b69e202b1fcae",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "펩시코 첫 여성 CEO 선임과 경영진 개편이 서술돼 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "PepsiCo Inc. is in line to",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  }
+]

@@ -1,0 +1,418 @@
+[
+ {
+  "id": "fc4a271f-29cd-4d0c-9a82-5fc67cf079a3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e0722ad365ff0914d5c130852c4dbe8f6134c0c31ae2559d991a53e4ae816a6a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "실외(오존·미세먼지)와 실내 오염원, 가정·학교 공기청정 연구가 이어져 주제·순서·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But while air quality in the home",
+   "note": "학교 개입이 가정 개입보다 파급이 크다는 비교 문단이 요지 빈칸으로 섰고 intervention 을 plan 으로 바꿨다."
+  }
+ },
+ {
+  "id": "fc8a9f5f-c547-4598-a6ae-c3daae7109f2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6b3488ff59fe16c25c81864362a2e2e7ced3ba1569fc0a54f5a785c402ebd4d2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "여름 기온의 일교차 변동이 노인 만성질환자의 생존을 줄인다는 대규모 분석이 서서 요지·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The scientists found that greater swings",
+   "note": "녹지가 많은 도시에서 생존이 길다는 대비가 한 문단이라 빈칸 자리였고 proportions 만 풀었다."
+  }
+ },
+ {
+  "id": "fd851b2a-d3bf-4be4-a407-a570683b2fd8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c7ffd8dd89d24043f6ccbda520248839ba1466d5a5c0b986dd167308b8c9cb84",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH가 알츠하이머 연구 자원자 모집을 알리며 참여 결정을 돕는 소책자를 권하는 공지라 목적 칸이 선다(주소·전화 문단은 걷음).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "At least 70,000 volunteers are now",
+   "note": "모집 규모와 누구나 참여 가능하다는 권유가 한 문단이라 목적 문항 근거가 되었고 어휘는 쉽다."
+  }
+ },
+ {
+  "id": "fd8f00b2-bbe2-48ee-8cde-7384628edc69",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "782801fe19204128d02d10ed2d0b5dd21016c5db7158a9f8fa17cfd5bf423096",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항암제가 빠르게 분열하는 정상 세포까지 해치는 원리와 부작용 관리·침술·요가 연구가 이어져 주제·순서·빈칸 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Most of the cells in your",
+   "note": "정상 세포가 왜 함께 공격받는지 설명하는 문단이 빈칸 논지로 섰고 multiply 를 divide 로 통일했다."
+  }
+ },
+ {
+  "id": "fe16e187-754a-4bd5-8f56-9c8a619827a5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6873ce697039ec99fe5dca96e697ed7f19e28c506e13b8575f240a6afa7448eb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "하지불안증후군의 역설(누우면 심해짐)과 철·도파민 원인·완화법이 설명돼 요지·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The irony of restless legs syndrome",
+   "note": "쉬려 하면 증상이 켜진다는 역설 문단이 빈칸 자리로 곧장 섰고 extended periods 만 쉽게 바꿨다."
+  }
+ },
+ {
+  "id": "fe75ba18-fba6-4ce6-b942-24eb377fca24",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7fd0cc3103a70325b4603b64252f87863b17fdc62a4db1edd5aaf8e0dd72dbe5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두개골 때문에 뇌종양이 특별한 까닭과 원발·전이 구분·증상·진단·치료가 이어져 주제·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A tumor is an abnormal mass",
+   "note": "종양이 생기는 과정을 세포의 죽음과 대체로 설명하는 문단이 순서 문항으로 좋았고 어휘 조정이 필요 없었다."
+  }
+ },
+ {
+  "id": "fecb51fa-56ba-4aa8-b7bb-9980957653a3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "877ea4fcdc1c6c6a03e7103d7337cc1154047e2e82faf254d3665fa463c12bf8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "아동 비만의 조기 개입·가족 기반 치료·지역 연계 프로그램 연구가 이어져 주제·요지·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Diet and physical activity are both",
+   "note": "가족 전체 치료가 형제까지 살 빠지게 했다는 결과는 다음 문단과 이어 붙여야 논지가 완결됐다."
+  }
+ },
+ {
+  "id": "ff638353-7d4b-4751-8465-ac298df537b8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "fcd25d8ce3d101c95e036b1c760f10810e24086e7eebdfb1ed6c37216360290e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "개코원숭이 서열 1위가 2위보다 스트레스가 높다는 뜻밖의 결과가 까닭과 함께 서서 요지·빈칸과 통념 교정 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "order",
+    "title"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The researchers looked for differences that",
+   "note": "알파 수컷이 에너지를 쓰는 두 까닭이 한 문단이라 떼어도 서고 fertile 을 풀어 쓰면 고1 밴드다."
+  }
+ },
+ {
+  "id": "ffa07715-8084-4b35-a2eb-2b19cf7b869c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "25252351afb2b41dd78e79191340d419b1a8eb10b660ebd9399f768bcfe70594",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "education",
+  "why": "청소년 연결감을 키우는 사회발달 전략과 운전 계약·가족 규칙을 문답으로 풀어 요지·주장 칸과 구어 재료가 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Haggerty: It is important for parents",
+   "note": "운전 계약 답변은 문답 머리를 걷으면 두 측면(관리·자격)이 이어지는 설득문이 되어 순서 문항이 된다."
+  }
+ },
+ {
+  "id": "ffef6688-c06d-458d-9ce1-8ec5b8755b52",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "84e2766242e1b96faba045f31f75c4bfc9599211b93bcb8cf2713a1814cd87f6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "파킨슨병의 점진적 증상·도파민 기전·유전·치료·연구 참여가 이어져 주제·내용 일치·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Parkinson’s disease is a neurodegenerative disorder,",
+   "note": "도파민 부족이 운동 장애를 낳는다는 문단은 용어 풀이가 끼어든 문장을 고쳐야 섰고 neurodegenerative 는 본문 정의로 충분했다."
+  }
+ }
+]

@@ -13,6 +13,7 @@
 // source_id: "noaa:<slug>"
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { decodeEntities, extractFirst, fetchWithTimeout, htmlToPlainText, safeDate, stripTags } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -221,11 +222,10 @@ export async function ingestNoaaArticle(itemUrl: string): Promise<RawArticle> {
 
   const content = extractProse(html)
   const words = content.trim().split(/\s+/).filter(Boolean).length
-  if (words < 200) {
-    throw new Error(`NOAA body too short: ${words} words (${slug})`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = words < 200
 
-  return {
+  const article: RawArticle = {
     source: 'noaa',
     source_id: `noaa:${slug}`,
     source_url: url,
@@ -239,4 +239,13 @@ export async function ingestNoaaArticle(itemUrl: string): Promise<RawArticle> {
     audio_url: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`NOAA body too short: ${words} words (${slug})`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

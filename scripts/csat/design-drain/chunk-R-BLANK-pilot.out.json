@@ -1,0 +1,29 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1",
+  "type": "R-BLANK",
+  "items": [
+    {
+      "id": "M2706#34",
+      "roles": ["topic", "support", "support", "turn", "support", "conclusion", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "background" }, { "index": 5, "role": "support" }],
+      "pattern": "myth_rebuttal",
+      "selection": "수집가의 구매를 ‘미술사의 한 조각을 사는 믿음’으로 정의한 뒤 However 로 그 믿음의 근거(현재의 합의)가 무너질 수 있다고 뒤집는 글이라, 빈칸이 앞쪽 정의를 되짚어 복원해야 풀리게 된다.",
+      "transform": "abstraction",
+      "transform_note": "‘작품이 미래에도 미술 전체의 유의미한 지점으로 남으리라는 믿음’이라는 구체 진술이 선지에서 ‘미술이 어디로 갈지 예측할 수 있다’는 상위 확신으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2706#32",
+      "roles": ["topic", "support", "support", "example", "support", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "background" }],
+      "pattern": "general_specific",
+      "selection": "전반부는 ‘비언어를 들어라’는 조언, 후반부는 ‘누구도 비밀을 지킬 수 없다’는 인용이라 빈칸이 바로 앞 인용의 결론을 받는지, 전반부 주제를 받는지를 가려야 하는 글이다.",
+      "transform": "negation_flip",
+      "transform_note": "‘비밀을 지킬 수 없다 · 모든 모공으로 새어 나온다’는 실패의 관찰이 선지에서 ‘뜻과 감정을 감추기(가 어렵다)’로, 부정 진술이 그 대상 행위의 긍정형으로 바뀌었다.",
+      "cues": [],
+      "data_defect": "DB 지문의 빈칸 표시가 3번 문장(a ___ yes vote)에 잘못 붙고 실제 빈칸 문장(7번)은 빈칸 없이 이어진다 · ⑤ 선지 뒤 깨진 글리프. body_ok=true 인데 불완전."
+    }
+  ]
+}

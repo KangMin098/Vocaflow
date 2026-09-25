@@ -1,0 +1,104 @@
+{
+  "source": "econstor",
+  "n": 3075,
+  "byWindow": {
+    "school_sentence": 29,
+    "school_paragraph": 2035,
+    "csat_short": 1742,
+    "csat_long": 165
+  },
+  "coveredPct": 72.5,
+  "tooShort": 472,
+  "between": 332,
+  "above400": 42,
+  "spansPerLongDoc": 2.55,
+  "english_pct": 75.9,
+  "license_distribution": {
+    "EconStor standard terms": 2276,
+    "CC BY": 513,
+    "CC BY-NC-ND": 163,
+    "CC BY-NC": 63,
+    "CC BY-SA": 39,
+    "CC BY-ND": 11,
+    "CC BY-NC-SA": 9,
+    "(none)": 1
+  },
+  "blockers": [],
+  "_extra": {
+    "completeListSize": 321139,
+    "deletedSkipped": 25,
+    "emptyAbstract": 471,
+    "emptyAbstractPct": 15.3,
+    "byWindowPct": {
+      "school_sentence": 0.9,
+      "school_paragraph": 66.2,
+      "csat_short": 56.7,
+      "csat_long": 5.4
+    },
+    "words": {
+      "p10": 0,
+      "p25": 87,
+      "median": 131,
+      "p75": 182,
+      "p90": 236,
+      "max": 868
+    },
+    "longDocs": 42,
+    "longSpansTotal": 107,
+    "spanCountHistogram": {
+      "1": 3,
+      "2": 18,
+      "3": 17,
+      "4": 3,
+      "5": 1
+    },
+    "english": {
+      "n": 2335,
+      "byWindow": {
+        "school_sentence": 18,
+        "school_paragraph": 1673,
+        "csat_short": 1486,
+        "csat_long": 133
+      },
+      "byWindowPct": {
+        "school_sentence": 0.8,
+        "school_paragraph": 71.6,
+        "csat_short": 63.6,
+        "csat_long": 5.7
+      },
+      "coveredPct": 78.1,
+      "tooShort": 198,
+      "above400": 25,
+      "longDocs": 25,
+      "spansPerLongDoc": 2.64
+    },
+    "langDistribution": {
+      "eng": 2335,
+      "deu": 674,
+      "por": 27,
+      "spa": 20,
+      "tur": 4,
+      "fin": 4,
+      "dan": 2,
+      "afr": 2,
+      "hun": 2,
+      "fra": 2
+    },
+    "typeDistribution": {
+      "workingPaper": 1573,
+      "article": 976,
+      "report": 302,
+      "conferenceObject": 119,
+      "bookPart": 35,
+      "book": 30,
+      "PeriodicalPart": 14,
+      "doctoralThesis": 12
+    },
+    "yearSpread": {
+      "min": 1902,
+      "max": 2026,
+      "distinctYears": 76
+    },
+    "distinctOffsets": 31
+  }
+}

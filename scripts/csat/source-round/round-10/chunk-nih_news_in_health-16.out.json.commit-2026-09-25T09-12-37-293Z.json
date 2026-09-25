@@ -1,0 +1,1588 @@
+[
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "7e6ee32a-c858-48cb-9fc2-1a3849eb7081",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3eb98158975599e82289a58a896d71003c110eae1c010e9cd7b2c31bd6580e75",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "자폐 아동이 사물을 더 본다는 선행 연구 → 시선 추적 앱 → 1,000명 시험 90% 예측으로 이어지는 연구 소개라 주제·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The new app tracks eye movements",
+          "note": "사람 대신 사물을 보는 경향을 재는 원리 문단은 The new app을 An app으로만 고치면 서고 어휘가 이미 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.295Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2021/07/app-helps-screen-autism-spectrum-disorder",
+          "year": 2021,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "7ed1c935-db75-4eb1-b0f2-3dc16710d818",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "815126a8d234ed31cf3eec0399528f3f99d93111c42a251f543e59bbe1872dc7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "항생제 내성균 문제 → 파지라는 대안 → 환자 사례·20명 결과 → 남은 과제로 이어지는 짧은 연구 소개라 주제·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In a new study, researchers treated",
+          "note": "한 환자가 파지 치료로 폐 이식까지 간 문단은 사건처럼 서고 life-threatening만 serious로 바꾸면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.295Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2022/08/fighting-bacteria-viruses",
+          "year": 2022,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "7ee9726c-1511-4def-9604-05732b364ebe",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a8491ee86d4c70c59c2421f1f0ebcb7174cb2a7302af61b8d75e7292fba3c305",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "아이의 체중 요인과 부모가 할 일을 권하는 짧은 안내로 대상·권유·까닭이 한 편에 서서 목적·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "purpose",
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Adopting healthy lifestyle habits can help",
+          "note": "부모에게 습관 본보기를 권하는 문단은 명령문 나열이지만 까닭 문장이 앞에 있어 목적 지문으로 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.295Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2023/11/helping-child-who-overweight",
+          "year": 2023,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "7fe47e30-8cfc-47b4-ab54-f483d6a07777",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d51e95daa7606a3e5e037c45d7407836ac2abbc1213c88da88f2159856890661",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "빌리루빈 축적이라는 원리에서 신생아·성인 원인·간경변·치료로 이어지는 설명 본문이 주제·내용일치 칸을 채우고 팁 목록은 걷는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Not everyone who has jaundice has",
+          "note": "길버트 증후군 문단은 황달이 늘 위험하지 않다는 대조를 혼자 세우고 bilirubin 설명 한 줄만 붙이면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.295Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2022/10/recognizing-jaundice",
+          "year": 2022,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "801e8d08-d38e-4625-a280-58985023a26a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eb4ec29c64811bfd42816be6257dd04984c967eae26e999fa2084b68e74cf7bd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "보청기를 꺼리는 통념을 반박하고 기술 발전·한계(시력 교정과 다름)를 설명하는 글이라 주장·빈칸 칸이 서며 끝 자가진단 질문은 걷는다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Some people don’t want to try",
+          "note": "보청기가 눈에 띈다는 걱정을 난청이 더 눈에 띈다로 뒤집는 문단이 통념 교정으로 단독 빈칸이 되었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.295Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2018/05/struggling-hear",
+          "year": 2018,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "80925728-a970-45b6-b062-14fc05815bd5",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "69a76eead5d9700b46b1b24a526829f1fc4e88cc49aea7ffc6b266ffbcc30e3a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "NIH 체중 설계 도구 이용을 권하는 안내로 도구 사용법·기존 경험칙의 한계·사용자 사례가 서서 목적·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "purpose",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“In the past, people have relied",
+          "note": "하루 500칼로리 규칙이 감량을 과대평가한다는 문단은 통념 교정으로 서고 overestimates만 풀면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.295Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/01/online-weight-management-gets-personal",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "80e87c27-3f20-40f7-88d5-59f081826230",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c299124ebf49b529b4cefd3b9ea9efc0785b159e730619069a6dc3f25fd12b3e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "다크초콜릿이 건강에 좋다는 통념을 쿠나족 관찰 → 플라바놀 연구 → 초콜릿과 보충제 차이로 교정하는 글이라 주장·빈칸·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The evidence linking cocoa beans and",
+          "note": "쿠나족 코코아 음용과 낮은 심장병 문단은 기원 이야기로 잘 떼어지고 순서 배열 문항 소재로 좋았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.295Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2021/02/chocolate-health-claims",
+          "year": 2021,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "812f6c71-987c-4efd-84e4-6ad4cecd58f2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "37631d63bdf4f463c7d8ee8febfac0601a9cda32c74896d4a73ab45467ac1ce5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "검진 미루는 여성 2,500명을 세 집단으로 나눠 자가채취 키트 효과를 잰 연구가 설계·결과·함의로 서서 주제·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "One group received a phone call",
+          "note": "세 집단 비교 문단은 실험 설계가 한눈에 서고 수치 결과 문단과 짝지으면 내용일치 선지가 나왔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.295Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2025/08/home-test-kits-boost-screening-cervical-cancer",
+          "year": 2025,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "8131c3e0-3101-4e3b-ba80-5a7280b217cc",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "06d3381f8427ed9916a74b9e11e114c2227280e25b340ffc053a441d6a02684b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "국립안연구소가 미국 고교생에게 과학 영상 공모 참가를 권하는 공지로 부문·자격·상금이 모두 있어 수능형 목적·내용일치 칸이 그대로 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Teens currently in high school and",
+          "note": "참가 자격·길이·팀 구성 문단이 공지 선지 재료 그대로이고 마감 날짜 줄은 가공 때 바꾸면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2023/03/nih-teen-video-contest",
+          "year": 2023,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "81469b97-8403-4e68-9a8e-4d7c51be0ccc",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ad4b98c0c72f9d296ee26f07ee00906975d3055c3723ea4632e6f4867979b350",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "습관 자각 → 환경 바꾸기 → 기록 → 지연 할인·미래 상상 → 인내로 이어지는 행동 변화 논지가 연구와 함께 서서 요지·빈칸·요약 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Epstein has found that some people",
+          "note": "지연 할인 개념 문단은 인명을 researchers로 바꾸면 정의·결과가 서고 undervalue 풀이가 이미 본문에 있다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2018/03/creating-healthy-habits",
+          "year": 2018,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "81cd4c17-d679-4c62-8d50-04128b7946b7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33aa519d0934beeb10ea0716657900d9a798035004704541b352fc2684d019ac",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "용종 제거 환자 2,600명 16년 추적으로 대장암 사망이 절반 준다는 결과가 설계·수치·함의로 서서 주제·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "During an average 16 years of",
+          "note": "사망 12건 대 기대 25건 비교 문단은 수치 주장이라 앞 설계 한 줄을 붙여야 섰고 adenoma만 풀면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/04/colonoscopies-cut-colon-cancer-deaths",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "8214dedf-08d4-420f-bf8c-a114747746f0",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "175e41b99292b1af4e1528065b9c4b14b43b4af22d25ab18954db7f18479a0be",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "아프리카계 미국인 800명의 수면 측정과 혈당을 비교해 수면 교란이 혈당을 높인다는 연구가 방법·결과·권고로 서서 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Researchers looked at data from about",
+          "note": "측정 방법 문단은 수면무호흡 정의가 안에 있어 스스로 서고 shallow 하나만 풀면 되었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2020/07/poor-sleep-linked-higher-blood-sugar",
+          "year": 2020,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "8237801c-f19d-47ae-a5f9-8c25541168c6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "226da918742c3a3436c2c84162b889c70a6affd3da731ecd37c773812cb57e40",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "휴대 기기가 부모 개입을 막고 보상 설계로 주의를 붙든다는 진단과 부모 권고를 담은 대담이라 주제·주장·빈칸 칸이 서고 구어 형식도 있다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Radesky: If you’re always using media",
+          "note": "즉각적 보상이 인내 연습을 빼앗는지 묻는 문단은 화자 표시만 걷으면 질문형 논지 단락으로 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2022/02/qa-dr-jenny-radesky-kids-smart-devices",
+          "year": 2022,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "827c5ad9-24d5-4483-b707-911a31f1c36c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1f50fba770568de051c6e8ceddbbf63c0c604cea013377440d2004ca72ec5a2f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "생쥐 실험 → 환자 96명 분변 분석 → 장벽 손상으로 균이 혈류로 간다는 결론이 단계로 이어져 순서·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Together, these results suggest that SARS-CoV-2",
+          "note": "결론 문단은 Together가 앞 두 실험을 가리켜 떼면 앞 요약이 필요했고 순서 배열용으로는 그 연결이 오히려 장점이었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2023/02/covid-19-disrupts-gut-microbes",
+          "year": 2023,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "835ed8a6-531b-4724-991a-5994adbbf24f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5bb7024dd96f0d16afe6da13cef74825228fbaddd3b67e9e58049aab26e147b1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "식단 회상에 기댄 기존 연구의 엇갈림을 혈중 항산화물질 측정 7,000명 연구로 넘어서는 구조라 주제·빈칸 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Studies of antioxidants’ effects on dementia",
+          "note": "기억에 의존한 기존 연구의 한계 문단이 새 연구의 혈액 측정과 대비돼 빈칸 소재가 되었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2022/07/certain-antioxidants-may-lower-dementia-risk",
+          "year": 2022,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "835f2dbe-e425-4527-9c2d-556c58aaa133",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a52a21d9e8c6c499a400a5b2c8b287f4028d68ff3ea1edcb960f511f551b268",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "땅콩 경구면역요법이 2년 뒤 83% 효과를 냈지만 중단하면 사라진다는 결과가 원리·수치·주의로 서서 내용일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The researchers then stopped the therapy",
+          "note": "중단 뒤 13%·감량 37% 문단은 앞 83% 문장을 붙이면 대비가 서고 tolerate만 풀면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/11/peanut-allergy-therapy-loses-effect-after-stopping",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "8380f671-4cb5-48e1-81e1-8eb1608614a9",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "75249355c35eda05c81cbb7fa25b876a2ea7e6c4cfc3ef85cd1bc48fd2c4d2e9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "콜레스테롤 역할 → LDL 플라크 → HDL 기대가 임상에서 뒤집힌 연구 → 검사·치료로 이어지는 설명문이라 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "You may also have heard about",
+          "note": "좋은 콜레스테롤을 올리면 된다던 생각을 다음 문단이 뒤집어 두 문단을 묶으면 통념 교정 빈칸이 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/02/control-your-cholesterol",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "83a8fa6f-9194-435d-81e6-5f78224b9548",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d459687296e3d2b560ffd1fd706dbdb7452e0eba5083009e4b91f2d47d1a6b33",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "뇌진탕 후 증후군을 혈액 바이오마커 NfL로 예측하려는 퇴역군인 연구가 목적·방법·결과로 서서 주제·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Researchers compared veterans who never had",
+          "note": "뇌손상 횟수별 NfL 비교 문단은 NfL을 a protein from damaged brain cells로 풀면 단독으로 선다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2020/08/tracking-symptoms-after-brain-injury",
+          "year": 2020,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "845686f7-35ec-497b-914d-d36a035417ba",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e5aabeda9132a159b57db900f204d8c2751c4801ad025b432672720fec007913",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "위험 인식은 비합리적이며 수치 프레이밍·절대위험과 상대위험 차이를 알아야 한다는 논지가 예시로 서서 요지·빈칸·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Often, however, you might hear numbers",
+          "note": "상대위험 문단은 앞 절대위험 예를 가리켜 두 문단을 합쳐야 섰지만 합치면 수능 빈칸 수준의 논지가 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/10/understanding-health-risks",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "847e416f-0dd7-4e47-b3e9-ea1e08667cb5",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "be2b412c614dbb039790de68e5fc418bef639921ce11482627c67c25bfbe7fe5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "비만·당뇨·대장암 위험의 연결을 120만 명 기록으로 검토해 GLP-1RA 복용자의 위험이 낮다는 결과를 제시해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The analysis showed that people with",
+          "note": "GLP-1RA 복용자의 50%·42% 낮은 위험 문단은 약 이름을 걷고 a newer diabetes drug로 바꾸니 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2024/03/diabetes-drug-may-reduce-colorectal-cancer-risk",
+          "year": 2024,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "84d23fd7-419a-4cfd-a611-55913dd5ac1a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d27a02238ea7bf1ecc649c1274e1a537ea899fdc400bbb59d1bd2545d6938bf2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "과식이 중독과 같은 보상 회로를 쓴다는 논지를 진화적 설명·음식 단서 연구·이성 영역 통제로 세워 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“Our brains are hardwired to respond",
+          "note": "조상에겐 생존 수단이던 보상 체계가 오늘날 짐이 됐다는 문단이 진화적 대비로 수능 빈칸 논지가 되었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/09/curb-your-eating",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "84fee643-ebdf-4a6b-99de-6123bf2bc84f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7c168ac04815db5a5b77b85aa9e6c416c264deee8a7ba9ddf429a564bdf154f8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "활동량은 의지보다 동네 보행성에 달렸다는 논지를 이사 연구·주민 참여 사례로 받치는 글이라 주제·요지·제목 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "title"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "But moving to a more walkable",
+          "note": "주민이 앱으로 보행성을 기록하는 Our Voice 문단은 이름을 걷어도 사례로 서고 walkability 정의만 붙이면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2026/08/built-move",
+          "year": 2026,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "854fcf6e-1ca1-4d40-81b2-50644de851e6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bb36bb75c6f30c5e7cb61200672304854a0726fafe5d3c68bcf5f9caf080fc84",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "물고기를 기절시키는 청자고둥 독의 빠른 인슐린 구조를 사람 인슐린과 대비해 속효성 약 설계로 잇는 글이라 주제·빈칸 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Human insulin is stored in the",
+          "note": "인간 인슐린 6개 뭉치와 청자고둥 인슐린의 대비 문단이 단독으로 서서 빈칸 대비 구조로 쓸 수 있었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/11/cone-snail-venom-reveals-insulin-insights",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "856b9910-8da3-439a-a456-66fdb15c4f29",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "df6ec876a70fe23f01c0855f24aa5d4a7de48cc3371aff2709637f811d6ac9c9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "단백질 모양이 기능을 정한다는 논지를 HIV 억제제·항체·독감 백신 사례로 전개해 주제·순서 칸을 채우고 끝 컴퓨터 기부 권유는 걷는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Protein structures can also help pinpoint",
+          "note": "HIV 단백질분해효소 구조 발견 문단은 다음 문단의 약 개발과 이어져 순서 배열 두 조각으로 잘 나뉘었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2011/01/biological-blueprints",
+          "year": 2011,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-37-293Z",
+    "id": "85d1b98a-f838-40e7-a516-f9d14f9496a3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f55aefa74250ee0e7687ce091cc813fb3cb7671af8768aa83a04820b40497240",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "혈전의 이로움과 위험 → 세 가지 원인 → 부위별 증상 → 제거술·항응고제 연구로 이어지는 긴 설명문이 주제·순서·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This technique has also let researchers",
+          "note": "제거한 혈전으로 종류를 연구하는 문단은 This technique을 Clot-removal surgery로 고쳐야 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:37.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2021/05/blood-clots-explained",
+          "year": 2021,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  }
+]

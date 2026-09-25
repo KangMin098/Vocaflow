@@ -55,16 +55,23 @@ const db = createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: fa
 
 /* ── 실측 헬퍼 ────────────────────────────────────────────────── */
 
+/** `head: true` 세기 질의 — 필터 콜백이 실제로 받는 타입. */
+type CountQuery = ReturnType<ReturnType<typeof db.from>['select']>
+
 /**
  * 행 수를 센다. **`count ?? 0` 을 쓰지 않는다** — 없는 테이블도 head 요청엔 204/count=null 로
  * 답하므로 0 과 구분이 안 된다(CHANGELOG v06.34 에 적힌 함정). 못 쟀으면 null 을 그대로 나른다.
  */
 async function countOf(
   table: string,
-  filter?: (q: ReturnType<typeof db.from>) => unknown,
+  // ⚠️ 여기는 `(q: ReturnType<typeof db.from>) => unknown` 이었고, 호출부는 받은 값을
+  //   `{ eq: … }` 로 **캐스팅**해서 썼다. 넘어오는 것은 `.from()` 이 아니라 `.select()` 의
+  //   결과라 두 타입이 안 겹치는데, `.mts` 가 타입체크 밖이라 그 캐스팅이 통과하고 있었다
+  //   (DD-78). 실제로 받는 것을 그대로 적으면 캐스팅이 필요 없다.
+  filter?: (q: CountQuery) => CountQuery,
 ): Promise<number | null> {
-  const base = db.from(table).select('*', { count: 'exact', head: true })
-  const q = (filter ? (filter(base as never) as typeof base) : base)
+  const base: CountQuery = db.from(table).select('*', { count: 'exact', head: true })
+  const q = filter ? filter(base) : base
   const { count, error } = await q
   if (error) return null
   return typeof count === 'number' ? count : null
@@ -249,20 +256,35 @@ async function main(): Promise<void> {
   // 3) 플랫폼 수치 — 광고에 쓸 수 있는 것만, 출처와 함께
   const platform = {
     dictionary: await countOf('shared_dictionary'),
-    booksPublished: await countOf('library_books', (q) =>
-      (q as { eq: (c: string, v: string) => unknown }).eq('status', 'published'),
-    ),
+    booksPublished: await countOf('library_books', (q) => q.eq('status', 'published')),
     articles: await countOf('library_articles'),
     items: await countOf('csat_dcp_items'),
     chapterQuiz: await countOf('library_chapter_quiz'),
   }
 
   // 4) 시리즈별 단 재고 — 각 단이 쓰는 유형의 합. 하나라도 못 쟀으면 합도 null 이다.
+  //
+  // ⚠️ **「나갔는가」는 조판 기록에서 읽는다** (고침 2026-09-23 · DD-76).
+  //    여기는 `SeriesDef.status` 상수를 복사하고 있었다. 그 상수는 시리즈를 정의한 날의
+  //    값이라 찍은 뒤에도 안 바뀌고, 그래서 이 번들은 2026-09-06 에 조판된 어휘 6권 ·
+  //    구문 6권을 **`published` 가 아니라 `ready`** 로 실어 광고에 내보내고 있었다.
+  //    이 스크립트는 나머지 수치를 전부 DB 에서 센다 — 이 칸만 예외일 이유가 없다.
+  const { data: renderRows, error: renderErr } = await db
+    .from('textbook_volume_renders')
+    .select('series')
+  if (renderErr) {
+    // 못 읽었으면 **모르는 것**이다. 여기서 'draft' 로 떨어뜨리면 나간 책을 안 나간 것으로
+    // 광고하게 되고, 그것이 방금 고친 바로 그 거짓이다.
+    throw new Error(`조판 기록을 못 읽었다 — 시리즈 출고 여부를 모른 채 번들을 굽지 않는다: ${renderErr.message}`)
+  }
+  const shippedSeries = new Set<string>(
+    (renderRows ?? []).map((r) => (r as { series: string | null }).series ?? 'reading'),
+  )
   const series = SERIES_CATALOG.map((s) => ({
     id: s.id,
     brand: s.brand,
     question: s.question,
-    status: s.status,
+    status: (shippedSeries.has(s.id) ? 'shipping' : 'draft') as 'shipping' | 'draft',
     marketSeries: s.marketSeries,
     marketExamples: [...s.marketExamples],
     rungs: s.rungs.map((r) => ({

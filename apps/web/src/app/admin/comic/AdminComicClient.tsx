@@ -132,7 +132,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
       </div>
 
       {/* 순차 작업 가이드 */}
-      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}40`, background: `${ACCENT}0a` }}>
+      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 25.1%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3.9%, transparent)` }}>
         <p className="mb-1.5 font-display text-[12px] font-[700] text-[var(--t1)]">작업 순서</p>
         <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-body text-[12px] text-[var(--t2)]">
           <Step n={1}>대상 도서 선택 → <b>만화 생성 큐</b> 적재</Step>
@@ -185,7 +185,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
           {selected.size > 0 && (
             <div
               className="flex items-center justify-between rounded-[var(--r-md)] border px-4 py-3"
-              style={{ borderColor: `${ACCENT}55`, background: `${ACCENT}0f` }}
+              style={{ borderColor: `color-mix(in srgb, ${ACCENT} 33.3%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 5.9%, transparent)` }}
             >
               <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
                 {selected.size}권 선택됨
@@ -236,7 +236,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
                 </tr>
               )}
               {publishedRows.map((r) => (
-                <tr key={r.bookId} className="border-b border-[var(--bd)]/60 last:border-0">
+                <tr key={r.bookId} className="border-b border-[color-mix(in_srgb,var(--bd)_60%,transparent)] last:border-0">
                   <Td>
                 <Link
                   href={`/admin/comic/${r.bookId}`}
@@ -321,7 +321,7 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
   const anyFilter = fmt || age || genre || pal
   return (
     <div className="flex flex-col gap-4">
-      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
+      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 18.8%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3.9%, transparent)` }}>
         <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
           <b className="text-[var(--t1)]">먼저 구성 방식, 그다음 화풍</b> — 스타일은 두 축입니다. <b>①구성 방식(포맷)</b>은 <b>어떻게 배치하고 읽는가</b>(웹툰=세로 스크롤 / 만화·코믹=페이지 넘김 / 그래픽노블=대형 컷)로, 컷 비율·리더 모드·레이아웃을 정합니다. <b>②화풍</b>은 그 안의 <b>그림체·팔레트</b>(잉크/스크린톤/하프톤/컬러)입니다. 아래는 구성 방식별로 묶었고, 각 카드가 화풍입니다. 장르·연령은 큐레이션 필터. 도서 검수에서 스타일을 지정하면 드레인이 그 화풍으로 생성합니다.
         </p>
@@ -360,7 +360,7 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
                   <span className="inline-flex items-center gap-2 font-display text-[14px] font-[800] text-[var(--t1)]">
                     {scroll ? <ScrollText size={15} style={{ color: ACCENT }} /> : <BookOpen size={15} style={{ color: ACCENT }} />}{meta.label}
                   </span>
-                  <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `${ACCENT}1a` }}>{scroll ? '세로 스크롤' : '페이지 넘김'}</span>
+                  <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `color-mix(in srgb, ${ACCENT} 10.2%, transparent)` }}>{scroll ? '세로 스크롤' : '페이지 넘김'}</span>
                   <span className="font-mono text-[11px] text-[var(--t2)]">{meta.layout}</span>
                   <span className="font-body text-[11px] text-[var(--t2)]">· 화풍 {group.length}종</span>
                   <p className="w-full font-body text-[11px] leading-relaxed text-[var(--t2)]">{meta.blurb}</p>
@@ -379,7 +379,7 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
                       </div>
                       <figcaption className="flex flex-1 flex-col gap-2 p-3">
                         <div className="flex flex-wrap items-center gap-1">
-                          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: genreHue(s.genre), background: `${genreHue(s.genre)}1a` }}>
+                          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: genreHue(s.genre), background: `color-mix(in srgb, ${genreHue(s.genre)} 10.2%, transparent)` }}>
                             <span className="h-1.5 w-1.5 rounded-full" style={{ background: genreHue(s.genre) }} aria-hidden />{s.genre}
                           </span>
                           {[s.age_band, s.palette].filter(Boolean).map((t) => <span key={t} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">{t}</span>)}
@@ -434,7 +434,7 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
   const cap = (v: string | null) => (v === 'high' ? 'var(--memory-stable)' : v === 'medium' ? 'var(--memory-shaky)' : v === 'low' ? 'var(--memory-risk)' : 'var(--t3)')
   return (
     <div className="flex flex-col gap-4">
-      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
+      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 18.8%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3.9%, transparent)` }}>
         <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
           <b className="text-[var(--t1)]">이미지 생성 모델 레지스트리</b> — 시장 조사 기반 카탈로그. <b>comic 적합도</b> 순 정렬 · 실행환경(RunPod/API)·다중참조·텍스트제어·캐릭터/화풍 일관성·VRAM·비용 비교 · 상태(후보/테스트/채택/제외) 관리 · 근거 링크.
         </p>
@@ -459,7 +459,7 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
             </thead>
             <tbody>
               {models.map((m) => (
-                <tr key={m.key} className="border-b border-[var(--bd)]/60 last:border-0 align-top hover:bg-[var(--bg2)]/40">
+                <tr key={m.key} className="border-b border-[color-mix(in_srgb,var(--bd)_60%,transparent)] last:border-0 align-top hover:bg-[color-mix(in_srgb,var(--bg2)_40%,transparent)]">
                   <Td><span className="font-display text-[15px] font-[800] tabular-nums" style={{ color: (m.comic_fit ?? 0) >= 80 ? 'var(--memory-stable)' : (m.comic_fit ?? 0) >= 60 ? 'var(--memory-shaky)' : 'var(--t2)' }}>{m.comic_fit ?? '—'}</span></Td>
                   <Td>
                     <div className="flex items-center gap-2">
@@ -553,7 +553,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
   }
   return (
     <div className="flex flex-col gap-4">
-      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
+      <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 18.8%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3.9%, transparent)` }}>
         <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
           <b className="text-[var(--t1)]">테스트 모드</b> — 더 나은 생성 파이프라인을 위한 실험(백엔드/모델/사이트/파라미터 A·B)을 <b>계획·기록·비교</b>합니다.
           실행은 드레인 스크립트(Claude Code)로 돌리고, 점수·비용·샘플 결과를 이 카드에 축적해 백엔드 판정(예: R30 GPT vs FLUX.2) 근거로 삼습니다.
@@ -623,7 +623,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
                 {(() => {
                   const url = (t.params as { kernel_url?: string } | null)?.kernel_url
                   return typeof url === 'string' ? (
-                    <a href={url} target="_blank" rel="noopener noreferrer" className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-display text-[11px] font-[700] transition-colors hover:bg-[var(--bg2)]" style={{ borderColor: `${ACCENT}40`, color: ACCENT }}>
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-display text-[11px] font-[700] transition-colors hover:bg-[var(--bg2)]" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 25.1%, transparent)`, color: ACCENT }}>
                       <ExternalLink size={11} />모니터링
                     </a>
                   ) : null
@@ -685,7 +685,7 @@ function CatalogTable({
         </thead>
         <tbody>
           {rows.map((r) => (
-            <tr key={r.bookId} className="border-b border-[var(--bd)]/60 last:border-0 hover:bg-[var(--bg2)]/40">
+            <tr key={r.bookId} className="border-b border-[color-mix(in_srgb,var(--bd)_60%,transparent)] last:border-0 hover:bg-[color-mix(in_srgb,var(--bg2)_40%,transparent)]">
               <Td>
                 <input
                   type="checkbox"

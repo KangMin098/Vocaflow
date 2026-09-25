@@ -1,6 +1,11 @@
 // scripts/csat/harvest-plos.mjs
 //
-// **적재하기 전에 채점한다 — 통과한 것만 넣는다.**
+// **적재하기 전에 채점한다 — 소재 몫이 남은 칸에 담는다.**
+//
+// ⚠️ **2026-09-24 부터 길이·모양 점수로 버리지 않는다.** 아래 설명 중 「통과한 것만 적재」는 옛 설계다.
+//   채점(`csat_fit.pass`)은 기록만 하고, 보관 여부는 내용 판정(`gate.retain` ·
+//   docs/source-check/criteria.md)이 가른다. 이유: 버린 원문은 흔적이 없어 무엇이 왜 빠졌는지
+//   잴 수 없고, 적격 판정은 이미 길이 차단을 걷어냈다(2026-09-23 · SOURCE_INTAKE_DESIGN).
 //
 // ── 지금 경로가 왜 부족한가 ─────────────────────────────────────────
 // 지금은 「목록을 받아 → 글마다 HTML 을 다시 GET → 적재 → 나중에 채점」이다. 그래서
@@ -44,6 +49,8 @@ import path from 'node:path'
 
 import { fitRecord, scoreArticle } from './lib-fit.mjs'
 import { classify, TOPIC_KEYS, TOPIC_V } from './lib-topic.mjs'
+import { plosLicenseOf } from './lib-plos.mjs'
+const { rightsTag } = await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -276,7 +283,8 @@ for (let p = 0; p < PAGES; p++) {
   const res = await solr({
     q: '*:*',
     fq,
-    fl: 'id,title_display,journal,article_type,publication_date,body',
+    // `copyright` 는 **글마다 다른** 권리 문장이다 — 컬렉션 표지 대신 이것으로 license 를 적는다(DD-75).
+    fl: 'id,title_display,journal,article_type,publication_date,body,copyright,author_display',
     rows: String(ROWS),
     wt: 'json',
     // ⚠️ **`id asc` 로 정렬하면 안 된다.** cursorMark 는 유일 정렬키만 요구하므로 `id asc` 가
@@ -298,10 +306,14 @@ for (let p = 0; p < PAGES; p++) {
     seen++
     if (!d.body || !d.id) continue
     const text = cleanBody(Array.isArray(d.body) ? d.body.join('\n') : d.body)
-    if (text.length < 800) continue
+    // 본문이 비면 담을 것이 없다 — 이것은 길이 기준이 아니라 빈 값 방지다.
+    if (!text.trim()) continue
+    // ⚠️ **길이·모양으로 원문을 버리지 않는다**(2026-09-24 · SOURCE_INTAKE_DESIGN 「길이로 원문을 제외하지 않는다」).
+    //   예전에는 800자 미만이거나 기출 길이 창이 하나도 없으면(`pass <= 0`) **적재 자체를 안 했다** —
+    //   적격 판정에서 길이 차단을 걷어낸 뒤에도(2026-09-23) 여기서는 원문이 흔적 없이 사라지고 있었다.
+    //   창 점수는 기록만 한다(`csat_fit.pass`). 보관 여부는 내용 판정(`gate.retain`)이 가른다.
     const sc = scoreArticle(text)
-    if (sc.pass <= 0) continue
-    fitOk++
+    if (sc.pass > 0) fitOk++
     // 제목은 소재의 가장 강한 단서다 — 분류기에 **반드시 함께 넘긴다**.
     // 넘기지 않으면 같은 글이 적재 경로와 `backfill-topic.mjs` 에서 다른 칸으로 간다.
     const title = String(d.title_display ?? '').replace(/<[^>]+>/g, '').trim()
@@ -320,22 +332,38 @@ for (let p = 0; p < PAGES; p++) {
       continue
     }
     accepted[tp.topic] = (accepted[tp.topic] ?? 0) + 1
+    // 원문 단위 권리 — Solr `copyright` 문장에서 읽는다(evidence 'api'). 비었으면 'unknown' 으로 적고
+    //   evidence 'none' 이 된다. 'CC BY 4.0' 을 기본값으로 박지 않는다 — PLOS 에는 공유저작물 선언 글도 있다.
+    const license = plosLicenseOf(d.copyright) ?? 'unknown'
+    const sourceUrl = `https://journals.plos.org/plosone/article?id=${d.id}`
     if (samples.length < 6) samples.push({ title: title.slice(0, 62), pass: sc.pass, words: text.split(/\s+/).length })
     passed.push({
       source: 'plos',
       source_id: `plos:${d.id}`,
       title,
       author: null,
-      source_url: `https://journals.plos.org/plosone/article?id=${d.id}`,
+      source_url: sourceUrl,
       published_at: d.publication_date ?? null,
-      license: 'CC BY 4.0',
+      license,
       content: text,
       status: 'queued',
       feed_id: 'harvest',
       feed_label: `겨냥 수확 · ${tp.topic}`,
       // ⚠️ 소재를 **적재 시점에 함께 적는다.** 안 적으면 `backfill-topic.mjs` 가 나중에
       //   다시 읽어야 하고(편당 본문 전체), 그 사이 이 행들은 전수 집계에서 빠진다.
-      csat_fit: { ...fitRecord(text), topic: tp.topic, topicMargin: tp.margin, topicV: TOPIC_V },
+      csat_fit: {
+        ...fitRecord(text),
+        topic: tp.topic,
+        topicMargin: tp.margin,
+        topicV: TOPIC_V,
+        rights: rightsTag({
+          license,
+          licenseEvidence: 'api',
+          author: Array.isArray(d.author_display) ? d.author_display.join(', ') : null,
+          publishedAt: d.publication_date ?? null,
+          sourceUrl,
+        }),
+      },
       // 적재 직전에 떼어 낸다 — 컬럼이 아니다. 중복으로 안 들어간 글의 몫을 돌려주는 데 쓴다.
       _topic: tp.topic,
     })

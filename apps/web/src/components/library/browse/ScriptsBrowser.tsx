@@ -19,12 +19,14 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, ChevronRight, Info, Volume2 } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { useUserVLevel } from '@/hooks/useUserVLevel'
+import { TINT_CLASS, TINT_ROTATION } from '@/lib/design/tone'
 import { dominantMediaForm } from '@/lib/library/media-form'
 import { MediaCover, MediaCoverSrLabel } from '@/components/library/MediaCover'
 import {
@@ -42,6 +44,17 @@ import { SeriesDetail } from './SeriesDetail'
 import { SeriesInfoModal } from './SeriesInfoModal'
 
 // 시리즈 출처 힌트 — 상위 3개 짧은 라벨 + 나머지 개수 (학습자 정보 제공, 좁은 공간용)
+/** 주제 트랙 → 물건 소품(`lib/articles/source-map.ts` 의 key). 없으면 소품 없이 표지만. */
+const TRACK_SPOT: Record<string, string> = {
+  listen: 'spot-topic-radio',
+  easy: 'spot-topic-easy',
+  topic: 'spot-topic-science',
+  news: 'spot-reading',
+  argue: 'spot-topic-talk',
+  data: 'spot-topic-data',
+  reference: 'spot-topic-travel',
+}
+
 function sourceHint(stat: TrackStat): string {
   const top = stat.sources.slice(0, 3).map((s) => s.short)
   const more = stat.sources.length - top.length
@@ -157,10 +170,11 @@ export function ScriptsBrowser({
         <section aria-label="다른 시리즈" className="flex flex-col gap-3">
           <h2 className="px-1 font-display text-[13px] font-[800] text-[var(--t2)]">다른 주제로 읽기</h2>
           <ul className="flex flex-col gap-2">
-            {rest.map((stat) => (
+            {rest.map((stat, i) => (
               <SeriesRow
                 key={stat.track.key}
                 stat={stat}
+                tintIndex={i}
                 onInfo={() => setInfoKey(stat.track.key)}
                 enterHref={seriesHref(stat.track.key)}
               />
@@ -247,6 +261,8 @@ function SeriesHero({
               <p className="truncate font-mono text-[10.5px] font-[600] text-[var(--t2)]">출처 · {sourceHint(stat)}</p>
             )}
           </div>
+          {/* DD-68 · tines-mapping §17 — 참조 사례 카드의 구석 타일(기사 범주 색) */}
+          <Image src="/illustrations/tines/tile-articles.webp" alt="" width={1328} height={1328} className="hidden w-[104px] shrink-0 select-none rounded-[12px] md:block" />
         </div>
 
         {/* 왼쪽=팝업 어포던스 */}
@@ -289,25 +305,33 @@ function SeriesRow({
   stat,
   onInfo,
   enterHref,
+  tintIndex,
 }: {
   stat: TrackStat
   onInfo: () => void
   enterHref: string
+  /** 행마다 옅은 면 색을 돌린다(참조 featured 카드 — 이웃이 같은 계열이 되지 않게 `TINT_ROTATION`). */
+  tintIndex: number
 }) {
   const { track, cefrLabel, count } = stat
   const rowForm = dominantMediaForm(track.sources)
   return (
-    <li className="flex min-h-[60px] items-stretch overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)]">
+    // DD-68 · tines-mapping §25 — 참조 featured 카드: 항목마다 옅은 면 색 + 점 격자. 글자·테두리는 그 면의 색을 따른다(`.tone-*`).
+    <li className={`${TINT_CLASS[TINT_ROTATION[tintIndex % TINT_ROTATION.length]]} dots flex min-h-[60px] items-stretch overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t1)]`}>
       {/* 왼쪽 = 학습 안내 팝업 */}
       <button
         type="button"
         onClick={onInfo}
         aria-label={`${track.title} — 학습 안내 보기`}
-        className="flex flex-1 items-center gap-3 px-4 py-3 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
+        className="flex flex-1 items-center gap-3 px-4 py-3 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_8%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--t1)] active:bg-[color-mix(in_srgb,var(--t1)_14%,transparent)]"
       >
         <span className="block h-11 w-8 shrink-0 overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)]">
           <MediaCover form={rowForm} title={track.title} />
         </span>
+        {/* DD-68 · tines-mapping §18 — 주제마다 물건 소품(참조 목록 행의 아이콘 자리) */}
+        {TRACK_SPOT[track.key] && (
+          <Image src={`/illustrations/tines/${TRACK_SPOT[track.key]}.webp`} alt="" width={96} height={96} className="hidden h-11 w-11 shrink-0 select-none sm:block" />
+        )}
         <span className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="truncate font-display text-[14px] font-[700] text-[var(--t1)]">
             {track.title}
@@ -323,7 +347,7 @@ function SeriesRow({
       <Link
         href={enterHref}
         aria-label={`${track.title} 글 둘러보기`}
-        className="flex shrink-0 items-center gap-2 border-l border-[var(--bd)] px-3 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
+        className="flex shrink-0 items-center gap-2 border-l border-[var(--bd)] px-3 transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_8%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--t1)] active:bg-[color-mix(in_srgb,var(--t1)_14%,transparent)]"
       >
         <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">{cefrLabel} · {count}편</span>
         <ChevronRight size={16} aria-hidden className="text-[var(--t2)]" />

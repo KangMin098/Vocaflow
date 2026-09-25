@@ -28,7 +28,7 @@ import type { FreedomView } from '@/lib/textbook/freedom-view'
 /** 그 수가 목표에 얼마나 못 미치는가를 색+굵기로. 값은 늘 글자로도 적는다. */
 function tone(ok: boolean | null): { fg: string; mark: string } {
   if (ok === null) return { fg: 'var(--t3)', mark: '—' }
-  return ok ? { fg: '#2E7D5A', mark: '됨' } : { fg: '#9C3A30', mark: '아직' }
+  return ok ? { fg: 'var(--memory-stable)', mark: '됨' } : { fg: 'var(--memory-risk)', mark: '아직' }
 }
 
 // 이름표 정본은 패키지 하나다 — 여기서 새로 지으면 리포트·청크와 다른 유형을 말하게 된다.
@@ -60,7 +60,7 @@ export function FreedomPanel({ view }: { view: FreedomView }) {
       {view.loadError ? (
         <p
           role="alert"
-          className="flex items-start gap-1.5 rounded-[var(--r-sm)] border border-[#B5803A] bg-[#B5803A]/8 p-2 font-body text-[12px] text-[#B5803A]"
+          className="flex items-start gap-1.5 rounded-[var(--r-sm)] border border-[var(--memory-shaky)] bg-[color-mix(in_srgb,var(--memory-shaky)_8%,transparent)] p-2 font-body text-[12px] text-[var(--memory-shaky)]"
         >
           <AlertTriangle size={13} strokeWidth={2} className="mt-0.5 shrink-0" aria-hidden />
           <span className="break-keep">{view.loadError}</span>
@@ -72,7 +72,7 @@ export function FreedomPanel({ view }: { view: FreedomView }) {
       {view.drift.length > 0 ? (
         <p
           role="alert"
-          className="flex items-start gap-1.5 rounded-[var(--r-sm)] border border-[#9C3A30] bg-[#9C3A30]/8 p-2 font-body text-[12px] text-[#9C3A30]"
+          className="flex items-start gap-1.5 rounded-[var(--r-sm)] border border-[var(--memory-risk)] bg-[color-mix(in_srgb,var(--memory-risk)_8%,transparent)] p-2 font-body text-[12px] text-[var(--memory-risk)]"
         >
           <AlertTriangle size={13} strokeWidth={2} className="mt-0.5 shrink-0" aria-hidden />
           <span className="break-keep">
@@ -114,7 +114,7 @@ export function FreedomPanel({ view }: { view: FreedomView }) {
               있는 권의 합
               {i.narrowest ? (
                 <>
-                  {' '}— 가장 좁은 곳은 <strong className="font-[700] text-[#9C3A30]">V{i.narrowest.vLevel}</strong>{' '}
+                  {' '}— 가장 좁은 곳은 <strong className="font-[700] text-[var(--memory-risk)]">V{i.narrowest.vLevel}</strong>{' '}
                   {i.narrowest.mix.volumes}권
                 </>
               ) : null}
@@ -154,7 +154,7 @@ export function FreedomPanel({ view }: { view: FreedomView }) {
                   </td>
                   <td
                     className="py-1.5 pr-2 tabular-nums font-[700]"
-                    style={{ color: (b.mix.volumes ?? 99) <= 1 ? '#9C3A30' : 'var(--t1)' }}
+                    style={{ color: (b.mix.volumes ?? 99) <= 1 ? 'var(--memory-risk)' : 'var(--t1)' }}
                     title={b.mix.volumes === null ? '못 잼' : `${b.mix.volumes}권`}
                   >
                     {b.mix.volumes === null ? '— 못 잼' : `${b.mix.volumes}권`}

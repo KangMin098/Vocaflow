@@ -1,0 +1,344 @@
+<!-- docs/reports/sources-register.md -->
+# 소스GET 원천 등록부 — 라이선스는 경로 선택 키다 (2026-09-23)
+
+> **이 문서의 규칙 하나: 라이선스를 이유로 후보에서 빼지 않는다.**
+> 라이선스는 **어떤 변환을 쓸지 고르는 키**이지 통과·탈락 판정이 아니다.
+> 발굴 1~3차([v1](./sources-discovery.md) · [v2](./sources-discovery-v2.md) · [v3](./sources-discovery-v3.md))에서
+> 내가 「실격」·「반려」로 내렸던 원천을 **전부 되살려** 경로를 붙였다.
+>
+> 읽기 전용 측정. DB 쓰기 0 · 마이그레이션 0.
+
+> ⚠️ **정정 (2026-09-23) — 이 문서의 길이 판정은 전부 무효다.**
+> 조사 내내 **140~200어 하나**를 「규격」으로 놓고 원천을 거르고 줄 세웠다. 그런데 정본
+> (`packages/library-pipeline/src/textbook/compose-unit.ts`)의 길이 창은 **넷**이다 —
+> 수능 짧은 지문 `CSAT_ITEM_WORDS` **90~200** · 수능 장문 `CSAT_LONG_ITEM_WORDS` **260~400** ·
+> 학교 문단 `SCHOOL_PARAGRAPH_WORDS` **40~200** · 학교 문장 `SCHOOL_SENTENCE_WORDS` **6~40**,
+> 그리고 초등 3종은 `NO_PASSAGE_WORDS` — **지문이 없어 길이가 무의미하다.**
+>
+> **어떤 원문이 어떤 유형에 쓰일지는 수집 시점에 모른다.** 그래서 길이를 판정·순위 근거로 쓴 자리는
+> 전부 무효다. 400어를 넘는 것도 버릴 게 아니라 **문장 경계로 잘라 쓴다**
+> (`scripts/csat/span-gate.mts` 가 토막 수율을 잰다). 어떤 창에도 못 드는 것은 **6어 미만**뿐이고,
+> 200~260 사이와 400 초과는 **버리는 게 아니라 자르는** 대상이다.
+>
+> **재계수**(`docs/reports/data/length-recheck.json` · `length-recheck-sources.json`) —
+> args.me **31,245(8.2%) → 244,171(63.8%)** · IZA World of Labor 0% → **100%** ·
+> EconPapers 50% → **100%** · EconStor 46.7% → **93.3%** · OLH 28.3% → **82.2%** ·
+> SciELO 30.9% → **66.4%** · OpenAlex 24% → **66%** · Cochrane 0% → **42.9%**.
+> 같은 오류가 DB 쪽에도 있었고 다른 세션이 이미 고쳤다 — **장문 창에 자르지 않고 그대로 맞는데**
+> 조판 불가로 세어지던 **22,209편**, 학교 문단 창에 맞는데 하한 100어로 영구 탈락해 있던 **108편**
+> (`packages/library-pipeline/src/textbook/source-eligibility.ts`).
+>
+> **고친 것은 길이 판정뿐이다.** 측정치·접근 사실(200·403·레이트리밋)·라이선스 사실은 그대로 두었다.
+> 무효가 된 자리는 ~~취소선~~ + 「무효」로 표시했고, 창 넷으로 재측정하지 않은 원천은
+> **「창 넷 재측정 필요」**로 적었다 — 없는 수치를 지어내지 않는다.
+
+---
+
+## 1. 경로표 — 라이선스 → 무엇을 가져올 수 있나
+
+| 경로 | 라이선스 | 가져오는 것 | 산출물 권리 | 비용 |
+|---|---|---|---|---|
+| **R0 그대로** | PD · PD-Gov · CC0 | **표현 그대로** | 제약 없음 | 최저 |
+| **R1 개작** | CC-BY | **표현 개작** + 출처 표시 | 우리 것 + 표시 의무 | 낮음 |
+| **R2 개작·전염** | CC-BY-SA | 표현 개작 | **산출 지문도 SA 로 공개** | 낮음 + 정책 판단 |
+| **R3 재저작** | CC-BY-NC 계열 | **사실·주제·논지 구조만** → 새로 씀 | **CC0**(우리 저작) | 중 — 드레인 1회 |
+| **R4 재저작** | ND · ARR · 라이선스 미확정 | **사실·주제·논지 구조만** → 새로 씀 | **CC0**(우리 저작) | 중 — 드레인 1회 |
+
+**R3·R4 는 같은 작업이다.** 사실과 아이디어는 저작물이 아니므로 원문 표현을 쓰지 않고 새로 쓰면
+원 라이선스가 산출물에 미치지 않는다. 저장소가 이미 하는 일이고 이름도 있다 — **ACP §20 사실 재저작**,
+소스 키 `original`, 라이선스 `CC0-1.0 (Vocaflow Original)`. **21원천 채점 86.1 로 1위**, 청크 44개 적재 완료,
+파일럿 통과율 70%.
+
+> R3·R4 에서 **하는 것**: 쟁점·사실·주장-근거 골격을 읽고 **우리 문장으로** 쓴다.
+> R3·R4 에서 **안 하는 것**: 특정 글을 축약·재서술한다(낱말을 바꿔도 파생물이다).
+> `original` spec 이 이미 그렇게 적혀 있다 — **"원문 표현 미사용"**.
+
+**경로를 가르는 것은 라이선스 하나뿐이다.** 소재 적합도·논증 밀도·규모는 **우선순위**를 가르지 경로를 가르지 않는다.
+
+---
+
+## 2. 등록부 — 발굴 전체, 제외 없음
+
+측정치는 전부 실측이다. `—` 는 미측정, **미확정**은 라이선스를 못 읽은 것(→ R4 로 라우팅).
+
+**「단위 어수」는 관찰값이지 순위가 아니다.** 창이 넷이므로 어떤 어수도 그 자체로 통과·탈락을 뜻하지 않는다 —
+200 초과는 장문 창(260~400) 후보이거나 **절단 대상**이고, 40 미만도 학교 문장 창(6~40)의 재료다.
+아래 표에서 옛 「밴드(140~200) 비율」은 전부 무효 처리했다.
+
+### R0 — 표현 그대로
+
+> ⚠️ **고전 PD 도서(Gutenberg · Standard Ebooks)는 2026-09-24 에 지문 원천에서 퇴출됐다**(사용자 지시).
+> 기출·시중 교재와 문체가 다르다 — 고유명사가 0개인 지문이 기출 42.4% · 시중 교재 44.2% 인데
+> gutenberg 조각은 **5.6%**, 고유명사 6개 이상이 **79.8%**(기출 29.1%)다. 인용부호로 시작하는
+> 지문도 10.7%(기출 0.6%). **절단 방식을 고쳐도 안 바뀐다 — 글의 종류 문제다.**
+> LLM 판정도 같았다: use 28.9%(대량 원천 최저) · reject 37.5% · **published 0**(대량 원천 중 유일).
+> DB 재고 40,519행을 지웠다(판정 스냅샷 `.agent-logs/retire-gutenberg-20260923.json`).
+>
+> **도서 자체가 부적합한 것이 아니다.** 기출은 **현대** 학술·교양 단행본에서 온다 — PD 라는
+> 제약이 1930년 이전 책만 남겨서 생긴 문제다. 대체 공급선은 아래 R1·R3 의 현대 OA 단행본
+> (DOAB/OAPEN 4,585권 · OBP 303권 · ANU Press 936권 · punctum 452권)이고 **재고는 전부 0**이다.
+>
+> `library_books`(학습자 서가)의 고전 도서는 **그대로 둔다** — published 312권 중 289권이
+> standard_ebooks 다. 그건 지문 원천이 아니라 학습자가 읽는 도서관이다.
+
+| 원천 | 규모 | 단위 어수 | 논증 | 소재 | 접근 |
+|---|---:|---|---|---|---|
+| `voa`(보유) | 10,649 | 753 | 하 | 전역 | 가동 |
+| `usgs`·`nasa`·`noaa`(보유) | 809 | 691~1,073 | 하 | 과학 | 가동 |
+| **NASA Takeaways** | 소량 | **163·193** | **상** | 과학 | 가동 가능 |
+| **VOA Editorials** | RSS 20 | **413** | 정책 공지문 | 외교·제재 편중 | PD |
+| NPS | 19,643 | 371 | 하(산문 36%) | 역사·인류 | sitemap 200 |
+| MedlinePlus | 25,534 | 267 | 하(reference 66%) | 과학 | sitemap 200 |
+| CDC · NSF | 3,889 · 1,399 | — | — | 과학 | API·sitemap 200 |
+
+### R1 — 개작 (CC-BY)
+
+| 원천 | 규모 | 단위 어수 | 논증 | 소재 | 접근 |
+|---|---:|---|---|---|---|
+| **FrYM**(보유 119 = **6%**) | **1,981** | 141 | 중 | 과학 | ★가동 · **최우선** |
+| **FEE.org** | **24,010** | 835~938 · 문단 40~130 | **상** | 사회·경제 ⚠️논조 편향 | 200 |
+| **Rebus 철학6+심리2** | **131섹션** | 문단 86~109 | **최상** | **철학·윤리·미학·심리** | API(내 재확인 403) |
+| **LibreTexts 예술사**(Gustlin) | **53섹션** | 문단 **144~190** | 중 | **예술·문화** | 200 |
+| **LSE Blogs** | — | 문단 57~91 | **상** | 사회·경제·철학 | **CloudFront 403** · 라이선스가 `abridge`·`teaching materials`·상업·철회불가 명문 |
+| **Wellcome Stories** | 미측정 | 1,521 | 중상 | 역사·인류 | `*` 허용 |
+| **OpenAlex 예술·인문** | 347,408 | 중앙 **167** · 창 넷 **66%**(옛 밴드 24%) | 자족+논증 24% | 예술·인문 | 200 |
+| OpenAlex 사회·심리·경제 | 2.2M | 167~173 | 4~16% | 사회·심리·경제 | 200 |
+| **PLOS Author Summary** | 46,182 | 중앙 **247** — 200~260 사이, **창 재배정·절단 대상** · ~~밴드 21.4%~~ **무효** | 하(보고 수사) | 과학 | 200 |
+| CC-BY 서평 | 45,932 | 547(절단 대상) · ~~3문단=185 조합~~ **무효** — 창을 정한 뒤 자른다 | **상** | 인문 | EPMC 200 |
+| Editorial | 75,183 | 1,252(절단 대상) | 하 | 전역 | EPMC 200 |
+| 공개 심사평 | 379,715 | ~~밴드 13%~~ **무효** · 창 넷 재측정 필요 | **상** · **자족 0%** | 전역 | OpenAlex 200 |
+| **SciELO sza**(편당 `by/3.0`) | **≈5,800** | 중앙 **172**(수능 짧은 90~200 · 학교 문단 40~200 양쪽) · ~~밴드 23%~~ → 창 넷 **66.4%** | **40%** — 최고 | **인문사회** | articlemeta 200 |
+| SciELO scl 전환저널 | ≈14,200(저널 단위) | 165 | 상 | 인문사회 | articlemeta 200 |
+| **OBP** | **303권** | ~~문단 밴드 11.0%~~ **무효** · 창 넷 재측정 필요(책 = 절단 대상) | **최상** | 인문 | TEI XML 200(브라우저 UA) · **Thoth GraphQL 이 정규 경로** |
+| DOAB/OAPEN CC-BY 인문사회 | **4,585권** | ~~문단 밴드 4.0%~~ **무효** · 창 넷 재측정 필요(책 = 절단 대상) | 상 | 인문사회 | CSV 200 · 본문 `/rest/bitstreams/{uuid}/retrieve` 200 |
+| Global Voices | 104,378 | 1,443 · 문단 44 | 중상 | 사회·경제 ⚠️맥락 의존 44% | 200 |
+| EFF Deeplinks | ~20,000 | 897~1,269 | **최상** | 기술·매체 | RSS 200 |
+| SciDev.Net | 13,288 | 2,616 | 중 | 과학·사회 | 200 |
+| Wikinews | 22,237 | 449 | 하 · **34% 스포츠** | 사회·경제 | **코드 있음 · 재고 0** |
+| **World Bank OKR** | **40,415** | prose-run 121~655 | 중상 | 사회·경제 | **코드 있음 · 재고 0** — §3 |
+| BanglaJOL 인문 38지 | CC 258건 | 203 | SSR 36% | 인문사회 | OAI 200 |
+| NepJOL 인문 95지 | CC 68% | 214 | 서베이 45% | 인문사회 | OAI 200 |
+| Knowledge Commons | 3,118 | 170 | **최상** | 인문 | API 200 · rights 공백 60% |
+| OLH | 10,270 | **154~157** · 창 넷 **82.2%**(옛 밴드 28.3%) | 상 · **FRE 20.8** | 인문 | API 200 · offset 404 함정 |
+| Ubiquity Press | 20,755 | 198 | 갈림(논증형 4지 ~1,100) | 혼재 | sitemap 200 |
+| Nature Comms / Sci Reports | 대규모 | — | — | 과학 | **Europe PMC 경유** |
+| PeerJ · BMC | — | — | — | 과학 | index.json 200 |
+| Zenodo · OSF · Figshare | 2.5M · 202k | — | — | 전역 | 전문 수신 100%·100% |
+| Internet Archive | 2,463,499 | 책 | 혼재 | 전역 | `licenseurl:` 서버 필터 |
+| African Storybook · Wikivoyage · 기타 보유 | 소량 | — | — | — | — |
+
+### R2 — 개작·SA 전염 (CC-BY-SA)
+
+| 원천 | 규모 | 단위 어수 | 논증 | 소재 |
+|---|---:|---|---|---|
+| **Public Domain Review** | **1,652** | collection **292·496** | 중상 | **예술·문화** |
+| **Economics Observatory** | **1,104** | 문단 **55 → 3문단=165** | **상** | 사회·경제 |
+| `wikipedia`·`simple_wikipedia`(보유) | 114 | 2,690·900 | 하 | 예술·역사 |
+| Wikibooks · Wikiversity | ~6,300 | 문단 76 | 하 | 교육·과학 |
+| **Wikiversity Wikidebate** | **129** | 단락 | **최상 · 형태가 정확히 구멍** | 전역 |
+| New World Encyclopedia | 16,211 | 3,318 | 하~중 | 전역 |
+| Kiddle | 700,000+ | 1,593 | 없음 · A2 | 전역 |
+| IBM Debater ArgQ | 30,497 | **최대 44** — 옛 밴드로는 전량 탈락이었으나 **학교 문장 창(6~40)·문단 창 하단의 재료**다 | 상 | 71주제 |
+| BCcampus | 131권 · 8.2M어 | 문단 105 | 책별 | 전역 |
+
+### R3 — 재저작 (NC 계열) · **사실·논지만**
+
+| 원천 | 규모 | 왜 가치 있나 |
+|---|---:|---|
+| **Smarthistory** | 2,500~3,000 | **예술 논증 내용 최상위** — 예술·문화 칸의 최대 공급선 |
+| **Noba Project** | 105모듈 | **심리학 교재 전량** — 심리·인지 칸 |
+| **OpenStax 현행 70권** | 1,422섹션 | Philosophy·Psychology·Sociology·World History (2026-03 전 라이브러리 NC-SA 전환) |
+| **LibreTexts NC 계열** | **775권 ≈ 63,300섹션** | CC-BY 분의 **2배** |
+| **World History Encyclopedia** | 5,245 | 역사·인류 · ToU 가 ML 학습 별도 금지 |
+| **punctum books** | 452권(BY-NC-SA 412) | **Thema 예술 70 · 문학 64 · 철학 40** — 주제 적중 최고 |
+| ANU Press | **936권** | Thema 사회 240 · 역사 135 — **HSS 적중 최고** |
+| Athabasca UP | 180권 | Manifold HTML 판 보유 |
+| MIT OCW | — | 강의노트 |
+| Nieman Lab · Tax Foundation · Mises · Hechinger | — | 매체·조세·경제·교육 논평 |
+| KCI(한국) | 182지 중 NC 148 | **한국 학습자 배경지식과 맞는다** |
+| Cochrane PLS · IZA World of Labor | 20,079 · 3,719 | IZA 는 "one-page summary" 포맷 · **창 넷 재계수: IZA 0% → 100% · Cochrane 0% → 42.9%**(옛 밴드로는 둘 다 0 이었다) |
+| PERSUADE · ELLIPSE | 25,996 · 6,500 | ⚠️ 소문자 시작 **10.3%**(옛 140~200 대역 표본 — 수치 자체는 유효). ~~「짧은 글 = 못 쓴 글」~~ **무효** — 막는 것은 길이가 아니라 **편집 상태**다 |
+| Kialo Edu | — | 논증 매핑 |
+
+### R4 — 재저작 (ND · ARR · 미확정) · **사실·논지만**
+
+| 원천 | 규모 | 왜 가치 있나 |
+|---|---:|---|
+| **Issues in Science and Technology** | ≥2,000 | **조사 전체 내용 1위** · 문단 57~81 · "이 정책은 틀렸다 + 근거 3개"가 기본 골격 |
+| **Britannica ProCon** | — | **쟁점별 찬반 논거가 이미 구조화** |
+| **Gale Opposing Viewpoints** | **20,000+** | viewpoint 에세이 |
+| **IDEA Debatabase** | **700 논제** | 찬반 |
+| **args.me** | ~~31,700이 정확히 140~200어~~ → **창 넷 기준 244,171편(63.8%)** | 옛 밴드 31,245(8.2%)는 **8배 과소계수**였다. 창별로는 학교 문장·학교 문단·수능 짧은·수능 장문에 고루 든다 · 논지 뼈대로는 조사 전체 최적 |
+| **Phi Delta Kappan** | ≥1,000 | **B1~B2 에 가장 정확** · copyright.com 에서 **구매 가능** |
+| **The Conversation** | 6만+ | **발췌 수율 82%** — 텍스트 품질 최상 |
+| **AJOL** | **174,201 OA 전문** | **초록 중앙 162어**(수능 짧은 90~200 · 학교 문단 40~200 양쪽에 든다) · ~~「목표 164 최근접」~~ **무효** — 목표 어수는 하나가 아니다 · 영어 100% · 논증 25% |
+| **SAPIENS** | 1,540 | 인류학 · 역사·인류 |
+| **Érudit** | 영어 ≈44% | 기호학·연극학·건축사 — **소재가 정확히 맞는다** |
+| **Project MUSE** | — | 대학출판부 인문 저널 |
+| **JSTOR** | — | Early Journal Content 등 |
+| **EBSCO Research Starters** | 수십만 | History 한 분야만 3,991 |
+| **PhilPapers / PhilArchive** | 135,836 초록 | **초록 150~300어** — 150~200 은 수능 짧은·학교 문단 창, 260~300 은 **장문 창(260~400)** 에 그대로 든다 · 철학 |
+| **SEP / IEP** | ~1,800 / ~900 | 철학 서베이 · **단락 중앙 126~135어**(수능 짧은 90~200 · 학교 문단 40~200 양쪽) |
+| **Aeon / Psyche** | 수천 | 논증 밀도 최상 |
+| Knowable · Undark | — | 과학 저널리즘 |
+| **RePEc / EconPapers** | 550만+ | 경제 — 전문은 각 출판사 · **창 넷 재계수 50% → 100%** |
+| Dialnet · Redalyc · LA Referencia | 773,161 등 | 라이선스 미확정 |
+| J-STAGE | philosophy 21,998 | 라이선스 필드 자체가 없음 |
+| SSOAR · EconStor | 59,499 · 321,139 | ⚠️ EconStor 초록 **167어** · 주장동사 **1.5%**. ~~「길이 게이트를 통과하는데」~~ **무효** — 길이 게이트는 창 하나가 아니고, 재계수로 **46.7% → 93.3%** 다. **막는 것은 길이가 아니라 논증 부재다** |
+| CK-12 · NCERT | — | ToU 가 AI 학습·개작을 별도 금지 |
+| Liverpool UP · White Rose UP | 749 · 366 | 본사 403 |
+| 학회 매거진(American Scientist·Physics Today·APA Monitor·AHA 등) | — | 라이선스 미확정 또는 ARR |
+| 국내 ELT(NE능률·비상·천재·Compass) | — | **장르 적합도 조사 전체 최고** |
+| VJOL | 230,412(영어 6%) | — |
+
+---
+
+## 3. 이 재구성이 바꾸는 것
+
+**① 순위가 뒤집힌다.** 라이선스로 줄 세우면 1등이 LSE Blogs 였다. 경로별로 보면 **R4 상단이 앞선다** —
+Issues in S&T · ProCon · Gale · args.me · AJOL 은 **논증 구조가 이미 만들어져 있어서** R4 재저작의
+입력으로 가장 싸다. 「쟁점 + 찬반 논거」를 읽고 **그 유형의 창에 맞춰**(90~200 · 260~400 · 40~200 · 6~40)
+쓰는 것이, 논증 없는 CC-BY 초록에 없는 논증을 넣는 것보다 싸다.
+(옛 원문은 「164어를 쓰는 것」이었다 — **무효**. 목표 어수는 하나가 아니다.)
+
+**② 예술·문화와 심리·인지 칸이 열린다.** 두 칸은 CC-BY 공급선이 거의 없어 막혀 있었다.
+R3 로 보면 **Smarthistory**(예술 논증 최상위) · **Noba**(심리학 교재 전량) · **punctum**(Thema 예술 70·철학 40) ·
+**LibreTexts NC 775권** 이 전부 입력이 된다.
+
+**③ 병목이 라이선스에서 compose 게이트로 옮겨간다.** 그리고 거기에 측정된 결함이 있다 —
+자작 지문 표본 50편에서 선언 CEFR 과 실측이 **29편 불일치**, **`A2` 발주 12편은 12편 전부 B1 이상**이다.
+어휘만 통제하고 구문 길이·전문어 밀도를 안 잡는다. **입력을 어디서 가져와도 A2 칸은 지금 방식으로 안 채워진다.**
+
+**④ 그래도 R0·R1 을 먼저 한다.** 표현까지 쓸 수 있으면 재저작 드레인이 통째로 빠지므로 비용이 다르다.
+**FrYM 잔여 1,862편**(새 코드 0) · **World Bank 40,415편** 이 그래서 맨 앞이다.
+⚠️ **2026-09-24 정정** — World Bank 를 막는 것은 CHECK 제약이 아니다. 라이브 제약을
+`pg_get_constraintdef` 로 읽어 보니 `worldbank` 는 **이미 들어 있다**. 남은 잠금은 하나,
+`openknowledge.worldbank.org/robots.txt` 의 `Disallow: /server/oai/` + `Crawl-delay: 10` 이고
+**그걸 넘을지는 사용자 결정**이다(`scripts/csat/harvest-worldbank.mjs` 머리).
+
+**⑤ 길이로 매긴 순위는 전부 다시 매겨야 한다 (2026-09-23 정정).** 창이 넷인데 하나만 봤으므로,
+「규격에 맞는다」·「짧아서 못 쓴다」·「길어서 못 쓴다」는 판정이 모두 근거를 잃었다. 재계수가
+뒤집은 폭이 그 증거다 — args.me **8.2% → 63.8%**(8배) · IZA·EconPapers **→ 100%** ·
+EconStor **→ 93.3%** · OLH **→ 82.2%** · SciELO **→ 66.4%** · OpenAlex **→ 66%** · Cochrane **→ 42.9%**.
+0% 로 적어 사실상 제외했던 IZA·Cochrane 이 100%·42.9% 로 살아난 것이 이 오류의 성격을 보여 준다.
+**남은 게이트는 길이가 아니라 V4(off-list)·V5(논증·자족)다** — EconStor 가 그 실례다
+(어수는 충분한데 주장동사 1.5%).
+
+---
+
+## 4. 라우팅에 필요한 사실 — 착수 전 확인할 것
+
+라이선스를 **탈락이 아니라 경로 선택에 쓰므로**, 틀린 라이선스는 틀린 경로를 낳는다.
+이번 조사에서 잡은 오보 7건이 전부 그 위험의 실례다.
+
+| 원천 | 잘못 알려진 것 | 실제 |
+|---|---|---|
+| Prindle Post | CC BY-SA | **인쇄판 4권에만**. 웹은 비상업 한정 |
+| Aeon Ideas | CC BY-ND | **폐지된 구 정책**. 현행 편당 $650 |
+| Getty Open Content | 개방 | **CC0 는 이미지 16만 점에만 · 텍스트 0** |
+| SEP | 무료=자유 | 저자 저작권 + Stanford 독점 · 재배포 금지 |
+| PERSUADE HF 미러 | `license: mit` | 저자 저장소는 **CC BY-NC-SA 4.0** |
+| justice-everywhere | CC 링크 있음 | 본문이 아니라 **위키미디어 이미지 크레딧** |
+| **SciELO** | 저널 단위 CC-BY 65% | **편당은 라이선스 없음 56% · `by/3.0` 12%** |
+
+**규칙 셋:**
+1. **라이선스는 가장 가까운 원천에서 읽는다** — Crossref 는 OpenEdition 라이선스를 32.5%만 안다. OAI `dc:rights` 가 정본이다.
+2. **저널 단위를 편당 판단에 쓰지 않는다** — SciELO 가 그 실례다.
+3. **`open_access` 는 재사용 허가가 아니다** — SSOAR 101,714 · EconStor 321,139 둘 다 저장소 전체다.
+
+그리고 접근 차단(403 · WAF · 레이트리밋)은 **라이선스 판단이 아니라 운영 사실**이다. 별도로 기록한다 —
+LSE(CloudFront) · AJOL(202 레이트리밋) · Rebus(내 재확인 403) · LA Referencia(Anubis) ·
+AgEcon(AWS WAF) · Liverpool/White Rose 본사(403).
+
+---
+
+## 5. 착수 순서 — 경로별 비용순
+
+| # | 할 일 | 경로 | 비용 |
+|---|---|---|---|
+| 0 | **compose 게이트에 3중 합의 검사** · **off-list(≤13%) 게이트로 교체** | 공통 | 코드 2 |
+| 1 | **FrYM 잔여 1,862편** | R1 | **새 코드 0** |
+| 2 | **World Bank robots.txt 판단**(제약은 이미 열려 있다 — 2026-09-24 실측) | R1 | 사용자 결정 → 40,415편 |
+| 3 | `europe-pmc.ts` 가 `stripJatsCitations` 를 쓰게 | 공통 | import 1줄 → 잔해 78%→9% |
+| 4 | **Rebus 131섹션 · LibreTexts 예술사 53섹션** | R1 | 어댑터 2 |
+| 5 | **FEE 24,010 · Economics Observatory 1,104 · PDR 1,652** | R1·R2 | 어댑터 3 |
+| 6 | **SciELO** 편당 `license` 전수 재계수 → 파이프라인 | R1 | 어댑터 1 + 평이화 |
+| 7 | **R4 논지 뼈대 파일럿 20편** — ProCon·Gale·args.me·Issues | R4 | 드레인 1 |
+| 8 | **R3 예술·심리 파일럿 20편** — Smarthistory·Noba | R3 | 드레인 1 |
+| — | 사람: **CORE API 키** · **LSE 접근 문의** · **AJOL 라이선싱 문의** | — | 0원 |
+
+**7·8 이 이 재구성의 핵심 실험이다.** R3·R4 재저작의 통과율을 실측해야 「라이선스 무관 발굴」의
+실제 수율이 나온다. `original` 파일럿이 70% 였으므로 기대할 근거는 있다.
+
+> **이 순서에서 길이는 더 이상 정렬 키가 아니다(§3-⑤).** 어떤 단계에서도 원천을 어수로 거르지 않는다 —
+> 창 넷 중 하나에 들면 그대로 쓰고, 창 사이(200~260)와 400 초과는 **문장 경계로 자른다**
+> (`scripts/csat/span-gate.mts`). 착수 시 각 원천의 첫 측정은 「밴드 비율」이 아니라
+> **창별 분포 + 절단 토막 수율**이다.
+
+---
+
+## 6. 3차 외부 목록 검증 · 파일럿 (2026-09-25)
+
+외부 조사 목록(3차)을 받아 **robots.txt · 약관 원문을 직접 읽고, 즉시 수집 원천은 20편씩 실제로 받았다.**
+수집기: `scripts/csat/source-get/<key>-fetch.mjs` · 공용 적재기: `scripts/csat/source-get/import.mjs` ·
+기준 코퍼스: `scripts/csat/source-get/bench-fetch.mjs`. DB 쓰기 0 — 새 키 셋은 CHECK 제약 마이그레이션
+`_pending_source_get_round3_sources.sql` 승인 대기.
+
+### 6-1. 목록의 주장 중 틀린 것 (실측으로 정정)
+
+| 주장 | 실측 | 근거 |
+|---|---|---|
+| CLEAR 메타데이터 MIT | **틀림** — 전체가 CC BY-NC-SA 4.0, MIT 언급 없음 | CLEAR-Corpus README |
+| GDL 베타 JSON API 「바로」 | **틀림** — `api.digitallibrary.io` DNS 소멸. 지금은 WP REST `content.digitallibrary.io/wp-json/wp/v2/book` → EPUB | 파일럿 |
+| Wikinews 덤프와 같은 경로(API 가능) | robots.txt 가 `/w/`(api.php) 를 막는다 — **대량은 덤프만**(`dumps.wikimedia.org/enwikinews` 200) | robots.txt |
+| OpenStax 「CC BY 저장소」 | osbooks 55개 중 CC BY **13**, 그중 **영어 5**(business · intellectual-property · life-liberty · physics · statistics). 인문 전부 NC-SA | 저장소별 LICENSE |
+| DailyDialog 배포처 | yanran.li 는 **주차 도메인**. HF 미러만 남음 | 직접 접속 |
+
+맞은 것: Aeon 계약 필요 · Lit2Go 프로젝트당 25파일(비상업 한정) · SNE 서면 허가 · OneStopEnglish/QA CC BY-SA 4.0 · Knowable CC BY-ND · Noba CC BY-NC-SA 4.0 · NPS API 무료 키 · Wonderopolis 폐쇄.
+
+### 6-2. 파이프라인에 넣은 것 (20편 파일럿)
+
+| 키 | 경로 | 라이선스(행 단위 실측) | 중앙 어수 | 경로(§1) | 문제 |
+|---|---|---|---:|---|---|
+| `global_voices` **신규** | WP REST `/wp-json/wp/v2/posts` | 푸터 `rel=license` CC BY 3.0 **20/20** | 1,330 | R1 · 절단 | 캡션·연재 안내 줄 13/20(필터 고침 · 재수집 전) · **~90요청 뒤 응답 끊김** |
+| `global_storybooks` **신규** | GitHub `global-asp/asp-source/en` | CC-BY 17 · **CC-BY-NC 3** | 123 | R1 / NC→R3 | 레벨 없음 · African Storybook 과 같은 본문 |
+| `gdl` **신규** | WP REST → EPUB | cc-by 8 · **cc-by-nc 12** | 460 | R1 / NC→R3 | 후원 문장 ~4/20 · StoryWeaver 와 중복 |
+| `wikinews` 기존 키 | MediaWiki API(표본) → 대량은 덤프 | CC BY 2.5 18 · PD 2 | 177 | R1 | 2006~08 단신 · 스포츠 2 제외 |
+| `openstax` 기존 키 | GitHub CNXML(CC BY 저장소만) | CC BY 4.0 20/20 | 1,018 | R1 · 절단 | life-liberty 는 활동지형 산문 |
+
+NC 행은 **버리지 않고 표기 그대로 담는다** — 트리거가 restricted 로 막고, R3 재저작 입력이 된다(DD-75).
+
+### 6-3. 기준 코퍼스 — 발행 불가, 잣대 전용 (`bench-fetch.mjs`)
+
+| 키 | 라이선스 | 규모 |
+|---|---|---|
+| RACE | 비상업 연구 전용 | 지문 27,933(중 7,139 · 고 20,794) · 문항 97,687 |
+| DREAM | 비상업 연구 전용 | 대화 6,444 · 문항 10,197 |
+| CLEAR | CC BY-NC-SA 4.0 | 발췌 4,724 |
+| OneStopEnglish | CC BY-SA 4.0 | 189편 × 3수준 |
+| OneStopQA | CC BY-SA 4.0 | 30편 · 문항 486 |
+| WeeBit | — | **공개 경로 없음**(저자 요청) |
+
+### 6-4. 확인만 한 것
+
+| 원천 | 판정 | 근거 |
+|---|---|---|
+| EIA Energy Kids | **바로** · PD(연방) · robots 허용 | eia.gov/about/copyrights_reuse.php |
+| NIH News in Health | **바로** · 본문 비저작권(사진 제외) · curl 403(WAF) | /about-us |
+| SciJinks | PD 이나 접속 실패 | — |
+| NPS API | 무료 키 필요 | developer.nps.gov |
+| Bloom Library | `api.bloomlibrary.org/v1/books` 키 없이 응답 · 라이선스 필드 없음 | — |
+| Book Dash | 책 페이지 CC-BY-4.0 · 본문 위치 미확인 | — |
+| Let's Read | 공개 API 없음 · 일부 CC-BY-NC | — |
+| StoryWeaver · African Storybook | 기존 수집기 있음 | `storyweaver-ingest.mjs` · `kid-source-probe.mjs` |
+| CK-12 · Smarthistory · Noba · OpenLearn · DailyDialog | NC → R3 | 약관 |
+| Knowable | ND → R4 · GPTBot 차단 | /page/republish |
+| Science News Explores · 1000-Word Philosophy | 허가 필요 → R4 · SNE GPTBot 차단 | 약관 |
+| Lit2Go | 25파일·비상업 → 본문은 PD 원본, 학년 라벨만 | /lit2go/welcome/license |
+| Aeon · Psyche · TED · British Council | 계약·유료·NC-ND → R4 | 약관 |
+| Wonderopolis · ICDL | 폐쇄 | familieslearning.org |
+
+---
+
+*관련: [v1](./sources-discovery.md) · [v2](./sources-discovery-v2.md) · [v3](./sources-discovery-v3.md) ·
+[sources-scorecard](./sources-scorecard.md) · ACP §20 사실 재저작 · `scripts/csat/compose-drain-export.mjs`*

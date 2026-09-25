@@ -86,10 +86,10 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
   const [open, setOpen] = useState(false)
   const panelId = useId()
 
-  // 학습 세션은 셸을 걷어낸다 — Sidebar·MobileTabBar 와 같은 판정.
+  // 학습 세션은 셸을 걷어낸다 — AppHeader·MobileTabBar 와 같은 판정.
   // 기출(`/csat` · `/csat/progress`)은 화면 자체가 「오늘 할 일 하나」라 띠를 걷는다 — 띠의
   // 다른 모듈 CTA(「Flashcard 시작」)가 그 화면의 [시작]과 겨뤘다(docs/csat-learner-brief.md A2 ·
-  // 실측 2026-09-17 375px). 사이드바·탭바는 그대로 둔다 — 나가는 길은 남긴다.
+  // 실측 2026-09-17 375px). 상단 메뉴·탭바는 그대로 둔다 — 나가는 길은 남긴다.
   const hidden = isFullScreenRoute(pathname) || pathname === '/csat' || pathname.startsWith('/csat/') || !data
 
   const model = useMemo(

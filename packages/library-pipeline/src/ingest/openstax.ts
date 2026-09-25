@@ -1,7 +1,13 @@
 // packages/library-pipeline/src/ingest/openstax.ts
 // LCP v2.0 Phase 17 — OpenStax Textbooks ingester
 //
-// OpenStax (Rice University) — CC BY 4.0 무료 교과서. 챕터 구조 명확 + 학습 친화적.
+// OpenStax (Rice University) — 무료 교과서. 챕터 구조 명확 + 학습 친화적.
+//
+// ⚠️ **"모든 OpenStax 교과서는 CC BY 4.0" 은 거짓이다** (실측 2026-09-24 · CMS 상세 129권 전수):
+//     live 영어 73권 중 **70권(95.9%)이 CC BY-NC-SA 4.0** · CC BY 는 3권뿐이다.
+//     은퇴본 33권은 CC BY. 2026-03 이전 라이브러리가 NC-SA 로 전환됐다.
+//     상업 이용을 한다는 결정(2026-09-24)이 있으므로 NC-SA 는 R3 재저작 경로다 —
+//     **표현 그대로 쓰면 안 된다.** 근거: docs/source-acquisition/pilot-report.md §2
 //
 // API 흐름:
 //   1) 메타 + TOC: https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=...&slug=<slug>
@@ -13,7 +19,8 @@
 //
 // source_id 형식: book slug (예: 'college-physics-2e', 'introduction-business')
 //
-// 라이선스: 모든 OpenStax 교과서는 CC BY 4.0 — 한국 저작권 안전 (저자 사후 70년 무관).
+// 라이선스: **책마다 다르다.** `license_name` 을 읽어 정규화하고, 못 읽으면 **던진다**.
+//   모르는 것을 CC-BY 로 적는 쪽이 훨씬 위험하다 — 이 원천은 95.9% 가 NC-SA 다.
 // admin_enqueue_book 의 license 파라미터로 'CC-BY-4.0' 전달.
 
 import type { RawBook } from '../types'
@@ -120,9 +127,17 @@ export async function ingestFromOpenStax(slug: string): Promise<RawBook> {
     .map((p, i) => `\n\n\nChapter ${i + 1}. ${p.title}\n\n${p.content.trim()}`)
     .join('\n\n')
 
-  const license = detail.license_name
-    ? formatLicense(detail.license_name, detail.license_version)
-    : 'CC-BY-4.0'
+  // ⚠️ **폴백이 `'CC-BY-4.0'` 이었다** — 라이선스를 못 읽으면 가장 관대한 쪽으로 틀렸다.
+  //   live 영어의 95.9% 가 NC-SA 인 원천에서 그 기본값은 **거의 항상 오기록**이다.
+  //   모르는 것은 적지 않고 **던진다**. 수확기가 죽는 편이 잘못된 라이선스가 DB 에
+  //   들어가는 것보다 싸다 — 들어가면 어느 행이 틀렸는지 나중에 못 가른다.
+  if (!detail.license_name) {
+    throw new Error(
+      `OpenStax 라이선스를 못 읽었다 — 적재하지 않는다: ${cleanSlug} ` +
+        `(license_name 이 비었다. CMS 상세 응답 모양이 바뀌었을 수 있다)`,
+    )
+  }
+  const license = formatLicense(detail.license_name, detail.license_version)
 
   return {
     source: 'openstax',
@@ -170,16 +185,24 @@ async function fetchPageHtml(slug: string, pageSlug: string): Promise<string | n
   return html
 }
 
+/**
+ * 'Creative Commons Attribution-NonCommercial-ShareAlike License' → 'CC-BY-NC-SA-4.0'
+ *
+ * ⚠️ **조건을 긴 것부터 본다.** 첫 판은 `attribution && !includes('non')` 하나로 갈랐는데,
+ *   그건 NC 만 막고 **BY-SA·BY-ND 는 못 막는다**(둘 다 문자열에 'non' 이 없어 CC-BY 로 떨어진다).
+ * ⚠️ 모르는 문자열은 **원문 그대로 돌려준다** — 지어내지 않는다. G0 이 그걸 보고 거른다.
+ */
 function formatLicense(name: string, version: string | undefined): string {
-  // 'Creative Commons Attribution License' → 'CC-BY-4.0'
-  const lower = name.toLowerCase()
-  if (lower.includes('attribution') && !lower.includes('non')) {
-    return version ? `CC-BY-${version}` : 'CC-BY-4.0'
-  }
-  if (lower.includes('attribution-noncommercial-sharealike')) {
-    return version ? `CC-BY-NC-SA-${version}` : 'CC-BY-NC-SA-4.0'
-  }
-  return name
+  const lower = name.toLowerCase().replace(/\s+/g, ' ').trim()
+  const v = version || '4.0'
+  const has = (...parts: string[]): boolean => parts.every((x) => lower.includes(x))
+  if (!lower.includes('attribution')) return name
+  if (has('noncommercial', 'noderiv')) return `CC-BY-NC-ND-${v}`
+  if (has('noncommercial', 'sharealike')) return `CC-BY-NC-SA-${v}`
+  if (lower.includes('noncommercial')) return `CC-BY-NC-${v}`
+  if (lower.includes('noderiv')) return `CC-BY-ND-${v}`
+  if (lower.includes('sharealike')) return `CC-BY-SA-${v}`
+  return `CC-BY-${v}`
 }
 
 /**

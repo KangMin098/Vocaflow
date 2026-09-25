@@ -1,12 +1,119 @@
 # DB Schema
 
+## DB 전수 조사 조치 (2026-09-23, migration 5건 `20260923103943`~`20260923105031`)
+
+조사·근거 전문: [reports/db-audit-2026-09-23.md](./reports/db-audit-2026-09-23.md) ·
+되돌리기(적용 직전 스냅샷 기반): [AI_CONTEXT/rollback/db-audit-2026-09-23-rollback.sql](./AI_CONTEXT/rollback/db-audit-2026-09-23-rollback.sql)
+
+### 🔒 `csat_items_public` — anon 이 기출 802문항을 **고치고 지울 수 있었다** (`20260923103943`)
+
+닫힌 RLS 위에 얹힌 소유자 권한 뷰가 쓰기까지 열려 있었다. 넷을 각각 실측했다:
+뷰 옵션 `security_invoker=false` · 소유자 `postgres` `rolbypassrls=true` ·
+`csat_items.relforcerowsecurity=false` · 뷰 자동 갱신 가능(`is_updatable=YES` ·
+INSTEAD OF 트리거 0 · 규칙 0). 기반 표 정책은 `csat_items_read :: USING (false)` 하나뿐인데
+①②③ 때문에 그 정책을 건너뛴다.
+
+```
+적용 전  anon=arwdDxtm  authenticated=arwdDxtm
+적용 후  anon=m         authenticated=rm        ← 학습자 읽기(r)만 남는다
+```
+
+**`security_invoker` 는 뒤집지 않는다** — 뒤집으면 `USING (false)` 가 적용되어 CSAT 학습자 화면이
+전부 0행이 된다(`lib/csat/browse.ts` · `learner.ts` 6곳 · `heatmap.ts`). SECURITY DEFINER 자체는
+의도된 저작권 경계이고 `db_health_exceptions` 에 면제가 있다 — **그 면제는 SELECT 에만 유효하고
+쓰기는 사유에 없었다.** 대조군 `library_seed_catalog_view` 는 같은 조건인데
+`security_invoker=true` 라 안전하다. 차이는 그 옵션 하나다.
+
+회귀 가드 질의(0행이어야 한다)는 마이그레이션 파일 주석에 있다.
+
+### 🩹 `english_irregular_forms` — 정책이 없어 조용히 0행이었다 (`20260923104145`)
+
+RLS 는 켜졌는데 정책이 0개였다. 권한은 있으니 오류가 아니라 **0행**이 돌아왔다.
+정책 `english_irregular_forms_read (FOR SELECT TO anon, authenticated USING (true))` 추가.
+anon 가시 행 **0 → 337**, anon 으로 `en_inflection_bases('went')` = `{go}` 실측 확인.
+
+**무엇이 깨져 있었는지 정확히**: 정본 공개 경로 `textfit_resolve_levels_public` 는
+SECURITY **DEFINER** 라 영향이 없었다. 깨져 있던 것은 SECURITY **INVOKER** 경로 —
+`resolve_dict_headword` · `lookup_word_meaning`(둘 다 `en_inflection_bases` 호출 · anon EXECUTE 가능).
+`apps/web/src/lib/textfit/inflect.ts` 의 낡은 근거 주석도 같은 커밋에서 고쳤다.
+
+### ⚡ cron · MV 배선 · autovacuum (`20260923104258`)
+
+- **cron 14 `refresh_textbook_shelf_stats()` `*/30` → `0 */6`.** MV 3개를 CONCURRENTLY 로 다시
+  만들며 한 번에 2.6 GB 를 디스크에서 읽는다(EXPLAIN 실측 10,348 ms + 11,676 ms ·
+  `read` 159,971 / 177,141 블록). `shared_buffers` 가 **256 MB** 라 갱신 한 번이 캐시를 통째로
+  비운다 → 하루 48회 · 약 60 GB 읽기. 드레인 import 가 끝나면 함수를 직접 부르므로 크론은 보조망이다.
+- **`refresh-lemma-dominant-pos` 신설**(jobid 20 · `30 17 * * *`). `mv_lemma_dominant_pos` 를
+  **아무것도 갱신하지 않고 있었다** — `refresh_lemma_dominant_pos()` 는 있는데 호출부도 cron 도 0.
+  **행 수 11,085 → 27,828**(누락 16,759 = 60.2% 해소 · 지배 품사 불일치 773).
+  다만 화면 영향은 60% 가 아니다: 이 MV 는
+  `COALESCE(bv.context_pos, ldp.dominant_pos, infer_form_pos(...))` 의 2순위이고
+  `library_book_vocabularies` 1,678,399행 중 `context_pos IS NULL` 은 **24,284행(1.4%)** 뿐이다.
+- **autovacuum**: `library_article_vocabularies` `autovacuum_vacuum_scale_factor=0.02`
+  (기본 임계 약 678만 dead tuple → 68만. 7.4일 창에 삽입 12,400,558 / 삭제 12,382,935 인
+  삭제-재삽입 표다) · `csat_dcp_items` `=0.05`(UPDATE 533,478 · 기존 insert/analyze 임계는 유지).
+  `library_book_vocabularies` 의 `0.05` 는 **이전부터 있던 값이고 건드리지 않았다.**
+
+### 🧹 RLS — 죽은 정책 11개 삭제 + 62개 InitPlan 승격 (`20260923104726`)
+
+`service_role` 은 `rolbypassrls=true` 라 정책과 무관하게 전부 본다. 그래서
+`TO public USING (auth.jwt()->>'role'='service_role')` 형태의 정책은 **아무에게도 행을 주지 않으면서
+모든 행에서 `auth.jwt()` 를 호출**했다. 가장 큰 것이 `library_article_vocabularies` **34,061,777행**.
+
+삭제: `service_role_all_article_vocab` · `_vocab` · `_articles` · `_chunks` · `_chapters` ·
+`_books` · `_catalogs` (7) + `TO service_role USING (true)` 4개
+(`service write dictionary` · `service write categories` · `service write word categories` ·
+`lexicon_frequencies_admin_write`).
+
+나머지는 `(SELECT auth.uid())` 로 감쌌다 — 62개. **손으로 옮겨 적지 않고** `pg_get_expr` 로 DB 원문을
+읽어 기계적으로 치환하는 DO 블록을 썼다(이미 감싸진 것은 건너뛰므로 **재실행 안전**).
+`is_class_member(a.class_id, auth.uid())` 의 첫 인자는 건드리지 않는다(행마다 다른 컬럼).
+
+검증: 정책 **150 → 140**(11 삭제 + ②에서 1 추가) · 맨몸 `auth.*()` 호출 **0** ·
+감싸진 정책 65(62 + 이전부터 감싸져 있던 3) ·
+**`anon`·`authenticated` 두 역할이 11개 표에서 보는 행 수가 적용 전후 한 칸도 같다**
+(`library_articles` 250 · `library_books` 312 · `library_chapters_master` 10,922 ·
+`library_source_catalogs` 11 · `content_chunks` 0 · `library_book_vocabularies` 1,648,165 ·
+`library_article_vocabularies` 77,096(20만 상한) · `shared_dictionary` anon 0 / auth 49,244 ·
+`dictionary_categories` 566 · `dictionary_word_categories` anon 0 / auth 28,775 ·
+`lexicon_frequencies` 8,424).
+
+**아직 안 한 것**: advisor 가 놓친 같은 결함 35건(정책 식 안의 맨몸 `is_admin()` ·
+`is_admin_or_curator()`). 이 함수들은 `library_books` · `library_articles` · `shared_word_sets` 의
+**공개 카탈로그 정책**에도 들어 있어 잘못 건드리면 `/library` · `/comics` 가 통째로 빈다.
+
+### 🗑 아무도 읽지 않는 뷰 6개 삭제 (`20260923105031`)
+
+`user_vocab_enriched` · `word_mislevel_signal` · `v_dict_pos_sense_gap` ·
+`v_book_extraction_reasons` · `v_user_book_progress` · `v_extraction_quality_audit`.
+157개 객체(테이블 139 · 뷰 14 · MV 4) 전수에서 **행 0 + 코드 참조 0 + DB 내부 참조 0** 인 것은 이 6개뿐이었다
+(FK 양방향 · `pg_rewrite` · 트리거 · `prosrc` · `cron.job` 14건 교차 확인). 뷰 **14 → 8**.
+**테이블 중 DROP_SAFE 는 0개다** — 행이 0인 표 6개도 전부 코드나 함수가 만진다.
+
+### 아직 남은 것 — psql 이 필요하다
+
+`CONCURRENTLY` 는 MCP·SQL Editor 가 `25001` 로 거부한다.
+① `_pending_reindex_lav_word_key.sql` — **0.9 GB 회수**(2,391 MB · leaf 밀도 56.2% · 단편화 44.1% ·
+2026-09-16 계획서 값과 동일) ② `CREATE INDEX CONCURRENTLY idx_dcp_items_type_id ON csat_dcp_items (type, id)`
+— 3.9시간(16,413회 × 847 ms) 쿼리 해소. 절차: [reports/db-audit-2026-09-23/APPLY.sql](./reports/db-audit-2026-09-23/APPLY.sql) ⑥절.
+
+---
+
 ## CSAT 원문 판정 캐시 v3 (2026-09-18)
 
 사용자 승인 후 `20260918140000_csat_source_eligibility_cache.sql`, `20260918140100_csat_source_eligibility_consumers.sql` 적용.
 
 - `csat_source_eligibility`: article_id PK/FK, source_updated_at, policy_version, input/result JSONB, quality_flags, excerpt_evidence, linked_items, measured_at. 정본은 `library_articles`, 이 표는 재생성 가능한 캐시다.
+  - `uses text[]` + GIN `csat_source_eligibility_uses_idx` (`20260923205725_csat_source_eligibility_uses`): 이 원문으로 만들 수 있는 교재 재료 8종(`gate-rules.mjs` 의 `SOURCE_USES`). `csat_fit->gate->uses` 의 **투영**이며 정본이 아니다 — 쓰는 곳은 `source-policy-refresh.mjs` 하나다.
+    ⚠️ **NULL 과 `{}` 는 다른 뜻이다**: NULL = 아직 판정이 안 실림(79,669) · `{}` = 반려돼 뽑을 재료가 없음(705) · 태그 있음 7,347. 뭉개면 조회에서 「안 본 것」과 「봤는데 없는 것」이 섞인다.
+  - RPC `csat_source_live_rollup()` (`20260924150000_csat_source_live_rollup` · 2026-09-24 적용 · 읽기 전용 · `security invoker` · anon 실행 불가): 원천 × 등급별 편수 · 문항 붙은 수 · 판정 시각 범위 · 판정 규격 버전 범위. `/admin/csat/sources` 의 합계가 **커밋된 스냅샷**(87,720편 — gutenberg 퇴출 전)을 말하던 것을 DB 실측(64,102편)으로 바꾸는 입구다. 64,102행 0.09초.
+  - RPC `csat_source_inventory_live()` (`20260924151000_csat_source_inventory_live` · 2026-09-24 적용 · 읽기 전용 · anon 실행 불가): `library_articles` 원천 × 상태별 편수 · 판정(`csat_fit.gate.verdict`) · 미절단 원본 · 학령 분석 · 법적 탈락 · 첫/마지막 수집 · 원천별 상위 차단 사유(jsonb). `source-inventory-scan.mjs` 와 같은 정의 — 원천별 표의 실시간 입구. 약 1초(csat_fit 을 한 번만 풀도록 CTE materialized).
+  - RPC `csat_source_pipeline_live()` (`20260925090000_csat_source_pipeline_live` · 2026-09-25 적용 · 읽기 전용 · anon 실행 불가): 원천별 전체 · 조각 · 원본 보관 상태(keep · keep-pending · hold · discard · undecided) · 학령 분석 · 내용 판정 · 마지막 수집. 원본/조각은 `gate-rules.mjs` `derivativeKind`, 보관 상태는 `retentionOf` 와 같은 규칙 — 원천별 작업 진행표의 입구. **2026-09-25 수정**(`20260925100000_…_fix_pending`): 옛 발췌로 이미 조각(`feed_id=plos-extract` 같은 source_url)이 있는 원본은 「발췌 대기」가 아니라 보관·끝으로 센다.
+- `csat_drain_runs`: 드레인 실행 기록(`20260923004729`). 2026-09-23 까지 **쓰는 쪽이 0곳**이라 행이 0개였고 화면은 늘 「아직 안 돌렸다」였다 — `scripts/csat/drain-run.mjs`(쓰기)와 `apps/web/src/lib/csat/drain-runs.ts`(읽기)가 그 사이를 잇는다.
+  `items_skipped` 는 재실행 안전의 증거라 `null`(안 셌다)과 `0`(재실행인데 하나도 안 건너뜀 = 깨졌다)이 다른 뜻이다.
+  `finished_at` 은 트리거 `csat_drain_runs_stamp_finished` 가 **DB 시계로** 찍는다 — 클라이언트 시계와 섞여 소요가 **-1.08초**로 나온 실측(2026-09-23) 때문이다.
 - `csat_source_eligibility_history`: revision·입력·판정이 바뀔 때 이전 캐시 보관. 품질 신호만 바뀐 배치는 별도 백업으로 추적한다. 두 표는 RLS 관리자/큐레이터 조회, service_role 쓰기. history의 기본 anon 테이블 권한은 남지만 RLS 정책이 없어 실조회 0행을 확인했다.
-- `csat_source_is_eligible(uuid)`: v3·원문 revision 일치·usable/excerpt·blocker 없음·ready/published 확인. excerpt는 실제 article 문항도 요구한다. 신규/변경 원문은 재검증까지 사용 대기다.
+- `csat_source_is_eligible(uuid)`: 규격 v4(`20260924150000` 로 3·4 를 함께 받다가 캐시 64,102행 재적재 뒤 `20260924170000_eligibility_policy_v4_only` 로 4 만)·원문 revision 일치·usable/excerpt·blocker 없음·ready/published 확인. excerpt는 실제 article 문항도 요구한다. 신규/변경 원문은 재검증까지 사용 대기다.
 - `csat_source_is_gradeable(uuid)` (2026-09-20 · `20260920120000_grade_dcp_band_is_fit_not_eligibility`): **채점 허용** 판정. 적격과 같은 조건이되 **`cefr_above_band` 만 무시**한다(사유 배열에서 밴드 외 사유가 하나라도 있으면 거짓). `grade_dcp_item` 이 이것을 본다 — **밴드는 적합이지 적격이 아니다**: 학습자가 이미 받은 문항의 채점을 난이도 적합 판정이 막으면 답을 내고도 결과를 못 본다(이슈 #104). 서빙(`prescribe_today` · `textbook_practice_items`)은 그대로 `csat_source_is_eligible` 을 쓴다. 판정을 등급으로 못 가르는 이유: 사유가 `["cefr_above_band"]` 하나뿐인 원문 **11,276편**의 등급이 `blocked` 다(2026-09-20 실측).
 - `textbook_practice_items`, `prescribe_today`의 article 연습 선택, `grade_dcp_item`의 article 채점이 위 함수를 사용한다. 독서 입력 후보와 비 article 문항은 기존 소비 정책을 유지한다.
 
@@ -32,6 +139,7 @@
 |---|---|---|
 | `csat_session_attempts` | `id` uuid PK · `user_id` → auth.users · `item_id` text(`2026#31`) · `type_id` · `correct` bool(null = 넘김) · `confused` · `sec` · `answered_at` | **UNIQUE `(user_id, item_id, answered_at)`** — 재전송·두 탭이 겹쳐도 한 행. 인덱스 `(user_id, answered_at DESC)` |
 | `csat_review_queue` | PK `(user_id, item_id)` · `type_id` · `due_at` · `stage` 1\|2 · `updated_at` | 졸업하면 행 삭제. **`due_at` 은 코드가 계산한 값** — 합친 풀이를 시간순으로 다시 돌린 결과(`lib/csat/session/sync.ts#replayReviews`). DB 함수로 다시 계산하지 않는다(두 벌 금지) |
+| `csat_learner_state` | PK `user_id` → auth.users · `record` jsonb(DissectionRecord v1 — 예측 · 공식 · 복습 큐 · 진행 중 세트 · 열람) · `updated_at` | **기출 해부 기록의 서버 사본**(2026-09-25, `20260925093000`). 기기(IndexedDB)가 먼저, 서버는 다른 기기에서 이어지게 하는 사본. 병합은 코드 하나(`lib/csat/continuity.ts#mergeDissection`) — DB 에서 다시 합치지 않는다. CHECK: version 1 · 1MB 미만. RLS 본인 행만. 경로 `/api/csat/state` |
 
 두 표 모두 RLS **본인 행만**(`FOR ALL TO authenticated USING user_id = auth.uid()`) · `anon` 권한 회수(보안 권고 후속
 `csat_session_records_revoke_anon`). 기존 `csat_item_attempts`(dcp 문항 uuid)·`csat_trap_attempts`(선지 단위 훈련)와는 다른 단위라 새 표다.
@@ -593,7 +701,7 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 
 ⚠️ **`admin_*` 18종은 일부러 남겼다** — anon 에 열려 있으나 본문 `IF NOT is_admin_or_curator() THEN RAISE EXCEPTION 'Forbidden'` 이 막는다(anon 호출이 실제 'Forbidden' 을 받는 것 확인). 다음 차수.
 
-⚠️ **`csat_items_public` 은 advisor 의 유일한 ERROR(`security_definer_view`) 지만 오탐이다** — SECURITY DEFINER 인 것이 **의도된 저작권 경계**다. 기반표는 `csat_items` 이고 그 유일한 정책이 `csat_items_read {authenticated} SELECT USING (false)` 라 학습자에게 0행이며(anon 은 정책 자체가 없다), 학습자는 이 뷰로만 안전 컬럼(`stem`·`answer`·`points` 등, `passage`·`choices` 제외)을 읽는다. `security_invoker` 로 바꾸면 기반표 RLS 가 뷰에 적용돼 **`learner.ts`·`heatmap.ts`·`overlay.ts`·`session/catalog.ts`·`dissect-catalog.ts` 가 전부 0행**이 된다. **고치지 말 것.** 2026-09-20 재확인(뷰 `reloptions = {security_invoker=false}` 는 명시 설정이다).
+⚠️ **`csat_items_public` 은 advisor 의 유일한 ERROR(`security_definer_view`) 지만 오탐이다** — SECURITY DEFINER 인 것이 **의도된 저작권 경계**다. 기반표는 `csat_items` 이고 그 유일한 정책이 `csat_items_read {authenticated} SELECT USING (false)` 라 학습자에게 0행이며(anon 은 정책 자체가 없다), 학습자는 이 뷰로만 안전 컬럼(`answer`·`points` 등)을 읽는다 — `passage`·`choices` 는 뷰에 없고, **`stem` 은 2026-09-25 부터 컬럼 권한으로 닫혔다**(`20260925120000_csat_items_public_hide_stem` · 144문항 발문에 영어 원문 · authenticated 는 id·exam_id·no·section·in_scope·type_id·answer·points·high_score 만 SELECT). `security_invoker` 로 바꾸면 기반표 RLS 가 뷰에 적용돼 **`learner.ts`·`heatmap.ts`·`overlay.ts`·`session/catalog.ts`·`dissect-catalog.ts` 가 전부 0행**이 된다. **고치지 말 것.** 2026-09-20 재확인(뷰 `reloptions = {security_invoker=false}` 는 명시 설정이다).
 
 **v06.34 기본 권한 하드닝 — 세 번째 반복을 끝냈다** (`20260919231528` · `20260919231822` · `20260919232557`, 2026-09-20): 위 v06.164 와 v06.34 27종이 같은 실수를 두 번 기록했는데도 `csat_source_is_eligible` 에서 **세 번째**가 났다. 그 마이그레이션(`20260918140000`:73-74)은 `REVOKE ALL … FROM PUBLIC` + `GRANT … TO authenticated, service_role` 로 **이미 제대로 잠갔는데도** anon 이 EXECUTE 를 가졌다. 개별 마이그레이션을 아무리 성실히 써도 막히지 않는다는 뜻이라, 이번에는 기본값 자체를 고쳤다.
 
@@ -717,7 +825,7 @@ CardBack·WordLookupPopover 가 그린다. 카드가 어떤 예문을 고를지 
 | `library_chapters_master` | 1,296 | 1.4 MB | chapter 정본 — `content_hash` ref content_chunks · paragraph_offsets · sentence_offsets · word_count · `group_label` · `source_href`(원본 챕터 deep-link, SE TOC 매핑 · NULL→도서 TOC fallback) · `chapter_v_level`(챕터별 어휘 V-level p75·V11 제외 · 1,295/1,296 · book_v_level 편차 노출 · migration `20260709145433`) |
 | `content_chunks` | 1,174 | 13 MB | SHA-256 dedup 본문 저장 — PK=hash only · TOAST 대형 |
 | `library_book_vocabularies` | 96,636 | 39 MB | chapter별 사전계산 단어 (v06.34 VACUUM FULL 후 233→39 MB) · **v06.35** 진단 4컬럼 `resolved_via` / `resolved_lang` / `resolved_word` / `noise_kind` (`lemma IS NULL` 행에 `lookup_word_meaning` 해석 결과 기록 — `lemma` 자체는 불변) + 부분 인덱스 `idx_lbv_unbound_book WHERE lemma IS NULL` |
-| `library_articles` | 4 | 104 kB | ACP — 짧은 글 · `license_class` / `register` / `lexical_noise` / `display_only` (ACP §18 게이트 · BEFORE INSERT/UPDATE 트리거 `acp_apply_license_gate` 자동 도출 · `trg_la_require_audio` = VOA 발행 시 `audio_url` 필수 게이트, 듣기 정체성 · `source` CHECK **28종** — 2026-08-30 마이그레이션 `20260830020000` 이 `futurity` 추가(어댑터는 2026-08-21 부터 있었는데 제약만 빠져 INSERT 가 전량 거절되고 있었다) · 2026-09-13 `add_europe_pmc_article_source` 가 `europe_pmc` 추가) |
+| `library_articles` | 4 | 104 kB | ACP — 짧은 글 · `license_class` / `register` / `lexical_noise` / `display_only` (ACP §18 게이트 · BEFORE INSERT/UPDATE 트리거 `acp_apply_license_gate` 자동 도출 · `trg_la_require_audio` = VOA 발행 시 `audio_url` 필수 게이트, 듣기 정체성 · `source` CHECK **28종** — 2026-08-30 마이그레이션 `20260830020000` 이 `futurity` 추가(어댑터는 2026-08-21 부터 있었는데 제약만 빠져 INSERT 가 전량 거절되고 있었다) · 2026-09-13 `add_europe_pmc_article_source` 가 `europe_pmc` 추가 · 2026-09-25 `20260925032757_source_get_round3_sources` 가 `global_voices`·`global_storybooks`·`gdl` 추가 · `20260925053055_source_get_round4_pd_sources` 가 `eia_kids`·`nih_news_in_health` 추가 — 현재 **38종**) |
 | `library_article_vocabularies` | 11,011,463 | **1,717 MB** | article 단어 — **DB 최대 테이블**(전체 7.6 GB 의 절반). 19,384편 × 편당 568행. **원문에서 재현 가능한 캐시다** — `content` 에 `normalizePunctuation`→`reflowSoftHyphens`→`extractBookLemmas`→`computeLearningValue`(전부 순수 동기 함수·LLM 0)를 돌리면 낱말·빈도·`first_sentence` 가 **비트 단위로 일치**(6편 2,565행 대조·불일치 0 · 편당 46.5 ms · 실측 2026-09-01). 고유 정보 0 → 보관 범위는 비용 문제이지 데이터 손실 문제가 아니다.<br>**v06.35** 마이그레이션 `20260901040000` 이 죽은 컬럼 3개 제거 → 4,249→3,850 MB(−399 MB): `id`(uuid 대리키 · `idx_scan=0` 인 399 MB PK 인덱스 · 참조 FK 0) · `lemma`(11,011,463행 **전량 NULL** · FK+부분인덱스 동반 제거 · RPC 3종의 `COALESCE(lav.lemma, lav.word)` 정리) · `created_at`(읽는 코드 0 · 기사에 `vrl_calculated_at` 있음). **PK 없음** — 실제 키 `UNIQUE (library_article_id, word)`(6,410,326 scans)가 대신한다(승격 시 650 MB 재빌드라 안 함 · 논리복제 대상 아님). 남은 컬럼 6: `library_article_id` · `word` · `frequency_in_article` · `first_sentence` · `base_learning_value` · `context_pos`.<br>**v06.35 정리 완료** — 문장 사본 **9,200,000행**을 비웠다(보유율 96.61%→16.03%). `first_sentence` 는 평균 188 B 의 **무압축** 사본이었고(2 KB 미만이라 TOAST 압축이 안 걸린다) 한 기사 안에서 평균 4.48번 중복됐다. 남긴 것은 발행 글의 전 행 + 사전 채굴이 문맥을 쓰는 낱말(`prune_article_vocab_sentences` · 마이그레이션 `20260901060000`). `VACUUM FULL ANALYZE` 뒤 **4,341 → 1,717 MB**(heap 1,238 · idx 479). **세션 전체 4,249 → 1,717 MB(−59.6%)이고 동작 변화는 0이다**(RPC 두 개의 출력 해시가 시작 시점과 동일).<br>⚠️ `library_book_vocabularies.lemma` 는 **94.8% 채워진 살아있는 컬럼**이다 — 혼동 금지 |
 | `library_seed_catalog` | 1,843 | 4 MB | seed 후보 — `imported_book_id` FK ON DELETE SET NULL (소스 GET 복귀 핵심) · curation_meta JSONB |
 | `library_source_catalogs` | 11 | 80 kB | 9 소스 (gutenberg / standard_ebooks / wikibooks / wikisource / librivox / openstax / open_library / hathitrust / simple_wikipedia) + manual + voa_learning · composite_score · S/A/B/C/M tier |
@@ -798,19 +906,20 @@ cast-2000 audit chain — 4 테이블 cascade:
 
 ---
 
-## Views (7)
+## Views — 실측 **8개** (2026-09-23 · `pg_class relkind='v'`)
+
+> 아래 표는 **전량이 아니다**(설명이 있는 것만). 정본 목록은 DB 에 직접 묻는다:
+> `select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relkind='v'`.
+> 2026-09-23 에 아무도 읽지 않는 뷰 6개를 지웠다(14 → 8) — 위 「DB 전수 조사 조치」 참조.
 
 | view | 용도 |
 |---|---|
 | `v_topic_word_salience` | **2026-08-16 신규** — TCP 주제×표제어 두드러짐(배경 대비 로그오즈비). `salience>0` = 그 주제에서 과대표집 |
 | `v_text_content` | `texts` + `library_chapters_master` + `content_chunks` JOIN — 워크스페이스 본문 fetch (v06.34: `user_book_group_id` 컬럼 추가) |
 | `v_book_extraction_stats` | 도서별 추출 어휘 집계. **v06.35**: 기존 `lemma_*` 5컬럼 + 해석률 5컬럼(`noise_count` · `resolved_other_count` · `unresolved_count` · `resolved_pct` · `learnable_coverage_pct`) |
-| `v_book_extraction_reasons` | **v06.35 신규** — 도서별 어휘를 `bound` / `noise_person` / `noise_geo` / `foreign_{lang}` / `dialect_spelling` / `morphology` / `lexicon_only` / `unresolved` 버킷으로 분해 |
-| `v_user_book_progress` | 사용자별 도서 진행도 |
 | `library_seed_catalog_view` | seed catalog UI 용 가공 |
-| `user_vocab_enriched` | 사용자 단어장 + 사전 메타 enriched |
 
-**보안 옵션 (v06.47)**: 5 view 모두 `SECURITY INVOKER` (`ALTER VIEW ... SET (security_invoker = true)`) — 호출자 권한으로 기반 테이블 RLS 적용. SECURITY DEFINER (PG15 default) 의 RLS 우회 위험 차단. Supabase advisor "Security Definer View" 경고 해결 migration `20260614150000_views_security_invoker`.
+**보안 옵션 (v06.47)**: 아래 view 는 `SECURITY INVOKER` (`ALTER VIEW ... SET (security_invoker = true)`) — 호출자 권한으로 기반 테이블 RLS 적용. SECURITY DEFINER (PG15 default) 의 RLS 우회 위험 차단. Supabase advisor "Security Definer View" 경고 해결 migration `20260614150000_views_security_invoker`.
 
 ---
 
@@ -1095,6 +1204,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 | 정책 3 | `video_public_read`(누구나 SELECT) · `video_admin_write` · `video_admin_update` |
 | `funnel_events_event_check` | `video_started` · `video_completed` 추가 (17 → 19종) |
 | `funnel_events_event_check` (2026-09-19 · 사용자 승인 후 적용, DB 버전 `20260918232454`) | `fit_level_moved` · `fit_sheet_opened` 추가 (38 → 40종) — `20260919100000_funnel_allow_fit_paint.sql`. 목록은 적용 시점 DB 제약에서 옮겼다 |
+| `funnel_events_event_check` (2026-09-22 · 사용자 승인 후 적용, DB 버전 `20260922004102`) | `hub_promo_clicked` · `hub_hero_moved` 추가 (40 → 42종) — `20260922090000_funnel_allow_hub_portal.sql`. 목록은 2026-09-22 DB 제약에서 옮겼다 |
 
 ⚠️ **왜 공개 버킷인가**: 이 영상의 첫 독자는 로그인하지 않은 **교사**다
 (허용 CAC ₩400 → 교사→학급 경로만 성립, `PLATFORM_AUDIT.md`). 로그인 뒤에 두면
@@ -1897,6 +2007,17 @@ await anon.rpc('get_lcp_config')   // → 에러 없이 호출됨 (내부 파이
 `apply_diagnostic_result` · `purge_ghost_vocab` · `decode_entities_in_stored_sentences` ·
 `fix_chapter_html_entities` · `republish_article_word_set` 등. 다수가 `p_user_id` 를 인자로 받아
 **남의 계정 데이터를 대상으로 호출될 수 있다**.
+
+> **글 단어장 발행 두 함수의 어휘 가드**(2026-09-24 · `20260923232916_article_word_set_require_vocab`):
+> `publish_article_word_set` · `republish_article_word_set` 는 그 글의 `library_article_vocabularies` 행이
+> 0 이면 `check_violation` 으로 멈춘다(publish 는 기존 세트 확인 뒤 · republish 는 DELETE 앞). 실제 1차 방어선은
+> 그 앞의 `content_gate_publishable` — critical 「추출 비어있음(0단어)」 — 이고 이 가드는 이중 장치다.
+> 즉 **어휘 행이 없는 글은 발행되지 않는다**(메시지는 「콘텐츠 품질 게이트 FAIL」). 근거·보관 범위 계획:
+> [lav-retention-2026-09-24](./reports/lav-retention-2026-09-24.md).
+>
+> **삭제된 RPC**(2026-09-24 · `20260924070635_drop_dead_dict_mining_rpcs` · 사용자 결정): `select_article_coverage(uuid)` ·
+> `select_extraction_residual()` — 호출자 0(코드·함수·`pg_stat_statements`), 읽던 표가 발행·가공 글 몫만 남아 옛 목적을 못 한다.
+> 사전 미등재 낱말 채굴은 `scripts/dict/drain-article-lemmas.mjs` 가 본문에서 직접 한다. 원문: `docs/AI_CONTEXT/rollback/drop_dead_dict_mining_rpcs-rollback.sql`.
 
 ### 왜 보류했나 (그냥 REVOKE 하면 안 되는 이유)
 

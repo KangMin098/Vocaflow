@@ -137,8 +137,17 @@ export interface OrderView {
   evidence: OrderEvidence
   /** 한 권에 드는 문항 수 — 정본에서 온다. */
   itemsPerVolume: number
-  /** 한 권의 단원 수 — 조판 명령의 `--units`. */
+  /** 한 권의 단원 수 **기본값** — 조판 명령의 `--units`. 시중 9종 실측 중앙값이다. */
   unitsPerBook: number
+  /** 한 단원의 문제 수 — 권의 문제 수 = 단원 수 × 이 값. */
+  itemsPerUnit: number
+  /**
+   * 고를 수 있는 단원 수 — **시중 실측 분포**(`market-spec.json` units.unitsPerBook).
+   * ③ 규격이 이 범위에서 고르게 한다(2026-09-24 전에는 기본값 하나를 「고정」처럼 보여 줬다).
+   */
+  unitsRange: { min: number; p25: number; median: number; p75: number; max: number }
+  /** 지금 있는 시리즈 — 새 시리즈 지시문이 이름·색 겹침을 미리 알린다. */
+  seriesList: { id: string; brand: string; accent: string; kind: string }[]
   /** 재고를 언제 센 값인가 (ISO). 못 읽었으면 null — 신선도를 주장하지 않는다. */
   inventoryAt: string | null
   loadError: string | null
@@ -273,6 +282,60 @@ export function renderCommand(v: OrderVolume, unitsPerBook: number): string {
     ` --series ${v.seriesId} --band ${v.step} --units ${unitsPerBook}` +
     ` --out volume-${v.seriesId}-v${v.step}.html`
   )
+}
+
+/**
+ * 책으로 묶은 **다음** 한 줄 — 학습자 상세면의 목차를 굽는다.
+ *
+ * ⚠️ 이 줄이 화면에 없던 동안 어휘·구문 12권이 **목차 없이** 나갔다(실측 2026-09-23). 도움말에만
+ *   적혀 있었고, 화면에 없는 것은 사용자가 모른다. `--bands` 로 **그 권만** 다시 굽는다 —
+ *   빼면 그 시리즈 전체를 다시 굽는다(안전하지만 오래 걸린다).
+ */
+export function contentsCommand(v: OrderVolume, unitsPerBook: number): string {
+  return (
+    `npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/contents-snapshot.mjs` +
+    ` --series ${v.seriesId} --bands ${v.step} --units ${unitsPerBook}`
+  )
+}
+
+/**
+ * 실행 줄 하나를 **Claude Code 에게 맡기는 지시문**으로 감싼다.
+ *
+ * 터미널을 안 여는 사람도 이 문장을 Claude Code 에 붙여 넣으면 같은 일이 된다. 결과를 무엇으로
+ * 알려 달라는지까지 적는다 — 「돌렸다」만 받으면 통과인지 거절인지 모른다.
+ */
+export function claudeAsk(cmd: string, why: string): string {
+  return [
+    '저장소 루트(Vocaflow)에서 아래 명령을 그대로 실행해 줘.',
+    `목적: ${why}`,
+    '',
+    cmd,
+    '',
+    '끝나면 알려 줘: ① 성공/실패 ② 쓴 것(DB·파일)과 건너뛴 수 ③ 실패면 원인과 다음에 할 일.',
+  ].join('\n')
+}
+
+/**
+ * 막힌 관문 하나를 **통째로** 맡기는 지시문 — 내보내기 → 채우기 → 들이기가 한 문장에 순서대로 든다.
+ * 줄마다 따로 맡기면 사람이 순서를 기억해야 한다.
+ */
+export function claudeAskGate(
+  volumeTitle: string,
+  gateQuestion: string,
+  commands: { cmd: string; why: string; claudeCode?: boolean }[],
+): string {
+  return [
+    `교재 「${volumeTitle}」의 발주 확인 중 「${gateQuestion}」가 막혔어. 아래 순서대로 채워 줘.`,
+    '',
+    ...commands.map((c, i) =>
+      c.claudeCode
+        ? `${i + 1}. (Claude 가 직접) ${c.cmd}\n   — ${c.why}`
+        : `${i + 1}. 저장소 루트에서 실행: ${c.cmd}\n   — ${c.why}`,
+    ),
+    '',
+    '규칙: 드레인은 AGENTS.md 「LLM 판단이 필요한 일」 3단 구조를 따르고, --commit 이 붙은 줄은 앞 줄 결과를 확인한 뒤에만 돌려.',
+    '끝나면 알려 줘: 채운 수 · 건너뛴 수 · 아직 모자란 몫. (새교재 화면 숫자는 30분마다 갱신된다)',
+  ].join('\n')
 }
 
 /**

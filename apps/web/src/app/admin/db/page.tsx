@@ -420,7 +420,7 @@ export default async function AdminDbPage() {
             return (
               <div key={axis}>
                 <h3 className="mb-1.5 flex flex-wrap items-center gap-2">
-                  <span className="rounded-[var(--r-sm)] bg-[var(--p)]/10 px-1.5 py-0.5 font-mono text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--p-hover)]">
+                  <span className="rounded-[var(--r-sm)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] px-1.5 py-0.5 font-mono text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--p-hover)]">
                     {axis}
                   </span>
                   <span className="font-display text-[12px] font-[700] text-[var(--t1)]">

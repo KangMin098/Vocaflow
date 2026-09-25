@@ -11,7 +11,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import type { Lecture, LectureExamFile, LectureIndex } from './types'
+import type { Lecture, LectureExamFile, LectureIndex, LectureStep } from './types'
 
 const DATA_DIR = path.join(process.cwd(), 'src/lib/csat/lecture-data')
 
@@ -48,4 +48,27 @@ export function loadLecture(itemId: string): Lecture | null {
     }
   }
   return examCache.get(exam)?.lectures[itemId] ?? null
+}
+
+/**
+ * **강의의 «순서»만 — 대본 글자는 한 자도 없다.**
+ *
+ * 해설 극장의 왼쪽 레일은 재생을 누르기 전에도 「무엇을 어떤 차례로 보게 되는지」를 보여야 한다.
+ * 그런데 `LectureStage` 의 큐 목록은 `/api/csat/lecture` 를 부른 뒤에야 생긴다 — 그때까지
+ * 레일이 비어 있으면 화면이 「눌러 보기 전에는 아무것도 아닌 것」이 된다.
+ *
+ * 그래서 서버가 **역할 · 가리킬 곳 · 길이 · 말한 문장 번호**만 미리 준다. 이 넷은 대본이 아니다
+ * (A1 이 막는 것은 `segments` 다). 재생이 시작되면 같은 순서의 큐가 그 자리에 들어온다.
+ */
+export function lectureOutline(itemId: string): LectureStep[] {
+  const lecture = loadLecture(itemId)
+  if (!lecture) return []
+  return lecture.cues.map((c) => ({
+    id: c.id,
+    order: c.order,
+    role: c.role,
+    target: c.target,
+    est_sec: c.est_sec,
+    ...(c.focus?.length ? { focus: c.focus } : {}),
+  }))
 }

@@ -1,0 +1,1827 @@
+[
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d610f19-d0cb-4df5-a777-67c3c12d2683",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "773f016da194c26623ca9c5cc16091be5066cc45f2b8d3bba3c326e070d513f6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "선정적 뮤직비디오가 소녀의 외모관·자존감에 더 영향을 준다는 네덜란드 연구를 실험 설계·결과·연구자 주장으로 전해 요지·내용일치 칸을 채운다; 성 관련 소재라 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Tom ter Bogt was instated today",
+          "note": "연구자 인용 문단은 도덕적 공황은 필요 없다며 평등을 근거로 드는 논지가 서서 주장 문항으로 가공됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.667Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Sexy_video_clips_influence_young_girls_more_than_boys%2C_study_shows",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.343
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d61af32-9ed6-4635-839e-25deebf436ba",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3967f3c311b247096e927769bed3bf375f84956bde2437214019510e2b61de7a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "뉴욕 소형기 아파트 충돌 사고를 경위·신원·당국 대응·목격담으로 전하는 장문 속보라 내용일치·서사 칸을 채운다; 첫 줄 잔재와 중복 서술은 걷는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Wallace Sines, a source for CNN",
+          "note": "낙하산 문단은 기체 설명과 사고 연결이 한 문단에 서지만 중복된 신원 문단들과 첫 줄의 ] 잔재는 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.668Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Small_aircraft_crashes_into_building_in_New_York_City",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.394
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d62da47-8ae4-4fa6-97ca-0f0c3443153e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fe8d5c748c7804651276f1295dd9f7d1cf7b43c078310be3e6563423a96e0dbd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "레베의 루마니아 할인점 진출 전략(중소도시 공략)과 소매 시장 호황을 전해 요지·내용일치 칸을 채운다; 도시 이름 나열은 걷는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Romania is currently going through a",
+          "note": "소매 호황 문단은 도시 이름 없이 경쟁사 진출 흐름이 서서 요지 문항으로 떼어졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.668Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/German_retail_giant_Rewe_to_open_Penny_Market_stores_in_Romania",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.304
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d63fa08-b6b9-4dfe-a0cb-dd1373791b36",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "164a018e7c4fc92016221704da3ebd8475082b14031b586fecee0f3fcfefb052",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "에스토니아 장애아 보육원 화재의 피해·출동·애도 선포·점검 이력을 전해 내용일치 칸을 채운다; 아동 사망 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The orphanage was opened in 1950",
+          "note": "보육원 이력 문단은 1950년 개원부터 점검까지 시간순이라 순서 문항으로 잘렸다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.668Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ten_children_killed_in_Estonian_orphanage_fire",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.699,
+          "words": 193,
+          "english": 0.372
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d66bf37-e882-4725-a739-53245b382e69",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d63a29b0f026870b82c29f9308db1b07bd5086d611a172af96f9f99a1df05546",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "빅토리아주 보건노조 파업을 노조 주장·정부 임금정책·야당 입장으로 맞세워 주장-근거·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "National secretary of the HSU, Kathy",
+          "note": "노조 사무총장 문단은 입원 마비→이송이라는 파업 영향이 서서 인용 둘은 줄여도 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.668Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_health_workers_to_close_intensive_care_units_in_Victoria_next_week",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.33
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d6978f0-21d8-4481-96f3-eb003916ba56",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "002b2d23aa398595f26bef6527ca34251212dbb07fcfc3e287f66311e1480d76",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "파리 교외 소요 사흘째를 총리·경찰·주민 발언과 사고 조사 결과로 엮어 대립 관점의 내용일치 칸을 채운다; 폭력 소재라 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Meanwhile, the police reported their initial",
+          "note": "사고 조사 문단은 경찰 보고와 유족 반론이 이어져 주장-근거 대비로 가공됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Third_night_of_unrest_is_calmer_in_Paris_suburbs",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d6d88e8-3a03-49f4-b367-cecf434ce0cc",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2d12f0e492adff5a122cd33bcd8ed84f4e881ccf8d27781f467d307b6be58113",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "파키스탄 미군 공습으로 알카에다 폭탄 제조자가 숨졌다는 보도와 확인되지 않은 정황을 전해 내용일치 칸을 채운다; 테러 소재라 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Pakistani officials have been searching for",
+          "note": "시신 수색 문단은 증거 부재와 추정이 한 문단에 서서 사실-추정 구분 문항에 맞았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Al_Qaeda_bomb_maker_reportedly_killed_in_U.S._airstrike_in_Pakistan",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.306
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d74e585-80cd-4ca0-9fc3-cd5c552dbe22",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9611b5422edad157c5e9e50f7b6027b5143079b3f7f7065882828adfee04f338",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "해밀턴 항공박물관 에어쇼에서 복원 전투기가 비행한 소식을 박물관 목적과 함께 전해 짧은 내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The non-profit museum is dedicated to",
+          "note": "박물관 설명 문단은 복원 목적과 비행 조건(재정)이 두 문장으로 이어져 쉽게 떼어졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Restored_warplanes_flown_in_Hamilton%2C_Canada",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.627,
+          "words": 118,
+          "english": 0.339
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d79730a-f445-413f-b3a8-482c377cce62",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "396756f47662e21f28774feb5a5f9125d40b1175caec2cd39d09ce37ebb682dc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "영아기 뇌척수액 과다가 자폐 조기 신호일 수 있다는 연구를 규모·정확도·인과 한계와 함께 전해 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Currently, coauthor David Amaral said, children",
+          "note": "진단 시기 문단은 현재 2~3세 진단과 6개월 가능성 대비로 섰지만 다른 문단의 CSF 용어는 바꾸기 어려워 V6 아래로는 못 내렸다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Scientists_say_excess_cerebrospinal_fluid_may_serve_as_early_sign_of_autism",
+          "year": 2017,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.357
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d7a5942-a8f3-4e92-b576-a25c9768a1f7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f7bc1f37d572df8ef8f0acaf2bc333bfcc04504d0ccdc4761be42bfb5b4a9dd9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "F-14 퇴역 비행을 예비기 대체·유지비 문제·후속기로 전하는 한 문단 기사라 사건 흐름으로 내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The U.S. Navy's F-14 made its",
+          "note": "유일한 문단이라 그대로 떼었고 비용 문제→후속기 교체 인과가 서서 약어만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._Navy_officially_retires_F-14",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 7.143,
+          "words": 112,
+          "english": 0.39
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d7e9625-c8ba-4f2e-bde3-04bdd53f4a4e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5f70444d2e747c79f65fd668cb65ea3a51ec2776eb0d02b7e9308213046cf576",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "웬디스 칠리 속 손가락의 주인을 찾는 지문·DNA·독성 검사 경과를 전해 내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Fingerprints on the detached digit have",
+          "note": "지문 조회 문단은 조회→불일치→가능성 낮음 흐름이 서고 marginal 만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Owner_of_Wendy's_chili_finger_still_not_found",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.571,
+          "words": 175,
+          "english": 0.36
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d821dfe-7191-476a-a46e-a88a81fead11",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e551742efec7780f8544fa961faf7a1d1d734f9615d2ca0f2c062855e9e7ac95",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "미국 콜센터 기업의 카디프 일자리 600개 창출 소식과 웨일스 정부·회사의 이유를 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Conduit Europe chief executive officer Denis",
+          "note": "CEO 발언 문단은 성과가 좋아 성장을 여기 둔다는 이유가 서서 목적 파악에 쓰였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_call_centre_business_to_create_600_jobs_in_Wales",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.345
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d822d99-67f3-4b7b-84f4-6f5f0a84d91c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80ff0b81928929f28daa02fe7b1e3b86fe341e39b0d35e0ae918c4b972bef22d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "우크라이나군 진격 속 러시아 접경 군사훈련 발표와 서방 비난·동부 교전 상황을 전해 내용일치 칸을 채운다; 전쟁 소재라 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Meanwhile, fighting continued in Eastern Ukraine",
+          "note": "동부 교전 문단은 포위·비축 흐름이 서지만 지명·세력명이 많아 V6 에 머문다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Russia_stages_military_exercises_as_Ukrainian_forces_advance",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.357
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d828bd8-3bbd-4688-90d8-43f2218b12aa",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8902ddd7ecc03758829eaa14a25664ed6e75d0baa755c14ae7c24a2f1a4130b2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "다마스쿠스 교도소 폭동과 수감자 증언·인권단체 성명을 전해 내용일치 칸을 채운다; 사망 소재라 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Prisoners have claimed that they have",
+          "note": "수감자 증언 문단은 구타 주장이 인용 하나로 서지만 경전 모독 구절은 가공 때 줄인다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Syrian_jail_riot_kills_at_least_25",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.605,
+          "words": 152,
+          "english": 0.388
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d850c37-b7be-426a-80cc-18ae60004d26",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "08eaf4d2c4967c7f65d4d1b6f0baded827ef61f23a8c3fa9bc33cb84b7537111",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "방글라데시 야당 지도자의 17년 망명 후 귀국을 정치 격변·선거 전망과 엮어 요약·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "His return comes amid preparations for",
+          "note": "2024년 봉기 문단은 할당제 반대→전국 시위→실각 흐름이 서지만 정치 용어 때문에 V6 에 머문다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Opposition_leader_Tarique_Rahman_returns_to_Bangladesh_after_17_years",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.325
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d864754-2c81-41f8-bb16-282a3f34f469",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0f64dfb81481def2ec3f85ef08687201ca950fdf6a5e217eb8fabe80bef3baa2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "팔웰 장례식을 앞두고 폭탄을 실은 대학생 체포와 경찰이 본 표적(시위대)을 전해 내용일치 칸을 채운다; 폭력 소재라 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Police do not believe that Uhl",
+          "note": "표적 추정 문단은 장례식이 아니라 시위대라는 반전이 서서 내용일치 선택지로 쓰였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Student_who_planned_to_attend_Rev._Jerry_Falwell's_funeral_arrested_after_homemade_bombs_found_in_car",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.365
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d87168a-c3e5-49aa-9dc2-fba81e74ec32",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "398f61dc758edce11d548dfbbc200659748d1d0094baad8e98f86e520a7d0825",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "오럴 로버츠가 아들의 비리 논란 속 총장으로 복귀하고 교수 측·동문이 반발한 경과를 전해 짧은 내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On Monday night alumni, clergy from",
+          "note": "동문 집회 문단은 요구가 한 문장에 서서 떼기 쉬웠고 permantly 오타는 고친다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Oral_Roberts_returns_to_namesake_university_amid_son's_scandal",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.797,
+          "words": 158,
+          "english": 0.312
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d87e6d6-3acf-4d7a-9503-677a70e90ddd",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "de0e9700a6392594043127a9879d60493bb3e81aecd5de7df69049195fb9ac0d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "영국 내무장관의 성탄 테러 경보를 위협 주체·장기성·대응책으로 전해 내용일치·요약 칸을 채운다; 극단주의 설명은 공식 인용으로만 둔다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "As part of the counter terrorist",
+          "note": "생체인식 시범 문단은 대응책 하나를 짧게 전해 떼어졌지만 논지는 약해 내용일치 선택지에 쓴다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Home_Secretary_says_about_30_major_conspiracies_threaten_UK_this_Christmas",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.37
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d8a11ef-fc3d-4f4a-b311-26b0a88a1849",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "515cdc4cf16580d8d69ce93e72147c1605fb8b4e161d5e3a2a61bc203302d1d2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "머지사이드 17세 총격 사망 사건의 신고·사망·현장 봉쇄·용의자 체포를 전해 내용일치 칸이 된다; 사망 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The scene of where the shooting",
+          "note": "현장 봉쇄 문단은 봉쇄→감식→체포 흐름이 서서 순서 문항으로 잘렸다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Seventeen-year-old_shot_dead_in_Merseyside%2C_England",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.848,
+          "words": 171,
+          "english": 0.409
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d8f34a4-f7b5-4ac9-b6a4-7739f8b80351",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "159b8db1f7d8ec975f86604772e3a6d21ac245277bb937083d9339cd0aa35578",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "베이루트 폭발로 하리리 전 총리가 숨진 사건의 피해·원인 추정·책임 공방을 전해 내용일치 칸을 채운다; 끝의 약력 문단은 걷는다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Only one group has claimed responsibility,",
+          "note": "책임 주장 문단은 확인 안 된 단체와 시리아 배후설 대비가 서서 사실-주장 구분 문항이 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Large_explosion_in_Beirut_kills_many_including_former_prime_minister",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.342
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d92fb60-be20-41bc-864d-8f3ffccdf0dc",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8a370f49a21798f09a601da533dba229f2dbdd53b730cab02b395eb5d1d3c62b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "캥거루섬에서 529일 만에 닥스훈트 발레리를 구조한 사연을 덫 설계 과정과 함께 전해 초등·중등 읽기 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The local team has set up",
+          "note": "덫 설계 문단은 집 냄새로 유인→야생동물 문제→원격 문 해결로 이어져 사건 연결이 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Kangala_Wildlife_Rescue_rescues_miniature_dachshund_Valerie_529_days_after_its_escape_on_Kangaroo_Island%2C_Australia",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.604,
+          "words": 111,
+          "english": 0.349
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d994650-aac4-432b-b2ed-647fd0a4c97b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f691cf2f4091c2b798708b6a74bf2e3fbd0498ade71f342396d3acdb2cb07fba",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "영국 물가 3.5% 상승을 원인(유가·부가세)과 중앙은행 총재·재무장관 서한으로 전해 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The British Government has an inflation",
+          "note": "목표 초과 서한 문단은 2% 목표→초과→설명 의무 인과가 서서 수치 없이도 요지가 남았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UK_inflation_rate_increases_to_3.5%25",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.412
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d9bc6b8-e6b9-4ea6-a205-4fab991bdc49",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5fb20184791e213854df2decc71c8e052192b4e64829fb8daaecd0ffaac058e9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "캐나다 스폰서십 스캔들의 발단·감사·조사·보고서 결론을 시간순으로 전해 서사·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Former Prime Minister Jean Chrétien then",
+          "note": "감사 결과 문단은 1억 달러 오지급과 원래 목적 대비가 서지만 기관명이 많아 V6 에 머문다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Gomery_report_on_Sponsorship_Program_released",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d9c17d3-de20-4a98-a7b7-352b39ad233a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0d2e4eff3e1781c47f976d10913175a297077dcae3d377809726338e1294bc94",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "관방장관이 바이러스 유출 문제로 위니 사용 자제를 권고한 두 문단 기사라 이유와 권고가 서 목적·내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "purpose"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Chief Cabinet Secretary stated in",
+          "note": "관방장관 발언 문단은 가장 안전한 방법은 쓰지 않는 것이라는 권고가 홀로 서서 목적 문항에 쓰였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Japanese_Chief_Cabinet_Secretary_called_attention_to_Winny",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.556,
+          "words": 90,
+          "english": 0.309
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-56-665Z",
+    "id": "0d9e3767-4851-4e16-a814-335f5618e659",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "afc3637c55bb7c70079244ab071dd4d3eafafc8ee4a866033a2daa75605b3e09",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "소말리아 무장세력에 납치됐던 구호요원 3명의 석방 경과와 소말리아 납치 배경을 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Somalia has been devastated by internal",
+          "note": "배경 문단은 1991년 정부 붕괴 이후 납치가 잦다는 인과가 서서 떼기 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:56.669Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Three_aid_workers_released_by_Somali_gunmen",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.114,
+          "words": 176,
+          "english": 0.398
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

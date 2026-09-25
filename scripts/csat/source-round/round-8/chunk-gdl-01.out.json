@@ -1,0 +1,947 @@
+[
+  {
+    "id": "0108ada0-5831-4f45-aac4-b51568a9830f",
+    "source_updated_at": "2026-09-25T04:03:41.180521+00:00",
+    "body_sha256": "2e9687becf822e016c1cd9f2c090313d6bf688d22c60c0cfa20ef3f3e085952b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "땅콩을 캐고·굽고·심어·파는 순서가 본문 앞 열 문단에서 이어져 초등 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the school holidays Peter stayed",
+      "note": "첫 문단이 그대로 도입이 된다 — 끝의 이해 문항·출판사 소개만 걷어내면 된다."
+    }
+  },
+  {
+    "id": "01f0fb92-1fe1-4198-ae11-27d6c4840236",
+    "source_updated_at": "2026-09-25T04:03:36.65973+00:00",
+    "body_sha256": "6cd3ed4c9f24ec389ea374c2516df9f0ddd5d22118789e283b37f76563f41867",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "할머니가 다친 뒤 레보의 제안이 차례로 거절되다 차 파티로 풀리는 흐름이라 초등 순서·심경 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Gogo trips over a rock while",
+      "note": "다침→도시로→세 번 거절→해결의 반복 구조가 뚜렷해 떼기 쉽다."
+    }
+  },
+  {
+    "id": "02bbf89b-40ad-4a06-8803-5e42a110a97d",
+    "source_updated_at": "2026-09-25T04:02:58.171269+00:00",
+    "body_sha256": "34e90d773598178c5211aafa140350833de377eae1023c8ef4102cd46dd754d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "더러운 물방울이 여행하며 남을 돕고 깨끗해지는 여정이 장면마다 이어져 초등 순서·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Let’s go to see Uncle Vase!\"",
+      "note": "같은 인사말 반복이 길어 줄여야 하고 끝의 활동 질문은 걷어낸다."
+    }
+  },
+  {
+    "id": "04537526-9d8e-41ca-963b-fbcbe758c8eb",
+    "source_updated_at": "2026-09-25T04:02:49.477801+00:00",
+    "body_sha256": "64a6708f90200a3d9990ddc89f0e3b41852f9a3c86c0da7d156f1f10268c6348",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "한밤 소리에 겁먹은 론니의 공포가 쌓이다 친구들의 장난으로 풀려 심경 변화 칸이 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "mood",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It was the middle of the",
+      "note": "공포 묘사 문단은 떼어도 서고 crematory·jagged 정도만 쉬운 말로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "04b8d9a8-2e2a-43c5-af72-e32b24017a8f",
+    "source_updated_at": "2026-09-25T04:03:21.748945+00:00",
+    "body_sha256": "6d3848bff79adc959f0c8bb8e5d7de02936de12217f3089b97c0bd2d52c08190",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "하루 동안 본 것마다 꿈이 바뀌다 우주비행사로 정해지는 흐름이 이어져 초등 순서 칸 하나는 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The teacher tells us to write",
+      "note": "문장이 짧고 쉬워 그대로 쓸 수 있다 — 그림 없이도 사건이 읽힌다."
+    }
+  },
+  {
+    "id": "0660c9a8-7627-4102-b38c-1693ecef2009",
+    "source_updated_at": "2026-09-25T04:03:42.580378+00:00",
+    "body_sha256": "99c4a8f93c4a2beefd3336cfb2c7da83b243c42da5dab7a891d058fa683fd10d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "hold",
+    "genre": "fiction",
+    "why": "탈것만 바꿔 「원한다」를 되풀이하다 마지막에 배를 배운다는 한 줄뿐이라 문장 연결 최소선에 걸친다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "vocab"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V1"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Dany wants a bike. Dany wants",
+      "note": "반복 패턴에 점층은 있으나 사건·이유 연결이 약해 초등 어휘 칸으로만 쓸지 판단이 갈린다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "07a81c8b-34b4-4a19-b991-1681371503bf",
+    "source_updated_at": "2026-09-25T04:03:23.498051+00:00",
+    "body_sha256": "607985919132960f6131a93488b7ef2675cfc220b9db9cca656b9ebf840caceb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "동물마다 못 하는 일과 새가 돕는 일이 이유로 짝지어져 공생이라는 요지가 서므로 초등 주제 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I am Rhino. I get covered",
+      "note": "문제-도움 짝이 문장 사이 연결을 만든다 — 끝 문장만 보완하면 된다."
+    }
+  },
+  {
+    "id": "09996f16-7ccb-47e7-9f32-1a075839dea4",
+    "source_updated_at": "2026-09-25T04:03:41.772437+00:00",
+    "body_sha256": "d223c4a54a9a7e88d787cd223ede2ce723e89bab9a59cb2313f9b1493b95ef19",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "벌 받은 개를 찾아 이웃마다 묻다 되찾는 반복 패턴이라 초등 최소선의 찾기 서사로 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Hey, Tuntun, how could you chew",
+      "note": "의성어 줄은 걷어내야 하고 마지막 재회 전 장면이 그림 의존이라 한 줄 보충이 필요하다."
+    }
+  },
+  {
+    "id": "0aa4f4e6-3464-4aa7-a738-2d2ef6d45eba",
+    "source_updated_at": "2026-09-25T04:03:40.775617+00:00",
+    "body_sha256": "5b05e3842561b4dc4c9df45baab70a947ad6fb8b45c8b1715c6f59424a8fd6a0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "주인은 케이크를 사고 강아지는 친구를 부르는 두 갈래가 파티에서 만나 반전되는 순서가 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"I want to give puppy a",
+      "note": "초대 반복 문단은 줄여도 되고 어휘는 그대로 초등 수준이다."
+    }
+  },
+  {
+    "id": "0b2ab7ed-bad4-42a5-959b-06e3c37cbd61",
+    "source_updated_at": "2026-09-25T04:02:51.451359+00:00",
+    "body_sha256": "0f2fc5028d1c70707e6f56f0e528016bef1823ef1711ae4f0623924758c7979b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "미얀마 기자 루두 도 아마의 성장·신문 창간·군정 저항이 시간순으로 이어져 전기 내용일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Amar was born a fighter, and",
+      "note": "셋째 문단은 떼어도 서며 regime·coup 만 풀면 되고 끝의 쓰기 활동은 걷어낸다."
+    }
+  },
+  {
+    "id": "0b9d3ee6-9b9e-4e17-8878-86916d0243e1",
+    "source_updated_at": "2026-09-25T04:03:37.085507+00:00",
+    "body_sha256": "9a9ca483ec206384895fac7a1f5196174c7bb108df482e11b75ac17094bf3b41",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "독을 과시하려다 모두 뱉어 독을 잃는 쥐뱀 유래담이 한 편으로 서서 순서·주제 칸이 된다(뒤 두 글은 따로).",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When he saw the villagers all",
+      "note": "작가 소개와 추천사가 뒤에 붙어 있어 가공 때 걷어낸다 — 설화 본문만으로 선다."
+    }
+  },
+  {
+    "id": "0f078fb2-b23b-4301-94b4-68bf618e0da3",
+    "source_updated_at": "2026-09-25T04:02:46.402268+00:00",
+    "body_sha256": "bd4fe819996aa9cda05e23516a6e58d059a0de447f7336ccd97966006e175e06",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "물방울 관찰에서 엄마의 중력 설명으로 이어지는 대화라 초등 과학 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"A great scientist named Isaac Newton",
+      "note": "중력 설명 두 문단은 떼어도 서고 orbits 하나만 풀면 된다(사과 일화는 통설 표현)."
+    }
+  },
+  {
+    "id": "0f4d2408-9179-48e3-94d6-2dcf000a809f",
+    "source_updated_at": "2026-09-25T03:34:54.578743+00:00",
+    "body_sha256": "27aa7401229755ae649bd7eb54dab7eab173457925e034aacda2d35553bb1754",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "거짓말과 비스킷을 먹은 일이 부끄러움·고백·용서로 이어져 순서·심경·교훈 주제 칸이 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "topic"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"I wonder if the carrot biscuits",
+      "note": "장면 경계가 분명해 순서 배열용으로 자르기 쉽다."
+    }
+  },
+  {
+    "id": "10143502-4974-456f-a74f-e7bba00a0489",
+    "source_updated_at": "2026-09-25T04:03:25.4582+00:00",
+    "body_sha256": "36b31c5c28a528a8fbd67f7ab9cced1f7748a696f1affee4bfb4efc59e6e068a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "밥을 거르다 지치고 먹은 뒤 힘을 되찾는 원인-결과 흐름이 이어져 초등 주제·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "topic"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "“Clarita, let’s have some food,” calls",
+      "note": "아침·오후·저녁 반복 구조라 순서 문항으로 자르기 쉽다."
+    }
+  },
+  {
+    "id": "10c626bb-d042-4f77-96b3-a6241750b952",
+    "source_updated_at": "2026-09-25T04:02:48.495238+00:00",
+    "body_sha256": "f45bbd298350ccb367a1e4ea8dc5eea4086a2b023de6f6230b7690c272c358b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "반딧불 동굴을 찾아가는 밤길의 위험이 차례로 이어지고 반전으로 끝나 순서·심경 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two bright eyes suddenly appeared and",
+      "note": "악어 장면 문단은 떼어도 서고 whimpered·gobble 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "1109dc0f-ef0a-4402-b7bd-975d4f4f4c30",
+    "source_updated_at": "2026-09-25T04:03:25.890737+00:00",
+    "body_sha256": "28e95a5931699b0ad610a717ea48166786666cd1bb758de60ace750ac341a360",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "memoir",
+    "why": "종교가 다르다고 자리를 옮긴 교사가 사제의 꾸짖음으로 사과하는 회고가 한 편으로 서서 심경·주제 칸이 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "topic"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"You, the one in the white",
+      "note": "첫 문단의 번역 안내만 걷어내면 되고 어휘는 이미 쉽다."
+    }
+  },
+  {
+    "id": "110cbd93-334a-4bbd-9d8d-1d75d8d19e36",
+    "source_updated_at": "2026-09-25T04:02:49.214756+00:00",
+    "body_sha256": "c242c14c0a07234e463df06af4956658ebf3dfbdaf7b4b7f494456b028444d32",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "산란하러 가는 바다거북이 한눈팔며 길을 잃다 돌고래와 돌아가는 흐름에 끝의 해설이 붙어 순서·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Greena declines because she prefers to",
+      "note": "끝의 「Get to Know More」 해설은 따로 떼어 짧은 설명문으로도 쓸 수 있다."
+    }
+  },
+  {
+    "id": "11417ab2-97a7-4dad-a7e9-aafd7068e1cc",
+    "source_updated_at": "2026-09-25T04:03:18.811026+00:00",
+    "body_sha256": "9fa5f7bb8949dce512197d481c19ecf4eb554c0a70c9810d84f715ae5d4d6898",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "전기 없는 숲속 집 아이가 이유를 묻고 끝내 전기가 들어오는 흐름과 전기 사실 해설이 있어 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Where do you stay?\" Janaki Miss",
+      "note": "선생님 설명 문단은 떼어도 서고 퀴즈·정답은 걷어낸다."
+    }
+  },
+  {
+    "id": "12932a44-4cc7-4b51-9be5-0291a029a60c",
+    "source_updated_at": "2026-09-25T04:03:44.265612+00:00",
+    "body_sha256": "f4e9ade81a6ba5352709fcfb6db840e76dcf440ce87d615b297a72ec4f60db7a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "수줍은 달이 망설이다 별들과 어울리게 되는 심경 변화가 이어져 초등 심경·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "mood",
+        "order"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It looks like they are having",
+      "note": "짧은 문장이 이어져 그대로 쓸 수 있다."
+    }
+  },
+  {
+    "id": "1349c461-9378-4edf-98c9-8f8489ebeb4e",
+    "source_updated_at": "2026-09-25T04:03:27.453331+00:00",
+    "body_sha256": "203c8559fa32a01e8c44dd09aaa04741e7f8bcda62ba867b66b1ab05276f87b8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "외모로 따돌림받던 바투안이 개미·폭풍 때 친구들을 챙겨 우정이 생기는 흐름이라 주제·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "topic",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Because of her odd appearance, Wanda",
+      "note": "외모 차별은 극복되는 대상이라 문제없고 끝 낱말 풀이는 어휘 교재로 쓸 수 있다."
+    }
+  },
+  {
+    "id": "134b32f1-d313-4ce5-a525-3fdcb5bdcaf4",
+    "source_updated_at": "2026-09-25T06:46:21.16141+00:00",
+    "body_sha256": "47db0500f55bb1983fc85c4a66987b2a265c86d4f07e2373a4239273ae5edadd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "시든 해바라기에서 가족 텃밭으로, 인내를 배우며 동네가 바뀌는 흐름이 이어져 순서·주제 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "topic"
+      ],
+      "levels": [
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On the weekend, Tita asks her",
+      "note": "물주기·옮겨심기 문단이 교훈 단위로 떨어져 자르기 쉽다."
+    }
+  },
+  {
+    "id": "149602ea-5028-4956-9128-08bd0e262197",
+    "source_updated_at": "2026-09-25T04:02:52.460771+00:00",
+    "body_sha256": "d91f8e352b3597947c0d612aa17e33dfc9c710685f95330d31d8e1333f21f25f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "답안지를 본 학생이 시험을 백지로 내고 정직상을 받는 반전 구조라 순서·주제·심경 칸이 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "topic",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The principal looked upset. Mr. Sengolan",
+      "note": "이름 표기(Uttama/Uttaman)가 흔들려 통일해야 하고 나머지는 그대로 선다."
+    }
+  },
+  {
+    "id": "16637932-0e2e-4c6a-8d14-7fe5e42387ed",
+    "source_updated_at": "2026-09-25T04:03:08.746791+00:00",
+    "body_sha256": "d825a4eaa83232f2df9f18313cc2d50a8641ae03bf8d944fcd42c787cf07a394",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "나비를 부러워하던 토끼가 떨어지며 뛰는 재주를 알고 친구를 구하는 흐름이라 순서·심경 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Suddenly, her hand slipped and she",
+      "note": "장면마다 사건이 이어져 떼기 쉽고 deflating 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "16f35e4d-02bf-4d16-8a90-cef98d697a1a",
+    "source_updated_at": "2026-09-25T04:02:55.75398+00:00",
+    "body_sha256": "495c93dba8c8cfb3ef67ab49d958ce6884a69548a439ad09162cccbccdb50a89",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "집안일을 피하던 티타이가 설거지를 대충 해 접시가 깨지고 뉘우치는 인과 흐름이라 순서·심경 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Kablang! Crash! Titay heard something crash",
+      "note": "kuya 같은 필리핀어 호칭은 풀어 주고 대사 따옴표를 정리해야 한다."
+    }
+  },
+  {
+    "id": "177f1308-27d9-4229-9c34-495165635203",
+    "source_updated_at": "2026-09-25T04:02:55.997222+00:00",
+    "body_sha256": "9fee9980706006fb37aece1e559306b64e728ed1fcb17e89015edb13053f133f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "오토바이 비루가 첫날 세 건의 주문을 치르며 두려움을 이기는 흐름이라 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Biru calmly rode along. All of",
+      "note": "의성어 반복을 줄이면 장면이 깔끔하게 떨어지고 끝 낱말 풀이는 걷어낸다."
+    }
+  }
+]

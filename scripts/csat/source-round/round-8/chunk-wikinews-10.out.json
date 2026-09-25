@@ -1,0 +1,973 @@
+[
+  {
+    "id": "03251cb3-80dd-445a-978c-c1a12269e5ea",
+    "source_updated_at": "2026-09-25T07:49:47.129632+00:00",
+    "body_sha256": "e4209208df21c02d777725035de2a941c4f8806d15dcad3766513461fb6b277b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "핀란드 동성혼 법 통과를 두고 총리·대주교의 찬성과 핀란드인당·기민당의 반대 논리가 나란히 서서 주장-근거·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In contrast, Archbishop Kari Mäkinen from",
+      "note": "대주교의 이전 발언 단락이 조건문 두 개로 논지를 자족적으로 세운다."
+    }
+  },
+  {
+    "id": "032f6fe6-5ec0-433e-a666-c3c9186e5122",
+    "source_updated_at": "2026-09-25T07:09:47.636118+00:00",
+    "body_sha256": "7cd12dccf26cb3d4a3a6d99e535f63b5874aaf1dcb3464fcb1b6dc2b84ed8916",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "백악관이 기후 과학 보고를 축소하도록 정부 과학자에게 압력을 넣었는지 묻는 청문회와 279명 설문 결과가 이어져 주장-근거 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During the hearing, two private advocacy",
+      "note": "설문 단락이 수치 근거로 자족적이고 기관 목록은 줄인다."
+    }
+  },
+  {
+    "id": "0332105f-7374-4884-ae4c-f3a04ef63eb6",
+    "source_updated_at": "2026-09-25T07:14:04.812368+00:00",
+    "body_sha256": "6453b466f70f4bb3b0615608c893bb1908367633d0362a18c50c834c8175c820",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "교황의 라틴어 미사 제한 완화와 그 목적·진보파와 유대인 단체의 우려가 짧게 설명돼 고2 이상 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Latin Mass was used almost",
+      "note": "교리를 사실로 주장하지 않고 제도 변화를 보도해 doctrine 이 아니며 제2차 바티칸 공의회 배경 단락이 떼기 좋다."
+    }
+  },
+  {
+    "id": "0336a3e8-4279-4176-8684-33120a8b4c54",
+    "source_updated_at": "2026-09-25T07:00:42.822749+00:00",
+    "body_sha256": "ebac7a9f34a06740eac4cd59f4b5da8e00cea7e4f573a0204481ee927eebc808",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뮐루즈 화학대학 연구동 폭발의 사상자·피해 범위·추정 발생 장소가 이어진 사고 기사로 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The blast occurred at 11:25 GMT",
+      "note": "폭발음·유리창 파손 단락이 자족적이고 박물관 소개 단락은 무관한 문장 후보다."
+    }
+  },
+  {
+    "id": "0337e9d0-22fd-41ab-9b70-a52a1a2eb893",
+    "source_updated_at": "2026-09-25T07:58:44.255336+00:00",
+    "body_sha256": "44028f5987d4fdec766ffba710e2c44635a401221afbb59cd1c890ecb4708878",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "도르트문트 버스 폭탄범이 주가 하락에 베팅한 풋옵션으로 이익을 노렸다는 동기와 위장 편지가 드러나 반전 있는 사건 서사·빈칸 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The suspect, who holds a dual",
+      "note": "풋옵션 설명 문장이 본문 안에 있어 동기 단락이 자족적이나 금융 용어는 풀어 쓴다."
+    }
+  },
+  {
+    "id": "033a3272-6792-4c0c-8176-b59fc51a323b",
+    "source_updated_at": "2026-09-25T07:42:05.839256+00:00",
+    "body_sha256": "0e285e2953bec31917c0ecba2fac421f805384f4120346d0909dd29c79e09d77",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "암 줄기세포를 실험실 세포주에서 키우는 새 방법과 그것이 재발 억제 약 개발을 앞당기는 이유가 ‘잡초 뿌리’ 비유로 서서 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Learning how to tackle cancer stem",
+      "note": "잡초 비유 단락이 떼어도 논지가 서고 이전 방법 대비 단락이 순서 문항에 맞다."
+    }
+  },
+  {
+    "id": "033c17f4-5005-4074-8128-170517dfa867",
+    "source_updated_at": "2026-09-25T08:08:10.943363+00:00",
+    "body_sha256": "4628a671e41a1f690c6bd613b387cf1f1068781f05c5cf47d1905ff65a231b0c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "원주민 소녀 폭행·성폭행 사망이 뒤늦게 보도된 경위와 인종·장소가 무관심을 낳았다는 칼럼니스트 비판이 서지만 묘사가 구체적이라 성인 칸만 연다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In an article published in Saturdays",
+      "note": "스켈턴 비판 단락만 떼면 보도 격차 논지가 서고 범행 묘사 단락은 걷는다."
+    }
+  },
+  {
+    "id": "033f96bf-dc3f-480c-904a-37aa42e61fd1",
+    "source_updated_at": "2026-09-25T07:25:37.612164+00:00",
+    "body_sha256": "b5a6ef666fa05161ad192dd310736c41323c441c615517a9db7adc02cd9685d1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "토렌트 사이트 데모노이드의 폐쇄 추정과 서버 이전·잇단 단속 배경이 짧게 서지만 확인되지 않은 보도라 고2 이상 내용 일치 칸 하나만 연다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Demonoid is one of the largest",
+      "note": "서버 이전 경위 단락은 떼어도 서나 결론이 미확인이라 사실 문항은 조심해서 만든다."
+    }
+  },
+  {
+    "id": "03447f09-c3fe-491a-9cc8-d0f2fa76f44f",
+    "source_updated_at": "2026-09-25T07:58:44.299311+00:00",
+    "body_sha256": "31025af580ad8d236dc8703c36007e87380ad6bec2e7ae9ee130806c4d3a9838",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아프간 파라주 자폭 공격의 피해·주지사 증언·카르자이 취임 직후 시점이 짧게 서서 고2 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Afghan officials say the suicide bomber",
+      "note": "테러 피해 기사라 고2 이상만; 주지사 증언 단락이 자족적이다."
+    }
+  },
+  {
+    "id": "034bfd0e-bcd9-4463-9ad9-0992a4f488ab",
+    "source_updated_at": "2026-09-25T08:10:39.726491+00:00",
+    "body_sha256": "b2afd1e2ef552a140e6b8a1547adfb50fb35f8c7ba5ca490d1c10bc613b1c905",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "스리랑카 국방장관 자폭 테러 모면과 LTTE의 과거 공격·휴전 파기 선언 배경이 이어져 고2 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The latest suicide attack comes just",
+      "note": "휴전 ‘무효’ 선언 직후라는 마지막 단락이 인과를 준다."
+    }
+  },
+  {
+    "id": "034e42fc-04e9-46f0-afd2-07609874c8ee",
+    "source_updated_at": "2026-09-25T05:30:44.463952+00:00",
+    "body_sha256": "0636ee2e2244bcbb55ca5c6948c0ead23173c47a5684816f26933931011f1648",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "2004년 인도양 지진의 규모·판 구조 원인·쓰나미 피해·구호 과제가 설명된 앞부분이 설명문으로 서서 과학·재해 내용 일치 칸을 채운다; 뒤의 국가별 원조 목록은 걷는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "insert",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The earthquake was unusually large in",
+      "note": "인도판이 버마판 아래로 들어가며 단층이 미끄러진 단락이 자족적이고, 원조 목록 절반은 나열이라 쓰지 않는다."
+    }
+  },
+  {
+    "id": "03524b6a-1838-4172-9396-0c1aecad47ca",
+    "source_updated_at": "2026-09-25T07:58:44.343291+00:00",
+    "body_sha256": "88574b5b4cff5547514f5ae889f1901d8d4168897700bc1df7353bc9fb28169d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "영국 보수당이 보궐선거 세 곳 중 두 곳을 잃은 결과와 사퇴 사유·당선자 발언·지지율 추이가 이어져 고2 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Winning with 45% of the vote",
+      "note": "선거구별 단락이 서로 떨어져 있어 내용 일치로 쓰기 좋으나 영국 정치 맥락을 풀어야 한다."
+    }
+  },
+  {
+    "id": "035a6876-670e-4a50-af54-3db1851bb88c",
+    "source_updated_at": "2026-09-25T08:08:22.628386+00:00",
+    "body_sha256": "57a310f018e3408943d89cf31e2b1b7d9f945a9cee11592ffae371c2c0dc13a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "태국 보궐선거가 20% 득표 요건 미달로 정국 위기를 풀지 못한 이유와 조기 총선 배경이 설명되지만 제도 용어가 무거워 고3·성인 칸만 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The April 2 general election saw",
+      "note": "야당 보이콧이 요건 미달로 이어진 인과는 서나 걷을 고유명사가 많고 어휘 조정이 어렵다."
+    }
+  },
+  {
+    "id": "03655410-e7a8-4ee4-97fa-0c0935c940ad",
+    "source_updated_at": "2026-09-25T07:58:44.388241+00:00",
+    "body_sha256": "259081f2f705176eb8aea8feb29777a5547c2931218f8e712bc7dffb53e944c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "오리건 대학 총격 사건과 무기 입수 경위·오바마의 총기 규제 호소가 이어져 고2 이상 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Later on Thursday, President Barack Obama",
+      "note": "오바마 발언 단락이 ‘일상이 되었다’는 주장을 자족적으로 담고 총격 묘사 단락은 걷는다."
+    }
+  },
+  {
+    "id": "03694f18-1cd3-4fee-adc2-8a91111b5a5e",
+    "source_updated_at": "2026-09-25T06:49:11.646719+00:00",
+    "body_sha256": "3b808ff5f9a42ebcf7c12441e88595e0d28245eead43e721a5bf8ef6631d9dd3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "스페인 동성혼 합법화의 표결·법 조문과 가톨릭 반대 집회·여론 지지·운동가 소감이 이어져 고2 이상 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"It is a historic day for",
+      "note": "운동가의 ‘가장 어려운 것은 인식 변화’ 인용이 요지 문장으로 좋다."
+    }
+  },
+  {
+    "id": "036a2539-0067-42aa-9fcd-476b36360538",
+    "source_updated_at": "2026-09-25T07:37:25.285174+00:00",
+    "body_sha256": "b5703eaecdeb32b844802932f7024e37adaf6b61a1f040c93137f459d6290107",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "하퍼 총리가 장총 등록제가 비용만 들고 범죄를 줄이지 못했다며 폐지를 촉구한 주장과 근거가 서서 주장-근거 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Conservatives have provided amnesty for",
+      "note": "한쪽 주장뿐이라 반대 입장은 가공 때 보강하거나 주장 파악 문항으로만 쓴다."
+    }
+  },
+  {
+    "id": "03700fd3-0e7f-44f0-a836-7327b0b51064",
+    "source_updated_at": "2026-09-25T07:52:14.521115+00:00",
+    "body_sha256": "71b4ec9eda4337c578bed199bbd81f9b4040334396632e53fdd0b64c922db151",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "그리스 대학 경찰 법안을 두고 정부의 안전 논리와 교수·학생의 표현 자유 우려·역사적 배경이 맞서 주장-근거·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many incidents of unrest have occurred",
+      "note": "1973년 폴리테크닉 봉기 단락이 역사 배경으로 자족적이고 유로스타트 수치 논쟁이 수치 검증 재료가 된다."
+    }
+  },
+  {
+    "id": "037ae4de-4673-4975-93f0-3f2f1e6048ae",
+    "source_updated_at": "2026-09-25T08:11:10.460606+00:00",
+    "body_sha256": "090bf8388d2be5f39b7bc330859386d6464017be74fe9711bd59ea10e6626812",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "콜럼바인 고교 폭탄 위협 대피와 과거 참사 이후 반복된 위협이 이어진 기사로 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"All we know at this point",
+      "note": "대변인 인용 단락이 상황을 자족적으로 정리한다."
+    }
+  },
+  {
+    "id": "037c2b9e-b730-4adc-8a68-3157287f95b0",
+    "source_updated_at": "2026-09-25T07:07:43.268627+00:00",
+    "body_sha256": "9f995537c86ca2e044995d0ba31925b2a0f5b584f955e7d2dd95289593227482",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "A380 인도 지연의 원인(배선 설계 도입 지연)과 싱가포르항공 보상 합의가 이어져 원인 파악 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The double-deck commercial aircrafts' delivery, originally",
+      "note": "에어버스 원인 설명 인용이 ‘학습 곡선’ 표현까지 자족적이다."
+    }
+  },
+  {
+    "id": "037d53b1-ac2a-49cb-9913-2f7a1d1af801",
+    "source_updated_at": "2026-09-25T06:47:16.486612+00:00",
+    "body_sha256": "901d9acc2fac80d37c6c190cdff273d2ecdcd1177c56e9f3f24e1a7d232c23c4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "쿠키 몬스터가 채소를 배우는 세서미 스트리트 건강 캠페인과 ‘다이어트가 아니다’는 제작진 해명이 쉽게 이어져 초·중등 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "PBS has recently decided it was",
+      "note": "캐릭터 변화 이유가 목적으로 이어져 초등 최소선(이유 연결)을 넘는다."
+    }
+  },
+  {
+    "id": "037fd194-9a20-41c3-9d2d-a3653a150609",
+    "source_updated_at": "2026-09-25T07:45:21.641725+00:00",
+    "body_sha256": "a7defd9a3436912db94adc203628e74eefcc600452f39183fa983b337098ab0d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "덜레스 공항 수하물 구역 의심 소포로 터미널 절반이 두 시간 닫혔다가 무해로 판명된 경위가 짧게 서서 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Officials from the Metropolitan Washington Airports",
+      "note": "탐지견 발견-폐쇄-재개 순서가 선다."
+    }
+  },
+  {
+    "id": "03824938-1a71-4f78-97a7-136172d7ddfc",
+    "source_updated_at": "2026-09-25T07:25:23.69125+00:00",
+    "body_sha256": "067bed75045a497afbf36777ff448e8d29022513fec8094e648ab5e9f9053279",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "주 상원의원이 ‘누구나 누구든 고소할 수 있다’는 점을 보이려 신을 고소한 풍자적 소송과 그 계기가 인과로 서서 목적·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "purpose",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Richard Kopf, a U.S. District Judge",
+      "note": "챔버스 인용 단락이 소송 목적을 자족적으로 밝히고, 성폭행 재판 배경은 한 줄로 줄인다."
+    }
+  },
+  {
+    "id": "03873b87-f3a8-43f8-879e-8e2d22bd4d97",
+    "source_updated_at": "2026-09-25T07:58:44.507785+00:00",
+    "body_sha256": "2f93cdb8b9d5f662d33225b11e7a14de5ea5e2a0bd050fb30db69dcee4a0b7dc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "가자 전투 최악의 날 사상자와 안보리·반기문의 휴전 촉구·네타냐후 반박이 이어져 고3·성인 내용 일치·주장 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "All this occurred while a United",
+      "note": "양측 발언이 함께 실려 한쪽 선동은 아니나 사망 수치와 격한 인용이 많아 연령을 제한했다."
+    }
+  },
+  {
+    "id": "038f0981-84d5-4db8-b14a-a98af5905727",
+    "source_updated_at": "2026-09-25T07:51:49.244434+00:00",
+    "body_sha256": "dcfa30d23feda9b7a6b412f662409a8bdd6ca344865d3383a891ffe78f55e681",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "아마존 산불을 G7 의제로 올리자는 마크롱과 ‘식민주의’라 반발한 보우소나루의 대립, 가뭄이 아닌 인위적 원인이라는 전문가 근거가 서서 주장-근거·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Around one million indigenous people live",
+      "note": "알렌카르 인용 단락이 ‘날씨로는 설명되지 않는다’는 반증 구조로 자족적이다."
+    }
+  },
+  {
+    "id": "0391ae1f-0c47-4958-8ada-f7d6fc9ca52c",
+    "source_updated_at": "2026-09-25T05:30:20.540485+00:00",
+    "body_sha256": "d9c384b362bbb38959facd1b35c983f50c500d56bc6dc9d7b0e25efa29d5c5ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "물을 800도로 가열하면 전기분해에 드는 전력이 준다는 수소 생산법과 원전 연계 구상·안전 우려가 이어져 과학 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Electrolysis is one method by which",
+      "note": "전기분해 원리 단락이 자족적이나 마지막 컨설턴트 인용은 과학적으로 뜻이 서지 않아 가공 때 걷는다."
+    }
+  }
+]

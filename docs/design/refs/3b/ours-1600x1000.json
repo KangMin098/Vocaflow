@@ -1,0 +1,292 @@
+{
+ "source": {
+  "url": "http://localhost:3000/csat/item/M2706-19",
+  "measuredAt": "2026-09-23"
+ },
+ "viewport": {
+  "width": 1600,
+  "height": 1000
+ },
+ "derived": {
+  "topBarH": 65,
+  "railW": 368,
+  "railH": 882,
+  "tabBarH": 47,
+  "mainX": 368,
+  "mainW": 1232,
+  "paneCount": 2,
+  "paneGap": 14,
+  "paneWidths": [
+   578.5,
+   607.5
+  ],
+  "paneRadius": "24px",
+  "cardCount": 7,
+  "cardH": 57.5,
+  "cardW": 176,
+  "cardGap": 8
+ },
+ "parts": {
+  "topBar": {
+   "x": 0,
+   "y": 0,
+   "w": 1600,
+   "h": 65,
+   "bg": "#fcf9f5",
+   "border": null,
+   "radius": null,
+   "pad": "0px 0px 0px 0px",
+   "gap": null
+  },
+  "rail": {
+   "x": 0,
+   "y": 119,
+   "w": 368,
+   "h": 882,
+   "bg": "#fcf9f5",
+   "border": null,
+   "radius": null,
+   "pad": "0px 0px 0px 0px",
+   "gap": null
+  },
+  "tabBar": {
+   "x": 368,
+   "y": 119,
+   "w": 1232,
+   "h": 47,
+   "bg": "#fcf9f5",
+   "border": null,
+   "radius": null,
+   "pad": "6px 14px 6px 14px",
+   "gap": "2px"
+  },
+  "panes": [
+   {
+    "x": 384,
+    "y": 204.3,
+    "w": 578.5,
+    "h": 702.2,
+    "bg": "#fcf9f5",
+    "border": "1px #c3b5ff",
+    "radius": "24px",
+    "pad": "0px 0px 0px 0px",
+    "gap": null
+   },
+   {
+    "x": 976.5,
+    "y": 204.3,
+    "w": 607.5,
+    "h": 702.2,
+    "bg": "#fcf9f5",
+    "border": "1px #c3b5ff",
+    "radius": "24px",
+    "pad": "0px 0px 0px 0px",
+    "gap": null
+   }
+  ],
+  "cards": [
+   {
+    "x": 384,
+    "y": 931.5,
+    "w": 176,
+    "h": 57.5,
+    "bg": "#ece8fd",
+    "border": "1px #c3b5ff",
+    "radius": "24px",
+    "pad": "9px 12px 9px 12px",
+    "gap": null
+   },
+   {
+    "x": 568,
+    "y": 931.5,
+    "w": 176,
+    "h": 57.5,
+    "bg": "#ddf1ed",
+    "border": "1px #c3b5ff",
+    "radius": "24px",
+    "pad": "9px 12px 9px 12px",
+    "gap": null
+   },
+   {
+    "x": 752,
+    "y": 931.5,
+    "w": 176,
+    "h": 57.5,
+    "bg": "#fff1d1",
+    "border": "1px #c3b5ff",
+    "radius": "24px",
+    "pad": "9px 12px 9px 12px",
+    "gap": null
+   },
+   {
+    "x": 936,
+    "y": 931.5,
+    "w": 176,
+    "h": 57.5,
+    "bg": "#e4eee7",
+    "border": "1px #c3b5ff",
+    "radius": "24px",
+    "pad": "9px 12px 9px 12px",
+    "gap": null
+   },
+   {
+    "x": 1120,
+    "y": 931.5,
+    "w": 176,
+    "h": 57.5,
+    "bg": "#ffe1c4",
+    "border": "1px #c3b5ff",
+    "radius": "24px",
+    "pad": "9px 12px 9px 12px",
+    "gap": null
+   },
+   {
+    "x": 1304,
+    "y": 931.5,
+    "w": 176,
+    "h": 57.5,
+    "bg": "#ffe1c4",
+    "border": "1px #c3b5ff",
+    "radius": "24px",
+    "pad": "9px 12px 9px 12px",
+    "gap": null
+   },
+   {
+    "x": 1488,
+    "y": 931.5,
+    "w": 176,
+    "h": 57.5,
+    "bg": "#ffe1c4",
+    "border": "1px #c3b5ff",
+    "radius": "24px",
+    "pad": "9px 12px 9px 12px",
+    "gap": null
+   }
+  ]
+ },
+ "type": [
+  {
+   "size": "11/400",
+   "n": 49
+  },
+  {
+   "size": "14/400",
+   "n": 15
+  },
+  {
+   "size": "12/400",
+   "n": 12
+  },
+  {
+   "size": "13/400",
+   "n": 8
+  },
+  {
+   "size": "10/400",
+   "n": 7
+  },
+  {
+   "size": "12/500",
+   "n": 7
+  },
+  {
+   "size": "14/500",
+   "n": 6
+  },
+  {
+   "size": "13/500",
+   "n": 4
+  },
+  {
+   "size": "14/700",
+   "n": 3
+  },
+  {
+   "size": "15/500",
+   "n": 2
+  },
+  {
+   "size": "11/500",
+   "n": 2
+  },
+  {
+   "size": "16/500",
+   "n": 1
+  },
+  {
+   "size": "18/500",
+   "n": 1
+  },
+  {
+   "size": "14/600",
+   "n": 1
+  },
+  {
+   "size": "10/600",
+   "n": 1
+  }
+ ],
+ "palette": [
+  {
+   "color": "text #714bd0",
+   "n": 93
+  },
+  {
+   "color": "text #5d38ae",
+   "n": 21
+  },
+  {
+   "color": "fill #fcf9f5",
+   "n": 16
+  },
+  {
+   "color": "fill #f8f4f0",
+   "n": 7
+  },
+  {
+   "color": "fill #c3b5ff",
+   "n": 6
+  },
+  {
+   "color": "fill #ece8fd",
+   "n": 5
+  },
+  {
+   "color": "text #fcf9f5",
+   "n": 3
+  },
+  {
+   "color": "fill #f3efea",
+   "n": 3
+  },
+  {
+   "color": "fill #ffe1c4",
+   "n": 3
+  },
+  {
+   "color": "text #542f9c",
+   "n": 2
+  },
+  {
+   "color": "fill #714bd0",
+   "n": 1
+  },
+  {
+   "color": "fill #542f9c",
+   "n": 1
+  },
+  {
+   "color": "fill #ddf1ed",
+   "n": 1
+  },
+  {
+   "color": "fill #fff1d1",
+   "n": 1
+  },
+  {
+   "color": "fill #e4eee7",
+   "n": 1
+  }
+ ],
+ "boxCount": 253
+}

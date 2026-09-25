@@ -1,0 +1,262 @@
+[
+  {
+    "id": "7c812d2b-6ee8-478b-a439-e3597b044798",
+    "source_updated_at": "2026-09-13T06:46:11.886505+00:00",
+    "body_sha256": "b2715c13e92c9d5d54fcd436ffb3502b3af8d590ca283cd0f5df3f5d2596de5c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 코로나 치료제 부족과 주요 단백질분해효소 표적화의 필요를 논지로 이어 주어 발췌 가능하고, 뒤의 스펙트럼 수치는 가공 때 걷어낼 수 있다.",
+    "slots": {
+      "ages": ["high3", "adult"],
+      "purposes": ["csat", "reading"],
+      "types": ["topic", "blank", "content_match"],
+      "levels": ["V7", "V8"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 2019, an outbreak of respiratory",
+      "note": "서론 문단은 떼어도 서지만 NMR·ADMET 표 구간은 통째로 버려야 한다."
+    }
+  },
+  {
+    "id": "7c8189cb-e97a-490a-8165-e4f8d67d8139",
+    "source_updated_at": "2026-09-25T07:30:10.822537+00:00",
+    "body_sha256": "dafb710101188f28b0caafab116ad63c5fb1562f30a8d3be3b493f1ae0241177",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "노화한 장 줄기세포의 분화 이상을 퍼옥시좀 기능 저하로 설명하고 아스피린 효과까지 인과로 잇는 고찰 절이 한 편으로 선다.",
+    "slots": {
+      "ages": ["high2", "high3", "adult"],
+      "purposes": ["csat", "mock", "reading"],
+      "types": ["topic", "summary", "blank", "content_match"],
+      "levels": ["V6", "V7"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The aging process is complex and",
+      "note": "고찰 첫 문단은 유전자 약어 없이도 서고, VLCFA 같은 용어는 「아주 긴 지방산」으로 바꿀 수 있다."
+    }
+  },
+  {
+    "id": "7c820308-8df6-4653-aa3b-d89d0188cc81",
+    "source_updated_at": "2026-09-13T06:58:22.937324+00:00",
+    "body_sha256": "2f594b338f2c9470ffb384e35e525080dfc6032b4a4a1283f8a9d65a1259f279",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "구충제 잔류물이 쇠똥구리 감소로 이어지는 문제 제기와 식물성 대체제의 안전성 결론이 서론-고찰로 이어진다.",
+    "slots": {
+      "ages": ["high1", "high2", "high3", "adult"],
+      "purposes": ["csat", "mock", "school", "reading"],
+      "types": ["topic", "title", "claim", "summary", "blank", "content_match"],
+      "levels": ["V6", "V7"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Residues of conventional veterinary medicinal products",
+      "note": "서론 첫 두 문단이 그대로 논지가 되고, 화합물 약어는 「백리향 성분」 식으로 풀 수 있다."
+    }
+  },
+  {
+    "id": "7c84ea4a-8142-435e-8c2c-7bfabf788fe8",
+    "source_updated_at": "2026-09-25T07:30:11.276884+00:00",
+    "body_sha256": "44fc5a8ba773c0f6d493ff9bb549c3e813ad90bfe40416516ed7cd7b57946f03",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "벼 배젖이 배를 먹여 살리는 조직이라는 설명과 두 유전자의 역할 분담 결론이 저자 요약·고찰에서 한 편으로 선다.",
+    "slots": {
+      "ages": ["adult", "high3"],
+      "purposes": ["reading", "csat"],
+      "types": ["topic", "summary", "content_match"],
+      "levels": ["V7", "V8"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The endosperm performs a unique physiological",
+      "note": "저자 요약 문단은 떼어져 서지만 결과 절의 유전자·좌위 번호는 바꿔 쓸 수 없어 버려야 한다."
+    }
+  },
+  {
+    "id": "7c8d7f87-5de8-41de-a349-14b7220c1b8c",
+    "source_updated_at": "2026-09-13T07:11:43.780351+00:00",
+    "body_sha256": "06f6bd0e4ded2c5075b7267da08177793bae6ac914f9e5f433b35efcc715e3db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "구강암의 위험 요인과 수용체 표적 치료 가능성을 논지로 세우고 고찰에서 근거를 대며 결론까지 간다.",
+    "slots": {
+      "ages": ["high2", "high3", "adult"],
+      "purposes": ["csat", "mock", "reading"],
+      "types": ["topic", "claim", "summary", "content_match"],
+      "levels": ["V6", "V7"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Oral cancer is a global health",
+      "note": "서론과 고찰 첫 문단은 표를 안 봐도 서지만 생존율 표는 걷어내야 한다."
+    }
+  },
+  {
+    "id": "7c9fa8cb-e5aa-493d-bd59-8cd020da0be7",
+    "source_updated_at": "2026-09-25T07:30:14.55564+00:00",
+    "body_sha256": "c0c6eb24c77269db0906079057209443eef84ca775c2f6decf140cce6960062e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "용존 유기탄소가 왜 수돗물 처리에서 문제인지 서론이 인과로 설명하고 결론이 철 입힌 활성탄의 이점으로 닫는다.",
+    "slots": {
+      "ages": ["high2", "high3", "adult"],
+      "purposes": ["csat", "reading"],
+      "types": ["topic", "blank", "content_match", "summary"],
+      "levels": ["V7"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dissolved Organic Carbon (DOC) is a",
+      "note": "서론 두 문단은 장비 모델명 없이 서고, 흡착 등온식 구간은 수치뿐이라 쓸 수 없다."
+    }
+  },
+  {
+    "id": "7cb964af-eec8-4f95-baa9-84428a83ef1c",
+    "source_updated_at": "2026-09-13T07:31:55.526863+00:00",
+    "body_sha256": "bd2defb89565a1c0a907e0fc6128de190bae141aaa49460b3762cd90f44c064c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "두 신경전달물질을 서로 다른 빛으로 따로 풀어 주는 문제를 서론이 세우고 고찰이 한계와 의의로 닫는다.",
+    "slots": {
+      "ages": ["high3", "adult"],
+      "purposes": ["csat", "reading"],
+      "types": ["topic", "blank", "content_match"],
+      "levels": ["V7", "V8"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The interaction between excitatory and inhibitory",
+      "note": "서론 첫 문단은 화합물 이름을 빼도 서지만 합성 절차 절은 통째로 버려야 한다."
+    }
+  },
+  {
+    "id": "7cc848d5-7d5f-4316-9a78-1e3843a0399e",
+    "source_updated_at": "2026-09-15T15:22:20.724118+00:00",
+    "body_sha256": "0738bbfa5ed3ee778a19e238419d4b2c8be5332046be7ee8801d99ce6f40931e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "겉보기엔 멀쩡해 보이는 대뇌 피질 기형을 기존 영상으로 못 잡는다는 문제와 새 확산 영상의 해법이 고찰에서 이어진다.",
+    "slots": {
+      "ages": ["high3", "adult"],
+      "purposes": ["csat", "reading"],
+      "types": ["topic", "summary", "blank", "content_match"],
+      "levels": ["V7", "V8"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The cerebral cortex exhibits a highly",
+      "note": "서론과 고찰 첫 문단은 떼어져 서고, 촬영 파라미터·항체 희석 절은 쓸 수 없다."
+    }
+  },
+  {
+    "id": "7ccdc0ac-153e-4eb7-8b8d-de518544e873",
+    "source_updated_at": "2026-09-13T07:28:47.600032+00:00",
+    "body_sha256": "632c735b318e664172037122c11010c4248167eaf025d75aba2859c72014a7ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "물속을 헤엄치던 정자에서 꽃가루관으로 이어지는 도입부가 설명 글로 읽히고 뒤의 논평이 근거를 댄다.",
+    "slots": {
+      "ages": ["high2", "high3", "adult"],
+      "purposes": ["csat", "mock", "reading"],
+      "types": ["topic", "title", "order", "content_match"],
+      "levels": ["V6", "V7"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lower plants generate mobile sperm cells",
+      "note": "도입 문단은 유전자 이름 없이도 순서대로 읽히고, 채널 이름 나열 구간만 걷으면 된다."
+    }
+  },
+  {
+    "id": "7cdccc36-1a84-48f4-924d-b75385cb0dcf",
+    "source_updated_at": "2026-09-13T06:49:08.434043+00:00",
+    "body_sha256": "c77e467de399e9f6a1b052e7e33f49929ee43a09fd8b0e78fba12fc72cbdf82d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고병원성 조류독감이 왜 닭에서만 생겨나는가라는 물음을 세우고 오리와 비교한 근거로 답하는 구조다.",
+    "slots": {
+      "ages": ["high2", "high3", "adult"],
+      "purposes": ["csat", "mock", "reading"],
+      "types": ["topic", "claim", "summary", "blank", "content_match"],
+      "levels": ["V6", "V7"],
+      "platform": ["claim-evidence", "myth-rebuttal"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Low pathogenic avian influenza viruses (LPAIVs)",
+      "note": "서론과 고찰 첫 문단은 바이러스 표기를 「고병원성/저병원성」으로 바꾸면 서고, 세포배양 절은 버린다."
+    }
+  }
+]

@@ -1,0 +1,480 @@
+[
+  {
+    "id": "11e5317d-4713-498e-b057-39cf206123e9",
+    "source_updated_at": "2026-09-25T07:32:47.523165+00:00",
+    "body_sha256": "cf79287fd0c332e410b5b92286fc2132045afa130b02386abef71224db8141b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "질소 시비가 콩 잎의 CO2 확산을 어떻게 바꾸는지 가설 셋을 세우고 고찰에서 해부구조 대 생화학 대사로 갈라 답한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Like drought in soil, atmospheric nitrogen",
+      "note": "서론 질소 침착 문단은 그대로 떼어져 서지만 결과절의 gm·gsc 약어는 어휘 치환으로 못 내린다."
+    }
+  },
+  {
+    "id": "120f9158-ef27-44bd-8977-fb0af48818c2",
+    "source_updated_at": "2026-09-25T07:32:49.402482+00:00",
+    "body_sha256": "a7a2bfa332090c94826297c34970a2975a8cf39c9234f7a528c9e761abf52c37",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "비만 지표와 간암 사이 대사물질 매개를 관찰연구와 멘델 무작위화 두 방법으로 교차 검증하는 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "While it is well-known that adiposity",
+      "note": "저자 요약 절이 평이한 문장으로 같은 논지를 반복해 발췌 원천으로 바로 쓰인다."
+    }
+  },
+  {
+    "id": "1245301c-b2a7-4c40-a10a-3784126aafb0",
+    "source_updated_at": "2026-09-25T07:32:53.293073+00:00",
+    "body_sha256": "9575ad79138bdce9cb6e3d036bf9b64f96b62a3f2c65ab3227df3a81f621682b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "콜롬비아에 없던 말 알부민 제제를 만들고 건강한 말 세 마리에 투여해 안전성을 본 과정이 시간순으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Albumin is a non-glycosylated plasma protein",
+      "note": "서론의 알부민 기능 설명과 제조·투여 서술은 고유명사를 걷어도 흐름이 남는다."
+    }
+  },
+  {
+    "id": "12577186-f5eb-48bd-8281-c0136bfed935",
+    "source_updated_at": "2026-09-25T07:32:54.920219+00:00",
+    "body_sha256": "7b3396b25b6648549716f70f28fa46c2526b1b3067b41a9f9ed3cf9e48b7f2a2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "표정·음성 대신 생리 신호를 쓰는 이유를 먼저 세우고 채널·시간 주의기제로 정확도를 올렸다고 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Emotion recognition, a fundamental application",
+      "note": "서론 첫 문단은 통념(표정 기반) 대비 구조라 쓰기 쉬우나 수식과 하이퍼파라미터 절은 통째로 버려야 한다."
+    }
+  },
+  {
+    "id": "12954ec5-0eb9-4580-b98a-557db144148a",
+    "source_updated_at": "2026-09-25T07:32:59.515648+00:00",
+    "body_sha256": "26667e9ac31ac880d0daf78ed73649b89bf69bdcb7e3019a99830d729b57a915",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "RPA 결합 도메인 단독 제거로는 체크포인트가 유지된다는 예상 밖 결과에서 두 기능 단위의 협동으로 논지가 이어진다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Genome integrity is constantly challenged by",
+      "note": "서론 첫 문단만 일반 독자용으로 서고, 결과절은 균주·돌연변이 표기가 문장마다 박혀 치환이 막힌다."
+    }
+  },
+  {
+    "id": "129cb9da-b9bf-4700-8e6b-776d77a5f53e",
+    "source_updated_at": "2026-09-25T07:33:01.089655+00:00",
+    "body_sha256": "b135b0680083824ab6677a1d3962e8bfb9845ca11fee4472e94afb8b7d4436c3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "소 콜라겐 스펀지가 대식세포에 염증 촉진과 억제라는 양방향 작용을 한다는 주장을 실험별 근거로 받친다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The extracellular matrix (ECM) serves as",
+      "note": "서론의 생체재료-면역반응 문단은 수치 없이도 논지가 서고 M1/M2 용어만 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "12a88f81-cf7c-48d1-8bef-7c52e22bfa68",
+    "source_updated_at": "2026-09-25T07:33:02.387086+00:00",
+    "body_sha256": "60a879c0320e12f5b5ef97a6a6481987063d0618f40eb70d1fb92d5cc61bb033",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "빈혈마다 적혈구생성인자 수치가 어긋나는 수수께끼를 네 식짜리 최소 모형으로 설명하는 구성이 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The number of red blood cells",
+      "note": "저자 요약과 질환별 절이 통념 제시-반증 형태라 발췌가 가장 수월했던 편이다."
+    }
+  },
+  {
+    "id": "12b6f038-e2b1-498b-8500-12628dbd2f08",
+    "source_updated_at": "2026-09-25T07:33:03.845539+00:00",
+    "body_sha256": "a2fd6d91ec5dbc4eab69836ba63eb71fb8a367045d6590a53cb75145d9cf903b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "PRDX3가 암종마다 예후 방향이 갈린다는 관찰을 신장암 세포 실험으로 좁혀 종양억제 쪽으로 결론짓는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Malignant tumors remain a leading cause",
+      "note": "서론의 암 통계·바이오마커 정의 문단은 쓰이지만 본문 대부분이 암종 약어 나열이라 가공 범위가 좁다."
+    }
+  },
+  {
+    "id": "12eeef72-514e-48c6-a897-f204727dd701",
+    "source_updated_at": "2026-09-25T07:33:10.832015+00:00",
+    "body_sha256": "70838ecf6a7f11e1f9818555b77bfa48fc4cb6c711d1c522780e00e3042d291e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "수막염균 B형 백신의 제조·다양성 난점을 세우고 원형 RNA 플랫폼이 그 둘을 어떻게 피하는지로 논지가 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Neisseria meningitidis serogroup B remains a",
+      "note": "저자 요약이 문제-해법-결과 순이라 그대로 지문 뼈대가 되고 역가 표는 떼어 내면 된다."
+    }
+  },
+  {
+    "id": "1301db98-c60f-4382-b590-e9e49f7df033",
+    "source_updated_at": "2026-09-25T07:33:12.807635+00:00",
+    "body_sha256": "5fcfac25f3c2ba68d62a923f52a1f4ebeaf70d234350bca48a69794d875d2780",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "리스테리아의 침입 경로와 항생제 내성을 먼저 깔고 식물 플라보노이드를 대안 후보로 세우는 서론이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Medicinal plants contain various phytochemicals, such",
+      "note": "서론·결론은 문단으로 서지만 결과절은 화합물 번호와 결합에너지 나열이라 지문 재료가 못 된다."
+    }
+  },
+  {
+    "id": "1331e4a0-552b-4151-8fb3-edc79bd3b1c9",
+    "source_updated_at": "2026-09-25T07:33:15.628545+00:00",
+    "body_sha256": "19606fb05e3a0c0871c9ef58f83902d7bf05be5c18d22dfdc774f11d7914b09d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "사람에게만 생기는 이차결핵을 동물 모형으로 못 본다는 문제에서 1930년대 부검 조직이라는 해법으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tuberculosis (TB) is an infectious disease",
+      "note": "서론과 고찰의 사료 가치 논의는 단백질 이름을 빼도 서고, 시대 대비 소재로도 쓸 만하다."
+    }
+  },
+  {
+    "id": "13560606-2cc6-496d-9976-3009b66efc84",
+    "source_updated_at": "2026-09-25T07:33:18.738446+00:00",
+    "body_sha256": "94a981c23bdc752e9a23cffe290fa8e74543407110f77291c9509309236d1e31",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "GSK3 인산화가 BRAF 종양 형성에 필요하리라는 기대가 생존·종양 수 모두에서 부정되는 음성 결과가 논지로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Serrated colorectal cancers account for about",
+      "note": "고찰의 GSK3 양면성 문단은 떼어지나 유전자형 표기가 본문 전반을 덮어 밴드를 내릴 여지가 없다."
+    }
+  }
+]

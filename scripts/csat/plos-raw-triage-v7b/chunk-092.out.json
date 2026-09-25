@@ -1,0 +1,861 @@
+[
+ {
+  "id": "4ac2a0da-db50-4886-9903-fb0d888565b9",
+  "source_updated_at": "2026-09-15T14:57:51.816465+00:00",
+  "body_sha256": "efee60c5e3f5b78d4c6b7557895c8cdfe99b157cc92c097416533324c6088b33",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "폐암 아형 설명과 치료 한계를 고찰에서 논지로 잇고, 세포 실험 결과를 결론으로 모은다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Lung cancer is one of",
+   "note": "유전자 약어를 「종양 억제 단백질」로 바꾸면 서고, 실험 수치는 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "4ac53b8e-16b2-4220-b686-abfb3da252de",
+  "source_updated_at": "2026-09-13T07:11:37.227056+00:00",
+  "body_sha256": "7797e6eb0137cecc22e9a02de3e1cc9ed6a63afebf6213b0b0045dc9a5e732ec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "공생 세균 연구가 왜 어려운지부터 쥐 모델 도입까지 서론이 한 편의 설명문으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The microbiota is well documented",
+   "note": "유전자 이름 나열은 걷어내야 하지만 서론·고찰은 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "4aca16e7-a763-4c05-b91f-71bcf906e25b",
+  "source_updated_at": "2026-09-23T21:04:46.640079+00:00",
+  "body_sha256": "cb8eda262f14a8a4c29e508d173a139ea4fb2cdc0a68668d0dc551576da11f9a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기니피그를 쓴 이유를 쥐 모델의 한계와 대비해 설명하는 서론 후반이 논증으로 자족한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In the literature, wild-type and",
+   "note": "단백질 약어를 「파킨슨병 관련 단백질」로 묶으면 내려가고, p값 나열은 걷는다."
+  }
+ },
+ {
+  "id": "4aca9c9b-d3dd-4609-acc7-d231fe2750fc",
+  "source_updated_at": "2026-09-25T07:42:18.769969+00:00",
+  "body_sha256": "be6024b1818eebeb76e59ada63e075830f83083c968f4c89347a02847cdb81b5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "막단백질이 왜 연구하기 어려운지를 세제·결정화 문제로 설명하는 서론이 명료하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Transmembrane proteins are abundant and",
+   "note": "아미노산 한 글자 표기는 이름으로 풀어야 하고, 나머지는 손대지 않아도 선다."
+  }
+ },
+ {
+  "id": "4adddf77-fe51-4a10-bd80-50d26884e169",
+  "source_updated_at": "2026-09-15T14:57:56.354711+00:00",
+  "body_sha256": "c500aaf43c6cb8e7427000d0744e13d84fbaabed398fd24bdc31140ab20d766e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "식물성 화학물 섭취와 염증·인슐린 저항의 연결을 가설-검증 구조로 제시한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Diet is a modifiable determinant",
+   "note": "지표 약어를 풀어 쓰면 고2 밴드까지 내려가고, 표 참조 문장은 걷는다."
+  }
+ },
+ {
+  "id": "4ae306ea-f112-4174-b2f5-882179b6672d",
+  "source_updated_at": "2026-09-15T14:57:57.902591+00:00",
+  "body_sha256": "609862f2342158c9c300a933809909f15cc4f97ce04a10cb3e9a0f196f208651",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "신경종이 왜 생기는지와 기존 치료의 한계를 서론에서 차례로 세워 논지가 분명하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Neuromas represent a failed attempt",
+   "note": "측정치 괄호만 걷으면 문단이 그대로 서고, 재료 이름은 「생분해성 덮개」로 바꿀 수 있다."
+  }
+ },
+ {
+  "id": "4ae7d5c2-9590-4810-97c8-be4b313f662d",
+  "source_updated_at": "2026-09-23T21:04:46.743018+00:00",
+  "body_sha256": "76f71f10acd2d1fdad8d4e4f9d8475af2033d12ec1f66bcc825f780a4e3c79da",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "산화 LDL이 혈관 내피를 망가뜨리는 경로를 단계적으로 풀어 인과가 따라가진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Atherosclerosis is the most common",
+   "note": "신호전달 약어가 많아 두세 개는 풀어 써야 하지만 흐름 자체는 끊기지 않는다."
+  }
+ },
+ {
+  "id": "4ae984e1-d624-460d-88e7-2ee711bb3a33",
+  "source_updated_at": "2026-09-25T07:42:24.737684+00:00",
+  "body_sha256": "07e0584c54ef9800ae29760d2575ad10160ee750124683e579b961e509ca9ce2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "선행 연구를 반박하는 구조라 통념과 반증이 한 편 안에서 뚜렷하게 갈린다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dengue virus causes a spectrum",
+   "note": "저자 요약(Author summary)이 이미 쉬운 판이라 그대로 발췌 후보가 된다."
+  }
+ },
+ {
+  "id": "4aedddaa-e95c-41f0-9ffa-cfaa67190020",
+  "source_updated_at": "2026-09-15T14:57:59.850843+00:00",
+  "body_sha256": "7122f63193c1bbbf5bef2c6123b086c404944053cc259cea0cd57f4ddb416532",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "약물 부작용 신호를 데이터베이스로 찾는 절차와 한계를 짧지만 논지 있게 적었다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Macular oedema involves swelling of",
+   "note": "오즈비 수치는 걷어도 「당뇨 환자는 더 주의」라는 논지가 남는다."
+  }
+ },
+ {
+  "id": "4aee8688-704e-4f40-ad33-691b54446d6d",
+  "source_updated_at": "2026-09-25T07:42:25.180865+00:00",
+  "body_sha256": "8f77abc397299c1858bd2299b3aa93586b7330e3b63cde6ccfb7cc2c8ff9c81c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "꿀벌 집단 붕괴의 원인을 응애·바이러스·약제 내성으로 좁혀 가는 서사가 분명하다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Honey bees, Apis mellifera, are",
+   "note": "서론과 저자 요약이 평이해 어휘 두어 개만 바꾸면 중등까지 내려간다."
+  }
+ },
+ {
+  "id": "4aef24bf-a6ef-4704-9c56-afb7edc628eb",
+  "source_updated_at": "2026-09-13T06:51:23.201005+00:00",
+  "body_sha256": "3c7fb3afc0a3d56d21b40c9ca7bb509fb6da64fccedb34d4cb5aff65725d701b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "리소좀을 「세포의 위」와 「자살 주머니」로 설명하는 도입이 비유로 자족한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Lysosomes, first discovered by Christian",
+   "note": "본문 중간중간 그림 설명이 섞여 있어 발췌할 때 그 덩어리를 먼저 걷어내야 한다."
+  }
+ },
+ {
+  "id": "4b0789ca-0f4d-4fd9-89ee-fd0ba8b7c34b",
+  "source_updated_at": "2026-09-13T06:49:21.428032+00:00",
+  "body_sha256": "4bf985bf7bffd0276a7b606956222cb6ec147d96672e505383c62af8871592e4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "라임병 증가 추세와 백신 부재를 근거로 진드기 단백질 연구의 필요를 세운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Ticks and tick-borne diseases impact",
+   "note": "단백질 서열 대목은 걷고 서론·고찰 앞부분만 쓰면 고2 밴드까지 내려간다."
+  }
+ },
+ {
+  "id": "4b17bfc0-7051-408a-b486-c004b40ae72f",
+  "source_updated_at": "2026-09-13T06:52:53.276062+00:00",
+  "body_sha256": "ff77407a6439ea98f2d5de3ef68e8fd0e4c5c8203543d7622dc5ff2daa9b52dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "광물을 녹이는 세균의 쓰임새를 먼저 설명해 뒤의 유전자 조절 논의가 이해된다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Acidithiobacillus ferrooxidans is an acidophilic",
+   "note": "균 이름과 유전자 기호를 대체어로 바꾸면 서고, 수식 절은 통째로 걷는다."
+  }
+ },
+ {
+  "id": "4b1c2b5a-2de6-4ada-a7a0-0fc99099b38c",
+  "source_updated_at": "2026-09-15T14:58:04.681209+00:00",
+  "body_sha256": "a09cdc049b176fd03a5289013f96808ab245ded0b3b681d5aabc1741b51e2122",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두 지표를 합치면 예측이 좋아진다는 주장을 근거와 한계까지 갖춰 편다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Accurate risk stratification following emergency",
+   "note": "고찰이 소제목별로 나뉘어 있어 한 절만 떼어도 논지가 서지만 수치는 걷어야 한다."
+  }
+ },
+ {
+  "id": "4b1f39b1-5868-41c1-8942-51136ff2aaf7",
+  "source_updated_at": "2026-09-15T14:58:05.111878+00:00",
+  "body_sha256": "fc938ac4985078783a003653b846b66e711b4d0f5bc0ffbe46e372167fdec2ba",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "아홉 종 중 한 어종의 콧속에서만 기생충이 나왔다는 관찰이 이야기로 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In this study, the restricted",
+   "note": "염기서열 번호를 걷어내면 「왜 콧속에만 있나」라는 물음이 그대로 남는다."
+  }
+ },
+ {
+  "id": "4b2022e8-1609-4d0e-a33e-f3f0c741f794",
+  "source_updated_at": "2026-09-25T07:42:29.15678+00:00",
+  "body_sha256": "241d3d5c810d2fdcc32a40d1d95357f643af7888dd320bb55e1ba2f69cf6c78a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "열이 내릴 무렵에야 중증 차이가 드러난다는 시간 축 논지가 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dengue virus is a mosquito-borne",
+   "note": "상관계수 나열은 걷고 서론과 고찰 앞부분만 쓰면 문단이 산다."
+  }
+ },
+ {
+  "id": "4b36ea03-bcf7-4fe2-8f73-22b235297306",
+  "source_updated_at": "2026-09-25T07:42:31.067408+00:00",
+  "body_sha256": "b74f74e11fd5a7bf6639f64326e85b2b55803c9e896b855e1054a35ae8c4cf84",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "잎 위치마다 양분 배분이 다르다는 문제 제기를 기존 모델 한계와 함께 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Elevated planting densities typically intensify",
+   "note": "재식 밀도 문단은 그대로 읽히지만 모델 이름 나열 대목은 걷어야 한다."
+  }
+ },
+ {
+  "id": "4b457eca-aede-4995-9619-fd5688dba560",
+  "source_updated_at": "2026-09-13T06:04:58.183098+00:00",
+  "body_sha256": "f9679071eb5e9e91517755eeba6e8ec3c1932867a2f147481d40f875da3841a6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "수술 부위 감염 위험을 비만·수술 지연·혈당으로 나눠 설명하는 고찰이 조리 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Beyond SIRI, our findings regarding",
+   "note": "앞머리에 초록이 두 번 반복돼 발췌 전에 한 벌을 걷어야 한다."
+  }
+ },
+ {
+  "id": "4b4fdd3a-85bd-4e4a-bd76-5563b0b596a9",
+  "source_updated_at": "2026-09-25T07:42:32.468369+00:00",
+  "body_sha256": "8c30c9867def1903aa91021f6b0617328d15d25283abb831fdf9f2e1e7ab8552",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "종양이 자라려면 새 혈관이 필요하다는 전제에서 약물 설계까지 이어지는 서론이 분명하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Angiogenesis is a critical event",
+   "note": "화합물 명칭이 문장마다 들어와 어휘를 바꿔도 밴드가 크게 내려가지 않는다."
+  }
+ },
+ {
+  "id": "4b505b4a-c275-466c-a17e-b92a5c522de7",
+  "source_updated_at": "2026-09-25T07:42:32.933898+00:00",
+  "body_sha256": "8ef90b14113c3844392dfb0293993886a22769301dbf3f026418c1d0d3eb8729",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "농촌 문화 서비스의 성과가 어떻게 생기는지를 네 축의 상호작용으로 설명한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Rural Revitalization strategy was",
+   "note": "경로계수 표기는 걷고 서론·결론만 쓰면 사회 지문으로 바로 선다."
+  }
+ }
+]

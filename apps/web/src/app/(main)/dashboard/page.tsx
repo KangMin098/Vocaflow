@@ -32,6 +32,8 @@
 // 조치 표면이 둘로 남아 있었다. 4상태는 "지금 뭘 할까"(forward)라 띠의 소관이고,
 // 이 화면은 "얼마나 오래 가나"(backward)를 맡는다.
 
+import Image from 'next/image'
+
 import { Screen } from '@/components/ui/ios'
 import { Rule } from '@/components/ui/press'
 import { ActivityTrace } from '@/components/dashboard/ActivityTrace'
@@ -85,14 +87,25 @@ export default async function DashboardPage() {
         {/* 1. 헤더 — 날짜와 이름만. 오늘 진행·연속일은 셸 상태 띠가 이미 판다.
             v07 — 이름을 `--p`(딥 잉크)로 칠하던 것을 주묵 표식으로 바꿨다. 한 화면에서
             "여기가 당신" 이라고 말하는 자리는 하나이고, 그 표식은 브랜드 색이 맡는다. */}
-        <header className="border-b-2 border-[var(--t1)] pb-3">
-          <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-            {kstDateLabel()}
-          </span>
-          <h1 className="mt-1 font-editorial text-[26px] font-[500] leading-[1.05] tracking-[-0.012em] text-[var(--t1)] md:text-[32px]">
-            <span className="text-[var(--ju-ink)]">{overview.userName}</span>
-            <span>님이 지나온 길</span>
-          </h1>
+        {/* DD-68 — 참조 구간 머리: 눈썹(날짜) · 큰 제목 · 오른쪽 소품. 무거운 밑줄 대신 여백으로 가른다. */}
+        <header className="flex items-end justify-between gap-6">
+          <div className="min-w-0">
+            <span className="font-display text-[14px] font-[700] tracking-[0.04em] text-[var(--ju)]">
+              {kstDateLabel()}
+            </span>
+            <h1 className="mt-3 break-keep font-display text-[36px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--t1)] md:text-[52px]">
+              <span className="text-[var(--ju-ink)]">{overview.userName}</span>
+              <span>님이 지나온 길</span>
+            </h1>
+          </div>
+          <Image
+            src="/illustrations/tines/spot-dashboard.webp"
+            alt=""
+            width={1328}
+            height={1328}
+            priority
+            className="hidden w-[120px] shrink-0 select-none md:block"
+          />
         </header>
 
         {/* ── v07 「주묵 판면」 ────────────────────────────────────────────────

@@ -1,0 +1,650 @@
+[
+  {
+    "runId": "2026-09-25T09-12-54-678Z",
+    "id": "fc4a271f-29cd-4d0c-9a82-5fc67cf079a3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e0722ad365ff0914d5c130852c4dbe8f6134c0c31ae2559d991a53e4ae816a6a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "실외 오존·미세입자와 실내 오염, 가정·학교 공기청정 연구를 대비해 주제·요지·순서·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "But while air quality in the",
+          "note": "학교가 가정보다 파급이 크다는 문단은 but while 대비가 한 문단에 서서 요지 빈칸으로 가공됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:54.680Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2018/09/breathe-easier",
+          "year": 2018,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-54-678Z",
+    "id": "fc8a9f5f-c547-4598-a6ae-c3daae7109f2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6b3488ff59fe16c25c81864362a2e2e7ced3ba1569fc0a54f5a785c402ebd4d2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "여름 일교차 변동이 만성질환 노인 생존을 줄인다는 메디케어 자료 연구로 요지·요약·내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The scientists found that greater swings",
+          "note": "결과 문단은 녹지·인구밀도 대비까지 한 문단에 담겨 수치를 빼도 요약문 빈칸이 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:54.681Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/05/danger-shifting-summer-temperatures",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-54-678Z",
+    "id": "fd851b2a-d3bf-4be4-a407-a570683b2fd8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c7ffd8dd89d24043f6ccbda520248839ba1466d5a5c0b986dd167308b8c9cb84",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "NIH 가 치매 임상연구 자원자를 찾으며 안내 소책자를 권하는 공지로 까닭과 행동이 서 목적 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "You can make a difference by",
+          "note": "참여 권유 문단은 두 문장으로 목적이 서고 끝의 주소·전화번호 문단은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:54.681Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2014/11/participating-alzheimers-research",
+          "year": 2014,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-54-678Z",
+    "id": "fd8f00b2-bbe2-48ee-8cde-7384628edc69",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "782801fe19204128d02d10ed2d0b5dd21016c5db7158a9f8fa17cfd5bf423096",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "항암화학요법의 원리·부작용·완화법(침·요가)을 차례로 설명해 주제·순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Most of the cells in your",
+          "note": "빠르게 분열하는 정상세포 문단은 앞 문맥 없이 서고 intestines 만 쉬운 말로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:54.681Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2026/02/coping-chemo",
+          "year": 2026,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-54-678Z",
+    "id": "fe16e187-754a-4bd5-8f56-9c8a619827a5",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6873ce697039ec99fe5dca96e697ed7f19e28c506e13b8575f240a6afa7448eb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "하지불안증후군의 증상·역설(누우면 심해짐)·원인·완화를 풀어 주제·빈칸·내용일치 칸이 된다; 풀이 삽입구 두 곳은 걷는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The irony of restless legs syndrome",
+          "note": "The irony 문단은 쉬려 할수록 증상이 켜지는 역설이 한 문단에 서서 빈칸 문항으로 가장 좋았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:54.681Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/10/cant-curb-urge-move",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-54-678Z",
+    "id": "fe75ba18-fba6-4ce6-b942-24eb377fca24",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7fd0cc3103a70325b4603b64252f87863b17fdc62a4db1edd5aaf8e0dd72dbe5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "뇌종양의 특성·원발/전이 구분·증상·팀 치료를 설명해 주제·내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A tumor is an abnormal mass",
+          "note": "종양 형성 문단은 정상→이상 과정 순서가 뚜렷해 순서 문항으로 쉽게 잘렸다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:54.681Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2017/10/spotlight-brain-tumors",
+          "year": 2017,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-54-678Z",
+    "id": "fecb51fa-56ba-4aa8-b7bb-9980957653a3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "877ea4fcdc1c6c6a03e7103d7337cc1154047e2e82faf254d3665fa463c12bf8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "소아 비만의 조기 개입·INSIGHT·Fit Together·가족 기반 치료를 이어 요지·주장·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“The parenting tools help create a",
+          "note": "가족 기반 치료 효과 문단은 효과 네 가지가 한 문단에 있어 내용일치와 삽입 문항 둘 다 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:54.681Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2025/05/addressing-childhood-obesity",
+          "year": 2025,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-54-678Z",
+    "id": "ff638353-7d4b-4751-8465-ac298df537b8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fcd25d8ce3d101c95e036b1c760f10810e24086e7eebdfb1ed6c37216360290e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "개코원숭이 알파 수컷이 베타보다 스트레스가 높다는 뒤집힌 결과를 방법·원인 추정과 함께 제시해 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "title",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The team discovered that high-ranking males",
+          "note": "예외를 밝힌 문단은 But there was one major exception 한 줄로 반전이 서 빈칸 핵심으로 쓰였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:54.682Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2011/09/being-beta-male",
+          "year": 2011,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-54-678Z",
+    "id": "ffa07715-8084-4b35-a2eb-2b19cf7b869c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "25252351afb2b41dd78e79191340d419b1a8eb10b660ebd9399f768bcfe70594",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "연구자와의 문답 인터뷰로 사회성 발달 전략·결과 부여·운전 계약을 풀어 목적·요지·구어 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "audio"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Haggerty: It is important for parents",
+          "note": "운전 계약 답변 문단은 물음 나열이 많아 몇 개를 줄이자 부모-자녀 협상 요지가 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:54.682Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/06/dr-kevin-haggerty-parenting",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-54-678Z",
+    "id": "ffef6688-c06d-458d-9ce1-8ec5b8755b52",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "84e2766242e1b96faba045f31f75c4bfc9599211b93bcb8cf2713a1814cd87f6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "파킨슨병의 진행·원인·치료·연구 참여 권고를 풀어 주제·내용일치·순서 칸이 된다; 풀이 삽입구는 걷는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Parkinson’s disease evolves gradually over time.",
+          "note": "초기 징후 문단은 미세한 변화→심해짐 흐름이 한 문단에 서서 순서 문항으로 잘렸다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:54.682Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2014/11/parkinsons-disease",
+          "year": 2014,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  }
+]

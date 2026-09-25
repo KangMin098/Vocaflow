@@ -1,0 +1,1892 @@
+[
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c572aaf-f79d-48eb-9ebb-a55f8dfaf445",
+    "revision": "2026-09-25T08:27:03.635305+00:00",
+    "body_sha256": "5e99e6d0ab0c41f25d3322544adeccf8ceabd645da0a80851a3b07045d3c5b34",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "부통령 모친의 부고에 자서전 일화(말더듬 조롱에 맞선 일, 사고 후 위로)와 가족 성명이 이어져 고1~고2 심경·내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "mood"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He also writes about how his",
+          "note": "1972년 사고 단락은 떼어도 위로의 심경이 서고 devout 만 풀면 된다. 거친 말 인용 일화는 가공 때 고른다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.728Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._Vice_President_Biden's_mother_dies%2C_aged_92",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.366
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c58bf45-c523-48c9-af43-e69e7a9e6204",
+    "revision": "2026-09-25T07:52:19.219269+00:00",
+    "body_sha256": "22697663b9033cda9d00e21141ffe1bdc7184da064e5955c7793e48b6ae7819d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "2030년 55% 감축 기후법의 내용과 「실제 감축은 52.8%」·「파리협정 1.5도에 못 미친다」는 반론, 「두 배 반 더 한다」는 옹호가 고3 주장·수치 검증 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The EU Climate Law, agreed after",
+          "note": "둘째 단락은 57% 주장과 52.8% 반박이 한 단락에 서서 수치 주장 검증 문항으로 떼기 좋다. carbon sinks 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.729Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/European_Union_to_reduce_carbon_emissions_by_55%25_of_1990_levels_by_2030",
+          "year": 2021,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.358
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c5937e6-70c5-4913-90f6-cc7dd9823450",
+    "revision": "2026-09-25T07:14:50.103169+00:00",
+    "body_sha256": "051e95629f38a45a8778facba88a41986562ddf3326cfff755fa24b28a8ca157",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "연정이 한 석 차로 과반을 지킨 개표 결과와 알루미늄 제련소 개발을 둘러싼 경제-환경 쟁점 대비가 고2 이상 내용 일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Business and environment were key issues",
+          "note": "쟁점 단락은 「지열 전력 → 제련소 → 경제 호황」과 반대 정당의 중단 요구가 떼어도 서고 smelter 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.730Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iceland's_government_coalition_keeps_majority",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.361
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c5fdee8-2148-4d10-8913-17fec5aa91a7",
+    "revision": "2026-09-25T07:40:55.678985+00:00",
+    "body_sha256": "bd141ef58c1b218f3aaa4128a1ef0eeecc8c7e12fcd6639fdc63a6896a04743a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "유럽연합의 소말리아 보안군 훈련 계획과 해적 퇴치 작전을 항구·모선까지 넓히려는 구상, 해적 피해 사례가 이어져 고2 이상 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The EU also plans to extend",
+          "note": "해적 작전 단락은 떼어도 확대 이유가 서지만 솔라나 인용은 문장이 흐트러져 가공 때 풀어 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.730Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/European_Union_to_train_Somali_security_forces",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.425
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c6256da-2676-44d8-838a-f3f811790e24",
+    "revision": "2026-09-25T06:46:50.408587+00:00",
+    "body_sha256": "664e3f68279bdd584c781e53e4d9a6b9f918d9da47c63a2e42c330668279e2ee",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "실각한 대통령이 모스크바 대사관에서 의회 대표단과 사임 문서에 서명하고 면책 특권을 보장받는 조건이 드러나 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "While full details of the document",
+          "note": "마지막 단락은 보증국과 면책 조건이 떼어도 서고 guarantors·immunity 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.730Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Akayev_signs_resignation_agreement",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.061,
+          "words": 165,
+          "english": 0.39
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c664954-0d98-4dd5-8886-67a623b875da",
+    "revision": "2026-09-25T07:41:44.22806+00:00",
+    "body_sha256": "fb668c7482c3f2beeea07fbda54688e339988c7c5c31acb66df0bbe340ddc0e3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "재산에 비례해 벌금을 매기는 스위스 원칙과 외교관 사칭으로 벌금을 피하려다 기록적 벌금을 받은 경위가 고1~고2 요지·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Swiss courts calculate their fines on",
+          "note": "둘째 단락은 「재산 비례 → 2천3백만 프랑 자산 → 거짓 면책 주장」이 떼어도 서고 proportionate 만 바꾸면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.730Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Swiss_millionaire_gets_record_speeding_fine",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.236,
+          "words": 191,
+          "english": 0.414
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c6a7143-c3d4-4588-9b2a-f0e370fb1da6",
+    "revision": "2026-09-25T07:06:15.088175+00:00",
+    "body_sha256": "c4b4819422a21149168fc37d67f775ee456b0679489ace61463f4913a82ee4bd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "구글의 유튜브 인수 발표와 「정보를 조직한다」는 사명에 맞는다는 인수 이유, 하루 1억 편 시청 규모가 고1~고2 목적·내용 일치·시대 비교 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "purpose"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Eric Schmidt, CEO of Google stated",
+          "note": "CEO 발언 단락은 인수 이유가 떼어도 서고 complements·compelling 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.730Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Google_purchases_YouTube_for_%241.65_billion",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.734,
+          "words": 169,
+          "english": 0.327
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c7481d5-099b-4aff-b6fd-057fdcce9745",
+    "revision": "2026-09-25T07:38:05.04864+00:00",
+    "body_sha256": "71ee8eaee17250a668d40481d7bb49cd2640549e922f519ac52f5f1afdc2717d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "고속도로 확장 대신 대중교통에 투자하라는 청원 측 주장(교통공사 재정 고갈·온실가스 목표)과 주 총리의 「종합하면 배출이 준다」 반론이 고2 이상 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Translink is currently exhausting its capital",
+          "note": "위스턴 단락은 「둘 다 할 돈이 없다 → 대중교통 먼저」 논리가 떼어도 서고 capital reserves 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.730Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Polar_bears_deliver_environmental_petition_to_Premier_of_British_Columbia",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.323
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c7a20a3-e09c-49fb-af8e-6f3ed6734f82",
+    "revision": "2026-09-25T07:58:52.007043+00:00",
+    "body_sha256": "d1df51dfeb61d30eb55da701fae71585db90398d1243ab5ed0f22f9cc2ed4a68",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "하루에 한 달 치 비가 내려 댐이 터지고 마을이 잠긴 독일·벨기에 홍수 경과가 이어져 고1~고2 내용 일치·순서 칸을 채운다(사망 소재).",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "order"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In Germany and Belgium, entire villages",
+          "note": "둘째 단락은 「하루 강우 = 한 달 치」 원인이 떼어도 서고 meteorologist 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.730Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Floods_in_Europe_kill_over_150%2C_hundreds_reportedly_missing",
+          "year": 2021,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.357
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c7c1269-98b1-40c0-8da5-f49f271921fc",
+    "revision": "2026-09-25T08:37:15.343654+00:00",
+    "body_sha256": "3e60e59ced2f9eb6f23a641faa54eefe1efd32dd85612250b45e59bc3dcc18e7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아군 오인 사격 사망을 적 공격으로 발표·훈장 추천한 장군이 군 가족 위원장이 되자 어머니가 은폐 책임을 들어 반대한 주장과 근거가 고3 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Immediately after Tillman's death, the Army",
+          "note": "둘째·셋째 단락을 이으면 「허위 발표 → 은폐 메모 → 부적격」 근거가 서고 posthumously 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.730Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Mother_of_slain_Army_Ranger_calls_for_removal_of_General_McChrystal_from_committee",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.333
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c7c8879-0b1f-443d-a418-49f341ac074e",
+    "revision": "2026-09-25T08:23:22.977208+00:00",
+    "body_sha256": "e72a70e635b51b5f0eeb6fd26c0a2491d47657738edc56b5254969c02722cb93",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "오스만 왕가 마지막 계승권자의 사망과 1923년 왕정 폐지 당시 계승 서열 4위였던 사실이 이어져 고1~고2 내용 일치·시대 비교 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He was fourth in line to",
+          "note": "셋째 단락은 왕정 폐지 → 공화국 수립이 떼어도 서고 어려운 낱말이 abolished 정도다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/'Last_Ottoman'_dies_at_age_97",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.207,
+          "words": 145,
+          "english": 0.483
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c7d6bd7-3c64-40c5-8b4f-0da6bec807f4",
+    "revision": "2026-09-25T07:28:55.942219+00:00",
+    "body_sha256": "ad6edc40261b834c19582adeeeb61ca26a6a4dbdd53df8668125d4675f6d544b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "폼 조각 손상 → 재진입 중 분해라는 컬럼비아호 참사 경위와 5주기 추모식의 유족·전 사령관 추도사가 고1~고2 심경·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "mood"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "NASA has held a memorial ceremony",
+          "note": "첫 단락은 사고 원인이 떼어도 서고, 유족 추도 단락은 심경 문항으로 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/NASA_holds_ceremony_to_commemorate_anniversary_of_Space_Shuttle_Columbia_disaster",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c83132b-395c-464c-a47c-fb8dd9147a18",
+    "revision": "2026-09-25T07:25:38.126451+00:00",
+    "body_sha256": "d5bb2e8fd14ac2e36eeef893e9c53bc670ec151e9a35aaa47f07ebe7a28abf2f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "후보 인터뷰 가운데 비례대표제 지지 논거와 교육 바우처 제안 단락이 고3 이상 주장·요지 칸을 채우지만 낙태·동성혼 발언은 한쪽 정견이라 가공 때 걷는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "I strongly support MMP as it",
+          "note": "MMP 단락은 「단순다수제는 사표를 낳는다 → 비례제 찬성」 논지가 떼어도 선다. 동성혼 단락은 편견이 담긴 정견이라 쓰지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ontario_Votes_2007%3A_Interview_with_Family_Coalition_Party_candidate_Suzanne_Fortin%2C_Nepean-Carleton",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.443
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c833c03-0835-4f98-a7ce-c69ca9a5e352",
+    "revision": "2026-09-25T07:29:49.168824+00:00",
+    "body_sha256": "1e90d95a3eeb1e7e364d0179647c33c0dcde40ebd12544994f1092a3d3116ee3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "규모·진앙 거리·깊이·인구 수치만 세 단락에 나열하고 피해 보고도 없어 떼어 낼 사건 흐름이 없는 지진 속보다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Iquique, Chile has been struck by",
+          "note": "어느 단락도 수치 외 내용이 없어 가공할 문단이 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iquique%2C_Chile_struck_by_moderate_earthquake",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.667,
+          "words": 75,
+          "english": 0.362
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c8665ff-c861-4f6f-ad3a-7c707925e07d",
+    "revision": "2026-09-25T07:50:23.8972+00:00",
+    "body_sha256": "1b035f53b43363095f6e2eddcb760f98eb91a47ac656c62420a1c27223176cd3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "sports",
+        "why": "1·2세트 압승 → 3세트 페더러 반격 → 4세트 승리로 결승 진출까지 경기 흐름이 이어져 중등~고1 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Serbian Djokovic won the first set",
+          "note": "둘째 단락은 세트별 흐름이 떼어도 서지만 서브 에이스·실책 수치는 가공 때 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/6-1%2C_6-2%2C_3-6_and_6-3%3A_Djokovic_beats_Federer_and_advances_to_Aus_Open_2016_Final",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.301
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c898c29-4551-408c-8876-593a64b4148e",
+    "revision": "2026-09-25T08:36:47.79047+00:00",
+    "body_sha256": "3aa51808fee9d5a5c1fd93f49e25df3a947bbe32c5afe402bde2279b145fe788",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아들을 약물로 암 환자처럼 꾸며 모금한 어머니의 사기와 판결, 판사의 질타와 변호인의 「스트레스로 헤어나지 못했다」 항변이 고2 이상 내용 일치·주장 칸을 채운다(아동 학대 소재).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Your conduct, ma’am, in this case",
+          "note": "판사 발언 단락은 떼어도 행위의 부당함이 서고 pecuniary·reprehensible 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_woman_sentenced_to_jail_for_faking_son%E2%80%99s_cancer",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.363
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c8e4350-133a-49b4-b4d7-c4c3a8eb51ae",
+    "revision": "2026-09-25T07:09:06.695033+00:00",
+    "body_sha256": "43d46267191bb7b8eaaf409e69111913d90675b8f1a86089cae654984d5f332a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "두 공동 피고의 처형 일정과 두자일 학살 죄목, 사담 처형 영상 유출에 대한 분노와 엇갈린 국제 반응이 고2 이상 내용 일치 칸을 채운다(처형 소재).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Since then, Saddam loyalists and Sunni",
+          "note": "영상 유출 단락은 떼어도 반발 이유가 서지만 처형 장면 묘사는 가공 때 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Saddam's_co-defendants_to_be_executed_Thursday",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c8ea69e-4317-49c6-929a-eb1b0d721089",
+    "revision": "2026-09-25T05:31:02.231821+00:00",
+    "body_sha256": "d13b2916989cdcf694fdcaa31349c8a92b5c29ea6612526e8f7c192d33666272",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아라파트 사후 첫 선거에서 온건파 압바스가 유력한 이유와 투표 연장·예루살렘 투표 방해·국경 봉쇄로 투표 못 한 유권자가 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mahmoud Abbas, who was the interim",
+          "note": "압바스 단락은 떼어도 기대의 이유가 서지만 후보 이름 목록 여섯 줄은 가공 때 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Voting_underway_for_successor_to_Yasser_Arafat",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c91fe25-df1c-4049-96c7-734b7a803996",
+    "revision": "2026-09-25T07:40:15.993039+00:00",
+    "body_sha256": "bce83cf092c04b38938a7d5ca70b68fff57af3a4940bfd5f45ba6c8c246c6d4f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "가봉 대통령 취임 선서와 부패 척결 연설, 부정선거 소송 기각과 부친의 40년 집권 배경이 이어져 고1~고2 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In a speech, Bongo said that",
+          "note": "연설 단락은 「부패 없는 가봉」 소망이 반복 구조로 서서 떼기 쉽고 merit 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ali_Bongo_sworn_in_as_president_of_Gabon",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.462
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c93138d-782d-404b-9772-959c19299273",
+    "revision": "2026-09-25T08:22:49.806889+00:00",
+    "body_sha256": "6f093e7896de54ff743578ebdab70fd24750502358f4be4d3d37ce783b1be469",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "측정 기관마다 다른 규모 발표와 정전·낙석·가벼운 가옥 손상 피해가 이어져 중등~고1 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Power temporarily went out in many",
+          "note": "피해 단락은 정전 → 복구, 낙석 → 도로 차단이 떼어도 서고 epicenter 만 풀면 V4."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Large_earthquake_strikes_nation_of_Georgia",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 7.742,
+          "words": 155,
+          "english": 0.336
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0c97c554-faef-4754-ba29-e764b73cd19f",
+    "revision": "2026-09-25T07:42:11.278394+00:00",
+    "body_sha256": "e5ceaada73747a3f8e4c137f624cf8123a330585f8deefdb5fc585b303cd0941",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "2009년이 항공업 최악의 해라는 협회 발표와 지역별 수요 증감, 중동 항공사가 선방한 이유(환승 허브), 운임 경쟁 우려가 고3 빈칸·수치 주장 검증 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice",
+            "order"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"While both North American and European",
+          "note": "지역별 단락은 「중동이 오른 이유 = 세 대륙 사이 허브」가 떼어도 서지만 백분율은 둘셋만 남긴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2009_was_worst_year_for_airlines%2C_says_International_Air_Transport_Association",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.344
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0ca149cd-2858-46d9-af1b-0aea150a2c87",
+    "revision": "2026-09-25T06:57:58.26651+00:00",
+    "body_sha256": "cb1f1003d4bfbedc57905dadfe8096d3a915c393c321b91eb7f8ce58289231eb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "「핵 기술」을 「핵무기」로 오역한 CNN 이 이란에서 취재 금지된 원인-결과와 사과, 이란 측의 「의도였는지 모른다」 반응이 고1~고2 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The ban by the Culture and",
+          "note": "넷째 단락은 오역 → 금지가 떼어도 서고 mistranslation 은 문맥으로 잡힌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/CNN_banned_from_Iran_after_misquoting_president",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.378
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0ca5efa5-3e13-4bc7-993e-bcf255287d55",
+    "revision": "2026-09-25T06:54:44.515406+00:00",
+    "body_sha256": "e54a9e16ebfbe896929af379ac7e33e79164ebee6417c094a832b0ce4e3e1eb0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "energy",
+        "why": "작업자가 선을 잘못 끊자 자동 차단이 연쇄로 번져 도시 대부분이 정전된 원인-결과와 복구·테러 무관 발표가 고1~고2 순서·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A power outage in a large",
+          "note": "첫 단락은 원인 → 연쇄 반응이 떼어도 서고 chain reaction 은 쉬운 말이라 V5 까지 내린다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Los_Angeles_undergoing_large_power_outage",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.364
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0ca84dc9-d432-491c-9d3c-fbbe7614a0e9",
+    "revision": "2026-09-25T08:07:04.426294+00:00",
+    "body_sha256": "8189c75aa694105eaac5cb6dfec3820cd18af0fdb5e9e130fb67b66fc34a0a93",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "경찰관 폭행으로 사회봉사형을 받은 가수의 판결, 동생에 대한 인종 모욕이 발단이었다는 사정과 깊은 사과가 이어져 고1~고2 내용 일치·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "mood"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to her solicitor the catalyst",
+          "note": "변호인 사과 단락은 떼어도 뉘우침의 심경이 서고 makes no bones 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.731Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UK_R%26B_singer_Ms_Dynamite_sentenced_for_assault",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.882,
+          "words": 170,
+          "english": 0.407
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-41-725Z",
+    "id": "0cb142da-1f13-4ae7-933e-9434c9c64c1d",
+    "revision": "2026-09-25T07:50:06.325262+00:00",
+    "body_sha256": "723b551bf458bd7a74594e79f03e3d6e0c8081984ea552b7394a1e0b3c3e79b9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "「주거지에 들리지 않게」 조항이 라이브 공연장을 문 닫게 한다는 업주·학자의 주장과 소음 판단 8요소 대안, 시의회의 균형 입장이 긴 탐사 기사로 고3 주장·요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice",
+            "order",
+            "insert",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Since the clause was introduced by",
+          "note": "조항 설명 단락은 떼어도 문제의 발단이 서고, 스튜어트의 단계별 대안 단락은 순서 문항으로 쓰기 좋다. inaudible 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:41.732Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Petition_pressures_City_of_Edinburgh_Council_to_review_clause_affecting_live_music_scene",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.372
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

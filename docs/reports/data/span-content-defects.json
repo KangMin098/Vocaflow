@@ -1,0 +1,217 @@
+{
+  "measuredAt": "2026-09-23",
+  "contract": "span-content-defects/v1",
+  "defects": [
+    {
+      "key": "citation",
+      "label": "본문 인용"
+    },
+    {
+      "key": "citation_bare",
+      "label": "괄호 없는 인용"
+    },
+    {
+      "key": "crossref",
+      "label": "상호 참조"
+    },
+    {
+      "key": "runhead",
+      "label": "러닝헤더·쪽번호"
+    },
+    {
+      "key": "formula",
+      "label": "수식·표"
+    },
+    {
+      "key": "docmeta",
+      "label": "자료·판본 기술"
+    },
+    {
+      "key": "gloss",
+      "label": "외국어 + 대괄호 번역"
+    },
+    {
+      "key": "stripped",
+      "label": "인용 제거 잔해"
+    }
+  ],
+  "rows": [
+    {
+      "source": "OLH · csat_short",
+      "spans": 1124,
+      "clean": 618,
+      "cleanPct": 55,
+      "byDefect": {
+        "crossref": 489,
+        "citation": 18,
+        "gloss": 10,
+        "docmeta": 3,
+        "formula": 2,
+        "runhead": 3,
+        "citation_bare": 2
+      }
+    },
+    {
+      "source": "OLH · school_paragraph",
+      "spans": 1136,
+      "clean": 627,
+      "cleanPct": 55.2,
+      "byDefect": {
+        "crossref": 492,
+        "citation": 18,
+        "gloss": 10,
+        "docmeta": 3,
+        "formula": 2,
+        "runhead": 3,
+        "citation_bare": 2
+      }
+    },
+    {
+      "source": "OLH · csat_long",
+      "spans": 536,
+      "clean": 227,
+      "cleanPct": 42.4,
+      "byDefect": {
+        "crossref": 301,
+        "citation": 16,
+        "gloss": 7,
+        "docmeta": 3,
+        "formula": 2,
+        "runhead": 3,
+        "citation_bare": 2
+      }
+    },
+    {
+      "source": "EconStor · csat_short",
+      "spans": 1232,
+      "clean": 566,
+      "cleanPct": 45.9,
+      "byDefect": {
+        "citation": 292,
+        "crossref": 371,
+        "runhead": 11,
+        "docmeta": 52,
+        "citation_bare": 30,
+        "formula": 4
+      }
+    },
+    {
+      "source": "EconStor · school_paragraph",
+      "spans": 1241,
+      "clean": 572,
+      "cleanPct": 46.1,
+      "byDefect": {
+        "citation": 294,
+        "crossref": 371,
+        "runhead": 11,
+        "docmeta": 53,
+        "citation_bare": 30,
+        "formula": 4
+      }
+    },
+    {
+      "source": "EconStor · csat_long",
+      "spans": 589,
+      "clean": 150,
+      "cleanPct": 25.5,
+      "byDefect": {
+        "citation": 224,
+        "crossref": 274,
+        "runhead": 11,
+        "docmeta": 36,
+        "citation_bare": 19,
+        "formula": 3
+      }
+    },
+    {
+      "source": "SciELO · csat_short",
+      "spans": 981,
+      "clean": 577,
+      "cleanPct": 58.8,
+      "byDefect": {
+        "citation": 296,
+        "citation_bare": 48,
+        "crossref": 89,
+        "stripped": 1,
+        "formula": 2,
+        "docmeta": 23,
+        "runhead": 15
+      }
+    },
+    {
+      "source": "SciELO · school_paragraph",
+      "spans": 987,
+      "clean": 582,
+      "cleanPct": 59,
+      "byDefect": {
+        "citation": 297,
+        "citation_bare": 48,
+        "crossref": 89,
+        "stripped": 1,
+        "formula": 2,
+        "docmeta": 23,
+        "runhead": 15
+      }
+    },
+    {
+      "source": "SciELO · csat_long",
+      "spans": 464,
+      "clean": 201,
+      "cleanPct": 43.3,
+      "byDefect": {
+        "citation": 199,
+        "citation_bare": 38,
+        "crossref": 70,
+        "stripped": 1,
+        "formula": 2,
+        "docmeta": 19,
+        "runhead": 14
+      }
+    },
+    {
+      "source": "OpenAlex · csat_short",
+      "spans": 1051,
+      "clean": 676,
+      "cleanPct": 64.3,
+      "byDefect": {
+        "citation_bare": 83,
+        "runhead": 171,
+        "docmeta": 14,
+        "citation": 114,
+        "crossref": 71,
+        "formula": 6,
+        "gloss": 1
+      }
+    },
+    {
+      "source": "OpenAlex · school_paragraph",
+      "spans": 1062,
+      "clean": 686,
+      "cleanPct": 64.6,
+      "byDefect": {
+        "citation_bare": 83,
+        "runhead": 172,
+        "docmeta": 14,
+        "citation": 114,
+        "crossref": 71,
+        "formula": 6,
+        "gloss": 1
+      }
+    },
+    {
+      "source": "OpenAlex · csat_long",
+      "spans": 498,
+      "clean": 232,
+      "cleanPct": 46.6,
+      "byDefect": {
+        "citation": 81,
+        "citation_bare": 58,
+        "runhead": 143,
+        "docmeta": 13,
+        "crossref": 53,
+        "formula": 5,
+        "gloss": 1
+      }
+    }
+  ]
+}

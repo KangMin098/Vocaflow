@@ -44,7 +44,7 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 
 | 요소 | 사용자 앱 | Admin Console |
 |---|---|---|
-| 액센트 | `var(--p)` Deep Ink `#0F2540` + 주묵 표식 | **B 「주묵 도장」 확정**(2026-09-20 사용자 결정 · [design/DECISIONS](./design/DECISIONS.md) DD-55). 구조·액센트는 `--p` 로 통일하고, **관리자에서만** `--ju` 를 **표식(점·선)에만** 쓴다 — 헤더 도장 · 파괴적 동작 버튼 테두리 · 활성 행 왼쪽 2px. **면 금지**(주묵이 면적을 가지면 경고와 혼동된다). 관리자 구분은 그 표식 + `ShieldCheck` + 「Admin」 텍스트 셋이 함께 진다. 옛 보라 `#8B5CF6` 은 **2026-09-20 에 전량 교체됐다**(Gate 4 (i) · 라쳇 admin.ai-purple **318 → 0**). 코드모드 `scripts/design/purple-to-token.mjs` 가 정확 일치만 바꾼다 — 남은 것은 테스트 픽스처뿐이고, 학습자 표면(38)은 그 표면 작업에서 지운다. 액센트 C 「공정 띠」는 채택하지 않았고, 그 알맹이는 아래 **커버리지 규격**으로 남았다 |
+| 액센트 | `var(--p)` Deep Ink `#0F2540` + 주묵 표식 | **2026-09-24 DD-82 — 레퍼런스 앱(`neon-currant.3b.dev`) 스킨**: `/admin` 이하에서는 `skins/admin-app.css` 가 토큰 값을 바꿔 `--p` · `--admin` · `--ju` 가 **먹색 `#0d0d17`**, 면은 흰 `#fff` / 캔버스 `#fbf9f7`, 선은 `rgba(13,13,23,.1)`, 서체는 Inter 다. 색은 토큰으로만 칠한다(회귀 `admin-color-tokens.test.ts`). 아래 DD-55 문장의 역할 구분(구조 `--p` · 표식 `--ju`)은 그대로이고 값만 바뀌었다. — **B 「주묵 도장」 확정**(2026-09-20 사용자 결정 · [design/DECISIONS](./design/DECISIONS.md) DD-55). 구조·액센트는 `--p` 로 통일하고, **관리자에서만** `--ju` 를 **표식(점·선)에만** 쓴다 — 헤더 도장 · 파괴적 동작 버튼 테두리 · 활성 행 왼쪽 2px. **면 금지**(주묵이 면적을 가지면 경고와 혼동된다). 관리자 구분은 그 표식 + `ShieldCheck` + 「Admin」 텍스트 셋이 함께 진다. 옛 보라 `#8B5CF6` 은 **2026-09-20 에 전량 교체됐다**(Gate 4 (i) · 라쳇 admin.ai-purple **318 → 0**). 코드모드 `scripts/design/purple-to-token.mjs` 가 정확 일치만 바꾼다 — 남은 것은 테스트 픽스처뿐이고, 학습자 표면(38)은 그 표면 작업에서 지운다. 액센트 C 「공정 띠」는 채택하지 않았고, 그 알맹이는 아래 **커버리지 규격**으로 남았다 |
 | 로고 아이콘 | `V` (Plus Jakarta) | `ShieldCheck` |
 | Sidebar 헤더 | "Vocaflow" | "Vocaflow" + **"Admin"** mono 배지 |
 | 알림 박스 | Streak | **"관리자 모드 · 시스템 데이터 접근 중"** |
@@ -62,9 +62,9 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 
 ```
 [ 단독 ]    대시보드 (LayoutDashboard)
-[ 교재 ]     (accent: #8B5CF6)
-   교재 공장 (Factory) — 하위 11칸. 들어가면 자동으로 펴지고, 화살표로 직접 접고 편다
-[ 콘텐츠 공급 ] (accent: #8B5CF6)
+[ 교재 ]     (accent: var(--p))
+   교재 공장 (Factory) — 하위 14칸(여덟 걸음 + 낸 뒤 살피기 · 기준을 세우는 곳 3 · 도움 2). 이름은 `PLAIN_STEPS` 에서 온다. 들어가면 자동으로 펴지고, 화살표로 직접 접고 편다
+[ 콘텐츠 공급 ] (accent: var(--p))
    콘텐츠            /admin/library
    도서 수집   LCP   /admin/curation
    짧은 글     ACP   /admin/articles
@@ -73,7 +73,7 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
    스캔 만화   PDCP  /admin/pd-comics
    주제 코퍼스 TCP   /admin/topic-corpus
    = 7 항목
-[ 어휘 ]     (accent: #8B5CF6)
+[ 어휘 ]     (accent: var(--p))
    단어장 마스터     /admin/vocabulary
    어휘 빌드   VCB   /admin/vocab
    어휘 레벨   VRL   /admin/vrl  — 하위 6칸 (같은 접기/펴기)
@@ -553,7 +553,36 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 
 ---
 
-## /admin/csat — 교재 공장 (공정 8칸)
+## /admin/csat — 교재 공장
+
+### 소재 적격 — 원천별 작업 진행표 (2026-09-25)
+
+`/admin/csat/sources` 첫 화면은 맨 위 수(「지금 다시 세기」) + **원천별 작업 진행표**(`sources/PipelineBoard.tsx` · 모델 `lib/textbook/source-pipeline.ts` · 회차 `lib/textbook/source-rounds.ts`)다. 행=원천 · 열=① 모음 → ② 원문 점검 → ③ 발췌 → ④ 학년 분석 → ⑤ 내용 판정 → ⑥ 실을 수 있음. 남은 일 많은 8원천만 펴고 나머지는 접는다. 칸을 누르면 표 아래 하는 법(예행 먼저 · 명령 복사 · Claude 지시문). 예전 화면(관문 7개 · 탭 3 · 표)은 「자세히 보기」 안 — 주소에 조건이 있으면 펴진다.
+
+### 공장 지도 · 걸음 머리띠 · 용어집 (2026-09-24)
+
+**코드에만 있으면 파이프라인이 아니다**(사용자 지적). 공정 8칸 현황판은 첫 줄부터 「게이트 · 청크 · 밴드 V2 ·
+드레인」과 터미널 명령이라, 처음 온 사람이 「교재 한 권이 어떻게 만들어지는가」를 읽어 내지 못했다. 같은
+실측을 **쉬운 말 층**으로 다시 편다 — 새로 재는 것은 없다.
+
+| 자리 | 파일 | 하는 일 |
+|---|---|---|
+| 공장 지도 `/admin/csat` | `app/admin/csat/page.tsx` + `components/admin/factory/FactoryMap.tsx` | 맨 위 **「지금 가장 먼저 할 일」 카드 한 장**(흐름에서 가장 앞선 순조롭지 않은 걸음) → **여덟 걸음** 4×2 칸(숫자 하나 · 상태 색+모양+글자 · 누가) → **낸 뒤 살피기**(다음 주문으로 도는 고리) → **기준을 세우는 곳**(기출 · 시중 비교 · 학년 계단 — 라인을 막지 않는 옆줄) |
+| 걸음 머리띠 | `components/admin/factory/StepHeader.tsx` | 모든 단계 화면 맨 위. 공장 지도 ← · 「걸음 N / 8」 · 한 줄 설명 · 들어오는 것 → 이 걸음 → 나가는 것 · 누가 · 사람이 정할 것 · 낱말 툴팁 · 「예시 보기」(전/후) · 앞뒤 걸음. `StageFrame` 이 공정 id 로 자동으로 붙인다 — 공정 이름·계약 세 줄은 「자세히 — 운영자용」으로 접었다 |
+| 용어집 `/admin/csat/help` | `app/admin/csat/help/page.tsx` · 정본 `lib/csat/factory-glossary.ts` | 점선 밑줄 낱말 전부. 툴팁(`FactoryTerm`)과 이 화면이 **같은 한 곳**에서 읽는다. 「예전 말」 칸이 코드의 말(밴드 · 조판 · 드레인 …)을 쉬운 말로 잇는다 |
+| 숫자로 자세히 `/admin/csat/details` | `app/admin/csat/details/page.tsx` | 옛 공정 현황판(눈금 · 실행 줄 · 자유도 · 권별 제작 단계)을 **그대로** 옮겼다. 지운 것 없음 |
+
+**걸음 ↔ 공정** (`lib/csat/factory-plain.ts` 가 정본): ① 무엇을 만들까 `/new` · ② 글감 모으기 `/sources` · ③ 글감 고르기
+`/sources?view=eligibility`(판정 스냅샷) · ④ 지문 채우기 `/sourcing`(공정 source) · ⑤ 문제 만들기 `/authoring` · ⑥ 해설 달기
+`/explain` · ⑦ 확인하기 `/review` · ⑧ 책으로 내기 `/press` · ↺ 낸 뒤 살피기 `/catalog`(공정 operate).
+
+- **글감 고르기는 안 본 글감이 있어도 「순조로움」**이다 — 실어도 되는 글감이 있으면 뒤를 막지 않는다. 안 본 몫(43,477)을
+  「할 일 남음」으로 칠하면 이 칸이 맨 위 카드를 영원히 차지해 실제로 뒤를 막는 걸음을 가린다.
+- **화면 위의 말에 개발 말이 없다** — `JARGON` 목록을 `factory-plain.test.tsx` 가 지도 · 머리띠 · 용어집 쉬운 칸 · 지도 도움말에서 훑는다.
+  단계 화면 **본문**(머리띠 아래)에는 아직 공정의 말이 남아 있다 — 다음 걸음이다.
+- 상태 배지 글자는 테마 토큰(`--success-ink` 등)이다 — 고정 hex 는 다크에서 초록 글자가 안 읽혔다.
+
+### 공정 8칸 (운영자용 현황판 — 이제 `/admin/csat/details`)
 
 **요청은 「파이프라인」이었는데 오래 조회 표 세 개였다.** 표는 "지금 몇 개인가" 에는 답하지만
 "다음에 무엇을 돌려야 하는가" 에는 답하지 않아, 관리자는 화면을 보고도 터미널로 가
@@ -566,6 +595,7 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 |---|---|---|
 | **전략 연구소** | ① 기출 원천 · ② 기획 · ③ 설계 | 무엇을 만들지 정한다 (산출물은 규격·표·판정) |
 | **생산 라인** | ④ 소재 · ⑤ 집필 · ⑥ 해설 · ⑦ 검수 · ⑧ 조판·발행 | 정한 대로 찍는다 (산출물이 학습자에게 간다) |
+| **매대** | ⑨ 운영·개정 | 낸 것이 팔리는지 보고 다음 판을 정한다 (산출물은 책이 아니라 **다음 판의 근거**) |
 
 한 줄에 섞으면 "재고가 많다" 가 "잘 만들고 있다" 처럼 읽힌다 — 연구소가 규격을 바꾸면
 라인의 재고가 통째로 낡으므로 정반대다. 그래서 레인을 가른다.
@@ -582,7 +612,16 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 | 6 | 해설 | 정답해설 집필 | 해설 보유율 100% | `answer_key->>explanation_ko` |
 | 7 | 검수 | 초교·재교·삼교 + 감수 | **층 4개 전부** 통과 | 아래 |
 | 8 | 조판·발행 | 조판·교정쇄·인쇄 | 계단마다 최신 규격 권 | `textbook_volume_renders` |
-| 9 | 진열 | 매대·상세면 | 구성요소 지수 ≥ **1.200** (시중 최다 8축 대비) | `apparatus-surface-probe.mjs` |
+| 9 | 운영·개정 | 증쇄·개정·절판 | 나간 권마다 **사람 결재**와 **수요 신호**가 있는가 | `colophon.publish` · `user_textbook_selections` |
+
+⚠️ **⑨ 는 2026-09-23 까지 이 표에만 있었다.** 2026-09-06 부터 이 문서는 「공정 9칸」이라 적고
+⑨ 를 **진열**(구성요소 지수 ≥ 1.200)로 실어 두었는데, `FACTORY_STAGES` 에는 **여덟 칸뿐**이었다 —
+아무도 그 눈금을 안 재고 있었고 현황판도 ⑧ 에서 끝났다. 그래서 여덟 칸이 통과하는 날 화면이
+초록이 됐는데, 그 시점의 실측은 **나간 19권 중 발행 결재 1권 · 학습자가 고른 권 3권**이었다
+(어휘·구문 12권은 찍혀서 매대에 있는데 아무도 안 집었다). DD-77 이 ⑨ 를 **운영·개정**으로 세우고
+진열의 「구성요소 지수」는 그 안의 눈금으로 들였다 — 다만 값은 **「못 잼」**이다:
+`apparatus-surface-probe.mjs` 가 `--out` 없이는 리포트를 안 남겨 앱이 읽을 값이 없다.
+지우면 이 문서가 주장하던 축이 조용히 사라지고, 채우면 없는 수를 지어내는 것이 된다.
 
 ⚠️ **9칸은 2026-09-06 에 늘어난 것이다.** 8칸까지는 전부 **문항의 품질**을 재는데,
 학습자가 교재를 고를 때 보는 것은 **책의 껍데기 전부**다(표지·머리말·목차·단원 도입·어휘·
@@ -974,7 +1013,7 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 
 | 항목 | 위치 |
 |---|---|
-| 스키마 | `apps/web/src/lib/admin/help/types.ts` — `ScreenHelp {summary · when · steps · fields · cautions · drain · seeAlso}` |
+| 스키마 | `apps/web/src/lib/admin/help/types.ts` — `ScreenHelp {summary · when · diagrams · steps · fields · cautions · drain · seeAlso}` |
 | 데이터 | `apps/web/src/lib/admin/help/<pipeline>.ts` — 8 파일 (articles · curation · comic · pd-comics · vocab · vrl · quality · ops) |
 | 병합 | `apps/web/src/lib/admin/help/index.ts` → `HELP_REGISTRY` (키 = 라우트 슬러그) |
 | 렌더 | `apps/web/src/components/admin/AdminScreenHelp.tsx` — 헤더 `화면 도움말` 버튼 → 인라인 펼침 (모달 아님 · 열어 둔 채 조작 가능 · 열림 상태 화면별 localStorage 기억) |
@@ -992,6 +1031,22 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 | VCB 보강 | `vocab-run-detail` (`/vcb-batch-enrich`) |
 | VCB 시드 | `vocab-run-seed` (`/vcb-seed-list`) |
 | VCB 재보강 | `vocab-curate` (`/vcb-reenrich`) |
+
+### 도식 — 산문보다 위에 그린다 (2026-09-12 신설 · 2026-09-23 확장 · DD-80)
+
+교재 공장 11화면의 도움말은 **45,379자**였고 그중 77%가 `fields`·`drain` 산문이었다. 지우지 않고 접었고, 보이는
+자리에는 그림을 둔다. 종류는 넷이고 **답해야 할 질문이 종류를 정한다**:
+
+| 종류 | 답하는 질문 | 칸 상한 |
+|---|---|---|
+| `flow` | 어떤 순서로 도나 (칸마다 순번을 숫자로 낸다) | 6 |
+| `lane` | 공정 어디에 있고 어디가 막혔나 (`bottleneck` 칸만 크게) | 10 |
+| `io` | 이 화면은 뭘 받아 뭘 내놓나 (받는 것 / 하는 일 / 내놓는 것 + `gate`) | 3 고정 |
+| `keys` | 이 기호가 무슨 뜻인가 | 6 |
+
+- 칸 이름 20자 · 칸 설명 48자 · 칸 안 항목 24자 × 4개 — 넘치면 그건 `fields` 에 들어갈 내용이다(회귀 `help-diagram.test.ts`).
+- **공정 칸의 계약은 모델에서 만든다** — `csat.ts` 의 `contractOf(id)` 가 `factory-model.ts` 의 `input`·`question`·`output`·`gate` 를 읽어 `io` 그림을 만든다. 도움말에 베껴 두면 공정이 바뀔 때 도움말만 조용히 낡는다.
+- 본문의 `**굵게**` 와 `` `코드` `` 는 **렌더가 읽는다**(`richText`). 2026-09-23 전에는 별표가 글자로 찍혔다 — 교재 공장 렌더 결과에 `**` 가 1,164개 있었다. 회귀가 0을 지킨다.
 
 ---
 
@@ -1036,3 +1091,7 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 ## 기출 해부 배포 검사 (2026-09-17)
 
 `/admin/csat/evidence`는 공개 문항과 최신 published 분석에서 필드 충족·준비 문항·제외 이유를 계산한다. 검토한 소재/형식/공식, 근거·오답 앵커, 보기 길이, 실제 동형 기출이 모두 있어야 학습자 후보가 된다. 목록은 읽기 전용 진단이다. 관리자 로더는 서비스 권한과 fresh 조회로 학습자용 10분 캐시를 읽거나 갱신하지 않는다. 재검증은 최신 DB를 다시 읽고, 정적 metadata·앵커는 새 배포 후 반영한다. 조회 오류·원장 범위 불일치는 정상 0건 대신 판정 보류로 표시한다. 도움말은 `lib/admin/help/csat.ts`에 동반 반영한다.
+
+## 소스 수집 프로필 팝업 (2026-09-25)
+
+소스 이름이 나오는 관리자 화면(`/admin/csat/sources` 원천 목록 · 파이프라인 보드 · `/admin/articles` 소스 피드 목록)에서 이름을 누르면 `SourceProfileDialog` 가 뜬다. 값은 `GET /api/admin/sources/[source]/profile`(읽기 전용 · 관리자 인증) — 전량은 head count, 어수·피드·소재 분포는 최근 500편 표본(표본 크기를 함께 표시). 골격은 정오표 6행(재고 · 판정 · 수준 · 권리 · 구성 · 최근 원문), 첫 줄은 `profileIssues` 가 고른 가장 먼저 볼 문제(없으면 비움).

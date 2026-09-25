@@ -1,0 +1,1875 @@
+[
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a4f22c2-d891-4408-83a2-f982c1da5f33",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "36f7f0676eb420d3963a244aa6785db9506160dfcbc2057d079f4fbd235ba90c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "투표용지 도장 의무를 뒤집은 판결과 그 법적 근거가 두 단락에 서서 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ruling that the change to require",
+          "note": "판결 이유 문단은 선거법이 표기 방식을 정하지 않았다는 근거 한 줄로 서서 contravention 만 바꾸면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.783Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Court_rules_rubber-stamping_Thai_election_ballots_not_required",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.896,
+          "words": 77,
+          "english": 0.403
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a57bfcc-6399-439c-80a7-8ee854a185ac",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "180b3787ee90020ba2044799eb9fe0638b226778abcc213db19b3e221e067034",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "돌고래 사냥을 둘러싼 전통 옹호와 국제 비판이 맞서 주장·요약 칸을 채우되 도살 묘사 때문에 고2 이상만 단다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Although the practice of aquatic mammal",
+          "note": "전통 대 비판 문단은 문화 전통·보조금·과학 목적 주장과 반박이 한 문단에 맞서지만 앞 단락의 도살 묘사는 걷고 고2 이상으로 둔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.784Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Japan_fishermen_clash_with_surfers_over_2007_dolphin_hunt",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.38
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a593065-0aed-4298-9bfa-a1cefbc4f9cd",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dc1ca1a628635513d5713743c11813bd37f57aa81c0fca1dd437f4dccb253ad7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "딜리 교전과 다국적군 파병, 양측의 환영이 이어져 요약·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The multinational deployment has been met",
+          "note": "파병 환영 문단은 정부군과 반군이 모두 환영한다는 드문 상황이 서지만 인용이 길고 renegade 류 낱말이 남는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.784Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fighting_in_Dili_continues_ahead_of_multinational_deployment",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a66989d-8aac-4e70-8145-5e76632c2bec",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d6d14652f13f7b997fe1ba5f83193b0ab11befc9f25996ecc9aae6e945d46374",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "engineering",
+        "why": "재사용 우주비행기 엔진 개발 지원과 작동 원리가 이어져 삽입·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The cash will be used to",
+          "note": "엔진 시험 문단은 뜨거운 공기를 식혀 제트기처럼 날다 로켓으로 바꾼다는 원리가 서서 precooled 만 풀면 중등에 맞는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UK_firm_gets_ESA_funding_to_ground_test_new_jet_engine_for_spaceplane",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.278,
+          "words": 187,
+          "english": 0.396
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a67cc00-7453-4ef2-b76a-99ff13700a9b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8317783003c8c3fab503e7f6a40b5cc81e7b7a903bc70ecaa17bd39f34b912b0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "sports",
+        "why": "속도 기록 도전 중 사망 사고와 이전 기록이 짧게 이어져 심경·내용 일치 칸을 고1 이상으로 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "His friends and family observed in",
+          "note": "사고 순간 문단은 가족이 지켜보는 가운데 뒤집힌 차와 소생 시도가 서지만 마지막 단락 날짜가 빠진 조각은 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/South_Africa's_%22speed_king%22_dies_during_record_attempt",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.854,
+          "words": 103,
+          "english": 0.311
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a68ac0f-2ac5-41cf-be5e-d9fba46f9798",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eb2111f79d5dd120712f9d4574b8457b116288645e3a9655340c39862dbecb9f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "「과속이 사망을 부른다」는 통념에 맞서 단체가 통계를 근거로 반박해 주장·요약 칸과 통념 교정 속성을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Candor Trust said: \"Speed control must",
+          "note": "속도 규제 비판 문단은 과속이 치명 사고의 18%뿐이라는 근거로 통념을 뒤집으려 하지만 단체 주장만 이어져 반론을 곁들여야 선다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_exclusive%3A_'speed_not_behind_New_Zealand's_road_toll'",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.361
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a68bef9-73fb-4b6c-85f2-1cb88d62b8d6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "36f16e519f0c5a6bdf82e2133333f2fcd98b7c401aaa1bc06b05d937d79ff6b0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "총독 취임식의 절차와 인물 소개, 각 당의 환영이 이어져 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "His investiture began with an Indian",
+          "note": "취임식 문단은 환영 → 선서 → 선포로 순서가 서서 investiture·proclaimed 만 풀면 순서 문항에 맞는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Zealand_Governor-General_sworn_in",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.345
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a6aa4a4-5c81-4cea-98af-11d845f504a5",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5f2e93a11d749544f9d942615793663e0db2b75342a91cfde702b85851047c97",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "news",
+        "why": "후보의 구제금융 비판이 인신공격 인용과 함께 한쪽 입장만 실려 일방 정치 논박으로 볼지 기준으로 가르기 어렵다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Asked about causes of the financial",
+          "note": "위기 원인 문단은 규제 완화와 파생상품이라는 주장이 서지만 앞뒤 단락의 인신공격 인용을 걷으면 한쪽 주장만 남았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ralph_Nader_calls_out_Democrats_for_financial_bailout",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.327
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a6ddab6-599f-45cb-b5fd-07c2f6b427e3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "def6daa0ff86da719584359b53a1a2bd5ddc795e11a87bb6839ebe5a6d28a231",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "전 총리의 정계 복귀 선언과 당의 제명 결정이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mr. Sanader declared he would be",
+          "note": "복귀 선언 문단은 은퇴가 실수였다는 발언과 지지 의원들의 번복이 서서 인명을 줄이면 떼기 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Croatian_ruling_party_expels_ex-PM_from_membership",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.363
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a6e25e0-2286-4be3-b18d-bfab957a77dc",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b51cd843bb47a92b33ae5d1f4c206ea706d0a51f9fd5569bd01eba6e754ca4a3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "평화상이 노벨 유언을 벗어났다는 주장과 근거, 위원회의 해석 반론이 긴 글로 맞서 주장·요약·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary",
+            "long_reference"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "According to Heffermehl, prior to World",
+          "note": "수상자 비율 문단은 전쟁 전 85% → 전후 45%라는 근거로 주장이 서지만 스웨덴어 유언 원문 단락은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Nobel_Peace_Prize_misused_says_Norwegian_lawyer_and_activist",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.408
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a74bc25-de63-4557-aaa5-6eb0fc58edbe",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f80ca36b380bdba8ed6e9e3589bf4869d590d9b5685701741b358d98ec2f1745",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이동주택 집단 사망 사건의 발견 경위와 수사 착수가 짧게 서서 고2 이상 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The police mentioned that when they",
+          "note": "현장 문단은 중상자 이송과 경찰서장의 말로 사건 규모가 서지만 원인이 밝혀지지 않아 칸이 내용 일치 하나다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bodies_found_in_trailer_park_in_Brunswick%2C_Georgia%2C_US",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.882,
+          "words": 187,
+          "english": 0.457
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a7954ec-3959-40a9-b18a-2d7155e50e2d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3d941120cff5a354f29607e51dd0044bc6c28a63683d500009981701a272d5c4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "시장 로켓 공격과 그 배경인 주민 회의·신뢰 확보 노력이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "purpose"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The French commander attended the gathering",
+          "note": "원로 회의 문단은 주민 신뢰를 얻으려는 목적이 서서 shura 를 풀어 쓰면 떼어 쓰기 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Rockets_kill_ten_civilians_in_Afghanistan",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.294,
+          "words": 170,
+          "english": 0.379
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a7a06a1-f0d5-454f-acc8-cdab34f7895e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5c366f9ff59ddb0c3dfd7639c73bd81bb7b2f7c9743f3775a618197141bbc169",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "항공기 사고 검시 결과와 조종사 과실, 유족의 소회가 이어져 심경·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Cahill agreed fully with a recent",
+          "note": "원인 문단은 경고 15번과 부조종사 요청을 무시한 과속 착륙이라는 인과가 서서 go-around 만 풀면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australia_completes_inquest_for_victims_of_Garuda_Indonesia_Flight_200",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.392
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a7c5c43-3fcb-4e68-a5f9-c85053270b2d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "67ed7901727736f818572cdb97f6baf1e96ac1895ce50a43e3a997549f19604d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "실종 아동이 차 트렁크에서 숨진 채 발견된 사고의 경위와 원인이 이어져 고1 이상 심경·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The boys were trapped inside the",
+          "note": "질식 원인 문단은 더위·단열·내부 손잡이 없음이라는 원인 셋이 서서 안전 교훈으로 다듬기 쉬웠지만 아동 사망이라 고1 이상으로 둔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Three_New_Jersey_boys_found_dead",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.403
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a7e05c2-6807-4a87-ae6d-3113224a9852",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "486a82f6dcf497e3b9bce2c773ec6d8f6710f57b794dc0b4433dc13d766d87d5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "전시관·수상 이름과 행사 일정을 늘어놓은 홍보성 조각이라 사건도 논지도 없어 채울 칸이 없다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "To promote the design of Taiwan",
+          "note": "디자인 홍보 문단을 떼어 보니 전시관·상 이름 나열만 남고 무엇을 알리려는지가 서지 않았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2008_COMPUTEX_Taipei%3A_Another_insight_of_%22Design%22",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2,
+          "words": 200,
+          "english": 0.304
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a7e6117-8021-4d29-8454-a8dd728d4dde",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "69a287f0d38b93274332d2389ebdc572f5c86179ad0c20e8f90e3937984e2a7d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "허리케인 대피 중 총격과 약탈 우려, 구호 계획이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Looting has become an increasing concern,",
+          "note": "약탈 문단은 호텔·병원 약탈과 총기 탈취로 치안 우려가 서서 looters 만 풀면 떼어 쓰기 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Shots_reported_during_Superdome_evacuation",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.182,
+          "words": 181,
+          "english": 0.365
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a818950-78b0-4e70-bed7-9fba1fe5b495",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e665df5ba4286807e456e66e4a5c67d30249356719d1d759d7c5fcd0cf6098b4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "달 표면 절벽 지형이 수축의 증거라는 연구가 기존 「지질 활동 없음」 통념을 뒤집어 요지·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "topic"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Scientists have discovered landforms littered across",
+          "note": "절벽 지형 문단은 풍화가 적어 최근 생겼다 → 달이 활동이 없다는 주장과 어긋난다로 논지가 서서 lobate scarps 만 풀면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Scientists_say_the_moon_is_slowly_shrinking",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a81cabc-90e7-41b8-85e3-8bbc033ae7f2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2e1447b79889fab5dd3c5355c6af27192f58e916291664dc01f71d9d249aa33c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "기자 추방 경위와 군사정권의 언론 통제, 외교 갈등이 이어져 심경·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Fiji's military regime reportedly maintains a",
+          "note": "블랙리스트 문단은 비판적 기자 추방 전례가 서서 짧지만 이 사건의 배경으로 떼어 쓰기 좋았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Zealand_journalist_deported_from_Fiji",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.402
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a834c58-f80f-4cff-aa2e-11035ee2cac3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c1c784eac003c683629f1ac3583af33da8a2377fb34db4eacd62c71dcded0480",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "노동법 개정 반대 집회의 규모와 노조 주장, 장관 반론이 맞서 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The NSW Premier's department has encouraged",
+          "note": "주 정부 권유 문단은 교사들까지 집회에 나간 사정과 연방 기업의 징계 경고가 대비돼 서서 가공이 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Western_Sydney_rallies_against_government's_workplace_reforms",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a863a5b-21c9-4024-9edc-b3830c69f37d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "84c39d5351cc29b8e0f01eda831182bfd8096a05be91b136796fd40ad150ed5c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "연쇄 자폭 테러와 군 본부 공격 배후 주장, 핵 안전 논란이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Police say the attacker targeted a",
+          "note": "공격 문단은 13~14세 자폭범이 호송대를 노렸다는 사실이 서지만 아동 자폭 소재라 고2 이상으로 둔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/41_killed_by_suicide_bombing_near_Pakistan's_Swat_valley",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.332
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a8b28be-2bfb-4258-984c-dba672dcb6e7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "718ca3956c737e16a0739709e210a05b47b816fe778d3d312ff878228e684f82",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "항암 치료 명령을 피해 달아난 모자 사건에서 대체요법과 표준 치료의 입장이 맞서 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On Monday, an x-ray showed that",
+          "note": "종양 악화 문단은 대체요법 뒤 종양이 커졌다는 사실과 완치율 90%가 대비돼 서서 표준 치료 쪽 근거로 다듬었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Mother_and_son_disappear_after_court_orders_cancer_treatment",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.343
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a8e7c2f-c9aa-4a5e-a055-bd64e8c252d3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "89587a259a9ce1dd18c7a064850cbfb2580a9802bb122a3a8823e71083c45082",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "첫 주택 구입 계좌 공약과 업계 반응, 금리 변수가 짧게 이어져 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Housing Industry Association has welcomed",
+          "note": "업계 반응 문단은 환영과 단서를 함께 담아 짧게 서지만 글 전체가 넉 단락이라 칸은 하나에 그친다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australia_Votes_2007%3A_Labor_plan_for_home_buyers",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.505,
+          "words": 109,
+          "english": 0.355
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a905a27-83e9-4263-b6f8-5016302fad82",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e500451d54909ea2ec6238105feebf55fc694da771024a286af55735b632627a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "agriculture",
+        "why": "농장 관리를 지방으로 넘기는 개혁과 그 목적·배경이 이어져 목적·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "purpose",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Officials estimate that government mismanagement has",
+          "note": "관리 부실 문단은 경작지 절반이 놀고 식량 수입이 늘었다는 근거가 서서 개혁 목적을 설명하는 문단으로 쓰기 좋았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Cuba_announces_shift_of_farm_management_to_local_level",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.392
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a960037-0600-423d-b622-fbe15d04c5ae",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "de4da9e5830986c9af5735b4577e4d02a119e783404bf0f97010440950bdb46c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "의료 개혁 법안을 두고 비용 추계와 여야 주장이 맞서 주장·요약 칸과 주장-근거 속성을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Senate Minority Leader Mitch McConnell, however",
+          "note": "야당 반론 문단은 최종 법안은 1조 달러가 들 것이라는 주장과 근거가 서서 premiums 만 풀면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_Senate_finance_committee_to_vote_on_health_care_bill",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.298
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-40-781Z",
+    "id": "1a9c7729-5bd7-48a1-84d3-6cfb672ebec1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "abde51ddb4ee984a656bdea359f9bda318378165fc83e6b0dffa0cf16a92dc8b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "수학 여름학교 폐쇄와 국제 청원, 학문의 자유를 근거로 한 대응이 이어져 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On 10th August 2007 police removed",
+          "note": "재개원 문단은 봉인 해제와 소환 조사가 날짜 순으로 서지만 형법·헌법 조문 인용 단락은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:40.785Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Mathematical_summer_school_in_Turkey_closed_for_%22teaching_without_a_permit%22",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.406
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

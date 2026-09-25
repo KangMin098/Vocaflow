@@ -1,0 +1,869 @@
+[
+ {
+  "id": "45bf616a-a446-4c3c-b955-8191c903de40",
+  "source_updated_at": "2026-09-13T06:43:37.971293+00:00",
+  "body_sha256": "de5a32a1685175a52adc816020f7a24ded0b96e2c221e751612e59c26d85a8f6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "AMI 환자의 유전자 변이와 관상동맥 병변·사망률 관계를 선행 연구의 엇갈린 결과와 대조하며 한 편의 논지로 잇는다 — 고찰 앞부분이 발췌 가능.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The results of other studies",
+   "note": "유전자형 약어를 「특정 유전자형」으로 바꾸면 서고, 표의 수치는 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "45c88f4e-4a54-4302-8bd0-d45a44f8e007",
+  "source_updated_at": "2026-09-25T07:40:12.100672+00:00",
+  "body_sha256": "e04d6c303dc8337042d8c77d4b25bb24723c11f5198dad4cc34b39e3ea79d398",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "미세천공 전달법이 췌도세포에 해가 되는지를 대조군 다섯 개로 나누어 묻고 답하는 구조가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Artificially introduced siRNAs can be",
+   "note": "서론의 작동 원리 문단은 시약명을 걷으면 그대로 설명문이 된다."
+  }
+ },
+ {
+  "id": "45d27203-9cff-4950-bdd5-541067b1c51e",
+  "source_updated_at": "2026-09-13T06:43:05.970216+00:00",
+  "body_sha256": "b7a3d947d7b712a1644f3a1d170d1385102e00e39d4c3336054e0d47c8887abe",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "중증열성혈소판감소증후군에서 간 손상이 예후와 어떻게 연결되는지를 기전 설명까지 끌고 간다 — 고찰 후반이 발췌 가능.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The mechanisms of liver injury",
+   "note": "효소 약어를 「간 효소」로 묶으면 내려가고, 표는 걷어도 흐름이 남는다."
+  }
+ },
+ {
+  "id": "45e71f64-e8d8-4921-b06d-14c80e0331ae",
+  "source_updated_at": "2026-09-15T14:55:47.475703+00:00",
+  "body_sha256": "c789eda2f0271b12f6b0ffe1d2b71758d1a0165e090cc08e054621eb77d980f0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "「프롬프트 엔지니어링」을 둘러싼 대중 담론의 여섯 국면과 감정 변화를 시간순으로 이으며 통념과 반론을 함께 보여 준다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "summary",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This first peak date saw",
+   "note": "고유명사만 걷으면 바로 서고, 어휘도 일상어에 가깝다."
+  }
+ },
+ {
+  "id": "45f49dfc-083d-42d6-9b72-1175de69ed44",
+  "source_updated_at": "2026-09-25T07:40:16.586994+00:00",
+  "body_sha256": "1ace3758c17cd6343cabee4d36a4b4372a814e2d819425ca82d58ba5cedfee87",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "구강 궤양 치료 효과를 장내 미생물과 장벽이라는 매개로 설명하는 「장-구강 축」 논지가 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The oral cavity is the",
+   "note": "서론의 구강-소화관 연결 문단은 실험 약어 없이 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "45fb7781-7049-4928-8ef5-4a85b30ef584",
+  "source_updated_at": "2026-09-13T06:46:32.358076+00:00",
+  "body_sha256": "8049967c5c87d0a0b363bb550f1dde12a5422519db50e4801995754aecf48e5c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "지카 바이러스 감염 후 시간에 따른 유전자 발현 변화를 72시간 정점으로 모아 설명하고 선행 연구와 대조한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Research has shown the alterations",
+   "note": "유전자 기호 나열을 걷으면 바이러스가 세포 환경을 바꾼다는 논지가 남는다."
+  }
+ },
+ {
+  "id": "4606b160-4dc8-4f8f-b1af-353907b32c27",
+  "source_updated_at": "2026-09-25T07:40:17.659812+00:00",
+  "body_sha256": "729e28433ab6e7c85423861db4ab36eaf87c8d30290c99bf44fcf7a1250ca989",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두 염증 지표가 같은 인구집단에서 정반대로 움직인 까닭을 기생충 노출과 비만이라는 맥락으로 풀어낸다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In tropical rural populations, total",
+   "note": "지표 약어를 「염증 수치」로 바꾸면 고1~고2 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "46282898-c877-4095-a90f-349c12561f98",
+  "source_updated_at": "2026-09-25T07:40:20.624665+00:00",
+  "body_sha256": "031c6d3644ab1241103b04d2830d2d3192a6c9bb3d8b54fd8673d66b6ce6e976",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "낮 길이가 난포 발달을 조절하는 경로를 호르몬에서 전사인자까지 단계적으로 잇는 서술이 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Photoperiod primarily regulates seasonal reproductive",
+   "note": "유전자 약어를 「전사인자」로 묶으면 서고, 개체수 관리라는 도입 맥락이 흥미를 준다."
+  }
+ },
+ {
+  "id": "462f08a5-d627-47af-a8f3-eb3640737708",
+  "source_updated_at": "2026-09-13T07:42:35.8033+00:00",
+  "body_sha256": "c411172728a1a608b92c0de14f8ab07243b76b2e29bd44e13055664e81851a09",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "돌연변이 누에의 색소 형성 경로를 세 색소 계통으로 나누어 설명하며 야생형과 대조한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Melanin is produced from tyrosine",
+   "note": "본문 상당 부분이 유전자 번호와 배수 나열이고 쓸 만한 문단은 색소 경로 설명 서너 개로 한정된다."
+  }
+ },
+ {
+  "id": "4632a18f-2a03-4622-8db5-d56465513f99",
+  "source_updated_at": "2026-09-15T14:55:54.055405+00:00",
+  "body_sha256": "07d94093a845eefc4b48c9df000d2b8f596ccb8dcd5ebdf4b3d5156330d239b7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "펀자브 습지를 여러 계통이 만나는 이동 경로의 교차점으로 규정하는 논지가 자료에서 결론까지 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pakistan is situated at the",
+   "note": "이동 경로를 설명하는 문단은 유전 용어 없이 읽히고 지명만 정리하면 된다."
+  }
+ },
+ {
+  "id": "46356e0c-3f2f-44b4-aba6-840ba8163d0b",
+  "source_updated_at": "2026-09-13T06:45:15.265249+00:00",
+  "body_sha256": "2c43531a7e1204b0acb19a2c4b3c3888958b0fba71f20786dd9921da671e03c6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "표준 치료에 보조 약물을 더한 전임상 실험을 생존 기간과 종양 부피 두 축으로 해석하며 선행 연구와 갈린 지점을 짚는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Recent studies have discovered significant",
+   "note": "세포 간 연결 설명 문단은 비유로 바꾸기 쉬워 고3 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "463c393a-e70c-4035-9f88-312c8a51137e",
+  "source_updated_at": "2026-09-13T07:43:24.120514+00:00",
+  "body_sha256": "e631054e8149115a074bca1d3237e6f21c15d4fe5ae453ec72b17ae0552c2461",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "환경 오염물질이 혈관 세포의 죽음을 막아 동맥경화에 기여한다는 새 기전을 제시하는 구조가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Nitric oxide, generated from L-arginine",
+   "note": "신호 분자 약어가 많지만 서론과 고찰 첫 문단은 일반 설명이라 어휘 교체로 내려간다."
+  }
+ },
+ {
+  "id": "4642387c-edfa-44db-8ea6-5c02a4cc96f9",
+  "source_updated_at": "2026-09-15T14:55:54.914343+00:00",
+  "body_sha256": "9e56db563db0a7e3b907e1c6f72864dca3a0dc4dd7ca72b7a982846e1f0eadb2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "발생률은 주는데 사망률은 느는 역설을 연명 의료 발전과 진단 역량으로 설명하는 대목이 한 편의 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "First, a key epidemiological paradox",
+   "note": "연도별 수치를 걷어도 역설과 설명 구조가 남아 빈칸·요지 문항에 맞다."
+  }
+ },
+ {
+  "id": "465bf0c6-948f-4db9-8c9b-9bb3093521c4",
+  "source_updated_at": "2026-09-13T06:17:13.842739+00:00",
+  "body_sha256": "810fa026ae07a184c4e50631566ff1608b335405221f4ea9ce24bf8fdb853dfc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "영양과 정신건강을 잇는 근거와 임상 현장의 공백을 정리한 서론이 한 편의 논증으로 서고 나머지는 절차 서술이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Psychiatric and psychosomatic disorders are",
+   "note": "측정 도구 약어 목록과 절차 절은 가공 때 통째로 걷고 서론과 고찰만 쓴다."
+  }
+ },
+ {
+  "id": "466ace33-a793-45e2-97b6-508c1ff29bdd",
+  "source_updated_at": "2026-09-13T07:38:31.208903+00:00",
+  "body_sha256": "e29c77a87ce97ddc04d3f6a753d0b8d382cc6c97b9996cae5240a5e1bbd9db19",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "염증 물질 생산을 스스로 억제하는 되먹임 경로를 단계마다 실험으로 좁혀 가는 서술이 이어진다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In atherosclerosis, PAF is found",
+   "note": "효소 약어가 촘촘해 밴드를 못 내리고 고찰 첫 문단 정도가 떼어 쓸 수 있는 한계다."
+  }
+ },
+ {
+  "id": "466c3fe3-4abf-4ec9-85b9-12c2c3bc7138",
+  "source_updated_at": "2026-09-25T07:40:25.314687+00:00",
+  "body_sha256": "3d601bf89d57d280d15068d78d49a3fd4e030a47ed5b288ccb1c670618083e74",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "세 감각 정보 가운데 글이 가장 믿을 만하다는 전제에서 정렬과 융합 방식을 설계하는 논지가 서론과 고찰에서 분명하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In recent years, the proliferation",
+   "note": "수식이 빠진 자리와 모델 약어가 많은 방법 절은 걷고 서론·관련연구·고찰만 쓴다."
+  }
+ },
+ {
+  "id": "4670b443-9ffd-4f44-bc55-17f776cbbc1a",
+  "source_updated_at": "2026-09-13T06:59:59.918004+00:00",
+  "body_sha256": "b2bb5458696a27ac8d23387a22251b149fd7e291e1a0369dbac0828757d7fbc1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "한 효소가 빠지면 기생충의 분열이 어긋난다는 것을 관찰에서 백신 후보까지 단계적으로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In the intermediate host, tachyzoites",
+   "note": "유전자 번호 목록은 걷고 세포 분열 과정을 설명하는 문단만 남기면 논지가 선다."
+  }
+ },
+ {
+  "id": "4683c774-73ff-4f67-9b3d-5be1ca78d892",
+  "source_updated_at": "2026-09-13T07:13:59.295642+00:00",
+  "body_sha256": "083dc529265a4e6e4273468594339093b18affc705c94a3e23a60dad5f002cc1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "바이러스 단백질이 숙주 신호 경로를 가로채 면역 반응을 낮춘다는 기전을 그림 없이도 따라갈 수 있게 서술한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Many pathogens, IAV included, have",
+   "note": "서론의 병원체 회피 전략 문단은 약어를 걷으면 고3 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "468a9acf-8849-4ecf-ac3a-216beaaffb3a",
+  "source_updated_at": "2026-09-13T07:19:25.665272+00:00",
+  "body_sha256": "fa953ce22dfb3dd54ad0c660884f4d5245e1551042572ceb452487f9376de1ad",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "비정상적으로 넓은 보행렬을 발가락 병변으로 설명하기까지 가설을 하나씩 검증해 나가는 서술이 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The main link to be",
+   "note": "지층과 좌표 정보만 걷으면 발자국에서 무엇을 읽어 내는가라는 이야기가 그대로 남는다."
+  }
+ },
+ {
+  "id": "46a22818-8c51-47f2-91bf-f10bce7c1270",
+  "source_updated_at": "2026-09-25T07:40:31.294993+00:00",
+  "body_sha256": "792bfb43355d81da44416be934454fbf96e1c547c6c307f922df96bc40fbc595",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "두 종류의 바이러스 변이체가 서로 다른 감지 경로를 켜 서로 다른 세포 구조를 만든다는 대조 구조가 분명하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Among the numerous strategies used",
+   "note": "저자 요약이 이미 쉬운 말로 다시 쓰여 있어 밴드 조정 기준이 된다."
+  }
+ }
+]

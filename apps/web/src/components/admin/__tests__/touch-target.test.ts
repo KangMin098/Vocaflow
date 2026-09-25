@@ -95,6 +95,18 @@ const CSS_MODULE_44PX: { file: string; module: string; guard: RegExp }[] = [
     guard: /\.console\s+button[^{]*\{[^}]*min-height:\s*44px/s,
   },
   {
+    // 공정 관문(2026-09-24). 숫자가 전부 단추라 요소가 많다 — 한 규칙으로 받는다.
+    file: 'apps/web/src/app/admin/csat/sources/SourceProcess.tsx',
+    module: 'apps/web/src/app/admin/csat/sources/source-process.module.css',
+    guard: /\.root\s+:is\(button, select, input\)[^{]*\{[^}]*min-height:\s*44px/s,
+  },
+  {
+    // 조회 콘솔(2026-09-23). 인터랙티브 요소 28개가 전부 이 모듈의 한 규칙으로 44px 을 받는다.
+    file: 'apps/web/src/app/admin/csat/sources/SourceQueryConsole.tsx',
+    module: 'apps/web/src/app/admin/csat/sources/source-query.module.css',
+    guard: /\.root\s+:is\(button, select, input\)[^{]*\{[^}]*min-height:\s*44px/s,
+  },
+  {
     file: 'apps/web/src/app/admin/csat/sources/SourceOperations.tsx',
     module: 'apps/web/src/app/admin/csat/sources/source-operations.module.css',
     guard: /\.root\s+button[^{]*\{[^}]*min-height:\s*44px/s,

@@ -1,0 +1,846 @@
+[
+  {
+    "id": "324f1ac3-f4b6-4707-8619-cb330c08373e",
+    "source_updated_at": "2026-09-25T07:31:28.620878+00:00",
+    "body_sha256": "5e0a49441e3c6fca2ddb5db16451cf2f5471d2c54b9a6f91fdd5c50982ec6592",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "기생충 분비단백이 유도한 자가포식이 장 상피 장벽 손상을 어떻게 제한하는지 서론-고찰이 인과로 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Autophagy is a complex self-degradation",
+      "note": "약어(ESP·TJ)를 풀어 쓰면 서고, 고찰 첫 단락은 수치를 걷어도 논지가 남는다."
+    }
+  },
+  {
+    "id": "32599a29-053f-4161-b0c2-ab6d1c6171e7",
+    "source_updated_at": "2026-09-25T07:31:29.655849+00:00",
+    "body_sha256": "8bd8e5f7d3e89c16e03317fe6460b3d528b88b638b32cb0d49dac3c87476890c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "패혈증에서 한 효소 수치와 사망률의 비선형 관계를 문제-근거-한계 순으로 세운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Several plausible explanations could be",
+      "note": "고찰의 세 가지 설명 단락은 통계 기호를 걷어도 논지가 선다."
+    }
+  },
+  {
+    "id": "3264636f-eba6-47d2-b6e6-0b82d37eb199",
+    "source_updated_at": "2026-09-13T07:10:59.399036+00:00",
+    "body_sha256": "223ba3e5fb5693744b424f85ac40e496efcc0df0cd6b1e3a6039eaedb0cd172e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "모체 항체가 세균의 태반 전파를 막는다는 주장을 기존 면역관용 가설과 대비해 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The concept that antigen exposure",
+      "note": "고찰 도입부는 통념-반증 구조라 발췌가 쉽고, 계통 표기만 정리하면 된다."
+    }
+  },
+  {
+    "id": "326b5752-4562-4c7f-8f7a-85ee74adf9eb",
+    "source_updated_at": "2026-09-15T14:46:12.841651+00:00",
+    "body_sha256": "5bb34bbf5bc05de33df4373ffa2f8e5f4eab84529a4cb7768c5664b8b8cd92e3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "약물 후보를 컴퓨터 모의로 걸러내는 절차와 그 한계를 한 편의 논지로 잇는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Diabetic nephropathy (DN) continues to",
+      "note": "고찰 도입과 한계 단락은 서지만, 화합물 코드가 많아 어휘 하향이 어렵다."
+    }
+  },
+  {
+    "id": "3273c671-3187-4bf7-beb4-ab12d835d18a",
+    "source_updated_at": "2026-09-25T07:31:32.15568+00:00",
+    "body_sha256": "272dbbed6361371d045a5b516e0cdc5d42ce92ca394602ed34b7021d4cd8ff9f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "토지 이용과 계절이 하천 수질을 어떻게 가르는지 관찰에서 관리 제언까지 잇는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Guanjia river and GRS are",
+      "note": "농지·삼림·주거 비교 단락은 약어를 풀면 서고, 관리 제언 절은 사례가 뚜렷하다."
+    }
+  },
+  {
+    "id": "327d547e-e35b-4ed7-a460-224cc49b3d92",
+    "source_updated_at": "2026-09-13T07:21:26.827675+00:00",
+    "body_sha256": "9d75080a5d5c5a709f55abc6eb6126aa0fce9a1322cc7cc4bc1e5ceb75e959fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저산소 반응 부위의 유전 변이가 보호 기제를 막는다는 가설을 실험으로 좁혀 간다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Eukaryotes regulate their metabolism according",
+      "note": "고찰은 논지가 서지만 유전자·변이 표기가 촘촘해 밴드를 내리기 어렵다."
+    }
+  },
+  {
+    "id": "327e19f7-2baa-4d17-bebf-8ef6750628a9",
+    "source_updated_at": "2026-09-25T07:31:33.824328+00:00",
+    "body_sha256": "b890e1e35e472bae930ef7f91e0bcedbba8de378f60fdac1764fc94f0fc7be79",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "자료를 이차원으로 줄일 때 집단 차이가 사라지는 문제를 제기하고 해법을 제안한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "claim"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The most commonly used ordination",
+      "note": "서론과 고찰은 문제 제기로 읽히나 본문 수식이 자리표시자로 남아 중간이 끊긴다."
+    }
+  },
+  {
+    "id": "3287ef37-eccb-4f25-bede-e02a89b7e966",
+    "source_updated_at": "2026-09-05T23:25:14.528649+00:00",
+    "body_sha256": "84825fe471bfa734286400ca8b5a55aebcee51a556e2f3088118401acbce8a5a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "폐색전증의 시간에 따른 변화와 병용 치료 효과를 단계별로 서술한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Pulmonary thromboembolism (PTE) exhibits a",
+      "note": "서론은 자족적이나 유전자·지표 약어가 문단마다 나와 가공 비용이 크다."
+    }
+  },
+  {
+    "id": "328dcafb-4563-4850-8bbf-707c42be5018",
+    "source_updated_at": "2026-09-13T06:44:59.85159+00:00",
+    "body_sha256": "90cef62aba757b77fe5068af45e6b59f3c3a90b8c2fd129b93136b333af835dc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "한 분자가 갑상선암 세포의 이동과 침습을 키운다는 결과를 신호 경로로 설명한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Thyroid carcinoma (TC) is a",
+      "note": "서론 도입부는 떼어 써도 서지만 유전자 약어가 많아 어휘 조정이 제한적이다."
+    }
+  },
+  {
+    "id": "3291b16c-c3a2-4f49-93e5-aebe46e47033",
+    "source_updated_at": "2026-09-25T07:31:36.185248+00:00",
+    "body_sha256": "201a94ef168f8517ff525535b8dfe896b030542da7d7fb3cbdfb4d8099b6d459",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "염증 지표와 우울 위험의 관계가 성별로 갈린다는 주장을 근거와 한계까지 세운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The most striking finding was",
+      "note": "성별 차이를 설명하는 고찰 단락은 수치를 걷어도 논지가 선다."
+    }
+  },
+  {
+    "id": "32a82a2a-ff5a-48ed-b09f-b2b59d120741",
+    "source_updated_at": "2026-09-15T14:46:20.102315+00:00",
+    "body_sha256": "c9c50ec9696a508f5e0db996ff58a9e4542e5b68b9269bfff47ada3314c51b8c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "소변을 검체로 쓰는 진단의 이점을 기존 방식의 한계와 대비해 제시한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Urinary antibodies have been used",
+      "note": "소변 검체의 장점을 든 단락은 자족적이고 단백질 약어만 풀면 된다."
+    }
+  },
+  {
+    "id": "32b31112-5965-421f-86b5-e8c334b85119",
+    "source_updated_at": "2026-09-13T07:13:30.449041+00:00",
+    "body_sha256": "bd20141823335a76cf2466c45398be67e599195e23b7498765ed52e225a5d94f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "굶은 선충이 왜 더 큰 위험을 무릅쓰는지 행동에서 분자 경로까지 이어 간다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "claim",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Animals evaluate their environment, integrating",
+      "note": "서론은 배고픔과 행동 변화라는 논지가 또렷해 유전자명만 걷으면 선다."
+    }
+  },
+  {
+    "id": "32b72592-fece-4a5c-8dfb-f45eda04b5f8",
+    "source_updated_at": "2026-09-25T07:31:39.329354+00:00",
+    "body_sha256": "736ed8b4445c67cf9e153c4321491e693b33e4bcb8aec641d01ec62d8f7dd934",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "기생충의 한 효소가 영양 확보와 면역 회피에 동시에 쓰인다는 논지를 세운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Infection of mammals with the",
+      "note": "서론은 서지만 유전자좌와 균주 표기가 조밀해 밴드 하향이 어렵다."
+    }
+  },
+  {
+    "id": "32c2b90d-5a13-456a-a5fc-f52b3a2f089e",
+    "source_updated_at": "2026-09-15T14:46:22.429327+00:00",
+    "body_sha256": "bcf70799a1f32d2acdecbf04bbaf4c580dfe67f6688861aafad837af0de04172",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "health",
+    "why": "결과 절이 중간에서 빠져 앞 절이 예고한 그림 3-4의 서술이 통째로 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Gastric cancer, a common digestive",
+      "note": "서론은 떼어 써도 서지만 본문 중간 결과가 없어 논지 전개를 확인할 수 없다."
+    }
+  },
+  {
+    "id": "32c5a4c1-cc5d-40ad-8054-8656cc14522c",
+    "source_updated_at": "2026-09-15T14:46:23.255337+00:00",
+    "body_sha256": "7d0135b7a24e48e9f99537f9c2209acf80dce43de3d08aa89418b446e06618c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "기후 건조도와 관절염 발생의 역상관을 10년 추적으로 제시하고 한계를 밝힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "VPD is an index that",
+      "note": "건조도 개념을 풀어 쓴 단락이 자족적이고 수치를 걷어도 논지가 남는다."
+    }
+  },
+  {
+    "id": "32d2691e-5589-497d-80b1-5acfca72dee8",
+    "source_updated_at": "2026-09-13T07:00:47.505937+00:00",
+    "body_sha256": "7832d693f4a946d1427a48bd3177dc2e03400f31a15b46ed625d048bc0812ce3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "사료 첨가물이 가금 장내 병원균을 줄이는지 실험 결과와 함의로 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Food safety is a central",
+      "note": "서론의 식품안전 도입은 떼어 써도 서고, 균주 표기만 정리하면 된다."
+    }
+  },
+  {
+    "id": "32da195d-f42f-4968-99d4-d5c843db12b7",
+    "source_updated_at": "2026-09-13T07:07:14.979833+00:00",
+    "body_sha256": "760a380e903457aaa9749f55e824c62868882d4c20d04b6156d89c005daac3d5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "희귀 신경질환 신약의 초기 임상에서 안전성과 관찰된 변화를 신중하게 구분한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The ILB used in this",
+      "note": "고찰이 근거의 한계를 스스로 재는 구조라 논지가 또렷하다."
+    }
+  },
+  {
+    "id": "32e2a45d-3ef7-408d-9908-0984022c4aa5",
+    "source_updated_at": "2026-09-13T07:25:51.574179+00:00",
+    "body_sha256": "1462c5428ea215518585ce7753678b5ad720a641d5726652550fbd0a40026066",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "코피의 흔한 경우와 난치 경우를 가르고 영상 검사의 득실을 따진다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nearly 60% of the population",
+      "note": "도입 단락이 일상 경험에서 출발해 자족적이고 전문 용어가 적다."
+    }
+  },
+  {
+    "id": "32e49dc9-e8fa-4171-b08d-30c2deca8cd2",
+    "source_updated_at": "2026-09-25T07:31:45.097798+00:00",
+    "body_sha256": "f4708139d246c1ad68f41d0a22f1cf40486d2311cbbbaa12955f8c7df26f2529",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "환경 자극에 좌우 해마가 다르게 반응한다는 결과를 공통 기반과 함께 정리한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Numerous animals and humans have",
+      "note": "뇌 비대칭을 여는 서론은 자족적이고 유전자명은 고찰 뒤쪽에 몰려 있다."
+    }
+  },
+  {
+    "id": "330aa399-30b5-42af-a987-5f4212d23bc4",
+    "source_updated_at": "2026-09-13T06:43:33.281286+00:00",
+    "body_sha256": "d5854887a4b2beb9a64d35df198d59919bc1d609fb901691f90f962234572591",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "전복 내장에서 찾은 효소가 삼량체일 때만 작동한다는 발견을 산업 맥락에 놓는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The increasing interest in seaweeds",
+      "note": "서론은 폐기물 활용이라는 맥락이 뚜렷해 효소명만 풀면 선다."
+    }
+  }
+]

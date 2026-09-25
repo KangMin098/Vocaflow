@@ -72,7 +72,7 @@ export function StickyNav() {
     <>
       <nav
         aria-label="Section navigation"
-        className="sticky top-0 z-30 -mx-6 mb-2 border-b border-[var(--bd)] bg-[var(--bg)]/95 px-6 py-2 backdrop-blur supports-[backdrop-filter]:bg-[var(--bg)]/80"
+        className="sticky top-0 z-30 -mx-6 mb-2 border-b border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_95%,transparent)] px-6 py-2 backdrop-blur supports-[backdrop-filter]:bg-[color-mix(in_srgb,var(--bg)_80%,transparent)]"
       >
         <ul className="flex items-center gap-1 overflow-x-auto" role="tablist">
           {SECTIONS.map((s) => {

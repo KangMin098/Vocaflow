@@ -48,3 +48,18 @@
   - `91-hub-design-capture` — **AA 미달 0 (94장 전수)**. 계측 파일 90장 미만이면 위반 0 이어도 실패한다.
   - `token-parity.test.ts` — `tokens.css` ↔ `colors.ts` 값 일치(웹/앱), 그리고 `tokens.css` ↔ `globals.css` **이름 충돌 금지**.
   - 두 가드 모두 **틀렸을 때 빨개지는 것을 실제로 확인**한 뒤 남겼다.
+
+## ADR-006 — 모션 토큰 2개 추가 · 기존 값 무변경 (2026-09-21)
+- **결정**: `--dur-quick: 150ms` · `--ease-out-quint: cubic-bezier(.22, 1, .36, 1)` 를 `tokens.css` 와 `motion.ts`(`duration.quick` · `easing.outQuint`)에 동시에 추가한다. 기존 `--dur-*` · `--ease*` 값은 그대로다.
+- **맥락**: 참조 사이트 작성 CSS 집계(`docs/design/refs/tines/css-authored-summary.md`)에서 지속시간 최빈이 150ms(×33), 이징 최빈이 `(.22,1,.36,1)`(×23)였고 둘 다 우리 토큰에 없었다. 상세·가져오지 않은 것은 `docs/design/DECISIONS.md` DD-64.
+- **결과**: 적용 화면 0 — 토큰만 선다. `--ease` 를 바꾸지 않은 이유는 전 화면 전환이 한꺼번에 바뀌기 때문이다.
+
+## ADR-007 — 제약 4종 해제 · 모서리/그림자/흐림/반복 모션 토큰 추가 (2026-09-21)
+- **결정**: 6px 모서리 상한 · 그림자 금지 · glass 금지 · 무한 모션 금지를 삭제하고(`docs/design/DECISIONS.md` DD-65), 참조 작성값에서 온 토큰을 **추가**한다 — `--r-3xl…6xl`(8/12/16/24px · `radius.ts` 같은 키) · `--sh-soft/drop/overlay`(`shadowCss`·`shadowNative` 같은 키, 다크 값은 `[data-theme="dark"]`) · `--blur-sm/md/lg`(`blur`) · `--dur-loop-fast/loop/loop-slow`(`duration.loopFast/loop/loopSlow`).
+- **맥락**: 사용자 결정. 근거 수치는 `docs/design/refs/tines/css-authored-summary.md`.
+- **결과**: 기존 토큰 값 무변경 → 현재 화면 변화 0. ⚠️ `radius.ts` 의 `sm…2xl`(6/8/12/16/24)은 웹 v07 램프(2–6px)와 **이 변경 전부터** 다르다 — 새 키만 웹과 맞췄다.
+
+## ADR-008 — Tines 스킨: 같은 토큰 이름을 참조 실측값으로 덮는 층 (2026-09-21)
+- **결정**: 새 토큰 이름을 만들지 않고 `:root[data-skin="tines"]` 한 블록이 기존 이름(`--p` · `--bg*` · `--t*` · `--bd` · 의미색 · 반경 · 서체 변수)을 덮는다(`skins/tines.css`, 앱 값 `skins/tines.ts`). 기본 켜짐, `NEXT_PUBLIC_SKIN=off` · `?skin=off` 로 끈다.
+- **맥락**: 사용자 결정 「가장 닮음으로 우선 진행 후 평가」(`docs/design/DECISIONS.md` DD-68). 컴포넌트가 토큰을 읽으므로 한 블록이 플랫폼 전체를 바꾸고, 속성 하나로 되돌아간다.
+- **결과**: 글자 1·2·3단이 한 색(`#714bd0`)이 된다 — 더 옅은 보라는 AA 미달이라 위계는 크기·굵기가 맡는다. 서체는 상용 원본 대신 픽셀 비교 1위 무료 대체(Figtree · Petrona · Space Mono) + 한글 Pretendard.

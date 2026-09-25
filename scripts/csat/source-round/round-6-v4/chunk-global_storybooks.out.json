@@ -1,0 +1,722 @@
+[
+  {
+    "id": "f576c13a-0017-4a97-9585-ecdae365b11c",
+    "source_updated_at": "2026-09-25T04:02:36.149891+00:00",
+    "body_sha256": "fb051db88eccaa763c4576e3d6dd83e82f5d0c11da77b58117b719cde94f9ceb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "기상→등교→수업→귀가→취침의 하루가 시각 순서로 이어져 초등 읽기·순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tembe wakes up at seven o'clock",
+      "note": "소문자 문두·오타(the helps)만 고치면 시간순 사건이 그대로 선다."
+    }
+  },
+  {
+    "id": "3ba03367-a95d-44b2-a697-a5c5aadef894",
+    "source_updated_at": "2026-09-25T04:02:04.791006+00:00",
+    "body_sha256": "df427f644c1384a910fee4dd418538f663f122154f25b2772928ca0e4502b1b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "동물마다 이빨 특징을 한 문장씩 나열할 뿐 문장 사이 사건·이유·순서 연결이 없어 초등 최소선(§3-2)에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "A crocodile has big teeth. A",
+      "note": "문장을 떼어 봐도 서로 무관한 특징 나열이라 흐름이 생기지 않았다."
+    }
+  },
+  {
+    "id": "54b92f81-7618-4080-995e-dcf2a7dc5ce3",
+    "source_updated_at": "2026-09-25T04:02:19.336967+00:00",
+    "body_sha256": "6ae5210c341571c2d3212e614ed70a35900782d1d8fe702959a970a20d9018e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "남의 집만 짓던 목수가 돈을 얻어 자기 집을 짓고 잔치를 여는 인과 흐름이 서서 초등 서사·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There was a great builder in",
+      "note": "쉼표 띄어쓰기만 고치면 되고 사건이 원인→결과로 이어진다."
+    }
+  },
+  {
+    "id": "855ae038-917a-4249-980c-19fc81860da3",
+    "source_updated_at": "2026-09-25T04:02:22.679287+00:00",
+    "body_sha256": "86a4fa135fc85783ad7cad2c62badf60bff30d2463f60aa7c5dec6e7707a0011",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "「That's way too high」「That's not yours」처럼 고양이가 무엇을 하는지 그림을 봐야만 뜻이 서는 부르는 말 반복이라 fragmentary 다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Come back, cat! Play with me.",
+      "note": "그림 없이 떼면 고양이의 행동이 전혀 드러나지 않았다."
+    }
+  },
+  {
+    "id": "72f2d451-3388-469a-922d-ed3a4670720e",
+    "source_updated_at": "2026-09-25T04:01:37.210962+00:00",
+    "body_sha256": "d8f11a2d66a002372e3613a913ec1cf9cc38f61af590851c07e8d766bd1537a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "등굣길에 식물마다 소원을 말하고 귀가해 오렌지를 다시 확인하는 순환 구조가 서서 초등 읽기·심경·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V1",
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Khalai wakes up and talks to",
+      "note": "장소 순서와 대사가 분명해 어휘 몇 개(compound, hedge)만 풀면 된다."
+    }
+  },
+  {
+    "id": "b43a09f8-f1c1-4e2b-96e1-f8f9364a0716",
+    "source_updated_at": "2026-09-25T04:02:25.752967+00:00",
+    "body_sha256": "0f7aa0263414a8da334fad2b10baf7921d3f899d287294e44f4f6242a8cb0374",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "나무로 만든 아내를 빼앗기고 비둘기를 세 번 보내 결국 생명을 거두는 설화로, 눈을 쪼는 장면이 결말의 중심이라 §8 에 따라 고1 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "mood",
+        "long_reference"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "But before long, the young men",
+      "note": "세 번 반복되는 노래가 순서·삽입 문항 틀이 되고 kraal 만 풀면 된다."
+    }
+  },
+  {
+    "id": "fa64f7ba-85d7-45e7-952b-1f863b603cfd",
+    "source_updated_at": "2026-09-25T04:01:41.776758+00:00",
+    "body_sha256": "fdf9adf0bbe944df7fc359e687fe347245ace5c6df06f7c42970ffbfde61c0b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "마타이의 유년·유학·귀국·나무심기 운동·노벨상이 시간순으로 이어지는 전기라 초중등 읽기·순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "insert",
+        "title"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When she had finished her studies,",
+      "note": "귀국 후 단락이 원인(숲 파괴)→해결(나무 심기)로 자족적이다."
+    }
+  },
+  {
+    "id": "21ae1fc0-e4c6-48b3-9bb8-ac055fa0d0f5",
+    "source_updated_at": "2026-09-25T04:01:41.320318+00:00",
+    "body_sha256": "7c124f3aab04f31421d60e8ce06c493f531491ad53459b4fb89541510f701c51",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "해·달·불·물을 차례로 훔치는 기원 설화 본문과 끝의 Story notes 해설이 각각 서서 중등~고1 서사·장문 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "long_reference",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dima disguised himself again and returned",
+      "note": "불 훔치기 단락이 독립적이나 djaba·veld·gi 같은 고유어는 풀이가 필요하다."
+    }
+  },
+  {
+    "id": "7b321d29-95cb-4e8c-8ca2-f28791d32519",
+    "source_updated_at": "2026-09-25T04:02:09.667505+00:00",
+    "body_sha256": "b771294d81dd205e30d6064d23f147b34e3378604913e9a2af1f26c0d0eab77e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "discard",
+    "genre": "bias",
+    "why": "인종을 피부색과 「eyes that slanted」로 나눠 만드는 장면이 창조 설화의 요지라 §8 설화 속 고정관념 조항에 따라 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The sun had set and it",
+      "note": "인종 창조 단락을 걷어 내면 설화의 중심이 사라져 이야기가 서지 않았다."
+    }
+  },
+  {
+    "id": "2f287174-cc6c-4ad4-94ff-d97a1238e0cc",
+    "source_updated_at": "2026-09-25T04:01:32.182442+00:00",
+    "body_sha256": "58bc3bbe516d7e32d96c249ffd9c752e5c79e2d925f61d76870dcd87fbce2709",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "채소를 하나씩 손질하는 문장 나열로 순서나 인과가 없고 마지막 양파 문장만 이유를 담아 초등 최소선(§3-2)에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "I peel the potatoes. I chop",
+      "note": "문장 순서를 바꿔도 뜻이 같아 사건 흐름이 생기지 않았다."
+    }
+  },
+  {
+    "id": "c81fa5c2-3437-4bba-9b91-bcfddce4b530",
+    "source_updated_at": "2026-09-25T04:01:56.350667+00:00",
+    "body_sha256": "8fccbccfbe4d1c985f8a0119fda12dc968113d981fb58baed2bea10ca417970b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "하이에나가 구름을 고기로 믿고 까마귀 꼬리에 매달렸다 떨어지는 유래담으로 탐욕→결과 흐름이 서서 초중등 서사 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "topic",
+        "mood"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When they reached the first piece",
+      "note": "노래 반복부만 줄이면 사건이 짧게 선다."
+    }
+  },
+  {
+    "id": "6d066245-fd1f-402c-8569-867a17ed2743",
+    "source_updated_at": "2026-09-25T04:01:39.176168+00:00",
+    "body_sha256": "192d9b978f532287f9a0d1437b94a65482ad1883da7822c105fa9219db5aafa2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "소·우유·아버지의 고기·엄마 가방이 서로 이어지지 않는 네 문장뿐이라 초등 칸 최소선에도 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Mother cow cow, I like you",
+      "note": "문장 간 사건·이유·순서 어느 연결도 없어 가공할 흐름이 없었다."
+    }
+  },
+  {
+    "id": "ff71fc68-7c61-4012-b8ff-6742df7665d9",
+    "source_updated_at": "2026-09-25T04:01:35.974451+00:00",
+    "body_sha256": "69f475be29c6937a2104b9ce1f142288e4c5bea5e5acc94d03eb78ebb716ab03",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "그라사 마셸의 출생·장학금·독립·교육장관·재혼이 시간순으로 이어지는 전기라 중등~고1 읽기·순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "insert",
+        "title"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Graça was given the important job",
+      "note": "교육 정책 단락이 앞 문맥 없이 서고 scholarship 정도만 풀면 된다."
+    }
+  },
+  {
+    "id": "457ec6ee-eec7-4911-a068-2574cd337295",
+    "source_updated_at": "2026-09-25T04:01:41.564132+00:00",
+    "body_sha256": "1685f296e0ce032615d62f94ee2d15fe2a95020d24951b97de5821182b70e1ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "소를 몰다 물을 찾아 헤매고 소를 잃었다가 소가 먼저 집에 와 있는 사건 흐름이 서서 초등 서사 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lekishon and his dog are thirsty",
+      "note": "짧지만 걱정→안도의 흐름이 분명하다."
+    }
+  },
+  {
+    "id": "9827ffb3-c874-4478-81c1-c6c882fa2c11",
+    "source_updated_at": "2026-09-25T04:02:21.477754+00:00",
+    "body_sha256": "db778956226980ebe54d18ad0536a13592cfa392cce0326b40cd8b5d9d64dbb9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "나비가 유해 사이트를 본 소녀를 돕고 소녀가 커서 아이들에게 인터넷 안전을 가르치는 교훈 흐름이 서서 초등 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When the girl grew up she",
+      "note": "결말 단락이 교훈을 명시해 요지 문항이 쉽다."
+    }
+  },
+  {
+    "id": "11ec0dfa-5418-4be3-a417-64520fd05ce0",
+    "source_updated_at": "2026-09-25T04:02:08.764005+00:00",
+    "body_sha256": "774a5efe52a560f67b6e590878dfa23c9b3e9d850a864d12a6de8cbefd8a9d69",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "길 잃은 염소가 늑대에게 춤을 청해 시간을 벌고 개가 와서 풀려나는 인과 흐름이 서서 초등 서사·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "content_match"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Near that place, there were dogs.",
+      "note": "대화 따옴표만 정리하면 긴장→안도 흐름이 선다."
+    }
+  },
+  {
+    "id": "f8d7c18c-8300-4390-af7b-5a1cbd0677fb",
+    "source_updated_at": "2026-09-25T04:02:13.035067+00:00",
+    "body_sha256": "288c30669ef98e817501bb29b138c47f624bf5dee3ed2659c83b8474a957c1a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "아내의 가슴을 베는 폭력과 두 사람의 죽음이 교훈의 중심이고 묘사가 구체적이라 §8 에 따라 고2 이상·성인 칸만 달고 보관한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "mood",
+        "order",
+        "topic"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He hurried back to the forest",
+      "note": "후반 단락은 서지만 절단 장면을 빼면 교훈이 약해져 연령 제한으로 둔다."
+    }
+  },
+  {
+    "id": "f8d25113-ed1e-4f14-8c1f-a30e5bb4f768",
+    "source_updated_at": "2026-09-25T04:01:54.969051+00:00",
+    "body_sha256": "7732fa2cd82c6983eaee5048f826a2cbf78e8e53c65a802726d5571ab1d19661",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "식인 요구를 동물 고기로 속여 넘기고 밧줄로 괴물을 죽이는 설화로 죽음이 결말의 중심이라 §8 에 따라 고1 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "long_reference",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The following morning Mulongo and his",
+      "note": "반복되는 속임 단락이 순서 문항 틀로 좋고 perturbed 정도만 풀면 된다."
+    }
+  },
+  {
+    "id": "b3c87fc5-fe84-4ee7-b473-fe313c1cdc3b",
+    "source_updated_at": "2026-09-25T04:01:54.734992+00:00",
+    "body_sha256": "48c6f5e9f5048247707f88cce553af437f49a8b53c9b53a51eece11fc8113284",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "토끼가 코끼리를 불 속에 세워 발굽을 태우는 잔혹한 속임이 유래담의 중심이라 §8 에 따라 고1 이상 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "So Hare led Elephant to the",
+      "note": "고통 묘사 단락이 사건의 중심이라 걷어 내지 않고 연령을 올렸다."
+    }
+  },
+  {
+    "id": "4ff3a727-9dbb-4fff-bb08-3d1bb169bfa0",
+    "source_updated_at": "2026-09-25T04:01:47.165242+00:00",
+    "body_sha256": "740e375f45ddc87c1bf095a26b63acafd77d4b0d034344d1ad4bdb5f84c0533d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "뿔 달린 동물 잔치에 밀랍 뿔로 숨어들었다가 들켜 코가 납작해진 유래담이 인과로 서서 초등 서사 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When the party started heating up,",
+      "note": "원인(태양 열)→결과(뿔 떨어짐)가 한 단락에 선다."
+    }
+  }
+]

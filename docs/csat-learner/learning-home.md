@@ -1,5 +1,7 @@
 # Learning Home 재설계 — 2026-09-18
 
+> **[동결]** 이 문서는 **실물 확인 전 초안**이다. Stage 5 에서 실물(실제 라우트 캡처) 기준으로 교체된다. **수정 금지** — 고칠 것이 보이면 화면을 먼저 고치고 그 화면에서 값을 다시 뽑는다(DD-62).
+
 ## 조사와 비평
 
 현행 Next14/React18, pnpm9, App Router, CSS module, 공용 토큰·Hahmlet/IBM Plex/Lora/lucide를 유지한다. SessionHome → composeDissection → SessionRunner, 기기 IndexedDB의 예측/공식/재확인 큐/초안, PDF.js reflow, analysis-sections → LecturePlayer/WebSpeechAdapter가 실제 연결이다. 관리자 API/분석자료와 원문 업로드 경계는 바꾸지 않는다. 현재 학습자 데이터는 검토된 빈칸 추론 7문항이다. 없는 순서·삽입 커리큘럼을 만들지 않는다.

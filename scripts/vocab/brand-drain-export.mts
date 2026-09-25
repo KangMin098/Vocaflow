@@ -117,7 +117,7 @@ families.forEach((family, i) => {
       coversPresent: members.filter((m) => m.hasCover).length,
       blueprints: [...new Set(members.map((m) => m.blueprint).filter(Boolean))].sort(),
       titles: members.map((m) => m.title).slice(0, 12),
-      /** 색은 **읽어서** 보여 준다 — 캔버스는 이 값을 담을 수 없고 역할 이름만 담는다. */
+      /** 지금 토큰 색을 **읽어서** 보여 준다 — 캔버스는 역할 이름(이 값을 따라감)이나 색 값(그대로)을 담는다(DD-66). */
       duotoneNow: {
         light: FAMILY_DUOTONE.light[family],
         dark: FAMILY_DUOTONE.dark[family],

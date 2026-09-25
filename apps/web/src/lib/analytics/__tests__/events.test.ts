@@ -111,6 +111,9 @@ describe('허용 이벤트 목록', () => {
     // 그 사이 이탈은 셀 수 없었다. 둘 다 속성이 숫자·닫힌 열거형이라 지문이 샐 자리가 없다.
     'landing_demo_moved',
     'landing_section_reached',
+    // 2026-09-22 — 플랫폼 메인(`/hub`) 홍보 면 2종. 속성은 면 이름(닫힌 열거형)과 순번뿐이다
+    // (마이그레이션 `20260922090000_funnel_allow_hub_portal`).
+    'hub_promo_clicked',
     // 2026-09-05 — 셸 나침반 띠 2종. 학습자 화면이라 공개 퍼널은 아니지만 같은 계약을 쓴다:
     // 속성은 국면(닫힌 열거형)과 개수뿐이라 지문이 샐 자리가 없다. 상단 6%가 실제로
     // 행동으로 이어지는지 재는 유일한 관측이다 — 이전 띠에는 이 관측이 아예 없었다.
@@ -136,6 +139,19 @@ describe('허용 이벤트 목록', () => {
     'csat_plan_speed_set',
     'csat_plan_ordered',
     'csat_trap_opened',
+    // 2026-09-23 — 기출 작업 공간(`/csat/space`) 2종. 이 화면의 값어치는 「한 판에서 좁혀
+    // 들어간다」에 전부 걸려 있어서, 좁히는 조작이 0 이면 긴 목록 두 개일 뿐이다(DD-73).
+    // `csat_trap_opened` 와 합치지 않는다 — 분모가 다른 화면이다.
+    'csat_space_scoped',
+    'csat_space_opened',
+    // 2026-09-24 — 기출 지속 학습 6종(docs/csat/ia-design.md §5 · 마이그레이션 `20260925093100`).
+    // 홈 상태(첫 방문 · 재방문 · 공백 복귀) · 이어하기 · 복습 시작/끝 · 들어온 축 · 해설에서 돌아가기
+    'csat_home_viewed',
+    'csat_resume_clicked',
+    'csat_review_started',
+    'csat_review_done',
+    'csat_path_chosen',
+    'csat_item_back',
     'screen_viewed',
     // 2026-09-12 — 구성요소 영상 2종(`packages/video-factory`). **만든 수가 아니라 본 수**를
     // 센다: 141개를 찍어 낼 수 있어도 본 사람이 0 이면 공급만 늘린 것이다(§D).

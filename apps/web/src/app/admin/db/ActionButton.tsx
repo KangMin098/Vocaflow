@@ -30,7 +30,7 @@ const BASE =
 
 const SKIN = {
   safe: 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]',
-  guarded: 'border-[var(--warning-ink)]/35 bg-[var(--warning-light)] text-[var(--warning-ink)] hover:brightness-[0.97]',
+  guarded: 'border-[color-mix(in_srgb,var(--warning-ink)_35%,transparent)] bg-[var(--warning-light)] text-[var(--warning-ink)] hover:brightness-[0.97]',
 } as const
 
 export function ActionButton({

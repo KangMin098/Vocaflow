@@ -5,10 +5,14 @@
 
 import type { Metadata, Viewport } from "next";
 import {
+  Figtree,
   Hahmlet,
   IBM_Plex_Sans_KR,
+  Inter,
   Lora,
   JetBrains_Mono,
+  Petrona,
+  Space_Mono,
 } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
 import { DevicePreferences } from "@/components/layout/DevicePreferences";
@@ -61,7 +65,8 @@ const fontUI = IBM_Plex_Sans_KR({
 
 /** 한글 디스플레이 — 제목·뜻·감성 문장. Lora 가 못 그리는 한글을 같은 세리프 정서로 받는다. */
 const fontKoDisplay = Hahmlet({
-  weight: ["300", "400", "500", "600", "700"],
+  // 800 — 참조 선언 제목의 굵은 둘째 줄(tines-mapping §21). 없으면 700 으로 대체돼 두 굵기 대비가 줄었다.
+  weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-ko-display",
   display: "swap",
   preload: false,
@@ -81,6 +86,57 @@ const fontMono = JetBrains_Mono({
   variable: "--font-mono",
   display: "swap",
 });
+
+// ── Tines 스킨(DD-68) — 참조 서체(상용)의 픽셀 비교 1위 무료 대체 ─────────────────
+// docs/design/refs/tines/font-lookalike.md · 변수는 skins/tines.css 가 읽는다.
+// preload 를 끈다 — 스킨이 꺼진 화면에서는 한 바이트도 받지 않는다.
+const fontTinesSans = Figtree({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-tines-sans",
+  display: "swap",
+  preload: false,
+});
+
+const fontTinesSerif = Petrona({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+  variable: "--font-tines-serif",
+  display: "swap",
+  preload: false,
+});
+
+const fontTinesMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-tines-mono",
+  display: "swap",
+  preload: false,
+});
+
+// ── Admin 앱 스킨(DD-82) — 레퍼런스 앱의 InterVariable 은 Inter(OFL) 그대로다. 변수는 skins/admin-app.css 가 읽는다.
+// 고정폭(Geist Mono)은 next 14.2 폰트 목록에 없어 이미 싣는 JetBrains Mono 로 대체한다. preload 를 끈다 — /admin 밖에서는 받지 않는다.
+const fontAdminSans = Inter({
+  subsets: ["latin"],
+  variable: "--font-admin-sans",
+  display: "swap",
+  preload: false,
+});
+
+// admin-app.css 가 `--font-mono` 자체를 덮으므로 원래 JetBrains Mono 변수를 가리킬 수 없다 — 별도 변수로 한 번 더 선언한다.
+const fontAdminMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-admin-mono",
+  display: "swap",
+  preload: false,
+});
+
+/**
+ * 화면 스킨 — 기본은 `tines`(사용자 결정 2026-09-21 「가장 닮음으로 우선 진행 후 평가」).
+ * `NEXT_PUBLIC_SKIN=off` 로 기본을 끄고, 브라우저에서는 `?skin=off|tines` 가 localStorage 에 남는다.
+ */
+const DEFAULT_SKIN = process.env.NEXT_PUBLIC_SKIN ?? "tines";
 
 export const metadata: Metadata = {
   // 이게 없으면 Next 는 OG·canonical 을 **상대경로**로 내보내고, 상대 OG URL 은 대부분의
@@ -132,7 +188,8 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${fontUI.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable}`}
+      className={`${fontUI.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable} ${fontTinesSans.variable} ${fontTinesSerif.variable} ${fontTinesMono.variable} ${fontAdminSans.variable} ${fontAdminMono.variable}`}
+      data-skin={DEFAULT_SKIN === "off" ? undefined : DEFAULT_SKIN}
       suppressHydrationWarning
     >
       <head>
@@ -145,10 +202,27 @@ export default function RootLayout({
                   var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                   var theme = stored || (prefersDark ? 'dark' : 'light');
                   document.documentElement.setAttribute('data-theme', theme);
+                  var q = new URLSearchParams(location.search).get('skin');
+                  if (q === 'off' || q === 'tines') localStorage.setItem('vocaflow-skin', q);
+                  var skin = localStorage.getItem('vocaflow-skin');
+                  if (skin === 'off') document.documentElement.removeAttribute('data-skin');
+                  else if (skin) document.documentElement.setAttribute('data-skin', skin);
+                  // 모션 취향도 **첫 페인트 전에** 칠한다 — globals.css §4.5 의 상시 루프는
+                  // 마운트 뒤에 칠하면 끈 사람에게 한 프레임 번쩍인다(전환만 낮추던 때는 늦어도 됐다).
+                  // 저장·동기화는 DevicePreferences 가 계속 맡는다(여기는 첫 칠만).
+                  var mo = localStorage.getItem('vocaflow-reduced-motion');
+                  var osReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                  var reduced = mo === 'on' || (mo !== 'off' && osReduced);
+                  if (reduced) document.documentElement.setAttribute('data-reduced-motion', 'on');
                 } catch (e) {}
               })();
             `,
           }}
+        />
+        {/* 한글 산세리프(Tines 스킨) — Pretendard 동적 서브셋. 스킨이 꺼지면 글꼴 파일을 받지 않는다. */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
       <body className="font-body antialiased">
