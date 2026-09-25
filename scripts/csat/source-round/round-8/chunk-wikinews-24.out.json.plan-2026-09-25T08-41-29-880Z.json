@@ -1,0 +1,1850 @@
+[
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0765ef26-b3ca-428b-ae0d-d52e7ef66de8",
+    "revision": "2026-09-25T08:12:02.029449+00:00",
+    "body_sha256": "3f8be0ed7f5831ebe2eab24010a9a7e3103e3d687d4d443a6b1d00fb2f054f53",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이란의 영국 해군 억류에 대한 두 조사 보고서가 원인을 「누적된 요인」으로 보고 언론 대가 허용을 집단 판단 실패로 짚어 요약·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Hall report found that the",
+          "note": "두 보고서의 결론 단락이 대비로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.883Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Failings_identified_in_response_to_Iranian_seizure_of_Royal_Navy_personnel",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.44
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0766fc2b-d44b-44b2-bd99-f21009a6f3ad",
+    "revision": "2026-09-25T06:49:31.903952+00:00",
+    "body_sha256": "c82fda6b1c545bb4c1867b8095a8faf15810662dd80e1da4b2720326f4f4b79f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "디스커버리호 발사 무기한 연기와 연료 센서 문제의 중요성이 이유로 서서 삽입·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The fuel tank sensor is vital",
+          "note": "센서가 왜 중요한지 설명하는 단락이 문장 삽입 문항에 맞는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.884Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Space_Shuttle_Discovery_launch_on_indefinite_hold",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.488,
+          "words": 164,
+          "english": 0.405
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "076728d0-64fd-4048-9911-819046e4657c",
+    "revision": "2026-09-25T07:04:20.56084+00:00",
+    "body_sha256": "2d0773b132f6d85d8be9dffb91991e5285e66a0a1e48b80dd131a39fcd74c70a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "뉴질랜드 국민당의 선거 광고비 초과와 면제 법안 무산을 두고 양측 주장이 대비돼 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Winston Peters, head of New Zealand",
+          "note": "피터스와 브래시의 반박 단락이 짝으로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.884Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Zealand's_National_Party's_bill_blocked",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.362
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "07689069-5cd1-41b5-ba6b-2e942e261083",
+    "revision": "2026-09-25T07:44:40.196546+00:00",
+    "body_sha256": "3feab1dee67bc6397977085f788ca56f9c6dd6f52d0a42a6b6f7376911d0b2d8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "뉴질랜드 캔터베리 규모 7 지진의 피해와 사망자 없음·쓰나미 전망이 서서 내용 일치 칸을 채운다; 첫 단락 거리 나열은 걷는다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Widespread damage extending beyond Christchurch has",
+          "note": "피해 설명 둘째 단락이 거리 수치 없이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.884Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Magnitude_7.0_earthquake_hits_New_Zealand",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.319
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "07696e4d-66d3-4661-8ccf-f62b6040d340",
+    "revision": "2026-09-25T07:58:48.108785+00:00",
+    "body_sha256": "1319842166b826f74526d2715b217f945f39f43ea4c8ee5b676a2f30867f6578",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "중국의 스웨덴 국적 서점상 구금을 두고 중국과 스웨덴이 각자 법 논리를 내세우는 기사라 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On Monday, Swedish Foreign Minister Margot",
+          "note": "양국 외교부 발언 단락이 짝으로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.884Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Chinese_Foreign_Ministry_confirms_arrest_of_bookseller_Gui_Minhai",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.342
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "076a9146-c62c-46bf-9da6-fd335510be1d",
+    "revision": "2026-09-25T07:27:59.658723+00:00",
+    "body_sha256": "4b1655b777308db09bd15700328018fd7dbd599b04e2f2ffc3cc88e526d597d8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "구글 대만 연례 발표회에서 웹 2.0과 현지 개발자 협력을 강조한 발언이 이어져 읽기 내용 일치 칸 하나는 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Global Deputy Director of Google Kai-Fu",
+          "note": "인용 영어가 어색해 여러 곳을 손봐야 하고 중국어 병기는 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.884Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Google_Taiwan%3A_Building_knowledge_sharing_center-stage_with_innovations",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.337
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "076c4111-4db9-46b6-86a9-aacd330fea61",
+    "revision": "2026-09-25T08:19:46.96757+00:00",
+    "body_sha256": "c3b6d6548c7a869595e23a8ce2419992fba164a014d90307f99acc197c3206df",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "기니비사우 대통령 암살 뒤 선거 연기와 폭력 사태가 이어져 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On March 2, renegade soldiers assassinated",
+          "note": "폭행 묘사가 있어 고등 이상; 암살 경위 단락이 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.884Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Guinea-Bissau_to_hold_elections_this_June",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.347
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "076dccae-a093-4029-8d39-889e52862924",
+    "revision": "2026-09-25T07:36:21.537648+00:00",
+    "body_sha256": "025796e3d18abd49b16d0c36104c660002f0d077cb93b85dcb1cdb43398fdda6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "오바마 대통령 취임식이 오전 커피부터 무도회까지 시간순으로 길게 이어져 순서·장문·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "long_reference"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Today, the official ceremony ushering in",
+          "note": "취임사 요지 단락이 요약 재료이기도 하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.884Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Obama_succeeds_Bush_as_44th_president_of_the_United_States",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.375
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "07704ae5-f5bf-4c06-8fd1-802d8040ee07",
+    "revision": "2026-09-25T06:58:26.367553+00:00",
+    "body_sha256": "37ea985002d1a0a36018b22f2898100d9bcc4217fada74f47302febe3db7c799",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "호주 전화 분류 의료 상담망 구상과 야당·의사협회의 반론이 대비돼 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A government source said that the",
+          "note": "「피자헛식」 대안 단락은 비유를 풀어 써야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.884Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_government_hopes_to_establish_triage_by_phone",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.377
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0771e86c-8e75-4a59-af99-b0b8623946d0",
+    "revision": "2026-09-25T06:59:28.410459+00:00",
+    "body_sha256": "7fb0c8f80d3fae8aee6c9b27032e93f6f03b4753da9fe15d74d0dcd26265e4dc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "춘절 풍습(집 청소→가족 만찬→용춤·폭죽)이 순서로 이어져 초등 칸 최소선을 넘고 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Chinese families spent New Year's Eve",
+          "note": "짧고 쉬운 문장이라 윤년 설명 끝 문장만 풀면 초등까지 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/World_celebrates_Chinese_new_year",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.051,
+          "words": 99,
+          "english": 0.362
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "07728670-1eec-4d42-9135-574c744f8c01",
+    "revision": "2026-09-25T07:00:51.013632+00:00",
+    "body_sha256": "bb2b66ac14351e40c0edf2d131dee4b925160afc608afb0a55c28cbc8eda46a9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "브루클린 창고 대형 화재와 진화 방식(「surround and drown」)이 설명으로 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Some 400 firefighters have working to",
+          "note": "진화 기법 단락이 설명문으로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Nine_alarm_fire_engulfs_Brooklyn_warehouses",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.762,
+          "words": 147,
+          "english": 0.407
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0773c320-b069-4fce-aa2e-0a6d24c34d69",
+    "revision": "2026-09-25T06:46:04.072476+00:00",
+    "body_sha256": "0d65e7bf459d99d12c350462f451d84dc04d365e76000600fe8ecbef388aa5fb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "조로증의 원인(유전자 편집 오류)과 이를 교정한 연구 방법이 인과로 서서 주제·순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The mutation is thought to adversely",
+          "note": "짧은 단락들이 원인→교정→전망으로 이어져 순서 문항에 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Premature_aging_disease_reversed_in_cells",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.173,
+          "words": 162,
+          "english": 0.337
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0774d0c9-4a96-4854-bca4-a206f42aa284",
+    "revision": "2026-09-25T07:01:12.946089+00:00",
+    "body_sha256": "bac7c5eb9829a4113fd42c72bd645ad69b9cfc483ada384ad997bb3480d8e2f2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "EFF가 AT&T의 인터넷 통신 NSA 전달을 위법이라 주장한 소송 기사라 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The EFF has asked that the",
+          "note": "변호사 인용 단락이 주장과 근거를 함께 담는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Electronic_Frontier_Foundation_files_motion_to_stop_AT%26T_from_forwarding_Internet_traffic_to_NSA",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.762,
+          "words": 168,
+          "english": 0.377
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0776c4c8-1051-4555-8ef4-4857b4d0ac70",
+    "revision": "2026-09-25T08:05:49.216886+00:00",
+    "body_sha256": "01bdf4b0e30a9130e597bd3e0dea18e205ff7dd297e6b126e708fe36c2b2952e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "시드니 반신자유주의 축제형 시위가 시간순으로 이어지고 경찰 대응에 대한 엇갈린 평가로 끝나 순서·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "At about 6 p.m., as the",
+          "note": "「free market freaks」 같은 표현은 가공 때 걷는다; 엇갈린 평가 끝 두 단락이 짝이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Carnival_style_protest_held_in_Sydney",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.333
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "077b2785-4e6c-4ec9-857f-a892c48eff47",
+    "revision": "2026-09-25T07:35:01.385436+00:00",
+    "body_sha256": "993e8f55da96bffbaf256d4d4d2e2ad8d0fee7ac8818bca7ac3e08fbfeb754c8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "6개 중앙은행 동시 금리 인하와 그 이유(물가 압력 완화·성장 위험)가 공동 성명으로 서서 요약·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Throughout the current financial crisis, central",
+          "note": "성명 인용 단락이 이유를 담아 떼기 쉽다; 금리 수치 나열은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Central_banks_worldwide_cut_interest_rates",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "077c48ba-a6e2-4384-9623-2761ea05844b",
+    "revision": "2026-09-25T07:45:55.169963+00:00",
+    "body_sha256": "742e5af2d20148f51bbcabf7d65d0c00f310065e8441c6dc7cd1eebca24efc5a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "에드 밀리밴드의 약혼 발표와 두 사람의 소감이 인용으로 서서 심경·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Justine Thornton, Ed's fianceé noted: \"Ed",
+          "note": "약혼자 인용 단락이 심경 문항 재료가 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ed_to_wed%3A_UK_Labour_leader_Miliband_announces_engagement_to_Justine_Thornton",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.429
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0784f60f-bcae-4b23-992f-75f349c295be",
+    "revision": "2026-09-25T07:05:17.103659+00:00",
+    "body_sha256": "65295e1763000896be52a7032ade57109b33f9e50d923cc3ee5f980961089e28",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "코피 아난의 비밀 중재자 임명 발표와 포로 교환 쟁점이 서서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Hezbollah reportedly wishes to swap Lebanese",
+          "note": "포로 교환 쟁점 단락이 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Kofi_Annan_to_appoint_secret_mediator_for_Israeli_soldier_release_negotiations",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.396
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0786685b-ef56-4fa7-812d-1300056fd7dd",
+    "revision": "2026-09-25T06:56:53.427728+00:00",
+    "body_sha256": "7ff2e2c555d88e6e63b5811a65996274b8bede5e8a4690ba0b81c6f036e7f605",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "시드니 교회 화재와 인종 폭력 연관 수사가 이어지는 짧은 기사라 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The church is located near an",
+          "note": "네 문장 남짓이라 전체가 표본이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Uniting_Church_at_Auburn_destroyed_by_fire",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.825,
+          "words": 103,
+          "english": 0.373
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0786d8fc-2af7-4061-a4f8-f547ac816c02",
+    "revision": "2026-09-25T06:55:47.408126+00:00",
+    "body_sha256": "8a60424d86e1dc6d7369dbee9dbf805fb5d1d2879199c2d5b84cac4801460ca7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "BC주 교사들의 수업 거부와 그 이유(임금 동결·과밀 학급)·정부의 불법 판정이 대비돼 주장·요약 칸을 채운다; 끝의 공지 조각은 걷는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This issue has been escalating for",
+          "note": "교사 입장 둘째 단락이 이유 구조로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/British_Columbia_teachers_dropping_the_chalk_and_walking_out",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.5,
+          "words": 200,
+          "english": 0.32
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "078c3fff-cdc8-47b7-ace9-fbab28e4a20e",
+    "revision": "2026-09-25T07:38:29.482803+00:00",
+    "body_sha256": "094c527bf01c7c5f00be36be164a7830b8b98723353bf1e35cabab8ec2faf017",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "에어프랑스 여객기 실종과 수색·마지막 교신 경위가 이어져 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "If no survivors are found, then",
+          "note": "마지막 자동 메시지 단락이 시간순으로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Search_in_Atlantic_underway_for_missing_Air_France_passenger_jet",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.357
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "078cefa5-2d5e-45f5-8269-af9f1837885b",
+    "revision": "2026-09-25T07:09:57.313722+00:00",
+    "body_sha256": "a5228f37ffec0f83faf4283d02adebab63301f2ed8061926c0f607a489bebda1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "호주-뉴질랜드 통합 제안의 근거(역사·긴밀한 관계)와 뉴질랜드의 반박이 대비돼 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "New Zealand's Foreign Minister, Winston Peters",
+          "note": "「1200마일이 1200가지 이유」 반박 단락이 주장 문항에 바로 쓰인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_MPs_suggest_Australia_and_New_Zealand_unification",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.395
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0791312c-2e41-4609-815f-e8e434588280",
+    "revision": "2026-09-25T06:56:39.769865+00:00",
+    "body_sha256": "c405af2fa317efdded8c26532d2af067f7326a9a8b5bc0fb286bbd98a5b20a64",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "노르웨이 새 내각 발표로 첫 문장 뒤는 장관직과 이름의 목록뿐이라 읽는 글이 아니다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "At 10:20 AM, newly appointed Norwegian",
+          "note": "목록을 걷으면 한 문장만 남아 칸을 못 채운다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Jens_Stoltenberg_reveals_the_next_Norwegian_cabinet",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.315,
+          "words": 181,
+          "english": 0.175
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "07946188-e68a-4a37-9d24-743685256f0e",
+    "revision": "2026-09-25T07:24:35.666713+00:00",
+    "body_sha256": "d080a99c26b3ed8a912a531ffa9e5532eacd17229c78f25a2e9153e41db8c1a2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "메가밀리언스 복권 당첨금이 불어난 경위와 당첨 확률·수령 방식이 이어져 읽기 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Twelve states in the U.S. participate",
+          "note": "확률 수치는 크지만 수령 방식 단락은 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Jackpot_rises_on_'Mega_Millions'_lottery_in_US%3B_breaks_record",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.865,
+          "words": 185,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "0799897a-b1b8-487a-a2b3-b54563137bf6",
+    "revision": "2026-09-25T07:33:04.587687+00:00",
+    "body_sha256": "be811d45e35a5fc95113ad68657022d51a7fab663cabe1a0596c476a40e6b8ef",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "social",
+        "why": "녹색당 대선 후보 인터뷰로 첫 답변은 지속가능성이 안보라는 논지로 서지만 나머지가 양당 비난·지지 호소라 일방 정치 논박(polemic)과 갈린다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "I run for president to help",
+          "note": "첫 답변 단락만 떼면 주장 문항이 되나 선거 운동 문구를 어디까지 걷을지 애매하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_interviews_Kent_Mesplay%2C_Green_Party_presidential_candidate",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.401
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-29-880Z",
+    "id": "079cd1dc-77aa-4ae6-8f9d-289880af944d",
+    "revision": "2026-09-25T08:14:04.453161+00:00",
+    "body_sha256": "2a15e4fecedac39accdc3c33dec8e32f8e55816dd20b5461feb15699e6171dec",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "베네수엘라 은행 인질극이 하루 넘게 이어진 경위와 협상 상황이 시간순으로 서서 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The hostage takers are demanding an",
+          "note": "인질 위협 문구가 있어 고등 이상; 끝 단락의 치안 여론 배경이 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:29.885Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bank_robbers_take_hostages_in_Venezuela",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.407
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

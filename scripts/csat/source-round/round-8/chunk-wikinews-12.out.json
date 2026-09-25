@@ -1,0 +1,938 @@
+[
+  {
+    "id": "03e3779f-65ac-4c9b-90e3-28908ea8cc71",
+    "source_updated_at": "2026-09-25T07:30:26.539796+00:00",
+    "body_sha256": "f39ee5f96938c3d90a6e7d30fc5813991d59f93a13502b714d8ccb0c58ee1fc0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "백악관 부활절 달걀 굴리기 행사를 해양 보호에 헌정한다는 부시 부부의 인사말이 쉬운 말로 이어져 초·중등 내용 일치·목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "M. Bush dedicated the event to",
+      "note": "행사를 바다 보호에 바치는 이유가 문장끼리 이어져 초등 최소선을 넘고, 인사말 목록은 줄인다."
+    }
+  },
+  {
+    "id": "03e4c9c2-23bb-491a-930d-a7c0add05d76",
+    "source_updated_at": "2026-09-25T07:45:33.0785+00:00",
+    "body_sha256": "f272be671b93a10a7637eaf0346df647e552f9bba5f151b40f86a61ca4e78f12",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "리비아 벵가지 공항 활주로 파괴로 이집트가 자국민 육로 철수를 고민하는 상황이 장관 발언으로 이어져 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Aboul Gheit told media at a",
+      "note": "장관 인용 단락이 ‘착륙 불가 → 육로 단체 이동’ 인과로 자족적이다."
+    }
+  },
+  {
+    "id": "03ee04f2-bf65-41dd-b156-3d8a4038f59a",
+    "source_updated_at": "2026-09-25T08:06:09.620745+00:00",
+    "body_sha256": "ddbc6868aeead2d2d81a621fde9b6b61f8cfe3ca7a0c76998fa78a9c12968064",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "화물선 하역 중 케이블이 끊겨 노동자가 숨진 사고와 끊어진 케이블의 산업 위험 일반론이 짧게 이어져 고1 이상 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Snapped cables are a significant occupational",
+      "note": "마지막 위험 일반론 단락은 사고와 이어 읽혀야 선다; 사망 묘사는 짧다."
+    }
+  },
+  {
+    "id": "03ef770d-a36c-4275-af72-1531d35ef928",
+    "source_updated_at": "2026-09-25T07:52:19.450488+00:00",
+    "body_sha256": "5c1072eeb70b078d61ea4c5fe292be899ba353d3182814af366bc2ac2f5b961e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "아일랜드 재무장관이 작은 나라는 낮은 법인세로 규모의 불리함을 메워야 한다며 OECD 최저세율에 반대한 주장과 근거·반론이 서서 주장-근거·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Brian Keegan, the director of public",
+      "note": "‘규모·위치·자원의 이점’ 단락이 주장과 이유를 함께 담아 떼기 좋다."
+    }
+  },
+  {
+    "id": "03f33519-ee69-40c5-9eaa-b8e8f9bcdb14",
+    "source_updated_at": "2026-09-25T07:58:44.828905+00:00",
+    "body_sha256": "488fccbf3293913698ba239ccc515ff1424c86be17af7dbbf6154dde5197cf43",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "펀자브 시아파 행렬 원격 폭탄 공격의 피해와 목격자 증언이 짧게 이어져 고2 이상 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to a police statement to",
+      "note": "폭발 장면 증언은 절제돼 있으나 테러 사망 소재라 연령을 올렸다."
+    }
+  },
+  {
+    "id": "03f39864-ebcc-40c2-b884-753eba5ca2e7",
+    "source_updated_at": "2026-09-25T07:22:56.226224+00:00",
+    "body_sha256": "223edc397cd46d1a3e4bae16370819bd27f7f33ff5b9696bf7f8dcddad6741aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "화성 탐사선 피닉스 발사와 기상 탓 하루 연기 사실이 짧게 서서 중등 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The mission is the first in",
+      "note": "발사대 번호 등 기술 표기를 걷으면 연기 이유 한 줄이 인과로 남는다."
+    }
+  },
+  {
+    "id": "03f7f937-61a3-4f06-96ab-b1f4fb4cbf83",
+    "source_updated_at": "2026-09-25T08:08:15.818284+00:00",
+    "body_sha256": "0c7652e38ea3d06cd455d59ee0fc3637673373d9ad310ee5f9a87496fa8b8d3c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "래퍼 프루프의 클럽 총격 사망 경위와 동료들의 추모·생전 소망이 이어지지만 총격 묘사가 구체적이라 고3·성인 서사·심경 칸만 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tributes poured out of the UK",
+      "note": "‘차트가 아니라 사랑으로 했다’는 마지막 단락은 떼어도 서나 총격 단락은 걷고 인용 부호가 깨진 곳을 고쳐야 한다."
+    }
+  },
+  {
+    "id": "03ffc735-771f-4527-a7fc-69795c6c16d3",
+    "source_updated_at": "2026-09-25T08:12:20.317542+00:00",
+    "body_sha256": "2fecebd71606838e629aead54fc89cbc16fae143a63017b55037979bde7af083",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "태국 남부 이중 폭탄 테러의 수법(작은 폭탄으로 모은 뒤 큰 폭탄)과 비상법 연장이 설명되지만 절단 묘사가 있어 고3·성인 내용 일치 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police said the first bomb was",
+      "note": "수법 설명 단락이 자족적이고 부상 묘사 단락은 걷는다."
+    }
+  },
+  {
+    "id": "04051b29-7e67-41a7-ac74-c05d7a5b2be4",
+    "source_updated_at": "2026-09-25T07:47:49.266462+00:00",
+    "body_sha256": "fadb29d813b1a600c4b1127694317baa99cf71e5f789d0888995e50fd652607c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "오바마에 도전한 역사학자 리처드슨의 경선 중단과 주별 득표 상승 흐름이 이어져 고2 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Richardson, 55, decided last October to",
+      "note": "도전 이유 단락이 자족적이고 득표율 단락은 수치 확인 문항으로 쓴다."
+    }
+  },
+  {
+    "id": "040797ce-84fd-4309-adef-5d37106e570f",
+    "source_updated_at": "2026-09-25T07:58:44.892652+00:00",
+    "body_sha256": "8bb2046e3a1fbd228d14bca146fe2449c719f07ca0aa88a66792c168008b79f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "털사 흑인 대상 연쇄 총격 피고인의 혐의·동기 추정·변호인 반박이 이어져 증오 범죄 주제 성인 칸 내용 일치를 연다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Jake England recently wrote in Facebook",
+      "note": "동기 단락은 서지만 피격 부위 묘사와 인종 증오 소재라 학생 칸은 달지 않았다."
+    }
+  },
+  {
+    "id": "04189eed-02f8-4def-8589-60c832d54d6e",
+    "source_updated_at": "2026-09-25T07:38:50.293013+00:00",
+    "body_sha256": "dfcd5aead9336d79d81b1916d36efd45c19d4b0eeda54d845ad0ed5f4b4055f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미스 조지아가 교사 일과 병행이 어렵다며 12시간 만에 왕관을 내려놓고 준우승자가 이어받은 경위가 쉽게 서서 중등 내용 일치·목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In a prepared statement via the",
+      "note": "사퇴 성명 단락이 이유를 자족적으로 밝힌다."
+    }
+  },
+  {
+    "id": "041924ec-05f4-4d9b-9e6f-9216699a682c",
+    "source_updated_at": "2026-09-25T07:43:34.483033+00:00",
+    "body_sha256": "cad81204e3e3fc57fd535c7a21f793d0ec1c118e2e1c49fce9f9596601abab0c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "칠레 규모 5.7 지진의 진앙·정전·대피 상황이 전해지지만 지명별 거리·진도 나열이 많아 중등 이상 내용 일치 칸 하나만 연다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wikinews reporter Diego Grez, who was",
+      "note": "현지 기자의 정전·대피 단락은 서나 진도 표 단락은 걷어야 한다."
+    }
+  },
+  {
+    "id": "041d6535-0fde-4af3-99ee-3df1a4e68401",
+    "source_updated_at": "2026-09-25T06:47:02.068148+00:00",
+    "body_sha256": "53cf9d84f9e84052e0e8706495c609e9f226cee4241c6ff158f4fe276bb94c21",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "컬럼비아 사고 뒤 첫 비행을 앞둔 디스커버리호의 발사대 이동과 임무·가속 수치 설명이 이어져 중등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Space Shuttle goes from standing",
+      "note": "분당 2천 마일씩 빨라진다는 마지막 단락이 계산형 내용 일치 재료가 된다."
+    }
+  },
+  {
+    "id": "041e2782-6e4c-45c0-a5e7-26280fe6c3e1",
+    "source_updated_at": "2026-09-25T07:52:54.593219+00:00",
+    "body_sha256": "3b3bb0414260e9d45647dcb787c15e9f625b0ffa6406ab5ef9acc461e5f4e789",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "알래스카 윌로 유전 승인을 두고 경제 이익을 내세운 지역·정치권과 기후 피해를 경고한 환경단체가 맞서고 소송 경과가 이어져 주장-근거·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Secretary of the Interior David Bernhardt",
+      "note": "환경영향 수치 단락이 수치 검증 재료가 되고 법원 경과 단락은 줄여야 한다."
+    }
+  },
+  {
+    "id": "0428decb-873e-4fc0-93f6-9fead6baab8d",
+    "source_updated_at": "2026-09-25T07:51:03.620576+00:00",
+    "body_sha256": "b6242a8f2b414d50d6cc36c21917f1e69028e79725534482ea97bbca75a21889",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "애니메 노스가 대학 동아리 700명에서 수만 명 행사로 큰 과정과 운영의 비결을 의장 인터뷰로 풀어 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I think one of the key",
+      "note": "성장 비결 답변 단락이 자족적이나 사진 캡션 문장들은 걷는다."
+    }
+  },
+  {
+    "id": "042a269f-03cd-45fd-8013-3fd4668cf5d0",
+    "source_updated_at": "2026-09-25T07:58:44.913078+00:00",
+    "body_sha256": "48b4bc92e19597b5cf49ab383fdecbe24974ae33d306189e868945421bc17e16",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "코로나 속 위스콘신 선거가 연기 명령과 법원 판결을 거쳐 강행되고 투표소 축소로 줄이 길어진 경위가 인과로 서서 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Before the deadline last week, over",
+      "note": "투표소 180곳이 5곳으로 준 단락이 결과를 자족적으로 보여 준다."
+    }
+  },
+  {
+    "id": "042aa5bb-4c89-47e8-b396-7e2d720cdfdb",
+    "source_updated_at": "2026-09-25T07:14:36.218223+00:00",
+    "body_sha256": "da6b82936cfd5de4a17fa8248f9789ac6e47073bf4770fb3ffd80af2f35dad3c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "영화 「시바지」 개봉일이 또 바뀌었다는 공지와 직원발 소문뿐인 98어 단신이라 논지도 사건 흐름도 없어 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "AVM have now officially announced the",
+      "note": "날짜 변경과 추측만 남아 떼어 쓸 문장이 없다."
+    }
+  },
+  {
+    "id": "042b9089-4fdf-4611-b82d-47bf3d377ffb",
+    "source_updated_at": "2026-09-25T07:58:44.934952+00:00",
+    "body_sha256": "066993a2bba848dbe2e3218e699cef5ab68999efaae206a1c68bec7627c0d483",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "유럽인권재판소가 교실 십자가를 ‘수동적 상징’이라며 2009년 판결을 뒤집은 논리와 양측 주장이 서서 주장-근거·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The court's final ruling reverses their",
+      "note": "2009년 판결과 이번 판결의 논리 대비 단락이 떼어도 선다."
+    }
+  },
+  {
+    "id": "042f6d58-60d8-4096-8a26-93fb68aa4c03",
+    "source_updated_at": "2026-09-25T06:47:24.335253+00:00",
+    "body_sha256": "f86ed80bded90a65b834376818db0150e519b9285df27c318e037297dedf0cd0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "알라위 전 총리의 다섯 번째 암살 모면과 같은 날 잇단 차량 폭탄·과거 도끼 습격이 이어지지만 폭력 묘사가 있어 고3·성인 내용 일치 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The bomb was set off by",
+      "note": "폭탄 경위 단락은 자족적이나 도끼 습격 묘사는 걷는다."
+    }
+  },
+  {
+    "id": "043001fc-a391-4352-834a-08e4b9167baf",
+    "source_updated_at": "2026-09-25T06:47:30.302069+00:00",
+    "body_sha256": "d039d41be998daed183c4b9a606bbeda0ca2b13878a146d2952eb0a169d87853",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "인도 노점상 15만 명에게 위생 조리법을 가르쳐 여행자 설사를 막으려는 캠페인의 목적과 실천이 쉽게 이어져 중등 이상 목적·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock"
+      ],
+      "types": [
+        "purpose",
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"One of the tips we’ve been",
+      "note": "노점상의 앞치마·깨끗한 물 인용 단락이 쉽고 자족적이다."
+    }
+  },
+  {
+    "id": "04300442-4dda-4278-b1bc-91237aa9251f",
+    "source_updated_at": "2026-09-25T05:31:40.166324+00:00",
+    "body_sha256": "d94cc35c7b088909fd4005f70703c0ac452fd76139b6e6d55c3abe357d2eb4a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "다르푸르 공습 100명 사망과 휴전 위반·내전 원인이 78어로 짧게 서서 고2 이상 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The rebels began their war with",
+      "note": "내전 원인 한 문장이 배경을 준다; 학살 소재라 연령을 올렸다."
+    }
+  },
+  {
+    "id": "0433d679-6d7b-42a6-a977-e3ade5cee655",
+    "source_updated_at": "2026-09-25T07:58:44.957585+00:00",
+    "body_sha256": "0bf1e62ed299653cb83597209313193213e9fe9563ba664d85a8b834bc28bda5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "북한 원로 리용무의 사망과 경력·관영매체의 찬양 문구·김정은 조문이 인용으로 전해져 고3·성인 내용 일치·어조 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The paper described Ri as being",
+      "note": "관영매체 찬양은 기사 속 인용이라 선전 전제가 아니며, 직책 나열 단락은 줄인다."
+    }
+  },
+  {
+    "id": "04346563-ba80-4f5e-bb17-b86de6089459",
+    "source_updated_at": "2026-09-25T06:56:18.75279+00:00",
+    "body_sha256": "4d0bdedc96a76f950ed3881a90365b5374ebd0a42409d7c0dcfb9b84bb8416a7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "라빈 암살 10주기 추모식에서 클린턴이 ‘그의 일을 끝까지 이어 가라’고 말한 연설과 평화의 노래 장면이 이어져 심경·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "mood",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "audio"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Clinton said that it was a",
+      "note": "라빈이 했을 말을 빌린 인용 단락이 요지로 자족적이다; 원음은 청크에 없다."
+    }
+  },
+  {
+    "id": "04348cb2-c95e-4e84-9cd8-48216f579418",
+    "source_updated_at": "2026-09-25T07:35:37.014173+00:00",
+    "body_sha256": "16d0af0aed47c0a4923c4216f1ac2830fe371375718107e10ccb8c0991b4f567",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "앨런타운 공항 활주로 근접 충돌 사고의 경위가 관제 교신 시각표로 재구성돼 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Mesa Air crew decided to",
+      "note": "시각표는 순서 배열 문항 재료로 좋지만 ‘shown below’·사진 언급은 걷는다."
+    }
+  },
+  {
+    "id": "04389ef7-d394-4b8b-a291-a0b2cb3c826d",
+    "source_updated_at": "2026-09-25T07:05:21.545198+00:00",
+    "body_sha256": "c6f37ced6f64f1a4fea12e3b4088792d367fa54ec437c1447d9958e0af462c74",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "프루도만 유전 폐쇄로 유가가 뛴 원인(부식·누출)과 ‘중동은 위협, 알래스카는 실제 차질’이라는 분석이 서서 인과·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The shutdown of the Prudhoe Bay",
+      "note": "분석가 인용 단락이 위협과 실제 차질의 대비로 자족적이다."
+    }
+  }
+]

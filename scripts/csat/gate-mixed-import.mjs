@@ -26,6 +26,7 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
 }
 const COMMIT = process.argv.includes('--commit')
+const REBASE_UNJUDGED = process.argv.includes('--rebase-unjudged')
 // Canonical scoped source judgment lane. Legacy title/book outputs remain readable,
 // but must be rebound to the reviewed UUID, revision and full-body digest to write.
 const inputIndex = process.argv.indexOf('--input')
@@ -101,7 +102,11 @@ if (inputIndex >= 0) {
       ? isDeepStrictEqual(prevRetain, retain)
       : isDeepStrictEqual(comparable, gate)
     // An identical replay may have our updated revision; all actual changes need CAS.
-    if (!unchanged && Date.parse(row.updated_at) !== Date.parse(review.source_updated_at)) throw new Error(`Review revision changed: ${row.id}`)
+    // `--rebase-unjudged` (2026-09-25): 보관 판정이고 · 본문 해시가 같고(위 81행에서 이미 확인) · 그 행에 **아무 판정도 없을** 때만
+    //   개정 차이를 허용한다. CAS 는 남이 먼저 쓴 판정을 덮지 않으려는 것이다 — 덮을 판정이 없으면 막을 까닭이 없다.
+    //   경위: 회차 8 wikinews 가 판정 뒤 재분석(메타만 갱신)으로 updated_at 이 바뀌어 청크 대부분이 통째로 거부됐다.
+    const rebaseOk = REBASE_UNJUDGED && isRetain && !previous?.retain && !previous?.verdict
+    if (!unchanged && !rebaseOk && Date.parse(row.updated_at) !== Date.parse(review.source_updated_at)) throw new Error(`Review revision changed: ${row.id}`)
     // 보관 판정은 **게이트의 at 을 건드리지 않는다**(그것은 내용 판정의 시각이다) — 시각은 retain 안에 둔다.
     const after = unchanged ? previous : isRetain ? { ...(previous ?? {}), retain: { ...retain, at: now } } : { ...gate, at: now }
     manifest.push({ runId, id: row.id, revision: row.updated_at, body_sha256: review.body_sha256, before: previous, after, changed: !unchanged, status: row.status, csat_fit: row.csat_fit })

@@ -182,6 +182,18 @@ function stripTemplates(t) {
       const parts = a.split('|').filter((p) => !/^\s*[a-z_]+\s*=/i.test(p))
       return (parts.length > 1 ? parts[parts.length - 1] : parts[0] ?? '').trim()
     })
+    // 숫자를 싣는 템플릿 — 통째로 지우면 「within of」「It flew for before」처럼 숫자가 빠진다
+    //   (회차 8 판정자가 여러 편에서 짚었다 · 덤프 실측 formatnum 154 · money 58 · convert 6 · currency 4).
+    //   {{formatnum:1234}} → 1234 · {{convert|5|km|mi}} → 5 km · {{money|12|USD}} / {{currency|12|USD}} → 12 USD
+    // Wikinews 자체 단위 템플릿 {{km to mi|1000}} · {{M to ft|260}} · {{F to C|90}} — 덤프 실측 ~165곳.
+    //   이게 주된 원인이었다(「It flew for {{km to mi|1000}} before」 → 「It flew for before」). 첫 단위로 숫자를 살린다.
+    t = t.replace(/\{\{\s*(km|mi|m|ft|feet|f|c|in|cm)\s+to\s+(?:km|mi|m|ft|feet|f|c|in|cm)\s*\|\s*([^{}|]+)(?:\|[^{}]*)?\}\}/gi, (_, u, n) => {
+      const unit = { km: 'km', mi: 'miles', m: 'm', ft: 'ft', feet: 'feet', f: '°F', c: '°C', in: 'in', cm: 'cm' }[u.toLowerCase()]
+      return /°/.test(unit) ? `${n.trim()}${unit}` : `${n.trim()} ${unit}`
+    })
+    t = t.replace(/\{\{\s*formatnum\s*:\s*([^{}|]*)(?:\|[^{}]*)?\}\}/gi, (_, n) => n.trim())
+    t = t.replace(/\{\{\s*(?:convert|cvt)\s*\|\s*([^{}|]+)\|\s*([^{}|]+?)(?:\|[^{}]*)?\}\}/gi, (_, n, u) => `${n.trim()} ${u.trim()}`)
+    t = t.replace(/\{\{\s*(?:money|currency)\s*\|\s*([^{}|]+)(?:\|\s*([^{}|=]+))?(?:\|[^{}]*)?\}\}/gi, (_, n, c) => (c ? `${n.trim()} ${c.trim()}` : n.trim()))
     t = t.replace(/\{\{[^{}]*\}\}/g, '')
   } while (t !== prev)
   return t

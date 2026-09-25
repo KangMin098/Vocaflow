@@ -1,0 +1,1572 @@
+[
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "c99f1a16-6ade-4886-bdbf-33dc264ad911",
+    "revision": "2026-09-25T03:34:53.824038+00:00",
+    "body_sha256": "6e50798aa47a75279cb2860fd3e0ad9d522c7b4f540227e6dd812a489f67d372",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "엄마가 칭찬한 다섯 아이의 재주를 아픈 할아버지에게 보여 주자 할아버지가 낫는 짧은 인과가 초등 순서·내용일치 칸을 겨우 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Mom says Va can crawl. Mom",
+          "note": "앞 다섯 줄은 나열이지만 병문안→칭찬→회복으로 이어져 최소선은 넘는다. 끝 질문은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.849Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/mom-says-we-can/",
+          "year": null,
+          "author": "Komar Rien Komar Cheh."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "caba7ce5-db02-47bb-b739-b5f1a9726ba7",
+    "revision": "2026-09-25T04:02:48.007864+00:00",
+    "body_sha256": "7664f1e5338770881014935ea3d138195c49f172ea90f3eae53fb56b772c349c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "메뚜기가 귀뚜라미의 농약·빈 통 투기가 친구들을 병들게 했음을 짚어 말하는 흐름이 초중등 요지·순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Grasshopper, Frog, and Cricket love to",
+          "note": "메뚜기가 원인을 말하는 단락이 요지로 떼어지고 끝의 CI 안내는 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.849Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/grasshopper-speaks-up/",
+          "year": null,
+          "author": "Kong Sok Keng."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "cb64a97d-0707-4bcb-90f5-7aae5f05030b",
+    "revision": "2026-09-25T04:03:21.092632+00:00",
+    "body_sha256": "45f74c20ecd52b3b6f9b0315183c8a13ef803202f24b0e04146c8846fe16dd74",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "혼자 해초밭에 나선 듀공 새끼가 거북·상어·어선을 차례로 만나 넘기는 과정과 듀공 해설이 초등 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dugo is always together with Mom.Every",
+          "note": "상어 따돌리는 장면은 그림 의존(He thinks of something clever)이라 한 줄 보충이 필요하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.850Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/can-he-do-it/",
+          "year": null,
+          "author": "Prasiwi Bestari."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "cc8c9096-0d39-4442-9046-7a847552d8ed",
+    "revision": "2026-09-25T04:03:29.215894+00:00",
+    "body_sha256": "6e79637387621cd8d8cbdc910f72b572c7f1e1bcd84b87ef9a9d8a7f9a41e72b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "돌마가 버린 라면 봉지를 야크가 먹고 앓자 쓰레기통을 쓰게 되는 인과가 초등 요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A seven-year-old little girl named ‘Dholma’,",
+          "note": "봉지→야크 기침→쓰레기통 인과가 분명하고 비문(must have flew)만 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.850Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/dholmas-dream/",
+          "year": null,
+          "author": "."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "cd8bf8dc-6057-47f3-8c36-79062d68ea67",
+    "revision": "2026-09-25T04:03:28.366888+00:00",
+    "body_sha256": "589796e15a5f28794932cc317e4c27441982efd19bd4a72ab95aeb1783ba8f38",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "연을 살 돈이 없는 에디가 책을 보며 틀·색종이·꼬리·줄 순서로 연을 만드는 절차가 초등 순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Edi wants to play with a",
+          "note": "만드는 단계가 시간순이라 순서 배열에 바로 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.850Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/edi-makes-a-kite/",
+          "year": null,
+          "author": "Jennie Hamlin, Didiek Kartiarso."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "cdf6c269-c615-4b44-9a76-3d0b153067ed",
+    "revision": "2026-09-25T04:02:53.200892+00:00",
+    "body_sha256": "e1978d6c48a84e01eb181ec81796f2c342fc5360b5cd14892c58add851541c49",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "걷지 못하는 챤발레가 놀림을 제비 떼 도움으로 이겨 내고 할아버지를 여의며 사랑받는 존재임을 깨닫는 장편이 중등 이상 심경·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "mood",
+            "long_reference",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Lulé!\" yells the bully. \"Didn’t you",
+          "note": "제비가 할아버지 죽음 뒤 생각하는 단락이 요지로 서고 lulé 같은 비하어는 뜻풀이와 함께 둔다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.850Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/chhyanbale/",
+          "year": null,
+          "author": "Tirtha Gurung."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "ce4cc455-e46b-4df9-adc4-242511849d16",
+    "revision": "2026-09-25T04:02:45.720433+00:00",
+    "body_sha256": "afeee5006dd0a5570ddde0d490c8b15ed9588174040fbe0308d7c2c27523b59a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "sports",
+        "why": "여자라서 안 된다던 소년들 앞에서 루이사가 두 골을 넣어 경기는 모두의 것임을 보이는 흐름이 초등 요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Luisa is a girl who loves",
+          "note": "끝의 출판 취지 문장은 걷어내고 성별 편견은 극복 대상이라 그대로 둔다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.850Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/luisa-the-fantastic/",
+          "year": null,
+          "author": "Ross Merry da Gloria."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "d2f4524f-601f-4aa1-bd0a-26bb24a8dd38",
+    "revision": "2026-09-25T04:02:55.536986+00:00",
+    "body_sha256": "eb85bcf12940e3561e842dfb3bb0257e6727d5cf90f3585e6619046274a2e066",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "릭샤 그림을 박물관처럼 보여 주는 아빠의 이야기와 릭샤 예술 노트가 초중등 내용일치·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "My father drives a museum. It",
+          "note": "노트 단락이 릭샤 예술 설명문으로 독립하고 영화배우 이름은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.850Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-tiger-in-the-traffic/",
+          "year": null,
+          "author": "HerStory Foundation."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "d48869e0-4ca9-47bd-a591-09d055e8e21c",
+    "revision": "2026-09-25T04:02:44.579461+00:00",
+    "body_sha256": "52a4f103479b0e786f13f99ba6b66aa533ed7f17ec5f41e9ba4b2354d04ac8f8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "비닐을 태우는 부모를 보던 니타가 자투리 천으로 장바구니를 만들어 마을을 바꾸는 흐름이 초등 요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"What is that black smoke?\" Nita",
+          "note": "아빠의 비닐 소각 대화 단락이 문제 제기로 떼어져 요지 문항이 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.850Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/nitas-beautiful-bag/",
+          "year": null,
+          "author": "Pao Makara."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "d5e899b6-61bf-41d8-b364-9b7be3727819",
+    "revision": "2026-09-25T04:03:14.498084+00:00",
+    "body_sha256": "43553dfd0dc0a2729c6ada24f2f57718cd6a9e8639aec2f2268a481779461876",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "새 정자에 밀려 서운하던 타마린드 나무가 폭풍 때 정자를 붙잡아 화해하는 흐름이 초등 심경·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "mood",
+            "order",
+            "main_point"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Tamarind Tree lives beside a busy",
+          "note": "다툼→폭풍→구조→사과 전개가 분명하고 surly 정도만 바꾼다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.850Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/tamarinds-new-neighbor/",
+          "year": null,
+          "author": "Hun Thida."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "d6033ff9-ea11-4e01-b6a6-053174ffa731",
+    "revision": "2026-09-25T04:03:40.971637+00:00",
+    "body_sha256": "9ac44cb2260085ec74337aac3bfb10cabeb55620cf4c485b1b6a78b4fac8a78e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "뭐든 거꾸로 하겠다던 아이가 휴일에 학교 가라는 엄마 말에 그만두는 반전이 초등 순서·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "blank"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Today I will do everything oppositely.",
+          "note": "반복 선언 다섯 줄 뒤 결말 반전이 있어 최소선을 넘는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.850Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/opposite-day/",
+          "year": null,
+          "author": "Sheelu Karmacharya."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "d6c9cacb-2245-45b9-82fe-98c5568035bc",
+    "revision": "2026-09-25T04:03:25.02319+00:00",
+    "body_sha256": "86b741e3e75910156b8067aedf7645b11218fa9c1dc24f5e73c808067092c63b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "필리핀 산간 오토바이 택시 하발하발의 좌석 구조·승객·운전사를 여정 속에 설명하고 끝에 정의를 붙여 초중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Whenever I go on a trip",
+          "note": "날개 좌석 여섯 명 설명 단락이 사실 문항으로 떼어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.850Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/riding-the-habal-habal-motorcycle/",
+          "year": null,
+          "author": "Nomer C. Nuńez."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "d8ff6eb7-982c-4012-8455-3b0f534537e7",
+    "revision": "2026-09-25T04:03:02.18106+00:00",
+    "body_sha256": "40f3f8180ebb47ee6730d2dcd16aab5dea125b43abd39c38c21eeb6bc56368aa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "비닐 사용을 묻던 아유가 교사 설명을 듣고 강에 버린 쓰레기로 생긴 플라스틱 거인을 물리치는 장편이 중등 요지·장문·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "long_reference",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "One morning, Luh Ayu Manik was",
+          "note": "교사가 플라스틱 해악을 설명하는 단락이 주장-근거로 떼어지고 제작 안내는 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/luh-ayu-manik-mas-defender-of-the-environment/",
+          "year": null,
+          "author": "I Putu Supartika, BASAbali."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "d90511ed-7651-4dbc-83a0-e2154eb68161",
+    "revision": "2026-09-25T04:03:45.444936+00:00",
+    "body_sha256": "3e4a86da854efc02af9785caed737faedd9bf662065f50b39ce9766509d65de6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "난민촌의 하프사 가족이 판다누스 장난감과 마법 반지 옛이야기로 고향을 떠올리고 종이 반지를 받는 이야기가 중등 심경·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "mock"
+          ],
+          "types": [
+            "mood",
+            "long_reference",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "From the doorway of her shelter,",
+          "note": "액자 속 반지 설화 세 단락이 따로 떼어져도 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/hafsa-and-the-magical-ring/",
+          "year": null,
+          "author": "Yasmin Ullah."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "da899248-a90f-45ce-958c-353d60ddab0a",
+    "revision": "2026-09-25T04:03:39.746436+00:00",
+    "body_sha256": "3b526c0fea4167cd208a68401f0c9e372a9b12f231e83fdb0eb0b7cc7a102a06",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "인형 낙타를 물에 적셔 엄마에게 뺏긴 두 자매가 서로 사과하는 인과가 초등 심경·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Nana had a plush camel that",
+          "note": "대시 대화 표기를 따옴표로 바꾸면 짧은 인과 이야기가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/a-bath-for-plush-camel/",
+          "year": null,
+          "author": "Bích khoa."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "dd9a9d2b-2b3b-4654-b5aa-abf35b02b5b9",
+    "revision": "2026-09-25T04:03:00.712212+00:00",
+    "body_sha256": "137771574dac11d15ac93710e262e9f2213e82a5fdf6f4edc4ce1aac45b50015",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "새 둥지로 머리가 엉킨 자연의 여신이 여러 왕관을 거절하다 아이들의 새집을 왕관으로 고르는 흐름이 초중등 순서·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Inang Kalikasan wore the rich fertile",
+          "note": "왕관 후보마다 거절 이유가 붙어 순서·내용일치가 쉽고 저작 안내는 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/mother-natures-bad-hair-day/",
+          "year": null,
+          "author": "Recle E. Vibal."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "ddbfd1f0-c66a-4b97-8ef6-9b1db7b10ead",
+    "revision": "2026-09-25T04:03:41.951919+00:00",
+    "body_sha256": "d98b5145127a16d912e3216fcda6f6beccf043a27b3290d5256624d18aabefbd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "생선 도둑 고양이를 쫓던 아이가 세탁기에 빠진 고양이를 구해 내는 짧은 사건 흐름이 초등 순서 칸을 겨우 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V1"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "\"Ta-da, I am Superman!\" \"You stole",
+          "note": "의성어·말풍선 조각이 많아 대사를 문장으로 풀어 줘야 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/cat-rescue-superman/",
+          "year": null,
+          "author": "Mai Phương."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "de4386cb-1857-4301-8e82-35633d56d437",
+    "revision": "2026-09-25T04:03:30.527452+00:00",
+    "body_sha256": "16828c91db5546e153e3ddebcc8df51dcd7bec13cead0fe3f3228f6ee759b951",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "동생을 찾던 피치가 해·바람·달의 물음에 책 지식으로 답하고 학교에서 동생을 찾는 반복 여정이 초등 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "RRRRIIIIINNNGGGG! School was over! Pich packed",
+          "note": "달 모양 설명 단락이 과학 설명으로도 떼어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC-SA",
+        "license": "cc-by-nc-sa-4-0-2",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/seeking-for-younger-sister/",
+          "year": null,
+          "author": "."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "df96afac-fbf6-4fe9-9292-44ad8d2a191d",
+    "revision": "2026-09-25T04:03:17.183574+00:00",
+    "body_sha256": "3c379296c9e3bb7ffe3f482a9682c7d78b0ebe5033ac0934479cd72d3bf6ccbf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "사라가 아리오를 타고 여러 나라 아이를 만나 감염 예방·감정 다스리기를 배우는 장편이 중등 장문·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "long_reference",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V2",
+            "V3",
+            "V4"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"My Hero is You\" is a",
+          "note": "끝의 테툼어 저작 안내는 걷어내고 봉쇄 조치는 2020년 맥락이라 가공 때 시점을 밝힌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC-SA",
+        "license": "cc-by-nc-sa-4-0-2",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/my-hero-is-you-how-kids-can-fight-covid-19/",
+          "year": null,
+          "author": "Helen Patuck."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "e30c4c9b-c5e2-4bcd-92a6-b0d1303ebb8e",
+    "revision": "2026-09-25T04:03:18.545453+00:00",
+    "body_sha256": "307bed4b5aae6550df275011f99cbcb3b265392e37ce3014ca4cf32680dc8033",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "처음 먹이를 나르는 개미 무투가 물·막대·비탈에 막히다 친구 도움으로 땅콩을 옮기는 흐름이 초등 순서·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "main_point"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Muttu was going on his first",
+          "note": "장애물이 차례로 나와 순서 배열이 쉽다(50times 띄어쓰기 수정)."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/muttu-and-the-big-peanut/",
+          "year": null,
+          "author": "Hamsi Marlon ."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "e3efe6c3-0b6b-491c-98a7-4d680a9126af",
+    "revision": "2026-09-25T04:03:45.697875+00:00",
+    "body_sha256": "480c1002115999758d4ea62ae22ebc6e23fb7da7a45446ae08843183c413905d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "숙제를 안 한 이유를 가정법 과거완료 연쇄로 고양이 탓까지 거슬러 올라가는 글이 중등 어법·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "school",
+            "reading"
+          ],
+          "types": [
+            "grammar_choice",
+            "grammar_fix",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Why haven’t you done your homework?",
+          "note": "If I had not … would not have 연쇄가 어법 문항 재료로 그대로 쓰인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/its-all-the-cats-fault/",
+          "year": null,
+          "author": "Anushka Ravishankar."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "e4395e07-6f44-4980-9ec8-6478d70fe0b9",
+    "revision": "2026-09-25T04:03:33.666713+00:00",
+    "body_sha256": "9eb77b630adde85cf174ff9de3682bd4aaee2b472d41dfe3510ced0b927a414e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "디자인을 두고 친구와 다툰 베하가 조종사 삼촌 조언으로 경청하고 글라이더로 우승하는 흐름이 중등 요지·순서·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "mood",
+            "insert"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Veha woke up early and looked",
+          "note": "삼촌의 조종사 덕목 단락이 요지로 떼어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-best-paper-plane/",
+          "year": null,
+          "author": "The Asia Foundation - Let's Read."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "e52cb3c8-289a-4e8c-8cec-a6b010fb21bf",
+    "revision": "2026-09-25T04:03:01.189704+00:00",
+    "body_sha256": "22981732c6e75dbe5aeed16b2aa307ee8c47bdff7a00a9811adc153d5571138c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "피자 행성에 내린 메리가 거대 닭을 피해 달아나다 밀·밀가루·반죽·피자로 이어지는 공정을 겪는 모험이 초등 순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mary is a cosmic explorer. She",
+          "note": "밀 수확→제분→반죽 순서가 분명하지만 말줄임 장면 전환은 이어 붙여야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/o-pizza-planet/",
+          "year": null,
+          "author": "Salsabil Arabi."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "e56588fb-f5a3-4b53-ab0e-36fb3fd77022",
+    "revision": "2026-09-25T04:02:48.973637+00:00",
+    "body_sha256": "67d65a5971b71f6372a38f66f6072a49382ea6b4be3125ff72ac94938bc62197",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "사과 반쪽만 먹어 반쪽 아이로 태어난 님 왕자가 용과 거래해 약을 얻고 온전해지는 설화가 초중등 순서·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "main_point",
+            "long_reference"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once upon a time, when flies",
+          "note": "용과의 협상 단락이 떼어져도 서고 반복 문장을 줄이면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.851Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/neem-the-half-boy/",
+          "year": null,
+          "author": "Idries Shah."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-53-847Z",
+    "id": "e59b57ef-19b4-483d-bf9c-f3b9dfc68ddf",
+    "revision": "2026-09-25T04:03:03.31319+00:00",
+    "body_sha256": "a0d1517d14211688d1a3e831751c6642e633e87466502b3ff55765fd8dfcaf37",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "geography",
+        "why": "화물선 선장 시점으로 파나마 운하 갑문의 오르내림과 물 공급, 위치의 중요성을 설명해 중등 내용일치·순서·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "My name is Juan, and I",
+          "note": "갑문 통과 단락이 절차 순서로 좋고 끝의 저자 소개·추천사(다른 글)는 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:53.852Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-panama-canal-location-is-important/",
+          "year": null,
+          "author": "Dania Evelyn Lyew Quant."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  }
+]

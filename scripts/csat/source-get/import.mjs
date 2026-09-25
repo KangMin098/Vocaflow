@@ -73,7 +73,10 @@ if (!fs.existsSync(file)) { console.error(`${file} 없음 — 먼저 ${SOURCE}-f
 const rows = JSON.parse(fs.readFileSync(file, 'utf8'))
 console.log(`${SOURCE} 표본 ${rows.length}편 (${file})`)
 
-const sourceIds = rows.map((r) => `${SOURCE}:${r.id}`)
+// source_id = `<원천>:<id>` — 수집기가 이미 접두어를 붙여 둔 id 는 그대로 쓴다.
+//   ⚠️ 2026-09-25 에 두 번 붙여 20,935편이 `wikinews:wikinews:…` 로 들어갔다(global_voices 만 멀쩡했다).
+const sidOf = (id) => (String(id).startsWith(`${SOURCE}:`) ? String(id) : `${SOURCE}:${id}`)
+const sourceIds = rows.map((r) => sidOf(r.id))
 const existing = new Set()
 for (let i = 0; i < sourceIds.length; i += 50) { // 50 — 긴 슬러그 id(nih_news_in_health)는 200개면 URL 이 넘쳐 fetch failed
   const { data, error } = await db.from('library_articles').select('source_id').eq('source', SOURCE).in('source_id', sourceIds.slice(i, i + 50))
@@ -119,7 +122,7 @@ let inserted = 0, skipped = 0, empty = 0, short = 0, restricted = 0, n = 0
 const failures = []
 for (const r of rows) {
   if (LIMIT && n >= LIMIT) break
-  const source_id = `${SOURCE}:${r.id}`
+  const source_id = sidOf(r.id)
   if (existing.has(source_id)) { skipped++; continue }
   // ⚠️ 그림책 원천에만 — 뉴스·교재의 끝 문단은 본문이다. 처음엔 전 원천에 걸어 wikinews 32편의
   //   마지막 문단(「…supported by the UN」 따위)을 뗐다(2026-09-25, `--repair-content` 로 되돌림).

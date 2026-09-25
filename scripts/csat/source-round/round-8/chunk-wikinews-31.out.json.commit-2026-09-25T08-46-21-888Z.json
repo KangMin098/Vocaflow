@@ -1,0 +1,1785 @@
+[
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09bd935f-33f1-4b47-93bd-b2e62129b6f6",
+    "revision": "2026-09-25T07:10:51.161168+00:00",
+    "body_sha256": "057e8ea7614506e6416d42251f41e5209dbbd2d86ec5a439e73dfc1015a32482",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "소프트웨어 점검 뒤 전자 신고 중단 → 해킹 아님 해명 → 우편 신고 대안 → 마감 전 복구 전망이 이어져 내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The deadline for Canadians to submit",
+          "note": "「A fact sheet from the CRA / states」처럼 링크 자리에서 끊긴 줄을 이어 붙여야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.891Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Computer_glitch_delays_online_tax_filing_in_Canada",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.352
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09be94d6-5892-4963-be65-17c2233765c9",
+    "revision": "2026-09-25T07:53:24.500073+00:00",
+    "body_sha256": "05bb6c5aaeb33532e6c25d20d1eda4fecbba723485f9fc46de6351268cd51055",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "분리주의 무장세력 후원 혐의 기소와 카메룬 영어권 위기에서 해외 이주민의 역할 설명이 이어져 고등 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The case highlighted the role of",
+          "note": "diaspora·Anglophone 이 핵심어라 풀이가 필요하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.892Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/United_States%3A_Baltimore_federal_grand_jury_indict_man_of_international_conspiracy_in_Cameroon%2C_Central_Africa",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.307
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09c28abc-5623-4553-b093-bc2a453e3ca4",
+    "revision": "2026-09-25T07:10:03.866781+00:00",
+    "body_sha256": "cd3d28715c1f6b86e8bfadd708bed834e568c0fe7268d2c8f4652cb7b724aa3a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "경기 점수와 시즌 전적·예상 볼 게임 초청만 두 단락에 나열돼 떼어 낸 문단에 사건 흐름이나 논지가 없다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "The UCLA Bruins defeated the USC",
+          "note": "BCS 제도를 모르면 뜻이 서지 않고 남는 것은 전적 숫자뿐이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.892Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UCLA_defeats_USC%2C_ends_Trojans'_BCS_title_hopes",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 100,
+          "english": 0.427
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09c94c6e-38b3-4922-98fa-a26f2ac6af95",
+    "revision": "2026-09-25T08:16:17.947806+00:00",
+    "body_sha256": "97a84784c53aae86c8127854c813dd2494cf51c4e6efdd5cf2e93c65c8c9188b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대통령 연설 직후 트럭 폭탄 테러 → 피해 규모 → 이전 공격 전력이 이어져 고2 이상 내용일치 칸을 채운다 — 테러 소재라 연령 제한.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The hotel had been victim of",
+          "note": "경비원이 폭탄범을 막은 이전 사건 단락이 떼어 쓰기 좋았다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.892Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Marriott_Hotel_in_Islamabad_bombed",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.409
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09d2dc91-eef1-4607-8fe0-54eac674cddc",
+    "revision": "2026-09-25T08:05:53.464222+00:00",
+    "body_sha256": "2f24a8b3e579153a47ff47df720a78ae24f4495c760fa2174ca9693f98e1f523",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "대법원장 사망과 대법관 두 자리 공석, 1972년 합류부터 19년 재임까지의 경력이 짧게 서서 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Rehnquist first joined the Supreme Court,",
+          "note": "thyroid 를 풀어 쓰면 중등으로 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.892Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Chief_Justice_of_the_United_States%2C_William_H_Rehnquist%2C_dies_at_age_80",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 8.725,
+          "words": 149,
+          "english": 0.345
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09dc705b-8898-4860-b2e3-89a1c27a42e6",
+    "revision": "2026-09-25T06:56:23.030434+00:00",
+    "body_sha256": "b73e692a8254bf454a76afcdd041b764a5444bd3addbf75f8fc2cf0d4e261981",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "시장 연쇄 폭탄 → 용의자 구금 → 배후 주장과 파키스탄의 규탄, 이전 테러 전력이 이어져 고2 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The bombings came just as India",
+          "note": "「hallmarks of … supported by Pakistan」 단정 문장은 가공 때 출처를 달거나 뺀다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.892Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Explosions_rock_New_Delhi_marketplace",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.363
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09dd899c-b1b2-49f8-b7e4-97b7bc6a18eb",
+    "revision": "2026-09-25T07:07:06.64985+00:00",
+    "body_sha256": "344ba565f119861383a635c7d799b2b381a725f3f3496de860f0d8935d82e533",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "연령대별 최저임금 액수와 환율·미국 비교 금액만 세 단락에 나열돼 떼어 낸 문단에 논지나 사건 흐름이 없다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "The minimum rate for persons aged",
+          "note": "수치를 걷으면 남는 문장이 없어 내용일치 한 칸도 수치 나열뿐이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.892Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Minimum_wage_in_United_Kingdom_increases_to_%C2%A35.35",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.767,
+          "words": 133,
+          "english": 0.398
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09de6393-85d0-4da2-9c36-e9b403985272",
+    "revision": "2026-09-25T07:29:51.755834+00:00",
+    "body_sha256": "a735e652bb7d71e73dc2633bdf3ccf7ca4bd776ffb4a6c0fd7a8051744d5d99d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "뇌성마비 공연예술가 후보가 삶의 투쟁과 최소소득·보편 의료 공약을 근거와 함께 길게 펼쳐 고3·성인 주장·요지·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "long_reference"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When I was born, doctors told",
+          "note": "러닝메이트 소개 단락의 성적 표현과 비속어는 걷어내고 성장기·공약 단락만 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.893Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_interviews_Frank_Moore%2C_independent_candidate_for_US_President",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.373
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09e4a799-67a2-4cc0-8f14-6184b2a93bdd",
+    "revision": "2026-09-25T07:45:23.375904+00:00",
+    "body_sha256": "a3846ecb1511cf7c332a566e3ed2db4f35d871756e30b3c491fdf3e696d7a63f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "보건위원회별 환자 수 나열이 많지만 최고의료책임자의 휴식·예방접종 권고 인용이 서서 고등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Jowell also commented: \"People in at-risk",
+          "note": "병원별 환자 수 단락 둘은 걷어내야 수치 나열을 벗어난다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.893Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fifteen_flu_sufferers_die_in_Wales_in_one_week",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.304
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09e8d726-6244-4b4c-bc9d-5ac77893259c",
+    "revision": "2026-09-25T08:13:23.742162+00:00",
+    "body_sha256": "523e67e0fff82c3912477a5f7d0ada50148eaec13250852f5b81933c4970ef2e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "공격 계획 부인과 이란 연계 증거를 찾으라는 압박 보도, 국무장관·후보들의 입장이 맞서 고등 이상 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"This resolution is saying that there",
+          "note": "라이스 발언 단락의 마지막 반문이 요지 문항 재료로 쓸 만했다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_denies_plans_for_attack_on_Iran_amid_report_of_hunt_for_evidence_against_Iran",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.388
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09ec46a6-36aa-46ad-a8cc-8a91c88ee25b",
+    "revision": "2026-09-25T05:31:19.011983+00:00",
+    "body_sha256": "471e86669c1954ea896c58656b9ef2937a2a158722654ce43d1fec500abdeccb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대통령 이복형의 심장마비 사망과 장례 안내가 두 단락에 짧게 이어져 중등 내용일치 칸 하나를 겨우 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to the doctors, he had",
+          "note": "사건 흐름이 짧지만 사망-원인-관계 문장이 이어져 최소선은 넘는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Heart_attack_kills_brother_of_Brazilian_president",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09f04f13-ea66-4582-b26f-3604682a2c63",
+    "revision": "2026-09-25T08:09:31.053009+00:00",
+    "body_sha256": "96161ddad03c51c3be8edb1eb8e4ed77d32aa620a810df5ef97d229a7aac16b8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "마오리 여왕의 역할·수훈과 투병 경과가 시간순으로 이어져 중등 내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In December 2005, she started dialysis",
+          "note": "dialysis 에 풀이만 달면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Zealand_Maori_Queen_dies",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.145,
+          "words": 179,
+          "english": 0.397
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09f08991-cc49-4a73-88c3-db5c33f43cc4",
+    "revision": "2026-09-25T06:51:41.743517+00:00",
+    "body_sha256": "2033e31773918a9b9369fc5f9ccd2328b2156d4de6d7ce2746e29081d85990e9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "정보요원 명단 공개와 이전 유출 기소 사례, 사이트의 공개 원칙 인용이 이어져 고등 내용일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Earlier this year New York Times",
+          "note": "사이트 성명 인용이 길어 줄여야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/'MI6_officers'_named_on_US-based_website",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.372,
+          "words": 183,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09f28924-a8c5-4ad0-8c64-f12d0e768d46",
+    "revision": "2026-09-25T07:39:16.068995+00:00",
+    "body_sha256": "8e1536d416aff5bbd2ad81f3d34f0d3fece76225cfc1297e7a2f06fbff2ba874",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "폭풍 발생 → 급격한 강화 → 하와이 접근 전망 → 대비 당부와 과거 허리케인 피해가 이어져 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The state's last significant hurricane, Iniki",
+          "note": "좌표·기압 수치 단락은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Hurricane_Felicia_threatens_Hawaii",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.303
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "09fe85a9-aa81-4d0d-892f-a892da6ea3ef",
+    "revision": "2026-09-25T07:30:03.711402+00:00",
+    "body_sha256": "6064b7964e38df8341b91c3fc02c7c59b52e71a59b6752e47b8f6b388a482080",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "sports",
+        "why": "오르막 구간 선두 다툼 중 낙차로 격차가 줄고 뜻밖의 우승이 나온 경기 경과가 서서 중등 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In this race, Tomoya Kano and",
+          "note": "끝의 저지 순위 목록은 걷어내고 경기 단락만 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2008_Tour_de_Taiwan_Stage_3%3A_Varied_changes_at_Changhua_Stage",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.307
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "0a0494a6-da4f-4a60-8849-9fc9da091f19",
+    "revision": "2026-09-25T08:11:14.549904+00:00",
+    "body_sha256": "fe5feef287735b13fb430efaf2b507c65dbc5e030f230b3ad98071788b5ef7a4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대법원장 직무정지 → 조사 예고 → 실종 활동가 수사로 논란이 됐다는 배경이 이어져 고등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Chaudry was controversial for taking up",
+          "note": "따옴표 중복 오류는 가공 때 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pakistan's_military_ruler_sacks_Chief_Justice",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.947,
+          "words": 152,
+          "english": 0.344
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "0a0532da-192e-42a2-b476-11448f445c96",
+    "revision": "2026-09-25T08:36:49.256911+00:00",
+    "body_sha256": "4a871e9686f4ddfb3b73ac006bcf901ab975803ded185e76b51751cb4ecb5939",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "2년간 의자에 앉아 지낸 남성의 발견·이송·사망 경위가 서지만 오물 묘사가 구체적이라 고2 이상 내용일치 칸만 단다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Identified as 43-year-old Richard Hughes, the",
+          "note": "둘째 단락의 오물·구더기 묘사는 가공 때 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ohio_man_dies_after_sitting_in_chair_for_two_years",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.38
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "0a073d51-2ae4-486c-af27-eb914c2d5772",
+    "revision": "2026-09-25T07:45:24.236947+00:00",
+    "body_sha256": "b00078a0b305023cec355c0898ec947dcb9dc9f95417830b480dfd35ee6e97cf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "병가 발표 → 주가 하락 → 이전 투병 이력 → 직원 이메일 전문이 이어져 내용일치·심경 칸과 편지글 재료를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood",
+            "purpose"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "At my request, the board of",
+          "note": "이메일 본문은 짧은 편지글이라 목적 문항으로 바로 떼어졌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Apple_Inc._CEO_Steve_Jobs_on_medical_leave",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.337
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "0a079027-8761-4447-9200-812cea132954",
+    "revision": "2026-09-25T08:08:16.288746+00:00",
+    "body_sha256": "16059b5dee73f23c1ef2dabd98a9d3296bc2168ed049a68541c9cd9bd05c4ce1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "기내 협박 쪽지 → 회항·전투기 호위 → 승객 대피·조사 → 장난으로 판명의 경과가 서서 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"A note was passed to the",
+          "note": "기관별 대변인 인용이 겹쳐 두세 개로 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bomb_threat_that_diverted_Ryanair_jetliner_reportedly_a_hoax",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.404
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "0a082424-09f2-4940-a9fa-14a459c3157a",
+    "revision": "2026-09-25T06:49:42.133255+00:00",
+    "body_sha256": "debe3776a9bdacae480cb2f45ea09d192ea863618f0751229baeb203c36740bd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "「신의 설계」 교육 법안 철회 경위와 주 의회·교회 관계, 찬반 단체의 준비가 이어져 고등 이상 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Utah is home to the Church",
+          "note": "교리를 사실로 주장하는 글이 아니라 법안 논란 보도라 차단 장르가 아니다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Utah_bill_requiring_divine_design_education_withdrawn_by_Senator_Chris_Buttars",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.394
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "0a0b2a81-1828-4de9-a6a0-3290357dda6c",
+    "revision": "2026-09-25T07:42:13.674287+00:00",
+    "body_sha256": "57c2e398838b2bcffa312e8432272729925685877bbd8c552f2d4ebcb5d110bf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "지진 15일 만에 소녀가 구조된 경위와 구조대원들의 놀라움이 인용으로 이어져 심경·내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When pulled from the rubble, she",
+          "note": "dehydrated 하나만 풀면 중등에 맞는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Teenage_girl_pulled_out_of_rubble_in_Haiti_fifteen_days_after_earthquake",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "0a130c15-46bd-4411-8930-9edcfdda09cd",
+    "revision": "2026-09-25T07:43:27.631557+00:00",
+    "body_sha256": "363e181f130b2afed45df01a2a0ec2d06bb151813accf1c301362cfe42bfd034",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "전승 65주년 행사에 처음으로 외국 군대가 행진하고 대통령이 국제 연대를 호소한 내용이 서서 내용일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In a first for the annual",
+          "note": "howitzers 등 무기 이름은 걷어도 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Russia_celebrates_Victory_Day",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.977,
+          "words": 176,
+          "english": 0.311
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "0a182a96-1e9b-4ab4-ad0a-dc53b772d49e",
+    "revision": "2026-09-25T07:58:50.298726+00:00",
+    "body_sha256": "32f672d0adc04a120b0eb1823a302b3b6ddf0dd343d357db82fae9ac39f4eb3e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "한 단락이 행진 거리 이름과 발언 단체·참석 후보 이름 나열뿐이라 떼어 낸 문단에 논지나 사건 흐름이 없다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Ballarat, Australia — The rural Australian",
+          "note": "고유명사를 걷으면 「기후 집회가 있었다」 한 문장만 남는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ballarat_residents_protest_for_climate_action",
+          "year": 2022,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 2.459,
+          "words": 122,
+          "english": 0.274
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "0a1d5542-5ec5-4fce-9dd7-530496ce2c65",
+    "revision": "2026-09-25T08:03:25.520979+00:00",
+    "body_sha256": "0aebf25d5afa1a7807f94385f62348a720bc067eefa313f87a9e952c62ee31ce",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "축구 중 지뢰 폭발로 아이들이 숨진 뒤 학생들이 평화 행진에 나선 경위가 이어져 고등 내용일치·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The deaths of the boys resulted",
+          "note": "「insolvent dialogues」 같은 번역투는 가공 때 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Protests_in_Colombia_after_children_killed_by_landmine",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.43,
+          "words": 158,
+          "english": 0.37
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-21-888Z",
+    "id": "0a1de686-2959-468f-82c5-71537fceaa3d",
+    "revision": "2026-09-25T07:48:59.631044+00:00",
+    "body_sha256": "e86b2de2715a0c915b0920b4c9ea77de8fd9a500d4a9c1ea452af25048e51092",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "국립공원 벌목 제안 → 조사위 권고 → 주민 편지 운동 → 정부의 보호 약속으로 이어지는 경과가 서서 순서·요지·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "main_point",
+            "long_reference",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Residents living near the forest were",
+          "note": "tenure swap 풀이 단락이 있어 떼어 쓰기 쉬웠고 위원회 절차 단락은 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:21.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Dungog%2C_Australia_residents_celebrate_continued_protection_of_local_forest",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

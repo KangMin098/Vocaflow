@@ -1,0 +1,1543 @@
+[
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5b8e1f67-3016-4d4b-8b38-8f2f91f27747",
+    "revision": "2026-09-25T03:34:54.325833+00:00",
+    "body_sha256": "3a40347f4c5da8831aa59777973272376c0ecd4386bfb8ad943b8320d5b69f8a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "할머니 이야기에서 동티모르 여성 영웅 무키를 알게 된 아시카가 성평등을 다짐하는 흐름이라 주제·요지 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Muki contributed to Timorese independence, freed",
+          "note": "무키 소개 두 문단은 떼어도 서고 끝 출판 문구만 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.125Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/buibere-the-hero/",
+          "year": null,
+          "author": "Paulina de Carvalho."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5b9e00b5-4d15-406d-b6b1-015cb24e7793",
+    "revision": "2026-09-25T04:03:33.211401+00:00",
+    "body_sha256": "63a2cfca5d50b945bb6453cb66f83ee1a09e427513ec05bc55cd67ef58af7201",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "농부가 되려던 공주가 친구들과 가뭄·홍수·쥐·새를 차례로 이겨 백성을 먹이는 설화라 순서·주제 칸이 뚜렷하다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Kansari and her friends then moved",
+          "note": "뒷부분 두 문단의 문장 순서가 뒤섞여 있어 가공 때 바로 세워야 하고 첫 번역 안내는 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.125Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC-SA",
+        "license": "cc-by-nc-sa-4-0-2",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-princess-farmer/",
+          "year": null,
+          "author": "Kuzhali Manickavel."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5bcaebe7-5bc5-46a3-a072-d17581c81fde",
+    "revision": "2026-09-25T04:03:14.069071+00:00",
+    "body_sha256": "7da6a91792c7ac83808ed58a7044b8ee68ba56633fae9387673ac67d5d0cc69c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "벵골 새해 전날 준비부터 아침 합창·행진·판타밧까지 하루가 순서대로 이어지고 해설이 붙어 내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "vocab"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Next, we went to watch the",
+          "note": "「m,aking」 같은 오타와 낱말 풀이 목록을 정리하면 문화 소개문으로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.125Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/pohela-boishakh/",
+          "year": null,
+          "author": "HerStory Foundation."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5d4dad7a-8be9-4e29-af53-830ed29e9bf0",
+    "revision": "2026-09-25T04:03:45.949108+00:00",
+    "body_sha256": "a0f4ae62a0811f7ebf57d53a82a178a9300d7311b89e995d1457e08ccfb4a40c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "무서워서 아무도 파이를 안 사자 호랑이가 토끼로 변장하고 동물들도 호랑이로 변장해 웃게 되는 반복·반전 흐름이다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On the fourth day, Tiger doesn't",
+          "note": "사흘 반복 구조가 순서 문항 단서가 되고 어휘는 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.125Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/tigers-delicious-treats-2/",
+          "year": null,
+          "author": "Nguyễn Trần Thiên Lộc."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5d7cfa22-e969-487c-bd92-1276ae7d253d",
+    "revision": "2026-09-25T04:02:50.827184+00:00",
+    "body_sha256": "e1be6215a00e9e4227abb02df601529ea0fe630c030ee05f92e7678784751c97",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "베어진 나무 그루터기에 서서 나무가 된 라타를 아이들이 따라 하는 흐름이 심경과 환경 요지를 함께 세운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "mood",
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mother explained, \"You don't study. You",
+          "note": "그루터기 장면 문단은 떼어도 서고 끝 아이들 대사가 요지 문장이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/lata-loves-trees/",
+          "year": null,
+          "author": "Tasnima Iqbal, Akashleena Nidhi."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5dad6b1c-c299-4c81-acd3-16ac0422abe9",
+    "revision": "2026-09-25T04:03:28.095868+00:00",
+    "body_sha256": "691f9cf655f4b55d5b6836c6f2327d8b79b7babb8ec5285354724a8d5c16c4bd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "2085년 휠체어 소녀와 로봇 친구의 감정 교감 이야기에 로봇 설명문이 붙어 심경·내용일치 칸을 둘 다 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "mood",
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "How do I train Bonda? By",
+          "note": "뒤의 로봇 해설은 따로 떼면 설명문이 되고 「20 85」 쪼개진 숫자를 붙여야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/devi-and-bonda/",
+          "year": null,
+          "author": "Roopa Pai, Lea Shaver."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5dbc6c2d-2540-42df-94c8-ac78fffbd6be",
+    "revision": "2026-09-25T04:02:56.482364+00:00",
+    "body_sha256": "aa17f768c52750456e384f4c820cb9510ad6ba22679111640cd9aff50dbebd90",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "택시 기사가 두고 간 선물의 주인을 은하마다 찾아다니다 가족 선물임을 아는 반복·반전 흐름이라 순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It is a small present! One",
+          "note": "방문 장면이 병렬로 떨어져 배열 문항에 좋고 제목과 본문 이름(Max)이 달라 통일한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/mcgaiver-the-galactic-taxi-driver/",
+          "year": null,
+          "author": "Hegra Al-Sawi."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5dcdeac4-6869-4d4b-9411-955631840a77",
+    "revision": "2026-09-25T04:03:15.801654+00:00",
+    "body_sha256": "867ed020bcf0c88a06244c4afd51d3d3df869552d72182ee8f81dda325d873ce",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "양치기 소녀가 구한 백조 왕자와 사랑으로 저주를 푸는 몽골 설화가 계절 순서로 이어져 순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "She found the cave and went",
+          "note": "뒤에 붙은 작가 소개와 추천사는 다른 글이라 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC-SA",
+        "license": "cc-by-nc-sa-4-0-2",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/swan-lake/",
+          "year": null,
+          "author": "T.Narankhuu."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5e443804-3d88-4f26-ad05-4014b7c42a70",
+    "revision": "2026-09-25T04:03:12.076301+00:00",
+    "body_sha256": "623e5877948809e990a8aa4bbad14a0a98042738320c1927dfe0cce277bee699",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "카친 출신 라파이 셍 로가 분쟁 지역을 돕는 단체를 세운 생애가 시간순으로 이어져 전기 내용일치·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "She was a widow, a mother,",
+          "note": "단체 설립 문단은 떼어도 서고 끝 쓰기 활동은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-humanitarian/",
+          "year": null,
+          "author": "Alyson Curro."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5e6da43d-ef48-43c2-898e-1d6612a9d00a",
+    "revision": "2026-09-25T04:02:54.405412+00:00",
+    "body_sha256": "a81987007ce956bb4d2bf54fd242512b1ed73254b077fbae914b81f1b42194ef",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "작가 소녀와 이야기 속 인물이 드레스를 두고 다투며 세탁 방식이 바뀌고 나눔을 배우는 액자 흐름이라 순서·주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Sasha changed her clothes and carried",
+          "note": "액자 안팎 전환이 잦아 문단 경계 표시를 분명히 해야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-festival-dress/",
+          "year": null,
+          "author": "Lamis Al-asaly."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "5ebda7ac-021f-440f-8246-a631ea21cbb9",
+    "revision": "2026-09-25T04:03:01.654953+00:00",
+    "body_sha256": "785464ebb42776b78e3a4e7a9772108d578f1d4d849ef6d0690bebaa9a00cca1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "노래·춤·둥지 짓기에 실패한 까마귀가 먹이를 나누는 자신의 장점을 발견하는 흐름이라 요지·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It was then that a thought",
+          "note": "깨달음 문단이 요지를 명시해 요지 문항에 알맞다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-generous-crow-2/",
+          "year": null,
+          "author": "Venkatramana Gowda."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "63677d86-b41d-4623-85d0-d653ced2a841",
+    "revision": "2026-09-25T04:03:49.531894+00:00",
+    "body_sha256": "d64fd1d0fe5f86c9d45c9e4e8b6fb907a8c358328b5e7d4dba9ee2092573fb5f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "강아지를 잡아먹으려던 사자가 씻기고 먹이고 학교에 보내다 아빠가 되는 반전 흐름이라 순서·심경 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Soon the puppy looked plump enough",
+          "note": "「먹으려 한다」 설정이 유머라 초등 칸에 두고 문장은 그대로 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/lion-wants-to-eat-a-puppy/",
+          "year": null,
+          "author": "Hong Vannsothy."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "6369c28b-723f-463c-8bdf-649aa8980a59",
+    "revision": "2026-09-25T04:03:12.933499+00:00",
+    "body_sha256": "4bae91a87ce5db1634e231a2fc40d638670a69d1647bcc459f598e7eb5793a7d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "아기 라니가 첫해에 예방접종을 네 번 받는 과정이 시간순으로 이어져 초등 보건 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When Rani was a little baby,",
+          "note": "노래 가사와 끝 기관 소개를 걷어내면 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/baby-ranis-four-visits/",
+          "year": null,
+          "author": "UNICEF."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "6542b123-8f40-4f62-98c8-a2a178db7efb",
+    "revision": "2026-09-25T04:03:37.293264+00:00",
+    "body_sha256": "20b35a422b4fb003c47241292d531eabcf22313b2fe76c38ddcbe1c1e1c5d3be",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "티격태격하던 남매가 달리다 넘어진 동생을 돌보며 의사 꿈을 갖는 인과 흐름이라 초등 순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In the middle of the road",
+          "note": "이름 표기(José/Jose)와 끝 출판 문구만 정리하면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/doctor-nina/",
+          "year": null,
+          "author": "Milena da Silva."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "6623c0e0-57cb-4367-95cc-68412b461e7f",
+    "revision": "2026-09-25T04:03:39.978824+00:00",
+    "body_sha256": "de30cc4993017e02af7407e1c8ef39f146ad0434a44f91b0c58d9aebe2801070",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "작은 드레스를 억지로 입은 레나가 불편을 겪다 사촌에게 양보하는 흐름에 미낭 결혼 풍습이 곁들어 순서·심경 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Now it's Rena's turn to get",
+          "note": "양보를 떠올리는 대목이 한 줄로 비어 있어 가공 때 보충한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-little-bridesmaid/",
+          "year": null,
+          "author": "Laveta Pamela Rianas."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "68f99dc3-3e13-4cfc-9d5a-c77c990db0f2",
+    "revision": "2026-09-25T04:02:58.596052+00:00",
+    "body_sha256": "71cbba1cc16cdc173716a14da0b05cebf5600bc12c98c41be393a0992b46f933",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "빗방울이 몸속·하수처리·흙·해바라기를 거쳐 증발하는 물순환 여정이 순서대로 이어져 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The two raindrops were soon slipping",
+          "note": "하수처리 문단은 떼어도 서고 뒤쪽 이름 혼동(Aqua/Hydra)만 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/finding-aqua/",
+          "year": null,
+          "author": "Yamam Khartash."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "69b24d68-8c08-42b1-83af-2bc48699d14e",
+    "revision": "2026-09-25T04:02:56.723684+00:00",
+    "body_sha256": "251c10e06521402ca5a0bdaf01a7e21b7d5957abe9dc5b71ac41e8c6dd068736",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "따돌림으로 학교를 피하던 라지브가 형에게 털어놓고 도움을 받는 심경 흐름이 뚜렷해 심경·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Rajib starts skipping school.",
+          "note": "화장실 괴롭힘 묘사가 있어 초등 칸은 두지 않는다 — 게임 속 장면 전환만 풀어 주면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-absent-boy/",
+          "year": null,
+          "author": "Bina Theeng."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "6a4398a2-5918-4647-b60f-d22cad0065a6",
+    "revision": "2026-09-25T03:34:53.387319+00:00",
+    "body_sha256": "b06d56381e2eb540eff42db5f8b6fad0568fac8935048e946a5dcfbac37d21df",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "끼니마다 「둥근 음식」을 맞히는 물음-대답이 이어지다 파티로 끝나 문장 연결이 있고 음식·모양 어휘 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "vocab",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“Today, we will eat something that",
+          "note": "반복 틀이 분명해 초등 어휘 교재로 그대로 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/samir-is-hungry-2/",
+          "year": null,
+          "author": "Rochak Dahal."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "6a7e70dc-1637-4085-80ff-003408db482f",
+    "revision": "2026-09-25T04:02:57.168806+00:00",
+    "body_sha256": "7aa970c6f6bc81ac495db9965a764a81648bd1615cbb87bedb6c28723e0e0be2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "첫 수영에서 가족을 놓친 가비알이 수달·돌고래·달팽이를 만나며 소리를 따라가는 찾기 반복이라 초등 순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "An otter floated past. \"Have you",
+          "note": "의성어 줄을 줄이고 끝 그림 찾기 안내는 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/ghum-ghum-gharials-glorious-adventure/",
+          "year": null,
+          "author": "Aparna Kapur."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "6b584266-0c29-4cda-8b9c-7cf3fd3b901f",
+    "revision": "2026-09-25T04:03:29.639572+00:00",
+    "body_sha256": "d44d69b1de47255a3bb4a7d7380eca8e522b41fb46ce915fafb349712a498dd1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "여우 아들 혼례를 동물들이 나눠 준비하고 개구리가 노래를 잘못 불러 비가 오는 흐름이라 순서·내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Crow promptly rose and said, \"I’ll",
+          "note": "타루 노래 가사 두 줄은 걷어내고 역할 분담 문단을 쓰면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/a-foxs-wedding/",
+          "year": null,
+          "author": "Chhabilal Kopila."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "6c0b24db-fad9-46e2-aea7-2aa4ba607a76",
+    "revision": "2026-09-25T04:03:32.575281+00:00",
+    "body_sha256": "a05b4629bd60bc73d6f44ab935a5c0de8e11d7251f10326aab0b25e7e1c3f6f2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "의족을 한 사촌이 수영하겠다자 걱정하던 사사가 함께 수업하며 걱정을 푸는 흐름이라 심경·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Sasa is confused. “You want to",
+          "note": "의족 사실이 끝 해설에만 있어 앞에 한 줄 밝혀야 이야기가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/swimming-is-fun/",
+          "year": null,
+          "author": "Aniek Wijaya."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "6cae4558-375a-4fcf-b3f1-720c2b626034",
+    "revision": "2026-09-25T04:02:49.996447+00:00",
+    "body_sha256": "829412fa68382102aeb5162ece8ecef4dfefd083a0fcc3907f1d42a830744dcb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "우물에 비친 달을 구하려 두레박을 당기는 여우와 토끼의 흐름이 이어져 초등 순서·심경 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The two friends continued their walk",
+          "note": "달이 말하는 대목은 우화로 두고 문장은 그대로 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/saving-the-moon/",
+          "year": null,
+          "author": "Byambanyam Urtnasan."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "6f0b50c5-3f40-499e-83b7-3f6471cc90a4",
+    "revision": "2026-09-25T04:03:43.163199+00:00",
+    "body_sha256": "cb7c82e902abe81b3f98d4e6bda47a17e9d7bdc6d22a0ea4599961b5ceae4a3f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "생일을 아무도 모르는 줄 알고 묻고 다니던 베아가 깜짝 파티를 맞는 반복·반전 흐름이라 초등 심경 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Mom, do you know what today",
+          "note": "물음 반복이 요일 행사 어휘를 늘어놓아 어휘 칸으로도 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/what-day-is-it/",
+          "year": null,
+          "author": "Vannia Rizky Santoso."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "6f378c8c-04f4-4e48-8e44-c45b94b58147",
+    "revision": "2026-09-25T04:02:51.248487+00:00",
+    "body_sha256": "24770738ee7eca7512ee7c8d725d86b68d66e1e6612d00b9ac54863ebbe1c7c8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "제 알이 가장 크다고 믿던 암탉이 오리·거위·칠면조·타조 알을 차례로 보는 누적 반복 유래담이라 순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Hello, Duck!\" called Hen. \"I heard",
+          "note": "같은 대사 틀의 반복이 순서 단서라 배열 문항에 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/how-hen-got-her-cluck/",
+          "year": null,
+          "author": "Lim Shang Nee."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-20-123Z",
+    "id": "7024c738-37d9-4531-a8bb-08b27c77f1a3",
+    "revision": "2026-09-25T04:03:21.317026+00:00",
+    "body_sha256": "aaa9ab19c913a017984ec5e4d7f5991aded78dd33d8e70cf4d5930d0fc574566",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "뉴스를 보고 환경 위기를 안 비달이 작은 실천을 시작하는 원인-행동 흐름이라 초등 주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "topic",
+            "order"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "His father answered, “It is because",
+          "note": "아버지 설명 문단이 이유를 담아 떼어 쓰기 좋고 끝 출판 문구는 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/i-can-do-a-small-action/",
+          "year": null,
+          "author": "Herminia de Deus."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  }
+]

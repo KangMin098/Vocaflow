@@ -1,0 +1,1861 @@
+[
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b0f2a57-b3d5-4c5d-b83e-974cafc90a1f",
+    "revision": "2026-09-25T07:36:47.992715+00:00",
+    "body_sha256": "27fc17bd864b0001b32eaf9e13b9a1ac1708e3dccaf58ae7fbe85847101471fc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "종교 단체 협력 사무소 확대의 취지(정교분리 유지)와 시민자유연맹의 「안전장치 없는 확대」 비판이 맞서 고2 이상 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"The goal of this office will",
+          "note": "오바마 발언 단락은 떼어도 「특정 종교 편애 아님」 논지가 서고 secular·blurring 만 바꾸면 V6."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Obama_expands_Bush's_faith-based_initiatives",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.374
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b13a68a-b333-4e99-939d-1b8e007a1bf7",
+    "revision": "2026-09-25T07:48:47.10384+00:00",
+    "body_sha256": "c409c7dd63c8dfeda81226aaf5e5f96d97c77754803ad668a3b236caf5893ad2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "2000년 첫 시도 실패 → 사망자 기증 자궁 이식 → 월경 회복 → 체외수정 임신으로 이어지는 단락들이 고1~고2 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "However, after Ms Sert's transplant surgery",
+          "note": "「However, after Ms Sert's transplant」 단락은 떼어도 경과가 서고 menstruate·in vitro 를 풀어 쓰면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/First_successful_womb_transplant_recipient_passes_six-week_pregnancy_mark",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.287
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b159586-d684-4ecf-bd36-056803ff5d0a",
+    "revision": "2026-09-25T08:03:45.826168+00:00",
+    "body_sha256": "7ec2c43aba01a23a9581545aa063a677daba9896a387ffdf6a45bce8a1972c6c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이라크전 탈영병의 난민 신청 논거(불법 전쟁)와 자원입대라 선례가 없다는 쟁점, 양심적 병역거부 기각 경위가 고2 이상 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Hinzman is a practicing Buddhist, and",
+          "note": "「Hinzman is a practicing Buddhist」 단락은 거부 신청 → 기각 → 탈출 순서가 떼어도 서고 conscientious objector 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canada_set_to_rule_on_U.S._Army_refugee",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.38
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b1b9b55-b203-434e-afed-980912d28ac3",
+    "revision": "2026-09-25T08:14:34.969381+00:00",
+    "body_sha256": "abe406fba86e1fa15373e3fdd3f4dbbbeab8ad71b6e1cc1dd5a5d253f67475cd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "고령 여성 성폭행 사건과 수사 경과, 별건 용의자 조사가 이어진 네 단락이라 사건 흐름은 서지만 소재상 성인 내용 일치 칸 하나만 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Specially trained officers interviewed the victim,",
+          "note": "수사 단락은 떼어도 서지만 끝의 연락처 안내는 가공 때 걷어 낸다(성범죄 소재라 성인 칸)."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Woman%2C_87%2C_raped_in_her_own_home_in_UK",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.195,
+          "words": 113,
+          "english": 0.36
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b2464c4-4d8d-4a73-b421-0a89f33d997b",
+    "revision": "2026-09-25T07:31:35.841293+00:00",
+    "body_sha256": "af8cd7020d617a805d8167690a306b7bc55a700b31bd014edb2353a7080240b4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "매트리스 공장 화재 발생 → 급속 확산 → 사상자 집계 정정 → 화학물질 원인 조사로 이어져 고2 이상 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "An official statement by city authorities",
+          "note": "마지막 단락은 「화학물질이 확산 원인, 정확한 원인은 조사 중」이 떼어도 서고 preliminary 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/55_people_die_in_Casablanca_mattress_factory_fire",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.78,
+          "words": 173,
+          "english": 0.352
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b250452-1354-4b80-bcdc-3e2e73779fb6",
+    "revision": "2026-09-25T07:28:51.828845+00:00",
+    "body_sha256": "3a91a1e701463b70a83b808517d8933a1b9d96eac42aeeb4b784f86e5d900f44",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "강풍으로 번진 들불과 물 부족으로 진화를 멈춘 현장 증언, 담배꽁초 추정 원인과 정전 피해가 이어져 중등~고1 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Craig Civale of WFAA-TV said that",
+          "note": "「Craig Civale of WFAA-TV」 단락은 물 부족 → 진화 중단이 떼어도 서고 blazes 만 바꾸면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Grass_fires_break_out_in_wide_area_of_Texas",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.5,
+          "words": 200,
+          "english": 0.322
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b25b63a-ee0c-42d8-8b23-bbe0640fd752",
+    "revision": "2026-09-25T08:10:48.794185+00:00",
+    "body_sha256": "17c2b71930d56337a460100d5611f051dd9a2a14233dcb24b92daeb06c652f14",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "미군 사망 3천 명째 병사의 부고와 가족 성명, 전쟁 반대 여론의 이유 단락이 고2 이상 내용 일치·심경·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "mood",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "While 3000 is a small number",
+          "note": "「While 3000 is a small number」 단락은 떼어도 반대 이유 나열이 서고 sectarian 만 바꾸면 된다(전사 소재)."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/American_military_deaths_in_Iraq_reach_3000",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.4
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b28b4a3-ae0e-4572-9790-08fcc7e11607",
+    "revision": "2026-09-25T07:24:02.016935+00:00",
+    "body_sha256": "4a60f3b78baaa40abef81ddfac9b70ca1c3b11fecadc7008dc9f51ff8c444079",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "코도리 협곡 격추 목격 제보와 조지아 내무부 확인, 러시아 공군의 「도발적 정보」 부인이 맞서 고2 이상 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Georgian Interior Ministry has confirmed",
+          "note": "내무부 단락은 떼어도 「러시아기인지 압하스기인지 불명」이 서고 intruded 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Unidentified_plane_reportedly_shot_down_in_Kodori_gorge",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.367
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b29965c-c38c-48d8-afae-213848fdcfea",
+    "revision": "2026-09-25T06:49:23.682843+00:00",
+    "body_sha256": "30a1718193d191051ff0f41c5a5d5628ce7938228f11702db635378212ed302e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "대학이 빈 백화점 건물을 사들이려는 이유(학생 증가에 못 미치는 시설, 도심 거점)가 셋째 단락에서 서서 고1~고2 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The deal would also solve the",
+          "note": "「The deal would also solve」 단락은 원인-해결이 떼어도 서고 crunch·spin off 만 바꾸면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/University_of_Alberta_to_buy_Hudson's_Bay_Building",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.278,
+          "words": 187,
+          "english": 0.387
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b2a84fd-4cd1-4682-8914-7519c515603c",
+    "revision": "2026-09-25T08:08:12.017435+00:00",
+    "body_sha256": "1781c19ccedfcc289f13f6a05935e040d3f6a0f513cd26fe771c3b1ca6c27104",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이란 국영매체의 스텔스 신무기 주장과 미 국방부의 「과장해 온 전례」 반론이 대비돼 고2 이상 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Brian Whitman, a spokesman for the",
+          "note": "국방부 대변인 단락은 떼어도 「능력 향상 가능 ↔ 과장 경향」 대조가 서고 indigenous 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iran_tests_its_second_missile",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b2b805c-c752-4447-81c9-2f347f1f2860",
+    "revision": "2026-09-25T06:46:35.220496+00:00",
+    "body_sha256": "49fe5997c47b0e508115957bab6c9109c81f34ac1395c938f34a6a5145b9e2be",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "신·구 의회의 정통성 다툼 속 쿨로프의 체포 경고와 사과, 검찰총장의 내전 경고가 이어진 긴 기사로 고3 장문 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"The new parliament is legitimate and",
+          "note": "쿨로프 발언 단락은 「법에 따라 새 의회에 복종」 논지가 떼어도 서지만 인명이 많아 가공 때 두셋으로 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Kulov_declares_newly_elected_parliament_legitimate%2C_Kyrgyz_parliamentary_conflict_deepens",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.433
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b2f835c-d344-4f3f-b083-b39ea1fba6ad",
+    "revision": "2026-09-25T06:54:00.709457+00:00",
+    "body_sha256": "479d26831761462d9295c9697f59801a6b6a912b23efd8201a61ea58e48b08ed",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "허리케인으로 공급이 끊겨 유가가 뛰자 IEA 가 비축유 방출을 발표하고 유가가 내린 원인-결과가 짧게 서서 고1~고2 빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The International Energy Agency announced that",
+          "note": "첫 단락은 원인 → 대응이 떼어도 서고 strategic reserves 만 풀면 된다. 둘째 단락 중간 줄바꿈은 가공 때 잇는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Oil_prices_fall_as_reserves_are_released",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.504,
+          "words": 123,
+          "english": 0.314
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b346cdc-efed-4ace-a186-58feaed804e2",
+    "revision": "2026-09-25T06:57:46.907651+00:00",
+    "body_sha256": "da27c397c1932362296c012d17f99f035dc94181403f193662b7b6306e53f488",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "아카데미가 젊은 시청층을 노려 풍자 뉴스 진행자를 사회자로 고른 이유와 데일리쇼의 정치적 영향력 단락이 고2 이상 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "main_point"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "His choice by the Academy of",
+          "note": "둘째 단락은 선정 이유가 떼어도 서고 irked 만 바꾸면 된다. 크로스파이어 논쟁의 비속어 인용은 가공 때 걷어 낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Comedian_Jon_Stewart_to_host_78th_Academy_Awards",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.351
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b39d8bf-ab87-47b8-883d-0f1dffa0a2d7",
+    "revision": "2026-09-25T07:00:38.386241+00:00",
+    "body_sha256": "853e89bf8c930116371e27badf940df416930cf668e05687f80959268f8038ed",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "방문 일정과 회담 상대, 논의 예상 의제 나열뿐인 두 단락 공지라 사건 흐름도 논지도 없어 보관 최소선에 못 미친다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "U.S. Secretary of State Condoleezza Rice",
+          "note": "둘째 단락을 떼면 의제 목록만 남아 내용 일치 외 칸이 서지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Condoleezza_Rice_will_visit_Greece_and_Turkey",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.032,
+          "words": 124,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b3c8657-20f9-4ac4-8441-4c006a4d9bf2",
+    "revision": "2026-09-25T06:49:25.030609+00:00",
+    "body_sha256": "46be3b6ec5f22f4ba15632afe934c78d9036d4c6f2a74a6223ecaddc4428546c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "기자는 감옥에 갈 각오지만 신문사는 아니라며 유출 문서 보도를 보류한 편집장의 딜레마와 플레임 사건 선례가 고3 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A newspaper industry trade journal quoted",
+          "note": "셋째 단락 인용은 떼어도 기자-회사 입장 차가 서고 contempt of court 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Newspaper_refuses_to_utilize_leaked_documents_in_article",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b433aa6-028d-4fbb-a6b4-4d9214d1986e",
+    "revision": "2026-09-25T05:32:05.043316+00:00",
+    "body_sha256": "cf1b54b7ebe627a8e8192b736685140aec1dc4455e34a1595fd229b86326d5ad",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "루마니아 GM 콩 단수·재배 면적의 연도별 수치와 주요 생산국 이름 나열뿐인 두 단락이라 논지·흐름이 없는 수치 칸 하나에 그친다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "The average production of genetically-modified (GM)",
+          "note": "EU 승인 연표 단락도 연도·국가 나열이라 떼어 내도 설명할 흐름이 서지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.527Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Production_of_GM_soy_crops_surges_in_Romania",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b442171-7cbb-4521-924a-235e57a57e82",
+    "revision": "2026-09-25T08:15:14.375525+00:00",
+    "body_sha256": "720208b19f34ec97f1df91f9b72e2fa424ad69dc4f7464ee91120083c317516a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "무가베 비판 기고로 야당 지도자와 편집장이 체포된 경위와 결선 투표 배경이 이어져 고2 이상 순서·장문 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Arthur Mutambara was arrested at his",
+          "note": "둘째 단락은 체포 이유가 떼어도 서고 bludgeoned 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.528Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Zimbabwean_police_arrest_two_opposition_figures",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.379
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b44a9c7-8194-40dd-8750-244a1a400ed3",
+    "revision": "2026-09-25T08:12:19.295741+00:00",
+    "body_sha256": "5de7f2e6e386d969e72dddda978ae9248fc1b91651d3498df3d444239394c37b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "국경 지대 호송대 폭탄과 경찰 본부 자폭, 전날 군 차량 공격이 이어진 두 단락 테러 기사로 고2 이상 내용 일치 칸 하나를 채운다(사상 소재).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On Sunday two separate suicide bombing",
+          "note": "첫 단락은 두 공격이 순서대로 서지만 사망자 수가 많아 가공 때 수치를 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.528Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Suicide_bombers_kills_31_in_Pakistan",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.724,
+          "words": 127,
+          "english": 0.339
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b49268c-9278-4e7b-b35f-352516e679e6",
+    "revision": "2026-09-25T07:07:10.493898+00:00",
+    "body_sha256": "cb7f76151325437b7bf4be89c0caf50b07e646a556cdf4493987455a4e155755",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "약물 운전도 음주 운전만큼 위험하다는 총리의 주장과 유족 사례, 판별 절차 도입 계획이 이어져 고1~고2 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Just as a drunk driver does,",
+          "note": "총리 발언 단락은 짧게 주장이 서고 impaired 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.528Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canadian_PM_to_amend_Criminal_Code%2C_drugged_drivers_to_be_charged",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.39
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b4a81fe-2449-4214-a3b3-5ec28a94e479",
+    "revision": "2026-09-25T07:39:13.080383+00:00",
+    "body_sha256": "02f23f04f9b9240512a97fdabf7fd1471a31a0008b459571d5d8b3ae66f3ab64",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고릴라 SIV 에 가까운 새 HIV 계통 발견과 감염 경로 추정(사람 간 전파 vs 고릴라 유래) 단락이 고3 요지·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The 62-year-old woman, originally from Cameroon",
+          "note": "셋째 단락은 「고릴라 접촉 없음 → 사람 간 감염 시사」 추론이 떼어도 서고 prevalence·bushmeat 만 바꾸면 V7."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.528Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_human_HIV_strain_discovered_in_France",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.422
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b50321e-3e7f-4045-a356-2404953dce36",
+    "revision": "2026-09-25T07:12:58.819616+00:00",
+    "body_sha256": "c4c1de18684d25a09939982fee33c9d465e0945bea7bd5123fa9a655a00aca04",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "가입자 감소 → 대주주의 전략 면담 요구 → 다른 주주들의 동참과 임원 보수 불만으로 이어진 원인-결과가 고2 이상 빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This has caused many of the",
+          "note": "셋째 단락은 주주 불안의 이유가 떼어도 서고 governance 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.528Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Virgin_Media_investors_want_to_discuss_company's_strategy",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.143,
+          "words": 175,
+          "english": 0.345
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b509c02-3381-4e6e-9651-2aeac56a8e4c",
+    "revision": "2026-09-25T08:06:58.7818+00:00",
+    "body_sha256": "2b8751274923d79911d20e612702c593cd599b573c2a3c2e52a1dc906056238d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "남부 무슬림 변호 활동 → 경찰 연루 의혹 속 실종 → 경관 유죄 → 총리의 사망 인정으로 이어져 고2 이상 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Thailand's DSI became involved with the",
+          "note": "DSI 단락은 실종 경위가 떼어도 서고 insurgency·armoury 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.528Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Thai_civil_rights_lawyer_Somchai_Neelapaichit_presumed_dead",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.422
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b57b8ac-c1c9-4f6d-a9c7-773ff54fa0fe",
+    "revision": "2026-09-25T07:27:26.271287+00:00",
+    "body_sha256": "4669921992e9dadf6a3aa112e7ea363cc37f5b962abc292b0146ea4aa71def61",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "지적 설계 비판 강연 안내를 전달했다 사임 압력을 받은 과학 교육 책임자 사건과 진화론 교육 축소 우려 주장이 고3 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Christine Comer resigned this month as",
+          "note": "첫 단락은 사임 이유가 떼어도 서지만 옹호 단체 성명은 논조가 강해 가공 때 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.528Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Science_curriculum_director_resigns_from_Texas_Education_Agency",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.365
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b58e0f3-cf96-4550-8940-d5782c2d22dc",
+    "revision": "2026-09-25T08:18:06.245409+00:00",
+    "body_sha256": "7544bcab4bfa7e2e11f1c0de6b5b50fecac8b704325d4f86a55b090aaba595d8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "부동산 사업가의 자살 추정 사망과 가업 입문부터 첫 부동산 거래까지 경력이 이어진 세 단락이라 성인 내용 일치 칸 하나만 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Rocca was believed to have assets",
+          "note": "경력 단락은 떼어도 서지만 사인 묘사 단락은 가공 때 걷어 낸다(자살 소재라 성인 칸)."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.528Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Irish_millionaire_found_dead%2C_suicide_suspected",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 8,
+          "words": 100,
+          "english": 0.396
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-38-523Z",
+    "id": "0b5e3b95-8f10-49ab-96e0-4d7d0175dfe8",
+    "revision": "2026-09-25T08:05:56.357621+00:00",
+    "body_sha256": "f89cffa63ec6a8db3884004b9d8a1253419487a701aac6eba331b728027af519",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "핼리버튼 자회사의 해군 시설 복구 계약과 과거 무입찰 계약 비판·내부 고발자 강등 의혹이 대비돼 고3 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Bush administration has been criticized",
+          "note": "둘째 단락은 무입찰 비판 → 고발자 강등이 떼어도 서고 improprieties 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:38.528Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Halliburton's_KBR_awarded_half_billion_dollar_repair_contract_for_Gulf_Coast_Navy_facilities",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 7.576,
+          "words": 132,
+          "english": 0.259
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

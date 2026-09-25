@@ -1,0 +1,991 @@
+[
+ {
+  "id": "06cac419-ebf8-44f9-9cf2-be7e032470c8",
+  "source_updated_at": "2026-09-25T07:04:45.549637+00:00",
+  "body_sha256": "24bb81043e28bef686cb6a6a01c136d5b8ed2aad116c4047fd45ccb9d789d5e2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "허블 주 카메라 고장과 원인 추정·지상 수리 가능성·노후화 문제가 이어져 내용 일치·문장 삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The cause of the main camera's",
+   "note": "원인 추정 단락이 인용을 줄여도 선다."
+  }
+ },
+ {
+  "id": "06cad5d6-56d5-40bf-93a7-2c3791996db1",
+  "source_updated_at": "2026-09-25T07:42:53.405111+00:00",
+  "body_sha256": "209a970ec99273d3e68ae9b25fae14af6b470e5d166ebdd979fd14f807ab9d2e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "인도-방글라데시 분쟁 섬이 해수면 상승으로 사라진 사건을 지구온난화의 근거로 잇는 구조라 주제·주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Hazra commented that, until 2000, sea",
+   "note": "「두 나라가 못 푼 것을 온난화가 풀었다」 인용이 요지 칸 재료이고 수치를 줄여도 선다."
+  }
+ },
+ {
+  "id": "06d35811-8091-4108-80ce-a7275c824c51",
+  "source_updated_at": "2026-09-25T07:58:47.433746+00:00",
+  "body_sha256": "b63d2d6601df353d24591dfa4db18069b5e0b49ceb470c4b628493af4215ab44",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "슬로베니아 동성혼 국민투표 부결과 앞선 입법·청원 경위가 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The government earlier this year passed",
+   "note": "투표율 수치 단락은 걷고 입법-청원 단락을 쓴다."
+  }
+ },
+ {
+  "id": "06d45171-7857-4131-a676-6c6c8996f7e4",
+  "source_updated_at": "2026-09-25T08:04:24.467793+00:00",
+  "body_sha256": "059dbcf98c0dec2626e2c14aea66223c4a8a441f43ce3ea80b911bd3970af213",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "history",
+  "why": "팔루자 모스크 사살 사건을 자위권으로 판단한 근거와 이를 찍은 기자가 받은 비난이 대비되나 사살·욕설 묘사가 구체적이라 성인 칸만 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In sworn testimony, the corporal said",
+   "note": "영상 묘사와 욕설 인용을 걷으면 해병대 판단 근거 단락은 선다."
+  }
+ },
+ {
+  "id": "06d5464b-d975-4d42-a04d-47466bffa991",
+  "source_updated_at": "2026-09-25T07:36:29.683602+00:00",
+  "body_sha256": "d48e932b0ab2488b7ba05e9d3b5c835a40a021466946468d4f6b8b2e58efdf77",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "오바마의 알아라비아 인터뷰로 무슬림 세계와의 관계 회복 주장과 근거(인도네시아 경험 등)가 서서 주장·요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"My job to the Muslim world",
+   "note": "「미국인은 여러분의 적이 아니다」 단락이 주장 문항에 바로 쓰인다."
+  }
+ },
+ {
+  "id": "06d8a801-31dc-4079-918f-4e2a2ac5cd4c",
+  "source_updated_at": "2026-09-25T07:01:14.657824+00:00",
+  "body_sha256": "71e4f95edff98c494a3d377c4366db82ea585716ee6c4e3d8216bec8d8a43ae6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "프랑스 청년 고용법 철회 발표와 그 법이 반발을 부른 이유가 이어지는 짧은 기사라 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Students and unions protested the new",
+   "note": "해고 조항 설명 단락이 이유를 담아 떨어진다."
+  }
+ },
+ {
+  "id": "06da82cb-d052-467b-8396-ef739906558c",
+  "source_updated_at": "2026-09-25T07:53:20.13245+00:00",
+  "body_sha256": "24d75b0f8f3b8fdc991bfb9da20e68c094cdd33c458bb081cde68fcf60d6b6d7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "소행성 2024 YR4의 지구 충돌 확률이 관측으로 낮아진 경위와 달 충돌 가능성·퉁구스카 비교가 서서 내용 일치·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The National Aeronautics and Space Administration",
+   "note": "확률 변화 설명이 수치 주장 검증 소재로도 쓰인다."
+  }
+ },
+ {
+  "id": "06dbc72c-13fb-4a34-b60f-7da09bbee7cd",
+  "source_updated_at": "2026-09-25T07:26:44.286297+00:00",
+  "body_sha256": "711f171f9a34eccf1d6f67d88a47ddf472c0659abcc993f1852b94048dc37f30",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "뉴질랜드 테러법 기소 불허 결정과 그 이유(증거 부족·법의 비일관성)가 서서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mr Collins came to his decision",
+   "note": "법무차관 이유 단락이 인용을 줄여도 선다."
+  }
+ },
+ {
+  "id": "06dc7c0d-c6fd-4310-90ea-2c2964535184",
+  "source_updated_at": "2026-09-25T06:58:20.905646+00:00",
+  "body_sha256": "d7f53f640fbfacd4d2719480621aa68a37989c6a8d1681ed08b77f0e50e13175",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "가톨릭 라디오의 모랄레스 장난 전화와 볼리비아·스페인의 반발이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Evo Morales has fallen foul of",
+   "note": "인용 속 줄임표 표기는 가공 때 정리한다."
+  }
+ },
+ {
+  "id": "06ec0356-b2c5-4c38-98e8-2c367a4863ba",
+  "source_updated_at": "2026-09-25T07:22:36.567018+00:00",
+  "body_sha256": "f4b35977ad1d543a4adfbfde231a41494a0ad3785bf1abdafdb78bf09b287469",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "공화당 지역 모의투표 결과와 투표 방식의 특이점이 서서 읽기 내용 일치 칸 하나를 채운다; 제목과 첫 문장이 엇갈려 손봐야 한다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Unlike most other county convention straw",
+   "note": "투표 방식 설명 둘째 단락이 쉽게 떨어진다."
+  }
+ },
+ {
+  "id": "06ed9683-3bed-4123-9f7c-7b34f75f4227",
+  "source_updated_at": "2026-09-25T06:56:43.044164+00:00",
+  "body_sha256": "ab7a6ac8a23b456897da3d295728e24253c951c62d98d3f7cb0a3ad9250a2103",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "history",
+  "why": "캘리포니아 중학교가 홀로코스트 희생자 600만을 클립으로 기리는 계기와 의미가 서서 주제·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Led by junior high language arts",
+   "note": "끝의 이메일·우편 주소는 가공 때 걷고 앞 두 단락을 쓴다."
+  }
+ },
+ {
+  "id": "06ef17a5-e4f0-45e0-96fe-26d522b4f106",
+  "source_updated_at": "2026-09-25T07:36:59.211524+00:00",
+  "body_sha256": "b79614b3a1926016672229f311736db7ddb8742f32f837e61987a4b6509997cb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "hold",
+  "genre": "nature",
+  "why": "루손 세가락메추라기 재발견 기사가 「as follows:」 뒤 인용이 통째로 빠진 채 IUCN 적색목록 글로 넘어가 원천이 중간에서 끊기고 섞였다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to ornithologists, a rare Philippines",
+   "note": "재발견 경위 앞부분은 서지만 빠진 인용과 문장 중간 줄바꿈을 메울 수 없다."
+  },
+  "hold_reason": "incomplete-source"
+ },
+ {
+  "id": "06f322a5-2480-413a-bf7e-d7578c8de863",
+  "source_updated_at": "2026-09-25T08:13:05.870605+00:00",
+  "body_sha256": "b1bf07dfaaf1221357eeb230d3c60083e7b88ad9f527ebb0789650077b19937c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "이스라엘의 시리아 공습이 원자로를 겨냥했다는 보도와 1981년 오시라크 공습 비교가 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The attack is reminiscent of a",
+   "note": "오시라크 비교 단락이 떼기 쉽다."
+  }
+ },
+ {
+  "id": "06f550ab-ccfa-41a3-be60-20f48fac2752",
+  "source_updated_at": "2026-09-25T07:58:47.501772+00:00",
+  "body_sha256": "8b3f5501a806e7ce297cdef04d0384330eaf53ab68284d8dd07adadc6afad1e1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "스위스 호수에서 수영객을 문 큰 물고기가 잡힌 경위(공격→그물 실패→작살)가 이유·순서로 이어져 초등부터 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After attempts to capture the Zander",
+   "note": "짧고 사건이 차례로 이어져 어휘 두셋만 바꾸면 초등 밴드까지 내려간다."
+  }
+ },
+ {
+  "id": "06f5a8a9-671f-4b9a-8904-a183150e180b",
+  "source_updated_at": "2026-09-25T08:04:47.935993+00:00",
+  "body_sha256": "3d6d26289f2096c6fd8671143af396da72235678e90bd813ecd3dd4270e9d17f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "톰 크루즈가 물총 장난을 당한 뒤 침착하게 대응한 장면이 인용으로 살아 심경·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "mood",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cruise remained calm throughout. He took",
+   "note": "「jerk」 같은 말은 가공 때 순화한다; 대응 장면이 심경 문항에 맞는다."
+  }
+ },
+ {
+  "id": "06f5baf8-b8f1-4bce-8740-9f34bd0466ca",
+  "source_updated_at": "2026-09-25T07:58:47.54397+00:00",
+  "body_sha256": "9c40556099829506d358339fb5de27030149b1e6da50278522443154f3cbaec8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "여객기 폭탄 테러 용의자의 예멘 체류와 예멘 정부의 대테러 지원 요청이 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The president on Monday ordered a",
+   "note": "외무장관 요청 인용 단락이 이유 구조로 떨어진다."
+  }
+ },
+ {
+  "id": "06fb5547-0a96-446d-94da-59d3d7f0fec9",
+  "source_updated_at": "2026-09-25T07:46:43.106466+00:00",
+  "body_sha256": "3705049de668ee805b06497cc61a2c032b745568614d0dc7a05401e89931bb9a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "시리아 시위 진압에 항의해 걸프 3국이 대사를 소환한 경위가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Saudi Arabia, Bahrain, and Kuwait all",
+   "note": "「killing machine」 인용이 있어 고등 이상으로 두었다."
+  }
+ },
+ {
+  "id": "06fdc79e-5e8c-498b-b159-c2016daff6e5",
+  "source_updated_at": "2026-09-25T07:58:47.589081+00:00",
+  "body_sha256": "f3008aa443e8244e7b4e26913ad5c63101a6bea23766a6eb27bc86602279136c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "도네츠크 공항 비상착륙 사고와 원인 추정·기종 문제가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "During 2011, Dmitry Medvedev — at",
+   "note": "기종 운항 중단 요청 끝 단락이 떼기 쉽다."
+  }
+ },
+ {
+  "id": "06ff481a-353e-4c1f-b481-521b36abff69",
+  "source_updated_at": "2026-09-25T08:14:26.774578+00:00",
+  "body_sha256": "c02098a95095c349626282b098bf0c50c62184ab7e73b64562dd1f3fcbcf5dd9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "무기상 빅토르 부트의 태국 체포와 혐의·인도 절차가 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Viktor Bout is suspected of supplying",
+   "note": "별명과 영화 언급은 걷어도 사건이 선다."
+  }
+ },
+ {
+  "id": "07051354-fe09-4e87-8fdc-bff3c757cebc",
+  "source_updated_at": "2026-09-25T07:11:18.650289+00:00",
+  "body_sha256": "d4f6ea48cd2ffcca24e8f68e912b514e7f335e21482772ba7656f9629109f569",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "성인 산업 호텔 생중계 서비스를 두고 찬반 두 전망이 갈리는 토론 기사라 성인 읽기 자료의 주장·내용 일치 칸만 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "There were two opinions on this",
+   "note": "성 산업 소재라 성인으로 제한; 두 의견 단락이 짝으로 떨어진다."
+  }
+ },
+ {
+  "id": "070a64ba-6c25-43f7-ac51-0f42728a822b",
+  "source_updated_at": "2026-09-25T07:46:47.153178+00:00",
+  "body_sha256": "709b90cb2aeb63a3365458ecf527aa95aa041ffd424896065b9905f00a8f52cc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "이집트가 국경 사살 사건으로 이스라엘 주재 대사를 소환한 경위와 양측 주장이 대비돼 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Citing concern about security in the",
+   "note": "연구원 논평 단락이 양측 입장을 요약해 떼기 좋다."
+  }
+ },
+ {
+  "id": "070b6b50-eda5-4095-b998-899f21cc7285",
+  "source_updated_at": "2026-09-25T07:58:47.630587+00:00",
+  "body_sha256": "f96394f897a8de24f9854117db681f7cf622cd8b8d224888ca6cfc75232a3b85",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "1960년대 로커빌리 가수의 사고사와 경력이 이어져 읽기 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mr. Knutsen achieved some notoriety for",
+   "note": "사고 묘사 인용은 걷고 경력 단락을 쓴다."
+  }
+ },
+ {
+  "id": "070bab3b-2cca-4d47-88f5-9a68c8b6172c",
+  "source_updated_at": "2026-09-25T06:47:36.440888+00:00",
+  "body_sha256": "273c6289ec59035d0a724e30e37672c60a79401812479d8d3a376cfe14430d84",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "에콰도르 축출 대통령의 브라질 망명 경위가 서서 내용 일치 칸을 채운다; 문장이 어색해 손볼 곳이 있다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "On Wednesday, Gutiérrez was removed by",
+   "note": "축출 이유 단락이 이유로 선다."
+  }
+ },
+ {
+  "id": "07110b03-002f-4fa3-9491-d7e79d0e7116",
+  "source_updated_at": "2026-09-25T07:58:47.681881+00:00",
+  "body_sha256": "ca7339e42ef5e7c7bc98042d5092ba44ad29944c34ed260d59d35c309c958dd9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "수마트라 연쇄 지진과 경미한 부상 소식이 이어지는 짧은 기사라 읽기 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Four people have been injured after",
+   "note": "규모·시각 인용은 줄이고 대피 단락을 쓴다."
+  }
+ },
+ {
+  "id": "071bf038-9d5f-475f-b297-5cb4b8ce8ed0",
+  "source_updated_at": "2026-09-25T06:46:56.481144+00:00",
+  "body_sha256": "4bb45da1e1e684f80c4dd86bf6aba147eb45574547b1ae1f31a0dffca0d6f641",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "energy",
+  "why": "서머타임 연장 법안의 근거(전기 절약·경제 활동·석유 절감)가 발의자 발언으로 서서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"The more daylight we have, the",
+   "note": "근거 인용 단락 둘이 주장-근거 짝으로 떨어진다."
+  }
+ }
+]

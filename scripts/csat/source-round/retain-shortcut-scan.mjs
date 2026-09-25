@@ -11,10 +11,11 @@
 //   mech   `processing` 세 값이 위 기계 패턴과 똑같은 편의 비율
 //   auto   `sample` 이 「8낱말 이상인 첫 문단의 첫 여섯 낱말」과 같은 편의 비율
 //   note   `processing.note` 가 비었거나 청크 안에서 같은 문구가 되풀이된 편의 비율
-// 셋 중 하나라도 문턱(기본 0.9)을 넘으면 SUSPECT — 그 청크는 적재하지 않고 다시 판정한다.
+// SUSPECT(note 되풀이 — 판정을 건너뛴 신호)면 그 청크는 적재하지 않고 다시 판정한다. WARN 은 sample 칸만 자동.
 //
-// ⚠️ 정직하게 가공한 판정자도 keep 을 셋 다 true 로 적는 일이 흔하다 — mech 하나만으로는 판단하지 않는다.
-//   auto 와 note 가 함께 높을 때가 지름길의 신호다(회차 8 두 번째 판정자: 셋 다 1.0).
+// ⚠️ mech 는 판정 근거로 쓰지 않는다 — 정직하게 가공한 판정자도 keep 을 셋 다 true 로 적는다(회차 7: 60~95%).
+//   auto 도 단독으로는 안 된다 — 그림책처럼 짧은 글은 판정은 정직해도 sample 을 첫 문단으로 적기 쉽다.
+//   지름길의 신호는 note 다(회차 8 두 번째 판정자: note 88~96% 되풀이 · 정직한 판정 0%).
 //
 // 실행: node scripts/csat/source-round/retain-shortcut-scan.mjs --round 8 [--threshold 0.9] [--b]
 //   --b  두 번째 판정자 파일(.b.out.json)을 잰다(기본은 .out.json)
@@ -61,16 +62,21 @@ for (const f of fs.readdirSync(DIR).filter((f) => f.endsWith(SUFFIX) && !f.endsW
   }
   const n = out.length || 1
   const m = { mech: mech / n, auto: auto / n, note: note / n }
-  const suspect = m.auto >= TH || m.note >= TH || (m.mech >= TH && (m.auto >= 0.5 || m.note >= 0.5))
-  rows.push({ file: f, n: out.length, ...m, suspect })
+  // SUSPECT = 판정 자체를 건너뛴 신호 — 메모가 비었거나 되풀이된다(가공을 안 했으니 쓸 말이 없다).
+  // WARN    = 판정은 했는데 sample 칸만 첫 문단 자동값 — 적재는 막지 않는다.
+  //   회차 8 gdl-08~12: sample 92~100% 자동이지만 메모가 편마다 다르고 구체적이었다
+  //   (「셋째 딸 단락은 앞 문맥 없이 서고 learnt·stumble 만 바꾸면」). 처음 규칙(auto 단독 SUSPECT)이 이걸 잘못 걸었다.
+  const suspect = m.note >= TH || (m.auto >= TH && m.note >= 0.5)
+  const warn = !suspect && m.auto >= TH
+  rows.push({ file: f, n: out.length, ...m, suspect, warn })
 }
 
 const pct = (x) => `${Math.round(x * 100)}%`.padStart(5)
 console.log(`회차 ${ROUND} · ${SUFFIX} · 문턱 ${TH}`)
 console.log('파일'.padEnd(40), '   n', ' mech', ' auto', ' note', '')
-for (const r of rows) console.log(r.file.padEnd(40), String(r.n).padStart(4), pct(r.mech), pct(r.auto), pct(r.note), r.suspect ? ' SUSPECT' : '')
+for (const r of rows) console.log(r.file.padEnd(40), String(r.n).padStart(4), pct(r.mech), pct(r.auto), pct(r.note), r.suspect ? ' SUSPECT' : r.warn ? ' WARN(sample)' : '')
 const bad = rows.filter((r) => r.suspect)
-console.log(`\n청크 ${rows.length} · SUSPECT ${bad.length}`)
+console.log(`\n청크 ${rows.length} · SUSPECT ${bad.length} · WARN ${rows.filter((r) => r.warn).length}(sample 칸만 자동 — 적재 가능)`)
 if (bad.length) {
   console.log('다시 판정할 청크:', bad.map((r) => r.file.replace(SUFFIX, '.json')).join(' '))
   process.exitCode = 1

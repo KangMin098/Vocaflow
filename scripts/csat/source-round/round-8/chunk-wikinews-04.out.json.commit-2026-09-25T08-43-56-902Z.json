@@ -1,0 +1,1861 @@
+[
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "0111bbdb-1dcc-447c-b38e-2dd0e9e701e9",
+    "revision": "2026-09-25T07:46:55.482821+00:00",
+    "body_sha256": "f5b68648f7adfc7da4d3b0d44068d3b20830940dfd45170ff084f0795e603d8a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "벨라루스 대통령 명예훼손으로 집행유예를 받은 기자에게 출국 금지와 보고 의무가 내려진 경위가 짧게 이어져 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Police told the Gazeta Wyborcza journalist",
+          "note": "보고 조건과 위반 시 수감 단락이 자족적이고 어휘가 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.904Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Journalist_forbidden_to_leave_Belarus",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.839,
+          "words": 124,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "01187de0-cc93-4fd9-b049-442a8c480eb3",
+    "revision": "2026-09-25T08:33:52.034207+00:00",
+    "body_sha256": "b55c3684f0125a5ac48e755c5fa91ce5ef442b16ac3ad17b143b4d7c79afd5ce",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "갭 밴드 베이시스트의 부고로 형제와 밴드를 만든 내력·히트곡·마지막 공연 계획이 이어져 중등 이상 인물 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Born in Tulsa, Wilson formed funk",
+          "note": "밴드 이름을 줄인 이유가 담긴 단락이 짧고 자족적이며 어휘가 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Robert_Wilson%2C_bassist_for_The_Gap_Band_dies_aged_53",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.061,
+          "words": 198,
+          "english": 0.416
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "01222553-d606-4579-b5ad-7077443efc45",
+    "revision": "2026-09-25T06:46:57.232501+00:00",
+    "body_sha256": "2f9b4989faf14a9c8c3ec1a5ad53b024043890f244d0563d5620a9fbee294ae1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "HBO 가 아시아 케이블 채널 용량 확대를 틈타 여성 대상 채널 등으로 확장하는 계획과 이유가 이어져 내용일치 칸이 되고 시대 비교 재료다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Cable operators throughout Asia are preparing",
+          "note": "채널 용량 확대가 진출 이유라는 단락이 자족적이고 capacity 만 풀면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/HBO_plans_expansion_of_TV_channels_in_Asia",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "0129b50a-169d-4e04-9ac9-c7d15d56bd82",
+    "revision": "2026-09-25T07:09:53.46024+00:00",
+    "body_sha256": "6957b297d10cdf4701649a8e2458628d2085a65a8140cc82ee947971e6baf6e2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "영국 칠면조 농장에서 H5N1 이 확인돼 살처분·보호구역 조치가 이어진 과정이 서서 내용일치·순서 칸이 된다; 끝의 상담 전화번호 줄은 걷어낸다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The European Council issued a directive",
+          "note": "보호구역·감시구역 조치 단락이 자족적이고 culled 를 killed 로 바꾸면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/H5N1_hits_Britain",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.416
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "012dcdde-9c24-4d83-af21-42476425f40e",
+    "revision": "2026-09-25T07:24:36.282384+00:00",
+    "body_sha256": "92cfbec385032f18ea938db5d4ec38eae220d6bac2bbb9c8a38c6a839d5a919e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이란이 핵 계획 일부를 공개하고 IAEA 가 협력 계획을 평가한 소식과 그 외교적 파장이 이어져 내용일치 칸이 서고 시대 비교 재료다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The assessment of Iran nuclear cooperation",
+          "note": "평가가 제재 추진을 어렵게 한다는 단락이 짧고 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iran_unveils_part_of_its_nuclear_program",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.31
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "0136152c-de8c-4054-933e-51d3845d68b1",
+    "revision": "2026-09-25T08:13:38.983019+00:00",
+    "body_sha256": "7c2b838fe016df59350f0880e4953a57b8c15f17e2dd6f6960f3a812ad51b574",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "가수 댄 포겔버그의 부고로 대표곡과 투병, 웹사이트의 추모 글이 짧게 이어져 중등 이상 인물 내용일치·심경 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A note on Fogelberg's web site",
+          "note": "추모 글 인용 단락이 짧고 자족적이며 daunting 만 풀면 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/American_singer_Dan_Fogelberg_dies_at_age_56",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.475,
+          "words": 139,
+          "english": 0.391
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "013e0bff-3bd7-4655-bdc9-2920c517a026",
+    "revision": "2026-09-25T06:47:43.279566+00:00",
+    "body_sha256": "fcdf0b63d38ea7487b13bc07df21cc92d4e93ae791112c43467ee4a629183269",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "멜버른 15세 소년이 전차·버스를 몰고 기차를 훔치려 한 혐의가 날짜별로 이어져 시간순 사건 흐름과 내용일치·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "And on April 9, it is",
+          "note": "버스 운전→기차 시도→도주의 순서가 한 단락에 있고 absconded 만 풀면 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Melbourne's_tram-driving_teen_faces_more_charges",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.418
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "013e5ad7-1a90-4328-8cfd-3a391545cee9",
+    "revision": "2026-09-25T07:50:37.626848+00:00",
+    "body_sha256": "43432691f9d884327954f329f8d0b49c51ec0436e0de40b6ad8f6f9bba9a8450",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "NASA 주노 탐사선이 5년 비행 끝에 목성 궤도에 들어선 소식과 비용·거리·궤도 계획이 이어져 내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "NASA said non-essential equipment was turned",
+          "note": "궤도 주기와 향후 계획 단락이 자족적이고 어휘가 V4~5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/NASA's_Juno_spacecraft_enters_Jupiter_orbit",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.325
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "0142856c-5dc9-40c1-a33e-21a6cc18afc7",
+    "revision": "2026-09-25T07:09:46.126438+00:00",
+    "body_sha256": "416874ffe111dec71a88e24a4651a72624034bfec5fd7ddb468d9de4ef42f09a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "호킹이 인류 생존을 위해 다른 행성 이주가 필요하다고 보고 광속 한계와 반물질 추진을 설명하는 짧은 글로 주장·요지 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"The long-term survival of the human",
+          "note": "소행성·핵전쟁 위험을 근거로 한 주장 단락이 자족적이고 confined 만 풀면 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Stephen_Hawking_believes_going_to_other_planets_is_necessary_for_human_survival",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.085,
+          "words": 177,
+          "english": 0.343
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "014662ba-a5fb-4dc2-b7ee-6c3624f358e4",
+    "revision": "2026-09-25T07:26:08.973471+00:00",
+    "body_sha256": "615a4af55e319513ed44630a7b044b6b1c4c350764fc72f233e9494cc4a9fe6c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "미 하원 위원회의 아르메니아 집단학살 결의에 터키가 반발하는 과정과 미 행정부·하원의장의 상반된 입장이 서서 내용일치·요지 칸이 되고, 학살 소재라 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The World War I era killings,",
+          "note": "22개국 인정과 터키의 「학살이지 집단학살 아님」 입장 단락이 자족적이고 어휘가 V5~6 이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Turkey_outraged_over_U.S._Armenian_genocide_resolution",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "0146e98a-8fc5-4d75-9c49-c73d77db457b",
+    "revision": "2026-09-25T07:09:41.700939+00:00",
+    "body_sha256": "79fc0e4866796f567aa30daef981a8e17248378fb21496d215d7ed16bad67d28",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "웰링턴 모노레일 구상과 검증되지 않은 기술의 시험 선로 계획, 지역 의회의 반론이 이어져 내용일치·주장 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "SkyCabs is currently trying to raise",
+          "note": "기술이 검증되지 않아 시험 선로가 필요하다는 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Zealand_company_planning_for_monorail_in_Wellington",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.39
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "01513e4a-4210-4d6b-baa9-3c18238e505b",
+    "revision": "2026-09-25T08:20:00.166267+00:00",
+    "body_sha256": "66e6eca47208911f24ef3be2d98c683d24b430b405114ab6193254ea02e72743",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이탈리아 선적 미국 예인선이 소말리아 해적에 납치된 사건과 인질로 잡힌 머스크 앨라배마 선장 소식이 이어져 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Meanwhile, U.S. Captain Richard Phillips of",
+          "note": "선원을 지키려 스스로 인질이 된 선장 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._tugboat_latest_victim_of_Somali_pirates",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.365
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "0156b900-fdb1-47fe-a858-2163f96f63d6",
+    "revision": "2026-09-25T07:58:42.825413+00:00",
+    "body_sha256": "310ad1b595612aeed1488f82ab941b0237337d1883adccfe9afd70e1d844305d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "탈레반의 차량 폭탄 공격으로 수십 명이 숨진 사건과 사상자 수 은폐 의혹, 평화 협상 배경이 이어져 내용일치 칸이 서고 폭력 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Hotak also alleged the central government",
+          "note": "사상자 수 은폐 의혹 단락이 자족적이고 morale 정도만 풀면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Car_bomb_ramming_attack_kills_dozens_at_military_base_in_Maidan_Wardak%2C_Afghanistan",
+          "year": 2019,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.348
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "0157bd37-82b7-4534-84e2-b090acb54e19",
+    "revision": "2026-09-25T06:59:43.80399+00:00",
+    "body_sha256": "b4cf4bec70d847683059be43f853fe8f6acd21f03570cb39f3e6bcf80d2cdbae",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "H5N1 이 사람 사이에 잘 퍼지지 않는 이유를 감염 부위(폐포 대 상기도)와 기침·재채기로 설명하는 인과 구조가 서서 요지·빈칸·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Human flu infects parts of the",
+          "note": "상기도 감염→기침→전파 대 폐포 감염→전파 어려움 대비가 한 단락에 있고 alveoli 만 풀면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Virologists_discover_why_H5N1_doesn't_spread_easily_between_humans",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.383
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "01585888-42ac-4061-839d-f0b83f116898",
+    "revision": "2026-09-25T07:36:09.432701+00:00",
+    "body_sha256": "a1b7995e045980a62573b404ef039f164a399f1d32cd79f86e3a4237910ddf5f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "가나 대선 결선에서 아타 밀스가 근소하게 이긴 과정과 1차 투표·타인 재투표·보이콧 경위가 이어져 내용일치 칸이 서고 시대 비교 재료다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The second round was to be",
+          "note": "타인 지역 재투표가 당선 확정을 늦춘 이유 단락이 인과로 서고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ghanaians_elect_new_President",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.286
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "015ab7a9-4f5e-4687-a2ba-0a02beb54c60",
+    "revision": "2026-09-25T07:48:37.974898+00:00",
+    "body_sha256": "738bee99a5439c1f892f476c2dd55beda0ec62d17bc62763ec8f85e81aff41a2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "geography",
+        "why": "아이슬란드 헤클라 화산에 경보 단계가 내려진 이유와 지진 관측, 약 10년 주기 분화 역사가 이어져 내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Hekla last erupted in 2000, and",
+          "note": "분화 주기와 2010년 항공 대란 언급 단락이 짧고 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.906Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Icelandic_Hekla_volcano_shows_signs_of_activity",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.391
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "015ea6f6-1a5d-42fd-907f-4a75506382b4",
+    "revision": "2026-09-25T08:34:47.926384+00:00",
+    "body_sha256": "d9372f17cdb656a02bc09ef6f6f7f562b35f3ee00810b9d7a312504ca453d468",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "사이클론 기리가 미얀마에 상륙해 피해를 낸 소식과 사전 대피 덕에 사망이 적었다는 증언이 이어져 내용일치·요지 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The hardest hit area was the",
+          "note": "도시 70% 파괴에도 대피 조치로 사망이 없었다는 단락이 인과로 서고 어휘가 V4~5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.907Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Cyclone_Giri_makes_landfall_in_Myanmar%2C_kills_one",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.428
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "0161819d-4a26-4e60-ae11-563945854ed1",
+    "revision": "2026-09-25T07:01:03.598504+00:00",
+    "body_sha256": "4ee2af5ed1a6414efb39f6814aed3c82c64e44d3ed3f1f6c4e14a336546a3a23",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "부시의 다르푸르 식량 원조 발표와 평화 협정, 아프리카연합 평화유지군의 자금난·차드와의 관계가 이어져 내용일치 칸이 서고 내전 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "So far, there are around 7,000",
+          "note": "평화유지군이 급여를 못 받는 자금난 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.907Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bush_announces_food_aid_to_Darfur%2C_AU_faces_fund_crisis",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.357
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "01683bfd-fa20-407b-861e-1da9a0d3ab01",
+    "revision": "2026-09-25T07:50:50.70226+00:00",
+    "body_sha256": "33be16b4a9e41e6c12bac9685682953ee334def4c1226404ceb4e0682a50eed3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "알레포 휴전으로 반군·민간인 대피가 시작된 경과와 안전 보장·총격 주장이 엇갈리는 상황이 이어져 내용일치 칸이 서고 전쟁 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Independent journalist Zouhir al-Shimale reported: \"Civilians",
+          "note": "남을지 떠날지 선택과 학살 공포 인용이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.907Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Evacuation_corridor_allows_rebels_and_civilians_to_leave_Aleppo",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.319
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "016f65b1-9541-470b-bf8e-41f37afa704b",
+    "revision": "2026-09-25T06:54:26.425814+00:00",
+    "body_sha256": "43e83f5d377466434ad81fc146417f444e54599ea7e28ac9d95563e5d46ecc65",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "카트리나 때 적십자가 뉴올리언스에 들어가지 못한 경위를 주 정부·방위군의 결정 순서로 짚고 수퍼돔에 1만5천 명분 식량만 보낸 문제를 드러내 내용일치·요지 칸이 선다; 대피소 기준 목록은 걷어낸다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On September 1, the Red Cross",
+          "note": "제안→거절→대기→불필요 통보의 날짜 순서가 한 단락에 서서 순서 문항이 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.907Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Red_Cross_is_not_in_New_Orleans_for_Katrina%2C_Guard_raced_it_to_Superdome",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "0175167f-cf03-43c1-b076-e5cf9f20ae08",
+    "revision": "2026-09-25T07:44:13.180493+00:00",
+    "body_sha256": "0151c3b27d6e92bfc41746fe0021053929c585e1484d27e21e5ce936d4576626",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "북한이 한미 훈련에 「핵 억지력」으로 맞서겠다고 위협한 소식과 천안함 침몰 배경이 이어져 내용일치 칸이 서고 시대 비교 재료다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Tensions had recently become especially high",
+          "note": "천안함 조사 결과와 북한의 부인 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.907Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/North_Korea_warns_of_nuclear_action",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "01755fad-c7bc-48ac-86ab-d56b5265c16d",
+    "revision": "2026-09-25T07:35:44.260253+00:00",
+    "body_sha256": "6c2051c0b6168db9ebd54bb0622e1b255c0836160746b5cbb2528ddf1b4d22e2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "블랙프라이데이 장난감 가게 총격과 월마트 압사 사고를 전하며 쇼핑 대목의 배경을 설명해 내용일치 칸이 서고 사망 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Black Friday, the day after Thanksgiving",
+          "note": "블랙프라이데이 설명 단락이 폭력 없이 자족적이고 어휘가 V3~4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.907Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Gunman_opens_fire_inside_store_in_California%2C_USA",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.712,
+          "words": 191,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "01775f1c-e18d-422d-a9e7-b2cef570ba41",
+    "revision": "2026-09-25T07:37:39.297447+00:00",
+    "body_sha256": "641c960fc1acc30e505fab27da4bd92bf96fe6360dc66c40f622e41a22573b47",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "토론토에서 7년간 이웃을 괴롭힌 남자의 선고와 피해자 딸의 증언이 이어져 내용일치·심경 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"It became impossible for me to",
+          "note": "해골·가짜 무덤으로 괴롭힘당한 증언이 심경 문항이 되고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.907Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canadian_neighbourhood_protected_from_bully_for_three_years",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "0178f940-922a-4432-b44c-087b0d9e1927",
+    "revision": "2026-09-25T08:20:36.068631+00:00",
+    "body_sha256": "12b6e19cd8d814d4e3449ddeca4e55b0018f003b24003b668163519244a49540",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "말라위 대선·총선 투표 소식과 전기 보급 6%인 나라에서 정치가 곧 생계 문제라는 분석가 발언이 이어져 요지·내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"The issues are very simple. It's",
+          "note": "유권자의 관심이 생계라는 인용 단락이 짧고 자족적이며 어휘가 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.907Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Malawi_holds_presidential_and_parliamentary_elections",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.413
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-56-902Z",
+    "id": "017a7316-53d5-4c18-b0fe-874faf18cade",
+    "revision": "2026-09-25T08:22:39.75916+00:00",
+    "body_sha256": "8335fc902a21b65be7712f0fea51dde8679c5eb03019019c9fdd5619f8ac5f37",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "러시아 아동 시인 미할코프의 부고로 소련·러시아 국가 작사, 풍자 방송 창설, 아동 시 등 생애가 이어져 인물 내용일치 칸이 된다; 훈장 목록은 걷어낸다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He is lyricist for both the",
+          "note": "두 나라 국가를 작사한 경력 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:56.907Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Sergey_Mikhalkov%2C_Russian_writer%2C_dies_at_97",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.211,
+          "words": 161,
+          "english": 0.395
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]
