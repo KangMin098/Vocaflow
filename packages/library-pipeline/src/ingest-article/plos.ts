@@ -228,7 +228,11 @@ function extractProse(articleHtml: string): string {
 
   let work = joinAbstractAndBody(abstract, body)
   // figure/table/미주 블록 제거
-  work = work.replace(/<div[^>]*class="[^"]*\bfigure\b[^"]*"[\s\S]*?<\/div>\s*<\/div>/gi, '\n')
+  // ⚠️ figure div 는 **깊이 추적으로** 지운다(2026-09-25). 예전 정규식 `<div class="figure">[\s\S]*?</div>\s*</div>` 은
+  //   figure 안쪽 div 가 두 겹이 아니면 **figure 를 지나 처음 만나는 `</div></div>` 까지** 삼켰다 — 그 사이의
+  //   본문 절이 통째로 사라졌다. 실측 pone.0356261: 결과 3.2절 4,309자가 한 번에 지워져 「3.1 → 3.3」이 됐고,
+  //   원문 점검(보관 판정) 청크 두 개에서 20편 중 8~9편이 「예고한 절 없음」으로 보류됐다.
+  work = removeDivByClass(work, /\bfigure\b/)
   work = work.replace(/<figure[\s\S]*?<\/figure>/gi, '\n')
   work = work.replace(/<table[\s\S]*?<\/table>/gi, '\n')
   // 인용 상첨자·참조 링크 제거 ([1], [2,3] 등)
