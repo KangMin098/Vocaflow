@@ -1,0 +1,809 @@
+[
+  {
+    "id": "5a819ed6-f229-49c3-95af-22dab9ccc9ab",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:39:27.3845+00:00",
+    "body_sha256": "10b70f53403a4e964f4581df7c29088be05424cd08dab22ac6032e10c170b4dc",
+    "retention": "keep",
+    "genre": "health",
+    "why": "내시경 유두괄약근절개 후 출혈의 위험인자와 처치 결과를 고찰에서 한 편의 논지로 편다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The endoscopic approach for post-ES",
+      "note": "고찰 첫 단락은 표 참조 없이 서지만 약제·시술명 어휘가 많아 밴드가 내려가지 않는다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5a9b337f-b311-4a70-9f8a-f0f7fb0d741d",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:02:54.436025+00:00",
+    "body_sha256": "14c28b5f4a37e071c04873b828b1d093210d848de0efc3748dcefbb2233d48ef",
+    "retention": "keep",
+    "genre": "nature",
+    "why": "기생충 감염과 깃갈이가 겹칠 때 깃털 색 신호가 약해진다는 논지가 전문에서 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In wild birds, the breeding period",
+      "note": "서론 첫 단락이 앞 문맥 없이 서고 전문용어 두셋만 바꾸면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5a9b3c55-2c6d-4521-94f7-595688bd87aa",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:20:10.823556+00:00",
+    "body_sha256": "5d5baaafbc67cbff58c3f9b493fb12fd9119ce930ab55ca74373403c320f6810",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "science",
+    "why": "항체 제작 과정 기술이 본문 대부분이라 떼어 쓸 논지 단락을 고르기 어렵다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "New resistant strains of influenza",
+      "note": "고찰은 서지만 프로토콜 수치 나열이 길어 가공 분량 판단이 갈린다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5aaeaf48-9e72-46e1-b641-e0b35946180e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:14:07.733528+00:00",
+    "body_sha256": "1943bcd1ba5da0f2d8bda1af5b3b19e8de32a0ba8ce5aa9d4dddc0fea6f55247",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "science",
+    "why": "폐혈관 내피세포 실험 절차와 측정값이 본문을 채워 독립 단락 추출이 불확실하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "This study contributes to the growing",
+      "note": "고찰 도입은 떼어지나 약어(PMVEC·NHE) 없이는 뜻이 서지 않는다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5ab780a2-db25-4769-aea5-98e80665f166",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:03:09.183727+00:00",
+    "body_sha256": "efcc7da7f0d4ea72e74231800fc2617e492351d1b714d09eb567df931bd971be",
+    "retention": "keep",
+    "genre": "health",
+    "why": "유아 혈관종에서 HIF-2α 역할을 한계와 함께 논증하는 고찰이 자족적으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "This study has several important",
+      "note": "한계 단락이 앞 문맥 없이 서고 논지가 분명하다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5abe6b73-0787-4bac-b8f4-f6aa81bc24e5",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:03:14.141152+00:00",
+    "body_sha256": "c86da22a6580925019b244db51f2e061bc318a151518e165bf6b23b910265651",
+    "retention": "keep",
+    "genre": "science",
+    "why": "밀도의존성이 초선형이라는 주장과 통념 반박 구조가 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Density-dependent population growth is a",
+      "note": "서론 첫 단락이 통념을 세우고 뒤집는 구조라 가공이 쉽다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5ac693cf-12f4-41dd-b99d-1c83ffbf53e4",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:33:12.755286+00:00",
+    "body_sha256": "a3eb19c2f8a5187f046ea2e99fb7da3a113ea7b718af8d6686ca424ddee51391",
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "science",
+    "why": "SARM1 부산물 발견을 다루지만 본문 다수가 시약·측정 절차라 쓸 단락이 적다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Our results demonstrate that the TIR",
+      "note": "고찰은 떼어지나 분자명 없이는 논지가 서지 않아 판단이 갈린다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5ac9fd89-980b-4114-874e-98287c506c84",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:28:46.660489+00:00",
+    "body_sha256": "5c11c99aa2dd654f69925873cf5f17747b5e2d52dfe1e154dafae3b085a4fc11",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "science",
+    "why": "초파리 rDNA 증폭 기전을 그림 참조에 기대어 서술해 자족 단락 확보가 불확실하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Maintenance of genome integrity is of",
+      "note": "고찰 도입만 떼어지고 나머지는 Fig 참조가 촘촘하다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5acabc3c-41de-4dbe-96a9-496c867d0bb5",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:02:35.191538+00:00",
+    "body_sha256": "9f2ad5cfd5d395a59069ce05e8abdbfe7a24b894aa62d8142cd399563ad53132",
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "health",
+    "why": "한약 처방의 골형성 효과를 다루나 본문이 실험군 수치 비교 나열에 치우친다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Abnormal osteogenic differentiation of BMSCs is",
+      "note": "고찰 첫 단락은 서지만 유전자 약어와 수치가 논지를 가린다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5acebfc4-666b-4292-b309-28ba39ac6883",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:03:26.847949+00:00",
+    "body_sha256": "eee75138dbaf81e8ffb41b229dc79daed9d1bb2c40263f55a2447a451782d5f2",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "engineering",
+    "why": "광촉매 제조·성능 서술이 장비 제원과 측정치 나열로 이어져 읽는 글로 서지 않는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Photocatalytic technology has gained attention in",
+      "note": "서론 첫 단락만 논지가 있고 이후는 제원·수치 목록이다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5ad519b8-d424-44b3-8dcd-910e07a8a2cb",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:40:14.338891+00:00",
+    "body_sha256": "b73e62dfe9ca665aef40756063ce719c273ff88a659f42e28065783a33b12448",
+    "retention": "keep",
+    "genre": "health",
+    "why": "류마티스관절염과 관상동맥질환의 공통 염증 기전을 고찰이 한 논지로 엮는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "RA and CAD are both complex",
+      "note": "고찰의 대식세포 단락이 앞 문맥 없이 서고 논지가 분명하다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5add08c4-fa00-44d8-bfaa-febe3be64202",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:03:35.113452+00:00",
+    "body_sha256": "6604b550375b4cf944420f0704f661c4bfbd7691e72dab7f7492de4aeea8f815",
+    "retention": "keep",
+    "genre": "science",
+    "why": "페롭토시스의 세 가지 미해결 질문을 세우고 차례로 답하는 해설 구조다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The fundamental building block of life",
+      "note": "질문-답 구조라 단락을 떼어도 흐름이 남고 어휘 조정 여지가 있다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5aebe5a8-3c67-4a62-abaa-5f4f9b723c77",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:05:51.663054+00:00",
+    "body_sha256": "a5542fa8ecdb72b4e621826e194d732673ba9d20d03c7701a39051987bbeaa91",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "science",
+    "why": "프롤린 대사 연구가 균주·배지 기술로 길게 이어져 쓸 단락 비중이 불확실하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Proline is the sole proteinogenic secondary",
+      "note": "서론 앞부분은 떼어지나 본문 대부분이 균주 목록과 프로토콜이다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5aedb22b-0bf2-4949-8d8d-40e03925ae3a",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:45:03.631589+00:00",
+    "body_sha256": "c10518ea9c9b637dccea64cef3a4327e7355e62711d3910a40cbd654e25d2b55",
+    "retention": "keep",
+    "genre": "health",
+    "why": "HIV 동반 폐포자충 폐렴의 유병률과 사망률을 지역별로 비교해 결론을 낸다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Before the beginning of the HIV",
+      "note": "고찰 첫 단락이 배경과 논지를 담고, 수치 표는 가공 때 걷는다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5aee0956-42d7-4df3-a265-e9f2c6956641",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:03:36.647982+00:00",
+    "body_sha256": "7f9ba9870e808ea7a3b04596ced413e995c2a3a54f7a8643082fbb2c27f52097",
+    "retention": "keep",
+    "genre": "health",
+    "why": "스테로이드 노출과 호산구 수치가 중증도를 가른다는 결론이 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Strongyloidiasis, caused by Strongyloides stercoralis",
+      "note": "서론 첫 단락이 자족적이고 의학 낱말 두셋만 바꾸면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5aefa571-5bc8-41e5-b3e0-bd94747625b2",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:03:38.898804+00:00",
+    "body_sha256": "be82db559b3cce7bdaffb8e89a38452d737b3e3fc919dd39cee457efc267a539",
+    "retention": "keep",
+    "genre": "health",
+    "why": "돼지고기 공급망의 내성유전자 확산 경로를 근거와 함께 한 논지로 편다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The circulation of AMR bacteria in",
+      "note": "고찰 첫 단락이 떼어지고 유전자 이름은 가공 때 줄일 수 있다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5b0204f9-55c7-48c7-a8c0-ca16dcb1c1f8",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:05:39.551537+00:00",
+    "body_sha256": "c398f15d31871e6fc3a9c91699e1714d00813faefb35213d0c4dbb2518597792",
+    "retention": "keep",
+    "genre": "health",
+    "why": "뇌척수액 포도당·단백 수치 조합이 사망 위험을 가른다는 주장이 자족적이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bacterial meningitis remains a severe and",
+      "note": "서론이 앞 문맥 없이 서고 수치는 소수라 걷어내기 쉽다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5b059250-52d1-4609-ad61-1582f4277578",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:03:45.464754+00:00",
+    "body_sha256": "edffd998649b3e472e1f53b09305844318b889678ffb2ce3d72fd10aac813111",
+    "retention": "keep",
+    "genre": "health",
+    "why": "알부민 병용이 생존을 개선하지 않았다는 결론과 그 해석이 한 편으로 이어진다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Stroke is the world second leading",
+      "note": "서론 첫 단락은 떼어지나 통계 약어가 뒤에 몰려 있다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5b1f5c22-e9d5-401a-99ae-cd8447f63614",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:03:58.415623+00:00",
+    "body_sha256": "ae5a8e147d6a4d7303a8b1eaa3c824c33d77173004e7c92ccdec64b85fd606fb",
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "science",
+    "why": "식물 성분과 표적을 연결하는 계산 분석이라 본문이 유전자·점수 나열로 채워진다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Neurodegenerative diseases impose a substantial global",
+      "note": "서론 첫 단락만 논지가 있고 결과는 유전자 기호 목록이다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "5b20f51b-b7e3-4996-9e0f-903f0c021f69",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:04:00.741845+00:00",
+    "body_sha256": "04442a7ebf1a3f5e175477adbcc336c06f99e886e00385eaffb4751e8f76e65b",
+    "retention": "keep",
+    "genre": "social",
+    "why": "보건안보가 주변부 집단을 배제한다는 주장을 사례와 대안으로 뒷받침한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The notion of health security has",
+      "note": "논증문이라 단락을 떼어도 서고, 학술 용어 몇 개만 바꾸면 된다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  }
+]
