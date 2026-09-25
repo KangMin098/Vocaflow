@@ -1,0 +1,867 @@
+[
+ {
+  "id": "4b1c1297-367c-46b4-8b43-855caf26679b",
+  "source_updated_at": "2026-09-25T07:11:27.183116+00:00",
+  "body_sha256": "e3510f68f25c92b0bb490da19fabf0f7164f926fa2968791b8633867098414f9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "social",
+  "why": "「The deeper importance…」 이후 단락이 디지털 시대 동원의 역설(조직 확대와 감시 강화)을 한 논지로 세워 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The technology’s significance lies less in",
+   "note": "기관명·수치를 걷어도 「군중 통제는 현재형, 디지털 감시는 사후 재구성」 대비가 서고 reconstruct·consequential 을 바꾸면 V5 로 내려간다."
+  }
+ },
+ {
+  "id": "e2520bcf-af8b-4b0b-a241-992d84ef6024",
+  "source_updated_at": "2026-09-25T07:12:27.742641+00:00",
+  "body_sha256": "745643ce633368d8687e7eb6eea3f853b02b1abcc585cc5b3e3046a97d1c9d03",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "카메룬 마을 댄스 모임의 비공식 조직과 대면 교류의 가치를 다룬 끝 단락(A phone can connect…)이 요지 칸을, 행사 묘사가 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Perhaps the most interesting thing about",
+   "note": "「폰은 방을 떠나지 않고 연결, 댄스는 그 반대」 대비가 앞 문맥 없이 서며 어휘도 평이해 거의 손댈 게 없다."
+  }
+ },
+ {
+  "id": "b30bba67-d97b-4310-8378-b47584e7ee04",
+  "source_updated_at": "2026-09-25T07:13:01.191731+00:00",
+  "body_sha256": "a0d393d36bc9248b6fb2d9996b9dc08e663d8827dbd66fca4403002f2dfaf26a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "인터뷰 답변 중 집단 소유 데이터와 개인 정보 보호 틀의 어긋남, AI가 원주민 지식을 대체가 아니라 보완해야 한다는 단락이 주장·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Conventional data protection systems tend to",
+   "note": "문답 형식을 걷고 답변 단락만 떼면 논지가 서며 encroached·substitute 를 쉬운 말로 바꾸면 V5 쪽으로 내려간다."
+  }
+ },
+ {
+  "id": "79981a6b-60a6-4b69-98ae-26500f475b1d",
+  "source_updated_at": "2026-09-25T07:12:02.832825+00:00",
+  "body_sha256": "fddda64ce7157b635a0acfe49c056a144943d92b4bf2661698df94f4cee9772b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "sports",
+  "why": "세 번 결승 패배 뒤 첫 우승이라는 서사와 여자 축구 발전 과제를 다룬 기사로, 경기 경과·수상자 사실이 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "title",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Before winning this championship title, Cameroon",
+   "note": "첫 줄 사진 캡션만 걷으면 되고 선수 이름을 줄여도 「패배 반복 → 우승」 흐름이 선다."
+  }
+ },
+ {
+  "id": "348434c2-0c86-473f-9787-b40beaeb44e7",
+  "source_updated_at": "2026-09-25T07:13:13.484177+00:00",
+  "body_sha256": "465cd3763e402477decfebba4f6068372b235bcbd90b2f2b86f69eb6818e5e1a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "EU 산림 규정에 맞춰 농법을 바꾸면서도 공정한 가격을 바라는 카카오 농민들의 사정이 인용·수치와 함께 서서 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "topic",
+    "content_match",
+    "irrelevant"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The farmers agree that they see",
+   "note": "과밀 식재가 부패를 부르고 제때 가지치기하면 수확이 는다는 인과가 앞 문맥 없이 서며 가격 수치를 걷어도 된다."
+  }
+ },
+ {
+  "id": "eaec580a-49cc-48ff-9b04-e335e1b1c340",
+  "source_updated_at": "2026-09-25T07:11:49.835099+00:00",
+  "body_sha256": "18459cee21e4d7ea8006305177a55f307f39edec117c0071dd77cca6896a1124",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "네팔 Z세대 시위 1년 뒤 총상 생존자 셋의 회복과 심경을 따라가는 기사로 심경·장문 칸을 채우나, 총상 묘사가 구체적이어서 고1 이상 칸으로만 둔다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "mood",
+    "long_reference",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "For many, an injury may eventually",
+   "note": "샨타누의 흉터 단락은 이름 하나만 두면 서고 trauma 외엔 어려운 낱말이 적다 — 부상 부위 묘사는 가공 때 줄인다."
+  }
+ },
+ {
+  "id": "b6766d33-0c82-4ff6-8713-a107e85cbc96",
+  "source_updated_at": "2026-09-25T07:11:45.201493+00:00",
+  "body_sha256": "206f09f3eb078fae5cac6621f8d3e2a4d4b5f4b884142e4fd572e444b8429f81",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "hold",
+  "genre": "news",
+  "why": "호르무즈 파병 반대 시민사회 성명(「warmonger」 등)을 한쪽 입장만으로 전하는 진행 중 정치 기사라 polemic 경계에 있고, 한국어 원문 트윗이 섞여 떼어 낼 단락이 적다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The Seoul government has considered the",
+   "note": "역사 배경 단락(베트남전·이라크전)만 겨우 떨어지고 나머지는 성명 인용 나열이라 논지가 서지 않았다."
+  },
+  "hold_reason": "borderline"
+ },
+ {
+  "id": "599608b4-f63e-4eba-bfc1-76045ee8ab76",
+  "source_updated_at": "2026-09-25T07:12:25.558974+00:00",
+  "body_sha256": "eb6355cc42d4d3589a7427928fe27dbc75f659495d4413d859b08734b18e61d9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "할머니의 꿈 속 「Sew」에서 시작해 부랴트 의상 디자이너가 되기까지의 전기로, 사건이 시간순으로 흘러 순서·장문·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "order",
+    "long_reference",
+    "mood",
+    "title",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "She had a sewing machine she",
+   "note": "아이들이 잠든 밤에야 바느질했다는 단락이 앞 문맥 없이 서고 canon·aspiration 정도만 바꾸면 된다 — 식민사 단락은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "9c679b61-7464-4db7-9a09-a6ba34ded306",
+  "source_updated_at": "2026-09-25T07:11:40.866882+00:00",
+  "body_sha256": "c01e5af08fd5c8c7ab59157b1b040c5052a7500ceaa1477e7afda0975e6d0423",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "social",
+  "why": "튀르키예 교도소 통계를 사람 이야기로 번역하는 뉴스레터 창간기로, 「통계만으로 사회는 바뀌지 않는다」는 결론 단락이 요지·목적·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "purpose",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Despite this, Prison Agenda taught me",
+   "note": "고유명사를 걷어도 「정보 생산 → 쓸 수 있는 정보로 바꾸기」 논지가 서고 문장이 짧아 빈칸 만들기가 쉽다."
+  }
+ },
+ {
+  "id": "cca28060-c94b-43f5-a707-94637d3b9a1c",
+  "source_updated_at": "2026-09-25T07:11:56.298865+00:00",
+  "body_sha256": "27ee8a89d86b5e8a3dfdf4ca78a9628d8f84516f9e0572c0aa8e827fdfc0266b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "할머니의 옛이야기에서 출발해 타루 민요·강 이름·사고 제조법에서 잊힌 역사를 찾아내는 수필로, 민요 속 강 단락이 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "order",
+    "title"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The folk song is the lament",
+   "note": "영상 안내 한 줄만 걷으면 「노래가 코시강을 언급하지 않는다 → 강 흐름이 바뀌었다」 추론이 서고 지명을 줄여도 된다."
+  }
+ },
+ {
+  "id": "b2158dd6-01be-4dcc-9c7b-3ee023bd86a6",
+  "source_updated_at": "2026-09-25T07:11:20.259799+00:00",
+  "body_sha256": "b0a7bd99d18143de89cf92efd5fcdebe59460c9fcb495a86376d7bf7ab7a07e4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "에콰도르 전 장관의 추방과 수감 경위를 연대순으로 전하고 끝 단락에서 적법 절차 물음을 던지는 기사라 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "main_point"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Beyond the political confrontation, the case",
+   "note": "결론 단락은 떨어지나 고유명사·혐의 목록을 걷으면 사건이 얇아져, 내용 일치용 경력 단락 쪽이 더 쓸 만했다."
+  }
+ },
+ {
+  "id": "59b11b83-e8f9-44ab-be9d-b95040d4446d",
+  "source_updated_at": "2026-09-25T07:11:01.150244+00:00",
+  "body_sha256": "e203feae75c1170020e8a907fdc0f0be987dc623e4ba9839f48437b60513aa6b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "social",
+  "why": "치안 구역이 곧 공동체는 아니라는 논지를 자메이카·브라질·콜롬비아 사례로 받치는 논설이라 주제·요지·주장 칸과 주장-근거 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "blank",
+    "insert",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This does not mean that the",
+   "note": "「경찰은 사건으로, 교육부는 출석으로 같은 동네를 본다」 단락이 고유명사 없이 서고 intricacies 등 2~3개를 바꾸면 V6 이 된다."
+  }
+ },
+ {
+  "id": "197fdec8-d71e-4c74-aed4-1eaf31213d09",
+  "source_updated_at": "2026-09-25T07:11:06.349471+00:00",
+  "body_sha256": "a6c6d9500eda97a26f9a021d0f4df64f8b9a94975afb704fb173239a11c9ef10",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "hold",
+  "genre": "news",
+  "why": "튀니지 실업자 시위를 야당 인사 인용(「coup authorities」 등) 위주로 전하는 기사라 일방 정치 논박 경계에 있고, 인용 연쇄라 기자 자신의 논지 단락이 드물다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "According to the former minister, “The",
+   "note": "「사회 요구는 정치 행동과 결합해야 변화를 만든다」 인용 단락은 떨어지나 화자 입장 그대로라 중립 지문으로 세우기 어려웠다."
+  },
+  "hold_reason": "borderline"
+ },
+ {
+  "id": "8f9ec18a-0a50-429a-8b36-6dc8ac0b354f",
+  "source_updated_at": "2026-09-25T07:12:59.57858+00:00",
+  "body_sha256": "b0e88e41813c179f52dc007b1121c09f4b3f59407df4fc4597c432b3926599c9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "social",
+  "why": "헤라트 체포의 의미는 체포 수보다 두려움이 만드는 자기 제약에 있다는 논지가 중반 단락들로 서서 주제·요지·빈칸 칸을 채운다(억압 소재라 고1 이상).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "title"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This is how fear becomes a",
+   "note": "「억압은 끊임없는 체포가 아니라 스스로 제약할 때 성공한다」가 지명 없이 서고 pervasive·coercion 을 바꾸면 V5 로 내려간다."
+  }
+ },
+ {
+  "id": "e7251fcf-6b39-4d5b-ae3f-f4a2c5478988",
+  "source_updated_at": "2026-09-25T07:11:51.875805+00:00",
+  "body_sha256": "bb80c54336dad7cb67b51e256911672f34034e25d4bbfc28daa6050360a07058",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "물이 끊기는 마을 여성들이 사진 증거·시간 가치 계산으로 협동조합을 만든 과정을 다룬 1인칭 보고로, 「사진+메타데이터=증거」 단락이 요지·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Training 2 was called “Smart Water:",
+   "note": "중간 사진 캡션만 걷으면 「메타데이터 없는 사진은 의견, 있는 사진은 증거」가 서고 어휘가 쉬워 바꿀 것이 거의 없다."
+  }
+ },
+ {
+  "id": "d73f6338-88d5-497f-a2d7-fdafbb138d81",
+  "source_updated_at": "2026-09-25T07:12:38.132928+00:00",
+  "body_sha256": "9062eace55ceaedd5b8b0289d1aae914d67b9c2bd30a404b3d06e558c9289d79",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "라나 타루 여성이 언어·의복·의례로 문화를 전승하는 역할을 다루고 뒷부분에서 토지 상실 문제를 짚는 설명문이라 주제·내용 일치·무관한 문장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "irrelevant",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "As formal education and media increasingly",
+   "note": "언어 보존 단락은 앞 문맥 없이 서나 영상·이미지 캡션 문장이 섞인 복식 단락은 가공 때 걷어야 한다."
+  }
+ },
+ {
+  "id": "ab7e25e9-1a58-4efc-b864-df0b184c14fa",
+  "source_updated_at": "2026-09-25T07:13:24.273458+00:00",
+  "body_sha256": "063a5d63f3a799a5dd493ae4ee1d53f9b7c7612a38c5ad8e1157e2ce83bab40d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "social",
+  "why": "인터넷 중독 교정 시설이 성인 자녀에게까지 부모의 통제를 팔고 있다는 논지를 사례와 법 조항으로 세운 논설이라 주장·요지·빈칸 칸을 채운다(강제 감금 소재로 고1 이상).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Today, “internet addiction” functions as a",
+   "note": "「불화가 장애가 되고 감금이 치료가 된다」 대구가 고유명사 없이 서고 encompass 등을 바꾸면 V5 로 내려간다."
+  }
+ },
+ {
+  "id": "9df2ead9-7181-49f1-87f9-db1a5000aee5",
+  "source_updated_at": "2026-09-25T07:11:03.744157+00:00",
+  "body_sha256": "f82b79149f26bfadd2b6d1e9d1b1c8987e241cfa4ff449a9c523ffcbaf2a5348",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "education",
+  "why": "태국 학생 단체가 연극으로 체벌·질문 금지 문화를 비판하는 과정을 다룬 기사로, 「좋은 학생」 통념을 다룬 비밀의 방 단락이 요지·제목 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "main_point",
+    "title",
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The room is a plot device",
+   "note": "인명 하나만 걷으면 「질문하는 학생은 나쁜 학생으로 불린다」 논지가 서고 connotation 정도만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "74adece9-2b1f-445f-b598-18e4a9eaa1e4",
+  "source_updated_at": "2026-09-25T07:13:38.293223+00:00",
+  "body_sha256": "774dd0a4ab1c4db913e93e895762120befd1f5e015e58eec5b879947821e1fbd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "history",
+  "why": "1834년 트리니다드 해방일을 폭도로 그린 통설을 목격자 기록으로 뒤집는 역사 서사라 통념 교정 칸과 장문·순서 칸을 채운다(인용된 당대 인종 표현은 비판 대상이다).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "long_reference",
+    "order",
+    "main_point",
+    "mood",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But according to two eyewitness accounts",
+   "note": "「통설은 저항, 목격자는 절제」 대비가 앞 문맥 없이 서며 refractory·patently 를 바꾸면 V6 이 된다 — 당대 인용의 인종 호칭은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "7b68513e-e27c-41f1-92fc-3192042fc09e",
+  "source_updated_at": "2026-09-25T07:11:47.008637+00:00",
+  "body_sha256": "12381d693bc87b27d125fe324271d85d6ff7253555cd773610a685963bbc3ef4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "social",
+  "why": "국방비가 늘어도 나이지리아 치안이 풀리지 않는 이유를 구조적 폭력과 예방으로 설명하는 기사로, 「총으로 빠져나올 수 없다」 단락이 요지·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "topic",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Nigeria is already spending heavily to",
+   "note": "「군사력은 위협에 대응, 예방은 조건을 줄인다」 대비가 수치를 걷어도 서고 문장이 짧아 V6 으로 쉽게 맞춘다."
+  }
+ }
+]

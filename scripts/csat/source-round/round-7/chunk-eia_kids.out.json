@@ -1,0 +1,2560 @@
+[
+  {
+    "id": "f005664f-6fdb-45a1-b8ac-0e7a993bfe11",
+    "source_updated_at": "2026-09-25T05:32:28.047499+00:00",
+    "body_sha256": "c8d201cd85221f0b08869fdd9a53fc979da797462b4ddb8349eae340c5f676cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "생성→탐사→시추→처리→수송 절차 단락과 끝의 수압파쇄 환경 영향 단락이 각각 떼어져 순서·삽입·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Millions to hundreds of millions of",
+      "note": "생성 과정 단락은 지시어 없이 서고, 수치 나열 단락(수출입 순위)은 걷어내야 한다."
+    }
+  },
+  {
+    "id": "4abffb4e-8051-4945-8416-034b4c93aedd",
+    "source_updated_at": "2026-09-25T05:32:36.218645+00:00",
+    "body_sha256": "48602092c60e052d38a0abc19af1806c8d120e838a36663df637c6f78541a1b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "제도공에서 에디슨 팀 유일한 흑인 기술자가 되기까지 두 단락이 시간순으로 이어져 전기 내용일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lewis Howard Latimer was born in",
+      "note": "짧지만 사건 연결(고용→발명→특허→에디슨사)이 분명해 그대로 떼어진다."
+    }
+  },
+  {
+    "id": "0c2e3c16-e4d7-4374-8745-d363870798a0",
+    "source_updated_at": "2026-09-25T05:32:37.658458+00:00",
+    "body_sha256": "17afbe091a333aab1d122fec75efd3fcc21e946ae9e96ca9ab1d0eb9434cf604",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "원폭 개발 지휘와 1953년 충성 심사·해명이라는 두 사건 축이 서서 전기형 내용일치·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Oppenheimer's loyalty to the United States was",
+      "note": "무기 개발이 소재지만 경력 서술이라 고등 칸으로 제한했다."
+    }
+  },
+  {
+    "id": "e6eedcdb-3168-40e4-840e-9ccee3f1ac3a",
+    "source_updated_at": "2026-09-25T05:32:38.104096+00:00",
+    "body_sha256": "a9e4a8b4cd22f50091359ed7677372cc5d1a5df426e3ba36b18c7c4b67948ddc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "이민→학업→교수→장거리 통신 개량·특허·퓰리처상으로 이어지는 짧은 전기라 내용일치 칸 하나를 사건 흐름으로 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Michael Pupin, American physicist and inventor,",
+      "note": "두 단락 모두 앞 문맥 없이 시작하며 secondary radiation 괄호만 풀면 된다."
+    }
+  },
+  {
+    "id": "41754054-13f5-41ac-84b0-79a8af44c8b1",
+    "source_updated_at": "2026-09-25T05:32:24.763736+00:00",
+    "body_sha256": "86ee5de81764ecc560a879fdbac1c8b75dd8436275772b3fb2fc0696b7ef8af0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "가정 에너지 용도 절에서 난방·냉방 비중 하락의 원인(단열·효율·지역 이동)을 설명하는 단락이 요지·빈칸 칸을 연다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The typical U.S. household now uses",
+      "note": "「가전은 늘었는데 가구당 사용량은 줄었다」는 역설 단락이 논지로 서고, 냉장고 비용 수치 단락은 걷어낸다."
+    }
+  },
+  {
+    "id": "fde8d0de-180b-4778-beab-b214b8cd63fd",
+    "source_updated_at": "2026-09-25T05:32:34.538561+00:00",
+    "body_sha256": "99d885ce878c6cb392432fa42db3873ca2564bc9abd8559be4d5bb741b289aa7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "양초 가업→인쇄 도제→난로 발명→연 실험으로 이어지는 시간순 전기라 순서·삽입·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "His stove drew in cool air,",
+      "note": "철자 오류(Benjamn)만 고치면 되고 연 실험 단락은 인과가 뚜렷하다."
+    }
+  },
+  {
+    "id": "d3e389cd-722e-42c2-9c04-6196b337df4f",
+    "source_updated_at": "2026-09-25T05:32:26.979804+00:00",
+    "body_sha256": "50ca4b1cee9fa525d5c3c3d84a5cd5caca50c47e25acc3ba6b45f0979e5d5d1d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "여름·겨울 휘발유 증기압 차이를 설명하는 단락과 납 휘발유 퇴출 역사 단락이 원인-결과로 서서 요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The main difference between winter- and",
+      "note": "계절 증기압 단락은 떼기 쉽고, EPA 조치 나열 단락은 붙은 소제목을 풀어야 해서 제외했다."
+    }
+  },
+  {
+    "id": "59eebda7-1f38-487f-9403-26cee2104302",
+    "source_updated_at": "2026-09-25T05:32:39.115827+00:00",
+    "body_sha256": "43746d5c3ec959249e38777c63d25acacfdf24590979cb8edde0acc1aaf6e535",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "교류 체계 발명과 에디슨과의 경쟁, 가난한 죽음까지 이어지는 전기 서사가 제목·내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "title",
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tesla was Thomas Edison's rival at",
+      "note": "끝의 「이미지를 클릭하라」 안내 단락은 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "9b8313fb-acad-40a2-86f0-f6eaa80d28fe",
+    "source_updated_at": "2026-09-25T05:32:35.77376+00:00",
+    "body_sha256": "7921c449b793ec27bf4b93082a6055abd66f4e2915da5606d632311e8e4c04cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "양조업 가문 출신이 돌턴에게 배워 에너지 보존 법칙에 이르는 흐름이 서서 전기 내용일치·어휘 칸을 연다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "title",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "James Joule's experiments with chemical properties,",
+      "note": "끝의 개정일·출처 줄은 걷어낸다."
+    }
+  },
+  {
+    "id": "dfb6ee18-1ec3-4118-9389-789c7193b97b",
+    "source_updated_at": "2026-09-25T05:32:35.543511+00:00",
+    "body_sha256": "5bedeae6f9b79919c182742f386c6faed656195d0994047f18e93cd70397660a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "트럭 운전사의 닭 손실 일화에서 냉장 트럭 발명과 식습관 변화로 이어지는 인과가 있어 요지·순서·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Frederick Jones received over 60 patents",
+      "note": "마지막 문장이 첫 문장을 반복하므로 가공 때 지운다."
+    }
+  },
+  {
+    "id": "b30ac760-531a-40ac-b29c-8fde44039e76",
+    "source_updated_at": "2026-09-25T05:32:22.97652+00:00",
+    "body_sha256": "731e1c9e1368543c0be927bcd9534e624ed6120c270fe529d2ce203aae325102",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "위치에너지·운동에너지를 나누고 각 형태를 예시로 설명하는 구조라 문장삽입·무관한 문장·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "insert",
+        "irrelevant",
+        "vocab_choice",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Gravitational energy is energy stored in",
+      "note": "정의-예시 짝이 분명해 무관한 문장 끼워 넣기가 쉽다."
+    }
+  },
+  {
+    "id": "3ad28fbd-0c99-4d3f-bd42-cc0467fa507c",
+    "source_updated_at": "2026-09-25T05:32:27.525781+00:00",
+    "body_sha256": "c0cf530e961410827a9250c94be9f3c8798f669623b571fbf46e51e1a96bca5c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "천연가스관이 차가운 개울 밑에서 막힌 사건으로 HGL 이 발견된 이야기와 액화 저장 원리 단락이 순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A section of the pipeline in",
+      "note": "발견 일화는 원인-해결 흐름이 짧게 서서 초등 칸도 된다."
+    }
+  },
+  {
+    "id": "3d41c99d-2845-4f68-a2f8-494ddbc9070c",
+    "source_updated_at": "2026-09-25T05:32:25.779437+00:00",
+    "body_sha256": "399cfc250372a0468cb9261a00e047670089accca0414e5f4434fd132ddc3b65",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "에너지 효율과 에너지 절약의 뜻을 예시로 대비시키는 짧은 설명문이라 요지·어휘 칸을 연다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "main_point",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The terms energy efficiency and energy",
+      "note": "짧지만 대비 구조 하나로 선다."
+    }
+  },
+  {
+    "id": "f34c5c52-8b32-4f28-9ebf-f3f13c43dcef",
+    "source_updated_at": "2026-09-25T05:32:24.987869+00:00",
+    "body_sha256": "7268ff6d8bac647dfb81950fe778b50f252bacd3e467518f57b0b00ff24b3eb1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "상업 건물 용도별 에너지 비중(32%·10%·60%)을 늘어놓는 세 단락뿐이라 떼어 낸 문단에 논지·흐름이 없고 내용일치 칸만 수치로 채운다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Electricity accounted for 60% and natural",
+      "note": "수치를 걷으면 남는 논지가 없다."
+    }
+  },
+  {
+    "id": "d16d4d2e-031c-401f-be6d-3eeb198df1f5",
+    "source_updated_at": "2026-09-25T05:32:32.618647+00:00",
+    "body_sha256": "3044acaffcef631b48e70182b6954f9f46b6eedf8b0262ec011441059a894495",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "가난한 유학 생활→피에르와 결혼→라듐 발견→노벨상으로 이어지는 쉬운 전기라 심경·순서·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "mood",
+        "title"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": [
+        "audio"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In those days, there were no",
+      "note": "문장이 짧고 사건 연결이 분명해 초등·중등 칸에 바로 실린다."
+    }
+  },
+  {
+    "id": "16428622-5425-42e2-9b86-e4e54667cbc1",
+    "source_updated_at": "2026-09-25T05:32:34.309835+00:00",
+    "body_sha256": "d2cee6f8c9cf65757c9c87df9738b69ac864b1e3bff07e074c8779d117055e56",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "포드가 자동차 발명자라는 통념을 먼저 바로잡고 조립 라인까지 경력을 따라가 제목·내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Henry Ford is often incorrectly thought",
+      "note": "첫 문장의 통념 교정이 도입으로 쓸 만하다."
+    }
+  },
+  {
+    "id": "c2b8a6d6-0aeb-4ea2-8b8d-5ac609cd0390",
+    "source_updated_at": "2026-09-25T05:32:37.181702+00:00",
+    "body_sha256": "a36f206193d24428ef83aa5ca488d1458b374c3da4756c8f658aa8a4d9e633b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "세 운동 법칙을 자전거·상자 예로 풀고 사과-달 중력 비교로 논지를 세워 요지·빈칸·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order",
+        "insert",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Isaac thought about gravity and the",
+      "note": "달과 사과의 힘을 비교하는 단락이 앞 문맥 없이 추론 흐름으로 선다."
+    }
+  },
+  {
+    "id": "2b0c96a2-d44b-4b64-8b18-4fb8233ccca4",
+    "source_updated_at": "2026-09-25T05:32:24.479098+00:00",
+    "body_sha256": "ce66b2febdafb5ec17b047ce2e5b0b423b3f7cb8047fd0b32e65c1044673bd7b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "1인당 에너지 소비가 1970년대 정점 이후 줄어든 이유를 효율 기준·연비 규제·인구 이동으로 설명해 요지·빈칸 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although total annual U.S. energy consumption",
+      "note": "요인 목록을 문장으로 풀면 요약 칸이 된다."
+    }
+  },
+  {
+    "id": "1159a285-9bc6-49b8-9aee-d49fdf8e0a50",
+    "source_updated_at": "2026-09-25T05:32:26.683422+00:00",
+    "body_sha256": "65f6367e5c389c60e4feedc394afc905e937e8a7944dfe8e13c92bd040a0f26e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "정유의 분리→전환→처리 3단계 설명과 유조선 이중선체 규제 경위가 순서·삽입·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Inside the distillation units, the liquids",
+      "note": "증류탑 단락은 층별 순서가 뚜렷하고, EEZ·생산 순위 단락은 걷어낸다."
+    }
+  },
+  {
+    "id": "4cc2f881-6c84-48fa-b58f-2aa84246358c",
+    "source_updated_at": "2026-09-25T05:32:37.874321+00:00",
+    "body_sha256": "98db44c6f265b4ef4ce7418f2a8ba5d219c122943976f552aa6dada3eeaa844a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "신문 기사로 르누아르 기관을 알게 된 뒤 4행정 기관을 만들어 보급한 경위가 서서 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 1876, Otto, then a traveling",
+      "note": "특허 번호와 이미지 클릭 안내는 걷어낸다."
+    }
+  },
+  {
+    "id": "28f4069d-3594-4a74-878e-a0231e741009",
+    "source_updated_at": "2026-09-25T05:32:30.668416+00:00",
+    "body_sha256": "57ff3472d5c8cf5acb3ce9ee560bded591040201148b103475e4f963b7bc42dc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "바람이 지표 불균등 가열로 생기는 원리와 테하차피 계절풍이 수요와 맞는 사례, 풍력 역사가 요지·순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "blank",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During the day, air above land",
+      "note": "낮밤 바람 단락은 인과가 짧게 서 초등 칸도 된다."
+    }
+  },
+  {
+    "id": "5e2c7e76-4b00-42fa-bea2-84f5e1b627b8",
+    "source_updated_at": "2026-09-25T05:32:27.252825+00:00",
+    "body_sha256": "3945456f0d6a5bf0c385eb677b887f84df8058de3f3a614ca79251545616a475",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "디젤 연료의 용도·황 함량 규제·군용 이유를 설명하는 단락들이 떼어져 내용일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The U.S. military uses diesel fuel",
+      "note": "군용 단락은 이유 두 개로 선다. 소비량 수치 단락은 제외."
+    }
+  },
+  {
+    "id": "092ebe8c-2014-43fe-aa15-df7c77fb7c5d",
+    "source_updated_at": "2026-09-25T05:32:33.602693+00:00",
+    "body_sha256": "e084df64fb15029e4535e5b02756054f4df8c1af281fa021fac2187a51048ba1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "홈스쿨링→실험실→전구·발전소→「1% 영감 99% 땀」으로 이어지는 쉬운 전기라 요지·순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": [
+        "audio"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Inventing things was what Edison liked",
+      "note": "마지막 단락이 영감-땀 교훈으로 요지를 선다."
+    }
+  },
+  {
+    "id": "2be53544-76e4-4ec0-9277-392a0374d10e",
+    "source_updated_at": "2026-09-25T05:32:23.902035+00:00",
+    "body_sha256": "4c71a360341a59cb64690568f76fe816f1e228c78074bbd97e48d16191d7cfd3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "전기가 2차 에너지원이라는 정의와 전기 이전 생활(양초·아이스박스) 대비가 요지·내용일치 칸을 연다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Before electricity became widely available, about",
+      "note": "짧은 글이지만 정의-대비 흐름이 있다."
+    }
+  },
+  {
+    "id": "be710044-80c8-4a35-ac56-68bc26b160ad",
+    "source_updated_at": "2026-09-25T05:32:31.059564+00:00",
+    "body_sha256": "267c5aa2eeab520cd39ef652b7f3ae677fdbc5620a68afbe9d9161ebee4a1372",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "원자 구조에서 정전기·자석·발전기·회로로 설명이 이어지는 단계형 설명문이라 순서·삽입·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Have you ever made your hair",
+      "note": "풍선-머리카락 단락은 초등 칸, 발전기 유형 단락은 고등 칸이다."
+    }
+  },
+  {
+    "id": "17806b2e-6ef7-4c64-90fd-1f8ac26dd9fd",
+    "source_updated_at": "2026-09-25T05:32:31.956599+00:00",
+    "body_sha256": "cb6ee786c6d947295fb56a2b92b01f6001b6b6ffe1affe19603282eed72bc498",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "학위·장학금·특허·연구 분야를 이력서처럼 나열한 두 단락이라 사건 흐름이나 논지가 없어 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "George Edward Alcorn, Jr. was born",
+      "note": "연구 분야 목록을 걷으면 남는 것이 없다."
+    }
+  },
+  {
+    "id": "35e3c7d9-7230-41a7-bd67-4438d90f6f24",
+    "source_updated_at": "2026-09-25T05:32:23.454017+00:00",
+    "body_sha256": "5ec63a82564bfee3c00a1e9a4e3f2f05298add9bec1727761a3e4a965649098d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "재생 불가 에너지의 뜻과 그렇게 부르는 이유(공급 한정·형성 기간)를 설명해 초등·중등 요지·어휘 칸을 연다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "main_point",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "These energy sources are called nonrenewable",
+      "note": "「These renewable sources」 오기를 고쳐야 한다."
+    }
+  },
+  {
+    "id": "fc197cc9-c399-460c-bbe5-33ffe8337e44",
+    "source_updated_at": "2026-09-25T05:32:38.346993+00:00",
+    "body_sha256": "4c7df8dced7cd69c14c0cf8134a613e430ac40409db0df76ef7f96faa99704ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "직위와 재임 기간을 연도별로 늘어놓은 이력 나열이고 「to the present」 현재형이 낡아 떼어 낼 사건·논지 단락이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Roberts served as Director of Research",
+      "note": "이력 목록이라 가공 경로가 없다."
+    }
+  },
+  {
+    "id": "bc402199-6d24-4e22-9afe-c7d065a16b65",
+    "source_updated_at": "2026-09-25T05:32:31.729828+00:00",
+    "body_sha256": "0c7f649cb8367d1169cf3334634535146e92836c61f4732c28511cf65406f3a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "온실효과 원리, 천연가스가 같은 열에 CO2 를 덜 내는 이유, 흡수 용량을 넘은 배출 단락이 요지·빈칸·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fossil fuels consist mainly of carbon",
+      "note": "탄소·수소 함량 논리가 수능형 빈칸으로 바로 선다. 전망 단락은 제외."
+    }
+  },
+  {
+    "id": "717f55fa-ff8b-4618-8530-f3bb9d566074",
+    "source_updated_at": "2026-09-25T05:32:25.317283+00:00",
+    "body_sha256": "661cdd7333dd17aec04a924114336c1a8c36b97fffcd37bcb7babae96586d4ae",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "hold",
+    "genre": "energy",
+    "why": "산업 부문 연료·원료 구분 설명이 있으나 본문 대부분이 MECS 비중 수치라 떼어 낸 단락이 논지로 서는지 애매하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Manufacturers consume two general types of",
+      "note": "연료/비연료 구분 단락 하나만 서고 나머지는 수치 나열이다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "ef446df4-03c0-4e11-af58-8b612ae2057f",
+    "source_updated_at": "2026-09-25T05:32:38.582578+00:00",
+    "body_sha256": "d7b0b5e779bd3310594ad8d3b2e6760413cf9bd7c327d45dbf83e194727de307",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "직류의 한계를 먼저 세우고 스탠리의 변압기가 이를 푼 과정을 따라가 요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the 1880s every electricity distribution",
+      "note": "문제-해결 구조가 한 단락에서 선다. 이미지 안내는 걷어낸다."
+    }
+  },
+  {
+    "id": "4bf7c81e-2bf3-4d54-8a23-3df22c39f9c3",
+    "source_updated_at": "2026-09-25T05:32:26.279459+00:00",
+    "body_sha256": "601f762dcd8fbfa2b265250f97ad30483352b002e0860672defee02a89838b9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "재생·비재생 구분과 바이오매스→화석연료→재생 재부상의 역사 흐름이 요지·순서 칸을 연다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Throughout most of human history, biomass",
+      "note": "역사 단락 두 개가 시간순으로 이어진다."
+    }
+  },
+  {
+    "id": "0ca48bc9-8e29-4696-b126-afdee8b08472",
+    "source_updated_at": "2026-09-25T05:32:35.297812+00:00",
+    "body_sha256": "f74e9b31c8560e4dfa2a9ca111fb74174d348cdbff2b6dd507648388e721b723",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "학위와 직장·직위를 연도별로 나열한 이력이라 떼어 낸 단락에 사건 흐름이나 논지가 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Dr. Gourdine served on the technical",
+      "note": "연기 제거·안개 분산 업적 한 줄 외에는 이력 목록이다."
+    }
+  },
+  {
+    "id": "1b716de5-9437-4e59-a7f8-fa54fb27c6f7",
+    "source_updated_at": "2026-09-25T05:32:34.074969+00:00",
+    "body_sha256": "21f333818eecffc41514415835e88bb1bc51560ea8a0bd8e3ffd30f20402e66b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "제본소 심부름꾼이 책을 읽고 전자기 유도를 발견해 발전기에 이르는 흐름이 요지·순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Born in 1791 to a poor",
+      "note": "첫 단락이 호기심→독서→발견의 인과로 선다."
+    }
+  },
+  {
+    "id": "a9eb5758-abee-4674-b829-71d0bd488c6f",
+    "source_updated_at": "2026-09-25T05:32:23.227317+00:00",
+    "body_sha256": "c51e2d84af393e1900bede50ce832b0b7fac90853ccc7d17985c14b40d10e254",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "이웃과 난방 에너지·비용을 Btu 로 환산해 비교하는 풀이 예가 있어 요지·빈칸 칸을 연다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "You have a natural gas furnace",
+      "note": "계산식 줄은 문장으로 풀어야 하고 배럴 단위 목록은 걷어낸다."
+    }
+  },
+  {
+    "id": "8411ad9c-fe28-41ec-98bb-c9cdaa70a1a5",
+    "source_updated_at": "2026-09-25T05:32:36.46953+00:00",
+    "body_sha256": "51e90a08cbee6b4519acaeeb61159d87393da2f6a318de92ff73327954b9cdf6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "전선 없는 전신 실험→영국 이주→대서양 횡단 송신→타이타닉 구조로 이어지는 시간순 전기라 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Marconi's next goal was to send",
+      "note": "Noble 오기를 고친다."
+    }
+  },
+  {
+    "id": "3f9c71ad-a548-4243-9b35-4dd11a2c9aab",
+    "source_updated_at": "2026-09-25T05:32:32.388677+00:00",
+    "body_sha256": "205aac40ce06ddf4833ccda3e4e2fb28b370552994eed21804a46cee76a3f244",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "학위·직위·특허 수·저술을 늘어놓은 이력 두 단락이라 사건 연결이나 논지가 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Mr. Crosthwait was responsible for designing",
+      "note": "라디오시티 난방 설계 한 줄만 사건이다."
+    }
+  },
+  {
+    "id": "ab906021-e40a-4e34-a8b1-6123ff207b4c",
+    "source_updated_at": "2026-09-25T05:32:29.957217+00:00",
+    "body_sha256": "3eef136e56597a2942f50d610e02a0b892327a5cde82649e22062fde6b4ebb4c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "물 순환과 수력 발전 원리, 댐이 물고기 이동을 막는 문제와 해법(어도)이 요지·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "insert",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many species of fish, such as",
+      "note": "양수발전 순손실 단락은 역설이라 빈칸으로도 쓸 만하다."
+    }
+  },
+  {
+    "id": "472fbca0-0c71-4a4c-aadd-7ede96f6481c",
+    "source_updated_at": "2026-09-25T05:32:29.619081+00:00",
+    "body_sha256": "123534ca1f3ba823fb8baa5b7cc1325802d84a69db68a35557026ef353692ae1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "지구 내부 열의 기원과 지열 히트펌프가 계절 따라 열을 옮기는 원리가 순서·삽입·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although air temperatures above ground change",
+      "note": "지하 10피트 온도 단락은 인과가 짧고 분명하다."
+    }
+  },
+  {
+    "id": "fdb29a69-42ac-43bb-8d94-2131f919202b",
+    "source_updated_at": "2026-09-25T05:32:34.757871+00:00",
+    "body_sha256": "fcdb00e23c82b0e2276319b0f7ec663828ba583593e2c00c794b350efd19e078",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "달 로켓 구상으로 조롱받다 사후에 인정받는 반전 구조의 전기라 요지·제목·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "title",
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 1920 Goddard wrote a paper",
+      "note": "조롱→후원→인정의 흐름이 서며 바주카 언급은 짧아 그대로 둔다."
+    }
+  },
+  {
+    "id": "bdc8d415-af92-48fd-8319-9331676a35a2",
+    "source_updated_at": "2026-09-25T05:32:26.045509+00:00",
+    "body_sha256": "ff0420cf185f7ab910b1dcb8eddd9d6bdf8e5eee595baa5343fb5db239cc6b60",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "과학자에게 에너지 보존은 절약이 아니라는 통념 교정에서 시작해 인체 효율 5% 예로 끝나 요지·빈칸 칸을 연다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "To scientists, energy conservation does not",
+      "note": "통념-교정-예시 구조가 네 단락 안에서 완결된다."
+    }
+  },
+  {
+    "id": "ec6ae71c-00d2-4160-a9c6-43901527a905",
+    "source_updated_at": "2026-09-25T05:32:22.701072+00:00",
+    "body_sha256": "b19840fb87e92e47daf7eaf0ad0070724876259fe39eafdb451ec574d9c7d4fd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "에너지를 일할 수 있는 능력으로 정의하고 형태 전환 예(음식·석탄)로 이어가는 짧은 설명이라 초등 요지·어휘 칸을 연다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "main_point",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Energy can be converted from one",
+      "note": "목록 줄은 걷고 전환 예시 단락을 쓴다."
+    }
+  },
+  {
+    "id": "7931f9e2-ab1b-4639-acd0-cd51e9027dd7",
+    "source_updated_at": "2026-09-25T05:32:29.011084+00:00",
+    "body_sha256": "91089ae48a988c65d39a0108d923e9a37e0955f39fcb9a956c27cf1e4e7475d2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "쓰레기 소각의 장단점과 재 속 중금속 문제, 바이오매스 탄소중립 논리가 요지·빈칸·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Burning municipal solid waste (MSW), or",
+      "note": "열분해 온도(&deg) 깨진 단락과 수치 단락은 걷어낸다."
+    }
+  },
+  {
+    "id": "02238388-c043-4c74-afeb-1d0b2cef0838",
+    "source_updated_at": "2026-09-25T05:32:36.919422+00:00",
+    "body_sha256": "f6b83d0f4fb9b1055ca2f7498da0e747497472c8e93d071f3f8268c832726ad4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "여성 유일 학생에서 한과의 공동 연구, 나치 독일 탈출, 핵분열 명명, 원폭 참여 거부로 이어지는 전기라 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "She worked at the Kaiser-Wilhelm Institute",
+      "note": "두 단락이 짧게 시간순으로 선다."
+    }
+  },
+  {
+    "id": "ccf15ac2-03fb-4241-a5d3-da274c81f7ae",
+    "source_updated_at": "2026-09-25T05:32:28.679015+00:00",
+    "body_sha256": "88cdce02246bece7a83d727cd946afa77d0149ca947b09217200796b74253364",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "핵분열 연쇄반응 원리와 가압수형 원자로 작동, 방사성 폐기물 분류 단락이 순서·삽입·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In nuclear fission, atoms are split",
+      "note": "연쇄반응 단락은 단계가 분명해 순서 배열에 맞다. 중복 단락은 하나만 쓴다."
+    }
+  },
+  {
+    "id": "76fef5b1-f837-419a-af41-7f83704a7b0e",
+    "source_updated_at": "2026-09-25T05:32:35.998908+00:00",
+    "body_sha256": "97cbae282b14ecc03688e6f2c73c03d8f6c95627cbb20941d2acdf301bf120e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "군 복무로 끊긴 학업에서 최초의 보건물리학 훈련생이 되어 방사선 방호 관행을 만든 흐름이 내용일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Health physics became a recognized profession",
+      "note": "마지막 단락이 「규칙이 없던 분야를 만들었다」는 요지로 선다."
+    }
+  },
+  {
+    "id": "38016699-d71b-4e7b-bd13-42cb6686132b",
+    "source_updated_at": "2026-09-25T05:32:38.844339+00:00",
+    "body_sha256": "77598a0d06ab20e06d16b021b0d8022b2e1dc08efd3e5c9ce4a80b594aa60825",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "기계공이 굴뚝 배출 필터를 발명하고 그 효과가 건강·건물까지 미친 인과가 짧게 서서 내용일치·요지 칸을 연다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rufus Stokes was born in Alabama",
+      "note": "이미지 클릭 안내 단락은 걷어낸다."
+    }
+  },
+  {
+    "id": "35c48446-d5c3-446c-8eec-554f8f97d331",
+    "source_updated_at": "2026-09-25T05:32:30.388707+00:00",
+    "body_sha256": "7d969c6602148d9559fa1614849497c91496b4f6a5e48015be6a28d12a1798f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "태양전지가 광자를 흡수해 전자를 움직이는 원리와 수동·능동 태양열 난방 대비가 순서·삽입·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When the sun shines through the",
+      "note": "수동 난방 단락은 앞 문맥 없이 서고 SEGS 발전소 목록은 걷어낸다."
+    }
+  },
+  {
+    "id": "19b83844-6584-49a7-9ecb-8a29a064fd69",
+    "source_updated_at": "2026-09-25T05:32:25.564397+00:00",
+    "body_sha256": "282615274871a5487bc617f6911350150b4e765927041cc038804c13f48191c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "연비 기준이 올라도 차량 수·주행거리·대형차 증가로 휘발유 소비가 늘었다는 역설 단락이 요지·빈칸 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The national average fuel economy for",
+      "note": "연료별 비중 단락은 수치 나열이라 제외한다."
+    }
+  },
+  {
+    "id": "c9c4f164-bf4b-4480-a2b4-8a4d3ed8906b",
+    "source_updated_at": "2026-09-25T05:32:23.675625+00:00",
+    "body_sha256": "81057b81605a19aac6e9e9e7382a4a92a3bb4f240f78427eae122cef4cc82176",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "재생에너지의 뜻과 나무→화석연료→재생 재부상의 역사 흐름이 짧게 서서 요지·내용일치 칸을 연다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Until the mid-1800s, wood was the",
+      "note": "종류 목록 줄의 구두점이 깨져 있어 걷어낸다."
+    }
+  },
+  {
+    "id": "59bdc544-6697-4362-b951-fb55d1efe772",
+    "source_updated_at": "2026-09-25T05:32:33.129017+00:00",
+    "body_sha256": "11364e06d190dfb1c29aecb2ad29807fe8dfdeec371c39c381e97921909f4d60",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "디젤 기관이 독립 장인을 돕겠다는 사회적 동기에서 나왔다는 단락과 1893년 첫 가동 이후 흐름이 요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Though best known for his invention",
+      "note": "발명의 사회적 동기라는 논지가 한 단락에서 선다."
+    }
+  },
+  {
+    "id": "69927c81-a764-41ad-bce7-56f97c6465ea",
+    "source_updated_at": "2026-09-25T05:32:31.441824+00:00",
+    "body_sha256": "10500ee918e01cfb062a61c20b5234cb31c916c76e860299801741d3503ba4f6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "전력망 상호연결의 역사, 수급 균형을 맞추는 균형 당국, 송전망 확충의 난점 단락이 요지·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At the beginning of the 20th",
+      "note": "고립 발전소들이 연결된 이유가 인과로 선다. 발전원 비중 단락은 제외."
+    }
+  },
+  {
+    "id": "b1a485b9-9709-4fbd-a6d8-a2798ba34687",
+    "source_updated_at": "2026-09-25T05:32:35.005517+00:00",
+    "body_sha256": "25b7ad9f7c520c31e1a280e4d643e666d3aa01e5599f2747dfacc6a5f59cd386",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "노벨상 수상자가 53세까지 무급으로 연구한 경력과 「S.D. 엄마 노벨상」 헤드라인이 요지·순서·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After earning her doctorate, she followed",
+      "note": "무급의 반복이 요지를 세우고 결말 헤드라인이 여운을 준다."
+    }
+  },
+  {
+    "id": "f55d39c4-ff7e-469e-b683-17607ee42df4",
+    "source_updated_at": "2026-09-25T05:32:28.371542+00:00",
+    "body_sha256": "c95d6a81234752907b6e04ee75b494dad5acc683c2ff93e596b6261940466340",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "석탄의 형성과 등급, 노천·갱내 채굴 대비, 산꼭대기 제거 채굴의 환경 영향이 순서·요지·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "main_point",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mountaintop removal and valley fill mining",
+      "note": "지역별 생산 비중 단락은 수치 나열이라 걷어낸다."
+    }
+  },
+  {
+    "id": "a81a3360-a329-45e3-b3f4-f93443d30746",
+    "source_updated_at": "2026-09-25T05:32:36.704054+00:00",
+    "body_sha256": "accae9901e0de458a2e2d02cab46f008fcabbb20a8e6a2de7198115ae68ea6f8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "빛이 전자기파라는 발견과 기체 분자운동론, 토성 고리 가설 적중이 요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Maxwell's second greatest contribution was his",
+      "note": "추상 어휘가 많아 고등 이상 칸이며 몇 낱말을 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "9f03faf6-62f4-4bf8-8b40-bcbc2716c9b6",
+    "source_updated_at": "2026-09-25T05:32:37.428755+00:00",
+    "body_sha256": "0339f868de1d5b36bfd006c76d87eb0a018d4240da5ff83bcda77d80f49402a3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "독학한 아버지의 교육에서 옴의 법칙 발표까지의 흐름이 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Georg Simon Ohm was born in",
+      "note": "그림 기호(X, Y, A, B, C)를 가리키는 전지 부품 목록은 걷어낸다."
+    }
+  },
+  {
+    "id": "8265fc66-e6e6-4b0d-82db-6f94e5bdd5d8",
+    "source_updated_at": "2026-09-25T05:32:29.345936+00:00",
+    "body_sha256": "d69e36299ab155edac9ba99f1aa16514171add56fe5649378219072358c75eed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "남북전쟁 주세로 에탄올이 밀려나고 금주법·석유파동을 거쳐 되살아난 역사 단락이 순서·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the 1850s, ethanol was a",
+      "note": "에탄올 역사 세 단락이 시간순으로 선다. 등급 표기 단락은 제외."
+    }
+  },
+  {
+    "id": "8551dfd5-3614-497a-905f-43369c70b2f4",
+    "source_updated_at": "2026-09-25T05:32:33.361635+00:00",
+    "body_sha256": "ac5120605a79f9f02a5f89eb5cf87af1a8f6736a569af6c18637053f5a8396ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "최초 유정을 뚫었지만 사업 감각이 없어 가난해진 역설과 사후 기림이 요지·제목·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "title",
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Most historians trace the start of",
+      "note": "「남에게 부를 주고 자신은 가난」 대비가 요지를 세운다."
+    }
+  },
+  {
+    "id": "80dd4b51-75f7-4969-8d50-561046c56853",
+    "source_updated_at": "2026-09-25T05:32:32.176097+00:00",
+    "body_sha256": "06261e7658d01ce4bf59fbc01557403562af775be15034ffe0190f08bba4cb9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "지구 모양 논쟁을 판가름한 탐사와 물의 끓는점·어는점 기반 온도 척도가 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One of the major questions of",
+      "note": "뉴턴 대 프랑스 측량 논쟁이 짧은 논지 흐름을 준다."
+    }
+  },
+  {
+    "id": "208f3c9f-65cc-49fd-a2c2-45d73c4c50c3",
+    "source_updated_at": "2026-09-25T05:32:24.215523+00:00",
+    "body_sha256": "2e4304c27e6d22819d2f81d8d37a5f4cbb26dd5d913058a75496f527d2d068c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "수소 생산에 드는 에너지가 얻는 에너지보다 큰데도 쓰는 이유와 충전소-차량의 닭과 달걀 문제가 요지·빈칸 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The high cost of fuel cells",
+      "note": "충전소 부족 순환 논리가 빈칸 문항으로 바로 선다."
+    }
+  },
+  {
+    "id": "3886d1c7-fad9-4c5b-aa49-318908c72d79",
+    "source_updated_at": "2026-09-25T05:32:39.354661+00:00",
+    "body_sha256": "7e09144e22cc850e132bb9394c52b6ec0ff50747c0326469b8a3906491ce146f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "열 살에 학교를 떠나 현장에서 배운 뒤 열차 간 전신을 발명해 사고를 막은 흐름이 순서·요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 1888, Woods developed a system",
+      "note": "연도가 앞뒤로 섞여(1889·1887) 순서 문항엔 정리가 필요하다."
+    }
+  },
+  {
+    "id": "3d6deef9-f658-42e1-890b-8c5af33bea3d",
+    "source_updated_at": "2026-09-25T05:32:33.852621+00:00",
+    "body_sha256": "cfb9b0760a0ef8d82155dc53412d8d0bea1972d6873da75c3baeeefc981878c9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "나침반 일화와 광양자·브라운 운동 설명 단락이 요지·빈칸 칸을 채운다. 수식이 빠진 문장 하나는 걷어낸다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There was a well-known kinetic energy",
+      "note": "브라운 운동 예측-확인 단락이 논지로 선다. 「equation about the nature of energy, .」 에서 수식이 빠졌다."
+    }
+  },
+  {
+    "id": "4a32e963-8814-4ead-a788-bb54628e5380",
+    "source_updated_at": "2026-09-25T05:32:32.873961+00:00",
+    "body_sha256": "9b819a124842177558a21ecf7e6df13b54068e7482828fa21499d706aedbb7eb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "가난한 시골 소년이 원자론을 세우고 죽어서까지 색맹 원인을 밝힌 전기라 요지·순서·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "main_point",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When John Dalton died in 1844,",
+      "note": "마지막 실험 일화가 결말로 서서 제목 칸에 좋다."
+    }
+  }
+]

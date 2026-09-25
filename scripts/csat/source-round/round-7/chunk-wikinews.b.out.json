@@ -1,0 +1,776 @@
+[
+ {
+  "id": "5bfe766c-922a-4579-a522-32a393b02648",
+  "source_updated_at": "2026-09-25T07:44:39.886751+00:00",
+  "body_sha256": "a03074de71dc5c46e6a2c3910bd921bc456b5b80c0f020d244a773bed8466cba",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "GMTV 종영과 Daybreak 교체 소식이 사실 진술 네 단락으로 서 내용 일치·어휘 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "GMTV, a breakfast television programme broadcast",
+   "note": "방송 시각·진행자 이름을 걷어도 교체 사건이 선다."
+  }
+ },
+ {
+  "id": "5bcbed1d-a6a2-4658-82ca-016344069191",
+  "source_updated_at": "2026-09-25T06:47:12.920743+00:00",
+  "body_sha256": "368f2b16e95a8034907553a96212dc5e21a4745f71cc3a1893548f828b55179b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "실업률 저점과 불완전고용 문제를 대비하고 경제학자의 「노동시장은 늦게 꺾인다」 논리가 있어 요지·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The labour market is one of",
+   "note": "수치 나열 단락은 걷어야 하고 각주 번호 잔재가 있다; 경제학자 인용 단락은 논지가 선다."
+  }
+ },
+ {
+  "id": "ad491c77-ba76-49ae-ad0c-3dc114bd2c55",
+  "source_updated_at": "2026-09-25T07:00:03.35738+00:00",
+  "body_sha256": "2c1daf3486739f6edddfdac9efd27341ae75e28cb1be430fb128ee7fcff67ee7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "라이스·스트로의 바그다드 방문과 이라크 통합정부 압박이 인용과 함께 흐름을 이뤄 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "On the formation of a united",
+   "note": "인물명이 많지만 걷어도 방문 목적과 압박 구도가 선다."
+  }
+ },
+ {
+  "id": "2e8f96dc-0c05-45a8-b04d-f7c8d33302b7",
+  "source_updated_at": "2026-09-25T08:03:45.007931+00:00",
+  "body_sha256": "da6bf56c8866877e8adabf41ba7fb8c047108b059614cd9fc2d87e779e8facaf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "비슈케크 시위 진압과 관제 집회 동원 증언이 사건 흐름으로 서며, 무력 소재라 고1 이상 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Elsewhere in Bishkek, approximately 10,000 people",
+   "note": "동원 증언 단락은 앞 문맥 없이 서며 coerced 등 두어 낱말만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "a32e2e0b-17ba-439e-9800-29126383bff0",
+  "source_updated_at": "2026-09-25T08:01:27.719156+00:00",
+  "body_sha256": "278908cfd8db2fb5f90c681b60fd846deccc00fd1ebecdcc9f6311deb6f5b054",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "상점 강도살인 유죄 판결과 주민들의 용기를 다룬 네 단락이 사건 순으로 서며, 폭력 소재라 고1 이상 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The court was told how smokers",
+   "note": "시민들이 범인을 막으려 한 단락이 독립 사건으로 선다."
+  }
+ },
+ {
+  "id": "706fe358-6f26-48dd-8eec-c0939badb8bc",
+  "source_updated_at": "2026-09-25T08:00:26.006729+00:00",
+  "body_sha256": "0d28bd1ebcb44b7b748ebfe67634838b9cb4ed2541566beac7ac8145517cf858",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "캠퍼스 총격 경과와 범인 이력이 시간순으로 기술되나 사상 묘사가 구체적이어서 고2·성인 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "News about the shooting emerged at",
+   "note": "시각별 공지 단락은 순서 문항에 맞고, 피해자 명단 단락은 걷어낸다."
+  }
+ },
+ {
+  "id": "e9c03be4-fc34-4e9b-8d37-3bf32823470a",
+  "source_updated_at": "2026-09-25T08:04:19.319381+00:00",
+  "body_sha256": "d46dcfde8fd5db39055257fa4ce2378b7de8ae0ac0b59751f51b5c83cd44ab89",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "푸틴의 팔레스타인 지원 약속과 중동 순방의 첫 방문 의미가 두 단락으로 짧게 서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Putin was on a four day",
+   "note": "짧지만 순방의 역사적 의미가 한 흐름으로 선다."
+  }
+ },
+ {
+  "id": "90d98d02-f9ca-4990-8e1e-39cb4e82a13c",
+  "source_updated_at": "2026-09-25T06:47:10.727578+00:00",
+  "body_sha256": "53062c14afa71e81f6c5fa37c445c3da24c4aa8042e711a6b4849f2f91012eb5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "hold",
+  "genre": "news",
+  "why": "딜레이 윤리 의혹을 둘러싼 공화당 내부 반응을 여러 인용으로 전하나 비판 쪽 논조가 짙어 성인 칸으로만 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Other Republicans are starting to get",
+   "note": "인물·당파 맥락을 걷으면 논지가 흐려지고 끝 단락은 논평조라 걷어내야 한다."
+  },
+  "hold_reason": "borderline"
+ },
+ {
+  "id": "ba6afaf0-8065-4597-bbf0-293007137fc7",
+  "source_updated_at": "2026-09-25T08:01:55.039417+00:00",
+  "body_sha256": "1f8aeee545121d61b4097ecb2d62d43df09709c303bf4a30c5cedcf613e0908e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "그라나도의 부고가 체 게바라와의 여행·재회·견해차를 시간순으로 엮어 서사·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In 1951 they set out on",
+   "note": "여행이 사회의식을 깨웠다는 단락은 고유명사를 줄여도 선다."
+  }
+ },
+ {
+  "id": "d47a6ca1-d795-407b-b0f2-df39ebb8a527",
+  "source_updated_at": "2026-09-25T06:46:02.299477+00:00",
+  "body_sha256": "35b9b677621040c530a79f79a35de997d2cbf007e4176fb4f8ffeba00a24b3c7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "에버스 유죄 평결과 회계 스캔들 파장이 짧은 단락들로 서 내용 일치·어휘 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Ebbers who took the stand in",
+   "note": "증언 대립 단락이 떼어 내도 서며 indictment 등 두 낱말을 풀면 된다."
+  }
+ },
+ {
+  "id": "be58827b-6e3c-4a20-a301-75678fe432f7",
+  "source_updated_at": "2026-09-25T08:01:59.170843+00:00",
+  "body_sha256": "ea26ea418d6e3445a4a9ca24c4c789980820f1dbc5d8c5a1b8e2017abe3d5196",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "케네디의 알코올 중독 사망과 가족 성명이 추모 흐름으로 서며 죽음 소재라 고1 이상 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "They also spoke of the tributes",
+   "note": "가족 성명 단락에 심경이 읽혀 떼어 쓰기 쉽다."
+  }
+ },
+ {
+  "id": "6d16959a-1404-49c6-8ccd-81e61b1e8747",
+  "source_updated_at": "2026-09-25T08:00:23.489279+00:00",
+  "body_sha256": "b62d53f74820a826cf99ff8c0d9c1a4b6e0a802ddd46c7c2ab87f6cbbd72bf3f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "검문소 자폭 공격을 네 문장 남짓으로 전해 짧지만 사건이 서며 폭력 소재라 고1 이상 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Police officers were having lunch inside",
+   "note": "너무 짧아 한 문항용 재료에 그친다."
+  }
+ },
+ {
+  "id": "f400000d-227d-43a4-bee3-7d7dc1d8d525",
+  "source_updated_at": "2026-09-25T07:39:22.033249+00:00",
+  "body_sha256": "3a9fe8b2f7d57ff245b1d887151023d0a946405aa778e0c15d97e134004ca045",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "energy",
+  "why": "베스타스 풍력 공장 폐쇄 경위·노동자 점거·수요 부족 설명이 원인-결과로 이어져 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "main_point",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Vestas attribute the shutdown of the",
+   "note": "수요 부족 원인 단락이 떼어도 서며 nationalisation 을 풀면 내려간다."
+  }
+ },
+ {
+  "id": "852f7b73-bdf3-4136-a176-828af1829587",
+  "source_updated_at": "2026-09-25T08:00:46.3974+00:00",
+  "body_sha256": "aa95d147e8c99e5d25a16d48ead9eb35f1d793d7b1530ad8203a43a32b462c65",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "공중급유기 입찰 재실시 권고와 공군의 판정 오류 목록이 원인-반응으로 서 내용 일치·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The GAO issued a non-binding recommendation",
+   "note": "조달 용어가 많아 두세 낱말 교체로는 밴드가 잘 안 내려간다."
+  }
+ },
+ {
+  "id": "eac86e75-efe5-4777-b705-40deeef52302",
+  "source_updated_at": "2026-09-25T07:28:58.967906+00:00",
+  "body_sha256": "37022581ef4946621cc388feaf2b07495128d985b7e6540a551df526b195ea5a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "구글이 MS의 야후 인수 시도를 우려한 이유(개방성·독점)가 짧게 서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The hostile bid by Microsoft to",
+   "note": "짧지만 반대 이유가 분명한 주장-근거 구조다."
+  }
+ },
+ {
+  "id": "457fdb05-fc84-4716-88ff-aac0f071fdf1",
+  "source_updated_at": "2026-09-25T05:32:11.757384+00:00",
+  "body_sha256": "7f24bf07daeeeff3c2709c74f6862f028ad59b28bdc78b81894b8872c91eefa9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "샤키도르 댐 붕괴의 원인·피해·구조가 인과로 이어져 내용 일치 칸을 채우고 재난 사망 소재라 고1 이상으로 둔다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The 148 m (485 ft) long",
+   "note": "수치를 걷어도 폭우→붕괴→고립 흐름이 선다."
+  }
+ },
+ {
+  "id": "77ce172b-285a-4358-ae6b-95f74a2e5508",
+  "source_updated_at": "2026-09-25T07:30:08.218679+00:00",
+  "body_sha256": "4435665f21c31622e0b8361bd736af04c9613f011f7b3e692c9162b7a2566a26",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "케보키언의 하원 출마 선언과 상대 진영 반응이 여러 인용으로 서 내용 일치 칸을 채우며 조력사 소재라 고2 이상으로 둔다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Oakland County prosecutor Dave Gorcyca, whose",
+   "note": "반응 인용 단락이 떼어도 서며 이름만 걷으면 된다."
+  }
+ },
+ {
+  "id": "ad6f1fb2-972b-407d-90ee-568102e5f649",
+  "source_updated_at": "2026-09-25T08:09:43.415354+00:00",
+  "body_sha256": "9380732a276699cea64354b30608c5f8d3cfaf4c85a21107d5ebb8354456c425",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "안탈리아 산불 진화 헬기 추락과 승무원 무사 소식이 세 단락으로 짧게 서 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The latest fire in Kas was",
+   "note": "짧고 쉬워 중등 내용 일치 재료로 가공이 쉽다."
+  }
+ },
+ {
+  "id": "05c55347-566b-453f-bafe-13234412886d",
+  "source_updated_at": "2026-09-25T07:48:43.078321+00:00",
+  "body_sha256": "f0430b06819f9d42af489aaf19aa0020871552f4c59f2fff334026f998d7a400",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "social",
+  "why": "우루과이 동성혼 법안 상원 통과와 찬성 논리(자유·정의)·혼인 연령 변경이 서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Rafael Michelini, a senator that supports",
+   "note": "찬성 논리 인용이 자유·정의 두 근거로 떼어 선다."
+  }
+ },
+ {
+  "id": "3300087f-c704-436e-b065-16faf305cad3",
+  "source_updated_at": "2026-09-25T06:46:05.094138+00:00",
+  "body_sha256": "7b85910ee57e0e7738f95518eb9bc820ef63cffedbb35f90e67784477ed3107a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 7,
+  "retention": "keep",
+  "genre": "news",
+  "why": "개 공격 사망 사건으로 견주에게 처음 중과실치사가 적용된 경위가 사건순으로 서며 죽음 소재라 고1 이상 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Public outcry over the death of",
+   "note": "오탈자(procecutors 등)를 고치면 법적 쟁점 단락이 선다."
+  }
+ }
+]

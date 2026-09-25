@@ -1,0 +1,761 @@
+[
+ {
+  "id": "ea91861f-f8b2-427c-81ec-00ae495cf4c0",
+  "title": "My red ball",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:01:50.009553+00:00",
+  "body_sha256": "79250bed9469f3e8beeac5cdb0b566cc6bc7b3e296390aaa12ccc9989b73c06c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 72,
+   "v_level": 2,
+   "cefr": "A1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0143_my-red-ball.md",
+     "year": null,
+     "author": "Marion Drew"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Ball.\n\nMy ball.\n\nMy red ball.\n\nMy big red ball.\n\nI kick.\n\nI kick my ball.\n\nI kick my red ball.\n\nI kick my red ball hard!\n\nWhere?\n\nWhere is my ball?\n\nWhere is my ball now?\n\nWhere is my red ball now?\n\nIt is up.\n\nIt is high up.\n\nIt is high up in the sky.\n\nIt is high up in the sky. It is over the moon. It is gone!"
+ },
+ {
+  "id": "ea945c41-05c2-432f-840a-1733b7e11284",
+  "title": "What will I use to travel?",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:01.427268+00:00",
+  "body_sha256": "359300349621f64f807ccc1e39e1e899d228a3fdcb4be49a2068b88b7b0b7620",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 122,
+   "v_level": 2,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0191_what-will-i-use-to-travel.md",
+     "year": null,
+     "author": "Ursula Nafula"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "There are many ways to travel. Which will I choose?\n\nShould I use a plane?\n\nPlanes fly very high. I am afraid of flying!\n\nPerhaps I should use a helcopter?\n\nBut helicopters and planes are the same!\n\nShould I perhaps use a train?\n\nBut the train station is very far.\n\nOr, perhaps, I should use a bus?\n\nOur village has only one bus!\n\nPerhaps I will use a lorry to travel.\n\nBut lorries are used for carrying heavy luggage.\n\nShould I use a bicycle to travel?\n\nBut will my father give me his bicycle?\n\nPerhaps I will try to use a boat?\n\nBut I do not trust boats very much!\n\nAah! I know how I will travel! I will use a tractor."
+ },
+ {
+  "id": "ebd7843e-a985-4e82-b4d4-581642150c1e",
+  "title": "Let's go",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:01:45.155868+00:00",
+  "body_sha256": "67219f63defb023746bbff56af0f601e41f5941b08cd86b96c8249c37f9ff5a1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 49,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY-NC",
+    "license": "CC-BY-NC",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0123_lets-go.md",
+     "year": null,
+     "author": "Carole Bloch"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "With my nose...\n\n...I smell dirty socks.\n\n...I smell beautiful flowers.\n\nWith my eyes...\n\n...I see a balloon blowing away in the wind.\n\n...I see a happy cat.\n\nWith my mouth...\n\n...I taste the salty sea.\n\n...I taste a juicy sweet orange.\n\nWith my hand...\n\n...I take your hand."
+ },
+ {
+  "id": "ec1a07f1-3d4b-4259-9d62-a8dbb41b6afa",
+  "title": "Rabbit under the tree",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:01:28.036665+00:00",
+  "body_sha256": "25a0a008ddba551be7c5285d21528ffc7977b00e5a982aa0cbfa1667b2769b9a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 475,
+   "v_level": 3,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0048_rabbit-under-the-tree.md",
+     "year": null,
+     "author": "Phumy Zikode"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Rabbit was sleeping under an apple tree. An apple fell down from a branch.\n\nA voice said, \"Run rabbit run!\" She woke up quickly and ran away with great speed.\n\nShe met a chicken. \"Why are you running?\" asked the chicken. Rabbit replied, \"I don't know. I just heard something falling and a voice said, 'Run rabbit run!'\"\n\nThe chicken was frightened. She started running when she heard what the rabbit said.\n\nThey met a dog. Dog asked, \"Why are you running?\" Chicken said, \"I don't know. I just heard what the rabbit said, and she doesn't know. She heard something falling and a voice said, 'Run rabbit run!'\"\n\nThe dog was surprised about what she heard. She started running with Rabbit and Chicken.\n\nThey met a horse. The horse asked the dog, \"Why are you running?\" Dog said, \"I don't know. I just heard what the chicken said, and she doesn't know. She heard what the rabbit said and she doesn't know. She heard something falling and a voice said, 'Run rabbit run!'\"\n\nThe horse starts to run with the others.\n\nThey met a donkey. The donkey asked, \"Why are you running?\" Horse replied, \"I don't know. I just heard what the dog said, and he doesn't know. He heard what the chicken said and she doesn't know. She heard what the rabbit said and she doesn't know. She heard something falling and a voice said, 'Run rabbit run!'\"\n\nSo Donkey starts running too.\n\nThey met a cow. The cow asked, \"Why are you running?\" Donkey replied, \"I don't know. I just heard what the horse said, and she doesn't know. She heard what the dog said and he doesn't know. He heard what the chicken said and she doesn't know. She heard what the rabbit said and she doesn't know. She heard something falling and a voice said, 'Run rabbit run!'\"\n\nThe cow is worried and starts to run as well.\n\nThey met a cat. The cat asked, \"Why are you running?\" Cow replied, \"I don't know. I just heard what the donkey said, and he doesn't know. He heard what the horse said and she doesn't know. She heard what the dog said and he doesn't know. He heard what the chicken said and she doesn't know. She heard what the rabbit said and she doesn't know. She heard something falling and a voice said, 'Run rabbit run!'\"\n\nThe cat started running with the other animals.\n\nThen they met the boy riding the bicycle and he asked, \"Why are you running?'' And the animals replied, \"We don't know. We heard what the rabbit said and she doesn't know. She heard something falling and a voice said, 'Run rabbit run!'\"\n\nThe boy laughed and said, \"An apple feel off the tree because of the wind. I'm the one who said, 'Run rabbit run!'\""
+ },
+ {
+  "id": "ed5b2a6f-cf74-4f3a-b9f6-1bde1b15df39",
+  "title": "Monkey's visit to the hunters home.",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:01:27.586189+00:00",
+  "body_sha256": "3b09f14a00bfbd6eed9e6f914c1402ee3b1f735f100d81fe71bdb1ccabcfef12",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 356,
+   "v_level": 2,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0046_monkeys-visit-to-the-hunters-home.md",
+     "year": null,
+     "author": "Wesley Kipkorir Rop"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "In Nakwiga Forest, there lived Monkey who was always lonely but friendly. she had miscarriages most times baby.\n\nThe pain of having miscarriages made Monkey jump up and down all the time. She would jump from one tree to another saying \"Kau! Kau! Kau!\"\n\nMonkey was always lonely. She could feel bad when saw other monkeys playing with their babies on their backs.\n\nThe lonely Monkey would sway this way and that way. She would sway on this branch and on that branch! She would sway on this tree and the other tree! Days passed and Monkey cried more and more.\n\nThen she conceived again and gave birth. She decided to take the baby to the path so that people passing by going to the river would see the baby and wish it well.\n\nMonkey climbed down from the branch and put the baby on the path and climbed up and sat in between the branches to watch whoever passed by . At that time, a hunter and his dog were returning home. He saw the baby monkey lying on the side of the path .\n\nThe hunter carried the baby monkey to his home. When the hunter reached home, his three boys were excited to meet a new friend, started playing with the monkey baby jumping up and down and fed it.\n\nThe three boys sang: \"Baby monkey you will not fall down we love you baby monkey x2 The monkey was thrown up and the boys couldn't allow it to fall down at all.\n\nAs the three boys played with the baby monkey, mother Monkey was watching them. She was scared that her baby would fall down and break as the boys were throwing it up .\n\nThe kind woman came and saw young boys playing with the baby monkey. She said politely to them, \"Be careful! Bring it here. You will break it!\"\n\nShe took the baby monkey in her arms, and blessed it in Jesus' name.\n\nWhen the woman put the baby monkey down, mother Monkey came running with a lot of joy. She held her baby to her chest and she disappeared up the tree."
+ },
+ {
+  "id": "edb46f59-2aba-469c-a23e-4ce28d3436aa",
+  "title": "The girl who played",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:01:46.259129+00:00",
+  "body_sha256": "1b5aac84970c37720982cbf607b334535f5e2c97f469086274ba78016105834c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 356,
+   "v_level": 2,
+   "cefr": "A1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0128_the-girl-who-played.md",
+     "year": null,
+     "author": "Annet Ssebaggala"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Maama Bela gave a letter to Nekesa. \"Take this letter to Jjaja Kolo\" Said maama Bela.\n\nNekesa put on her shoes. She put the letter in her small bag and ran off.\n\nShe met her friends who were playing netball. \"Am taking this letter to Jjaja Kolo. I like to enjoy netball for some minutes. I must join you now,\" said Nekesa. She played netball with friends.\n\nShe met an old man with her wife feeding the chicken. \"Am taking this letter to Jjaja Kolo, but it is fun to feed chicken, I must join you now\" Nekesa started to feed chicken.\n\nShe met friends who wanted to climb a hill. \"Am taking this letter to Jjaja Kolo, but I have never climbed any hill. I must join you now.\" She joined the group.\n\nShe met friends who were picking mangoes. \"Am taking this letter to Jjaja Kolo but i like picking mangoes. I must join you.\" She picked mangoes with friends.\n\nShe met friends who were swimming. \"Am taking this letter to Jjaja Kolo but i like swimming so much. I must join you now.\" She joined the swimming group.\n\nShe forgot about the letter. Some one played with the bag and dropped the letter on the grass. A group of cows came to the pool to drink water.\n\nA cow grabbed the letter and chewed it up. Nekesa did not see the cow.\n\n\"It is coming to midday. I must take Jjaja Kollo's letter\" She said. Nekesa picked her bag and checked inside it. The bag was empty.\n\nshe screamed and called for help. \"My friends help me I cant find Jjaja Kolo's letter. Who has picked it?\"\n\nHer friends tried to look for the letter but it was not found.\n\n\"Am now in danger. but let me go back home. but Maama Bela will punish me.\" She went home with one of her friend.\n\n\"Am sssssorry Maama Belah! I lost Jjaja Kolo's letter.\" Maama Belah asked her many questions. She knew that Nekesa played much and lost the letter. She gave her a small punishment and warned her never to do it again."
+ },
+ {
+  "id": "ee6e1b1e-80a0-45a4-aebe-1a55c66e7899",
+  "title": "My baby boy",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:01:37.96499+00:00",
+  "body_sha256": "465e9840288fce5f6313539c6c3f1b5fbb083f9b85e49fb12f271e67489c777e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 36,
+   "v_level": 1,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0093_my-baby-boy.md",
+     "year": null,
+     "author": "Cissy Namugerwa, Nanyonga Allen"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "My baby boy is John Francis.\n\nHe likes yellow bananas and apples.\n\nAfter taking his breakfast, he goes to play with a friend.\n\nA very short and brief story talks about a little boy John Francis."
+ },
+ {
+  "id": "eeeff7b6-77ff-49e8-af04-150d46fe75ff",
+  "title": "Serious accident",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:22.865991+00:00",
+  "body_sha256": "55d2e2fb3f6738e77522ba2fc08e12ad565c1c163a8fc073854675763052624a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 75,
+   "v_level": 2,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0285_serious-accident.md",
+     "year": null,
+     "author": "Zanele Buthelezi, Thembani Dladla, Clare Verbeek"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "One day my sister and I were walking near the road.\n\nA big truck was driving down the hill.\n\nA car was speeding up the hill.\n\nThe truck driver was talking on his cell phone. He was not looking at the road.\n\nThe truck smashed into the car!\n\nAn ambulance and the police came to help.\n\nTwo tow trucks came. One towed the truck. The other towed the car.\n\nWe saw everything. We were shocked."
+ },
+ {
+  "id": "ef93387c-c694-4b03-86a6-a0f59b8bb60f",
+  "title": "Monkey Eats his Own Tail",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:01:45.648644+00:00",
+  "body_sha256": "bcdb84d3bea77d251d969afb31aea1a95910a73ee95d828549e82e430baaf8c3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 148,
+   "v_level": 4,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0125_monkey-eats-his-own-tail.md",
+     "year": null,
+     "author": "Mozambican folktale"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "For a long time, Rabbit and Monkey were great friends.\n\nHowever, Rabbit was jealous of Monkey because of his long tail. One day they went for a walk.\n\nThey went to the shamba and ate maize.\n\nRabbit tricked Monkey to be trapped by the farmer.\n\nClever rabbit shouted, \"Robbers! Robbers!\" And ran away.\n\nThe monkey could not run fast because of his long tail.\n\nThe farmers shouted: Stop! Stop!\n\nThey caught him and started beating him.\n\nThe monkey revealed how his friend Rabbit invited him to the shamba.\n\nBut the owners did not want to listen. \"We will cut off your tail,\" they said.\n\nRabbit took Monkey's tail secretly and cooked it. Then he invited the Monkey for the meal.\n\nAfter the meal, the monkey said, \"The meat was delicious.\"\n\nRabbit smiled and said, \"It was your tail,\" and ran away. And from then on they became enemies!"
+ },
+ {
+  "id": "ef98bf1b-a68f-4022-8efb-f032552898e3",
+  "title": "A Dancer's Tale: The Story of Phyllis Spira",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:19.151074+00:00",
+  "body_sha256": "608dd05f4f6b4bdf7a8e1b02d53cb30e77487f75ec205b647d6f01d98c3815d6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 479,
+   "v_level": 2,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0267_a-dancers-tale-the-story-of-phyllis-spira.md",
+     "year": null,
+     "author": "Samantha Cutler"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Once upon a time, in Joburg's Orange Grove, a little girl called Phyllis was born into the world. Two people in love, hugged their sweet little babe. No-one knew then, what a dancer they'd made.\n\nBy the time she was four, she had learned very quick. She impressed all her teachers, with her ducky feet flicks! Before school and after, she danced everyday. Nothing pleased Phyllis, more than ballet.\n\nWhen the world was ready for Phyllis at fifteen, She arrived in big, old London, ready to live her dream. She said goodbye to all her friends. She was ready to start fresh. Watch out Royal Ballet School! Phyllis is here to impress.\n\nWhen Phyllis danced Swan Lake, it was fit to show the Queen! After years of pirouetting, she was ready to be seen. Dancing for the audience, she turned and twirled about. Look! Everyone is smiling! See how they clap and shout!\n\nFrom Mexico to Canada. From the USA to France. Phyllis travelled far and wide, so the world could see her dance. With the Royal Ballet Company, and her ballerina friends, she spread her love for ballet. She never wanted it to end.\n\nPhyllis always knew, that dance was in her heart. But she longed to return home again, and make a fresh new start. So she leaped and bounded, back to her beautiful land. Her ballerina roots were regrown. She was once more South African.\n\nDancing wasn't just for fun, as Phyllis always knew. She'd work at dancing day and night, and with hard work she grew. Always smiling, always trying, through good times and through tough, Phyllis always did her best. She couldn't get enough.\n\nRomeo and Juliet, Swan Lake and Giselle. Phyllis danced these for the people: graceful, tireless, well. With partners Gary Burne and Eduard Greyling too, her magnificence inspired the audience. To her, flowers they threw.\n\nReward comes easily, when you put yourself to the test. Phyllis came to realise this, once she was called 'The Best.' She was awarded 'Prima Ballerina Assoluta.' The greatest dancer of them all! Phyllis would be forever known. She wanted nothing more.\n\nGoodness! What a catch! Phyllis met her loving partner. His name was Phillip Boyd. He was another dancer. Together they were married. and together they would dance. No-one could be better matched, given half the chance!\n\nThough they had no children, Phyllis and Phillip were never sad. They two of them found another way to help other Mums and Dads. They started Dance For All, a special school for dance. So that children with no money, could also learn to prance!\n\nShe left a legacy of dance, and incredible success. Her magic was passed on to others to help them become their best. Her students spread across the world, inspired by her ducky feet. They dance on while we watch, dreaming from our seats."
+ },
+ {
+  "id": "efb844f3-698c-427f-b697-b46eeadfe700",
+  "title": "Refiloe and the washed chickens",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:03.930949+00:00",
+  "body_sha256": "16bf92db49a4bd77166fec2a9a1ad3dbc93412525d6e1cd099bffca5f9b296bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 1097,
+   "v_level": 3,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0202_refiloe-and-the-washed-chickens.md",
+     "year": null,
+     "author": "Marion Drew"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "It was the first wedding in the Tenane family, and Refiloe had never been so excited in her life. \"I'm going to be Palesa's bridesmaid, with a new dress and shoes!\" she said to her chickens. Refiloe told her chickens everything. Her father had given the chickens to her as a birthday present, and she loved them very much.\n\n\"Take those dirty scruffy chickens out of here Refiloe!\" shouted her mother, \"I don't want them anywhere near this wedding tent.\"\n\nRefiloe shooed her chickens out of the tent. \"Run away you silly things.\" she said, \"I don't want you to be eaten at Palesa's wedding!\"\n\n\"Mme says that this is going to be the best wedding ever seen in Malealea,\" Refiloe told her chickens, \"and she says that I can help all the older girls with the cooking.\" The chickens paid no attention to her. \"Refiloe!\" called her mother from inside, \"leave those chickens of yours and come and help me with these pots please!\"\n\nRefiloe's mother was very proud of her house, and wanted it to be perfect for the wedding. She cleaned and washed and scrubbed and scoured and polished everything in sight. When she had finished, there was not a single speck of dust anywhere. The chickens poked their heads inside the front door. \"Out!\" shouted Refiloe's mother, \"out you scruffy things with your dirty feet and beaks!\"\n\nRefiloe followed her chickens out into the yard. \"Mme is right, you are a disgrace,\" she scolded them So Refiloe thought for a while. Suddenly she smiled and said to herself, \"I have an excellent idea.\" She went and filled a bucket with water from the spring. Refiloe had a lot of trouble catching her chickens. They did not think that a bath was such a good idea.\n\nRefiloe put the first chicken into the bucket of water. It clucked at the top of its voice and flapped its wings like crazy. \"Hold still you silly thing,\" Refiloe shouted, \"this won't take long!\" When Refiloe wiped the chicken's nose and eyes it suddenly went limp and flopped over the side of the bucket.\n\n\"This is no time to sleep,\" said Refiloe. She gave it a good shake to get all the water out. \"If you are not going to wake up now, I'll have to put you somewhere to dry nicely,\" she said. She laid the chicken out on the grass to dry. The chicken lay completely still.\n\nRefiloe washed each and every one of her chickens. Each and every one of them went limp and floppy before she was finished with it. She put all those eight chickens in a row on the grass to dry. Not one of them moved a single feather. \"I'll leave them to sleep a little,\" Refiloe thought to herself, and off she went to check on the moroho.\n\nMme Ngwe and Mme Pedi were Refiloe's aunts. They did not like each other at all. The aunts had been preparing for months for Palesa's wedding, but they would not even think about riding together in the same taxi.\n\nMme Ngwe spotted Refiloe's chickens laid out to dry. \"What a nice little snack for me to take home!\" she said to herself. She took off her chale and carefully wrapped all those chickens up in it. Not a single chicken moved. \"Perfect!\" she smiled, \"now I shall put them somewhere where Mme Pedi will not ever find them,\" and she put the bundle around the corner among the pumpkin vines.\n\nMme Pedi decided to make her famous pumpkin dish. She took her big bowl and went off to the vegetable garden. In the vegetable garden she saw Mme Ngwe's bundle under the pumpkin vine. She undid the bundle. Out fell all eight chickens. \"Eish!\" she cried jumping back in surprise. \"Oh, you are the cleanest, prettiest chickens! Just ready for my pot,\" she crooned. \"Now, where shall I hide you my darlings?\" Mme Pedi chuckled, \"I'll have to find a very good place,\" she said walking round the house. \"I know,\" she said at last, \"I'll put you on the roof!\" Mme Pedi climbed up onto the garden wall and put the chickens in a row on the thatched roof.\n\nThe next day the sun rose in good time for the wedding. Refiloe was up first and went to see her chickens. She saw that they were no longer lying on the grass. \"They must be nicely dry by now. I'm sure they have gone to look for their breakfast,\" she said.\n\nPalesa's wedding was wonderful. Those chickens did not get up off the roof to join in when all the bridesmaid ladies danced into the yard. Not one of the chickens stirred when the church choir sang in their loudest, sweetest voices. The chickens were still lying on the roof when the priest gave his sermon. They did not even twitch a feather when the pigs and Refiloe's grandfather all snored loudly in the middle of the sermon. Not one foot of those chickens trembled when sheep wandered into the tent, nearly knocking over the wedding cake.\n\nIt was only when the groom's father was halfway through his speech that things started to change on that roof.\n\nThe first chicken spread its wings and flew onto Mme Ngwe's bosom. Mme Pedi next to her started giggling. Another chicken flew up onto Mme Ngwe's new duku. The people at the next table tried not to laugh. The lady next to Mme Ngwe put her head down onto the table, \"Ai, aai, aaaaii, he, he, heeeeeeee!\" she cackled. All the other chickens decided to join the first two. You couldn't see Mme Ngwe for all those chickens!\n\nThe guests screamed with laughter. The men had to hold onto their bellies. The women rolled around in their chairs. The boys and girls were hanging onto each other. The grandmothers could hardly breathe for laughing. The grandfathers stamped their walking sticks. Then the two aunts looked at each other and started giggling. Mme Pedi opened her mouth wide with laughter. Mme Ngwe threw back her head and laughed until all her chins shook. Refiloe couldn't believe it!\n\nAll the guests agreed that it was the best wedding entertainment ever known in Malealea. \"Oh you are so lucky!\" Refiloe said to her chickens as she put them into their coop for the night, \"Mme says that she will never put you in the supper pot.\" \"But look how dirty you are again,\" she told them, \"I think I'll have to give you another wash tomorrow!\""
+ },
+ {
+  "id": "f1a9dd1b-2d07-438f-88ad-71b925a344f9",
+  "title": "A King Finds a Husband for His Princess",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:17.183212+00:00",
+  "body_sha256": "117653300888c94be5e74d0d433ce7aad8e8722c63c3603c106b2b14556e8ad7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 465,
+   "v_level": 2,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0259_a-king-finds-a-husband-for-his-princess.md",
+     "year": null,
+     "author": "John Emongot"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Once upon a time, there lived a king called Opale with his beautiful queen. They had only one beautiful daughter.\n\nOne day, a king looked at his princess and said to his wife, \"I think our daughter is grown up now, we must find her a handsome man from the village.\"\n\n\"Who will marry my beautiful princess?, a king asked himself. He thought of a test for all men who will come expecting to marry his daughter. \"I am going to cook a pot full of water and any man who will drink this hot water will marry my lovely daughter.\" said the king.\n\nThe following day the king put up an announcement inviting all unmarried men in the village. Announcement!!! Announcement!!! To all young and unmarried men in the village,a king wants to find a handsome man for his beautiful daughter. Come, Come, Come all.\n\nOn hearing the announcement,all young men were very excited and every body got set for the day.\n\nOne of the young men told his father,I have had that the king has invited all young men to his palace,he wants to choose a husband for his daughter. Father,\"I must go and stand before the king,am very sure I will come back with the princess.\"\n\nAs usual,it was a proposed day,a queue of young and smartly dressed men was seen moving towards the palace. Every body was very happy.\n\n\"You are all most welcome\"said the king. Then the king began to address the crowd of young men,If any one drinks a pot of hot water all at once,he will be able to my lovely princess with him.\n\nThey were very many in that the interview could not be complete within a day. Most men tried their level best but they could not go with the princess.\n\nOn the following day,there came mr. Hare who had heard the announcement late. He was welcomed and given a seat.\n\nThe king told him,to take my daughter,one has got to drink a pot of hot water all at once. That is nothing to me,my lord,said mr Hare.\n\nMr. Hare was a very wise and tricky man,he started a very interesting story that took up the king's attention while the water was cooling.\n\nThe chiefs and the king were very happy saying, \"This is the man we wanted.\" In a few minutes,the hot water had cooled and mr. Hare drank it all at once.\n\nThe king and his chiefs were very surprised to see mr. Hare drinking the hot water.\n\nFinally mr. Hare took the beautiful princess with him and he was very happy but the king remained very sad because his daughter had gone with an animal."
+ },
+ {
+  "id": "f2a51779-250c-4771-923e-51ee22e3a5e6",
+  "title": "Two",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:19.949827+00:00",
+  "body_sha256": "972417b06af63e4f88d1dfb96b870affe26d54e5cf0b227f4582ac1e17678cd5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 26,
+   "v_level": 2,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY-NC",
+    "license": "CC-BY-NC",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0271_two.md",
+     "year": null,
+     "author": "Carole Bloch"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Two little hands to hold.\n\nTwo little feet to kick.\n\nTwo little eyes to see.\n\nTwo little ears to hear.\n\nAnd two loving arms to HUG!"
+ },
+ {
+  "id": "f40e86d0-51ad-4cf0-a0b2-e137e59153dd",
+  "title": "Antoni ke bo mang bale",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:35.478476+00:00",
+  "body_sha256": "e60e907979bc28310f280422cff0ee931232288a2b87339757a31cc9c69a796d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 25,
+   "v_level": null,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0341_antoni-ke-bo-mang-bale.md",
+     "year": null,
+     "author": "Traditional song"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Antoni, who is that? Antoni, that's Lettia Antoni, what is she doing? Antoni, she is skipping. One! Mamlenze mamlenze Two! Mamlenze mamleze Three! You're out!"
+ },
+ {
+  "id": "f5b0fe72-ae98-4d21-bb7c-11229277839e",
+  "title": "Musau saves his father",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:35.925058+00:00",
+  "body_sha256": "0a9d00316ea6561ed73e0834e8f7ebc162b88a0525f85c60df788dc42b9f7bd9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 333,
+   "v_level": 3,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0343_musau-saves-his-father.md",
+     "year": null,
+     "author": "Kanyiva Sandi"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Once upon a time, there was a small boy named Musau who lived with his father Syonzola.\n\nSyonzola stayed out drinking until very late every night and Musau hardly ever saw him.\n\nWhen Musau's father came home, he would scream, \"Villagers, villagers! Come and rescue me! I am being attacked by a hyena.\"\n\nOn hearing Syonzola's screams, the villagers would come with their arrows and spears and pangas, to rescue him. But they would find that he was drunk and just teasing them.\n\nMusau's father continued drinking and shouting for help late at night. The villagers continued going with arrows and spears and pangas to rescue him. But each time it was the same story. He would only be teasing them.\n\nEvery time Musau's father returned home late, Musau would be woken by the screams for help. Musau knew his father's voice very well. He would listen as Syonzola moved in the dark until he reached the door of their house.\n\nOne night, Syonzola came home drunk as usual. But this time, a hyena hid near the house. When Syonzola screamed, the hyena fiercely attacked him.\n\nSyonzola screamed so loudly. But the villagers said, \"We are tired of Syonzola's tricks.\" They turned over in their beds and went back to sleep.\n\nAs usual, Syonzola's screams woke up his son Musau. Musau listened for his father's steps as he always did. But his father did not seem to move closer to the house. Musau sat up and listened more keenly.\n\n\"My father is really in danger,\" Musau said. \"This time he is not teasing.\"\n\nMusau jumped up from his bed. He grabbed a smoldering log from the fire and rushed out of the hut.\n\n\"Father, father,\" he called. In the moonlight, Musau saw Syonzola struggling with an animal. He raised the burning log. When the hyena saw the fiery log, he ran away.\n\nAfter that, Syonzola never went out again to drink. Instead, he spent his days telling interesting stories to the school children."
+ },
+ {
+  "id": "f715658a-e072-4adf-91ee-099f28019956",
+  "title": "Porridge",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:01:44.722245+00:00",
+  "body_sha256": "5e632d2f98a05e58b18b8aa0853b050c023f13b43050e3f15c2e0b25698892f4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 85,
+   "v_level": 2,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0121_porridge.md",
+     "year": null,
+     "author": "Zimbili Dlamini, Hlengiwe Zondi"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Zama is getting ready for school.\n\nDad is cooking porridge for breakfast.\n\n\"Mom makes the best porridge!\" says Zama.\n\nPorridge gives Zama energy for school.\n\nThe porridge is ready.\n\nDad pours the milk, with love.\n\n\"Dad, I think this porridge needs more sugar,\" says Zama.\n\n\"Mom's porridge tastes much better than Dad's porridge,\" thinks Zama.\n\n\"Dad, please can I have more sugar?\" asks Zama.\n\nDad gives Zama more sugar.\n\n\"Wu! Dad! You put salt on my porridge!\"\n\n\"Dad, when will Mom be home?\" asks Zama."
+ },
+ {
+  "id": "f8758dbd-6476-491d-a08d-e7b2fcc158cf",
+  "title": "Goat, the false king",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:06.056303+00:00",
+  "body_sha256": "ef5a79342d15aa2fbac071f73ef9c5622c223e8a7a5ca2bf334ccc36915d4e47",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 567,
+   "v_level": 2,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0211_goat-the-false-king.md",
+     "year": null,
+     "author": "Alice Nakasango"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Once upon a time, there was a goat called Igodhoobe. Igodhoobe the goat was the king of farm animals and birds. He lived a good life. One day, Igodhoobe the goat called all the animals and birds to a meeting.\n\n\"My friends, I have called you because I had a dream,\" said Igodhoobe the king. All the animals and birds kept quiet. They listened to their king carefully.\n\n\"I dreamed that there was no food or water left in the land. Many of our relatives died!\" said Igodhoobe the king. When the animals and the birds heard the dream, they were worried. \"What shall we do?\" asked the cat.\n\nThe hen and the duck had an idea. They said, \"Let each one of us bring food and put it in the king's store.\" All the animals agreed with this idea.\n\nIgodhoobe the king made a rule. He said, \"Get ropes. Tie up anyone who does not bring food to my store. Then carry him to me.\"\n\nSoon after this, it was time for a new king to rule over the farm. All the animals and birds met and elected the cat as their new king.\n\nBut Igodhoobe the goat refused to agree that the cat was king. \"I'm the king. There is no other king. I can't obey any other animal,\" said Igodhoobe the goat.\n\nThe animals took food to the new king's store. But Igodhoobe the goat did not take anything. \"When Igodhoobe the goat was king, we all obeyed him. Now he does not want to obey our new king. What shall we do to him?\" asked the cow.\n\nAll the domestic animals and birds were angry. \"He thinks he is different to us,\" they all muttered.\n\nThe dog said, \"I helped him when he was king. I did not sleep at night. I was always with him, ready to help.\"\n\nThe sheep said, \"I gave him my wool to cover his children.\"\n\nThe pig said, \"When he was king, he told his friends that I eat a lot. But I was often in his garden digging and weeding his maize and millet.\"\n\nThe sheep asked, \"What did he say? That you eat a lot? Did he think that he will be king forever?\" Then the sheep added, \"Let him understand that he is not king any more. I don't know why he thinks he is so important.\"\n\nAll the animals laughed and agreed that Igodhoobe the goat must take food to the new king. King Cat ordered Igodhoobe to come to him.\n\nWhen the animals went to fetch Igodhoobe the goat, he was sitting on a chair with his legs crossed. The cow told Igodhoobe what the new king said. \"I shall not go to the cat. There is no other king except me. When you become a king, you are always a king,\" replied Igodhoobe the goat.\n\n\"We will tie you with ropes and take you to the new king,\" said the sheep.\n\nSo the cow tied Igodhoobe the goat to her tail. She then pulled Igodhoobe to the king. The sheep, the duck, the dog, the pig, and the cock cheered as the cow pulled the goat. They all shouted together, \"Take this stubborn goat to our new king!\"\n\nFrom that time, every goat refuses to move when it is pulled. It thinks that you are taking it to the king's court."
+ },
+ {
+  "id": "f9e3d993-362e-48d9-80fe-dcfe7661fa54",
+  "title": "Chicken and Millipede",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:01:49.341266+00:00",
+  "body_sha256": "dfd9f288c231f2ad90ebff145c0e36526ccf3889da429877de8f2c3f61e5ff67",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 268,
+   "v_level": 3,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0141_chicken-and-millipede.md",
+     "year": null,
+     "author": "Winny Asara"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Chicken and Millipede were friends. But they were always competing with each other. One day they decided to play football to see who the best player was.\n\nThey went to the football field and started their game. Chicken was fast, but Millipede was faster. Chicken kicked far, but Millipede kicked further. Chicken started to feel grumpy.\n\nThey decided to play a penalty shoot-out. First Millipede was goal keeper. Chicken scored only one goal. Then it was the chicken's turn to defend the goal.\n\nMillipede kicked the ball and scored. Millipede dribbled the ball and scored. Millipede headed the ball and scored. Millipede scored five goals.\n\nChicken was furious that she lost. She was a very bad loser. Millipede started laughing because his friend was making such a fuss.\n\nChicken was so angry that she opened her beak wide and swallowed the millipede.\n\nAs Chicken was walking home, she met Mother Millipede. Mother Millipede asked, \"Have you seen my child?\" Chicken didn't say anything. Mother Millipede was worried.\n\nThen Mother Millipede heard a tiny voice. \"Help me mom!\" cried the voice. Mother Millipede looked around and listened carefully. The voice came from inside the chicken.\n\nMother Millipede shouted, \"Use your special power my child!\" Millipedes can make a bad smell and a terrible taste. Chicken began to feel ill.\n\nChicken burped. Then she swallowed and spat. Then she sneezed and coughed. And coughed. The millipede was disgusting!\n\nChicken coughed until she coughed out the millipede that was in her stomach. Mother Millipede and her child crawled up a tree to hide.\n\nFrom that time, chickens and millipedes were enemies."
+ },
+ {
+  "id": "fb06f355-8451-4b21-be46-8c3fe7128c39",
+  "title": "Sunday at the park",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:01:58.702902+00:00",
+  "body_sha256": "fd81f13616a8adf281b5e78c251bba4b84fc65d327befedd3953576269ea2bda",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 168,
+   "v_level": 3,
+   "cefr": "A2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0181_sunday-at-the-park.md",
+     "year": null,
+     "author": "Neo"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "We are in Cape Town on holiday. We are excited because Mom and Dad are taking us to the park next to the sea.\n\nLook at the tall slide. Am I brave enough to climb up and slide down?\n\nMy sister and I want to play on the see saw. I wonder which one of us is heaviest?\n\nMom and Dad need to push us when we want to swing. I am going to try to swing the highest.\n\nLook at these white horses. They are statues.\n\nWe read the sign which shows us what fun we can have with the horses.\n\nWe visit the lighthouse. Mom and Dad say it is very old.\n\nLighthouses are important at night and in the fog. They alert ships to the rocks in the sea.\n\nWe have had a happy time at the park, but now it is home time. We are going to catch a bus.\n\nThank you Mom and Dad for our treat. We are tired but very happy!"
+ },
+ {
+  "id": "fc58f419-45b7-4755-a98c-43cd92a3c4db",
+  "title": "Silkworm",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:28.413743+00:00",
+  "body_sha256": "d30028928406a106937cdb0a191d1ecfb830d005776d2e38d10d5ac9f15b172a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 56,
+   "v_level": 6,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY-NC",
+    "license": "CC-BY-NC",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0310_silkworm.md",
+     "year": null,
+     "author": "Clare Verbeek, Thembani Dladla, Zanele Buthelezi"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The worms laid small eggs on the leaves.\n\nWe fed them mulberry leaves.\n\nThey grew bigger and became fatter.\n\nThe larvae made silk cocoons.\n\nInside the cocoons, the worms turned into pupae.\n\nSome people breed silkworms for a certain purpose.\n\nIn China they keep thousands of kinds of silkworms.\n\nThey make silk cloths using their cocoons."
+ },
+ {
+  "id": "fcf47ac3-6cb5-4739-a74b-03a63b6469e9",
+  "title": "Pendo our cow",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:12.231461+00:00",
+  "body_sha256": "df0966fdaf3b5fdd956bf05414696eb4668794e16d92e60f1accb2332b613de7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 58,
+   "v_level": 2,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0240_pendo-our-cow.md",
+     "year": null,
+     "author": "Ruth Odondi"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "This is Ndalo.\n\nNdalo likes to read books.\n\nThis is Pendo.\n\nPendo likes to eat carrots.\n\nNdalo grazes Pendo after school.\n\nHe gives fresh water to Pendo.\n\nFather gives grain to Pendo.\n\nHe milks Pendo every day.\n\nPendo gives a lot of milk.\n\nFather sells Pendo's milk.\n\nNdalo drinks fresh milk every day.\n\nHe says, \"Thank you Pendo!\""
+ },
+ {
+  "id": "ff162527-7269-458d-ad56-4cf2e1fc3c1f",
+  "title": "Akatope",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T04:02:04.412013+00:00",
+  "body_sha256": "3ffa467a2c1addeb7af626be6f9ef34aec484f6134677d78a3a84a54a098375a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 281,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0204_akatope.md",
+     "year": null,
+     "author": "Alice Kapolondo"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "Once upon a time there lived an elderly woman who always wanted a child.\n\nThe woman took the best clay soil she could find and started to make a girl.\n\nThe girl who was made of mud then turned into a real human girl.\n\nThe elderly woman was very happy. She named the girl Akatope. She loved Akatope very much.\n\nAkatope was warned by her elderly mother not to come out of the hut but she would not listen. Whenever her mother was not aware, Akatope would sneak out to play with the other children.\n\nOne day as Akatope was out playing with the other children, it began to rain hard.\n\nThe other children ran to their huts but as Akatope ran to hers, her legs started to dissolve. She hunched over and sat down between bushes.\n\nThe other children told their parents what had happened to Akatope. They were very sad and shocked.\n\nWhen the elderly woman heard what had happened to her only child, she cried for many days. The villagers who visited her, decided to bring another little girl who had been orphaned to take the place of Akatope.\n\nBut that was not necessary. A big surprise awaited the elderly woman!\n\nFew days after the orphan girl had been welcomed to the elderly woman's home, there was a gentle knock on the door.\n\n\"Who could that be,\" the elderly woman wondered. When she opened the door, she could not contain her joy.\n\nAkatope had come home. But she was tired and sick.\n\nAkatope's elderly mother sold everything she owned. She used the money to treat Akatope. Akatope grew up to be the most beautiful girl in the village."
+ },
+ {
+  "id": "ff38282d-f0cf-4c0e-b995-0fbe9cc69276",
+  "title": "The Animals of Uganda",
+  "source": "global_storybooks",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T03:34:48.442581+00:00",
+  "body_sha256": "70fd9121524a1ed937f163538dc6471cceba199be7b211fac68cf75a04aa217f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 246,
+   "v_level": 3,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 4.0",
+    "evidence": "page",
+    "attribution": {
+     "url": "https://github.com/global-asp/asp-source/blob/master/en/0010_the-animals-of-uganda.md",
+     "year": null,
+     "author": "Wendy Parry"
+    },
+    "needsResolution": false
+   }
+  },
+  "content": "This is the giraffe. It has a very long neck. It eats leaves from tall trees. What colour is the giraffe?\n\nThis is the elephant. The males have white tusks. They have large ears. Elephants have long trunks that they use to pick leaves off the tall trees. Elephants eat grasses and leaves. What colour is the elephant?\n\nThis is the crocodile. It lives in the rivers and lakes. It has a long tail. It can open its wide mouth to eat fish and other animals. What colour is the crocodile?\n\nThis is the lion. He has big teeth which he uses to catch his food. The male lions have a mane.Where is the mane on this lion?\n\nThis is the crested crane. It is the symbol of Uganda. It has long legs and a crown. What colour is the crested crane?\n\nThis is the water buffalo. It eats grasses and lives near rivers and lakes. What are the things on the top of its head called?\n\nThese animals are called zebras. They have black and white strips. What other animals look like a zebra?\n\nHere are two different animals. Here is a mother warthog with her babies. Warthogs have tusks too. Which animal looks like the warthog? The other animal is the cob. It eats grasses. What colour is the cob?\n\nWhat are these two animal friends? Where do they live? Which one would you eat?\n\nFirst paragraph story about animals found in Uganda"
+ }
+]
