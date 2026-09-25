@@ -27,6 +27,13 @@ let storage: Awaited<ReturnType<Awaited<ReturnType<Browser['newContext']>>['stor
 test.describe.configure({ mode: 'serial' })
 test.setTimeout(180_000)
 
+test.afterAll(async ({ browser }) => {
+  // 게이트 확정이 공유 검증 계정의 서버 기록에 남는다 — 다음 실행이 「이미 확정」으로 열리지 않게 지운다
+  const ctx = await browser.newContext({ storageState: storage })
+  await ctx.request.delete('/api/csat/state')
+  await ctx.close()
+})
+
 test.beforeAll(async ({ browser }) => {
   fs.mkdirSync(SHOTS, { recursive: true })
   const ctx = await browser.newContext()
@@ -85,12 +92,24 @@ test.describe('재설계 뒤에만', () => {
     await page.keyboard.press('ArrowRight')
     await expect(cards.nth(3)).toHaveAttribute('aria-current', 'step')
 
-    // 근거 표시 — 지도의 앵커 칩
+    // 공개 게이트 — 확정 전에는 정답·근거가 없고 상영이 막힌다
+    const gate = page.getByTestId('predict-gate')
+    await expect(gate).toBeVisible()
+    await expect(page.getByRole('button', { name: /답이 왜/ })).toHaveCount(0)
+    await expect(page.getByText(/^정답 [①②③④⑤]$/)).toHaveCount(0)
+    await expect(page.getByRole('button', { name: '예측 후 상영' })).toBeDisabled()
+    await page.screenshot({ path: path.join(SHOTS, 'after-gate-before-1440.png') })
+    // 예측을 확정한다
+    await gate.getByRole('button', { name: '1번째 문장' }).click()
+    await gate.getByRole('button', { name: '1번 선지' }).click()
+    await gate.getByRole('button', { name: '확실' }).click()
+    await gate.getByRole('button', { name: '확정하고 대조하기' }).click()
+    await expect(page.getByTestId('gate-diff')).toBeVisible()
+    // 근거 표시 — 확정 뒤 지도의 앵커 칩
     const anchor = page.getByRole('button', { name: /답이 왜/ }).first()
-    if (await anchor.count()) {
-      await anchor.click()
-      await expect(page.getByText('정답 근거').first()).toBeVisible()
-    }
+    await anchor.click()
+    await expect(page.getByText('정답 근거').first()).toBeVisible()
+    await page.screenshot({ path: path.join(SHOTS, 'after-gate-revealed-1440.png') })
 
     // 탭 전환
     const tabs = page.getByRole('navigation', { name: '보기' })

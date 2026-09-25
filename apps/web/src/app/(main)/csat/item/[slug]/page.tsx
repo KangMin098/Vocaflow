@@ -124,6 +124,11 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       typeHref={item.type_id ? `/csat/browse?type=${encodeURIComponent(item.type_id)}` : null}
       next={nextPick ? { href: `/csat/item/${nextPick.item.slug}`, label: `${nextPick.item.exam_label} ${nextPick.item.no}번` } : null}
       paper={{ catalog: paperCatalog, examId, no: item.no }}
+      gate={{
+        answer: item.answer != null && !item.answer_unknown ? item.answer : null,
+        evidence: skeleton?.anchors.find((x) => x.id === 'answer')?.sentences ?? [],
+      }}
+      typeId={item.type_id ?? ''}
       source={{ url: paper.paperUrl ?? paper.listUrl, direct: paper.paperUrl != null, reason: paper.reason }}
       siblings={siblings
         .slice()
