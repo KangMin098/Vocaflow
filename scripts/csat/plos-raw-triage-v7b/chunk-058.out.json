@@ -1,0 +1,850 @@
+[
+ {
+  "id": "2f05c455-de9b-4249-8504-f08a39109134",
+  "source_updated_at": "2026-09-25T07:13:37.744657+00:00",
+  "body_sha256": "6aa1a80e38ed5fa3bad29606ef252c16a44c8b68989672969d2d81e5764207c3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "차나무 8계통의 침수 스트레스와 회복기 반응을 서론-고찰로 잇고, 고찰의 「형태 변화」 절이 논지 있는 발췌 단위가 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Plants undergo various morphological changes under",
+   "note": "계통 코드(V7·P/AFN/13/90)를 「한 품종」으로 바꾸면 서고, 수치를 걷어도 침수-손상-회복 논지가 남는다."
+  }
+ },
+ {
+  "id": "2f0ce7a1-114e-48a0-9949-41716d6d4792",
+  "source_updated_at": "2026-09-25T07:13:39.195795+00:00",
+  "body_sha256": "cb44010684f09282fcfd00c8e9a4fa650850515f81f1bb45044eb885eddde734",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "당사슬 분석법 세 가지를 수율·인공산물·간편성 기준으로 비교해 하나를 고르는 판단 과정이 글로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Due to their sensitivity to environmental",
+   "note": "서론의 「생체표지자」 단락은 떼어지나, 시약·기기명이 촘촘해 목표 밴드까지 낮추기는 어렵다."
+  }
+ },
+ {
+  "id": "2f0dcb44-4c48-4894-9c96-92d650796655",
+  "source_updated_at": "2026-09-25T07:13:42.251937+00:00",
+  "body_sha256": "a8c5cef569b3c6fa6f5f817d1290cb4fcc0e6dffaa373c3b619da152104f1e1c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "신장 여과 압력이 높아질 때 효소 활성이 어떻게 달라지는지를 가설-실험-해석 순서로 이어 간다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The renin–angiotensin system is a key",
+   "note": "서론 첫 단락은 자족적이나 효소 약어가 한 문장에 여럿이라 치환 여지가 좁다."
+  }
+ },
+ {
+  "id": "2f18a64c-2802-4b12-b300-5135da3b303e",
+  "source_updated_at": "2026-09-15T14:44:42.040389+00:00",
+  "body_sha256": "8d920f746c84f6c7bafa53c9fe604362bc2bdc1b456976674759734559cb2e8a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "역도 선수의 허리 통증을 근막 두께가 아니라 뻣뻣함으로 설명하며 통념을 뒤집는 구조를 갖췄다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Fascial stiffness may arise from multiple",
+   "note": "「thoracolumbar fascia」를 「허리 근막」으로 풀면 서고, 통계값을 걷어도 주장-근거가 남는다."
+  }
+ },
+ {
+  "id": "2f201e10-7424-4b9c-8c51-3c1f404aead3",
+  "source_updated_at": "2026-09-25T07:13:45.265995+00:00",
+  "body_sha256": "67838a45dc7cd6897df28b1f968fb7e60237139028f982d2b4d9c070ee930c03",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "초파리 표피 색소 형성에 Hippo 신호가 관여한다는 새 발견을 근거를 쌓아 가며 논증한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "During development, cuticle pigmentation is regulated",
+   "note": "고찰 앞부분은 떼어지지만 유전자 약칭이 문장마다 들어 있어 어휘 조정 폭이 작다."
+  }
+ },
+ {
+  "id": "2f3b3ac7-423c-4bd5-89a6-ac01f2bcc518",
+  "source_updated_at": "2026-09-13T05:58:59.249068+00:00",
+  "body_sha256": "e8b142012f916c3c00689cc613cbbd9d525eb3384c7ad2c35874d6c73f597d5f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "말레이시아 약용식물 네 종을 같은 조건에서 견주어 한 종을 고르는 비교 설계가 글의 뼈대다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chemical antioxidant assays are useful for",
+   "note": "「ABTS·DPPH·ORAC」를 「세 가지 항산화 측정법」으로 묶으면 논지가 그대로 선다."
+  }
+ },
+ {
+  "id": "2f434545-d877-4768-b157-f3f34410f6c7",
+  "source_updated_at": "2026-09-25T07:13:51.727204+00:00",
+  "body_sha256": "2a4e746f8151c7e52e1cee8e3869f9ac2cac0aef5828d529f9dc43c754c0f10b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "가봉에서 HIV 감염인과 비감염인의 말라리아 양상을 견주어 중증화 요인을 짚는 흐름이 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In sub-Saharan Africa, malaria and HIV",
+   "note": "서론은 지시어 없이 시작하고, 약어(CTX·ART)를 풀어 쓰면 중등 상위 밴드까지 내려간다."
+  }
+ },
+ {
+  "id": "2f4fd264-8ec9-4be0-a285-4d437f02e9d0",
+  "source_updated_at": "2026-09-13T07:01:33.389111+00:00",
+  "body_sha256": "69ca7d43b3907e6567ac088cba474ff56c98c40afa89c4f090746c4f9af75197",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "science",
+  "why": "서론과 고찰은 논지가 서지만 본문 한가운데 결합부위 수치표와 그림 설명이 통째로 섞여 들어와 발췌 단위를 가르기 어렵다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Quorum sensing is a process of",
+   "note": "표와 그림 설명이 문단 사이에 끼어 있어, 떼어 낸 뒤 어디까지가 본문인지 기계로 가르기 어려웠다."
+  }
+ },
+ {
+  "id": "2f512186-e838-4f90-a5e6-a257e353c3d0",
+  "source_updated_at": "2026-09-23T21:04:40.643954+00:00",
+  "body_sha256": "023764ba5ce9468d33c06e3bd545c1addb82663772cc6f6b6b70a897f3ee7353",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "조류 바이러스 유전체의 일곱 자리에 외래 유전자를 넣어 보고 한 자리를 고르는 비교가 글로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Optimizing the insertion site of exogenous",
+   "note": "유전자 기호(P-M·EGFP)를 「앞뒤 두 유전자 사이」로 바꾸면 자리 고르기 논지가 그대로 남는다."
+  }
+ },
+ {
+  "id": "2f519b6c-1d40-4d62-85e7-d5a9078eca3c",
+  "source_updated_at": "2026-09-13T07:37:54.618772+00:00",
+  "body_sha256": "9a58ed29e88295c9929da81274fe2d794acc6aff861b4a1cfba3eecfbb1566e1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "참전군인 코호트에서 흡연·흉통·젊은 나이가 외상후스트레스와 이어진다는 결과를 해석과 한계까지 잇는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This study shows that younger age",
+   "note": "위험비 수치를 걷어도 「왜 젊은 층에서 더 많은가」라는 물음과 답이 남는다."
+  }
+ },
+ {
+  "id": "2f5b2b5b-ad6d-4e0b-94c2-d66c16d3b2bc",
+  "source_updated_at": "2026-09-13T06:42:14.875287+00:00",
+  "body_sha256": "0b51a87828bc97c2121f5e664b3b8d98f04ff4c456088c77d834b200a456f5b6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "무지개송어 근육 줄기세포의 이동과 재생 과정을 시기별로 따라가는 서술이 순서대로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Skeletal muscle consists of multinucleated cells",
+   "note": "서론 첫 단락은 떼어져 서지만 유전자명과 기법명이 많아 밴드를 낮추기 어렵다."
+  }
+ },
+ {
+  "id": "2f65a005-44d8-4d3a-bab0-e96fbdf381b1",
+  "source_updated_at": "2026-09-13T07:29:18.114434+00:00",
+  "body_sha256": "a5ca9611eaa5ed6d43626ead1dbb933e3b075ef0457d72909aa57aa88b17e6a1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "집단 비교 대신 개인별 신호 복잡도로 자폐 뇌를 보겠다는 문제 제기와 해법이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One of the flaws of the",
+   "note": "프랙털 차원의 수식을 빼고 「신호가 얼마나 복잡한가」로 풀면 도입 논지가 그대로 선다."
+  }
+ },
+ {
+  "id": "2f803dd2-e8b0-4970-a891-1fec33a3aada",
+  "source_updated_at": "2026-09-25T07:14:17.373961+00:00",
+  "body_sha256": "14fe9c4dc13c2b549226dea5f27b659a31aa4139349a19b77acd8273d4db76ac",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "간 손상 없이 근감소증을 만드는 쥐 모델을 세우는 과정과 그 근거가 서론-고찰로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sarcopenia is a muscle failure with",
+   "note": "「hyperammonemia」를 「혈중 암모니아 증가」로 풀면 근감소증-암모니아 연결이 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "2f864b4b-94b7-476c-a807-d3c9da3cec3a",
+  "source_updated_at": "2026-09-13T06:51:19.639734+00:00",
+  "body_sha256": "279341e9c595613d1a09e60c421131c012ac033dc56ec587e6a096de021a471d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "울림이 있는 방에서 화자 인식이 왜 어려워지는지와 특징 왜곡으로 신원을 가리는 방법을 차례로 설명한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Speech signals serve as a powerful",
+   "note": "1·2절과 결론은 수식 없이 서고, 「cepstral coefficients」를 「음성 특징값」으로 바꾸면 내려간다."
+  }
+ },
+ {
+  "id": "2f89bc73-0eb5-496a-993a-8f34cb4517dd",
+  "source_updated_at": "2026-09-13T07:10:09.814026+00:00",
+  "body_sha256": "57febe6430fa2b8a83fd95cc3e41a7dde1576e2afabcdc372f839841a130615f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기존 약 2천 종을 훑어 한 후보를 골라 세포와 생쥐로 검증하는 과정이 한 편의 논증으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Repurposing clinically evaluated drugs can potentially",
+   "note": "서론의 「약물 재창출」 단락은 자족적이고, 세포주 이름을 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "2f8d5591-b3ef-4038-8d6d-3d9b68ee7421",
+  "source_updated_at": "2026-09-25T07:14:21.570155+00:00",
+  "body_sha256": "a02a1c7ab53b4e00b89466b6c455a5f0dce72987de7d881633bc5237ab18cf2d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "말라리아 원충의 세균형 효소가 미토콘드리아 기능과 간 시기 성숙에 필요하다는 주장을 단계별 근거로 받친다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The development and division of Plasmodium",
+   "note": "지질 약어(CL·PG·PE)가 문장마다 나와, 떼어 내도 용어 설명 없이는 밴드가 내려가지 않는다."
+  }
+ },
+ {
+  "id": "2f9754ea-c7b8-4705-bd71-9d8ad1af5644",
+  "source_updated_at": "2026-09-25T07:14:27.226303+00:00",
+  "body_sha256": "38e7cbb34f2a15338ee0b04507eacb902763427a1f4a2a39c3e0db7dce78441c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "뎅기 혈청형끼리 누가 더 잘 자라는지 재는 경쟁 실험을 왜 만들었는지와 한계를 함께 적는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "For RNA viruses, an approximation to",
+   "note": "고찰의 「혈청형 교체」 단락은 시약명이 없어 떼어 내기 쉽고 어휘 조정 여지가 넓다."
+  }
+ },
+ {
+  "id": "2f9c2861-0fdc-49db-9bb6-b473ded274a5",
+  "source_updated_at": "2026-09-13T07:31:08.448045+00:00",
+  "body_sha256": "e6579b9851c011f7b4bb186e3547d2669039002eadf8d76949eeb2ed5237e3ef",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "알츠하이머 생쥐의 척수에서 얼룩보다 먼저 나타나는 실 모양 침착을 발견하고 그 뜻을 따져 간다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Most studies have traditionally focused on",
+   "note": "「beta amyloid threads」를 「실 모양 침착」으로 옮기면 「먼저 생긴다」는 논지가 그대로 선다."
+  }
+ },
+ {
+  "id": "2fa1ab2a-ecba-4218-9950-fd5f974f2ce2",
+  "source_updated_at": "2026-09-15T14:44:54.502239+00:00",
+  "body_sha256": "9ae0b948e1cc1319760556aa3f4e0e0d437bd417b9fff259f4bc259b3b99dde5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항생제가 듣지 않게 된 임질균에 맞설 융합 단백질을 설계하고 동물에서 확인하는 흐름이 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Neisseria gonorrhoeae has become resistant to",
+   "note": "서론의 내성 확산 단락은 약어 없이도 서고, 「complement」를 「면역 보체」로 풀면 내려간다."
+  }
+ },
+ {
+  "id": "2facef3a-7b46-4085-8708-0517bb569c8f",
+  "source_updated_at": "2026-09-25T07:14:30.777725+00:00",
+  "body_sha256": "a24527d668b847f7826e6244ee00849c72e23fc5f45735fe6460afe52d34230e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "효소였던 단백질 구조가 결합 도메인으로 바뀐 경위를 진화 관점에서 묻고 답하는 구성을 갖췄다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Acquisition of new protein functions is",
+   "note": "서론 첫 단락은 유전자 기호 없이 서고, 「neofunctionalization」만 풀면 논지가 읽힌다."
+  }
+ }
+]

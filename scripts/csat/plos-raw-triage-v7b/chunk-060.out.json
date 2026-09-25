@@ -1,0 +1,876 @@
+[
+  {
+    "id": "3060c013-3377-47b0-8d20-0a9d2575dffd",
+    "source_updated_at": "2026-09-25T07:30:34.020428+00:00",
+    "body_sha256": "398620e58c1ccc8bb7f4b3b699cb5e512c7bb8ef07f38619ca5c68c29652326b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 줄기세포 노화와 클론 다양성 감소 문단이 질문 두 개로 논지를 세워 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Aging, an inevitable biological process, is",
+      "note": "생물 종명·약어를 걷고 attrition 등 두세 낱말을 바꾸면 노화와 줄기세포 관계 논지가 선다."
+    }
+  },
+  {
+    "id": "30618f6e-8e18-457f-ba1b-2dc66ccb5c46",
+    "source_updated_at": "2026-09-25T07:30:34.38679+00:00",
+    "body_sha256": "3e1913750f745317d33ef8e80133bc44e1bc9854e6461cdea56ad3a1213fccb9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 혈관·신장·마그네슘 세 기전 문단이 순서가 뚜렷해 순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three interconnected mechanisms may explain the",
+      "note": "수치를 걷고 hyperparathyroidism 류 용어를 풀면 First·Second·Third 흐름이 그대로 남는다."
+    }
+  },
+  {
+    "id": "306916e8-d786-4055-ad66-6d7469eaa4ac",
+    "source_updated_at": "2026-09-13T06:40:42.982722+00:00",
+    "body_sha256": "2c7a9fc768b101b214038be5d0119384677b4013e3827a4612071824d104b0cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 식물 추출물 기반 나노입자 합성 장점 문단이 비교 논지를 세워 주제·요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nanoparticles can be synthesized by chemical,",
+      "note": "인용 번호와 생물명을 걷고 phytochemicals 등을 쉬운 말로 바꾸면 물리·화학법 대비 장점 논지가 선다."
+    }
+  },
+  {
+    "id": "306d627f-2611-4af8-bfcd-30eaf2646595",
+    "source_updated_at": "2026-09-15T14:45:17.75409+00:00",
+    "body_sha256": "a693824e516fec376fb089b0acff72111eac7c724f6679a2ade92be17f64736f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "다중 수용체 체계의 의의를 묻는 문답 절이 적응성 논지를 세워 주제·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In contrast to a single-receptor system",
+      "note": "수용체 약어를 「수용체 하나/여럿」으로 바꾸면 면역 회피 논지가 자족적으로 선다."
+    }
+  },
+  {
+    "id": "30702b9c-f595-433a-8d9d-2ec73dac9723",
+    "source_updated_at": "2026-09-13T07:16:49.188765+00:00",
+    "body_sha256": "8d7dfa3c8e620da056bf6bdb112d9644860e79071b41c4c0f134c4910f952b1c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 사슴 교잡과 녹용 위조 문제 문단이 필요성 논지를 세워 목적·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "purpose",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Deer across Asia, Europe, and Oceania",
+      "note": "학명을 걷고 heterotic·adulteration을 쉬운 말로 바꾸면 교잡-위조-추적 필요 흐름이 선다."
+    }
+  },
+  {
+    "id": "307a694f-9886-4c5a-a83c-97eea08bd8fc",
+    "source_updated_at": "2026-09-25T07:30:36.488563+00:00",
+    "body_sha256": "bee543563859408e7d7d9c3655cd55a9d407e3327deb9b5189e366e089943c1c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 다낭성 난소 증후군 배란 실패 두 단계 설명 문단이 인과 흐름을 갖춰 순서·빈칸 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "blank",
+        "summary",
+        "topic"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The mechanism of ovulatory failure in",
+      "note": "LH·FSH 약어를 풀어 쓰면 가속-정지 두 단계 논지가 서나 전문 용어 밀도가 높다."
+    }
+  },
+  {
+    "id": "308947ad-c04b-4498-a099-1a7b436a7b41",
+    "source_updated_at": "2026-09-25T07:30:37.524374+00:00",
+    "body_sha256": "6c0ae22e5be2da87604117c4bf9fcbb0c0612f8ff583cc7056b790f4968560df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "서론과 고찰의 동물원 코끼리 집단 폐사·쥐 매개 전파 서술이 사건 흐름과 두 가설을 갖춰 여러 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "claim",
+        "content_match",
+        "long_reference"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Based on these surveillance results, two",
+      "note": "종명·분리주 번호를 걷고 reservoir·encroach를 풀면 토종 쥐 대 외래 쥐 두 가설이 선다."
+    }
+  },
+  {
+    "id": "3091ab09-3701-4e94-b556-c11ce4f32799",
+    "source_updated_at": "2026-09-13T07:35:21.70209+00:00",
+    "body_sha256": "002be69ac4aef5e0042c942ab6c3b36464422e8aeb52be6d63845f6b6806bde5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 옥시토신 결손과 비만·자폐 연결 문단이 논지를 세워 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "OXT is emerging as a key",
+      "note": "유전자 기호를 「이 유전자」로 바꾸고 hyperphagic을 풀면 공통 경로 논지가 선다."
+    }
+  },
+  {
+    "id": "3092dcdc-fe3a-4a90-9154-afc82767054c",
+    "source_updated_at": "2026-09-13T07:06:18.381651+00:00",
+    "body_sha256": "07f927f1f343b7e02432c2fa4e18e02cc78bf97024172cef48c8dc97179cc818",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "서론의 실험실·회상 설문 방식 한계와 일상 반복측정 필요 논증이 뚜렷해 주장·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Attempting to capture the dynamic interplay",
+      "note": "세 가정 (i)~(iii)을 문장으로 풀고 stationarity를 바꾸면 한 편의 논증으로 선다."
+    }
+  },
+  {
+    "id": "309dccd2-7cbd-4be7-b9cd-ad36cd568bcc",
+    "source_updated_at": "2026-09-13T06:48:42.509096+00:00",
+    "body_sha256": "fb0fc33ba3fcffe8e765c240c958ef2622200ac5e01b1e3bf6a07bb382a9ba8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "서론의 이탄지 탄소 저장과 사고야자 숲 훼손 문단이 논지를 세워 주제·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Peatlands are characterized as unique ecological",
+      "note": "지명·면적 수치를 걷고 decomposition 등을 바꾸면 보전 필요 논지가 선다."
+    }
+  },
+  {
+    "id": "30b53e19-a401-4c09-bc70-f04b34044701",
+    "source_updated_at": "2026-09-13T06:39:23.832505+00:00",
+    "body_sha256": "1e22867f7549fb2eeaf39e2dc4a09285d1d39e946e3748cd3aba42109cd7233a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 코로나19 과염증과 담관암 면역억제 대비 문단만 논지가 서고 나머지는 유전자 목록이라 쓸 곳이 좁다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "blank",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In conclusion, both COVID-19 and ICC",
+      "note": "유전자 이름을 걷으면 두 질병의 반대 면역 반응 대비만 남아 짧은 빈칸 지문이 된다."
+    }
+  },
+  {
+    "id": "30b89e8c-0d1a-40a3-a47a-217c2a6ea501",
+    "source_updated_at": "2026-09-25T07:30:41.114795+00:00",
+    "body_sha256": "b0fbff32900c66ea0ddae9de10ff3a21d3e692358076e60eb89262fa23365427",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 브루셀라증과 임신 실패, 태반 영양막세포 역할 문단이 문제 제기 흐름을 갖춰 주제·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The placenta plays a central role",
+      "note": "trophoblast를 「태반 세포」로 바꾸면 세포 사멸과 유산 연결 논지가 자족적으로 선다."
+    }
+  },
+  {
+    "id": "30bb59bb-dce3-46eb-8c25-3a46bb646de4",
+    "source_updated_at": "2026-09-15T14:45:26.204645+00:00",
+    "body_sha256": "4d39d1167b5ada07c9c6e6ae79437d5deb2860fea1c4be044fef3fb04b8561c9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 항암제 뇌 손상과 천연 플라보노이드 보호 가능성 문단이 문제-대안 흐름으로 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "purpose",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chemotherapy-induced memory impairment, also called “chemo-brain”",
+      "note": "약물명을 「항암제」로 바꾸고 flavonoid를 풀면 부작용-대안 논지가 선다."
+    }
+  },
+  {
+    "id": "30be66b6-2567-4add-9f65-39bb5ebe4c4f",
+    "source_updated_at": "2026-09-13T07:42:48.236574+00:00",
+    "body_sha256": "1869ccabb3be23450c4220379237430ef5ada38fe48f70a12d6942ffdbcc6706",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 간 절제 후 동맥 반응 부재를 노르에피네프린 설명으로 가르는 문단이 통념-반증 구조라 주장·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "blank",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A hepatic arterial blood flow response",
+      "note": "HABR 약어를 풀어 쓰고 수치를 걷으면 이식과 절제의 차이 논지가 선다."
+    }
+  },
+  {
+    "id": "30beef88-8239-4a87-b06f-6a713853690d",
+    "source_updated_at": "2026-09-25T07:30:42.087396+00:00",
+    "body_sha256": "e30259310e958f71e32e9032393304aeef116256c69929652a215042c16acf70",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "education",
+    "why": "서론·결론의 외국어 화용 능력 발달과 명시적 교수 효과 서술이 논지를 세워 주제·요지·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "title"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, these benefits are not intrinsic",
+      "note": "pragmalinguistic 등 용어를 풀면 「매체보다 설계가 중요하다」 논지가 자족적으로 선다."
+    }
+  },
+  {
+    "id": "30bfef32-9260-456c-88c4-64e7e40b31d4",
+    "source_updated_at": "2026-09-25T07:30:42.492109+00:00",
+    "body_sha256": "06dd14761e1408f4337ae2e7a2e37c4444a5109274d119bb3cc94723b5028b21",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 전통 한약 성분 탐색법과 표적 기반 선별법 비교 문단이 장단점 논지로 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The traditional methods for screening active",
+      "note": "기법 약어를 「새 기법」으로 묶으면 느린 전통법 대 고효율 선별 대비가 선다."
+    }
+  },
+  {
+    "id": "30c5760e-25d6-4468-9103-b0eca83c66c8",
+    "source_updated_at": "2026-09-25T07:30:43.48799+00:00",
+    "body_sha256": "f251a8f4c4daf16187a37e837d5d2d2e95e78964675342717d6735fb29b9554a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 패혈성 쇼크와 메틸렌블루·비타민B12 병용 근거 문단이 흐름을 갖춰 주제·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In recent years, methylene blue (MB)",
+      "note": "sGC·cGMP 약어를 걷고 vasopressor를 풀면 약물 작용과 장점 논지가 남는다."
+    }
+  },
+  {
+    "id": "30c8fdf8-d115-4e65-a26d-83d87ea0801e",
+    "source_updated_at": "2026-09-13T06:56:34.735041+00:00",
+    "body_sha256": "b76f7a9a47f4649d0b1b7ecc80b245e42351117ac5c77cac68c3455f6df3113a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 호중구와 해당작용을 잇는 문단이 논지를 세워 빈칸·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "blank",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Besides, the HP expression of sepsis",
+      "note": "유전자명을 걷고 glycolysis를 풀면 호중구 에너지 대사 논지가 선다."
+    }
+  },
+  {
+    "id": "30d27a1b-4889-4ac1-9ef0-04829ce1e5d5",
+    "source_updated_at": "2026-09-13T06:28:55.613264+00:00",
+    "body_sha256": "7350d4976e0f5fdbdb184e5b755453253505215b156cc6abe56246a5a93ba341",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론의 젖소 유방염 원인·증상·경제 손실 문단이 사실과 흐름을 갖춰 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mastitis is an inflammatory condition of",
+      "note": "약어 SCC·WBC를 풀고 수치를 걷으면 원인-증상-손실 흐름이 자족적으로 선다."
+    }
+  },
+  {
+    "id": "30d54b1f-bc31-4adf-a973-532244a4e4fc",
+    "source_updated_at": "2026-09-15T14:45:28.764231+00:00",
+    "body_sha256": "72d70f37e6e279a4aca5266fdd5cbf3b914cf755848e1253e8b69bae5a524e7b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "고찰의 글루타티온과 털 단백질·털 색 연결 문단이 추론 논지를 세워 빈칸·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "blank",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Maintaining smooth and elastic skin and",
+      "note": "아미노산명 몇 개를 「황 함유 영양소」로 바꾸면 모피 품질 논지가 선다."
+    }
+  }
+]
