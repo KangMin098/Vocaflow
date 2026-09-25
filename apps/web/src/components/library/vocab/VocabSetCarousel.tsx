@@ -58,21 +58,19 @@ function cardTransform(offset: number) {
   const abs = Math.abs(offset)
   if (abs > 3) {
     return {
-      transform: `translate3d(${Math.sign(offset) * 660}px, 0, -700px) rotateY(${offset * -20}deg) scale(0.45)`,
+      transform: `translate3d(${Math.sign(offset) * 1180}px, 0, 0) scale(0.92)`,
       opacity: 0,
       zIndex: 0,
       pointer: 'none' as const,
     }
   }
-  const sign = Math.sign(offset)
-  // 270px 책 — ±1: 200px, ±2: 360px, ±3: 510px (LibraryGrid 정합)
-  const x = sign * (abs === 0 ? 0 : 200 + (abs - 1) * 160)
-  const z = -abs * 60
-  const rotY = -offset * 13
-  const scale = 1 - abs * 0.07
-  const opacity = abs === 0 ? 1 : abs === 1 ? 0.96 : abs === 2 ? 0.8 : 0.6
+  // shopify.com 카드 레일 문법 — 원근·회전 없이 같은 높이로 나란히(카드 270 + 간격 24).
+  //   가운데만 온전한 크기, 옆은 살짝 작고 옅게 — 겹치지 않는다.
+  const x = offset * 294
+  const scale = abs === 0 ? 1 : 0.92
+  const opacity = abs === 0 ? 1 : abs === 1 ? 0.75 : abs === 2 ? 0.45 : 0.2
   return {
-    transform: `translate3d(${x}px, 0, ${z}px) rotateY(${rotY}deg) scale(${scale})`,
+    transform: `translate3d(${x}px, 0, 0) scale(${scale})`,
     opacity,
     zIndex: 30 - abs,
     pointer: 'auto' as const,
@@ -265,8 +263,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
       <div className="relative w-full overflow-hidden">
         <div
           className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center"
-          style={{ perspective: '1800px', perspectiveOrigin: '50% 55%' }}
-          onTouchStart={onTouchStart}
+                    onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
           {items.map((set, idx) => {
@@ -305,7 +302,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
           onClick={prev}
           disabled={active === 0}
           aria-label="이전 단어장"
-          className="bg-[var(--bg)]/80 absolute left-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:left-6"
+          className="absolute left-2 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white transition-colors hover:bg-[#3f3f46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:bg-[#d4d4d8] md:left-6"
         >
           <ChevronLeft size={20} aria-hidden />
         </button>
@@ -314,7 +311,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
           onClick={next}
           disabled={active === last}
           aria-label="다음 단어장"
-          className="bg-[var(--bg)]/80 absolute right-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--bd)] text-[var(--t1)] shadow-[var(--sh-md)] backdrop-blur-md transition-all hover:scale-110 hover:bg-[var(--bg)] disabled:cursor-not-allowed disabled:opacity-30 md:right-6"
+          className="absolute right-2 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black text-white transition-colors hover:bg-[#3f3f46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:bg-[#d4d4d8] md:right-6"
         >
           <ChevronRight size={20} aria-hidden />
         </button>
@@ -470,11 +467,11 @@ function CoverCard({
       tabIndex={isCenter ? undefined : -1}
       aria-hidden={isCenter ? undefined : true}
       aria-label={isCenter ? `${set.title} 미리보기` : `${set.title} 선택`}
-      className="focus-visible:ring-[var(--p)]/40 block rounded-[var(--r-2xl)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-4"
+      className="focus-visible:ring-[var(--p)]/40 block rounded-[16px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-4"
     >
       <div
-        className={`book-cover-premium relative w-[270px] overflow-hidden ${
-          isCenter ? 'book-cover-premium--center' : ''
+        className={`relative w-[270px] overflow-hidden rounded-[16px] transition-shadow ${
+          isCenter ? 'shadow-[0_24px_48px_rgba(0,0,0,0.18)]' : ''
         }`}
         style={{
           // 판형은 규격이 정한다 — 카드와 같은 이유로 `aspect-[3/4]` 를 뺐다.
@@ -506,13 +503,6 @@ function CoverCard({
           // 규격이 있으면 시리즈는 표지 위쪽 lockup 이 말한다 — 카드와 같은 규칙.
           series={lockup ? null : (rung?.volumeTitle ?? VOCAB_SERIES_BRAND)}
         />
-        {/* 상단 sheen (Apple glass) */}
-        <div aria-hidden className="book-cover-sheen absolute inset-0" />
-        {/* 종이 grain */}
-        <div aria-hidden className="book-cover-grain absolute inset-0" />
-        {/* 입체 책등(좌) + 페이지 단면(우) */}
-        <div aria-hidden className="book-spine3d" />
-        <div aria-hidden className="book-foreedge" />
 
         {/*
           구독 배지 — **아래로 내렸다.** 규격의 권 번호가 오른쪽 위에 앉기 때문이다
