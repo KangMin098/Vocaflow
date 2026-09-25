@@ -1,0 +1,1609 @@
+[
+  {
+    "runId": "2026-09-25T08-14-19-382Z",
+    "id": "10e13b79-74b4-4cd1-a154-fcb62c6b984c",
+    "revision": "2026-09-25T07:32:25.795498+00:00",
+    "body_sha256": "11a3d8cc899864a5e606e064bb5e44735705685b1cb67eed93daa2a25d1ad19c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "결과 절은 균주 번호 나열이지만 고찰 끝의 한계 단락(배양법이 일부 세균만 잡는다)이 논지로 서서 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "First, bacterial isolation in this study",
+          "note": "접속어를 걷고 어려운 낱말 두세 개를 바꾸니 「방법이 결과를 치우치게 한다」는 논지가 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:19.388Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:10:53.286Z",
+      "topicMargin": 13.57
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-19-382Z",
+    "id": "10f51642-9951-4b58-999d-f629d86a73e8",
+    "revision": "2026-09-25T07:32:27.690008+00:00",
+    "body_sha256": "89fef991add22d7233d53172fc1c00149238f9fef73735981aea3080e32c3dde",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.267Z",
+        "by": "chunk-llm",
+        "why": "유전자를 따로 보지 말고 상호작용망에서 보라는 방법론 주장이 서론과 고찰에 일관된다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:31.837Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "89424fb0580bbdff1ecb324cc6c0b3078c1ef748e17eaf6549260750d0671ad2"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "단백질망 관점을 설명하는 단락은 자족적이며 embedding 같은 용어만 풀면 된다.",
+          "sample": "Studying the association between these genes",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.267Z",
+        "by": "chunk-llm",
+        "why": "유전자를 따로 보지 말고 상호작용망에서 보라는 방법론 주장이 서론과 고찰에 일관된다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:31.837Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "89424fb0580bbdff1ecb324cc6c0b3078c1ef748e17eaf6549260750d0671ad2"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "단백질망 관점을 설명하는 단락은 자족적이며 embedding 같은 용어만 풀면 된다.",
+          "sample": "Studying the association between these genes",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론의 연결망 단락(한 단백질의 변화가 간접 연결된 단백질까지 번진다)이 떼어도 서고 결론이 같은 논지를 되받는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Since proteins interact in a complex",
+          "note": "전문 용어 두 개를 쉬운 말로 풀면 「개별이 아니라 연결망으로 보라」는 주장이 남는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:19.390Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:02.267Z",
+          "by": "chunk-llm",
+          "why": "유전자를 따로 보지 말고 상호작용망에서 보라는 방법론 주장이 서론과 고찰에 일관된다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:31.837Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "89424fb0580bbdff1ecb324cc6c0b3078c1ef748e17eaf6549260750d0671ad2"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "단백질망 관점을 설명하는 단락은 자족적이며 embedding 같은 용어만 풀면 된다.",
+            "sample": "Studying the association between these genes",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 7,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:22.860Z",
+      "topicMargin": 23.95
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-19-382Z",
+    "id": "11072996-b2cf-4bd0-9cb1-7c4a3b433746",
+    "revision": "2026-09-25T07:32:29.729656+00:00",
+    "body_sha256": "d1f03ea0f0eba7591a43f632c9ec5fd0a277ae8c0165ee411e2a0ca2aedc3ac4",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.267Z",
+        "by": "chunk-llm",
+        "why": "본문 곳곳에서 수치와 연령 구간이 빠진 채 「rates %」 「aged years」처럼 문장이 끊겨 있다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:34.667Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "579b97db87c9d4c5929c25e61c0c082140d341bae6a9c2964c75ce70b0d8eee1"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "고찰 첫 단락은 논지가 서지만 결과 절은 값이 빠진 문장이 섞여 그대로 쓸 수 없다.",
+          "sample": "ACM represents a preventable form of",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.267Z",
+        "by": "chunk-llm",
+        "why": "본문 곳곳에서 수치와 연령 구간이 빠진 채 「rates %」 「aged years」처럼 문장이 끊겨 있다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:34.667Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "579b97db87c9d4c5929c25e61c0c082140d341bae6a9c2964c75ce70b0d8eee1"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "고찰 첫 단락은 논지가 서지만 결과 절은 값이 빠진 문장이 섞여 그대로 쓸 수 없다.",
+          "sample": "ACM represents a preventable form of",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰 둘째 단락이 표준화 비율 감소와 환자 수 증가의 역설을 두 원인으로 설명해 요지·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Data analysis revealed declining standardized rates",
+          "note": "약어와 지역 수치를 걷고 두 낱말을 풀면 비율과 절대 수의 대비가 그대로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:19.391Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:02.267Z",
+          "by": "chunk-llm",
+          "why": "본문 곳곳에서 수치와 연령 구간이 빠진 채 「rates %」 「aged years」처럼 문장이 끊겨 있다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:34.667Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "579b97db87c9d4c5929c25e61c0c082140d341bae6a9c2964c75ce70b0d8eee1"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "고찰 첫 단락은 논지가 서지만 결과 절은 값이 빠진 문장이 섞여 그대로 쓸 수 없다.",
+            "sample": "ACM represents a preventable form of",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": true
+          },
+          "hold_reason": "incomplete-source",
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:40.688Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-19-382Z",
+    "id": "1117e33e-9686-46ed-9a7e-101dbe8cab72",
+    "revision": "2026-09-25T07:32:31.216217+00:00",
+    "body_sha256": "364c61a92395d1fa46d2d6a4457a44edea78ae917f6feb40718366761c0df649",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.268Z",
+        "by": "chunk-llm",
+        "why": "어류에 RIG-I가 없다는 결손을 다른 수용체가 메운다는 보상 가설이 한 편으로 전개된다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:34.782Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e3a7c11cddb2a6ea6072e8f113ef418e8794db6346ee5007669ebab08cc8637d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 도입은 떼어져 서지만 유전자 약어 밀도가 높아 두세 낱말 교체로는 안 내려간다.",
+          "sample": "Owing to the imperfect development of",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.268Z",
+        "by": "chunk-llm",
+        "why": "어류에 RIG-I가 없다는 결손을 다른 수용체가 메운다는 보상 가설이 한 편으로 전개된다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:34.782Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e3a7c11cddb2a6ea6072e8f113ef418e8794db6346ee5007669ebab08cc8637d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 도입은 떼어져 서지만 유전자 약어 밀도가 높아 두세 낱말 교체로는 안 내려간다.",
+          "sample": "Owing to the imperfect development of",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰의 뇌세포 단락이 재생력 낮은 조직에서는 면역 반응을 낮추는 편이 보호가 된다는 인과로 서서 빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The intrinsic characteristics and external microenvironment",
+          "note": "단락은 떼어지지만 유전자 약어가 뒤 문장마다 박혀 낱말 교체로는 밴드가 내려가지 않는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:19.392Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:02.268Z",
+          "by": "chunk-llm",
+          "why": "어류에 RIG-I가 없다는 결손을 다른 수용체가 메운다는 보상 가설이 한 편으로 전개된다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:34.782Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "e3a7c11cddb2a6ea6072e8f113ef418e8794db6346ee5007669ebab08cc8637d"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 도입은 떼어져 서지만 유전자 약어 밀도가 높아 두세 낱말 교체로는 안 내려간다.",
+            "sample": "Owing to the imperfect development of",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:13.616Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-19-382Z",
+    "id": "115848a9-7ad4-4f88-8f15-a7952b9643ab",
+    "revision": "2026-09-25T07:32:35.103699+00:00",
+    "body_sha256": "45c28594d7620b2ecf08af3a53c1a02520c22f7e2a9dece3969a594ff22f180c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.269Z",
+        "by": "chunk-llm",
+        "why": "단일 지표보다 지표 묶음이 질병 활성도를 잘 가른다는 주장이 고찰에서 근거와 함께 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:37.980Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6df58d06a4d83300e717cb1245446c49351fc1f60630f7592e220a59b3c48e38"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론은 자족하나 결과 절 전체가 민감도·특이도 수치라 발췌 구간이 앞뒤로 한정된다.",
+          "sample": "Interferon-γ (IFN-γ) is a pivotal cytokine",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.269Z",
+        "by": "chunk-llm",
+        "why": "단일 지표보다 지표 묶음이 질병 활성도를 잘 가른다는 주장이 고찰에서 근거와 함께 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:37.980Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6df58d06a4d83300e717cb1245446c49351fc1f60630f7592e220a59b3c48e38"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론은 자족하나 결과 절 전체가 민감도·특이도 수치라 발췌 구간이 앞뒤로 한정된다.",
+          "sample": "Interferon-γ (IFN-γ) is a pivotal cytokine",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "수치 나열이 대부분이나 고찰의 동반질환 단락이 개별 지표의 한계와 묶어 보는 이유를 논지로 세워 칸 하나를 연다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Comorbid conditions in AIGA patients, including",
+          "note": "약어를 지시어로 바꾸고 두 낱말을 풀면 짧아도 논지가 남는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:19.393Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:02.269Z",
+          "by": "chunk-llm",
+          "why": "단일 지표보다 지표 묶음이 질병 활성도를 잘 가른다는 주장이 고찰에서 근거와 함께 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:37.980Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "6df58d06a4d83300e717cb1245446c49351fc1f60630f7592e220a59b3c48e38"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론은 자족하나 결과 절 전체가 민감도·특이도 수치라 발췌 구간이 앞뒤로 한정된다.",
+            "sample": "Interferon-γ (IFN-γ) is a pivotal cytokine",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:18.835Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-19-382Z",
+    "id": "1177a71a-7c05-4c59-97e8-810359dcb24a",
+    "revision": "2026-09-25T07:32:37.234353+00:00",
+    "body_sha256": "08b6b172d462095e691969dd12020e5ba6340f94e7df7cea50bead053f5483f8",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.271Z",
+        "by": "chunk-llm",
+        "why": "항우울제를 결핵 치료 보조로 쓰는 근거를 미토콘드리아-염증소체 연결로 설명하는 논증이다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:40.286Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "aea7be3def781f0dfad0f3b00331a4d1a048976e21405299373b13d509be594f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 단락은 앞 문맥 없이 서고 내성 회피라는 일반 논지가 남는다.",
+          "sample": "Therapies that leverage host signalling pathways",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:02.271Z",
+        "by": "chunk-llm",
+        "why": "항우울제를 결핵 치료 보조로 쓰는 근거를 미토콘드리아-염증소체 연결로 설명하는 논증이다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:40.286Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "aea7be3def781f0dfad0f3b00331a4d1a048976e21405299373b13d509be594f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 단락은 앞 문맥 없이 서고 내성 회피라는 일반 논지가 남는다.",
+          "sample": "Therapies that leverage host signalling pathways",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "저자 요약 단락이 기존 약에 다른 약을 더해 치료를 돕는 원리를 앞 문맥 없이 설명해 주제·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Tuberculosis (TB), caused by Mycobacterium",
+          "note": "요약 단락은 그대로 서지만 세포·분자 이름이 많아 어휘 조정 폭이 좁다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:19.394Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:02.271Z",
+          "by": "chunk-llm",
+          "why": "항우울제를 결핵 치료 보조로 쓰는 근거를 미토콘드리아-염증소체 연결로 설명하는 논증이다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:40.286Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "aea7be3def781f0dfad0f3b00331a4d1a048976e21405299373b13d509be594f"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 첫 단락은 앞 문맥 없이 서고 내성 회피라는 일반 논지가 남는다.",
+            "sample": "Therapies that leverage host signalling pathways",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:56.819Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-19-382Z",
+    "id": "119d1883-71ea-49fb-b7d8-0c34a5a44d8c",
+    "revision": "2026-09-25T07:32:40.715888+00:00",
+    "body_sha256": "0fd1a3b0e8d4424fb886e49ce321106c2ebbe12e0c89457c83ac688798a03aaa",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.253Z",
+        "by": "chunk-llm",
+        "why": "면역은 과잉과 부족 사이의 균형이라는 일반 명제를 세우고 구조 예측 도구로 푸는 저자 요약이 한 편으로 읽힌다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:43.435Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b4d85784a01ed818070ea8327239b68ca2d1fee3bf3236fc166de03f2ab32067"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 떼어져도 서지만 결과 절은 단백질 약어 밀도가 높아 치환 대상이 너무 많다.",
+          "sample": "Innate immunity relies on a finely",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.253Z",
+        "by": "chunk-llm",
+        "why": "면역은 과잉과 부족 사이의 균형이라는 일반 명제를 세우고 구조 예측 도구로 푸는 저자 요약이 한 편으로 읽힌다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:43.435Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b4d85784a01ed818070ea8327239b68ca2d1fee3bf3236fc166de03f2ab32067"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 떼어져도 서지만 결과 절은 단백질 약어 밀도가 높아 치환 대상이 너무 많다.",
+          "sample": "Innate immunity relies on a finely",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약과 서론 첫 단락이 과잉 반응과 과소 반응 사이의 균형이라는 논지를 세우고 구조 예측이 숨은 관계를 찾는다는 결론으로 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The innate immune system must respond",
+          "note": "단백질 이름을 「특정 단백질」로 묶으면 균형 논지가 남아 밴드가 한 단계 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:19.395Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:03.253Z",
+          "by": "chunk-llm",
+          "why": "면역은 과잉과 부족 사이의 균형이라는 일반 명제를 세우고 구조 예측 도구로 푸는 저자 요약이 한 편으로 읽힌다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "summary",
+              "blank"
+            ],
+            "levels": [
+              "V9",
+              "V10"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:43.435Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "b4d85784a01ed818070ea8327239b68ca2d1fee3bf3236fc166de03f2ab32067"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약은 떼어져도 서지만 결과 절은 단백질 약어 밀도가 높아 치환 대상이 너무 많다.",
+            "sample": "Innate immunity relies on a finely",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:04.059Z",
+      "topicMargin": 6.91
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-19-382Z",
+    "id": "11b9b83f-f088-489d-afea-f7e092a1dbcb",
+    "revision": "2026-09-25T07:32:43.303636+00:00",
+    "body_sha256": "85a4a98781c71bfd3571459f8142f5a7f2d81b09af13f816b492063d76769119",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.255Z",
+        "by": "chunk-llm",
+        "why": "세포 부착 신호가 암세포 이동을 좌우한다는 서론과 지표 해석을 경계하는 고찰이 주장으로 읽힌다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:44.680Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c039b5cb7e8fbba3cf89d57d28edb3cf2edf8bdee68832bec7c1fd69f8738916"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "결과 절 문장은 대부분 그림 번호를 달고 있어 서론·고찰만 발췌 후보로 남는다.",
+          "sample": "Gastric cancer remains a major cause",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.255Z",
+        "by": "chunk-llm",
+        "why": "세포 부착 신호가 암세포 이동을 좌우한다는 서론과 지표 해석을 경계하는 고찰이 주장으로 읽힌다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:44.680Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c039b5cb7e8fbba3cf89d57d28edb3cf2edf8bdee68832bec7c1fd69f8738916"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "결과 절 문장은 대부분 그림 번호를 달고 있어 서론·고찰만 발췌 후보로 남는다.",
+          "sample": "Gastric cancer remains a major cause",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 해석 단락이 한 유전자를 병기 지표가 아니라 예후 표지로 읽어야 한다는 판단을 근거와 함께 세워 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The clinical analyses in this study",
+          "note": "유전자 이름을 지시어로 바꾸면 「수치가 늘 병기와 나란하지 않다」는 논지가 그대로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:19.396Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:03.255Z",
+          "by": "chunk-llm",
+          "why": "세포 부착 신호가 암세포 이동을 좌우한다는 서론과 지표 해석을 경계하는 고찰이 주장으로 읽힌다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "content_match"
+            ],
+            "levels": [
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:44.680Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "c039b5cb7e8fbba3cf89d57d28edb3cf2edf8bdee68832bec7c1fd69f8738916"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "결과 절 문장은 대부분 그림 번호를 달고 있어 서론·고찰만 발췌 후보로 남는다.",
+            "sample": "Gastric cancer remains a major cause",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:35.143Z"
+    }
+  }
+]
