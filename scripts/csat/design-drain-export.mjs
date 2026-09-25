@@ -41,6 +41,12 @@ const ONLY = arg('type')
 const SIZE = Number(arg('size', 10))
 const LIMIT = arg('limit') ? Number(arg('limit')) : Infinity
 const PILOT = arg('pilot') ? Number(arg('pilot')) : null
+/**
+ * **끝난 문항을 일부러 다시 뽑는다** — `--redo 2026#30,M1809#30`.
+ * 원문이 바뀌면(2026-09-25 reflow 재생성) 깨진 원문을 보고 쓴 주석은 다시 봐야 한다. 청크 이름에
+ * `redo` 가 들어가 옛 `.out.json` 을 덮지 않고, 파일 이름 순서상 뒤에 와서 import 가 새 값으로 덮는다.
+ */
+const REDO = new Set(String(arg('redo', '') ?? '').split(',').map((s) => s.trim()).filter(Boolean))
 const WORK = path.resolve('scripts/csat/design-drain')
 fs.mkdirSync(WORK, { recursive: true })
 
@@ -81,7 +87,8 @@ const byType = new Map(types.map((t) => [t, []]))
 // 최신 회차 먼저 — 현행 설계부터 덮는다(analysis-drain 과 같은 순서)
 for (const it of items.sort((a, b) => b.id.localeCompare(a.id))) {
   const a = analyses.get(it.id)
-  if (done.has(it.id) || a?.answer_locus?.passage_design) { skippedDone++; continue }
+  if (REDO.size && !REDO.has(it.id)) continue
+  if (!REDO.has(it.id) && (done.has(it.id) || a?.answer_locus?.passage_design)) { skippedDone++; continue }
   if (!it.body_ok || !it.passage) { skippedBody++; continue }
   if (!a) { skippedNoAnalysis++; continue }
   const sentences = splitSentences(it.passage).map((r, i) => ({ i, text: it.passage.slice(r.start, r.end).trim() }))
@@ -102,7 +109,11 @@ for (const [type, list] of byType) {
   const take = PILOT != null ? list.slice(0, PILOT) : list
   for (let i = 0; i < take.length && chunks < LIMIT; i += SIZE) {
     const part = take.slice(i, i + SIZE)
-    const name = `chunk-${type}-${PILOT != null ? 'pilot' : String(i / SIZE + 1).padStart(2, '0')}.json`
+    const base = `chunk-${type}-${PILOT != null ? 'pilot' : `${REDO.size ? 'redo-' : ''}${String(i / SIZE + 1).padStart(2, '0')}`}`
+    // ⚠️ 앞 회차의 결과(`<이름>.out.json`)가 이미 있으면 회차 표시를 붙인다 — 같은 이름으로 내면 판정자가
+    //    결과를 쓰는 순간 커밋된 앞 회차 기록을 덮는다(2026-09-25 두 번째 회차에서 발견).
+    let name = `${base}.json`
+    for (let r = 2; fs.existsSync(path.join(WORK, name.replace(/\.json$/, '.out.json'))); r++) name = `chunk-${type}-r${r}-${base.split('-').pop()}.json`
     fs.writeFileSync(
       path.join(WORK, name),
       JSON.stringify({ criteria: 'docs/csat-learner/design-annotation-criteria.md', type, items: part }, null, 2),

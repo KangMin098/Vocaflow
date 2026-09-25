@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2021#33",
+      "roles": ["background", "support", "support", "support", "support", "support", "support", "topic"],
+      "alternatives": [{ "index": 2, "role": "example" }],
+      "pattern": "general_specific",
+      "selection": "뇌 가소성과 시냅스 강화·가지치기를 차례로 설명한 뒤 마지막 요약 문장을 비워, 앞 문단이 되풀이한 ‘사용 이력’이라는 기준을 하나로 접어야 풀리는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "많이 쓴 연결은 강해지고 덜 쓴 연결은 잘려 나간다는 구체 기제가 선지에서 ‘자기 경험의 역사가 뇌를 빚는다’는 상위 진술로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2021#32",
+      "roles": ["background", "support", "support", "topic", "example", "conclusion"],
+      "alternatives": [{ "index": 3, "role": "turn" }],
+      "pattern": "myth_rebuttal",
+      "selection": "비슷한 사람과 어울리는 전략의 합리성을 세운 뒤 역접으로 꺾는 자리를 비워, 무엇이 무엇을 제한하는지를 뒤의 자원 부족 사례와 결론에서 맞춰야 하는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "자원이 부족하면 모두 같은 일을 할 수 없어 때로는 비슷한 개체를 피해야 한다는 사례·결론이 선지에서 ‘이 전략에 한계를 긋는다’는 관계로 압축됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2021#31",
+      "roles": ["background", "background", "topic", "support", "support", "support"],
+      "alternatives": [{ "index": 1, "role": "example" }],
+      "pattern": "contrast",
+      "selection": "신전·행정이라는 중앙 기관의 문자 사용을 먼저 깔고 빈칸 문장에서 개인으로 축을 바꾸어, 마지막 문장의 합의 확인 용도까지 읽어야 개인의 쓰임이 특정되는 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "개인이 자기가 동의한 내용을 확실히 알기 위해 문해력이 필요해졌다는 끝 문장이 선지에서 ‘개인 간 합의’로 같은 수준에서 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2020#34",
+      "roles": ["background", "example", "example", "support", "concession", "topic", "example"],
+      "alternatives": [{ "index": 5, "role": "turn" }],
+      "pattern": "myth_rebuttal",
+      "selection": "고정 음높이를 음악의 정의로 본 통설을 소개하고 양보 자리에서 한 번 인정한 뒤 반례로 뒤집는 글이라, 빈칸에는 필자의 결론이 아니라 곧 뒤집힐 통설이 들어가야 한다.",
+      "transform": "inference",
+      "transform_note": "음이 고정된다는 통설 진술에 반례 문장의 ‘개념상 음들을 중심으로 조직된다’는 조건을 더해, 고정된 음들이 분리된 계단으로 조직된다는 내용을 논리로 채워야 한다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2020#33",
+      "roles": ["topic", "example", "support", "support", "support", "conclusion", "support", "support", "support", "support"],
+      "alternatives": [{ "index": 9, "role": "conclusion" }],
+      "pattern": "contrast",
+      "selection": "첫 문장을 ‘A가 아니라 B’ 대립 구조로 비우고 중반부를 녹색 기술·기후 소재로 넓혀, 소재가 아닌 대립항(생각 대 재료)을 끝까지 붙들어야 풀리는 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "우리의 창의력이 곧 물질 공급을 앞지르고 공급을 늘려야만 한다는 진술이 선지에서 ‘만들 재료를 확보하는 능력’으로 다시 말해졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2020#32",
+      "roles": ["example", "example", "example", "topic", "example"],
+      "alternatives": [{ "index": 0, "role": "background" }],
+      "pattern": "study_implication",
+      "selection": "피아제의 장난감 자동차 실험 절차를 비우고 결과 문장의 정답·오답 표시로만 절차를 역산하게 한 글이라, 같은 시간·다른 정지 지점이라는 두 조건을 함께 세워야 한다.",
+      "transform": "inference",
+      "transform_note": "함께 출발·정지했지만 더 앞에서 멈춘 차가 있다는 결과로부터, 한 차가 더 빨리 달려 더 멀리 멈췄다는 실험 조건을 논리로 복원해야 한다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#34",
+      "roles": ["background", "background", "topic", "example", "example", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "topic" }, { "index": 2, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "뇌가 진화할 시간이 없었는데도 문화 도구가 가능했던 원인을 비우고 읽기·숫자·손가락 셈 사례와 ‘문화적 재활용’이라는 이름으로 뒷받침하는 글이라, 사례의 공통 동작을 뽑아야 한다.",
+      "transform": "abstraction",
+      "transform_note": "읽기를 배울 때 시각 체계의 특정 영역을 재활용한다는 구체 사례들이 선지에서 ‘옛 영역을 새 방식으로 동원한다’는 일반 원리로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#32",
+      "roles": ["background", "background", "topic", "example", "support", "support", "support", "example"],
+      "alternatives": [{ "index": 6, "role": "conclusion" }],
+      "pattern": "problem_solution",
+      "selection": "힘없는 소수가 어떻게 다수에 영향을 주느냐는 물음을 던지고 모스코비치의 답(행동 방식)을 비워, 소수와 다수 두 주체 중 누가 주어인지를 가려야 하는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "일관되게 입장을 지키고 다른 이들을 자기 관점으로 돌려세웠다는 진술들이 선지에서 ‘소수가 자기 주장을 관철한다’는 상위 표현으로 묶였다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2018#34",
+      "roles": ["background", "background", "background", "background", "background", "turn", "topic"],
+      "alternatives": [{ "index": 4, "role": "support" }, { "index": 5, "role": "concession" }],
+      "pattern": "myth_rebuttal",
+      "selection": "AI 때문에 인간 고유성을 계속 내주며 정체성 위기를 겪는다는 흐름 끝에 통념적 이득을 부정하고 ‘가장 큰 이득’을 비워, 반복된 정체성 물음과 이득을 연결해야 하는 글이다.",
+      "transform": "inference",
+      "transform_note": "무엇이 우리를 특별하게 만드는가라는 반복 물음이 이득으로 바뀐다는 연결은 지문에 진술되지 않아, 반어와 앞의 부정 논리로 ‘인류를 규정하도록 돕는다’를 채워야 한다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2018#33",
+      "roles": ["background", "background", "topic", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "support" }],
+      "pattern": "cause_effect",
+      "selection": "저개발국 소농이 더 큰 세계적 원인 때문에 겪는 결과를 비우고 케냐 수출 작물 사례와 자본주의 생산 양식 논지로 뒷받침해, 소농이 당하는 쪽이라는 구도를 잡아야 풀리는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "자본주의 생산 양식이 소농의 주식 생산을 제한하고 수출 작물 재배가 권장된다는 진술이 선지에서 ‘자기 생산에 대한 통제력을 잃었다’는 상위 표현으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}
