@@ -1,0 +1,873 @@
+[
+  {
+    "id": "1d3322c2-0355-414b-9b82-7219b9ca93b3",
+    "source_updated_at": "2026-09-15T14:36:23.157319+00:00",
+    "body_sha256": "ac38096c730bb23072afa5ad3cce37d84bf8d7e2d21587717a04b1caaf7ee805",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰 첫 단락이 방역 완화 뒤 「면역 부채」로 호흡기 감염이 되살아난 과정을 인과로 설명해 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The implementation of COVID-19 prevention and",
+      "note": "「immunity debt」 설명만 남기고 병원체 약어·수치를 걷으면 V6 으로 내려간다."
+    }
+  },
+  {
+    "id": "1d43a934-1984-4dd1-87ba-d3c8bb549242",
+    "source_updated_at": "2026-09-13T07:17:29.034505+00:00",
+    "body_sha256": "3c44c861ba525b96f9ba9202d47a37952e2b2d662b353f828f568b2b10963bfe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 두경부암 위험 요인·지역 차 단락이 수치 없이도 원인 나열 논지로 서서 내용 일치·요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Aggravating risk factors most frequently related",
+      "note": "carcinogenic·dysplastic 을 harmful·abnormal 로 바꾸면 흐름이 바로 읽힌다; 실험 절은 쓸 수 없다."
+    }
+  },
+  {
+    "id": "1d55b5c0-edf1-4961-8269-b3896527b4d5",
+    "source_updated_at": "2026-09-15T14:36:26.271628+00:00",
+    "body_sha256": "61fa08cbb8bf7b8e8ffec0971c3891023d31fb1e2cda4c175ac243fefd94ca61",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "science",
+    "why": "단일세포·TCGA 통합 분석이 본문 대부분이고 서론·고찰도 유전자 약어 없이는 논지가 서지 않아 가공 경로가 불분명하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The tumor immune microenvironment (TIME) plays",
+      "note": "MAGEA·CIBERSORT 등 약어를 걷으면 문단에 남는 주장이 거의 없다."
+    }
+  },
+  {
+    "id": "1d69cd40-a5bb-4f27-89f8-e1f02768d0d4",
+    "source_updated_at": "2026-09-25T07:37:32.265419+00:00",
+    "body_sha256": "cb707a285842c3316ba4059bfa0c79f35190e0f36b430fd0af52a934b5e396c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "고찰의 초지·관목 복원 비교 단락이 초지는 유기탄소를 늘리고 관목은 늦다는 대비 논지를 세워 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Another interesting finding is that, despite",
+      "note": "SOC 를 soil carbon 으로 풀고 recalcitrant 를 slow-to-rot 으로 바꾸면 V6 이 된다."
+    }
+  },
+  {
+    "id": "1d6e4d7e-debe-4a12-9bce-1c391b8b5e9b",
+    "source_updated_at": "2026-09-25T07:37:33.302767+00:00",
+    "body_sha256": "71d7c0a95950fc0a711f2096676486bc3ae3885eedd6c66d719e2c7ab00478c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰의 「닭을 지방간 연구 모델로 쓰는 이유」와 양계 산업 피해 단락이 독립 설명문으로 서서 주제·순서 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "purpose",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "FLS frequently occurs in farming poultry",
+      "note": "circRNA 기전 절은 못 쓰고, 양계 피해·모델 장점 두 단락만 떼어 쓴다."
+    }
+  },
+  {
+    "id": "1d6ea4cf-a6c9-4548-8d1b-9337d79e78de",
+    "source_updated_at": "2026-09-13T07:12:51.478031+00:00",
+    "body_sha256": "7b1533d31c760bb4249894293af964b9b11271a4acdd0c67a350bd122f4a2ed7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 미세조류를 식량·에너지 원료로 보는 근거와 극한 서식지 탐사 전략을 논증해 주장·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "blank",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Food and energy security have continued",
+      "note": "feedstock·bioprospecting 을 raw material·searching 으로 바꾸면 흐름이 선다; 배지 조성 절은 제외."
+    }
+  },
+  {
+    "id": "1d73cb2d-00f2-471e-9ef8-1805d17b581f",
+    "source_updated_at": "2026-09-25T07:37:34.282836+00:00",
+    "body_sha256": "4d7ee59e9a60cd6f99cf67c1b3b65607513c33b6932071c984ab286875c046db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "science",
+    "why": "Mo-삽입효소 도메인 배열 고찰이 E/G-도메인·잔기 번호 전제 위에서만 논지가 서 떼어 쓸 문단이 애매하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Why do eukaryotes possess inconsistent E-G",
+      "note": "「왜 도메인이 융합됐나」 질문 구조는 있으나 용어를 풀면 내용이 비어 버린다."
+    }
+  },
+  {
+    "id": "1d787566-27b7-49bd-9810-1e997d8db27b",
+    "source_updated_at": "2026-09-15T14:36:30.33373+00:00",
+    "body_sha256": "8656e533c9704ae6651e4f5453fab6515c08a2b58f7e0c00e22f99eaced36032",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 여성 환자 비율과 사회경제적 지위 단락이 원인 추정을 여럿 제시해 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A significant association between functional dyspepsia",
+      "note": "호산구 계수 절은 걷고 생활 요인 단락만 쓰면 V6 으로 읽힌다."
+    }
+  },
+  {
+    "id": "1d8228fc-70ae-4876-8c9f-7713fbf82ce0",
+    "source_updated_at": "2026-09-25T07:37:35.86665+00:00",
+    "body_sha256": "8086718612634d19e4d227910b3b97163c6296bc3a76126f334ca72256c03bed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 아디포넥틴의 진화적 역할을 칼로리 제한에서 찾자는 논증을 펴서 주장·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The focus on adiponectin’s role in",
+      "note": "「질병 역할만으로는 높은 보존을 설명 못 한다」 반박 구조가 선명하다; CR 약어만 풀면 된다."
+    }
+  },
+  {
+    "id": "1d823615-072d-4027-9a70-840e4f9aed58",
+    "source_updated_at": "2026-09-15T14:36:31.809522+00:00",
+    "body_sha256": "30203b2bf699d2b8601629cdbb27597769e9967622762350379074a4efb4d4f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 요오드 가설의 근거(옛 치료 관행·양 실험·일본의 낮은 피해)를 차례로 들어 주장-근거·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "purpose",
+        "order",
+        "insert",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Another observation that prompted us to",
+      "note": "일본 사례 단락은 전문어가 적어 거의 그대로 V6 에 싣는다."
+    }
+  },
+  {
+    "id": "1d8409b1-e375-4ace-83a1-a40ea2681179",
+    "source_updated_at": "2026-09-13T07:01:21.81304+00:00",
+    "body_sha256": "c628eef918ad7d15fe30af516494f25839b241fa60c2627cecc7c660bee3989f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "서론의 저항·지구력·병행 운동의 적응 차이 설명이 대비 구조로 서서 요지·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Resistance exercise resembles remote ischemic conditioning.",
+      "note": "glycolytic·capillary density 를 쉬운 말로 바꾸면 운동 종류 비교 단락이 된다."
+    }
+  },
+  {
+    "id": "1d93724f-48c7-495f-8853-be76b429673d",
+    "source_updated_at": "2026-09-25T07:37:38.055252+00:00",
+    "body_sha256": "a850e798b92da5f94e36d4b4e5fcd8369b2a349ec7f2897ca0a8f9c4c95a9530",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "서론의 기후 변수와 감염병 감시 단락이 기온·강수와 발병 위험을 잇는 설명문으로 서서 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The global burden of IIDs demands",
+      "note": "GOARN 등 고유명사를 걷어도 「기후 자료를 감시에 넣자」는 요지가 남는다."
+    }
+  },
+  {
+    "id": "1d9e0e82-5df4-4733-9a87-c15120641e58",
+    "source_updated_at": "2026-09-13T07:29:13.793875+00:00",
+    "body_sha256": "2fa1c4140c5c47fd93aa687e9d14549e8f2a15ccaab40a35cec7d60946e94107",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 뉴런·성상세포 대사 차이 단락과 고찰의 크레아틴 에너지 완충 단락이 떼어 읽히는 설명문이라 요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Highly energetic tissues such as heart,",
+      "note": "glycolysis·ATP 를 풀어 쓰면 「두 세포가 에너지를 다르게 쓴다」는 대비가 선다."
+    }
+  },
+  {
+    "id": "1da409fa-005c-4da0-8f5f-2282f6201522",
+    "source_updated_at": "2026-09-15T14:36:35.154809+00:00",
+    "body_sha256": "8d690a027ee2a1f2551a27f211be91621f0affb4f16588aa06e5a2f6148f21ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "health",
+    "why": "ICAM5 생물정보 분석이 중심이고 서론·고찰의 방광암 재발 설명 외에는 유전자 약어 없이 서는 문단이 드물다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Bladder cancer (BCa) is one of",
+      "note": "서론 첫 단락만 쓸 만하나 대부분 약어 나열이라 가공 결과가 애매하다."
+    }
+  },
+  {
+    "id": "1da443ea-6fdc-49b1-ac04-c96f42ad5bb3",
+    "source_updated_at": "2026-09-25T07:37:39.316951+00:00",
+    "body_sha256": "c41a3db5b9cfe7a57e3b1ab7d107ba10321d379ed5bc784e5025df7c6dc06324",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 「돌보미 효과」 설명이 공여 신경이 본래 신경 재생을 기다려 준다는 비유로 서서 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the mild model, this translated",
+      "note": "「babysitting effect」 비유를 살리고 CMAP 등 측정어를 걷으면 V7 로 읽힌다."
+    }
+  },
+  {
+    "id": "1da67522-b3eb-4057-96df-74d213fd4715",
+    "source_updated_at": "2026-09-15T14:36:35.793512+00:00",
+    "body_sha256": "e2b532b2e4fae4bc27f467661e708408ac0c262e2c608dcce30e89b8d1c10378",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 패혈증에서 마그네슘이 너무 낮아도 높아도 위험하다는 논지를 세우고 고찰이 「안전 구간」을 제안해 주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In recent years, the role of",
+      "note": "경로 약어(HMGB1 등)를 지우고 J자·U자 관계 설명만 남기면 선다."
+    }
+  },
+  {
+    "id": "1dabe7c7-3de5-4987-9044-dde264290e12",
+    "source_updated_at": "2026-09-15T14:36:36.558839+00:00",
+    "body_sha256": "bd19fde4decb0a1550217c294ed4b21c389a23655d56f05a10acf75d7b499ed3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "결론부의 가임력 보존 치료의 사회적 의미 단락과 서론의 치료 기준 변화 설명이 목적·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "purpose",
+        "main_point",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This study aims to clarify the",
+      "note": "병기(FIGO) 표기를 걷으면 「생존과 출산 가능성의 균형」 요지가 V7 로 남는다."
+    }
+  },
+  {
+    "id": "1dae201b-ec7c-4e81-b7d2-4616d0bc15b5",
+    "source_updated_at": "2026-09-13T06:42:36.684063+00:00",
+    "body_sha256": "24e708197bd6bb7b9d61dc7df7dfdb1bafea17723541b03f91ca253e33709bc8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 성장기 운동 개체에 골흡수 억제제를 쓸 때의 위험을 논증하고 양을 모델로 고른 이유를 들어 순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "purpose",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The effect of bisphosphonates in young,",
+      "note": "고찰의 진통 효과 단락도 떼어 쓸 수 있고, 수치표 절은 제외한다."
+    }
+  },
+  {
+    "id": "1dbfaf23-f867-4fc0-81dd-fd394062eed3",
+    "source_updated_at": "2026-09-25T07:37:40.558345+00:00",
+    "body_sha256": "846f3031014bb1fb69c62da8205f22bd2e736445d9ee685b9e7fb4fa7263a9b8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "고찰이 새 당뇨약이 효과는 같고 값만 50% 비싸다는 근거로 메트포르민 우선을 주장해 주장·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The median daily cost of SGLT2",
+      "note": "약 이름을 「새 약·오래된 약」으로 바꾸면 비용 대비 효과 논증이 V7 로 읽힌다."
+    }
+  },
+  {
+    "id": "1dc2d021-2f01-453c-a806-087ba6072130",
+    "source_updated_at": "2026-09-25T07:37:41.322107+00:00",
+    "body_sha256": "b4753dae34b28da5664a45e3a16ca727ac6b8cd86f2e34b354385c4ec815ebe5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "social",
+    "why": "국제 NGO 성평등 사업을 탈식민 관점에서 일방적으로 비판하는 논증문이라 차단 장르(polemic) 경계에 걸려 판단이 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Contrary to the corporate logic of",
+      "note": "「일자리가 곧 해방은 아니다」 단락은 떼어 쓸 만하나 FGM 옹호로 읽힐 절은 걷어야 한다."
+    }
+  }
+]
