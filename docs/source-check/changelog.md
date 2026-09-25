@@ -2,6 +2,15 @@
 
 > 현행 기준: [criteria.md](./criteria.md). 회차마다 개정 이유와 **근거 사례**를 적는다. [추론]만으로 개정하지 않는다.
 
+## v6 — 2026-09-25 (회차 10 반영)
+
+근거: [round-10.md](./round-10.md) §5-1 — wikinews 이중 판정 일치 94% · **κ 0.550**. 어긋난 6편 중 셋이 짧은 사실 단신이었다.
+검증: 회차 10 wikinews 이중 판정 청크 4개(100편)를 v6 로 두 판정자가 다시 판정 — κ 0.6 이상이면 셋째 몫(회차 11)으로 간다.
+
+| 개정 | 이유 | 근거 사례 |
+|---|---|---|
+| 짧은 사실 단신: 원인·결과·반응·절차 중 하나라도 문장으로 이어지면 `content_match` 보관, 수치·이름·일정만 되풀이되면 `reference` | v2 「칸 하나만 수치 나열」이 사건 단신에도 걸리는지 판정자마다 달랐다 | [측정] wikinews 「House honors John Dingell」(A 보관 · B 폐기) · 「Earthquake shakes western Mexico」(A 보관 · B 폐기) · 「Teenager stabbed to death in east London」(A 보류 · B 보관) |
+
 ## v5 — 2026-09-25 (회차 7 반영)
 
 근거: [round-7.md](./round-7.md) §5-3 — nih_news_in_health 일치 85% · **κ 0.211**. 기사 본문은 전부 일치했고 어긋난 세 건이 모두 기관 공지문이었다.
