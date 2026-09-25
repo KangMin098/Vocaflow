@@ -738,6 +738,22 @@ pnpm vcb:publish               # 08-publish.ts
 pnpm vcb:publish-precheck      # 08b-publish-precheck.ts
 ```
 
+### 에디션 표지 — AI 생성 정사각 도판 (`scripts/vcb/editions/`, 2026-09-25)
+
+`/library/vocab` 벽 선반(참조 shopify.com/editions)에 거는 권별 표지. 결과는 `cover_image_meta.edition`
+(jsonb 키 하나 — migration 없음)이고, 없으면 선반은 종전 표지(`VocabCoverArt`)로 그린다.
+
+| # | 단계 | 명령 | 재실행 |
+|---|---|---|---|
+| ① | export — 발행 세트 → `work/sets.json` | `node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/vcb/editions/edition-export.mjs [--all]` | 안전(읽기만 · 이미 있는 권 제외) |
+| ② | 아트 디렉션 — 권별 피사체·화풍 → `work/prompts.out.json` | 에이전트가 채운다(화풍 8종은 `edition-styles.mjs` 단일 출처) | 안전(파일 편집) |
+| ③ | 생성 — `apps/web/public/covers/vocab/editions/<slug>.webp` | API: `edition-gen.mjs`(Qwen → GPT Image 폴백) · 무료 GPU: `scripts/design/illo-kaggle.mjs --scenes scripts/vcb/editions/edition-scenes.mjs --out apps/web/public/covers/vocab/editions --slug vocaflow-vcb-editions` | 안전(없는 파일만 · `--force` 는 한도 소모) |
+| ④ | import — `cover_image_meta.edition` 기록 | `edition-import.mjs [--commit]` | 안전(기존 jsonb 에 키 하나만 · 파일 없으면 건너뛴 수 출력) |
+
+- 제목은 그림에 굽지 않는다 — 모든 화풍이 위쪽 30% 를 비워 두고 HTML 이 한글 제목을 얹는다(글자색 `title_ink`).
+- 2026-09-25 실측: DashScope 무료 한도 소진 · OpenAI 크레딧 0 → Kaggle T4(Qwen-Image Q3 + Lightning 4스텝) 경로로 생성.
+- 되돌리기: `edition` 키를 지우면 선반이 종전 표지로 돌아간다(파일은 남는다).
+
 ### 카탈로그 파이프라인 — 발행 뒤 `/library/vocab` 한 권이 되기까지 (2026-08-31)
 
 위 8단계는 **낱말을 만드는** 일이고, 여기는 그 낱말을 **한 권으로 세우는** 일이다.

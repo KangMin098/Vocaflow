@@ -25,7 +25,8 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { ROOT, chromium } from './lib/ref-page.mjs'
-import { NEG, SCENES, keyAndEncode } from './lib/illo-tines-scenes.mjs'
+import { pathToFileURL } from 'node:url'
+import { keyAndEncode } from './lib/illo-tines-scenes.mjs'
 
 const argv = process.argv.slice(2)
 const arg = (k, d) => { const i = argv.indexOf(k); return i >= 0 && argv[i + 1] ? argv[i + 1] : d }
@@ -34,8 +35,12 @@ const FORCE = argv.includes('--force')
 const FETCH_ONLY = argv.includes('--fetch-only')
 /** 장면마다 시드 N개 — 바탕을 뺀 뒤 **투명 비율이 가장 높은 것**을 고른다(물건 뒤에 카드 면이 그려진 결과가 자동 탈락). */
 const VARIANTS = Number(arg('--variants', '1'))
-const OUT = path.join(ROOT, 'apps/web/public/illustrations/tines')
-const WORK = path.join(ROOT, 'tmp/illo-kaggle')
+// `--scenes <모듈>` — 다른 파이프라인이 자기 장면 목록(SCENES · NEG)을 넘긴다(예: scripts/vcb/editions/edition-scenes.mjs).
+//   없으면 tines 삽화. `--out` 은 산출 폴더(저장소 루트 기준).
+const SCENES_MOD = arg('--scenes', './lib/illo-tines-scenes.mjs')
+const { NEG, SCENES } = await import(SCENES_MOD.startsWith('./lib/') ? SCENES_MOD : pathToFileURL(path.resolve(ROOT, SCENES_MOD)).href)
+const OUT = path.join(ROOT, arg('--out', 'apps/web/public/illustrations/tines'))
+const WORK = path.join(ROOT, 'tmp', arg('--slug', 'vocaflow-illo-tines'))
 const DATASET = 'minkang123/vocaflow-qwen-comic'
 const SLUG = arg('--slug', 'vocaflow-illo-tines')
 
