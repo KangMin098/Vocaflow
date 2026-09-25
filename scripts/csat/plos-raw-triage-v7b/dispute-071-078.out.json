@@ -1,0 +1,261 @@
+[
+  {
+    "id": "39b997cc-3136-430d-9a3e-223f06831255",
+    "source_updated_at": "2026-09-13T06:25:46.456+00:00",
+    "body_sha256": "7e5588ec364b9a41d2de6474b26b9d9f3c3c5468e818ac85f915cc7db51a006c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "§3-5 keep: 서론의 「β선 약물은 5~7일 격리가 필요하다 → 반감기가 짧은 α선 핵종은 격리가 필요 없다」 문제-해결 단락과 고찰 첫 단락이 떼어도 서서 주제·빈칸·내용일치 칸을 채운다(§3-1); 나머지 선정·제외 기준 목록은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, patients should be quarantined from",
+      "note": "동위원소 표기([211At] 등)를 「새 약물」「기존 약물」로 바꾸고 isotope→radioactive, quarantined→kept apart 로 바꾸니 V8 대로 내려가며 격리 부담→대안의 논지가 그대로 섰다."
+    }
+  },
+  {
+    "id": "39fe7aad-c7c4-41fd-a17f-2627779f7b0a",
+    "source_updated_at": "2026-09-25T07:35:07.158194+00:00",
+    "body_sha256": "47b5ece27931508f18a7b53acd6c4ad6fb456132d0fb29a855d4c355df4200f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "§3-5 keep: 서론 첫 단락(항생제 내성 + 바이오필름이 약물 침투를 막는다 → 새 골격이 필요하다)과 레사주린 색 변화 원리 단락이 앞 문맥 없이 서서 주제·순서·내용일치 칸을 채운다(§3-1·§3-2); 합성 절차·NMR 수치 절은 reference 라 쓰지 않는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Antimicrobial resistance (AMR) is a major",
+      "note": "인용 괄호를 걷고 extracellular polymeric matrix→protective slime layer, mortality→deaths, scaffolds→basic structures 로 바꾸니 원인→결과→필요의 흐름이 V8 에서 섰다."
+    }
+  },
+  {
+    "id": "3a0c6eb5-478e-4c34-bfd0-1e90d736ef3b",
+    "source_updated_at": "2026-09-13T06:27:48.775494+00:00",
+    "body_sha256": "05ba0b0b777280a56e895d5f259fcf799de2c94d9ec74753ab82a832bb592242",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "§3-5 keep: 수식·증명이 대부분이지만 「FC 층 뉴런 수가 많으면 표현은 세밀해지나 과적합·계산 부담이 커 균형이 필요하다」 단락과 거리 기반 학습의 대량 데이터 요구를 비판하는 단락이 떼어도 서서 요지·빈칸 칸 하나 이상을 채운다(§3-2 가공 성공); 부풀린 문체라 V10 이상.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V10",
+        "V11"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In configuring the FC layer, one",
+      "note": "FC layer 를 「a network layer」로 바꾸면 절충(더 세밀함 vs 과적합) 논지가 서지만, 짧아 두 단락을 이어야 하고 어휘(overfitting, generalizable)를 내려도 V10 아래로는 잘 안 내려갔다."
+    }
+  },
+  {
+    "id": "402c8acb-1d5d-46e5-bd7d-c4cd55fada9a",
+    "source_updated_at": "2026-09-13T06:50:39.340044+00:00",
+    "body_sha256": "d1a6b088df07d4a5139bd40b7032f812f9148cfb0745b2335f70f2e466738566",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "§3-5 keep: 서론의 「미숙하게 태어난 주머니쥐 새끼가 앞다리·후각으로 젖꼭지까지 기어가고 미숙한 폐 대신 피부로도 숨쉰다」 단락과 고찰의 「폐포 형성이 멈춘다고 오래 믿었으나 새 연구가 성체까지 이어짐을 보였다」 단락이 서서 주제·순서·삽입·통념교정 칸을 채운다(§3-1).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Marsupials have a unique reproductive strategy",
+      "note": "학명·인용을 걷고 mesonephros 문장을 빼고 cutaneous respiration→breathing through the skin, neonate→newborn 으로 바꾸니 V7 대에서 이유가 이어지는 이야기처럼 읽혔다."
+    }
+  },
+  {
+    "id": "404af803-24bf-40e5-aefe-f2001485da7f",
+    "source_updated_at": "2026-09-13T06:24:48.420848+00:00",
+    "body_sha256": "0e9506c46f69434a866dd07a655903b8b7a9f9e8ec05c243679531ff83eefe4c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "§3-5 keep: 서론의 전통 알고리즘(비특이 검사 먼저) 대 역알고리즘(특이 검사 먼저) 장단점 비교 단락과 고찰의 「신속검사 결과만으로 판단하지 말고 병력·위양성 원인을 함께 보라」 단락이 서서 요지·주장·빈칸 칸을 채운다(§3-1); 성병 소재라 §8 에 따라 고2 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the past, syphilis screening predominantly",
+      "note": "검사명 약어(RPR·TPPA·CMIA)를 「a cheaper first test」「a more specific test」로 바꾸고 predilection→preference 로 고치니 두 순서의 장단 대조가 V8 로 섰다."
+    }
+  },
+  {
+    "id": "4086fd76-3430-4441-a1a8-360d597bed45",
+    "source_updated_at": "2026-09-25T07:38:04.434209+00:00",
+    "body_sha256": "e25a9896a69bfe4d460e3118c90bda89be6301c7b3d55de2ea543e31e5f684d4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "§3-5 keep: 고찰 4.2 의 「가속 분해 · 무리한 경작 · SOC 고갈이 생산성을 낮춰 다시 고갈을 부르는 악순환」 단락과 서론의 「정적 경관 가정」 비판이 떼어도 서서 주제·요약·빈칸 칸을 채운다(§3-1); 3.1 절 첫 문장이 빠진 흔적(This substantial…)은 한 절 머리 결손일 뿐 본문이 끝까지 있어 incomplete-source 가 아니다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "claim"
+      ],
+      "levels": [
+        "V8",
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The unique severity of SSP585 arises",
+      "note": "SSP585 를 「a fossil-fuel-heavy future」로, SOC 를 「soil carbon」으로 바꾸고 decomposition 는 두되 exacerbating→worsening 으로 고치니 세 원인과 악순환이 V8~V9 에서 섰다."
+    }
+  }
+]
