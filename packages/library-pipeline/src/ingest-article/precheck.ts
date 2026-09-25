@@ -50,7 +50,9 @@ export const PRECHECK_POLICY: Record<string, PrecheckPolicy> = {
     head: 'block',
     categoryBlock: [/sport|football|cricket|olympic|baseball|basketball|tennis|golf|rugby|motorsport|obituar|crime/i],
   },
-  global_voices: { category: 'flag', title: 'block', head: 'block' },
+  // 제목은 표시만 — 막았더니 19/100 이 걸렸는데 전부 시위·민주주의·거리 예술을 다룬 **분석·논평**이었다
+  //   (「Protests can change governments, but can they strengthen democracy?」). 사건 속보인 wikinews 와 다르다.
+  global_voices: { category: 'flag', title: 'flag', head: 'block' },
   // 건강·그림책 — 제목 규칙이 오판한다(사망 통계·「Crash!」). 끈다.
   nih_news_in_health: { category: 'flag', title: 'off', head: 'block' },
   // 그림책은 앞부분도 표시만 — 「Little hat, big hat.」처럼 기능어·마침표가 적은 정상 책이 걸린다(실측 4/668).

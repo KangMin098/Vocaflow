@@ -22,6 +22,12 @@ describe('precheckArticle', () => {
     expect(r.verdict).toBe('pass')
   })
 
+  it('Global Voices 논평은 제목에 「protest」가 있어도 막지 않고 표시만 한다 (100편 중 19편 오판)', () => {
+    const r = precheckArticle({ source: 'global_voices', title: 'Bangladesh: Protests can change governments, but can they strengthen democracy?', content: NEWS_BODY })
+    expect(r.verdict).toBe('flag')
+    expect(r.reasons).toContain('title:unfit')
+  })
+
   it('그림책 「Shock! Crash!」 은 제목으로 걸리지 않는다', () => {
     expect(precheckArticle({ source: 'gdl', title: 'Shock! Crash!', content: NEWS_BODY }).verdict).toBe('pass')
   })
