@@ -41,11 +41,14 @@ const { createClient } = await import('@supabase/supabase-js')
 const { splitSentences } = await import('../../apps/web/src/lib/csat/passage-skeleton.ts')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 
-const rows = []
+// 같은 문항이 여러 파일에 있으면(`--redo` 재검토) **나중 파일이 이긴다** — redo 청크는 이름 순서상 뒤에 온다.
+// 한 문항을 두 번 쓰지 않게 읽는 단계에서 마지막 판정 하나만 남긴다.
+const byId = new Map()
 for (const f of fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json')).sort()) {
   const j = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
-  for (const r of j.items ?? []) rows.push({ ...r, _file: f, _version: j.criteria_version ?? 'v1' })
+  for (const r of j.items ?? []) byId.set(r.id, { ...r, _file: f, _version: j.criteria_version ?? 'v1' })
 }
+const rows = [...byId.values()]
 
 const skip = {}
 const bump = (why) => (skip[why] = (skip[why] ?? 0) + 1)
