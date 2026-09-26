@@ -9,7 +9,7 @@
 // 청크에는 **판정·why·slots 를 넣지 않는다**(눈가림). 정답은 `key.json` 에 따로 둔다.
 // 청크는 본문 글자 수 `--budget`(기본 120,000자)으로 자른다 — 논문 한 편이 3만 자라 편수로 자르면 청크 크기가 열 배 갈린다.
 //
-// 실행: node scripts/csat/checklist-exp/export.mjs [--seed exp2] [--keep 100 --hold 40 --discard 60] [--budget 120000]
+// 실행: node scripts/csat/checklist-exp/export.mjs [--seed exp2] [--work <dir>] [--exclude <앞 key.json>] [--keep 100 --hold 40 --discard 60] [--budget 120000]
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -23,7 +23,9 @@ const SEED = arg('seed', 'exp2')
 const WANT = { keep: Number(arg('keep', 100)), hold: Number(arg('hold', 40)), discard: Number(arg('discard', 60)) }
 const BUDGET = Number(arg('budget', 120_000))
 const ROUNDS = ['round-8', 'round-10']
-const OUT = path.resolve('scripts/csat/checklist-exp/work')
+const OUT = path.resolve(arg('work', 'scripts/csat/checklist-exp/work'))
+// 앞 측정의 표본을 빼고 뽑는다 — 오판을 보고 고친 체크리스트를 같은 표본에 대면 과적합이다.
+const EXCLUDE = new Set(arg('exclude', '') ? JSON.parse(fs.readFileSync(arg('exclude'), 'utf8')).items.map((i) => i.id) : [])
 
 const readJson = (f) => JSON.parse(fs.readFileSync(f, 'utf8'))
 const pool = { keep: [], hold: [], discard: [] }
@@ -39,6 +41,7 @@ for (const r of ROUNDS) {
       const inp = inputs.get(o.id)
       if (!inp || !pool[o.retention]) continue
       population[o.retention]++
+      if (EXCLUDE.has(o.id)) continue
       pool[o.retention].push({ inp, truth: o, second: second.get(o.id) ?? null, round: r })
     }
   }

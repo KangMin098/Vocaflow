@@ -6,14 +6,16 @@
 // 같은 회차의 **판정자끼리 일치율**(이중 판정)을 함께 낸다 — 사람이 아니라 판정자 둘이 서로 맞는 만큼이 현실적인 천장이다.
 // 표본은 판정값별로 층화했으므로(export.mjs) 전체 일치율은 **모집단 비율로 가중**해 되돌린다.
 //
-// 실행: node scripts/csat/checklist-exp/compare.mjs [--json out.json]
+// 실행: node scripts/csat/checklist-exp/compare.mjs [--work <dir>] [--json out.json]
 
 import fs from 'node:fs'
 import path from 'node:path'
 
 import { decide, missingAnswers } from './decide.mjs'
 
-const WORK = path.resolve('scripts/csat/checklist-exp/work')
+const WORK = path.resolve(
+  process.argv.includes('--work') ? process.argv[process.argv.indexOf('--work') + 1] : 'scripts/csat/checklist-exp/work'
+)
 const key = JSON.parse(fs.readFileSync(path.join(WORK, 'key.json'), 'utf8'))
 const answers = new Map()
 for (const f of fs.readdirSync(WORK).filter((x) => /^chunk-\d+\.out\.json$/.test(x)).sort()) {

@@ -50,3 +50,27 @@ test('가공 셋 다 안 되면 discard · 하나라도 되면 keep', () => {
 test('gap 은 hold(criteria-gap)', () => {
   assert.equal(decide({ ...good, gap: true }).hold_reason, 'criteria-gap')
 })
+
+// ── v2 — 연결 세 값 + 걷어낸 뒤 남는 문장 ─────────────────────────────
+const { linked: _drop, ...rest } = good
+const v2 = { ...rest, linkage: 'strong', strippedRemains: true }
+
+test('v2 온전한 답 · 판 구분', () => {
+  assert.deepEqual(missingAnswers(v2), [])
+  assert.deepEqual(missingAnswers({ ...v2, linkage: 'weak' }), ['linkage'])
+  assert.equal(decide(v2).retention, 'keep')
+})
+
+test('v2 연결 없음 → discard', () => assert.equal(decide({ ...v2, linkage: 'none' }).rule, 'linkNone'))
+
+test('v2 가는 연결 + 걷으면 남는 게 없음 → discard (수치 나열 단신)', () => {
+  assert.equal(decide({ ...v2, linkage: 'thin', strippedRemains: false }).rule, 'thinAndStripped')
+})
+
+test('v2 가는 연결이지만 내용이 남음 → hold(borderline)', () => {
+  assert.deepEqual(decide({ ...v2, linkage: 'thin' }), { retention: 'hold', rule: 'linkThin', hold_reason: 'borderline' })
+})
+
+test('v2 강한 연결이면 수치가 많아도 keep', () => {
+  assert.equal(decide({ ...v2, strippedRemains: false }).retention, 'keep')
+})
