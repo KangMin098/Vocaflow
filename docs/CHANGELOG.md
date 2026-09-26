@@ -9,7 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- 영상 요청 PR #119 리뷰 결함 5건(`20260926130000_video_request_supersede_restore`, 미적용): 같은 자리 요청은 created_at 최신이 주인(`pickRequestOwners` · pull ORDER BY) · 옛 failed 자동 재시도 차단 · 교체 편 평가는 `applied_at` 이후 재생만 · 발행 건너뛰기를 크기 대신 sha256 으로 · purge 편을 「다시 찍어 되살리기」로 복구 가능.
+- 영상 요청 PR #119 리뷰 결함 5건(`20260926130000_video_request_supersede_restore`, 2026-09-26 적용): 같은 자리 요청은 created_at 최신이 주인(`pickRequestOwners` · pull ORDER BY) · 옛 failed 자동 재시도 차단 · 교체 편 평가는 `applied_at` 이후 재생만 · 발행 건너뛰기를 크기 대신 sha256 으로 · purge 편을 「다시 찍어 되살리기」로 복구 가능.
 - 영상 공장 내리기·교체(`20260924150000_video_retire_replace`): 구성요소·요청 상세에서 교체 요청/내리기/되살리기, `pnpm video retire:sync [--commit] [--purge]`. 교체본은 같은 id·같은 kind 를 이어받고, 내린 편은 음성~발행 어디에도 안 나온다(목록 못 읽으면 멈춤). manifest 에 내용 해시 `?v=` — 7일 캐시 뒤 옛 영상 방지.
 - 영상 공장 요청 순환 화면·드레인: `/admin/video` 「요청」 탭 + `/admin/video/requests/[id]`(스테퍼 · 채운 미리보기 · 승인/수정/반려), `pnpm video requests[:export|:import|:pull]`, 설계 서브에이전트 `video-request-designer`. 초안은 숫자를 못 쓰고 번들 경로만 인용, 규칙 편 장면은 borrow 로 흡수. 교재 권별 요청 1건으로 요청→수정 요청→rev 2→승인→음성→렌더(가로)까지 실측.
 - 영상 공장 요청 순환 DB(`20260924120000_video_requests`): 분야 설정 표 + 요청·설계 rev·검토·평가 4표, phase 전이는 RPC 6개로만 — 현재 rev 승인 없이는 적용 불가. `video_jobs.kind` 에 `request` 추가.
