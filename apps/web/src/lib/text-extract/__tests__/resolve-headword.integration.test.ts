@@ -47,12 +47,20 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
       },
     )
 
-    it.each(['unglamorous', 'mislabeled', 'nonlinear'])(
+    // 픽스처는 「어기는 사전에 있고 파생어는 없는」 낱말이어야 차단을 증명한다(2026-09-26 실측:
+    // photogenic · label · magnetic 은 해석됨). 옛 픽스처 unglamorous · nonlinear 는
+    // 사전에 표제어로 등재돼(2026-08-26 · 09-05) 아래 L1 테스트로 옮겼다 — #105.
+    it.each(['unphotogenic', 'mislabeled', 'nonmagnetic'])(
       '부정 접두사 %s 는 해석되지 않는다',
       async (w) => {
         expect(await resolve(w)).toBeNull()
       },
     )
+
+    it('표제어로 등재된 부정 파생어는 자기 자신으로 해석된다 (L1)', async () => {
+      expect(await resolve('unglamorous')).toBe('unglamorous')
+      expect(await resolve('nonlinear')).toBe('nonlinear')
+    })
 
     it('사전에 표제어로 있는 -less 단어는 정상 해석된다 (L1)', async () => {
       expect(await resolve('harmless')).toBe('harmless')
@@ -63,8 +71,13 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
   describe('어기 다의성에 취약한 접두사는 해석하지 않는다', () => {
     // geochemist→chemist 는 형태론적으로 부분집합이지만, 사전의 chemist 주 뜻이
     // "약사" 라 지구화학자가 약사가 된다. 어떤 어기가 다의어인지 미리 알 수 없다.
-    it('geochemist 는 chemist 로 해석되지 않는다', async () => {
-      expect(await resolve('geochemist')).toBeNull()
+    // geochemist 는 2026-09 표제어로 등재돼 L1 로 해석된다 — 미등재 형제어로 차단을 잰다(#105).
+    it('paleochemist 는 chemist 로 해석되지 않는다', async () => {
+      expect(await resolve('paleochemist')).toBeNull()
+    })
+
+    it('등재된 geochemist 는 chemist 가 아니라 자기 자신이다 (L1)', async () => {
+      expect(await resolve('geochemist')).toBe('geochemist')
     })
   })
 
@@ -78,8 +91,11 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
       expect(await resolve('optimized')).toBe('optimise')
     })
 
-    it('optimization → optimisation', async () => {
-      expect(await resolve('optimization')).toBe('optimisation')
+    // 두 철자가 모두 표제어면 L1 이 먼저 걸려 L5 철자 해석까지 가지 않는다.
+    // 정본으로 모으는 것은 `variant_of` 설계(_pending_spelling_canonical.sql)의 몫 — #105.
+    it('두 철자가 모두 등재되면 각자 자기 자신이다 — optimization · optimisation', async () => {
+      expect(await resolve('optimization')).toBe('optimization')
+      expect(await resolve('optimisation')).toBe('optimisation')
     })
 
     // 9섹터 실측(2026-08-13)에서 드러난 결함: L5 가 미국식→영국식 **단방향**이었다.
