@@ -1,0 +1,208 @@
+[
+  {
+    "id": "6a6ef23d-a02e-4e3a-b3bf-29cf799fcda6",
+    "source_updated_at": "2026-09-25T07:36:40.531914+00:00",
+    "body_sha256": "93cab19c6cea9bac8d366eea711190537be8611145d8ed34b2b757311a8a53c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 「식이·유전 차이」 단락이 인종 간 간 유전자 발현 차이의 원인을 두 갈래로 논증해 성인·고3 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Widespread differences in gene expression profiles",
+      "note": "SNP·GWAS 를 「유전 변이」로, histone modifications 를 생략하면 식이·유전 두 원인 논지가 선다."
+    }
+  },
+  {
+    "id": "6a83be9d-523f-4c41-9549-6c74016bfd34",
+    "source_updated_at": "2026-09-25T07:36:41.81819+00:00",
+    "body_sha256": "0e863f3d79e5d07c975ab54c36f7b666a46773044acf0d22c56220afa7587abe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "서론의 다가오는 위협 지각 단락이 위협 대상의 충돌 시간을 짧게 느끼는 현상과 그 의의를 풀어 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although looming perception has been traditionally",
+      "note": "semantic→meaning, facilitate→help, occlusion 언급을 걷으면 포식자가 시야에서 사라지는 예시로 흐름이 선다."
+    }
+  },
+  {
+    "id": "6a8687f9-63f8-493c-a862-fd74778d00b9",
+    "source_updated_at": "2026-09-25T07:36:42.184724+00:00",
+    "body_sha256": "9530c70fed520120cbb6cf46bb046e52e4de099538acc39351f939c30ca406ed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "health",
+    "why": "4D 유동 MRI 로 폐동맥압을 추정한 임상 영상 논문으로 소용돌이·나선도 설명 단락 외에는 측정·회귀식 나열이라 가공 경로가 애매하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Helicity can be thought of as",
+      "note": "소용돌이 단락은 떼어지지만 vorticity·helicity 정의에 기대 어휘를 바꾸면 내용이 사라지고 논지가 약하다."
+    }
+  },
+  {
+    "id": "6a9e26b7-654f-4ce3-b771-017410e32233",
+    "source_updated_at": "2026-09-25T07:36:44.323934+00:00",
+    "body_sha256": "5d9f04dc9b4785f1f97af526fbf06a8c9c7034f1896c249361db29755ef63669",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "서론의 목재 화재 대응 단락이 수용성 난연제가 습기에 씻겨 나가는 문제와 지속 처리 필요를 논증해 요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Improving wood reaction to fire is",
+      "note": "원소 기호를 걷고 fire-retardant→fire-resistant chemical, leach→wash out 으로 바꾸면 문제-해결 흐름이 선다."
+    }
+  },
+  {
+    "id": "6aac30d8-60fb-4a79-a666-1f6c6f337ddd",
+    "source_updated_at": "2026-09-25T07:36:44.883796+00:00",
+    "body_sha256": "57d12e4b68adb3d5a0676d09a34137ca72a2911af5d4f8e4fbfc63962560d442",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론 첫 단락이 곰팡이 병원체가 흙에서는 곰팡이로, 체온에서는 효모로 모습을 바꿔 감염하는 과정을 순서대로 설명해 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The ability to sense and effectively",
+      "note": "filamentous→thread-like, aerosolize→float in the air, effectors 를 「분비 물질」로 바꾸면 감염 순서가 선다."
+    }
+  }
+]

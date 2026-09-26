@@ -1,0 +1,522 @@
+[
+ {
+  "id": "68c0356b-3671-43e6-88ab-debce0e30a4c",
+  "source_updated_at": "2026-09-13T06:43:50.442439+00:00",
+  "body_sha256": "aeec2256d065d5e6254e2c0901d58721d63fedc54fbc9b512b5b47caa96eb6b5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰이 IL-34 상승과 폐 침범 무관을 근거로 「염증보다 혈전이 중증화를 이끈다」는 논지를 세워 한 편으로 읽힌다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "main_point", "blank", "content_match", "summary"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It has been reported that the",
+   "note": "약어(CRP·D-dimer)를 「염증 지표」「응고 지표」로 바꾸면 서고 수치를 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "68c4ef08-7f49-4060-b346-aff7975aa16c",
+  "source_updated_at": "2026-09-15T15:12:28.000036+00:00",
+  "body_sha256": "4ddf5692eae58b8f11abc29bfc2366511df4e87d247b170ae0d28211ce3fd036",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰에서 CD93 이 혈관 생성은 늘리면서 투과성은 낮춘다는 상반된 결과를 놓고 해석을 전개해 논지가 선다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "summary", "content_match"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However, the role of CD93",
+   "note": "실험 기법 이름(Transwell·IHC)은 걷어야 하고, 혈관·종양 성장 비유 문단은 그대로 선다."
+  }
+ },
+ {
+  "id": "68c66c35-5fb0-49b7-b5ec-b69b9bc55156",
+  "source_updated_at": "2026-09-25T07:35:52.828365+00:00",
+  "body_sha256": "7848c130dfc6a7bc393e33b31280a0e06e1723a79d0e676e4bcc470c0f9c70cf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "energy",
+  "why": "서론이 요소 함유 폐수를 처리하면서 전기를 얻는다는 이중 이득 구조를 설명해 주장-근거 흐름이 잡힌다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "title", "blank", "summary"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "From an application viewpoint, urea-contaminated wastewaters",
+   "note": "전기방사·XPS 절은 수치 나열이라 못 쓰고, 서론과 결론 앞머리만 발췌 대상이다."
+  }
+ },
+ {
+  "id": "68d1c03d-1f75-4278-91b5-f162b2f5facc",
+  "source_updated_at": "2026-09-15T15:12:30.339416+00:00",
+  "body_sha256": "7b769a35b2ee834fd32af8d7303709ff13f9f396bbd16023c0a545b52743d6f0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰이 SF6 가 재주입은 줄이나 세포 손실은 늘린다는 득실 구조를 세워 논증문으로 읽힌다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "main_point", "blank", "summary", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Thus, rebubbling might increase ECL",
+   "note": "수술 기법 명칭을 「각막 이식」으로 바꾸면 서고, 양안 통계 문단은 걷는다."
+  }
+ },
+ {
+  "id": "68d69552-bf0d-431f-ac7b-4d196fc7b41a",
+  "source_updated_at": "2026-09-13T06:31:38.534258+00:00",
+  "body_sha256": "d0e1ded32da292f4ca5b941ae26f4a50c476e144bc83fddd3fed7745dadc8a2a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론이 기억·학습과 시냅스 가소성에서 Arc 단백질의 역할을 설명해 배경 문단만으로 논지가 선다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "summary"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The mammalian brain is a",
+   "note": "결정 구조·ITC 수치 절은 못 쓰고 서론과 결론의 나노바디 응용 문단만 남는다."
+  }
+ },
+ {
+  "id": "68e3d2c8-50ad-4fc0-8172-111f4e94d007",
+  "source_updated_at": "2026-09-25T07:35:55.994778+00:00",
+  "body_sha256": "01c5ef14a0d152742dbd7a2d42ee3fcd12eb87691865b2fb1723ef71ae05bff0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "고찰이 유카탄 암초가 모래 바닥이라는 통념을 뒤집고 보전 계획 편입을 주장해 통념 교정 구조를 갖춘다.",
+  "slots": {
+   "ages": ["high1", "high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "title", "main_point", "blank", "content_match", "summary"],
+   "levels": ["V5", "V6", "V7"],
+   "platform": ["myth-rebuttal", "claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The rocky reefs identified along the",
+   "note": "지명·좌표를 걷어도 「복잡한 지형이 생물 다양성을 떠받친다」는 흐름이 남는다."
+  }
+ },
+ {
+  "id": "68e75a9a-fe83-45f6-9413-4e0df4978e8c",
+  "source_updated_at": "2026-09-13T07:33:35.698613+00:00",
+  "body_sha256": "603633bd47e9cd0b458aa5e7aec04b60048e41507b447a963df04f67fd471f51",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "약용 식물 추출물이 응집과 산화 스트레스 두 경로로 신경을 보호한다는 고찰 논지가 한 편으로 선다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "blank", "summary", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This study examined the neuroprotective effects",
+   "note": "추출 용매 약어를 「추출물」로 통일하면 읽히고, 시약·농도 절은 걷는다."
+  }
+ },
+ {
+  "id": "68eff96d-4d0f-4d8d-b2d7-4566ee593a35",
+  "source_updated_at": "2026-09-13T07:06:10.574845+00:00",
+  "body_sha256": "b001d2eeb6505ac6987017c9268c157b448eec5db6ffc7758709233cc941fd28",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론이 「발판 단백질이 효소들을 모아 작업을 조율한다」는 개념을 여러 사례로 세워 설명문으로 읽힌다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "summary"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Scaffolds work to anchor proteins",
+   "note": "유전자 계통·플라스미드 절은 못 쓰고, 발판 개념 문단은 유전자 이름만 빼면 선다."
+  }
+ },
+ {
+  "id": "68fdad90-d9e7-46e0-a353-83a6188bdda7",
+  "source_updated_at": "2026-09-13T06:35:51.935561+00:00",
+  "body_sha256": "e2d4571f1665d0039a741b25f96b9a307ce774db569069459d28781f7a1875f3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰이 식물 속 폴리페놀·플라보노이드가 행동·생화학 지표를 함께 개선했다는 근거로 논지를 편다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "blank", "content_match", "summary"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Parkinson's disease (PD) is a",
+   "note": "행동 실험 표와 프라이머 목록은 걷어야 하고 서론·고찰은 그대로 쓰인다."
+  }
+ },
+ {
+  "id": "690cfd9a-82c4-45e5-aca9-4221a1154fb2",
+  "source_updated_at": "2026-09-15T15:12:37.285391+00:00",
+  "body_sha256": "c6b5ad8cb96b12ce2a961e81b24480cea3bf9f74cb95e08ee93f173309b34dea",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "나는 다람쥐와 나무 다람쥐의 이동 방식 차이를 유전체 진화와 잇는 고찰이 한 편의 논지로 이어진다.",
+  "slots": {
+   "ages": ["high1", "high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "title", "blank", "content_match", "summary"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The flying squirrels (Sciurinae, Pteromyini) are",
+   "note": "유전자 약어와 계통 괄호식은 걷고, 활공막·서식 적응 문단만 남기면 쉽게 읽힌다."
+  }
+ },
+ {
+  "id": "690ee3f7-b5b5-49d1-833d-34aaf040291d",
+  "source_updated_at": "2026-09-13T07:34:06.243306+00:00",
+  "body_sha256": "43a9f147a8b86e82c69d88fd9b92aee02eed79e93e798bcb59eee1e831991bd7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰이 폐 가장자리만 재구성해 혈관·기관지 혼동을 피한다는 설계 논리를 설명해 논지가 선다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "summary"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "To resolve these difficulties, we developed",
+   "note": "HU 임계값·회귀 표는 걷어야 하고 설계 착안 문단은 용어 둘만 바꾸면 선다."
+  }
+ },
+ {
+  "id": "6913d045-9b3c-4645-b9b6-e8df6b958819",
+  "source_updated_at": "2026-09-13T07:30:39.830136+00:00",
+  "body_sha256": "db4bd417246ea7078ba9afc052871123c089e84360a4c4d7503f229da2c18004",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰이 자가포식이 이로운지 해로운지 상황에 달렸다는 양면 논의를 전개해 주장-반론 구조가 잡힌다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "summary", "content_match"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Autophagy, which literally means \"self-eating,\"",
+   "note": "자가포식 정의 문단은 그대로 쓰이고 단백질 약어 나열 절은 걷는다."
+  }
+ },
+ {
+  "id": "69198f9f-9016-4f68-be6f-ea92a31e028e",
+  "source_updated_at": "2026-09-13T07:43:50.26574+00:00",
+  "body_sha256": "4a4d92a0d51ce1ae49f7f6265d870338b8c5853b8d402e45dd9adf330f9357f4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "망막을 뇌의 바깥 부분으로 보고 비침습 검사로 목동맥 협착을 가려낸다는 착안이 서론에서 또렷하다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "main_point", "blank", "summary", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Since the retina belongs to the",
+   "note": "회귀계수 표를 걷어도 「눈으로 뇌혈관 위험을 본다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "69236638-7f9e-4e93-b93e-334b94e6cd3c",
+  "source_updated_at": "2026-09-25T07:36:02.310304+00:00",
+  "body_sha256": "95241cb3efae600598318762babc6cb8c1739f4a06cf6a9c665409dbc4967ab8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "저자 요약이 합성 데이터로 건강 표본 부족을 메운다는 과정을 평이하게 풀어 독립 지문이 된다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "title", "blank", "summary", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pancreatic cancer is one of",
+   "note": "반응 번호(MAR07238 등)는 걷어야 하고 저자 요약과 한계 논의는 그대로 선다."
+  }
+ },
+ {
+  "id": "692568ed-9800-435c-a116-eae1df5e0521",
+  "source_updated_at": "2026-09-23T21:04:53.846763+00:00",
+  "body_sha256": "812d976bf64390cde2ea315396f25135d1e74edb49cfe7a03452fa24d74a7117",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "숙주 방어와 바이러스의 맞대응을 한 축(IKKε 조절)으로 엮은 고찰이라 논지와 대비 구조가 함께 선다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "summary"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Viral pathogens pose a continuous",
+   "note": "유비퀴틴 결합형(K27·K48) 열거는 걷어야 하고 저자 요약 문단은 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "6939088d-04e3-4128-bc95-5c005f9bbee3",
+  "source_updated_at": "2026-09-25T07:36:05.624674+00:00",
+  "body_sha256": "d588269a13060d6722acded51eaa49f1b9b4abe34637c989e1b7f48badf60254",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "같은 약초가 산지에 따라 성분이 갈린다는 「같은 종, 다른 땅」 논지가 고찰에서 분명히 선다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "main_point", "blank", "summary", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Academician Huang Luqi proposed that",
+   "note": "성분 약어(SI·SH·3B)와 크로마토그램 절을 걷으면 고도-품질 논의만 깔끔히 남는다."
+  }
+ },
+ {
+  "id": "693bfa73-1fc9-4481-9755-ad01ccce7798",
+  "source_updated_at": "2026-09-25T07:36:06.425982+00:00",
+  "body_sha256": "e987d7fe728d2ef4d93b9ebc7d73ddbfea868d3320aa429679ef675ea04cd805",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "education",
+  "why": "훈련 모형의 적합성과 해부학적 차이에 따른 안전 수칙을 잇는 고찰이라 주장-근거가 또렷하다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "main_point", "blank", "summary", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This study demonstrates the feasibility and",
+   "note": "마취 약물·용량 절과 합병증 사례 목록은 걷고, 학습 곡선 논의는 그대로 쓴다. 동물 수술 묘사가 있어 연령 칸을 고등 이상으로 둔다."
+  }
+ },
+ {
+  "id": "6943928f-afc5-4fa8-8cff-450b46bf4d32",
+  "source_updated_at": "2026-09-13T06:50:15.15236+00:00",
+  "body_sha256": "19685dc7674c4f369665fbce3dcb79a65befc5789389146463f32b95d054f39b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기존 방식이 혈소판만 농축해 온 한계를 짚고 물을 증발시키는 대안을 제시하는 구조라 논지가 선다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "main_point", "blank", "summary"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "At present, the majority of the",
+   "note": "이온 농도 표와 성장인자 약어는 걷고, 방법의 착안과 pH 문제 해결 문단만 쓰면 서다."
+  }
+ },
+ {
+  "id": "694c8f90-42d7-4c90-998d-f405fd3da56f",
+  "source_updated_at": "2026-09-25T07:36:09.432821+00:00",
+  "body_sha256": "2d8bdfe87caff9053265d825c3b922b3aaaa315f8ea8069aabee0242e947a090",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "저자 요약이 항체가 오랜 시간에 걸쳐 성숙하는 과정과 백신 설계의 난관을 비전문 어휘로 풀어낸다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "summary"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In response to antigenic stimulation, cognate",
+   "note": "유전자 카세트·교배 절은 못 쓰고 저자 요약과 서론 첫 문단만 발췌 대상이다."
+  }
+ },
+ {
+  "id": "69600d2b-ac0e-4adb-b416-d796a8c4143a",
+  "source_updated_at": "2026-09-13T07:41:10.656823+00:00",
+  "body_sha256": "1f90a9ba836f53a65518712333913f08c8198df6cd10c9b8e14c7e9236a98726",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "수술 시기가 늦을수록 시력 회복이 나빠진다는 논지와 신생아 선별 체계 필요라는 결론이 이어진다.",
+  "slots": {
+   "ages": ["high1", "high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "main_point", "blank", "content_match", "summary"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "If not treated promptly, dense pediatric",
+   "note": "logMAR 수치와 합병증 표는 걷어도 「조기 수술과 사후 관리가 결과를 가른다」가 남는다."
+  }
+ }
+]

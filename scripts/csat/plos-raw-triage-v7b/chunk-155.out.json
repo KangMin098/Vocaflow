@@ -1,0 +1,435 @@
+[
+  {
+    "id": "7aee28cc-7e83-404e-81b4-88f08cb76b5a",
+    "source_updated_at": "2026-09-13T06:42:32.794486+00:00",
+    "body_sha256": "38417bd9787a58b2dbb254ba4cb5984e52550ef7bcfbd4151ca9435b26bc2420",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 암 악액질의 근육 소실과 치료 공백을 인과로 잇고 고찰이 CO2 처치의 기전을 설명해 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cancer cachexia is a multifactorial syndrome",
+      "note": "효소 약어(MAFbx·MuRF-1)를 「근육 분해 효소」로 바꾸면 서론 첫 단락이 앞 문맥 없이 선다."
+    }
+  },
+  {
+    "id": "7aef594c-cdf4-4953-ae12-6e9d1e29371e",
+    "source_updated_at": "2026-09-25T07:29:27.642532+00:00",
+    "body_sha256": "3c3f4a87751576e1862eee3abad3ea134c39d64bbff300198855ae82a0ac0b96",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 각막 혼탁의 원인·기존 치료 한계·유전자 치료 전략을 차례로 잇고 고찰의 순차 투여 단락이 떼어 쓸 만해 주제·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Current therapeutic strategies for MPS VI",
+      "note": "「galsulfase」「keratoplasty」를 「효소 치료」「각막 이식」으로 바꾸면 치료 한계 단락이 논지로 선다."
+    }
+  },
+  {
+    "id": "7af2e282-3b3b-4eb4-be56-5e359a159a7d",
+    "source_updated_at": "2026-09-25T07:29:27.973489+00:00",
+    "body_sha256": "6449d6b903adcb376286b3cd01f6925bb3b194c44d6003327758b40d28c6e07f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 면역저하 신장 환자의 백신 반응 약화와 IgG4 전환 질문을 세우고 고찰이 제한점까지 논리로 이어 주제·요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "IgG4 is the least abundant IgG",
+      "note": "하위 분류 약어를 「항체 유형」으로 묶으면 IgG4 성질과 반복 접종의 관계가 한 단락으로 선다."
+    }
+  },
+  {
+    "id": "7b013cef-ab45-461a-bfee-5cbf12e08ffa",
+    "source_updated_at": "2026-09-13T06:27:57.760403+00:00",
+    "body_sha256": "854a1b428972ac9ddaaec108b73b5a9e49f945633999a7010a638929a3165a4a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 거대세포바이러스의 피해와 면역 회피 단백질을 설명하고 고찰 끝 단락이 숙주 조절 장치를 가로챈다는 결론을 내 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Human Cytomegalovirus (HCMV) is a widespread",
+      "note": "「tegument」「NFκB」 같은 용어를 풀어 쓰면 첫 단락의 질병 부담 설명이 자족적으로 선다."
+    }
+  },
+  {
+    "id": "7b14502c-f2c1-40e5-ab04-80f27178d9b6",
+    "source_updated_at": "2026-09-13T06:22:01.201036+00:00",
+    "body_sha256": "72a646c5fabbd95dc93ef2e477cbe16a08849f4317a1a2864cd5cbe7371303da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "부모 정신질환의 세대 간 전달이 유전·환경 요인 때문인지 묻고 쌍둥이 설계로 답을 낸 짧은 소개문이라 요약·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mental disorder transmission is known to",
+      "note": "같은 소개문이 두 번 반복돼 한 번만 쓰고, 표본 수를 걷어도 질문과 결론이 선다."
+    }
+  },
+  {
+    "id": "7b195353-e1d2-4f38-9453-4323af00d7ec",
+    "source_updated_at": "2026-09-06T00:09:13.031594+00:00",
+    "body_sha256": "15f531158520394a46e8b4750c97bfa89a47d550bcfd58131cabc98057ed3c16",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "제1형 당뇨의 야간 저혈당이 각성 실패로 이어지는 기전을 절마다 인과로 설명하는 논평이라 주제·순서·삽입·요약 칸을 폭넓게 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "order",
+        "insert",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A particularly important condition, observed mainly",
+      "note": "「counterregulatory」를 「혈당을 되돌리는」으로 바꾸면 야간 저혈당 단락이 독립된 지문이 된다."
+    }
+  },
+  {
+    "id": "7b1f5d19-1327-4004-a5fd-bc8a55aed749",
+    "source_updated_at": "2026-09-13T07:13:01.002272+00:00",
+    "body_sha256": "791298bd08a0016756f959a31765ccef1484aacb20abcb0e21cc0322eb47a3b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 조직의 저항과 회복력 개념을 세포 사멸 확산과 잇고 고찰이 카탈레이스의 보호 역할로 결론을 내 주제·빈칸·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "irrelevant"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The evolution of organ systems and",
+      "note": "「resilience」「tolerance」 구분을 살리고 세포사 약어를 풀면 첫 단락이 개념 설명문으로 선다."
+    }
+  },
+  {
+    "id": "7b2d7d51-dccd-4f4f-9533-b683ba9463cf",
+    "source_updated_at": "2026-09-13T07:38:22.041153+00:00",
+    "body_sha256": "23631273e42be8bf9f57ad238f0840479bea302dd7e6a88f7378b235b75170ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 턱관절 통증의 성차에서 에스트로겐 역할을 묻고 고찰이 Nav1.7 발현과 통증 증가를 연결해 주제·주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pain in the temporomandibular joint (TMJ)",
+      "note": "「nociception」「hyperalgesia」를 「통증 감각」「통증 과민」으로 바꾸면 성차 질문 단락이 선다."
+    }
+  },
+  {
+    "id": "7b342afa-334f-4ee1-a785-1550f8f4f976",
+    "source_updated_at": "2026-09-13T06:40:12.910503+00:00",
+    "body_sha256": "2a0e48a95b12b7699f2b41327d6005e1f088ef6b8e83a619b8bc16ec97041497",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론이 약용식물의 자생지 감소와 번식 어려움에서 조직배양 대안을 끌어내고 결과가 적정 농도와 과다 독성을 대비해 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Regrettably, the C. tuberculata species has",
+      "note": "학명과 지명을 걷고 「auxin」을 「뿌리 생장 호르몬」으로 바꾸면 보전 필요성 단락이 선다."
+    }
+  },
+  {
+    "id": "7b6f1d21-2641-49b5-926b-bb0e682a9efc",
+    "source_updated_at": "2026-09-25T07:29:38.829839+00:00",
+    "body_sha256": "1856a34693fd78768468bb9cbd339bbc7fddbdcf71fcde716337ede55f7b6ab8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 RSV 치료 공백과 인터페론의 역할을 설명하고 고찰이 ARCN1 증가를 과잉 염증을 막는 되먹임으로 해석해 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Respiratory syncytial virus (RSV) is a",
+      "note": "「prefusion F protein」 같은 용어를 걷으면 백신 한계와 연구 필요성 단락이 논지로 선다."
+    }
+  }
+]

@@ -1,0 +1,856 @@
+[
+ {
+  "id": "757ed250-c17f-4d10-aef3-66236384dae5",
+  "source_updated_at": "2026-09-25T07:27:16.781626+00:00",
+  "body_sha256": "0d9023a058441fcd98b991a320aa634ee2314eab7515bdc6d6cf87bb34849d28",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "작가 요약과 고찰의 반복 자극 후 민감화·되먹임 고리 설명이 논지로 서서 주제·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The ability to adapt behavior based",
+   "note": "유전자·수용체 약어를 「신경조절 물질」로 바꾸면 떼어 낸 문단이 선다."
+  }
+ },
+ {
+  "id": "7582e1ce-57ba-4358-bc60-63788c03275a",
+  "source_updated_at": "2026-09-15T15:18:54.910486+00:00",
+  "body_sha256": "ba80a8cc0f28baf0fcd2cd289d03244df6d73eaef099d1a54299756d9257b532",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 쥐폐선충 생활사와 감염 경로 설명이 순서 있게 이어져 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Angiostrongylus cantonensis, commonly known as the rat",
+   "note": "학명은 「기생충」으로 줄이면 생활사 단락이 앞 문맥 없이 읽힌다."
+  }
+ },
+ {
+  "id": "75835df5-6133-45eb-9f40-93af7974c28f",
+  "source_updated_at": "2026-09-25T07:27:17.529223+00:00",
+  "body_sha256": "d0a6283965478a8a3dec70f637dbda6558cb84d58d6b790558e71a7795cfbb7b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "서론의 화강풍화토 문제와 미생물 탄산칼슘 고결 기술 설명이 문제-해결 구조로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Granite residual soil is widely distributed",
+   "note": "물리 다짐·첨가제의 한계 뒤 대안 제시 흐름이 분명해 전문어 2~3개만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "75891b23-caa8-48e9-aa25-e7a808f53ae8",
+  "source_updated_at": "2026-09-13T06:23:46.061381+00:00",
+  "body_sha256": "94e8a86f6a2a28c38d3e1e356ed1aef0bf7ee1b0b317fffc4de70ad36cf82995",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "고찰의 시각 운동이 중력 추정에 쓰이지 않는 이유(운동 출처 모호성) 단락이 논증으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "irrelevant"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "We propose that the absence of visual",
+   "note": "소뇌 부위 약어 NU 를 「소뇌의 한 부위」로 풀면 논지가 선다."
+  }
+ },
+ {
+  "id": "7598b6ca-f5bf-450f-a570-c05b503692ad",
+  "source_updated_at": "2026-09-25T07:27:19.040058+00:00",
+  "body_sha256": "b9d32cbb2e7fb7f94d2ed48db207a8833cd41090855623105ea5428cb53170f6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "작가 요약의 라디오 튜닝 비유와 서론의 호흡-수염 운동 결합 설명이 개념 설명문으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Animals generate a multitude of rhythmic movement",
+   "note": "비유가 이미 들어 있어 어휘 조정만으로 읽기 지문이 된다."
+  }
+ },
+ {
+  "id": "759fe187-0b1b-4ace-b43d-50ae9cdf65f8",
+  "source_updated_at": "2026-09-13T07:35:13.565371+00:00",
+  "body_sha256": "91b533ba393ca772d8f2e639c4527a7ef5b8b4e1158b124f3890300ff5d93db6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 과민성 대장 증후군 유병률과 뇌-장 축, 문화·성별 차이 가설 단락이 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Irritable bowel syndrome (IBS) is a chronic",
+   "note": "수치를 걷어도 뇌 구조 변화 가설의 흐름이 남는다."
+  }
+ },
+ {
+  "id": "75a09bd3-f1db-41d5-81e6-2a5a02781dbb",
+  "source_updated_at": "2026-09-25T07:27:19.969517+00:00",
+  "body_sha256": "fe968300bc9d4871fab7ecb6954258e8548764c52a1661bf3e5c78689220c787",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰과 임상 함의 절의 위장 부작용 조기 발생과 용량 조절 권고가 논지로 서서 요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Clinically, these findings emphasize the need for",
+   "note": "약물명 한두 개를 「새 당뇨약」으로 바꾸면 권고문처럼 읽힌다."
+  }
+ },
+ {
+  "id": "75b0e70e-7d29-4c76-9677-f3bbc39937b1",
+  "source_updated_at": "2026-09-25T07:27:21.297042+00:00",
+  "body_sha256": "71c189b85cb2994a07e8d665546d5dc462db8079c99b98a49624e6de1d5901e5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "서론의 배지 비용 문제와 결론의 「양보다 질」 논지가 대비 구조로 서서 주장·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "topic",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Consequently, research has shifted toward low-cost alternatives",
+   "note": "부산물의 성분 변동성이라는 약점 제시가 분명해 전문어만 풀면 된다."
+  }
+ },
+ {
+  "id": "75b3a30c-f698-4e6c-8c6d-3565117a1e99",
+  "source_updated_at": "2026-09-25T07:27:22.199635+00:00",
+  "body_sha256": "31b36e0ffad0af32928ca62ae28cd3daad619e81fafa8b490dc649f5f908cef4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "작가 요약의 코브라 독소가 염증성 세포 죽음을 일으키는 과정 설명이 인과 순서로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "order",
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chinese cobra (Naja atra) snakebite causes severe",
+   "note": "단백질 약어를 「연쇄 반응」으로 묶으면 원인-결과 흐름이 남는다."
+  }
+ },
+ {
+  "id": "75b3cbf3-7de1-4ebe-98e5-9d03b07902d2",
+  "source_updated_at": "2026-09-25T07:27:22.773183+00:00",
+  "body_sha256": "bf175fe992a6b3eae12a17add95629601d39e333c72c10f22f232f227a3d7958",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "에세이의 운동·마음챙김·식이가 면역 대사에 주는 영향 절이 주장-근거 구조로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In a previous section, we described the",
+   "note": "세포·물질 약어를 걷으면 스트레스 호르몬과 치료 성과의 연결 논지가 선다."
+  }
+ },
+ {
+  "id": "75bf45fb-daf3-492b-974f-aa5dec46df34",
+  "source_updated_at": "2026-09-25T07:27:23.486848+00:00",
+  "body_sha256": "cd90b06a5f0f3b937b4c792454f785ada8cc5cc5cbb90808cb9aee4fa58cac95",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 조효소 Q 역할과 고찰의 가설 검증 흐름(과발현 무효 → 전구체 단계)이 추론 구조로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Coenzyme Q (CoQ), also known as ubiquinone",
+   "note": "유전자명이 많아 서론 첫 단락 위주로만 발췌할 수 있다."
+  }
+ },
+ {
+  "id": "75cd77b2-d5b9-4893-98c3-f8ff0c76c16a",
+  "source_updated_at": "2026-09-25T07:27:25.477663+00:00",
+  "body_sha256": "54724644ad7a750ababe3a2caa1f6abc5ef6febfc02bb93fc4cd87d31082f959",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 기생충이 숙주 행동을 조종한다는 가설과 톡소플라스마 사례가 읽기 지문으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Parasitism is an ecological interaction where parasites",
+   "note": "동물 사망·동족 섭식 서술은 가공 때 걷고 서론 단락만 쓴다."
+  }
+ },
+ {
+  "id": "75cd841d-3cb0-4e62-bc11-09cdc359b08c",
+  "source_updated_at": "2026-09-15T15:19:05.887038+00:00",
+  "body_sha256": "b0a46818998a45f98ac17c218d2be1b55a367bb857f5258f88bbe61057f78a89",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 항암제 독소루비신과 심방세동 위험 단락이 수치와 함께 문제 제기로 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Atrial fibrillation (AF), known as a common",
+   "note": "본문 대부분이 데이터베이스 절차라 서론 단락만 발췌 가능하다."
+  }
+ },
+ {
+  "id": "75d0e545-c2c6-4c9b-8018-49e2a2dff3cb",
+  "source_updated_at": "2026-09-25T07:27:26.415308+00:00",
+  "body_sha256": "68bc1fa48d9c164a26182fe4ae31e2a2b12f6181e8178fe9a2c64b0dff49cc9f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 국소 노화와 만성 감염이 노화를 부른다는 가설 단락이 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Senescence is a highly conserved biological process",
+   "note": "대사 효소 이름을 「효소」로 줄이면 떼어 낸 문단이 선다."
+  }
+ },
+ {
+  "id": "75d7f6c4-0b47-4221-904e-0030d4f9dd83",
+  "source_updated_at": "2026-09-15T15:19:07.531586+00:00",
+  "body_sha256": "6732f86956953503b8329b0da425cbdef74aaf5d2c4b1ebea98ff03163fb3748",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 자궁경부 점액이 생식력 관문이라는 설명과 주관적 점수의 한계 제기가 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "While we understand many of the hormonal",
+   "note": "점수 체계 이름만 걷으면 측정 도구의 필요성 논지가 남는다."
+  }
+ },
+ {
+  "id": "75d8e173-5f7e-43e5-8b38-8beca0934a46",
+  "source_updated_at": "2026-09-25T07:27:27.74819+00:00",
+  "body_sha256": "8a4191e176baabb5e0ecf2a1afb983cf415aa571ac0ef6cb236acc83389f7e09",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 베른슈타인 자유도 문제와 협응 구조 설명이 개념 설명문으로 서서 주제·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The human motor system presents a fundamental",
+   "note": "수식 자리 표시가 많은 방법 절은 빼고 서론·실용 함의만 쓴다."
+  }
+ },
+ {
+  "id": "75dc5a72-ce8c-4113-a398-aff898b080d3",
+  "source_updated_at": "2026-09-25T07:27:28.620384+00:00",
+  "body_sha256": "25f43175fd3cb108e6eccdd2004227d1fbddcc6367ad9c0412f37722bd5480a7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 당뇨 저혈당과 관상동맥 위험 문제 제기 단락이 원인-결과로 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Hypoglycemia in diabetes is a common and",
+   "note": "방법·결과가 수치 위주라 서론 첫 두 단락만 발췌할 수 있다."
+  }
+ },
+ {
+  "id": "75f2082d-af72-4065-8691-70289ab8dae7",
+  "source_updated_at": "2026-09-25T07:27:30.748551+00:00",
+  "body_sha256": "8f421695e09098055a45c3b6ca8f25953262fb8c7cd477306c20a3bae4f5e753",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 영아 장내 미생물 형성과 인체 유래 프로바이오틱스의 이점 설명이 설명문으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The intricate ecosystem of the human gastrointestinal",
+   "note": "균주명을 걷으면 출생 방식에 따른 미생물 차이 설명이 남는다."
+  }
+ },
+ {
+  "id": "76201929-7871-431a-8568-3e50489d85b6",
+  "source_updated_at": "2026-09-23T21:04:57.206957+00:00",
+  "body_sha256": "52e33d5a08ca54b410b3b96095ea739d2c1ec1811da3650af67dc155743ce53b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 신장암 치료 발전사(사이토카인 → 표적 → 면역관문) 단락이 시간순으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Advances in systemic therapies have improved outcomes",
+   "note": "약물 계열 약어를 풀면 치료법 변화의 순서가 앞 문맥 없이 읽힌다."
+  }
+ },
+ {
+  "id": "763a7dd1-53ea-48ef-801a-1632a393bb6d",
+  "source_updated_at": "2026-09-23T21:04:57.279751+00:00",
+  "body_sha256": "75860db6ef2c917507dd1a431a967575483e26e479fdf995e335040ef687588a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론과 고찰의 항바이러스 치료 후 복부 지방·혈관 변화와 「건강 회복」 해석 단락이 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "With the advent of combination antiretroviral therapy",
+   "note": "측정 장비명을 걷으면 치료 성공의 역설이라는 논지가 선다."
+  }
+ }
+]

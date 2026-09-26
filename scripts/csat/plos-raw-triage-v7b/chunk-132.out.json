@@ -1,0 +1,855 @@
+[
+ {
+  "id": "6b1a5d01-ce04-433a-bbc0-557a4ecab039",
+  "source_updated_at": "2026-09-25T07:36:55.524556+00:00",
+  "body_sha256": "392a32e137feaebe6a5b4332290df42d4b8def05649ba5115d026d48acd0de1f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "생체활성 펩타이드 예측 도구의 한계와 해법을 서론-고찰로 잇고, HNP-1 사례로 해석 가능성을 설명한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Bioactive peptides (BPs) are short-chain",
+   "note": "약어(AMP·GATv2)를 풀어 쓰면 서지만, 구조 학습 설명 단락은 용어가 많아 손이 간다."
+  }
+ },
+ {
+  "id": "6b1e714d-0851-4d67-b930-fcd29cff835e",
+  "source_updated_at": "2026-09-25T07:36:57.164668+00:00",
+  "body_sha256": "a33639d90d0677b80ae1cbd82ad37a8e14679b90272c861a148869d58512d0be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항생제 내성이라는 문제 제기에서 해양 곰팡이 대사물질이라는 해법으로 이어지는 논지가 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Antimicrobial resistance (AMR) has become",
+   "note": "서론의 ESKAPE 설명 단락은 균주 이름을 일반어로 바꾸면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "6b5e9989-de9e-4291-b8c9-b866ab17b8e2",
+  "source_updated_at": "2026-09-15T15:13:45.296086+00:00",
+  "body_sha256": "212e7886a263edc744c2308da3ebe0b86e6726296018db93aa2a61f73249b259",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "드로스피레논이 자궁내막증의 두 세포에서 다르게 작용한다는 대비 구조가 고찰에 또렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Endometriosis is a complex gynecological",
+   "note": "마커 약어가 논지의 축이라 걷어내기 어렵고 성인 의학 소재다."
+  }
+ },
+ {
+  "id": "6b6410ab-e472-4157-afc0-092eda20fe3f",
+  "source_updated_at": "2026-09-13T07:19:47.764629+00:00",
+  "body_sha256": "a10afb3187a5d8f151a6cd9979b54550386259919258667611b10a89b1107ff8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "유전자 중복과 공유 인핸서의 진화를 다루는 고찰 단락이 주장-근거 짝으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Gene duplications have largely contributed",
+   "note": "초파리 유전자 표기가 문장마다 박혀 있어 발췌에 손질이 많이 든다."
+  }
+ },
+ {
+  "id": "6b6afac8-5674-49a4-b769-aa1c08e8c649",
+  "source_updated_at": "2026-09-13T07:16:13.38721+00:00",
+  "body_sha256": "a0ac61ca597eb2f6cf27ecf2217739605cc640dfbc704957864fc49793cc81b4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "Th17 세포가 Th1 형질로 바뀌어야 세균이 제거된다는 논지를 고찰이 선행 연구와 대조해 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Blood stream infections (BSI) and",
+   "note": "세포 표기가 많지만 면역세포가 성질을 바꾼다는 흐름은 남는다."
+  }
+ },
+ {
+  "id": "6b76b3b8-1cb5-4eab-8211-1b0291368916",
+  "source_updated_at": "2026-09-13T07:11:00.772198+00:00",
+  "body_sha256": "a484ab28e757710a76d164c0253166763aaf40a67cdf309f5cb3a4d5e6704808",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "용해도가 아니라 흡수 경로가 문제라는 가설을 세우고 실험으로 좁혀 가는 과정이 고찰에 그대로 있다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In recent years, new drug",
+   "note": "서론의 신약 개발 성공률 대목은 수치를 걷어도 논지가 서고 어휘도 평이하다."
+  }
+ },
+ {
+  "id": "6b815e93-412b-4f00-bee3-a905a53689a2",
+  "source_updated_at": "2026-09-25T07:37:07.717946+00:00",
+  "body_sha256": "2ca440d87784860fec4678b395a43584d6d9aacfdcb68156b4258e85ed7f7c95",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "STING 작용제가 주혈흡충 알 면역병리를 줄인다는 주장에 투여 시점이라는 단서가 붙는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Schistosomiasis infects over 250 million",
+   "note": "서론 첫 단락은 떼어 쓸 만하나 본론은 약어 밀도가 높아 밴드를 내리기 어렵다."
+  }
+ },
+ {
+  "id": "6b8c7546-825e-42a6-862c-69cbd784e6d0",
+  "source_updated_at": "2026-09-13T06:42:27.773588+00:00",
+  "body_sha256": "c2b11e749caaa159ee7b25d833075df6c85ea94338de6dcf3b00bb684c9811e0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "면역세포가 트레할로스를 순환형 오탄당 경로로 태워 숙주를 보호한다는 결론까지 논지가 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "When activated by a challenge",
+   "note": "대사 중간체 표기가 근거라서 걷으면 주장이 비고, 고찰 끝부분만 발췌가 된다."
+  }
+ },
+ {
+  "id": "6b9612fa-0254-400c-ab1e-3def1a27672c",
+  "source_updated_at": "2026-09-13T06:50:07.712905+00:00",
+  "body_sha256": "46231aafc785763a2338812bb7927ab8d8465b109e28cb41729f94eca35afad3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "유방암 치료제들이 심장세포에서 공통된 유전자 반응을 낸다는 비교 설계가 한 편의 논증을 이룬다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Globally, breast cancer is the",
+   "note": "서론은 통계와 문제 제기로 자족적이고, 약물 약어만 풀면 고등 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "6bab93bc-6458-42e5-8102-bb885d11e992",
+  "source_updated_at": "2026-09-25T07:37:10.876616+00:00",
+  "body_sha256": "d194ae3eb0e408120a397275404a5eb9bcefbba66e8260b557526221619cdc30",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "CAPG 발현이 췌장암 예후와 증식에 관여한다는 주장을 한계까지 적어 논증이 닫힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Pancreatic ductal adenocarcinoma (PDAC) is",
+   "note": "서론과 한계 단락은 떼어 써도 서지만 결과 단락은 수치 나열에 가깝다."
+  }
+ },
+ {
+  "id": "6bb085ed-5ba1-43b5-8986-9db6eb513980",
+  "source_updated_at": "2026-09-25T07:37:12.144833+00:00",
+  "body_sha256": "d3f8bb0ae18a32dee7b9f2763954611b8a81638f75c1a971eda213bda6d8ccba",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "이중가닥 RNA 바이러스의 안티센스 가닥이 단백질을 만든다는 통념 뒤집기가 글의 뼈대다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Viruses, which are constrained by",
+   "note": "서론의 통념-반증 구조는 그대로 쓸 만하고, 유전자 표기는 결과 단락에 몰려 있다."
+  }
+ },
+ {
+  "id": "6bb8e88e-b81c-4243-81d2-2a1f44d31861",
+  "source_updated_at": "2026-09-25T07:37:13.104472+00:00",
+  "body_sha256": "8a99bc90db2850e65b74dc138d19ec6b22e5f7d6193dad10544522f85a4500f6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "심박조율 세포의 칼슘 방출 수용체 뭉침이 교감신경 자극 때 심박을 올린다는 기전이 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The sinoatrial node is the",
+   "note": "전압·밀도 수치가 근거의 축이라 걷어내면 주장이 남지 않고, 서론만 자족적이다."
+  }
+ },
+ {
+  "id": "6bc1b275-0dfb-48bf-853c-160a2c696d2a",
+  "source_updated_at": "2026-09-15T15:13:54.274218+00:00",
+  "body_sha256": "c591bc23e238e33293147fb8d7a087ef1840abc272078f2c51fb61aa803c42a1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "내생균이 염분·카드뮴 스트레스에서 오크라 생장을 돕는다는 논지를 고찰이 선행 연구와 엮는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Aspergillus fumigatus (SOA) application strongly",
+   "note": "고찰 첫 단락은 수치를 걷어도 서고, 안전성 단서까지 붙어 균형이 잡힌다."
+  }
+ },
+ {
+  "id": "6bc5ad0b-ac49-4556-9562-eba920dd08a2",
+  "source_updated_at": "2026-09-13T07:21:57.808007+00:00",
+  "body_sha256": "bfa75512ee638a1ffba9d3d208a18ab392ad239afe4579ca0452d20c515fd791",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "비만세포 과립이 미세소관과 키네신으로 운반된다는 기전을 고찰이 대안 가설과 견주어 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Mast cells are tissue-resident immune",
+   "note": "서론은 자족적이나 결과 단락은 영상 파일 참조가 많아 떼어낼 때 걷어야 한다."
+  }
+ },
+ {
+  "id": "6bc9e2eb-4743-477a-8d53-3ea28bb1a0ac",
+  "source_updated_at": "2026-09-13T06:49:21.679538+00:00",
+  "body_sha256": "6eb13895dec19d6c1d14ea1e2042794f8655a6e8d5fd2aaa02b2576b7c5600cb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "보상 학습이 후각망울 승모세포의 세포체 억제로 나타난다는 발견이 층위별 대조로 논증된다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Sensory systems of the brain",
+   "note": "서론과 고찰 첫 단락은 쓸 만하지만 결과는 통계 표기가 문장을 끊는다."
+  }
+ },
+ {
+  "id": "6bcaa73c-e1d1-4ae7-8e98-e20d29406cb0",
+  "source_updated_at": "2026-09-25T07:37:14.839669+00:00",
+  "body_sha256": "2e52d0d31f05e327ebb202a6f682ef4a9171b72706a03857a445664bb947cdee",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "단일세포 전사체와 기계학습으로 건선 핵심 유전자 넷을 좁혀 가는 절차가 한 편으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Psoriasis is a chronic, recurrent",
+   "note": "서론은 자족적이고, 방법 단락은 도구 이름 나열이라 발췌에서 걷는다."
+  }
+ },
+ {
+  "id": "6bcbc1ea-53a3-4df8-bc07-8a81c10fdde6",
+  "source_updated_at": "2026-09-25T07:37:15.46492+00:00",
+  "body_sha256": "c1ddf93fda0ad2594c715cc6a3dc583f2fc89df622f9309343694926b8715095",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "치아씨 점액 유래 하이드로젤의 안전성과 항균성을 상처 치유 용도로 잇는 결론이 논지를 닫는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "content_match",
+    "vocab_choice",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "The DPPH assay is a",
+   "note": "각 검정 결과가 수치 나열에 가까워, 서론과 결론 단락 위주로만 발췌가 된다."
+  }
+ },
+ {
+  "id": "6bd0e064-fea5-44e3-bd9e-1c20c5631385",
+  "source_updated_at": "2026-09-15T15:13:58.317302+00:00",
+  "body_sha256": "d5f8cf2f2dda5e3bd89aec9691ef0516e5f9c2594e774c3ca7ff4d02f9669cbb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "염증 억제 단백질이 담관암에서는 종양을 돕는다는 역설을 고찰이 다른 암과 견주어 푼다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Secretory leukocyte protease inhibitor (SLPI),",
+   "note": "고찰 첫 단락의 역설 구조는 고유명사를 걷어도 남는다."
+  }
+ },
+ {
+  "id": "6bd7d6e4-e92a-4e22-bf66-4ac3fb3559c3",
+  "source_updated_at": "2026-09-25T07:37:17.351894+00:00",
+  "body_sha256": "c2ba3bd39627631c2ef4c79785f0238e9ed48cb32718eda7f60c3fe3fc4b87e2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "임신 중 우울과 항우울제가 태반 단백질에 남긴 흔적을 노화·지혈 경로로 해석해 논지를 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Depression is one of the",
+   "note": "서론과 고찰 첫 단락은 자족적이나 단백질 약어가 많아 두어 개는 풀어 써야 한다."
+  }
+ },
+ {
+  "id": "6bec19e4-8371-43a3-b51a-da9f30a95b60",
+  "source_updated_at": "2026-09-06T00:05:59.557216+00:00",
+  "body_sha256": "b5d7b186c7c1225be0fe9cc157aa9f8922a3c2154eb498433311ebfafd9d9429",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "간이 미주신경으로 뇌에 신호를 보낸다는 주장을 반대 증거까지 들어 검토하는 해설문이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "blank",
+    "insert",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal",
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The liver, the largest organ",
+   "note": "문항 없는 해설문이라 단락이 그대로 떨어지고, 어휘 두셋만 바꾸면 고2 밴드다."
+  }
+ }
+]

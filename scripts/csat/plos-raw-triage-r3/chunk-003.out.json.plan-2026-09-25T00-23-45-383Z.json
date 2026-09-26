@@ -1,0 +1,1453 @@
+[
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "00029c81-bc4c-4fb1-a93c-d3614c8c0015",
+    "revision": "2026-09-13T07:39:44.445239+00:00",
+    "body_sha256": "25a678317c973192d81e7d421524729991de08d8f2463c21301e462c16122385",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 끝 「발달 관점에서 본 자폐」 단락이 어릴 때 과연결·청소년기 저연결 대비로 「뇌 변화는 생애에 걸쳐 균일하지 않다」는 논지를 세워 주제·빈칸·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Changes during early development may contribute",
+          "note": "corpus callosum·hyper-connectivity 를 brain wiring·over-connection 으로 바꾸면 V8 로 내려가고, 인용 번호만 걷으면 대조 구조가 그대로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.385Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 14,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:15:07.892Z",
+      "topicMargin": 10.590000000000002
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "001829fa-6c86-4dbc-ac32-fb35d8132e1e",
+    "revision": "2026-09-13T07:41:44.389707+00:00",
+    "body_sha256": "01065880277cd60a82fe1003b85b2e197677e5dd1564740b3d0e4763ebc553c7",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "processing-unclear",
+        "genre": "science",
+        "why": "서론의 「긴 파장은 산란이 적어 깊은 곳을 찍는다」 단락만 떼어 볼 만하나 GECI·two-photon 등 장비·유전자 이름이 논지를 떠받쳐 걷으면 내용이 비어 가공이 애매하다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Because light scattering is reduced at",
+          "note": "형광 지시자·레이저 파장을 일반어로 바꾸면 무엇을 찍는지가 사라져 논지가 서지 않았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.386Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:15:00.498Z",
+      "topicMargin": 23.15
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "003122c4-cb79-4d9c-a03d-1f9c5b8575f7",
+    "revision": "2026-09-15T12:47:26.338722+00:00",
+    "body_sha256": "e50c12f0895c1f2164394baef572f850a29619e83224cf5a60bd2da9d77c5f69",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "박쥐 생태학자와 감염병 연구자가 서로 공저하지 않는다는 공저 분석을 근거로 협력(leveraging·building·networking)을 주장해 주장·요지·순서·삽입 칸과 주장-근거 짝을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "order",
+            "insert",
+            "irrelevant",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The consequences of the COVID-19 pandemic for",
+          "note": "persecution·evictions from roosts 를 killing·driving out of caves 로 바꾸니 V7 로 내려가고 박쥐 보전과 공중보건의 충돌 논지가 한 단락으로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.386Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:37:00.372Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "00363f1e-377d-4a27-a2a9-998f55cf6d2a",
+    "revision": "2026-09-15T12:47:27.416316+00:00",
+    "body_sha256": "c564dbccdd856466286f3f9fb3bc54380687af9ab905df0c0d00ef7a0ba8efec",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "agriculture",
+        "why": "초록이 말하는 수분·프롤린·항산화효소 결과 절이 통째로 없고 고찰이 표 1 을 가리키는 한 문장으로 끝나 원천이 중간에서 빠져 있다; 서론의 가뭄·활성산소 단락은 쓸 만하다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The rubber synthesis pathway is energy intensive",
+          "note": "reactive oxygen species 를 harmful oxygen molecules 로 바꾸면 V8 로 내려가지만 원천 결과 절 누락이 먼저 해소돼야 한다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.386Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:20:06.928Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "00398bc2-546d-4365-b9f8-1ce5a9c809b7",
+    "revision": "2026-09-15T12:47:31.290789+00:00",
+    "body_sha256": "125af30ae799e283fe2f9ee85afc493047d54bce0323fbaf49585fd99a9e58f9",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "백반(alum)과 모링가 씨앗 응집제의 장단점을 산성화·슬러지·비용·신뢰로 대비하는 3.1 절이 비교 논지를 세워 주제·요지·순서·무관한 문장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Secondary to the advantages of MO seed",
+          "note": "「기적의 나무」라는 별명이 곧 신뢰라는 논지가 단락 안에서 서고, naturalised·monikers 를 grown widely·nicknames 로 바꾸면 V7 이다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.387Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 9,
+      "type": "R-BLANK",
+      "shape": 17,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:25:46.759Z",
+      "topicMargin": 3.09
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "0045d159-c7e1-4c15-9f87-a408cb2ddb44",
+    "revision": "2026-09-15T12:47:35.408136+00:00",
+    "body_sha256": "21fd3702a2e3d94ca82c4e87f059dc80c5d98b8cfba02bd4b72fa1d3a23ebbed",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 「같은 유전 변이가 인구 집단마다 다른 결과를 낸다」 단락이 민족·환경 배경 차이라는 논지를 세워 요지·빈칸 칸을 채우나 나머지는 유전형 수치라 칸이 좁다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This disparity in findings across different populations",
+          "note": "allele·polymorphism 을 gene version 으로 바꾸고 나라 이름을 걷어도 「결과가 갈리는 까닭은 배경 차이」라는 논지가 남았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.387Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 4,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:57.406Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "00489b67-8b26-4ae1-bf1f-f83bc025feb8",
+    "revision": "2026-09-15T12:47:40.106112+00:00",
+    "body_sha256": "8e4796b76a567efae6b66ab07bb23c17c8ebef20c36a4a384861737b6f6230a7",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "서론이 우주비행 골손실에서 출발해 「세포는 중력이 아니라 중력이 만든 힘에 반응한다」는 논지를 세우고 고찰이 미세중력·과중력 반대 효과를 대비해 주제·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "insert",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Under these conditions, gravity acts as an",
+          "note": "hydrostatic pressure·shear stress 를 water pressure·sliding force 로 바꾸니 V8 로 내려가고 「중력 자체가 아닌 힘」 대비가 빈칸 자리로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.387Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "예술·문화",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:25:44.201Z",
+      "topicMargin": 1
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "00499edd-383a-4b3d-9498-a392be5591cc",
+    "revision": "2026-09-15T12:47:41.139299+00:00",
+    "body_sha256": "8a5454decf0a3436152ab822e08dc0fcbb3584cca5c5cce3b5e55602de1b745b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약 단락이 「굶주림과 감염은 둘 다 지방을 꺼내 쓰지만 그 신호 경로는 다르다」는 결론을 쉬운 말로 세워 요지·요약·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "summary",
+            "blank",
+            "title"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Humans and other animals, including Drosophila, catabolize",
+          "note": "catabolize·endocrine 을 break down·hormone-making 으로 바꾸면 V7 이고 초파리 이름을 빼도 두 스트레스의 대비가 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.388Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 12,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:14.026Z",
+      "topicMargin": 19.18
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "0050373e-b6cd-4141-9754-aa33bcf2cbe0",
+    "revision": "2026-09-15T12:47:43.078785+00:00",
+    "body_sha256": "b897e4d0bda5c72a5031ee8515adcfbf2636d93585a715bc078217b9948c7180",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "science",
+        "why": "특허 제법의 「저장 가능한 수화전자 액체」를 제브라피시 표현형 군집만으로 항암·혈당 약물과 묶는 주장이라 의사과학 경계인지 기준만으로 가르기 어렵다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "The eaq- can effectively degrade or transform",
+          "note": "오염물 분해 단락은 떼어지나 물질명 나열이라 논지가 서지 않았고, 생의학 주장 쪽은 근거가 약해 가공 대상이 되기 어렵다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.388Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 5,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:31.734Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "00512614-ed87-4028-87a8-1d60d59e47ec",
+    "revision": "2026-09-15T12:47:44.538854+00:00",
+    "body_sha256": "fc0122409d297cb8bca9fd0f3f09f481e865264fd90067827a10c0fb24d4624f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 「통증 없음 75%와 VAS 1 이상 42%가 어긋나는 까닭」 단락이 두 측정 도구의 범위 차이로 역설을 풀어 주장·빈칸·요지 칸과 주장-근거 짝을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "claim",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A potential discrepancy between patients reporting “no",
+          "note": "Izbicki·VAS 를 a full pain score·a one-moment scale 로 바꾸고 수치를 걷어도 「한 도구만 쓰면 통증을 과대·과소평가한다」는 논지가 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.389Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:18.869Z",
+      "topicMargin": 10.08
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "005933e9-05e3-4018-b268-3da25b6e7843",
+    "revision": "2026-09-15T12:47:48.163822+00:00",
+    "body_sha256": "457c28160b015acfabbc638ef4937aa0196f5bc2574f033894861393fb02dedf",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 남성 환자 우세 단락이 노출 차이와 여성 과소보고라는 두 설명을 내놓고, 코르티솔 단락이 시료 채취 시점이라는 대안 설명을 세워 빈칸·요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Our findings also indicate that men made",
+          "note": "afflicted·surveillance 를 affected·official records 로 바꾸니 V8 이고 「통계의 성차는 보고 차이일 수 있다」는 논지가 파키스탄을 걷어도 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.389Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:12:55.128Z",
+      "topicMargin": 14.65
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "006b3f9a-cc59-45d2-b59b-5a06c8f8a5b2",
+    "revision": "2026-09-13T07:39:53.554408+00:00",
+    "body_sha256": "40aa7fcddd64c47bbe1a6ecc986efadb36ebb1ee3d24b0137aed6ebe4f89b0fa",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "processing-unclear",
+        "genre": "science",
+        "why": "고찰의 SrNaR 이 느린 까닭 두 가설(감각 수용체의 흔적·고염 환경) 단락이 떼어질 만하나 광주기·Schiff base 등 용어가 논지를 떠받쳐 쉬운 말로 바꾸면 내용이 사라진다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "It is enigmatic that SrNaR as a",
+          "note": "photocycle·electrochemical gradient 를 바꾸면 무엇이 느린지 설명이 비어 두 가설 대비가 서지 않았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.389Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 6,
+      "type": "R-BLANK",
+      "shape": 18,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:14:21.183Z",
+      "topicMargin": 19.21
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "006e7b16-ed99-41cf-9656-f79a1fc36245",
+    "revision": "2026-09-15T12:47:57.574334+00:00",
+    "body_sha256": "0a6f0b312e5dec5c300132cfc06e79aa0cd84e29e7e40cebb5151c524c7efdfb",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "processing-unclear",
+        "genre": "technology",
+        "why": "방법 절이 대부분인 단일세포 시퀀싱 기법 논문으로, 고찰의 「상용 키트는 성분을 숨기지만 이 방법은 공개다」 대비만 읽히고 그마저 기법 이름 비교라 가공이 애매하다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Compared with SPLiT-seq (S3 and S4 Tables",
+          "note": "제품·기법 이름을 걷으면 비교 대상이 사라져 「공개 방식의 이점」이라는 뼈대만 남았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.390Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 16,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:11.530Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "0073a8a3-2195-48c3-aa10-40f17a2223df",
+    "revision": "2026-09-15T12:48:02.536762+00:00",
+    "body_sha256": "cbc14c6a40b5623ace471ca2380f5a1c8a7d4dad72a9724beaf362b4e18d1d7a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론이 DOHaD·절약 유전자 가설·네덜란드 기근 사례로 「임신 중 영양이 자녀 건강을 평생 바꾼다」는 논지를 세우고 통념을 뒤집는 최근 연구까지 짚어 주제·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "insert",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The thrifty gene hypothesis proposed by James",
+          "note": "in utero·adaptive genetic responses 를 before birth·survival genes 로 바꾸면 V7 이고 「태아엔 이롭고 풍요 속에선 해롭다」 대비가 빈칸 자리로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.391Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:24.397Z",
+      "topicMargin": 11.58
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-45-383Z",
+    "id": "00785030-1d02-44c1-b6fe-67c7e05e83af",
+    "revision": "2026-09-15T12:48:07.219125+00:00",
+    "body_sha256": "940d29ec1e6078f9fb680da077b4e7ee0741ab7ec8e417098415ea4c612e66e2",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론이 표준 검사(클램프)는 번거롭고 대체 지표는 채혈이 필요하니 몸 치수만으로 재는 값싼 지표가 필요하다는 흐름을 세워 목적·요지·순서·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "purpose",
+            "order",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "However, these indices require blood sampling, limiting",
+          "note": "anthropometry·surrogate markers 를 body measurements·stand-in tests 로 바꾸니 V8 이고 지표 약어를 걷어도 비용 대비 논지가 남았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:45.391Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:59.398Z"
+    }
+  }
+]

@@ -1,0 +1,219 @@
+[
+ {
+  "id": "36ed2f4b-262a-466e-98b6-53abe807380d",
+  "source_updated_at": "2026-09-25T07:33:44.028284+00:00",
+  "body_sha256": "d3fd9fc7446f46d575971a5cf18164d825223d7c1c6ec0ef8665fa6fcbebe4fa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 심장 이식·보조장치 한계와 조직공학 대안을 잇는 단락, 전산 모델의 장점 단락이 논지를 세워 주제·빈칸·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Current therapeutic options to prevent severe",
+   "note": "「ventricular assist devices」를 「heart pumps」, 「immunosuppressive」를 「immune-lowering」로 바꾸니 V6 로 내려가고 인용 괄호만 걷으면 선다."
+  }
+ },
+ {
+  "id": "371ab5f5-bb0d-4970-9e54-d39aa312a812",
+  "source_updated_at": "2026-09-25T07:33:48.938082+00:00",
+  "body_sha256": "0ac54828fb1424f2ff37a80e989c1b9e5289c99dc5c190565c0a413ed8b842a2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "서론의 음악 축제 지속가능성 압박 단락과 논의의 실무 시사점 단락이 주장-근거로 서서 주장·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "summary",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Music festivals, with their resource-intensive production",
+   "note": "Laing 인용과 축제 이름을 걷고 「scrutiny」를 「close attention」으로 바꾸면 선다, 결과 절은 수치 나열이라 쓰지 않는다."
+  }
+ },
+ {
+  "id": "372f53ef-8b01-4282-83cd-5509134c4b30",
+  "source_updated_at": "2026-09-25T07:33:50.784583+00:00",
+  "body_sha256": "19bfe68747891d74355a7030fe2167983a1097cb6d1137b490997e79c2497d92",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "서론의 딸기 병원균 확산 단락과 고찰의 살균제 내성 경고 단락이 원인-결과로 이어져 요지·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The identification of substitutions associated with",
+   "note": "QoI·benzimidazole 같은 약제명을 「several fungicide groups」로 묶고 「phenotypically validated」를 「tested in real plants」로 바꾸면 선다."
+  }
+ },
+ {
+  "id": "3746881d-af29-4e76-a5f0-75ee1c23c07e",
+  "source_updated_at": "2026-09-15T14:48:30.724346+00:00",
+  "body_sha256": "24b9e7eefda17bf6b6c09df4c22b5ef98b97dc499efb582c622bbdd552a5e76f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "hold",
+  "hold_reason": "incomplete-source",
+  "genre": "health",
+  "why": "결과 절이 기도 반응(그림 1)과 점액(그림 5)만 있고 초록이 예고한 염증세포·사이토카인 결과 절이 통째로 빠져 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Asthma, a prevalent chronic condition impacting",
+   "note": "서론 첫 단락은 서지만 이후 단락은 TSLP·IL 약어가 촘촘해 2~3개 교체로는 밴드가 내려가지 않는다."
+  }
+ },
+ {
+  "id": "3746c1f2-2b62-4408-90ba-ecfb2a3e287c",
+  "source_updated_at": "2026-09-25T07:33:53.062931+00:00",
+  "body_sha256": "523c977fb0f58e663aeb059bd80cea28a50ff84ed29acdb96c9254667d7cc8ed",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 진화 가능성 세 과정 단락과 고찰의 비용-이득 단락이 개념 설명으로 서서 주제·빈칸·순서·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Three processes dictate evolvability . First,",
+   "note": "「hypermutator strains」를 「fast-mutating bacteria」, 「epistasis」를 「interaction between mutations」로 바꾸면 선다."
+  }
+ }
+]

@@ -1,0 +1,863 @@
+[
+  {
+    "id": "67646559-4c7a-4c5b-b9da-1fd2724ad673",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:17.816995+00:00",
+    "body_sha256": "8bef9f34be9ecf0e83f9e1998851d11c1168f4c689538b3740c7e41d531800e3",
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "위성 레이더로 황하 강안 변형을 재고 왜 구간마다 다른지 논의 절에서 원인을 따져 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although InSAR technology has been widely",
+      "note": "수식·표 절은 걷고 서론과 논의 문단만 남기면 선다. 전문용어 3~4개 교체 필요."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual",
+      "structured"
+    ]
+  },
+  {
+    "id": "67654887-26ca-4d0e-abe0-ca6e1b2bdc86",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:18.302408+00:00",
+    "body_sha256": "a8693829856d07e91a4c07503422c612cd055e371369d8cc2a441749cc67706d",
+    "retention": "keep",
+    "genre": "science",
+    "why": "식물 유전체 속 바이러스 화석이라는 비유로 시작하는 저자 요약이 그대로 한 편의 설명문이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Viruses have infected plants for hundreds",
+      "note": "저자 요약 문단이 고유명사 없이도 논지가 서서 가장 쉽게 발췌된다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ]
+  },
+  {
+    "id": "6766ef37-6957-4807-a9c5-e892eff61792",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:30:58.482209+00:00",
+    "body_sha256": "7bc102d757ce8c3ad07fe959760d4eb28bff0a7de46042c01ce68fd34593b09f",
+    "retention": "keep",
+    "genre": "health",
+    "why": "인터페론 감마가 감염 세포가 아니라 이웃 세포에 작용한다는 결론까지 논증이 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "IFN-γ has a prominent role",
+      "note": "실험 기호와 유전자명이 촘촘해 어휘 교체만으로는 밴드를 내리기 어렵다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual"
+    ]
+  },
+  {
+    "id": "676b4e06-74b9-42b7-ae8a-b1877ff26e28",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:11:49.636136+00:00",
+    "body_sha256": "d3dac9380e33808a0f89a5cf9f5519666d12d1bfcdfb846b64e7d6e0638c2a54",
+    "retention": "keep",
+    "genre": "health",
+    "why": "키로 나눈 근육량 지표가 역설적 결과를 낳는 까닭을 밝히는 논의가 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The inverse ASMI–MetS association is",
+      "note": "오즈비 수치를 걷어도 「분모를 무엇으로 삼느냐」는 논지가 그대로 남는다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual",
+      "structured"
+    ]
+  },
+  {
+    "id": "676e48c4-98ed-48d3-bcb1-ee518106280c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:50:29.173774+00:00",
+    "body_sha256": "4c3700a0bdf40bcdbf75e30e35492273c4dc448d72fef064a04b08823f4f3918",
+    "retention": "keep",
+    "genre": "health",
+    "why": "단핵구가 종양에서 면역억제 집단으로 분화한다는 흐름을 논의 절이 차례로 설명한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Many studies have shown that",
+      "note": "클러스터 번호와 유전자 약어가 문장마다 있어 떼어 내도 앞 설명이 필요하다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "6784feaa-7c44-40fe-9488-ad6ba51be860",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:21.199791+00:00",
+    "body_sha256": "f259982036502d544990aa8de12e9466ac8ac9da387ef7e3ba90f75630f96889",
+    "retention": "keep",
+    "genre": "science",
+    "why": "털집 원기가 비스듬히 자라는 까닭을 한 유전자 결손으로 추적하는 논의가 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Hair follicle development in the mouse",
+      "note": "서론 첫 문단은 모형 생물 설명이라 떼기 쉽고, 결과 절은 약어가 많아 쓰기 어렵다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual"
+    ]
+  },
+  {
+    "id": "6786b284-1ad2-4c2b-a418-1c9a87d647ab",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:21.91087+00:00",
+    "body_sha256": "87f2adff7e7630a95c239ec60d34a6f24899f62535f4a6df593c2cde96b4e56e",
+    "retention": "keep",
+    "genre": "health",
+    "why": "새 고혈압 약 세 종을 직접 비교 없이 견주는 방법과 한계를 논의가 차근히 짚는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Current guidelines designate MRAs as",
+      "note": "신뢰구간 나열을 걷고 「직접 비교 시험이 없다」는 논지를 남기면 지문이 된다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual",
+      "structured"
+    ]
+  },
+  {
+    "id": "678c2406-b569-4866-b623-3c6bc235bc5b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:22.346648+00:00",
+    "body_sha256": "c421f9ab847ca47fa67d8cdd8e78114a77c3b910452fd1668412a2c93628b4ff",
+    "retention": "keep",
+    "genre": "health",
+    "why": "입원 시 한 단백질 수치로 사망 위험을 가르는 삼단 점수의 근거와 한계를 밝힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Building on this, we derived",
+      "note": "표본이 작다는 자기 제한 문단이 논지를 오히려 또렷하게 한다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual"
+    ]
+  },
+  {
+    "id": "678c5f84-61f9-41ce-b748-c37678f7bc8e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:39:59.570977+00:00",
+    "body_sha256": "a8f8fc886b65ebd6387ccc1df84c7055979f7c9fbec996268007510870d2473d",
+    "retention": "keep",
+    "genre": "science",
+    "why": "분비 억제 단백질이 실은 소포와 함께 이동한다는 통념 교정 구조가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Tomosyn is historically thought to be",
+      "note": "결론 문단은 통념과 반증이 한 쌍이라 그대로 쓸 만하나 단백질 약어가 많다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual"
+    ]
+  },
+  {
+    "id": "678e213a-41cf-4f91-ad45-940598197a78",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:58:48.096569+00:00",
+    "body_sha256": "652c242a8c22e2785358e95c16052d7bffd7f9bcc69f5997bd2bcaffb7795fde",
+    "retention": "keep",
+    "genre": "health",
+    "why": "바이러스가 세포로 들어가는 단계를 순서대로 밝혀 마지막에 다섯 단계 모형으로 묶는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Here, we propose a further",
+      "note": "다섯 단계 모형 문단은 순서 문항 재료가 되지만 약어 교체가 만만치 않다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "sequence",
+      "structured"
+    ]
+  },
+  {
+    "id": "67901d63-76e7-48a2-a69e-e26835c5782c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:23.295094+00:00",
+    "body_sha256": "5a17a1256b9c649185cf5d59620daea91b47042dd963bf75c545d04d35c74e6e",
+    "retention": "keep",
+    "genre": "science",
+    "why": "단백질 반감기가 치료 시점을 가른다는 문제의식이 저자 요약에서 쉬운 말로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prion disease is a fatal",
+      "note": "저자 요약은 수치가 적고 인과가 분명해 어휘 두셋만 바꾸면 내려온다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ]
+  },
+  {
+    "id": "67b9fe77-25f0-4bcd-824c-5cec05cc88ae",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:25.963151+00:00",
+    "body_sha256": "a37de4bd1f96665ec4937aa2a2a63b5caa75973db5d5e25127973694b5786f3d",
+    "retention": "keep",
+    "genre": "health",
+    "why": "당 수식 조절을 줄이면 항암제가 더 듣는다는 가설과 검증 흐름이 서론에 정리돼 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Chemotherapy remains a standard treatment",
+      "note": "본문 대부분이 시약·프로토콜이라 쓸 만한 문단은 서론과 논의에 몰려 있다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "67bbc280-6b2f-4e6a-8e2b-db70a665548f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:27.169783+00:00",
+    "body_sha256": "30519806f6508bc382a31cce65ab2d0441474ac4ae6b75809776538eedc83e7f",
+    "retention": "keep",
+    "genre": "culture",
+    "why": "전통 의복의 온라인 구매 동기를 문화 정체성과 공동 디자인으로 설명해 논지가 분명하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The rapid advancement of digital technologies",
+      "note": "계수 표기를 걷으면 문화 소비 논설로 읽히고 어휘도 비전문어가 많다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual",
+      "structured",
+      "vocab"
+    ]
+  },
+  {
+    "id": "67bc5fb4-d460-4e7d-a216-a7a02135b361",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:46:12.939075+00:00",
+    "body_sha256": "cf23b52bcfc38f5b01579490b63a3c4409e66073445d28ffcf3cce11f5a91407",
+    "retention": "keep",
+    "genre": "health",
+    "why": "수술 기법 설명이 대부분이지만 감각 보존을 왜 그 방식으로 재는지 논의가 논지를 세운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nipple sensation can be evaluated",
+      "note": "술기 절차와 표는 걷어야 하고, 감각 평가 문단만 떼면 논지가 선다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual"
+    ]
+  },
+  {
+    "id": "67c6db82-8908-4a50-a4ce-050badab191b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:28.949155+00:00",
+    "body_sha256": "490643fcf65c2b1a56cebb0f8eeabcece0f38359a66cc07fa7fe5e3b96d14221",
+    "retention": "keep",
+    "genre": "science",
+    "why": "두 전사인자가 서로 억누른다는 기존 가정을 자료로 뒤집는 구조가 초록부터 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In vertebrates, the head-to-tail body",
+      "note": "서론 첫 문단은 배아 축 형성 설명이라 떼기 쉽고 결과 절은 약어 장벽이 크다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual"
+    ]
+  },
+  {
+    "id": "67d37660-68ac-4984-aa75-b3835d93eaa0",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:30.454008+00:00",
+    "body_sha256": "7a5ecc8eb4486ad458ae3ad67d16dcc8f831fa61864e2b12e97faf42c3720af3",
+    "retention": "keep",
+    "genre": "history",
+    "why": "석기 조합의 변이가 거리에는 따르고 시간에는 안 따른다는 결과로 기존 모형을 흔든다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since its initial identification over 150",
+      "note": "유적명을 몇 개만 남기면 고고학 논설로 읽히고 통계 절은 걷으면 된다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual",
+      "structured"
+    ]
+  },
+  {
+    "id": "67d4b3ab-791d-4643-b9c5-cbec10088baa",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:19:15.695401+00:00",
+    "body_sha256": "5f3455ebc735d0e207f9b83190922e7961a3930f8b7c3edfc0155ee376794f64",
+    "retention": "discard",
+    "genre": "reference",
+    "why": "새 선충 종의 형태 계측값과 표본 번호 나열이 본문의 중심이라 읽는 글로 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Adult. Relatively large and slender",
+      "note": "기재문과 계측표를 걷으면 남는 논의가 분류학 약어뿐이라 문단이 서지 않는다."
+    },
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "67d6d67f-9ac8-41cc-8c55-30e6c5c960cf",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:18:18.026271+00:00",
+    "body_sha256": "b202adf909886878459dc794b2521a9619de862e599ba00388c584468a686871",
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "가뭄 피해를 종자 처리로 줄인다는 주장과 근거가 서론·논의에서 이어져 한 편으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Climate change is posing extreme",
+      "note": "상관계수 표는 통째로 걷어야 하지만 서론은 기후와 식량이라는 익숙한 맥락이라 쉽다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual"
+    ]
+  },
+  {
+    "id": "67e7c2a8-0178-413e-a3ea-91884293383b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:57:51.135903+00:00",
+    "body_sha256": "f9421d9e106f8ab884f62365ee900ea6e0c4eb8d77622438c0d32120e289469c",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "충치를 메우는 재료의 단단함이 치아 응력을 가른다는 가설 검증이 논의까지 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dental cavities also known as",
+      "note": "응력 수치 표를 걷고 서론과 논의만 남기면 일상 소재 설명문이 된다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual"
+    ]
+  },
+  {
+    "id": "67ecb197-c023-442a-a3e2-9e598ed91c4c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:32.321117+00:00",
+    "body_sha256": "c9186ff032c3fe7cf5e5b6a87668c5fbceb5e8cc665d8aa8539afccfe81086d6",
+    "retention": "keep",
+    "genre": "science",
+    "why": "늙은 뇌에서 회로 전체가 아니라 한 연결만 무너진다는 발견이 가소성 대가라는 논지로 모인다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Brain aging is accompanied by",
+      "note": "초파리 회로 이름만 풀어 쓰면 노화와 가소성이라는 논지가 그대로 읽힌다."
+    },
+    "criteria_version": 5,
+    "round": 4,
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ]
+  }
+]

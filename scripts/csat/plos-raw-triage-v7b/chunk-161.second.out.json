@@ -1,0 +1,441 @@
+[
+  {
+    "id": "7d8ce7f3-466a-4a3f-bbb6-bef7e987ce1f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:21:09.189345+00:00",
+    "body_sha256": "f9ea951355e6b999a34efe3d067f65c0021746044e75fba438771cf747158e27",
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "학술지 표지 그림 설명문 한 단락이 두 번 반복되고 그림 없이는 뜻이 서지 않아 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "We introduce Persistence Weighted Death Simplices",
+      "note": "삼각형·색 설명이 그림을 봐야만 이해되어 떼어 낼 문단이 없다."
+    },
+    "uses": [],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7d943fa4-0589-4f36-8a0e-83695df2274e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:18:44.785462+00:00",
+    "body_sha256": "376da268414765ddf6f41be5ea54645c2fbdbfae11a4beec67314a552a25c435",
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 세균이 세포 안에 숨어 면역을 피한다는 문단과 고찰의 요로감염 대장균 비교 단락이 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "E . faecalis is among the",
+      "note": "고찰 첫 단락은 앞 문맥 없이 서고 intracellular·macropinocytosis 를 풀어 쓰면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7dabaa78-b41b-4980-99e6-7d0a4ebb34ec",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:38.897681+00:00",
+    "body_sha256": "515593f257ec1b225e9a5c71eb9530f98f44a2762981bcbfa8c0a81d6fd4d79b",
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 생물학자가 통계 기법을 만들었다는 문단과 고찰의 광온성·협온성 세균 전략 단락이 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In bacteria, there are examples",
+      "note": "광온성·협온성 문단은 떼어도 서고 eurytherm 등 두세 낱말을 풀면 된다. 수식 절은 걷는다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7de040a5-3bba-44bd-94a2-d4b98b6914b4",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:36:39.615134+00:00",
+    "body_sha256": "deb94e9446a23ddc34a7338aa9459a1bbe327a1cb93de31f9ec69e1d2348e998",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "health",
+    "why": "뇌척수액 수치 보고가 대부분이고 고찰의 젖산·미토콘드리아 단락만 논지가 있으나 전문어가 빽빽해 가공이 애매하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V10",
+        "V11"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Until recently, the clinical significance",
+      "note": "약어·수치 인용이 문장마다 있어 걷으면 논지가 거의 남지 않는다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7de096fb-0858-4106-bec3-022972b8a74b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:46.294531+00:00",
+    "body_sha256": "2b6744baf746344e26f4262a1ad74f0edaa5a6fecad1b15c44d14fdfc1224d16",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론의 코코넛 껍데기 수작업 병목과 고찰의 장인 노동을 대체하지 않고 돕는다는 단락이 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite these material advantages, manual processing",
+      "note": "서론 둘째 단락은 떼어도 서고 lignocellulosic·valorization 만 바꾸면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7dec7459-6d27-4953-823a-f2755254b08c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:46.693995+00:00",
+    "body_sha256": "d77fceee061b5883c5cfe00898d80c586bc3cf5cb398fe0c1b4d2760e9a13615",
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론의 벼 도열병 피해와 합성 농약의 환경 문제, 생물농약 대안 세 단락이 목적·요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The widespread reliance on synthetic chemical",
+      "note": "농약 문단은 앞 문맥 없이 서고 화학물질 이름만 걷으면 된다. 합성·분석 절은 버린다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7def19ef-5a7d-4810-a5d4-64207ecbe595",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:22:52.327106+00:00",
+    "body_sha256": "353519270e5aad3e182986051eaac049512df6bd2f995b26d3e622ab100adae5",
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 수두 위험과 고소득국 백신 접종 비교, 고찰의 성인 감수성 40퍼센트 단락이 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Existing population-based serological studies on VZV",
+      "note": "둘째 단락은 떼어도 서고 seroprevalence 등 두세 낱말을 풀면 고2 이상 밴드로 된다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7df981f7-7add-48ba-a1ab-21cce3b03a2f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:47.853058+00:00",
+    "body_sha256": "68d91225791ff1cb80af8fb2d9979ca3b0d07042efb59c9668e13f136478fc92",
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 좋은 기저 조건에서는 자연 치유만으로 충분해 보존술 이득이 작다는 단락이 요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V9",
+        "V10",
+        "V11"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Notably, despite these time- and site-dependent",
+      "note": "치과 용어(buccal·alveolar)를 풀어야 하지만 대조 논지는 떼어도 선다."
+    },
+    "uses": [
+      "argument",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7dfe5a87-fcb5-4d21-9628-73b1415f8f19",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:48.215861+00:00",
+    "body_sha256": "678c9d8f381af6df0ced0a78abeb8f76079ba594803a17235e26e5a5881a89ac",
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 델타 변이 확산 경위와 고찰의 파키스탄 유입 경로가 이웃 인도가 아닌 중동이었다는 단락이 요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Phylogenomic analysis further contextualizes these findings.",
+      "note": "계통 단락은 국가명 몇 개를 걷어도 서고 phylogenomic·diaspora 를 풀면 된다. 돌연변이 표기는 걷는다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7e0449ce-490c-4c49-80ab-d6d02ea927ff",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:30:49.520195+00:00",
+    "body_sha256": "2066bfef9e2b3b2d25e34f40593c637b6f7c2228637b4792ce99f6ea79e1af24",
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 당화혈색소가 혈당 변동과 빈혈을 반영하지 못한다는 한계 단락과 스트레스 고혈당 설명이 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V9",
+        "V10",
+        "V11"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "HbA1c is a commonly utilized indicator",
+      "note": "약어를 풀어 쓰면 떼어도 서고 인용 연구자 이름은 걷을 수 있다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  }
+]
