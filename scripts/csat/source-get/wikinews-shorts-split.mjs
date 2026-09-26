@@ -17,7 +17,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { isDigestTitle, splitDigest, briefTitle, briefSourceId } from './_wikinews-shorts.mjs'
+import { isDigestTitle, isBriefSourceId, splitDigest, briefTitle, briefSourceId } from './_wikinews-shorts.mjs'
 
 try {
   for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -38,6 +38,7 @@ const { data: digests, error } = await db
   .select('id,source,source_id,source_url,title,author,published_at,license,license_class,copyright_safe_in_kr,language,content,csat_fit')
   .eq('source', 'wikinews')
   .ilike('title', 'Wikinews Shorts%')
+  .not('source_id', 'like', '%#brief-%') // 꼭지 행은 모음이 아니다
   .order('source_id')
 if (error) throw new Error(`모음 조회 — ${error.message}`)
 
@@ -48,7 +49,7 @@ let briefsExisting = 0
 let dropped = 0
 let judged = 0
 const failures = []
-for (const d of digests.filter((x) => isDigestTitle(x.title))) {
+for (const d of digests.filter((x) => isDigestTitle(x.title) && !isBriefSourceId(x.source_id))) {
   if (done >= LIMIT) break
   if (d.csat_fit?.derived_from?.kind === 'digest') { already++; continue }
   if (d.csat_fit?.gate?.retain) judged++
