@@ -94,7 +94,6 @@ const config: Config = {
         "ios-teal": "var(--ios-teal)",
         "ios-cyan": "var(--ios-cyan)",
         "ios-blue": "var(--ios-blue)",
-        "ios-indigo": "var(--ios-indigo)",
         "ios-purple": "var(--ios-purple)",
         "ios-pink": "var(--ios-pink)",
         "ios-brown": "var(--ios-brown)",
