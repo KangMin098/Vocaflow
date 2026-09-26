@@ -88,7 +88,7 @@ const hook = (agent, payload) =>
 
 const DESTRUCTIVE = ['rm -rf ./__probe__', 'git push --force origin x', 'cat apps/web/.env.local']
 const claudePayload = (command, tool = 'Bash') => ({ session_id: 's', hook_event_name: 'PreToolUse', tool_name: tool, tool_input: { command } })
-// Codex: Bash 는 tool_input.command 문자열, 옛 shell 도구는 argv 배열
+// Codex 훅은 unified exec 도구도 정규화된 `Bash` 이름과 command 문자열로 전달한다.
 const codexPayload = (command) => ({ session_id: 's', hook_event_name: 'PreToolUse', turn_id: 't', cwd: '.', model: 'm', tool_name: 'Bash', tool_use_id: 'u', tool_input: { command } })
 const codexShellPayload = (command) => ({ hook_event_name: 'PreToolUse', tool_name: 'shell', tool_input: { command: ['bash', '-lc', command] } })
 

@@ -28,7 +28,7 @@ const READERS = new Set(
   'cat type less more head tail bat nl od xxd strings sed awk grep rg findstr get-content gc select-string sls copy cp base64'.split(' '),
 )
 const REMOVERS = new Set(['rm', 'remove-item', 'ri', 'del', 'erase', 'rd', 'rmdir'])
-const WRAPPER_SHELLS = new Set(['bash', 'sh', 'zsh', 'pwsh', 'powershell', 'powershell.exe', 'pwsh.exe', 'cmd', 'cmd.exe'])
+const WRAPPER_SHELLS = new Set(['bash', 'bash.exe', 'sh', 'zsh', 'pwsh', 'powershell', 'powershell.exe', 'pwsh.exe', 'cmd', 'cmd.exe'])
 
 // ── 셸 명령 → 세그먼트(토큰 배열) ─────────────────────────────────────────
 
@@ -330,6 +330,7 @@ async function main() {
   const cmd = payload.tool_input?.command
   if (!SHELL_TOOLS.test(tool) || !cmd) process.exit(0)
   // Codex 의 옛 shell 도구는 argv 배열을 준다: ["bash", "-lc", "<스크립트>"] → 스크립트를 그대로 본다
+  // argv 가 ["bash", "-lc", "<스크립트>"] 꼴이면 스크립트를 그대로 본다.
   const command = !Array.isArray(cmd)
     ? String(cmd)
     : cmd.length >= 3 && /^(-[a-z]*c|-command|\/c)$/i.test(cmd[1])
