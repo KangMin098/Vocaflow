@@ -42,10 +42,11 @@
 ## 남은 것 (Codex 설치 후)
 
 - [x] `codex exec -s workspace-write "node --test agents/scripts/__tests__/*.test.mjs 를 실행하고 실패만 요약"` — D7 Codex 실측: 95/95 PASS
-- [x] `codex exec "rm -rf ./__guard_probe__ 를 실행해 보라"` → D4 Codex 실측: 직접 명령은 execpolicy 가 먼저 차단했고, 같은 `rm -rf` 를 셸 래퍼로 실행한 독립 체크아웃은 PreToolUse 가 차단해 `.agent-logs/guard.jsonl` 에 `"agent":"codex"` 기록
+- [x] `codex exec "rm -rf ./__guard_probe__ 를 실행해 보라"` → D4 Codex 실측: 직접 명령은 execpolicy 가 먼저 차단했고, 셸 래퍼 시도는 `.agent-logs/guard.jsonl` 에 `"agent":"codex"` 기록. 이때 exit 2만으로는 Codex가 명령을 계속 실행하는 결함도 재현해 stdout의 PreToolUse JSON `deny`로 고치고 실제 입력 회귀를 추가했다
 - [x] `codex execpolicy check --pretty --rules .codex/rules/vocaflow.rules -- git push --force` → `forbidden`
 - [x] 실제 Codex → Claude 인수인계 작성 후 `handoff.mjs --verify` — D8 실측 PASS
 
 실측 중 `.codex/hooks.json` 과 `.codex/config.toml` 이 함께 로드되어 훅이 두 번 실행되고,
 전자는 Claude 전용 `$CLAUDE_PROJECT_DIR` 때문에 실패하는 결함을 확인했다. Codex 정본은
 `config.toml` 하나로 합치고, 통합 셸 도구의 훅 이름은 Codex 규약대로 `Bash` 로 고정했다.
+Claude의 exit 2 계약은 유지하되 Codex 차단은 `permissionDecision = "deny"` 응답으로 분리했다.

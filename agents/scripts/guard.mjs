@@ -2,7 +2,8 @@
 // agents/scripts/guard.mjs
 //
 // PreToolUse 안전 훅 — Claude Code(.claude/settings.json)와 Codex CLI(.codex/config.toml)가 **같은 스크립트**를 부른다.
-// 두 도구 모두 stdin JSON 의 `tool_input.command` 에 셸 명령이 오고, exit 2 + stderr 가 "차단" 이다.
+// 두 도구 모두 stdin JSON 의 `tool_input.command` 에 셸 명령이 온다.
+// Claude Code 는 exit 2 + stderr, Codex 는 stdout 의 PreToolUse JSON deny 로 차단한다.
 //
 // 막는 것 (agents/DECISIONS.md D-04):
 //   1. 재귀 + 강제 삭제       rm -rf · rm -r -f · Remove-Item -Recurse -Force · rd /s /q
@@ -347,10 +348,24 @@ async function main() {
   if (!reasons.length) process.exit(0)
 
   log(agent, command, reasons)
-  process.stderr.write(
+  const reason =
     `[agents/guard] 차단 (${agent}):\n- ${reasons.join('\n- ')}\n` +
-      '규칙: AGENTS.md 「자동화 정책 ③」·「공유 워크스페이스」. 정말 필요하면 사용자에게 직접 실행을 요청할 것.\n',
-  )
+    '규칙: AGENTS.md 「자동화 정책 ③」·「공유 워크스페이스」. 정말 필요하면 사용자에게 직접 실행을 요청할 것.'
+
+  if (agent === 'codex') {
+    process.stdout.write(
+      JSON.stringify({
+        hookSpecificOutput: {
+          hookEventName: 'PreToolUse',
+          permissionDecision: 'deny',
+          permissionDecisionReason: reason,
+        },
+      }) + '\n',
+    )
+    process.exit(0)
+  }
+
+  process.stderr.write(reason + '\n')
   process.exit(2)
 }
 

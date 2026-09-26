@@ -10,7 +10,7 @@
 | D1 CLAUDE.md 첫 줄 `@AGENTS.md` · 중복 0 · AGENTS.md ≤ 200줄 | **PASS** | `check.mjs` — 170줄 · 17.9 KB · 중복 0 (변이 3종 검출) |
 | D2 `sync --check` exit 0 | **PASS** | `.mcp.json` 바이트 동일 재생성 · `config.toml` 구역 일치 |
 | D3 설정 파일 비밀값 0 | **PASS** | 설정 파일 49개 · 0건 (가짜 `sbp_` 키로 변이 검출) |
-| D4 두 쪽이 같은 파괴 명령 차단 | **Claude PASS · Codex PASS (실측)** | [d4-claude-probe.jsonl](./logs/d4-claude-probe.jsonl) 3/3 · Codex `rm -rf` PreToolUse 차단 + `guard.jsonl`의 `agent=codex` 기록 |
+| D4 두 쪽이 같은 파괴 명령 차단 | **Claude PASS · Codex PASS (실측+회귀)** | [d4-claude-probe.jsonl](./logs/d4-claude-probe.jsonl) 3/3 · Codex `rm -rf` 정책 차단 + `guard.jsonl`의 `agent=codex` 기록 · PreToolUse JSON `deny` 회귀 |
 | D5 잠금 거부 · 고아 해제 | **PASS** | `lock.test.mjs` 6/6 · 실측 pid = `claude.exe` |
 | D6 인수인계 필수 6항목 | **PASS** | `handoff.test.mjs` — 비면 exit 1 · validate FAIL |
 | D7 스모크: 같은 테스트 명령 · 허용 밖 접근 0 | **Claude PASS · Codex PASS (실측)** | Claude 90/90 · Codex workspace-write 95/95, 실패 0 |
@@ -20,8 +20,9 @@
 **Codex CLI 0.155.0-alpha.16.3 실측 완료(2026-09-26).** D7은 workspace-write에서 95/95,
 force-push 정책은 `forbidden`, D8 실제 인계는 `--verify` PASS였다. D4 첫 실행에서 프로젝트의
 `hooks.json`과 `config.toml`이 병합되어 훅이 중복되고 Claude 전용 환경변수 때문에 실패하는 결함을 찾았다.
-Codex 훅을 `config.toml` 한 곳으로 합치고 통합 셸 matcher를 `Bash`로 고친 뒤, 독립 체크아웃에서
-`rm -rf`가 PreToolUse에 차단되고 `agent=codex` 로그가 남는 것을 확인했다.
+Codex 훅을 `config.toml` 한 곳으로 합치고 통합 셸 matcher를 `Bash`로 고쳤다. 최초 훅은 exit 2를
+오류로만 기록하고 실행을 계속했으므로 Codex 응답을 PreToolUse JSON `deny`로 바꿨다. 독립 체크아웃에서
+`agent=codex` 로그를 실측했고, 실제 Codex 입력 형식의 JSON `deny`를 회귀 테스트로 고정했다.
 
 ## Gate 0 · 인벤토리 — PASS
 
@@ -65,8 +66,9 @@ Codex 훅을 `config.toml` 한 곳으로 합치고 통합 셸 matcher를 `Bash`�
 
 - **D4 Claude**: 헤드리스 `claude -p` 가 `rm -rf ./__guard_probe_nonexistent__` · `git push --force origin __no_such_branch__` · `cat apps/web/.env.local` 을 시도 → 셋 다 훅에서 차단, 우회 시도 없음.
 - **D7 Claude**: 1차 — 허용 규칙 `Bash(node --test agents/scripts/__tests__/:*)` 가 `…/*.test.mjs` 와 매치되지 않아 네 번 승인 요청 후 `error_max_turns`. 규칙을 `…/__tests__/*` 로 고친 2차 — `node --test agents/scripts/__tests__/*.test.mjs 2>&1` 한 번 · 90/90 · 권한 거부 0 · 다른 도구 호출 0.
-- **Codex D4·D7**: workspace-write에서 에이전트 스크립트 95/95. 직접 `rm -rf`는 execpolicy가 먼저 막으므로,
-  같은 명령을 셸 래퍼 안에서 실행해 PreToolUse 차단과 `agent=codex` 로그를 확인했다. 프로젝트 훅은
+- **Codex D4·D7**: workspace-write에서 에이전트 스크립트 95/95. 직접 `rm -rf`는 execpolicy가 먼저 막는다.
+  셸 래퍼 실측에서 exit 2가 실행을 막지 못하는 결함과 `agent=codex` 로그를 확인해 JSON `deny`로 교정했고,
+  실제 Codex 입력 형식으로 deny 응답을 검증했다. 프로젝트 훅은
   `hooks.json`과 inline TOML을 합치므로 중복 정의를 제거했고, 통합 exec의 matcher는 `Bash`다.
 - **D8**: 임시 git 저장소의 두 번 왕복에 더해 실제 Codex → Claude 인계와 `--verify` PASS.
 
