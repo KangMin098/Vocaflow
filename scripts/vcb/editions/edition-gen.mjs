@@ -16,7 +16,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { ROOT, chromium } from '../../design/lib/ref-page.mjs'
-import { NEG, promptFor } from './edition-styles.mjs'
+import { DEFAULT_STYLE, negFor, promptFor } from './edition-styles.mjs'
 
 const HERE = import.meta.dirname
 const WORK = path.join(HERE, 'work')
@@ -32,7 +32,7 @@ const tok = (env, file) =>
 const QWEN_KEY = tok('DASHSCOPE_API_KEY', 'scripts/comic/.dashscope-token')
 const OPENAI_KEY = tok('OPENAI_API_KEY', 'scripts/comic/.openai-token')
 
-async function qwen(prompt) {
+async function qwen(prompt, NEG) {
   if (!QWEN_KEY) throw new Error('DashScope 키 없음')
   const body = {
     model: 'qwen-image-max',
@@ -55,7 +55,7 @@ async function qwen(prompt) {
   throw new Error('qwen 429 ×3')
 }
 
-async function openai(prompt) {
+async function openai(prompt, NEG) {
   if (!OPENAI_KEY) throw new Error('OpenAI 키 없음')
   const r = await fetch('https://api.openai.com/v1/images/generations', {
     method: 'POST',
@@ -88,7 +88,8 @@ for (const [slug, p] of todo) {
   const order = BACKEND === 'auto' ? ['qwen', 'openai'] : [BACKEND]
   for (const be of order) {
     try {
-      buf = be === 'qwen' ? await qwen(prompt) : await openai(prompt)
+      const neg = negFor(p.style ?? DEFAULT_STYLE)
+      buf = be === 'qwen' ? await qwen(prompt, neg) : await openai(prompt, neg)
       model = be === 'qwen' ? 'qwen-image-max' : 'gpt-image-1'
       break
     } catch (e) {
@@ -105,7 +106,7 @@ for (const [slug, p] of todo) {
     return c.toDataURL('image/webp', 0.86).split(',')[1]
   }, `data:image/png;base64,${buf.toString('base64')}`)
   fs.writeFileSync(path.join(OUT, `${slug}.webp`), Buffer.from(b64, 'base64'))
-  log[slug] = { model, style: p.style, prompt, generated_at: new Date().toISOString() }
+  log[slug] = { model, style: p.style ?? DEFAULT_STYLE, prompt, generated_at: new Date().toISOString() }
   fs.writeFileSync(logPath, JSON.stringify(log, null, 2))
   ok++
   console.log(`  ✓ ${slug} (${model})`)

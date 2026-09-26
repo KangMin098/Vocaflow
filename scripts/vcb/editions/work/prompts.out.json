@@ -1,222 +1,57 @@
 {
-  "cat-uncovered-v2": {
-    "style": "dreamy",
-    "subject": "A child-sized wooden door standing alone in a misty meadow, slightly ajar, soft light spilling out of the gap"
-  },
-  "cat-topic-functions": {
-    "style": "clay",
-    "subject": "A cluster of chunky pastel speech bubbles of different shapes stacked and leaning on each other like toy blocks"
-  },
-  "cat-curriculum-mid": {
-    "style": "isometric",
-    "subject": "A cutaway middle-school building with classrooms, a library, a science lab and a gym, each room full of tiny students"
-  },
-  "cat-unlock-fables": {
-    "style": "oil",
-    "subject": "A fox and a crow facing each other on an old oak branch at dusk, a piece of cheese glowing between them"
-  },
-  "cat-facet-500": {
-    "style": "glass3d",
-    "subject": "A single large translucent glass cube with five faces each glowing a different soft colour, floating over a reflective floor"
-  },
-  "cat-csat-core": {
-    "style": "prism",
-    "subject": "Two thousand tiny glowing light cards arranged in tall rows receding into darkness like an endless archive"
-  },
-  "cat-recycle-pinocchio": {
-    "style": "oil",
-    "subject": "A carved wooden puppet sitting on a carpenter's workbench beside wood shavings and a lit candle"
-  },
-  "cat-topic-homes-and-buildings": {
-    "style": "isometric",
-    "subject": "A tall apartment block cut open to show dozens of different homes, kitchens, balconies, stairs and rooftop gardens"
-  },
-  "cat-topic-politics-and-society": {
-    "style": "collage",
-    "subject": "A vintage wooden ballot box with a glowing slot and a folded paper sliding in, surrounded by torn black and white crowd photographs"
-  },
-  "cat-rhyme": {
-    "style": "synthwave",
-    "subject": "Glowing neon sound waves rippling edge to edge across a vast mirror-like ocean under an open starry violet sky, the rings echoing in perfectly matching repeats, the scene fills the whole frame with no border"
-  },
-  "cat-level-v1-v3": {
-    "style": "clay",
-    "subject": "Three soft pastel steps like a small staircase with a tiny round character taking the first step"
-  },
-  "cat-topic-food-and-drink": {
-    "style": "isometric",
-    "subject": "A busy cutaway food market with stalls of fruit, bakeries, noodle bars and cafes packed with tiny people"
-  },
-  "cat-topic-people": {
-    "style": "dreamy",
-    "subject": "Silhouettes of many different people walking through a sunlit foggy park, blurred by motion"
-  },
-  "cat-topic-work-and-business": {
-    "style": "prism",
-    "subject": "A row of glowing office doorways in perspective, each one a different warm-to-cool colour"
-  },
-  "cat-topic-the-natural-world": {
-    "style": "dreamy",
-    "subject": "A giant fern unfurling in an ancient misty rainforest with shafts of iridescent light"
-  },
-  "cat-topic-health": {
-    "style": "glass3d",
-    "subject": "A translucent glass heart with gently glowing inner chambers, a few glass capsules floating around it"
-  },
-  "cat-kice-long": {
-    "style": "prism",
-    "subject": "One extremely long ribbon of light unrolling from the foreground into the far distance like a scroll"
-  },
-  "cat-freq-2k": {
-    "style": "glass3d",
-    "subject": "A tall stack of glossy glass tiles arranged like a bar chart, the tallest ones in front catching the light"
-  },
-  "cat-academic-nawl": {
-    "style": "oil",
-    "subject": "A scholar's desk in a candle-lit library with open folios, a brass astrolabe and quill pens"
-  },
-  "cat-level-v4-v7": {
-    "style": "synthwave",
-    "subject": "A neon staircase climbing up from the water toward a glowing sun on the horizon"
-  },
-  "cat-domain-medical": {
-    "style": "glass3d",
-    "subject": "A translucent glass anatomical model of a human torso with softly glowing organs"
-  },
-  "cat-collocation": {
-    "style": "clay",
-    "subject": "Pairs of pastel puzzle pieces clicking together, floating in small groups of two and three"
-  },
-  "cat-kice-blank": {
-    "style": "prism",
-    "subject": "A row of glowing light panels with one missing panel in the middle, an empty dark gap that draws the eye"
-  },
-  "cat-phrasal": {
-    "style": "collage",
-    "subject": "A vintage CRT television showing a colourful idiom scene of raining cats and dogs, over a background of printed dictionary pages"
-  },
-  "cat-etymology-1500": {
-    "style": "oil",
-    "subject": "An ancient tree whose visible roots spread through layers of earth, each root branching into new saplings above"
-  },
-  "cat-word-family": {
-    "style": "clay",
-    "subject": "A pastel mother nesting doll with a row of smaller matching nesting dolls lined up beside her"
-  },
-  "cat-pos-verbs": {
-    "style": "isometric",
-    "subject": "A cutaway sports centre full of tiny people running, jumping, swimming, lifting and throwing"
-  },
-  "cat-day-30": {
-    "style": "glass3d",
-    "subject": "A glass tear-off desk calendar with thirty translucent pages fanning out, one page glowing brighter"
-  },
-  "cat-topic-travel": {
-    "style": "synthwave",
-    "subject": "A retro airplane gliding over a neon grid ocean toward a giant setting sun"
-  },
-  "cat-synonym": {
-    "style": "glass3d",
-    "subject": "Two almost identical glass spheres side by side, one with a faint warm tint and one with a faint cool tint"
-  },
-  "cat-mnemonic": {
-    "style": "dreamy",
-    "subject": "A glowing memory palace hallway dissolving into mist, floating photographs drifting in the air"
-  },
-  "cat-polysemy": {
-    "style": "prism",
-    "subject": "A single beam of white light splitting through a prism into many coloured beams fanning out"
-  },
-  "cat-book-pride": {
-    "style": "oil",
-    "subject": "An elegant Regency ballroom with dancers in empire-waist gowns under crystal chandeliers"
-  },
-  "cat-chapter-pride-1-3": {
-    "style": "oil",
-    "subject": "A handwritten letter sealed with red wax on a window seat of an English country house, garden beyond"
-  },
-  "cat-uncovered-600": {
-    "style": "synthwave",
-    "subject": "A vast unexplored neon map grid with a few blank glowing regions still waiting to be charted"
-  },
-  "cat-uncovered-v1": {
-    "style": "clay",
-    "subject": "A pastel treasure chest slightly open with soft light and small toy letters-free blocks peeking out"
-  },
-  "cat-uncovered-v3": {
-    "style": "dreamy",
-    "subject": "An empty bookshelf in a misty sunlit attic with one glowing gap waiting for a book"
-  },
-  "confusable-pairs-300": {
-    "style": "collage",
-    "subject": "Two nearly identical vintage keys crossed over each other, over a background of photocopied lock diagrams"
-  },
-  "cat-topic-animals": {
-    "style": "isometric",
-    "subject": "A cutaway zoo and aquarium full of animals, keepers and tiny visitors"
-  },
-  "cat-topic-culture": {
-    "style": "collage",
-    "subject": "A vintage film projector casting colourful light, surrounded by concert posters and museum ticket stubs"
-  },
-  "unlock-pride-and-prejudice": {
-    "style": "oil",
-    "subject": "A stately English manor house across a lake at golden hour, seen from a wooded hill"
-  },
-  "cat-curriculum-high": {
-    "style": "isometric",
-    "subject": "A cutaway high school with lecture rooms, a rooftop observatory, a music room and a cafeteria full of students"
-  },
-  "cat-topic-sport": {
-    "style": "synthwave",
-    "subject": "A neon running track curving into a glowing sunset stadium, a lone sprinter in silhouette"
-  },
-  "recycle-pride-1-5": {
-    "style": "oil",
-    "subject": "A stack of leather-bound novels on a garden bench with a folded parasol and fallen rose petals"
-  },
-  "cat-antonym": {
-    "style": "prism",
-    "subject": "Two opposing walls of light, one warm orange and one cold blue, meeting at a sharp bright line in the middle"
-  },
-  "facet-ladder-300": {
-    "style": "glass3d",
-    "subject": "A translucent glass ladder with six rungs each glowing a different soft colour, floating upward"
-  },
-  "cat-curriculum-elem": {
-    "style": "clay",
-    "subject": "A cheerful pastel school bus with round wheels and a few tiny round characters waving from the windows"
-  },
-  "cat-topic-leisure": {
-    "style": "dreamy",
-    "subject": "A hammock strung between two trees in a hazy summer garden with glittering dust in the air"
-  },
-  "cat-topic-communication": {
-    "style": "collage",
-    "subject": "A vintage rotary telephone with its coiled cord looping around, over a background of printed letters and postmarks"
-  },
-  "cat-topic-science-and-technology": {
-    "style": "glass3d",
-    "subject": "A glowing glass atom model with orbiting electrons and a small robotic arm reaching toward it"
-  },
-  "cat-kice-purpose": {
-    "style": "synthwave",
-    "subject": "A neon compass needle pointing to a bright star above the horizon, grid lines converging toward it"
-  },
-  "cat-topic-appearance": {
-    "style": "dreamy",
-    "subject": "A vintage oval mirror standing in a blooming garden, reflecting soft blurred flowers and light"
-  },
-  "cat-level-v8-v10": {
-    "style": "prism",
-    "subject": "A towering spire of stacked light panels rising into darkness, the top tier glowing brightest"
-  },
-  "cat-topic-notions": {
-    "style": "glass3d",
-    "subject": "Floating glass geometric solids — a sphere, a cone, a torus and a cube — balanced in a quiet composition"
-  },
-  "cat-topic-time-and-space": {
-    "style": "synthwave",
-    "subject": "A giant hourglass standing on a neon grid under a galaxy-filled violet sky"
-  }
+  "cat-uncovered-v2": { "style": "tines", "bg": "teal", "subject": "A small wooden door standing on its own, slightly ajar, with a few blank square word tiles peeking out of the gap" },
+  "cat-topic-functions": { "style": "tines", "bg": "magenta", "subject": "A cluster of three chunky blank speech bubbles of different shapes stacked on each other like toy blocks" },
+  "cat-curriculum-mid": { "style": "tines", "bg": "green", "subject": "A chunky school satchel with a ruler and a pencil sticking out of the top flap" },
+  "cat-unlock-fables": { "style": "tines", "bg": "orange", "subject": "A cute fox and a crow on a short branch, a wedge of cheese between them" },
+  "cat-facet-500": { "style": "tines", "bg": "purple", "subject": "A chunky dice-like cube with five visible faces each painted a different palette colour" },
+  "cat-csat-core": { "style": "tines", "bg": "ink", "subject": "A tall chunky card-file cabinet with one drawer pulled open, full of blank index cards" },
+  "cat-recycle-pinocchio": { "style": "tines", "bg": "orange", "subject": "A little wooden puppet sitting on a carpenter's bench beside a curl of wood shaving" },
+  "cat-topic-homes-and-buildings": { "style": "tines", "bg": "green", "subject": "A chunky little townhouse with a round window, a chimney and a potted plant by the door" },
+  "cat-topic-politics-and-society": { "style": "tines", "bg": "purple", "subject": "A chunky ballot box with a blank folded paper sliding into the slot" },
+  "cat-rhyme": { "style": "tines", "bg": "magenta", "subject": "Two chunky bells side by side ringing with matching curved sound lines" },
+  "cat-level-v1-v3": { "style": "tines", "bg": "teal", "subject": "Three chunky stacked steps like building blocks with a small star on the top step" },
+  "cat-topic-food-and-drink": { "style": "tines", "bg": "orange", "subject": "A chunky bowl of noodles with chopsticks resting on top and a small cup of tea beside it" },
+  "cat-topic-people": { "style": "tines", "bg": "magenta", "subject": "Three chunky round faces of different shapes huddled together, smiling" },
+  "cat-topic-work-and-business": { "style": "tines", "bg": "ink", "subject": "A chunky briefcase with a coffee mug and a small blank clipboard leaning on it" },
+  "cat-topic-the-natural-world": { "style": "tines", "bg": "green", "subject": "A chunky potted fern with a small snail climbing the pot" },
+  "cat-topic-health": { "style": "tines", "bg": "teal", "subject": "A chunky heart wearing a small stethoscope, two capsules floating beside it" },
+  "cat-kice-long": { "style": "tines", "bg": "purple", "subject": "A very long paper scroll unrolling across the floor from a chunky wooden roller" },
+  "cat-freq-2k": { "style": "tines", "bg": "orange", "subject": "A chunky bar chart made of stacked blank tiles, the tallest bar on the left" },
+  "cat-academic-nawl": { "style": "tines", "bg": "ink", "subject": "A chunky graduation cap resting on a stack of thick books with a round magnifying glass" },
+  "cat-level-v4-v7": { "style": "tines", "bg": "green", "subject": "A chunky ladder leaning against nothing, with a small flag on the top rung" },
+  "cat-domain-medical": { "style": "tines", "bg": "teal", "subject": "A chunky doctor's bag, half open, with a thermometer and a bandage roll poking out" },
+  "cat-collocation": { "style": "tines", "bg": "magenta", "subject": "Two chunky puzzle pieces clicking together, a third piece floating toward them" },
+  "cat-kice-blank": { "style": "tines", "bg": "purple", "subject": "A row of four chunky blank tiles on a rack with one empty gap in the middle" },
+  "cat-phrasal": { "style": "tines", "bg": "orange", "subject": "A chunky umbrella with a small cat and a small dog tumbling down onto it like rain" },
+  "cat-etymology-1500": { "style": "tines", "bg": "green", "subject": "A chunky sprouting seed with long roots branching below it into three small sprouts" },
+  "cat-word-family": { "style": "tines", "bg": "magenta", "subject": "A row of chunky nesting dolls from big to small" },
+  "cat-pos-verbs": { "style": "tines", "bg": "teal", "subject": "A chunky running sneaker in mid-stride with small motion lines behind it" },
+  "cat-day-30": { "style": "tines", "bg": "orange", "subject": "A chunky tear-off desk calendar with its top page curling up, all pages blank" },
+  "cat-topic-travel": { "style": "tines", "bg": "teal", "subject": "A chunky suitcase with round stickers and a small paper plane taking off from it" },
+  "cat-synonym": { "style": "tines", "bg": "purple", "subject": "Two almost identical chunky teapots side by side, one slightly taller" },
+  "cat-mnemonic": { "style": "tines", "bg": "magenta", "subject": "A chunky light bulb with a small string tied around it like a reminder knot" },
+  "cat-polysemy": { "style": "tines", "bg": "ink", "subject": "A chunky prism splitting one beam into several coloured beams" },
+  "cat-book-pride": { "style": "tines", "bg": "purple", "subject": "A chunky ornate hand mirror and a folded lace fan resting on a closed book" },
+  "cat-chapter-pride-1-3": { "style": "tines", "bg": "magenta", "subject": "A chunky sealed envelope with a round wax seal and a quill pen beside it" },
+  "cat-uncovered-600": { "style": "tines", "bg": "green", "subject": "A chunky folded treasure map with a small blank patch and a compass on top" },
+  "cat-uncovered-v1": { "style": "tines", "bg": "orange", "subject": "A chunky toy treasure chest, lid open, with blank square blocks tumbling out" },
+  "cat-uncovered-v3": { "style": "tines", "bg": "teal", "subject": "A chunky small bookshelf with one empty gap between the books" },
+  "confusable-pairs-300": { "style": "tines", "bg": "ink", "subject": "Two nearly identical chunky old keys crossed over each other" },
+  "cat-topic-animals": { "style": "tines", "bg": "green", "subject": "A chunky cartoon elephant with a small bird perched on its trunk" },
+  "cat-topic-culture": { "style": "tines", "bg": "purple", "subject": "A chunky vintage film projector with a small spotlight beam" },
+  "unlock-pride-and-prejudice": { "style": "tines", "bg": "orange", "subject": "A chunky ornate old key with a ribbon tied to its bow" },
+  "cat-curriculum-high": { "style": "tines", "bg": "ink", "subject": "A chunky telescope on a tripod pointing up at a small star" },
+  "cat-topic-sport": { "style": "tines", "bg": "magenta", "subject": "A chunky trophy cup with a football resting at its base" },
+  "recycle-pride-1-5": { "style": "tines", "bg": "teal", "subject": "A chunky garden bench with a small stack of books and a folded parasol on it" },
+  "cat-antonym": { "style": "tines", "bg": "orange", "subject": "A chunky seesaw balance with a sun on one end and a moon on the other" },
+  "facet-ladder-300": { "style": "tines", "bg": "purple", "subject": "A chunky ladder with six rungs each painted a different palette colour" },
+  "cat-curriculum-elem": { "style": "tines", "bg": "green", "subject": "A chunky cheerful school bus with round wheels" },
+  "cat-topic-leisure": { "style": "tines", "bg": "teal", "subject": "A chunky hammock strung between two short posts with a small book lying in it" },
+  "cat-topic-communication": { "style": "tines", "bg": "magenta", "subject": "A chunky rotary telephone with its coiled cord looping around" },
+  "cat-topic-science-and-technology": { "style": "tines", "bg": "ink", "subject": "A chunky atom model with orbiting electrons above a small beaker" },
+  "cat-kice-purpose": { "style": "tines", "bg": "purple", "subject": "A chunky compass with its needle pointing straight up at a small star" },
+  "cat-topic-appearance": { "style": "tines", "bg": "orange", "subject": "A chunky oval standing mirror with a comb and a small hat beside it" },
+  "cat-level-v8-v10": { "style": "tines", "bg": "green", "subject": "A chunky mountain peak with a small flag planted on the summit" },
+  "cat-topic-notions": { "style": "tines", "bg": "teal", "subject": "A chunky sphere, cone and cube balanced on top of each other" },
+  "cat-topic-time-and-space": { "style": "tines", "bg": "ink", "subject": "A chunky hourglass with a small ringed planet floating beside it" }
 }

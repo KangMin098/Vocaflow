@@ -750,7 +750,8 @@ pnpm vcb:publish-precheck      # 08b-publish-precheck.ts
 | ③ | 생성 — `apps/web/public/covers/vocab/editions/<slug>.webp` | API: `edition-gen.mjs`(Qwen → GPT Image 폴백) · 무료 GPU: `scripts/design/illo-kaggle.mjs --scenes scripts/vcb/editions/edition-scenes.mjs --out apps/web/public/covers/vocab/editions --slug vocaflow-vcb-editions` | 안전(없는 파일만 · `--force` 는 한도 소모) |
 | ④ | import — `cover_image_meta.edition` 기록 | `edition-import.mjs [--commit]` | 안전(기존 jsonb 에 키 하나만 · 파일 없으면 건너뛴 수 출력) |
 
-- 제목은 그림에 굽지 않는다 — 모든 화풍이 위쪽 30% 를 비워 두고 HTML 이 한글 제목을 얹는다(글자색 `title_ink`).
+- **기본 화풍 = `tines`**(2026-09-26 사용자 지시) — 앱 삽화와 같은 손: 진한 단색 면(`TILE_BG` 6색) 위 굵은 보라 윤곽의 통통한 사물 하나. 화풍 문장은 `scripts/design/lib/illo-tines-scenes.mjs`(`STYLE_TILE`)에서 import 한다 — 여기서 다시 쓰지 않는다. 아트 디렉션은 권마다 `{ style:'tines', bg, subject }`(사물 하나). Editions 관찰 8 화풍은 `style` 로 여전히 고를 수 있다.
+- 제목은 그림에 굽지 않는다 — 모든 화풍이 위쪽 3분의 1 을 비워 두고 HTML 이 한글 제목을 얹는다(글자색 `title_ink`). 프롬프트에 숫자·「headline」을 쓰지 않는다(Kaggle 경로가 글자로 그린다).
 - 2026-09-25 실측: DashScope 무료 한도 소진 · OpenAI 크레딧 0 → Kaggle T4(Qwen-Image Q3 + Lightning 4스텝) 경로로 생성.
 - 되돌리기: `edition` 키를 지우면 선반이 종전 표지로 돌아간다(파일은 남는다).
 

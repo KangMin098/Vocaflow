@@ -13,7 +13,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
-import { TITLE_INK } from './edition-styles.mjs'
+import { DEFAULT_STYLE, TITLE_INK } from './edition-styles.mjs'
 
 const HERE = import.meta.dirname
 const ROOT = path.resolve(HERE, '../../..')
@@ -34,7 +34,8 @@ const logPath = path.join(HERE, 'work', 'gen-log.json')
 const genLog = fs.existsSync(logPath) ? JSON.parse(fs.readFileSync(logPath, 'utf8')) : {}
 
 let wrote = 0, skippedNoFile = 0, unchanged = 0
-for (const [slug, p] of Object.entries(prompts)) {
+for (const [slug, raw] of Object.entries(prompts)) {
+  const p = { ...raw, style: raw.style ?? DEFAULT_STYLE }
   const file = path.join(DIR, `${slug}.webp`)
   if (!fs.existsSync(file) || fs.statSync(file).size < 10_000) { skippedNoFile++; continue }
   const { data: row, error } = await sb.from('shared_word_sets').select('id, cover_image_meta').eq('slug', slug).maybeSingle()

@@ -4,6 +4,18 @@
 // 참조 이미지는 입력으로 넣지 않는다(파생물 금지) — 화풍은 글 설명으로만 준다.
 // 표지 제목은 굽지 않는다(no text) — 한글 제목은 HTML 이 표지 위쪽에 얹는다(`VocabEditionCover`).
 // 그래서 모든 화풍이 **위쪽 30% 를 조용한 면**으로 비워 둔다(제목이 앉을 자리).
+//
+// **기본 화풍은 `tines`**(사용자 지시 2026-09-26 「tines 스타일로 전체 변환 — 파이프라인도」) — 앱 스킨(DD-68)의 삽화와
+// 같은 손: 진한 단색 면을 꽉 채운 정사각 위에 굵은 보라 윤곽의 통통한 사물 하나. 화풍 문장은 tines 삽화의 단일 출처
+// (scripts/design/lib/illo-tines-scenes.mjs)에서 가져온다 — 여기서 다시 쓰면 서가 표지와 앱 삽화가 두 손으로 갈린다.
+// 나머지 8 화풍(Editions 관찰)은 남겨 둔다 — 권마다 `style` 로 고를 수 있다.
+
+import { NEG as TINES_NEG, STYLE_TILE, TILE_BG } from '../../design/lib/illo-tines-scenes.mjs'
+
+/** 기본 화풍 */
+export const DEFAULT_STYLE = 'tines'
+/** tines 면 색 키 — illo-tines-scenes TILE_BG 의 키 */
+export const TINES_BG = Object.keys(TILE_BG)
 
 /** 참조 표지 관찰 → 화풍 문장. 키는 prompts.out.json 의 `style` 과 같다. */
 export const STYLES = {
@@ -53,9 +65,20 @@ export const TITLE_INK = {
   prism: 'light',
   dreamy: 'light',
   collage: 'dark',
+  tines: 'light', // TILE_BG 는 전부 진한 면이다
 }
 
-export function promptFor({ style, subject }) {
+/** 화풍별 부정 프롬프트 */
+export const negFor = (style) => (style === 'tines' ? TINES_NEG : NEG)
+
+/** tines — 사물은 아래 3분의 2 에, 위는 면만(제목 자리). 숫자·headline 같은 말은 쓰지 않는다(위 LAYOUT 경고). */
+const TINES_LAYOUT = 'The object sits in the lower two thirds of the square; the upper third is only the plain solid background colour with nothing on it.'
+
+export function promptFor({ style = DEFAULT_STYLE, bg, subject }) {
+  if (style === 'tines') {
+    if (!TILE_BG[bg]) throw new Error(`tines 면 색이 없다(${bg}) — ${TINES_BG.join(' · ')}`)
+    return `${subject} ${STYLE_TILE(TILE_BG[bg])}. ${TINES_LAYOUT}`
+  }
   const s = STYLES[style]
   if (!s) throw new Error(`모르는 화풍: ${style}`)
   return `${subject}. Style: ${s}. ${LAYOUT}`

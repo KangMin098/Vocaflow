@@ -11,7 +11,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { NEG as EDITION_NEG, promptFor } from './edition-styles.mjs'
+import { NEG as EDITION_NEG, DEFAULT_STYLE, negFor, promptFor } from './edition-styles.mjs'
 
 const prompts = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'work', 'prompts.out.json'), 'utf8'))
 
@@ -21,7 +21,8 @@ export const SCENES = Object.entries(prompts).map(([slug, p]) => ({
   size: '1328*1328',
   style: '',
   scene: promptFor(p),
+  neg: negFor(p.style ?? DEFAULT_STYLE),
   key: false,
   // Kaggle 경로가 안쪽에 둥근 액자를 그리는 일이 있다(28장 중 6장) — 사방 8% 를 걷는다. 피사체는 아래 쪽 가운데라 안 잘린다.
-  crop: 0.08,
+  crop: (p.style ?? DEFAULT_STYLE) === 'tines' ? 0.1 : 0.08,
 }))

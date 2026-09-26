@@ -244,7 +244,7 @@ if (!FETCH_ONLY) {
   if (!todo.length) { console.log('만들 장면이 없다(전부 있음) — --force 로 다시'); process.exit(0) }
   const jobs = todo.flatMap((s) => {
     const [w, h] = sizeOf(s)
-    return Array.from({ length: VARIANTS }, (_, k) => ({ id: VARIANTS > 1 ? `${s.id}__v${k}` : s.id, prompt: `${s.scene} ${s.style}`, neg: NEG, w, h, seed: Math.floor(Math.random() * 2 ** 40) }))
+    return Array.from({ length: VARIANTS }, (_, k) => ({ id: VARIANTS > 1 ? `${s.id}__v${k}` : s.id, prompt: `${s.scene} ${s.style}`, neg: s.neg ?? NEG, w, h, seed: Math.floor(Math.random() * 2 ** 40) }))
   })
   console.log(`생성 ${jobs.length}: ${jobs.map((j) => j.id).join(' ')}`)
   await push(jobs)
