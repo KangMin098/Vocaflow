@@ -22,4 +22,6 @@ export const SCENES = Object.entries(prompts).map(([slug, p]) => ({
   style: '',
   scene: promptFor(p),
   key: false,
+  // Kaggle 경로가 안쪽에 둥근 액자를 그리는 일이 있다(28장 중 6장) — 사방 8% 를 걷는다. 피사체는 아래 쪽 가운데라 안 잘린다.
+  crop: 0.08,
 }))

@@ -204,13 +204,13 @@ async function postprocess(pngs) {
   }, 'data:image/webp;base64,' + b64)
   // Kaggle(Q3 + Lightning) 은 타일 안쪽에 둥근 테두리 액자를 한 겹 더 그린다(앱 아이콘 모양 — 2026-09-22 실측, 두 장 다).
   //   참조 타일은 면이 가장자리까지 꽉 차므로 **사방 10% 를 잘라** 액자를 걷는다. 물건은 가운데 50% 라 잘리지 않는다.
-  const cropInset = (src) => pg.evaluate(async (data) => {
+  const cropInset = (src, ratio) => pg.evaluate(async ([data, ratio]) => {
     const im = new Image(); im.src = data; await im.decode()
-    const inset = Math.round(im.width * 0.1), S = im.width - inset * 2
+    const inset = Math.round(im.width * ratio), S = im.width - inset * 2
     const c = document.createElement('canvas'); c.width = 1024; c.height = 1024
     c.getContext('2d').drawImage(im, inset, inset, S, S, 0, 0, 1024, 1024)
     return c.toDataURL('image/png')
-  }, src)
+  }, [src, ratio])
   const groups = new Map()
   for (const f of pngs) {
     const base = f.replace(/\.png$/, '').replace(/__v\d+$/, '')
@@ -224,7 +224,9 @@ async function postprocess(pngs) {
     let best = null
     for (const f of files) {
       let src = 'data:image/png;base64,' + fs.readFileSync(path.join(WORK, f)).toString('base64')
-      if (id.startsWith('tile-')) src = await cropInset(src)
+      // 장면이 `crop` 을 주면 그 비율로(에디션 표지 — 같은 액자가 정사각 표지에도 그려진다, 2026-09-25 28장 중 6장)
+      const crop = s.crop ?? (id.startsWith('tile-') ? 0.1 : 0)
+      if (crop) src = await cropInset(src, crop)
       const b64 = await pg.evaluate(keyAndEncode, [src, s.key])
       const score = s.key === false ? 0 : await clearRatio(b64)
       if (!best || score > best.score) best = { b64, score, f }

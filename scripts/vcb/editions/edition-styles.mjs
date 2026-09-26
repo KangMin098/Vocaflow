@@ -30,12 +30,15 @@ export const STYLES = {
     'dreamlike misty photograph, soft focus, lush greenery, holographic iridescent glitter particles and chromatic noise overlay, ethereal pastel light leaks, analog film grain',
   // THE BORING EDITION — 흑백 문서 콜라주 위의 레트로 CRT 텔레비전
   collage:
-    'retro mixed-media collage, black and white printed document pages and halftone scraps as background, a vintage CRT object photographed in the middle, bold pop colours only inside the focal object, zine aesthetic',
+    'retro mixed-media collage, black and white printed document pages and halftone scraps as background, one vintage physical object photographed in the middle as the focal point, bold pop colours only on that object, zine aesthetic',
 }
 
 /** 모든 표지 공통 — 정사각, 위쪽 30% 는 제목 자리, 글자 없음. */
+// ⚠️ 숫자·「headline」·「title」 같은 말을 쓰지 않는다 — Kaggle 경로(Q3 + Lightning 4스텝, cfg=1 이라 부정 프롬프트가
+//    안 먹는다)가 그 말을 **글자로 그렸다**(2026-09-25 1묶음: "top 30 percent … headline" → 10장 중 8장 위쪽에 「30」).
+//    빈 자리는 사물로 말한다(열린 하늘 · 빈 벽 · 여백).
 export const LAYOUT =
-  'Square album-cover composition. The top 30 percent of the image is a calm, uncluttered area of continuous background with no objects, reserved for a headline. The main subject sits in the lower 70 percent. Absolutely no text, no letters, no numbers, no logos, no watermark.'
+  'Square composition. The upper third of the frame is open empty space — plain sky, bare wall or smooth empty background — with nothing drawn in it. The main subject sits low in the frame. Pure image only, completely wordless, no signage, no printed marks.'
 
 export const NEG =
   'text, letters, words, typography, numbers, caption, logo, watermark, signature, frame, border, collage grid, split panels, low quality, blurry, deformed'
