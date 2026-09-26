@@ -12,6 +12,7 @@
 // source_id 형식: 'nih:<slug>'
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import {
   decodeEntities,
@@ -114,14 +115,13 @@ export async function ingestNihArticle(itemUrl: string): Promise<RawArticle> {
     html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)
   const content = htmlToPlainText(bodyMatch?.[1] ?? html)
 
-  if (content.trim().length < 200) {
-    throw new Error(`NIH article body too short: ${content.trim().length} chars`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.trim().length < 200
 
   const slug = slugFromUrl(itemUrl) ?? hashString(itemUrl).toString(36)
   const isMedlinePlus = /medlineplus\.gov/i.test(itemUrl)
 
-  return {
+  const article: RawArticle = {
     source: 'nih',
     source_id: `nih:${slug}`,
     source_url: itemUrl,
@@ -134,6 +134,15 @@ export async function ingestNihArticle(itemUrl: string): Promise<RawArticle> {
     estimated_cefr: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`NIH article body too short: ${content.trim().length} chars`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }
 
 // ─── helpers ─────────────────────────────────────

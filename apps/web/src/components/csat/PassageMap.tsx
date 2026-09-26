@@ -205,7 +205,21 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
       </ol>
 
       {active ? (
-        <div className="mt-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+        <div className="mt-4 overflow-hidden rounded-[10px] border border-[var(--bd)] bg-[var(--bg)] shadow-[0_1px_2px_color-mix(in_srgb,var(--t1)_5%,transparent)]">
+          {/* 참조(3B)의 Output 판 머리 — 상태 칩 + 무엇을 보는지 한 줄 */}
+          <p className="flex min-h-[40px] items-center gap-2 border-b border-[var(--bd)] px-4 font-mono text-xs text-[var(--t2)]">
+            <span
+              className="inline-flex h-[22px] items-center rounded-[5px] px-[7px] font-bold"
+              style={{
+                color: active.kind === 'answer' ? GREEN : RED,
+                background: `color-mix(in srgb, ${active.kind === 'answer' ? GREEN : RED} 14%, transparent)`,
+              }}
+            >
+              {active.kind === 'answer' ? '✓' : active.label}
+            </span>
+            <span className="break-keep">{active.kind === 'answer' ? '정답 근거' : active.origin === 'tempt' ? '끌리는 자리' : '오답 지우는 근거'}</span>
+          </p>
+          <div className="p-4">
           {notFound ? (
             // **막다른 화면을 만들지 않는다.** 못 찾았다는 사실을 말하고 설명은 그대로 준다.
             <p className="mb-2 break-keep text-sm leading-relaxed text-[var(--t2)]">
@@ -232,6 +246,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
               {active.detail}
             </p>
           ) : null}
+          </div>
         </div>
       ) : null}
     </section>

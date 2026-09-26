@@ -1,0 +1,1930 @@
+[
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "0ff0a356-440d-4fc9-9d01-0a8ba7dd0ad2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8c44acdf5e5621ed5f6812c4a7af20766563e8ee441a1967d4b57b3897d36db5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "10대 사이버 범죄가 늘지만 미숙함·인정 욕구 때문에 쉽게 잡히고 평생 기록이 남는다는 논지가 서서 요지·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "blank",
+            "irrelevant",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Teenagers desire to win recognition for",
+          "note": "인정 욕구 문단은 「같은 별명을 써서 쉽게 추적된다」 인과가 서고 exploits·alias 두 낱말만 바꾸니 V5 가 됐다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "structured",
+          "vocab"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.323Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/More_teenagers_attracted_to_computer_crime%2C_say_experts",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.284
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "0ff2a448-b2da-4c38-8e9f-a14bc74d3d22",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8aa99649f970524a8441e9d3dbc31516fcbefef88abdc03836ce328f9958f193",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "「프리덤 프라이」가 다시 「프렌치 프라이」가 된 소식을 이름을 바꿨던 정치적 까닭과 함께 전해 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In March 2003, House Representatives Bob",
+          "note": "2003년 문단은 프랑스의 이라크전 불참→이름 변경이라는 까닭이 서고 propaganda 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "sequence"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.324Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Capitol_Hill_fries_and_toast_French_again",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.813,
+          "words": 187,
+          "english": 0.387
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "0ff52df8-f3cc-4bc5-9181-cbd6bb8365a8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1bfd8d7d19b5b43583f421e05ac51258137a68adbe52d578c62fb9b93e45959f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "나이트위시 새 보컬 선발 경위를 데모 제출부터 결정 통보까지 순서로 전해 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Olzon said she had not previously",
+          "note": "선발 경위 문단은 데모→답장→엄마라 거절→공연 DVD 로 번복 순서가 서서 순서 재료가 됐다."
+        },
+        "uses": [
+          "sequence",
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.324Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Nightwish_announce_Anette_Olzon_as_new_lead_vocalist",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.365
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "0ff9aa60-2e30-4fa3-9a82-a51fcc68f7ce",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2ed59b0d77efa0cd41eade4723ee40d0d3bcafe7dc63abc2b8da8f792ed9d61f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "경선 경쟁자였던 클린턴과 오바마가 「유니티」 마을에서 단합을 호소한 행사를 전해 목적·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "purpose"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Clinton described their rivalry as standing",
+          "note": "toe-to-toe·shoulder-to-shoulder 대비 문단은 경쟁→단합 전환이 서서 어휘 재료가 됐고 지지자 호소도 함께 섰다."
+        },
+        "uses": [
+          "factual",
+          "vocab",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.324Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Clinton_and_Obama_call_for_unity_in_Democratic_Party",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.933,
+          "words": 178,
+          "english": 0.366
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "0fff8580-855c-488e-8313-2f91612f2efb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "704a47721707b1cff0a3af4411110be341254543ff1871cf498013d28d0f37aa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "culture",
+        "why": "고시청률 프로그램 조기 취소를 전하나 끝 문단 「아래 청원 목록」이 목록 없이 끊겨 받은 본문이 불완전하다.",
+        "slots": {
+          "ages": [
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Three Wishes, which is hosted by",
+          "note": "시청률 문단은 높은 시청률에도 취소라는 역설이 서지만 마지막 문단이 청원 목록을 예고하고 목록 없이 끝난다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.324Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/NBC_cancels_%22Three_Wishes%22",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.349,
+          "words": 126,
+          "english": 0.333
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "0fffffa2-0e67-4075-9d2d-7907fa31200d",
+    "revision": "2026-09-25T08:55:21.521102+00:00",
+    "body_sha256": "1a765c49f6303e05eeeb1019f3436715e38fc959cce93167e032ffd3c493590b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "워털루역 무빙워크 정비 중 기술자 사망을 출동·우회 안내·조사로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The travelator allows passengers to transfer",
+          "note": "무빙워크 문단은 환승 기능과 우회 안내가 서고 travelator 뜻을 앞에서 풀어 줘 쉬웠다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Engineer_killed_while_working_on_travelator_at_London_Waterloo_station",
+          "year": 2019,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.385
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "10021ae8-3795-4388-b281-03f0ed0c6902",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9645a4f96ee9ad328812e11861aa019a1b4cefdd21e9048677c852af45fd0448",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "통계청 예산 삭감이 노동력 조사·센서스·연감에 줄 영향을 전해 내용일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Budget cuts at the Australian Bureau",
+          "note": "예산 삭감 영향 문단만 조사 정확도 하락·센서스 계획 폐기로 서고 나머지는 보도 출처 나열이라 걷어야 했다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_Bureau_of_Statistics_faces_budget_cut",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.352,
+          "words": 179,
+          "english": 0.395
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "100aaca1-9b7f-4cec-9bd8-93207f5dff47",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c55168cfda1619d9040ce744d9b48bb4f11e12a305f49fead7331bf00f33f3a5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "덴마크 테러 모의 유죄 판결을 증거·밀고자 논란·변론과 판결로 맞세워 고3·성인 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The defense, which denied the charges,",
+          "note": "변론 문단은 농담·함정 수사 주장이 판사 판단과 맞서 서고 informant 만 풀면 주장-반박 재료가 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Denmark_convicts_three_in_terror_plot_case",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "100ad249-a6e1-4b92-be9e-99192e681b74",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "72d753a02942b46de1fa3a96bab59c10bd67e7c8ef4c2eb883c203b58ba9cacc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "후보 인터뷰지만 답변이 모두 한 줄이고 추후 답변을 약속한 채 끝나 주장·사실이 서는 단락이 없다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "What are your views on the",
+          "note": "MMP 문항을 떼어 보니 답이 「더 공정해서 찬성」 한 줄뿐이고 다른 답도 한 줄이라 논지가 서지 않았다."
+        },
+        "uses": [
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ontario_Votes_2007%3A_Interview_with_Libertarian_candidate_Michael_Green%2C_Toronto_Centre",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7,
+          "words": 200,
+          "english": 0.423
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "1016008e-d34e-447c-9692-f8ced4321817",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d84cf24750015895a0011a2d7d825dce2f613d6e179b7e566edada4431034210",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "소유스 TMA-12 발사를 첫 한국인 우주인·2대 우주인이라는 두 최초와 귀환 계획으로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Two major firsts are being achieved",
+          "note": "두 최초 문단은 첫 한국인 우주인과 2대 우주인이 대비로 서고 임무 번호만 걷으면 쉬웠다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Soyuz_TMA-12_launches",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.298
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "101b63c1-3ad7-46e5-9c1f-62b6a552383a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "78749d12e6af4d66a95503df90bde9fe31c7c8c09ddf4f8216a901691708712c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "버진 열차 탈선을 구조·부상·원인 조사·사주 발언으로 전해 장문·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "long_reference"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Virgin owner Richard Branson came to",
+          "note": "브랜슨 문단은 「차량은 튼튼, 선로 탓」 주장과 기관사 칭찬이 서고 integrity 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "sequence",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Virgin_train_crashes_in_England",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.361
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "101d2878-6117-4975-a0ee-507e55d975b6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "664540d48be158384cf8650c08793dca4df557365c094602954a0d9d8af24363",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "유엔 첫 카슈미르 인권보고서와 인도의 거부·파키스탄의 환영을 맞세워 고3·성인 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Unlike India, the report was welcomed",
+          "note": "파키스탄 환영 문단은 인도 반발과 대비해 짧게 서고 전체는 tendentious·fallacious 를 바꿔야 V7 로 내려왔다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "spoken",
+          "vocab"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UN_releases_first-ever_human_rights_report_on_Kashmir",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.31
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "10256397-cd2b-4a84-b966-c58657fde00a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b846ee02d117080684beebcd27b6f8d6efb1c03ae9294d1e77cd6c2020f23532",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "자폭 차량을 막다 숨진 이라크 경찰 소식을 보도자료로 전해 내용일치 칸 하나를 겨우 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "The bombing was attempted soon after",
+          "note": "마지막 문단은 미군 발언과 공격 시점을 잇지만 보도자료 인용 외에 맥락이 얇아 서는 힘이 약했다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iraqi_Policeman_killed_while_protecting_leader_of_'Sons_of_Iraq'",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.597,
+          "words": 139,
+          "english": 0.404
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "1025f2e7-46e4-4b3b-bfb7-b2c6e10ff218",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "67b3e3d84aee43b43d23cb1ad323c19e76a7e73811c6dfa50755ce588a89b69d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "세 대선 후보 여권 기록 무단 열람과 국무장관 사과·후보 반응을 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to Assistant Secretary of State,",
+          "note": "경위 문단은 교육 중 계약직 직원의 열람이라는 원인이 서고 backlog 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Major_US_presidential_candidates_have_passport_files_breached",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.384
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "10262d1a-91ff-4895-82ab-1cdbd5152f65",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "94bf8180fd78db552e928cec7bd7566be2743d55da4d74805dc4e9968da05b73",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "탄소·차량·쓰레기 없는 마스다르 시티 착공을 설계·에너지원·우려·「누군가는 해야」 인용으로 전해 빈칸·삽입·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "blank",
+            "insert",
+            "claim"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The city will have a personal",
+          "note": "에너지 문단은 풍력·태양광·담수화·풍탑으로 설명이 서고 desalination 만 풀면 삽입 재료가 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "structured",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Abu_Dhabi_starts_constructing_'green_city'",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.359
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "1026c37e-5bae-456b-a88c-7c9662072856",
+    "revision": "2026-09-25T08:48:35.224694+00:00",
+    "body_sha256": "16b486768c0088af1cc1fe0cb4cdfd0dd6d8bd6c753213eb0ab34eb59be2804f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "영국 총선 여론조사 역전과 트라이던트 공방·양당 공약을 전해 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Following the poll results, the Conservative",
+          "note": "공격 문단은 SNP 뒷거래→트라이던트 폐기 주장과 노동당 부인이 맞서 서고 grubby·backstairs 만 풀었다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Labour_grabs_poll_lead_in_UK_General_Election_campaign",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "102feb0d-0961-4b10-9fd2-46ee152fa768",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e0bec8b0ea6da8c58d5fffd0e1e80699a5b36b4a440d5dbceb457b989e1b15aa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "캘리포니아 동성혼 금지 위헌 판결을 다수·반대 의견과 찬반 단체 반응으로 맞세워 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Supporters of gay marriage said the",
+          "note": "지지·반대 문단 둘을 이으면 이정표↔사법 폭정 대립이 서고 concurrence 같은 법률어가 없는 부분만 골랐다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/California_Supreme_Court_strikes_down_ban_on_gay_marriage",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "10305e73-01fe-48d3-a2c8-3bfa1fc3828f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bfcfdcdd2d36bde80e2577b2ab3660b5caff69a08a575790552d24c1d49ff800",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "군의 무력 불사용 선언과 개각·언론 탄압·광장 분노를 전해 심경·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Speaking to news media in the",
+          "note": "시위대 인터뷰 문단은 「같은 정권, 같은 허세」라는 분노가 인용으로 서서 심경 재료가 됐고 quell 만 풀었다."
+        },
+        "uses": [
+          "factual",
+          "mood",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Egypt_protests%3A_Army_say_they_will_not_use_force_on_demonstrators_as_Mubarak_announces_cabinet",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.415
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "10349049-8b6f-40fa-aa9d-1c8189f47d10",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7b2a4447c1486363eaccc0da78408d50bb8bc6d4f76631a75e713459aa8bf78d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "터키 여당의 조기 총선 요구를 대통령 선출 교착·세속주의 우려·군 개입 이력으로 설명해 요약·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Turkish pro-secular movement first feared",
+          "note": "세속주의 우려 문단은 에르도안→귤 후보로 바뀐 두려움과 부인이 서고 hidden agenda 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "structured"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/AKP_calls_for_early_general_election_in_Turkey",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.402
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "10409857-6296-44af-9779-f89436229507",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0885310d8595ead573e65523edba434f810cd52517866af9c3ebb3fc73f801e2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "바누아투 규모 7.8 지진과 여진·경보 해제를 한 주 전 쓰나미 참사와 비교해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Vanuatu was placed under a tsunami",
+          "note": "쓰나미 경보 문단은 경보→작은 파도→해제가 서고 한 주 전 사모아 참사와 이어 비교가 됐다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Large_magnitude_7.8_earthquake%2C_aftershock_strikes_Vanuatu_region",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.691,
+          "words": 123,
+          "english": 0.381
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "1044ff0d-e0e8-4f75-b2aa-2c78e160f08e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "835638c870c90daf58bdddfaaea027e71514ff770c151e9dfd74d62a1b7a079c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "energy",
+        "why": "올드버리 원전 변압기 화재와 표준 절차에 따른 원자로 정지를 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The fire took place on the",
+          "note": "비원자력 구역 문단은 변압기 화재→표준 절차상 원자로 정지→방사능 누출 없음이 서서 쉬웠다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Oldbury_nuclear_power_station_suffers_fire",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.511,
+          "words": 133,
+          "english": 0.404
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "104f5b9a-357a-4f93-91e9-badcc22ce1a4",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "df2669cf6d053bc47304bbe414155ec0352a5e5d7a28000fe37f1fe38fc14bd4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "호주인이 테러보다 지구온난화를 더 걱정한다는 여론조사와 그린피스 해석을 전해 내용일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The report, entitled \"Australians speak 2005:",
+          "note": "보고서 문단은 지구온난화 70%>테러 63% 비교가 서서 도표형 내용일치 재료가 됐고 proliferation 만 풀었다."
+        },
+        "uses": [
+          "factual",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australians_more_concerned_by_global_warming_than_terrorism%2C_says_Lowy_report",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.304
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "1051d598-b8b5-475b-affc-cd8cc7785660",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7a09a6aaf394fdcaae1e57171c4d31d64cfd7fb8ce008e01a768c91c8eea5176",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "서퍽 연쇄살인 유죄 평결을 시신 발견 순서·DNA 증거·수사 소감으로 전해 고3·성인 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Steve Wright was identified as a",
+          "note": "DNA 문단은 증거→체포→기소가 두 문장으로 서고 수사 방식 인용 문단과 이어 쓰기 좋았다."
+        },
+        "uses": [
+          "factual",
+          "sequence"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Steve_Wright_found_guilty_of_murdering_five_women_in_Suffolk%2C_England",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.358
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "105d50c4-c2f8-4c48-a0dd-b84700891aed",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "34e4f65a49f2df9b317879357b2e668be9504b03431f622a75a3c3e29bc7c677",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "LA 산불로 게티 미술관·대학이 대피한 소식을 전해 짧은 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mount St. Mary's College has also",
+          "note": "대학 대피 문단은 방학 중 300명·주택 위험 없음·예방 대피가 서서 짧은 내용일치가 됐다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Brush_fires_threaten_neighborhoods_in_Los_Angeles%2C_California",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 8.633,
+          "words": 139,
+          "english": 0.368
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-05-322Z",
+    "id": "1064715b-144d-410d-a233-eec9b61bfa5b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a110143c0f663ffbd97f683e1cba8a130b29e0241e7d9214d73f8ac87b249b7a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "도요타의 70년 만의 적자 전망과 감산·고용 대응을 인과로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "As a result of the loss,",
+          "note": "감산 문단은 손실→교대 축소→공장 14일 휴업의 인과가 서고 판매 비율 수치 문단은 걷었다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:05.325Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Automobile_manufacturer_Toyota_triples_annual_loss_prediction",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.383
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

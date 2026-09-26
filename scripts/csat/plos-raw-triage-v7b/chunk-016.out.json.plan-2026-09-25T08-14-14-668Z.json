@@ -1,0 +1,2067 @@
+[
+  {
+    "runId": "2026-09-25T08-14-14-668Z",
+    "id": "0a8e3d76-f8b3-4b1e-9685-5e620f30adcb",
+    "revision": "2026-09-25T07:29:52.869438+00:00",
+    "body_sha256": "718d4b33aae2a85947cf47e283d4e543dd676d506c57666ea8103d82390b4a2a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.461Z",
+        "by": "chunk-llm",
+        "why": "서론이 방어 물질은 대개 계통마다 다른데 시안 생성만 여기저기서 따로 생겼다는 역설을 세운다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:17.202Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "83f49197edc3772de5b46940ecf363c14795ec79afe32799361dee0a7bae90a5"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "convergent evolution·specialised metabolite 를 「따로 같은 답에 닿음」「특수 물질」로 바꾸니 고2 밴드에 든다.",
+          "sample": "Chemical substances, so-called secondary or specialised",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.461Z",
+        "by": "chunk-llm",
+        "why": "서론이 방어 물질은 대개 계통마다 다른데 시안 생성만 여기저기서 따로 생겼다는 역설을 세운다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:17.202Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "83f49197edc3772de5b46940ecf363c14795ec79afe32799361dee0a7bae90a5"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "convergent evolution·specialised metabolite 를 「따로 같은 답에 닿음」「특수 물질」로 바꾸니 고2 밴드에 든다.",
+          "sample": "Chemical substances, so-called secondary or specialised",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "서론이 방어물질의 계통 특이성이라는 통념을 세우고 시안생성의 산발적 분포로 반박해 연구 물음까지 한 편으로 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Many chemical substances produced by plants",
+          "note": "효소·유전자 기호를 걷어내면 방어화학과 수렴진화 논지가 남지만, 어휘 교체만으로 밴드를 낮추기는 어렵다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.670Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:43.461Z",
+          "by": "chunk-llm",
+          "why": "서론이 방어 물질은 대개 계통마다 다른데 시안 생성만 여기저기서 따로 생겼다는 역설을 세운다.",
+          "basis": "full",
+          "genre": "nature",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "order"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:17.202Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "83f49197edc3772de5b46940ecf363c14795ec79afe32799361dee0a7bae90a5"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "convergent evolution·specialised metabolite 를 「따로 같은 답에 닿음」「특수 물질」로 바꾸니 고2 밴드에 든다.",
+            "sample": "Chemical substances, so-called secondary or specialised",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:42.777Z",
+      "topicMargin": 33.34
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-668Z",
+    "id": "0aa3a46b-c82d-43b7-97e1-fff30c299e18",
+    "revision": "2026-09-25T07:29:54.150231+00:00",
+    "body_sha256": "3af41009650241a3b834dcd0a5b623f2426d600e23916f9286f8ac1c68afe859",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.491Z",
+        "by": "chunk-llm",
+        "why": "화성 레골리스의 과염소산염이 미생물 벽돌 제조에 미치는 영향을 통념-실험-결론으로 논지를 세운 고찰 단락이 있다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:18.525Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "06392c5d248b2e99c5acaaa4a941acf09d67f7735c9de06a6fa8f49d6b89287f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 지시어가 없어 그대로 떼어지고, perchlorate·regolith 두세 낱말만 풀면 V6대로 내려간다.",
+          "sample": "Ancient Mars has had a history",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.491Z",
+        "by": "chunk-llm",
+        "why": "화성 레골리스의 과염소산염이 미생물 벽돌 제조에 미치는 영향을 통념-실험-결론으로 논지를 세운 고찰 단락이 있다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:18.525Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "06392c5d248b2e99c5acaaa4a941acf09d67f7735c9de06a6fa8f49d6b89287f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 지시어가 없어 그대로 떼어지고, perchlorate·regolith 두세 낱말만 풀면 V6대로 내려간다.",
+          "sample": "Ancient Mars has had a history",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "화성 레골리스의 과염소산염이라는 문제 제기부터 미생물 벽돌 실험 결론까지 서론·고찰이 자족적으로 읽힌다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ancient Mars has had a history",
+          "note": "서론 문단은 앞 문맥 없이 서고 ISRU·시뮬런트 같은 낱말 두셋만 풀어 쓰면 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.671Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:44.491Z",
+          "by": "chunk-llm",
+          "why": "화성 레골리스의 과염소산염이 미생물 벽돌 제조에 미치는 영향을 통념-실험-결론으로 논지를 세운 고찰 단락이 있다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:18.525Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "06392c5d248b2e99c5acaaa4a941acf09d67f7735c9de06a6fa8f49d6b89287f"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 단락은 지시어가 없어 그대로 떼어지고, perchlorate·regolith 두세 낱말만 풀면 V6대로 내려간다.",
+            "sample": "Ancient Mars has had a history",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 4,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:43.126Z",
+      "topicMargin": 14.579999999999998
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-668Z",
+    "id": "0adb444f-1248-4a9d-89cf-d0de9212e53f",
+    "revision": "2026-09-25T07:29:58.362536+00:00",
+    "body_sha256": "2bde25ee18a044c0dbd4ed8689d6dbc41c6b37e8d9e0772726aac1c4a5c9cfbf",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.495Z",
+        "by": "chunk-llm",
+        "why": "궤양성 대장염의 원인과 진단 공백을 짚는 서론이 문제 제기에서 연구 물음으로 이어진다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:22.457Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "427b89873cd6a1cc16ae0311cb05bed61f2d514b620560f569b772ed807e1ecb"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 떼어도 서고 유전자·알고리즘 이름이 없어 낱말 두어 개 교체로 V6대가 된다.",
+          "sample": "Ulcerative colitis (UC), the most",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.495Z",
+        "by": "chunk-llm",
+        "why": "궤양성 대장염의 원인과 진단 공백을 짚는 서론이 문제 제기에서 연구 물음으로 이어진다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:22.457Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "427b89873cd6a1cc16ae0311cb05bed61f2d514b620560f569b772ed807e1ecb"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 떼어도 서고 유전자·알고리즘 이름이 없어 낱말 두어 개 교체로 V6대가 된다.",
+          "sample": "Ulcerative colitis (UC), the most",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "유전자 기호 나열이 본문 대부분이나 서론의 궤양성 대장염·저산소·미토파지 설명 문단은 논지를 갖춘 설명문으로 선다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Mitochondria are required to maintain intestinal",
+          "note": "서론 둘째 문단은 떼어져도 서지만, 결과·고찰은 유전자명과 AUC 수치가 골격이라 가공 대상에서 빠진다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:44.495Z",
+          "by": "chunk-llm",
+          "why": "궤양성 대장염의 원인과 진단 공백을 짚는 서론이 문제 제기에서 연구 물음으로 이어진다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:22.457Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "427b89873cd6a1cc16ae0311cb05bed61f2d514b620560f569b772ed807e1ecb"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 단락은 떼어도 서고 유전자·알고리즘 이름이 없어 낱말 두어 개 교체로 V6대가 된다.",
+            "sample": "Ulcerative colitis (UC), the most",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 17,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:56.500Z",
+      "topicMargin": 16.91
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-668Z",
+    "id": "0afdfcaf-05ee-4635-b4e9-2cf06b2c6df7",
+    "revision": "2026-09-25T07:30:03.149029+00:00",
+    "body_sha256": "ff172d658f318f5530da85d665f3225f97158ca2c44c088f3c2546cfa0a25dd3",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.495Z",
+        "by": "chunk-llm",
+        "why": "미주신경 좌우 비대칭이 심전도에 다르게 나타난다는 주장과 근거가 고찰에서 짝을 이룬다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:26.060Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c1b5c2172152f23cd236c0e3390f96ffc7fd02a815a6cbbad625a0436ab68c27"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 도입은 앞 참조 없이 시작하고 측정 약어를 풀어 쓰면 밴드가 한 단 내려간다.",
+          "sample": "The prevalence of arrhythmias increases",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.495Z",
+        "by": "chunk-llm",
+        "why": "미주신경 좌우 비대칭이 심전도에 다르게 나타난다는 주장과 근거가 고찰에서 짝을 이룬다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:26.060Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c1b5c2172152f23cd236c0e3390f96ffc7fd02a815a6cbbad625a0436ab68c27"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 도입은 앞 참조 없이 시작하고 측정 약어를 풀어 쓰면 밴드가 한 단 내려간다.",
+          "sample": "The prevalence of arrhythmias increases",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "미주신경 단면적과 심전도의 좌우 비대칭이라는 물음을 세우고 고찰에서 좌우 신경의 해부학적 차이로 답해 한 편이 닫힌다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The vagus nerve is responsible for",
+          "note": "서론 문단은 자족적이나 ECG 약어(QRS·R-R)가 문맥으로 풀리지 않아 밴드 하향이 막힌다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.672Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:44.495Z",
+          "by": "chunk-llm",
+          "why": "미주신경 좌우 비대칭이 심전도에 다르게 나타난다는 주장과 근거가 고찰에서 짝을 이룬다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "claim",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:26.060Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "c1b5c2172152f23cd236c0e3390f96ffc7fd02a815a6cbbad625a0436ab68c27"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 도입은 앞 참조 없이 시작하고 측정 약어를 풀어 쓰면 밴드가 한 단 내려간다.",
+            "sample": "The prevalence of arrhythmias increases",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "사회·경제",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:25:48.708Z",
+      "topicMargin": 0.6799999999999997
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-668Z",
+    "id": "0b146ad3-bea7-4e32-9f67-338f63d28145",
+    "revision": "2026-09-25T07:30:07.505663+00:00",
+    "body_sha256": "45be692c12b0508fa9cd145b4958b0ccaedd2e3701e5d1376b07912003d5c884",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.496Z",
+        "by": "chunk-llm",
+        "why": "중금속 오염 토양을 식물과 세균의 공생으로 되살린다는 방안이 서론에서 근거와 함께 제시된다.",
+        "basis": "full",
+        "genre": "agriculture",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:27.630Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0be32bffcfea10a6b3f212632fb79404cf953aa43d29a1dd5a9e43808090f90c"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 두 단락은 자족적이고 효소 이름만 걷으면 중등 상위 밴드까지 내려간다.",
+          "sample": "Heavy metals (HMs) soil contamination",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.496Z",
+        "by": "chunk-llm",
+        "why": "중금속 오염 토양을 식물과 세균의 공생으로 되살린다는 방안이 서론에서 근거와 함께 제시된다.",
+        "basis": "full",
+        "genre": "agriculture",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:27.630Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0be32bffcfea10a6b3f212632fb79404cf953aa43d29a1dd5a9e43808090f90c"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 두 단락은 자족적이고 효소 이름만 걷으면 중등 상위 밴드까지 내려간다.",
+          "sample": "Heavy metals (HMs) soil contamination",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "중금속 오염 토양 정화라는 문제와 콩과-근권세균 공생이라는 해법을 서론에서 세우고 고찰이 근거를 짝지어 준다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Heavy metals (HMs) soil contamination is",
+          "note": "첫 문단은 고유명사 없이도 서고 phytoremediation 같은 낱말을 풀어 쓰면 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.673Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:44.496Z",
+          "by": "chunk-llm",
+          "why": "중금속 오염 토양을 식물과 세균의 공생으로 되살린다는 방안이 서론에서 근거와 함께 제시된다.",
+          "basis": "full",
+          "genre": "agriculture",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:27.630Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "0be32bffcfea10a6b3f212632fb79404cf953aa43d29a1dd5a9e43808090f90c"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 두 단락은 자족적이고 효소 이름만 걷으면 중등 상위 밴드까지 내려간다.",
+            "sample": "Heavy metals (HMs) soil contamination",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:55.061Z",
+      "topicMargin": 12.02
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-668Z",
+    "id": "0b4acb50-5e44-475e-a13a-0cd3e16967f7",
+    "revision": "2026-09-25T07:30:09.624346+00:00",
+    "body_sha256": "b718f868d7a9e883a400d637368cd024f503f2d4ab3081ad852677c0e4ba9cab",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.497Z",
+        "by": "chunk-llm",
+        "why": "결과 절이 한 단락으로 그치고 고찰이 통째로 없어 받은 본문만으로는 논지 전개를 확인할 수 없다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:30.380Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "30d8826d12f56bc6335fddb37becdfb8a0fe7ca1a3f2ff2a4c0b6851b9bb3dfc"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "서론 단락은 떼어져 서지만 그 뒤가 표 없는 수치 요약뿐이라 무엇을 더 자를지가 정해지지 않는다.",
+          "sample": "Liver biopsy (LB) is an",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.497Z",
+        "by": "chunk-llm",
+        "why": "결과 절이 한 단락으로 그치고 고찰이 통째로 없어 받은 본문만으로는 논지 전개를 확인할 수 없다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:30.380Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "30d8826d12f56bc6335fddb37becdfb8a0fe7ca1a3f2ff2a4c0b6851b9bb3dfc"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "서론 단락은 떼어져 서지만 그 뒤가 표 없는 수치 요약뿐이라 무엇을 더 자를지가 정해지지 않는다.",
+          "sample": "Liver biopsy (LB) is an",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "기존 간 생검의 한계를 세우고 내시경 초음파 유도법의 장단점을 견주는 고찰이 주장-근거로 읽힌다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Liver biopsy (LB) is an essential",
+          "note": "서론 문단은 떼어져도 서지만 바늘 규격·술기 용어가 남아 어휘 조정 폭이 좁다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.674Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:44.497Z",
+          "by": "chunk-llm",
+          "why": "결과 절이 한 단락으로 그치고 고찰이 통째로 없어 받은 본문만으로는 논지 전개를 확인할 수 없다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "content_match"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:30.380Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "30d8826d12f56bc6335fddb37becdfb8a0fe7ca1a3f2ff2a4c0b6851b9bb3dfc"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "서론 단락은 떼어져 서지만 그 뒤가 표 없는 수치 요약뿐이라 무엇을 더 자를지가 정해지지 않는다.",
+            "sample": "Liver biopsy (LB) is an",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "hold_reason": "incomplete-source",
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:53.680Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-668Z",
+    "id": "0b5084f1-c978-43a1-b471-d30e85ea0da5",
+    "revision": "2026-09-25T07:30:10.122282+00:00",
+    "body_sha256": "0697c931dfddc64e03d0d74b08a0952f39b50e2e701072cd94d0781dba514b62",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.499Z",
+        "by": "chunk-llm",
+        "why": "환자들이 병원을 피하는 현상을 사회·경제·제도 장벽으로 설명하는 논지가 고찰에서 이론과 함께 선다.",
+        "basis": "full",
+        "genre": "social",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "blank",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading",
+            "vocab"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:30.409Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c3fc75ae99d7551a12a15c265af88237434e1a886e3ca13bd3b85e2d5098d46f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 도입 단락이 그대로 한 편이 되고 의학 용어가 적어 중등 상위 밴드까지 조정된다.",
+          "sample": "The root of healthcare avoidance",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.499Z",
+        "by": "chunk-llm",
+        "why": "환자들이 병원을 피하는 현상을 사회·경제·제도 장벽으로 설명하는 논지가 고찰에서 이론과 함께 선다.",
+        "basis": "full",
+        "genre": "social",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "blank",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading",
+            "vocab"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:30.409Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c3fc75ae99d7551a12a15c265af88237434e1a886e3ca13bd3b85e2d5098d46f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 도입 단락이 그대로 한 편이 되고 의학 용어가 적어 중등 상위 밴드까지 조정된다.",
+          "sample": "The root of healthcare avoidance",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "겸상적혈구병 환자의 의료 회피라는 현상을 제시하고 사회·경제·제도 장벽과 촉진요인을 짝지어 논지가 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The root of healthcare avoidance is",
+          "note": "고찰 첫 문단은 통계 없이도 논지가 서고 어려운 낱말 두셋만 바꾸면 밴드가 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.674Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:44.499Z",
+          "by": "chunk-llm",
+          "why": "환자들이 병원을 피하는 현상을 사회·경제·제도 장벽으로 설명하는 논지가 고찰에서 이론과 함께 선다.",
+          "basis": "full",
+          "genre": "social",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "main_point",
+              "blank",
+              "content_match",
+              "order"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading",
+              "vocab"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:30.409Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "c3fc75ae99d7551a12a15c265af88237434e1a886e3ca13bd3b85e2d5098d46f"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 도입 단락이 그대로 한 편이 되고 의학 용어가 적어 중등 상위 밴드까지 조정된다.",
+            "sample": "The root of healthcare avoidance",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:25:46.478Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-668Z",
+    "id": "0b57ad03-6511-4885-83e7-667c761269bb",
+    "revision": "2026-09-25T07:30:11.388087+00:00",
+    "body_sha256": "75717767a486d6d06ee28be9aba6479c35c89497c913b4f2cffc52fa40a8382e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.501Z",
+        "by": "chunk-llm",
+        "why": "세포 밖 세균으로 알려진 병원균이 세포 안에 숨는다는 반전이 서론과 저자 요약에 또렷하다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:30.520Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "889cde0ee33427ca61e03591c6440bf0b7bc1fef74f6451455a5e3bb4a645ea0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 도입과 저자 요약은 자족적이지만 본문은 표지 단백질 약어가 문장마다 있어 어휘 조정이 막힌다.",
+          "sample": "Bacterial infectious diseases remain a",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.501Z",
+        "by": "chunk-llm",
+        "why": "세포 밖 세균으로 알려진 병원균이 세포 안에 숨는다는 반전이 서론과 저자 요약에 또렷하다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:30.520Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "889cde0ee33427ca61e03591c6440bf0b7bc1fef74f6451455a5e3bb4a645ea0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 도입과 저자 요약은 자족적이지만 본문은 표지 단백질 약어가 문장마다 있어 어휘 조정이 막힌다.",
+          "sample": "Bacterial infectious diseases remain a",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "세포외 세균으로 알려진 병원체가 세포 안에 숨는다는 통념 교정 구조를 저자 요약과 고찰이 함께 갖췄다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Bacterial infectious diseases remain a global",
+          "note": "서론 첫 문단은 자족적이나 분비계·소포 표지 명칭이 많아 어휘 교체로는 밴드가 내려가지 않는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.675Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:44.501Z",
+          "by": "chunk-llm",
+          "why": "세포 밖 세균으로 알려진 병원균이 세포 안에 숨는다는 반전이 서론과 저자 요약에 또렷하다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:30.520Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "889cde0ee33427ca61e03591c6440bf0b7bc1fef74f6451455a5e3bb4a645ea0"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 도입과 저자 요약은 자족적이지만 본문은 표지 단백질 약어가 문장마다 있어 어휘 조정이 막힌다.",
+            "sample": "Bacterial infectious diseases remain a",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 17,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:31.211Z",
+      "topicMargin": 15.95
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-668Z",
+    "id": "0b60811f-04f1-47e7-9368-ad7c22ab2ab0",
+    "revision": "2026-09-25T07:30:12.726269+00:00",
+    "body_sha256": "07404e010cd9c4327059a93fa5e482e1e5f998d950f115923e5a08338a2c244d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.501Z",
+        "by": "chunk-llm",
+        "why": "체온과 바이러스 증식의 관계를 온도 감지 통로로 설명하고 약물 재활용까지 잇는 논지가 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:32.079Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4eddb084555c1a6856933dcdfe9ad21887af2b5084c8a8e18dfc95c590186f32"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약과 서론 도입은 떼어도 서고 통로 이름 하나만 풀면 쉬운 밴드로 내려간다.",
+          "sample": "The emergence of SARS-CoV-2 and",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.501Z",
+        "by": "chunk-llm",
+        "why": "체온과 바이러스 증식의 관계를 온도 감지 통로로 설명하고 약물 재활용까지 잇는 논지가 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:32.079Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4eddb084555c1a6856933dcdfe9ad21887af2b5084c8a8e18dfc95c590186f32"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약과 서론 도입은 떼어도 서고 통로 이름 하나만 풀면 쉬운 밴드로 내려간다.",
+          "sample": "The emergence of SARS-CoV-2 and",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "기도 부위별 온도 차이라는 사실에서 바이러스 증식의 온도 의존성 물음을 끌어내고 약물 재활용 결론까지 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The temperature-dependent replication efficiency of respiratory viruses",
+          "note": "서론 둘째 문단은 떼어도 서고 온도 수치를 살린 채 전문 용어 두셋만 풀면 읽힌다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.676Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:44.501Z",
+          "by": "chunk-llm",
+          "why": "체온과 바이러스 증식의 관계를 온도 감지 통로로 설명하고 약물 재활용까지 잇는 논지가 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "content_match",
+              "order"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:32.079Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "4eddb084555c1a6856933dcdfe9ad21887af2b5084c8a8e18dfc95c590186f32"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약과 서론 도입은 떼어도 서고 통로 이름 하나만 풀면 쉬운 밴드로 내려간다.",
+            "sample": "The emergence of SARS-CoV-2 and",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 3,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:32.410Z"
+    }
+  }
+]

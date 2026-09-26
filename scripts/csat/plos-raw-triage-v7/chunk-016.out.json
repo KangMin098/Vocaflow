@@ -1,0 +1,766 @@
+[
+  {
+    "id": "09c46ad8-d524-4a16-b6f2-e826da45a203",
+    "source_updated_at": "2026-09-13T07:18:16.03428+00:00",
+    "body_sha256": "35a457dd996de70060e3e685e1ec3cd0cd3967624fd23b1d7de9eb6f3c2275fc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 「사료를 바꿔 고기 질을 바꾼다」는 통념과 산화 위험의 상충을 세워 주제·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Using nutritional strategies to improve the",
+      "note": "PUFA·polyphenol 을 「불포화 지방」「식물 항산화 물질」로 바꾸니 앞 문맥 없이 서고, 결과 절의 화합물 표는 버려도 된다."
+    }
+  },
+  {
+    "id": "09d07bd0-a470-45aa-8a5a-798f6c935ba1",
+    "source_updated_at": "2026-09-13T07:47:39.732155+00:00",
+    "body_sha256": "8f2bc67a9a7d1e34ad42421baeca6fd706be1113e1b48043a51b284b10cf2c85",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 턱관절 통증과 스트레스·감정의 연결을 문제 제기로 세워 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Orofacial pain is a condition associated",
+      "note": "TMD·nociceptive 를 「턱관절 장애」「통증 감지」로 바꾸면 고2 밴드에 들고, 효소 약호가 나오는 결과 절은 떼어 내야 한다."
+    }
+  },
+  {
+    "id": "09eea370-3577-4d79-a507-abe4f7251d4a",
+    "source_updated_at": "2026-09-15T13:39:40.489155+00:00",
+    "body_sha256": "0b915a69c23684a9d81f57313e0b8d57b01c27924232df31e474be3874558e41",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약이 프리온이 정상 단백질을 접어 바꾸며 번지는 연쇄를 그림 없이 설명해 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prion diseases are fatal brain disorders",
+      "note": "misfolded·propagate 를 「잘못 접힌」「퍼진다」로 바꾸면 내려가고, 유전자 약호가 촘촘한 결과 절은 쓸 수 없다."
+    }
+  },
+  {
+    "id": "0a10eb96-d5d2-4ec4-b667-e05df7f4e57b",
+    "source_updated_at": "2026-09-13T06:44:33.128698+00:00",
+    "body_sha256": "423a6705ae34ff17c60e482d36d557717ab167de5f4866a75b3ab8ccf123ac92",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 고양이 호흡기 질환의 복합 감염과 오진 위험을 들어 동시 진단의 필요를 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Feline respiratory disease complex (FRDC) is",
+      "note": "병원체 학명을 걷어도 「여러 병원체가 겹쳐 진단이 어렵다」는 논지가 서지만, 프라이머 표가 본문 절반이라 그쪽은 버린다."
+    }
+  },
+  {
+    "id": "0a1106d8-36d9-486f-bda2-a08d128eaf2c",
+    "source_updated_at": "2026-09-15T13:39:54.595592+00:00",
+    "body_sha256": "96cdba5c6e8a114586386449c5300a91142189fa19f9e0ad3650f5d42a62d7cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 산성 환경에서 세균이 양성자 균형을 맞추는 문제를 세워 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Escherichia coli is a facultative anaerobic",
+      "note": "proton motive force·conductance 가 논지의 축이라 쉬운 말로 바꾸면 내용이 무너져 밴드가 내려가지 않는다."
+    }
+  },
+  {
+    "id": "0a13351e-c499-45f4-9e90-d40daed88b5a",
+    "source_updated_at": "2026-09-15T13:39:56.037292+00:00",
+    "body_sha256": "1d2ca04fce016c1a972ca432686ebc73d05c183ad3acac1c9468351990d83b0c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰에서 저체중이 중증과 연결된 결과가 비만 위험이라는 통념과 부딪히는 대목이 통념-반증 구조로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Our findings, which indicate an association",
+      "note": "BMI·hematocrit 를 「체질량」「적혈구 비율」로 풀면 고2 밴드에 들고, 오즈비 수치는 걷어도 논지가 남는다."
+    }
+  },
+  {
+    "id": "0a193e92-4f31-4625-8632-206336aa073f",
+    "source_updated_at": "2026-09-13T07:15:14.022049+00:00",
+    "body_sha256": "604c1bc9d18a4341709cf41dab9c89f5e1f905cba5af76f8946135b4583d39fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 백신 보급에도 백일해가 되살아난 역설과 전파를 막는 백신의 필요를 논증으로 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Gram-negative coccobacilli Bordetella pertussis and",
+      "note": "acellular vaccine·catarrhal 을 「무세포 백신」「초기 감기 단계」로 바꾸니 서고, 균주 표와 그림 설명은 통째로 뺀다."
+    }
+  },
+  {
+    "id": "0a1ed7e1-d0fa-4c34-b65d-a6eac112223a",
+    "source_updated_at": "2026-09-15T13:40:08.293245+00:00",
+    "body_sha256": "c85884aed43ac55f1d819958d33971e29c22a94594b791b0650cd17c4c695ae6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 기존 관절염 약은 증상만 다룬다는 한계에서 질병 자체를 늦추는 약의 필요로 넘어가 요지 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Current osteoarthritis (OA) therapies such as",
+      "note": "NSAID·cartilage degradation 을 「소염제」「연골 닳음」으로 바꾸면 내려가고, 마취·촬영 절차 절은 읽을 글이 아니다."
+    }
+  },
+  {
+    "id": "0a341caf-a30d-4650-b1ae-761b37423f00",
+    "source_updated_at": "2026-09-15T13:40:15.996579+00:00",
+    "body_sha256": "478a72d37323db324e0d6c0c6ea5eef5c41b89f3594b3884887ebae131eb4a4e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약이 바이러스가 세균의 털 기구를 무력화해 경쟁자를 막는다는 논지를 그림 없이 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The phage-encoded protein Aqs1 disables type",
+      "note": "ATPase·hexamer 를 「효소」「여섯 조각 덩어리」로 풀면 서지만, 본문 결과는 그림 번호 참조가 촘촘해 못 쓴다."
+    }
+  },
+  {
+    "id": "0a3bde45-d870-4d81-a0da-327c21117c09",
+    "source_updated_at": "2026-09-15T13:40:29.326029+00:00",
+    "body_sha256": "b2d8172a545dce155c7a647def526860f823ae49438e787cbb6759a08efbdd2e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "고찰이 감각 영역 억제와 연합 영역 활성이라는 방향이 다른 두 변화를 대조해 논지를 세운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Present study, from the perspective of",
+      "note": "synchrony·metastable·E/I ratio 가 논지의 뼈대여서 쉬운 낱말로 바꾸면 주장이 사라진다."
+    }
+  },
+  {
+    "id": "0a41aae7-90c8-42bd-9f93-5b223fd8cf3d",
+    "source_updated_at": "2026-09-15T13:40:36.628616+00:00",
+    "body_sha256": "9fef28f88d70a8dee71e656994b203daf678e00690c573cf4eca5d542b1bb210",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 콩팥 섬유화에서 면역세포가 손상을 키우는 순환을 문제로 세워 요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "topic"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Renal tubulointerstitial fibrosis (TIF) represents a",
+      "note": "세포 아형 이름(NaiveB_Ccl4 등)이 본문 대부분이라 서론 한 문단 말고는 쓸 자리가 없다."
+    }
+  },
+  {
+    "id": "0a5143f3-38a6-4c96-b45a-8162e6402bf3",
+    "source_updated_at": "2026-09-13T07:06:36.990167+00:00",
+    "body_sha256": "e032e4260451a01a7333ec1bc48d359eb4b6ccf16e3d25df2c28a7c84bb2fa37",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 세균이 숙주 세포 안에 단백질을 들여보내 면역을 무디게 한다는 논지를 한 문단으로 세운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The virulence of many bacterial pathogens",
+      "note": "effector·transmembrane 을 풀어도 뒤 문장이 곧 변이체 이름 나열로 바뀌어 한 편 분량을 못 채운다."
+    }
+  },
+  {
+    "id": "0a59bf37-8cba-49bc-b511-474983f69083",
+    "source_updated_at": "2026-09-15T13:40:48.47016+00:00",
+    "body_sha256": "d599c454f6049d3e7eb041b02f23f59d6cac78b4073bdcd253a7d5d60dc00fe5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 망막을 뇌를 들여다보는 창으로 제시하고 값싼 검사의 필요로 이어 주제·요지 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The human retina offers a unique",
+      "note": "retina·biomarker 를 「망막」「지표」로 바꾸면 서고, 검색 전략·선정 기준 절은 절차 나열이라 버린다."
+    }
+  },
+  {
+    "id": "0a651734-a260-40d1-a52a-e913d30fbd80",
+    "source_updated_at": "2026-09-15T13:40:55.496209+00:00",
+    "body_sha256": "be7b762a5eccbef8837ff82de7361a734dae24aaebaa389b6e7be5098a5f2701",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 말라리아와 코로나의 증상이 겹쳐 오진이 생긴다는 문제를 세워 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Malaria is a tropical disease caused",
+      "note": "co-infection·cytokine 을 「동시 감염」「면역 신호 물질」로 바꾸면 내려가고, 상관계수 나열 절은 떼어 낸다."
+    }
+  },
+  {
+    "id": "0a66758f-f920-4c9a-8aa5-e7c3f1fa11af",
+    "source_updated_at": "2026-09-15T13:40:56.815083+00:00",
+    "body_sha256": "bfcdb8f5f614a4db25b96345af5363b6592297f9d89528fb683c2592722c4def",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 화상이 피부를 넘어 온몸의 반응을 부른다는 점을 짚어 주제·요지 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Burns represent not only a significant",
+      "note": "systemic response·inflammation 을 풀면 고3 읽기로 쓸 수 있으나, 유전자 세 개 이후의 본문은 분석 도구 소개뿐이다."
+    }
+  },
+  {
+    "id": "0a66eebb-174e-4cfa-a55a-8ce0eec5f733",
+    "source_updated_at": "2026-09-13T07:17:18.445838+00:00",
+    "body_sha256": "97eaf460c8889f743eedf97f8eed3e6d1666e890a779f0e1ed9adc832e12a723",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 지방 꼬리가 붙었다 떨어지는 되돌릴 수 있는 변형이라는 점을 다른 변형과 대비해 세운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Palmitoylation is the posttranslational addition of",
+      "note": "palmitoylation·thioester 가 논지의 축이고 본문 절반이 단백질 표라 서론 한 문단 외에는 가공할 곳이 없다."
+    }
+  },
+  {
+    "id": "0a691d07-0184-4480-b8c4-037efac7e69c",
+    "source_updated_at": "2026-09-13T07:19:03.368836+00:00",
+    "body_sha256": "92790a588ef7a11176edbae9cf5cdee9168baab47c5e9c2a94d81539bb54396e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 체르노빌에서 번성한 곰팡이라는 사실로 시작해 어떻게 견디는가라는 물음으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cryptococcus neoformans is a fission yeast",
+      "note": "ionizing radiation·reactive oxygen species 를 「방사선」「해로운 산소 물질」로 바꾸니 앞 문맥 없이 한 편이 된다."
+    }
+  },
+  {
+    "id": "0a8c6f81-6887-4c47-97c1-5209bbf1aaa7",
+    "source_updated_at": "2026-09-15T13:41:25.067772+00:00",
+    "body_sha256": "afd7fdf81f7f96e1106499d4c24206ea5431019bfc5e56a4ed6a096698bdcafe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약이 바이러스 유전체의 두 작은 구조가 병원성을 좌우한다는 논지를 그림 없이 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Understanding how viruses control their gene",
+      "note": "stem-loop·termination 을 「고리 구조」「끝내는 신호」로 바꾸면 서고, 변이체 이름이 나오는 본문은 뺀다."
+    }
+  },
+  {
+    "id": "0a8e3d76-f8b3-4b1e-9685-5e620f30adcb",
+    "source_updated_at": "2026-09-15T13:41:33.411814+00:00",
+    "body_sha256": "83f49197edc3772de5b46940ecf363c14795ec79afe32799361dee0a7bae90a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "서론이 방어 물질은 대개 계통마다 다른데 시안 생성만 여기저기서 따로 생겼다는 역설을 세운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chemical substances, so-called secondary or specialised",
+      "note": "convergent evolution·specialised metabolite 를 「따로 같은 답에 닿음」「특수 물질」로 바꾸니 고2 밴드에 든다."
+    }
+  },
+  {
+    "id": "0a9fd7f6-095e-4735-ba5c-09f2d57c819d",
+    "source_updated_at": "2026-09-13T06:41:27.249314+00:00",
+    "body_sha256": "5ad651ab72a82b18901053da78326c1382441160c147e8367a1da1f761daec44",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "서론부터 결론까지 유전자·대립유전자 이름이 논지의 뼈대라 떼어 낸 문단이 혼자 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Kat5 is a member of",
+      "note": "mst1-W66R 같은 대립유전자 표기를 걷으면 문장이 가리키는 대상이 사라져 어느 문단도 한 편으로 서지 않는다."
+    },
+    "hold_reason": "processing-unclear"
+  }
+]

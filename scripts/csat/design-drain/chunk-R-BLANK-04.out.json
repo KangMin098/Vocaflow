@@ -1,0 +1,87 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2015#31",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "‘멀티태스킹’이라는 말이 동시 처리라는 착각을 낳는다는 반박을 여러 번 되풀이해 두어, 빈칸 문장의 that절이 거짓임을 알아차려야만 풀리게 만든 지문이다.",
+      "transform": "paraphrase",
+      "transform_note": "지문의 ‘본래 기만적’·‘오해를 부른다’는 평가가 선지에서 착각을 키운다는 동사구로 같은 수준에서 바꿔 말해졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014B#35",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "turn",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "support"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "과학은 말하지 않으며 남에게 말하는 순간 더 이상 과학이 아니라는 등식을 세워, 그 결과를 과학자의 자격 규범이라는 상위 개념으로 끌어올려야 답이 나오게 한 지문이다.",
+      "transform": "abstraction",
+      "transform_note": "과학자가 수학적 정확성을 버리고 수사로 옮겨 가 더는 과학이 아니게 된다는 진술이 과학자를 규정하는 지적 규범 위반으로 추상화됐다.",
+      "cues": [],
+      "data_defect": "빈칸 표시가 5번째 문장(does not 뒤)에 잘못 들어가 있고, 실제 빈칸 자리인 마지막 문장 thus 뒤는 비어 마침표만 남음 — 원문 추출 결함."
+    },
+    {
+      "id": "2014B#33",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "turn"
+        },
+        {
+          "index": 2,
+          "role": "support"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "과학적 정책 설계의 객관성·중립성이라는 통념을 길게 깔고 중간에서 뒤집어, 전환점을 잡지 못하면 통념 쪽 오답으로 끌려가게 만든 지문이다.",
+      "transform": "negation_flip",
+      "transform_note": "과학적 설계가 퇴행적 정치의 함정에서 벗어나지 못한다는 부정 진술이 불평등한 관계를 오히려 강화한다는 긍정 행위로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

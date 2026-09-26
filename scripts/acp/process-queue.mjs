@@ -104,7 +104,18 @@ async function main() {
     resolveArticleRegister,
     checkAnalysisReadiness,
     assessReadingLoad,
+    releaseArticleVocab,
   } = await import('@vocaflow/library-pipeline')
+
+  /**
+   * `--keep-vocab` — 분석한 글의 어휘 행을 **전부 남기는** 옛 동작.
+   *
+   * 기본은 V-Level 을 잰 뒤 걷는다(가공 글 `original` 은 남긴다). 그 행을 읽는 곳이 분석 직후의
+   * `compute_article_vrl` 하나이고, 게시·미리보기·조판은 없으면 다시 만들기 때문이다
+   * (docs/reports/lav-retention-2026-09-24.md §4 7단계). 남기면 표가 발행 안 될 글 몫으로 자란다.
+   */
+  const keepVocab = process.argv.includes('--keep-vocab')
+  let released = 0
 
   const db = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -279,6 +290,9 @@ async function main() {
       const { error: synErr } = await db.rpc('compute_article_syntax', { p_article_id: a.id })
       if (synErr) console.warn(`  ⚠ 구문 경고 (${a.id}): ${synErr.message}`)
 
+      // V-Level 을 쟀으니 행은 더 안 읽힌다 — 이 글은 아래에서 'ready' 가 된다.
+      if (await releaseArticleVocab(db, a.id, { status: 'ready', source: a.source, keepAll: keepVocab })) released++
+
       const noise = computeLexicalNoise(bodyText)
       const { error: upErr } = await db
         .from('library_articles')
@@ -318,6 +332,11 @@ async function main() {
   }
 
   console.log(`\n처리 ${ok} / ${Math.min(LIMIT, list.length)} · 남은 큐 ${list.length - ok}`)
+  console.log(
+    keepVocab
+      ? '어휘 행: 전부 남김(--keep-vocab)'
+      : `어휘 행: V-Level 산출 뒤 ${released}편 걷음(가공 글은 남김 · 게시·미리보기·조판이 없으면 다시 만든다)`,
+  )
   if (failures.length) {
     console.log(`\n실패 ${failures.length} (status='failed' 로 남아 다시 집히지 않는다):`)
     for (const f of failures.slice(0, 8)) console.log(`  · ${f}`)

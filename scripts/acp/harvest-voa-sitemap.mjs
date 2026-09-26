@@ -85,6 +85,7 @@ const lib = {
   ...(await import('../../packages/library-pipeline/src/ingest-article/voa.ts')),
   ...(await import('../../packages/library-pipeline/src/ingest-article/harvest-cursor.ts')),
   ...(await import('../../packages/library-pipeline/src/textbook/readability.ts')),
+  ...(await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')),
 }
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
@@ -280,6 +281,7 @@ const stat = {
   got: 0,
   noTranscript: 0,
   tooShort: 0,
+  emptyBody: 0,
   fetchFail: 0,
   reference: 0,
   sectionFiltered: 0,
@@ -308,8 +310,8 @@ function bump(map, k) {
  * 구멍이 남는 것과 같은 결의 결함이다. 1,600편당 4~5건이면 67,316편 전수에서
  * **약 200편**이 소리 없이 빠진다.)
  *
- * 판정(=`seen` 에 적는다): 전문 없음 · 너무 짧음 · **HTTP 4xx**(429 제외 — 글이 없어졌다).
- * 보류(=적지 않는다): 네트워크 오류 · HTTP 5xx · 429 · DB 쓰기 실패.
+ * 판정(=`seen` 에 적는다): 전문 없음 · 짧은 본문(담은 뒤) · **HTTP 4xx**(429 제외 — 글이 없어졌다).
+ * 보류(=적지 않는다): 네트워크 오류 · HTTP 5xx · 429 · DB 쓰기 실패 · 빈 본문(파서 고장 신호).
  *   보류분은 커서에 안 남으므로 **다음 회차의 미확보 목록에 그대로 다시 오른다.**
  *
  * 판정 규칙 본체는 `voa.ts` 의 `isTransientHarvestError` — 여기 두면 회귀가 못 잡는다
@@ -344,14 +346,34 @@ function flushCursor(exhausted) {
 for (const [i, e] of queue.entries()) {
   const id = e.source_id.replace(/^voa:/, '')
   let parsed
+  let shortMessage = null
+  let fetchError = null
   try {
     parsed = await lib.fetchVoaArticle(e.url)
   } catch (err) {
+    fetchError = err
     const msg = err instanceof Error ? err.message : String(err)
+    // ── 짧은 본문은 **버리지 않는다**(사용자 결정 2026-09-23 — 길이로 원문을 제외하지 않는다).
+    //   본문이 있으면 아래 적재 경로로 그대로 흘려 `queued` 로 담고, 내용 판정이 가른다.
+    //   빈 본문(0어)은 파서 고장 신호다 — 담을 것이 없고, **커서에도 적지 않는다**
+    //   (파서를 고치면 다음 회차의 미확보 목록에 다시 올라 되살아난다).
+    if (lib.isShortBodyError(err) && !err.isEmpty && err.article) {
+      stat.tooShort++
+      parsed = { article: err.article, articleSection: err.extra?.articleSection ?? null }
+      shortMessage = `짧은 본문 ${err.words}어 — 길이로 버리지 않는다(내용 판정이 가른다) · 파서 확인 대상`
+    } else if (lib.isShortBodyError(err)) {
+      stat.emptyBody++
+      failures.push(`${e.url}: 빈 본문(파서 확인) — ${msg.slice(0, 70)}`)
+      if ((i + 1) % 50 === 0) flushCursor(false)
+      await sleep(DELAY_MS)
+      continue
+    }
+  }
+  if (!parsed) {
+    const msg = fetchError instanceof Error ? fetchError.message : String(fetchError)
     // ⚠️ **전문 없음은 실패가 아니다.** 아카이브의 45%가 오디오/영상 쪽이고, URL 모양으로는
     //   가려낼 수 없다. 커서에 적어 두는 것이 이 수확기의 핵심 절약이다.
     if (/no transcript body/.test(msg)) stat.noTranscript++
-    else if (/too short/.test(msg)) stat.tooShort++
     else {
       stat.fetchFail++
       failures.push(`${e.url}: ${msg.slice(0, 90)}`)
@@ -406,23 +428,35 @@ for (const [i, e] of queue.entries()) {
     if (haveIds.has(article.source_id)) {
       stat.dup++
     } else {
+      const publishedIso =
+        article.published_at && !Number.isNaN(article.published_at.getTime())
+          ? article.published_at.toISOString()
+          : null
       const row = {
         source: 'voa',
         source_id: article.source_id,
         title: article.title,
         author: article.author ?? null,
         source_url: article.source_url,
-        published_at:
-          article.published_at && !Number.isNaN(article.published_at.getTime())
-            ? article.published_at.toISOString()
-            : null,
+        published_at: publishedIso,
         license: article.license,
+        // 새 행이라 덮을 csat_fit 키가 없다 — 권리 표지만 적는다(DD-75).
+        csat_fit: {
+          rights: lib.rightsTag({
+            license: article.license,
+            licenseEvidence: article.license_evidence ?? 'feed',
+            author: article.author ?? null,
+            publishedAt: publishedIso,
+            sourceUrl: article.source_url,
+          }),
+        },
         content: article.content ?? '',
         audio_url: article.audio_url ?? null,
         // ⚠️ NULL 로 두면 `resolveArticleRegister` 가 소스 기본값('news')으로 떨어진다
         //   (2026-08-20 에 37편이 그렇게 들어갔다). 섹션이 RSS 피드 자리를 대신한다.
         feed_id: feedId,
         status: 'queued',
+        ...(shortMessage ? { status_message: shortMessage } : {}),
       }
       // 한 번 더 해 본다 — 실패 4건이 전부 일시적이었다(오류 HTML · schema cache · fetch failed).
       //   여기서 되면 커서가 정상 전진하고, 그래도 안 되면 **판정하지 않고** 다음 회차로 넘긴다.
@@ -463,7 +497,8 @@ console.log(
     `GET ${queue.length}`,
     `전문 ${stat.got}`,
     `전문없음 ${stat.noTranscript}`,
-    `짧음 ${stat.tooShort}`,
+    `짧은 본문(담음 대상) ${stat.tooShort}`,
+    stat.emptyBody ? `빈 본문(파서 확인 — 커서에 안 적음) ${stat.emptyBody}` : null,
     `요청실패 ${stat.fetchFail}`,
     `reference 제외 ${stat.reference}`,
     ONLY_SECTIONS.length ? `섹션 제외 ${stat.sectionFiltered}` : null,

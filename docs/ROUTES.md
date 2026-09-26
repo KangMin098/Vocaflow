@@ -27,11 +27,12 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 |---|---|---|---|
 | `(auth)` | `/login` / `/signup` / `/reset-password` / `/verify-email` | 미인증 | 헤더 없음 |
 | `(marketing)` | `/about` / `/fit` / `/fit/s/[payload]` / `/join/[code]` / `/pricing` / `/privacy` / `/terms` / `/video` / `/video/[id]` | 공개 | 랜딩 + 지문 진단 + 학급 초대 + 영상 서가(편별 62) |
-| `(main)` | `/hub` / `/text/*` / `/wordvault/*` 등 | 인증 필요 | Sidebar + FlowNav + SessionFrame |
-| `(app)` | `/play/wordblitz` / `/play/pirate-quest` | 인증 | 풀스크린 (Sidebar X · SessionFrame ✓) |
+| `(main)` | `/hub` / `/text/*` / `/wordvault/*` 등 | 인증 필요 | AppHeader(상단 막대 + 메가메뉴 · 알약 5 + Class) + CompassRibbon + SessionFrame |
+| `(app)` | `/play/wordblitz` / `/play/pirate-quest` | 인증 | 풀스크린 (셸 메뉴 X · SessionFrame ✓) |
 | `admin/*` | `/admin/*` | admin/curator only | AdminSidebar |
 | `dev/*` | `/dev/components` | 개발 | 카탈로그 |
 | `dev/tts-probe` | `/dev/tts-probe` | 개발 | **강의 TTS 프로브(Gate 0)** — 강의 재생에 쓰는 어댑터·엔진을 그대로 돌려 음성 목록·경계 이벤트·40초 발화·큐 연속 재생·낭독 속도를 잰다. `?auto=1` 이면 열자마자 돌고 `window.__TTS_PROBE__` 에 남긴다(하네스 `scripts/csat-lecture/tts-probe.mts`) |
+| `dev/replica/*` | `/dev/replica/tines-home` · `/dev/replica/tines-app` · `/dev/replica/ours-home` · `/dev/replica/ours-app` | **개발 전용 · 배포 차단** | **실물 우선 전환(DD-62) Stage 2 의 자** — 참조 사이트의 판면을 `docs/design/refs/tines/computed.json` 실측값에서 그대로 재현한 내부 복제다. 제품 화면이 아니고 어떤 화면도 이것을 import 하지 않는다. 가드 2겹: `dev/replica/layout.tsx` 가 프로덕션에서 `notFound()`(`REPLICA_ROUTES=on` 일 때만 열린다) + robots `noindex`. 완료 판정은 `node scripts/design/replica-diff.mjs`(홈 픽셀 차이 ≤2% · 앱 상자 ±8px). `ours-*` 는 같은 렌더러·같은 청사진에 **치환 네 가지만**(색·서체·그림·문구) 얹은 것이라 `--ours` 검사가 띠·상자 자리 어긋남 **0** 을 요구한다 |
 
 ---
 
@@ -45,7 +46,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/plan` | `(main)/plan/page.tsx` + `components/plan/PlanClient.tsx` | **P1(컴포저+주간보드 2026-06-29)** 주간 보드(담은 자료를 요일 월~일 배치) + 컴포저 2-pane(좌:자료 고르기 4탭·V밴드·표지 / 우:선택 자료 챕터·활동·요일 한 화면). 자료 4종(도서/article/공용단어장/내 글) · study_plan_items(modules/chapters/weekdays). 회고 "학습 계획" 카드로 진입 |
 | `/reports` | `(main)/reports/page.tsx` + `components/reports/ReportsClient.tsx` | **P2** 주간 Report Card(daily_activity 집계 + 격려 코멘트) + "이번 주 갱신" |
 | `/teacher` | `(main)/teacher/page.tsx` + `components/teacher/TeacherClient.tsx` | **P4.2 L3 B2B** 교사 허브(클래스 개설·초대코드·참여·멤버수, classes/class_members) |
-| `/hub` | `(main)/hub/page.tsx` | **메타 "Today"(forward)** — **TodayStage**(좌: 밀린 단어 지면(뜻+원문 예문) · 우: 처방 5블록 흐름, v06.200) + TodayPlanCard(수동계획 날의 정본) + TodayFocus(미진단). **단일 정본 유지** — 계획이 있으면 처방 흐름을 렌더하지 않는다(v06.108 META). async |
+| `/hub` | `(main)/hub/page.tsx` | **플랫폼 메인**(2026-09-22 · 참조 홈 골격, tines-mapping §21) — 히어로(NEW 알약 · 64px 제목 · 첫 알약 = 셸 나침반 「지금」 CTA) → 흐르는 고전 제목 줄 `TitleMarquee`(멈춤 단추) → 제품 액자 `ProductFrame`(오늘의 흐름 레일 `data-today-flow` · KPI · 기억 4색 도넛 · 7일 예보 · 새 고전 표) → 플랫폼 색 탭 5(`ToneTabs`) → 보라 통판(DB 서가 규모) → 읽을거리 → WHY 보라 카드 4 → 흩어진 물건 CTA. 수치·표지는 `lib/learner/hub-portal-query.ts`. 비로그인은 `/login` 으로. async |
 | `/hub-lab` | `(main)/hub-lab/page.tsx` | **내부 전용** 진입면 후보 랩 (`?v=a\|b\|c\|d`, `?t=<시각대>`). 어디에도 링크 없음. 실데이터를 렌더하므로 `PROTECTED_PREFIXES` 등록. 설계 근거·비교 점수 보존용 |
 | `/dashboard` | `(main)/dashboard/page.tsx` + `layout.tsx` | **메타 "회고"(backward, L7 단독)** — known-word 성장 헤더 · MemoryStatus · WeeklyHeatmap · **학습 관리 3카드(ManageSection: 진단·계획·리포트)** · RecentActivity. /manage 흡수(v06.108) |
 | `/settings` | `(main)/settings/page.tsx` | 계정·테마·TTS·알림 |
@@ -55,7 +56,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
-| `/text` | `(main)/text/page.tsx` | 허브 — **My Library**. `?view=books\|scripts\|vocab` 로 세 면(Books·Texts·Decks) 직접 진입 (v08.4 · 사이드바 서브메뉴가 이 주소를 쓴다) |
+| `/text` | `(main)/text/page.tsx` | 허브 — **My Library**. `?view=books\|scripts\|vocab` 로 세 면(Books·Texts·Decks) 직접 진입 (v08.4 · 상단 Read 패널의 「내 라이브러리」 열이 이 주소를 쓴다) |
 | `/text/new` | `(main)/text/new/page.tsx` | 입력 — 단일 / 책 (챕터별) 모드 (v06.34) |
 | `/text/[id]` | `(main)/text/[id]/page.tsx` + `layout.tsx` | 워크스페이스 (ReadingUniverse + ChapterSidebar) |
 | `/text/[id]/echo` | `(main)/text/[id]/echo/page.tsx` | EchoMatch 따라읽기 (v06.33) |
@@ -68,7 +69,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/library` | `(main)/library/page.tsx` + `layout.tsx` | redirect → `/library/books` |
 | `/library/books` | `(main)/library/books/page.tsx` | 도서 그리드 (BooksExplorer) |
 | `/library/books/[bookId]` | `(main)/library/books/[bookId]/page.tsx` | 도서 상세 |
-| `/comics` | `(main)/comics/page.tsx` + `layout.tsx` | **만화 — 사이드바 Scripts 아래 별도 메뉴**. redirect → `/comics/adapted`. layout 에 ComicsTabs(Book Comics·Vintage Comics) |
+| `/comics` | `(main)/comics/page.tsx` + `layout.tsx` | **만화 — 레일 밖**(상단 Read 패널의 하단 링크 줄 · 열 밖 · 번호 밖). redirect → `/comics/adapted`. layout 에 ComicsTabs(Book Comics·Vintage Comics) |
 | `/comics/adapted` | `(main)/comics/adapted/page.tsx` | **Book Comics(책 만화 · CCP)** — 라이브러리 도서를 만화로. 발행 카탈로그 + 이어서 보기 (ComicsBrowser) |
 | `/comics/adapted/[bookId]` | `(main)/comics/adapted/[bookId]/page.tsx` | 만화 상세 — 미등록·비로그인 프리뷰 3컷 + 포맷 선택(ComicFormatChoice) |
 | `/comics/restored` | `(main)/comics/restored/page.tsx` | **Vintage Comics(옛 영어 만화책 · PDCP)** — **유형 → 시리즈 2단 서가**. `?series=<key>` 로 시리즈 안 호 목록. 카드마다 콘텐츠 정보 팝업(`ComicInfoDialog`) |
@@ -123,9 +124,11 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 #### 평가원 기출 — 학습자 루프 (`(main)/csat/*` · 보호 라우트 · 2026-09-17 재설계)
 
-**학습자 라우트는 셋뿐이다**(docs/csat-learner-brief.md A1). 분석을 **읽는** 화면은 관리자 뷰
-`/admin/kice/*` 로 옮겼고 훈련(`/csat/drill`)·오버레이(`/csat/overlay`)는 걷었다(처분표
-[csat-learner/gate0-routes.md](./csat-learner/gate0-routes.md)).
+**2026-09-23 — 라우트 셋 제한을 걷었다.** 브리프 A1(「학습자 라우트 셋뿐」)은 학습자가 열 수 있는
+문항을 **12개**로 묶어 두고 있었다(오늘의 해부가 요구하는 손질된 메타데이터를 가진 것만). 실제 자료는
+**802문항 전부 공개 분석 · 792문항 강의 · 666문항 지문 지도**다. 그래서 문항마다 제 주소를 준다 —
+`/csat/item/[slug]`. 훈련(`/csat/drill`)·오버레이(`/csat/overlay`)는 그대로 걷힌 채다(처분표
+[csat-learner/gate0-routes.md](./csat-learner/gate0-routes.md)). 관리자 검수 사본 `/admin/kice/item/[slug]` 도 그대로 둔다.
 
 **서버는 문항 원문을 싣지 않는다.** 지문·선지는 학습자가 받은 문제지 PDF 에서 **브라우저가** 뽑아
 큰 글자로 다시 흘려 넣는다(reflow · `lib/csat/reflow`). 서버로 가는 것은 SHA-256 64자뿐이고,
@@ -133,9 +136,13 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 | 라우트 | 파일 | 설명 |
 |---|---|---|
-| `/csat` | `(main)/csat/page.tsx` + `SessionHome.tsx` | 오늘의 해부 카드 · 예측/대조/공식 온보딩 · 필요한 PDF 받기/놓기 · 낮은 계열 커버리지 우선 유형 구성 |
+| `/csat` | `(app)/csat/page.tsx` + `SpaceScreen.tsx` · `home/CsatRail.tsx` · `home/ContinueCard.tsx` · `home/ContinuePanel.tsx` | **기출분석공간 홈(앱 셸 없음 · 3B 앱 메인 결)** — docs/csat/ia-design.md. 메뉴(홈 · 이어서·복습 · 내 기록 · 전체 서가 / 목적별 5 / 유형별 / 회차별) · 띠 위 상태 카드(첫 방문 · 재방문 · 공백 복귀 — 밀린 복습 ≤3 압축) · 도구줄(찾기 · 칩 · 덮은 넓이) · 유형/함정 표(「본 문항」). 쿼리: `?need=killer` · `?tab=trap` · `?view=continue`(이어서 · 복습 판) |
+| `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` + `AnalysisTheater.tsx` | **출제 사고**(옛 이름 「해설 극장」→「출제 분석」→「사고 역추적」 · 2026-09-25 개명) — 왼쪽 열 = 기출문제 원본(학습자가 놓은 PDF 의 기기 추출본 · 개발 서버는 로컬 PDF 자동), 가운데 탭(분석 · 진행 · 같은 유형) + 두 판(지문 지도 `PassageMap` | 분석 블록: 재는 것 · 의도 · 정답 근거 · 오답마다 · 절차 · 어휘), 하단 도크 = 강의 차례(12~14칸). 효과음 4종(큐 경계) · 배속 3단 · 「전부 펼쳐 읽기」. 강의가 없는 문항은 상영 없이 블록만 |
 | `/csat/dissect` | `(main)/csat/dissect/page.tsx` + `SessionRunner.tsx` · `ItemScreen.tsx` | 정답 선공개 · 예측 3수 후 분석 인라인 · 설계도 · 공식 저장/3일 뒤 재확인 · 두 문항 대조 후 전이. `?set=<슬러그,…>`와 `?formula=<태그>` 검증 |
 | `/csat/formulas` | `(main)/csat/formulas/page.tsx` + `ProgressView.tsx` | 기기에 모은 공식 · 최근 30예측 적중률 · 계열 커버리지. 유형별 펼치기와 해당 공식 다시 확인 |
+| `/csat/space` | `(app)/csat/space/page.tsx` | 옛 주소 — `/csat` 으로 redirect |
+| `/csat/browse` | `(app)/csat/browse/page.tsx` + `CsatWorkspace.tsx` | **전체 기출 서가** — 홈과 같은 메뉴 · 결. 쿼리 `?type=` · `?exam=` · `?status=map` · `?from=<학년도>` · `?q=`. 회차별 번호 칩(연 문항은 옅게, 강의 없는 문항은 점선) → `/csat/item/[slug]` |
+| `/csat/record` | `(app)/csat/record/page.tsx` + `home/RecordScreen.tsx` | **내 기록** — 덮은 넓이(본 유형 x/26 · 연 문항 · 만난 오답 계열 · 공식) · 최근 14일 학습한 날 · 다음 복습 · 내 공식. 정답률 · 랭킹 없음(brief A2) |
 
 #### 기출 분석 뷰 (관리자 · `admin/kice/*` · 2026-09-17 학습자 `/csat` 에서 이전)
 
@@ -212,7 +219,9 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/admin/analytics` | stub | 플랫폼 분석 |
 | `/admin/topic-corpus` | `admin/topic-corpus/page.tsx` + `TopicCorpusClient.tsx` | TCP — 주제 코퍼스 적재·드레인·승격 (원문 미저장, 어휘 통계만) |
 | `/admin/csat/sources` (2026-09-06 `/admin/textbook/sources` 에서 이전 — 메뉴는 교재 공장 안인데 URL 만 다른 파이프라인이었다) | `admin/csat/sources/page.tsx` + `SourceEligibilityClient.tsx` | **원문 적격 — 교재에 실을 수 있는 원문인가.** 일곱 축(법적·게재 안전·게시 게이트·학령 분석·내용 판정·지문 규격·어휘) 판정 결과를 등급 6종으로 낸다. 축마다 **자의 출처**를 함께 보여 「왜 이 원문을 골랐나」에 답한다. 실시간 집계가 아니라 스캔 스냅샷(`source-eligibility-snapshot.json`) — 잰 시각을 항상 함께 낸다 |
-| `/admin/csat` | `admin/csat/page.tsx` + `FactoryLineClient.tsx` + `FactoryLineDiagram.tsx` (+ `layout.tsx` 제목만) | **교재 공장 — 공정 현황판.** 시중 제작 공정 8칸(기출 원천·기획·설계·소재·집필·해설·검수·조판)을 **라인 도식 하나**로 그린다 — 상태는 색+모양+글자, 병목 뒤 연결선은 점선. **한 번에 한 칸만** 펼쳐 실측 눈금·게이트·**복사 가능한 다음 명령**을 낸다(기본 = 병목). 조작 버튼은 없다(생성은 Claude Code 드레인) |
+| `/admin/csat` | `admin/csat/page.tsx` + `components/admin/factory/FactoryMap.tsx` | **교재 공장 — 공장 지도**(2026-09-24). 쉬운 말 여덟 걸음 + 「지금 가장 먼저 할 일」 카드 + 낸 뒤 살피기 고리 + 기준을 세우는 곳. 숫자·상태는 `loadFactoryLine()` 과 판정 스냅샷. 단계 화면마다 `StepHeader` 머리띠 |
+| `/admin/csat/help` | `admin/csat/help/page.tsx` (정본 `lib/csat/factory-glossary.ts`) | 교재 공장 **용어집** — 툴팁과 같은 한 곳에서 읽는다. 「예전 말」 칸이 코드의 말을 잇는다 |
+| `/admin/csat/details` | `admin/csat/details/page.tsx` + `FactoryLineClient.tsx` + `FactoryLineDiagram.tsx` (+ `layout.tsx` 제목만) | **숫자로 자세히 — 운영자용 공정 현황판**(2026-09-24 에 `/admin/csat` 에서 내려옴). 시중 제작 공정 8칸(기출 원천·기획·설계·소재·집필·해설·검수·조판)을 **라인 도식 하나**로 그린다 — 상태는 색+모양+글자, 병목 뒤 연결선은 점선. **한 번에 한 칸만** 펼쳐 실측 눈금·게이트·**복사 가능한 다음 명령**을 낸다(기본 = 병목). 조작 버튼은 없다(생성은 Claude Code 드레인) |
 | `/admin/csat/new` | `admin/csat/new/page.tsx` + `OrderWizard.tsx` (모델 `lib/csat/order-model.ts` · 실측 `lib/csat/order-view.ts`) | **새 교재 만들기 — 한 권을 발주까지 네 걸음.** 공정 8칸이 「공장 전체가 어떤가」를 말한다면 여기는 **이 한 권**만 말한다. ① 시리즈·권 고르기 → ② 그 권이 쓰는 유형마다 재고·해설·**근거**(평가원 유형별 기출/분석/리포트, 없으면 「평가원 대응 없음 — 시중 교재 코퍼스 79종」) → ③ 브랜드·표지·학령·단원·문항 규격 → ④ 관문 4(문항→배합→해설→근거) 중 **처음 막힌 하나**의 채우기 명령, 전부 통과면 **인자가 다 채워진 조판 명령 한 줄**. 조작 버튼 없음 |
 | `/admin/csat/catalog` | `admin/csat/catalog/page.tsx` + `SeriesShelf.tsx` | **카탈로그 — 「어떤 시리즈를 파나」.** 행이 시리즈, 열이 학령이고 **한 칸이 한 권**(60문항). 2026-09-06 에 (유형 × 학령) 42칸 격자에서 바꿨다 — 시장이 파는 단위가 시리즈라서다(코퍼스 실측 22개). 행마다 조판기가 실제로 찍는 표지를 건다. 안 만드는 셋(기출·내신·개인 맞춤)은 칸이 아니라 이유로 |
 | `/admin/csat/evidence` | `admin/csat/evidence/page.tsx` + `EvidenceConsole.tsx` · `EvidenceInspector.tsx` · `EvidenceMatrix.tsx` | 기출 운영: 운영 현황 → 작업 큐 → 문항 탐색·검토 패널. 실제 학습 후보 판정과 원천 결함을 구분하고 영향·우선순위·조치·재검증 연결. URL `view/status/issue/stage/q/sort/page/item/matrix`와 기존 8축·`row/col/m` 유지. 같은 축 교차 셀은 `cellAxis/cellRow/cellCol`로 AND 조건 보존. 전체 MD/JSON과 선택 대상 작업 묶음 내보내기 |
@@ -221,8 +230,9 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/admin/csat/blueprint` | `admin/csat/blueprint/page.tsx` + `BlueprintClient.tsx` | 공정 ③ 설계. **이원목적분류표** — 학령 7단 × 수준(V-Level) × 유형 재고 매트릭스 + 계단별 근거 + 단계 게이트 임계 9. 초등 3종은 「함수」로 표시(DB 에 없음 ≠ 재고 0) |
 | `/admin/csat/sourcing` | `admin/csat/sourcing/page.tsx` + `SourceClient.tsx` | 공정 ④ 소재. 단계 밴드(S1~S5) × 수준별 지문 재고 · 라이선스 등급 · **화면 전용 제외 실재고**. 게이트는 있는데 지문 0편인 밴드를 지목 |
 | `/admin/csat/authoring` | `admin/csat/authoring/page.tsx` + `AuthorClient.tsx` | 공정 ⑤ 집필. 유형 25 × 수준 9 재고 전량(225칸 · 24개씩 물결 조회 · 실측 7.2초). **사다리 밖 재고**(어느 권에도 안 실리는 문항) 지목 — 실측 392,566/655,092(60%) |
-| `/admin/csat/review` | `admin/csat/review/page.tsx` + `ReviewClient.tsx` | 공정 ⑦ 검수. 층 4개(L1 기계 게이트 · L2 3인 페르소나 · L3 교차 대조 χ² · L4 시중 대조)가 **각자 무엇을 보는지**와 함께. 권별 검수 기록에서 「기록 없음」과 「지적 0건」을 가른다 |
-| `/admin/csat/press` | `admin/csat/press/page.tsx` + `PressClient.tsx` | 공정 ⑧ 조판·발행. 조판된 계단 / 사다리 · 옛 규격 권 · 해설 안 붙은 문항 · 문항 없는 원글. 수치는 **조판기가 찍은 그 값**(다시 계산하지 않는다) |
+| `/admin/csat/explain` (2026-09-23 신설 · DD-72) | `admin/csat/explain/page.tsx` + `ExplainClient.tsx` (실측 `factory-line-views.loadExplainView`) | 공정 ⑥ 해설. 유형 × 수준 **해설 보유**를 칸으로 본다 — 합계는 99.46%(실측 2026-09-23)로 거의 다 찬 것처럼 보이지만 구멍 4,719건 중 3,800 이 어휘 유형 하나에 몰려 있다. **합계는 「거의 다 됐다」, 칸은 「유형 하나 돌리면 끝난다」**이고 할 일이 다르다. 값은 `textbook_shelf_inventory_mv`(30분 갱신 · 집계 시각을 함께 낸다). 그 전까지 이 칸은 메뉴에 있었지만 `href` 가 부모를 가리키는 **갈 곳 없는 항목**이었다 |
+| `/admin/csat/review` | `admin/csat/review/page.tsx` + `ReviewClient.tsx` (실측 `lib/csat/review-defects.ts`) | 공정 ⑦ 검수. 층 4개(L1 기계 게이트 · L2 3인 페르소나 · L3 교차 대조 χ² · L4 시중 대조)가 **각자 무엇을 보는지**와 함께. 2026-09-23 부터 `csat_item_reviews` 를 **직접 읽어** 밴드 × 판정 매트릭스와 **막힌 문항 개별 판정**을 낸다(그 전에는 조판 시각에 얼린 요약만 봐서 revise 501 · fail 159 가 어느 화면에도 없었다). 조판 시각의 권별 기록은 접어 둔다 — 어느 쪽이 현재인지 읽히게 |
+| `/admin/csat/press` | `admin/csat/press/page.tsx` + `PressClient.tsx` (판정 `@vocaflow/library-pipeline/textbook-press-gate`) | 공정 ⑧ 조판·발행. 조판된 계단 / 사다리 · 옛 규격 권 · 해설 안 붙은 문항 · 문항 없는 원글. 수치는 **조판기가 찍은 그 값**(다시 계산하지 않는다). 2026-09-23 부터 **「학습자에게 닿는가」** 표를 낸다 — 권마다 발행 판정(`colophon.publish`) · 목차 스냅샷 유무 · 막는 이유 · 매대 주소. 화면이 **조판 산출물은 학습자 경로에 없다**는 사실을 명시한다(매대는 재고에서 그려진다) |
 | `/admin/db` | `admin/db/page.tsx` + `CollectButtons.tsx` + `FindingActions.tsx` | DB 헬스 — 6축 스냅샷(db_health_metrics) + 판정 결과(db_health_findings). **조치 SQL 은 보여 주기만 하고 실행 경로가 없다** |
 | `/admin/quality` | `admin/quality/page.tsx` | 품질 지표 대시보드 (quality_metrics nightly, read-only) |
 | `/admin/quality/gates` | `admin/quality/gates/page.tsx` + `GateCheckClient.tsx` | 콘텐츠 품질 게이트 — 파이프라인 정확성 결정론 불변식 red/green (`run_content_quality_gates`) + 콘텐츠별 게시전 체크 |
@@ -276,7 +286,13 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 ---
 
-## API Routes (28)
+## API Routes (29)
+
+### `/api/search` (1 · 2026-09-21)
+
+| Route | 설명 |
+|---|---|
+| `GET /api/search?q=` | 공개 화면 전역 검색(`SiteHeader` 검색 모달 · Ctrl/⌘+K). 묶음: 화면(`nav-data`) · 도서(`library_books` 발행본 제목·저자) · 단어(`shared_dictionary` 표제어 앞부분 — **RLS 상 로그인한 사람만**, 익명이면 빈 묶음) · 영상(카탈로그). 요청자 세션으로 조회(권한 우회 0) · 검색어 60자 · PostgREST 필터 문법 글자 제거(`lib/search/global.ts`) · 묶음 실패는 `partial` 로 알린다 · `private, max-age=30` |
 
 ### `/api/auth/*` (1)
 
@@ -292,6 +308,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | 라우트 | 설명 |
 |---|---|
 | `POST /api/csat/paper` | 본문에 **SHA-256 64자만** 받아 회차를 찾고 **문항 번호 좌표만**(쪽·단·x·y) 돌려준다 — 글자도 분석도 없다. 모르는 해시면 `known:false`(오류 아님 — 브라우저가 그 자리에서 번호를 찾는다). POST 인 이유: 해시가 URL 에 남으면 「어느 회차를 열었는지」가 따라다닌다. 로그인 문턱(401) |
+| `GET /api/csat/dev-paper?exam=` | **개발 서버 전용**(`NODE_ENV=development` · 프로덕션은 무조건 404). 이 PC 의 로컬 기출 문제지 PDF 바이트를 돌려준다 — 브라우저가 학습자가 놓은 파일과 **같은 길**로 기기 안에서 뽑는다. 폴더 `CSAT_LOCAL_PAPER_DIRS`(`;` 구분), 끄기 `CSAT_LOCAL_PAPERS=off`. 로그인 문턱(401) |
 | `GET · POST · DELETE /api/csat/session/record` | 본인 기출 세션 풀이 기록. GET = 최근 1,000건 · POST `{ attempts }` = 새 풀이 올리기(모양 검사 · 최대 200 · 겹치면 무시) 후 **복습 큐를 서버가 다시 계산**(`sync.ts#replayReviews`) · DELETE = 내 기록 지우기(게이트 하네스·초기화). 쓰기는 RLS(본인 행) · 로그인 문턱(401) |
 | `POST /api/csat/session/reveal` | 본문 `{ item: '<슬러그>' }` → 정답 · 근거 설명(≤3문장) · 오답별 한 줄 · 함정 · 「한 줄」 · 골격(문장 길이열 + 인용) · 강의 길이. **기존 풀이 클라이언트 호환 API다. 새 해부 화면에서는 호출하지 않는다.** 고른 답은 받지 않는다(기록은 기기에). 로그인 문턱(401) · 슬러그 모양 검사 |
 | `GET /api/csat/lecture?item=<슬러그>` | 문항 해설 **강의 대본**(큐 목록). 해설 화면의 서버 렌더에는 길이(초)만 싣고, 학습자가 재생을 누른 뒤 여기서 받는다 — 대본이 화면 HTML 에 남지 않게. 로그인 문턱(401) · 슬러그 모양 검사(값이 파일 이름으로 흘러간다) · 커밋된 `lib/csat/lecture-data/*.json` 을 읽는다(DB 0) |
@@ -420,7 +437,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `app/layout.tsx` | Root — fonts + Toast Provider |
 | `app/(auth)/layout.tsx` | 헤더 없음 |
 | `app/(marketing)/layout.tsx` | 랜딩 |
-| `app/(main)/layout.tsx` | Sidebar + FlowNav + SessionFrame 자동 주입 |
+| `app/(main)/layout.tsx` | AppHeader(상단 메뉴) + CompassRibbon + ModuleBanner + SessionFrame 자동 주입 |
 | `app/(main)/dashboard/layout.tsx` | metadata server layout (page.tsx 가 'use client') |
 | `app/(main)/library/layout.tsx` | LibraryTabs (3탭 — 도서/스크립트/공용 단어장) + max-w-wide. 만화는 최상위 `/comics` 로 분리(2026-08-09) |
 | `app/(main)/text/[id]/layout.tsx` | 워크스페이스 RSC — v_text_content fetch + chapter context (library_book_id / user_book_group_id 분기) |
@@ -432,9 +449,9 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 ## 풀스크린 라우트 정책
 
-`isFullScreenRoute(pathname)` (`lib/layout/full-screen-routes.ts`) — Sidebar 와 FlowNav 가 공유:
+`isFullScreenRoute(pathname)` (`lib/layout/full-screen-routes.ts`) — AppHeader · CompassRibbon · MobileTabBar 가 공유:
 
-| 페이지 유형 | URL | Sidebar | FlowNav | SessionFrame |
+| 페이지 유형 | URL | 상단 메뉴 | FlowNav | SessionFrame |
 |---|---|:---:|:---:|:---:|
 | 허브 / 메타 | `/hub`, `/text`, `/wordvault`, `/flashcard` 등 | ✅ | ✅ | ❌ |
 | 워크스페이스 | `/text/[id]` | ✅ (focus 시 dim) | ✅ | ❌ |

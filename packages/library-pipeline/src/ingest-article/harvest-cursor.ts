@@ -180,17 +180,15 @@ export const HARVEST_CURSOR_REGISTRY: Record<string, HarvestRegistryEntry> = {
     deepPaged: true,
     cursorFile: 'scripts/csat/data/nist-<feed>-cursor.json',
   },
-  gutenberg: {
-    // 목록기가 `.ts` 어댑터가 아니라 스크립트다(`scripts/csat/harvest-gutenberg.mjs`).
-    //   그런 목록기는 파일 안에 `@harvest-source: <키>` 를 적어 등록부 검사에 들어온다 —
-    //   적지 않으면 이 표에 없는 채로 조용히 깊이 캘 수 있고, 그것이 FrYM 이 겪은 일이다.
-    // 2026-09-07 이전에는 검색 결과를 `start_index` 로 넘기며 `{done,offset}` 을 남겼다.
-    //   정렬 없는 offset 페이징이라 IA 사고(214건 중복+누락)와 같은 방식이었고, 그 파일이
-    //   867권을 적는 동안 DB 에는 1,631권이 있었다. 지금은 카탈로그를 책 번호 오름차순으로
-    //   훑고 피드(부족한 칸)마다 커서를 따로 둔다.
-    deepPaged: true,
-    cursorFile: 'scripts/csat/data/gutenberg-catalog-<bin>-cursor.json',
-  },
+  // gutenberg 는 **퇴출됐다**(2026-09-24 · 사용자 지시). 수확기와 재고를 함께 지웠다.
+  //   지문 원천으로 부적합했다 — 기출·시중 교재와 문체가 다르고(고유명사 0개인 지문이
+  //   기출 42.4% · 시중 44.2% 인데 gutenberg 5.6%), LLM 판정 use 28.9%(대량 원천 최저) ·
+  //   **published 0**(대량 원천 중 유일). 근거: docs/reports/gutenberg-chop-loss.md.
+  //   ⚠️ **도서가 부적합한 것이 아니다** — 기출은 현대 학술·교양 단행본에서 온다.
+  //   PD 제약이 1930년 이전 책만 남겨서 생긴 문제다. 대체 공급선은 현대 OA 단행본
+  //   (DOAB/OAPEN 4,585권 · OBP 303권 · ANU Press 936권)이고 아직 착수 전이다.
+  //   `library_books` 의 고전 도서(standard_ebooks 377 · gutenberg 3)는 **그대로 둔다** —
+  //   그건 지문 원천이 아니라 학습자가 읽는 서가다.
   plos: {
     deepPaged: true,
     cursorFile: 'scripts/csat/data/plos-harvest-cursor.json',

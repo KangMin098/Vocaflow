@@ -10,6 +10,7 @@ import {
   Clapperboard,
   BookImage,
   BookMarked,
+  BookOpenText,
   Brain,
   ChevronRight,
   ClipboardCheck,
@@ -44,6 +45,11 @@ import {
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Fragment, useEffect, useState } from 'react'
+
+import { PLAIN_LAB, stepByKey, type PlainLab, type StepKey } from '@/lib/csat/factory-plain'
+
+const stepName = (k: StepKey) => stepByKey(k).name
+const labName = (k: PlainLab['key']) => PLAIN_LAB.find((l) => l.key === k)!.name
 
 export interface NavItem {
   href: string
@@ -145,47 +151,42 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
           href: '/admin/csat',
           label: '교재 공장',
           Icon: Factory,
+          // ── 걸음 순서 그대로 (2026-09-24) ─────────────────────────────
+          // 이 메뉴는 공정 id(기출 원천 · 기획 · 설계 · 소재 적격 · 소재 · 집필 …)를 레인별로 늘어놓았는데,
+          // 처음 온 사람은 그 목록에서 「교재 한 권이 어떻게 만들어지는가」를 못 읽었다. 이제 공장 지도와
+          // **같은 걸음 · 같은 이름**이다 — 이름은 `PLAIN_STEPS` 에서 가져온다(여기서 다시 짓지 않는다).
+          // 연구 칸(기출 · 시중 비교 · 학년 계단)은 재료가 거치지 않으므로 「기준을 세우는 곳」으로 뺐다
+          // (DD-74 — 한 줄에 세우면 라인이 연구에 막힌 것처럼 읽힌다).
+          // 「글감 모으기」·「글감 고르기」는 한 화면의 두 탭이라 한 줄이다 — 같은 경로를 두 줄로 두면
+          // 둘이 한꺼번에 켜진다.
           children: [
-            // 「만들기」가 맨 위다 — 이 파이프라인에 오는 이유의 대부분이 **한 권을 내는 것**이고,
-            // 나머지 칸은 전부 "그 한 권을 무엇으로/어떻게" 다. 순서가 곧 관리자가 묻는 순서다.
             {
               href: '/admin/csat/new',
-              label: '새 교재 만들기',
-              Icon: Wand2,
-              group: '만들기',
-            },
-            { href: '/admin/csat/catalog', label: '카탈로그', Icon: LayoutGrid },
-            {
-              href: '/admin/csat/evidence',
-              label: '기출 원천',
+              label: stepName('order'),
               tag: '①',
-              Icon: Scale,
-              group: '재료',
+              Icon: Wand2,
+              group: '여덟 걸음',
             },
-            // 「원문 적격」 — 재고가 아니라 **자격**을 본다: 재고가 있어도 판정을 통과 못 하면 못 싣는다.
-            // 라우트도 2026-09-06 에 `/admin/textbook/sources` → 여기로 옮겼다. 메뉴에서는 교재
-            // 공장 안인데 URL 은 다른 파이프라인이면, 주소창과 메뉴가 서로 다른 말을 한다.
-            { href: '/admin/csat/sources', label: '원문 적격', Icon: BookMarked },
-            { href: '/admin/csat/strategy', label: '기획', tag: '②', Icon: Target, group: '공정' },
-            { href: '/admin/csat/blueprint', label: '설계', tag: '③', Icon: Grid3x3 },
-            { href: '/admin/csat/sourcing', label: '소재', tag: '④', Icon: FileText },
-            { href: '/admin/csat/authoring', label: '집필', tag: '⑤', Icon: PenLine },
             {
-              href: '/admin/csat',
-              label: '해설',
-              tag: '⑥',
-              Icon: MessageSquareText,
-              pendingNote:
-                '전용 화면을 **안 만든다** — 답이 이미 두 곳에 있다. 전체 보유율은 현황판 ⑥ 눈금, 어느 권이 해설 때문에 막혔는지는 카탈로그의 「해설 모자람」 칸이다. 화면을 더 만들면 같은 값을 세 곳에서 세게 된다',
+              href: '/admin/csat/sources',
+              label: `${stepName('gather')} · 고르기`,
+              tag: '②③',
+              Icon: BookMarked,
             },
-            { href: '/admin/csat/review', label: '검수', tag: '⑦', Icon: ClipboardCheck },
-            {
-              href: '/admin/csat/press',
-              label: '조판·발행',
-              tag: '⑧',
-              Icon: Printer,
-              group: '출고',
-            },
+            { href: '/admin/csat/sourcing', label: stepName('passage'), tag: '④', Icon: FileText },
+            { href: '/admin/csat/authoring', label: stepName('items'), tag: '⑤', Icon: PenLine },
+            { href: '/admin/csat/explain', label: stepName('explain'), tag: '⑥', Icon: MessageSquareText },
+            { href: '/admin/csat/review', label: stepName('check'), tag: '⑦', Icon: ClipboardCheck },
+            { href: '/admin/csat/press', label: stepName('publish'), tag: '⑧', Icon: Printer },
+            // 낸 뒤 살피기 — 끝이 아니라 다음 주문으로 돌아가는 고리(DD-77).
+            { href: '/admin/csat/catalog', label: stepName('after'), tag: '↺', Icon: LayoutGrid },
+
+            { href: '/admin/csat/evidence', label: labName('evidence'), Icon: Scale, group: '기준을 세우는 곳' },
+            { href: '/admin/csat/strategy', label: labName('market'), Icon: Target },
+            { href: '/admin/csat/blueprint', label: labName('blueprint'), Icon: Grid3x3 },
+
+            { href: '/admin/csat/help', label: '용어집', Icon: BookOpenText, group: '도움' },
+            { href: '/admin/csat/details', label: '숫자로 자세히', Icon: Gauge },
           ],
         },
         // 기출 분석 뷰 — 2026-09-17 까지 학습자 `/csat` 밑에 있던 분석 화면(지도·유형·문항·지형·
@@ -401,8 +402,8 @@ function ChildRow({ child, isActive, last }: { child: NavItem; isActive: boolean
           aria-current={isActive ? 'page' : undefined}
           className={`flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-2 font-display text-[13px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 ${
             isActive
-              ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[var(--p)]/35'
-              : 'font-[500] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--t1)] active:bg-[var(--bd)]'
+              ? 'bg-[var(--ju-wash)] font-[600] text-[var(--t1)]'
+              : 'font-[500] text-[var(--t2)] hover:bg-[var(--ju-wash)] hover:text-[var(--t1)] active:bg-[var(--bd)]'
           }`}
         >
           {body}
@@ -451,40 +452,40 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
   return (
     <aside
       aria-label="관리자 메뉴"
-      className="sticky top-0 hidden h-screen w-[240px] shrink-0 flex-col border-r border-[var(--bd)] bg-gradient-to-b from-[var(--bg)] via-[var(--bg)] to-[var(--bg2)] md:flex"
+      className="sticky top-0 hidden h-screen w-[240px] shrink-0 flex-col bg-[var(--bg2)] md:flex"
     >
       {/* ── 로고 ── */}
       <Link
         href="/admin"
-        className="flex h-[64px] shrink-0 items-center gap-3 border-b border-[var(--bd)] px-5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
+        className="flex h-[56px] shrink-0 items-center gap-3 px-5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
       >
         <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[var(--p-light)] to-[var(--p)] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_1px_4px_rgba(139,92,246,0.18)]"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] font-display text-[15px] font-[800] text-[var(--on-p)]"
           aria-hidden="true"
         >
           <ShieldCheck size={16} strokeWidth={2.25} />
         </span>
         <div className="flex flex-col leading-tight">
-          <span className="font-display text-[14px] font-[800] tracking-tight text-[var(--t1)]">
+          <span className="font-display text-[14px] font-[600] tracking-tight text-[var(--t1)]">
             Vocaflow
           </span>
-          <span className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+          <span className="font-mono text-[11px] font-[500] uppercase tracking-[0.10em] text-[var(--t2)]">
             Admin
           </span>
         </div>
       </Link>
 
       {/* ── Mode 알림 ── */}
-      <div className="bg-[var(--p)]/8 mx-3 mb-2 mt-4 rounded-[var(--r-md)] border border-[var(--p)]/30 px-3 py-2">
+      <div className="mx-3 mb-2 mt-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2">
         <div className="flex items-start gap-2">
           <ShieldCheck
             size={13}
             strokeWidth={2}
-            className="mt-0.5 shrink-0 text-[var(--p)]"
+            className="mt-0.5 shrink-0 text-[var(--t2)]"
             aria-hidden="true"
           />
           <p className="font-body text-[11px] leading-snug text-[var(--t2)]">
-            <span className="font-display font-[700] text-[var(--p)]">관리자 모드</span> · 시스템
+            <span className="font-display font-[600] text-[var(--t1)]">관리자 모드</span> · 시스템
             데이터에 접근 중
           </p>
         </div>
@@ -503,11 +504,11 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                     aria-hidden="true"
                   />
                 )}
-                <span className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                <span className="font-display text-[11px] font-[500] tracking-[0.02em] text-[var(--t3)]">
                   {group.label}
                 </span>
                 <span
-                  className="h-px flex-1 bg-gradient-to-r from-[var(--bd)] to-transparent"
+                  className="h-px flex-1 bg-[var(--bd)]"
                   aria-hidden="true"
                 />
               </h3>
@@ -538,16 +539,16 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                         open ? 'rounded-t-[var(--r-md)]' : 'rounded-[var(--r-md)]'
                       } ${
                         isActive
-                          ? 'bg-[var(--bg)] shadow-[var(--sh-sm)] ring-1 ring-[var(--bd)]'
+                          ? 'bg-[var(--ju-wash)]'
                           : open
-                            ? 'bg-[var(--bg2)]'
-                            : 'hover:bg-[var(--bg2)] hover:shadow-[inset_0_0_0_1px_var(--bd)]'
+                            ? 'bg-[var(--ju-wash)]'
+                            : 'hover:bg-[var(--ju-wash)]'
                       } `}
                     >
                       {/* 접어 둔 채 그 안에 있을 때도 막대를 세운다 — 그것이 유일한 단서다. */}
                       {isActive || (inside && !open) ? (
                         <span
-                          className="absolute bottom-1.5 left-0 top-1.5 w-[2.5px] rounded-r-full bg-[var(--p-light)]"
+                          className="absolute bottom-1.5 left-0 top-1.5 w-[2.5px] rounded-r-full bg-[var(--t1)]"
                           aria-hidden="true"
                         />
                       ) : null}
@@ -564,7 +565,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                       >
                         <span
                           className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] transition-colors duration-[var(--dur-normal)] ${
-                            lit ? 'bg-[var(--p)]/12' : 'bg-[var(--bg2)] group-hover:bg-[var(--bg3)]'
+                            'bg-transparent'
                           } `}
                         >
                           <item.Icon
@@ -572,7 +573,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                             strokeWidth={1.75}
                             aria-hidden="true"
                             className={`transition-colors duration-[var(--dur-normal)] ${
-                              lit ? 'text-[var(--p)]' : 'text-[var(--t3)] group-hover:text-[var(--t2)]'
+                              lit ? 'text-[var(--t1)]' : 'text-[var(--t2)] group-hover:text-[var(--t1)]'
                             } `}
                           />
                         </span>
@@ -627,7 +628,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                         id={panelId(item.href)}
                         role="group"
                         aria-label={`${item.label} 하위 메뉴`}
-                        className="rounded-b-[var(--r-md)] border border-t-0 border-[var(--bd)] bg-[var(--bg2)] px-1.5 pb-2 pt-1"
+                        className="rounded-b-[var(--r-md)] bg-[var(--ju-wash)] px-1.5 pb-2 pt-1"
                       >
                         <ul className="flex flex-col gap-0.5">
                           {item.children!.map((child, ci) => {
@@ -672,13 +673,13 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
       </nav>
 
       {/* ── 사용자 앱으로 돌아가기 ── */}
-      <div className="shrink-0 border-t border-[var(--bd)] bg-gradient-to-b from-transparent to-[var(--bg2)] p-3">
+      <div className="shrink-0 border-t border-[var(--bd)] p-3">
         <Link
           href="/hub"
-          className="group flex min-h-[44px] items-center gap-3 rounded-[var(--r-md)] px-3 py-2 transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg)] hover:shadow-[var(--sh-sm)] hover:ring-1 hover:ring-[var(--bd)]"
+          className="group flex min-h-[44px] items-center gap-3 rounded-[var(--r-md)] px-3 py-2 transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-wash)]"
         >
           <span
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--p)]"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:text-[var(--t1)]"
             aria-hidden="true"
           >
             <ArrowLeft size={15} strokeWidth={1.75} />

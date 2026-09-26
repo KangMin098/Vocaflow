@@ -169,7 +169,7 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
       )}
 
       {/* 시드 가이드 (운영자 안내) */}
-      <section className="rounded-[var(--r-xl)] border border-dashed border-[var(--p)]/40 bg-[var(--p)]/4 p-5">
+      <section className="rounded-[var(--r-xl)] border border-dashed border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[color-mix(in_srgb,var(--p)_4%,transparent)] p-5">
         <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--p)]">
           시드 가이드
         </h3>
@@ -198,7 +198,7 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
 function EmptyTests() {
   return (
     <div className="flex flex-col items-center gap-2 rounded-[var(--r-xl)] border border-dashed border-[var(--bd)] py-16 text-center">
-      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--p)]/10 text-[var(--p)]">
+      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--p)_10%,transparent)] text-[var(--p)]">
         <FileText size={18} aria-hidden />
       </span>
       <p className="font-display text-[14px] font-[700] text-[var(--t1)]">

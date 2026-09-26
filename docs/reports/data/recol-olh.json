@@ -1,0 +1,39 @@
+{
+ "source": "olh",
+ "n": 4000,
+ "byWindow": {
+  "school_sentence": 221,
+  "school_paragraph": 2241,
+  "csat_short": 1809,
+  "csat_long": 167
+ },
+ "coveredPct": 65.5,
+ "tooShort": 875,
+ "between": 460,
+ "above400": 45,
+ "spansPerLongDoc": 2.8,
+ "english_pct": 56.6,
+ "license_distribution": {
+  "CC BY": 86.6,
+  "Copyright (all rights reserved)": 8.3,
+  "CC BY-NC-ND": 1.8,
+  "none/unspecified": 1.8,
+  "other: Imported License": 1.2,
+  "CC BY-NC": 0.2,
+  "CC BY-SA": 0.1,
+  "CC BY-NC-SA": 0.1,
+  "CC BY-ND": 0
+ },
+ "blockers": [],
+ "_extra": {
+  "coveredPct_amongArticlesWithAbstract": 83.3,
+  "emptyAbstract": 856,
+  "nonEmptyUnder6": 19,
+  "english_pct_declared": 56.6,
+  "english_pct_withDetection": 80.5,
+  "language_null_pct": 40.3,
+  "permissive_inWindow": 2246,
+  "permissive_english_inWindow": 2088,
+  "requests_used": 42
+ }
+}

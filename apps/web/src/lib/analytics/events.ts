@@ -115,6 +115,27 @@ export type PublicEvent =
    */
   | { name: 'landing_section_reached'; props: { section: 'demo' | 'differentiators' | 'doors' } }
   /**
+   * 플랫폼 메인(`/hub`, 2026-09-22 재설계)의 홍보 면을 눌렀다 — **어느 면이 사람을 보내는가.**
+   *
+   * 메인이 「오늘의 무대」 한 장에서 홍보 면 여럿으로 바뀌었다. 면이 늘어난 만큼, 쓰이지 않는 면을
+   * 걷어 낼 근거가 필요하다. 진입은 `screen_viewed`(hub)가 이미 세므로 여기서는 나가는 쪽만 센다.
+   * `index` 는 그 면 안의 순번(0부터) — 무엇을 눌렀는지는 순번으로 충분하다(제목은 자유 문자열이다).
+   */
+  | {
+      name: 'hub_promo_clicked'
+      props: { slot: 'hero' | 'panel' | 'quick' | 'shelf' | 'bento' | 'reading' | 'arcade' | 'vocab'; index: number }
+    }
+  /*
+   * `hub_hero_moved`(메인 배너를 사람이 넘김)은 2026-09-22 재설계 2회차에 **화면과 함께
+   * 은퇴했다** — 배너 캐러셀을 참조 홈 골격으로 바꾸며 걷었고, 보내는 곳이 0이 됐다.
+   * 그런데 이름만 이 유니온과 `ALLOWED_EVENTS` 에 남겨 두어 `wired.test.ts` 가 걸렸다:
+   * **목록에 있는데 아무도 안 보내는 이벤트**는 대시보드에서 "0건" 으로 보일 뿐
+   * "고장" 으로 안 보인다 — 그 구분이 이 목록의 존재 이유다.
+   * 그래서 `csat_overlay_*` 4종과 같은 처리를 한다: 여기서는 지우고,
+   * **DB 허용 목록(`20260922090000_funnel_allow_hub_portal`)에는 남긴다** —
+   * 이미 쌓인 행을 읽는 쪽이 이름을 알아야 하기 때문이다.
+   */
+  /**
    * 셸의 「나의 자리」 패널을 폈다 — **셸 두 번째 층이 실제로 쓰이는가.**
    *
    * 이 파일은 원래 공개 퍼널용이지만, 이 둘은 같은 계약(숫자·불리언·닫힌 열거형)을 지키고
@@ -189,6 +210,52 @@ export type PublicEvent =
       props: { known: boolean; items: number; failed: number; chosen: boolean }
     }
   /**
+   * 기출 홈(`/csat`)을 열었을 때 **학습자가 어느 상태였나** — 지속 학습 지표의 분모(docs/csat/ia-design.md §5).
+   * 진입 자체는 `screen_viewed` 가 센다. 이것은 기기/서버 기록을 읽은 **뒤** 한 번만 보낸다.
+   * 재방문율(D1 · D7)은 user_id · occurred_at 으로 계산한다 — 속성에 날짜를 싣지 않는다.
+   */
+  | {
+      name: 'csat_home_viewed'
+      props: {
+        state: 'first' | 'return' | 'comeback'
+        /** 오늘 할 복습(압축 전) */
+        due: '0' | '1-3' | '4+'
+        /** 마지막 학습 뒤 지난 날 */
+        gap: '0' | '1-2' | '3-6' | '7+'
+        /** 진행 중 세트가 있나 */
+        active: boolean
+        /** 서버 사본과 합쳤나(false = 기기 기록만) */
+        synced: boolean
+      }
+    }
+  /** 「이어서」 카드 · 줄을 눌렀다 — 이어하기 사용률의 분자. */
+  | {
+      name: 'csat_resume_clicked'
+      props: { kind: 'set' | 'review' | 'comeback' | 'start'; from: 'home' | 'today' | 'record' }
+    }
+  /** 복습 세션을 시작했다 / 끝냈다. `substituted` = 같은 공식의 **다른 문항**으로 냈는가(외운 답 차단). */
+  | {
+      name: 'csat_review_started'
+      props: { size: number; substituted: boolean }
+    }
+  | {
+      name: 'csat_review_done'
+      props: { size: number; substituted: boolean }
+    }
+  /** 어느 축으로 들어왔나 — 목적별 · 유형별 · 회차별(같은 도착지로 가는 두 입구의 비율). */
+  | {
+      name: 'csat_path_chosen'
+      props: {
+        axis: 'need' | 'type' | 'exam'
+        need: 'start' | 'killer' | 'trap' | 'evidence' | 'recent' | 'none'
+      }
+    }
+  /** 문항 해설에서 목록으로 돌아갔다(막다른 길 해소). */
+  | {
+      name: 'csat_item_back'
+      props: { to: 'home' | 'type' | 'browse' }
+    }
+  /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
    * 이 화면의 전제는 «근거를 눌러 가며 지문 위에서 풀이를 재구성한다» 인데, 그 전제가
@@ -244,6 +311,53 @@ export type PublicEvent =
         universal: boolean
         /** 유형으로 좁힌 상태에서 열었나 */
         scoped: boolean
+        /** 이 방문에서 몇 번째로 편 것인가 */
+        seq: number
+      }
+    }
+  /**
+   * 기출 작업 공간(`/csat/space`)에서 **보는 범위를 바꿨다** — 탭 · 두 칩 · 찾기 상자.
+   *
+   * 이 화면은 골격을 참조(Tines 3B) 앱 화면에서 가져왔고, 그 골격의 값어치는
+   * 「한 판에서 좁혀 들어간다」에 전부 걸려 있다. 좁히는 조작이 한 번도 안 일어나면
+   * 이 화면은 그냥 **긴 목록 두 개**이고, 그러면 골격을 옮긴 이유가 사라진다.
+   * 진입은 `screen_viewed`(csat-space)가 이미 세므로 여기서 또 세지 않는다 — 분모가 갈린다.
+   *
+   * ⚠️ 찾기 말은 **보내지 않는다.** `queried` 하나로 「적었는가」만 센다 — 자유 문자열은
+   *    D3(숫자·불리언·닫힌 열거형만)에 걸리고, 이 이벤트로 답할 질문도 아니다.
+   */
+  | {
+      name: 'csat_space_scoped'
+      props: {
+        /** 지금 보고 있는 판 */
+        tab: 'type' | 'trap'
+        /** 「예시 있는 것만」이 켜져 있나 */
+        withExample: boolean
+        /** 「최근 회차 이후만」이 켜져 있나 */
+        recentOnly: boolean
+        /** 찾기 상자에 말이 들어 있나 */
+        queried: boolean
+        /** 그 범위에서 남은 줄 수 — 좁힐수록 준다 */
+        shown: number
+      }
+    }
+  /**
+   * 작업 공간의 한 줄을 펴서 **다음 걸음 넷**(잡는 법 · 넓이 · 예시 · 서가)까지 봤다.
+   *
+   * `csat_trap_opened` 와 이름이 비슷하지만 분모가 다르다 — 저쪽은 오답 지도의 함정 줄이고
+   * 이쪽은 작업 공간의 유형·함정 줄이다. 한 이벤트로 합치면 두 화면의 성적이 섞인다.
+   */
+  | {
+      name: 'csat_space_opened'
+      props: {
+        /** 유형 줄인가 함정 줄인가 */
+        kind: 'type' | 'trap'
+        /** 지금 보이는 목록에서 몇 번째 줄인가 (1-기반) */
+        rank: number
+        /** 출제 중(유형) · 유형을 가로지름(함정) */
+        live: boolean
+        /** 예시 기출이 달린 줄인가 */
+        hasExample: boolean
         /** 이 방문에서 몇 번째로 편 것인가 */
         seq: number
       }
@@ -413,6 +527,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   volume_previewed: true,
   landing_demo_moved: true,
   landing_section_reached: true,
+  hub_promo_clicked: true,
   wayfinder_opened: true,
   wayfinder_cta_clicked: true,
   csat_evidence_opened: true,
@@ -420,11 +535,19 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_plan_speed_set: true,
   csat_plan_ordered: true,
   csat_trap_opened: true,
+  csat_space_scoped: true,
+  csat_space_opened: true,
   csat_lecture_played: true,
   csat_lecture_ended: true,
   csat_session_started: true,
   csat_session_explained: true,
   csat_paper_read: true,
+  csat_home_viewed: true,
+  csat_resume_clicked: true,
+  csat_review_started: true,
+  csat_review_done: true,
+  csat_path_chosen: true,
+  csat_item_back: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

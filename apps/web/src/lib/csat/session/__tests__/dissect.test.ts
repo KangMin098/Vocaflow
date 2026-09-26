@@ -16,6 +16,15 @@ const d = item('2026#34', '철학', '원리 셋')
 function catalog(items = [a, b, c, d]): DissectionCatalog { return { items, types: [{ id: 'R-BLANK', name: '빈칸', time_budget_sec: null }], exams: {}, papers: {}, anchored: [], families: a.trapOptions, audit: { total: items.length, fields: {}, excluded: [] } } }
 
 describe('출제자의 수 — 학습자 세션 규칙', () => {
+  it('복습은 같은 공식의 **다른** 문항으로 낸다 — 외운 답이 통하지 않게(docs/csat/ia-design.md S6)', () => {
+    const rec = emptyDissectionRecord(1)
+    rec.queue = [{ tag: a.formulaTag, source: a.id, due: 0 }]
+    const plan = composeDissection(catalog(), rec, 1)
+    expect(plan).toHaveLength(3)
+    expect(plan[2].formulaTag).toBe(a.formulaTag)
+    expect(plan[2].id).not.toBe(a.id)
+    expect(plan.map(i => i.id)).not.toContain(a.id)
+  })
   it('홈은 읽기를 숙달로 바꾸지 않고 재확인 큐와 보관 상태를 구분한다', () => {
     const rec = emptyDissectionRecord(1)
     expect(patternGroups([a, b, c]).map(g => g.items.length)).toEqual([2, 1])

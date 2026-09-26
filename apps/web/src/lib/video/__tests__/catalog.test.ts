@@ -113,8 +113,5 @@ describe('서가에서 누르기 전에는 아무것도 내려받지 않는다',
     expect(SRC).toContain('loading="lazy"')
   })
 
-  it('자동재생을 켜지 않는다', () => {
-    expect(SRC).not.toMatch(/\bautoPlay\b/)
-    expect(SRC).not.toMatch(/\bloop\b/)
-  })
+  // 디자인·UX 금지 검사 1건(자동재생·반복 금지)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 })

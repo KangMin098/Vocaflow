@@ -1,0 +1,821 @@
+[
+  {
+    "id": "05cd5562-a4e1-44fa-9c5e-b7c2be36bef3",
+    "source_updated_at": "2026-09-15T13:24:21.877632+00:00",
+    "body_sha256": "24ae9c4ffb3d4694acb283f58a45f12e11b9eabafef18a1533d4346afd393bda",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰 첫 단락이 초음파 50% 누락과 D-이합체 특이도 40~50% 라는 「이중 딜레마」를 세우고 세 지표 병용으로 답하는 논지가 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Venous thromboembolism (VTE) is a common",
+      "note": "고찰 도입 단락은 표 참조 없이 떨어지지만 FDP·TM·MA 약어를 풀어 쓰지 않으면 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "05d94b33-2ebf-44ee-9312-72fc5518b0b5",
+    "source_updated_at": "2026-09-15T13:24:41.822779+00:00",
+    "body_sha256": "07f1f89613d0eba75b6dafbfad0710e50f126839ffb367c9ab68c1a4e74f74e2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "증강이 성능을 올린다는 통념을 절제 실험으로 뒤집고 데이터 다양성으로 설명하는 단락이 있어 통념-반증 구조가 그대로 쓰인다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The systematic ablation analysis from Tables",
+      "note": "앞머리의 「Tables 3, 4 and 5」 지시만 걷으면 서고, Swin·CNN 같은 고유명사를 「두 종류의 모형」으로 바꾸면 한 밴드 내려간다."
+    }
+  },
+  {
+    "id": "05f76dcb-82a4-4d75-a25a-bbd9cb0e724a",
+    "source_updated_at": "2026-09-13T07:43:44.404401+00:00",
+    "body_sha256": "4bc5c091bf51a0864ca52fa6c22dcb658d2c587cdd379a2b6071ca88432e79c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "수컷·암컷 심장의 기초 차이를 놓고 「더 올려도 이로운가」라는 물음을 세우고 실험으로 답하는 고찰이 논지로 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Epidemiological studies show that pre-menopausal women",
+      "note": "에스트로겐 단락은 통계·그림 참조가 없어 깔끔히 떨어지지만 SNO·eNOS 는 바꿔 쓸 말이 없어 어휘 하향이 막힌다."
+    }
+  },
+  {
+    "id": "05f811ba-5b6a-4970-80a4-06926565915a",
+    "source_updated_at": "2026-09-15T13:24:53.252336+00:00",
+    "body_sha256": "b188cab35922d1bdfa2498de6bb54dba6700ad3e692f34f14406244260203bcf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약이 「핵이 물러진다」는 한 문장 주장 아래 밀도·라미나·바깥 당김 세 근거를 나란히 놓아 주장-근거 짝이 분명하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "DNA viruses take over the host",
+      "note": "저자 요약 단락은 그림 참조가 전혀 없어 그대로 지문이 되고, 라미나·삼투압을 풀어 쓰면 V7 로 내려온다."
+    }
+  },
+  {
+    "id": "060750c7-7e3b-43df-8052-6c46f7216b43",
+    "source_updated_at": "2026-09-15T13:25:03.238501+00:00",
+    "body_sha256": "969c63e8887387e9c037b5c570bc0bcf90d75ba1d97c5fbb53cfa7afd5606464",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약이 스파이크를 열쇠, ACE2 를 자물쇠로 비유해 면역 감시 과정을 순서대로 풀어 주어 일반 독자용 설명문으로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "BtHKU5-CoV-2, a newly discovered merbecovirus",
+      "note": "비유 단락은 앞 문맥 없이 시작되고 균주 번호만 걷으면 되며, 에피토프를 「조각」으로 바꾸면 중등 상단까지 내려간다."
+    }
+  },
+  {
+    "id": "060831b9-0836-45f8-8c46-ff73c5829a5f",
+    "source_updated_at": "2026-09-15T13:25:08.305836+00:00",
+    "body_sha256": "96a8c4c6a7b3b9b68846125f73b47788346cce9fd69616bd9faa08b6c2848361",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "내성균 문제 제기에서 천연물 티몰이 합성 비교군보다 균형 잡힌 후보라는 결론까지 고찰이 한 줄기로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Antimicrobial resistance (AMR) remains a major",
+      "note": "결과·고찰 첫 단락은 수치 없이 논지만으로 서지만 MIC·MBEC·ADMET 약어가 촘촘해 어휘 하향은 실패했다."
+    }
+  },
+  {
+    "id": "060c7e24-fa92-41a5-85f0-f3b691afaffd",
+    "source_updated_at": "2026-09-13T06:21:30.605323+00:00",
+    "body_sha256": "ca2660edaec74a1f2afc6131c855eb9c6cfd8e873c41c7c637832668561564ea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "신종 기재부는 배양 특성 나열이지만 앞머리 단락이 병원성 계통과 부생 계통을 견주어 병원성의 기원을 묻는 논지를 세운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The fungal genus Cryptococcus includes several",
+      "note": "앞머리 종합 단락만 쓸 수 있고 본문 대부분은 기질 목록·라틴 기재라 발췌 창이 좁다."
+    }
+  },
+  {
+    "id": "060e2146-8cfd-4dc1-9a73-55712d43c0d2",
+    "source_updated_at": "2026-09-15T13:25:13.847333+00:00",
+    "body_sha256": "93d9c130e560009073d3965007aafe52c2ebb90fc8573305f8656253613fd9a2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "진단 시약이 정작 필요한 저소득 지역에서 비싸다는 형평 문제를 세우고 값싼 나노항체로 답하는 구조가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Diarrheal diseases caused by infectious agents",
+      "note": "고찰 첫 두 단락이 그림 참조 없이 이어지고, 낭포·항원을 풀어 쓰면 고2 밴드까지 내려간다."
+    }
+  },
+  {
+    "id": "06118882-c653-46db-80c8-8a1d5056628b",
+    "source_updated_at": "2026-09-13T07:39:34.598+00:00",
+    "body_sha256": "90a421e1847a679c9e3e256c6a4d32bd26eff0e59e5596cdf8c5fbdc919690fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "성체 신경 생성 설명에서 출발해 한 마이크로RNA 의 소실이 종양 형성으로 이어진다는 결론까지 도입부가 한 편으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In humans, neurogenesis has been observed",
+      "note": "도입부는 인용 번호만 걷으면 그대로 서고 치상회·과립세포를 풀어 쓰면 한 밴드 내려간다."
+    }
+  },
+  {
+    "id": "0612ece6-cddd-42af-b1f2-b0178305271c",
+    "source_updated_at": "2026-09-13T06:42:35.55653+00:00",
+    "body_sha256": "3c443caf07d1444a8acd6eb3666e1d87702afa6d7eae9ac57ee135d94aaead2e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "활성산소와 활성질소를 갈라 설명한 뒤 남극 세균이 이노시톨 대사로 질소 스트레스를 넘긴다는 새 기전으로 좁혀 간다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Bacterial survival and adaptability in changing",
+      "note": "도입 첫 단락은 떨어지지만 nir·nor·nos 유전자 이름이 문장마다 박혀 어휘를 낮출 자리가 없다."
+    }
+  },
+  {
+    "id": "06184627-c330-404e-9947-00ec145841d9",
+    "source_updated_at": "2026-09-15T13:25:24.784598+00:00",
+    "body_sha256": "e8cbbeb9a7c733eac5ad99f329a53da10cfbbbc72a153d3e3b24a36758f95e7b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "자가보고 척도에 기댄 우울 선별의 한계를 문제로 세우고 간기능·전해질·사회경제 지표가 함께 작동한다는 해석까지 간다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In conclusion, this study successfully developed",
+      "note": "결론 단락이 표 참조 없이 서고 AUC·MLP 를 「정확도」·「신경망」으로 바꾸면 고2 상단까지 내려간다."
+    }
+  },
+  {
+    "id": "0629fb53-e22d-4f56-8cde-3eebae49a49e",
+    "source_updated_at": "2026-09-15T13:25:38.673463+00:00",
+    "body_sha256": "67f655b53726fa2f29a14d73c48e9ee14c9adf38b356fb1dc012747edb681f63",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "누에 유충을 사람 병원균 감염 모형으로 쓸 수 있는가라는 물음에 톨 수용체·디펜신 반응이라는 근거로 답한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The major route of transmission of",
+      "note": "전파 경로 단락은 기관·기문 비교로 앞 문맥 없이 읽히고 유전자 이름 두셋만 바꾸면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "063943cd-9e57-4ed9-9f03-3c8d97b59bd3",
+    "source_updated_at": "2026-09-15T13:25:52.09734+00:00",
+    "body_sha256": "58c5863f34500880aef4804326863430c9e91105529d96ff80a1d364a2507d7b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약이 알벤다졸의 흡수 한계에서 출발해 나노 전달체로 약물 농도를 병소에 올린다는 해결로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Echinococcosis is a severe chronic zoonotic",
+      "note": "저자 요약은 그림 없이 서고 PLGA 를 「분해되는 고분자」로 풀면 고2 밴드에 얹힌다."
+    }
+  },
+  {
+    "id": "06464dc6-d0b6-43e7-8ebf-ea7f823a9bc3",
+    "source_updated_at": "2026-09-13T07:37:43.732957+00:00",
+    "body_sha256": "698c15ae1b254502ecc05d00a98121a9120e9a1bb93d1936494d5821cf640aaa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "아세트산 축적이 균 성장과 생산을 함께 막는다는 문제를 세우고 유전자 결실과 균체 재순환 두 갈래로 답한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Metabolic engineering is the purposeful modification",
+      "note": "도입 단락은 떨어지지만 뒤로 갈수록 증감 백분율 나열이라 쓸 만한 창은 앞머리뿐이다."
+    }
+  },
+  {
+    "id": "065fad43-a0a8-4333-bc2d-c75e4f919ad4",
+    "source_updated_at": "2026-09-15T13:26:17.992912+00:00",
+    "body_sha256": "a045af212085d475c1fea91e90b8006294ed51f5145f580fbab4890021ec9141",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "혈관 누출이 자기강화 고리를 이룬다는 그림을 세우고 울리나스타틴이 그 고리의 전사 기점을 끊는다는 논지가 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Ang-2 has emerged as a pivotal",
+      "note": "Ang-2 고리 단락은 자족적으로 읽히지만 PI3K·FoxO1 같은 경로 이름이 논지의 뼈대라 걷어 낼 수 없다."
+    }
+  },
+  {
+    "id": "0660d067-a091-4834-9bf4-1b77c0def7f7",
+    "source_updated_at": "2026-09-13T06:51:03.819036+00:00",
+    "body_sha256": "5fd0f92370e615aa19f7117e5f3c21cc8202f9ce4733ea1ad371b9f65671b5c9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "PERK 조절이 치료가 되리라는 기대를 세 약물 실패로 뒤집고 다른 표적을 권하는 음성 결과 논증이 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "irrelevant"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In our study, we investigated the",
+      "note": "맺음 단락이 그림 없이 서고 UPR·PERK 를 「스트레스 반응」으로 풀면 한 밴드 내려간다."
+    }
+  },
+  {
+    "id": "0679d4e8-23d3-4fc1-bb9f-6f86f8b3cceb",
+    "source_updated_at": "2026-09-15T13:26:33.736474+00:00",
+    "body_sha256": "576759ca26c873bb08bb55d4ed6839afc0fc49f321ce9d66af813b8430678803",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "engineering",
+    "why": "가상 IED 의 응답 시간·지연 측정이 본문의 거의 전부라 떼어 낸 단락이 시험 설정표와 그림 없이는 무엇을 주장하는지 서지 않는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "With the growing complexity of modern",
+      "note": "도입 단락만 문맥 없이 읽히고 결론은 시험 구성·VM 전환 사례에 묶여 있어 자족 지문으로 만들지 못했다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "06911ffc-56ec-4ea2-a965-daa3dcb5e578",
+    "source_updated_at": "2026-09-15T13:26:42.087302+00:00",
+    "body_sha256": "884bdb9e0d8e887d745f69afdd5ba90e0415a98e29cbcc7a030b187f4005dac7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "바이러스가 숙주 대사를 가로챈다는 일반 논지 아래 HCV 가 NAD 합성에 기대는 근거를 단계별로 쌓는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "An increasing body of literature is",
+      "note": "고찰 첫 단락은 그림 참조 없이 논지만으로 서지만 LVP·ApoB 가 주장의 중심이라 낱말을 바꿀 수 없다."
+    }
+  },
+  {
+    "id": "069bda03-2669-46bb-844a-ddc1ec0f71c9",
+    "source_updated_at": "2026-09-13T06:50:56.288389+00:00",
+    "body_sha256": "fdd78165a483114a86aafd0502f02c408d067dffaeabf853020ae950ee7c4e35",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "음주로 바뀐 장내 환경이 칸디다 증식을 부르고 그것이 항진균제 감수성 저하로 이어진다는 인과 사슬이 도입부에서 완결된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Candida albicans is an opportunistic pathogen",
+      "note": "도입 두 단락이 인용 번호만 걷으면 서고 상재·기회감염을 풀어 쓰면 고2 밴드에 얹힌다."
+    }
+  },
+  {
+    "id": "069c46d1-ac78-4f41-b1c7-c86643794adf",
+    "source_updated_at": "2026-09-13T06:56:52.639977+00:00",
+    "body_sha256": "81b7717a8744d96980f4ae2caedac104e5e229ff6827c291c766877e8f136fb6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "가지형과 직선형 액틴 중합을 갈라 설명한 뒤 mDia 계열이 조혈을 함께 떠받친다는 주장으로 좁혀 가는 도입부가 논지로 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Hematopoiesis is a continuous and dynamic",
+      "note": "도입 단락은 떨어지나 FH1·DID·DAD 도메인 이름이 문장마다 있어 어휘 하향이 막혔다."
+    }
+  }
+]

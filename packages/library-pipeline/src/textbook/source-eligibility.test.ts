@@ -130,10 +130,39 @@ describe('judgeSource — 되돌릴 수 있는 탈락', () => {
   })
 })
 
-describe('judgeSource — 긴 글은 잘린 지문이 있어야 쓴다', () => {
-  it('미절단 원본(oversize-raw)은 차단이 아니라 갈래다', () => {
-    // PLOS 논문 전문 — 게이트는 게시 불가지만 "자르기 전에는" 이라는 뜻이다.
-    // 판정을 받았고 문항이 붙어 있으면 잘린 지문이 이미 존재한다.
+describe('judgeSource — 길이는 원문 적격 기준이 아니다 (2026-09-23 결정)', () => {
+  // 원문에서 지문을 뜨는 것은 **교재 생성 단계의 별도 공정**이고, 그 공정은 유형마다 다른 창을
+  // 쓴다(`compose-unit.itemWordSpec`: 문장 6~40 · 학교 문단 40~200 · 수능 90~200 · 장문 260~400).
+  // 수능 창(100~200) 하나로 원문을 거르면 나머지 유형의 재료가 통째로 사라진다 —
+  // 실측 2026-09-23: 장문 창에 **자르지 않고 그대로 맞는 22,209편**이 `excerpt-blind` 였고,
+  // 학교 문단 창에 맞는 **108편**이 하한 100어에 걸려 `blocked/format` 으로 영구 탈락해 있었다.
+
+  it('창 하한 미만이어도 막히지 않는다 — 문장 단위 유형(6~40어)의 재료다', () => {
+    const v = at({ wordCount: PASSAGE_WORDS.min - 1 })
+    expect(v.grade).toBe('usable')
+    expect(v.blockedBy).toBeNull()
+  })
+
+  it('장문 창(260~400)에 그대로 맞으면 자를 일이 없다', () => {
+    expect(at({ wordCount: 320 }).grade).toBe('usable')
+  })
+
+  it('지문 창보다 훨씬 길어도 막히지 않는다 — 발췌는 나중 공정이다', () => {
+    expect(at({ wordCount: 5917, hasItems: null, excerptWindows: null }).grade).toBe('usable')
+  })
+
+  it('문항·발췌창 유무는 더 이상 원문 등급을 바꾸지 않는다', () => {
+    // 예전에는 이 넷이 excerpt / excerpt-blind 로 갈렸다. 자를 자리를 정하는 일은
+    // 발췌 공정의 몫이지 원문이 쓸 만한가의 답이 아니다.
+    for (const over of [
+      { hasItems: true, excerptWindows: null },
+      { hasItems: false, excerptWindows: 3 },
+      { hasItems: false, excerptWindows: null },
+      { hasItems: false, excerptWindows: 0 },
+    ]) expect(at({ wordCount: 4307, ...over }).grade).toBe('usable')
+  })
+
+  it('미절단 원본(oversize-raw)도 길이로는 안 막힌다', () => {
     const v = at({
       wordCount: 4307,
       gatePublishable: false,
@@ -142,40 +171,8 @@ describe('judgeSource — 긴 글은 잘린 지문이 있어야 쓴다', () => {
       gateVerdict: 'use',
       hasItems: true,
     })
-    expect(v.grade).toBe('excerpt')
+    expect(v.grade).toBe('usable')
     expect(isComposable(v.grade)).toBe(true)
-  })
-
-  it('**문항 보유가 발췌창보다 먼저다** — 발췌창은 아무도 안 읽는 열이다', () => {
-    const v = at({ wordCount: 4307, hasItems: true, excerptWindows: null })
-    expect(v.grade).toBe('excerpt')
-    expect(v.reason).toContain('문항')
-  })
-
-  it('문항이 없어도 발췌창이 있으면 자를 자리는 있다', () => {
-    const v = at({ wordCount: 4307, hasItems: false, excerptWindows: 3 })
-    expect(v.grade).toBe('excerpt')
-    expect(v.reason).toContain('발췌창')
-  })
-
-  it('길고 문항도 발췌창도 없으면 조판이 받으면 안 된다', () => {
-    const v = at({ wordCount: 4307, hasItems: false, excerptWindows: null })
-    expect(v.grade).toBe('excerpt-blind')
-    expect(isComposable(v.grade)).toBe(false)
-  })
-
-  it('발췌창 0개·문항 없음은 보유로 세지 않는다', () => {
-    expect(at({ wordCount: 900, excerptWindows: 0, hasItems: false }).grade).toBe('excerpt-blind')
-  })
-
-  it('hasItems 를 못 쟀으면(null) 통과로 세지 않는다', () => {
-    expect(at({ wordCount: 900, hasItems: null, excerptWindows: null }).grade).toBe('excerpt-blind')
-  })
-
-  it('창 하한 미만은 이을 수도 자를 수도 없다', () => {
-    const v = at({ wordCount: PASSAGE_WORDS.min - 1 })
-    expect(v.grade).toBe('blocked')
-    expect(v.blockedBy).toBe('format')
   })
 
   it('창 경계값은 통과다 — 경계에서 한 편도 잃지 않는다', () => {
@@ -229,14 +226,14 @@ describe('tallyEligibility', () => {
   it('등급과 탈락 축을 함께 센다', () => {
     const rows = [
       at({}),
+      // 900어 — 예전에는 `excerpt` 였다. 길이가 등급을 바꾸지 않으므로 이제 `usable` 이다.
       at({ wordCount: 900, excerptWindows: 2 }),
       at({ gateVerdict: null }),
       at({ displayOnly: true }),
     ]
     const t = tallyEligibility(rows)
     expect(t.total).toBe(4)
-    expect(t.byGrade.usable).toBe(1)
-    expect(t.byGrade.excerpt).toBe(1)
+    expect(t.byGrade.usable).toBe(2)
     expect(t.byGrade.unjudged).toBe(1)
     expect(t.byGrade.blocked).toBe(1)
     expect(t.composable).toBe(2)

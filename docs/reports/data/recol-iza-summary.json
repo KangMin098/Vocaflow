@@ -1,0 +1,127 @@
+{
+  "all": {
+    "n": 703,
+    "byWindow": {
+      "csat_short": 113,
+      "csat_long": 112,
+      "school_para": 212,
+      "school_sent": 309
+    },
+    "coveredPct": 89.2,
+    "tooShort": 48,
+    "between": 17,
+    "above400": 11,
+    "dist": {
+      "min": 1,
+      "p10": 10,
+      "p25": 18,
+      "median": 40,
+      "p75": 111,
+      "p90": 344,
+      "max": 854
+    }
+  },
+  "hist": {
+    "300-400": 96,
+    "20-39": 151,
+    "401-999999999": 11,
+    "60-89": 80,
+    "6-19": 152,
+    "0-5": 48,
+    "40-59": 19,
+    "140-200": 20,
+    "90-139": 93,
+    "260-299": 16,
+    "201-259": 17
+  },
+  "longDocs": [
+    {
+      "doi": "https://doi.org/10.15185/izawol.215",
+      "n": 421,
+      "s": 21,
+      "spans": 2
+    },
+    {
+      "doi": "https://doi.org/10.15185/izawol.321",
+      "n": 413,
+      "s": 17,
+      "spans": 2
+    },
+    {
+      "doi": "https://doi.org/10.15185/izawol.206",
+      "n": 418,
+      "s": 20,
+      "spans": 2
+    },
+    {
+      "doi": "https://doi.org/10.15185/izawol.264",
+      "n": 627,
+      "s": 26,
+      "spans": 3
+    },
+    {
+      "doi": "https://doi.org/10.15185/izawol.211",
+      "n": 854,
+      "s": 34,
+      "spans": 5
+    },
+    {
+      "doi": "https://doi.org/10.15185/izawol.153",
+      "n": 411,
+      "s": 17,
+      "spans": 2
+    },
+    {
+      "doi": "https://doi.org/10.15185/izawol.204",
+      "n": 406,
+      "s": 20,
+      "spans": 2
+    },
+    {
+      "doi": "https://doi.org/10.15185/izawol.211.v2",
+      "n": 820,
+      "s": 29,
+      "spans": 5
+    },
+    {
+      "doi": "https://doi.org/10.15185/izawol.339",
+      "n": 407,
+      "s": 14,
+      "spans": 2
+    },
+    {
+      "doi": "https://doi.org/10.15185/izawol.124",
+      "n": 405,
+      "s": 21,
+      "spans": 2
+    },
+    {
+      "doi": "https://doi.org/10.15185/izawol.223",
+      "n": 401,
+      "s": 15,
+      "spans": 2
+    }
+  ],
+  "prose": {
+    "n": 203,
+    "byWindow": {
+      "csat_short": 81,
+      "csat_long": 23,
+      "school_para": 165,
+      "school_sent": 7
+    },
+    "coveredPct": 94.6,
+    "tooShort": 0,
+    "between": 8,
+    "above400": 3,
+    "dist": {
+      "min": 21,
+      "p10": 70,
+      "p25": 81,
+      "median": 92,
+      "p75": 117,
+      "p90": 303,
+      "max": 854
+    }
+  }
+}

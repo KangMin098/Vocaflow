@@ -9,6 +9,7 @@
 'use client'
 
 import { Volume2 } from 'lucide-react'
+import { SourceNameButton } from '@/components/admin/SourceProfileDialog'
 
 import type { SourceFeedHealth } from '@/lib/articles/types'
 import {
@@ -93,7 +94,7 @@ function SourceBlock({
             {label}
           </button>
         ) : (
-          <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{label}</span>
+          <span className="font-display text-[13px] font-[700] text-[var(--t1)]"><SourceNameButton source={source} label={label} /></span>
         )}
         {cefr && (
           <span className="font-mono text-[10px] text-[var(--t2)]">

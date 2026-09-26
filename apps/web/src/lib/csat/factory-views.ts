@@ -46,9 +46,17 @@ export async function loadMarketView(): Promise<MarketView> {
     db.from('csat_item_attempts').select('id', { count: 'exact', head: true }),
     db.from('textbook_volume_renders').select('band', { count: 'exact', head: true }),
   ])
+  // 화면이 기본으로 고르는 리포트(있으면 volume)의 나이. 화면은 시계를 안 읽는다.
+  const chosen = volume ?? warehouse
+  const generatedAt = chosen?.generatedAt ? Date.parse(chosen.generatedAt) : NaN
+  const benchAgeDays = Number.isFinite(generatedAt)
+    ? Math.floor((Date.now() - generatedAt) / 86_400_000)
+    : null
+
   return {
     warehouse,
     volume,
+    benchAgeDays,
     target: MARKET_TARGET_INDEX,
     platform: {
       itemAttempts: attempts.error ? null : (attempts.count ?? 0),

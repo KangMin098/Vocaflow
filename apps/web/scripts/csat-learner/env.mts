@@ -43,11 +43,14 @@ export function localPapers(): Map<string, string> {
  */
 export async function pdfPages(file: string): Promise<PageFrags[]> {
   const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs')
-  const { fragsOfContent } = await import('../../src/lib/csat/reflow/pdf-frags')
+  const { fragsOfContent, hlinesOfOps } = await import('../../src/lib/csat/reflow/pdf-frags')
+  const { OPS } = await import('pdfjs-dist/legacy/build/pdf.mjs')
+  // ⚠️ `isEvalSupported: false` 가 여기 있었는데 **pdfjs-dist 6.x 에서 사라진 옵션**이다
+  //   (v6 이 eval 경로를 통째로 걷어냈다). 남겨 두면 런타임이 조용히 무시하고, 읽는 사람은
+  //   아직 끄고 있다고 믿는다 — 타입체크를 켜자(DD-78) 그것이 드러났다.
   const doc = await getDocument({
     data: new Uint8Array(fs.readFileSync(file)),
     useSystemFonts: false,
-    isEvalSupported: false,
     // 글꼴 cMap 경고는 **렌더링** 쪽 문제라 글자 추출에는 영향이 없다(전 회차 텍스트 99.4% 로 확인)
     verbosity: 0,
   }).promise
@@ -57,8 +60,13 @@ export async function pdfPages(file: string): Promise<PageFrags[]> {
     const vp = page.getViewport({ scale: 1 })
     const content = await page.getTextContent()
     const frags: PdfFrag[] = fragsOfContent(content.items as unknown[])
-    pages.push({ p, w: vp.width, h: vp.height, frags })
+    const lines = hlinesOfOps((await page.getOperatorList()) as { fnArray: number[]; argsArray: unknown[] }, OPS)
+    pages.push({ p, w: vp.width, h: vp.height, frags, lines })
   }
-  if (typeof doc.destroy === 'function') await doc.destroy()
+  // ⚠️ 여기는 `if (typeof doc.destroy === 'function') await doc.destroy()` 였다.
+  //   pdfjs-dist 6.x 에서 정리 함수가 **문서가 아니라 로딩 작업**으로 옮겨 갔고,
+  //   그래서 이 가드는 **늘 거짓**이었다 — 워커가 한 번도 안 내려갔다(회차를 잇달아 읽으면
+  //   워커가 쌓인다). `typeof` 가드는 없는 API 를 조용히 건너뛰므로 이런 이동을 숨긴다.
+  await doc.loadingTask.destroy()
   return pages
 }

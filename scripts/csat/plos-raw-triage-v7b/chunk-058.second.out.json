@@ -1,0 +1,942 @@
+[
+  {
+    "id": "2f05c455-de9b-4249-8504-f08a39109134",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:13:37.744657+00:00",
+    "body_sha256": "6aa1a80e38ed5fa3bad29606ef252c16a44c8b68989672969d2d81e5764207c3",
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "차 유전자형의 침수 스트레스 적응을 서론과 고찰에서 인과로 풀어 성인·고3 읽기 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nearly 10–16% of the world’s",
+      "note": "서론 둘째 단락은 수치 하나만 바꾸면 독립적으로 서고, 약어 표기는 걷어내야 한다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f0ce7a1-114e-48a0-9949-41716d6d4792",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:13:39.195795+00:00",
+    "body_sha256": "cb44010684f09282fcfd00c8e9a4fa650850515f81f1bb45044eb885eddde734",
+    "retention": "keep",
+    "genre": "science",
+    "why": "당사슬 분석법 비교가 목적·근거·결론 순서로 이어져 방법 비교형 논증 지문을 뽑을 수 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Glycan structures hold promise as biomarkers",
+      "note": "서론은 떼어져도 서지만 결과 절은 시약명·수치가 빽빽해 어휘 조정만으로는 밴드가 안 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f0dcb44-4c48-4894-9c96-92d650796655",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:13:42.251937+00:00",
+    "body_sha256": "a8c5cef569b3c6fa6f5f817d1290cb4fcc0e6dffaa373c3b619da152104f1e1c",
+    "retention": "keep",
+    "genre": "health",
+    "why": "신장 여과압 상승과 효소 활성의 관계를 고찰에서 한 편의 논지로 정리해 성인 읽기 칸이 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The renin–angiotensin system is a key",
+      "note": "서론 첫 단락은 독립적이나 효소 약어가 문장마다 나와 낱말 교체로 낮추기 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f18a64c-2802-4b12-b300-5135da3b303e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:44:42.040389+00:00",
+    "body_sha256": "8d920f746c84f6c7bafa53c9fe604362bc2bdc1b456976674759734559cb2e8a",
+    "retention": "keep",
+    "genre": "sports",
+    "why": "역도 선수 요통과 근막 경직도를 대조해 결론까지 끌고 가 고2~성인 지문으로 자를 만하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Low back pain is a major",
+      "note": "배경 첫 단락이 그대로 서고 fascia·nociceptor 정도만 풀어 쓰면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f201e10-7424-4b9c-8c51-3c1f404aead3",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:13:45.265995+00:00",
+    "body_sha256": "67838a45dc7cd6897df28b1f968fb7e60237139028f982d2b4d9c070ee930c03",
+    "retention": "keep",
+    "genre": "science",
+    "why": "초파리 색소 침착과 Hippo 신호의 연결을 가설·검증·해석으로 서술해 성인 과학 읽기 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Pigmentation plays multiple important roles in",
+      "note": "저자 요약 단락은 자족적이지만 유전자 약칭이 많아 어휘 교체로는 한계가 있다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f3b3ac7-423c-4bd5-89a6-ac01f2bcc518",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T05:58:59.249068+00:00",
+    "body_sha256": "e8b142012f916c3c00689cc613cbbd9d525eb3384c7ad2c35874d6c73f597d5f",
+    "retention": "keep",
+    "genre": "health",
+    "why": "식물 추출물의 항산화·자가포식 효과를 한계까지 짚어 대조 구조가 분명한 지문을 만들 수 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Plant-derived compounds are an important source",
+      "note": "서론 첫 단락은 떼어도 서고, 초록이 두 번 실린 앞머리와 약어 목록은 가공 때 걷어낸다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f434545-d877-4768-b157-f3f34410f6c7",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:13:51.727204+00:00",
+    "body_sha256": "2a4e746f8151c7e52e1cee8e3869f9ac2cac0aef5828d529f9dc43c754c0f10b",
+    "retention": "keep",
+    "genre": "health",
+    "why": "가봉의 말라리아·HIV 동반감염 양상을 임상 근거로 비교해 사회·보건 논증 지문이 나온다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Malaria remains a major public health",
+      "note": "서론과 고찰 앞부분이 자족적이고 수치를 줄이면 고3 밴드까지 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f4fd264-8ec9-4be0-a285-4d437f02e9d0",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:01:33.389111+00:00",
+    "body_sha256": "69ca7d43b3907e6567ac088cba474ff56c98c40afa89c4f090746c4f9af75197",
+    "retention": "keep",
+    "genre": "science",
+    "why": "녹농균 정족수 인식에서 두 조절 인자의 역할 분담을 고찰이 한 논지로 묶어 준다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Quorum sensing is a process of",
+      "note": "서론은 떼어지나 본문에 결합 부위 표와 그림 설명이 통째로 끼어 있어 그 부분은 버려야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f512186-e838-4f90-a5e6-a257e353c3d0",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-23T21:04:40.643954+00:00",
+    "body_sha256": "023764ba5ce9468d33c06e3bd545c1addb82663772cc6f6b6b70a897f3ee7353",
+    "retention": "keep",
+    "genre": "science",
+    "why": "외래 유전자 삽입 위치 선택의 득실을 비교해 결론을 내는 짧은 응용 과학 지문이 된다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Vaccination remains one of the most",
+      "note": "고찰의 삽입 위치 비교 단락이 독립적이나 바이러스 약어가 촘촘해 밴드를 낮추기 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f519b6c-1d40-4d62-85e7-d5a9078eca3c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:37:54.618772+00:00",
+    "body_sha256": "9a58ed29e88295c9929da81274fe2d794acc6aff861b4a1cfba3eecfbb1566e1",
+    "retention": "keep",
+    "genre": "health",
+    "why": "참전군인 PTSD 위험요인을 흡연·흉통·연령으로 좁혀 가는 흐름이 논지로 분명하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Posttraumatic stress disorder is a psychiatric",
+      "note": "서론 첫 단락이 그대로 서고 통계 표기만 덜면 고3 지문 길이에 맞는다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f5b2b5b-ad6d-4e0b-94c2-d66c16d3b2bc",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:42:14.875287+00:00",
+    "body_sha256": "0b51a87828bc97c2121f5e664b3b8d98f04ff4c456088c77d834b200a456f5b6",
+    "retention": "keep",
+    "genre": "nature",
+    "why": "무지개송어 위성세포 추적을 발생·재생·배양 순서로 서술해 시간 흐름 지문을 자를 수 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Skeletal muscle consists of multinucleated cells",
+      "note": "서론 첫 단락은 정의 중심이라 떼기 쉽고 유전자 이름은 남길 수밖에 없다."
+    },
+    "uses": [
+      "argument",
+      "sequence",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f65a005-44d8-4d3a-bab0-e96fbdf381b1",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:29:18.114434+00:00",
+    "body_sha256": "a5ca9611eaa5ed6d43626ead1dbb933e3b075ef0457d72909aa57aa88b17e6a1",
+    "retention": "keep",
+    "genre": "health",
+    "why": "자폐 뇌신호의 복잡도 감소를 개인별 평가 방법과 묶어 제안하는 논지가 또렷하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Clinical and neurobiological heterogeneity in autism",
+      "note": "서론과 고찰 첫 단락이 자족적이고, 프랙털 차원 설명은 풀어 써야 읽힌다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f803dd2-e8b0-4970-a891-1fec33a3aada",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:14:17.373961+00:00",
+    "body_sha256": "14fe9c4dc13c2b549226dea5f27b659a31aa4139349a19b77acd8273d4db76ac",
+    "retention": "keep",
+    "genre": "health",
+    "why": "문맥정맥 결찰로 근감소증 모델을 세운 과정을 목적·절차·해석으로 잇는 글이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Sarcopenia is a muscle failure with",
+      "note": "서론은 떼어도 서지만 동물 수술·염색 절차 절은 읽는 글이 아니라 잘라내야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f864b4b-94b7-476c-a807-d3c9da3cec3a",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:51:19.639734+00:00",
+    "body_sha256": "279341e9c595613d1a09e60c421131c012ac033dc56ec587e6a096de021a471d",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "잔향 환경의 화자 식별과 취소 가능 생체정보를 문제·해법 구조로 설명해 기술 지문이 된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The analysis of speech signals serves",
+      "note": "서론 첫 단락은 독립적이고 쉬우나 본문 중반의 수식·표는 통째로 버려야 한다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f89bc73-0eb5-496a-993a-8f34cb4517dd",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:10:09.814026+00:00",
+    "body_sha256": "57febe6430fa2b8a83fd95cc3e41a7dde1576e2afabcdc372f839841a130615f",
+    "retention": "keep",
+    "genre": "health",
+    "why": "기존 약물 재배치로 항바이러스 후보를 고른 과정을 근거와 한계까지 갖춰 논지로 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Repurposing clinically evaluated drugs can potentially",
+      "note": "서론 셋째 단락이 그 자체로 논지가 되고 세포주 이름만 덜면 읽힌다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f8d5591-b3ef-4038-8d6d-3d9b68ee7421",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:14:21.570155+00:00",
+    "body_sha256": "a02a1c7ab53b4e00b89466b6c455a5f0dce72987de7d881633bc5237ab18cf2d",
+    "retention": "keep",
+    "genre": "science",
+    "why": "말라리아 원충의 세균형 효소가 미토콘드리아 기능과 간 시기 성숙에 필요함을 단계적으로 밝힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The development and division of Plasmodium",
+      "note": "서론 첫 단락은 떼어도 서지만 지질 약어가 문장마다 나와 밴드 조정이 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f9754ea-c7b8-4705-bd71-9d8ad1af5644",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:14:27.226303+00:00",
+    "body_sha256": "38e7cbb34f2a15338ee0b04507eacb902763427a1f4a2a39c3e0db7dce78441c",
+    "retention": "keep",
+    "genre": "science",
+    "why": "뎅기 혈청형 경쟁 실험법을 설계 이유와 함께 설명해 방법 정당화 논증이 남는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Dengue viruses are RNA viruses classified",
+      "note": "서론은 떼어져 서지만 프라이머·형광 채널 절은 수치 나열이라 못 쓴다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2f9c2861-0fdc-49db-9bb6-b473ded274a5",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:31:08.448045+00:00",
+    "body_sha256": "e6579b9851c011f7b4bb186e3547d2669039002eadf8d76949eeb2ed5237e3ef",
+    "retention": "keep",
+    "genre": "health",
+    "why": "알츠하이머 병리를 척수까지 넓혀 실타래 구조가 반점보다 먼저 생긴다는 주장을 세운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Most studies have traditionally focused on",
+      "note": "서론 첫 단락이 통념을 세우고 뒤집는 구조라 그대로 떼어 쓸 만하다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2fa1ab2a-ecba-4218-9950-fd5f974f2ce2",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:44:54.502239+00:00",
+    "body_sha256": "9ae0b948e1cc1319760556aa3f4e0e0d437bd417b9fff259f4bc259b3b99dde5",
+    "retention": "keep",
+    "genre": "health",
+    "why": "내성 임질에 맞선 보체 활성 융합단백질의 전임상 근거를 한 편의 논지로 제시한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Neisseria gonorrhoeae has become resistant to",
+      "note": "서론 둘째 단락은 자족적이나 성매개 감염 소재라 연령 칸을 성인으로 제한했다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "2facef3a-7b46-4085-8708-0517bb569c8f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:14:30.777725+00:00",
+    "body_sha256": "a24527d668b847f7826e6244ee00849c72e23fc5f45735fe6460afe52d34230e",
+    "retention": "keep",
+    "genre": "science",
+    "why": "효소가 결합 도메인으로 바뀐 진화 경로를 가설과 실험으로 좁혀 가는 논지가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Acquisition of new protein functions is",
+      "note": "서론 첫 단락은 진화 일반론이라 떼기 쉬우나 뒤로 갈수록 돌연변이 표기가 촘촘하다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  }
+]

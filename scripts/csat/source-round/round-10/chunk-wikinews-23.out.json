@@ -1,0 +1,901 @@
+[
+ {
+  "id": "14d07156-1467-4891-87c5-2fb3b6406648",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3322cc0e43167b27bf1913459961bbe1a049d8498d2faec1716cf4c345eb3f6e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "애벗 총리의 이라크 군사 지원 가능성 언급과 그 이유, 야당·녹색당 반대와 싱크탱크 지지가 맞서 주장·요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Abbott's position on this issue in",
+   "note": "반대 의견 문단은 외교적 해법이라는 대안이 서고 reconciliation 을 peace 로 바꾸니 V5 가 됐다."
+  }
+ },
+ {
+  "id": "14d3beb8-7218-447f-a6c9-10e00c5451fd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8f35b790e7407a8814b2f50002d493e4fd55f47412821af92349b16a43ae81be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "칠레 여진들의 시각·규모·진도·지명을 줄줄이 나열할 뿐 문단마다 논지나 사건 흐름이 없어 수치 나열형 내용 일치 한 칸에 그친다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Damages in Chile surpass the 30.000",
+   "note": "피해액 문단이 그나마 떨어지지만 두 문장 뒤가 다시 시각·진도 목록이라 수치를 걷으면 남는 글이 없었다."
+  }
+ },
+ {
+  "id": "14dc2fbd-8c3a-44e8-be2c-d4ad2d333561",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b92fbf14782cd2e14d62dc8b72bf35abf26a058fcc4b3ab60d6e9fa3d40b6afa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "art",
+  "why": "루치안 프로이트의 생애·화풍 변화·논란작·경매가·평가가 이어진 화가 부고로 내용 일치·순서 칸을 고등 이상으로 채우며 끝 가족사 문단은 걷는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Freud, the elder brother of the",
+   "note": "생애 문단은 1922 출생→1933 망명→1944 첫 전시 순서가 서고, 혼외 자녀 목록 문단은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "14e3611c-be84-4b97-b8db-12c895b6d125",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ca43e6f35db816e44b16ae65d5a10ef7fe5f4175d9c9b589f3196aac2389c7a5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "BBC 앵커의 10대 폭행 유죄·자기방어 주장·해고 발표·심경 토로가 짧게 이어져 내용 일치·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After the conviction, Blake spoke to",
+   "note": "심경 발언 문단은 「gutted」 한 낱말이 심경 문항의 핵심이라 풀이를 달면 됐다."
+  }
+ },
+ {
+  "id": "14e7c40c-d4fb-4fc7-96d2-1e73b9e00d71",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b84c2a2ad8e9b3a7bde5540c69b66aa518b512b5c8660d8642fa546a49215dfc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "이민개혁법안의 토론종결 실패와 법안 내용·찬반 논리·여론이 이어져 요지·주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Proponents argued that the bill would",
+   "note": "찬반 문단은 「합리적 타협」 대 「사면」 대비가 선명하고 amnesty 에 풀이만 달면 된다."
+  }
+ },
+ {
+  "id": "14f48bc9-c4f7-436d-aac3-3dec063f5d35",
+  "source_updated_at": "2026-09-25T08:55:08.289303+00:00",
+  "body_sha256": "20d300bf1403b1124ff68d4e4f2567aea61fe85f7166cfaf5f816540ace34d53",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "오토바이 7명 사망 사고 운전자의 무죄 답변·사고 경위·과거 사고 이력·보석 불허 이유가 인과로 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to police in Baytown, Texas,",
+   "note": "과거 사고 문단은 보석 불허의 근거로 서고 over-corrected·inebriated 두 낱말을 바꿨다."
+  }
+ },
+ {
+  "id": "14f8f126-4bd1-4129-bc0e-4955a4b38100",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ffcfb0d41b6692efb58f0c9c4da2b00a176689ffe7f9056f900519021a5e9dde",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "브뤼셀 747 사고 원인을 V1 속도 뒤 조류 충돌로 설명하고 결과와 조사 결론을 이어 빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Kalitta 747 N704CK, bound for Bahrain,",
+   "note": "V1 설명 문단은 이륙 중단 한계 속도가 빈칸 논지로 서고 등록번호만 걷으면 된다."
+  }
+ },
+ {
+  "id": "14f9976a-25e2-42ac-a585-eeaa4ceaf6ed",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "83dbd4dbc7bedd2066e2a1997f6b113dd2d9eb50198052d81b448963c8acb747",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "블루마운틴 고속도로 조사비를 두고 주정부의 거부 논리와 찬성 측 경제효과 주장이 맞서 주장-근거·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However, supporters of the project have",
+   "note": "찬성 측 문단은 경제 부양·주택 접근성 두 근거가 뚜렷하고 expressway 만 풀었다."
+  }
+ },
+ {
+  "id": "14fc5529-c0d4-4bf7-8bc2-44a5cdd1f0b7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "034fdd88c3dcc791b7b62e4204fcdc59a39f8988795356594d5daf2335f34ded",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "베탕쿠르 등 인질 15명 구출 작전의 위장 계략과 무혈 결과·미국 역할이 서 순서·내용 일치 칸을 채우며 끝 명단은 걷는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The operation that resulted in the",
+   "note": "작전 문단은 가짜 단체로 위장해 비행기에 태운 계략이 서고, 구출자 명단은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "1500a9f1-0f0e-4db0-91aa-55acfb985456",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2b805b89cbe81104c22c5d962464a3c98601552e0dc8483f3b499515f6594830",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "진보 블로그의 부시 답변 현상금과 이라크 정보 조작 의혹·백악관 대응·세 가지 가능성이 이어지나 한쪽 캠페인 소개가 중심이라 성인 칸 내용 일치로 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "One of the pre-war claims used",
+   "note": "대량살상무기 문단은 세 가능성 목록이 논지를 대신해 문장으로 다시 써야 했고 WMD 는 바꿀 말이 없었다."
+  }
+ },
+ {
+  "id": "150345b2-e91d-4577-b2bf-2cefb4121cd3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "92139717d0531133544e14bf100e81dc45139d3a21793b880e72778828b8fff8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "SIPRI 군비 총액과 상위 5개국 금액 목록이 본문의 거의 전부라 수치 나열 말고 논지·흐름이 서지 않는다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "The large increase is the USA’s",
+   "note": "미국·중국 증가 문단을 떼 보니 두 문장 모두 금액 비교라 수치를 걷으면 뜻이 남지 않았다."
+  }
+ },
+ {
+  "id": "150bdb00-9baa-48a5-ac0f-6c34b139f2ba",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8f9b9f4878158fd815039b9a909a431ed4d34a7243f25cc053449bec33073932",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "세인펠드가 자기 헌정 시상식에서 상을 조롱한 방송과 방영 지연의 까닭을 추측해 심경·내용 일치 칸을 채우나 비속어가 있어 성인 칸으로 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Perhaps some of Seinfeld's derisive on-camera",
+   "note": "수상 소감 문단은 풍자 어조가 핵심이라 derisive·pretentious 를 쉬운 말로 바꾸면 맛이 빠졌고 비속어 줄은 걷는다."
+  }
+ },
+ {
+  "id": "150d04d7-c17b-4d7d-9d2e-4c739c15f5f1",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ca7df5268209f0c6fc4d5fa0cf7601dd2e24dc1d665d0bc90a1639ca78bb1081",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "영국 해군 억류를 두고 이란의 영해 침범 주장·좌표 번복·영국 총리의 대응 설명이 맞서 주장-근거·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After the UK government queried the",
+   "note": "좌표 번복 문단은 한 문장으로 이란 주장의 약점을 보여 근거 짝으로 좋고 queried 를 questioned 로 바꿨다."
+  }
+ },
+ {
+  "id": "150d0743-16ab-4acb-89f6-a63e935e7298",
+  "source_updated_at": "2026-09-25T08:47:59.045222+00:00",
+  "body_sha256": "553f5af3e00498bd998985dabecca4431aa52dffbb0d1207682bd3bc53e88d6d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "쓰레기 수거차 돌진 사고의 경위·사상자·수사·시민 반응이 이어져 내용 일치·심경 칸을 고등 이상으로 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Another local woman said she is",
+   "note": "주민 발언 문단은 「또 슬픈 크리스마스」와 지난해 헬기 사고가 이어져 심경 문항이 서고 이메일 주소 줄은 걷는다."
+  }
+ },
+ {
+  "id": "151aa503-be16-4bc4-8614-6b3a4713ab12",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ebc70bad495d35b94d9920f3b163039fa827f17b0e67281db73c0e04c97c1c46",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "열대폭풍 스탠이 반도를 지나며 약해졌다 멕시코만에서 다시 강해질 것이라는 예보 논리가 짧게 서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The storm is expected to weaken",
+   "note": "약화→재강화 문단은 따뜻한 바다라는 이유가 서서 떼기 좋고 landfall 만 풀었다."
+  }
+ },
+ {
+  "id": "151cceec-0a14-4733-9719-19484752b948",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0228129692663e904600ac017a47b9162ee731994be58c48e49e6e58cc64ec9c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "수치의 첫 선거 출마와 1990년 선거·연금·보이콧의 배경, 의석은 적어도 개혁의 시험대라는 의미가 서 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Suu Kyi's party would not have",
+   "note": "의미 문단은 「권력은 없어도 개혁의 시험」이라는 대비가 요지로 서서 짧아도 문항 하나가 됐다."
+  }
+ },
+ {
+  "id": "1525f879-4e74-4256-a85c-f7109c2076d2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "615227a74559a471ff8d520426678012a464109ce72a210ddf88696a2c8eae3b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "fragmentary",
+  "why": "화성 궤도 사진의 설명문으로 「이 이미지에 표시된」·「북쪽이 위」처럼 사진을 봐야 뜻이 서고 줄도 중간중간 끊겨 있다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "The camera captured this image with",
+   "note": "촬영 기법 문단은 떼면 기법 설명은 남지만 「this image」를 가리켜야 서서 그림 없이는 지문이 안 됐다."
+  }
+ },
+ {
+  "id": "1527e0d8-0f55-4f0f-b426-f96ce031a7d5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "684f03e0cd6a29912ac874387ecd8f335316a15f7f95d99501289e5fb7c736be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "mixed",
+  "why": "라마디 염소 폭탄·카르자이 협상·소말리아 전쟁범죄 경고라는 무관한 단신 셋이 「Sources」 줄로 이어 붙은 혼합 원천이다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Afghan President Hamid Karzai acknowledged in",
+   "note": "카르자이 단신은 두 문장뿐이라 떼어도 문항 하나가 안 되고 한 편 단위로는 주제가 세 번 바뀐다."
+  }
+ },
+ {
+  "id": "15280e89-a129-49a4-84e2-be07c0bf6573",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f43cd9625ba106abbde46dcd549724b29b2a3e94fc683b38278a6e0e4bb29372",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "홀랜드 터널 의심 소포 발견 → 통제 → 로봇 폭파 → 재개통이 시간순으로 이어진 짧은 기사라 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Police used a robot to detonate",
+   "note": "로봇 폭파 문단은 앞뒤 문단과 시간순으로 이어져 순서 배열에 맞고 detonate 를 blow up 으로 바꿨다."
+  }
+ },
+ {
+  "id": "152d0a9c-4a64-464d-8f0a-960d4d5340d2",
+  "source_updated_at": "2026-09-25T08:55:26.358512+00:00",
+  "body_sha256": "ea18640f1aa7ad4dc81cbfe62907e81de002e387c7d9b815ac2b7c8864002286",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "홍콩 시위 첫 실탄 피격과 양측 설명·국경절의 대비·시위의 발단과 변화가 이어져 요지·내용 일치 칸을 고등 이상으로 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The protests began in June in",
+   "note": "시위 발단 문단은 송환법에서 선거·경찰 문제로 넓어진 흐름이 서고 encroachment 를 interference 로 바꿨다."
+  }
+ },
+ {
+  "id": "1541cf0b-fc36-4adb-a109-21cb2ac79b34",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8f5f6b186a715deefc7f8285d72c94289ec9452cca0f5421a446d25553b8a588",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "센섹스 지수 돌파 수치와 종목별 상승률·목표치만 나열돼 떼어 낸 문단에 논지나 사건 흐름이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Reliance Communications Ltd. gained almost 3",
+   "note": "종목 문단을 떼 보니 네 종목의 상승률 나열이라 수치를 걷으면 문장이 남지 않았다."
+  }
+ },
+ {
+  "id": "1542202d-1d70-4c0e-8811-153bcecdf796",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "650a567ceb6616ef9749f6d853b6b579d8d6d2d707de83ceb9f604da3d3974ec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "genre": "economics",
+  "why": "감세 조치 네 가지 세율 목록이 본문 대부분이지만 끝 문단의 소수정부 신임투표 쟁점이 있어 보관 최소선에 걸치는지 갈린다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "These measures will be brought before",
+   "note": "신임투표 문단은 야당이 막으면 선거가 날 수 있다는 인과가 서지만 앞의 세율 목록 없이는 무엇을 표결하는지 비었다."
+  },
+  "hold_reason": "borderline"
+ },
+ {
+  "id": "1549af78-5c5d-4b52-bc60-c3e52a871126",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c670d111f930629c2774742e3ffbc57338ff528466fc6900597666e758c7c169",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "노던록 국유화 법안을 두고 발의자·보수당·자민당·재무장관·예비내각이 각기 다른 쟁점을 내 주장·요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The UK Chancellor of the Exchqequer,",
+   "note": "재무장관 문단은 개입 없으면 파산했을 것이라는 근거가 서고 nationalisation 에 풀이만 달면 된다."
+  }
+ },
+ {
+  "id": "154a390a-7cb4-4fad-9be1-7816890efddb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a644a082a95f54efcc67430c894c02be27f21e86e0483fe8f477835e7f6999d6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "화재로 도서관이 문을 닫은 까닭(전력 문제·연기 청소)과 재개관 전망·사과가 이어져 쉬운 목적·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The head of Library services at",
+   "note": "담당자 발언 문단은 사과와 휴관 이유·다음 안내가 공지문처럼 서서 목적 문항으로 쓰기 좋았다."
+  }
+ },
+ {
+  "id": "154a945b-7a0d-46fb-b71e-7078f6e149f0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "773734544482d1d180e8e1b15ca876ac3b16deb7fff28303613919d230d9c254",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "BP 사고 보고서가 책임을 협력사로 돌리는 논지와 각 이해관계자의 반박·전문가 진단·환경 피해가 길게 이어져 요지·주장-근거·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Wayne Pennington, head of the geological",
+   "note": "전문가 진단 문단은 「낙관 대신 회의를」이라는 논지가 한 문단에 서서 빈칸·요지로 좋고 unwarranted 만 바꿨다."
+  }
+ }
+]

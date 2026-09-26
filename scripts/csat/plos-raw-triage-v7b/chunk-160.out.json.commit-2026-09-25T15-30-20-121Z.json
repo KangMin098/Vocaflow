@@ -1,0 +1,1022 @@
+[
+  {
+    "runId": "2026-09-25T15-30-20-121Z",
+    "id": "7cea2242-dfaa-45d8-9689-8bb74f966d53",
+    "revision": "2026-09-25T07:30:20.461661+00:00",
+    "body_sha256": "0cd688d4f0a20cb98cf17dbf4d3508defbbc23d07c8ca99d75051acc44bfb439",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰의 「성체 성 정체성 유지」 단락이 miRNA의 억제와 성 전환 논지를 한 편으로 세워 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10",
+            "V11"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Our work demonstrates a critical role",
+          "note": "유전자 약어(Qkr58E-2·DsxF)를 「단백질」로 바꾸면 성 정체성 유지 논지가 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:20.125Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 13,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:05.870Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-20-121Z",
+    "id": "7cedb35e-cf2f-4952-beb8-65ae65724a05",
+    "revision": "2026-09-13T07:18:52.095836+00:00",
+    "body_sha256": "ecb6cefea06b3c85ca0e31bd0c7ab60c6d62099f3dfdc629f442a1db83a7bc34",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 대장암 혈관신생과 VEGF 차단 한계 단락이 문제-해결 흐름을 갖춰 주제·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Angiogenesis plays a crucial role in",
+          "note": "VEGF 약어를 「혈관 성장 신호」로 풀면 종양과 혈관 관계 논지가 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:20.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:10:18.937Z",
+      "topicMargin": 29.93
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-20-121Z",
+    "id": "7cfa3915-1304-4349-aabf-e972207c2457",
+    "revision": "2026-09-25T07:30:22.514697+00:00",
+    "body_sha256": "398c676bbdfda5750dc3cc11a76c55d42157fb92d41f9e9de7b7045daec5e268",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 철 결핍 빈혈과 조산 기전 단락이 원인-결과로 이어져 요지·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A low Hb concentration level is",
+          "note": "Hb 수치를 걷고 hypoxia를 lack of oxygen으로 바꾸면 기전 설명이 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 4,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:10:58.404Z",
+      "topicMargin": 3.58
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-20-121Z",
+    "id": "7cff0d3f-b30d-4bd9-bd2d-0b34e688510c",
+    "revision": "2026-09-25T07:30:22.957625+00:00",
+    "body_sha256": "ef1e4781d27f8e5a988fa9659e8f49785e99ce4a632265d0ad3290f4ae73efb1",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "마조 문화관광의 도피적 몰입이 정서 공명을 거쳐 정체성으로 이어진다는 고찰 단락이 주장-근거로 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A pivotal finding is the superior",
+          "note": "β값과 이론명을 걷고 escapist를 immersive로 바꾸면 요지가 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:20.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:00.361Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-20-121Z",
+    "id": "7d01966f-00b2-497b-9b6c-b0b2fdb48712",
+    "revision": "2026-09-25T07:30:23.707624+00:00",
+    "body_sha256": "4f27d44ece6a2fc16abf3de382f73265d2910a590e4ee742be9734b5a463cbee",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 리슈마니아증 부담과 기존 치료제 한계 단락이 신약 표적 탐색 필요로 이어져 목적·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In the absence of an effective",
+          "note": "약물명 목록을 걷고 toxicity 등 낱말을 풀면 치료 한계 논지가 남는다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:20.129Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 18,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:10:56.892Z",
+      "topicMargin": 20.66
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-20-121Z",
+    "id": "7d045481-9893-434f-a178-872fc4ead5ba",
+    "revision": "2026-09-25T07:30:24.56418+00:00",
+    "body_sha256": "91952fe5eb1db4ac1cb6c2f8f5e79d2a3babf31836e763f1cbe45670537fb741",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "서론의 도시화와 군집 지능 단락이 개미·벌에서 로봇 군집으로 이어지는 논지를 세워 주제·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Global urbanization is steadily increasing, and",
+          "note": "본문 대부분이 수식 자리표시라 서론·고찰만 쓸 수 있고 서론 단락은 자족적이다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:20.130Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "기술·매체",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:37:04.051Z",
+      "topicMargin": 7.390000000000001
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-20-121Z",
+    "id": "7d0d7e7f-2427-495a-ab3a-771b1be53e8f",
+    "revision": "2026-09-25T07:30:25.570072+00:00",
+    "body_sha256": "adb576df567a05ef78e1be83513c995deeba471551f3ffa5b662e662157b9873",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론의 미세전극 한계와 자기장 측정 장점 단락이 대조 구조로 서서 주제·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Magnetic-field sensing, unlike electrical-potential sensing, does",
+          "note": "gliosis·reference electrode를 풀어 쓰면 전극 대 자기 센서 대조가 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:20.131Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 7,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T07:36:50.159Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-20-121Z",
+    "id": "7d139c8b-98dc-4078-ac2e-55e6908aecea",
+    "revision": "2026-09-25T07:30:26.393808+00:00",
+    "body_sha256": "8c57e44538665995621f47209c57c3f86bf39291047eb7c125f15f7a2acded42",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 「피부 치유와 신경 악화의 분리」 단락과 결론이 기간 기반 완치 기준 비판을 세워 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence",
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Together, these data underscore the limitations",
+          "note": "MDT·qPCR 약어를 풀고 백분율을 걷으면 완치 기준 비판 논지가 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:20.132Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:30.832Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-20-121Z",
+    "id": "7d679861-11e7-43ae-9c9c-a50537f45bc5",
+    "revision": "2026-09-13T06:52:41.402432+00:00",
+    "body_sha256": "b47057983d026bac06cf9384f7a144aa82b37bb5daac10c304cac19b4bb92742",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 결핵 육아종과 종양의 수송 장벽 유사성 단락이 약물 전달 문제를 인과로 설명해 요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Its treatment often requires a lengthy",
+          "note": "interstitial fluid pressure를 「조직 속 압력」으로 바꾸면 약이 중심에 못 닿는 이유가 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:20.132Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:16:17.701Z",
+      "topicMargin": 9
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-20-121Z",
+    "id": "7d7955b1-8093-4634-ad50-6cc2a3c826b2",
+    "revision": "2026-09-25T07:30:35.452859+00:00",
+    "body_sha256": "3dbcb504adb7684903cf1f18ad2a8ec49d1d609f5cf65a3dde850f4abf9cf28f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "선행연구 단락의 투표 참여와 지방정부 신뢰 관계 서술이 주장-근거로 서서 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Citizens who vote in local elections",
+          "note": "고찰의 가중치 제안 등 과한 정책 주장은 가공 때 걷고 선행연구 단락을 쓴다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:20.133Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 1,
+      "topic": "사회·경제",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:06.931Z",
+      "topicMargin": 16.14
+    }
+  }
+]

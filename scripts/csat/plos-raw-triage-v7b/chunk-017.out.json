@@ -1,0 +1,365 @@
+[
+  {
+    "id": "0b83bc98-1639-49c1-b451-618bb8418ce0",
+    "source_updated_at": "2026-09-25T07:30:16.899003+00:00",
+    "body_sha256": "59365529cd311b3ac866db34e35823c4ed6eca2b6ee6789834d7c0aa4bda43d3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "서론 첫 단락의 농업 탄소 배출원·국가별 대응이 떼어져 서고, 기존 계수법 한계→대안 제시 흐름이 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "From a global perspective, agricultural carbon",
+      "note": "수치와 국가명을 걷어도 배출원 설명과 대응 전략이 서고, ruminant·anaerobic 을 바꾸면 V7 로 내려간다."
+    }
+  },
+  {
+    "id": "0b8fe0a1-13c9-46f0-ae4c-c75af00c20c9",
+    "source_updated_at": "2026-09-25T07:30:19.901649+00:00",
+    "body_sha256": "d59787204919f6354ccfc881449487fe87eb1f8dd1804bc6f1c2f59353ca075b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론 둘째 단락의 가시광·적외선 영상 장단점 대비가 떼어져 서서 주제·빈칸·순서 칸을 채우고 나머지는 모듈 설명이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In previous studies, most methodologies have",
+      "note": "RGB/IR 약어를 풀고 delineation·modality 를 바꾸면 두 영상의 상보성이라는 논지가 한 단락으로 선다."
+    }
+  },
+  {
+    "id": "0ba7d75b-c4e3-43f6-a1cc-7db25dbdcf22",
+    "source_updated_at": "2026-09-25T07:30:22.659332+00:00",
+    "body_sha256": "58c2bc69bafc4b61cd7e9779a89ee640c2ff90f5eb6a057a1b97f3fb6f0095bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "서론 첫 단락의 미세플라스틱 발생·생분해 대체재 확산과 그 역설이 떼어져 서고, 결론의 PLA 이차 미세플라스틱 경고가 요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Plastics are integral components of modern",
+      "note": "PLA 약어만 풀면 문맥 없이 시작되고 biodegradable 외 어휘가 평이해 V6 까지 내려간다."
+    }
+  },
+  {
+    "id": "0bb68963-2dc8-4787-9889-62b55cd1884c",
+    "source_updated_at": "2026-09-25T07:30:23.685459+00:00",
+    "body_sha256": "dc09022f32d87950c6d37fac340f16af011bf96e7ac10dc068d1daed6ec603c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "Author summary 가 흡혈 곤충 공생균의 면역 역할을 평이하게 한 단락으로 세우고, 고찰의 Drosophila 선형 모델 재검토가 통념 교정 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Insects often form beneficial relationships with",
+      "note": "Author summary 는 학명 없이도 서며 symbiont·commensal 두 낱말만 풀면 V6 에 맞는다."
+    }
+  },
+  {
+    "id": "0bbc6f24-1fb6-4ef3-97e9-83d710d416d4",
+    "source_updated_at": "2026-09-25T07:30:24.600149+00:00",
+    "body_sha256": "a43f697a8834137f02e2c87afacee9a6e9440311fe287d8c794594ac453613e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "health",
+    "why": "서론 첫 단락의 ARVC 소개만 떼어 볼 만한데 위험군 비율 나열과 유전자 목록이 중심이라 논지 칸이 서는지 갈리고, 나머지는 실험 절차다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Arrhythmogenic right ventricular cardiomyopathy (ARVC) is",
+      "note": "수치와 유전자명을 걷으면 「데스모솜 질환」 정의 한 줄만 남아 논지·흐름이 약하고 어휘를 바꿔도 밴드가 내려가지 않았다."
+    }
+  },
+  {
+    "id": "0bcd020c-d518-4e72-8292-59ffba9169c7",
+    "source_updated_at": "2026-09-25T07:30:27.460246+00:00",
+    "body_sha256": "9a62738dbd9e1077c306291a764fed00962d614486efee312f8f47a531348645",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "Summary 단락이 리슈마니아증의 세 형태와 풀리지 않은 물음을 한 편으로 세우고, 서론의 모래파리→대식세포 감염 주기가 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Leishmaniasis is a devastating neglected tropical",
+      "note": "환자 수를 걷어도 질병 형태와 미해결 문제의 흐름이 서고, obligate intracellular·protozoan 을 풀면 V7 로 내려간다."
+    }
+  },
+  {
+    "id": "0c185d30-407d-4743-927c-0b76faa47a96",
+    "source_updated_at": "2026-09-25T07:30:34.267527+00:00",
+    "body_sha256": "9d902a4f205aab6fb8500d56d46439c3b52157bc23d63f8514b9af7286239afd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 넷째 단락의 기존 약물 전달 한계→초음파 표적 방출이라는 문제-해결 흐름이 떼어져 서서 주제·빈칸·무관 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Traditional drug delivery methods often rely",
+      "note": "dendrimers 나열과 EPR 약어를 걷으면 논지가 남고 vasculature·endocytosis 를 바꾸면 V7 에 맞는다."
+    }
+  },
+  {
+    "id": "0c3965e7-36f3-4ccb-bb38-d1e5b1d20ac8",
+    "source_updated_at": "2026-09-25T07:30:37.760978+00:00",
+    "body_sha256": "b6d8ff512272ec9d0d99eae91a8d0c92ba09d955edc3efc5ca72bfdc527137af",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 첫 단락이 점막하 종양의 진단 어려움과 조기 치료 권고를 한 단락으로 세우고, 결론의 「새 기법이 더 낫지 않다」 주장이 요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Gastric submucosal tumors (SMTs) are defined",
+      "note": "mucosa·biopsy 설명을 덧붙이면 논지가 서지만 시술 용어가 많아 V8 아래로는 내려가지 않았다."
+    }
+  },
+  {
+    "id": "0c40727f-0d65-4168-800f-6f84a17f98e4",
+    "source_updated_at": "2026-09-25T07:30:38.240657+00:00",
+    "body_sha256": "936064a503babf6885c82885eb660f21baa428a66a46d426ced99544576ae797",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론 첫 단락의 철의 필수성과 독성이라는 이중성이 한 편으로 서고, 2.1 절의 혈청 철 가설이 반증되는 흐름이 통념 교정 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Iron is essential for nearly all",
+      "note": "Fenton chemistry·transition metal 을 풀어 쓰면 역설 구조가 그대로 남아 V6 까지 내려간다."
+    }
+  }
+]

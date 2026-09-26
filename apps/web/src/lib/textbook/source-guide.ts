@@ -81,6 +81,24 @@ export const SOURCE_GUIDE: Record<SourceKey, SourceGuide> & Record<string, Sourc
     label: '논문',
     says: '오픈액세스 학술지(Europe PMC). 생명과학·의학 논문의 논증 구조를 만납니다.',
   },
+  // 확보 원문 4곳 (2026-09-23). 학습자가 읽는 줄이므로 **원천 이름이 아니라
+  // 무엇을 만나는지**를 쓴다 — 「OLH」 라고 적으면 학습자에게 아무 뜻이 없다.
+  olh: {
+    label: '논문',
+    says: '오픈 인문학 학술지. 문학·역사·철학을 다루는 글의 논증을 만납니다.',
+  },
+  econstor: {
+    label: '논문',
+    says: '경제·사회 연구 보고서. 자료를 근거로 주장을 세우는 글입니다.',
+  },
+  scielo: {
+    label: '논문',
+    says: '남아프리카 인문사회 학술지. 교육·사회 쟁점을 다루는 글을 만납니다.',
+  },
+  openalex: {
+    label: '논문',
+    says: '오픈액세스 예술·인문 논문. 작품과 문화를 해석하는 글입니다.',
+  },
   elife: {
     label: '논문',
     says: '오픈액세스 학술지(eLife). 학술 영어의 문장 구조를 그대로 만납니다.',
@@ -109,6 +127,26 @@ export const SOURCE_GUIDE: Record<SourceKey, SourceGuide> & Record<string, Sourc
   space_place: {
     label: '우주',
     says: 'NASA 가 어린이·청소년을 위해 쓴 우주 설명글입니다.',
+  },
+  global_voices: {
+    label: '세계 소식',
+    says: '세계 곳곳의 시민기자가 쓴 기사. 다른 나라의 사회·문화 쟁점을 만납니다.',
+  },
+  global_storybooks: {
+    label: '이야기',
+    says: '아프리카에서 시작된 어린이 그림책 이야기입니다. 짧고 쉬운 문장으로 쓰였습니다.',
+  },
+  gdl: {
+    label: '이야기',
+    says: '세계 어린이를 위한 공개 그림책. 읽기 수준별로 나뉜 이야기입니다.',
+  },
+  eia_kids: {
+    label: '에너지',
+    says: '미국 에너지정보청이 어린이를 위해 쓴 에너지 설명글입니다.',
+  },
+  nih_news_in_health: {
+    label: '건강',
+    says: '미국 국립보건원이 일반 독자를 위해 쓰는 건강 소식지입니다.',
   },
   storyweaver: {
     label: '이야기',

@@ -3,7 +3,7 @@
 // 레일 밖 유틸리티(Class · Settings)의 **모바일 유일 통로**.
 //
 // ── 왜 이것이 필요한가 (실측 2026-08-26) ──────────────────────────────
-// `FOOTER_ITEMS` 두 항목은 `Sidebar.tsx` 에서만 렌더되는데 사이드바는 `hidden md:flex` 다.
+// `FOOTER_ITEMS` 두 항목은 데스크톱 셸(v08.6 부터 `AppHeader`)에서만 렌더되는데 그 셸은 `hidden md:block` 이다.
 // 그래서 폰에서는 `/teacher` 와 `/settings` 로 **가는 길이 한 줄도 없었다.**
 // 전수 grep 결과 그 두 주소를 가리키는 링크는 랜딩(`app/page.tsx`)과
 // `SendToClassButton` 뿐이고, 둘 다 로그인 뒤의 상시 동선이 아니다.
@@ -26,7 +26,7 @@
 // 항목이 둘뿐이다. 열고 닫는 상태를 만들면 탭 한 번이 두 번이 되고, 여는 순간
 // 오버레이가 화면을 덮는다(CLAUDE.md §학습 UX — 모달로 학습 중단 금지).
 //
-// 목록은 `FOOTER_ITEMS` 를 그대로 읽는다 — 사이드바와 같은 출처여야 갈라지지 않는다.
+// 목록은 `FOOTER_ITEMS` 를 그대로 읽는다 — 상단 메뉴와 같은 출처여야 갈라지지 않는다.
 
 'use client'
 
@@ -44,7 +44,7 @@ export interface MobileUtilityBarProps {
 export function MobileUtilityBar({ signedIn }: MobileUtilityBarProps) {
   const pathname = usePathname() ?? ''
 
-  // 학습 세션은 셸을 걷어낸다 — 작업기억 보호(학습원칙 ⑥). Sidebar·StatusRibbon·
+  // 학습 세션은 셸을 걷어낸다 — 작업기억 보호(학습원칙 ⑥). AppHeader·CompassRibbon·
   // MobileTabBar 와 **같은 판정**을 써야 한 화면에서 넷이 따로 놀지 않는다.
   if (!signedIn || isFullScreenRoute(pathname)) return null
 
@@ -53,7 +53,7 @@ export function MobileUtilityBar({ signedIn }: MobileUtilityBarProps) {
   return (
     <nav
       aria-label="클래스·설정"
-      // md 이상은 사이드바가 같은 일을 한다 — 둘을 동시에 띄우면 같은 링크가 두 번이다.
+      // md 이상은 상단 메뉴(「더 보기」 패널)가 같은 일을 한다 — 둘을 동시에 띄우면 같은 링크가 두 번이다.
       className="flex items-center justify-end gap-1 border-b border-[var(--bd)] bg-[var(--bg)] px-2 md:hidden"
     >
       {FOOTER_ITEMS.map((item) => {

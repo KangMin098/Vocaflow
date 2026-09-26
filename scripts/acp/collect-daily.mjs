@@ -277,7 +277,84 @@ console.log(['소스/피드'.padEnd(34), '목록', '새 것', ' 적합%', '부�
 let totalNew = 0
 const emptyFeeds = []
 let saved = 0
+// 짧은 본문 — **길이로 원문을 제외하지 않는다**(사용자 결정 2026-09-23 · SOURCE_INTAKE_DESIGN).
+//   본문이 있으면 `queued` 로 담아 내용 판정이 가르게 하고, 빈 본문(0어)은 파서 고장
+//   신호라 담지 않고 따로 센다. 둘 다 예전에는 실패 줄 하나로 사라졌다.
+let shortSaved = 0
+let precheckBlocked = 0
+const precheckReasons = {}
+const emptyBodies = []
 const failures = []
+
+// 권리 표지(DD-75) — 라이선스로 버리지 않고 원문마다 표지를 붙여 `csat_fit.rights` 에 넘긴다.
+const { rightsTag } = await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
+
+/** 수집기가 준 기사를 `queued` 로 담는다. 중복이면 `'dup'`, 실패면 오류 문구. */
+async function enqueueArticle(article, feedId, statusMessage) {
+  // ⚠️ `admin_enqueue_article` RPC 를 쓰지 않는다. 그 함수는 첫 줄에서
+  //   `is_admin_or_curator()` 를 확인하는데, 그건 **사용자 경로를 지키는 검사**이고
+  //   service-role 키에는 `auth.uid()` 가 없어 언제나 거절된다(실측 21건 전부 Forbidden).
+  //   RPC 가 하는 일은 `(source, source_id)` 중복 확인 후 `queued` 삽입뿐이라 같은
+  //   의미를 여기서 수행한다 — 마이그레이션 없이. **중복 기준을 RPC 와 똑같이 맞추는
+  //   것이 핵심이다**(주소가 아니라 source + source_id).
+  const { data: dup } = await db
+    .from('library_articles')
+    .select('id')
+    .eq('source', article.source)
+    .eq('source_id', article.source_id)
+    .maybeSingle()
+  if (dup) return 'dup'
+  // 사전검증(2026-09-25) — 분류·제목·앞부분. 원천 정책이 'block' 인 단계에 걸린 글만 담지 않는다.
+  //   'flag' 는 담고 `csat_fit.precheck` 에 사유를 남긴다(② 원문 점검의 우선순위 재료).
+  const pre = lib.precheckArticle({
+    source: article.source,
+    title: article.title,
+    content: article.content ?? '',
+    categories: article.categories ?? null,
+    feedId,
+  })
+  if (pre.verdict === 'block') {
+    precheckBlocked++
+    for (const r of pre.reasons) precheckReasons[r] = (precheckReasons[r] ?? 0) + 1
+    return 'blocked'
+  }
+  const publishedIso =
+    article.published_at && !Number.isNaN(article.published_at.getTime())
+      ? article.published_at.toISOString()
+      : null
+  const { error } = await db.from('library_articles').insert({
+    source: article.source,
+    source_id: article.source_id,
+    title: article.title,
+    author: article.author ?? null,
+    source_url: article.source_url,
+    // Invalid Date 방어 — NaN 이면 toISOString() 이 throw 한다.
+    published_at: publishedIso,
+    license: article.license,
+    // 새 행이라 덮을 csat_fit 키가 없다 — 권리 표지 하나만 적는다. evidence 는 수집기가 아는 경우만.
+    csat_fit: {
+      rights: rightsTag({
+        license: article.license,
+        licenseEvidence: article.license_evidence ?? 'feed',
+        author: article.author ?? null,
+        publishedAt: publishedIso,
+        sourceUrl: article.source_url,
+      }),
+      precheck: pre,
+    },
+    content: article.content ?? '',
+    audio_url: article.audio_url ?? null,
+    // ⚠️ 이걸 빠뜨려 37편이 NULL 로 들어갔다(2026-08-20 실측). `feed_id` 가 없으면
+    //   `resolveArticleRegister(source, feed_id)` 가 피드별 register 를 못 찾고
+    //   소스 기본값으로 떨어진다 — VOA 의 `lets-learn-english`(narrative)·
+    //   `words-and-their-stories`(expository) 가 전부 'news' 가 된다.
+    //   게다가 피드별로 무엇이 들어왔는지 나중에 셀 수 없게 된다.
+    feed_id: feedId,
+    status: 'queued',
+    ...(statusMessage ? { status_message: statusMessage } : {}),
+  })
+  return error ? error.message : null
+}
 
 for (const s of targets) {
   for (const feed of s.feeds) {
@@ -370,54 +447,40 @@ for (const s of targets) {
     if (!commit) continue
 
     for (const item of fresh.slice(0, PER_FEED)) {
+      let article
+      let statusMessage = null
       try {
-        const article = await s.ingest(item.url)
-
-        // ⚠️ `admin_enqueue_article` RPC 를 쓰지 않는다. 그 함수는 첫 줄에서
-        //   `is_admin_or_curator()` 를 확인하는데, 그건 **사용자 경로를 지키는 검사**이고
-        //   service-role 키에는 `auth.uid()` 가 없어 언제나 거절된다(실측 21건 전부 Forbidden).
-        //   RPC 가 하는 일은 `(source, source_id)` 중복 확인 후 `queued` 삽입뿐이라 같은
-        //   의미를 여기서 수행한다 — 마이그레이션 없이. **중복 기준을 RPC 와 똑같이 맞추는
-        //   것이 핵심이다**(주소가 아니라 source + source_id).
-        const { data: dup } = await db
-          .from('library_articles')
-          .select('id')
-          .eq('source', article.source)
-          .eq('source_id', article.source_id)
-          .maybeSingle()
-        if (dup) {
-          have.add(item.url)
-          if (article.source_id) haveIds.add(article.source_id)
+        article = await s.ingest(item.url)
+      } catch (e) {
+        if (lib.isShortBodyError(e) && !e.isEmpty && e.article) {
+          // 짧아도 담는다 — 내용 판정이 가른다. 하한은 파서 고장 신호로만 남긴다.
+          article = e.article
+          statusMessage = `짧은 본문 ${e.words}어 — 길이로 버리지 않는다(내용 판정이 가른다) · 파서 확인 대상`
+        } else if (lib.isShortBodyError(e)) {
+          // 빈 본문 — 담을 것이 없다. `have` 에 넣지 않으므로 파서를 고치면 다음 회차에 되살아난다.
+          emptyBodies.push(`${label} ${item.url}`)
+          continue
+        } else {
+          failures.push(`${label} ${item.url}: ${e instanceof Error ? e.message : String(e)}`)
           continue
         }
-        const { error } = await db.from('library_articles').insert({
-          source: article.source,
-          source_id: article.source_id,
-          title: article.title,
-          author: article.author ?? null,
-          source_url: article.source_url,
-          // Invalid Date 방어 — NaN 이면 toISOString() 이 throw 한다.
-          published_at:
-            article.published_at && !Number.isNaN(article.published_at.getTime())
-              ? article.published_at.toISOString()
-              : null,
-          license: article.license,
-          content: article.content ?? '',
-          audio_url: article.audio_url ?? null,
-          // ⚠️ 이걸 빠뜨려 37편이 NULL 로 들어갔다(2026-08-20 실측). `feed_id` 가 없으면
-          //   `resolveArticleRegister(source, feed_id)` 가 피드별 register 를 못 찾고
-          //   소스 기본값으로 떨어진다 — VOA 의 `lets-learn-english`(narrative)·
-          //   `words-and-their-stories`(expository) 가 전부 'news' 가 된다.
-          //   게다가 피드별로 무엇이 들어왔는지 나중에 셀 수 없게 된다.
-          feed_id: feed.id,
-          status: 'queued',
-        })
-        if (error) failures.push(`${label} ${item.url}: ${error.message}`)
-        else {
-          saved++
-          have.add(item.url)
-          if (article.source_id) haveIds.add(article.source_id)
+      }
+      try {
+        const res = await enqueueArticle(article, feed.id, statusMessage)
+        if (res === 'blocked') {
+          // 막힌 글은 `have` 에 넣지 않는다 — 규칙을 고치면 다음 회차에 다시 판정된다.
+          continue
         }
+        if (res && res !== 'dup') {
+          failures.push(`${label} ${item.url}: ${res}`)
+          continue
+        }
+        if (res === null) {
+          saved++
+          if (statusMessage) shortSaved++
+        }
+        have.add(item.url)
+        if (article.source_id) haveIds.add(article.source_id)
       } catch (e) {
         failures.push(`${label} ${item.url}: ${e instanceof Error ? e.message : String(e)}`)
       }
@@ -425,7 +488,19 @@ for (const s of targets) {
   }
 }
 
-console.log(`\n밀려 있는 새 글 ${totalNew}${commit ? ` · 담은 것 ${saved} (피드당 최대 ${PER_FEED})` : ''}`)
+console.log(
+  `\n밀려 있는 새 글 ${totalNew}` +
+    (commit
+      ? ` · 담은 것 ${saved} (피드당 최대 ${PER_FEED})` +
+        ` · 그중 짧은 본문 ${shortSaved} · 빈 본문(파서 확인) ${emptyBodies.length}` +
+        ` · 사전검증 막음 ${precheckBlocked}`
+      : ''),
+)
+if (precheckBlocked) console.log(`사전검증 사유 ${JSON.stringify(precheckReasons)}`)
+if (emptyBodies.length) {
+  console.log(`\n빈 본문(파서 확인) ${emptyBodies.length} — 담지 않았다. 파서를 고치면 다음 회차에 다시 받는다:`)
+  for (const f of emptyBodies.slice(0, 12)) console.log(`  · ${f}`)
+}
 if (emptyFeeds.length) {
   console.log(
     `\n⚠ 목록이 0건인 피드 ${emptyFeeds.length} — "새 것 없음" 과 다르다.` +

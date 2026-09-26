@@ -1,0 +1,451 @@
+[
+ {
+  "id": "803f5ca9-5295-4059-a402-9906e06ea333",
+  "source_updated_at": "2026-09-25T06:56:19.004245+00:00",
+  "body_sha256": "1b0bc81a5de094751fc69c379174031f88060e8d7c317366a592e72f38825ae4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "생체 간이식 조기 이식편 상실 예측을 고찰 절에서 기존 점수 대비 한계와 개선으로 논지 있게 잇는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "For individual-level predictions, we achieved",
+   "note": "ROC-AUC·코호트 수치를 걷어도 「30일 자료로 조기 위험군을 가른다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "804a4eb7-6dc5-4752-af8b-d0b275aafe1d",
+  "source_updated_at": "2026-09-13T06:59:32.127565+00:00",
+  "body_sha256": "f24fbebcff438c945872edc59ea570c373b90b9d08a8a582beda60c608a1f089",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스 단백질 구조로 백신 전략을 세웠다가 실험 결과로 뒤집는 고찰이 한 편의 논증으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Based on our previous experiences with",
+   "note": "잔기 번호·구조 용어가 촘촘해 어휘 교체로는 밴드가 잘 내려가지 않는다."
+  }
+ },
+ {
+  "id": "804d4dd6-7252-4b4d-8adc-495a78169acb",
+  "source_updated_at": "2026-09-25T06:56:21.545619+00:00",
+  "body_sha256": "b5b1f6a3e179aa58e2df08baa362f78a105055d1e164de1190b150b62bfb7911",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "DNA 수선 효소가 생체시계 조절에도 쓰인다는 이중 기능 주장을 통념 대비로 풀어 쓴 고찰이 지문감이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Photolyases are highly conserved from bacteria",
+   "note": "유전자 약어를 「빛 수선 효소」로 바꾸면 서고, 야행성 병목 단락은 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "8061b3ec-3586-4dc6-b870-0faf9be63be2",
+  "source_updated_at": "2026-09-13T06:52:42.949611+00:00",
+  "body_sha256": "349e735d78c1743a28ae5029e83ab3879e3078bacc3ed9bd115dc04b93c68c9a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두 피부질환이 동시에 진단된 경위와 그것이 진료 판단에 남기는 교훈이 사건 순서로 이어진다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In the realm of ulcerative skin",
+   "note": "약물 용량·수치를 걷으면 「흔한 위치가 아니면 의심하라」는 결론이 또렷해진다."
+  }
+ },
+ {
+  "id": "807323ef-1a94-40fb-adc3-236ef9ea6a02",
+  "source_updated_at": "2026-09-13T07:44:55.502536+00:00",
+  "body_sha256": "061e4f11675922e6a38df7ed046959fcd159559d5e52ea2486c69c30cdb382cd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "장 운동 박동 세포의 전사체에서 새 표지 유전자를 찾은 과정과 그 의미를 고찰이 설명으로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "ICC serve as electrical pacemakers and",
+   "note": "본문 대부분이 유전자 목록이라 고찰 뒷단만 쓸 수 있고, 유전자명 교체로는 쉬워지지 않는다."
+  }
+ },
+ {
+  "id": "8079a455-f404-4078-bbd0-bc18570d4c06",
+  "source_updated_at": "2026-09-13T06:42:42.690668+00:00",
+  "body_sha256": "d65fcc40b2eaecb7ec27ff51d2e029afe8e606dd572be60b5d502e052e0152e7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "당 수송체가 젖산을 거쳐 신호 경로를 켠다는 축을 세우고 반대 보고와 견주는 고찰이 논증으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our study identifies SLC2A3 as an",
+   "note": "유전자·표지 약어를 「당 수송 단백질」식으로 바꾸면 인과 사슬이 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "80894004-31e1-4708-9b03-6657c63f567b",
+  "source_updated_at": "2026-09-13T06:57:15.53632+00:00",
+  "body_sha256": "58fb926c8f6b095e8ff1e0facd5bfa83d7df078e8fc14db28d16b9fada07dc2e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "특정 면역세포가 없을 때 T세포 반응은 무너지지만 바이러스는 제거된다는 예상 밖 결과를 고찰이 풀어낸다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The absence of cDC1 subset and",
+   "note": "항체·역가 수치를 걷어도 「다른 경로가 대신한다」는 반전이 남는다."
+  }
+ },
+ {
+  "id": "809f81c9-295b-4d9e-955e-ced4cb69bf0d",
+  "source_updated_at": "2026-09-13T07:26:42.539117+00:00",
+  "body_sha256": "538b0dbe01227a4857ab01ceb74493e640afa42484fe1e0a70b89146f4c37e87",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "가설과 반대되는 실험 결과를 여러 해석으로 저울질하는 논의가 사회심리 논증문으로 그대로 쓰인다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "blank",
+    "summary",
+    "irrelevant",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Results ran counter to those hypothesised",
+   "note": "통계 표기를 걷으면 「반발 효과인가 점화 효과인가」 논의가 자족한다. 소재가 민감해 고1 이상 칸으로 둔다."
+  }
+ },
+ {
+  "id": "80a7ff05-0140-400a-b6f9-9b4dca4ef765",
+  "source_updated_at": "2026-09-13T06:47:52.951591+00:00",
+  "body_sha256": "76f7fa7829da3ced59640540e900246e902664515eeb244316617c4b96682d27",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스 발현이 숙주 염색체 고리를 줄인다는 발견을 억제제 실험으로 확인하는 흐름이 고찰에서 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The results presented here lead to",
+   "note": "클론 이름·좌표가 많아 고찰만 떼야 하고 전문 용어가 밴드를 붙잡는다."
+  }
+ },
+ {
+  "id": "80a8bd88-552a-4642-abb1-9cc24a74dfaa",
+  "source_updated_at": "2026-09-13T07:06:36.33707+00:00",
+  "body_sha256": "cae9d1e5edc80725d9cebb354f8cc17cff923fefd85a85d534c68818d06b7d3e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "계통 특이 유전자가 어디에 모여 있고 환경 변화에 어떻게 반응하는지를 고찰이 인과로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Lineage-specific genes lack evolutionary histories tracing",
+   "note": "유전자 번호 나열이 길어 결론 단락만 쓸 수 있고 어휘 교체 효과가 작다."
+  }
+ }
+]

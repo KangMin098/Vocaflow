@@ -25,6 +25,7 @@
 // source_id: "futurity:<slug>-<id>"
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import {
   decodeEntities,
@@ -219,14 +220,13 @@ export async function ingestFuturityArticle(itemUrl: string): Promise<RawArticle
   if (!inner) throw new Error(`Futurity: 본문 컨테이너를 못 찾았다 (${url})`)
 
   const content = stripFuturityChrome(htmlToPlainText(inner))
-  if (content.length < 200) {
-    throw new Error(`Futurity article body too short: ${content.length} chars (${url})`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.length < 200
 
   // "Posted by <대학>" 이 저자다 — 기자 이름이 아니라 연구를 낸 기관이다.
   const university = extractFirst(html, [/rel="author"[^>]*>([^<]+)</i, /Posted by\s+([^<\n]{2,60})/i])
 
-  return {
+  const article: RawArticle = {
     source: 'futurity',
     source_id: `futurity:${slugFromUrl(url) ?? hashString(url).toString(36)}`,
     source_url: url,
@@ -240,4 +240,13 @@ export async function ingestFuturityArticle(itemUrl: string): Promise<RawArticle
     estimated_cefr: null, // analyze 단계가 판정한다
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`Futurity article body too short: ${content.length} chars (${url})`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

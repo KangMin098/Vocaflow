@@ -211,12 +211,15 @@ export function ladderStrip(step: number | null, total = 7): string[] {
  * 무표시(system)가 기본값이라 **라이트는 bare `:root` 에 있어야 한다.**
  * 미디어 쿼리 안에만 두면 테마를 고르지 않은 학습자가 색을 잃는다.
  */
-export function catalogCssVariables(): string {
+export function catalogCssVariables(
+  // 적은 자리만 토큰 값 대신 쓴다(DD-66 — 팔레트 = 토큰 고정 해제). 생략하면 전과 같은 결과.
+  override: { light?: Partial<CatalogPalette>; dark?: Partial<CatalogPalette> } = {},
+): string {
   const decl = (p: CatalogPalette): string =>
     `--ink:${p.ink};--sub:${p.sub};--line:${p.line};--bg:${p.bg}`
     + `;--accent:${p.accent};--spine:${p.spine};--plate:${p.plate}`
-  const l = decl(CATALOG_PALETTE.light)
-  const d = decl(CATALOG_PALETTE.dark)
+  const l = decl({ ...CATALOG_PALETTE.light, ...override.light })
+  const d = decl({ ...CATALOG_PALETTE.dark, ...override.dark })
   return [
     `:root{${l}}`,
     `@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){${d}}}`,

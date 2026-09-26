@@ -1,0 +1,301 @@
+{
+  "generatedBy": "scripts/design/extract-interactions.mjs",
+  "generatedAt": "2026-09-21",
+  "results": [
+    {
+      "key": "cookie-customize",
+      "label": "쿠키 배너 → 설정",
+      "url": "/",
+      "viewport": 1440,
+      "found": true,
+      "tag": "div",
+      "role": null,
+      "modal": null,
+      "x": 114,
+      "y": 772,
+      "w": 1212,
+      "h": 108,
+      "components": [],
+      "focusable": 4,
+      "links": 0,
+      "inputs": 4,
+      "headings": [
+        "Necessary (25)",
+        "Preferences (11)",
+        "Analytics (26)",
+        "Marketing (36)"
+      ],
+      "animations": [],
+      "transition": null,
+      "backdrop": true,
+      "escCloses": false
+    },
+    {
+      "key": "mega-product",
+      "label": "헤더 Product 메뉴",
+      "url": "/",
+      "viewport": 1440,
+      "found": true,
+      "tag": "div",
+      "role": null,
+      "modal": null,
+      "x": 0,
+      "y": 68,
+      "w": 1440,
+      "h": 310,
+      "components": [
+        "SiteNav26",
+        "FlowerField"
+      ],
+      "focusable": 4,
+      "links": 4,
+      "inputs": 0,
+      "headings": [],
+      "animations": [
+        "snappyIn"
+      ],
+      "transition": null,
+      "backdrop": false,
+      "escCloses": false
+    },
+    {
+      "key": "search-typed",
+      "label": "검색 → \"slack\" 입력",
+      "url": "/",
+      "viewport": 1440,
+      "found": true,
+      "tag": "div",
+      "role": "dialog",
+      "modal": "true",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "components": [
+        "GlobalSearch"
+      ],
+      "focusable": 2,
+      "links": 0,
+      "inputs": 1,
+      "headings": [],
+      "animations": [
+        "snappyIn"
+      ],
+      "transition": null,
+      "backdrop": false,
+      "escCloses": false
+    },
+    {
+      "key": "usecase-tab-2",
+      "label": "홈 팀 탭 두 번째로 전환",
+      "url": "/",
+      "viewport": 1440,
+      "found": true,
+      "tag": "div",
+      "role": null,
+      "modal": null,
+      "x": 40,
+      "y": 398,
+      "w": 1360,
+      "h": 939,
+      "components": [
+        "HomeUseCasesSection"
+      ],
+      "focusable": 11,
+      "links": 0,
+      "inputs": 0,
+      "headings": [
+        "IT",
+        "Security",
+        "Finance",
+        "People",
+        "OperationsOps"
+      ],
+      "animations": [
+        "useCasesReveal",
+        "panelWipe",
+        "frameFloatIn"
+      ],
+      "transition": null,
+      "backdrop": false,
+      "escCloses": false
+    },
+    {
+      "key": "faq-open",
+      "label": "3B FAQ 첫 질문 펼치기",
+      "url": "/3b/",
+      "viewport": 1440,
+      "found": true,
+      "tag": "div",
+      "role": null,
+      "modal": null,
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 68,
+      "components": [
+        "SiteNav26"
+      ],
+      "focusable": 0,
+      "links": 0,
+      "inputs": 0,
+      "headings": [],
+      "animations": [],
+      "transition": "opacity",
+      "backdrop": false,
+      "escCloses": false
+    },
+    {
+      "key": "video-play",
+      "label": "3B 영상 재생 단추",
+      "url": "/3b/",
+      "viewport": 1440,
+      "found": true,
+      "tag": "div",
+      "role": null,
+      "modal": null,
+      "x": 48,
+      "y": 558,
+      "w": 1344,
+      "h": 755,
+      "components": [
+        "VideoPlayer"
+      ],
+      "focusable": 0,
+      "links": 0,
+      "inputs": 0,
+      "headings": [],
+      "animations": [
+        "veilDip"
+      ],
+      "transition": null,
+      "backdrop": false,
+      "escCloses": false
+    },
+    {
+      "key": "contact-form",
+      "label": "문의 폼(열린 상태 그대로)",
+      "url": "/contact/",
+      "viewport": 1440,
+      "found": true,
+      "tag": "form",
+      "role": null,
+      "modal": null,
+      "x": 156,
+      "y": 1862,
+      "w": 552,
+      "h": 539,
+      "components": [
+        "ContactSupportForm",
+        "TextInput",
+        "Textarea",
+        "FileAttachmentSection",
+        "ConsentCheckboxes",
+        "Checkbox",
+        "Button"
+      ],
+      "focusable": 8,
+      "links": 1,
+      "inputs": 5,
+      "headings": [
+        "Attach a file (optional)",
+        "I have read and agree to Tines’ privacy "
+      ],
+      "animations": [],
+      "transition": null,
+      "backdrop": false,
+      "escCloses": null
+    },
+    {
+      "key": "events-filter",
+      "label": "이벤트 필터 하나 켜기",
+      "url": "/events/",
+      "viewport": 1440,
+      "found": false,
+      "escCloses": null
+    },
+    {
+      "key": "mobile-menu",
+      "label": "390 햄버거",
+      "url": "/",
+      "viewport": 390,
+      "found": true,
+      "tag": "div",
+      "role": null,
+      "modal": null,
+      "x": 8,
+      "y": 67,
+      "w": 374,
+      "h": 329,
+      "components": [
+        "SiteNav26"
+      ],
+      "focusable": 7,
+      "links": 4,
+      "inputs": 0,
+      "headings": [],
+      "animations": [
+        "snappyDown"
+      ],
+      "transition": null,
+      "backdrop": false,
+      "escCloses": false
+    },
+    {
+      "key": "mobile-submenu",
+      "label": "390 햄버거 → Product 하위",
+      "url": "/",
+      "viewport": 390,
+      "found": true,
+      "tag": "div",
+      "role": null,
+      "modal": null,
+      "x": 8,
+      "y": 67,
+      "w": 374,
+      "h": 769,
+      "components": [
+        "SiteNav26",
+        "FlowerField"
+      ],
+      "focusable": 11,
+      "links": 8,
+      "inputs": 0,
+      "headings": [],
+      "animations": [
+        "snappyDown",
+        "snappyIn"
+      ],
+      "transition": null,
+      "backdrop": false,
+      "escCloses": false
+    },
+    {
+      "key": "not-found",
+      "label": "404 화면",
+      "url": "/this-page-does-not-exist-vf/",
+      "viewport": 1440,
+      "found": true,
+      "tag": "div",
+      "role": null,
+      "modal": null,
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1762,
+      "components": [],
+      "focusable": 94,
+      "links": 82,
+      "inputs": 1,
+      "headings": [
+        "Page not found"
+      ],
+      "animations": [
+        "snappyIn-hef1dx9"
+      ],
+      "transition": null,
+      "backdrop": false,
+      "escCloses": null
+    }
+  ]
+}

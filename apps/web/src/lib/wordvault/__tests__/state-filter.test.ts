@@ -20,7 +20,6 @@ import {
   filterByMemoryState,
   parseStateFilter,
   stateFilterLabel,
-  stateFilterToken,
   toStateFilterValue,
   matchesStateFilter,
 } from '@/lib/wordvault/state-filter'
@@ -210,11 +209,7 @@ describe('이름은 화면에서 짓지 않는다', () => {
     ]).not.toContain(label)
   })
 
-  it('색은 언제나 --memory-* 토큰 — 하드코딩 금지', () => {
-    for (const k of ['stable', 'shaky', 'risk', 'new', 'attention'] as const) {
-      expect(stateFilterToken(k)).toMatch(/^--memory-/)
-    }
-  })
+  // 디자인·UX 금지 검사 1건(--memory-* 토큰 강제)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 })
 
 // ── ② 고아 링크 감시 — 이 사고를 실제로 잡았을 테스트 ──────────────────

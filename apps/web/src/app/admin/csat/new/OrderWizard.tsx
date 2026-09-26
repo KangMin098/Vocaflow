@@ -25,13 +25,18 @@
 
 'use client'
 
-import { Check, ClipboardCheck, Copy, Sparkles, TriangleAlert, X } from 'lucide-react'
+import { Bot, Check, ClipboardCheck, Copy, Sparkles, TriangleAlert, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { coverSvg } from '@vocaflow/library-pipeline/textbook-cover'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { StepHeader } from '@/components/admin/factory/StepHeader'
+import { stepByKey } from '@/lib/csat/factory-plain'
 import {
+  claudeAsk,
+  claudeAskGate,
+  contentsCommand,
   firstBlocked,
   judgeGates,
   pressPlan,
@@ -43,6 +48,42 @@ import {
 const STEPS = ['무엇을', '무엇으로', '규격', '발주'] as const
 
 /** 명령 한 줄 + 복사. 공정 화면과 같은 모양이라 관리자가 다시 안 배운다. */
+/** 복사 단추 — 명령 그대로 · Claude Code 지시문 둘이 같은 모양을 쓴다. */
+export function CopyButton({
+  text,
+  label,
+  children,
+}: {
+  text: string
+  label: string
+  children?: React.ReactNode
+}) {
+  const [copied, setCopied] = useState(false)
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        void navigator.clipboard?.writeText(text).then(
+          () => {
+            setCopied(true)
+            window.setTimeout(() => setCopied(false), 1600)
+          },
+          () => setCopied(false)
+        )
+      }}
+      aria-label={label}
+      className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)]"
+    >
+      {copied ? (
+        <ClipboardCheck size={15} strokeWidth={1.75} className="text-[var(--success-ink)]" aria-hidden />
+      ) : children ? null : (
+        <Copy size={15} strokeWidth={1.75} aria-hidden />
+      )}
+      {copied && children ? '복사됨' : children}
+    </button>
+  )
+}
+
 function CommandRow({ cmd, why, claudeCode }: { cmd: string; why: string; claudeCode?: boolean }) {
   const [copied, setCopied] = useState(false)
   return (
@@ -66,15 +107,22 @@ function CommandRow({ cmd, why, claudeCode }: { cmd: string; why: string; claude
           className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)]"
         >
           {copied ? (
-            <ClipboardCheck size={15} strokeWidth={1.75} className="text-[#2E7D5A]" aria-hidden />
+            <ClipboardCheck size={15} strokeWidth={1.75} className="text-[var(--memory-stable)]" aria-hidden />
           ) : (
             <Copy size={15} strokeWidth={1.75} aria-hidden />
           )}
         </button>
+        {/* 터미널을 안 여는 사람의 길 — 이 줄을 Claude Code 에 맡기는 지시문. */}
+        {claudeCode ? null : (
+          <CopyButton text={claudeAsk(cmd, why)} label={`Claude 에게 맡기는 지시문 복사: ${cmd}`}>
+            <Bot size={14} strokeWidth={1.9} aria-hidden />
+            Claude 에게 맡기기
+          </CopyButton>
+        )}
       </div>
       <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
         {claudeCode ? (
-          <span className="bg-[var(--p)]/12 mr-1 inline-flex items-center gap-0.5 rounded px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
+          <span className="bg-[color-mix(in_srgb,var(--p)_12%,transparent)] mr-1 inline-flex items-center gap-0.5 rounded px-1 py-0.5 text-[10px] font-[600] text-[var(--p)]">
             <Sparkles size={10} strokeWidth={2} aria-hidden />
             Claude Code
           </span>
@@ -110,21 +158,33 @@ function Cover({ v, width = 40 }: { v: OrderVolume; width?: number }) {
   )
 }
 
+// `guide` = 「어떤 교재를 만드나요?」 — 페이지가 넘긴다. 그 부품이 이 파일의 `CopyButton` 을 쓰므로
+// 여기서 import 하면 순환이다. (⚠️ 이 설명을 prop 타입의 중괄호 바로 안에 JSDoc 블록으로 적으면
+// 제목 회귀의 JSX 주석 걷어내기가 그 뒤 50줄을 삼킨다 — 실측 2026-09-24.)
+type WizardProps = OrderView & { guide?: React.ReactNode }
+
 export function OrderWizard({
   volumes,
   evidence,
   itemsPerVolume,
   unitsPerBook,
+  itemsPerUnit,
+  unitsRange,
   inventoryAt,
   loadError,
-}: OrderView) {
+  guide,
+}: WizardProps) {
   const [pick, setPick] = useState<string | null>(null)
   const [at, setAt] = useState(0)
+  // ③ 규격의 단원 수 — 기본은 시중 실측 중앙값. 2026-09-24 전에는 이 값을 고를 수 없어서
+  //   「왜 고정인가」가 됐다(조판기 `--units` 는 처음부터 받았다). 문제 수는 따라 바뀐다.
+  const [units, setUnits] = useState(unitsPerBook)
+  const itemsNeeded = units * itemsPerUnit
 
   const chosen = volumes.find((v) => `${v.seriesId}|${v.step}` === pick) ?? null
   const gates = useMemo(
-    () => (chosen ? judgeGates(chosen, itemsPerVolume, unitsPerBook) : []),
-    [chosen, itemsPerVolume, unitsPerBook]
+    () => (chosen ? judgeGates(chosen, itemsNeeded, units) : []),
+    [chosen, itemsNeeded, units]
   )
   const blocked = firstBlocked(gates)
 
@@ -140,15 +200,20 @@ export function OrderWizard({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">새 교재 만들기</h2>
-        <AdminScreenHelp screen="csat-new" />
+      <StepHeader step={stepByKey('order')} help={<AdminScreenHelp screen="csat-new" />} />
+      {guide}
+
+      <div id="wizard" className="flex scroll-mt-20 flex-col gap-0.5">
+        <h2 className="font-display text-[16px] font-[800] text-[var(--t1)]">한 권 고르기</h2>
+        <p className="break-keep font-body text-[13px] text-[var(--t2)]">
+          A · B 갈래는 여기서 해요. 시리즈 줄에서 학년 칸을 누르면 네 걸음(무엇을 → 무엇으로 → 규격 → 발주)이 이어져요.
+        </p>
       </div>
 
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -168,7 +233,7 @@ export function OrderWizard({
                 aria-current={here ? 'step' : undefined}
                 className={`flex min-h-[44px] w-full items-center gap-2 rounded-[var(--r-md)] border px-2.5 py-2 text-left font-display text-[12.5px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
                   here
-                    ? 'bg-[var(--p)]/8 border-[var(--p)] font-[700] text-[var(--t1)]'
+                    ? 'bg-[color-mix(in_srgb,var(--p)_8%,transparent)] border-[var(--p)] font-[700] text-[var(--t1)]'
                     : reachable
                       ? 'border-[var(--bd)] bg-[var(--bg)] font-[500] text-[var(--t2)] hover:bg-[var(--bg2)]'
                       : 'cursor-not-allowed border-dashed border-[var(--bd)] bg-transparent font-[500] text-[var(--t3)]'
@@ -217,7 +282,7 @@ export function OrderWizard({
                           }}
                           className={`flex min-h-[44px] flex-col justify-center rounded-[var(--r-sm)] border px-2.5 py-1.5 text-left transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
                             pick === key
-                              ? 'bg-[var(--p)]/8 border-[var(--p)]'
+                              ? 'bg-[color-mix(in_srgb,var(--p)_8%,transparent)] border-[var(--p)]'
                               : 'border-[var(--bd)] bg-[var(--bg2)] hover:bg-[var(--bg3)]'
                           }`}
                         >
@@ -233,7 +298,7 @@ export function OrderWizard({
                             <span
                               aria-hidden
                               className="ml-1"
-                              style={{ color: v.published || ready ? '#2E7D5A' : '#B5803A' }}
+                              style={{ color: v.published || ready ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}
                             >
                               {v.published ? '●' : ready ? '○' : '◔'}
                             </span>
@@ -299,7 +364,7 @@ export function OrderWizard({
                           <span
                             aria-label={c.report ? '유형 리포트 발행됨' : '유형 리포트 없음'}
                             className="ml-0.5"
-                            style={{ color: c.report ? '#2E7D5A' : '#B5803A' }}
+                            style={{ color: c.report ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}
                           >
                             {c.report ? '●' : '○'}
                           </span>
@@ -332,7 +397,7 @@ export function OrderWizard({
           <button
             type="button"
             onClick={() => setAt(2)}
-            className="bg-[var(--p)]/8 hover:bg-[var(--p)]/16 min-h-[44px] w-fit rounded-[var(--r-md)] border border-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+            className="bg-[color-mix(in_srgb,var(--p)_8%,transparent)] hover:bg-[color-mix(in_srgb,var(--p)_16%,transparent)] min-h-[44px] w-fit rounded-[var(--r-md)] border border-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
             규격 보기
           </button>
@@ -353,8 +418,8 @@ export function OrderWizard({
                 ['권 이름', chosen.title],
                 ['학령', chosen.schoolBand],
                 ['조판 단(band)', String(chosen.step)],
-                ['단원', `${unitsPerBook}단원`],
-                ['문항', `${itemsPerVolume}문항`],
+                ['단원', `${units}단원`],
+                ['문제', `${itemsNeeded}문제 (단원마다 ${itemsPerUnit})`],
               ].map(([k, val]) => (
                 <div key={k} className="flex items-baseline justify-between gap-2">
                   <dt className="font-body text-[11.5px] text-[var(--t3)]">{k}</dt>
@@ -365,14 +430,60 @@ export function OrderWizard({
               ))}
             </dl>
           </div>
+          <fieldset className="flex flex-col gap-1.5">
+            <legend className="font-display text-[12.5px] font-[700] text-[var(--t1)]">단원 수 고르기</legend>
+            <p className="break-keep font-body text-[11.5px] text-[var(--t2)]">
+              시중 교재 {unitsRange.min}~{unitsRange.max}단원 · 가운데 {unitsRange.median}. 단원이 늘면 필요한 문제도 늘어요.
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {(
+                [
+                  [unitsRange.min, '가장 짧게'],
+                  [unitsRange.p25, '짧게'],
+                  [unitsRange.median, '보통(기본)'],
+                  [unitsRange.p75, '길게'],
+                ] as const
+              ).map(([n, label]) => (
+                <button
+                  key={label}
+                  type="button"
+                  aria-pressed={units === n}
+                  onClick={() => setUnits(n)}
+                  className={`min-h-[44px] rounded-[var(--r-sm)] border px-3 font-display text-[12.5px] font-[600] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
+                    units === n
+                      ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] text-[var(--t1)]'
+                      : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
+                  }`}
+                >
+                  {n}단원 · {label}
+                </button>
+              ))}
+              <label className="inline-flex min-h-[44px] items-center gap-1.5 font-body text-[12px] text-[var(--t2)]">
+                직접
+                <input
+                  type="number"
+                  min={unitsRange.min}
+                  max={unitsRange.max}
+                  value={units}
+                  onChange={(e) => {
+                    const n = Math.round(Number(e.target.value))
+                    if (Number.isFinite(n)) setUnits(Math.min(unitsRange.max, Math.max(unitsRange.min, n)))
+                  }}
+                  className="min-h-[44px] w-20 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[13px] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
+                />
+                단원
+              </label>
+            </div>
+          </fieldset>
           <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
+            브랜드 이름과 표지 색은 시리즈가 정해요 — 바꾸려면 위 「D. 새 브랜드 · 이름 바꾸기」.
             표지·색·서체는 조판기가 <code className="font-mono">coverSvg</code> 로 그리는 것과 같은
             값이다 — 이 그림이 곧 나올 책의 표지다.
           </p>
           <button
             type="button"
             onClick={() => setAt(3)}
-            className="bg-[var(--p)]/8 hover:bg-[var(--p)]/16 min-h-[44px] w-fit rounded-[var(--r-md)] border border-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+            className="bg-[color-mix(in_srgb,var(--p)_8%,transparent)] hover:bg-[color-mix(in_srgb,var(--p)_16%,transparent)] min-h-[44px] w-fit rounded-[var(--r-md)] border border-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
             발주 확인
           </button>
@@ -392,21 +503,21 @@ export function OrderWizard({
                   <Check
                     size={14}
                     strokeWidth={2.25}
-                    className="mt-0.5 shrink-0 text-[#2E7D5A]"
+                    className="mt-0.5 shrink-0 text-[var(--memory-stable)]"
                     aria-hidden
                   />
                 ) : (
                   <X
                     size={14}
                     strokeWidth={2.25}
-                    className="mt-0.5 shrink-0 text-[#B5803A]"
+                    className="mt-0.5 shrink-0 text-[var(--memory-shaky)]"
                     aria-hidden
                   />
                 )}
                 <span className="break-keep font-body text-[12.5px] leading-snug text-[var(--t1)]">
                   {g.question}
                   {g.why ? (
-                    <span className="ml-1.5 font-mono text-[11.5px] text-[#B5803A]">{g.why}</span>
+                    <span className="ml-1.5 font-mono text-[11.5px] text-[var(--memory-shaky)]">{g.why}</span>
                   ) : null}
                 </span>
               </li>
@@ -419,7 +530,7 @@ export function OrderWizard({
                 <TriangleAlert
                   size={13}
                   strokeWidth={1.75}
-                  className="mt-0.5 shrink-0 text-[#B5803A]"
+                  className="mt-0.5 shrink-0 text-[var(--memory-shaky)]"
                   aria-hidden
                 />
                 먼저 「{blocked.question}」 를 채운다 — 뒤 관문이 더 나빠 보여도 여기부터 푼다.
@@ -429,20 +540,37 @@ export function OrderWizard({
                   <CommandRow key={c.cmd} {...c} />
                 ))}
               </ul>
+              <CopyButton
+                text={claudeAskGate(chosen.title, blocked.question, blocked.commands)}
+                label="이 확인을 통째로 Claude 에게 맡기는 지시문 복사"
+              >
+                <Bot size={14} strokeWidth={1.9} aria-hidden />
+                이 확인을 통째로 Claude 에게 맡기기 (위 줄을 순서대로)
+              </CopyButton>
             </>
           ) : (
             <>
               {/* 문구는 `pressPlan()` 이 정한다 — 이 갈래는 걸음 ④ 에서만 보여서 DOM 으로는
                   검증이 안 되기 때문이다(그 이유는 그 함수 머리말). */}
-              <p className="break-keep font-body text-[12.5px] leading-snug text-[#2E7D5A]">
+              <p className="break-keep font-body text-[12.5px] leading-snug text-[var(--memory-stable)]">
                 {pressPlan(chosen, gates.length).note}
               </p>
               <ul className="flex flex-col gap-2 rounded-[var(--r-sm)] bg-[var(--bg2)] p-2.5">
                 <CommandRow
-                  cmd={renderCommand(chosen, unitsPerBook)}
-                  why={pressPlan(chosen, gates.length).why}
+                  cmd={renderCommand(chosen, units)}
+                  why={`① 책으로 묶기 — ${pressPlan(chosen, gates.length).why}`}
+                />
+                <CommandRow
+                  cmd={contentsCommand(chosen, units)}
+                  why="② 목차 굽기 — 묶은 다음에 돌린다. 안 돌리면 학습자 상세 화면에 목차가 없다(DB 읽기만 · 스냅샷 파일 하나를 덮어쓴다)"
                 />
               </ul>
+              <p className="break-keep font-body text-[12px] leading-snug text-[var(--t2)]">
+                다음: 「확인하기」에서 네 겹 확인 → 「책으로 내기」에서 「발행 승인」. 승인하지 않으면 학습자에게 나가지 않아요.{' '}
+                <a href="/admin/csat/review" className="inline-flex min-h-[44px] items-center font-[700] text-[var(--p)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">확인하기 열기</a>
+                {' · '}
+                <a href="/admin/csat/press" className="inline-flex min-h-[44px] items-center font-[700] text-[var(--p)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">책으로 내기 열기</a>
+              </p>
             </>
           )}
         </section>

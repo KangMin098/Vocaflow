@@ -318,11 +318,20 @@ Claude Code 에서 Supabase MCP 사용 시 `project_id=jajenrevcbmrpaliomxv` (vo
 ## 폰트 (Google Fonts)
 
 ```
-Plus Jakarta Sans  300/400/500/600/700/800  (Display / UI)
-DM Sans            9..40 / 300/400/500/600  (Body)
-Lora               400/500/600/700          (영어 본문)
-JetBrains Mono     400/500/700              (코드 / 게임)
+# 기본 (v07 — apps/web/src/app/layout.tsx)
+IBM Plex Sans KR   300–700   --font-display (UI · 본문, --font-body 별칭)
+Hahmlet            300–700   --font-ko-display (한글 세리프)
+Lora               400–700   --font-serif (영어 원문)
+JetBrains Mono     400/500/700 --font-mono
+
+# Tines 스킨 (DD-68 — <html data-skin="tines">, 전부 preload: false)
+Figtree            400–700   --font-tines-sans   (Roobert 대체 · 픽셀 비교 1위)
+Petrona            300/400/700 --font-tines-serif (Reckless 대체)
+Space Mono         400/700   --font-tines-mono   (Roobert Mono 대체)
+Pretendard Variable (jsdelivr pretendard@1.3.9 동적 서브셋 CSS) — 스킨의 한글 산세리프
 ```
+
+> 참조 사이트 서체(Roobert · Reckless)는 상용이라 쓰지 않는다. 대체 근거: `docs/design/refs/tines/font-lookalike.md`.
 
 ---
 

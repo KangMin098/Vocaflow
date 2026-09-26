@@ -11,11 +11,12 @@
 // 유지: SessionFrame · 검색 · Active Recall · ListenPanel · WordList
 
 'use client'
+import { SpotState } from '@/components/ui/SpotState'
 
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FileText, Layers } from 'lucide-react'
+import { FileText } from 'lucide-react'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { Rule } from '@/components/ui/press'
@@ -389,9 +390,7 @@ export function WordVaultBrowseClient({
 
             {/* ── 4. 단어 리스트 / 필터 빈 상태 ── */}
             {words.length === 0 ? (
-              <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center font-body text-[14px] text-[var(--t2)]">
-                이 필터에 해당하는 단어가 없어요
-              </div>
+              <SpotState art="search" size="sm" role="status" title="이 필터에 해당하는 단어가 없어요" />
             ) : (
               <WordList
                 words={words}
@@ -410,30 +409,16 @@ export function WordVaultBrowseClient({
   )
 }
 
+// DD-68 — 참조 빈 결과 문법. 예전 버튼은 높이 40px(누르는 자리 하한 44 미만)였다.
 function EmptyAll() {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-16 text-center">
-      <Layers size={32} className="text-[var(--t2)]" aria-hidden />
-      <p className="font-display text-[15px] font-[700] text-[var(--t1)]">
-        아직 보유한 단어가 없어요
-      </p>
-      <p className="max-w-[360px] font-body text-[13px] text-[var(--t2)]">
-        공용 단어장을 추가하거나, 내 스크립트에서 단어를 추출해 보세요.
-      </p>
-      <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
-        <Link
-          href="/library/vocab"
-          className="inline-flex h-10 items-center rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[700] text-white transition-colors hover:bg-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-        >
-          공용 단어장 둘러보기
-        </Link>
-        <Link
-          href="/text"
-          className="inline-flex h-10 items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)]"
-        >
-          내 스크립트
-        </Link>
-      </div>
-    </div>
+    <SpotState
+      art="empty-vault"
+      role="status"
+      title="아직 보유한 단어가 없어요"
+      body="공용 단어장을 추가하거나, 내 스크립트에서 단어를 추출해 보세요."
+      primary={{ href: '/library/vocab', label: '공용 단어장 둘러보기' }}
+      secondary={{ href: '/text', label: '내 스크립트' }}
+    />
   )
 }

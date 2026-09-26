@@ -1,0 +1,753 @@
+[
+  {
+    "id": "459940f6-85ae-4afe-8b8e-e344a007dc23",
+    "source_updated_at": "2026-09-25T04:03:00.946741+00:00",
+    "body_sha256": "f5633457ebf47ec0ff92c78291f67076a9cb8d31dfa246a6b576528119bf1350",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "첫 생리와 농구 시합을 엮은 서사가 걱정→도움→결승골로 이어져 중등 심경·순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "mood",
+        "order",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Finally, the day of the game came!",
+      "note": "심경 변화가 한 장면에 모여 있어 떼기 쉽고, 끝의 생리 수칙 목록은 걷어낸다."
+    }
+  },
+  {
+    "id": "d2fbd677-511e-40a2-a0bf-f0ce0f0490eb",
+    "source_updated_at": "2026-09-25T04:03:44.030253+00:00",
+    "body_sha256": "2f52637b6822301145a47050443b3e323af8081e010cf486f27303f342a7d071",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "수피아 카말의 생애가 출생·조혼·과부·운동가로 시간순 전개되어 전기 요지·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "title",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sufia was raised in a traditional",
+      "note": "연도·역사 사건을 걷어도 억압을 딛고 선 인물 흐름이 선다."
+    }
+  },
+  {
+    "id": "7432bdfd-0fd2-445e-9d20-548c35e805e3",
+    "source_updated_at": "2026-09-25T04:03:38.728127+00:00",
+    "body_sha256": "dc9974c3e94bb17755c81b9fbac2783e21a535f3b260d41866670764f14d1064",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "discard",
+    "genre": "poetry-drama",
+    "why": "망고 나무 성장을 각운 2행 연으로 노래한 운문이며 같은 연이 반복되어 차단 장르에 해당한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Tiny shoot begins to show, A",
+      "note": "운문을 산문으로 풀면 원천이 아니게 되어 가공 경로가 없다."
+    }
+  },
+  {
+    "id": "64989955-af37-45dd-9ece-24d1977d0064",
+    "source_updated_at": "2026-09-25T04:03:05.758193+00:00",
+    "body_sha256": "c1241628dc4bd7eb2cfddc5a2e118ab26a8f6ff9bbf7499c3a5a031bc3309f7a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "카스트 차별을 겪는 소녀의 시상식·어머니 회고·강가 장면이 심경 변화로 이어져 고등 심경·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "mood",
+        "topic",
+        "long_reference",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When I get to school, I",
+      "note": "차별 소재라 중등 이하 칸은 달지 않았고, 네팔 어휘는 풀이 목록으로 대체 가능."
+    }
+  },
+  {
+    "id": "7366074d-6d79-45f3-b86a-a03548c6490a",
+    "source_updated_at": "2026-09-25T04:03:32.792037+00:00",
+    "body_sha256": "f15ad7d10fe0cfd83e3d7414b0a16ee744ba13a3c28f442f2c637207613434ea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "병 태우기로 오염된 연못→조사→플라스틱 병 보트로 문제를 해결하는 짧은 인과 서사라 초등 순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One day, a gust of wind",
+      "note": "문장마다 사건·이유로 이어져 초등 최소선을 넘고 거의 손댈 것이 없다."
+    }
+  },
+  {
+    "id": "facf7104-a25c-436b-b3e7-5ea254807e77",
+    "source_updated_at": "2026-09-25T04:03:40.186744+00:00",
+    "body_sha256": "f71e86fbd514065b2dc813cbfd368bc2b821d0c1d8a6c5120e9d64ba36b96abc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "옥옴복 축제 하루와 녹색 쌀 만드는 절차가 시간순으로 이어져 초등 순서·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Grandpa explains gently, \"For the Ok",
+      "note": "절차 서수(Last 다음 Fourth)가 어긋나 가공 때 바로잡아야 한다."
+    }
+  },
+  {
+    "id": "84f0c674-fb20-4cd7-ba55-488da780f406",
+    "source_updated_at": "2026-09-25T04:03:20.432199+00:00",
+    "body_sha256": "39e702d9f8169a0c563b74b4df5e114ba9ef3558ab766cf3b85990ac897543cd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "「No」라는 말로 결혼·칭호를 거부한 파이주네사의 생애가 교훈으로 수렴해 요지·제목·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "title",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For the rest of her life,",
+      "note": "마지막 단락이 요지를 명시해 떼어도 선다."
+    }
+  },
+  {
+    "id": "cfdf5198-eb4f-4901-bc63-602802d71c41",
+    "source_updated_at": "2026-09-25T04:03:10.52805+00:00",
+    "body_sha256": "86dcd50be21b728b01b8c02bc1bc56f96cb992bd89945d3f8027226a015e2e45",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "작은 새가 까마귀 공격을 피해 이웃을 경고하고 수탉이 물리치는 인과 사건이 이어져 초등 순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Crow grew angry, he soared up",
+      "note": "비문(flied, lied)이 많아 가공 때 고쳐야 하고 까마귀 죽음 묘사는 순화 필요."
+    }
+  },
+  {
+    "id": "64c77a67-b7a4-4c89-8943-7a7bee9f1998",
+    "source_updated_at": "2026-09-25T04:03:17.648899+00:00",
+    "body_sha256": "691c127030ece5c74008824a608318445e340f5b2bc3715ab8aea086cd135c36",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "청각장애 소녀가 진동으로 박자를 익혀 발리 춤을 추기까지 좌절과 재도전이 이어져 심경·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "mood",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The speaker is too far from",
+      "note": "짧은 문장이 인과로 이어져 떼기 쉽다."
+    }
+  },
+  {
+    "id": "82b713e0-0173-418d-971b-5cc798bf8054",
+    "source_updated_at": "2026-09-25T04:03:23.72545+00:00",
+    "body_sha256": "4755740563e8225761d2de9d07f2637bf552487e5f50c0ed11fa70c426ed4dc8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "두두가 금지된 숲에서 나무·원숭이·동물 학교를 돕는 반복 여정이 용기 교훈으로 끝나 초등 순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Then, somewhere, there was a fresh",
+      "note": "끝의 NGO 홍보 문단은 걷어낸다."
+    }
+  },
+  {
+    "id": "5464f8d0-e64d-49d5-8c7e-d523930bfa0e",
+    "source_updated_at": "2026-09-25T04:02:44.817944+00:00",
+    "body_sha256": "8c1dd313c9d6c52780748b535955636b328542b4de4887e68ae55ccdae38dbf6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "숨바꼭질하던 카멜레온이 매를 유인해 친구를 구하는 사건이 인과로 이어져 초등 순서·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hanah heard a rustling sound behind",
+      "note": "대화 부호 띄어쓰기만 정리하면 된다."
+    }
+  },
+  {
+    "id": "283c4341-6e59-4e19-985e-8e696272830c",
+    "source_updated_at": "2026-09-25T04:03:28.787525+00:00",
+    "body_sha256": "b27d124e710805e37c5da71d4a97d95aa740e0ad7788acb5e94e5fb0b272f8d8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "약한 메뚜기들이 뭉쳐 코끼리를 몰아내는 우화로 단결 교훈이 서 초등 요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He could not stand that fear",
+      "note": "「got at sixes and sevens」 같은 관용어를 쉬운 말로 바꾸면 초등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "e6addce7-f4c7-40d6-b689-cd1479260f3d",
+    "source_updated_at": "2026-09-25T04:03:29.432303+00:00",
+    "body_sha256": "3854f1f9cb75b2f93a069ae64cda3cf14a95fb5da54b0fcc63abff6244e877a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "노래·체육·미술 시간마다 혼나던 아기 염소가 돼지 친구를 사귀는 흐름이 심경 변화로 이어져 심경·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "mood",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "That day at lunch time, Little",
+      "note": "반복 구조라 순서 문항 삽입 자리가 뚜렷하다."
+    }
+  },
+  {
+    "id": "0dca4ed0-d136-46f3-8fe7-17d6f4242e6b",
+    "source_updated_at": "2026-09-25T04:02:56.265917+00:00",
+    "body_sha256": "81a0e983996dba96e2bacb961e4f68f8c5f330cacab8a9aedafacef96d5fc6ed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "교사 체벌과 놀림에 등교를 끊은 림부 소년이 아버지 격려로 돌아가는 장편 서사라 고등 심경·장문 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "mood",
+        "long_reference",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lingyok was in seventh grade. Lingyok",
+      "note": "체벌·모욕 장면이 있어 중등 이하 칸은 달지 않았고, 초현실 멧돼지 장면은 떼기 어렵다."
+    }
+  },
+  {
+    "id": "09b820db-02d5-4ec5-9220-5afa37705148",
+    "source_updated_at": "2026-09-25T04:03:34.960146+00:00",
+    "body_sha256": "032e06f326e49aa64c06ab1e9e9b795d220101746727758f488b4c49580dc59c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "숫자를 좋아하던 모루가 체벌로 학교를 떠났다가 새 교사의 책 정리 부탁으로 돌아오는 장편 서사라 장문·심경 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "long_reference",
+        "mood",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One day, the old teacher left.",
+      "note": "교사 폭력은 한 장면이고 회복 서사가 중심이라 떼어도 선다."
+    }
+  },
+  {
+    "id": "73853cb1-1b67-4ffa-88e1-61535861062d",
+    "source_updated_at": "2026-09-25T04:03:36.873957+00:00",
+    "body_sha256": "a8fbf7f7896aa8108d93b47d92039506c5478806be7540705a4ce9af19754862",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "산불과 폭풍 뒤 티나가 마을과 함께 숲·개울을 복구하는 사건이 이어져 초등 순서·요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The next day, Tina runs out",
+      "note": "끝의 I Wonder 질문 목록은 걷어낸다."
+    }
+  },
+  {
+    "id": "0c8577e0-9866-46e2-aa0a-29b95c4d7056",
+    "source_updated_at": "2026-09-25T04:03:43.806694+00:00",
+    "body_sha256": "eb030651d32112e70b2071443ad833442bd150774957dcafd6eccc49f884b7e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "나무에 걸린 연을 새들이 차례로 묻다 바람에 날아올라 친구가 되는 반복 패턴 이야기로 초등 최소선의 사건 연결이 있다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The wind began to blow, and",
+      "note": "색·새 이름 반복이라 어휘 칸이 쉽고 사건 연결은 끝 두 문장에 몰려 있다."
+    }
+  },
+  {
+    "id": "8d896708-eafc-40fc-87d1-29409869a5f5",
+    "source_updated_at": "2026-09-25T04:03:20.675511+00:00",
+    "body_sha256": "784b947b5b08e0c3cf537c4b306cbafe915118fe5950ff336b4f56c8e2b5b74e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "소녀가 방·집·마을·바다로 「집」을 묻다 세계가 집이라는 결론에 닿는 반복 여정이라 초등 요지·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "She walked a long, long way",
+      "note": "카멜레온 한 줄이 앞 문맥 없이 끼어 있어 가공 때 정리해야 한다."
+    }
+  },
+  {
+    "id": "d42ceb2a-23ed-4d4b-876a-bf7e4c929e59",
+    "source_updated_at": "2026-09-25T04:03:48.39445+00:00",
+    "body_sha256": "303612d84441234dfd3b7b5bb16aab97620e178781a7948447f96ccbefb9e3d3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "정령이 반얀나무·다리·언덕을 거쳐 현자에게 건강 수칙을 듣는 여정이 영양·위생·수면으로 대응돼 요지·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Grandpa Ziwaka replied, “To be healthy,",
+      "note": "끝의 질문 목록은 걷어내고 여정-수칙 대응이 요약 문항에 맞다."
+    }
+  },
+  {
+    "id": "d0c041c3-0660-481b-9175-fca23b31a993",
+    "source_updated_at": "2026-09-25T04:03:07.760291+00:00",
+    "body_sha256": "0c23789863f2ff6b5de2372ee3260f3e575437a1b3f8fad554ede4ce27c3702d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "은칸예지가 세 마을에서 색·음악·음식을 받아 축제의 흥을 되살리는 3단 여정이라 순서·요약 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On the third day of her",
+      "note": "머리의 저자 표기와 끝의 감사 문구는 걷어낸다."
+    }
+  }
+]

@@ -385,7 +385,7 @@ flush 는 원래 `isComplete` 에만 걸려 있었다. ✕ · Esc · 뒤로가�
 
 ### 라우트
 - `/wordblitz` — Hub
-- `/play/wordblitz` — 풀스크린 (사이드바 X · SessionFrame 자동 주입)
+- `/play/wordblitz` — 풀스크린 (셸 메뉴 X · SessionFrame 자동 주입)
 
 ### 게임 — 속사 인지 (v07 재설계, 2026-07)
 - ko 뜻 프롬프트 → 4개 en 타일(2×2) 중 정답을 탭/키(`1`–`4`)로 선택.
@@ -720,7 +720,7 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ### 라우트
 - `/text/[id]/comic` — ModePills input 그룹 "만화" 진입 (라이브러리 도서 + 발행 만화 존재 시). 없으면 EmptyState.
-- `/comics` — **만화 단일 메뉴**(사이드바 Scripts 그룹 최상위 · `/library` 하위 탭 아님). redirect → `/comics/adapted`. 메뉴 안에서 **출처**로 나뉜다(ComicsTabs):
+- `/comics` — **만화 단일 메뉴**(레일 밖 · 상단 Read 패널 하단 링크 줄 · `/library` 하위 탭 아님). redirect → `/comics/adapted`. 메뉴 안에서 **출처**로 나뉜다(ComicsTabs):
   - **Adapted `/comics/adapted`** — 도서 각색(CCP). 우리가 가진 원서를 모델로 각색. 카탈로그 + 이어서 보기(`comic_read_progress`). 등록 도서면 리더 직행, 미등록이면 상세로.
   - **Restored `/comics/restored`** — 원본 복원(PDCP). 저작권 만료 만화 원본을 수집·복원. 호 단위 독립 콘텐츠(원작이 만화 자체).
 - `/comics/adapted/[bookId]` — 만화 상세. **미등록·비로그인도 프리뷰 3컷 열람**(아트만 — 정본 대사/vocab 은 리더 자산) + 포맷 선택. 시작 시 `enroll_library_book`(멱등) 후 리더 직행.
@@ -728,7 +728,7 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ### 발견 (v07 CCP × Library — `docs/CCP_LIBRARY_INTEGRATION.md`)
 만화는 **별도 콘텐츠가 아니라 같은 책(Work)의 다른 표현형(Expression)** — 데이터는 `library_books` 앵커, 탐색 UI 만 독립 코너화.
-- **메뉴**: 사이드바 Scripts 그룹의 `Comics`(최상위). 2026-08-09 사용자 결정으로 LibraryTabs 4번째 탭에서 승격 — `/library` 탭은 3탭(도서/스크립트/공용 단어장)으로 복귀. 만화 액센트 = gold `--active`.
+- **메뉴**: 상단 Read 패널의 **하단 링크 줄**(열 밖 · 번호 밖 — 학습 단계가 아니라 읽는 방식. v08.6 이전에는 사이드바 최상위). 2026-08-09 사용자 결정으로 LibraryTabs 4번째 탭에서 승격 — `/library` 탭은 3탭(도서/스크립트/공용 단어장)으로 복귀. 만화 액센트 = gold `--active`.
 - **포맷 facet**: 장르 축과 직교. `BookFilterBar` "포맷" 구획(만화/원어민 음성) + QuickPick "만화로" + `BookGridCard` 배지(아이콘+sr-only).
 - **선택**: `NetflixDetailSheet` 도서 상세에 gold 보조 CTA(만화로 읽기 / 만화 미리보기) + 만화 상세의 `ComicFormatChoice`(만화/원문/듣기 3카드, **권장 1개만** "지금 추천").
 - **처방**: `lib/comic/prescribe.ts` — 이어보기 > 복습 > 난이도 > 미진단 순. 적정 난이도(ideal)에선 **본문을 권장**(만화는 스캐폴드).
@@ -758,7 +758,7 @@ Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 검증된 인디 게임 원형으로 훈련. 모듈이 아니라 **모듈 위에 얹히는 놀이 표면**.
 
 ### 라우트
-- `(main)/arcade` — 허브 (Sidebar Practice 그룹 등재 · `/hub` ArcadeEntryCard)
+- `(main)/arcade` — 허브 (상단 Practice 패널 「놀이로」 열의 Game Lab ③ · `/hub` ArcadeEntryCard)
 - `(app)/play/<slug>` — 게임 본체 19종 (풀스크린 · SessionFrame 자동 주입)
 
 ### 카탈로그 SSoT — `lib/game/catalog.tsx`
@@ -833,8 +833,7 @@ v07.8 이후 19종 전부가 `mine` 이라 이 축으로는 아무것도 갈리�
   `trial`(실제 클릭) 두 모드로 쓰인다 — 설명에서 본 그림과 눌러 보는 그림이 같아야 배운 것이 이어진다.
 - 스크린샷을 쓰지 않는 이유: 게임이 바뀌면 조용히 거짓이 되고, 스크린리더·대비·터치 타겟을 통제할 수 없다.
 - 계열은 탭으로 4모드 전환(`GameBriefModal entries[]`). `Launch` 는 허브가 계산한 **스코프 포함 URL**.
-- 모달 금지 규칙(CLAUDE.md)과의 관계: 금지 대상은 **세션 중** 인출을 끊는 오버레이다.
-  이 다이얼로그는 세션 진입 **전** 국면에만 열린다.
+- 이 다이얼로그는 세션 진입 **전** 국면에만 열린다(세션 중 인출을 끊지 않는다). (모달 금지 규칙은 DD-66 으로 삭제.)
 
 #### v08.4 — 전수 평가 → 표현력 확장 → 19종 재설계
 
@@ -964,7 +963,7 @@ head/tail/body 를 각각 별도 `-i` 로 열 것.
 8 kHz 이상 에너지 0~0.6% · `correct`/`complete` 는 스펙트럴 평탄도 0.0000 인 대역제한 합성음이었다.
 교체본은 스테레오 실녹음(벨 · 나무 타격 · 반짝임 · 타자기 타건 · 실제 동전 · 금관 합주 · 총 494 KB).
 `useSfx` API·`SFX_SRC` 확장자 매핑 불변 → 게임 코드 변경 0. 오답이 버저가 아니라 나무 타격인 것은
-Empathetic Feedback(오답에 비난조 금지).
+Empathetic Feedback 의 적용이다.
 
 ⚠️ `.gk-root > :not(...)` / `.wbz-root > :not(...)` 같은 자식 일괄 규칙에 **반드시 `:not(.gk-music-btn)` 을 넣을 것** —
 빠뜨리면 명시도에 밀려 `position: fixed` 가 죽고 버튼이 흐름에 박힌다(v07.4 이전 전 게임 증상).
@@ -987,6 +986,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 산출물 | `lib/csat/trap-atlas.json` (59KB) |
 | 순수 모델 | [`lib/csat/trap-atlas.ts`](../apps/web/src/lib/csat/trap-atlas.ts) — `rankFor`(범위별 재집계) · `baselineShare`/`liftOf`(배수 · **분모를 이름 붙은 것끼리 맞춘다**) · `standoutFor`(카드가 같은 말을 반복하지 않게) · `DETECTOR`(우리가 쓴 「잡는 법」 20줄 — **센 값이 아니다**) |
 | 화면 | [`components/csat/TrapAtlas.tsx`](../apps/web/src/components/csat/TrapAtlas.tsx) — 허브(`as="h1"` · 유형 칩)와 유형 화면(`showLift` · 칩 없음) 둘이 같은 컴포넌트를 쓴다 |
+| 작업 공간 | [`components/csat/space/SpaceScreen.tsx`](../apps/web/src/components/csat/space/SpaceScreen.tsx) + [`lib/csat/space-model.ts`](../apps/web/src/lib/csat/space-model.ts)(순수) — `/csat/space`. **같은 구운 JSON 을 세 번째로 쓰는 화면**이고 DB 왕복이 0 이다. 유형 26 · 함정 32 를 한 표에 놓고, 무늬 띠는 그 표의 그림이다(원 하나 = 한 줄 · 지름 = 그 줄의 양 · 난수 없음). 줄을 펼치면 `DETECTOR` 한 줄 · 넓이 · 예시 기출(`/csat/item/[slug]`) · 서가 카드 넷 |
 | 시간 띠 | [`lib/csat/plan-timeline.ts`](../apps/web/src/lib/csat/plan-timeline.ts)(순수 — `buildTimeline`·`clampSpeed`) · [`components/csat/PlanTimeline.tsx`](../apps/web/src/components/csat/PlanTimeline.tsx) |
 | 내 기록 (④재기) | [`lib/csat/my-traps.ts`](../apps/web/src/lib/csat/my-traps.ts) — **표본 문턱을 여기서 쥔다**(함정당 3회 · 전체 20회). 넘기 전에는 배수를 말하지 않고 센 것만 보여 준다. `returningCardIds`·`drillBias` 가 기록을 **다음 훈련 세트**로 되먹인다(24시간 지난 최근 오답 · 문턱 넘은 약한 수법) |
 | 순서 (⑤주파) | [`lib/csat/plan-order.ts`](../apps/web/src/lib/csat/plan-order.ts)(순수 — 내 약점 × 유형 구성) · `plan/PlanList.tsx`(토글). ⚠️ **시간 띠는 정렬하지 않는다** — 시험은 번호대로 치러진다 |
@@ -1036,6 +1036,30 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 게이트 | Gate 0 `tts-probe.mts` · Gate 2 `gate2-play.mts`(진짜 Chrome·Edge 를 CDP 로 — Playwright 가 띄운 브라우저는 음성 0개) · Gate 3 `gate3-input.mts`(정답표 없는 학습자 역할) — 리포트 `docs/csat-lecture/` |
 | 계측 | `csat_lecture_played`(mode·from·rate) · `csat_lecture_ended`(cues·jumps·mode) — 허용 목록 마이그레이션 `20260917150000` |
 | 회귀 | 순수 33(`lib/csat/lecture/__tests__/core.test.ts`) + 런타임 3(`tests/e2e/46-csat-lecture.spec.ts` — 무음 완주 · 375px · 키보드 · 서버 HTML 에 대본 0 · 블록 클릭) |
+
+---
+
+## 기출 서가 · 출제 사고(옛 「해설 극장」) — 802문항 자유 탐색 (2026-09-23)
+
+학습자가 열 수 있는 문항이 **12개**였다(오늘의 해부가 요구하는 손질된 메타데이터를 가진 것만).
+자료는 처음부터 **802문항 전부 공개 분석 · 792 강의 · 666 지문 지도**였다. 게이트를 걷고 두 화면을 세운다:
+**서가**(`/csat` 안 · 네 축으로 좁혀 고른다)와 **극장**(`/csat/item/[slug]` · 왼쪽 차례 · 오른쪽 지도와 블록).
+설계 정본 [csat-learner/analysis-theater.md](./csat-learner/analysis-theater.md).
+
+| | |
+|---|---|
+| 서가 규칙(순수) | [`lib/csat/browse-model.ts`](../apps/web/src/lib/csat/browse-model.ts) — `examAxis`(수능/모의·학년도·월) · `browseExamOrder`(최근 학년도 → 수능 → 9월 → 6월) · `filterBrowse`(축 넷 **AND** + 찾기, 번호는 완전 일치) · `groupByExam` |
+| 서가 로더(서버) | [`lib/csat/browse.ts`](../apps/web/src/lib/csat/browse.ts) — `csat_items_public` 802행 + 강의 색인 + 골격 앵커 → 문항마다 `lecture`·`map` 플래그. 프로세스 캐시 10분. **지문·선지·발문은 읽지 않는다**(`stem` 컬럼이 있어도) |
+| 서가 화면 | [`components/csat/browse/CsatWorkspace.tsx`](../apps/web/src/components/csat/browse/CsatWorkspace.tsx) — `/csat/browse`. 홈과 같은 메뉴 · 결. 회차 단위 번호 칩 · 강의 없는 문항은 **점선**, 연 문항은 옅게 · 「아무거나 한 문항」 · 쿼리 `?type` `?exam` `?status` `?from` `?q` |
+| 기출분석공간 메뉴 | [`components/csat/home/CsatRail.tsx`](../apps/web/src/components/csat/home/CsatRail.tsx) — 홈 · 이어서·복습(개수) · 내 기록 · 전체 서가 / 목적별 5 / 유형별 / 회차별. 어느 축이든 같은 서가 → 같은 문항 화면(docs/csat/ia-design.md §1) |
+| 상태 카드 · 이어서 판 · 내 기록 | [`home/ContinueCard.tsx`](../apps/web/src/components/csat/home/ContinueCard.tsx)(첫 방문 · 재방문 · 공백 복귀) · [`home/ContinuePanel.tsx`](../apps/web/src/components/csat/home/ContinuePanel.tsx) · [`home/RecordScreen.tsx`](../apps/web/src/components/csat/home/RecordScreen.tsx) · Today 한 줄 [`home/CsatContinueLine.tsx`](../apps/web/src/components/csat/home/CsatContinueLine.tsx) · 기록 훅 [`home/useCsatRecord.ts`](../apps/web/src/components/csat/home/useCsatRecord.ts) |
+| 지속 학습 규칙(순수) | [`lib/csat/continuity.ts`](../apps/web/src/lib/csat/continuity.ts) — 방문 상태 · 밀린 복습 ≤3 압축 · 넓이 · 학습한 날 · 기기↔서버 **항목 단위 병합**(`/api/csat/state` PUT 도 이것으로 합친다) |
+| 극장 골격(순수) | [`lib/csat/theater.ts`](../apps/web/src/lib/csat/theater.ts) — 강의 큐 → 왼쪽 단계 이름(역할·타깃에서만 짓는다) · 역할 → 효과음 · 분석 층 → 오른쪽 블록(**빈 칸은 만들지 않는다**) · `blockKeyForTarget`(문장 앵커는 지도로) |
+| 대본 없는 차례 | `lecture/store.ts` `lectureOutline` + `lecture/types.ts` `LectureStep` — 역할·타깃·길이·말한 문장 번호만. **재생 전에도 레일이 선다**(대본은 여전히 API 로만) |
+| 극장 화면 | [`components/csat/theater/AnalysisTheater.tsx`](../apps/web/src/components/csat/theater/AnalysisTheater.tsx) — 레일(차례) · 무대(`PassageMap` + 블록) · 장 카드 · 「전부 펼쳐 읽기」 · ←/→ · 배속 |
+| 효과음 | [`lib/csat/theater-sfx.ts`](../apps/web/src/lib/csat/theater-sfx.ts) — 넷(step·mark·trap·seal), 큐 경계에서만. 기존 **실녹음 샘플을 배속으로** 다시 쓴다(새 자산 0). `wrong.wav` 는 쓰지 않는다 · 기본 끔 · 샘플을 못 받으면 무음 |
+| 엔진 | **변경 없음** — `LecturePlayer` · `LectureStage` · `PassageMap` 그대로 |
+| 회귀 | 순수 **28** — [`theater.test.ts`](../apps/web/src/lib/csat/__tests__/theater.test.ts) 16(차례·이름·소리·블록·빈 칸 없음·정답표 없는 회차) + [`browse-model.test.ts`](../apps/web/src/lib/csat/__tests__/browse-model.test.ts) 12(축 AND · 거르지 않음 · 번호 완전 일치 · 회차 순서) |
 
 ---
 
@@ -1118,7 +1142,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 단어 모험 3D 게임 (R3F · @react-three/fiber + drei). 아케이드 카탈로그 `source: bank` · `beta`.
 
 ### 라우트
-- `/play/pirate-quest` — 풀스크린 (사이드바 X · SessionFrame ✓ · 복귀 `/arcade`)
+- `/play/pirate-quest` — 풀스크린 (셸 메뉴 X · SessionFrame ✓ · 복귀 `/arcade`)
 
 ### 컴포넌트 (`components/pirate-quest/`)
 - `PirateQuestGame.tsx` / `PirateQuestUI.tsx` / `PirateQuestUI.css`

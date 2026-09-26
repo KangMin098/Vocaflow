@@ -16,7 +16,7 @@ import React from 'react'
 import { AbsoluteFill } from 'remotion'
 
 import type { VideoSpec } from '../spec/types'
-import { ACCENT, ACCENT_SOFT, FONT, SURFACE } from '../theme/palette'
+import { accentColor, accentSoft, FONT, SURFACE } from '../theme/palette'
 import { KO, hasHangul } from './Frame'
 
 export const THUMB_WIDTH = 1280
@@ -41,7 +41,7 @@ const KIND_CHIP: Record<VideoSpec['kind'], string> = {
 }
 
 export const Thumbnail: React.FC<ThumbnailProps> = ({ spec, brand }) => {
-  const color = ACCENT[spec.accent]
+  const color = accentColor(spec.accent)
   // 근거가 있으면 **가장 큰 수** 하나를 쓴다 — 작은 수는 썸네일에서 설득력이 없다.
   const headline = [...spec.evidence]
     .map((e) => ({ e, n: Number(e.value.replace(/,/g, '')) }))
@@ -77,7 +77,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({ spec, brand }) => {
               fontSize: 30,
               letterSpacing: '0.04em',
               color,
-              backgroundColor: ACCENT_SOFT[spec.accent],
+              backgroundColor: accentSoft(spec.accent),
               padding: '10px 22px',
               borderRadius: 10,
               ...KO,

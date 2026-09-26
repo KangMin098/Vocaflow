@@ -1,0 +1,58 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2306#34",
+      "roles": ["topic", "example", "example", "example", "support", "conclusion"],
+      "alternatives": [{ "index": 3, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "‘전개는 정교해질 수 있다’는 일반 진술 아래 바흐와 베토벤 사례를 두고, 빈칸 앞뒤에 같은 뜻의 재진술을 나눠 배치해 두 판본을 하나로 묶어야 풀리는 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "빈칸 뒤 문장의 ‘동기에 계속 새로운 쓰임을 찾는다’는 진술이 선지의 ‘놀랄 만큼 다양한 방식으로 나타난다’로 같은 추상 수준에서 다른 말로 바뀌었다.",
+      "cues": []
+    },
+    {
+      "id": "M2209#34",
+      "roles": ["topic", "support", "support", "turn", "example", "support", "support", "support"],
+      "alternatives": [{ "index": 5, "role": "conclusion" }],
+      "pattern": "problem_solution",
+      "selection": "습관화라는 이름을 지우고 기능만 첫 문장 빈칸에 남긴 뒤, 문제 → 비용 → 예시 → 해법 순서로 곧게 풀어 해법 문장에서 빈칸을 되찾게 한 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "해법 문장의 ‘자주 나타나는 안전한 자극에 익숙해진다’가 선지의 ‘무해한 자극이 있는 가운데서도 활동한다’로 같은 뜻의 다른 표현이 되었다.",
+      "cues": []
+    },
+    {
+      "id": "M2109#33",
+      "roles": ["topic", "support", "support", "support", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 6, "role": "topic" }],
+      "pattern": "myth_rebuttal",
+      "selection": "평등을 같음에서 찾는 통념을 뒤집어 같음과 다름의 맞물림 위에 세우고, 그 갈라 쓰기를 권리 쪽으로 옮겨 적게 해 부정 표현을 거꾸로 읽어야 풀리는 글이다.",
+      "transform": "negation_flip",
+      "transform_note": "‘평등한 권리가 동일한 권리를 뜻하지는 않는다’는 부정 진술이 선지에서 ‘평등을 누리려면 서로 다른 권리가 필요하다’는 긍정형으로 바뀌었다.",
+      "cues": []
+    },
+    {
+      "id": "M2109#32",
+      "roles": ["background", "turn", "support", "topic", "support", "turn", "conclusion"],
+      "alternatives": [{ "index": 6, "role": "topic" }],
+      "pattern": "myth_rebuttal",
+      "selection": "유전공학이 다양성을 위협한다는 통념을 반박한 뒤 방향을 틀어 야생 생물의 가치로 옮겨 가므로, 앞 소재에 끌리지 않고 마지막 이유절에서 결론을 복원해야 하는 글이다.",
+      "transform": "inference",
+      "transform_note": "‘야생 동식물이 미래의 약을 품고 있을지 모른다’는 이유에서 지문에 직접 없는 ‘자연 생태계를 파괴하지 말아야 한다’는 결론을 논리로 채워야 한다.",
+      "cues": []
+    },
+    {
+      "id": "2014B#32",
+      "roles": ["topic", "support", "example", "example", "example", "support", "conclusion"],
+      "alternatives": [{ "index": 6, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "‘사람 수와 연결이 성공을 좌우한다’는 일반 진술을 호주 이주 사례로 풀고, 빈칸 문장의 병렬 짝과 지시어가 앞의 ‘기술의 일부만 가져왔다’를 가리키게 설계한 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "‘기술의 표본만 지녔을 것이다’는 진술이 선지의 ‘기술의 일부만 가지고 도착했다’로 같은 뜻의 다른 말이 되었다.",
+      "cues": []
+    }
+  ]
+}

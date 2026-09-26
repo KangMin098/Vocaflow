@@ -1,0 +1,842 @@
+[
+ {
+  "id": "3d4575a3-c4ae-4526-b83c-1528c628607d",
+  "source_updated_at": "2026-09-25T07:36:32.132632+00:00",
+  "body_sha256": "7444764b0e9f10a6e2d84cb61416f4dfb164f080376212bc3e4bb13907df4b9c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "샤페론 TRiC 결손이 광수용체의 에너지 대사 붕괴로 이어진다는 논지를 서론-고찰이 한 편으로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The visual function of vertebrates is",
+   "note": "단백질 약어를 「접힘 도우미 단백질」로 바꾸면 서지만 그림 참조 문장은 걷어야 한다."
+  }
+ },
+ {
+  "id": "3d48baa3-784c-4e0c-85b0-1009cb80c14b",
+  "source_updated_at": "2026-09-15T14:51:34.694961+00:00",
+  "body_sha256": "586283421934ea7ff78633def6a7bd940c198f4d1290d23379667c89ad49e3cc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "발효 과육 부산물을 사료로 쓰는 까닭과 결과를 서론-고찰이 인과로 이어 놓아 발췌가 쉽다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "With rapid growth of animal husbandry",
+   "note": "지방산 코드(C20:4n6)는 걷어도 「산화 방지 성분이 고기 질을 지킨다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "3d53ab5d-40cb-4284-9188-2d5ff1b28445",
+  "source_updated_at": "2026-09-13T07:18:49.916318+00:00",
+  "body_sha256": "1b672d67e00b1124432051d681773b10a371e083312dcfb416a3f9cfc9a95b1a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "염증 매개물 eCIRP를 차단하면 폐 섬유화가 줄어든다는 가설-검증 흐름이 고찰에서 또렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Pulmonary fibrosis is a devastating",
+   "note": "고찰 첫 단락은 떼어도 서지만 유전자 약어가 많아 밴드를 내리기 어렵다."
+  }
+ },
+ {
+  "id": "3d5599cd-0613-4105-a459-868378238e1f",
+  "source_updated_at": "2026-09-15T14:51:36.109946+00:00",
+  "body_sha256": "4f5e146af1fc8ef720a46ff8874c35bdb5dc1e23eaf397c31a08141f9258e5ba",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "활성산소 관련 유전자 신호를 찾아 뇌졸중 진단 지표로 제안하는 논지가 고찰에 정리돼 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The burden of ischemic stroke continues",
+   "note": "서론은 떼어 쓰기 좋으나 결과 절은 약어 나열이라 쓰기 어렵다."
+  }
+ },
+ {
+  "id": "3d5cd371-dfdb-48c8-8680-4f504f5c67ef",
+  "source_updated_at": "2026-09-25T07:36:35.450661+00:00",
+  "body_sha256": "f93f0cb00c3c074cec298d7892f88c84e1baa499ccfdd717ec9397c006dd8857",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "성별과 노화가 면역에 함께 작용하므로 획일적 의학이 실패한다는 주장을 근거를 쌓아 전개한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The immune system can be divided",
+   "note": "논평 성격이라 수치를 걷어도 주장이 서고 어휘 조정도 된다."
+  }
+ },
+ {
+  "id": "3d65ba35-f594-4f13-a540-53ea8920d4b5",
+  "source_updated_at": "2026-09-13T07:22:10.007693+00:00",
+  "body_sha256": "8b6cb7a766761e828c0945db57ad34d117561220579593a75d680588d7fc0c4b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "헤어핀 말단의 어긋난 염기가 바이러스 성숙에 필요하다는 결론을 실험 사슬로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Poxviruses encapsulate large double-stranded DNA",
+   "note": "서론은 서지만 본문에 염기서열 표가 섞여 그 부분은 걷어야 한다."
+  }
+ },
+ {
+  "id": "3d6c0e74-ebc2-463b-a0ed-10088eab8dc1",
+  "source_updated_at": "2026-09-15T14:51:40.354016+00:00",
+  "body_sha256": "1292f746743f1708e58e64495b53f79727b96ca3d3c14546c82dd13d5363e45b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "소아 폐렴에서 sST2 수치가 중증 사건을 예측한다는 주장을 기존 지표와 견주어 편다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mycoplasma pneumoniae is a major",
+   "note": "서론 두 단락은 수치를 걷어도 서고 의학 용어 몇 개만 풀면 된다."
+  }
+ },
+ {
+  "id": "3d71350b-c98a-4dec-8770-3d9528b42f98",
+  "source_updated_at": "2026-09-13T07:39:44.629052+00:00",
+  "body_sha256": "cb36a360535edafb21cb039ec3c87be41e0c1e17fc2e650c25cc6e97e6b3f131",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "IL-4 수용체가 면역 형성 뒤에도 유지·회상에 필요하다는 새 주장을 실험 대조로 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Gut nematodes infect close to",
+   "note": "서론 첫 단락은 떼어지지만 계통 표기가 촘촘해 밴드 하향이 어렵다."
+  }
+ },
+ {
+  "id": "3d758811-0016-49f7-a83f-5c9667d6328d",
+  "source_updated_at": "2026-09-13T06:24:57.457551+00:00",
+  "body_sha256": "35643900fa5dbf0c0a1e76a8acc788b70d2d737ad8a6619225ea9a0a097b5f0e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "숙주 효소 OTUB1이 인플루엔자 단백질을 안정시켜 증식을 돕는다는 기전 설명이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The influenza A virus genome",
+   "note": "서론은 서지만 플라스미드 명칭이 많아 어휘 교체만으로는 내려가지 않는다."
+  }
+ },
+ {
+  "id": "3d75b537-1891-4103-8b93-1ec406ef4374",
+  "source_updated_at": "2026-09-13T07:22:14.767998+00:00",
+  "body_sha256": "35b606b147b61c23fa958ed2c963d8cecc6d3222b8ddfe35b83b3f5ba0adb4d9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "사회적 단절을 심혈관 위험 요인으로 선별검사에 넣자는 주장을 문헌 종합으로 밀고 간다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cardiometabolic diseases such as cardiovascular",
+   "note": "가운데 연구 목록 표는 걷고 서론·고찰만 쓰면 논지가 온전하다."
+  }
+ },
+ {
+  "id": "3d92fa4d-5743-43e3-a0d9-b789db7db0ca",
+  "source_updated_at": "2026-09-15T14:51:44.598021+00:00",
+  "body_sha256": "6951fadf63d05b4d55ec834415461edc92e1e3d4170cd74a75586d1f5277bac1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두 항응고 치료의 성적을 견주어 경구약이 대안이 된다는 결론을 한 편으로 세운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Takotsubo cardiomyopathy named after the",
+   "note": "서론은 수치를 걷어도 서고 약물명은 「먹는 항응고제」로 바꿀 수 있다."
+  }
+ },
+ {
+  "id": "3daf9c81-97ec-484d-b5bf-2407f7553e92",
+  "source_updated_at": "2026-09-15T14:51:48.162707+00:00",
+  "body_sha256": "1dfb9fed6740cfc073dae41d4beb8a951cd55882ae9fc1a084f638275bd8f95d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "회복기 환자와 롱코비드를 구분하는 지표를 찾는다는 문제 설정과 결론이 맞물린다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The coronavirus pandemic had a profound",
+   "note": "서론은 떼어지나 단백질 약어표가 길어 그 부분은 버려야 한다."
+  }
+ },
+ {
+  "id": "3dcc3bc7-a954-4d9b-b01f-3172982a7637",
+  "source_updated_at": "2026-09-25T07:36:48.508853+00:00",
+  "body_sha256": "a2ffcd6d31eb39129c880d7d26e035f4481504907457d89b52412f89aa1e26a0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "백신 면역이 특정 B세포 계통의 확장으로 이어졌다는 관찰을 구조 분석으로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Robust protective vaccine efficacy against HIV-1",
+   "note": "서론만 겨우 떼어지고 결과 절은 구조 좌표 서술이라 가공이 막힌다."
+  }
+ },
+ {
+  "id": "3dd4bd60-7331-41b4-a37f-17ad3efae24a",
+  "source_updated_at": "2026-09-25T07:36:51.163652+00:00",
+  "body_sha256": "e5f39d1910340d38bfc5112d076a6879d5a4e6d484c2aa2e86c573cb5efe96a5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "두 살파 종의 발생을 견주어 피낭류 발생 다양성을 보이는 논지가 고찰에서 명확하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "then-now",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Tunicates the sister group to vertebrates",
+   "note": "서론과 고찰은 종 이름만 풀면 서고 단계표 서술은 걷는다."
+  }
+ },
+ {
+  "id": "3df2aa08-2984-428c-8e37-d22f04784110",
+  "source_updated_at": "2026-09-25T07:36:54.042269+00:00",
+  "body_sha256": "5fbd63df13e57472cb4f7cafb4aa6ff3b7746fa01ade1cb9a3c73a9e478e2819",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "유채 SIR2 유전자군을 찾아 스트레스 반응과 잇는 흐름이 고찰에서 논지로 모인다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Plants have evolved sophisticated epigenetic",
+   "note": "서론은 서지만 유전자 이름과 도구 목록이 많아 발췌 범위가 좁다."
+  }
+ },
+ {
+  "id": "3df53e75-a07b-4ea0-9bae-2ef6fefce608",
+  "source_updated_at": "2026-09-15T14:51:58.215969+00:00",
+  "body_sha256": "66410abb12acab979472f75a1274a25c175ebded3989cae1a25d9aa70fca5e3b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "옆으로 눕는 자세가 아래쪽 폐의 환기를 늘린다는 결과를 중력 원리로 설명해 자족적이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Body positioning interventions have been used",
+   "note": "서론과 고찰 앞부분은 장비 이름만 풀면 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "3df93029-3ba8-4d70-ae26-c62314ffb0b9",
+  "source_updated_at": "2026-09-25T07:36:55.735484+00:00",
+  "body_sha256": "ed3465743efedba8c8861b9d57585f521e0af43759a613017c08fe567ca45d50",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "genre": "health",
+  "why": "아직 수행되지 않은 연구의 절차서라 본문 대부분이 앞으로 할 일의 목록이다.",
+  "hold_reason": "processing-unclear",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Inflammatory bowel diseases are chronic systemic",
+   "note": "서론·고찰에는 논지가 있으나 방법 절이 계획 나열이라 한 편으로 서는 범위가 불분명하다."
+  }
+ },
+ {
+  "id": "3dfb47fd-1672-4fd2-8720-71ff5d432ead",
+  "source_updated_at": "2026-09-13T06:51:54.055946+00:00",
+  "body_sha256": "448ad88756939c64d49af5c69b2fc80ed854ae8b1b98fe9530f0d890a3c3ddee",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "history",
+  "why": "철기시대 무덤의 사람-동물 합장을 여러 분석으로 읽어 내는 서술이 이야기처럼 이어진다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The deposition of whole animals or",
+   "note": "유적 번호와 표는 걷어도 말과 개의 상징 해석 단락이 온전히 선다."
+  }
+ },
+ {
+  "id": "3e4cfe7e-1a0b-4e98-87bf-166147fa6106",
+  "source_updated_at": "2026-09-15T14:52:07.259602+00:00",
+  "body_sha256": "3cf005da8cb8c856ace17f8973d1b1f02474d0b305c04e1f67cfd5c8ebc490f2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "간헐적 저산소가 위 점막을 상하게 하고 멜라토닌이 이를 덜어 준다는 인과가 한 편에 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Obstructive sleep apnea-hypopnea syndrome characterized by",
+   "note": "통계 F값 문단은 걷고 서론·고찰만 쓰면 논지가 남는다."
+  }
+ },
+ {
+  "id": "3e503356-18e2-4a5b-8d68-42165cfef280",
+  "source_updated_at": "2026-09-13T07:16:26.64454+00:00",
+  "body_sha256": "5a292a93dc28d46acc48d71956bbcbef42f84b7795b4aea1da2c9b524726c1c3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "식사 재개 뒤 흡인성 폐렴이 생기는 시점을 재어 불필요한 금식을 줄이자고 제안한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pneumonia is an age-related condition that",
+   "note": "환자 표는 걷어도 「17일」이라는 결론과 근거가 그대로 선다."
+  }
+ }
+]

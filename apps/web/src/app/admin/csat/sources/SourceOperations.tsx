@@ -2,7 +2,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import useSWR, { mutate } from 'swr'
-import { SOURCE_QUEUES, SOURCE_REASON_LABELS, SOURCE_BREAKDOWN_REASONS, buildSourceWorkQueue, sourceNextAction, type SourceQueue, type SourceMetric, type SourceBreakdownReason, type SourceOperationRow, type SourceInspectorData, type SourceNextAction } from '@/lib/textbook/source-operations'
+import { SOURCE_QUEUES, SOURCE_REASON_LABELS, SOURCE_BREAKDOWN_REASONS, sourceNextAction, type SourceQueue, type SourceMetric, type SourceBreakdownReason, type SourceOperationRow, type SourceInspectorData, type SourceNextAction } from '@/lib/textbook/source-operations'
 import styles from './source-operations.module.css'
 
 const API = '/api/admin/csat/sources'
@@ -21,44 +21,6 @@ function ActionGuidance({ action }: { action: SourceNextAction }) {
     <p><b>이유</b> {action.why}</p><p><b>영향</b> {action.impact}</p>
     <p><b>다음</b> {action.next}</p><p><b>확인</b> {action.verify}</p>
   </section>
-}
-
-export function SourceActionQueue({ onSelect }: { onSelect: (queue: SourceQueue, reason?: SourceBreakdownReason) => void }) {
-  const { data, error, mutate: retry } = useSWR<Summary>(`${API}?summary=1`, get)
-  if (error) return <p className={styles.notice} role="alert">작업 집계를 읽지 못했습니다. <button onClick={() => void retry()}>다시 읽기</button></p>
-  if (!data) return <p className={styles.notice} role="status">지금 확인할 작업을 계산하고 있습니다.</p>
-  const items = buildSourceWorkQueue(data.counts)
-  return <section className={styles.actionQueue} aria-label="지금 해야 할 작업">
-    <div className={styles.sectionHead}><div><span>STATUS → ACTION</span><h3>지금 해야 할 작업</h3></div><p>문항 연결과 정책 차단을 먼저 확인합니다. 각 대상은 겹칠 수 있습니다.</p></div>
-    {items.length ? <ol>{items.map(item => <li key={item.id}>
-      <button onClick={() => onSelect(item.queue, item.reason)}>
-        <span className={styles.actionMeta}><b>{item.priority}</b> · {item.kind.toUpperCase()} · {number(item.count)}편</span>
-        <strong>{item.title}</strong>
-        <span>{item.why}</span>
-        <small>다음: {item.next}</small>
-        <small>전제: {item.dependency} · 확인: {item.verify}</small>
-        <em>대상 원문 보기 →</em>
-      </button>
-    </li>)}</ol> : <p>현재 정의된 작업 대상이 없습니다. 전체 원문에서 최신 판정을 확인하세요.</p>}
-    <p className={styles.caption}>대상 편수는 정책 캐시의 범위별 수치입니다. 작업 가능 편수나 처리 완료 편수로 해석하지 않습니다. 가장 오래된 측정 {data.measuredAt?.slice(0,16).replace('T',' ') ?? '미측정'} UTC · 정책 v{data.policyVersion}</p>
-  </section>
-}
-
-export function SourceQueueSummary({ onSelect }: { onSelect: (queue: SourceQueue) => void }) {
-  const { data, error, mutate: retry } = useSWR<Summary>(`${API}?summary=1`, get)
-  if (error) return <p className={styles.notice} role="status">운영 집계 연결 실패. <button onClick={() => void retry()}>다시 읽기</button></p>
-  if (!data) return <p className={styles.notice} role="status">원문별 판정 집계를 읽고 있습니다.</p>
-  return <div className={styles.root}>
-    <nav className={styles.summary} aria-label="원문 운영 현황">
-      {(['all', 'eligible', 'conditional', 'review', 'rejected'] as SourceQueue[]).map(key => <button key={key} title={data.metrics[key].definition} onClick={() => onSelect(key)}>
-        <span>{SOURCE_QUEUES[key]}</span><b>{data.counts[key].toLocaleString()}</b>
-      </button>)}
-      <button title={data.metrics.analyzed.definition} onClick={() => onSelect('analyzed')}><span>분석 완료</span><b>{data.counts.analyzed.toLocaleString()}</b></button>
-      <button title={data.metrics.unavailable.definition} onClick={() => onSelect('unavailable')}><span>학습·교재 사용 대기</span><b>{data.counts.unavailable.toLocaleString()}</b></button>
-      <button title={data.metrics.p0.definition} onClick={() => onSelect('p0')}><span>반려 · 문항 연결</span><b>{data.counts.p0.toLocaleString()}</b></button>
-    </nav>
-    <p className={styles.caption}>원문 정책 v{data.policyVersion} · {data.measuredAt?.slice(0, 16).replace('T', ' ') ?? '미측정'} UTC 기준. 조건부는 문항별 검증이 필요합니다.</p>
-  </div>
 }
 
 export function SourceOperations({ queue, onQueue, reason, onReason, source, onSourceClear }: { queue: SourceQueue; onQueue: (queue: SourceQueue) => void; reason: SourceBreakdownReason | null; onReason: (reason: SourceBreakdownReason | null) => void; source: string | null; onSourceClear: () => void }) {

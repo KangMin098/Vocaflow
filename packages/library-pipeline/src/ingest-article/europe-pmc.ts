@@ -34,6 +34,7 @@
 
 import { fetchWithTimeout } from './_helpers'
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 const REST = 'https://www.ebi.ac.uk/europepmc/webservices/rest'
 
@@ -60,6 +61,22 @@ export function epmcLicenseCode(license: string | null | undefined): string | nu
   if (k === 'cc by' || k === 'cc-by') return 'CC-BY-4.0'
   if (k === 'cc by-sa' || k === 'cc-by-sa') return 'CC-BY-SA-4.0'
   return null
+}
+
+/**
+ * 목록 값과 전문 XML 값에서 **적재할 license 문자열**을 고른다(DD-75 — 버리지 않고 담는다).
+ *
+ * - 둘 중 통과 목록 밖인 값이 있으면 **그 값을 찾은 그대로** 돌려준다 — 더 제한적인 쪽을 믿는다.
+ *   DB 트리거 `acp_classify_license` 가 restricted 로 분류해 서비스에서 막는다.
+ * - 모두 통과면 DB 코드(`CC-BY-4.0` 등)로 옮긴다.
+ * - 표기가 하나도 없으면 'unknown' — 트리거가 restricted 로 분류한다.
+ */
+export function epmcResolveLicense(listLicense: string | null, fullTextLicense: string | null): string {
+  const candidates = [listLicense, fullTextLicense].filter((x): x is string => !!x && !!x.trim())
+  if (candidates.length === 0) return 'unknown'
+  const blocked = candidates.find((l) => !epmcLicenseAllowed(l))
+  if (blocked) return blocked.trim()
+  return epmcLicenseCode(candidates[0]!) ?? candidates[0]!.trim()
 }
 
 export interface EpmcFeed {
@@ -181,8 +198,8 @@ export interface EpmcListPage {
 }
 
 /**
- * 목록 한 페이지. **라이선스를 여기서도 건다** — 질의가 이미 걸고 있지만, 질의는 사람이 고칠 수
- * 있고 고쳐도 오류가 나지 않는다. 두 겹으로 두는 비용은 한 줄이고, 한 겹이 뚫리면 위법이다.
+ * 목록 한 페이지. 라이선스로 거르지 않는다(DD-75) — 질의가 CC BY 로 좁혀 두었지만 응답 값은
+ * 그대로 들고 가고, 통과 목록 밖이면 적재된 뒤 DB 트리거가 서비스에서 막는다.
  */
 export async function listEpmcFeedPage(
   feedId = 'review',
@@ -199,7 +216,8 @@ export async function listEpmcFeedPage(
   const items: EpmcListItem[] = []
   for (const r of rows) {
     if (!r.pmcid) continue // 열쇠를 못 만드는 항목은 담지 않는다 — 해시로 물러서지 않는다
-    if (!epmcLicenseAllowed(r.license)) continue
+    // 라이선스로 거르지 않는다(DD-75) — 값을 그대로 들고 가 적재기가 표기로 남긴다.
+    //   통과 목록 밖이면 DB 트리거가 restricted 로 분류해 서비스에서 막는다.
     items.push({
       pmcid: r.pmcid,
       title: (r.title ?? '').replace(/\.$/, '').trim() || '(제목 미상)',
@@ -332,10 +350,28 @@ export interface EpmcFetched {
 const NO_SEC_PARAGRAPH_CAP = 6
 
 /**
- * 본문 취득. **서론만 가져온다** — 논문 전체는 지문 규격(90~400어)의 수십 배이고,
- * 방법·결과 절은 통계 표기가 많아 지문이 되지 못한다.
+ * **원천 전문(全文)의 문단** — `<body>` 전체에서 표·그림·인용 번호를 걷은 문단 전부.
+ *
+ * 서론 발췌(`#p<a>-<b>`)는 원천이 아니다(docs/source-check/criteria.md §1 「파생물은 원천이 아니다」).
+ * 보관 판정은 논문 한 편에 붙으므로 원천 행은 본문 전체를 담는다(`scripts/textbook/epmc-ingest.mjs` ·
+ * `originals-backfill.mjs` · 2026-09-24). 절 제목 줄은 넣지 않는다 — 문단만.
  */
-export async function fetchEpmcArticle(pmcid: string): Promise<EpmcFetched | null> {
+export function epmcBodyParagraphs(xml: string): string[] {
+  const body = xml.match(/<body\b[^>]*>([\s\S]*)<\/body>/)?.[1]
+  return body ? epmcParagraphs(body) : []
+}
+
+/** `intro` — 서론 절만(지문 창용 · 예전 동작). `full` — 본문 전체(원천 행용). */
+export type EpmcScope = 'intro' | 'full'
+
+/**
+ * 본문 취득. 기본은 **서론만** 가져온다 — 논문 전체는 지문 규격(90~400어)의 수십 배이고,
+ * 방법·결과 절은 통계 표기가 많아 지문이 되지 못한다. 원천 행은 `scope: 'full'` 로 전문을 받는다.
+ */
+export async function fetchEpmcArticle(
+  pmcid: string,
+  { scope = 'intro' }: { scope?: EpmcScope } = {},
+): Promise<EpmcFetched | null> {
   const res = await fetchWithTimeout(epmcFullTextUrl(pmcid), {
     accept: 'application/xml',
     timeoutMs: 45_000,
@@ -349,7 +385,8 @@ export async function fetchEpmcArticle(pmcid: string): Promise<EpmcFetched | nul
   if (!intro) return null
 
   const all = epmcParagraphs(intro.xml)
-  const paras = secs.length > 0 ? all : all.slice(0, NO_SEC_PARAGRAPH_CAP)
+  const paras =
+    scope === 'full' ? epmcBodyParagraphs(xml) : secs.length > 0 ? all : all.slice(0, NO_SEC_PARAGRAPH_CAP)
   const content = paras.join('\n\n')
   const title = strip(
     xml.match(/<article-title\b[^>]*>([\s\S]*?)<\/article-title>/)?.[1] ?? '',
@@ -378,49 +415,50 @@ export async function fetchEpmcArticle(pmcid: string): Promise<EpmcFetched | nul
 }
 
 /**
- * 적재 한 건. **라이선스를 세 번째로 확인한다** — 질의 · 목록 · 여기.
- * 앞의 둘이 뚫려도 여기서 던지면 위법 본문이 DB 에 들어가지 않는다.
+ * 적재 한 건. 라이선스로 던지지 않는다(DD-75) — 원문은 담고, 찾은 표기를 `license` 에 남긴다.
+ * 서비스 차단은 DB 트리거(license → license_class · copyright_safe_in_kr)와 발행 적격이 맡는다.
  *
- * `listLicense` 는 목록에서 본 값이다. 전문 XML 의 값과 다르면 **둘 중 더 제한적인 쪽**으로
- * 판정한다 — 느슨한 쪽을 고르면 그 선택이 그대로 위법이 된다.
+ * `listLicense` 는 목록에서 본 값이다. 전문 XML 의 값과 다르면 **둘 중 더 제한적인 쪽**을
+ * 적는다(`epmcResolveLicense`) — 느슨한 쪽을 적으면 그 기록이 그대로 위법 발행이 된다.
  */
 export async function ingestEuropePmcArticle(
   pmcidOrUrl: string,
   listLicense: string | null = null,
+  { scope = 'intro' }: { scope?: EpmcScope } = {},
 ): Promise<RawArticle> {
   const pmcid = pmcidOrUrl.match(/PMC\d+/i)?.[0]?.toUpperCase()
   if (!pmcid) throw new Error(`Europe PMC PMCID 를 못 읽었다: ${pmcidOrUrl}`)
 
-  const got = await fetchEpmcArticle(pmcid)
+  const got = await fetchEpmcArticle(pmcid, { scope })
   if (!got) throw new Error(`Europe PMC 본문을 못 받았다: ${pmcid}`)
-  if (got.words < EPMC_MIN_WORDS) {
-    throw new Error(`Europe PMC 본문이 너무 짧다(${got.words}어 < ${EPMC_MIN_WORDS}): ${pmcid}`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = got.words < EPMC_MIN_WORDS
 
-  // 목록 값과 본문 값 중 **통과하지 못하는 쪽이 있으면 통과시키지 않는다.**
-  const candidates = [listLicense, got.license].filter((x): x is string => !!x)
-  if (candidates.length === 0) {
-    throw new Error(`Europe PMC 라이선스 표기가 없다 — 통과시키지 않는다: ${pmcid}`)
-  }
-  const blocked = candidates.find((l) => !epmcLicenseAllowed(l))
-  if (blocked) {
-    throw new Error(`Europe PMC 라이선스가 통과 목록 밖이다(${blocked}): ${pmcid}`)
-  }
+  const license = epmcResolveLicense(listLicense, got.license)
+  // 전문 XML 에서 읽었으면 jats, 목록 값뿐이면 api, 둘 다 없으면 표지가 'none' 으로 적는다.
+  const licenseEvidence = got.license ? 'jats' : 'api'
 
-  const code = epmcLicenseCode(candidates[0]!)
-  if (!code) throw new Error(`Europe PMC 라이선스 코드를 모른다(${candidates[0]}): ${pmcid}`)
-
-  return {
+  const article: RawArticle = {
     source: 'europe_pmc',
     // 열쇠는 PMCID. DOI 가 없는 항목이 있어 DOI 로는 전수를 덮지 못한다.
     source_id: `europe_pmc:${pmcid}`,
     title: got.title,
     source_url: epmcArticleUrl(pmcid),
     language: 'en',
-    license: code,
+    license,
+    license_evidence: licenseEvidence,
     published_at: null,
     content: got.content,
     estimated_cefr: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`Europe PMC 본문이 너무 짧다(${got.words}어 < ${EPMC_MIN_WORDS}): ${pmcid}`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

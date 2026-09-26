@@ -1,0 +1,213 @@
+[
+  {
+    "id": "2d50dcc7-1b1d-4ea0-8f20-6360f245759f",
+    "source_updated_at": "2026-09-25T07:10:34.824845+00:00",
+    "body_sha256": "a27ee72cc5b6880def2a49cf095c65f0998896a6bbb9d4f94488eda4c3d71f7a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰 첫 단락과 기전 단락이 당뇨약 두 계열이 저마그네슘혈증 위험을 낮춘다는 논지와 이유를 잇는다 — 요지·내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "SGLT2 inhibitors and GLP-1 RAs appear",
+      "note": "약물 계열명을 「두 종류의 당뇨약」으로 바꾸고 수용체 이름을 걷으면 기전 설명이 선다."
+    }
+  },
+  {
+    "id": "2d6067e3-c85a-4e14-822e-cc197daf322b",
+    "source_updated_at": "2026-09-15T14:43:54.927833+00:00",
+    "body_sha256": "4baf530a0d53de90fedd8ba7fb420e45119fbf12bfd0839a549ab70fa53df576",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 PDA 직경·길이·형태 단락이 각각 위험 요인과 그 이유를 한 흐름으로 설명한다 — 주장·빈칸 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "We also identified PDA length greater",
+      "note": "OR·P값을 걷고 「관」「장치」로 용어를 풀면 길이가 위험을 높이는 이유가 선다."
+    }
+  },
+  {
+    "id": "2d631634-d1ba-4c98-8fbd-de4f02605e48",
+    "source_updated_at": "2026-09-13T06:50:17.544159+00:00",
+    "body_sha256": "983de02413c9a59eb761e304b4a0e8e24d7d4f3033ddc936d4eb480fee1fd7c3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰이 통념(큰 대퇴골일수록 앞 관절융기가 두껍다)을 측정으로 뒤집고 설계 함의를 끌어낸다 — 주제·요지 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One can infer from our data",
+      "note": "약어 ALCH·AP를 풀어 쓰고 수치를 걷으면 과충전·부족 논리가 앞 문맥 없이 선다."
+    }
+  },
+  {
+    "id": "2d71840f-287d-4eff-97d5-4ab044a57a90",
+    "source_updated_at": "2026-09-15T14:43:55.991023+00:00",
+    "body_sha256": "8847a7803e5e1af12c45fd9a161cab4c88cfc29f2db5e1aed24f2c0681554981",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰의 피지선-미생물군 단락과 요약이 유전자 결핍이 피부 염증으로 이어지는 인과를 설명한다 — 요약·순서 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "We found that MyD88 regulated the",
+      "note": "유전자·세균 학명이 많아 「면역 신호 단백질」 등으로 바꿔야 하나 인과 흐름은 남는다."
+    }
+  },
+  {
+    "id": "2d73fa13-8565-4685-a139-7bcf0080c77a",
+    "source_updated_at": "2026-09-13T07:05:28.740536+00:00",
+    "body_sha256": "6d36a74e1846087ef7bf8e8eb86902b3c8c09a5372935b9b705556d473310313",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "고찰과 해양공간계획 절이 해저 계곡이 물고기·산호의 생물 다양성 거점이며 보호 구역 설정에 쓰일 수 있다고 논증한다 — 주장·목적 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The IVs are important fishing spots",
+      "note": "지명을 걷고 「해저 계곡」「어장」으로 바꾸면 전면 금어가 아닌 부분 보호 제안 논지가 선다."
+    }
+  }
+]

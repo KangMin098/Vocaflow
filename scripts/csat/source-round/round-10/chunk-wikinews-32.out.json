@@ -1,0 +1,946 @@
+[
+ {
+  "id": "18034908-9f63-4140-b4e8-9f1791d2696d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ebc367a8c084c7185e4423367e7d3f321e5084c8db70027533379156f5314a6a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "재선 득표 결과에 빈곤 완화 공약과 첫 임기 성과(빈곤 19% 감소)가 붙어 수치 뒤 논지가 서므로 내용일치 칸을 채운다(정당 이름 나열은 걷는다).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In a victory speech, Lula said",
+   "note": "연설 단락은 「모든 국민을 위해 빈곤 완화에 힘쓰겠다」가 홀로 서고 alleviate·redistribution 만 바꾸면 V4 로도 내려간다."
+  }
+ },
+ {
+  "id": "180367ee-e8d2-4f7d-bdb2-6687aab49016",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5c01b0cc778f52f73cc9ae7fd1bc27fb2f87378d21e4ea4b2b66c0e9207d7540",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "화산 가스로 공원·학교가 닫혔고 주민에게 실내 대기·수분 섭취·대피 준비를 권하는 안내가 서서 목적·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sulfur dioxide can cause irritation to",
+   "note": "권고 단락은 「자극을 일으키니 실내에 머물고 물을 마셔라」는 까닭과 권유가 함께 서고 지명 목록만 걷으면 V4 다."
+  }
+ },
+ {
+  "id": "1809e50f-4419-4e68-b5b2-7d51e407ed57",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8e478eff495a5e497970a7da2ac5be183aa5cfeddc8c23dbf141472ab91fda7b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "경비병의 수감자 학대 자랑을 증언한 법률 보조원 → 함구령 → 변호인의 「진실을 알려야 할 의무」 딜레마로 이어져 고2 이상 주장·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In a statement Colonel Joyce explained",
+   "note": "함구령 해명 단락은 「사실 검토까지 직업 기준을 지키려는 조치」라는 논리가 홀로 서지만 폭행 묘사 단락 때문에 연령 칸을 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "180ba9cb-c0af-41f6-9347-8be79261d16b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7e8c756129679c884a3bcd4b7fb2176aa11893d219c79c9e4c6d5f49fdf27bfc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "polemic",
+  "why": "체포 경위 보도 뒤 본문 대부분이 「차베스와 볼리바르 운동을 무조건 지지한다」는 공개서한과 서명자 150명 명단이라 일방적 정치 선언문이다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The arrest of Granda has caused",
+   "note": "앞 보도 단락은 양국 주장이 맞서 떼어 볼 만했지만, 글의 몸통이 선언문과 이름 목록이라 원천으로 남길 칸이 없었다."
+  }
+ },
+ {
+  "id": "180c99d8-bebb-4163-a46a-e468655e6c0e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b7363a1fe35684a0b062fb78eb24abc3d8c552cf00e7be6197f91fc8e62375dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "정원 초과 순례선 전복 → 사상자 → 과적과 빈 배 충돌이라는 원인 → 구조와 유족 항의로 이어져 고1 이상 내용일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Police sources claimed the boat was",
+   "note": "원인 단락은 「정원을 넘겼고 빈 배에 부딪혔다」가 홀로 서고 capacity 는 문맥으로 잡혀 바꿀 낱말이 없었다."
+  }
+ },
+ {
+  "id": "180d9424-4496-404a-be3c-cdf2898924a8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6186068c0872e17fc58da0241ca032a9ebf063e7a6e7f370ffa7faa14a056775",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "40주년 퍼레이드 규모와 경로, 1979년 첫 행사·지난해 동성혼 합법화 대비가 서서 고1 이상 내용일치 칸을 채운다(주제를 밝히는 문장이 비어 있다).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The first Christopher Street Day celebration",
+   "note": "첫 행사 단락은 「수백 명에서 시작해 지난해 합법화」가 홀로 서지만 둘째 단락의 「theme was.」 빈칸은 가공 때 문장째 걷었다."
+  }
+ },
+ {
+  "id": "181b8f9e-5cda-4de1-a163-14ab0e0d1a9e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4d70dcdf23413d445a16eed7538ecc50c25cba9afaba84e560fea77c4f3cdaad",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "나라별 신문이 자국 성적을 어떻게 받아들였는지(축하·자조·탈퇴 요구)를 비교한 장문이라 고2 이상 장문·무관한 문장 칸을 채운다(뒤쪽 조롱 인용은 걷는다).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "long_reference",
+    "content_match",
+    "irrelevant"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "German newspapers published lengthy stories analyzing",
+   "note": "독일 단락은 「3년째 하위권, 왜 계속 나가나」라는 자조가 홀로 서지만 뒤 조롱 모음은 성적 표현이 많아 통째로 걷었다."
+  }
+ },
+ {
+  "id": "181d760b-b264-4942-b5f3-0d7a837d9725",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c0752d5840c570375db5978e95d68a246354dab9caf7d9dd4d1758b9a86784a0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "1996년 부부 피살 → 2000년 소송 → 「국가 면책」 항변 기각 → 배상 거부로 자산 동결에 이른 인과가 서서 고2 이상 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Yasser Arafat hired lawyer and former",
+   "note": "변론 단락은 「주권 국가라 면책」 주장과 법원의 「국가가 아니다」 판단이 홀로 서고 immunity 만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "181dcf50-658f-4199-b8e7-c84f5929f2cf",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "bad5ea6d7aee01735a22ac4e7960cfd5587df0931d0bcefc856251c0a88ffeab",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "미제출 인구조사서가 많아 조사원이 집집이 다니며 세금이 든다는 사정과 조사의 쓸모 설명이 서서 목적·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Census workers are coming to citizens'",
+   "note": "방문 단락은 「받을 때까지 찾아가지만 세금이 든다」는 사정이 홀로 서서 제출 권유 목적 문항의 근거가 됐다."
+  }
+ },
+ {
+  "id": "181fd34f-02e2-44f2-90db-13f605bbcb45",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c01d880781f0668294db3fa8239e440cf6fa8f44ac89996419d1ea341ab02a11",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "폭죽 창고 화재 → 창문 탈출 → 물 떨어진 소방차와 돕는 군중 → 인파·추가 폭발 우려로 늦은 진입으로 이어져 내용일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The large crowds were part of",
+   "note": "지연 단락은 「인파와 추가 폭발 위험 때문에 한 시간 걸렸다」는 이유가 홀로 서고 interfered 하나만 바꾸면 V4 다."
+  }
+ },
+ {
+  "id": "18219268-bf9c-40db-9d9f-4b9a8ccca405",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9f558fd2d79cb80a8c9d84ca35c653e0b255da8b285462b390c23dd0767447c0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "파병 연장 표결 → 의무 없는 표결 요청 → 야당의 「머리에 총」 반발과 반대 논리 → 네 표 차 가결로 이어져 주장·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Thirty members of the Official Opposition,",
+   "note": "야당 표결 단락은 「찬성했지만 토론 시간이 없었다」는 모순된 입장이 홀로 서서 주장 문항 재료가 됐고 free vote 만 풀었다."
+  }
+ },
+ {
+  "id": "1822a702-846c-40e1-846b-c4f12259bbbb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3496ff63084af56cb82a6e725a745e910679df0718832e8b5c5913677c7e217f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "자국 시민을 잘못 추방한 사건 → 총리의 조건부 사과 → 비슷한 구금 사례와 부처의 답변 회피로 이어져 주장·무관한 문장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "irrelevant",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Parallels have been drawn between this",
+   "note": "비교 단락은 로 사건과 나란히 놓여 홀로 서고, 앞 단락의 정신건강 통계 문장은 흐름에서 벗어나 무관한 문장 문항 재료였다."
+  }
+ },
+ {
+  "id": "18265d4c-7e2b-47fc-83f5-8f075c1ef341",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f98c6bc253f4ab302223df87134343bbea96b88769376c4d547bf7f27cdd45be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "추위·결로로 전기 고장 → 터널 16시간 고립 → 운행 중단 → 사퇴 요구와 사과로 이어져 원인·결과가 서서 내용일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Conservative Member of the European",
+   "note": "사퇴 요구 단락은 「무능하다」 비판과 「전례 없는 일, 너무 오래 걸렸다」 사과가 한 문단에 서서 떼기 쉬웠다."
+  }
+ },
+ {
+  "id": "182e96da-301c-40a1-b952-ec703e2df1d9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "725c7f2aa55fea7e9c9d30d25112dc6c7f344afc2d76f2e6bd6f98daa37fade5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "history",
+  "why": "신사 참배로 정상 방문이 어렵다는 외교 갈등과 그 까닭(전범 합사·점령국들의 시각)이 서서 요지·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Yasukuni Shrine is dedicated to",
+   "note": "신사 단락은 「모든 전사자를 기리던 곳에 전범이 합사돼 논란」이라는 설명이 홀로 서고 rallying point 만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "183339c0-536a-45a3-9b84-6f0fb29d71f9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2548667c20d26ee3e883e241495db191e7f0e158530976bfcb247c0ed03cc42d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "가입 신청서 제출 → 「역사적 걸음」 환영 → 무비자·무역 협정 재개의 조건(전범 체포 노력) → 회원국 온도차로 이어져 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Along with Montenegro and Macedonia, visa-free",
+   "note": "조건 단락은 「전범 체포 노력을 인정받아 동결이 풀렸다」는 인과가 서지만 한 문장이 길어 둘로 나눠야 했다."
+  }
+ },
+ {
+  "id": "1846c0ef-43b5-4d9e-8f5e-e70841e758d2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ef344e713741074e128d384ac76842c91bde70b49edd9c207422764eb9a63b2d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "94어 두 단락이지만 지진을 느낀 시민의 행동과 「규모가 작아 유적 피해는 적지만 점검한다」는 인과가 서서 중등 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "No serious damage has been reported",
+   "note": "피해 단락은 「작아서 피해는 적지만 안전 점검을 한다」가 홀로 서고 magnitude·stability 두 낱말만 풀면 된다."
+  }
+ },
+ {
+  "id": "1852bd65-d516-4c9c-874d-85cec5a05605",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0583840e3cdd0d4ab86551ae8b3379a261e3ba41d6db5c77cd233b851e49f531",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "유출된 교단 지침서가 장기 이식·안락사·화장·헌금 반환을 어떻게 규정하는지 인용으로 전하는 기사라 교리를 사실로 제시하지 않고 고2 이상 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The handbook also explicitly bans assisted",
+   "note": "안락사 단락은 인용으로 교단 입장만 전해 떼기 쉬웠지만 consecrated·euthanasia 같은 낱말이 인용 안에 있어 바꿀 수 없었다."
+  }
+ },
+ {
+  "id": "18545859-3223-4de7-9efc-c2983abfa7f1",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ec207393b426ebe5aa7d34d148652a6eb234668a3e678275037eef5c85b37e43",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "잠수함 구매를 이란에 대한 보복 능력 신호로 읽는 분석과 핵 보유 모호성·이중 잣대 논란, 미 의회 보고서가 서서 고2 이상 요지·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Israel has never confirmed nor denied",
+   "note": "모호성 단락은 「확인도 부인도 않는다」와 이중 잣대 비판이 홀로 서지만 locus·hypocritical 을 바꿔도 문장이 길어 V6 에 머문다."
+  }
+ },
+ {
+  "id": "1859732c-0335-4b99-adbc-8618a0086445",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7e2868792eb9615bd8ebe49a67165af1a06e79ea34f7a1bc4196eec10e11ef60",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아이 방에 총격 신고 → 협상 중 발포 → 섬광탄 진압과 사살 → 별거 중 다툼이라는 원인과 독립 조사로 이어져 고2 이상 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It is believed the cause of",
+   "note": "원인 단락은 「별거한 아내와의 다툼, 총은 합법 소지」가 홀로 서지만 사살 경위 단락과 함께 쓰여 연령 칸을 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "18607a4f-fac7-4b20-ab09-a10811d19b88",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "df6f9eb16a39442ca1cfc1bcac60952ee2a776bdc62b7cc34c5bb3f922fe9225",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "space",
+  "why": "이륙 때 생긴 단열재 찢김을 로봇팔 카메라로 찾아 「큰 위험은 아니지만 고치고 간다」며 임무를 이틀 늘린 인과가 서서 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "NASA says that the tear is",
+   "note": "판단 단락은 「위험하진 않지만 수리량을 줄이려 지금 고친다」는 까닭이 홀로 서고 re-entry 만 풀면 V4 다."
+  }
+ },
+ {
+  "id": "18623cae-b786-4938-b9fc-061fcf3fb8ba",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f4dbe45e8cf6966047148de8750bcb4724652c8dd7c35a13b05da29ed2a55daa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "화산 분출 → 적은 화산재로도 엔진 문제 때문에 공항 폐쇄 → 연쇄 분출 이력과 최고 경보로 이어져 중등 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Jeremy Lindseth, a spokesman for the",
+   "note": "공항 단락은 「조금이라도 화산재가 엔진을 망가뜨릴 수 있다」는 이유가 홀로 서고 disrupt 하나만 바꾸면 V4 다."
+  }
+ },
+ {
+  "id": "18658d77-2b3b-441a-9a8d-93fe0772b9fa",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d4720be803e6c2fee55c08427db28d05f7d5b3340fbe95425a899756531acbc8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "쥐 실험 DNA 백신의 원리(아밀로이드 감소)와 기대, 말기 환자 한계, 2003년 부작용 전례로 균형 잡힌 과학 기사라 요지·빈칸·순서·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The vaccine is given by an",
+   "note": "원리 단락은 「단백질 덩어리가 퍼지는 것을 막는다」는 설명이 홀로 서고 amyloid·hippocampus 를 걷고 수치를 줄이니 V5 가 됐다."
+  }
+ },
+ {
+  "id": "1865dacb-9162-44ab-9d95-8a3c5484a308",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ae00171a91bd45a3e7595f8648391f65cc71c20c17fbde77a92e6f2fe626b8a5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "사망자 증가 전망에 이어 「즉각 사망은 일부일 뿐, 500만 명이 물·식량이 없다」는 요지가 서서 요지·내용일치 칸을 채운다(첫 줄 날짜는 잔재).",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The immediate fatalities from the earthquake",
+   "note": "둘째 단락은 「피해의 대부분은 앞으로 온다」는 요지가 홀로 서고 sanitation 만 풀면 V4 다."
+  }
+ },
+ {
+  "id": "186b2451-7663-4db4-bd9b-d3a8506d68a7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "af6df4c3f7cfbc30884c54810333ab6c580411e45c151d78a726c9e2bbc8dfe0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "art",
+  "why": "보컬 탈퇴로 흩어진 밴드가 재결합해 새 앨범과 공연을 준비하고 「다시 즐겁게」라는 소감을 밝히는 흐름이라 중등 내용일치·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Approximately four years ago, Justin Hawkins",
+   "note": "탈퇴 단락은 「충격 → 해체 → 긍정적 경험으로 바꾸고 싶다」는 흐름이 홀로 서고 gobsmacked 같은 속어는 앞 단락이라 걷었다."
+  }
+ },
+ {
+  "id": "186b8b66-4525-4baf-b06c-5c61b9996ce5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "52ad4702e46df506553c73baf1ff2cc74f66d50f2de62cea5e218cab53bab434",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "인권단체가 미국과 카다피 정권이 반군 인사 송환·고문에 협력했다고 고발하고 근거(버려진 정보부 문서·14명 면담)를 밝혀 고2 이상 주장·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Upon the release of the document,",
+   "note": "근거 단락은 「문서 더미와 14명 증언」이 주장의 근거로 홀로 서지만 고문 방식 나열 때문에 성인에 가깝게 두고 waterboarding 은 바꾸지 않았다."
+  }
+ }
+]

@@ -1,0 +1,260 @@
+{
+  "generatedBy": "scripts/design/substitute.mjs",
+  "generatedAt": "2026-09-20",
+  "note": "손으로 고치지 말 것 — 다시 돌리면 덮어써진다. 고칠 것이 있으면 규칙(DENY · 액센트 고정)을 고친다.",
+  "source": {
+    "computed": "docs/design/refs/tines/computed.json",
+    "tokens": "packages/design-tokens/src/tokens.css"
+  },
+  "method": "**역할 먼저, 역할 안에서 ΔE2000 최근접.** 같은 색값이라도 면·선·글자로 쓰였는지에 따라 다른 토큰으로 간다 — 1회차는 역할을 안 봐서 참조의 면 20%가 주묵 벽이 됐다(DD-55 면 금지 위반). 후보 풀에서 아케이드 팔레트(--ios-* · --combo · --streak · 메달)와 옛 AI-보라(--admin*)를 뺀다(DD-01 · DD-59).",
+  "roles": {
+    "면": "면적 ≥ 2000px² 의 칠 · 띠 배경 · 페이지 바탕",
+    "선": "테두리 · 면적 < 2000px² 의 칠(알약 · 점 · 배지 = 표식)",
+    "글자": "글자색"
+  },
+  "rolePool": {
+    "면": [
+      "--bg",
+      "--bg2",
+      "--bg3",
+      "--ti",
+      "--p-light",
+      "--ju-light",
+      "--success-light",
+      "--error-light",
+      "--warning-light",
+      "--info-light",
+      "--active-light"
+    ],
+    "선": [
+      "--bd",
+      "--bdf",
+      "--bde",
+      "--ju",
+      "--ju-ink",
+      "--p",
+      "--active",
+      "--success",
+      "--error",
+      "--warning",
+      "--info"
+    ],
+    "글자": [
+      "--t1",
+      "--t2",
+      "--t3",
+      "--p",
+      "--ju-ink",
+      "--on-p",
+      "--on-ju",
+      "--ti",
+      "--success-ink",
+      "--error-ink",
+      "--warning-ink",
+      "--info-ink"
+    ]
+  },
+  "accentPin": {
+    "면": "--bg2",
+    "선": "--ju",
+    "글자": "--t1"
+  },
+  "reverseText": {
+    "whenLabLightnessAtLeast": 80,
+    "token": "--t1",
+    "why": "우리 면 풀은 전부 밝다 — 밝은 글자를 그대로 두면 종이 위 종이색이 된다"
+  },
+  "accent": {
+    "refHex": "#714bd0",
+    "hueLab": -53,
+    "familyWithinDeg": 12,
+    "pin": {
+      "면": "--bg2",
+      "선": "--ju",
+      "글자": "--t1"
+    }
+  },
+  "tokenPoolSize": 38,
+  "colors": [
+    {
+      "from": "#714bd0",
+      "role": "글자",
+      "token": "--t1",
+      "to": "#1a1714",
+      "deltaE": 40.11,
+      "count": 246,
+      "rule": "pinned-accent:글자",
+      "note": "참조 액센트의 **글자** 용법 — 잉크로 받는다(주묵 글자는 평가로 읽힌다)"
+    },
+    {
+      "from": "#714bd0",
+      "role": "면",
+      "token": "--bg2",
+      "to": "#f4f0e9",
+      "deltaE": 52.56,
+      "count": 130,
+      "rule": "pinned-accent:면",
+      "note": "참조 액센트의 **면** 용법 — 주묵은 면이 될 수 없다(DD-55). 다른 톤의 종이(--bg2)로 받는다"
+    },
+    {
+      "from": "#fcf9f5",
+      "role": "글자",
+      "token": "--t1",
+      "to": "#1a1714",
+      "deltaE": 87.86,
+      "count": 110,
+      "rule": "reverse-text",
+      "note": "참조에서 진한 면 위에 얹던 **밝은 글자**다. 우리 면은 전부 밝아 그대로 두면 안 보인다 — 잉크로 뒤집는다"
+    },
+    {
+      "from": "#fcf9f5",
+      "role": "면",
+      "token": "--bg",
+      "to": "#fbfaf6",
+      "deltaE": 1.01,
+      "count": 104,
+      "rule": "nearest-deltaE2000:면"
+    },
+    {
+      "from": "#007f4a",
+      "role": "면",
+      "token": "--success-light",
+      "to": "#e1efe6",
+      "deltaE": 40.84,
+      "count": 66,
+      "rule": "nearest-deltaE2000:면"
+    },
+    {
+      "from": "#cae4d4",
+      "role": "면",
+      "token": "--success-light",
+      "to": "#e1efe6",
+      "deltaE": 5.89,
+      "count": 58,
+      "rule": "nearest-deltaE2000:면"
+    },
+    {
+      "from": "#cae4d4",
+      "role": "글자",
+      "token": "--t1",
+      "to": "#1a1714",
+      "deltaE": 80.76,
+      "count": 10,
+      "rule": "reverse-text",
+      "note": "참조에서 진한 면 위에 얹던 **밝은 글자**다. 우리 면은 전부 밝아 그대로 두면 안 보인다 — 잉크로 뒤집는다"
+    },
+    {
+      "from": "#008784",
+      "role": "면",
+      "token": "--success-light",
+      "to": "#e1efe6",
+      "deltaE": 36.27,
+      "count": 7,
+      "rule": "nearest-deltaE2000:면"
+    },
+    {
+      "from": "#c05100",
+      "role": "면",
+      "token": "--error-light",
+      "to": "#f4e0dc",
+      "deltaE": 40.5,
+      "count": 7,
+      "rule": "nearest-deltaE2000:면"
+    },
+    {
+      "from": "#3565cc",
+      "role": "면",
+      "token": "--info-light",
+      "to": "#e1e8ef",
+      "deltaE": 41.07,
+      "count": 7,
+      "rule": "nearest-deltaE2000:면"
+    },
+    {
+      "from": "#714bd0",
+      "role": "선",
+      "token": "--ju",
+      "to": "#c0392b",
+      "deltaE": 40.23,
+      "count": 6,
+      "rule": "pinned-accent:선",
+      "note": "참조 액센트의 **선·표식** 용법 — 주묵이 원래 있어야 할 자리"
+    },
+    {
+      "from": "#000000",
+      "role": "선",
+      "token": "--bdf",
+      "to": "#0f2540",
+      "deltaE": 16.33,
+      "count": 6,
+      "rule": "nearest-deltaE2000:선"
+    },
+    {
+      "from": "#aedac2",
+      "role": "선",
+      "token": "--bd",
+      "to": "#e0dbd0",
+      "deltaE": 17.46,
+      "count": 5,
+      "rule": "nearest-deltaE2000:선"
+    },
+    {
+      "from": "#542f9c",
+      "role": "글자",
+      "token": "--t1",
+      "to": "#1a1714",
+      "deltaE": 33.03,
+      "count": 4,
+      "rule": "pinned-accent:글자",
+      "note": "참조 액센트의 **글자** 용법 — 잉크로 받는다(주묵 글자는 평가로 읽힌다)"
+    },
+    {
+      "from": "#9274f4",
+      "role": "선",
+      "token": "--ju",
+      "to": "#c0392b",
+      "deltaE": 42.17,
+      "count": 4,
+      "rule": "pinned-accent:선",
+      "note": "참조 액센트의 **선·표식** 용법 — 주묵이 원래 있어야 할 자리"
+    },
+    {
+      "from": "#6741bf",
+      "role": "글자",
+      "token": "--t1",
+      "to": "#1a1714",
+      "deltaE": 37.53,
+      "count": 3,
+      "rule": "pinned-accent:글자",
+      "note": "참조 액센트의 **글자** 용법 — 잉크로 받는다(주묵 글자는 평가로 읽힌다)"
+    },
+    {
+      "from": "#000000",
+      "role": "글자",
+      "token": "--t1",
+      "to": "#1a1714",
+      "deltaE": 5.4,
+      "count": 3,
+      "rule": "nearest-deltaE2000:글자"
+    },
+    {
+      "from": "#542f9c",
+      "role": "면",
+      "token": "--bg2",
+      "to": "#f4f0e9",
+      "deltaE": 63.41,
+      "count": 3,
+      "rule": "pinned-accent:면",
+      "note": "참조 액센트의 **면** 용법 — 주묵은 면이 될 수 없다(DD-55). 다른 톤의 종이(--bg2)로 받는다"
+    },
+    {
+      "from": "#ece8fd",
+      "role": "선",
+      "token": "--bd",
+      "to": "#e0dbd0",
+      "deltaE": 15.56,
+      "count": 3,
+      "rule": "nearest-deltaE2000:선"
+    }
+  ]
+}

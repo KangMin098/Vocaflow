@@ -30,10 +30,12 @@
 //   아니라 "모른다" 이고, 모르는 것을 발행하면 그때는 되돌릴 수 없다.
 //
 // API: https://storyweaver.org.in/api/v1/books-search  (목록 · `levels[]` · `per_page` 상한 24)
-//      https://storyweaver.org.in/api/v1/stories/<slug>/read  (본문)
+//      https://storyweaver.org.in/api/v1/stories/<slug>/read?embed=true  (본문)
+//        ⚠️ `?embed=true` 필수 — 없으면 401. 2026-09-24 실측.
 // source_id: "storyweaver:<slug>"
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { fetchWithTimeout, hashString } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -205,7 +207,12 @@ export async function ingestStoryweaverArticle(itemUrl: string): Promise<RawArti
   const slug = itemUrl.match(/stories\/([a-z0-9-]+)/i)?.[1]
   if (!slug) throw new Error(`StoryWeaver URL 에서 slug 를 못 읽었다: ${itemUrl}`)
 
-  const res = await fetchWithTimeout(`${API}/stories/${slug}/read`)
+  // ⚠️ **`?embed=true` 가 없으면 401 이다.** 상류가 `/read` 에 로그인 게이팅을 걸었고
+  //   (2026-09-24 실측: `read` → 401 `"You are not authorized to read this story."` ·
+  //   `read?embed=true` → 200), 공개 임베드 경로만 본문을 준다. 응답 모양은 같다
+  //   (`data.pages[]` · `pageType` · `html`) — 쿼리 한 개 차이이고 파싱은 그대로다.
+  //   이 줄이 없으면 **한 편도 못 받는다.** 파일럿(2026-09-24)이 20/20 으로 확인했다.
+  const res = await fetchWithTimeout(`${API}/stories/${slug}/read?embed=true`)
   if (!res.ok) throw new Error(`StoryWeaver read failed: ${res.status} ${itemUrl}`)
   const json = (await res.json()) as { data?: { pages?: RawPage[]; level?: string } }
   const pages = json.data?.pages ?? []
@@ -220,14 +227,13 @@ export async function ingestStoryweaverArticle(itemUrl: string): Promise<RawArti
     .join(' ')
 
   const content = stripPageNumbers(story.map((p) => storyweaverPageText(p.html ?? '')).join(' '))
-  if (content.length < 80) {
-    throw new Error(`StoryWeaver 본문이 너무 짧다: ${content.length}자 ${itemUrl}`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.length < 80
 
   const license = storyweaverLicense(back)
   const author = storyweaverAuthor(back)
 
-  return {
+  const article: RawArticle = {
     source: 'storyweaver',
     source_id: `storyweaver:${slug}`,
     source_url: itemUrl,
@@ -244,4 +250,13 @@ export async function ingestStoryweaverArticle(itemUrl: string): Promise<RawArti
     estimated_cefr: json.data?.level === '1' ? 'A1' : json.data?.level === '2' ? 'A2' : null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`StoryWeaver 본문이 너무 짧다: ${content.length}자 ${itemUrl}`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

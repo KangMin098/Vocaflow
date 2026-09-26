@@ -1,29 +1,30 @@
 // apps/web/src/components/library/shared/NetflixDetailSheet.tsx
 //
-// v06.33 — Netflix 스타일 컨텐츠 상세 sheet.
-// /library/books · /library/vocab · /text 공통 — 카드 선택 시 부드러운 scale-in 모달.
+// 콘텐츠 상세 팝업 — /library/books · /library/vocab · /text 공통. 카드를 누르면 뜬다.
 //
-// 뇌과학·가독성 정합:
-//   - F-pattern: 좌상단 cover → 좌측 메타 → 하단 CTA
-//   - 시각 위계: 제목 28-32px → 메타 11-13px → 설명 14px → sample 12px
-//   - Calm UI: dim overlay 80% + soft 카드 그림자 + 모션 spring-like
-//   - 즉시 종료: Esc + overlay 클릭 + ✕ 버튼
-//   - 인지 부하 최소: 한 화면 결정 1개 (Primary CTA)
+// ── 껍데기는 `ui/Dialog` (DD-68 · tines-mapping §28, 2026-09-23) ───────────
+// 예전 골격은 **표지 히어로 위에 흰 제목**이었다(어두운 그라디언트 200~240px + scrim).
+// 참조 팝업은 반대다 — 제목을 크림 머리에 크게 놓고, 그림은 본문 오른쪽 칸의 액자로 내린다.
+// 바꾼 이유는 닮음만이 아니다: 제목이 표지 위에 있으면 대비가 표지마다 달라 `drop-shadow`
+// 로 억지로 읽히게 해야 했고(실 표지 도서는 밝은 표지가 많다), 제목 길이가 두 줄을 넘으면
+// 표지를 가렸다. 크림 머리로 내리면 대비가 한 값으로 고정되고 제목은 40px 까지 커진다.
+//
+// 남긴 것: F-pattern(결정 → 근거 → CTA) · 한 화면 결정 1개 · Esc/바깥/뒤로가기 닫기.
+// 본문은 2열 — 왼쪽은 판단 근거(내 학습 · i+1 · 큐레이션), 오른쪽은 표지 액자 + 수치.
 
 'use client'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
-import { X, Clock, BookImage, BookOpen, Layers, Volume2 } from 'lucide-react'
+import { Clock, BookImage, BookOpen, Layers, Volume2 } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
+import { Dialog, DialogColumns, DialogSection } from '@/components/ui/Dialog'
+import { BTN, DIALOG } from '@/components/ui/tines-kit'
 import { VocabSpreadSheet } from '@/components/library/vocab/VocabSpreadSheet'
 import { bookCover } from '@/lib/library/book-cover'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { formatReadingTime } from '@/lib/library/reading-time'
-import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
-import { useFocusTrap } from '@/lib/ui/use-focus-trap'
 
 export interface SampleWord {
   word: string
@@ -140,110 +141,103 @@ interface Props {
   onClose: () => void
 }
 
+/** 종류 → 빵부스러기. 참조의 「Tines 3B › Examples › IT」 자리. */
+function crumbsOf(v: DetailVariant): string[] {
+  if (v.type === 'book') return ['도서', '서가', v.cefrBand ?? v.cefrLevel ?? '레벨 미정']
+  if (v.type === 'script') return ['기사', '서가', v.category]
+  return ['단어장', '서가', v.categoryLabel]
+}
+
+/** 제목 아래 한 줄 — 참조의 「By 작성자」. 저자가 없으면 그 자리에 설명을 둔다. */
+function bylineOf(v: DetailVariant): string | null {
+  if (v.type === 'vocab') return v.description ?? null
+  return v.author ?? null
+}
+
+/** 태그 줄 — 참조의 윤곽선 알약. 도서는 테마, 나머지는 분류·구성. */
+function tagsOf(v: DetailVariant): string[] {
+  if (v.type === 'book') return (v.themes ?? []).slice(0, 5)
+  if (v.type === 'script') return [v.category, v.cefrLevel ?? '레벨 미정'].filter(Boolean)
+  return [v.categoryLabel, ...(v.chapterCount ? [`챕터 ${v.chapterCount}`] : [])]
+}
+
 export function NetflixDetailSheet({ variant, onClose }: Props) {
-  const dialogRef = useRef<HTMLDivElement>(null)
-
-  // Esc 닫기 + body scroll lock
-  useEffect(() => {
-    if (!variant) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', onKey)
-    // Stale-safe: 항상 빈 문자열로 복구 (prevOverflow 누적 차단)
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
-  }, [variant, onClose])
-
-  // 포커스: 열 때 시트 안으로 · Tab 순환 · 닫을 때 트리거로 복원.
-  //   예전에는 여기서 `dialogRef.focus()` 와 복원만 했다. 그래서 시트를 열고 Tab 을 누르면
-  //   포커스가 **오버레이 뒤의 카드·필터**로 새어 나갔다(실측 2026-09-05).
-  //   순환 규칙은 `lib/ui/use-focus-trap.ts` 단일 출처.
-  useFocusTrap(!!variant, dialogRef)
-
-  // 컴포넌트 unmount (라우트 변경 등) 시 강제 cleanup 보장
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [])
-
-  // 뒤로가기로 닫는다 — 폰에는 Esc 가 없다. 규칙은 `lib/ui/use-close-on-back.ts` 단일 출처.
-  useCloseOnBack(!!variant, onClose)
-
+  // 마운트 = 열림. Esc · 바깥 · 뒤로가기 · 포커스 가둠 · 스크롤 잠금은 Dialog 의 계약이다.
   if (!variant) return null
 
+  const readLabel = variant.type === 'book' ? formatReadingTime(variant.readingMinutes) : null
+  const wordCount =
+    variant.type === 'vocab'
+      ? variant.wordCount
+      : variant.type === 'book'
+        ? variant.wordCount
+        : variant.wordCount
+
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={variant.title}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-10"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose()
-      }}
-      style={{
-        background:
-          'radial-gradient(ellipse at center, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.92) 100%)',
-        backdropFilter: 'blur(12px)',
-        animation: 'sheet-fade 220ms cubic-bezier(0.22, 1, 0.36, 1)',
-      }}
+    <Dialog
+      onClose={onClose}
+      size="xl"
+      crumbs={crumbsOf(variant)}
+      title={
+        <span className={variant.type === 'book' ? 'font-english' : undefined}>{variant.title}</span>
+      }
+      ariaLabel={variant.title}
+      byline={bylineOf(variant)}
+      tags={tagsOf(variant)}
+      meta={
+        <>
+          {wordCount != null && (
+            <span>
+              <strong className="font-display font-[700] text-[var(--t1)]">
+                {wordCount.toLocaleString()}
+              </strong>{' '}
+              단어
+            </span>
+          )}
+          {readLabel && (
+            <>
+              <span aria-hidden>·</span>
+              <span className="inline-flex items-center gap-1">
+                <Clock size={13} aria-hidden />
+                {readLabel}
+              </span>
+            </>
+          )}
+        </>
+      }
+      footer={<Footer variant={variant} onClose={onClose} />}
     >
-      <div
-        ref={dialogRef}
-        tabIndex={-1}
-        className="relative flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-[var(--r-2xl)] bg-[var(--bg)] shadow-[0_24px_64px_-12px_rgba(0,0,0,0.5)] focus:outline-none"
-        style={{
-          animation: 'sheet-pop 320ms cubic-bezier(0.22, 1, 0.36, 1)',
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Close */}
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="닫기"
-          // h-9(36px) 이었다 — CLAUDE.md 가 금지하는 44px 미만 터치 타겟이다.
-          // 폰에는 Esc 가 없어서 이 버튼이 **닫는 유일한 길**인데 손가락으로 놓치기 쉬웠다
-          // (실측 2026-08-25 · 390px). 아이콘 크기는 그대로 두고 누를 면적만 넓힌다.
-          className="absolute right-3 top-3 z-[2] flex h-11 w-11 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-all hover:scale-110 hover:bg-black/70"
-        >
-          <X size={16} strokeWidth={2.5} aria-hidden />
-        </button>
-
-        {/* Hero — variant 별 cover */}
-        <Hero variant={variant} />
-
-        {/* Body */}
-        <div className="flex-1 overflow-y-auto px-6 py-5 md:px-8 md:py-6">
-          {variant.type === 'book' && <BookBody v={variant} />}
-          {variant.type === 'script' && <ScriptBody v={variant} />}
-          {variant.type === 'vocab' && <VocabBody v={variant} />}
-        </div>
-
-        {/* CTA footer */}
-        <Footer variant={variant} onClose={onClose} />
-      </div>
-
-      <style jsx global>{`
-        @keyframes sheet-fade {
-          from { opacity: 0; }
-          to { opacity: 1; }
+      <DialogColumns
+        main={
+          <>
+            {variant.type === 'book' && <BookBody v={variant} />}
+            {variant.type === 'script' && <ScriptBody v={variant} />}
+            {variant.type === 'vocab' && <VocabBody v={variant} />}
+          </>
         }
-        @keyframes sheet-pop {
-          from { opacity: 0; transform: scale(0.94) translateY(8px); }
-          to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-      `}</style>
-    </div>
+        side={<SideColumn variant={variant} />}
+      />
+    </Dialog>
   )
 }
 
-// ─── Hero ────────────────────────────────────────────────
-function Hero({ variant }: { variant: DetailVariant }) {
+// ─── 오른쪽 칸 — 참조의 미리보기 액자 자리 ───────────────
+// 표지(액자) + 그 아래 수치. 참조는 여기에 제품 화면과 「What this prompt builds」 를 둔다.
+function SideColumn({ variant }: { variant: DetailVariant }) {
+  return (
+    <>
+      <CoverFrame variant={variant} />
+      {variant.type === 'book' && <BookStats v={variant} />}
+      {variant.type === 'script' && <ScriptStats v={variant} />}
+      {variant.type === 'vocab' && <VocabStats v={variant} />}
+    </>
+  )
+}
+
+// ─── 표지 액자 ───────────────────────────────────────────
+// 참조 팝업은 오른쪽 칸 맨 위에 **테두리 있는 액자**로 미리보기를 둔다(둥근 12px).
+// 제목이 머리로 올라갔으므로 여기서는 표지가 온전히 보인다 — scrim·drop-shadow 가 필요 없다.
+function CoverFrame({ variant }: { variant: DetailVariant }) {
   // gradient 결정 — Reading Room default = navy ink (variant 가 override 안 할 때)
   let from = 'var(--p)'
   let to = 'var(--p-dark)'
@@ -267,8 +261,10 @@ function Hero({ variant }: { variant: DetailVariant }) {
   const coverImageUrl = variant.type === 'book' ? (variant.coverImageUrl ?? null) : null
 
   return (
-    <div
-      className="relative h-[200px] shrink-0 overflow-hidden md:h-[240px]"
+    <figure
+      className={`relative overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] ${
+        coverImageUrl ? 'aspect-[3/4]' : 'aspect-[4/3]'
+      }`}
       style={
         coverImageUrl
           ? { backgroundColor: 'var(--p-dark)' }
@@ -284,26 +280,21 @@ function Hero({ variant }: { variant: DetailVariant }) {
     >
       {coverImageUrl ? (
         <>
-          {/* 실 표지 — 블러 backdrop(landscape 채움) + 중앙 contained cover (portrait) */}
+          {/* 실 표지 — 블러 backdrop(가로 표지 채움) + 중앙 contained cover(세로 표지) */}
           <Image
             src={coverImageUrl}
             alt=""
             aria-hidden
             fill
-            sizes="720px"
+            sizes="360px"
             className="scale-110 object-cover blur-2xl brightness-[0.5]"
           />
           <Image
             src={coverImageUrl}
-            alt={variant.type === 'book' ? `${variant.title} 표지` : ''}
+            alt={`${variant.title} 표지`}
             fill
-            sizes="(max-width: 768px) 90vw, 720px"
+            sizes="(max-width: 1024px) 90vw, 360px"
             className="z-[1] object-contain p-3"
-          />
-          {/* 하단 scrim — 제목 가독성 */}
-          <div
-            aria-hidden
-            className="absolute inset-0 z-[1] bg-gradient-to-t from-black/75 via-transparent to-black/5"
           />
         </>
       ) : (
@@ -311,61 +302,93 @@ function Hero({ variant }: { variant: DetailVariant }) {
           {/* sheen + grain (그라디언트 표지) */}
           <div aria-hidden className="book-cover-sheen absolute inset-0" />
           <div aria-hidden className="book-cover-grain absolute inset-0" />
+          {/* 그림이 없는 표지는 제목이 표지 구실을 한다 — 참조의 액자 속 제품 화면과 같은 자리 */}
+          <figcaption
+            className={`absolute inset-x-0 bottom-0 z-[2] px-4 pb-4 font-display text-[19px] font-[800] leading-[1.15] text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] ${
+              variant.type === 'book' ? 'font-english' : 'break-keep'
+            }`}
+          >
+            {variant.title}
+          </figcaption>
         </>
       )}
 
-      {/* bottom fade to bg */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 z-[2] h-20 bg-gradient-to-b from-transparent to-[var(--bg)]"
-      />
+      {/* 좌상단 종류 — 표지만 보고도 무엇인지 알게 */}
+      <span className="absolute left-3 top-3 z-[2] inline-flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 font-display text-[10px] font-[700] uppercase tracking-wider text-white backdrop-blur-md">
+        {variant.type === 'vocab' ? <Layers size={11} aria-hidden /> : <BookOpen size={11} aria-hidden />}
+        {variant.type === 'book' ? '도서' : variant.type === 'script' ? variant.category : variant.categoryLabel}
+      </span>
 
-      {/* 좌상단 카테고리/타입 */}
-      <div className="absolute left-5 top-5 z-[2] inline-flex items-center gap-2 rounded-[var(--r-full)] bg-black/40 px-3 py-1 font-display text-[10px] font-[700] uppercase tracking-wider text-white backdrop-blur-md md:left-7 md:top-7">
-        {variant.type === 'book' && (
-          <>
-            <BookOpen size={11} aria-hidden /> 도서
-          </>
-        )}
-        {variant.type === 'script' && (
-          <>
-            <BookOpen size={11} aria-hidden /> {variant.category}
-          </>
-        )}
-        {variant.type === 'vocab' && (
-          <>
-            <Layers size={11} aria-hidden /> {variant.categoryLabel}
-          </>
-        )}
-      </div>
-
-      {/* 우상단 emoji (vocab) */}
+      {/* 우상단 emoji (단어장) */}
       {variant.type === 'vocab' && variant.coverEmoji && (
         <span
           aria-hidden
-          className="absolute right-16 top-5 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-[22px] leading-none backdrop-blur-sm md:right-20 md:top-7"
+          className="absolute right-3 top-3 z-[2] inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-[20px] leading-none backdrop-blur-sm"
         >
           {variant.coverEmoji}
         </span>
       )}
+    </figure>
+  )
+}
 
-      {/* 제목 + 저자 (좌하단) */}
-      <div className="absolute inset-x-0 bottom-0 z-[2] flex flex-col gap-2 px-6 pb-5 text-white md:px-8 md:pb-6">
-        <h2
-          className={`line-clamp-2 font-display font-[800] leading-[1.1] tracking-[-0.015em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.55)] ${
-            variant.type === 'book'
-              ? 'font-english text-[26px] md:text-[32px]'
-              : 'text-[24px] md:text-[28px]'
-          }`}
-        >
-          {variant.title}
-        </h2>
-        {((variant.type === 'book' || variant.type === 'script') && variant.author) && (
-          <p className="font-body text-[13px] font-[500] text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]">
-            {variant.author}
-          </p>
+// ─── 오른쪽 칸 수치 ──────────────────────────────────────
+function BookStats({ v }: { v: BookVariant }) {
+  return (
+    <>
+      <div className="grid grid-cols-2 gap-2">
+        <Stat label="CEFR" value={v.cefrBand ?? v.cefrLevel ?? '—'} />
+        <Stat label="V-Level" value={v.bookVLevel != null ? `V${v.bookVLevel}` : '—'} sub="한국 학습자" />
+        <Stat label="CEFR-J" value={v.cefrjLevel ?? '—'} sub="외부 표준" />
+        <Stat
+          label="F-K Grade"
+          value={v.fleschKincaid != null ? v.fleschKincaid.toFixed(1) : '—'}
+          sub="통사 복잡도"
+        />
+      </div>
+
+      <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
+        {v.chapterCount != null && (
+          <MetaItem icon={<BookOpen size={12} aria-hidden />} label="챕터" value={v.chapterCount.toLocaleString()} />
+        )}
+        {v.wordCount != null && <MetaItem label="단어" value={v.wordCount.toLocaleString()} />}
+        {formatReadingTime(v.readingMinutes) !== null && (
+          <MetaItem
+            icon={<Clock size={12} aria-hidden />}
+            label="읽기"
+            value={formatReadingTime(v.readingMinutes) as string}
+          />
+        )}
+        {v.lexile != null && <MetaItem label="Lexile" value={`${v.lexile}L`} />}
+        {v.wordSetCount != null && v.wordSetCount > 0 && (
+          <MetaItem icon={<Gwonjeom size={12} aria-hidden />} label="단어장" value={`${v.wordSetCount}개`} />
         )}
       </div>
+    </>
+  )
+}
+
+function ScriptStats({ v }: { v: ScriptVariant }) {
+  return (
+    <div className="grid grid-cols-3 gap-2 lg:grid-cols-1">
+      <Stat label="CEFR" value={v.cefrLevel ?? '—'} />
+      <Stat label="단어" value={v.wordCount != null ? v.wordCount.toLocaleString() : '—'} />
+      <Stat
+        label="진행"
+        value={v.progressPercent != null ? `${v.progressPercent}%` : '0%'}
+        sub={v.progressPercent && v.progressPercent > 0 ? '이어 학습' : '시작 전'}
+      />
+    </div>
+  )
+}
+
+function VocabStats({ v }: { v: VocabVariant }) {
+  return (
+    <div className="grid grid-cols-2 gap-2">
+      <Stat label="단어 수" value={v.wordCount.toLocaleString()} />
+      {v.chapterCount != null && v.chapterCount > 0 && <Stat label="챕터" value={`${v.chapterCount}`} />}
+      <Stat label="CEFR" value={v.cefrLevel ?? '—'} />
+      <Stat label="카테고리" value={v.categoryLabel} />
     </div>
   )
 }
@@ -385,55 +408,12 @@ function BookBody({ v }: { v: BookVariant }) {
         />
       )}
 
-      {/* 4축 난이도 + 분량 */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Stat label="CEFR" value={v.cefrBand ?? v.cefrLevel ?? '—'} />
-        <Stat
-          label="V-Level"
-          value={v.bookVLevel != null ? `V${v.bookVLevel}` : '—'}
-          sub="한국 학습자"
-        />
-        <Stat label="CEFR-J" value={v.cefrjLevel ?? '—'} sub="외부 표준" />
-        <Stat
-          label="F-K Grade"
-          value={v.fleschKincaid != null ? v.fleschKincaid.toFixed(1) : '—'}
-          sub="통사 복잡도"
-        />
-      </div>
-
-      {/* i+1 적합도 — 공용(/library/books)에서만. 내 라이브러리는 위 '내 학습'에 포함 */}
+      {/* i+1 적합도 — 공용(/library/books)에서만. 내 라이브러리는 위 '내 학습'에 포함.
+          4축 난이도·분량 수치는 오른쪽 칸(`BookStats`)으로 옮겼다 — 참조 팝업이 수치를
+          좁은 칸에 세로로 쌓는 자리다. 왼쪽은 「읽을지 말지」를 정하는 글이 차지한다. */}
       {!v.mine && (
         <IPlusOneRow coverage={v.lexicalCoverage} userVLevel={v.userVLevel ?? 0} isPictureBook={v.isPictureBook} />
       )}
-
-      {/* 분량 */}
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
-        {v.chapterCount != null && (
-          <MetaItem
-            icon={<BookOpen size={12} aria-hidden />}
-            label="챕터"
-            value={v.chapterCount.toLocaleString()}
-          />
-        )}
-        {v.wordCount != null && (
-          <MetaItem label="단어" value={v.wordCount.toLocaleString()} />
-        )}
-        {formatReadingTime(v.readingMinutes) !== null && (
-          <MetaItem
-            icon={<Clock size={12} aria-hidden />}
-            label="읽기"
-            value={formatReadingTime(v.readingMinutes) as string}
-          />
-        )}
-        {v.lexile != null && <MetaItem label="Lexile" value={`${v.lexile}L`} />}
-        {v.wordSetCount != null && v.wordSetCount > 0 && (
-          <MetaItem
-            icon={<Gwonjeom size={12} aria-hidden />}
-            label="단어장"
-            value={`${v.wordSetCount}개`}
-          />
-        )}
-      </div>
 
       {v.progressPercent != null && v.progressPercent > 0 && (
         <ProgressRow percent={v.progressPercent} accent="var(--p)" />
@@ -532,22 +512,9 @@ function BookBody({ v }: { v: BookVariant }) {
   )
 }
 
-// ── Section helper (v06.34) ───────────────────────
-function Section({
-  title,
-  children,
-}: {
-  title: string
-  children: React.ReactNode
-}) {
-  return (
-    <section className="flex flex-col gap-2">
-      <h3 className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-        {title}
-      </h3>
-      <div>{children}</div>
-    </section>
-  )
+// ── Section helper — 참조 팝업의 본문 소제목(`DialogSection`)과 같은 결 ───────
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return <DialogSection label={title}>{children}</DialogSection>
 }
 
 // ── 내 학습 섹션 (내 라이브러리 /text 전용) ───────────────────────
@@ -757,28 +724,13 @@ function ScriptBody({ v }: { v: ScriptVariant }) {
     <div className="flex flex-col gap-5">
       {v.mine && <MyProgressSection kind="script" mine={v.mine} />}
 
-      <div className="grid grid-cols-3 gap-3">
-        <Stat label="CEFR" value={v.cefrLevel ?? '—'} />
-        <Stat
-          label="단어"
-          value={v.wordCount != null ? v.wordCount.toLocaleString() : '—'}
-        />
-        <Stat
-          label="진행"
-          value={v.progressPercent != null ? `${v.progressPercent}%` : '0%'}
-          sub={v.progressPercent && v.progressPercent > 0 ? '이어 학습' : '시작 전'}
-        />
-      </div>
-
+      {/* 수치는 오른쪽 칸(`ScriptStats`) — 여기는 글이 차지한다 */}
       {v.preview && (
-        <div className="rounded-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-[var(--bg2)] px-4 py-3">
-          <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
-            미리보기
-          </p>
-          <p className="font-english text-[14px] leading-relaxed text-[var(--t2)]">
+        <Section title="미리보기">
+          <p className="rounded-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-[var(--bg2)] px-4 py-3 font-english text-[14px] leading-relaxed text-[var(--t2)]">
             &ldquo;{v.preview}&rdquo;
           </p>
-        </div>
+        </Section>
       )}
 
       {v.progressPercent != null && v.progressPercent > 0 && (
@@ -796,20 +748,7 @@ function VocabBody({ v }: { v: VocabVariant }) {
     <div className="flex flex-col gap-5">
       {v.mine && <MyProgressSection kind="vocab" mine={v.mine} />}
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="단어 수" value={v.wordCount.toLocaleString()} />
-        {v.chapterCount != null && v.chapterCount > 0 && (
-          <Stat label="챕터" value={`${v.chapterCount}`} />
-        )}
-        <Stat label="CEFR" value={v.cefrLevel ?? '—'} />
-        <Stat label="카테고리" value={v.categoryLabel} />
-      </div>
-
-      {v.description && (
-        <p className="font-body text-[14px] leading-relaxed text-[var(--t2)]">
-          {v.description}
-        </p>
-      )}
+      {/* 수치는 오른쪽 칸(`VocabStats`) · 설명은 머리의 「By」 줄로 올라갔다 */}
 
       {/*
         지면 — 시중 단어장을 펼쳤을 때 나오는 것. 조판은 파이프라인이 하고
@@ -844,26 +783,19 @@ function VocabBody({ v }: { v: VocabVariant }) {
   )
 }
 
-// ─── Footer CTA ──────────────────────────────────────────
+// ─── 바닥 CTA ────────────────────────────────────────────
+// `Dialog` 가 `<footer>` 와 가로선·여백을 그린다 — 여기서는 버튼만 낸다(footer 중첩 금지).
+// 참조의 바닥은 알약 버튼 줄이다: 2차는 테두리, 1차는 꽉 찬 보라.
 function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => void }) {
-  // Reading Room — 모든 variant 가 navy ink 정합 (book/script accent 토큰화)
-  const accent =
-    variant.type === 'book'
-      ? 'var(--p)'
-      : variant.type === 'script'
-        ? 'var(--p-hover)'
-        : variant.categoryColor.accent
-
   if (variant.type === 'vocab') {
     return (
-      <footer className="flex shrink-0 items-center justify-end gap-2 border-t border-[var(--bd)] bg-[var(--bg)] px-6 py-3 md:px-8">
+      <>
+        <button type="button" onClick={onClose} className={BTN.secondary}>
+          닫기
+        </button>
         {variant.secondaryHref && variant.secondaryLabel && (
-          <Link
-            href={variant.secondaryHref}
-            onClick={onClose}
-            className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
-          >
-            <Volume2 size={13} aria-hidden />
+          <Link href={variant.secondaryHref} onClick={onClose} className={`${BTN.soft} ml-auto`}>
+            <Volume2 size={14} aria-hidden />
             {variant.secondaryLabel}
           </Link>
         )}
@@ -871,74 +803,57 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
           type="button"
           onClick={() => variant.onCtaClick?.()}
           disabled={variant.ctaPending}
-          className="inline-flex items-center gap-2 rounded-[var(--r-md)] px-5 py-3 font-display text-[14px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60"
-          style={{ backgroundColor: accent }}
+          className={`${BTN.primary} ${variant.secondaryHref && variant.secondaryLabel ? '' : 'ml-auto'}`}
         >
           {variant.ctaLabel}
         </button>
-      </footer>
+      </>
     )
   }
 
-  // v06.34 — enrolled 도서면 좌측에 "내 학습에서 제외" 보조 액션 노출
-  const showUnenroll =
-    variant.type === 'book' && variant.isEnrolled === true && !!variant.onUnenroll
+  // enrolled 도서면 왼쪽에 "내 학습에서 제외" 보조 액션 — 되돌릴 수 있는 동작이라 글자 버튼.
+  const showUnenroll = variant.type === 'book' && variant.isEnrolled === true && !!variant.onUnenroll
+  const hasComic = variant.type === 'book' && !!variant.comicHref
 
   return (
-    <footer className="flex shrink-0 items-center justify-between gap-2 border-t border-[var(--bd)] bg-[var(--bg)] px-6 py-3 md:px-8">
-      <div className="flex items-center">
-        {showUnenroll && variant.type === 'book' && (
-          <button
-            type="button"
-            onClick={() => variant.onUnenroll?.()}
-            disabled={variant.unenrollPending}
-            className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] disabled:opacity-50"
-            title="내 학습 도서 목록에서 빼기 (단어 학습 기록은 보존)"
-          >
-            {variant.unenrollPending ? '제외 중…' : '− 내 학습에서 제외'}
-          </button>
-        )}
-      </div>
-      <div className="flex items-center gap-2">
+    <>
+      {showUnenroll && variant.type === 'book' && (
         <button
           type="button"
-          onClick={onClose}
-          className="inline-flex items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+          onClick={() => variant.onUnenroll?.()}
+          disabled={variant.unenrollPending}
+          className={`${BTN.text} text-[var(--t2)] hover:text-[var(--error-ink)] disabled:opacity-50`}
+          title="내 학습 도서 목록에서 빼기 (단어 학습 기록은 보존)"
         >
-          나중에
+          {variant.unenrollPending ? '제외 중…' : '− 내 학습에서 제외'}
         </button>
-        {/* 포맷 선택 — 만화 발행 도서만. 본문 CTA 와 동등 위계(강요 아님), gold 로 계열 구분 */}
-        {variant.type === 'book' && variant.comicHref && (
-          <Link
-            href={variant.comicHref}
-            onClick={onClose}
-            className="inline-flex items-center gap-2 rounded-[var(--r-md)] px-4 py-3 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:scale-100"
-            style={{ backgroundColor: 'var(--active)', color: '#231a09' }}
-          >
-            <BookImage size={14} aria-hidden />
-            {variant.comicLabel ?? '만화로 읽기'}
-          </Link>
-        )}
-        <Link
-          href={variant.ctaHref}
-          onClick={onClose}
-          className="inline-flex items-center rounded-[var(--r-md)] px-5 py-3 font-display text-[14px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
-          style={{ backgroundColor: accent }}
-        >
-          {variant.ctaLabel}
+      )}
+      <button type="button" onClick={onClose} className={`${BTN.secondary} ${showUnenroll ? 'ml-auto' : ''}`}>
+        나중에
+      </button>
+      {/* 포맷 선택 — 만화 발행 도서만. 본문 CTA 와 동등 위계(강요 아님) */}
+      {variant.type === 'book' && variant.comicHref && (
+        <Link href={variant.comicHref} onClick={onClose} className={`${BTN.soft} ${showUnenroll ? '' : 'ml-auto'}`}>
+          <BookImage size={14} aria-hidden />
+          {variant.comicLabel ?? '만화로 읽기'}
         </Link>
-      </div>
-    </footer>
+      )}
+      <Link
+        href={variant.ctaHref}
+        onClick={onClose}
+        className={`${BTN.primary} ${showUnenroll || hasComic ? '' : 'ml-auto'}`}
+      >
+        {variant.ctaLabel}
+      </Link>
+    </>
   )
 }
 
 // ─── 미니 helpers ────────────────────────────────────────
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="flex flex-col gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
-      <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
-        {label}
-      </span>
+    <div className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+      <span className={DIALOG.sectionLabel}>{label}</span>
       <span className="font-display text-[16px] font-[800] tabular-nums text-[var(--t1)]">
         {value}
       </span>

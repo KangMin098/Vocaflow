@@ -1,0 +1,1073 @@
+[
+ {
+  "id": "0e5cd655-9126-456d-b3c6-b09cf9e02674",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6b5ce54145d92ee0fbc93aedfd194270afda24d61b3f83ca50baddc2fd920db9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "hold_reason": "incomplete-source",
+  "genre": "news",
+  "why": "p3 이 도착 시각 목록을 예고하고 목록 없이 대문자 경보 조각으로 끊겨 받은 본문이 불완전하다 — 앞 세 문단의 경보 사실만 내용일치 칸 후보.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "An official from the Alaska Tsunami",
+   "note": "하와이·미 서부 해안 제외 문단은 떼어 쓸 만했으나 p3 「as follows」 뒤 도착 시각 목록이 없고 대문자 경보문이 중간에서 끊겼다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0e607b22-0f28-418d-83f1-74036b369704",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6a1f7f652b85c9579f256d199a6238ac90593249fe56d8c6b02a22b88c254e26",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "연기금 컨소시엄의 BCE 비공개화 협상을 인수단 구성·경쟁 입찰·주가 순으로 풀어 내용일치·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "If successful in their bid, the",
+   "note": "상장 폐지 문단에서 증권 코드 괄호를 걷고 publicly-traded·take private 를 풀어 쓰니 인수의 뜻이 한 문단으로 섰다."
+  },
+  "uses": [
+   "factual",
+   "structured",
+   "vocab"
+  ]
+ },
+ {
+  "id": "0e62465d-5aab-46df-98dd-ff814727f759",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ce41f82a1672b2e033af35372b57e2caac3cf1f1067c354b1d837279fe2bb199",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "탁신 퇴진 집회를 규모·국왕 호소·야당 보이콧·1992년 비교로 이어 가 내용일치와 순서 칸 재료가 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The three main opposition parties are",
+   "note": "야당 선거 거부 문단은 Thaksin 만 알면 서고, boycotting·electoral process 를 쉬운 말로 바꾸니 V5 로 내려갔다."
+  },
+  "uses": [
+   "factual",
+   "structured",
+   "sequence"
+  ]
+ },
+ {
+  "id": "0e669770-8879-4340-a532-e4c92b72ff46",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1b93be85b7f49638ee79a44a76c1ea0331dfca46840cb7d1b97432a07665d23f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "핵태세검토서의 제한·두 단서·양 진영 반발을 한 편으로 정리해 요약·주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The document does, however, contain two",
+   "note": "두 단서 문단은 however 로 앞 문단을 받아 첫 낱말만 고치면 떨어지고, caveats·nonproliferation 을 풀면 요약 지문이 된다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "structured",
+   "vocab"
+  ]
+ },
+ {
+  "id": "0e6e8264-02e6-4508-bd08-5b9e6a1b06d9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "841b28b2dbb057df1620cbd24d58ddb2aa6ad06cf1fcfcad4cff7b11b160cfe8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "차베스의 단교 선언과 OAS 공방·미국과 사무총장의 반응을 차례로 전해 내용일치·순서 칸 재료다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In an extraordinary session at the",
+   "note": "OAS 회의 문단은 직함 고유명사를 걷어도 「콜롬비아의 FARC 은신 주장」 사건이 서고 harbouring 만 바꾸면 쉬워졌다."
+  },
+  "uses": [
+   "factual",
+   "sequence",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0e6f26fc-11ad-44ee-8318-3b5875e524ba",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f237eb0a8f1c002fbd3e1822d1a24c5c736b51a4c0c411317392525c8025f9d2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "education",
+  "why": "NCEA 부정 조사 학교 명단 공개 요구를 학부모 알 권리 논리로 펼쳐 주장·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Katherine Rich, National's education spokeswoman, has",
+   "note": "대변인 주장 문단은 학부모의 알 권리 논리가 인용 두 개로 서 있어 credibility·rectified 를 바꾸면 주장 지문이 된다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0e719a71-2eaa-4fb2-9197-f46e08d71433",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5b22e819c103d7fb1f7e61a8c9658ab26797c8ce9c142ea1e87f20f14c9a2301",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "티베트 망명정부 대표 인터뷰로, 서부 개발·판첸 라마 답변 문단이 주장·요지 칸을 채우지만 정치·종교 쟁점이라 고3·성인 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But unfortunately, the development plan they",
+   "note": "서부 개발 비판 답변은 한 문단 안에서 환영→그러나 혜택이 한족에게로 논지가 서고 marginalized 두 곳만 바꾸면 됐다."
+  },
+  "uses": [
+   "argument",
+   "spoken",
+   "factual",
+   "vocab"
+  ]
+ },
+ {
+  "id": "0e742d53-6c45-42c9-a244-57e5d99b5487",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3b9cc07a43c5b3632402cc064710afbf9ca2e393f6157435dd460548b8583206",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "축출된 무바라크의 소환과 자기 변호 음성을 소환·체포·광장 진압 순으로 전해 내용일치·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In an audio message which aired",
+   "note": "음성 메시지 문단은 무바라크의 억울함·반박 어조가 인용 하나로 드러나 tarnish·incitement 를 바꾸면 심경 재료가 됐다."
+  },
+  "uses": [
+   "factual",
+   "mood",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0e78d1c6-2486-477d-99a1-9beb6a2260c9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1e6815387bbd21cb2d49d06c0055301a2398ceb070007dde2f6432ae303bf889",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "실업급여 기금 고갈로 연방 대출을 받는 까닭과 실업률을 인과로 이어 내용일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Rhode Island's Department of Labor and",
+   "note": "대출 이유 문단은 「기금이 2백만 달러로 줄어 며칠분」이라는 인과가 서서 line of credit 만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "vocab"
+  ]
+ },
+ {
+  "id": "0e7a6e93-26b6-4527-b4b6-8825f1568546",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b7112c85341c66c9bf0fd3d97fc623df25bced1ee4aee45c4ac1af06438c77a9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "허리케인 오토의 약화 경로와 시즌 예측·대비 조언을 전해 내용일치 칸을 채우지만 좌표·속도 나열 문단은 걷어야 한다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Earlier this year, Colorado State University",
+   "note": "전문가 예측·조언 문단은 수치를 걷어도 「활발한 시즌 예측 → 당국 지시를 따르라」가 서고 쉬운 편이다."
+  },
+  "uses": [
+   "factual",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0e831f8a-d40b-470a-95f5-7dda10de254f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "014084bfb55f36fabb3da7f7d68f4050003226774abb90f58b8203ad91cbb312",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "부시와 투레 회담의 공동 회견 발언을 옮긴 글로, 반부패·보건 협력 언급이 내용일치 칸 하나를 겨우 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Mr.Bush started the press conference after",
+   "note": "부시 발언 문단은 떼면 서지만 인용 조각의 연속이라 어휘를 바꿔도 칭찬 나열 이상이 되지 않았다."
+  },
+  "uses": [
+   "factual",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0e849bc7-4f56-4cb5-9ae5-01d57d634138",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "333ef8a5628a046f9a5480354a92ff80b6ed786ea7c9e2eef66cf79ae38d2272",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "ABS-CBN 방송 중단을 법 조항·재허가 지연·대통령과의 갈등으로 설명해 요약·순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The network tried to renew their",
+   "note": "재허가 시도 문단은 법안 계류→임시 허가 거부→상원 비판이 한 문단에 서고 provisional·condemned 만 바꾸면 됐다."
+  },
+  "uses": [
+   "factual",
+   "structured",
+   "argument"
+  ]
+ },
+ {
+  "id": "0e855414-89d3-4676-8891-464031542c93",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c14a403675b24eac1ba4a539a127015f0260b7ddbc8f130304531a1c3efcaa90",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "라호르 자폭 테러와 비상사태·선거 연기의 정치 맥락을 이어 고2 이상 내용일치·순서 칸을 채운다(사상 소재라 저학년 칸 없음).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "President Pervez Musharraf declared a state",
+   "note": "비상사태 문단은 공식 이유와 반대파가 본 속셈을 대비시켜 테러 묘사 없이 서고 curb 만 바꾸면 됐다."
+  },
+  "uses": [
+   "factual",
+   "sequence",
+   "structured"
+  ]
+ },
+ {
+  "id": "0e85f919-9d83-44c4-a344-29b1c4dfe880",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "961aa0bd6a90f14cd464468031c5e6ad2370621dbcc135d9c0e689e9a26c8e98",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "국영기업 세 곳의 상장 계획을 다루며 p1 의 민영화 목적 대비가 내용일치 칸을 받치나 대부분은 수치 나열이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "The parliament has left the process",
+   "note": "민영화 목적 문단은 「적자 보전이 아니라 확장 자금」 대비가 서지만 나머지 문단은 루피아 환산 수치 나열이라 걷어야 했다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0e87b23e-fd8f-4db5-9132-591f8786f059",
+  "source_updated_at": "2026-09-25T08:53:30.664017+00:00",
+  "body_sha256": "a19d3e9dd93e5fd1abf1c51c787c875979bfd89949c5a4ffb6dc595f2c6c1486",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "쇼핑몰 흉기 난동 체포 기사로 사건 경위와 동기 미상이 내용일치 칸을 채우되 폭력 소재라 고1 이상만 단다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Local police spokesperson Andrzej Wierszyna said",
+   "note": "체포 경위 문단은 신고→시민 제지→음주 검사 음성이 순서로 서고 칼부림 묘사가 없어 쓰기 쉬웠다."
+  },
+  "uses": [
+   "factual",
+   "sequence"
+  ]
+ },
+ {
+  "id": "0e87c549-7ac6-4bc6-b074-e73ba6d89264",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "414dc6565ab24e19057812e4a3b41accff303488c0698d72cc4fe2e092cf5a89",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "첫 안면 이식 계획을 성공 확률·외모에 대한 오해 교정·면역억제 위험으로 설명해 빈칸·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "blank",
+    "irrelevant"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Having practiced the procedure on bodies",
+   "note": "외모 문단은 「공여자 얼굴이 되지 않는다 — 뼈 구조가 결정」이라는 통념 교정이 서고 recipient 만 풀면 됐다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "vocab"
+  ]
+ },
+ {
+  "id": "0e8d5ff8-033e-4949-81cb-a7e23024ec5a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8ab3152efe93a45929e521a80af7dd23024fcb826626efd808b541f501ee9b62",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "경찰 비리를 폭로한 소녀의 피살을 강요된 성매매·보복 정황으로 전해 성인 읽기 칸만 채운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dudushi had not been placed in",
+   "note": "증인 보호 부재 문단은 짧게 서지만 성매매 강요·강간 고발이 사건의 중심이라 소재를 걷을 수 없었다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0e8fa0b3-18d7-473b-a7c6-e0243de2025d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5bcd6f82cd39b57f1e3b1c0d3649e33ca6637f56ffbf7ffa795a76388acaad28",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "동티모르 호주군 진주를 순찰 상황·파병 논리·반군 지도자 반응으로 전해 주장·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "As the rest of the 1300",
+   "note": "하워드 발언 문단은 「예견했지만 요청 없으면 침공」이라는 논리가 인용으로 서서 mandated 만 바꾸면 주장 재료가 됐다."
+  },
+  "uses": [
+   "factual",
+   "argument",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0e94eae2-7271-4734-b0b3-9158707235fa",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ca43ba39af2b9df567fdbe4e174c5794adf1a9eb23615bb5951e6f2343b6e048",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "86어 추락 속보지만 탑승·항로·생존자 사실이 이어져 내용일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Two aircraft entered the Hungarin airspace,",
+   "note": "짧은 둘째 문단은 오타(Hungarin)를 고치면 앞 문단에 기대어야 뜻이 서서 첫 문단과 한 덩어리로 써야 했다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0e9666d9-9a74-42cb-8e29-6b43e1c5d3c6",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0225a5a3b94206d78262b48789c826cd0ce263383c19fc154f36df304d4ed900",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "저축률이 음수가 된 뜻을 풀고 대공황과 비교해 짧지만 빈칸·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This means that people spent everything",
+   "note": "풀이 문단은 「음의 저축률 = 번 것보다 더 씀」을 대공황 두 해와 대비해 서고 낱말이 이미 쉬웠다."
+  },
+  "uses": [
+   "factual",
+   "vocab"
+  ]
+ },
+ {
+  "id": "0e991e49-ff24-43ec-80d5-0c263fdb32ce",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "038f0991640a341e6d2fcf4ab75c45500abcc64566b9f3409b1359832972c110",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "콩고 성폭력 규탄 행진의 규모·목적·회의를 전해 고3·성인 내용일치 칸만 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Both rebel groups and government troops",
+   "note": "행진 목적 문단은 「전쟁 무기로서의 강간에 국제 관심」이 서지만 성폭력 소재라 연령 칸을 올려야 했다."
+  },
+  "uses": [
+   "factual",
+   "argument"
+  ]
+ },
+ {
+  "id": "0e9c5115-158c-406f-8712-93b67e7c720c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "66ec7a07794aba966a0a42ee72c5f0099ca94b22239a6f62f7a645b40a84bf18",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "헬기에 토마토 바주카를 쏘겠다고 협박한 남자의 법정 기사로 짧은 사건 흐름이 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Police swung into action searching Donohue's",
+   "note": "수색 문단과 변호사 농담 인용이 이어져 우스운 사건 흐름이 서고 swung into action 만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "sequence",
+   "mood"
+  ]
+ },
+ {
+  "id": "0e9dd7ef-e97c-4f17-90ba-37167ae47477",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c6a6ee87b020b727233902b617f48e51526509f53280f273c700643ae52cf117",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "마비된 피해자가 눈 깜빡임으로 진술한 공격 경위와 경찰 호소를 전해 장문·심경 칸 재료지만 묘사가 구체적이라 성인만.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "long_reference",
+    "mood"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Abigail reached the gate that leads",
+   "note": "공격 경위 문단은 시간순으로 서지만 아이 목에 칼을 대는 묘사가 구체적이라 성인 칸으로 제한했다."
+  },
+  "uses": [
+   "sequence",
+   "mood",
+   "factual",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0ea07cf9-39a1-42ca-8f68-fec0854db92e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "982c22531556bf9a202a7e0ae50d5c7fa321c4a9f59296dfab535c4fc1f38923",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "텍사스 경선 결과와 롬니 후보 확정을 득표율 중심으로 전해 내용일치 칸 하나만 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Unlike West Virginia and Arkansas, more",
+   "note": "상원 경선 문단은 결선 조건(50%)이 서지만 대부분 득표율 나열이라 수치를 걷으니 남는 것이 적었다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0ea749b2-f07d-4819-bb2f-1cf0ae08e94d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "fd4145abfbb7a73c2c194c3fc1d7bed14ce1ecb7db8e5ba7128fd4af4c0c4fb5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "유로존 성장 전망 하향과 실업 증가를 인과로 전해 빈칸·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The International Monetary Fund stated in",
+   "note": "IMF·실업 문단은 「경기후퇴 연장 → 실업 2천만」 인과가 서고 persists·recession 은 문맥으로 잡혔다."
+  },
+  "uses": [
+   "factual",
+   "vocab"
+  ]
+ }
+]

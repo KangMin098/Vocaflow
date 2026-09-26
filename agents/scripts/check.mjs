@@ -114,6 +114,17 @@ export function runChecks() {
   const readme = readText(rel('README.md')) ?? ''
   add('D9', 'README 「두 에이전트로 일하는 법」', /두 에이전트로 일하는 법/.test(readme))
 
+  // D9 — 드레인 서브에이전트는 두 에이전트가 같이 쓴다.
+  // ⚠️ `.claude/agents/` 에만 만들면 **Codex 는 그 드레인을 못 돌린다.** 조용히 갈라지는 종류의 결함이라
+  //    (실측 2026-09-23: `csat-source-judge` 가 Claude 쪽에만 생겼고 아무 검사도 안 걸렸다) 여기서 막는다.
+  //    반대 방향은 검사하지 않는다 — `reviewer`·`test-writer` 처럼 Codex 전용 에이전트가 정상적으로 있다.
+  const claudeAgents = fs.existsSync(rel('.claude', 'agents'))
+    ? fs.readdirSync(rel('.claude', 'agents')).filter((f) => f.endsWith('.md')).map((f) => f.replace(/.md$/, ''))
+    : []
+  const orphanAgents = claudeAgents.filter((n) => !fs.existsSync(rel('.codex', 'agents', `${n}.toml`)))
+  add('D9', `서브에이전트 ${claudeAgents.length}개 Codex 짝 존재`, orphanAgents.length === 0,
+    orphanAgents.length ? `Codex 짝 없음: ${orphanAgents.join(', ')}` : claudeAgents.join(' · '))
+
   return rows
 }
 

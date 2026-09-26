@@ -1,0 +1,827 @@
+[
+ {
+  "id": "3702fff8-4469-4b88-bb64-eaa4eda9903f",
+  "title": "Bionic Movements",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "67d76085688a5ef6e14ba614fb7fbd9db3dfd553b9b470fe05520cd50dd23e4d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 978,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2018-08-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2018/08/bionic-movements",
+     "year": 2018,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "When you lose the use of a limb, even the simplest of daily tasks can turn into a challenge. High-tech devices can help restore independence. New technologies are even making it possible to connect the mind to an artificial limb. These artificial limbs are called bionic Devices that replace a body part. prosthetic devices.\n\n“To get back some of that lost function, you need some sort of assistive tool or technology to either enhance recovery or restore the capability of the anatomy that’s missing now,” says Dr. Nick Langhals, who oversees NIH-supported prosthetic engineering research.\n\nThis fast-moving research aims to improve people’s lives by restoring both movement and feeling.\n\nTraditional prosthetic devices use a body-powered harness to control a hand device. These are easy to use. With a shrug of your shoulder, the prosthetic hand or hook opens. With the release of your shoulder, the prosthesis closes. Through the feel of the cable tension across your shoulders, you know whether the prosthesis is open or closed without looking at it.\n\nNewer, motorized hands are not as easy to learn how to use. To close the device, you contract the remaining muscles in your arm. An electrical sensor placed over those muscles detects the contraction and tells the hand to close. Since the original muscles that controlled the hand are gone, the remaining muscles must be retrained. Learning how to open and close a prosthetic hand in this way takes some time. And you still need to watch the device to know what it’s doing.\n\nTo make motorized hands more intuitive to use, researchers are developing ways to detect the electrical signals in your brain and Special tissues that carry signals between your brain and other parts of your body. nerves to help control advanced bionic prosthetics. This can be done many ways, such as by implanting tiny sensors in the parts of the brain that control movement or by attaching small Tools that are used to carry electricity to or from different parts of the body. electrodes to the amputated nerves. Either way, the patients simply think about moving their hand and computers translate it into the movements of a bionic prosthetic hand.\n\nTo regain a sense of wholeness, a person with a bionic limb needs to do more than control the device. They also need to “feel” what it’s doing. New bionic devices can send sensation from the device back to the brain. This allows a person with a bionic device to feel like they are using their own limb.\n\n“The most important thing about the research that we’re doing is this sense of wholeness,” says Dr. Paul Marasco, a biomedical engineering researcher at Cleveland Clinic.\n\nOne way to help a person feel their prosthetic hand is to move the remaining sensory nerves from the amputated hand to the skin of the upper arm. You can then use small robots to press on the skin of the upper arm when the hand is touching something.\n\nMarasco’s team devised a similar system to restore the feeling of movement, too. The bionic hand sends signals to a computerized control system outside of the body. The computer then tells a small robot worn on the arm to send vibrations to the arm muscle. These vibrations deep in the muscle create an illusion of movement that tells the brain when the hand is closing or opening.\n\nMarasco’s team tested this feedback system with several people who had a hand prosthesis. The study participants were able to operate the bionic hand and know what position it was in just as well as with their natural hand. With this feedback system, they didn’t have to look at the bionic hand to know when it was open or closed, or when it was reaching for an object.\n\n“We fool their brains into believing that the prosthesis is actually part of their body,” Marasco says. This advancement directly taps into the way that the brain senses movement, which helps improve the two-way communication between prosthetic device and mind.\n\nResearch teams are also trying to help people who have lost the use of their legs. By wearing a robotic device called an exoskeleton, some people with leg paralysis have been able to regain the ability to walk.\n\nA group led by Dr. Thomas Bulea, a biomedical engineer at the NIH Clinical Center, created a wearable exoskeleton for children with cerebral palsy. Cerebral palsy is a brain disorder that makes it hard to stand up straight, balance, and walk. The motorized, robotic exoskeleton changes the way the children walk by helping them straighten their knees at key points during the walking cycle. While the exoskeleton can make walking easier, children must be able to navigate at least small distances on their own to use it.\n\n“The ultimate goal really is to have a person wear this outside of our lab, or even outside of the clinical setting,” Bulea explains. “To do that you have to have a really robust control system that makes sure that the robot is behaving properly in all different kinds of environments.”\n\nThe team is now writing software so that the robotic device can be worn while navigating bumps in the terrain and other real-world conditions.\n\n“What I try to emphasize to people is that there are a lot of potential tools and technologies at our disposal to try and make people better, and they should explore them and consider embracing them,” Langhals says.\n\nMany types of prosthetic devices are now in development. If you’d like to find a clinical study to help test one, you can search for one in clinicaltrials.gov, a database of both NIH-supported and other studies around the world.\n\nIf you’re interested in taking part in a study, talk with your doctor about the possible risks and benefits. See the Ask Your Doctor box for questions to ask."
+ },
+ {
+  "id": "37c3887c-5f42-42ca-a10b-2e47dbede888",
+  "title": "Shape Your Family’s Habits",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "21d89a54bc4f180ff41075956d875c4efddd67f4f025b40fe9ba945faf102b67",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1191,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2018-07-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2018/07/shape-your-family-s-habits",
+     "year": 2018,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Many things can influence a child, including friends, teachers, and the things they see when they sit in front of the TV or computer. If you’re a parent, know that your everyday behavior plays a big part in shaping your child’s behavior, too. With your help, kids can learn to develop healthy eating and physical activity habits that last throughout their lives.\n\nHealthy eating and physical activity are essential for children of any age. “They can have many health benefits for children, including promoting heart health and improving mood,” says Dr. Voula Osganian, a child obesity specialist at NIH.\n\nGetting active and eating right may also prevent excess weight and childhood obesity, a growing concern in this country. Today, nearly 1 in 3 children in the United States is overweight or obese. “If someone develops obesity as a child or adolescent, there’s a very high likelihood that they’ll remain obese or overweight as an adult,” Osganian explains. “But studies also show that if you start eating healthy and being active early, you tend to maintain those habits over time.”\n\nAlthough most of us know that it’s a good idea to eat healthy food and move more, it isn’t always easy to do. Children aren’t likely to change their diet and activity habits on their own. It’s up to you to make it easier for your family to make healthy choices.\n\n“Parents are very important in terms of arranging an environment and setting a model for healthy or unhealthy behavior,” says Dr. Leonard H. Epstein, an expert on childhood obesity at the University of Buffalo. “Parents bring foods into the house. They control how much time a child can watch TV. They control what kinds of social activities are paired with foods. And kids learn a huge amount about eating and physical activity from watching and imitating their parents.”\n\nEpstein’s research shows how important parents can be. In NIH-funded work, his team assigned obese children, ages 8 to 12, to different types of weight loss programs. All the groups were taught about healthy diet, behaviors, and exercise. For some groups, positive feedback and encouragement for weight loss and behavior changes were given only to the child. Other groups focused on both the child and an obese parent. Comparison groups received little feedback.\n\nThe researchers found that when obese parents and children worked together, both were more successful at losing weight and making healthy changes. “Our studies suggest that getting the whole family working together really benefits the child,” Epstein says. “Even after 10 years, when these kids were 18 to 22 years old, the ones who had the parent working with them had lost more weight and maintained more weight loss than the ones treated by themselves, and obviously more than the comparison groups.”\n\nOver time, most parents gradually began to regain their lost weight, the researchers found. But after 10 years, more than 40% of the kids who worked with their parents had maintained a weight reduction of at least 20%. “The finding suggests that even if the parents go back to their old behaviors, many of the kids will not,” says Epstein.\n\nWhile it’s never too late to start making healthy changes in your family, research suggests that the earlier your kids learn healthy behaviors, the better.\n\nDr. Julie Lumeng, a pediatrician at the University of Michigan, focuses her NIH-funded research on the factors that affect eating behaviors in young children—especially preschoolers and infants. That’s an ideal time to start exposing your children to a variety of healthy foods, such as fruits and vegetables, so they develop a liking for them.\n\nGetting young ones to accept fruits and vegetables can be a challenge, but some parents give up too quickly if a child rejects a new food. Research suggests that the more times you offer a food, the more likely a child will be to warm up to it. “Kids typically have to taste a new food 9 to 15 times to begin to like it,” Lumeng says.\n\nIf your child doesn’t like a new food right away, stay positive and keep trying over time. Encouraging kids to take just one bite of a new food can help. But avoid creating conflicts and stress over it.\n\n“Trying a new food can be exciting and also stressful in general,” Lumeng says. “Several studies show that kids are more likely to try a new food if they’re eating in a setting that’s relaxing and pleasant.”\n\nChildren under the age of three tend to stop eating on their own when they’re full. “But after age three,” Lumeng says, “the more you put on their plate, the more they’ll eat.” So make sure to give your kids child-size portions.\n\nTake opportunities to teach young children about feelings of fullness. “If your child asks for another helping, instead of saying, ‘No, honey, you’ve had enough,’ try saying something like, ‘You must really be hungry tonight,’ to raise their awareness of their feelings,” Lumeng suggests. “Or when they stop eating, say, ‘Oh, you must feel full now,’ to help teach about hunger and feeling satisfied.”\n\nSeveral studies show that parents can effectively influence healthy behaviors by talking in a positive way or avoiding certain situations altogether. “Instead of telling your children, ‘No, you can’t have any more cookies,’ just keep cookies out of the house altogether,” says Lumeng.\n\nWhen you bring unhealthy food and sugary drinks into the house, “parents essentially become the food police,” adds Epstein. “It’s easier to create an environment in the home where there’s limited access to unhealthy foods and lots of access to healthy foods.”\n\nExperts recommend that most kids get at least an hour of moderate to vigorous physical activity each day. Parents can help by limiting TV and computer time to no more than one or two hours per day.\n\n“Small changes in the home environment can also have a huge effect on physical activity,” says Epstein. You can make sports equipment like balls and jump ropes more accessible by putting them next to the door. Walking fast, bicycling, jumping rope, and playing basketball, soccer, or hopscotch are all good ways for kids to be active.\n\nWhen it comes to food and physical activity, what you say and do around your children can have a lasting effect. Work together as a family to make healthy habits easy and fun.\n\nBe a role model. Eat healthy family meals together. Walk or ride bikes instead of watching TV or surfing the Web. Make healthy choices easy. Put nutritious food where it’s easy to see. Keep balls and other sports gear handy. Focus on fun. Play in the park, or walk through the zoo or on a nature trail. Cook a healthy meal together. Limit screen time. Don’t put a TV in your child’s bedroom. Avoid snacks and meals in front of the TV. Check with caregivers or schools. Make sure they offer healthy foods, active playtime, and limited TV or video games. Change a little at a time. If you drink whole milk, switch to 2% milk for a while, then try even lower fat milks. If you drive everywhere, try walking to a nearby friend’s house, then later try walking a little farther."
+ },
+ {
+  "id": "383878ae-bdec-4d19-8a01-113164486bc7",
+  "title": "Communicating Clearly While Wearing a Face Covering",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "16002d9130ac19de4aefa8b18b58aa44c48100b343063d2a31e189465768500d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 234,
+   "v_level": 3,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2020-09-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2020/09/communicating-clearly-while-wearing-face-covering",
+     "year": 2020,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Wearing a face covering is an important part of keeping you and others healthy right now. But they can also make talking to those around you more difficult. Face coverings can muffle sound. They can also hide important clues about the speaker’s message and emotions. This can make it hard to understand speech, especially for those with hearing loss.\n\nMillions of people in the U.S have hearing loss, including half of those older than 75. Now, more than ever, it’s important to make an extra effort to communicate. Speak more clearly and louder than you normally would, without shouting. Reduce background noise when possible. Be aware that physical distance can also make hearing more difficult.\n\nMake sure the person you’re speaking with understands you. Ask and adapt if needed. You can also offer to use another method—a smartphone, paper and pen, or whiteboard—to get your message across. When it’s essential that you understand spoken details, like at a doctor’s appointment, consider bringing a friend or family member to help.\n\nFace coverings can make communication challenging for everyone. But people with hearing problems often rely on lip-reading to understand what’s being said. Consider using a clear face covering to make your mouth visible, instead of a cloth covering. With a little extra effort and problem solving, we can all communicate clearly while staying safe.\n\nLearn more tips on improving communication when wearing a face mask."
+ },
+ {
+  "id": "384a36eb-e693-47e0-b8f1-202687352b41",
+  "title": "Face Masks and COVID-19",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b8ba92770326ce1aa2a854b156d390155921f7dc41e29cbcaec0ba9b9e80b33b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 659,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2021-11-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2021/11/face-masks-covid-19",
+     "year": 2021,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "To fight the spread of COVID-19, many places now require people to wear face masks. But the advice on wearing them has changed over the course of the pandemic. This has led some people to question: Do face masks even protect against COVID-19?\n\n“Yes, absolutely,” says Dr. Adriaan Bax, a biophysicist at NIH. He has been testing how well different types of masks work. Masks, he explains, can help stop the spread of COVID-19 for a few reasons.\n\nFirst, masks can trap fluid droplets that exit the mouth while you’re speaking. If you have COVID-19, these droplets contain virus that can be inhaled by others.\n\nBax and his colleagues have shown that just by talking, a person produces thousands of these little droplets every second. Speaking loudly or singing produces even more droplets.\n\nStopping droplets at the source is the easiest way to prevent the virus from spreading through the air. Wearing a mask can play a crucial role. Bax and colleagues have found that even a simple cloth mask can stop nearly all droplets produced during speech.\n\nAfter droplets leave someone’s mouth, the water in them quickly evaporates. This causes the droplets to shrink. These shrunken droplets are called aerosols. They can float in the air for anywhere from minutes to hours. Once the virus is carried in such tiny aerosols, it becomes more difficult to stop.\n\nMasks can also help protect the people wearing them. Studies have found that NIOSH-approved N95 respirators and KN95 masks block aerosols from entering the airway very effectively.* Surgical and cloth masks are less effective, but they still provide some protection. How well they work depends on the number of layers, choice of materials, and whether they’re worn properly.\n\nEven if a mask doesn’t block all of the aerosols, it may still protect the wearer against severe disease. Severe COVID-19 tends to occur when virus gets into the lower airway and the lungs.\n\nWearing a mask may help the body clear out virus from the lower airway before it reaches the lungs. This is because, as Bax’s team has shown, wearing a mask traps the moisture that would otherwise escape when you exhale. This raises the amount of moisture in your airways (or the humidity).\n\nMoisture is essential to promote the natural clearance process of the airways. This helps keep the lungs free of contamination by dust, pollutants, and viruses. Masks may aid this process by raising the humidity.\n\n“Some may find wearing a mask uncomfortable, especially on hot and humid days. This is largely because of the humidifying effect. But this drawback is very minor compared to the benefit that masks offer,” says Bax.\n\nFor most people, cloth masks and surgical masks don’t interfere with normal breathing. Oxygen and carbon dioxide are much smaller than the respiratory droplets that carry the virus and pass easily through masks.\n\nMasks work best when we all wear them. But with any mask, not all virus particles are blocked. That’s why it’s still important to stay a distance from others, generally about six feet. For tips on wearing masks, see the Wise Choices box.\n\nAnd remember: Getting a COVID-19 vaccine is the best way to protect yourself and others from the virus.\n\n*Editor's Note: \"respirators and\" were added to the text after publication for clarity.\n\nChoose masks with two or more layers of fabric. A well-fitted N95 respirator provides the most protection. Avoid masks with exhalation valves, vents, or other openings. Be sure your mask covers both your nose and your mouth. Be sure that your mask fits snugly against the sides of your face. Wash reusable masks every day or whenever they get dirty. If you have a disposable face mask, throw it away after wearing. For teachers and other people whose jobs require lots of speaking, consider using a voice amplifier (which can be found online), so you can be better heard while wearing a mask. To stay up-to-date on mask guidance, visit the CDC’s website."
+ },
+ {
+  "id": "38e82f29-ca76-4fca-a4f1-50f0027ba37c",
+  "title": "Ebola Vaccine Prompts Immune Response",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8798596a509b4956310d3e25ce06b4c1eeb81b58fa637e96ba62c8d35afab74a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 254,
+   "v_level": 6,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2015-01-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2015/01/ebola-vaccine-prompts-immune-response",
+     "year": 2015,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "An experimental vaccine to prevent Ebola virus disease was well-tolerated and produced Protects your body from invading viruses and other threats. immune system responses in all 20 healthy adults who received it. Based on these results, researchers are planning further studies to assess the safety and effectiveness of the vaccine.\n\nThe Ebola virus spreads through direct contact with body fluids from an infected person. The 2014 Ebola outbreak in West Africa is the largest Ebola outbreak in history. As of early December, more than 17,000 cases and 6,000 deaths have been reported. There are no approved drugs, but early care can improve survival.\n\nBeginning in 2003, NIH developed and supported human testing of 3 experimental Ebola vaccines. The vaccine assessed in the new study was developed by scientists at NIH and at the pharmaceutical company GlaxoSmithKline based on knowledge gained from the earlier research.\n\nTwenty volunteers between the ages of 18 and 50 participated in the clinical trial, which took place at the NIH Clinical Center in Bethesda, Maryland. Ten received lower dose and 10 received higher dose vaccines.\n\nAll 20 volunteers produced anti-Ebola antibodies within 4 weeks of receiving the vaccine. Antibody levels were higher in those who received the higher dose vaccine.\n\nThe vaccine also prompted creation of protective immune cells called CD8 T cells. Four weeks after vaccination, CD8 T cells were detected in 2 volunteers who had received the lower dose and 7 who had received the higher dose vaccine.\n\nNo serious side effects were seen in any of the volunteers. This and other Ebola vaccine candidates continue to be evaluated by international research teams."
+ },
+ {
+  "id": "38f64f2f-ff14-4289-aec7-1d95d0b58592",
+  "title": "Body Forms “Industrial” Lubricant for Metal Hip Implants",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c4859d411de95d61e9a493f4c6c7f44e22642c3a01b60f678101c6302fa427cb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 261,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2012-02-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2012/02/body-forms-industrial-lubricant-metal-hip-implants",
+     "year": 2012,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A new study shows that a lubricating layer forms naturally in the joints of metal-on-metal hip implants. This solid layer, made mostly of carbon, is more like an industrial lubricant than joint fluid. The finding may help researchers design longer-lasting metal hips for treating arthritis and other joint disorders.\n\nArthritis is a painful condition often characterized by swollen joints. Over time arthritic joints can become damaged and too painful to use. When this happens, surgeons resurface or replace the joint with an implant.\n\nHip implants can be made of several materials, including plastic. But implants with metal ball and socket parts (metal-on-metal) have become increasingly popular.\n\nAll-metal joints aren’t designed with lubrication. But in the body, a thin, slippery layer develops between the metal ball and socket. Researchers thought that the layer must be made of proteins, like the fluid in normal joints.\n\nA team of NIH-funded scientists set out to discover what the thin lubricating layer was actually made of. The researchers scraped off and analyzed a bit of the lubricating layer from 7 metal hip implants removed from patients.\n\nTo their surprise, the scientists found that the layer was mostly made of graphitic carbon. They found very little protein at all.\n\nWith this knowledge, researchers can now aim to create safer, longer-lasting hip implants by encouraging carbon to stick to the metal joint.\n\n“The results of such research could have important implications for several hundred thousand Americans who undergo hip replacement each year,” says Dr. Stephen I. Katz, director of NIH’s National Institute of Arthritis and Musculoskeletal and Skin Diseases."
+ },
+ {
+  "id": "395f99be-9160-4f3b-8020-9f23285eba7d",
+  "title": "Worried Sick",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "86e67c981c30f80b2b0156d26386d60f94f3bf06dcf667743c33f217abb47751",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1088,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2011-11-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2011/11/worried-sick",
+     "year": 2011,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Anxiety is an uneasy feeling that something may harm you or a loved one. This feeling can be normal and sometimes even helpful. If you’re starting a new job or taking a test, it might make you more alert and ready for action. But sometimes anxiety can linger or become overwhelming. When it gets in the way of good health and peace of mind, it’s called an anxiety disorder.\n\nIf you have an anxiety disorder, you’re not alone. Each year, tens of millions of Americans of all ages suffer from long-term anxiety. Among children, anxiety disorders are the most common form of mental illness—one they may carry into adulthood.\n\n“Everybody has anxiety,” says Dr. Daniel Pine, an NIH neuroscientist and psychiatrist. “The tricky part is how to tell the difference between normal and abnormal anxiety.”\n\nFor those with anxiety disorders, fears, worries and anxieties can cause so much distress that they interfere with daily life. The anxiety grows out of proportion to the stressful situation or occurs when there is no real danger.\n\nAnxiety activates the body’s stress response. Nearly all the cells, tissues and organs in your body go on high-alert. This stress response can wear your body down over time. People with chronic (long-term) anxiety have a higher risk of both physical and mental health problems. Some people visit their doctors because of headaches, racing heart or other physical complaints without realizing that these symptoms may be connected to how anxious they feel.\n\nNIH-funded researchers are working to learn more about anxiety disorders. They have discovered that these conditions are caused by some combination of your Stretches of DNA, a substance you inherit from your parents, that define characteristics such as how likely you are to get certain diseases. genes and your environment. However, the precise events that lead to anxiety disorders are still unknown. Scientists are also searching for better ways to diagnose, prevent and treat these conditions.\n\nThere are several kinds of anxiety disorders. The major types include:\n\nPhobias. Intense, irrational fears triggered by things that pose little or no real danger, such as heights, dogs or spiders. Among the anxiety disorders, specific phobias are the most common. Social anxiety disorder. Leads to extreme anxiety and self-consciousness in everyday social situations. Also known as social phobia. Post-traumatic stress disorder. Caused by trauma. This condition leads to flashbacks, nightmares and insomnia. Often accompanied by depression or substance abuse, post-traumatic stress disorder can occur at any age, including childhood. Generalized anxiety disorder. Excessive worry about a variety of everyday problems. Panic disorder. Sudden attacks of terror accompanied by physical symptoms that may include heart palpitations, shortness of breath, dizziness, or abdominal distress. Panic disorder is one of the most treatable of anxiety disorders. Obsessive-compulsive disorder. Persistent, upsetting thoughts (obsessions) and repetitive rituals (compulsions), like hand washing, counting, checking or cleaning. These behaviors are done in the hope of preventing the thoughts or making them go away.\n\nTreatment for anxiety disorders usually includes both medication and cognitive behavioral therapy (CBT). CBT is a form of talk therapy. It helps people change both the thinking patterns that support their fears and the way they react to anxiety-provoking situations. Current treatments can be highly effective for most people.\n\nDr. Denise Chavira, a psychologist at the University of California, San Diego, works with anxious youth in underserved, rural areas. Her team is studying ways to make CBT more accessible to these children, who may have trouble getting to therapy sessions. To help make up for the lack of in-person contact, the researchers are examining telephone and self-help approaches that focus on teaching parents how to use CBT skills with their children.\n\nIn one study, the scientists are comparing CBT training delivered to parents by phone versus in-person CBT provided to anxious youth and their parents. With a therapist’s help, parents and kids create lists of anxiety-producing situations. They learn how to face their fears gradually while using CBT coping skills. Both methods encourage parents to model brave behaviors for kids, and to let kids learn how to be independent. “Some parents do this naturally, but others need some practice” says Chavira. “The phone is a less intense form of treatment, given that it only involves the parents and sessions are shorter. But even that mode can be really effective,” Chavira says.\n\nNIH-funded researchers are also using advanced imaging tools to pinpoint the areas in the brain that underlie anxiety disorders. Still in its very early stages, this approach represents a major shift from how doctors usually diagnose mental illness, which is by looking at symptoms and behaviors. Using an imaging technique called functional MRI (fMRI), scientists are scanning the brain in action—as it thinks, remembers, feels emotion and regulates the body’s reactions to things that cause anxiety. By measuring changes in blood flow related to brain activity, fMRI scans produce full-color images of trouble spots in real time.\n\nDr. Sonia Bishop of the University of California-Berkeley uses fMRI to study people at high risk for anxiety disorders. Her team hopes to prevent anxiety disorders before patients enter a downward spiral. The researchers are working to develop a new type of CBT-related treatment that helps to retrain how patients regulate their emotions and attention.\n\nScientists are especially curious about brain regions called the amygdala and the hippocampus. The amygdala plays an important role in fear and anxiety by alerting the brain to danger. The hippocampus translates threatening events into memories. Once scientists discover if and how these areas contribute to illness, they might be able to develop better treatments.\n\n“These disorders put a huge burden on the individual, the family and society,” Bishop says. “Anxiety disorders are one of the most common reasons that people visit their primary health care provider.”\n\nIf you are troubled by anxiety, the first person to see is your family doctor or nurse practitioner. He or she can check for any underlying physical illness or a related condition. You may be referred to a mental health specialist, who might help to identify the specific type of anxiety disorder and the appropriate treatment. With proper care, most people with anxiety disorders can lead normal, fulfilling lives.\n\nThe first person to see is your family doctor or nurse practitioner. The next step may be talking to a mental health professional. Consider finding someone trained in cognitive-behavioral therapy who is also open to using medication if needed. Consider joining a self-help or support group to share problems and achievements with others. Stress management techniques and meditation can also help."
+ },
+ {
+  "id": "3a07acb1-95c3-48af-9544-dc7f2107ac04",
+  "title": "Recognizing POTS",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "bcab510e4a3d84986d9b2e89dc6449285a5fdc6936355d191e04d419aec36de4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 613,
+   "v_level": 5,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2023-09-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2023/09/recognizing-pots",
+     "year": 2023,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A condition called POTS can have a huge impact on a person’s life. People with POTS often feel lightheaded or dizzy when standing up from a lying position. Their heart tends to race. They may even faint. Other symptoms can include extreme fatigue, shortness of breath, and trouble thinking.\n\n“POTS can be quite debilitating. It can make it hard to do everyday activities, like attending work or school,” says Dr. Cheryl L. McDonald, who helps oversee NIH’s POTS research programs. “Some people even require the use of a wheelchair because they can’t stand or walk for long periods.”\n\nPOTS is an abbreviation for Postural Orthostatic Tachycardia Syndrome. Postural means it’s linked to your body’s position. Orthostatic is related to standing. Tachycardia means rapid heart rate. And syndrome means it’s a group of symptoms. (See the Wise Choices box.)\n\nNormally, when a person stands up, gravity pulls blood down toward the legs and feet. This briefly reduces blood flow to the upper body, including the heart and brain. So the brain immediately sends signals that tighten the body’s lower blood vessels and make the heart pump faster. This pushes blood upward, so it can travel throughout the body.\n\nBut for people with POTS, these signals break down. The lower blood vessels don’t tighten enough upon standing, and the heart beats much faster than it should. The brain and other organs may not get enough blood, which can lead to fainting and other symptoms.\n\nPOTS can affect anyone at any age. It is most common among women, ages 15 to 50. Its causes are unknown. Researchers suspect there can be different causes, and each might require different treatments. Some data suggest that POTS may arise after major surgery, head injury, pregnancy, or viral illness.\n\nPOTS can be diagnosed by looking at your symptoms, heart rate, and blood pressure when you go from lying down to standing. Adults might have POTS if their heart rate rises by more than 30 beats a minute within 10 minutes of standing, without a big blood pressure change. For those under age 20, an increase of at least 40 beats a minute without a major blood pressure change could signal POTS. Symptoms may quickly improve by lying down.\n\nTreatment often involves increasing salt intake and drinking plenty of water, which can boost blood volume. Blood volume is the total amount of fluid circulating around your body. Some patients benefit from medications that help to raise blood pressure or reduce heart rate. Compression socks can help keep blood from pooling in the legs. Exercise training and maintaining a regular sleep schedule may also help.\n\nMany people—even some health care providers—have never heard of POTS. “But awareness has increased in recent years, particularly since POTS has been seen in patients who have had COVID-19,” McDonald says. The links between POTS and COVID-19 are still unclear, and researchers are working to learn more.\n\nDespite increased awareness of POTS, it can be hard for some patients to get a diagnosis. “If you have symptoms that look like they could fit with POTS, it’s a good idea to discuss the possibility with your doctor,” McDonald says. “It’s perfectly acceptable to be your own advocate. You can show an article to your doctor and ask: Do you think I might have POTS?”\n\nPOTS symptoms vary, which makes it hard to diagnose. People may have some or many of these symptoms:\n\nRacing heart and light-headedness when going from lying down to standing. Reddish-purple color in feet or legs. Heart palpitations, or feeling your heart pounding or racing. Shortness of breath. Weakness and fatigue. Severe headache. Digestion-related problems, such as nausea, constipation, or vomiting. Poor concentration or confusion. Trouble sleeping. Blurred vision. Trouble exercising."
+ },
+ {
+  "id": "3a13c19f-3b18-47fc-a415-54d3884a6380",
+  "title": "Get an Eye Exam During Diabetes Month",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d2e1d697ef70eac6e09e1f68f6cad0178af1eb3d50be681b673f7c0cd0f4efe1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 242,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2011-11-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2011/11/get-eye-exam-during-diabetes-month",
+     "year": 2011,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "If you haven’t had a dilated eye exam lately, November is an ideal time to make an appointment for one. It’s American Diabetes Month, and eye disease is one of the most common and debilitating complications of diabetes. NIH especially encourages people with diabetes to take steps to avoid vision loss by having the exam each year.\n\nDiabetes is the leading cause of blindness in adults nationwide. An eye disorder known as diabetic retinopathy arises in about 40% of U.S. adults with diabetes. It occurs when blood vessels of the Light-sensing layer of tissue in the back of the eye. retina swell and leak fluid. In some cases, blood vessels become blocked and rupture, or new vessels grow on the retina, leading to permanent vision loss.\n\nPeople with diabetes are also at risk for cataracts, which cause clouding of the eye lens, and glaucoma, which damages the optic nerve.\n\nComprehensive, dilated eye exams allow eye care professionals to monitor the eye, including the retina, for signs of disease. Diabetic retinopathy usually has no symptoms until vision loss occurs, but annual dilated eye exams can identify signs of it. In fact, about 90% of diabetes-related blindness is preventable through early detection, timely treatment and appropriate follow-up care.\n\nTo learn more about diabetic eye disease, visit www.nei.nih.gov/diabetes. Or send a friend or family member a free e-card, in English or Spanish, by going to www.nei.nih.gov/diabetes/ecards/english."
+ },
+ {
+  "id": "3a528d9f-8ae4-4546-8b19-4564cf767120",
+  "title": "Sharing Reliable Health Information",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a30561a1d6de9308df880e0d7830fdb52a20c8c07a5769e0718bc84a196ca7d9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1251,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2015-04-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2015/04/sharing-reliable-health-information",
+     "year": 2015,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "You hear and read health advice all the time—from friends, online sources, radio, TV, and more. How do you know what health information you can trust? This issue marks the 10-year anniversary of NIH News in Health, the monthly newsletter based on research supported by the U.S. National Institutes of Health—the nation’s medical research agency. Every article in this newsletter is carefully reviewed by NIH experts, so you can be confident that the health news you read here is trustworthy.\n\nSo far, we’ve brought you 600 articles on all kinds of topics. They’ve ranged from healthy eating and physical activity to the microbes within you, personalized medicine, and the hazards of stress. We’ve learned from our tens of thousands of readers that you appreciate these stories and often share the information with your friends, family, and others.\n\nPeople love exchanging health information. More than half of adults nationwide say they turn to friends or family for health information or support when facing a serious health issue. People also share health information within their communities—at school, work, places of worship, and various events.\n\nThe quality of the health information you get depends on the source. “When looking online for health information, it’s a good idea to start with reputable websites, such as government websites,” says NIH’s Stephanie Dailey, who specializes in sharing health information with older adults. “Government agencies have well-researched information that’s been vetted by expert scientists and doctors.”\n\n“Students and others can be drawn to websites with quirky or ‘amazing’ health stories that may be inaccurate,” says Timothy Keady, who heads the student wellness center at the Rochester Institute of Technology in New York. “We always try to steer them back toward more appropriate health information that’s based on science. We know that information from NIH, the CDC, and other agencies is going to be accurate.”\n\nLike all the information available from NIH, the stories in NIH News in Health undergo multiple levels of review before you ever see them. Researchers interviewed for each story read and comment on draft articles to make sure they’re correct. NIH health and science experts also review each story before it’s published. The goal is to give you reliable, science-based information so you can make informed decisions about staying healthy and seeking medical care.\n\nIn recognition of the newsletter’s 10th year, we turned to readers like you to learn how you’ve been sharing NIH News in Health and other health information with your community. We’ve learned that the articles are shared in many different ways. Teachers in California and elsewhere have shared stories with their students on how sleep affects learning and health (Why You Need a Good Night's Sleep and How Snoozing Strengthens Memories). A middle school nurse in Texas copies and shares articles with school staff and makes the newsletter available to visiting parents. And the staff of a hospital in Montana says they read the online version and discuss the newsletter’s stories, which ultimately helps to improve their conversations with patients.\n\nCommunity health clinics, senior centers, libraries, and nonprofit organizations across the country share copies of NIH News in Health with their communities. In Florida, the Franklin County Health Department distributes the newsletter to patients and staff in 2 rural, remote public health clinics. At the Friend Family Health Center in Illinois, NIH News in Health is shared at large neighborhood clinics in the southeast and southwest sides of Chicago.\n\nIn the Rocky Mountains, a nonprofit agency has been sharing NIH News in Health with older adults and their caregivers for nearly a decade. “The newsletter regularly offers relevant health information for our seniors. It’s something they really look forward to each month,” says Stephen M. Holland, director of the Upper Arkansas Area Agency on Aging, based in Salida, Colorado. The newsletter is available at the agency’s meal sites. It’s also given to older adults who receive home-delivered meals. “Although some of our participants are active users of the Internet, others for the most part are not computer literate, so they really rely on the printed information,” Holland says.\n\nIn rural Oregon, copies of NIH News in Health are distributed to a largely Native American community by the Confederated Tribes of Grand Ronde, a tribal organization that provides a range of services, including home health care visits and transportation to medical facilities. “We place the newsletter in our elders’ meal site and in the lobby of the community health clinic, in adult foster care, and next to the pharmacy, so people can read it while waiting for prescriptions,” says community health director Kari Culp. “We’ve found the newsletters to be very informative and much appreciated by our community members and also our medical staff.”\n\nMany people share health information by putting it where people are waiting and where it will be seen. At several colleges and universities, for instance, officials have been placing easy-to-read health information in common bathrooms—an approach sometimes called “stall talk.\n\nIn Rochester, Keady puts NIH News in Health in the school’s health clinic and counseling waiting rooms. He also brings the newsletters to lectures and presentations on health and wellness. “Although students search for a lot of health information online, they still like to read some information on paper, especially while they’re waiting or relaxing in a common area,” Keady says. “Stories on stress and other psychological issues are of special interest to students. And they tend to gravitate to stories on exercise, sleep, and nutrition.”\n\nSchool, church, and community newsletters often reprint NIH News in Health stories in their publications because they know they can trust the content. Organizations focused on diabetes, healthy aging, mental illness, and other medical issues also reprint NIH News in Health stories in their own publications. The articles aren’t copyrighted, so they can be freely republished, as long as NIH News in Health is credited as the source (see http://newsinhealth.nih.gov/about for details).\n\nNo matter where you gather and read health information, it’s a good idea to discuss what you’ve found with your health care provider. Your provider can help you understand and interpret what you’ve found.\n\n“Being well informed about a condition can be helpful when you visit your doctor,” Dailey says. “You may wish to print out some of the information you find to share with your doctor during your appointment.”\n\nWe love hearing from readers who let us know how they share and use health information, including NIH News in Health. Thanks for sharing your feedback, story ideas, and other comments over the past decade. We look forward to bringing you 10 more years of evidence-based health information. Share your thoughts with us at [email protected] or send us a photo of how you or others use the newsletter, and we may post it to our Facebook page.\n\nUse this checklist to decide if the health information you’re reading online can be trusted:\n\nWho runs the website? Federal agencies, medical schools, and large professional or nonprofit organizations are often reliable sources of health information. Who is sponsoring the website? Be wary if it’s not easy to find the sponsor’s contact information or if the website is trying to sell you something. Is the information current? Sites should say when the information was posted or last reviewed. Is your privacy protected? Be sure you understand the website’s privacy policy. Be cautious about sharing personal information. Does the site make claims that seem too good to be true? See if you can find other, reliable sites with the same information."
+ },
+ {
+  "id": "3bb14839-28ec-4305-8310-ff826d88d799",
+  "title": "Yoga for Health",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f6c66f596b3349fb839ee045346a0e4595311aa3bbae5af060a0cc9d0e75d253",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 608,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2019-11-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2019/11/yoga-health",
+     "year": 2019,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Have you rolled out a yoga mat lately? If so, you’re among many who have taken up yoga to relax and stay fit. One in seven adults in the U.S. has practiced yoga in the past year. Yoga may help bring several health and wellness benefits.\n\nBased in Indian philosophy, yoga involves both the body and mind. It began as a spiritual practice. Modern yoga focuses more on physical poses, breathing techniques, and meditation. Meditation involves exercises that help you clear and calm your thoughts.\n\n“With practice, yoga can teach you to direct the mind on a single object,” explains Dr. Pamela Jeter, an NIH expert on yoga research. “It’s practicing being aware and present from moment to moment.”\n\nBut, she says, it takes a lot of practice. She suggests focusing on the physical aspects at first. With time, the meditation part becomes easier.\n\nThere are many types of yoga. Some are slower and focus on holding poses. Others involve flowing movements that connect to your breathing.\n\nResearch suggests that yoga may help improve general wellness. In studies, yoga has helped some people manage stress, improve mental health, lose weight, or quit smoking.\n\nThere’s also evidence that yoga may be helpful for some medical conditions. Yoga may help lessen pain and menopause symptoms. It improved sleep in studies of older adults and people with cancer.\n\nSeveral studies have shown that yoga can help those with chronic low back pain. Some experts now recommend it as a first-line treatment for low back pain, among other non-drug treatments.\n\nBut, Jeter cautions, more high-quality research is needed to confirm yoga’s health benefits. “There’s a lot of research out there for different health conditions, but there’s not enough to say for sure,” she says. Yoga shouldn’t replace treatment from your health care provider.\n\nIt’s also unclear what it is about yoga that helps. The practice combines physical, mental, and spiritual elements. “There are a lot of components in yoga. We don’t know what the active ingredient is,” Jeter says.\n\nResearch into yoga is ongoing. Studies are now looking at whether yoga is helpful for specific groups of people. For example, whether it can reduce chronic pain for military veterans or improve quality of life for people who have had breast cancer. New studies are also looking into whether yoga may help mental health conditions like anxiety, depression, and post-traumatic stress disorder (PTSD).\n\nWhat should you know if you’re thinking about starting yoga? “Start slowly and carefully in order to avoid any sort of injury,” Jeter says. If you have a medical condition, talk with your health care provider before getting started.\n\nEveryone’s body is different. Yoga postures should be modified based on your abilities. Choose an instructor who is experienced and attentive to your needs.\n\nYou may also want to seek out a yoga therapist. “Yoga therapists have more extensive training than that required of a regular yoga teacher,” Jeter explains. “They’re trained to work with different conditions and mostly work one-on-one or in small groups.”\n\nIf you want to try yoga, see the Wise Choices box for tips on getting started.\n\nStart with an appropriate yoga class. Look for ones called beginner level, “gentle” yoga, or senior classes. Ask about the training and experience of the yoga instructor you’re considering. Talk with your health care provider before trying yoga if you’re pregnant, older, or have a health condition. Let your yoga instructor know about your individual needs and any medical issues. Go slowly to prevent injury. Avoid extreme positions and forceful breathing. Listen to your body. Find studies recruiting people for research on yoga. You can start at ClinicalTrials.gov."
+ },
+ {
+  "id": "3bff41ac-80e3-47d7-9d0f-ff4b7797f8e1",
+  "title": "Mindfulness Matters",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d8010e213b58c09816d0b80ff18442994813e59afb2b7e29ebf70b84bc222dc3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 611,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2012-01-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2012/01/mindfulness-matters",
+     "year": 2012,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "At some point in your life, someone probably told you: “Enjoy every moment. Life is short.” Maybe you’ve smiled and rolled your eyes at this well-intentioned relative or co-worker. But the fact is, there’s something to it. Trying to enjoy each moment may actually be good for your health.\n\nThe idea is called mindfulness. This ancient practice is about being completely aware of what’s happening in the present—of all that’s going on inside and all that’s happening around you. It means not living your life on “autopilot.” Instead, you experience life as it unfolds moment to moment, good and bad, and without judgment or preconceived notions.\n\n“Many of us go through our lives without really being present in the moment,” says Dr. Margaret Chesney of the University of California, San Francisco. She’s studying how mindfulness affects health. “What is valuable about mindfulness is that it is accessible and can be helpful to so many people.”\n\nStudies suggest that mindfulness practices may help people manage stress, cope better with serious illness and reduce anxiety and depression. Many people who practice mindfulness report an increased ability to relax, a greater enthusiasm for life and improved self-esteem.\n\nOne NIH-supported study found a link between mindfulness meditation and measurable changes in the brain regions involved in memory, learning and emotion. Another NIH-funded researcher reported that mindfulness practices may reduce anxiety and hostility among urban youth and lead to reduced stress, fewer fights and better relationships.\n\nA major benefit of mindfulness is that it encourages you to pay attention to your thoughts, your actions and your body. For example, studies have shown that mindfulness can help people achieve and maintain a healthy weight. “It is so common for people to watch TV and eat snack food out of the box without really attending to how much they are eating,” says Chesney. “With mindful eating, you eat when you’re hungry, focus on each bite, enjoy your food more and stop when you’re full.”\n\nFinding time for mindfulness in our culture, however, can be a challenge. We tend to place great value on how much we can do at once and how fast. Still, being more mindful is within anyone’s reach.\n\nYou can practice mindfulness throughout the day, even while answering e-mails, sitting in traffic or waiting in line. All you have to do is become more aware—of your breath, of your feet on the ground, of your fingers typing, of the people and voices around you.\n\nChesney notes that as people start to learn how to be more mindful, it’s common and normal to realize how much your mind races and focuses on the past and future. You can just notice those thoughts and then return to the present moment. It is these little, regular steps that add up and start to create a more mindful, healthy life.\n\nSo, before you roll your eyes again, take a moment and consider mindfulness.\n\nThe concept of mindfulness is simple, but becoming a more mindful person requires commitment and practice. Here are some tips to help you get started:\n\nTake some deep breaths. Breathe in through your nose to a count of 4, hold for 1 second and then exhale through the mouth to a count of 5. Repeat often. Enjoy a stroll. As you walk, notice your breath and the sights and sounds around you. As thoughts and worries enter your mind, note them but then return to the present. Practice mindful eating. Be aware of taste, textures and flavors in each bite, and listen to your body when you are hungry and full. Find mindfulness resources in your local community, including yoga and meditation classes, mindfulness-based stress reduction programs and books."
+ },
+ {
+  "id": "3c71db92-797d-4246-b7ff-c852c1835c43",
+  "title": "Weather Extremes and Your Health",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e78703c748d376c96f42c19b6b5b23642f5563077deba2002cfee4276f9ce917",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 221,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2023-09-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2023/09/weather-extremes-your-health",
+     "year": 2023,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Weather affects where we live, what we do, and when we can do it. It can also impact our health. Temperature extremes, hot or cold, can harm our bodies in different ways. Harsh conditions and storms may lead to other health dangers, too.\n\nOver the last few years, wildfires began increasing in frequency and size. Smoke from wildfires contains a mix of complex chemicals, and exposure can cause breathing problems. This hazardous smoke can travel long distances from where a wildfire starts. And when fires reach areas where people live, various other chemicals often enter the mix.\n\nChildren are especially vulnerable to wildfire smoke. Studies have shown that kids exposed to higher levels of air pollution have reduced lung function and growth. These issues can lead to other problems, like asthma or lung disease, later in life. Because kids are still growing and developing, their bodies are also more vulnerable to the effects of toxins.\n\nThere is plenty you can do to reduce the risks of smoke exposure. Check air quality reports daily at AirNow.gov. Keep your windows closed on bad air days. You may want to consider air filters and purifiers to limit your exposure indoors. If you need to be outdoors when air quality is poor, consider wearing a medical or surgical mask. Learn more about weather extremes."
+ },
+ {
+  "id": "3ccdc318-2591-4f47-9d77-ecaedf22957d",
+  "title": "How Long Does Protection Last After COVID-19?",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a8728e95c3bbd163f705c9589e5d47d4046c757525a1a50ccd684842c174ea69",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 237,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2021-03-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2021/03/how-long-does-protection-last-after-covid-19",
+     "year": 2021,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "After your body’s disease defense system (the immune system) fights off a virus, it keeps a memory of it. A study suggests that people’s immune systems remember COVID-19 for months after recovery.\n\nThe immune system makes different types of cells and molecules to fight disease. These include antibodies, T cells, and B cells.\n\nResearchers looked at immune responses from about 200 people who’d recovered from COVID-19. Some had been infected up to eight months before the analysis. Other cases were more recent. Of the people who recovered, 95% had immune system “memories” of the virus that causes COVID-19, SARS-CoV-2.\n\nAlmost everyone had antibodies that block the virus’ spike protein. The virus uses this protein to enter cells. The number and type of antibodies varied between people. But the levels usually remained stable over time. They slightly decreased six to eight months after infection.\n\nImmune cell levels also remained high. Memory B cells, which make antibodies, increased for a few months after infection and then remained stable. Most people had one important type of T cell. About half had another type of T cell that kills infected cells.\n\n“Several months ago, our studies showed that natural infection induced a strong response, and this study now shows that the responses last,” says Dr. Daniela Weiskopf at the La Jolla Institute for Immunology. “We are hopeful that a similar pattern of responses lasting over time will also emerge for the vaccine-induced responses.”"
+ },
+ {
+  "id": "3dc7c171-175f-44f2-9962-1d4f2fa6e160",
+  "title": "Avoiding Anemia",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "747d5f5aa62a2deacb561eac29e317861977df661c6edfe85aa85c1bf454377b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 627,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2014-01-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2014/01/avoiding-anemia",
+     "year": 2014,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "If you’re feeling constantly exhausted and sluggish, you might have a condition called anemia. Anemia is a common blood disorder that many people develop at some point in their lives.\n\nMany types of anemia are mild and short term. But the condition can become serious if left untreated for a long time. The good news is that anemia often can be prevented and easily corrected by getting enough iron.\n\nAnemia arises when your body doesn’t have enough healthy red blood cells. You may either have too few red blood cells, or they may be lacking in an iron-rich protein called hemoglobin. Red blood cells are responsible for delivering oxygen throughout your body, and hemoglobin is the protein that carries the oxygen.\n\nWhen the number of red blood cells or your hemoglobin level is too low, your body doesn’t get all of the oxygen it needs, and that can make you feel very tired. You may also have other symptoms, such as shortness of breath, dizziness, headaches, pale skin, or cold hands and feet.\n\nThe most common type of anemia occurs when your body lacks iron. This condition is called iron-deficiency anemia, and it often arises if you don’t have enough iron in your diet. Your body needs iron and other nutrients to make hemoglobin and healthy red blood cells. So it’s important to get a regular supply of iron as well as vitamin B12, folate, and protein. You can get these nutrients by eating a balanced diet or taking dietary supplements.\n\nAnother common cause of iron-deficiency anemia is blood loss, which might arise from injury, childbirth, or surgery. Women of child-bearing age are at risk for iron-deficiency anemia due to blood loss from menstrual periods.\n\nWomen also need extra iron during pregnancy. Dr. Harvey Luksenburg, a specialist in blood diseases at NIH, says that if anemia isn’t treated during pregnancy, women can give birth to iron-deficient children. This lack of iron can affect a child’s growth rate and brain development.\n\n“Women who feel symptoms of sluggishness and fatigue may be iron deficient,” Luksenburg says. “Even if you’ve lived with it a long time, get it checked. I’ve seen startling changes when women were put on iron supplements. Some say they’ve never felt better.”\n\nMany people living with anemia may not realize they have it. They might have mild symptoms or none at all. A doctor can determine whether you have anemia by a simple blood test.\n\nCommon types of anemia can be prevented and treated by eating iron-rich foods. The best sources are red meat (especially beef and liver), poultry, fish, and shellfish. Other foods high in iron include peas, lentils, beans, tofu, dark green leafy vegetables such as spinach, dried fruits such as prunes and raisins, and iron-fortified cereals and breads.\n\nNIH researchers are studying how to treat rarer, more severe forms of anemia. Some types can be treated with medicines. Severe cases may require blood transfusions or surgery.\n\nIf you don’t get enough iron from your food, ask your doctor about taking iron dietary supplements. The body absorbs iron from meat and fish better than that from vegetables. If you’re a vegetarian, consult a health care provider to make sure you’re getting enough iron.\n\nMaking healthy lifestyle choices, including a nutritious, iron-rich diet, can help prevent common types of anemia so you can have more energy and feel your best.\n\nTo prevent or treat iron-deficiency anemia:\n\nEat foods rich in iron and B vitamins. Eat fruits and vegetables high in vitamin C, which helps your body absorb iron. Ask your doctor about iron supplements if you don’t get enough iron in your diet. Get checked every year or 2 if you’re a woman of child-bearing age who has heavy menstrual periods or a previous diagnosis of anemia."
+ },
+ {
+  "id": "3e4c35b4-140c-480e-8369-f16470c42116",
+  "title": "Better Nutrition Every Day",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e2d177e9156ad55f4130ea0deb05e2fe9e6dbbba4e2274f434ac6eb81a442fe5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1147,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2019-07-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2019/07/better-nutrition-every-day",
+     "year": 2019,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "We make countless decisions every day, both big and small. When it comes to deciding what to eat and feed our families, it can be a lot easier than you might think to make smart, healthy choices. It takes just a little planning.\n\nThe foods and drinks we put into our bodies are our fuel. They provide us with energy and nutrients—like vitamins, minerals, and proteins—that our bodies need to function and thrive. Research shows that healthy food and drink choices are especially important for children’s growing bodies and minds. Healthy choices have both immediate and long-lasting benefits for you and your family.\n\n“My best advice is for parents to be good role models by eating healthy and being physically active with their children,” says Dr. Holly Nicastro, a nutritionist at NIH. “Keep healthy foods around the house for meals and snacks. Involve children in the meal planning and cooking, and they will be more likely to eat the meals.”\n\n“Parents can begin teaching their children about healthy eating from the day they are born,” says Dr. Donna Spruijt–Metz, whose research at the University of Southern California focuses on preventing and treating obesity in minority youth. “Setting a good example is very important.”\n\nAll foods and drinks can fit into a healthy diet. But when making choices for you or your family, try to choose ones that have lots of nutrients and aren’t too high in sugar, fats, and calories. These include fruits; vegetables; whole-grain cereals, breads, and pastas; milk, yogurt, and other dairy products; fat-trimmed and lean meats; fish; beans; and water.\n\nSome foods and drinks should be consumed less often. These include white bread, rice, and pasta; granola; pretzels; and fruit juices. Others are best to have only once in a while—like french fries, doughnuts and other sweet baked goods, hot dogs, fried fish and chicken, candy, and soda.\n\n“Healthier diets don’t have to cost more, provided that you have the right attitude, make the right food choices, and try to cook at home,” says Dr. Adam Drewnowski, a nutrition expert at the University of Washington in Seattle. With some planning, he says, you can prepare meals that are tasty, affordable, and nutrient rich.\n\nGet the whole family to help slice, dice, and chop. NIH has developed several resources to help you learn how to improve your eating habits (see the Links box in the sidebar). You might be surprised how easy healthy cooking and snacking can be.\n\nThese days, much of our food isn’t eaten at home. It’s eaten on the go. One easy way to get the nutrients you need is to pack healthy lunches—both for yourself and your kids.\n\n“You can work with your child to make a lunch using whole-grain bread, wraps, or pita pockets filled with lean meats or cheese, vegetables, and nut butters or spreads, such as hummus,” Nicastro says. “Pack vegetables such as carrots, snap peas, and cucumbers or any fresh fruit that’s currently in season. Teens can learn to pack their own lunches with a healthy variety of foods.”\n\nIf your kids buy lunch, talk to them about making healthy choices when buying food from the school cafeteria and vending machines. “Parents should encourage their children to choose the important food groups for lunch: a lean protein, fruit and vegetable, whole grains,” Nicastro says. “If a salad bar is available, this is a great opportunity for kids to make their own salad with vegetables, lean protein, and fruit.”\n\nIf you have a busy day with your family planned, pack healthy snacks in a small cooler or tote bag before you leave. Consider water, fresh fruit, veggies, and low-fat cheese sticks. Pack small portions of unsalted nuts, whole-grain crackers, or a low-sugar cereal.\n\nFast-food restaurants can also be a challenge, but sometimes fast food is your only option. At restaurants, use the menu labels and information about calories and other nutrients to make healthier food and beverage choices. Healthy choices can include salads, sliced fruit instead of french fries, and grilled options instead of fried.\n\nWhen you’re grocery shopping, the Nutrition Facts label is a great resource to help you compare foods and drinks. It can help you confirm whether products marked with healthy-sounding terms really are healthy. For example, “low-fat” foods aren’t necessarily healthy; they can be very high in sugar and calories.\n\nUse the Nutrition Facts label to help guide you to limit the nutrients you want to cut back on, such as sodium or added sugar. You can also use it to make sure you’re getting plenty of the nutrients you need, such as calcium and iron.\n\nWhen reading the label, start at the top. Look at the serving size. Next, look at the calorie count. Then move on to the nutrients, where it lists the amount and daily values experts recommend.\n\nRemember that what you might eat or drink as one portion can be multiple servings. For example, if you eat one bag of chips but the label says there are three servings in a bag, you need to multiply all the numbers on the label by three to find out how many calories you just ate.\n\nSometimes it can be hard to find healthy food and drink choices when shopping locally. People in some communities have been working together to make it easier to find healthy foods in their neighborhoods.\n\nFor instance, in some neighborhoods, people have joined together to tend community garden plots. “Learning to garden, planting rooftop gardens, box gardens, or small planters can provide some easy growing veggies like tomatoes right at home,” Spruijt–Metz says. “Another possibility is finding a fruit and vegetable truck that would be willing to come to the neighborhood.”\n\nTake time to build healthy eating decisions into every aspect of your family’s life. If you’re a parent or guardian, start talking with kids at an early age about health and nutrition. And practice what you preach. Make healthy food and drink choices yourself so you can set a good example for your kids.\n\n“Food provides our bodies with needed nourishment. Teaching children to read labels while shopping as they get older is a good way to help them learn to shop for healthy foods,” Spruijt–Metz says. “Teaching them to cook simple, tasty, and healthy meals when they’re young is a skill that will stay with them throughout their lives.”\n\nChoose foods that are steamed, broiled, baked, roasted, poached, or lightly sautéed or stir-fried. Ask for food without butter, gravy, or sauces. Ask for salad dressing on the side and use only some of it. Pick drinks without added sugar, such as water, milk, and unsweetened tea or coffee. Order regular coffee or tea instead of high-calorie specialty drinks. Trim visible fat from meats and remove skin from poultry. Share your meal or take half home for later. Choose fruit or another healthy option for dessert."
+ },
+ {
+  "id": "3ee6f22d-cec2-4485-a75e-247d70ebef9d",
+  "title": "Decoding Dyslexia",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f02357c51e94093d5a86b9e5b75e9d8f66617b37688cea2a563909bcf59b7b7d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 663,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2024-02-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2024/02/decoding-dyslexia",
+     "year": 2024,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Kids have a lot to learn in their first five years of life. They learn to walk, talk, and eventually to start reading. But while kids can pick up walking and talking naturally, they must be taught how to read. Children who struggle with the building blocks of reading may be at risk for developing dyslexia.\n\nDyslexia is a reading disorder in which people find it hard to link speech sounds to letters and words. They also have trouble with spelling and recognizing words. These issues make reading difficult.\n\n“To develop reading skills, your brain has to reorganize itself,” says Dr. Jack Fletcher, a neuropsychologist at the University of Houston. “It takes brain areas that are built for language and for visual attention and repurposes them for reading.”\n\nBut everyone’s brain is different. These differences can make it harder for certain people to learn to read. Your Stretches of DNA you inherit from your parents that define characteristics, like how likely you are to get certain diseases. genes can affect your chance of developing dyslexia. The disorder tends to run in families. Environmental factors, like not having access to quality instruction, can also raise your risk.\n\n“We can lessen that risk with instruction on reading and on how language works and other approaches,” says Fletcher. But early intervention is key.\n\n“We want to identify kids who are at risk for dyslexia and intensify their instruction early on to try and keep them from developing dyslexia,” Fletcher explains.\n\nKids who struggle to keep up with classmates are also at risk for developing mental health issues, like anxiety and depression. “We know that in first grade in particular, kids are very aware of how well they’re reading, and who in the classroom is not reading well. That is troublesome to lots of kids,” Fletcher says.\n\nDecades of research has identified the best way to teach most children to read. Kids must first learn what’s called “phonemic awareness.” This means they understand that words are composed of distinct sounds, or “phonemes.” Then they have to apply this knowledge to printed text and understand that the letters represent the structured sounds of speech. If they don’t gain these skills early on, it can affect their progress in learning to read as they get older.\n\nIf your child has trouble reading, talk with their teacher and their doctor. Health professionals can help rule out certain other issues, like hearing or vision problems, that may underlie reading problems. An evaluation for dyslexia may involve visits to specialists such as speech-language pathologists, psychologists, or a reading or education specialist.\n\nIf your child attends public school, you may be able to request a free evaluation. Public schools in the U.S. are required to provide free special education support to children with specific learning disabilities, including dyslexia.\n\nChildren with dyslexia sometimes have other learning problems, too, such as difficulties with writing or reading comprehension. These problems can be caused by dyslexia or by separate learning disabilities. Many kids with dyslexia also have attention deficit hyperactivity disorder (ADHD). ADHD is not a learning disability. But it can interfere with learning because it disrupts attention span and the ability to organize. ADHD requires its own treatments.\n\nThere is no cure for dyslexia. But early recognition of the condition, and support at home and school, can help set kids with dyslexia on the road to success. The Wise Choices box lists early signs to look for. And read our Q&A with Dr. Jack Fletcher for more information about dyslexia.\n\nTrouble sounding out letters, spelling, and recognizing words. Delay in being able to speak. Difficulty learning songs and rhymes. Trouble understanding what others are saying. Difficulty organizing written and spoken language. Difficulty learning new words, either while reading or hearing. Slow rate of reading, both silently and out loud. Giving up on longer reading tasks. Difficulty understanding questions and following directions. Problems remembering numbers in sequence, like phone numbers. Trouble expressing thoughts or feelings."
+ },
+ {
+  "id": "3f73d255-8af4-4fc3-9625-4aafb9f25a6d",
+  "title": "Comparing Heart Disease Treatments",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6f25fcb90f6224a728f9b9708f755a2a60be6a653806a0db9d08d3c67c062b92",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 227,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2020-06-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2020/06/comparing-heart-disease-treatments",
+     "year": 2020,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Heart disease is the leading cause of death in the U.S. Some people don’t have symptoms until they have chest pain or a heart attack. A new study found that invasive treatments may not work much better than medication and lifestyle changes alone.\n\nThe study followed more than 5,000 patients with stable moderate to severe heart disease for about three years. The people were divided into two groups. One was given medications to control blood pressure, cholesterol, and chest pain (or angina) and counseling about diet and exercise. The other group also received surgery or other invasive procedures in addition to medications and counseling.\n\nAfter five years, the two groups had similar numbers of deaths: 145 in the invasive procedure group and 144 in the medication one. Heart attacks and other heart-related events were slightly higher for those only receiving medication. The invasive procedures did provide better symptom relief for people with chest pain.\n\n“Taken together, the … results suggest that there is no need for invasive procedures in patients without symptoms,” says Dr. David Maron at Stanford University. “For those with angina, our results show it is just as safe to begin treating with medication and lifestyle change, and then if symptoms persist, discuss invasive treatment options.”\n\nClarification: An earlier version of this story was unclear that medications were used for both treatment groups. The story was updated on 06/02/20."
+ },
+ {
+  "id": "40674998-1c4f-4727-9005-53b12ee754f7",
+  "title": "Dizziness and Balance Problems in Kids",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "db5483a9e3e985430ab98df7172d2c8de843c40dfb926480c42c6f842aba3e44",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 623,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2016-03-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2016/03/dizziness-balance-problems-kids",
+     "year": 2016,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Most people feel dizzy now and then. Kids, like adults, may occasionally feel lightheaded or unsteady. But if such feelings repeat or interfere with everyday life, it could be a sign of a balance disorder.\n\nMost balance problems are temporary and easy to treat. But these problems may also signal a more serious condition that could have a lasting impact. Learn to recognize the signs of dizziness or balance problems that may warrant a trip to a doctor.\n\nExperts have long suspected that dizziness and balance problems are often overlooked and untreated, but the scope of the problem wasn’t fully understood. That’s why NIH supported the largest national survey to date to uncover information about these disorders in children. The study included data on nearly 11,000 kids, ages 3 to 17.\n\nThe researchers found that more than 1 in 20 kids in the U.S. had a dizziness or balance problem, and only one-third of them received treatment in the previous year. “The findings suggest that dizziness and balance problems are fairly common among children,” says Dr. James F. Battey, Jr., a pediatrician and director of NIH’s National Institute on Deafness and Other Communication Disorders.\n\nOur sense of balance is a complex process. It’s managed by signals between the brain, ears, eyes, and sensors in the joints and other body parts. This intricate system helps your body monitor and maintain its position as you move throughout the day, without you even having to think about it. But if any of these many sensory signals go wrong, it can weaken your sense of balance.\n\nBalance disorders can make you stagger when walking. You might teeter or fall when trying to stand. Affected people might feel like they themselves or the world around them is spinning or moving—a condition known as vertigo. Other symptoms can include blurred vision, vomiting, diarrhea, confusion, and anxiety.\n\nCommon causes of balance problems in children range from ear infections, severe headaches, and certain medications to more serious Diseases that affect the body’s nervous system, which is made up of the brain, spinal cord, and nerves throughout the body. neurological disorders, head or neck injuries, and genetic conditions. In many cases, the study’s researchers found, an underlying cause wasn’t reported.\n\nBalance disorders can be difficult to recognize and understand. They can be especially hard to diagnose in young children. Kids may not know the right words to describe their symptoms. Affected children may talk about a “spinning feeling.” They may say their tummy or head feels bad or weird. They may walk unsteadily or seem clumsy.\n\n“Parents who notice dizziness and balance problems in their children should consult a health care provider to rule out a serious underlying condition,” Battey says.\n\nYour child’s pediatrician will likely ask questions about when the symptoms first appeared, how long they last, how often they occur, and what medications the child is taking. Your child’s eyes and ears will be examined, and hearing and balance may be tested. You may be referred to a specialist, such as an otolaryngologist—a doctor with expertise in the ear, nose, and throat.\n\nTreatment will depend on the underlying cause. The good news is that most dizziness and balance problems in children are temporary and treatable. Still, it’s important to check with a health professional if you notice any problems.\n\nDizziness and balance problems may be hard to spot in children. Younger kids may lack the vocabulary to describe their symptoms. Talk with a health care provider if your child:\n\nfalls frequently. seems unsteady upon standing or walking. feels as if the room is spinning around him/her. feels as if moving when standing or sitting still. feels as if she’s falling. feels lightheaded, or as if he might faint. says that vision becomes blurred."
+ },
+ {
+  "id": "407a4673-52fd-4d0f-b07b-887b78b793eb",
+  "title": "Do You Need Dietary Supplements?",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0455d2b073206e7ead2f7bb0ce5981f18a2c144cd579b3d965e7a002c361ba80",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1070,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2021-12-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2021/12/do-you-need-dietary-supplements",
+     "year": 2021,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Bottles of supplements line the shelves at your local supermarket. These include vitamins and minerals from A to zinc. You can also find products like probiotics, herbs, and fish oil. But are they needed for good health? And what about their risks?\n\n“For most people, eating a nutritious variety of foods can provide all the nutrients they need,” says Carol Haggans, a registered dietitian and consultant with NIH. But some may need more than they get from their meals. Your needs can vary depending on your age, health, and what you eat.\n\nMany misunderstand what dietary supplements are for, Haggans explains. “Some people might believe or hope that supplements can prevent or treat disease, but that’s not what they’re intended to do,” she says. “They’re intended to supplement the diet.”\n\nDietary supplements are regulated by the U.S. Food and Drug Administration. “But they’re regulated under the umbrella of food,” says Haggans. “It’s important for people to know that they’re not regulated like medicines.”\n\nThat means companies don’t have to prove that a supplement works before selling it. Companies are required to follow good manufacturing practices in making their products. But bottles still may not always contain what the label claims.\n\nA few independent organizations conduct quality tests of supplements and give seals of approval. But these tests only ensure that a product was properly made and contains the listed ingredients. They don’t guarantee that it works or is safe to take.\n\nYour body needs different amounts of certain nutrients at different times in your life. For example, the ability to absorb and process some nutrients decreases with age. So older adults may need more of certain vitamins and minerals, such as vitamin D, vitamin B12, and calcium.\n\nPeople who avoid certain foods may also need a nutrient boost. For example, vitamin B12 is found only in animal products. “So if you follow a vegan diet, you may not get enough B12 from food,” Haggans says.\n\nWomen who are pregnant, or may become pregnant, need a certain amount of folic acid. This helps prevent a type of birth defect called neural tube defects. And infants may need more vitamin D than the amount found in breast milk.\n\nPeople with chronic health conditions also may need more of some vitamins and minerals, says Dr. Patricia Haggerty, who studies nutrition and the The system that protects your body from invading viruses, bacteria, and other microscopic threats. immune system at NIH. These conditions include heart disease, diabetes, cancer, HIV/AIDS, and some A condition in which the body’s immune system mistakenly attacks and destroys the body’s own cells. autoimmune diseases.\n\nBut whether you need a supplement—and which one or ones—isn’t something to guess at, Haggerty says. “Which supplements, the dosage, and so on, are things you should work out with your health care provider.” Blood tests often can help determine whether you have a nutrient deficiency.\n\nIf you take supplements, tell your health care providers. Some supplements can change how well medications work. Others have risks for specific groups of people. See the Ask Your Doctor box for questions to ask about supplements. You can track information about your supplements and medications using NIH's My Dietary Supplement and Medicine Record chart.\n\n“It’s also important to know the total amount of nutrients you’re getting from both food and different supplements,” Haggans says. “More is not necessarily better, and natural doesn’t necessarily mean safe.”\n\nMany nutrients can be dangerous in large amounts. These have what’s called an upper intake level. Regularly getting more than that level can lead to serious health problems. Vitamins and minerals with an upper limit include calcium, iron, zinc, and vitamins A, B6, C, and D.\n\nManufacturers aren’t required to keep their products below these upper limits, Haggans explains. So check the labels before you buy. And some nutrients, like vitamin K, can interact with common medications.\n\nOther types of dietary supplements, such as botanicals, can be even more complicated. Botanicals are also known as herbal supplements. They contain one or more parts of a plant. Examples include ginseng, echinacea, and St. John’s wort. Botanicals can come in many forms, such as capsules, dried teas, or liquid preparations.\n\nBotanical products can vary in their ingredients from brand to brand. So their effects in the body can vary. “They can also interact with medications and have side effects,” says Haggans.\n\nSome botanical products may come with health claims that go too far, says Dr. Ikhlas Khan, an NIH-funded natural products researcher at the University of Mississippi. Examples include helping you “sleep better” or “lose weight.”\n\n“If you’re looking for a cure, you shouldn’t be looking in the supplement aisle,” he says.\n\nPerhaps the most common claim for supplements is that they boost your immune system. Researchers have been studying whether any can help.\n\n“Many nutrients, like vitamin C, vitamin D, vitamin E, zinc, selenium, and magnesium are important for a healthy immune system,” Haggerty says. But so far, getting more than the recommended amount of any nutrient doesn’t appear to boost the immune system.\n\nResearchers are testing whether certain supplements can lessen COVID-19 symptoms. “But so far, the data are insufficient to support recommendations for or against any vitamin, mineral, or botanical product to prevent or treat COVID-19,” Haggerty says.\n\nScientists are also looking at supplements for other viruses. Khan and colleagues are studying a botanical extract made from a type of algae, called spirulina. Studies in mice have shown that compounds in it may increase the immune response and protect against viral infection. The team wants to test whether it can be used to protect against the flu.\n\nBut a challenge with botanical supplements is that they can vary from bottle to bottle, Khan explains. So the team must first fully characterize the product before they can test it in clinical trials.\n\nYou might wonder: If supplements aren’t the answer, what can you do to boost your immune system right now? “The most important thing is to eat a nutritious variety of foods and maintain a healthy weight,” Haggerty says. Obesity can weaken your immune system.\n\nIt’s also important to get regular physical activity, enough sleep, and to minimize stress. Don’t smoke. If you drink alcohol, do so in moderation. Keep up with your vaccines. And wash your hands to lower your chances of getting sick.\n\n“These are all things we can do on a daily basis to keep our immune system healthy,” Haggerty says."
+ },
+ {
+  "id": "40813f90-5635-4eca-b352-0f697a54aaf6",
+  "title": "Taking the Pedal Off the Metal",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "209ef030be0306c255f3670539d774f08dd3c7cf8e6288a5826e6c7116218143",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 586,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2021-10-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2021/10/taking-pedal-metal",
+     "year": 2021,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "You may have gotten your driver’s license the day you turned 16. By the time you retire, you could have driven daily for more than half a century. But for some people, there comes a time in the aging process when driving becomes dangerous.\n\n“On the whole, older drivers are safe,” says Dr. Marian Betz, an expert in healthy aging at the University of Colorado, Anschutz Medical Campus. “They tend to drive slower than younger drivers and have a lot of experience.”\n\nBut some health conditions common with aging may make it riskier to get behind the wheel. Stiffer joints and weaker muscles can make it harder to steer or brake safely. Eye diseases and some medications can cause vision problems. Hearing loss can blunt the sounds of horns or sirens. And Related to the ability to think, learn, and remember. cognitive changes, even mild ones, may impair quick decisions behind the wheel.\n\nDeciding to stop driving can be emotionally challenging for older adults, says Betz. “Many people see their car as a marker of independence. Giving up the privilege of driving can feel like a real loss.”\n\nPeople often depend on cars to get them to and from the activities they enjoy. Or to see the people they care about. So stopping driving can lead to isolation. That’s why it’s important to have a plan for alternative transportation.\n\n“We don’t want older adults isolated and shut in,” Betz says. “We want people to be emotionally and socially connected, as well as be able to get out and exercise.”\n\nFeeling disconnected can lead to poorer health. Studies have shown that loneliness and social isolation are linked to higher risks for some health problems. These include heart disease, depression, and cognitive decline.\n\nThere are many alternatives to driving. Some areas provide free or low-cost bus or taxi services for older adults. Some communities offer a carpool service, or scheduled trips to stores or the doctor. Rideshare service may also be an option. Your local Area Agency on Aging can help you find services. Call 1-800-677-1116 or go to eldercare.acl.gov to learn more.\n\nBetz and her colleagues are currently testing an online tool to help older adults and their families make decisions about driving.\n\n“We’re not telling people ‘you need to stop,’” explains Betz. But they hope to make people feel comfortable and empowered when they do decide to stop driving. “That makes such a decision more likely to stick,” Betz says.\n\nOptions for getting things done without leaving the house have also boomed recently. Grocery delivery, telehealth visits, and online social hours can reduce the need to drive every day.\n\nOnline options can’t—and shouldn’t—replace everything, says Betz. “But some of these things are good solutions for people to reduce their need to drive.”\n\nIf you’re wondering whether it may be time for you or someone else to stop driving, see the Wise Choices box for questions to ask.\n\nIf you answer “yes” to any of the below questions, it may be time to consider stopping driving:\n\nDo other drivers often honk at you? Have you had some accidents, even if they were only “fender benders?” Do you get lost, even on roads you know? Do cars or people walking seem to appear out of nowhere? Do you get distracted while driving? Has anyone told you they’re worried about your driving? Do you have trouble staying in your lane? Do you have trouble moving your foot between the gas and the brake pedals, or sometimes confuse the two?"
+ },
+ {
+  "id": "4120013b-4d03-49c2-9b89-fedd6a250679",
+  "title": "Many Older People Take Anti-Anxiety Meds Despite Risks",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d3e8078bc476d070ba6b64dc761c6f4abb358639b0dcd9ba24f54d39a17b5ef9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 237,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2015-02-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2015/02/many-older-people-take-anti-anxiety-meds-despite-risks",
+     "year": 2015,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Despite known risks, older people often take benzodiazepines, a class of drugs that helps treat anxiety and sleep problems. New research raises questions about why benzodiazepines are prescribed so often when safer alternatives may be available.\n\nBenzodiazepines include the medications alprazolam (Xanax), diazepam (Valium), and lorazepam (Ativan). Although effective for short-term use, they can have serious risks. Benzodiazepines can impair thinking, movement, and driving skills in older people and increase the risk of falls. Long-term use can lead to dependence, and stopping the drug may lead to withdrawal symptoms.\n\nNIH-funded researchers studied benzodiazepine use over a 1-year period. They found that about 1 in 20 U.S. adults, ages 18 to 80, received a benzodiazepine prescription. This fraction rose with age, from about 3% among those 18 to 35, to 9% in those 65 to 80. Long-term use (over 4 months) also rose with age.\n\nWomen were about twice as likely as men to take benzodiazepines. Among women 65 to 80 years old, 1 in 10 was prescribed this class of drug, with almost a third of those receiving long-term prescriptions.\n\nMost prescriptions for benzodiazepines were written by non-psychiatrists. “These medications can pose real risks, and there are often safer alternatives available,” says study co-author Dr. Michael Schoenbaum of NIH. Practice guidelines recommend psychotherapy approaches and antidepressants as the initial treatment for anxiety. For sleep problems, guidelines recommend behavioral changes as the first approach.\n\n“Our findings strongly suggest that we need strategies to reduce benzodiazepine use, particularly for older women,” Schoenbaum says."
+ },
+ {
+  "id": "41a09287-d7b2-4eab-8608-4d3be19294c8",
+  "title": "Dr. Richard Davidson on Reducing Stress",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "44fdd6f3f3e2956ec549f702f76af28bd4104f70dcb96d844cb4a39effa2278e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 421,
+   "v_level": 4,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2021-01-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2021/01/dr-richard-davidson-reducing-stress",
+     "year": 2021,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Excerpts from our conversation with Dr. Richard Davidson, an NIH-funded expert on mindfulness at the University of Wisconsin-Madison.\n\nNIHNiH: What would you say to someone who wants to start a mindfulness practice to reduce stress?\n\nDavidson: Well, I would say a few things. One is that one size is not likely to fit all. The second thing I would say is start modestly. And don't try to do too much at once. Because that often sets up unrealistic expectations. One of the things I'm fond of reminding people of is that when human beings first evolved on this planet, none of us were brushing our teeth. And yet today I'm sure every reader of this story brushes their teeth. This is not part of our genome. This is a learned behavior that we've all learned to do for personal physical hygiene. And I think that we can use this as a kind of analogy and metaphor—if we took even as short a time as we spent brushing our teeth each day, doing this kind of simple practice, I think the world would really be a different place. So I think we can start really modestly, three to five minutes, maybe a couple of times a day.\n\nNIHNiH: Are there any important takeaways that you think people in a stressed-out nation need to hear right now?\n\nDavidson: Mindfulness is one component of stress reduction and resilience. But it is not the only component. In order to promote resilience, we really need all four components:\n\nThe first component we call awareness, which is where mindfulness would be. The second component is connection. And connection includes the qualities that are associated with healthy social relationships—qualities like kindness and appreciation, empathy, and compassion. The third component we call insight. Insight is about self-knowledge. It’s insight into the narrative that we all carry around about ourselves. At the extreme end, there are some people that have a very negative self-narrative. They have negative self-beliefs, and they actually hold those beliefs to be a true description of who they are. And of course, that's a prescription for depression. Part of well-being, and essential to cultivating resilience, is, not so much changing the narrative, but changing our relationship to the narrative—understanding the narrative for what it is, which is really a bunch of thoughts. Finally, the last piece is purpose. It's about identifying our true north; our sense of direction in life. And, most importantly, aligning more and more of our everyday behavior with a sense of purpose."
+ },
+ {
+  "id": "4270c470-36c4-43c2-bbb5-90c00b128e1b",
+  "title": "Genetic Clues to the 2014 Ebola Outbreak",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "735c809cca576a4b42db6d9d51d30f8d674ed20a4f6b6458573770f02a5edf04",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 290,
+   "v_level": 6,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2014-10-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2014/10/genetic-clues-2014-ebola-outbreak",
+     "year": 2014,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Scientists sequenced the The entire set of genetic instructions in an organism or virus. genomes of nearly 100 samples of Ebola virus from patients in West Africa. The findings are helping researchers track the origin and spread of this deadly virus.\n\nThe 2014 Ebola outbreak is the largest in history. By late September, more than 7,100 Ebola infections and 3,300 deaths were reported by the World Health Organization. It’s the first Ebola outbreak in West Africa and the first to affect major cities.\n\nEbola can spread from one person to another through direct contact with body fluids, such as blood or saliva. Infections can cause vomiting, diarrhea, kidney and liver damage, and bleeding inside and outside the body. There are no approved drugs for Ebola infections. However, fast diagnosis and medical care can improve chances of survival.\n\nTo learn more about the recent outbreak, an international research team collected virus samples from 78 patients living near the origin of the 2014 outbreak. The scientists used advanced technologies to quickly and accurately analyze the viral genomes. The results were compared to Ebola genomes from earlier outbreaks.\n\nAnalyses showed that the strain responsible for the 2014 outbreak likely moved from Central to West Africa over a 10-year period. The team also found that the virus was brought into the African country of Sierra Leone by 14 people. These people had all attended the funeral of a healer who treated Ebola patients in a nearby country.\n\nThe research shows how “genomic surveillance” can help track and possibly help slow the spread of Ebola as the outbreak continues. Understanding the genetics of the virus will also help scientists develop new and improved drugs and vaccines. NIH recently announced the launch of an early-stage trial to begin human testing of an experimental vaccine."
+ },
+ {
+  "id": "42838b8b-6622-4143-ad65-0056c03eb68e",
+  "title": "Harmful Partnerships",
+  "source": "nih_news_in_health",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9b2420517f8eb25cac193b4e72c2667a18b32c578d110deb75643c25ad1ed932",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1066,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2020-12-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "none",
+    "attribution": {
+     "url": "https://newsinhealth.nih.gov/2020/12/harmful-partnerships",
+     "year": 2020,
+     "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Abuse can be difficult to see, especially when it’s in your own relationship. It can start slowly, and it’s not always physical. You may not realize that the small comments a loved one makes to you are doing harm. You may even make excuses for them. They’re stressed from work or the pandemic.\n\nBut abuse takes many forms. It can be physical, like slapping, punching, or kicking. It can involve sexual violence. For many, it’s psychological—making someone feel worthless or isolating them from friends and family. Sometimes it includes stalking.\n\nAll these behaviors are forms of domestic violence. This is sometimes called intimate partner violence. At least 25% of women and 10% of men are estimated to have experienced intimate partner violence.\n\n“Intimate partner violence is about power and control,” says Dr. Eve Valera, an expert on domestic violence and brain injury at Harvard Medical School and Massachusetts General Hospital. “It’s any type of physical, emotional, or psychological violence from a partner or spouse, husband, a wife—or even an ex.”\n\nSome people experience one act of partner violence. Others suffer repeated abuse over years. The effects from either can be long-lasting.\n\nResearchers are working to understand and prevent intimate partner violence and learn how to help those who have been affected.\n\nIt’s important to recognize the signs of an abusive relationship. Controlling behavior is a common sign. Your partner may monitor where you are and how much you see friends and family. They might decide what you wear or eat or how you spend your money.\n\nVerbal threats are also common. Other warning signs include name calling, humiliating someone in front of others, or blaming someone else for their own violent outburst.\n\nIntimate partner violence affects the whole family. Children in homes where a parent is abused may be fearful and anxious. They can be afraid of conflict. They may also often be on guard, waiting for violence to break out.\n\n“The repercussions of intimate partner violence are huge. It’s just devastating to homes,” says Dr. Ted George, an NIH expert on alcohol and violence.\n\nHeavy drinking is one risk factor for intimate partner violence. Studies show that partner abuse is much more likely on days of heavy alcohol use.\n\nGeorge studies the brain areas involved in loss of control and violence. His work has found that some people who commit domestic violence have fewer connections in the brain that slow down the fight response.\n\nInterventions that help people pause before they react may help prevent violence, says George. His findings also suggest that drinking may increase the risk of partner violence by affecting these same brain areas.\n\nOther factors are also linked to committing partner violence. These include harmful use of drugs, having a personality disorder, and having abused a previous partner.\n\nThe harm from domestic violence isn’t always visible. Experiencing it puts you at higher risk for a range of health conditions. These include heart disease, high blood pressure, digestive problems, and reproductive issues.\n\nIntimate partner violence is linked to several mental health conditions like depression, post-traumatic stress disorder, and suicide. People who experience intimate partner violence are also more likely to binge drink and misuse other drugs.\n\nStudies show that many people may suffer brain injuries as a result of physical abuse. Valera’s research suggests that traumatic brain injuries are common. This is especially true for mild ones called concussions. They can have long-lasting effects on brain function.\n\nHer team uses interviews, brain scans, and lab tests to look at abuse-related brain injury. They’ve found a relationship between the number of brain injuries and brain function. Brain injuries were linked with learning and memory problems and mental distress.\n\nValera notes that there are likely more women who sustain traumatic brain injuries from their partners than those with brain injuries from being an athlete or in the military. But these injuries usually go undiagnosed.\n\n“The repetitive traumatic brain injuries that women often receive may not even be recognized as brain injuries, and are certainly not given appropriate care or treatment,” she says.\n\nDomestic violence can escalate with tragic results. In the U.S., women are more likely to be killed by a current or former intimate partner than by someone else.\n\nIf you’re experiencing intimate partner violence, help is available. The Wise Choices box shows some of your options.\n\nSo what’s the best way to prevent intimate partner violence? Learn what to look for in a healthy relationship and how to build healthy relationship skills. It’s important to start early.\n\nPeople who have violent relationships as teens are more likely to have them as adults. Dr. Jeff Temple, an expert on teen dating violence at the University of Texas Medical Branch, teaches youth about building healthy relationships in a school-based program. He’s been studying how well the program works.\n\nIn the program, students build relationship skills through role playing. They practice how to handle real-life situations, like apologizing or breaking up.\n\n“Practice is huge for when they get into that situation in real life,” Temple says. “What the research tells us is that kids who are able to resolve conflicts and manage their emotions are less likely to be in violent relationships later on.”\n\nHe notes that no one is really taught how to be in a healthy relationship, even though it’s a basic part of being human. We practice reading, writing, sports—everything except relationships.\n\n“So we learn about relationships through friends, which is sometimes okay, oftentimes poor. We learn from the media, which is not that great,” Temple says.\n\nUltimately, most of us learn about relationships through trial and error. Programs like the one Temple is studying can teach teens to build healthy, happy relationships.\n\nBut learning about healthy relationships can help at any age. Read more about building relationships.\n\nIf there is immediate danger, call 911. If there’s no immediate danger, consider these options:\n\nGet medical care. If you have been injured or sexually assaulted, go to a local hospital emergency room or urgent care center. Find out where to get help in your community. Visit www.thehotline.org/get-help/local-resources. Call a helpline for free, anonymous help. Call the National Domestic Violence Hotline at 800-799-SAFE (7233) or 800-787-3224 (TDD). They can help you develop a safety plan. They also offer guidance on how to keep children safe and can help you find legal advice. Talk to someone. Reach out to someone you trust for emotional support."
+ }
+]

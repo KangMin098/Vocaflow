@@ -1,0 +1,772 @@
+[
+  {
+    "id": "182f66fe-a59a-49c9-b4fb-263b6ba61733",
+    "source_updated_at": "2026-09-15T14:27:33.803749+00:00",
+    "body_sha256": "c5b8808014faa9eb9be0b54a577d76d5b5558ab1bf452ed2308bd4c0cfeff864",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약이 통념 세 가지를 세우고 스웨덴 자료로 가르는 구조라 통념 교정 지문으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The recent resurgence in cases of",
+      "note": "모형·우도 용어만 걷어 내면 원인 세 가지 대비가 그대로 남는다."
+    }
+  },
+  {
+    "id": "18429c3f-f54d-41cc-9805-2da3baa9bd54",
+    "source_updated_at": "2026-09-13T07:35:34.862927+00:00",
+    "body_sha256": "8719db9ceb6feed8ed1c40636755bc89d6b070399c27a7c8e78e0f21265b6d9e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰 첫 단락이 거대섬유 축삭을 새 관찰 모델로 내세우는 논지라 떼어 낼 수 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V10",
+        "V11"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Here, we established the GFs as",
+      "note": "유전자·항체 표기가 문장마다 박혀 있어 어휘 하향이 막힌다."
+    }
+  },
+  {
+    "id": "184cc845-8795-43d7-8c3e-69c6b76df20c",
+    "source_updated_at": "2026-09-15T14:27:43.509629+00:00",
+    "body_sha256": "f0ca09e3926809390708c0ecbc56864acba6bc133554055ad35fab2bfff2b236",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰 마지막 단락이 썩은 과일 속 애벌레의 영양 변동이라는 장면으로 논지를 마무리해 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In their natural environment such as",
+      "note": "호르몬 약어를 풀어 쓰면 영양-발달 속도 논지가 그대로 선다."
+    }
+  },
+  {
+    "id": "1858eae6-9622-4469-83af-6803d5747f07",
+    "source_updated_at": "2026-09-15T14:27:48.440045+00:00",
+    "body_sha256": "ddece7e2f4fc641bfa9a08f8f35613f397b3685aa2f3c00a367f596df49579aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론부터 고찰까지 영상 기법 세 가지의 장단을 견주어 한 편의 논증으로 닫힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In 2022, prostate cancer (PCa) was",
+      "note": "민감도·특이도 수치를 문장으로 풀면 비교 논지가 그대로 남는다."
+    }
+  },
+  {
+    "id": "185fa3b1-5636-49c3-815e-2527b88acc2c",
+    "source_updated_at": "2026-09-15T14:27:49.876658+00:00",
+    "body_sha256": "0253c200a236d3c83a68461f971fd243f014479acba0c088ae0539a45c9adb53",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "결과 3.4절이 통째로 없이 3.3에서 3.5로 건너뛰어 받은 본문이 불완전하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Acute kidney injury (AKI) is a",
+      "note": "서론은 읽히나 결과 흐름에 구멍이 있어 가공 범위 판단을 보류했다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "1882f677-2eba-4f68-8f69-f1ba342ad5ff",
+    "source_updated_at": "2026-09-13T06:25:01.110206+00:00",
+    "body_sha256": "5705b12f1bfa6959caa6cfedf5849095800f411b463a7bc84dd98be6a3884248",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 지방유제 치료의 통설과 부작용 보고를 대립시켜 한 편의 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dogs and cats presenting with poisoning",
+      "note": "약명 몇 개를 일반어로 바꾸면 고등 상위 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "1888ec34-1301-4a13-8046-f011b7233563",
+    "source_updated_at": "2026-09-13T07:05:07.819394+00:00",
+    "body_sha256": "5102e5d58cc518856d147accf6650ff503b2f25d028b0ed9305574b2be735971",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 암 통계에서 메트포르민 재사용 가설로 이어지는 논증이라 도입 단락만 떼어 쓸 수 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "According to a research by the",
+      "note": "본론은 도킹 점수 나열이라 서론 밖으로는 가공이 어렵다."
+    }
+  },
+  {
+    "id": "188fcca6-8706-49a7-b345-a278862e28f0",
+    "source_updated_at": "2026-09-13T06:42:23.861779+00:00",
+    "body_sha256": "5ed621ea70fb3601503ec948312fe163f73d53145a4a3054c158c4fd9fd03e3d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 생백신의 효능과 안전성 사이 맞교환을 세워 주장-근거 짝이 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Tularemia is a disease caused by",
+      "note": "균주 표기와 면역학 약어가 많아 밴드를 내리기 어렵다."
+    }
+  },
+  {
+    "id": "18b27849-4dd3-46fc-b69c-7b79d9f503bf",
+    "source_updated_at": "2026-09-15T14:28:14.730013+00:00",
+    "body_sha256": "12c258299360e8b28280f2c5d20f28c9a6d1e2670bf558667231f16502554c41",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 마이크로RNA 발견 경위 단락이 이야기로 이어져 앞 문맥 없이도 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Coronary artery disease (CAD) remains the",
+      "note": "유전자형 표기가 몰린 결과부를 빼면 도입부만으로 한 편이 된다."
+    }
+  },
+  {
+    "id": "18b597d4-c8ab-498d-9a73-bc42e8966116",
+    "source_updated_at": "2026-09-15T14:28:18.112074+00:00",
+    "body_sha256": "117fe93f07c7b1986b64175398fce424a1a0d37f69511f186bcda79caa58a1fd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약이 상분리 개념과 두 해법의 교차 검증을 평이한 문장으로 요약해 그대로 지문이 된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Some biomolecules separate into condensed and",
+      "note": "수식은 본문 뒤쪽에 몰려 있어 요약 단락만 떼면 깨끗하다."
+    }
+  },
+  {
+    "id": "18bfaaac-cb2c-4a1e-8155-f7ac297aa00f",
+    "source_updated_at": "2026-09-23T21:04:35.53739+00:00",
+    "body_sha256": "f31e4f88b39e8dfc5ace7db99acfda1b3d33492f0ddaf296805b4e9884ad7e3c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 소아 신장종양의 치료 성과와 남은 문제를 대비시켜 논지가 한 단락에 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Wilms' tumor is the most common",
+      "note": "유전자 약어가 결과·고찰 전면에 깔려 어휘 조정이 막힌다."
+    }
+  },
+  {
+    "id": "18c07027-4e18-4f9d-9bf0-6b08d9345ad8",
+    "source_updated_at": "2026-09-13T06:49:47.403419+00:00",
+    "body_sha256": "f9299d431b647fcb1b8df12338e3258e5be7382caa649c947540f6e4c174b5d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 극관 발사와 침입이라는 사건을 시간순으로 그려 서사형 지문으로 쓸 수 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "content_match",
+        "long_reference"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Microsporidia are a group of obligate",
+      "note": "현미경 기법 명칭만 줄이면 2초 만의 침입 장면이 그대로 남는다."
+    }
+  },
+  {
+    "id": "18d56aba-47fd-4f8d-82a8-61915727c629",
+    "source_updated_at": "2026-09-15T14:28:29.314006+00:00",
+    "body_sha256": "e7f9ed8ffac87712d72debc97466e4f9eaf752656c6fdfd0533ed0dd51dd5c84",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "가설과 무효 결과를 맞세우고 약물 재사용 논의로 닫아 주장-근거가 분명하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Abdominal aortic aneurysms (AAA) are highly",
+      "note": "등록자료 이름을 지우면 산화 스트레스 가설 반증만 남아 읽힌다."
+    }
+  },
+  {
+    "id": "18dffb92-b435-4cfc-a3b5-575a06fd9d41",
+    "source_updated_at": "2026-09-15T14:28:37.910151+00:00",
+    "body_sha256": "1cb987191861735117672cc6ba76ea9c1680da808a9d46a17aad627953d975ca",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "서론이 연약지반과 카르스트 공동이 겹친 난제를 설명해 공학 설명문으로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Soft soils, primarily composed of mucky",
+      "note": "계측 수치표를 빼면 시공 절차 설명이 순서 문항 재료가 된다."
+    }
+  },
+  {
+    "id": "18f022f6-968d-43b2-96e0-bb794a8c07bf",
+    "source_updated_at": "2026-09-15T14:28:47.781193+00:00",
+    "body_sha256": "2c275dff71fd8bafdbc411b4e4763206ec8da403185ca8c378a502784323191d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 세포 간 소통과 노화의 관계를 일반 독자용으로 풀어 논지가 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cell-to-cell communication (CCC) is fundamental to",
+      "note": "도구 이름(LIANA·SE 점수)만 바꿔 쓰면 노화 서술이 남는다."
+    }
+  },
+  {
+    "id": "18f8cd93-1a0f-4c5d-8364-26ebc54c15a7",
+    "source_updated_at": "2026-09-15T14:28:54.546102+00:00",
+    "body_sha256": "1b4e126ebecc870f5a5cbc8595c6cc7e7113e9a73f7b2baf7ad1cf0a1fbf5acc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 급성폐손상 치료의 한계와 한약 복방 접근을 대비해 설명문으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "ALI is a serious clinical syndrome",
+      "note": "약재 학명과 대사물 이름이 길게 나열돼 밴드 하향이 어렵다."
+    }
+  },
+  {
+    "id": "190db8c3-b39f-4851-a857-daf5f5b09993",
+    "source_updated_at": "2026-09-13T07:06:09.153399+00:00",
+    "body_sha256": "05d7cdfcc8f52e5ab282c8aae50ecae498862892f373a505bf2ad24e515c2991",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 숙주에 따라 형태를 바꾸는 기생충 이야기로 흐르고 샤가스병 배경이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Trypanosomatidae family encompasses parasitic species",
+      "note": "편모·운동핵 용어에 설명을 붙이면 형태 변화 서술이 살아난다."
+    }
+  },
+  {
+    "id": "19318397-4e3f-486f-93ce-d8d9ceda8480",
+    "source_updated_at": "2026-09-13T06:50:14.589796+00:00",
+    "body_sha256": "86358ebb1838b08eeceb0bb8b6843f42107887e4588654655175f3f927076a6f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 항VEGF 치료의 이득과 위축 위험이라는 균형 문제를 세워 논지가 분명하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anti-vascular endothelial growth factor (VEGF) therapy",
+      "note": "유전형 표만 걷어 내면 치료 부담 논지가 그대로 읽힌다."
+    }
+  },
+  {
+    "id": "193e09e9-31fa-45b2-b680-03a429f181de",
+    "source_updated_at": "2026-09-15T14:29:07.652286+00:00",
+    "body_sha256": "b54d434a4e8bc47be898f4369d9322df670b5d40d6c39b12ac4dfc45b1745d42",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약이 다른 감염 이력이 면역 반응을 바꾼다는 논지를 평이하게 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "How an individual's immune system responds",
+      "note": "NK·IL12 표기를 풀어 쓰면 고3 상위 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "194207f5-ea65-45db-b630-4842c8fa2773",
+    "source_updated_at": "2026-09-13T06:41:53.964614+00:00",
+    "body_sha256": "d6e6249ca7e38a7cad5c5aab442573ce5514fc2ceffcf20bfaca7c46f3f41031",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론 첫 단락이 림프계의 기능과 이상 결과를 정리해 설명문으로 자족한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The lymphatic system plays vital roles",
+      "note": "표지자 약어가 문장마다 이어져 어휘 조정이 통하지 않는다."
+    }
+  }
+]

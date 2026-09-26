@@ -1,0 +1,1834 @@
+[
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "005f7adb-6a88-44ea-b52f-8c3415581027",
+    "revision": "2026-09-25T07:52:01.104507+00:00",
+    "body_sha256": "3a104f8394ee76fe2f1a84206335c583961afe06b206ae694728709d310a265d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "인도 철도가 여성의 날을 앞두고 여성 승무원만으로 급행열차를 운행한 행사와 여성 직원 비율·취지 발언이 이어져 중등 이상 내용일치·목적 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "purpose"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"The theme 'Equal for All' is",
+          "note": "캠페인 취지 인용 단락이 자족적이고 empower 정도만 풀면 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.436Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Indian_Railway%3A_all-women_crew_steers_Tippu_Express_ahead_of_International_Women's_Day",
+          "year": 2020,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.303
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "0060670b-8fe2-4f7b-8f96-a1e2e3f566a4",
+    "revision": "2026-09-25T08:03:45.580639+00:00",
+    "body_sha256": "402dde2ce78b5f2908705d5f5fa22a674f3c48da22e8bc477b1269b30c09e9bf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이라크·미군의 무장세력 훈련소 습격과 전투 경과·사망자 수·공격 계획이 이어지는 전쟁 단신으로 내용일치 칸이 서고 전투 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "After encountering heavy fire from an",
+          "note": "지원 요청→7시간 교전의 흐름이 한 단락에 서고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.437Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iraqi%2C_American_forces_raid_insurgent_training_camp%2C_killing_85",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.363
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "00618c0b-c292-47ff-9084-b8362858f309",
+    "revision": "2026-09-25T06:47:49.258207+00:00",
+    "body_sha256": "98d0a0b58066488e8cd1dd62cf368b0fffa60d25976cb86a340b3fc924edbdd2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "독일 유통사 메트로가 루마니아 아라드에 매장을 여는 인허가 진행 소식이 짧게 이어져 중등 수준 내용일치 칸 하나를 채운다; 수치 나열이 아닌 사건이다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "school",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "German supermarket chain Metro Cash and",
+          "note": "한 단락 사건 기사라 그대로 떼어지고 authorisation 을 permit 로 바꾸면 V3 이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.437Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Metro_Cash_and_Carry_to_open_new_supermarket_in_Arad%2C_Romania",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.098,
+          "words": 122,
+          "english": 0.398
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "006f6b6b-7d35-4941-a7e0-215b39f302fd",
+    "revision": "2026-09-25T08:15:17.865287+00:00",
+    "body_sha256": "cfce77ac8c7368f3a69fa2f2588ccd34ed30b687aef64294be1cff6f1f2fd026",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "B-2 폭격기 추락 원인이 센서 습기→속도 오판→실속으로 이어졌고 이미 알려진 해법이 공유되지 않았다는 보고서 내용이 인과 순서로 서서 순서·요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The report also noted that more",
+          "note": "해법(피토 가열)이 기록되지 않아 사고가 났다는 단락이 교훈 요지로 서고 calibration 만 풀면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.437Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_B-2_bomber_crash_in_Guam_caused_by_moisture_on_sensors",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.398
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "0078553d-2c35-4497-8024-5e56098070aa",
+    "revision": "2026-09-25T06:47:01.706694+00:00",
+    "body_sha256": "053a26420a79a16ecc3b98bffbcad26ab5dcf7accac87e5900ff90db56d81ca1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "지메일 1주년 저장 용량 두 배 확대와 날짜에 따라 늘어나는 카운터 설명이 짧게 이어져 내용일치 칸이 되고 2005년 기사라 시대 비교 재료가 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The increase in storage is announced",
+          "note": "카운터 예시 단락은 수치 계산 문항이 되지만 JavaScript 같은 용어는 풀어야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.437Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Google_doubles_Gmail_storage%2C_adds_text_formatting",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.38
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "00791f66-cf59-46a7-af95-5a3e46908c77",
+    "revision": "2026-09-25T07:36:04.968055+00:00",
+    "body_sha256": "a6256697ca776365300e83c6c1a2b8a69adc92655b8e875f0935ceb18ae1b615",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "RNA 학술지가 저자에게 위키백과 요약 제출을 요구하는 새 모델과 그 취지·반대 사례가 이어져 주제·요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"The novelty is that for the",
+          "note": "동료심사와 위키백과를 잇는다는 인용 단락이 자족적이고 citable·peer-review 를 풀면 V5~6 이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.437Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/RNA_journal_submits_articles_to_Wikipedia",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.4
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "007bf524-c036-4db7-b292-10428a52c7b6",
+    "revision": "2026-09-25T07:34:31.477659+00:00",
+    "body_sha256": "809037ac3e019e9021eced761adf57c33bfdeb2105a7c37d610de826a49ba407",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "캐나다 자유당 후보가 출마 이유와 토지 분쟁·농업·보건 공약, 탄소세 「그린 시프트」 원리를 문답으로 설명해 주장·내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Green Shift is designed to",
+          "note": "「원하는 것엔 세금을 덜, 원치 않는 것엔 더」 단락이 짧고 자족적이며 revenue neutral 만 풀면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.437Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/CanadaVOTES%3A_Liberal_Dr._Eric_Hoskins_running_in_Haldimand%E2%80%94Norfolk",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.422
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "007cdab7-f321-428a-a352-a53f621b5b71",
+    "revision": "2026-09-25T08:29:53.045415+00:00",
+    "body_sha256": "58a991463209eda1d229d37ae4922c949827c9d4197bb195d5482bb822a5f6c5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "페이스북으로 소녀를 꾀어 살해한 범인의 재판과 가족·경찰의 온라인 안전 경고가 이어지는 기사로, 강간·살해 경위가 구체적이라 성인 칸만 달고 경고 발언 단락을 쓴다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Facebook have also released a statement",
+          "note": "온라인에서 만난 사람을 조심하라는 경고 단락은 범행 묘사 없이 서고 malevolent 만 바꾸면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.437Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Man_jailed_after_Facebook_murder_case_in_County_Durham%2C_England",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.348
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "007d8a26-6472-46af-90d2-af628d4ffa8a",
+    "revision": "2026-09-25T08:11:47.270867+00:00",
+    "body_sha256": "da3092c8a747fe9b8ebf65243a567cb7c5a94ba472249a0b6f56f2ed8286e545",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "희귀 수리부엉이 부부가 둥지를 지키려 산책로 행인을 공격해 길이 폐쇄된 사건이 이유→공격→폐쇄→관찰 순으로 서서 중등 이상 순서·내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Multiple attacks have been reported involving",
+          "note": "공격→병원 치료→경찰 폐쇄 흐름이 한 단락에 있고 어휘가 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.437Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Eagle_Owl_attacks_force_closure_of_footpath_near_nest_site",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.38
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "008634fc-8499-4d18-a70d-41aedc024160",
+    "revision": "2026-09-25T07:48:17.828431+00:00",
+    "body_sha256": "1b778d65fc38eda1309ac4a60408e1b88095b9d19377dbbf692ac5710742711d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "BBC 사장이 뉴스나이트 오보 책임을 지고 사임한 경위와 발언이 이어져 내용일치 칸이 서지만 아동학대 의혹 맥락이 있어 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mr Entwistle said earlier yesterday that",
+          "note": "편집 책임자로서 물러난다는 발언 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.437Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/BBC_Director-General_Entwistle_resigns",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.395
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "00879eac-e757-47dd-8642-0b37914bea92",
+    "revision": "2026-09-25T06:47:15.357622+00:00",
+    "body_sha256": "47d42e0268bb4bdb36a472ccd19937d6ab7a60b97f955deb1ddfc60b0be45eff",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "브라질이 남미·아랍 정상회의를 여는 배경과 룰라의 제안, 이스라엘 우려에 대한 해명이 이어져 내용일치 칸이 된다; 참가국 목록은 걷어낸다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The summit was proposed by Brazilian",
+          "note": "1876년 이후 첫 접촉이라는 역사 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Brazil_organizes_Summit_of_South_American_and_Arab_Countries",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.308
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "008bde6b-a931-43bf-80a3-512c57b4d200",
+    "revision": "2026-09-25T07:29:17.823393+00:00",
+    "body_sha256": "21085071a75186342e44bb6aa4768fe4689d624cbe64da4948841401470635c7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "브라질 고용 통계 단신은 전년 대비 증가율과 주별·업종별 증감 수치 나열뿐이라 떼어 낼 논지·사건 흐름이 없고 내용일치 칸 하나만 수치로 채운다.",
+        "slots": {
+          "ages": [
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "The IBGE reported growth in employment",
+          "note": "지역별 증가율 문장은 수치를 걷으면 남는 내용이 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Employment_figures_in_Brazil_up_by_2.2%25_according_to_IBGE",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.839,
+          "words": 124,
+          "english": 0.444
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "008c0030-a78a-4bde-a55f-8c1438194b8b",
+    "revision": "2026-09-25T08:04:18.51909+00:00",
+    "body_sha256": "c21e7922eeca05c7d16b94cc26c768f214d3f1d14012acd412ac4fbf245a521f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "블레어 정부가 이라크 침공 적법성에 대한 법무장관실의 의구심을 감춘 경위를 두 법률 자문 문서 대조로 짚어 요지·내용일치 칸이 서고 시대 비교 재료가 된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "When the later, short version was",
+          "note": "요약본 앞에서 아무도 증거를 묻지 않았다는 단락이 서지만 non-compliance 등 법률어가 많다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UK_govt_concealed_Attorney_General's_doubts_over_Iraq_invasion",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.377
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "008c309d-af3b-4229-9718-226fb5fa3f8e",
+    "revision": "2026-09-25T07:51:17.007958+00:00",
+    "body_sha256": "535e03665148b645ce616814f9762807b3479d8503b46015088ab42e1d9dc64a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "방갈로르 코믹콘 현장 보도와 웹툰 작가·만화 작가 인터뷰로, 「이름을 왜 Brown Paperbag 으로 지었나」 같은 답변이 자족적이라 구어 읽기·내용일치 칸이 된다; 코미디언 대목과 비속어는 걷어내 고3·성인만.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "All these years, since the technology",
+          "note": "기술이 만화 작업을 세계화했다는 답변 단락이 자족적이고 어휘가 V4~5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_attends_ComicCon_in_Bangalore%2C_India",
+          "year": 2017,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.235
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "008c72d4-2032-4e73-940b-330d8a92e755",
+    "revision": "2026-09-25T07:58:42.145894+00:00",
+    "body_sha256": "1912e65e9d8b504d79aaa29e45ea3e81854ef644e94170d4bd48f56bfac7c78c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "시리아 미군 기지 공격과 미국의 보복 공습, 시리아·이란 반발, 하원의 철군 결의 부결이 이어져 내용일치·장문 칸이 서고 전투 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On March 8, the US House",
+          "note": "철군 결의 표결과 찬반 발언 단락이 자족적이고 kinetic 만 풀면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/White_House%3A_attacks_in_Syria_'won't_deter'_US_mission",
+          "year": 2023,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.299
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "008e1887-fd29-4162-90b1-67cc29a2774b",
+    "revision": "2026-09-25T07:34:38.612682+00:00",
+    "body_sha256": "30ec83a096dd0f67dd712beb4e73a1f53aa9b618693e210cdf912104cfaec6f5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "론 폴이 중립을 깨고 헌법당 후보를 지지한 계기가 자유당 후보 바의 기자회견이었다는 인과가 짧게 서서 내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Instead, Barr held a press conference",
+          "note": "바의 발언→지지율 하락→지지자 이탈 흐름이 한 단락에 서고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Republican_Congressman_Ron_Paul_endorses_Constitution_Party_nominee_Chuck_Baldwin_for_President_of_the_United_States",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.618,
+          "words": 178,
+          "english": 0.315
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "008e9786-245d-4cdb-9bda-4c9ad0dd5340",
+    "revision": "2026-09-25T07:49:14.219423+00:00",
+    "body_sha256": "f98da68eff62c95cc1890084a7962a1f953c605ad9aad22472247df5d859de12",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "만델라 유해 안치와 추도식 날씨·야유·가짜 수화 통역 논란, 장례 준비가 이어져 내용일치 칸이 서고 연도가 분명해 시대 비교 재료다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The weather for the memorial service",
+          "note": "추도식의 여러 일을 한 단락에 담아 내용일치 문항이 되고 inclement 만 바꾸면 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Nelson_Mandela_lies_in_state_as_South_Africa_mourns",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.399
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "00932416-833a-4e8b-b689-731bdd3f5922",
+    "revision": "2026-09-25T07:50:28.563536+00:00",
+    "body_sha256": "d91ee2c2fca8828ee68309dde060c91da6c97d613b3d1bbf4b11635cd38f88e1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "news",
+        "why": "보고타 시장 박사학위 허위 보도는 끝이 「O Globo quoted Mr Peñalosa in September:」로 인용을 예고한 뒤 인용 본문이 빠져 끊겼다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to the report by Juana",
+          "note": "해명 단락은 자족적이지만 기사의 마지막 근거(인용)가 없어 결론이 비어 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Major_Colombian_newspaper_reveals_Bogot%C3%A1_mayor_does_not_hold_claimed_PhD_degree",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.89,
+          "words": 173,
+          "english": 0.401
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "009b3ecf-5e69-4363-9cef-0ba04387ae19",
+    "revision": "2026-09-25T07:03:08.358115+00:00",
+    "body_sha256": "e6313e9936202d69774b97959dea9a4f2f29544062883e101b1e0fa8f34fb26b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "체서피크만 굴이 기생충으로 급감한 역사와 내병성 굴을 키워 암초에 옮기는 복원 사업이 원인→대응 순으로 서서 중등 이상 요지·순서·내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In the late 1950s, parasites, which",
+          "note": "기생충 유입→복원 양식 두 단락이 원인·대응으로 이어지고 brood stock 만 풀면 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Scientists_working_to_save_Chesapeake_Bay_oyster_population",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7,
+          "words": 200,
+          "english": 0.405
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "009cd122-f305-4bde-a352-d627e0a9c84c",
+    "revision": "2026-09-25T05:31:02.439727+00:00",
+    "body_sha256": "70a482bedd756f8830d90b33ee1f0190e31357e4fe9bcc9e188a52bfa7cc47af",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "핵잠수함 좌초로 승조원 한 명이 숨진 사고를 한 단락에 전하는 짧은 기사로, 짧아도 사건이 서서 중등 이상 내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "school",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The January 8 submarine accident has",
+          "note": "단락 하나라 그대로 쓰이고 lacerations 를 cuts 로 바꾸면 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/One_dies_in_submarine_accident",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "00a25a2a-a997-4bdb-b287-3d5e00dea24e",
+    "revision": "2026-09-25T08:17:02.955865+00:00",
+    "body_sha256": "ca927b8405ea702766f215268b69b22378496d22afb0ea74782258580cff76ea",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "베네수엘라 지방선거에서 차베스 측 과반과 야당의 카라카스 승리가 양쪽 모두의 승리로 해석되는 과정이 서서 요지·내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Rural voters were the largest pro-Chávez",
+          "note": "농촌 지지와 불만 요인 단락이 자족적이고 constituency 만 풀면 V4~5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Venezuelan_regional_elections_both_a_win_for_supporters_and_opponents",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.085,
+          "words": 177,
+          "english": 0.335
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "00a2f5cd-300b-4563-a857-a541510ef97e",
+    "revision": "2026-09-25T07:00:00.015279+00:00",
+    "body_sha256": "0d2d67b32121411c38f38e559c022119f6d1c3ea542a4815051b6e427a0c3f49",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "버펄로 호텔 건축안 최종 승인에 주민·상인이 반발해 소송·시위를 예고하는 과정이 서서 내용일치·심경 칸이 된다; 모욕 발언은 걷어낸다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"[I feel] frustration because no one",
+          "note": "발언 기회를 못 얻은 상인의 좌절 인용이 심경 문항이 되고 grand-fathered 만 풀면 V4~5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Buffalo%2C_N.Y._hotel_proposal_gets_final_approval_by_city_Planning_Board",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.425
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "00a5832a-5f3e-46ef-80a4-114238be54d9",
+    "revision": "2026-09-25T07:34:02.694001+00:00",
+    "body_sha256": "71db4b6480b406df82fb65029e38f178b471af59f4f0348bbc0853416c67f941",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "남오세티야가 독립이 아니라 러시아 편입을 목표로 한다는 발표와 조지아·러시아·중국 등의 반응이 이어져 내용일치 칸이 서고 시대 비교 재료다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Russia's efforts to get other nations",
+          "note": "중국 등이 승인을 거부했다는 단락이 자족적이고 balked 만 바꾸면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/South_Ossetia_says_it_will_join_North_Ossetia-Alania_as_a_federal_subject_of_Russia",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.393
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "00b41325-5c94-4e87-85c2-a835e10c5934",
+    "revision": "2026-09-25T08:20:15.392945+00:00",
+    "body_sha256": "4b5c7788ce52cb590ab613d7e5053dab85ef0509f436420bb54584f2785ed7f4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "파이럿 베이 재판 관련 어나니머스의 DDoS 공격 조직 방식과 참여 동기를 설명해 내용일치·순서 칸이 서지만 비속어·혐오어 인용이 길어 걷어내고 성인 칸만 단다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The group makes use of Anonymous's",
+          "note": "제안→IRC 정교화→프로그램 실행의 순서 단락이 서지만 UDP·IRC 같은 기술어는 풀어야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pirate_Bay_case%3A_Internet_group_attacks_websites_in_%22Operation_Baylout%22",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.383
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-11-435Z",
+    "id": "00b6dbf8-502e-4966-9b96-813f4b7d039e",
+    "revision": "2026-09-25T07:52:51.428516+00:00",
+    "body_sha256": "b2458220b095c19e8b440844a41700531297408b63a0d3ebc5cdc21eab7ff0b9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "힙킨스가 아던의 뒤를 이어 뉴질랜드 총리가 되며 물가를 최우선 과제로 내건 소식과 아던의 사임 배경이 이어져 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ardern was elected prime minister in",
+          "note": "아던의 재임 요약 단락이 자족적이고 landslide 만 풀면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:11.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/%22Energized_and_excited%22%3A_Chris_Hipkins_becomes_41st_Prime_Minister_of_New_Zealand",
+          "year": 2023,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.315
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

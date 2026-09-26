@@ -6,6 +6,7 @@
 // null 을 0 으로 그려 "지적 0건" 이라는 거짓 안심이 떴다. 둘 다 화면은 멀쩡해 보이는데
 // 관리자가 잘못 조작하게 만드는 종류라 렌더 테스트로 못 박는다.
 
+import { UNREAD_ITEM_STATE } from '@/lib/csat/item-state-model'
 import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -36,6 +37,11 @@ import { ReviewClient } from '../review/ReviewClient'
 import { bandState } from '../sourcing/BandStrip'
 import { SourceClient } from '../sourcing/SourceClient'
 
+import type { PressDecide } from '../press/PressClient'
+
+/** 표본은 **쓰지 않는다** — 렌더만 본다. 눌러도 아무 일이 없다는 것을 값으로 말한다. */
+const NO_DECIDE: PressDecide = async () => ({ ok: false, says: '표본에서는 판정을 남기지 않는다' })
+
 const text = (html: string) => html.replace(/<!--[\s\S]*?-->/g, '')
 
 /* ── 공정 정본 ↔ 화면 ↔ 도움말 ── */
@@ -52,11 +58,12 @@ describe('공정 정본과 화면·도움말이 어긋나지 않는다', () => {
     },
   )
 
-  it('공정 8칸 중 전용 화면이 붙은 칸의 수를 고정한다 — 줄면 회귀다', () => {
-    // 해설(⑥)만 전용 화면이 없다. 유형별 해설 보유율은 집계 RPC 가 있어야 잴 수 있고,
-    // 그것은 마이그레이션이라 승인 대기다. 붙는 순간 이 수가 8이 된다.
-    expect(withScreen).toHaveLength(7)
-    expect(FACTORY_STAGES.filter((s) => !s.href).map((s) => s.id)).toEqual(['explain'])
+  it('공정 전 칸이 전용 화면을 갖는다 — 줄면 회귀다', () => {
+    // 2026-09-23 까지 해설(⑥)만 전용 화면이 없었다. 안 만든 근거로 적혀 있던 「집계 RPC 가
+    // 필요한데 마이그레이션 승인 대기」는 **낡은 문장**이었다 — 그 집계는 이미 mv 에 있었고
+    // ⑤ 집필이 같은 호출로 읽고 있었다(DD-74). 이제 여덟 칸이 전부 갈 곳을 갖는다.
+    expect(withScreen).toHaveLength(FACTORY_STAGES.length)
+    expect(FACTORY_STAGES.filter((s) => !s.href).map((s) => s.id)).toEqual([])
   })
 
   it('레지스트리에 공정 화면 도움말이 다 있다 — 없으면 도움말 버튼이 빈손이다', () => {
@@ -232,7 +239,8 @@ const author: AuthorView = {
     { type: 'insert', vLevel: 5, count: null },
   ],
   total: 4827,
-  ladderCells: [{ type: 'order', vLevel: 5 }],
+  ladderCells: [{ type: 'order', vLevel: 5 }],  // 표본은 **못 읽은 상태**를 기본으로 — 렌더 테스트는 DB 를 안 타므로 그것이 사실이다.
+  itemState: UNREAD_ITEM_STATE,
   loadError: null,
   inventoryAt: null,
 }
@@ -247,8 +255,7 @@ describe('offLadderCount', () => {
     expect(
       offLadderCount({
         cells: [{ type: 'order', vLevel: 5, count: 100 }],
-        ladderCells: [{ type: 'order', vLevel: 5 }],
-      }),
+        ladderCells: [{ type: 'order', vLevel: 5 }],      }),
     ).toBe(0)
   })
 })
@@ -384,6 +391,12 @@ const press: PressView = {
   volumes: [
     {
       band: 6,
+      series: 'reading',
+      publish: { status: 'published', reason: null, at: '2026-09-02T00:00:00Z', by: 'claude' },
+      personaBlocked: 0,
+      autoPassed: 10,
+      autoTotal: 10,
+      reach: { href: '/library/textbooks/reading/6', hasContents: true },
       volumeTitle: 'Vol 5',
       step: 6,
       schoolBand: '고2',
@@ -401,6 +414,14 @@ const press: PressView = {
     },
     {
       band: 1,
+      series: 'vocab',
+      // 아무도 판정한 적이 없다 — 'rendered' 로 채우면 「사람이 그렇게 판정했다」가 된다.
+      publish: null,
+      personaBlocked: null,
+      // 자동 검사가 **안 돌았다** — 0/0 은 「통과」가 아니라 「못 잼」이다.
+      autoPassed: 0,
+      autoTotal: 0,
+      reach: { href: '/library/textbooks/vocab/1', hasContents: false },
       volumeTitle: 'Starter',
       step: 1,
       schoolBand: '초등 저학년',
@@ -431,35 +452,35 @@ const press: PressView = {
 
 describe('PressClient', () => {
   it('조판된 계단을 사다리 전체와 함께 낸다', () => {
-    const html = text(renderToString(<PressClient {...press} />))
+    const html = text(renderToString(<PressClient {...press} onDecide={NO_DECIDE} />))
     expect(html).toContain('2 / 7')
   })
 
   it('옛 규격으로 찍힌 권을 센다', () => {
-    const html = text(renderToString(<PressClient {...press} />))
+    const html = text(renderToString(<PressClient {...press} onDecide={NO_DECIDE} />))
     expect(html).toContain('옛 규격')
   })
 
   it('해설 안 붙은 문항을 합쳐 경고한다 — 0 이 아니면 해설 빠진 책이 나간다', () => {
-    const html = text(renderToString(<PressClient {...press} />))
+    const html = text(renderToString(<PressClient {...press} onDecide={NO_DECIDE} />))
     expect(html).toContain('해설 안 붙은 문항')
     expect(html).toContain('해설 빠진 책이 나간다')
   })
 
   it('못 잰 항목을 0 으로 그리지 않는다', () => {
-    const html = text(renderToString(<PressClient {...press} />))
+    const html = text(renderToString(<PressClient {...press} onDecide={NO_DECIDE} />))
     expect(html).toContain('못 잼')
     expect(html).toContain('해당 없음')
   })
 
   it('문항 없는 원글이 있으면 집필보다 그것이 먼저라고 말한다', () => {
-    const html = text(renderToString(<PressClient {...press} />))
+    const html = text(renderToString(<PressClient {...press} onDecide={NO_DECIDE} />))
     expect(html).toContain('store-new-types')
     expect(html).toContain('8,235')
   })
 
   it('조판된 권이 없으면 그 사실을 말한다', () => {
-    const html = text(renderToString(<PressClient {...press} volumes={[]} />))
+    const html = text(renderToString(<PressClient {...press} volumes={[]} onDecide={NO_DECIDE} />))
     expect(html).toContain('여기까지 와야 책이다')
   })
 })
@@ -502,7 +523,7 @@ describe('공정별 드레인 절차가 있어야 할 곳에만 있다', () => {
     }
   })
 
-  it('현황판의 드레인 지도가 공정 8칸을 모두 언급한다 — 빠지면 그 칸은 아무도 안 본다', () => {
+  it('현황판의 드레인 지도가 공정 전 칸을 언급한다 — 빠지면 그 칸은 아무도 안 본다', () => {
     const map = HELP_REGISTRY['csat']!.screen.drain!
     expect(map.procedure).toHaveLength(FACTORY_STAGES.length)
     for (const s of FACTORY_STAGES) {
@@ -576,10 +597,32 @@ describe('ReviewStack — 카드 넷이 아니라 위에서 아래로 쌓인 체
     expect(text(html)).not.toContain('여기까지 오지 않는다')
   })
 
-  it('명령은 접혀 있다 — 층이 무엇을 보는지가 먼저, 어떻게 돌리는지는 깊이다', () => {
+  // ── 이 검사가 바뀐 이유 (2026-09-23 · DD-74) ──────────────────────
+  // 원래는 `<details>` 수를 층 수와 견줬다 — 층마다 명령을 접어 두었기 때문이다.
+  // 공통 골격이 생기며 네 명령이 **드레인 절 한 곳**으로 모였고(복사 버튼과 함께),
+  // 같은 명령이 두 곳에 그려지던 중복이 사라졌다. 그래서 세는 대상이 없어졌다.
+  //
+  // 지키려던 것은 개수가 아니라 **순서**다: 층은 「무엇을 보는지」를 먼저 말하고,
+  // 「어떻게 돌리는지」는 그 아래 한자리에 있다. 그 순서를 직접 잰다 —
+  // 명령 문자열이 층 도식보다 **뒤에** 나오는가.
+  it('층은 무엇을 보는지를 먼저 말하고, 명령은 그 아래 한자리에 모인다', () => {
     const html = renderToString(<ReviewClient {...review} />)
-    expect((html.match(/<details/g) ?? []).length).toBeGreaterThanOrEqual(review.layers.length)
-    for (const l of review.layers) expect(text(html)).toContain(l.looksAt)
+    const plain = text(html)
+    for (const l of review.layers) expect(plain).toContain(l.looksAt)
+
+    // 마지막 층의 「보는 것」보다 첫 명령이 뒤에 있어야 한다.
+    const lastLooksAt = plain.lastIndexOf(review.layers[review.layers.length - 1]!.looksAt)
+    const firstCmd = plain.indexOf(review.layers[0]!.cmd)
+    expect(lastLooksAt, '층의 「보는 것」이 안 그려졌다').toBeGreaterThan(-1)
+    expect(firstCmd, '명령이 안 그려졌다').toBeGreaterThan(-1)
+    expect(firstCmd, '명령이 층 도식보다 앞에 있다 — 무엇을 보는지가 먼저다').toBeGreaterThan(
+      lastLooksAt,
+    )
+
+    // 명령은 **드레인 절 한 곳**에만 있다 — 층마다 접어 두던 것을 합쳤으므로
+    // 복사 버튼 수가 곧 명령 수여야 한다. 두 곳에 그리면 여기가 두 배가 된다.
+    // (표본의 층 둘이 같은 명령 문자열을 쓰므로 문자열 등장 횟수로는 못 센다.)
+    expect((html.match(/aria-label="명령 복사: /g) ?? []).length).toBe(review.layers.length)
   })
 
   it('못 잰 층은 0% 가 아니라 「못 잼」과 이유다', () => {
@@ -594,7 +637,7 @@ describe('ReviewStack — 카드 넷이 아니라 위에서 아래로 쌓인 체
 
 describe('LadderFill — 「N / 7」을 계단으로', () => {
   it('계단 수만큼 칸을 그리고, 빈 계단을 「비어 있음」이라고 적는다', () => {
-    const html = text(renderToString(<PressClient {...press} />))
+    const html = text(renderToString(<PressClient {...press} onDecide={NO_DECIDE} />))
     // press 표본은 7단 중 6단·1단만 조판됐다 → 나머지 5칸이 비어 있음
     expect((html.match(/비어 있음/g) ?? []).length).toBeGreaterThanOrEqual(5)
     expect(html).toContain('고2')
@@ -602,25 +645,25 @@ describe('LadderFill — 「N / 7」을 계단으로', () => {
   })
 
   it('옛 규격으로 찍힌 계단을 글자로도 가른다 — 색만 다르면 색약에서 같아 보인다', () => {
-    const html = text(renderToString(<PressClient {...press} />))
+    const html = text(renderToString(<PressClient {...press} onDecide={NO_DECIDE} />))
     expect(html).toContain('옛 규격')
     expect(html).toContain('조판됨')
   })
 
   it('해설 안 붙은 권에 표시를 얹는다 — 그대로 나가면 해설 빠진 책이다', () => {
-    const html = renderToString(<PressClient {...press} />)
+    const html = renderToString(<PressClient {...press} onDecide={NO_DECIDE} />)
     // 1단(Starter)에 해설 없음 4 → 빨간 점 하나
     expect(html).toContain('해설 없음 4')
-    expect(html).toContain('bg-[#9C3A30]')
+    expect(html).toContain('bg-[var(--memory-risk)]')
   })
 
   it('접근성 이름에 채움 비율을 적는다', () => {
-    const html = renderToString(<PressClient {...press} />)
+    const html = renderToString(<PressClient {...press} onDecide={NO_DECIDE} />)
     expect(html).toContain('aria-label="학령 사다리 7단 중 2단 조판됨"')
   })
 
   it('조판된 권이 없어도 7칸을 다 그린다 — 빈 사다리가 곧 할 일 목록이다', () => {
-    const html = text(renderToString(<PressClient {...press} volumes={[]} />))
+    const html = text(renderToString(<PressClient {...press} volumes={[]} onDecide={NO_DECIDE} />))
     expect((html.match(/비어 있음/g) ?? []).length).toBeGreaterThanOrEqual(7)
   })
 })

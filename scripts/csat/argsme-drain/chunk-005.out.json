@@ -1,0 +1,312 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "005",
+  "items": [
+    {
+      "id": "612baac2-2019-04-18T17:00:36Z-00002-000",
+      "sha256": "2daff31470ab63120db784bc30e44513911d122caf31edd94f572e3d6fd1632f",
+      "verdict": "write",
+      "topic_ko": "부모의 소셜미디어 감시는 보호가 아니라 아이를 숨게 만든다",
+      "passage": "A parent who opens an account in order to follow a son or a daughter usually explains the decision as care rather than control. The distinction collapses quickly, because a page that is read by an adult every evening stops working as a corner where a teenager can relax. Under steady observation young people do not become safer; they become quieter, and many of them simply open a second account that no adult has ever seen. Supervision that pushes a child out of sight has defeated its own purpose, since the parent now knows less than before. Ordinary family news also travels better across a kitchen than through comments, and a household that needs a screen for that exchange has lost something larger than a private page. Attention should therefore be light in public and heavy in person, with questions asked at the table and warnings saved for the rare sign of real danger. Freedom granted early is what teaches judgment, and judgment is the only protection that still works when the parent is not watching.",
+      "claim": "Parents should keep a light presence online and build trust through conversation in person rather than through constant monitoring."
+    },
+    {
+      "id": "612baac2-2019-04-18T17:00:36Z-00004-000",
+      "sha256": "02c982d04525a42e52e046d405851df7f033b35361fcd958f922b7fc16a8c031",
+      "verdict": "write",
+      "topic_ko": "또래와의 사적인 대화는 위험이 아니라 독립의 연습이다",
+      "passage": "Adolescents use messages and posts to release feelings that they are not yet ready to describe at home, and some of those feelings concern the parents themselves. A private exchange with a close friend is therefore not a threat to the family but a normal step toward an independent mind. When every line is read by an adult, that release has nowhere to go, and pressure that finds no outlet tends to grow rather than fade. Friends are also better guards than most parents expect, because a young person in real trouble is usually noticed first by the people who share the conversation. A friend who has become frightened will speak to an adult, and such a warning arrives far sooner than any search through old messages. Trusting a child means trusting the circle that the child has chosen, and that circle can be judged in daylight instead of through secret reading. Parents who keep the door open at home learn more than parents who keep the screen open.",
+      "claim": "Young people need private conversations with friends, and trusting that circle protects them better than reading their messages."
+    },
+    {
+      "id": "615e029c-2019-04-18T19:03:24Z-00002-000",
+      "sha256": "38be82f83ac93100c7e952c310e59a819de11f2ba7ea212e7cb14c474690ff6e",
+      "verdict": "write",
+      "topic_ko": "온라인 투표는 계정 확인이 있어야 결과가 의미를 가진다",
+      "passage": "A site that allows anyone to vote without a confirmed account invites the same person to vote many times, and a simple technical block fails almost at once. Stopping one machine for a day is useless, since a determined user returns tomorrow, and stopping it for a whole week punishes families and shared rooms that have done nothing wrong. A student can move between the computers of a school, and a telephone can be given a fresh address in seconds, so the barrier is thin in practice. Confirmed accounts are not perfect either, yet they raise the cost of cheating from nothing to something that a casual user will not pay. Numbers that nobody believes are worth less than no numbers at all, because a reader treats a total as a measure of what people actually think. A short registration is a small burden on honest members and a heavy one on anyone who wants to vote twenty times. Confirmation should therefore stay, not because members are suspected, but because a count without it means nothing.",
+      "claim": "A site that counts votes should confirm who is voting, because technical blocks on repeat machines are too easy to defeat."
+    },
+    {
+      "id": "62216c92-2019-04-18T19:20:58Z-00003-000",
+      "sha256": "5589bb0ceee7563e66d2ba370e37d0e2013191f93c585ca95bd5f8daf4ad2d4e",
+      "verdict": "write",
+      "topic_ko": "단일 공공의료는 대기와 품질 저하를 부르고 되돌리기 어렵다",
+      "passage": "A single public system promises care for everyone, but the promise is paid for in waiting, and a patient who waits three months may arrive far too late. Demand rises the moment a service is free at the point of use, while the supply of doctors, beds, and rooms grows only slowly. The gap between those two curves appears as a queue, and a queue treats an anxious person as a number rather than as a customer who could be lost. A second difficulty is that such a reform is extremely hard to undo, because private companies leave the market once the public plan has taken it. An error inside a small program can be corrected within a year, while an error built into a national one can last for a generation. Public money also competes with every other public need, so quality tends to fall whenever a budget is squeezed. Careful reform of cost and coverage is wiser than one great leap that no later government will be able to reverse.",
+      "claim": "A single national health system should be approached cautiously, because it pays for open access with waiting and is very hard to reverse."
+    },
+    {
+      "id": "629701cf-2019-04-18T12:24:29Z-00001-000",
+      "sha256": "96a297d9312ea565e9d21c261e94ed02e062939b9513a7a144c288d0b236d565",
+      "verdict": "skip",
+      "skip_reason": "원문이 논증 없이 감정적·종교적 호소뿐이고, 약물 합법화는 고교 교재 지문 소재로 부적절하다.",
+      "topic_ko": "마약 합법화 논쟁"
+    },
+    {
+      "id": "62df8f6a-2019-04-18T16:23:14Z-00001-000",
+      "sha256": "c6944e371a760833e915a740d9022782380331385f9e76e36d04e2be465ef2f5",
+      "verdict": "write",
+      "topic_ko": "유전 질환 치료비는 가족이 예측할 수 없으므로 함께 부담해야 한다",
+      "passage": "A test before birth can reveal some inherited conditions, yet many serious disorders appear later and are triggered by food, air, or an accident. No family can see that far ahead into the future, and a plan that covers a child today says nothing about the cost of treatment in ten years. Money is also only part of the burden, because a child with a severe condition needs hours of attention that no salary can replace. A rule that leaves such families alone is therefore not a lesson in responsibility; it is a punishment for an outcome that nobody chose. Shared coverage spreads a rare and enormous cost across many households, and each of them pays a small amount against a risk that could easily have been theirs. Treatment that begins early is cheaper than treatment that begins after a crisis, so the public purse loses nothing over the long run. Coverage for inherited conditions should be a settled right rather than a matter of luck and family savings.",
+      "claim": "Medical costs for inherited disorders should be shared by insurance rather than left to whatever a single family happens to be able to afford."
+    },
+    {
+      "id": "6340764-2019-04-18T18:24:24Z-00001-000",
+      "sha256": "deaa1aa697d0422143a90fc26d21e3ec7f62a8179fc6fa01277afef6de744064",
+      "verdict": "write",
+      "topic_ko": "이주는 임금 격차가 낳은 결과이므로 장벽이 아니라 원인을 다뤄야 한다",
+      "passage": "Wealthy nations have grown rich partly by buying cheap labor from poorer ones, and they have often worked to keep those wages low. When a factory pays too little for a family to live on, that family looks for work wherever wages are higher, and no law has ever removed such pressure. A wall along a border therefore treats a symptom while the cause remains untouched thousands of miles away. Walls are also expensive, and the concrete buys nothing at all that reduces the reason for the journey. Trade rules that lift wages at the source, together with legal routes for seasonal work, meet the movement at the place where it actually begins. Citizens of receiving countries are not wrong to want order, and order is exactly what a legal route provides. The real choice is not between kindness and control; it is between a policy that works and one that merely looks strong.",
+      "claim": "Migration is driven by wage gaps that wealthy nations helped create, so legal routes and better wages at the source work better than walls."
+    },
+    {
+      "id": "652cecbd-2019-04-18T11:28:49Z-00004-000",
+      "sha256": "58220d44a5ce5a371731a1af94be9b082d267d672722da880e4478d96432954a",
+      "verdict": "write",
+      "topic_ko": "충분히 자는 사람에게 수면에 더 신경 쓰라는 조언은 도움이 되지 않는다",
+      "passage": "Advice to care more about sleep is repeated so often that it now sounds like a cure for almost every modern complaint. For a person who already rests seven or eight hours, however, further attention brings no gain and may even do harm. Counting hours and grading each night turns an automatic process into a task, and worry about falling asleep is itself a common cause of a broken night. Time is limited as well, so an hour added to bed is an hour taken from exercise, cooking, study, or the friends who keep a person steady. Lists of daily habits drawn from successful lives rarely mention rest, not because sleep is unimportant, but because ordinary sleep is already in place. The people who truly need help are those who sleep four hours, and a campaign aimed at everybody buries that smaller group inside a general slogan. Sleep deserves protection rather than constant measurement, and the honest message is narrow: repair a short night, and leave a sufficient one alone.",
+      "claim": "General advice to care more about sleep is misdirected, because it adds pressure for people who already sleep enough and buries those who truly sleep too little."
+    },
+    {
+      "id": "660f5d92-2019-04-18T19:49:56Z-00004-000",
+      "sha256": "a673d30b3386ec2c0625113a77443ae8f7694d027289371caaa6abc56729df39",
+      "verdict": "write",
+      "topic_ko": "교사 무장은 학교를 더 안전하게 만들지 못한다",
+      "passage": "Placing weapons in the hands of teachers is offered as a shortcut to safety, yet it adds danger to the very rooms it claims to guard. A school holds hundreds of young people in narrow corridors, and every extra weapon there is one more object that can be stolen, dropped, or fired in panic. A teacher is trained to explain and to calm, not to shoot accurately while frightened children run past. The plan also starts a race that has no ending, because each new weapon invites an answer, and the classroom slowly begins to feel like a checkpoint. Fear by itself damages learning, since a student who watches an armed adult all morning is not thinking about the lesson. The money spent on guns and training would instead buy locked doors, trained advisers, and the quiet attention that catches trouble before it arrives. Safety in a school is built by adults who know the students, not by the number of weapons inside the walls.",
+      "claim": "Arming teachers would make schools more dangerous rather than safer, and the same money buys real protection elsewhere."
+    },
+    {
+      "id": "666c8faf-2019-04-18T12:50:12Z-00001-000",
+      "sha256": "dccd0a31313397cc6c23f5fa65ce525e3a89caa9196b027c106efa992f48eef7",
+      "verdict": "write",
+      "topic_ko": "모든 학생에게 아르바이트를 요구하는 것은 무리한 규칙이다",
+      "passage": "Requiring an evening job from every teenager ignores how much of the week a school day and its homework have already taken. Homework in advanced classes runs for hours, and a shift that ends at ten leaves a teenager choosing between sleep and an unfinished assignment. Neither choice is harmless, because marks fall in one direction while health falls in the other. Many students are also too young to be hired legally, so a universal rule would punish them for an age that they cannot change. The lessons usually claimed for employment, such as patience and responsibility, are equally available in sport, music, volunteering, and the care of younger family members. A job is genuinely valuable for the student who needs the money or who has room in the week, and that judgment belongs inside the household. Work after school should therefore be a choice that some students make, never a duty imposed on all of them.",
+      "claim": "Holding a job after school should remain a family choice rather than a duty placed on every student."
+    },
+    {
+      "id": "66745558-2019-04-18T13:25:51Z-00001-000",
+      "sha256": "c32b3a5c9d97ea529b90011c70bdc565f52e3d110788090d91d348234386edff",
+      "verdict": "write",
+      "topic_ko": "시험관 시술은 현대적 관행 아래서 충분히 옹호될 수 있다",
+      "passage": "Treatment that joins egg and sperm outside the body has given children to couples who had waited many years without any success. The common objection concerns the extra embryos that are created and then discarded, and that concern deserves a serious answer rather than a quick dismissal. Part of the answer is technical, because clinics now place a single healthy embryo instead of several, which removes most of the risk of a crowded and dangerous pregnancy. Examination before the transfer also allows doctors to avoid the clear marks of a severe inherited disease. Fewer are therefore made and fewer are wasted than in the early years of the method, and the danger to the mother has fallen as well. A couple entering the process should be told plainly what it costs, how much it hurts, and how often it simply fails. With honest information and careful modern practice, the treatment is one of the most defensible ways of building a family.",
+      "claim": "Assisted conception remains defensible, because modern practice reduces both the waste it is criticized for and the danger it once carried."
+    },
+    {
+      "id": "66745558-2019-04-18T13:25:51Z-00005-000",
+      "sha256": "0bb953fda8d98e3fe2c38f27b364e2a898c8dd912a01d0a861a521ab57f8f97f",
+      "verdict": "write",
+      "topic_ko": "시험관 시술의 핵심 이점은 아이를 얻는 것이 아니라 미리 아는 것이다",
+      "passage": "The strongest case for laboratory conception rests less on the pregnancy itself than on what the doctors learn along the way. Before a transfer, the mother can be examined for inherited faults that would otherwise have been discovered only after a painful loss. Cells taken from the growing group are read for the damaged patterns behind several cruel diseases, and a family with such a history gains a genuine choice. A pregnancy that begins with this knowledge is less likely to end early and less likely to bring a child who suffers from the first day. Placing one healthy group rather than many has also cut the number of twins and larger births, which are the main medical danger of the method. None of this makes the ethical questions disappear, and a clinic that hides them has failed the couple it serves. The procedure is defensible precisely because it replaces chance with information, and information is what allows a family to decide for itself.",
+      "claim": "The strongest argument for assisted conception is that it replaces chance with information a family can act on."
+    },
+    {
+      "id": "67121bf1-2019-04-18T20:02:08Z-00005-000",
+      "sha256": "0d6b9ecc6cc976a0c6e800d0a81e01cdc376068281b483e3582c01a215144a6f",
+      "verdict": "write",
+      "topic_ko": "종교·과학·철학은 같은 진리를 향한 세 갈래 길이다",
+      "passage": "Religion, science, and philosophy are usually taught in separate rooms behind separate doors, yet each of them asks what is actually the case. One studies sacred writing, another studies matter and measurement, and the third examines the ideas that both of the others are obliged to use. If a claim is true, no honest method should contradict it, so agreement among the three would be evidence rather than a happy accident. Treating them as enemies has cost all three, because science loses the questions of purpose, belief loses correction, and thought loses its material. A scientist who refuses every moral question and a believer who refuses every measurement have each cut away half of what they need. Nothing here demands that the methods merge, since a laboratory and a place of worship answer different questions in different languages. The reasonable position is that these three are partners in one search, and a truth that survives all of them is the safest kind there is.",
+      "claim": "Religion, science, and philosophy should be treated as partners in one search for truth rather than as rivals."
+    },
+    {
+      "id": "67cbd151-2019-04-18T19:13:54Z-00001-000",
+      "sha256": "2778d93b570fe7bad0806b2572a132253c82b57e4707db66ac312a80784a1041",
+      "verdict": "write",
+      "topic_ko": "대학 스포츠의 시즌 연장은 선수의 몸과 학업을 갉아먹는다",
+      "passage": "A college season stretched into a long series of elimination rounds would damage the very students it claims to reward. Every extra round adds collisions, and the body of a young player carries that damage for decades after the final game has ended. Careers that already finish near the age of thirty would finish sooner, and the injuries would follow those players into ordinary working life. Classes are the second cost, because a team that travels for weeks cannot sit in a laboratory or hand in written work on time. Most of these students will never be paid to play, so the degree is the thing that they will actually live on. A short playoff among a few teams settles the title well enough and leaves the calendar room for study and recovery. A sport that is run for the good of its players should count games the way a doctor counts them, not the way a television schedule does.",
+      "claim": "A long elimination playoff in college sport should be rejected, because it damages the bodies and the studies of the players it claims to reward."
+    },
+    {
+      "id": "67ead868-2019-04-18T15:17:15Z-00001-000",
+      "sha256": "fad3f65399864146d7bdf49e4e032b4c4eb7518040aaae40ee7f70dbb8e34ace",
+      "verdict": "write",
+      "topic_ko": "하나의 세계정부는 전쟁의 구조적 원인을 없앨 수 있다",
+      "passage": "One authority governing the entire planet is usually dismissed as a daydream, yet the argument behind it rests on very plain logic. Wars between states happen because separate states exist, and a world under one authority has no border across which an army can be sent. Nuclear weapons would lose most of their purpose, since no government fires such a weapon at land that it must govern the following morning. Problems that ignore all borders, such as a warming climate or a spreading disease, are answered badly by a hundred separate plans that arrive at different times. The danger must be admitted honestly: power with no rival can become a prison, and one bad law would then apply everywhere at once. That risk is met by design rather than by refusal, through strong local councils, courts that stand apart, and rules that no central office can rewrite alone. A united world is not automatically safe, but a divided one has already proved how expensive division can be.",
+      "claim": "A single world government deserves serious consideration, because it removes the borders that wars are fought across, provided its power is divided by design."
+    },
+    {
+      "id": "69a49d17-2019-04-18T12:10:23Z-00000-000",
+      "sha256": "a4bd0a45be3fc48cf2953787ffe61375f40e94a36df8cda03700fb0a61281eda",
+      "verdict": "write",
+      "topic_ko": "논증의 힘은 숨은 전제를 찾아내는 데서 나온다",
+      "passage": "An argument can look complete and still rest on quiet assumptions that the speaker has never once examined. Most reasoning moves from a picture of how the world works toward a conclusion, and that picture is rarely stated aloud. A claim that something cannot be reached quickly enough, for instance, assumes that travel and information move under a known limit, and physics has broken such limits before. Another frequent assumption is that the situation under discussion must change, when the thing described may hold steady for as long as nothing disturbs it. Naming these hidden steps is not a trick for winning, because the same test applies with equal force to the person who applies it. The habit is valuable exactly because it is uncomfortable, and a belief that survives the search deserves more confidence than one that was never questioned at all. Good thinking is therefore less about clever conclusions than about the slow work of finding what a claim silently takes for granted.",
+      "claim": "Any argument should be tested for the unstated assumptions it rests on, because those hidden steps carry most of its weight."
+    },
+    {
+      "id": "69aeb6a-2019-04-18T19:50:14Z-00000-000",
+      "sha256": "aa4fe232ae87ae61630808bd935f71ea2a11ff1f7bfceeace2d64ca6d5f173af",
+      "verdict": "write",
+      "topic_ko": "교육의 문제는 제도가 아니라 그 안의 사람들에게 있다",
+      "passage": "Complaints about schools usually point at the system, as though a different timetable or a new set of rules would repair the result. Most schools already hold the tools that a student needs: trained teachers, books, laboratories, and a library that stays open after the final lesson. Those tools are used heavily in one house and ignored in the next, and the difference shows in the marks long before any policy does. Countries whose students score higher do not run remarkably different buildings; what differs is the weight that families and pupils place on the work itself. A system can be blamed very comfortably, because blame aimed at a structure asks nothing of anyone in particular. Reform is still worth doing, yet a reform that arrives in a classroom where nobody reads at home will change remarkably little. Effort and expectation, rather than the shape of the institution, carry most of the weight in what a student finally learns.",
+      "claim": "Poor school results come mainly from how much students and families invest in the work, not from the design of the system itself."
+    },
+    {
+      "id": "6a1246f7-2019-04-18T12:00:14Z-00002-000",
+      "sha256": "772c7dbc10c21645365e53d361a15d3b897bb58601834c3446ccf73dbf8869f9",
+      "verdict": "write",
+      "topic_ko": "직접민주주의는 대표를 거치며 생기는 간극을 없앤다",
+      "passage": "Under direct democracy the citizens write and approve the laws themselves instead of handing that power to a small group of representatives. The first advantage is plain ownership, because a rule that a person has voted on personally is much harder to dismiss as the work of distant officials. The number of voters tends to rise for the same reason, since a vote that decides a law matters more than a vote that chooses somebody who may decide it. A representative must also be trusted years in advance, and that trust is often repaid with promises that quietly disappear once the election has passed. Direct votes close the gap between what was promised and what is done, and they close the market for favors that grows around any small chamber. The known weakness is haste, since a crowd can be furious on Tuesday and calm by Friday, so a waiting period and a written text are necessary. With those guards in place, deciding matters directly is fairer than asking a nation to speak through a few hundred voices.",
+      "claim": "Letting citizens write and approve laws themselves is fairer than representation, provided that delays and written texts guard against haste."
+    },
+    {
+      "id": "6b3f6ff2-2019-04-18T15:38:12Z-00003-000",
+      "sha256": "4498983946de5f2d415f87b94ef5e55618cee027153c869c1b844011d8dee3e0",
+      "verdict": "skip",
+      "skip_reason": "피임·임신중절 공적 지원 논쟁이라 고교 교재 지문 소재로 부적절하다.",
+      "topic_ko": "피임 공적 지원 논쟁"
+    },
+    {
+      "id": "6b8ee15-2019-04-19T12:45:29Z-00012-000",
+      "sha256": "356817ddb80d56e8879a317a6d38fe8bb49a44eecb29fdc6d1a923712e171f28",
+      "verdict": "write",
+      "topic_ko": "불황 탈출에는 정부 지출보다 감세가 낫다",
+      "passage": "When an economy shrinks, the quickest recovery comes from money left in the hands of households and firms rather than money pushed through a government office. Savings that stay inside the banking system become loans, and cheaper loans allow a company to hire again before its orders have fully returned. Public spending must first be debated, approved, and arranged, and a plan announced in winter often reaches the ground after the worst has already passed. Large projects also concentrate the risk, because a single mistaken choice wastes an enormous sum, while thousands of smaller private choices fail separately and quietly. A reduction in tax reaches every household in the same week and asks no official to guess which industry deserves support. Debt matters as well, since borrowing for a program adds a bill that later workers are the ones who must pay. Leaving earnings with the people who produced them is therefore the steadier road out of hard years.",
+      "claim": "Tax cuts are a better route out of an economic slump than large government spending programs."
+    },
+    {
+      "id": "6bd2ecd9-2019-04-18T19:25:21Z-00002-000",
+      "sha256": "b0183d03efc473ac35d444af9c4b31069456642a8f10ae2a1b0d3da7017004d7",
+      "verdict": "write",
+      "topic_ko": "노예제는 어떤 온건한 형태로도 정당화되지 않는다",
+      "passage": "Every defense of slavery begins by imagining a gentle version in which the worker owns property, receives lessons, and is even allowed to vote. The picture collapses as soon as it is tested, because a person who cannot leave has no way to earn the money that property requires. A vote taken in front of the owner is not really a vote, and teaching offered to someone who will never pick an occupation is decoration rather than education. The single feature that defines the condition is that the labor is forced, and no comfort added around it removes that central fact. Ownership of one human being by another also damages the owner, since power without any limit has always found fresh uses for itself. Debt, custom, and law have been used for centuries to dress the arrangement in softer words, and softer words have never changed the work. A practice that holds a human being as property is wrong in every form it takes, however kindly it is described.",
+      "claim": "No version of slavery can be morally acceptable, because forced labor remains forced however many comforts are attached to it."
+    },
+    {
+      "id": "6c2080de-2019-04-18T11:45:33Z-00007-000",
+      "sha256": "55fef5c1806a5c7e64080a36f7836a2c144b4e1c4e19391d2d921f44d5c21ef4",
+      "verdict": "skip",
+      "skip_reason": "본문이 상대의 태도를 비난하는 대화뿐이라 재저작할 논지가 없고, 주제도 특정 종교의 우월성 주장이다.",
+      "topic_ko": "특정 종교의 신이 가장 자비롭다는 주장"
+    },
+    {
+      "id": "6c837ac4-2019-04-18T16:10:16Z-00000-000",
+      "sha256": "9e56f0cd630a134faef2e1e6e09b711bbb9f206f12861fe74d475f3a7c981035",
+      "verdict": "write",
+      "topic_ko": "등교 시간을 크게 늦추면 잃는 것이 얻는 것보다 많다",
+      "passage": "Moving the school day to nine or ten in the morning sounds generous, yet the hours have to come from somewhere, and they come from the afternoon. A day of seven lessons that opens at ten will end at five, which removes sport, part time work, music, and the family meal in a single stroke. Students who lose the afternoon do not gain the morning, because a later start usually invites a later night rather than a longer sleep. The body adjusts to the new schedule within a few weeks, and the same tired faces appear at the same point in the lesson. Younger brothers and sisters are affected too, since parents who leave for work at eight cannot wait for a house that empties at half past nine. Walking home through the dark of a winter evening is also less safe than walking to school in the early light. The sensible answer is an earlier bedtime supported by the whole household, not a timetable that pushes the day into the night.",
+      "claim": "Pushing the school day to nine or ten in the morning costs more than it gains, so an earlier bedtime is the better answer."
+    },
+    {
+      "id": "6d4d22a1-2019-04-18T16:36:53Z-00002-000",
+      "sha256": "65e062d4ae177b04850c405c6e81905ba0df141f691fd42d62d4a76721e43fb9",
+      "verdict": "write",
+      "topic_ko": "인간 복제는 다양성을 줄이고 아이에게 부당한 짐을 지운다",
+      "passage": "Copying a human being would trade the variety that keeps a species healthy for the comfort of one familiar design. Natural change depends on the mixing of different lines, and a population built from repeated copies meets a new disease with no defense anywhere inside it. The same logic has already damaged farming, where herds bred from a few favored animals collapse together whenever a single illness finds the shared weakness. A copied child would also carry a burden that no child should carry, because the original life would stand beside the new one as a plan to be matched. Parents already push their hopes onto a son or a daughter, and a copy invites that pressure in its most extreme form. Nothing in the technique promises a cure that ordinary medicine cannot reach by safer roads, such as repairing a single faulty gene. The wiser course is to leave human copying alone and to spend the effort where it treats real patients instead of manufacturing them.",
+      "claim": "Human cloning should be rejected, because it narrows the variety a species depends on and places an unfair burden on the copied child."
+    },
+    {
+      "id": "6d8dec29-2019-04-18T11:32:09Z-00003-000",
+      "sha256": "a568e9e99f0b4c859be82bada99be3c9e35cb30b6e211d90ae96f93560460172",
+      "verdict": "write",
+      "topic_ko": "모두에게 같은 임금을 주는 체제는 인간의 평등을 잘못 번역한 것이다",
+      "passage": "The case for paying every worker the same begins with a decent instinct, that a hospital cleaner and a surgeon are equally human. Equality of worth, however, does not settle equality of reward, because the two jobs differ in the years, the risk, and the study that they demand. If the pay is identical, very few will spend a decade in training, and the shortage appears first in exactly the work that is hardest to do. A system that removes the link between effort and reward must then replace it with orders, and orders require an authority that decides who works where. That authority has been the real cost wherever the experiment has been tried, and it has usually grown into something heavier than the inequality it replaced. The genuine complaint underneath is that a market can treat a bank balance as the worth of a person, and that complaint deserves a serious answer. The answer is a floor beneath every life rather than a ceiling above every ambition, since dignity can be guaranteed without making all work identical.",
+      "claim": "Equal worth does not require identical pay; a guaranteed floor under every life answers the complaint better than a system of identical wages."
+    },
+    {
+      "id": "6d9344e2-2019-04-18T15:27:15Z-00001-000",
+      "sha256": "8e58630a82a7e5387edac2ecaeba63f51b7c60493e1bb5284fff83cced697a9f",
+      "verdict": "write",
+      "topic_ko": "부모는 아이의 미래를 정해 주는 대신 방향을 제안해야 한다",
+      "passage": "Parents are not able to predict a future, but they are able to offer a direction, and the two are constantly confused in arguments about ambition. Someone who finishes school carrying no aim whatever meets the adult world as a series of accidents rather than as a set of choices. Suggestions from a parent supply a first shape, something to accept, to adjust, or to reject for a better reason than the absence of any alternative. The duty of a parent is to raise an adult who can decide, and deciding is a skill that grows only out of practice with real options. Force is the failure of the method, since a career chosen by a mother and carried by a daughter belongs to neither of them. The difference between guidance and command shows in a single question: whether a refusal is answered with discussion or with punishment. Parents should speak about the future often, hold their suggestions loosely, and be ready to hear a better plan than the one they imagined.",
+      "claim": "Parents should offer their children a clear direction for the future while holding those suggestions loosely enough to be refused."
+    },
+    {
+      "id": "6da2e494-2019-04-15T20:22:30Z-00014-000",
+      "sha256": "424ed2e5a21924816b59a9b11e55adeaab345c2fb7052d0d479c8513e9ffa713",
+      "verdict": "write",
+      "topic_ko": "폭력적 게임에 대한 연령 제한은 국가의 정당한 안전 조치다",
+      "passage": "The first purpose of a state is the safety of the people inside it, and that duty carries the right to limit goods which make them less safe. Restrictions of exactly this kind are already accepted without complaint in the case of alcohol, tobacco, fast driving, and the sale of weapons. If a form of entertainment raises the chance that a player will act violently, it belongs in the same category and can be handled in the same way. The freedom to play any game at all is a real interest, yet it is a smaller interest than the safety of the people who share the street. A limit is also not a ban, because an age check keeps a violent title out of the hands of a child while an adult may still buy it. The evidence about lasting harm is still argued over, so the rule should be reviewed openly as that evidence improves. A state that waits for perfect proof before acting on a suspected harm has misunderstood the job it was created to do.",
+      "claim": "A government may restrict the sale of violent games, because limiting goods suspected of raising violence falls squarely within its duty to protect citizens."
+    },
+    {
+      "id": "6dbd1f79-2019-04-18T16:49:50Z-00001-000",
+      "sha256": "a6afbea6ce75e6499f98ac5bc96d407eb2cff3a88074d6d4bbbef06c2f06d617",
+      "verdict": "write",
+      "topic_ko": "조력 사망은 엄격한 요건 아래서만 허용되어야 한다",
+      "passage": "A law that allows assisted death only under strict conditions is more honest than a law that forbids the practice entirely. A person in the final stage of a disease that cannot be cured may already refuse food and treatment, so the ban does not prevent death; it removes the help of a doctor. What it produces instead is a lonely and often violent ending, arranged in secret by a family that afterwards carries the fear of arrest. Requirements are what separate mercy from danger, and they can be written plainly: a confirmed medical condition, requests repeated over time, and two independent doctors. A general right to die at any moment for any reason would be a very different law and a far worse one, because despair is frequently temporary. The narrow case is not temporary, since a patient facing months of pain is not making a choice that better days will reverse. Permission that is limited, recorded, and medical protects the weak more effectively than a silence which leaves everything to chance.",
+      "claim": "Assisted death should be legal under strict medical requirements, because a total ban does not prevent death but only removes the help of a doctor."
+    },
+    {
+      "id": "6de4c01-2019-04-18T11:36:02Z-00000-000",
+      "sha256": "09b49c296eccd773b3cb2a92380ce1b969c2fe924c97316ad2b071fde50ab192",
+      "verdict": "skip",
+      "skip_reason": "개인 간 인신공격과 신앙 고백만 있고 공적 쟁점이나 논증이 없다.",
+      "topic_ko": "개인적 신 체험 주장을 둘러싼 말다툼"
+    },
+    {
+      "id": "6e792dd1-2019-04-19T12:44:11Z-00018-000",
+      "sha256": "a5d16261e6584e6c50a6b1efc4f220dd70bf219d19ad0d799a0a2a1956e57db0",
+      "verdict": "write",
+      "topic_ko": "전쟁 결정은 한 사람이 아니라 선출된 대표들이 해야 한다",
+      "passage": "The decision to commit soldiers to a war should belong to an elected assembly rather than to a single leader sitting in an office. A promise made privately between two heads of government can commit a nation to years of fighting that its citizens have never discussed. A vote before the first shot forces the case into daylight, where the aim, the cost, and the plan for leaving must all be stated openly. International friendships are not damaged by such a rule, since many nations already require it and still send troops whenever the argument is good. What changes is the quality of that argument, because a leader who must persuade a room of representatives prepares a far better one. Emergencies remain possible, and a narrow exception for an immediate attack can be written into the law without swallowing the law itself. A country that asks its young people to die should be willing to ask its lawmakers to vote.",
+      "claim": "The power to commit a nation to war should rest with an elected assembly rather than with a single leader."
+    },
+    {
+      "id": "71315005-2019-04-18T16:31:42Z-00004-000",
+      "sha256": "0f3d1e31ae848324bcb42e6c271ae4b31442ace801413b526086f48f0655a3b2",
+      "verdict": "skip",
+      "skip_reason": "본문이 토론 수락 인사와 진행 절차 안내뿐이라 재저작할 논지가 없다.",
+      "topic_ko": "창조자의 존재 여부 토론 서두"
+    },
+    {
+      "id": "71a49480-2019-04-18T12:06:31Z-00008-000",
+      "sha256": "9800371b45ca5bdd96e802249e200997e3e2aed27a3206f67aa2c0f0928f7a8c",
+      "verdict": "write",
+      "topic_ko": "돈으로 투표를 대신하면 의견이 아니라 잔고를 세게 된다",
+      "passage": "A proposal to settle elections by spending treats money as a measure of preference, and that measure fails at the very first test. A wealthy supporter can place an enormous sum behind one candidate, while a thousand poorer citizens together manage only a small fraction of it. The result would record the strength of bank accounts rather than the strength of opinion, and those two quantities are not related in any useful way. The same flaw appears in ordinary life, since the building with the larger budget is not automatically the better building. Money can also be given under pressure, because an employer who asks for a contribution is not making a request that a worker feels free to refuse. A vote resists that pressure by being equal and secret, which is precisely why it was invented in the form it now has. One person and one vote is a crude instrument, yet every plan to improve it by price ends by selling the thing it was meant to measure.",
+      "claim": "Replacing votes with spending would measure wealth instead of opinion and would destroy the equality that makes a vote meaningful."
+    },
+    {
+      "id": "71e51e54-2019-04-18T17:40:28Z-00002-000",
+      "sha256": "6341c1484a9c177e9eec5e6f1f04e63c9b6c05afd7e6d7d495d007f3bc1a040d",
+      "verdict": "write",
+      "topic_ko": "교육은 학교 안에서만 일어나지 않는다",
+      "passage": "Education is the growth of a mind, and a classroom is only one of the places where that growth has ever happened. For most of human history knowledge passed through trial, imitation, and the warnings of older people, and none of it required a school building. A great deal of what an adult uses daily was learned outside any lesson: how to cook, how to argue, how to repair, and what rights a citizen holds. Books, workshops, and now a screen in almost every pocket put serious material within reach of anybody willing to sit down with it. Formal study still has a clear value, because a course arranges difficult subjects in order and provides a teacher who corrects an error early. The mistake is to treat the certificate as the development itself, which leaves a graduate who has passed every examination and cannot think without one. Schools should be judged by the independent learners they release, not by the hours that students have spent inside them.",
+      "claim": "Schools should be judged by the independent learners they produce, because genuine education happens well beyond the formal classroom."
+    },
+    {
+      "id": "72004c03-2019-04-18T15:20:56Z-00006-000",
+      "sha256": "de9e7b1f535eab4af83481c9f94fd3a04d2bd6f3b3dbcdbc273fa51af800c54e",
+      "verdict": "write",
+      "topic_ko": "세금의 공정함은 비율이 아니라 희생으로 재야 한다",
+      "passage": "A single rate for every citizen looks fair on paper, because each person surrenders the same share of whatever arrives in the bank. The appearance breaks down as soon as that money is compared with what a household actually needs in order to live. A tenth taken from a small income removes food, heating, or rent, while a tenth taken from a large one removes a holiday. The pain of those two payments is not equal, and a system that ignores the difference is measuring the wrong thing entirely. Rising rates on higher earnings also collect the sum a country requires without pushing its poorest households below the line where help must be handed back. A flat rate is genuinely simpler, yet most of the difficulty in modern tax law comes from deductions and exceptions rather than from the number of rates. Fairness in taxation should be measured in sacrifice rather than in percentages, and sacrifice is what a rising scale is designed to equalize.",
+      "claim": "A rising tax rate is fairer than a single flat rate, because equal percentages impose very unequal sacrifice."
+    },
+    {
+      "id": "7285d901-2019-04-15T20:24:28Z-00016-000",
+      "sha256": "399637648833686523a42ee6a8b9db4969bedbdd8860923a7951c05ea142ea64",
+      "verdict": "write",
+      "topic_ko": "시를 가르치는 일은 표현하는 시민을 기르는 일이다",
+      "passage": "A school that teaches only the skills an employer requires has quietly decided that a young person is a worker and nothing more. Poetry earns its hours because it turns attention toward the inner life, where a student meets feelings that ordinary lessons never name. Reading a few lines closely also trains the slowest and most valuable kind of reading, in which every word is weighed before the meaning settles. Expression is the second gain, since a citizen who cannot say what is wrong has no voice in the decisions that follow. The poems that have lasted argued about war, work, love, and injustice, and their arguments changed what readers were prepared to accept. The subject is unpopular in class mainly because it is taught as a puzzle with one hidden answer rather than as an invitation to reply. Better teaching, and not removal from the timetable, is the correct response to a difficult and unusually human subject.",
+      "claim": "Poetry earns its place in the school timetable, because it trains close attention and gives students the means to express what matters to them."
+    },
+    {
+      "id": "7430256c-2019-04-18T16:59:44Z-00006-000",
+      "sha256": "b82370931ffbb066b3d64797b23b3e505c11f73fbdb95f3e0fa32071ad990c85",
+      "verdict": "write",
+      "topic_ko": "교실의 기술은 종이가 못 하는 일을 할 때만 제자리를 얻는다",
+      "passage": "Learning to handle the machines that a working life will demand is clearly part of school, but a tool that enters every lesson stops being a tool. Notes written by hand are remembered better than notes typed at speed, because the hand cannot keep up and the mind is forced to select. A student who types every word produces a perfect record of a lesson that was never actually thought about. Equal access is the second problem, since one household owns a fast computer and a quiet room while another shares an old telephone among four people. Homework that assumes the first house quietly punishes the second for a shortage that no child controls. A screen is also the easiest door in the room, and a lesson that competes with it has already lost part of the attention it needs. Technology belongs in school where it does something that paper cannot, and it belongs outside the lesson when it merely replaces a pen.",
+      "claim": "Technology belongs in a classroom only where it does something paper cannot, because constant screens weaken memory and widen the gap between households."
+    },
+    {
+      "id": "74862f47-2019-04-18T19:07:33Z-00007-000",
+      "sha256": "53a7e894397d91146692c66f6dce29b17e0487c83a0b3e822b40de098c1f6120",
+      "verdict": "write",
+      "topic_ko": "게임의 언어와 장면은 검열이 아니라 등급과 정보로 다뤄야 한다",
+      "passage": "Demands to strip harsh words and violent scenes out of games run into a difficulty that has nothing to do with taste. Speech that offends is still speech, and a government that may delete a word from a story has taken a power which it will not hand back. The industry already labels its products by age, and those labels tell a parent more about a title than any official list would manage. A shop that sells an adult game to a young child can be punished without a censor ever touching the work itself. Judgment about what belongs inside a home is therefore available to the families who want it, and it costs nobody else a freedom. Cutting the language would also change very little, because the same words fill the films, the songs, and the corridors that surround a player every day. The better answer is information and honest labels rather than a public office deciding which sentences a story may contain.",
+      "claim": "Games should be handled through honest age labels rather than through official censorship of their language and content."
+    },
+    {
+      "id": "75821c00-2019-04-19T12:43:59Z-00004-000",
+      "sha256": "2bdb36e8b588b66a000d90ec8af65f4c872b2e8985fbeb3a17258f91c64ac970",
+      "verdict": "write",
+      "topic_ko": "종교의 자유로운 표현과 종교의 정치 권력화는 다른 문제다",
+      "passage": "Belief deserves the same protection as any other conviction, and a state that inspects what its citizens hold sacred has already become dangerous. The freedom to express a faith, however, is not the same as the freedom to impose it, and that difference matters more than either side usually admits. Religions deal in final answers, which is their strength for a believer and their difficulty inside a society that many kinds of people share. When a community holding such an answer also holds political power, the ordinary bargaining of politics becomes a contest that nobody is permitted to lose. History shows how quickly such a contest turns from words into damage against the neighbors who happen to answer differently. The sensible line is therefore drawn at law rather than at worship: anyone may preach, publish, teach, and argue, and nobody may turn a private belief into a public rule binding on everybody. Religious expression protected in that way stays as free as speech itself, while the state remains open to citizens of every belief.",
+      "claim": "Religious expression should be fully protected while the conversion of religious doctrine into binding public law should not be."
+    },
+    {
+      "id": "75913fe2-2019-04-18T16:34:38Z-00002-000",
+      "sha256": "120132be194c06567898fc8ca3494c20f21798de9624f2895ffa274ae18bd24c",
+      "verdict": "skip",
+      "skip_reason": "특정 종교의 신 존재를 놓고 다투는 글이라 교재 지문으로 부적절하다.",
+      "topic_ko": "기독교 신의 실재 여부 논쟁"
+    }
+  ]
+}

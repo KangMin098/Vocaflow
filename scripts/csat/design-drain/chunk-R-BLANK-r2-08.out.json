@@ -1,0 +1,63 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2014B#34",
+      "roles": ["topic", "example", "support", "example", "support", "conclusion", "conclusion"],
+      "alternatives": [{ "index": 4, "role": "conclusion" }, { "index": 5, "role": "concession" }],
+      "pattern": "myth_rebuttal",
+      "selection": "비합리적으로 보이는 청각 편향이 실은 영리하다는 반박 구조라, 빈칸이 ‘의도적’과 ‘부정확’ 두 성분을 함께 담아야 풀린다.",
+      "transform": "paraphrase",
+      "transform_note": "앞에서 의도된 오류라 부른 성질이 선지에서 세상을 일부러 부정확하게 보고 듣는 뇌로 같은 수준에서 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014B#31",
+      "roles": ["topic", "support", "example", "example", "conclusion", "support"],
+      "alternatives": [{ "index": 4, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "첫 문장의 일반 진술 뒤 휴대전화·톱 사례를 들고 빈칸에서 다시 일반화하는 글이라, 사례를 하나의 원리로 접어야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "한 영역의 성과가 다른 성과에 부정적 영향을 준다는 첫 문장이 선지에서 다른 제품·서비스 기능에 영향을 준다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014A#35",
+      "roles": ["topic", "support", "example", "example", "conclusion", "support"],
+      "alternatives": [{ "index": 4, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "B형 31번과 같은 지문으로, 첫 문장의 일반 진술을 두 사례 뒤 빈칸에서 다시 일반화하게 해 사례를 원리로 접는 능력을 본다.",
+      "transform": "paraphrase",
+      "transform_note": "한 영역의 성과가 다른 성과에 부정적 영향을 준다는 첫 문장이 선지에서 다른 제품·서비스 기능에 영향을 준다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014A#34",
+      "roles": ["background", "turn", "support", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "topic" }, { "index": 4, "role": "conclusion" }],
+      "pattern": "myth_rebuttal",
+      "selection": "객관성이 세상을 보는 최선이라는 통념을 흑백 TV 비유로 반박하는 글이라, 빈칸에서 비유 소재가 아니라 줄어드는 삶의 몫을 짚어야 한다.",
+      "transform": "abstraction",
+      "transform_note": "감정을 낮추면 즐거움의 가능성도 낮아진다는 진술이 선지에서 삶의 풍요라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014A#33",
+      "roles": ["topic", "support", "turn", "example", "support", "conclusion", "example"],
+      "alternatives": [{ "index": 2, "role": "support" }],
+      "pattern": "contrast",
+      "selection": "지배자와 하위자의 시선 사용을 대조하는 글이고 빈칸이 첫 문장 주제문에 있어, 뒤의 풀어쓰기와 대조를 모아 한 낱말로 복원해야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "원하는 어디든 볼 권한이 있다는 풀어쓰기와 왕의 예시가 선지에서 자유라는 한 낱말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

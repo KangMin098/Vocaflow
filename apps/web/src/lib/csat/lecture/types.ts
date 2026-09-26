@@ -89,3 +89,16 @@ export interface LectureIndex {
   built: string
   items: Record<string, { sec: number; cues: number; score: number; type?: string | null }>
 }
+
+/**
+ * 큐 하나의 **겉모습** — 대본(`segments`) 없이 역할·가리킬 곳·길이만.
+ * 해설 극장의 왼쪽 레일이 재생 전에 그릴 수 있는 것이 정확히 이만큼이다(`store.lectureOutline`).
+ */
+export interface LectureStep {
+  id: string
+  order: number
+  role: LectureRole
+  target: LectureTarget
+  est_sec: number
+  focus?: number[]
+}

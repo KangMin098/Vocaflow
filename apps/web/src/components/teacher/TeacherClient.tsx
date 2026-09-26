@@ -3,7 +3,8 @@
 
 'use client'
 
-import { ArrowRight, Check, Copy, GraduationCap, Plus, Users } from 'lucide-react'
+import { ArrowRight, Check, Copy, Plus, Users } from 'lucide-react'
+import { AreaHero } from '@/components/layout/AreaHero'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
@@ -15,6 +16,7 @@ import {
   type MyMembership,
   type TeacherClass,
 } from '@/lib/teacher/class-actions'
+import { SpotState } from '@/components/ui/SpotState'
 import { inviteUrl } from '@/lib/teacher/invite-link'
 
 export function TeacherClient({
@@ -109,21 +111,15 @@ export function TeacherClient({
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-10">
-      <header className="flex items-center gap-2">
-        <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
-          aria-hidden
-        >
-          <GraduationCap size={18} strokeWidth={1.75} />
-        </span>
-        <div>
-          <h1 className="font-editorial text-[20px] font-[800] text-[var(--t1)]">클래스</h1>
-          <p className="font-body text-[12px] text-[var(--t2)]">
-            클래스를 만들어 초대코드로 학생을 모아요
-          </p>
-        </div>
-      </header>
+    <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-10">
+      {/* DD-68 — 서가 · 만화와 같은 구역 머리. 타일은 교실(tile-teacher), 수치 알약은 청록. */}
+      <AreaHero
+        kicker="교사 · 클래스"
+        title="클래스"
+        sub="클래스를 만들어 초대코드로 학생을 모아요"
+        tile="tile-teacher"
+        tint="teal"
+      />
 
       {/* 조회 실패 고지 — 빈 목록이 "클래스가 없음" 으로 읽히지 않게. 개설·참여 자체는
           막지 않는다(쓰기 경로는 별개로 살아 있을 수 있다). */}
@@ -191,9 +187,7 @@ export function TeacherClient({
           내가 만든 클래스 ({classes.length})
         </h2>
         {classes.length === 0 ? (
-          <p className="rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] px-5 py-8 text-center font-body text-[13px] text-[var(--t2)]">
-            아직 만든 클래스가 없어요. 위에서 첫 클래스를 만들어 보세요.
-          </p>
+          <SpotState art="empty-page" size="sm" role="status" title="아직 만든 클래스가 없어요" body="위에서 첫 클래스를 만들어 보세요." />
         ) : (
           <ul className="flex flex-col gap-2">
             {classes.map((c) => (

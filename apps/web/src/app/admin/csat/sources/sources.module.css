@@ -524,3 +524,17 @@
     transition: opacity 100ms linear;
   }
 }
+/* 원천 상세 · 가져오는 법 (2026-09-25) */
+.getPrompt { margin: 8px 0 12px; padding: 10px 12px; border: 1px solid var(--bd); background: var(--bg); font-size: 12px; }
+.getPrompt > div { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.getPrompt p { color: var(--t3); font-size: 11px; margin-top: 4px; }
+.getSteps { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; font-size: 12px; }
+.getSteps .footnote { margin-top: 4px; }
+.getCommand { display: flex; align-items: center; gap: 8px; margin-top: 6px; min-width: 0; }
+.getCommand code { flex: 1; min-width: 0; padding: 6px 8px; background: var(--bg); border: 1px solid var(--bd); font-family: var(--font-mono); font-size: 11px; overflow-wrap: anywhere; word-break: break-all; }
+.copy { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; min-width: 44px; padding: 0 8px; font-size: 11px; flex-shrink: 0; }
+.copy:hover { background: var(--bg3); }
+.copy:focus-visible { outline: 2px solid var(--admin); outline-offset: 2px; }
+.writes, .readonly { font-size: 10px; font-family: var(--font-mono); padding: 1px 6px; border: 1px solid var(--bd); }
+.writes { color: var(--risk, #9C3A30); border-color: currentColor; }
+.readonly { color: var(--t3); }

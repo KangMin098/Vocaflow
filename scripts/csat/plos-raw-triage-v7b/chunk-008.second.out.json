@@ -1,0 +1,571 @@
+[
+  {
+    "id": "04c76d98-8bca-493c-8029-fb26e0191604",
+    "source_updated_at": "2026-09-25T07:27:21.859447+00:00",
+    "body_sha256": "6431ea7bff9d1423421b463907b5b0755fcf252ea59f5a9c2478051e747b01a2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약 단락이 호중구-아데노바이러스 상호작용을 일반어로 풀어 한 편으로 서고, 고찰이 주장-근거를 짝지어 놓았다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Adenoviruses are common viruses that",
+      "note": "저자 요약 문단은 앞 문맥 없이 시작했고 CXCL8·NET 같은 약어 두셋만 풀어 쓰면 밴드가 내려갔다."
+    }
+  },
+  {
+    "id": "04d0f683-1d8c-4b67-8173-d51912f7c5c2",
+    "source_updated_at": "2026-09-25T07:27:23.239792+00:00",
+    "body_sha256": "0f8f5e32bceb48cece1191e0b5aa24048c62173ee430e0eeb0cad5481afc1d97",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 실데나필 도입 경위와 부작용 단락은 자족적이지만, 본문 대부분이 도킹 점수·잔기 나열이라 쓸 단락이 좁다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In 1998, sildenafil, marketed as",
+      "note": "서론 한 단락은 떼어져도 논지가 섰으나 결과부는 RMSD·kcal/mol 수치 나열이라 가공이 막혔다."
+    }
+  },
+  {
+    "id": "04d3dd00-c8e0-4516-b959-1b8918121a90",
+    "source_updated_at": "2026-09-25T07:27:24.339223+00:00",
+    "body_sha256": "21a44094e9736e2f122efa7a2cc9eee2a6a93215e5734b8c871db186a7081099",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 케르세틴이 든 흔한 식품과 간암 부담을 먼저 세우고 연구 물음으로 이어져 발췌 한 편이 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Quercetin, a naturally occurring flavonoid",
+      "note": "식품·흐름 중심 서론 문단은 쉽게 떨어졌고, 신호전달 약어 구간은 잘라내야 했다."
+    }
+  },
+  {
+    "id": "04d9e49a-267d-4b15-9c09-0b9739917aa1",
+    "source_updated_at": "2026-09-25T07:27:24.775532+00:00",
+    "body_sha256": "62d36b28aa1b453452bf9670d0917e160d0168bc3580a738472e28fd44370f6d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약이 레트로트랜스포존을 \"고대 바이러스 유래 서열\"로 풀어 설명하고 가설-검증 흐름이 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pathological protein aggregation marks the",
+      "note": "요약 문단은 고유명사를 걷어도 논지가 남았고 ALS·FTD 약어만 풀면 밴드가 내려갔다."
+    }
+  },
+  {
+    "id": "04eba564-6d61-413c-a9ca-1d269b4b92ba",
+    "source_updated_at": "2026-09-25T07:27:27.177861+00:00",
+    "body_sha256": "68ffb526b99292539332c47d326ddbcedd9f450aef187f5c3d327cb3601ff392",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "해양 열파 정의·빈도 증가 통계·먹이망 연쇄 설명이 한 편의 설명문으로 이어지고 수치 주장이 원자료와 붙어 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Marine heatwaves (MHWs) refer to",
+      "note": "서론 첫 두 단락은 그대로 떨어졌고 플랑크톤 분류명을 \"작은 조류\" 정도로 바꾸니 밴드가 내려갔다."
+    }
+  },
+  {
+    "id": "051477da-4064-4a5e-995e-14eb7c786b41",
+    "source_updated_at": "2026-09-25T07:27:29.748714+00:00",
+    "body_sha256": "886168ca431ba01020646ab8d7a239ffe33fe3555b80837890f999b3f4036cf7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "녹색 합성의 동기와 부들의 전통 약용 내력을 설명하는 서론 단락이 자족적이나, 특성분석부는 기기 수치 나열이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Among the several plant species",
+      "note": "식물 소개 문단은 쉽게 떼어졌지만 XRD·FTIR 절은 2θ 각도와 파수 나열이라 손댈 곳이 없었다."
+    }
+  },
+  {
+    "id": "05201b10-7c1f-4280-9e0f-f88a8c52ae3a",
+    "source_updated_at": "2026-09-25T07:27:30.53931+00:00",
+    "body_sha256": "6ae57446dd3662c0ce6b61bfd1af849de5759b22556ce53d3362d3601e7876b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "지속세포 개념과 항생제 치료 실패의 연결을 서론이 먼저 세우고 고찰이 균주별 차이를 근거로 든다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Persisters are cells with a",
+      "note": "지속세포 설명 문단은 균주 기호(S45·4SA(2))를 걷어도 논지가 섰다."
+    }
+  },
+  {
+    "id": "052650dc-7c85-4cb5-8302-f29be9a6d260",
+    "source_updated_at": "2026-09-25T07:27:31.748965+00:00",
+    "body_sha256": "36844bccee8e0eb47330e122d997ba1d7e5574aee7508bbdd97fea65d47b4129",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "통념(벌거벗은 RNA는 안 된다)을 세운 뒤 반증하는 구조라 통념 교정형 지문 재료가 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Localized delivery of \"naked\" RNA",
+      "note": "서론 두 단락은 그대로 떨어졌고 LNP·전기천공을 풀어 쓰니 고2 밴드까지 내려갔다."
+    }
+  },
+  {
+    "id": "052f75f1-8fde-4b2c-92ef-9f1ac88a5405",
+    "source_updated_at": "2026-09-25T07:27:33.852063+00:00",
+    "body_sha256": "2c285ff05e3d18747bd6913a3764988d744e6123b2322656c6d2ac8b51e007d1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "만성 위축성 위염이 위암으로 가는 경로를 서론이 차례로 세워 한 문단이 설명문으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chronic atrophic gastritis (CAG) is",
+      "note": "서론 문단은 떨어졌으나 결과부는 속(genus) 이름과 증감률 나열이라 버렸다."
+    }
+  },
+  {
+    "id": "055ad272-3d22-4106-aaf7-6fe5cbf05df4",
+    "source_updated_at": "2026-09-25T07:27:35.852549+00:00",
+    "body_sha256": "a803db31194060db270abb26f18c41d14b95ea971802bb2c2536fbf922ae5c80",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "변이 출현과 면역 회피라는 익숙한 문제를 세우고 설계 전략을 근거와 함께 전개한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "New seasonal outbreaks fueled by",
+      "note": "서론 첫 단락은 자족적이었고, 항체 클래스 1·2 표기는 지문에서 지워야 했다."
+    }
+  },
+  {
+    "id": "057c1d2b-8fd2-4de8-a52c-e6a898ff3574",
+    "source_updated_at": "2026-09-25T07:27:38.470435+00:00",
+    "body_sha256": "0685394deafdf9dbc9f3219bcc1a568097651b17dfa889aa62c510e014d6d0e9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "뼈 항상성을 골형성·골흡수 균형으로 푸는 서론 단락이 자족적이나, 나머지는 유전자 기호와 마우스 계통 표기로 덮여 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Bone homeostasis is primarily a",
+      "note": "뼈 항상성 문단 하나만 떨어졌고 Prrx1-Cre·m6Am 같은 표기가 많아 어휘 조정으로는 밴드가 안 내려갔다."
+    }
+  },
+  {
+    "id": "0593cf89-f498-4244-b2ea-17a1e1ce5403",
+    "source_updated_at": "2026-09-25T07:27:40.630481+00:00",
+    "body_sha256": "c514c0447c7292b8700128b17181fee192b329381b2d433066c19f56aa5f5e24",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "치료 경로 비교라는 물음이 분명하고, CT의 접근성·피폭을 견주는 고찰 단락이 주장-근거로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In terms of safety, the",
+      "note": "CT 안전성 문단은 떼어도 논지가 섰지만 결과부는 신뢰구간·개월 수 나열이라 못 썼다."
+    }
+  },
+  {
+    "id": "05962a01-652e-47a9-8700-ae37a3d2d2e7",
+    "source_updated_at": "2026-09-25T07:27:41.009956+00:00",
+    "body_sha256": "dafe7ef2f8b3a3ef9ce14cfe87b166f32d2d385a85874bb1dc6e5ea05f67289e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "조기 위험 판정이라는 임상 물음과 모델의 한계를 스스로 짚는 단락이 있어 한 편의 논의로 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "From a clinical workflow perspective",
+      "note": "임상 적용 단락은 자족적이었으나 AUC·보정 절편 같은 지표가 본문 대부분이라 쓸 곳이 적었다."
+    }
+  },
+  {
+    "id": "0598f345-fcf9-4a58-b3a9-b63409f4f7aa",
+    "source_updated_at": "2026-09-25T07:27:41.479704+00:00",
+    "body_sha256": "645f72fb8a8fc00e37b7a303ce092ce77a88083284e459c60c30037555bca515",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "수족구병의 공중보건 부담에서 약물 재창출로 이어지는 서론이 자족적이고 근거가 단계적으로 쌓인다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hand, foot and mouth disease",
+      "note": "저자 요약 문단은 그대로 떨어졌고 3Cpro·Mpro만 \"바이러스 효소\"로 바꾸니 읽혔다."
+    }
+  }
+]

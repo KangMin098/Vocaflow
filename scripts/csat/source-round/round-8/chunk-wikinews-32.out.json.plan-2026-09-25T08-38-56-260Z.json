@@ -1,0 +1,1801 @@
+[
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a218165-f4bb-49be-b1ed-65e6f11ea785",
+    "revision": "2026-09-25T07:53:29.341833+00:00",
+    "body_sha256": "8b8c3d1abf3b4cb050a6b5c9e6388b1ffe4e79d781218723c5827f248015602b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "총선 참패 → 정책 이견 → 백 년 연합 탈퇴 결정의 인과가 서서 고등 내용일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In his announcement, Littleproud cited growing",
+          "note": "첫 문장 「partnership with the.」 낱말 빠짐은 가공 때 Liberal Party 로 채운다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.264Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_Nationals_leave_Coalition_with_Liberal_Party",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.784,
+          "words": 185,
+          "english": 0.392
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a2229ae-bb8f-470b-a1ae-5846e4544844",
+    "revision": "2026-09-25T07:00:24.394719+00:00",
+    "body_sha256": "fdcd1586beadd996d4b13187456dcfdbd7678305aa555f1ac25f9f3d125b23fe",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "기름진 선술집 음식 한 달 실험이 예상과 달리 체중·콜레스테롤을 낮췄다는 결과와 반전 소감이 서서 요지·빈칸·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Yesterday the results were announced; Karel",
+          "note": "맥주 소재라 elem 은 달지 않았고 triglyceride 등은 걷어도 결과가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.265Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Czech_pub_food_eating_experiment_resulted_in_lost_weight%2C_lower_cholesterol",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.342
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a229b00-82a6-417d-85bd-8b7ccc7df363",
+    "revision": "2026-09-25T07:39:26.47083+00:00",
+    "body_sha256": "af9d0a60d0d3d6ae42f9ae3e5f03578f4d5d538f007b87337d4b2682cc00cacf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "방송인의 댄스 프로그램 출연 협상과 제작진이 시청자 확보에 나선 이유가 짧게 이어져 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "One TV source has mentioned that",
+          "note": "확인되지 않은 소문 보도라 내용일치 정답은 「보도에 따르면」으로 건다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.265Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fern_Britton_may_appear_on_BBC's_Strictly_Come_Dancing",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.11,
+          "words": 146,
+          "english": 0.367
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a25d7bc-9caa-48cd-8cb1-242a864d43f6",
+    "revision": "2026-09-25T07:10:37.654394+00:00",
+    "body_sha256": "7e5b395dce46fda2ef78ead08658f41ba5d190986ae02bc592b8d4fb7045df96",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "아카데미 부문별 수상작·수상자 이름이 세 단락에 나열될 뿐 떼어 낸 문단에 논지나 사건 흐름이 없다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Among the other winners were Alan",
+          "note": "스코세이지 첫 수상 한 문장 외에는 수상 목록이라 내용일치도 목록 대조뿐이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Scorsese_finally_scores_Oscar_gold_with_%22The_Departed%22",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.444,
+          "words": 180,
+          "english": 0.253
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a289f01-01d6-4bb2-a8bd-8d025b44e0b1",
+    "revision": "2026-09-25T07:31:11.496445+00:00",
+    "body_sha256": "55eaabda649f64d5853a6387ca5c8e08672586f8d4bd3cdc6ec26595b4782163",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "energy",
+        "why": "풍력 발전기 두 기 건설 제안의 근거(탄소 감축 의무·벌금·전기료)가 시의회 발언으로 서서 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Energy Director of the Bristol",
+          "note": "영상 속 발언 전달이지만 근거가 셋으로 뚜렷해 주장-근거 가공이 쉬웠다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Public_consultation_on_Avonmouth_Wind_Farm_proposal_ends",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.167,
+          "words": 192,
+          "english": 0.407
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a2a0942-6496-49f0-ae68-7c3c889cda8c",
+    "revision": "2026-09-25T07:47:44.356123+00:00",
+    "body_sha256": "e609224d09130e9d92e9f5518dd14726e4922b192abe40d38da86770a1f6a4cd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "붕괴 → 6일 고립 → 관 하나로 버틴 생활 → 구조와 대통령의 불법 광산 정비 언급이 이어져 순서·심경·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The rescue operation over the weekend",
+          "note": "광부들이 농담으로 버틴 대목이 심경 재료가 됐다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Nine_Peruvians_rescued_from_collapsed_mine",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.322
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a2b11d9-84f3-48d7-9b18-439cba969e5b",
+    "revision": "2026-09-25T07:12:37.693437+00:00",
+    "body_sha256": "475b3e78cc3426a2aecac5833a2397b0e308e32b696eb9d1097ecc701ae8a015",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "travel",
+        "why": "직항 재개 → 계절 수요 → 캐나다 방문객의 체류·지출 효과가 이어져 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Canadian visitors make up two percent",
+          "note": "넷째 단락이 문장 둘이 잘못 붙어 있어 가공 때 쪼갠다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Air_New_Zealand_opens_direct_route_to_Canada",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.309
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a2b3bf8-5199-410a-bd68-1d3fc809554e",
+    "revision": "2026-09-25T08:14:37.389529+00:00",
+    "body_sha256": "9bf459b71d25fa051c4f82e26cbd243bcbe41ae96128100bb830129d5a94b088",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "전사한 동성애자 장교의 성적 지향을 언론이 뺀 결정과 옴부즈맨의 사후 인정이 이어져 고등 이상 요지·주장·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Washington Post ombudsman, Deborah Howell,",
+          "note": "보도 윤리 논점이 뚜렷해 요지 문항으로 쉬웠다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Death_of_4000th_U.S._soldier_in_Iraq_shines_spotlight_on_gays_in_the_military",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.325
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a2c3091-afea-4782-9db5-9e1155008c4c",
+    "revision": "2026-09-25T08:18:47.554064+00:00",
+    "body_sha256": "faa406c59dd0aab4f0c8397981c75dc54a3455cdab34c731951830a1cc5a3ae2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "출생 → 케임브리지 수상 → 공산당 입당 이유 → 첫 소설의 생애가 이어지지만 사촌 자살 대목이 있어 고2 이상 내용일치 칸을 단다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Upward's first novel Journey to the",
+          "note": "셋째 단락의 자살 서술은 가공 때 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/British_writer_Edward_Upward_dies_at_105",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.316,
+          "words": 190,
+          "english": 0.414
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a2e0129-f13a-4d48-9247-97c6e2c66d02",
+    "revision": "2026-09-25T05:31:22.130052+00:00",
+    "body_sha256": "c0825154f961375cbb670500be10bdb4d308ff1c92bba47047d9e47c9d966eac",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "외교위 통과 → 민주당의 표결 지연 → 청문회 공방이 짧게 이어져 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Democrats have refused to waive the",
+          "note": "제목의 「confirmed」와 본문의 「위원회만 통과」가 어긋나 문항 소재로도 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Condoleezza_Rice_confirmed_as_next_U.S._Secretary_of_State%2C_pending_full_Senate_vote",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a2f8f27-6b7f-41a3-9f92-ae4302f613f2",
+    "revision": "2026-09-25T06:54:26.577273+00:00",
+    "body_sha256": "f9996bbeefee7c21b72c6ad53f3310e33c27c74e8f03ed645997509706dd3667",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "자선 생방송에서의 즉흥 비판 발언과 방송사·적십자 해명이 맞서 고등 이상 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "West first deviated from the script",
+          "note": "인종 관련 발언은 인용으로만 다루고 사실 문항으로 쓰지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Rapper_Kanye_West_denounces_Bush_response%2C_American_media_at_hurricane_relief_telethon",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a3021fb-e9e2-46f7-b9f3-e857233a5b5a",
+    "revision": "2026-09-25T07:28:47.426366+00:00",
+    "body_sha256": "4ed62352371847e55ff39b3a40ac0264f2ffc2e6f2fb011472259d478005c361",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "대만 디지털 콘텐츠 인재 양성 사업의 주관·교육 방식·출시 경로가 이어져 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to the SCE Taiwan Limited,",
+          "note": "홍보성 문장(world-class)은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Sony_Computer_Entertainment_announce_talent_project_to_help_digital_content_industry_in_Taiwan",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.848,
+          "words": 165,
+          "english": 0.351
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a319f1e-54ad-4168-9798-198dcf4d5abe",
+    "revision": "2026-09-25T07:07:37.305445+00:00",
+    "body_sha256": "58cca574f6694b6f09034046aa6b606659c864653fe6bf18ec9c5331745c059d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "폭우 → 저수지 산사태 → 탁도 급상승 → 끓여 마시기 명령과 상점 영향이 이어져 인과·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Commercial operations were affected as well.",
+          "note": "같은 사건의 후속 기사(청크 28)와 겹치지만 이쪽이 초기 경과를 더 자세히 담는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Vancouver_storm_pollutes_water%3B_2_million_waterless",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.315
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a378da6-65a0-44c6-ac10-6029fd0110ce",
+    "revision": "2026-09-25T07:28:39.521634+00:00",
+    "body_sha256": "1a70496eebbcfee7427ef5ea6c70b245ed295dc57932dcc211b1eb5df3254c76",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "고층 건물 연기 신고 → 층별 확인 → 환기 뒤 원인 미상 종료의 경과가 서서 중등 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "At 11:41 p.m., firefighters gave the",
+          "note": "무선 청취로 쓴 기사라 추정 표현을 정리해야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fire_reported_at_One_HSBC_Center_in_downtown_Buffalo%2C_New_York",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.411
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a3a3f32-4fce-40d3-b9fd-ed12687dd9af",
+    "revision": "2026-09-25T06:52:16.355076+00:00",
+    "body_sha256": "ed4432f7b97d0e488422d66813fbfed39b1cd116b185005c2aa57657897bfff2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대통령 입원과 시력 장애 원인, 총리의 긴급 현안 협의가 두 단락에 짧게 이어져 내용일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Today, Prime Minister Dominique de Villepin",
+          "note": "vascular accident 를 풀어 써야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/French_President_Jacques_Chirac_hospitalized",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.444,
+          "words": 90,
+          "english": 0.33
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a4814fa-225f-4752-a3eb-daeb4d0c8748",
+    "revision": "2026-09-25T07:49:57.102189+00:00",
+    "body_sha256": "ddda532eccac021ec68f12241d2811ff5f584dbfeef2d0dfc3ed4bdd5c2c38f7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "art",
+        "why": "아버지 투병을 계기로 20년 걸린 다큐 제작과 음원 사용료 75만 달러를 모금으로 푼 경과가 서서 순서·심경·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "order",
+            "mood",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Tedesco explained: \"We had a $750,000",
+          "note": "마지막 단락의 성적 농담 인용은 가공 때 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.266Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/The_Wrecking_Crew_music_documentary_hits_cinemas",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.359
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a4ac41f-958e-4bcf-bc8f-bd2a7fe9e062",
+    "revision": "2026-09-25T06:56:31.554692+00:00",
+    "body_sha256": "f1694624a9c2b347584f4fbb9902b134a29fbb6df71a3c30d537e32dca025c99",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "노사관계법 하원 통과 과정에서 토론 종결 동의와 야당의 반발·수정안 부결이 이어져 고등 이상 순서·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "In the consideration in detail stage,",
+          "note": "의회 절차 용어(Hansard, gag)가 많아 풀이 없이 쓰기 어렵다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.267Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Australian_industrial_relations_legislation_passes_House_of_Representatives",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.472
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a4b1bc9-fff6-41fd-a7e8-2770120dd7cd",
+    "revision": "2026-09-25T07:11:26.99405+00:00",
+    "body_sha256": "92e90baf8638df27ae4b552ef7cece56643d13164ac37f506b871f0fca9c9c76",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "과자 속 금속 조각 신고 → 회수 → 공장 밖 조작 의심 → 경찰 수사의 경과가 서서 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to spokesperson Lynne Galia, Kraft",
+          "note": "끝의 포장 일자·바코드 목록과 전화번호는 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.267Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Kraft_Canada_recalls_cookies_after_reports_of_'sharp_metal_objects'_baked_into_the_cookies",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.38
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a4e0a76-5abd-41b0-9205-0549b0364b41",
+    "revision": "2026-09-25T07:52:24.364738+00:00",
+    "body_sha256": "10c4a0314b1fd0555abe0c6fe74ef2f0f5f84579a302ef0492e301b044109e58",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "귀신의 집 업계 대회에서 슬라이딩 공연 장비와 사업 강의를 소개해 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "One class focused on the topic",
+          "note": "ferrocerium 을 풀어 쓰면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.267Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_attends_2021_Texas_Haunters_Convention",
+          "year": 2021,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.587,
+          "words": 167,
+          "english": 0.29
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a52ece5-448c-437e-bb4a-6064b2d15fd8",
+    "revision": "2026-09-25T07:34:36.465344+00:00",
+    "body_sha256": "d022c708d10059592a333d10749071c6fd22fef4422368a323bd0aefae5bdf62",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "후보가 현 정부 비판과 공약·「세금 쓰는 정당」 오해 해명을 문답으로 펼쳐 고등 이상 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Not so much about Jack Layton",
+          "note": "한쪽 후보의 일방 주장이라 주장 문항으로만 쓰고 비문(「provided her」)은 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.267Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/CanadaVOTES%3A_NDP_candidate_Hana_Razga_running_in_Edmonton%E2%80%94Leduc",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.379
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a543466-6b6a-4316-a1f1-a2a3b87db40b",
+    "revision": "2026-09-25T08:11:52.54653+00:00",
+    "body_sha256": "f99c4bfbd9354ae36313a22ab48d937e474db21c1df807c36deebfab293df8a2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "터키군 월경 보도와 터키·미군·이라크 정부의 부인이 맞서고 쿠르드 분쟁 배경이 붙어 고등 내용일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Foreign minister Abdullah Gül has denied",
+          "note": "보도와 부인을 가르는 문항으로 가공하기 쉬웠다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.267Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Reports_say_Turkish_troops_enter_northern_Iraq",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a5b423f-ec3b-4fb1-8e24-4bff2149ccc7",
+    "revision": "2026-09-25T07:14:53.066808+00:00",
+    "body_sha256": "b3ce83106bf10b0e49974f931dd388b460f6ed316635bbed32c48e075e3b5c94",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "출산 소식과 「정치적 주장이 아니라 내 아이」라는 본인 발언이 짧게 이어져 중등 내용일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In February, while pregnant, Mary said:",
+          "note": "마지막 인용이 요지 문장으로 바로 쓰였다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.267Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Daughter_of_U.S._vice_president%2C_Mary_Cheney%2C_has_baby_boy",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 8.333,
+          "words": 120,
+          "english": 0.427
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a5cd635-cc41-4234-855e-a419fa3ebe44",
+    "revision": "2026-09-25T07:58:50.434769+00:00",
+    "body_sha256": "cc512c204e47f7f72425b067ad9c2a059d7a1bb55f1e5bc873ebd682ee5a3856",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "트럼프의 2000년 대선 탐색을 세 관계자가 증언하는 장문 인터뷰로, 음모설과 반론이 맞서 고3·성인 주장·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "long_reference",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Verney: Donald Trump never became a",
+          "note": "비속어·모욕 약어가 여러 군데라 가공 때 걷어내야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.267Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_interviews_three_figures_from_Donald_Trump's_political_past",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.327
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a655421-15e5-416c-a381-a36b563bf2a4",
+    "revision": "2026-09-25T08:17:19.435042+00:00",
+    "body_sha256": "d0638cf0486fdb2e09f5602677ee82a6f2f8822e4830af67764c63a7392d687f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "폭탄 테러와 대통령 규탄, 부상자 증언과 경찰의 예방 한계 발언이 이어져 고2 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Local police chief Naveed Khan also",
+          "note": "부상자 증언이 짧은 심경 재료도 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.267Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Car_bomb_kills_seventeen_in_Pakistan",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.857,
+          "words": 175,
+          "english": 0.462
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-56-260Z",
+    "id": "0a6679dc-1888-4b95-934e-ad5355496598",
+    "revision": "2026-09-25T07:09:05.286694+00:00",
+    "body_sha256": "c74cc134a2a76985a50c2d654b7303989fb2f19817ec42c2e03d66e08f34af1b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "공항이 야당 광고판을 거부한 일을 두고 야당 의원의 「공포 분위기」 주장과 공항의 무응답이 맞서 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Wellington Airport will not comment on",
+          "note": "광고판 문구의 「-gate」 말장난은 설명 없이는 뜻이 안 서 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:56.267Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wellington_airport_denies_National_party_advertisements",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.348
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

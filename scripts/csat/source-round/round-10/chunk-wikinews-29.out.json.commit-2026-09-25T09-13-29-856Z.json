@@ -1,0 +1,1799 @@
+[
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "173131c9-4375-4ef2-804c-b54c359ad083",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e64889c493cde05322183eac2b2f05bf1dffaa36ba0f1f21ea0f0a9644b42d6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "농지 수용 항의 농민 중형 → 인권단체 비판 → 경제 성장 속 토지 상실·도농 격차라는 구조적 원인까지 인과가 서서 장문·요지·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "summary",
+            "long_reference",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Despite the government's assertion last year",
+          "note": "빈곤 단락은 「농민은 땅을 소유하지 못하고 빌려 쓴다」는 구조 설명이 홀로 서고 till·recourse 두 낱말을 바꾸면 V6 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.858Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/China_hands_stiff_sentences_to_27_farmers_over_land_seizure_protest",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "1731cd85-37ae-4caa-be82-daedf208e1c7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5d1f19b79f44ea25f1ab8ea7056960f10e3b36c832afba2b7a452deefd1bd0af",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "광고 리베이트 추문의 경위(1995 국민투표 뒤 자금 전용)와 총리 대국민 연설, 세 야당 반응이 이어지는 장문이라 고2 이상 장문·주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "long_reference",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "That report found that shortly after",
+          "note": "감사 보고서 단락은 추문의 핵심이 홀로 서지만 federalism·kickback·sponsorship 가 겹쳐 두세 낱말로는 V6 아래로 못 갔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.859Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Advertising_contract_scandal_could_bring_down_Canadian_government",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.387
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "17427b18-72eb-4eb8-8fa9-ed2575f608a6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9126c96806e9c6a0c4df5568717cbc06bb4019f37d7924443d6d3702e8b38ca1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "총선 하루 전 성지 폭탄 테러 → 강화된 경비에도 발생 → 선거 방해 우려와 앞선 투표소 공격으로 이어져 고1 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Several people have died in the",
+          "note": "선거 전후 단락은 「반군이 선거를 방해하려 할 것」이라는 전망이 홀로 서고 prelude 만 바꾸면 V5 로 맞다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.859Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iraqi_police%3A_Najaf_bombing_kills_three",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 7.143,
+          "words": 196,
+          "english": 0.359
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "1743bf21-6126-4553-96ef-9589ad8e027a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "adf2b57a03649f981826dd141ec7e6ad0f1f31f202b578b3a14ae3a8eaf7e47b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "통계청이 국민에게 조사원 방문 면접에 협조해 달라고 알리는 안내문 구조(누가·누구에게·무엇을)가 서서 목적·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "NSO Administrator Carmelita N. Ericta urged",
+          "note": "협조 요청 단락은 「15~30분 면접에 시간을 내 달라」는 권유가 홀로 서서 목적 문항의 핵심 문장이 됐고 enumerator 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.859Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Philippine_population_census_to_begin_today",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.435,
+          "words": 184,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "174c9616-adaa-49ef-80a2-d5a0b3ae0f7c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "693634996f815e673b3b62e459d0428fe0aad2ba3129b1bb368575a51c60d0a8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "동물 학대 영상 → 검사 누락 → 사상 최대 쇠고기 리콜 → 광우병 위험은 낮다는 해명으로 인과가 서서 장문·내용일치 칸을 채운다(끝 연락처는 걷는다).",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "long_reference",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The USDA learned of the possible",
+          "note": "조사 단락은 「1월 30일에 알고 가동을 멈췄다」가 서지만 non-ambulatory·administrative hold 를 풀어 써야 V6 로 내려갔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.859Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/California_meat_packing_firm_recalls_143M_pounds_of_beef",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.361
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "174cb6ff-834e-4eae-80ca-10f0026b2bb7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b4397ec8d90ba00624154662e05e18430c24537d2c7ded88057d9ef21ab9de01",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "할로윈 가게의 마오리 문신 키트를 두고 「문화 모독」 주장과 「어쩔 수 없다」는 체념이 갈리고 전통 의미 설명이 붙어 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Aroha Mead, Victoria University of Wellington",
+          "note": "강사 인용 단락은 「무섭지 않다」와 「공공 영역이라 어쩔 수 없다」가 한 문단에 서고 denigrated 하나만 바꾸면 V4 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Zealand_Maori_angry_over_US_tattoo_kit",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.762,
+          "words": 189,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "174f29d7-d96d-499f-9e58-dfbdf67d7070",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e3b4f51a089948dfb7bdc4fe67fe573a4a2a5c3234a6c704b2314bb7e3e1b1fe",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "초대 대통령의 출생·재임·오보 소동·국장 결정이 시간순으로 이어진 짧은 부고라 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He spent his later years in",
+          "note": "말년 단락은 「5월에 사망 오보가 났으나 생명 유지 중이었다」가 홀로 서고 erroneously 하나만 바꾸면 V3 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/First_Somali_president_Aden_Abdulle_Osman_Daar_dies",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.797,
+          "words": 138,
+          "english": 0.439
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "175075a0-7007-4ef6-a6e6-874d775fcc8d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "510266e137b2396f550c683898b5b1390afa66a63e5671b56ebead3d3bd05c15",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "반무샤라프 정당 우세 결과에 폭력 우려로 투표가 더디고 군 8만 명이 배치된 선거일 풍경이 붙어 고1 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The elections had a slow start",
+          "note": "선거일 단락은 「치안 걱정에 집에 머문다」는 이유가 홀로 서서 의석수 단락보다 문항 재료가 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pakistan_Peoples_Party_winning_elections_for_Pakistan's_national_assembly_according_to_early_results",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.422,
+          "words": 166,
+          "english": 0.346
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "175239c0-2549-43e4-b226-981158f951d6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4985bbbebcca5ddab82c888dcc0248117464068bbdb5110dfbbbb34d02f63bda",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "증오 발언 유죄 뒤 훈장을 박탈하는 절차(자문위 회의 → 소명 요구 → 기한 경과 → 서명)가 서서 고2 이상 순서·내용일치 칸을 채운다(혐오 발언 인용은 가공 때 걷는다).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The Advisory Council of the Order",
+          "note": "박탈 절차 단락은 순서가 뚜렷해 떼기 쉬웠지만 revocation·post-nominal 같은 용어는 바꾸기 어려워 V6 에 둔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/David_Ahenakew_removed_from_the_Order_of_Canada",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.413
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "17544765-d570-4829-b922-47f2c912fd60",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5c176eff10d2fe5ad0b4d82da36bb03615fb6de09f2e53525949a29ba9f98036",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "일자리 증가 정체 수치에 「회복이 멈췄다」는 해석과 경제학자·백악관 인용이 붙어 수치 주장과 근거가 짝을 이뤄 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Additionally, the figures for May were",
+          "note": "5월 수정 단락은 「인구 증가를 따라가려면 매달 15만 개가 필요하다」는 기준이 있어 수치에 뜻이 붙고 anemic 같은 낱말은 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/June_jobs_report_shows_rising_US_unemployment%2C_economic_outlook_worsens",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.33
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "1756a029-3405-445a-9995-1d7d532c0a6a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fed812537e4f75924ff45ed049e5ea1d64e74ff1382c0abc3c790b8e6a72d3f7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "예능 출연자가 쥐를 잡아먹은 일 → 동물 학대 기소 → 제작진 허용 자백 → 벌금과 사과로 이어져 고1 이상 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "RSPCA Australia had stated that performing",
+          "note": "재판 단락은 「제작진이 허용했다고 인정해 출연자 기소가 풀렸다」는 인과가 서지만 앞 단락의 도살 묘사는 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/ITV_fined_A%243000_for_cruelty_to_rat_on_%22I'm_A_Celebrity...Get_Me_Out_Of_Here!%22",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.397
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "175812a4-c33e-47a5-8937-c3a229ba3221",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7fd62b07b270f24eac7148fb3b163fec83cffe7e93f72fb415023fe066b20706",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "시의원 후보 인터뷰에서 치안·기업 이탈·정당 정치를 쟁점으로 들고 출마 이유를 대는 답변이 논지를 세워 고2 이상 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The most important philosophical issue in",
+          "note": "정당 정치 단락은 「당의 뜻에 묶이면 주민 대표가 아니다」는 주장이 홀로 서지만 infiltration·handcuffed 같은 낱말이 많아 V6 에 머문다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canada's_Parkdale%E2%80%94High_Park_(Ward_14)_city_council_candidates_speak",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.323
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "175b1357-746c-4d6c-a127-993bc36ff5c2",
+    "revision": "2026-09-25T08:50:37.252255+00:00",
+    "body_sha256": "d0055c37152123584e93ef4b6155601a072b131679cf146aebdc1c41221db471",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "예고 전화 → 경찰 통제 → 폭발로 대사관 피해 → 긴축 이후 극좌 폭탄 공격의 배경이 붙어 고1 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Domestic anarchist and extreme left militants",
+          "note": "배경 단락은 「긴축 뒤 늘었다가 시리자 집권 뒤 줄었다」가 홀로 서고 austerity 만 풀면 V5 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Athens_bomb_targets_business_group%2C_damages_Cypriot_embassy",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.302
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "175b64ec-5808-4f55-9b2c-327e41a56b57",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7e2ed1ed00217e72ae5e23b375a1d38a8e5c2c39f4ba11987aab4b2670df693b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "processing-unclear",
+        "genre": "education",
+        "why": "학비 반대 시위를 전하지만 기자가 「정의를 위해 싸운다」처럼 한쪽 입장을 서술로 쓰고 영어가 깨져 있어 가공 뒤 무엇이 남을지 갈린다.",
+        "slots": {
+          "ages": [
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "At this time, the first education",
+          "note": "연방 결정 단락은 「각 주가 재원 방식을 정하게 됐다」는 사실이 있지만 문장이 비문이라 다시 써야 했고 논지는 다른 단락의 주장뿐이었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/In_several_German_cities_students_demonstrate_against_study_fees",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "175b709e-847e-48d2-b444-fd1650e396de",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f502ce8c3dc11516ed9564abd1b4b400a19ad7d142aefda1919a570e5be5c21f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "art",
+        "why": "「초원의 집」 연극의 판매 실적이 브로드웨이 진출 검토로 이어졌다는 한 꼭지가 짧게 서서 중등 내용일치 칸을 채운다(끝 「Sources」는 잔재).",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Guthrie show, which starts August",
+          "note": "공연 단락은 「극장 역사상 전례 없는 93회 공연」이 홀로 서지만 인용 단락에 동사가 빠져 있어 고쳐 써야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_Shorts%3A_August_3%2C_2008",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.58,
+          "words": 131,
+          "english": 0.385
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "175f2c57-095f-403c-bacb-804e9d41a142",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e4c2974cf5c14ad694bb6f0c0d2616c970ec8aaa0ed707cafcf059fc3e43cc80",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "travel",
+        "why": "쓰촨 지진 뒤 관광업을 북돋우려는 박람회의 취지와 여행 경보, 안전 안내 책자 배포가 서서 목적·내용일치 칸을 채운다(인용문 영어는 손봐야 한다).",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Because of the \"Travel Warning\" by",
+          "note": "안내 책자 단락은 경보 때문에 책자를 나눠 줬다는 인과가 서지만 부회장 인용은 괄호 보충이 너무 많아 통째로 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2008_Taiwan_Tourism_Exposition_to_encourage_tourism_industry_after_Sichuan_earthquake",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "17618b68-8771-4f88-acc8-ed0fdea6ebc2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b89159af018e0e8fd113019974c5c4081b6cea27692614a495f36db84d1dc747",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "art",
+        "why": "1979년 곡과 너무 닮았다는 표절 주장과 「변호사 판단을 기다린다」는 반응이 짝을 이뤄 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Speaking to British tabloid newspaper The",
+          "note": "인터뷰 단락은 「개인적 감정은 없지만 직업적으로 도둑맞았다」는 대비가 홀로 서고 beef·ripped off 만 바꾸면 V4 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Music_duo_The_Bellamy_Brothers_accuse_Britney_Spears_of_plagiarism",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.102,
+          "words": 196,
+          "english": 0.385
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "176223b6-2a8f-403a-9503-49f0da7439c7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0dab2f34211bfe90be98b5a5c4dd7d37f6b81310bf1b8b6eb88bd3e3d38f56c5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "장례 → 알카에다 배후 주장과 미국의 확인 유보 → 신드 폭동 → 경제·인도 국경 파장으로 이어지는 장문이라 고2 이상 장문·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "long_reference",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Musharraf, a former army general, seized",
+          "note": "배경 단락은 「미국이 불안정한 나라를 붙잡아 두려고 지지했다」가 서지만 앞뒤 폭력 묘사가 길어 고2 이상으로 묶었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Benazir_Bhutto_buried%3B_violence_erupts_in_assassination_aftermath",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "1762fbea-ee93-44d0-bafb-20b31d34c043",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9905d1a03f95ef12ec29ceee8c442da02fc19c12e5837ee2d0ba63c7d0258712",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "남동유럽 확장 전략 속에서 루마니아 2위 통신사 인수를 노리고 불가리아·세르비아로 이어 가는 흐름이 서서 고2 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This is not the first attempt",
+          "note": "확장 단락은 불가리아 인수 → 세르비아·보스니아 계획의 순서가 서지만 지분율 단락은 숫자 나열이라 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.860Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Telekom_Austria_could_take-over_Romanian_mobile_telephony_giant",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "1765bc10-570e-4328-a941-a7aa66045d8e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "52111d1f470017dc4c52aecacd34301009778caf67187f1709297e0a6bc833a7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "법학 교수 → 탈공산 정부 장관 → 대통령 → 사망과 애도로 이어진 부고라 이력이 시간순으로 서서 내용일치·서사 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mádl studied law at Budapest's Eötvös",
+          "note": "학력·경력 단락은 법조에서 정치로 옮긴 흐름이 홀로 서고 without portfolio 만 풀어 쓰면 V4 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.861Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Former_Hungarian_president_Ferenc_M%C3%A1dl_dies_aged_80",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.699,
+          "words": 193,
+          "english": 0.32
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "177018db-0103-4cd6-a4db-1ad64d6e392d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aa25fcf01c6ab5df3b377d23f6c6ca64211fd84b41d40492cc21ba30f423cdf6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "사상 최저 사고율 통계 → 「가장 안전한 교통수단」 주장 → 미국 사고 수를 교통량으로 해명하고 아프리카 문제를 원인별로 가르는 논지가 서서 요지·수치 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Hubert makes a distinction between fly-by-night",
+          "note": "구분 단락은 「국적 항공사는 안전하고 국내선 소형사가 문제」라는 논지가 홀로 서고 fly-by-night·reputable 만 바꾸면 V6 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.861Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2007_was_particularly_good_year_for_aviation_safety",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.346
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "1775bc0d-09be-4b7f-b119-b31b9a03b282",
+    "revision": "2026-09-25T08:59:14.497432+00:00",
+    "body_sha256": "035b9a3c82418bc10d9bdd76fd4867108cbb1e27fd18347cfa5870385d163cbb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "친정부 선전가가 외국 대리인으로 지정된 역설과 그 추정 이유(아제르바이잔 칭송), 법의 모호한 기준과 탄압 사례가 서서 고2 이상 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Laws about \"foreign agents\" were approved",
+          "note": "법 단락은 「기준이 모호해 탄압 도구가 됐다」는 논지가 홀로 서지만 persecution·pretext 를 바꿔도 문장이 길어 V6 에 머문다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.861Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Russian_Justice_Ministry_designates_former_Putin_advisor_Sergey_Markov_as_%22foreign_agent%22",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "17765ed5-7ad3-43f1-8b77-d64d175db1db",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4959c3a3a6909a1cf931532b0a2fd0d7c61fab3ae0310fef344b5c894a453bf9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "출마 여부 탐색 모임 → 측근 인용 → 경쟁자 등장과 오바마 부상이 일정을 당겼다는 관측·반박으로 이어져 내용일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Obama's emergence as a potential contender",
+          "note": "관측 단락은 「앞당겼다」는 추측과 「원래 일정대로」라는 반박이 한 문단에 서고 timetable 은 문맥으로 잡혔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.861Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Clinton_meetings_fuel_speculation_over_presidential_bid",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.345
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "17797aa4-4268-427e-a5ca-413ba22d7b5f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dff9e3db8760890a081a9b98838e4f89324c715224a9e47c369ddca7b6475e49",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "초고가 참치 낙찰 → 일본의 참치 소비 비중 → 불황으로 줄어든 수요 → 멸종 우려와 무역 금지 주장으로 이어져 요지·빈칸·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In addition to the lack of",
+          "note": "규제 단락은 「규제로는 부족하고 거래 금지만이 멸종을 막는다」는 주장이 홀로 서고 curb·sanctioned 두 낱말을 바꾸니 V5 가 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.861Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Giant_tuna_sold_for_%24177%2C000_at_Japanese_fish_market",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.361
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-29-856Z",
+    "id": "1784ef35-2e0d-4f99-8892-7ce2664fa78d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "52974873146c8723461871cb95415f9de8300f3776353f5b8952d831b7e3ac93",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "유출된 유엔 보고서가 식량 원조 절반이 업자·무장단체로 새는 구조를 밝히고 WFP 해명과 미국 지원 삭감으로 이어져 요지·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "long_reference"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Allegations that food aid was being",
+          "note": "이전 의혹 단락은 「의혹 → 미국 삭감 → 알샤바브의 WFP 금지」 인과가 홀로 서고 diverted 는 문맥으로 잡혔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:29.861Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Up_to_one-half_of_Somali_food_aid_diverted_from_needy",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.428
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

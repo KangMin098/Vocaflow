@@ -209,8 +209,22 @@ const GROUPS: Group[] = [
   },
 ]
 
-/** 개별 예외 — 묶음 기본값과 다른 품사·수준 */
-const OVERRIDES: Record<string, Partial<SeedListItem>> = {
+/**
+ * 개별 예외 — 묶음 기본값과 다른 품사·수준.
+ *
+ * ⚠️ 여기는 `Partial<SeedListItem>` 으로 선언돼 있었는데 **적힌 이름은 `Group` 의 것**이다
+ *   (`cefr` · `tier` · `rationale` vs `cefr_estimate` · `frequency_tier` · `rationale_short`).
+ *   그대로 펼치면 의도한 칸을 덮는 대신 **낯선 키가 붙고 기본값이 그대로 남는다** —
+ *   실제로 다섯 예외 중 `info`(cefr·tier·rationale 셋 다)는 **하나도 안 먹었고**,
+ *   출력 JSONL 에는 `cefr`·`tier`·`rationale` 이라는 규격 밖 키가 실려 나갔다.
+ *   `.mts` 가 타입체크 밖이라 아무도 몰랐다(DD-78).
+ *
+ *   이름은 **사람이 적은 대로** 둔다(묶음 표와 같은 말이라야 읽힌다). 대신 아래에서
+ *   명시적으로 옮긴다 — 펼치기(`...`)는 이름이 어긋나도 조용히 통과하지만, 옮기기는 못 한다.
+ */
+type Override = Partial<Pick<Group, 'pos' | 'cefr' | 'tier' | 'rationale'>>
+
+const OVERRIDES: Record<string, Override> = {
   prioritization: { pos: 'NOUN', rationale: '우선순위 결정 행위를 가리키는 명사' },
   reprogrammed: { pos: 'VERB', cefr: 'C1', rationale: '재프로그래밍 과거·과거분사' },
   cyber: { pos: 'ADJ', rationale: '사이버- 결합형이 단독 형용사로 쓰이는 용법' },
@@ -225,14 +239,14 @@ for (const g of GROUPS) {
   for (const w of g.words) {
     if (seen.has(w)) continue
     seen.add(w)
+    const o = OVERRIDES[w] ?? {}
     items.push({
       lemma: w,
-      pos: g.pos,
-      cefr_estimate: g.cefr,
-      frequency_tier: g.tier,
-      rationale_short: g.rationale,
+      pos: o.pos ?? g.pos,
+      cefr_estimate: o.cefr ?? g.cefr,
+      frequency_tier: o.tier ?? g.tier,
+      rationale_short: o.rationale ?? g.rationale,
       confidence: 0.8,
-      ...OVERRIDES[w],
     })
   }
 }

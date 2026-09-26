@@ -1,0 +1,20 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-PURPOSE",
+  "judge": "A",
+  "redo": true,
+  "items": [
+    {
+      "id": "M2209#18",
+      "roles": ["background", "background", "background", "speech_act", "support", "support", "closing", "closing", "closing"],
+      "alternatives": [{ "index": 6, "role": "speech_act" }],
+      "pattern": "request_letter",
+      "selection": "자선 음악회라는 소재에 기부 모금·병원 행사·연주 관람처럼 이웃한 사건을 깔아 두고, 수신자를 초대하는 동사 하나에만 화행이 걸리게 해 목적을 가려내야 하는 편지다.",
+      "transform": "speech_act_verb",
+      "transform_note": "음악회 개막 무대에 수신자를 초대한다는 문장이 연주자로 참여해 달라고 요청하려고라는 목적 표현으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

@@ -1,0 +1,2424 @@
+[
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "0156642e-aa57-4242-9c4c-769df0c56f0a",
+    "revision": "2026-09-25T07:09:40.008622+00:00",
+    "body_sha256": "031fdcc10d21ad55d53f08bfc6255388babe8073d342dc50fa549fbeebe83306",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.980Z",
+        "by": "chunk-llm",
+        "why": "감꽃 검은발병 통념(포도나무 중심)을 깨는 첫 보고로, 서론과 결론이 물음–증명–산업적 함의로 이어진다.",
+        "basis": "full",
+        "genre": "agriculture",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:32.206Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4e57437549c24593639046d504f36e637662dc4aba4502e8edf285696bacefd3"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "결론 둘째 문단은 지시어를 「이 균이」로 바꾸면 그대로 서지만 속명·유전자명은 남길 수밖에 없다.",
+          "sample": "The finding that I. liriodendri, a black",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.980Z",
+        "by": "chunk-llm",
+        "why": "감꽃 검은발병 통념(포도나무 중심)을 깨는 첫 보고로, 서론과 결론이 물음–증명–산업적 함의로 이어진다.",
+        "basis": "full",
+        "genre": "agriculture",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:32.206Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4e57437549c24593639046d504f36e637662dc4aba4502e8edf285696bacefd3"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "결론 둘째 문단은 지시어를 「이 균이」로 바꾸면 그대로 서지만 속명·유전자명은 남길 수밖에 없다.",
+          "sample": "The finding that I. liriodendri, a black",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "agriculture",
+        "why": "고찰 끝 단락이 감나무 발병 원인을 자생지 밖 재배·가뭄·인근 포도밭 토양으로 논증해 한 편의 설명문으로 선다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The lack of available information on",
+          "note": "학명·균주 번호를 일반명으로 바꾸면 논지가 남지만 taxon·inocula 같은 낱말은 대체가 어렵다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.816Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.980Z",
+          "by": "chunk-llm",
+          "why": "감꽃 검은발병 통념(포도나무 중심)을 깨는 첫 보고로, 서론과 결론이 물음–증명–산업적 함의로 이어진다.",
+          "basis": "full",
+          "genre": "agriculture",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:32.206Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "4e57437549c24593639046d504f36e637662dc4aba4502e8edf285696bacefd3"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "결론 둘째 문단은 지시어를 「이 균이」로 바꾸면 그대로 서지만 속명·유전자명은 남길 수밖에 없다.",
+            "sample": "The finding that I. liriodendri, a black",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:19.931Z",
+      "topicMargin": 16.62
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "01663b47-7b99-4589-bddd-917ed6de6398",
+    "revision": "2026-09-25T07:09:41.415744+00:00",
+    "body_sha256": "ca6e391fe8624ea948de8712846343c07f02f237854bee7a1693dbb26ba3c510",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.982Z",
+        "by": "chunk-llm",
+        "why": "「골든아워」 4시간 안의 뇌 전체 시냅스 재배치라는 새 주장을 도입–증거–한계로 묶는다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:34.075Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "322679b47b0bbb7727282513890c553114d1ce3367e333d135d17fccd4446050"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 수치 둘만 남기면 자족적이고, NMDA 수용체 같은 말은 한 번 풀어 주면 된다.",
+          "sample": "As the second and third leading",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.982Z",
+        "by": "chunk-llm",
+        "why": "「골든아워」 4시간 안의 뇌 전체 시냅스 재배치라는 새 주장을 도입–증거–한계로 묶는다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:34.075Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "322679b47b0bbb7727282513890c553114d1ce3367e333d135d17fccd4446050"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 수치 둘만 남기면 자족적이고, NMDA 수용체 같은 말은 한 번 풀어 주면 된다.",
+          "sample": "As the second and third leading",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 diaschisis 단락이 국소 손상이 먼 뇌 영역을 바꾼다는 통념 확장을 근거와 함께 제시한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Intriguingly, our findings of long-range",
+          "note": "Fig 번호와 약어를 걷어내도 「골든아워」 도입부와 짝지으면 주장-근거 구조가 그대로 남는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.818Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.982Z",
+          "by": "chunk-llm",
+          "why": "「골든아워」 4시간 안의 뇌 전체 시냅스 재배치라는 새 주장을 도입–증거–한계로 묶는다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "summary",
+              "blank"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:34.075Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "322679b47b0bbb7727282513890c553114d1ce3367e333d135d17fccd4446050"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 단락은 수치 둘만 남기면 자족적이고, NMDA 수용체 같은 말은 한 번 풀어 주면 된다.",
+            "sample": "As the second and third leading",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 10,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:18.276Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "01b250f0-f3e7-47c1-ae82-56c59f858047",
+    "revision": "2026-09-25T07:10:08.529637+00:00",
+    "body_sha256": "d1c61761a100188f5e1a85cd7c600e7866eb2c868eeeb21eac7f0fca6bf65f51",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.986Z",
+        "by": "chunk-llm",
+        "why": "임신성 고혈당이 산화 스트레스를 거쳐 태아에 미치는 경로 설명이 서론에서 한 편으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:40.189Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "00a40e8d92f9f03c54caee0286d6c56b318254cc3b75ac8f8e75419c4ed72cbf"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "기전 단락은 떼어 내면 서지만 식물명·화합물명이 문장마다 박혀 어휘 조정이 막혔다.",
+          "sample": "The pathophysiological mechanisms involved in the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.986Z",
+        "by": "chunk-llm",
+        "why": "임신성 고혈당이 산화 스트레스를 거쳐 태아에 미치는 경로 설명이 서론에서 한 편으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:40.189Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "00a40e8d92f9f03c54caee0286d6c56b318254cc3b75ac8f8e75419c4ed72cbf"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "기전 단락은 떼어 내면 서지만 식물명·화합물명이 문장마다 박혀 어휘 조정이 막혔다.",
+          "sample": "The pathophysiological mechanisms involved in the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론이 임신 중 고혈당 → 산화 스트레스 → 태아 합병증의 인과 사슬을 순서대로 세워 발췌 한 편이 된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Diabetes mellitus is one of",
+          "note": "결과 절은 수치 나열이라 못 쓰고, 쓸 곳은 서론·고찰 앞부분으로 한정된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.820Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.986Z",
+          "by": "chunk-llm",
+          "why": "임신성 고혈당이 산화 스트레스를 거쳐 태아에 미치는 경로 설명이 서론에서 한 편으로 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match",
+              "order"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:40.189Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "00a40e8d92f9f03c54caee0286d6c56b318254cc3b75ac8f8e75419c4ed72cbf"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "기전 단락은 떼어 내면 서지만 식물명·화합물명이 문장마다 박혀 어휘 조정이 막혔다.",
+            "sample": "The pathophysiological mechanisms involved in the",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 16,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:44.898Z",
+      "topicMargin": 11.42
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "01c79aa6-6d5d-4f8d-904d-1082b3a25075",
+    "revision": "2026-09-25T07:10:24.541842+00:00",
+    "body_sha256": "b2b5ccbed8bd954235be7d8cac602bf182194ed06e48da420dd77b261fd60fa5",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.986Z",
+        "by": "chunk-llm",
+        "why": "아프리카돼지열병의 조직 손상을 과잉 염증에서 찾고 한 단백질까지 좁혀 가는 흐름이 있다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:41.688Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7597d49e723957a36f60bdad1779695ebbf42667d11c772fc60b59cb3356f157"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 머리 단락만 자족적이고 그 아래는 유전자 약호가 문장 뼈대라 걷어낼 수 없었다.",
+          "sample": "ASF causes substantial economic losses in",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.986Z",
+        "by": "chunk-llm",
+        "why": "아프리카돼지열병의 조직 손상을 과잉 염증에서 찾고 한 단백질까지 좁혀 가는 흐름이 있다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:41.688Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7597d49e723957a36f60bdad1779695ebbf42667d11c772fc60b59cb3356f157"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 머리 단락만 자족적이고 그 아래는 유전자 약호가 문장 뼈대라 걷어낼 수 없었다.",
+          "sample": "ASF causes substantial economic losses in",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약이 백신 부재와 과도 염증이라는 문제를 먼저 세우고 단백질 하나를 답으로 제시해 자족적이다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "ASF has caused huge economic",
+          "note": "NLRP3·DDX3X 같은 이름을 「특정 단백질」로 바꾸면 읽히지만 밴드를 내리지는 못했다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.823Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.986Z",
+          "by": "chunk-llm",
+          "why": "아프리카돼지열병의 조직 손상을 과잉 염증에서 찾고 한 단백질까지 좁혀 가는 흐름이 있다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point"
+            ],
+            "levels": [
+              "V9"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:41.688Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "7597d49e723957a36f60bdad1779695ebbf42667d11c772fc60b59cb3356f157"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 머리 단락만 자족적이고 그 아래는 유전자 약호가 문장 뼈대라 걷어낼 수 없었다.",
+            "sample": "ASF causes substantial economic losses in",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 16,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:28.924Z",
+      "topicMargin": 24.22
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "01cf7b9e-55d4-4e3c-8446-4e60d4c1979f",
+    "revision": "2026-09-25T07:10:25.972148+00:00",
+    "body_sha256": "c8d3151929f9880535e8cf318186bb930f282c20b3f22fdfed2206d5fffac792",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.987Z",
+        "by": "chunk-llm",
+        "why": "반응성 대사물이 세포 밖으로 새어 이웃 세포까지 간다는 주장을 부가물 분포로 받친다.",
+        "basis": "full",
+        "genre": "environment",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:41.730Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "eeaa842950ff4cf773199ef685d00c0fe79551762bdcd214e149f22d6f352728"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 유전·환경 요인 대비로 서지만 BRCA1/2·BPDE 같은 표기가 남아야 뜻이 산다.",
+          "sample": "Among reproductive diseases, breast cancer is",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.987Z",
+        "by": "chunk-llm",
+        "why": "반응성 대사물이 세포 밖으로 새어 이웃 세포까지 간다는 주장을 부가물 분포로 받친다.",
+        "basis": "full",
+        "genre": "environment",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:41.730Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "eeaa842950ff4cf773199ef685d00c0fe79551762bdcd214e149f22d6f352728"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 유전·환경 요인 대비로 서지만 BRCA1/2·BPDE 같은 표기가 남아야 뜻이 산다.",
+          "sample": "Among reproductive diseases, breast cancer is",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론이 유방암의 체세포 돌연변이 기원을 환경 노출로 잇는 물음을 세우고 결론이 그 물음에 답한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Among reproductive diseases, breast cancer is",
+          "note": "유전자 약어를 몇 개 풀어 쓰면 노출-발암 논지가 고3 독해 길이로 정리된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.987Z",
+          "by": "chunk-llm",
+          "why": "반응성 대사물이 세포 밖으로 새어 이웃 세포까지 간다는 주장을 부가물 분포로 받친다.",
+          "basis": "full",
+          "genre": "environment",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "claim",
+              "content_match"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:41.730Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "eeaa842950ff4cf773199ef685d00c0fe79551762bdcd214e149f22d6f352728"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 단락은 유전·환경 요인 대비로 서지만 BRCA1/2·BPDE 같은 표기가 남아야 뜻이 산다.",
+            "sample": "Among reproductive diseases, breast cancer is",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:34.034Z",
+      "topicMargin": 19.94
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "01eebd9b-d170-48fc-a582-388425a73415",
+    "revision": "2026-09-25T07:10:38.204766+00:00",
+    "body_sha256": "8bbf408ac97467932169d2dabee8ec174f67f9edc363d8da74c1fe3e29bdb035",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.987Z",
+        "by": "chunk-llm",
+        "why": "세포를 독립 입자로 보던 모형의 한계를 짚고 상호작용 평균장으로 넘어가는 논지가 선다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:46.139Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "209cb365cf240988df452953fd3db53f04182be47b6779ec38e5637927084981"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "수식이 본문에서 빠져 방법 절은 문장이 끊기지만 서론·고찰 단락은 수식 없이도 온전했다.",
+          "sample": "A critical limitation unites these approaches",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.987Z",
+        "by": "chunk-llm",
+        "why": "세포를 독립 입자로 보던 모형의 한계를 짚고 상호작용 평균장으로 넘어가는 논지가 선다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:46.139Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "209cb365cf240988df452953fd3db53f04182be47b6779ec38e5637927084981"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "수식이 본문에서 빠져 방법 절은 문장이 끊기지만 서론·고찰 단락은 수식 없이도 온전했다.",
+          "sample": "A critical limitation unites these approaches",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약이 상호작용 입자계라는 일반 개념에서 세포 집단으로 좁혀 가는 설명 구조를 갖는다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Interacting particle systems (IPSs) are ubiquitous",
+          "note": "본문 절반이 수식 자리표시자라 쓸 수 있는 곳은 요약·서론·고찰 앞부분뿐이었다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.987Z",
+          "by": "chunk-llm",
+          "why": "세포를 독립 입자로 보던 모형의 한계를 짚고 상호작용 평균장으로 넘어가는 논지가 선다.",
+          "basis": "full",
+          "genre": "technology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:46.139Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "209cb365cf240988df452953fd3db53f04182be47b6779ec38e5637927084981"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "수식이 본문에서 빠져 방법 절은 문장이 끊기지만 서론·고찰 단락은 수식 없이도 온전했다.",
+            "sample": "A critical limitation unites these approaches",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:58.718Z",
+      "topicMargin": 15.229999999999999
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "01ef9de8-c759-44a0-ad02-62883d466b4e",
+    "revision": "2026-09-25T07:10:39.935134+00:00",
+    "body_sha256": "c23ecbdeea6410ced924e02233b778522daffab05392f65ea571be2f89294e3f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.988Z",
+        "by": "chunk-llm",
+        "why": "고유 내성 골격에 드문 획득 유전자가 얹힌다는 이중 구조 주장을 표본 편향까지 따져 세운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:46.182Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7067dc8e12d4e82bc26fc914e76130f7e684ac177c8bf5296ea85ac3a96268b9"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "감시 편향 단락은 유전자명 없이도 논지가 서는 드문 자리였고 그 밖은 유전자 기호가 빽빽하다.",
+          "sample": "The geographic distribution of the analyzed",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.988Z",
+        "by": "chunk-llm",
+        "why": "고유 내성 골격에 드문 획득 유전자가 얹힌다는 이중 구조 주장을 표본 편향까지 따져 세운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:46.182Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7067dc8e12d4e82bc26fc914e76130f7e684ac177c8bf5296ea85ac3a96268b9"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "감시 편향 단락은 유전자명 없이도 논지가 서는 드문 자리였고 그 밖은 유전자 기호가 빽빽하다.",
+          "sample": "The geographic distribution of the analyzed",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰이 「내재적 내성이 주고 획득 내성은 드물다」는 주장을 감시 편향 한계와 함께 조목조목 편다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The geographic distribution of the analyzed",
+          "note": "유전자 이름을 지우고 「미국이 40%」 같은 수치만 남겨도 표본 편향 논지가 그대로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.828Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.988Z",
+          "by": "chunk-llm",
+          "why": "고유 내성 골격에 드문 획득 유전자가 얹힌다는 이중 구조 주장을 표본 편향까지 따져 세운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "claim",
+              "content_match"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:46.182Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "7067dc8e12d4e82bc26fc914e76130f7e684ac177c8bf5296ea85ac3a96268b9"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "감시 편향 단락은 유전자명 없이도 논지가 서는 드문 자리였고 그 밖은 유전자 기호가 빽빽하다.",
+            "sample": "The geographic distribution of the analyzed",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:48.802Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "01f662c9-2adf-4aba-9cb4-8f1d50002100",
+    "revision": "2026-09-25T07:10:40.957569+00:00",
+    "body_sha256": "a324977ef575dc78c29bfdddf954c6c5feeea96e28d424d028fa9b42e6d52733",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.989Z",
+        "by": "chunk-llm",
+        "why": "청소년기 오피오이드가 뒷날 면역을 예민하게 만든다는 가설이 빗나간 과정을 끝까지 적는다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:46.233Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6a48ee600e044b8a9ff00bbe2a61cefe25735d6f41b3344023c8d2fb7459f9e3"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "「질병 행동」 설명 단락은 통계값을 안 끌고 들어와 떼기 쉬웠고 낱말 두셋 교체로 내려갔다.",
+          "sample": "Elevated pro-inflammatory cytokine signaling in the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.989Z",
+        "by": "chunk-llm",
+        "why": "청소년기 오피오이드가 뒷날 면역을 예민하게 만든다는 가설이 빗나간 과정을 끝까지 적는다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:46.233Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6a48ee600e044b8a9ff00bbe2a61cefe25735d6f41b3344023c8d2fb7459f9e3"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "「질병 행동」 설명 단락은 통계값을 안 끌고 들어와 떼기 쉬웠고 낱말 두셋 교체로 내려갔다.",
+          "sample": "Elevated pro-inflammatory cytokine signaling in the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "가설을 세우고 실측이 그 가설을 뒤집은 뒤 왜 어긋났는지까지 적어 반증형 글로 읽힌다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Contrary to our hypotheses, LPS-treated mice",
+          "note": "F값·p값만 걷어내면 「예상과 달랐다」 단락이 거의 손대지 않고 지문이 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.989Z",
+          "by": "chunk-llm",
+          "why": "청소년기 오피오이드가 뒷날 면역을 예민하게 만든다는 가설이 빗나간 과정을 끝까지 적는다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:46.233Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "6a48ee600e044b8a9ff00bbe2a61cefe25735d6f41b3344023c8d2fb7459f9e3"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "「질병 행동」 설명 단락은 통계값을 안 끌고 들어와 떼기 쉬웠고 낱말 두셋 교체로 내려갔다.",
+            "sample": "Elevated pro-inflammatory cytokine signaling in the",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:03.785Z",
+      "topicMargin": 1.4100000000000001
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "020d163d-b6af-4ec9-bd08-9297c857f2e7",
+    "revision": "2026-09-25T07:10:50.455753+00:00",
+    "body_sha256": "1c43b2cefc25cb5ee9550cdff2980f77f6810ad95472884345632343dd7253ca",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.989Z",
+        "by": "chunk-llm",
+        "why": "드론 영상 건물 탐지를 농촌 행정의 수단으로 자리매김하고 세 난점을 차례로 짚는다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:49.244Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "d828ccaafae0985e17a98ca3c24fb9c9b927aaf687c358ff6b88a28eb6f957ba"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 모형 이름을 안 쓰고도 서고, 다섯 모형 비교 단락은 장단점 구조가 뚜렷해 순서 문항에 맞았다.",
+          "sample": "Building detection from drone imagery plays",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.989Z",
+        "by": "chunk-llm",
+        "why": "드론 영상 건물 탐지를 농촌 행정의 수단으로 자리매김하고 세 난점을 차례로 짚는다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:49.244Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "d828ccaafae0985e17a98ca3c24fb9c9b927aaf687c358ff6b88a28eb6f957ba"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 모형 이름을 안 쓰고도 서고, 다섯 모형 비교 단락은 장단점 구조가 뚜렷해 순서 문항에 맞았다.",
+          "sample": "Building detection from drone imagery plays",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "서론이 드론 영상이 농촌 행정을 어떻게 바꾸는지 용도별로 열거해 목적·요지 지문 재료가 된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Building detection from drone imagery plays",
+          "note": "MIoU 표가 나오는 실험 절은 버리고 서론·한계 절만 쓰면 어휘 교체로 V6까지 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.831Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.989Z",
+          "by": "chunk-llm",
+          "why": "드론 영상 건물 탐지를 농촌 행정의 수단으로 자리매김하고 세 난점을 차례로 짚는다.",
+          "basis": "full",
+          "genre": "technology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "order",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:49.244Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "d828ccaafae0985e17a98ca3c24fb9c9b927aaf687c358ff6b88a28eb6f957ba"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 단락은 모형 이름을 안 쓰고도 서고, 다섯 모형 비교 단락은 장단점 구조가 뚜렷해 순서 문항에 맞았다.",
+            "sample": "Building detection from drone imagery plays",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:35.768Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "020d6f94-1826-4986-a7a8-8dbca0586354",
+    "revision": "2026-09-25T07:10:52.083627+00:00",
+    "body_sha256": "1cde4b2999c05de46de1b20575ee396914c73b5af6e1d87b57c5b20357c797dd",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.990Z",
+        "by": "chunk-llm",
+        "why": "테구먼트 단백질이 감염 초기와 후기에 각각 무엇과 붙는지를 두 방법의 상호 보완으로 논증한다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:49.301Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e5cb39486c6665666040e5ec6f311d96ce92ca74a2165f07151ff30ca4e197cc"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "바이러스 침입 과정 단락은 시간순이라 자족적이나 pUL 번호가 사라지면 뜻이 함께 사라진다.",
+          "sample": "During entry, the virion envelope fuses",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.990Z",
+        "by": "chunk-llm",
+        "why": "테구먼트 단백질이 감염 초기와 후기에 각각 무엇과 붙는지를 두 방법의 상호 보완으로 논증한다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:49.301Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e5cb39486c6665666040e5ec6f311d96ce92ca74a2165f07151ff30ca4e197cc"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "바이러스 침입 과정 단락은 시간순이라 자족적이나 pUL 번호가 사라지면 뜻이 함께 사라진다.",
+          "sample": "During entry, the virion envelope fuses",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약이 테구먼트라는 구조를 먼저 설명하고 왜 그 단백질을 좇는지로 이어져 자족적이다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The herpesvirus tegument is a subvirion",
+          "note": "단백질 이름을 줄여도 BioID 절차 설명이 남아 중등 이하로는 못 내린다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.834Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.990Z",
+          "by": "chunk-llm",
+          "why": "테구먼트 단백질이 감염 초기와 후기에 각각 무엇과 붙는지를 두 방법의 상호 보완으로 논증한다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "claim"
+            ],
+            "levels": [
+              "V9"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:49.301Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "e5cb39486c6665666040e5ec6f311d96ce92ca74a2165f07151ff30ca4e197cc"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "바이러스 침입 과정 단락은 시간순이라 자족적이나 pUL 번호가 사라지면 뜻이 함께 사라진다.",
+            "sample": "During entry, the virion envelope fuses",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 8,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:18.128Z",
+      "topicMargin": 12.360000000000001
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-811Z",
+    "id": "02203c2a-47a5-4616-b0b9-a11ce379adb2",
+    "revision": "2026-09-25T07:11:01.402232+00:00",
+    "body_sha256": "821f8e46d508213576f0e92b6d19cfeb0c83c3e31b78ad6dfda21d5e43ded14e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.990Z",
+        "by": "chunk-llm",
+        "why": "육안 검사와 기존 계측법의 한계에서 출발해 딥러닝 탐지로 넘어가는 서론이 한 편으로 선다.",
+        "basis": "full",
+        "genre": "engineering",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:50.774Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7b60cb6f1ee6bb2fa49d0431f5289d937c3db8e815f6683f3ca896b666242ce5"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 모듈 이름 없이 서지만 관련연구 절은 인명·약어 나열이라 못 쓴다.",
+          "sample": "Materials across automotive, aerospace, construction, and",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:06.990Z",
+        "by": "chunk-llm",
+        "why": "육안 검사와 기존 계측법의 한계에서 출발해 딥러닝 탐지로 넘어가는 서론이 한 편으로 선다.",
+        "basis": "full",
+        "genre": "engineering",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:50.774Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7b60cb6f1ee6bb2fa49d0431f5289d937c3db8e815f6683f3ca896b666242ce5"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 모듈 이름 없이 서지만 관련연구 절은 인명·약어 나열이라 못 쓴다.",
+          "sample": "Materials across automotive, aerospace, construction, and",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "engineering",
+        "why": "서론이 육안 검사와 기존 비파괴 검사의 한계를 대비시켜 자동 검출의 필요를 논증한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Materials across automotive, aerospace, construction, and",
+          "note": "수식·표가 몰린 뒤쪽은 못 쓰고 서론 두 단락이 사실상 유일한 가공 대상이었다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.835Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:06.990Z",
+          "by": "chunk-llm",
+          "why": "육안 검사와 기존 계측법의 한계에서 출발해 딥러닝 탐지로 넘어가는 서론이 한 편으로 선다.",
+          "basis": "full",
+          "genre": "engineering",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "order"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:50.774Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "7b60cb6f1ee6bb2fa49d0431f5289d937c3db8e815f6683f3ca896b666242ce5"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 단락은 모듈 이름 없이 서지만 관련연구 절은 인명·약어 나열이라 못 쓴다.",
+            "sample": "Materials across automotive, aerospace, construction, and",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:53.145Z"
+    }
+  }
+]

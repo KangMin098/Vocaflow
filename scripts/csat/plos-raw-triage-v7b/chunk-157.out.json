@@ -1,0 +1,444 @@
+[
+ {
+  "id": "7bdf5a6c-5dfd-48f1-9596-b3d9784965a7",
+  "source_updated_at": "2026-09-13T06:31:12.536602+00:00",
+  "body_sha256": "98bc7e88359dfb0bc85cc45b2697e38e462b82dba94a266c3b34173202614185",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 금연 후 고혈압 위험 감소와 부유층 생활습관 요인 단락이 논지 있는 설명문으로 떼어진다 — 주제·빈칸·내용일치 칸.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The increased risk of hypertension among",
+   "note": "affluent을 wealthy로, sedentary 관련 표현을 풀면 서고 수치를 걷어도 인과 설명이 남는다."
+  }
+ },
+ {
+  "id": "7be642f9-6230-4121-8fce-94b5afdfa4cd",
+  "source_updated_at": "2026-09-13T06:25:56.969651+00:00",
+  "body_sha256": "b09f44204b96309b44841090a23d45d2af661643a102602c520af23cd03b59f9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 워딩턴 유전적 동화 실험 단락과 고찰의 곤충 날개 진화 단락이 환경-발생 연결 논지로 선다 — 주제·순서 칸.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In a landmark experiment, Waddington showed",
+   "note": "phenocopy·assimilated를 쉬운 말로 바꾸면 되나 유전자 약어가 많은 결과 절은 쓰기 어렵다."
+  }
+ },
+ {
+  "id": "7be70011-95a6-4fa3-8947-b53a21302d71",
+  "source_updated_at": "2026-09-25T07:29:50.420902+00:00",
+  "body_sha256": "29532a6b075dfd056a96855490981f4c0f8feccfe3d2ad25cfe0878f3b07131c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 림프사상충 집단투약 한계와 시험관-체내 효과 불일치 설명 단락이 문제 제기형 지문으로 선다 — 요지·빈칸 칸.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A major factor contributing to these",
+   "note": "약물명을 「기존 약」으로 묶고 microfilariae를 「유충」으로 바꾸면 논지가 선다."
+  }
+ },
+ {
+  "id": "7bf69e04-9738-4ade-bfaf-953a197e2acb",
+  "source_updated_at": "2026-09-25T07:29:51.196551+00:00",
+  "body_sha256": "375c18ecc45e8759d92fee496755076640cdc096cad8af18549b860e0d4a5033",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "고찰의 새 깔짚과 재사용 깔짚에서 병아리 체중 차이의 원인과 상반 연구를 견주는 단락이 논증 지문이 된다 — 요지·빈칸 칸.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "irrelevant",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The higher body weight observed in",
+   "note": "noxious·subclinical 두어 낱말만 바꾸면 되고 인용 저자 이름은 걷어도 대조가 선다."
+  }
+ },
+ {
+  "id": "7bf9cffd-b563-4c02-af74-87925da1fb5d",
+  "source_updated_at": "2026-09-25T07:29:51.65689+00:00",
+  "body_sha256": "3591eed0b6fdab8fdfb598d5b8bceb3b47a717e3ba7852dff9c44bb92e7acee5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "서론의 지반-구조물 상호작용 설명과 마찰 감쇠기 장점 단락이 개념 설명문으로 떼어진다 — 주제·내용일치 칸.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "During an earthquake, the base movement",
+   "note": "본론은 장황하고 수식·표 참조가 많아 서론 두 단락만 쓸 수 있고 약어를 풀어야 한다."
+  }
+ },
+ {
+  "id": "7c055713-4da8-4c60-b010-ec95f30f029c",
+  "source_updated_at": "2026-09-13T06:25:14.601141+00:00",
+  "body_sha256": "6ef157a3b79246e4960e2daf7618235e757c115a2a0c2623331a4f995dbc3ac4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 포충 생활사 서술과 고찰의 흡입 감염 가설 검토 단락이 순서·논증 지문이 된다 — 순서·빈칸 칸.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "order",
+    "insert",
+    "blank",
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The parasite’s life cycle involves two",
+   "note": "metacestode·protoscoleces를 「유충」 「머리마디」로 바꾸면 생활사 흐름이 그대로 선다."
+  }
+ },
+ {
+  "id": "7c09256d-062a-4a48-b0ef-c7e797267905",
+  "source_updated_at": "2026-09-25T07:29:53.264843+00:00",
+  "body_sha256": "970371a5f1e9b9ae8d3241bca810b64354488fd50a8f2ec8e6e4409255849753",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "서론의 공생조류 의존 번식과 고찰의 호황-붕괴 번식 전략 단락이 해양 온난화 설명문으로 선다 — 주제·빈칸 칸.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Jellyfish reproduction often follows a boom-and-bust",
+   "note": "strobilation을 「성체 분리」로 풀어 쓰면 되고 종명은 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "7c23ac69-6404-437e-978c-3736d77ce568",
+  "source_updated_at": "2026-09-13T07:14:50.689807+00:00",
+  "body_sha256": "4233e4a4b64c1f552e73610fda85feeb8ea387775b3765fbb00b23a985c5fdfb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "hold",
+  "genre": "health",
+  "why": "미드카인 생성 세포 실험이 약어·수치 나열 위주이고 서론 혈관신생 단락도 전문어가 많아 발췌 가능성이 애매하다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Angiogenesis plays a vital role in",
+   "note": "MK·MDDC·HUVEC 등 약어를 걷으면 문단 논지가 거의 남지 않았다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "7c23b7d3-34db-4ba0-9c2a-099f0d223952",
+  "source_updated_at": "2026-09-25T07:29:56.35475+00:00",
+  "body_sha256": "01f97f3218a8ebd69bf1ce1dbf95b7ce2e176001fd15b8c43a2d25cd2d4ec683",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "서론의 해안 유령숲 형성 과정과 고찰의 한 번의 범람이 이후 교란 반응을 바꾼다는 단락이 논지 있게 선다 — 요지·빈칸 칸.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Transient changes in key drivers of",
+   "note": "antecedent를 「이전의」로, perturbations를 「교란」으로 바꾸면 목표 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "7c244d5f-d6e7-4254-aac9-4e4a795bd7d4",
+  "source_updated_at": "2026-09-13T07:01:14.277702+00:00",
+  "body_sha256": "47f6902694f92801118258cfe06f57e50b4761ae3e8d987cda888647d74b6d33",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 오피오이드 부작용과 사용 최소화 필요성을 이유로 잇는 단락이 논증 지문으로 떼어진다 — 주장·빈칸 칸.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Opioids can alleviate the pain of",
+   "note": "영문 문법이 거친 곳이 있어 다듬어야 하나 오피오이드 단락은 논지가 뚜렷하다."
+  }
+ }
+]

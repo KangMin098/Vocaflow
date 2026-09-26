@@ -149,7 +149,6 @@ scripts/dict/SLUR_CANDIDATES.json
 .agents/skills/*
 !.agents/skills/vocaflow-design/
 !.agents/skills/vocaflow-design-loop/
-!.agents/skills/vocaflow-visual-critic/
 .claude/skills/*
 !.claude/skills/vocaflow-design/
 .claude/_disabled/
@@ -229,3 +228,31 @@ scripts/textbook/item-review-drain/**/*.imported
 # 로컬 디자인 캡처 — 커밋하지 않는다(기출 원문·실제 사용자 데이터가 찍힐 수 있다). 골든은 docs/design/golden/ 에만
 # (design-empty 계정·검수대 데이터로 다시 찍는다). 이미 추적 중인 v07 전후 16장은 이 줄로 빠지지 않는다 — design/DECISIONS DD-47
 docs/design/shots/
+
+# 복제 시트용 우리 화면 캡처 — 실제 데이터가 찍힌다. `node scripts/design/capture-ours.mjs` 로 다시 만든다.
+apps/web/public/dev/replica-shots/
+
+# args.me 교재 적합 드레인 — 입력 청크는 덤프에서 재생성 가능(재실행 안전), 판정만 남긴다
+scripts/csat/argsme-drain/chunk-*.json
+!scripts/csat/argsme-drain/*.out.json
+scripts/csat/argsme-drain/manifest.json
+# 재생성 작업 파일도 같은 이유로 안 남긴다 — `argsme-regen-export.mts` 가 입력 청크와
+# 게이트 판정에서 다시 만든다. 채운 결과는 import 로 `.out.json` 에 들어가 그쪽이 정본이 된다.
+scripts/csat/argsme-drain/regen/
+
+# 3B 워크스페이스 실측 — **수치 JSON 만 남긴다**(ref-*.json · ours-*.json).
+# 저장한 참조 페이지는 남의 저작물이고, 상태 파일은 자격 증명이다(docs/design/refs/3b/CAPTURE.md).
+docs/design/refs/3b/*.html
+docs/design/refs/3b/*_files/
+docs/design/refs/3b/*.mhtml
+docs/design/refs/3b/state*.json
+docs/design/refs/3b/*.boxes.json
+apps/web/playwright-auth/
+
+# 드레인 실행 기록 — 되돌릴 근거라 로컬에 남기되 추적하지 않는다(수천 행 · 실행마다 새로 생김).
+# 무엇이 돌았는지는 `csat_drain_runs` 가 갖고 있고 화면이 그것을 읽는다.
+scripts/acp/title-entity-repair.*.json
+
+# 출제 설계 주석 드레인 — 청크에 기출 원문이 실린다. 커밋하는 것은 *.out.json(라벨 · 한국어 설명)뿐
+scripts/csat/design-drain/chunk-*.json
+!scripts/csat/design-drain/*.out.json

@@ -74,7 +74,7 @@ export function ResponsibilitiesSection({ snapshot }: ResponsibilitiesSectionPro
       {/* ── R3 본질 페인 부각 띠 (R3 critical일 때만) ── */}
       {r3IsLowest && r3 && r3.status === 'critical' && (
         <div
-          className="flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--error)]/30 bg-[var(--error-light)] p-3"
+          className="flex items-start gap-3 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--error-light)] p-3"
           role="alert"
         >
           <Sparkles

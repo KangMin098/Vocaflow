@@ -22,6 +22,7 @@ import Link from 'next/link'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { ComicInfoDialog } from '@/components/comic/ComicInfoDialog'
+import { AreaHero } from '@/components/layout/AreaHero'
 import { Screen } from '@/components/ui/ios'
 import { listPdComics, listPdComicShelf } from '@/lib/pd-comic/queries'
 import type { PdComicIssue, PdComicShelfKind } from '@/lib/pd-comic/model'
@@ -50,21 +51,17 @@ export default async function PdComicsPage({
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        <header>
-          <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">
-            Vintage Comics
-          </p>
-          <h1 className="mt-1 font-editorial text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[30px]">
-            옛 영어 만화책
-          </h1>
-          {/* 화면 문구는 **실제로 배달되는 것**을 말해야 한다. 지금 발행되는 것은 복원된 원본
-              페이지다(컷 분할본이 아니라). 예전 문구는 "컷 단위로 나눠 폰에서도 읽힌다"고
-              약속했는데, 전면 페이지를 그대로 보내면서 그 말을 두면 지키지 못할 약속이 된다. */}
-          <p className="mt-2 max-w-[60ch] break-keep font-body text-[14px] leading-relaxed text-[var(--t2)]">
-            저작권이 만료된 1940~50년대 만화를 디지털 복원했습니다. 종이 변색과 인쇄 망점을 걷어내고
-            해상도를 두 배로 올려, 원본 지면 그대로 읽습니다.
-          </p>
-        </header>
+        {/* DD-68 — 서가 · 책 만화와 같은 구역 머리(타일 tile-comics · 수치 알약은 살구 틴트).
+            화면 문구는 **실제로 배달되는 것**을 말해야 한다. 지금 발행되는 것은 복원된 원본
+            페이지다(컷 분할본이 아니라). 예전 문구는 "컷 단위로 나눠 폰에서도 읽힌다"고
+            약속했는데, 전면 페이지를 그대로 보내면서 그 말을 두면 지키지 못할 약속이 된다. */}
+        <AreaHero
+          kicker="만화 · Vintage Comics"
+          title="옛 영어 만화책"
+          sub="저작권이 만료된 1940~50년대 만화를 디지털 복원했습니다. 종이 변색과 인쇄 망점을 걷어내고 해상도를 두 배로 올려, 원본 지면 그대로 읽습니다."
+          tile="tile-comics"
+          tint="peach"
+        />
 
         {!shelf.ready ? (
           <NotReady />

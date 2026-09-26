@@ -5,6 +5,7 @@
 //   · 폭/패딩 제약 제거 → 각 페이지의 <Screen width="wide"> 가 일관 처리
 //   · 상단 LibraryTabs 만 iOS 정합 컨테이너로 감쌈 (max-w-wide + 동일 패딩 grid)
 
+import { ModuleBanner } from '@/components/layout/ModuleBanner'
 import { LibraryTabs } from '@/components/library/LibraryTabs'
 
 export default function LibraryLayout({ children }: { children: React.ReactNode }) {
@@ -12,6 +13,9 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
     <>
       <div className="mx-auto w-full max-w-[var(--ios-content-wide-max)] px-4 pt-4 md:px-6 md:pt-5">
         <LibraryTabs />
+        <div className="mt-4">
+          <ModuleBanner slot="library" />
+        </div>
       </div>
       {children}
     </>

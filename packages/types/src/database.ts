@@ -106,6 +106,396 @@ export type Database = {
         }
         Relationships: []
       }
+      article_compose_batches: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          event_occurred_at: string | null
+          id: string
+          status: string
+          topic: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          event_occurred_at?: string | null
+          id?: string
+          status?: string
+          topic: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          event_occurred_at?: string | null
+          id?: string
+          status?: string
+          topic?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      article_compose_candidates: {
+        Row: {
+          batch_id: string | null
+          first_seen_at: string
+          id: string
+          published_at: string
+          publisher: string
+          source_key: string
+          status: string
+          title: string
+          url: string
+          wire: string | null
+        }
+        Insert: {
+          batch_id?: string | null
+          first_seen_at?: string
+          id?: string
+          published_at: string
+          publisher: string
+          source_key: string
+          status?: string
+          title: string
+          url: string
+          wire?: string | null
+        }
+        Update: {
+          batch_id?: string | null
+          first_seen_at?: string
+          id?: string
+          published_at?: string
+          publisher?: string
+          source_key?: string
+          status?: string
+          title?: string
+          url?: string
+          wire?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_compose_candidates_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "article_compose_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      article_compose_feeds: {
+        Row: {
+          created_at: string
+          enabled: boolean
+          id: string
+          label: string
+          last_found: number | null
+          last_note: string | null
+          last_polled_at: string | null
+          robots_at: string | null
+          robots_status: string | null
+          source_key: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          label: string
+          last_found?: number | null
+          last_note?: string | null
+          last_polled_at?: string | null
+          robots_at?: string | null
+          robots_status?: string | null
+          source_key: string
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          label?: string
+          last_found?: number | null
+          last_note?: string | null
+          last_polled_at?: string | null
+          robots_at?: string | null
+          robots_status?: string | null
+          source_key?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      article_compose_gates: {
+        Row: {
+          article_id: string
+          checked_at: string
+          content_hash: string
+          detail: string
+          invariant: string
+          severity: string
+          verdict: string
+        }
+        Insert: {
+          article_id: string
+          checked_at?: string
+          content_hash: string
+          detail: string
+          invariant: string
+          severity: string
+          verdict: string
+        }
+        Update: {
+          article_id?: string
+          checked_at?: string
+          content_hash?: string
+          detail?: string
+          invariant?: string
+          severity?: string
+          verdict?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_compose_gates_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "csat_source_operations"
+            referencedColumns: ["article_id"]
+          },
+          {
+            foreignKeyName: "article_compose_gates_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "library_articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      article_compose_jobs: {
+        Row: {
+          activities: string[]
+          article_id: string | null
+          attempts: number
+          avg_sentence_words: number
+          batch_id: string | null
+          claimed_at: string | null
+          claimed_by: string | null
+          created_at: string
+          directives: string[]
+          id: string
+          last_error: string | null
+          register: string
+          skill_focus: string
+          source_article_id: string | null
+          status: string
+          target_v_level: number
+          track: string
+          updated_at: string
+          words_max: number
+          words_min: number
+        }
+        Insert: {
+          activities?: string[]
+          article_id?: string | null
+          attempts?: number
+          avg_sentence_words: number
+          batch_id?: string | null
+          claimed_at?: string | null
+          claimed_by?: string | null
+          created_at?: string
+          directives?: string[]
+          id?: string
+          last_error?: string | null
+          register: string
+          skill_focus: string
+          source_article_id?: string | null
+          status?: string
+          target_v_level: number
+          track: string
+          updated_at?: string
+          words_max: number
+          words_min: number
+        }
+        Update: {
+          activities?: string[]
+          article_id?: string | null
+          attempts?: number
+          avg_sentence_words?: number
+          batch_id?: string | null
+          claimed_at?: string | null
+          claimed_by?: string | null
+          created_at?: string
+          directives?: string[]
+          id?: string
+          last_error?: string | null
+          register?: string
+          skill_focus?: string
+          source_article_id?: string | null
+          status?: string
+          target_v_level?: number
+          track?: string
+          updated_at?: string
+          words_max?: number
+          words_min?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_compose_jobs_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "csat_source_operations"
+            referencedColumns: ["article_id"]
+          },
+          {
+            foreignKeyName: "article_compose_jobs_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "library_articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "article_compose_jobs_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "article_compose_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "article_compose_jobs_source_article_id_fkey"
+            columns: ["source_article_id"]
+            isOneToOne: false
+            referencedRelation: "csat_source_operations"
+            referencedColumns: ["article_id"]
+          },
+          {
+            foreignKeyName: "article_compose_jobs_source_article_id_fkey"
+            columns: ["source_article_id"]
+            isOneToOne: false
+            referencedRelation: "library_articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      article_compose_sources: {
+        Row: {
+          access_basis: string
+          batch_id: string
+          fetched_at: string
+          fingerprint: Json
+          id: string
+          published_at: string | null
+          publisher: string
+          robots_checked_at: string | null
+          url: string
+          wire: string | null
+        }
+        Insert: {
+          access_basis?: string
+          batch_id: string
+          fetched_at?: string
+          fingerprint: Json
+          id?: string
+          published_at?: string | null
+          publisher: string
+          robots_checked_at?: string | null
+          url: string
+          wire?: string | null
+        }
+        Update: {
+          access_basis?: string
+          batch_id?: string
+          fetched_at?: string
+          fingerprint?: Json
+          id?: string
+          published_at?: string | null
+          publisher?: string
+          robots_checked_at?: string | null
+          url?: string
+          wire?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_compose_sources_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "article_compose_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      article_fact_attestation: {
+        Row: {
+          fact_id: string
+          ordinal: number
+          source_id: string
+        }
+        Insert: {
+          fact_id: string
+          ordinal: number
+          source_id: string
+        }
+        Update: {
+          fact_id?: string
+          ordinal?: number
+          source_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_fact_attestation_fact_id_fkey"
+            columns: ["fact_id"]
+            isOneToOne: false
+            referencedRelation: "article_fact_ledger"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "article_fact_attestation_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "article_compose_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      article_fact_ledger: {
+        Row: {
+          batch_id: string
+          claim: string
+          created_at: string
+          id: string
+          kind: string
+          quote: string | null
+          quote_is_public: boolean | null
+        }
+        Insert: {
+          batch_id: string
+          claim: string
+          created_at?: string
+          id?: string
+          kind: string
+          quote?: string | null
+          quote_is_public?: boolean | null
+        }
+        Update: {
+          batch_id?: string
+          claim?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          quote?: string | null
+          quote_is_public?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_fact_ledger_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "article_compose_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       book_curation_jobs: {
         Row: {
           book_id: string
@@ -223,6 +613,70 @@ export type Database = {
             columns: ["library_book_id"]
             isOneToOne: false
             referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      class_assignment_progress: {
+        Row: {
+          assignment_id: string
+          collected_at: string | null
+          opened_at: string
+          user_id: string
+        }
+        Insert: {
+          assignment_id: string
+          collected_at?: string | null
+          opened_at?: string
+          user_id: string
+        }
+        Update: {
+          assignment_id?: string
+          collected_at?: string | null
+          opened_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "class_assignment_progress_assignment_id_fkey"
+            columns: ["assignment_id"]
+            isOneToOne: false
+            referencedRelation: "class_assignments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      class_assignments: {
+        Row: {
+          class_id: string
+          created_at: string
+          created_by: string
+          id: string
+          title: string
+          words: Json
+        }
+        Insert: {
+          class_id: string
+          created_at?: string
+          created_by: string
+          id?: string
+          title: string
+          words: Json
+        }
+        Update: {
+          class_id?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          title?: string
+          words?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "class_assignments_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
             referencedColumns: ["id"]
           },
         ]
@@ -826,6 +1280,44 @@ export type Database = {
         }
         Relationships: []
       }
+      csat_analysis_reviews: {
+        Row: {
+          analysis_id: string
+          checked: Json
+          findings: Json
+          id: string
+          persona: string
+          reviewed_at: string
+          verdict: string
+        }
+        Insert: {
+          analysis_id: string
+          checked?: Json
+          findings?: Json
+          id?: string
+          persona: string
+          reviewed_at?: string
+          verdict: string
+        }
+        Update: {
+          analysis_id?: string
+          checked?: Json
+          findings?: Json
+          id?: string
+          persona?: string
+          reviewed_at?: string
+          verdict?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "csat_analysis_reviews_analysis_id_fkey"
+            columns: ["analysis_id"]
+            isOneToOne: false
+            referencedRelation: "csat_item_analyses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       csat_dcp_items: {
         Row: {
           answer_key: Json
@@ -865,8 +1357,177 @@ export type Database = {
         }
         Relationships: []
       }
+      csat_drain_runs: {
+        Row: {
+          args: string | null
+          error: string | null
+          finished_at: string | null
+          id: string
+          items_done: number | null
+          items_skipped: number | null
+          items_total: number | null
+          mode: string
+          run_by: string | null
+          script: string
+          stage: string
+          started_at: string
+          status: string
+        }
+        Insert: {
+          args?: string | null
+          error?: string | null
+          finished_at?: string | null
+          id?: string
+          items_done?: number | null
+          items_skipped?: number | null
+          items_total?: number | null
+          mode: string
+          run_by?: string | null
+          script: string
+          stage: string
+          started_at?: string
+          status?: string
+        }
+        Update: {
+          args?: string | null
+          error?: string | null
+          finished_at?: string | null
+          id?: string
+          items_done?: number | null
+          items_skipped?: number | null
+          items_total?: number | null
+          mode?: string
+          run_by?: string | null
+          script?: string
+          stage?: string
+          started_at?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      csat_exams: {
+        Row: {
+          created_at: string
+          form: string | null
+          has_answer_key: boolean
+          id: string
+          item_count: number
+          kind: string
+          label: string
+          listening_end: number
+          month: number
+          paper_form: string | null
+          source_note: string | null
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          form?: string | null
+          has_answer_key?: boolean
+          id: string
+          item_count?: number
+          kind: string
+          label: string
+          listening_end?: number
+          month: number
+          paper_form?: string | null
+          source_note?: string | null
+          year: number
+        }
+        Update: {
+          created_at?: string
+          form?: string | null
+          has_answer_key?: boolean
+          id?: string
+          item_count?: number
+          kind?: string
+          label?: string
+          listening_end?: number
+          month?: number
+          paper_form?: string | null
+          source_note?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
+      csat_item_analyses: {
+        Row: {
+          answer_locus: Json | null
+          answer_unknown: boolean
+          body_recovered: boolean
+          choice_analysis: Json
+          created_at: string
+          design_intent: string
+          difficulty: Json | null
+          id: string
+          item_id: string
+          measured_ability: string
+          required_vocab: string[]
+          solve_procedure: Json
+          source: string
+          status: string
+          time_budget_sec: number | null
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          answer_locus?: Json | null
+          answer_unknown?: boolean
+          body_recovered?: boolean
+          choice_analysis?: Json
+          created_at?: string
+          design_intent: string
+          difficulty?: Json | null
+          id?: string
+          item_id: string
+          measured_ability: string
+          required_vocab?: string[]
+          solve_procedure?: Json
+          source?: string
+          status?: string
+          time_budget_sec?: number | null
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          answer_locus?: Json | null
+          answer_unknown?: boolean
+          body_recovered?: boolean
+          choice_analysis?: Json
+          created_at?: string
+          design_intent?: string
+          difficulty?: Json | null
+          id?: string
+          item_id?: string
+          measured_ability?: string
+          required_vocab?: string[]
+          solve_procedure?: Json
+          source?: string
+          status?: string
+          time_budget_sec?: number | null
+          updated_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "csat_item_analyses_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "csat_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "csat_item_analyses_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "csat_items_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       csat_item_attempts: {
         Row: {
+          dcp_item_id: string | null
           error_cause: string | null
           id: string
           is_correct: boolean
@@ -877,6 +1538,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          dcp_item_id?: string | null
           error_cause?: string | null
           id?: string
           is_correct: boolean
@@ -887,6 +1549,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          dcp_item_id?: string | null
           error_cause?: string | null
           id?: string
           is_correct?: boolean
@@ -898,6 +1561,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "csat_item_attempts_dcp_item_id_fkey"
+            columns: ["dcp_item_id"]
+            isOneToOne: false
+            referencedRelation: "csat_dcp_items"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "csat_item_attempts_question_id_fkey"
             columns: ["question_id"]
             isOneToOne: false
@@ -905,6 +1575,455 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      csat_item_reviews: {
+        Row: {
+          checked: Json
+          findings: Json
+          id: string
+          item_id: string
+          persona: string
+          reviewed_at: string
+          reviewed_digest: string | null
+          verdict: string
+        }
+        Insert: {
+          checked?: Json
+          findings?: Json
+          id?: string
+          item_id: string
+          persona: string
+          reviewed_at?: string
+          reviewed_digest?: string | null
+          verdict: string
+        }
+        Update: {
+          checked?: Json
+          findings?: Json
+          id?: string
+          item_id?: string
+          persona?: string
+          reviewed_at?: string
+          reviewed_digest?: string | null
+          verdict?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "csat_item_reviews_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "csat_dcp_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      csat_item_state: {
+        Row: {
+          item_id: string
+          reason: string | null
+          reason_code: string
+          run_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          item_id: string
+          reason?: string | null
+          reason_code: string
+          run_id?: string | null
+          status: string
+          updated_at?: string
+        }
+        Update: {
+          item_id?: string
+          reason?: string | null
+          reason_code?: string
+          run_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "csat_item_state_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: true
+            referencedRelation: "csat_dcp_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "csat_item_state_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "csat_drain_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      csat_items: {
+        Row: {
+          answer: number | null
+          answers: number[] | null
+          body_ok: boolean
+          choices: Json | null
+          created_at: string
+          exam_id: string
+          high_score: boolean
+          id: string
+          in_scope: boolean
+          no: number
+          passage: string | null
+          points: number | null
+          raw_block: string | null
+          section: string
+          stem: string
+          type_id: string | null
+        }
+        Insert: {
+          answer?: number | null
+          answers?: number[] | null
+          body_ok?: boolean
+          choices?: Json | null
+          created_at?: string
+          exam_id: string
+          high_score?: boolean
+          id: string
+          in_scope?: boolean
+          no: number
+          passage?: string | null
+          points?: number | null
+          raw_block?: string | null
+          section: string
+          stem: string
+          type_id?: string | null
+        }
+        Update: {
+          answer?: number | null
+          answers?: number[] | null
+          body_ok?: boolean
+          choices?: Json | null
+          created_at?: string
+          exam_id?: string
+          high_score?: boolean
+          id?: string
+          in_scope?: boolean
+          no?: number
+          passage?: string | null
+          points?: number | null
+          raw_block?: string | null
+          section?: string
+          stem?: string
+          type_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "csat_items_exam_id_fkey"
+            columns: ["exam_id"]
+            isOneToOne: false
+            referencedRelation: "csat_exams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "csat_items_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "csat_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      csat_pipeline_approvals: {
+        Row: {
+          decided_at: string
+          decided_by: string
+          decision: string
+          evidence: Json
+          id: string
+          reason: string | null
+          stage: string
+          subject_id: string
+          subject_kind: string
+        }
+        Insert: {
+          decided_at?: string
+          decided_by: string
+          decision: string
+          evidence?: Json
+          id?: string
+          reason?: string | null
+          stage: string
+          subject_id: string
+          subject_kind: string
+        }
+        Update: {
+          decided_at?: string
+          decided_by?: string
+          decision?: string
+          evidence?: Json
+          id?: string
+          reason?: string | null
+          stage?: string
+          subject_id?: string
+          subject_kind?: string
+        }
+        Relationships: []
+      }
+      csat_review_queue: {
+        Row: {
+          due_at: string
+          item_id: string
+          stage: number
+          type_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          due_at: string
+          item_id: string
+          stage: number
+          type_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          due_at?: string
+          item_id?: string
+          stage?: number
+          type_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      csat_session_attempts: {
+        Row: {
+          answered_at: string
+          confused: boolean
+          correct: boolean | null
+          id: string
+          item_id: string
+          sec: number
+          type_id: string
+          user_id: string
+        }
+        Insert: {
+          answered_at: string
+          confused?: boolean
+          correct?: boolean | null
+          id?: string
+          item_id: string
+          sec?: number
+          type_id: string
+          user_id: string
+        }
+        Update: {
+          answered_at?: string
+          confused?: boolean
+          correct?: boolean | null
+          id?: string
+          item_id?: string
+          sec?: number
+          type_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      csat_source_eligibility: {
+        Row: {
+          article_id: string
+          excerpt_evidence: Json
+          input: Json
+          linked_items: number
+          measured_at: string
+          policy_version: number
+          quality_flags: string[]
+          result: Json
+          source: string
+          source_updated_at: string
+        }
+        Insert: {
+          article_id: string
+          excerpt_evidence?: Json
+          input: Json
+          linked_items?: number
+          measured_at?: string
+          policy_version: number
+          quality_flags?: string[]
+          result: Json
+          source: string
+          source_updated_at: string
+        }
+        Update: {
+          article_id?: string
+          excerpt_evidence?: Json
+          input?: Json
+          linked_items?: number
+          measured_at?: string
+          policy_version?: number
+          quality_flags?: string[]
+          result?: Json
+          source?: string
+          source_updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "csat_source_eligibility_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: true
+            referencedRelation: "csat_source_operations"
+            referencedColumns: ["article_id"]
+          },
+          {
+            foreignKeyName: "csat_source_eligibility_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: true
+            referencedRelation: "library_articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      csat_source_eligibility_history: {
+        Row: {
+          article_id: string
+          id: number
+          previous: Json
+          replaced_at: string
+        }
+        Insert: {
+          article_id: string
+          id?: never
+          previous: Json
+          replaced_at?: string
+        }
+        Update: {
+          article_id?: string
+          id?: never
+          previous?: Json
+          replaced_at?: string
+        }
+        Relationships: []
+      }
+      csat_source_registry: {
+        Row: {
+          active: boolean
+          added_at: string
+          added_by: string | null
+          feed_ids: string[]
+          harvest_cmd: string | null
+          homepage: string | null
+          label: string
+          license_class: string | null
+          note: string | null
+          profile: Json | null
+          role_note: string | null
+          source: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          added_at?: string
+          added_by?: string | null
+          feed_ids?: string[]
+          harvest_cmd?: string | null
+          homepage?: string | null
+          label: string
+          license_class?: string | null
+          note?: string | null
+          profile?: Json | null
+          role_note?: string | null
+          source: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          added_at?: string
+          added_by?: string | null
+          feed_ids?: string[]
+          harvest_cmd?: string | null
+          homepage?: string | null
+          label?: string
+          license_class?: string | null
+          note?: string | null
+          profile?: Json | null
+          role_note?: string | null
+          source?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      csat_source_snapshots: {
+        Row: {
+          duration_ms: number
+          id: string
+          payload: Json
+          rows_total: number
+          taken_at: string
+          taken_by: string
+        }
+        Insert: {
+          duration_ms?: number
+          id?: string
+          payload: Json
+          rows_total: number
+          taken_at?: string
+          taken_by?: string
+        }
+        Update: {
+          duration_ms?: number
+          id?: string
+          payload?: Json
+          rows_total?: number
+          taken_at?: string
+          taken_by?: string
+        }
+        Relationships: []
+      }
+      csat_source_targets: {
+        Row: {
+          active: boolean
+          basis: Json | null
+          created_at: string
+          created_by: string | null
+          key: string
+          label: string
+          match: Json
+          mode: string
+          note: string | null
+          scope: string
+          sort_order: number
+          target_value: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          basis?: Json | null
+          created_at?: string
+          created_by?: string | null
+          key: string
+          label: string
+          match?: Json
+          mode: string
+          note?: string | null
+          scope: string
+          sort_order?: number
+          target_value: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          basis?: Json | null
+          created_at?: string
+          created_by?: string | null
+          key?: string
+          label?: string
+          match?: Json
+          mode?: string
+          note?: string | null
+          scope?: string
+          sort_order?: number
+          target_value?: number
+          updated_at?: string
+        }
+        Relationships: []
       }
       csat_stage_gates: {
         Row: {
@@ -930,6 +2049,131 @@ export type Database = {
         }
         Relationships: []
       }
+      csat_trap_attempts: {
+        Row: {
+          answer_trap: string
+          answered_at: string
+          choice: number
+          id: string
+          is_correct: boolean | null
+          item_id: string
+          picked_trap: string
+          user_id: string
+        }
+        Insert: {
+          answer_trap: string
+          answered_at?: string
+          choice: number
+          id?: string
+          is_correct?: boolean | null
+          item_id: string
+          picked_trap: string
+          user_id: string
+        }
+        Update: {
+          answer_trap?: string
+          answered_at?: string
+          choice?: number
+          id?: string
+          is_correct?: boolean | null
+          item_id?: string
+          picked_trap?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "csat_trap_attempts_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "csat_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "csat_trap_attempts_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "csat_items_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      csat_type_reports: {
+        Row: {
+          answer_locus_pattern: string | null
+          failure_modes: Json
+          n_analyzed: number
+          open_questions: Json
+          procedure_steps: Json
+          recurring_traps: Json
+          status: string
+          time_budget_sec: number | null
+          type_id: string
+          updated_at: string
+        }
+        Insert: {
+          answer_locus_pattern?: string | null
+          failure_modes?: Json
+          n_analyzed?: number
+          open_questions?: Json
+          procedure_steps?: Json
+          recurring_traps?: Json
+          status?: string
+          time_budget_sec?: number | null
+          type_id: string
+          updated_at?: string
+        }
+        Update: {
+          answer_locus_pattern?: string | null
+          failure_modes?: Json
+          n_analyzed?: number
+          open_questions?: Json
+          procedure_steps?: Json
+          recurring_traps?: Json
+          status?: string
+          time_budget_sec?: number | null
+          type_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "csat_type_reports_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: true
+            referencedRelation: "csat_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      csat_types: {
+        Row: {
+          created_at: string
+          id: string
+          in_scope: boolean
+          match_pattern: string | null
+          name: string
+          section: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          in_scope?: boolean
+          match_pattern?: string | null
+          name: string
+          section: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          in_scope?: boolean
+          match_pattern?: string | null
+          name?: string
+          section?: string
+          status?: string
+        }
+        Relationships: []
+      }
       daily_activity: {
         Row: {
           avg_accuracy: number | null
@@ -937,6 +2181,7 @@ export type Database = {
           date: string
           total_minutes: number | null
           total_reviews: number | null
+          total_seconds: number
           total_words: number | null
           user_id: string
         }
@@ -946,6 +2191,7 @@ export type Database = {
           date: string
           total_minutes?: number | null
           total_reviews?: number | null
+          total_seconds?: number
           total_words?: number | null
           user_id: string
         }
@@ -955,8 +2201,183 @@ export type Database = {
           date?: string
           total_minutes?: number | null
           total_reviews?: number | null
+          total_seconds?: number
           total_words?: number | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      db_health_action_log: {
+        Row: {
+          action: string
+          actor: string | null
+          error: string | null
+          finding_id: number | null
+          finished_at: string | null
+          id: number
+          ok: boolean | null
+          reason: string | null
+          result: string | null
+          started_at: string
+          target: string | null
+          tier: string
+        }
+        Insert: {
+          action: string
+          actor?: string | null
+          error?: string | null
+          finding_id?: number | null
+          finished_at?: string | null
+          id?: never
+          ok?: boolean | null
+          reason?: string | null
+          result?: string | null
+          started_at?: string
+          target?: string | null
+          tier: string
+        }
+        Update: {
+          action?: string
+          actor?: string | null
+          error?: string | null
+          finding_id?: number | null
+          finished_at?: string | null
+          id?: never
+          ok?: boolean | null
+          reason?: string | null
+          result?: string | null
+          started_at?: string
+          target?: string | null
+          tier?: string
+        }
+        Relationships: []
+      }
+      db_health_checkpoints: {
+        Row: {
+          created_at: string
+          id: number
+          label: string
+          measured_at: string
+          note: string | null
+          phase: string
+        }
+        Insert: {
+          created_at?: string
+          id?: never
+          label: string
+          measured_at: string
+          note?: string | null
+          phase: string
+        }
+        Update: {
+          created_at?: string
+          id?: never
+          label?: string
+          measured_at?: string
+          note?: string | null
+          phase?: string
+        }
+        Relationships: []
+      }
+      db_health_exceptions: {
+        Row: {
+          created_at: string
+          evidence: string
+          expires_at: string | null
+          fingerprint: string
+          reason: string
+        }
+        Insert: {
+          created_at?: string
+          evidence: string
+          expires_at?: string | null
+          fingerprint: string
+          reason: string
+        }
+        Update: {
+          created_at?: string
+          evidence?: string
+          expires_at?: string | null
+          fingerprint?: string
+          reason?: string
+        }
+        Relationships: []
+      }
+      db_health_findings: {
+        Row: {
+          axis: string
+          detail: string
+          evidence: Json
+          fingerprint: string
+          first_seen_at: string
+          id: number
+          last_seen_at: string
+          note: string | null
+          occurrences: number
+          resolved_at: string | null
+          severity: string
+          status: string
+          suggested_sql: string | null
+          title: string
+        }
+        Insert: {
+          axis: string
+          detail: string
+          evidence?: Json
+          fingerprint: string
+          first_seen_at?: string
+          id?: never
+          last_seen_at?: string
+          note?: string | null
+          occurrences?: number
+          resolved_at?: string | null
+          severity: string
+          status?: string
+          suggested_sql?: string | null
+          title: string
+        }
+        Update: {
+          axis?: string
+          detail?: string
+          evidence?: Json
+          fingerprint?: string
+          first_seen_at?: string
+          id?: never
+          last_seen_at?: string
+          note?: string | null
+          occurrences?: number
+          resolved_at?: string | null
+          severity?: string
+          status?: string
+          suggested_sql?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      db_health_metrics: {
+        Row: {
+          axis: string
+          dims: Json
+          id: number
+          measured_at: string
+          metric: string
+          value: number
+        }
+        Insert: {
+          axis: string
+          dims?: Json
+          id?: never
+          measured_at?: string
+          metric: string
+          value: number
+        }
+        Update: {
+          axis?: string
+          dims?: Json
+          id?: never
+          measured_at?: string
+          metric?: string
+          value?: number
         }
         Relationships: []
       }
@@ -1052,6 +2473,7 @@ export type Database = {
           config: Json
           duration_ms: number | null
           id: string
+          items: Json | null
           library_book_id: string | null
           longest_perfect_words: number | null
           shared_set_id: string | null
@@ -1071,6 +2493,7 @@ export type Database = {
           config?: Json
           duration_ms?: number | null
           id?: string
+          items?: Json | null
           library_book_id?: string | null
           longest_perfect_words?: number | null
           shared_set_id?: string | null
@@ -1090,6 +2513,7 @@ export type Database = {
           config?: Json
           duration_ms?: number | null
           id?: string
+          items?: Json | null
           library_book_id?: string | null
           longest_perfect_words?: number | null
           shared_set_id?: string | null
@@ -1461,6 +2885,33 @@ export type Database = {
         }
         Relationships: []
       }
+      funnel_events: {
+        Row: {
+          event: string
+          id: number
+          meta: Json
+          occurred_at: string
+          surface: string | null
+          user_id: string | null
+        }
+        Insert: {
+          event: string
+          id?: never
+          meta?: Json
+          occurred_at?: string
+          surface?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          event?: string
+          id?: never
+          meta?: Json
+          occurred_at?: string
+          surface?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       learning_records: {
         Row: {
           attempted_at: string | null
@@ -1502,13 +2953,6 @@ export type Database = {
           vocabulary_id?: string | null
         }
         Relationships: [
-          {
-            foreignKeyName: "learning_records_vocabulary_id_fkey"
-            columns: ["vocabulary_id"]
-            isOneToOne: false
-            referencedRelation: "user_vocab_enriched"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "learning_records_vocabulary_id_fkey"
             columns: ["vocabulary_id"]
@@ -1728,6 +3172,13 @@ export type Database = {
             foreignKeyName: "library_article_seed_catalog_imported_article_id_fkey"
             columns: ["imported_article_id"]
             isOneToOne: false
+            referencedRelation: "csat_source_operations"
+            referencedColumns: ["article_id"]
+          },
+          {
+            foreignKeyName: "library_article_seed_catalog_imported_article_id_fkey"
+            columns: ["imported_article_id"]
+            isOneToOne: false
             referencedRelation: "library_articles"
             referencedColumns: ["id"]
           },
@@ -1763,6 +3214,13 @@ export type Database = {
             foreignKeyName: "library_article_vocabularies_library_article_id_fkey"
             columns: ["library_article_id"]
             isOneToOne: false
+            referencedRelation: "csat_source_operations"
+            referencedColumns: ["article_id"]
+          },
+          {
+            foreignKeyName: "library_article_vocabularies_library_article_id_fkey"
+            columns: ["library_article_id"]
+            isOneToOne: false
             referencedRelation: "library_articles"
             referencedColumns: ["id"]
           },
@@ -1770,19 +3228,23 @@ export type Database = {
       }
       library_articles: {
         Row: {
+          adapted_from_id: string | null
           article_v_level: number | null
           audio_url: string | null
           author: string | null
           category_tags: string[] | null
           cefr_confidence: number | null
           cefr_level: string | null
+          compose_batch_id: string | null
+          composed_spec: Json | null
           content: string
           content_hash: string | null
+          copyright_safe_in_kr: boolean
           cover_image_meta: Json | null
           cover_image_url: string | null
           cover_verified_at: string | null
-          copyright_safe_in_kr: boolean
           created_at: string
+          csat_fit: Json | null
           display_only: boolean
           feed_id: string | null
           feed_label: string | null
@@ -1809,19 +3271,23 @@ export type Database = {
           word_count: number | null
         }
         Insert: {
+          adapted_from_id?: string | null
           article_v_level?: number | null
           audio_url?: string | null
           author?: string | null
           category_tags?: string[] | null
           cefr_confidence?: number | null
           cefr_level?: string | null
+          compose_batch_id?: string | null
+          composed_spec?: Json | null
           content: string
           content_hash?: string | null
+          copyright_safe_in_kr?: boolean
           cover_image_meta?: Json | null
           cover_image_url?: string | null
           cover_verified_at?: string | null
-          copyright_safe_in_kr?: boolean
           created_at?: string
+          csat_fit?: Json | null
           display_only?: boolean
           feed_id?: string | null
           feed_label?: string | null
@@ -1848,19 +3314,23 @@ export type Database = {
           word_count?: number | null
         }
         Update: {
+          adapted_from_id?: string | null
           article_v_level?: number | null
           audio_url?: string | null
           author?: string | null
           category_tags?: string[] | null
           cefr_confidence?: number | null
           cefr_level?: string | null
+          compose_batch_id?: string | null
+          composed_spec?: Json | null
           content?: string
           content_hash?: string | null
+          copyright_safe_in_kr?: boolean
           cover_image_meta?: Json | null
           cover_image_url?: string | null
           cover_verified_at?: string | null
-          copyright_safe_in_kr?: boolean
           created_at?: string
+          csat_fit?: Json | null
           display_only?: boolean
           feed_id?: string | null
           feed_label?: string | null
@@ -1886,7 +3356,29 @@ export type Database = {
           vrl_components?: Json | null
           word_count?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "library_articles_adapted_from_id_fkey"
+            columns: ["adapted_from_id"]
+            isOneToOne: false
+            referencedRelation: "csat_source_operations"
+            referencedColumns: ["article_id"]
+          },
+          {
+            foreignKeyName: "library_articles_adapted_from_id_fkey"
+            columns: ["adapted_from_id"]
+            isOneToOne: false
+            referencedRelation: "library_articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "library_articles_compose_batch_id_fkey"
+            columns: ["compose_batch_id"]
+            isOneToOne: false
+            referencedRelation: "article_compose_batches"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       library_book_vocabularies: {
         Row: {
@@ -2411,6 +3903,474 @@ export type Database = {
         }
         Relationships: []
       }
+      methodology_batches: {
+        Row: {
+          created_at: string
+          id: string
+          imported_by: string
+          parent_id: string | null
+          schema_version: number
+          verified_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          imported_by: string
+          parent_id?: string | null
+          schema_version: number
+          verified_at: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          imported_by?: string
+          parent_id?: string | null
+          schema_version?: number
+          verified_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "methodology_batches_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "methodology_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      methodology_channels: {
+        Row: {
+          batch_id: string
+          expertIds: string[]
+          id: string
+          name: string
+          relationship: string
+          url: string
+          verificationSourceIds: string[]
+          verifiedAt: string
+        }
+        Insert: {
+          batch_id: string
+          expertIds: string[]
+          id: string
+          name: string
+          relationship: string
+          url: string
+          verificationSourceIds: string[]
+          verifiedAt: string
+        }
+        Update: {
+          batch_id?: string
+          expertIds?: string[]
+          id?: string
+          name?: string
+          relationship?: string
+          url?: string
+          verificationSourceIds?: string[]
+          verifiedAt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "methodology_channels_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "methodology_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      methodology_claims: {
+        Row: {
+          attribution: string
+          batch_id: string
+          id: string
+          kind: string
+          methodId: string
+          ordinal: number
+          text: string
+        }
+        Insert: {
+          attribution: string
+          batch_id: string
+          id: string
+          kind: string
+          methodId: string
+          ordinal: number
+          text: string
+        }
+        Update: {
+          attribution?: string
+          batch_id?: string
+          id?: string
+          kind?: string
+          methodId?: string
+          ordinal?: number
+          text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "methodology_claims_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "methodology_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "methodology_claims_batch_id_methodId_fkey"
+            columns: ["batch_id", "methodId"]
+            isOneToOne: false
+            referencedRelation: "methodology_methods"
+            referencedColumns: ["batch_id", "id"]
+          },
+        ]
+      }
+      methodology_evidence: {
+        Row: {
+          batch_id: string
+          claimId: string
+          expertIds: string[]
+          id: string
+          locator: Json
+          note: string
+          sourceId: string
+          sourceRevision: string
+          stance: string
+        }
+        Insert: {
+          batch_id: string
+          claimId: string
+          expertIds: string[]
+          id: string
+          locator: Json
+          note: string
+          sourceId: string
+          sourceRevision: string
+          stance: string
+        }
+        Update: {
+          batch_id?: string
+          claimId?: string
+          expertIds?: string[]
+          id?: string
+          locator?: Json
+          note?: string
+          sourceId?: string
+          sourceRevision?: string
+          stance?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "methodology_evidence_batch_id_claimId_fkey"
+            columns: ["batch_id", "claimId"]
+            isOneToOne: false
+            referencedRelation: "methodology_claims"
+            referencedColumns: ["batch_id", "id"]
+          },
+          {
+            foreignKeyName: "methodology_evidence_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "methodology_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "methodology_evidence_batch_id_sourceId_sourceRevision_fkey"
+            columns: ["batch_id", "sourceId", "sourceRevision"]
+            isOneToOne: false
+            referencedRelation: "methodology_sources"
+            referencedColumns: ["batch_id", "id", "revision"]
+          },
+        ]
+      }
+      methodology_experts: {
+        Row: {
+          batch_id: string
+          id: string
+          name: string
+          organization: string
+          profileSourceIds: string[]
+          researchStatus: string
+          specialties: string[]
+          verifiedAt: string
+        }
+        Insert: {
+          batch_id: string
+          id: string
+          name: string
+          organization: string
+          profileSourceIds: string[]
+          researchStatus: string
+          specialties: string[]
+          verifiedAt: string
+        }
+        Update: {
+          batch_id?: string
+          id?: string
+          name?: string
+          organization?: string
+          profileSourceIds?: string[]
+          researchStatus?: string
+          specialties?: string[]
+          verifiedAt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "methodology_experts_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "methodology_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      methodology_gaps: {
+        Row: {
+          batch_id: string
+          id: string
+          nextAction: string
+          question: string
+          taxonomyIds: string[]
+        }
+        Insert: {
+          batch_id: string
+          id: string
+          nextAction: string
+          question: string
+          taxonomyIds: string[]
+        }
+        Update: {
+          batch_id?: string
+          id?: string
+          nextAction?: string
+          question?: string
+          taxonomyIds?: string[]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "methodology_gaps_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "methodology_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      methodology_methods: {
+        Row: {
+          batch_id: string
+          efficacy: string
+          id: string
+          productApplications: string[]
+          review: string
+          reviewedAt: string | null
+          reviewedBy: string | null
+          statement: string
+          taxonomyIds: string[]
+        }
+        Insert: {
+          batch_id: string
+          efficacy: string
+          id: string
+          productApplications: string[]
+          review: string
+          reviewedAt?: string | null
+          reviewedBy?: string | null
+          statement: string
+          taxonomyIds: string[]
+        }
+        Update: {
+          batch_id?: string
+          efficacy?: string
+          id?: string
+          productApplications?: string[]
+          review?: string
+          reviewedAt?: string | null
+          reviewedBy?: string | null
+          statement?: string
+          taxonomyIds?: string[]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "methodology_methods_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "methodology_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      methodology_relations: {
+        Row: {
+          batch_id: string
+          evidenceIds: string[]
+          fromId: string
+          id: string
+          kind: string
+          reason: string
+          review: string
+          toId: string
+        }
+        Insert: {
+          batch_id: string
+          evidenceIds: string[]
+          fromId: string
+          id: string
+          kind: string
+          reason: string
+          review: string
+          toId: string
+        }
+        Update: {
+          batch_id?: string
+          evidenceIds?: string[]
+          fromId?: string
+          id?: string
+          kind?: string
+          reason?: string
+          review?: string
+          toId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "methodology_relations_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "methodology_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "methodology_relations_batch_id_fromId_fkey"
+            columns: ["batch_id", "fromId"]
+            isOneToOne: false
+            referencedRelation: "methodology_methods"
+            referencedColumns: ["batch_id", "id"]
+          },
+          {
+            foreignKeyName: "methodology_relations_batch_id_toId_fkey"
+            columns: ["batch_id", "toId"]
+            isOneToOne: false
+            referencedRelation: "methodology_methods"
+            referencedColumns: ["batch_id", "id"]
+          },
+        ]
+      }
+      methodology_sources: {
+        Row: {
+          access: string
+          batch_id: string
+          channelId: string | null
+          durationSeconds: number | null
+          expertIds: string[]
+          id: string
+          kind: string
+          originGroup: string
+          priority: string
+          priorityReason: string
+          publishedAt: string | null
+          revision: string
+          rights: string
+          rightsBasis: string
+          taxonomyIds: string[]
+          title: string
+          url: string
+          verifiedAt: string
+        }
+        Insert: {
+          access: string
+          batch_id: string
+          channelId?: string | null
+          durationSeconds?: number | null
+          expertIds: string[]
+          id: string
+          kind: string
+          originGroup: string
+          priority: string
+          priorityReason: string
+          publishedAt?: string | null
+          revision: string
+          rights: string
+          rightsBasis: string
+          taxonomyIds: string[]
+          title: string
+          url: string
+          verifiedAt: string
+        }
+        Update: {
+          access?: string
+          batch_id?: string
+          channelId?: string | null
+          durationSeconds?: number | null
+          expertIds?: string[]
+          id?: string
+          kind?: string
+          originGroup?: string
+          priority?: string
+          priorityReason?: string
+          publishedAt?: string | null
+          revision?: string
+          rights?: string
+          rightsBasis?: string
+          taxonomyIds?: string[]
+          title?: string
+          url?: string
+          verifiedAt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "methodology_sources_batch_id_channelId_fkey"
+            columns: ["batch_id", "channelId"]
+            isOneToOne: false
+            referencedRelation: "methodology_channels"
+            referencedColumns: ["batch_id", "id"]
+          },
+          {
+            foreignKeyName: "methodology_sources_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "methodology_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      methodology_taxonomy: {
+        Row: {
+          batch_id: string
+          dimension: string
+          id: string
+          label: string
+          parentId: string | null
+        }
+        Insert: {
+          batch_id: string
+          dimension: string
+          id: string
+          label: string
+          parentId?: string | null
+        }
+        Update: {
+          batch_id?: string
+          dimension?: string
+          id?: string
+          label?: string
+          parentId?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "methodology_taxonomy_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "methodology_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "methodology_taxonomy_batch_id_parentId_fkey"
+            columns: ["batch_id", "parentId"]
+            isOneToOne: false
+            referencedRelation: "methodology_taxonomy"
+            referencedColumns: ["batch_id", "id"]
+          },
+        ]
+      }
       noise_blacklist: {
         Row: {
           category: string
@@ -2449,6 +4409,7 @@ export type Database = {
           created_at: string
           id: string
           issue_no: number | null
+          kind: string | null
           last_error: string | null
           last_run_at: string | null
           library_book_id: string | null
@@ -2463,6 +4424,7 @@ export type Database = {
           published_at: string | null
           published_year: number | null
           qc: Json | null
+          series_key: string | null
           series_title: string | null
           slug: string
           source_adapter: string
@@ -2480,6 +4442,7 @@ export type Database = {
           created_at?: string
           id?: string
           issue_no?: number | null
+          kind?: string | null
           last_error?: string | null
           last_run_at?: string | null
           library_book_id?: string | null
@@ -2494,6 +4457,7 @@ export type Database = {
           published_at?: string | null
           published_year?: number | null
           qc?: Json | null
+          series_key?: string | null
           series_title?: string | null
           slug: string
           source_adapter: string
@@ -2511,6 +4475,7 @@ export type Database = {
           created_at?: string
           id?: string
           issue_no?: number | null
+          kind?: string | null
           last_error?: string | null
           last_run_at?: string | null
           library_book_id?: string | null
@@ -2525,6 +4490,7 @@ export type Database = {
           published_at?: string | null
           published_year?: number | null
           qc?: Json | null
+          series_key?: string | null
           series_title?: string | null
           slug?: string
           source_adapter?: string
@@ -2537,13 +4503,54 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "pd_comic_issues_kind_fkey"
+            columns: ["kind"]
+            isOneToOne: false
+            referencedRelation: "pd_comic_kinds"
+            referencedColumns: ["key"]
+          },
+          {
             foreignKeyName: "pd_comic_issues_library_book_id_fkey"
             columns: ["library_book_id"]
             isOneToOne: false
             referencedRelation: "library_books"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "pd_comic_issues_series_key_fkey"
+            columns: ["series_key"]
+            isOneToOne: false
+            referencedRelation: "pd_comic_series"
+            referencedColumns: ["key"]
+          },
         ]
+      }
+      pd_comic_kinds: {
+        Row: {
+          blurb: string | null
+          created_at: string
+          key: string
+          label: string
+          learner_note: string | null
+          sort_order: number
+        }
+        Insert: {
+          blurb?: string | null
+          created_at?: string
+          key: string
+          label: string
+          learner_note?: string | null
+          sort_order: number
+        }
+        Update: {
+          blurb?: string | null
+          created_at?: string
+          key?: string
+          label?: string
+          learner_note?: string | null
+          sort_order?: number
+        }
+        Relationships: []
       }
       pd_comic_panels: {
         Row: {
@@ -2595,11 +4602,53 @@ export type Database = {
           },
         ]
       }
+      pd_comic_series: {
+        Row: {
+          blurb: string | null
+          cover_url: string | null
+          created_at: string
+          key: string
+          kind: string
+          publisher: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          blurb?: string | null
+          cover_url?: string | null
+          created_at?: string
+          key: string
+          kind: string
+          publisher?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          blurb?: string | null
+          cover_url?: string | null
+          created_at?: string
+          key?: string
+          kind?: string
+          publisher?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pd_comic_series_kind_fkey"
+            columns: ["kind"]
+            isOneToOne: false
+            referencedRelation: "pd_comic_kinds"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
       pending_words: {
         Row: {
           admin_note: string | null
           context_snippet: string | null
           created_at: string | null
+          doc_freq: number
           encounter_count: number
           id: string
           lemma: string
@@ -2614,6 +4663,7 @@ export type Database = {
           admin_note?: string | null
           context_snippet?: string | null
           created_at?: string | null
+          doc_freq?: number
           encounter_count?: number
           id?: string
           lemma: string
@@ -2628,6 +4678,7 @@ export type Database = {
           admin_note?: string | null
           context_snippet?: string | null
           created_at?: string | null
+          doc_freq?: number
           encounter_count?: number
           id?: string
           lemma?: string
@@ -2678,6 +4729,35 @@ export type Database = {
           occurrences?: number | null
         }
         Relationships: []
+      }
+      quality_drift_checks: {
+        Row: {
+          book_id: string
+          checked_at: string
+          drift: number | null
+          failed_reason: string | null
+        }
+        Insert: {
+          book_id: string
+          checked_at?: string
+          drift?: number | null
+          failed_reason?: string | null
+        }
+        Update: {
+          book_id?: string
+          checked_at?: string
+          drift?: number | null
+          failed_reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quality_drift_checks_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: true
+            referencedRelation: "library_books"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       quality_metrics: {
         Row: {
@@ -2934,6 +5014,9 @@ export type Database = {
       shared_dictionary: {
         Row: {
           antonyms: string[] | null
+          archived: boolean
+          archived_at: string | null
+          archived_reason: string | null
           audio_url: string | null
           audio_url_uk: string | null
           audio_url_us: string | null
@@ -2952,6 +5035,7 @@ export type Database = {
           domain_levels: Json | null
           domain_levels_rule_v1: Json | null
           example_en: string | null
+          example_ko: string | null
           field_provenance: Json
           frequency_band: string | null
           frequency_rank: number | null
@@ -2996,6 +5080,9 @@ export type Database = {
         }
         Insert: {
           antonyms?: string[] | null
+          archived?: boolean
+          archived_at?: string | null
+          archived_reason?: string | null
           audio_url?: string | null
           audio_url_uk?: string | null
           audio_url_us?: string | null
@@ -3014,6 +5101,7 @@ export type Database = {
           domain_levels?: Json | null
           domain_levels_rule_v1?: Json | null
           example_en?: string | null
+          example_ko?: string | null
           field_provenance?: Json
           frequency_band?: string | null
           frequency_rank?: number | null
@@ -3058,6 +5146,9 @@ export type Database = {
         }
         Update: {
           antonyms?: string[] | null
+          archived?: boolean
+          archived_at?: string | null
+          archived_reason?: string | null
           audio_url?: string | null
           audio_url_uk?: string | null
           audio_url_us?: string | null
@@ -3076,6 +5167,7 @@ export type Database = {
           domain_levels?: Json | null
           domain_levels_rule_v1?: Json | null
           example_en?: string | null
+          example_ko?: string | null
           field_provenance?: Json
           frequency_band?: string | null
           frequency_rank?: number | null
@@ -3130,15 +5222,21 @@ export type Database = {
       }
       shared_word_sets: {
         Row: {
+          additional_category_ids: string[]
           auto_curated: boolean
+          brand_fingerprint: string | null
           category: string
+          category_id: string | null
           cefr_level: string | null
           cover_emoji: string | null
+          cover_image_meta: Json | null
+          cover_image_url: string | null
           created_at: string | null
           curation_query: Json | null
           description: string | null
           id: string
           is_published: boolean | null
+          ladder_step: number | null
           parent_version_id: string | null
           regenerated_at: string | null
           slug: string
@@ -3152,15 +5250,21 @@ export type Database = {
           word_count: number | null
         }
         Insert: {
+          additional_category_ids?: string[]
           auto_curated?: boolean
+          brand_fingerprint?: string | null
           category: string
+          category_id?: string | null
           cefr_level?: string | null
           cover_emoji?: string | null
+          cover_image_meta?: Json | null
+          cover_image_url?: string | null
           created_at?: string | null
           curation_query?: Json | null
           description?: string | null
           id?: string
           is_published?: boolean | null
+          ladder_step?: number | null
           parent_version_id?: string | null
           regenerated_at?: string | null
           slug: string
@@ -3174,15 +5278,21 @@ export type Database = {
           word_count?: number | null
         }
         Update: {
+          additional_category_ids?: string[]
           auto_curated?: boolean
+          brand_fingerprint?: string | null
           category?: string
+          category_id?: string | null
           cefr_level?: string | null
           cover_emoji?: string | null
+          cover_image_meta?: Json | null
+          cover_image_url?: string | null
           created_at?: string | null
           curation_query?: Json | null
           description?: string | null
           id?: string
           is_published?: boolean | null
+          ladder_step?: number | null
           parent_version_id?: string | null
           regenerated_at?: string | null
           slug?: string
@@ -3196,6 +5306,13 @@ export type Database = {
           word_count?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "shared_word_sets_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "dictionary_categories"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "shared_word_sets_parent_version_id_fkey"
             columns: ["parent_version_id"]
@@ -3458,6 +5575,105 @@ export type Database = {
         }
         Relationships: []
       }
+      textbook_shelf_stats_meta: {
+        Row: {
+          id: boolean
+          refreshed_at: string
+        }
+        Insert: {
+          id?: boolean
+          refreshed_at?: string
+        }
+        Update: {
+          id?: boolean
+          refreshed_at?: string
+        }
+        Relationships: []
+      }
+      textbook_volume_renders: {
+        Row: {
+          articles_idle: number | null
+          articles_with_items: number | null
+          auto_passed: number
+          auto_total: number
+          band: number
+          brand_fingerprint: string
+          colophon: Json
+          distinct_volumes: number | null
+          explained_batch: number
+          explained_rule: number
+          failed_checks: string[]
+          first_rendered_at: string
+          items: number
+          out_path: string
+          published_at: string | null
+          render_count: number
+          rendered_at: string
+          school_band: string | null
+          series: string
+          status: string
+          status_reason: string | null
+          step: number | null
+          type_mix_fit: number | null
+          units: number
+          volume_title: string
+        }
+        Insert: {
+          articles_idle?: number | null
+          articles_with_items?: number | null
+          auto_passed: number
+          auto_total: number
+          band: number
+          brand_fingerprint: string
+          colophon: Json
+          distinct_volumes?: number | null
+          explained_batch?: number
+          explained_rule?: number
+          failed_checks?: string[]
+          first_rendered_at?: string
+          items: number
+          out_path: string
+          published_at?: string | null
+          render_count?: number
+          rendered_at?: string
+          school_band?: string | null
+          series?: string
+          status?: string
+          status_reason?: string | null
+          step?: number | null
+          type_mix_fit?: number | null
+          units: number
+          volume_title: string
+        }
+        Update: {
+          articles_idle?: number | null
+          articles_with_items?: number | null
+          auto_passed?: number
+          auto_total?: number
+          band?: number
+          brand_fingerprint?: string
+          colophon?: Json
+          distinct_volumes?: number | null
+          explained_batch?: number
+          explained_rule?: number
+          failed_checks?: string[]
+          first_rendered_at?: string
+          items?: number
+          out_path?: string
+          published_at?: string | null
+          render_count?: number
+          rendered_at?: string
+          school_band?: string | null
+          series?: string
+          status?: string
+          status_reason?: string | null
+          step?: number | null
+          type_mix_fit?: number | null
+          units?: number
+          volume_title?: string
+        }
+        Relationships: []
+      }
       texts: {
         Row: {
           author: string | null
@@ -3553,6 +5769,216 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "library_books"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      topic_corpus_docs: {
+        Row: {
+          content_hash: string
+          external_id: string
+          gap_words: number
+          harvested_at: string
+          id: string
+          published_at: string | null
+          resolved_words: number
+          running_words: number
+          source_id: string
+          speaker: string | null
+          title: string | null
+          truncated: number
+          unique_words: number
+          url: string
+        }
+        Insert: {
+          content_hash: string
+          external_id: string
+          gap_words?: number
+          harvested_at?: string
+          id?: string
+          published_at?: string | null
+          resolved_words?: number
+          running_words?: number
+          source_id: string
+          speaker?: string | null
+          title?: string | null
+          truncated?: number
+          unique_words?: number
+          url: string
+        }
+        Update: {
+          content_hash?: string
+          external_id?: string
+          gap_words?: number
+          harvested_at?: string
+          id?: string
+          published_at?: string | null
+          resolved_words?: number
+          running_words?: number
+          source_id?: string
+          speaker?: string | null
+          title?: string | null
+          truncated?: number
+          unique_words?: number
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_corpus_docs_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "topic_corpus_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      topic_corpus_queue: {
+        Row: {
+          attempts: number
+          claimed_at: string | null
+          completed_at: string | null
+          created_at: string
+          external_id: string
+          id: string
+          last_error: string | null
+          source_id: string
+          status: string
+          title: string | null
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          attempts?: number
+          claimed_at?: string | null
+          completed_at?: string | null
+          created_at?: string
+          external_id: string
+          id?: string
+          last_error?: string | null
+          source_id: string
+          status?: string
+          title?: string | null
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          attempts?: number
+          claimed_at?: string | null
+          completed_at?: string | null
+          created_at?: string
+          external_id?: string
+          id?: string
+          last_error?: string | null
+          source_id?: string
+          status?: string
+          title?: string | null
+          updated_at?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_corpus_queue_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "topic_corpus_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      topic_corpus_sources: {
+        Row: {
+          category_id: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          label_en: string
+          label_ko: string
+          license: string
+          license_url: string | null
+          provider: string
+          sort_order: number
+          text_reusable: boolean
+          topic_key: string
+          updated_at: string
+        }
+        Insert: {
+          category_id?: string | null
+          created_at?: string
+          id: string
+          is_active?: boolean
+          label_en: string
+          label_ko: string
+          license: string
+          license_url?: string | null
+          provider: string
+          sort_order?: number
+          text_reusable?: boolean
+          topic_key: string
+          updated_at?: string
+        }
+        Update: {
+          category_id?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          label_en?: string
+          label_ko?: string
+          license?: string
+          license_url?: string | null
+          provider?: string
+          sort_order?: number
+          text_reusable?: boolean
+          topic_key?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_corpus_sources_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "dictionary_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      topic_word_stats: {
+        Row: {
+          doc_freq: number
+          first_seen_at: string
+          last_seen_at: string
+          source_id: string
+          term_freq: number
+          word: string
+        }
+        Insert: {
+          doc_freq?: number
+          first_seen_at?: string
+          last_seen_at?: string
+          source_id: string
+          term_freq?: number
+          word: string
+        }
+        Update: {
+          doc_freq?: number
+          first_seen_at?: string
+          last_seen_at?: string
+          source_id?: string
+          term_freq?: number
+          word?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_word_stats_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "topic_corpus_sources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "topic_word_stats_word_fkey"
+            columns: ["word"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
           },
         ]
       }
@@ -3730,6 +6156,7 @@ export type Database = {
           diagnostic_completed_at: string | null
           display_name: string | null
           last_active_at: string | null
+          leaderboard_visibility: string
           learning_activity_score: number | null
           learning_goal: string | null
           locale: string | null
@@ -3764,6 +6191,7 @@ export type Database = {
           diagnostic_completed_at?: string | null
           display_name?: string | null
           last_active_at?: string | null
+          leaderboard_visibility?: string
           learning_activity_score?: number | null
           learning_goal?: string | null
           locale?: string | null
@@ -3798,6 +6226,7 @@ export type Database = {
           diagnostic_completed_at?: string | null
           display_name?: string | null
           last_active_at?: string | null
+          leaderboard_visibility?: string
           learning_activity_score?: number | null
           learning_goal?: string | null
           locale?: string | null
@@ -3872,6 +6301,27 @@ export type Database = {
         }
         Relationships: []
       }
+      user_textbook_selections: {
+        Row: {
+          selected_at: string
+          series: string
+          step: number
+          user_id: string
+        }
+        Insert: {
+          selected_at?: string
+          series?: string
+          step: number
+          user_id: string
+        }
+        Update: {
+          selected_at?: string
+          series?: string
+          step?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_word_set_subscriptions: {
         Row: {
           set_id: string
@@ -3910,6 +6360,90 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      video_jobs: {
+        Row: {
+          bytes: number | null
+          captions: boolean | null
+          created_at: string
+          error: string | null
+          eval_at: string | null
+          eval_axes: Json | null
+          eval_fail: number | null
+          eval_pass: number | null
+          eval_unknown: number | null
+          formats_rendered: number | null
+          id: string
+          kind: string
+          note: string | null
+          packaged_at: string | null
+          published_at: string | null
+          rendered_at: string | null
+          scenes: number | null
+          seconds: number | null
+          stage: string
+          stage_before_fail: string | null
+          thumb: boolean | null
+          updated_at: string
+          video_id: string
+          voice_clips: number | null
+          voiced_at: string | null
+        }
+        Insert: {
+          bytes?: number | null
+          captions?: boolean | null
+          created_at?: string
+          error?: string | null
+          eval_at?: string | null
+          eval_axes?: Json | null
+          eval_fail?: number | null
+          eval_pass?: number | null
+          eval_unknown?: number | null
+          formats_rendered?: number | null
+          id?: string
+          kind: string
+          note?: string | null
+          packaged_at?: string | null
+          published_at?: string | null
+          rendered_at?: string | null
+          scenes?: number | null
+          seconds?: number | null
+          stage?: string
+          stage_before_fail?: string | null
+          thumb?: boolean | null
+          updated_at?: string
+          video_id: string
+          voice_clips?: number | null
+          voiced_at?: string | null
+        }
+        Update: {
+          bytes?: number | null
+          captions?: boolean | null
+          created_at?: string
+          error?: string | null
+          eval_at?: string | null
+          eval_axes?: Json | null
+          eval_fail?: number | null
+          eval_pass?: number | null
+          eval_unknown?: number | null
+          formats_rendered?: number | null
+          id?: string
+          kind?: string
+          note?: string | null
+          packaged_at?: string | null
+          published_at?: string | null
+          rendered_at?: string | null
+          scenes?: number | null
+          seconds?: number | null
+          stage?: string
+          stage_before_fail?: string | null
+          thumb?: boolean | null
+          updated_at?: string
+          video_id?: string
+          voice_clips?: number | null
+          voiced_at?: string | null
+        }
+        Relationships: []
       }
       vocab_collections: {
         Row: {
@@ -4883,6 +7417,91 @@ export type Database = {
       }
     }
     Views: {
+      csat_items_public: {
+        Row: {
+          answer: number | null
+          exam_id: string | null
+          high_score: boolean | null
+          id: string | null
+          in_scope: boolean | null
+          no: number | null
+          points: number | null
+          section: string | null
+          stem: string | null
+          type_id: string | null
+        }
+        Insert: {
+          answer?: number | null
+          exam_id?: string | null
+          high_score?: boolean | null
+          id?: string | null
+          in_scope?: boolean | null
+          no?: number | null
+          points?: number | null
+          section?: string | null
+          stem?: string | null
+          type_id?: string | null
+        }
+        Update: {
+          answer?: number | null
+          exam_id?: string | null
+          high_score?: boolean | null
+          id?: string | null
+          in_scope?: boolean | null
+          no?: number | null
+          points?: number | null
+          section?: string | null
+          stem?: string | null
+          type_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "csat_items_exam_id_fkey"
+            columns: ["exam_id"]
+            isOneToOne: false
+            referencedRelation: "csat_exams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "csat_items_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "csat_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      csat_source_operations: {
+        Row: {
+          article_id: string | null
+          cache_state: string | null
+          can_use: boolean | null
+          current_cefr: string | null
+          current_source_status: string | null
+          current_source_updated_at: string | null
+          current_title: string | null
+          current_v_level: number | null
+          effective_status: string | null
+          excerpt_evidence: Json | null
+          input: Json | null
+          linked_items: number | null
+          measured_at: string | null
+          policy_version: number | null
+          quality_flags: string[] | null
+          result: Json | null
+          source: string | null
+          source_updated_at: string | null
+        }
+        Relationships: []
+      }
+      csat_source_operations_summary: {
+        Row: {
+          counts: Json | null
+          measured_at: string | null
+          policy_version: number | null
+        }
+        Relationships: []
+      }
       csat_stage_catalog: {
         Row: {
           cefr_level: string | null
@@ -5010,51 +7629,29 @@ export type Database = {
           },
         ]
       }
-      user_vocab_enriched: {
+      textbook_curriculum_vocab_mv: {
         Row: {
-          dict_cefr: string | null
-          dict_meaning_ko: string | null
-          dict_v_level: number | null
-          difficulty: number | null
-          id: string | null
-          last_review_at: string | null
-          lemma: string | null
-          meaning: string | null
-          module_history: string[] | null
-          next_review_at: string | null
-          primary_pos: string | null
-          review_count: number | null
-          stability: number | null
-          user_cefr: string | null
-          user_id: string | null
-          word: string | null
+          list_tag: string | null
+          word_count: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "vocabularies_lemma_fkey"
-            columns: ["lemma"]
-            isOneToOne: false
-            referencedRelation: "shared_dictionary"
-            referencedColumns: ["word"]
-          },
-        ]
+        Relationships: []
       }
-      v_book_extraction_reasons: {
+      textbook_shelf_inventory_mv: {
         Row: {
-          book_id: string | null
-          bucket: string | null
-          occurrences: number | null
-          words: number | null
+          explained_count: number | null
+          item_count: number | null
+          item_type: string | null
+          v_level: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "library_book_vocabularies_library_book_id_fkey"
-            columns: ["book_id"]
-            isOneToOne: false
-            referencedRelation: "library_books"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
+      }
+      textbook_shelf_sources_mv: {
+        Row: {
+          item_count: number | null
+          source_family: string | null
+          v_level: number | null
+        }
+        Relationships: []
       }
       v_book_extraction_stats: {
         Row: {
@@ -5078,39 +7675,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      v_dict_pos_sense_gap: {
-        Row: {
-          corpus_dominant_pos: string | null
-          current_meaning_ko: string | null
-          dict_pos: string | null
-          dominant_pos_occurrences: number | null
-          headword: string | null
-          v_level: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "library_book_vocabularies_lemma_fkey"
-            columns: ["headword"]
-            isOneToOne: false
-            referencedRelation: "shared_dictionary"
-            referencedColumns: ["word"]
-          },
-        ]
-      }
-      v_extraction_quality_audit: {
-        Row: {
-          books_audited: number | null
-          books_total: number | null
-          books_with_defect: number | null
-          defect: string | null
-          detail: string | null
-          occurrences: number | null
-          oldest_computed_at: string | null
-          rows: number | null
-          words_per_book_sum: number | null
-        }
-        Relationships: []
       }
       v_text_content: {
         Row: {
@@ -5140,40 +7704,33 @@ export type Database = {
           },
         ]
       }
-      v_user_book_progress: {
+      v_topic_word_salience: {
         Row: {
-          author: string | null
-          avg_progress_percent: number | null
-          cefr_level: string | null
-          cover_from: string | null
-          cover_to: string | null
-          done_chapters: number | null
-          last_activity: string | null
-          library_book_id: string | null
-          title: string | null
-          total_chapters: number | null
-          user_id: string | null
+          doc_freq: number | null
+          first_seen_at: string | null
+          last_seen_at: string | null
+          salience: number | null
+          source_id: string | null
+          term_freq: number | null
+          topic_total: number | null
+          word: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "texts_library_book_id_fkey"
-            columns: ["library_book_id"]
+            foreignKeyName: "topic_word_stats_source_id_fkey"
+            columns: ["source_id"]
             isOneToOne: false
-            referencedRelation: "library_books"
+            referencedRelation: "topic_corpus_sources"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "topic_word_stats_word_fkey"
+            columns: ["word"]
+            isOneToOne: false
+            referencedRelation: "shared_dictionary"
+            referencedColumns: ["word"]
+          },
         ]
-      }
-      word_mislevel_signal: {
-        Row: {
-          dict_v_level: number | null
-          known_avg_v: number | null
-          known_ct: number | null
-          lemma: string | null
-          unknown_avg_v: number | null
-          unknown_ct: number | null
-        }
-        Relationships: []
       }
     }
     Functions: {
@@ -5194,7 +7751,64 @@ export type Database = {
         }
         Returns: number
       }
+      acp_article_rollup: {
+        Args: never
+        Returns: {
+          cefr_level: string
+          items: number
+          register: string
+        }[]
+      }
+      acp_batch_independent_lines: {
+        Args: { p_batch_id: string }
+        Returns: number
+      }
+      acp_claim_compose_jobs: {
+        Args: { p_limit?: number; p_stale_minutes?: number; p_worker: string }
+        Returns: {
+          activities: string[]
+          article_id: string | null
+          attempts: number
+          avg_sentence_words: number
+          batch_id: string | null
+          claimed_at: string | null
+          claimed_by: string | null
+          created_at: string
+          directives: string[]
+          id: string
+          last_error: string | null
+          register: string
+          skill_focus: string
+          source_article_id: string | null
+          status: string
+          target_v_level: number
+          track: string
+          updated_at: string
+          words_max: number
+          words_min: number
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "article_compose_jobs"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       acp_classify_license: { Args: { p_license: string }; Returns: string }
+      acp_compose_shelf_candidates: {
+        Args: { p_batch_id: string }
+        Returns: {
+          content: string
+          id: string
+          reason: string
+          source: string
+          title: string
+        }[]
+      }
+      acp_prune_compose_candidates: {
+        Args: { p_days?: number }
+        Returns: number
+      }
       admin_archive_article: {
         Args: { p_article_id: string }
         Returns: undefined
@@ -5233,7 +7847,11 @@ export type Database = {
         }[]
       }
       admin_collect_content_gate_metrics: { Args: never; Returns: number }
+      admin_collect_db_health_integrity: { Args: never; Returns: number }
+      admin_collect_db_health_metrics: { Args: never; Returns: number }
+      admin_collect_db_health_queues: { Args: never; Returns: number }
       admin_collect_quality_metrics: { Args: never; Returns: undefined }
+      admin_db_health_live: { Args: never; Returns: Json }
       admin_delete_article: {
         Args: { p_article_id: string }
         Returns: {
@@ -5287,6 +7905,10 @@ export type Database = {
         Returns: undefined
       }
       admin_force_publish_book: { Args: { p_book_id: string }; Returns: string }
+      admin_record_db_health_checkpoint: {
+        Args: { p_label: string; p_note?: string; p_phase: string }
+        Returns: string
+      }
       admin_requeue_article: {
         Args: { p_article_id: string }
         Returns: undefined
@@ -5306,8 +7928,21 @@ export type Database = {
           reverted_book_id: string
         }[]
       }
+      admin_run_db_health_action: {
+        Args: {
+          p_action: string
+          p_finding_id?: number
+          p_reason?: string
+          p_target?: string
+        }
+        Returns: Json
+      }
       admin_set_comic_published: {
         Args: { p_book_id: string; p_published: boolean }
+        Returns: undefined
+      }
+      admin_set_db_health_finding_status: {
+        Args: { p_id: number; p_note?: string; p_status: string }
         Returns: undefined
       }
       admin_vrl_cron_jobs: {
@@ -5413,6 +8048,16 @@ export type Database = {
         Args: { p_diagnostic_id: string }
         Returns: string
       }
+      apply_topic_categories: {
+        Args: {
+          p_dry_run?: boolean
+          p_max_words?: number
+          p_min_doc_freq?: number
+          p_min_salience?: number
+          p_source_id: string
+        }
+        Returns: Json
+      }
       archive_book_pipeline_messages: {
         Args: { p_book_id: string }
         Returns: number
@@ -5498,6 +8143,16 @@ export type Database = {
           suggested_level: number
         }[]
       }
+      claim_topic_corpus_batch: {
+        Args: { p_limit?: number; p_source_id?: string }
+        Returns: {
+          external_id: string
+          id: string
+          source_id: string
+          title: string
+          url: string
+        }[]
+      }
       classify_archaic_candidates: {
         Args: never
         Returns: {
@@ -5506,12 +8161,28 @@ export type Database = {
           remaining_pending: number
         }[]
       }
+      close_missing_db_health_findings: {
+        Args: { p_seen: string[] }
+        Returns: number
+      }
       collect_archaic_candidates: {
         Args: { p_book_id: string }
         Returns: number
       }
       collect_content_gate_metrics: { Args: never; Returns: number }
+      collect_db_health_integrity: { Args: never; Returns: number }
+      collect_db_health_metrics: { Args: never; Returns: number }
+      collect_db_health_queues: { Args: never; Returns: number }
       collect_quality_metrics: { Args: never; Returns: number }
+      commit_article_analysis: {
+        Args: {
+          p_analysis: Json
+          p_article_id: string
+          p_claimed_revision: string
+          p_source_content: string
+        }
+        Returns: Json
+      }
       commit_chapter_vocab: {
         Args: { p_book_id: string; p_chapter_idx: number }
         Returns: number
@@ -5542,6 +8213,10 @@ export type Database = {
         Args: { p_id: string; p_scope: string }
         Returns: boolean
       }
+      count_article_vocab_prunable: {
+        Args: { p_pct?: number }
+        Returns: number
+      }
       cron_auto_promote_all_users: {
         Args: never
         Returns: {
@@ -5551,7 +8226,106 @@ export type Database = {
           track_promoted: number
         }[]
       }
+      csat_coverage: {
+        Args: never
+        Returns: {
+          analyzed: number
+          covered_points: number
+          covers_99: boolean
+          exam_id: string
+          in_scope_items: number
+          kind: string
+          label: string
+          published: number
+          scope_points: number
+        }[]
+      }
+      csat_source_eligibility_tally: {
+        Args: never
+        Returns: {
+          blocked_by: string
+          grade: string
+          measured_at: string
+          n: number
+          v_level: number
+        }[]
+      }
+      csat_source_is_eligible: {
+        Args: { p_article_id: string }
+        Returns: boolean
+      }
+      csat_source_is_gradeable: {
+        Args: { p_article_id: string }
+        Returns: boolean
+      }
+      csat_source_rollup: { Args: never; Returns: Json }
+      csat_source_snapshot_take: {
+        Args: { p_by?: string }
+        Returns: {
+          duration_ms: number
+          id: string
+          payload: Json
+          rows_total: number
+          taken_at: string
+          taken_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "csat_source_snapshots"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      curriculum_bands: {
+        Args: { p_words: string[] }
+        Returns: {
+          csat: boolean
+          curr_band: number
+          via_derived: boolean
+          word: string
+        }[]
+      }
       daitch_mokotoff: { Args: { "": string }; Returns: string[] }
+      db_health_anomalies: {
+        Args: { p_min_samples?: number; p_window_days?: number }
+        Returns: {
+          axis: string
+          latest: number
+          latest_at: string
+          mad: number
+          median_value: number
+          metric: string
+          pct_change: number
+          prev: number
+          robust_z: number
+          samples: number
+          subject: string
+        }[]
+      }
+      db_health_checkpoint_diff: {
+        Args: { p_label: string }
+        Returns: {
+          after_value: number
+          axis: string
+          before_value: number
+          delta: number
+          metric: string
+          pct: number
+          status: string
+          subject: string
+        }[]
+      }
+      db_health_live_snapshot: { Args: never; Returns: Json }
+      db_health_run_action: {
+        Args: {
+          p_action: string
+          p_actor?: string
+          p_finding_id?: number
+          p_reason?: string
+          p_target?: string
+        }
+        Returns: Json
+      }
       decode_entities_in_stored_sentences: {
         Args: { p_book_id: string }
         Returns: {
@@ -5644,6 +8418,10 @@ export type Database = {
           queued: number
           skipped: number
         }[]
+      }
+      enqueue_topic_corpus_docs: {
+        Args: { p_docs: Json; p_source_id: string }
+        Returns: number
       }
       enrich_shared_dictionary: { Args: { p_words: Json }; Returns: number }
       enroll_library_book: { Args: { p_book_id: string }; Returns: string[] }
@@ -5780,6 +8558,40 @@ export type Database = {
           old_len: number
         }[]
       }
+      funnel_summary: {
+        Args: { p_days?: number }
+        Returns: {
+          event: string
+          events: number
+          subjects: number
+        }[]
+      }
+      game_leaderboard: {
+        Args: { p_limit?: number; p_module: string; p_period?: string }
+        Returns: {
+          best_accuracy: number
+          best_score: number
+          is_me: boolean
+          label: string
+          last_played: string
+          player_count: number
+          plays: number
+          rank: number
+        }[]
+      }
+      game_rank_alias: { Args: { p_user_id: string }; Returns: string }
+      game_rank_summary: {
+        Args: { p_period?: string }
+        Returns: {
+          best_score: number
+          module: string
+          my_rank: number
+          percentile: number
+          player_count: number
+          plays: number
+        }[]
+      }
+      game_rank_window: { Args: { p_period: string }; Returns: string }
       get_category_path: { Args: { cat_id: string }; Returns: string[] }
       get_chapter_content: { Args: { p_text_id: string }; Returns: string }
       get_comic_format: { Args: { p_book_id: string }; Returns: string }
@@ -5814,6 +8626,22 @@ export type Database = {
         Args: { p_base: string; p_surface: string }
         Returns: string
       }
+      ingest_topic_corpus_doc: {
+        Args: {
+          p_content_hash: string
+          p_counts: Json
+          p_external_id: string
+          p_proper_nouns?: string[]
+          p_published_at?: string
+          p_running_words?: number
+          p_source_id: string
+          p_speaker?: string
+          p_title?: string
+          p_truncated?: number
+          p_url: string
+        }
+        Returns: Json
+      }
       insert_book_analysis: {
         Args: { p_book_id: string; p_chapters: Json; p_words: Json }
         Returns: undefined
@@ -5832,6 +8660,7 @@ export type Database = {
         Args: { p_sentence: string; p_word: string }
         Returns: boolean
       }
+      is_valid_assignment_words: { Args: { p_words: Json }; Returns: boolean }
       join_class_by_code: { Args: { p_code: string }; Returns: string }
       library_seed_dedup_key: {
         Args: { p_author: string; p_title: string }
@@ -5887,15 +8716,37 @@ export type Database = {
           title: string
         }[]
       }
-      list_pd_comics: {
+      list_pd_comic_shelf: {
         Args: never
+        Returns: {
+          cover_url: string
+          issues_published: number
+          kind: string
+          kind_blurb: string
+          kind_label: string
+          kind_learner_note: string
+          kind_sort: number
+          panels_total: number
+          publisher: string
+          series_blurb: string
+          series_key: string
+          series_title: string
+          year_from: number
+          year_to: number
+        }[]
+      }
+      list_pd_comics: {
+        Args: { p_series_key?: string }
         Returns: {
           cover_url: string
           id: string
           issue_no: number
+          kind: string
+          kind_label: string
           library_book_id: string
           panels_total: number
           published_year: number
+          series_key: string
           series_title: string
           slug: string
           title: string
@@ -5940,6 +8791,18 @@ export type Database = {
           analyzed_at: string
           live_tuples: number
           table_name: string
+        }[]
+      }
+      methodology_import: {
+        Args: { p_actor: string; p_bundle: Json; p_parent?: string }
+        Returns: Json
+      }
+      methodology_read: { Args: { p_id?: string }; Returns: Json }
+      peek_class_by_code: {
+        Args: { p_code: string }
+        Returns: {
+          class_name: string
+          member_count: number
         }[]
       }
       pg_relpages:
@@ -5987,7 +8850,10 @@ export type Database = {
         Args: { reloid: unknown }
         Returns: Record<string, unknown>
       }
-      prescribe_today: { Args: { p_user_id: string }; Returns: Json }
+      prescribe_today: {
+        Args: { p_user_id: string; p_v_levels?: number[] }
+        Returns: Json
+      }
       preview_book_comic: {
         Args: { p_book_id: string; p_limit?: number }
         Returns: {
@@ -6001,6 +8867,13 @@ export type Database = {
       process_library_pipeline_batch: {
         Args: { p_batch_size?: number }
         Returns: number
+      }
+      prune_article_vocab_sentences: {
+        Args: { p_limit?: number }
+        Returns: {
+          pruned: number
+          scanned: number
+        }[]
       }
       publish_article_word_set: {
         Args: { p_article_id: string; p_cap?: number }
@@ -6042,17 +8915,35 @@ export type Database = {
           word_count: number
         }[]
       }
+      record_db_health_checkpoint: {
+        Args: { p_label: string; p_note?: string; p_phase: string }
+        Returns: string
+      }
+      record_funnel_event: {
+        Args: { p_event: string; p_meta?: Json; p_surface?: string }
+        Returns: number
+      }
       record_pending_words: {
         Args: { p_lemmas: string[]; p_text_id?: string; p_user_id: string }
         Returns: number
       }
       refresh_lemma_dominant_pos: { Args: never; Returns: undefined }
+      refresh_textbook_shelf_stats: { Args: never; Returns: undefined }
       refresh_user_known_word_count: {
         Args: { p_user_id: string }
         Returns: number
       }
       regenerate_auto_curated_set: {
         Args: { p_set_id: string }
+        Returns: number
+      }
+      regexp_quote: { Args: { p: string }; Returns: string }
+      release_topic_corpus_claim: {
+        Args: { p_error?: string; p_id: string; p_status: string }
+        Returns: undefined
+      }
+      repair_vocab_first_sentences: {
+        Args: { p_rows: Json; p_table: string }
         Returns: number
       }
       republish_article_word_set: {
@@ -6109,18 +9000,6 @@ export type Database = {
         Returns: {
           in_cap: boolean
           sort_order_at: number
-        }[]
-      }
-      select_article_coverage: {
-        Args: { p_article_id: string }
-        Returns: {
-          first_sentence: string
-          frequency_in_article: number
-          frequency_rank: number
-          gloss_en: string
-          meaning_ko: string
-          pos: string
-          word: string
         }[]
       }
       select_article_vocab: {
@@ -6225,15 +9104,6 @@ export type Database = {
           word: string
         }[]
       }
-      select_extraction_residual: {
-        Args: never
-        Returns: {
-          context: string
-          freq: number
-          sources: string
-          word: string
-        }[]
-      }
       select_pd_comic: {
         Args: { p_slug: string }
         Returns: {
@@ -6242,6 +9112,33 @@ export type Database = {
           panel_order: number
           source_page_no: number
           target_vocab: string[]
+        }[]
+      }
+      select_pd_comic_info: {
+        Args: { p_slug: string }
+        Returns: {
+          bubble_count: number
+          cover_url: string
+          issue_no: number
+          kind: string
+          kind_blurb: string
+          kind_label: string
+          kind_learner_note: string
+          library_book_id: string
+          panels_total: number
+          pd_basis: string
+          published_at: string
+          published_year: number
+          publisher: string
+          series_blurb: string
+          series_issues_published: number
+          series_key: string
+          series_title: string
+          slug: string
+          source_archive: string
+          source_url: string
+          title: string
+          v_level: number
         }[]
       }
       select_pd_comic_provenance: {
@@ -6277,7 +9174,83 @@ export type Database = {
         Returns: undefined
       }
       surface_variants: { Args: { s: string }; Returns: string[] }
+      sync_published_set_examples: {
+        Args: { p_set_id?: string }
+        Returns: number
+      }
       text_soundex: { Args: { "": string }; Returns: string }
+      textbook_curriculum_vocab_counts: {
+        Args: never
+        Returns: {
+          list_tag: string
+          word_count: number
+        }[]
+      }
+      textbook_practice_items: {
+        Args: { p_limit?: number; p_v_level: number }
+        Returns: {
+          id: string
+          paragraph_idx: number
+          payload: Json
+          ref_title: string
+          type: string
+        }[]
+      }
+      textbook_shelf_inventory: {
+        Args: never
+        Returns: {
+          explained_count: number
+          item_count: number
+          item_type: string
+          v_level: number
+        }[]
+      }
+      textbook_shelf_refreshed_at: { Args: never; Returns: string }
+      textbook_shelf_sources: {
+        Args: never
+        Returns: {
+          item_count: number
+          source_family: string
+          v_level: number
+        }[]
+      }
+      textfit_resolve_levels: {
+        Args: { p_words: string[] }
+        Returns: {
+          headword: string
+          surface: string
+          v_level: number
+        }[]
+      }
+      textfit_resolve_levels_public: {
+        Args: { p_words: string[] }
+        Returns: {
+          headword: string
+          surface: string
+          v_level: number
+        }[]
+      }
+      topic_corpus_overview: {
+        Args: never
+        Returns: {
+          category_id: string
+          claimed: number
+          distinct_words: number
+          docs: number
+          done: number
+          failed: number
+          gap_words: number
+          is_active: boolean
+          label_en: string
+          label_ko: string
+          last_harvest: string
+          license: string
+          promoted: number
+          queued: number
+          running_words: number
+          source_id: string
+        }[]
+      }
       unenroll_library_book: {
         Args: { p_book_id: string }
         Returns: {
@@ -6293,6 +9266,7 @@ export type Database = {
           admin_note: string | null
           context_snippet: string | null
           created_at: string | null
+          doc_freq: number
           encounter_count: number
           id: string
           lemma: string
@@ -6323,6 +9297,18 @@ export type Database = {
         }
         Returns: string
       }
+      upsert_db_health_finding: {
+        Args: {
+          p_axis: string
+          p_detail: string
+          p_evidence?: Json
+          p_fingerprint: string
+          p_severity: string
+          p_suggested_sql?: string
+          p_title: string
+        }
+        Returns: number
+      }
       validate_axis_level_entry: {
         Args: { p_axis_id: string; p_axis_type: string; p_level: number }
         Returns: boolean
@@ -6339,6 +9325,110 @@ export type Database = {
           p_words: Json
         }
         Returns: Json
+      }
+      video_eval_overview: {
+        Args: never
+        Returns: {
+          clean: number
+          evaluated: number
+          failing: number
+          incomplete: number
+          last_at: string
+          total: number
+        }[]
+      }
+      video_job_advance: {
+        Args: {
+          p_error?: string
+          p_kind: string
+          p_metrics?: Json
+          p_stage: string
+          p_video_id: string
+        }
+        Returns: {
+          bytes: number | null
+          captions: boolean | null
+          created_at: string
+          error: string | null
+          eval_at: string | null
+          eval_axes: Json | null
+          eval_fail: number | null
+          eval_pass: number | null
+          eval_unknown: number | null
+          formats_rendered: number | null
+          id: string
+          kind: string
+          note: string | null
+          packaged_at: string | null
+          published_at: string | null
+          rendered_at: string | null
+          scenes: number | null
+          seconds: number | null
+          stage: string
+          stage_before_fail: string | null
+          thumb: boolean | null
+          updated_at: string
+          video_id: string
+          voice_clips: number | null
+          voiced_at: string | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "video_jobs"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      video_job_evaluate: {
+        Args: {
+          p_axes: Json
+          p_fail: number
+          p_pass: number
+          p_unknown: number
+          p_video_id: string
+        }
+        Returns: {
+          bytes: number | null
+          captions: boolean | null
+          created_at: string
+          error: string | null
+          eval_at: string | null
+          eval_axes: Json | null
+          eval_fail: number | null
+          eval_pass: number | null
+          eval_unknown: number | null
+          formats_rendered: number | null
+          id: string
+          kind: string
+          note: string | null
+          packaged_at: string | null
+          published_at: string | null
+          rendered_at: string | null
+          scenes: number | null
+          seconds: number | null
+          stage: string
+          stage_before_fail: string | null
+          thumb: boolean | null
+          updated_at: string
+          video_id: string
+          voice_clips: number | null
+          voiced_at: string | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "video_jobs"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      video_jobs_overview: {
+        Args: never
+        Returns: {
+          n: number
+          newest: string
+          oldest: string
+          stage: string
+        }[]
       }
     }
     Enums: {
@@ -6408,12 +9498,12 @@ export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -6437,11 +9527,11 @@ export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -6462,11 +9552,11 @@ export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -6487,11 +9577,11 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -6504,11 +9594,11 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }

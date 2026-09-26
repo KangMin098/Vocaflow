@@ -1,0 +1,1032 @@
+[
+ {
+  "id": "002aaa49-1458-46a4-9068-9cd68784c2ff",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8f8a2feeba8ae8edc9f1641a3ac740844987ee37eb2a0204f9bdf9902a000e13",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH가 환자·가족에게 새 요약 소책자를 내려받고 의사와 지침을 공유하라고 권하는 안내문이라 목적 칸이 선다(마지막 URL 문단만 걷음).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The new booklet is actually an",
+   "note": "기술 지침과 요약본의 관계를 설명하는 셋째 문단은 앞 문맥 없이 서고 Guidelines 제목만 줄이면 된다."
+  }
+ },
+ {
+  "id": "0070ea4a-ff9d-41be-befe-80f6c2f824db",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7f3fbd249d1615ca3a8c771e67db1d7f91a68d19037e3bc4b7e5968f775a7319",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "이명의 정의·원인·치료·연구를 차례로 설명하는 본문이 서서 주제·순서·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although there’s no cure for tinnitus,",
+   "note": "치료 문단은 보청기·행동치료·소리발생기로 근거가 셋 나뉘어 순서 문항으로 자르기 쉬웠고 antianxiety 만 바꿨다."
+  }
+ },
+ {
+  "id": "00dbd718-93d0-436a-85b2-df82f82ef7e0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "860762e611e1df4f91022c6929b88264bf2a202bdcb262edfffd539aca60b1fa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "건강한 식사 특별호를 소개하며 독자에게 읽어 보라고 권하는 짧은 안내라 목적·요지 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "main_point"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Still, the basic ideas have been",
+   "note": "기본 원칙 네 가지를 한 문장에 담은 문단이라 떼어도 서고 portion sizes 정도만 풀면 중등에도 맞는다."
+  }
+ },
+ {
+  "id": "00f39eae-b34b-4db1-a6d7-6567065ae7e0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "20823d2ab5f594eef78caff1468e69da4c2cf8e9a3191a2ae85502c67bf255d4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "자외선이 눈을 해치는 원리와 선글라스·모자로 막는 법이 짧게 이어져 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sunlight has a mixture of both",
+   "note": "장파·단파 대비가 한 문단 안에 있어 빈칸 자리로 좋고 UVA·UVB 용어는 그대로 둬도 설명된다."
+  }
+ },
+ {
+  "id": "0189b08f-4a10-4587-aaed-749ffb221f3a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ea84a5ceab7857dd8ab71d5907fc048acfa2942808814465b7409b4dde9a4135",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH 소책자를 소개하며 가진 것으로 운동·식사를 바꿔 보라 권하는 앞 세 문단이 목적 칸을 세운다(주소 문단은 걷음).",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "You might enjoy walking with “exercise",
+   "note": "운동 친구·냉동 채소 예시 문단은 바로 서지만 마지막 주소·전화 문단은 가공 때 통째로 걷어야 한다."
+  }
+ },
+ {
+  "id": "019ec185-c049-45ca-86a5-70946c9e4432",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e0e16078039e9e0de2decef758ac7f9d52840d071f38c1f8c6f92c4d3870f252",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두통 유형·일지·약물 반동·예방 치료 연구가 절마다 떨어져 주제·삽입·내용 일치·장문 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "insert",
+    "content_match",
+    "irrelevant"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But frequently taking painkillers for headaches",
+   "note": "반동 두통 문단은 But 로 시작해 접속사만 걷으면 서고 Oshinsky 인용을 간접화법으로 바꾸기 쉬웠다."
+  }
+ },
+ {
+  "id": "01f623bd-13cc-49f2-bba8-2c5b391f7524",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9b5af1be94cd3a14e2a4c96b871481f1535a7935747f25273f93c24255b5bdb9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "두 번째 임신에 젖이 빨리 도는 수수께끼를 실험과 후성유전 표지로 풀어 가는 흐름이 서서 요지·빈칸 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Next, the team looked at how",
+   "note": "epigenome 설명 문단은 서지만 첫 문단에 용어 풀이가 끼어든 수집 결함이 있어 그 문장은 고쳐 써야 하고 전문어는 못 뺀다."
+  }
+ },
+ {
+  "id": "021c1769-7be0-4bf8-b579-2beee54db04e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "11239444afc7d2ceea428a0d72f6117f30d5ceb83b5beb380881e2be15f28520",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "사기 인식·약물·음주·삶의 목적이 인지 건강에 미치는 영향이 연구와 함께 이어져 주제·내용 일치·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Older adults may change their drinking",
+   "note": "노인 음주 동기 문단은 Sullivan 이름만 걷으면 서고 vulnerable 을 easily harmed 로 바꿔 한 밴드 내렸다."
+  }
+ },
+ {
+  "id": "02732616-6ce0-4e74-a368-1ec01ae0e5c9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ef74a731ff9287b7ac011edc1ac61b92b1305a10aeca91e72f3246ec797278b4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "약물 중독의 원리·징후·치료·예방 연구를 가족 관점에서 설명해 주제·순서 칸이 서지만 소재상 고1 이상으로 둔다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Recovering from a substance use disorder",
+   "note": "뇌를 다시 훈련한다는 회복 문단은 서지만 지갑 카드 URL 문장은 걷어야 했다."
+  }
+ },
+ {
+  "id": "027f8a5e-9663-4045-b447-427f7312ea7e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c98150dea114c2beb1ef83d501bd22377f69f79247cede2b723cb8f2af843c90",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "600명 비교 연구로 수술 전 방광 검사가 불필요하다는 결론이 서서 요지·주장·내용 일치 칸이 된다(성인 소재).",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "NIH-funded researchers studied over 600 women",
+   "note": "연구 설계 문단은 짧게 서지만 urodynamic·sphincter 같은 의학어가 논지 핵심이라 바꾸기 어렵다."
+  }
+ },
+ {
+  "id": "0281121a-e4f0-4554-acb0-8a3d307e7803",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "fe8fb66fe53c879f8ad13022afbd44b7a9422704e877b8104049637edb3240b7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "ADHD의 증상 유형·원인·진단·약물과 생활 지원이 차례로 설명돼 주제·순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Researchers have been studying what might",
+   "note": "뇌 발달 지연 설명 문단은 앞 문맥이 필요 없고 inattentive 만 풀어 쓰면 중등 밴드로 내려갔다."
+  }
+ },
+ {
+  "id": "030e1051-ada0-41fb-a3c4-66e3634861d8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "cfbb3586c20dda38d9ad22a6dc79af61f4a576f43ea71bce311010a4ad797c06",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "뇌혈관 기형 AVM·CCM의 구조와 치료·연구가 비유(합선)로 설명돼 빈칸·요지·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "blank",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In AVMs, arteries bypass capillaries and",
+   "note": "합선 비유 문단은 빈칸 자리로 좋지만 약어 AVM 을 걷으면 앞 문단 정의가 필요해 약어 풀이를 한 줄 넣어야 했다."
+  }
+ },
+ {
+  "id": "0314fed2-cb75-4b7a-862b-23e00298840f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "870fe85c333a705f55b46ce1a011123191a992190ffb5947171711ddeeff4289",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "세균이 대부분의 신장결석 형성에 관여한다는 발견이 기존 통념을 뒤집는 구조라 요지·빈칸 칸과 통념 교정 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The team found bacteria in stones",
+   "note": "바이오필름 문단은 정의를 품고 있어 떼어도 서고 spur 를 cause 로 바꾸니 쉬워졌다."
+  }
+ },
+ {
+  "id": "041cf6f4-1599-421c-b6a5-cc5eadd301fa",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "785f35056952cfd3c7edc707472ac9d9d5849752c365f607cdf46934a68cf95f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "간의 기능·질환·지방간·간염·예방이 절마다 이어져 주제·순서·내용 일치 칸을 채운다(용어 풀이 끼어듦은 가공 때 정리).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Liver inflammation can also arise from",
+   "note": "아세트아미노펜 문단은 바로 서지만 지방간 이름 문단은 풀이문이 끼어든 수집 결함이 있어 그 문단을 피했다."
+  }
+ },
+ {
+  "id": "04d30395-97bf-45d6-a8ae-1d14bee315d5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e5af4b5e0603595b8ea785ba8c1f97058f52fb00323e794653caaaf505a7304d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "스트레스의 이로움·해로움·신호·대처(마음챙김·호흡)가 연구와 함께 이어져 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Stress isn’t always bad. It’s actually",
+   "note": "스트레스가 늘 나쁘지 않다는 반전 문단은 통념 교정 빈칸으로 곧장 쓸 수 있었고 COVID 언급은 첫 문단에만 있다."
+  }
+ },
+ {
+  "id": "0528f657-c15e-4577-a43a-a04b90510883",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2115037db9844132c8d4d97aed337304727af560f22e3a7338798edc886b4e25",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "뇌진탕의 원리·증상·회복 연구·재손상 위험·예방이 이어져 주제·순서·삽입·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Researchers know that immediately after a",
+   "note": "포도당 사용 감소 실험 문단은 쥐 실험 결과가 한 흐름이라 순서 문항이 되고 superimpose 는 앞뒤로 바꿨다."
+  }
+ },
+ {
+  "id": "058bdd76-0572-469a-a1fc-75ea75c69b88",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4fcd41d7277de0a08adc84be1b1cd32150aa163b66d657bc920507952669cce7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "사회적 지지가 신체 활동을 늘린다는 논지가 연구·인용으로 뒷받침돼 요지·주장·빈칸 칸이 선다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "And it can help if you",
+   "note": "게임화 연구 문단은 And 만 걷으면 서고 걸음 목표·파트너 설계가 한 흐름이라 삽입 문항에 맞았다."
+  }
+ },
+ {
+  "id": "059a03fa-6af8-42a4-9b21-773dbbcb2343",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "02a338be438807ab82b896d676703c13b87585012e89fc795d92700c602d70e2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "노인성 황반변성의 두 유형·진단·치료·연구가 차례로 설명돼 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "topic"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The other type is called neovascular,",
+   "note": "습성 AMD 문단은 The other type 때문에 건성 문단을 한 줄 요약해 붙여야 했고 neovascular 는 괄호 풀이로 충분했다."
+  }
+ },
+ {
+  "id": "05a3bea7-ae47-4b75-927f-c90c2f408405",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f05f412bbaf741a52712c1327dd435563f180e2b97ccc07de0f7d4943efffb6c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "흡입 스테로이드 반응 차이를 유전자 GLCCI1 로 설명하는 연구 흐름이 짧게 서서 요지·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Since a poor response to inhaled",
+   "note": "유전체 스캔 문단은 서지만 corticosteroids·genome-wide 가 논지 자체라 바꾸면 뜻이 흐려진다."
+  }
+ },
+ {
+  "id": "0666280e-22c2-445e-9cb8-170c7ec92999",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d72fdddaf7db2e6070471d9d7f4d0be2e2de5ef55f8e7b75db91a3afc55353dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "소셜미디어가 정신건강에 이롭고 해로운 조건을 연구로 가르는 논지가 서서 주제·주장·빈칸·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Keyes’s studies have shown that digital",
+   "note": "디지털 미디어만으로 우울 증가를 설명 못 한다는 문단이 통념 교정 빈칸으로 바로 섰고 account for 만 풀었다."
+  }
+ },
+ {
+  "id": "06bc94b0-f9f9-4200-be82-04ce637dee2c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e161194a2ed78296b6c923e319348b60495792d8442c9a64e8182963514c7bf8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH 연구진이 아픈 아이의 부모·보호자에게 설문·면접 연구 참여를 요청하는 공지라 목적 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Researchers are looking for more than",
+   "note": "모집 인원·조사 방식이 한 문단에 모여 목적 문항 본문이 되고 wellbeing 등 쉬운 어휘라 손볼 게 적었다."
+  }
+ },
+ {
+  "id": "06bd910c-21a8-4df3-81b3-dab323ccb1a0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f96a83f9d6e063263035c570f260a999f6ec54cef263bbd520d3c86ac754b4ff",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "당뇨 예방 프로그램 연구의 설계와 수치 결과가 이어져 요지·내용 일치 칸과 수치 주장 검증 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "order",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After an average of around 3",
+   "note": "58%·31% 결과 문단은 수치를 걷으면 비교 논지가 약해져 수치 일부를 남기고 metformin 설명을 덧붙였다."
+  }
+ },
+ {
+  "id": "06e270de-fb73-4951-9fcd-db6437f555b6",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "24629a72d9df2128cccd8f5f2dc2794fc7222a1d859117ed5890bac3c942285b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "소음성 난청의 원리(유모세포)와 데시벨 기준·보호법이 이어져 주제·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sound is measured in units called",
+   "note": "데시벨 문단은 수치 나열 같지만 85dB 기준으로 논지가 서서 내용 일치로 쓸 수 있었다."
+  }
+ },
+ {
+  "id": "06ea2371-1ac3-49fc-9e60-097d92033145",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "665daf6f9f9c0b00e5897a3a4085229bfbbda6eb692300927a3f3762ed8fe4f8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "건선의 기전(면역계)·증상·동반 질환·치료가 설명돼 주제·내용 일치·빈칸 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Psoriasis occurs when skin cells quickly",
+   "note": "피부세포가 성숙 전에 쌓인다는 문단이 빈칸으로 좋았고 plaques 만 괄호로 풀었다."
+  }
+ },
+ {
+  "id": "073dfe3e-2592-488a-89d4-628d182783ad",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0bbcaad996109c4ccab3c440ebd853dfec8086e7a0b5b50f9815cd4cbfb26f9b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "폐쇄성·간질성 폐질환의 차이와 치료 연구가 절마다 이어져 주제·순서·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In COPD, the tubes that carry",
+   "note": "COPD 문단은 흡연 외 원인까지 한 흐름이라 서고 progression 을 worsening 으로 바꿨다."
+  }
+ }
+]

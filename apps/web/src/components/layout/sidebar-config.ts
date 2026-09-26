@@ -1,6 +1,11 @@
 // apps/web/src/components/layout/sidebar-config.ts
 //
-// Sidebar 정보 구조 단일 출처 — CLAUDE.md §17.10 IA 원칙 정합.
+// 학습자 셸 정보 구조 **단일 출처** — CLAUDE.md §17.10 IA 원칙 정합.
+//
+// ⚠️ 파일 이름은 `sidebar-` 로 남겼지만 v08.6 부터 이것을 그리는 것은 **상단 막대 + 메가메뉴**다
+//    (`AppHeader` · 배치는 `top-nav-data.ts`). 이름을 그대로 둔 이유: 이 파일은 테스트 ·
+//    문서 · e2e 가 이름으로 가리키는 IA 정본이고, 내비가 어느 변에 붙는지는 **배치의 문제**라
+//    정본의 이름을 따라다닐 일이 아니다. 아래 주석의 "사이드바" 도 같은 뜻으로 읽는다.
 //
 // ── v08.5 재설계 — 5 그룹이 "나열" 에서 "흐름" 이 됐다 ──────────────────────
 //
@@ -116,7 +121,17 @@ export const META_ITEMS: NavItem[] = [
     ariaLabel: 'Growth — 단어가 자란 기록·기억·주간 리듬 + 학습 관리(Level·Plan·Report)',
     // `ariaLabel` 이 이미 "Level·Plan·Report" 를 자기 소관이라고 말하고 있었다 —
     // 그런데 정작 그 세 화면에서는 Growth 에 불이 들어오지 않았다. 말과 동작을 맞춘다.
-    owns: ['/diagnostic', '/plan', '/reports'],
+    //
+    // v08.7 — `owns`(소유 선언) → `children`(펼침 항목). 상단 메뉴는 패널을 열면 그 안이
+    //   다 보이므로, 세 화면을 **이름으로** 파는 것이 소유만 선언하는 것보다 정확하다.
+    //   ⚠️ 둘을 같이 두면 안 된다 — `owns` 에 적힌 주소를 자식이 자기 href 로 가지면
+    //      "owns 가 남의 href 를 가로챈다" 로 회귀가 잡는다(wayfinding.test).
+    //   메타 peer 로 승격된 것이 아니다: 여전히 Growth **안**이고, 막대에는 Growth 만 선다.
+    children: [
+      { label: 'Level', href: '/diagnostic', icon: Compass, ariaLabel: 'Level — 5분 진단으로 V-Level 측정' },
+      { label: 'Plan', href: '/plan', icon: Map, ariaLabel: 'Plan — 요일별 학습 계획' },
+      { label: 'Report', href: '/reports', icon: ScrollText, ariaLabel: 'Report — 주간 리포트 카드' },
+    ],
   },
 ]
 

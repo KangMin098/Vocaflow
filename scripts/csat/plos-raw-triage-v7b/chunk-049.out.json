@@ -1,0 +1,831 @@
+[
+ {
+  "id": "275be806-2d27-4aec-b690-fb88a8a312b1",
+  "source_updated_at": "2026-09-13T07:40:33.91115+00:00",
+  "body_sha256": "437c6b54d5e9fd52a1aaee878c5e2568e1d5405ead16d1623a580e44fc0bc0da",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "광열치료 뒤 PET 대사 감소가 생존을 가르는지 묻고 고찰에서 열·입자축적·종양크기로 답을 좁힌다 — 고찰 첫 단락이 발췌감.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Since the first use of nanoparticle-assisted",
+   "note": "NS·EPR·%ID/g 를 「금 나노입자」「혈관 누수」「종양 흡수율」로 바꾸면 서고, 수치를 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "27717ba5-e46e-439d-907d-d1c7f597f575",
+  "source_updated_at": "2026-09-13T07:17:10.716605+00:00",
+  "body_sha256": "9565fe56403c73a4b6994fdacb3962966cdb96f2af360713dbb26020441df376",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "닭 CLCA1 의 성질을 포유류 1·3·4 와 대조해 공통조상의 모습을 추론하는 흐름이 고찰에 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Which characteristics might a common ancestor",
+   "note": "유전자 중복·가성유전자화는 풀어 쓸 수 있으나 도메인 약어(vWA·HExxH)가 문단마다 박혀 밴드를 크게 못 내린다."
+  }
+ },
+ {
+  "id": "2772be8d-3f49-4e2e-a891-68e7a1b0c95d",
+  "source_updated_at": "2026-09-25T07:27:29.300464+00:00",
+  "body_sha256": "66df6b522c9ff7d62606f30609a7e1d0b215eb4e2e3491172e010f57238ab989",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "그라미시딘 함량이 낮을 땐 막을 안정화하고 높으면 파열을 앞당긴다는 이상성(二相) 주장을 근거와 함께 끌고 간다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The present study elucidates the impact",
+   "note": "수식과 기호(σe·Γ)가 본문 논지에 얽혀 있어 떼어 낼 문단은 4.1·5장 결론부로 한정된다."
+  }
+ },
+ {
+  "id": "277615d9-0922-4b05-9235-9cbbb7860f03",
+  "source_updated_at": "2026-09-25T07:27:29.717054+00:00",
+  "body_sha256": "cee7fdab91aa513abaf5d7396c2d739f6dac9e6784d9afcc79e1f42e0e75687d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "PrEP 이 감염을 얼마나 막았고 어디서 못 막았는지를 계통군별로 갈라 말하며, 고령·GBM 비율이라는 설명 변수까지 제시한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Widespread PrEP availability has heterogeneously impacted",
+   "note": "Re·계통군을 「전파력」「감염 집단」으로 바꾸면 서고, 클러스터 번호는 걷어도 된다."
+  }
+ },
+ {
+  "id": "2779d7c5-bdda-4a1a-ae33-a9c2c905fe77",
+  "source_updated_at": "2026-09-13T07:17:59.587465+00:00",
+  "body_sha256": "39e1bc41a09597599fb2ddeda2cbaad4d1948e064bcbac3cbecb4f1382a4444b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "HIV 감염자에서 CD73 이 줄어든 이유를 혈장 ATP→miR-30 경로로 설명하고 반대 보고와 대조까지 붙인다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The impact of CD73 downregulation in",
+   "note": "세포 표지(CD8+·CD137)가 문장마다 반복돼 어휘를 바꿔도 고2 이하로는 내려오지 않는다."
+  }
+ },
+ {
+  "id": "27889d74-65d6-4bc6-8e4f-2f26fbe4e7f8",
+  "source_updated_at": "2026-09-15T14:41:20.813533+00:00",
+  "body_sha256": "42f197c5d5758d0c386722131e603b591ff53673433f89d6e8c6fec848e02274",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항암제 5-FU 가 세균의 운동성·생물막 유전자를 시간에 따라 다르게 누른다는 관찰을 약물 재창출 논지로 묶는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Antimicrobial resistance remains a major global",
+   "note": "유전자 이름을 「편모 유전자」「선모 유전자」로 묶으면 도입·고찰 앞부분은 고3 밴드로 내려온다."
+  }
+ },
+ {
+  "id": "279c7caa-3eb9-4ebe-8296-f0e4ef265217",
+  "source_updated_at": "2026-09-25T07:27:31.564438+00:00",
+  "body_sha256": "c1eb593cfd1b860c54b0d35701cf2cea92a52c7378cf0426df4d7d2f41705a7c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "소변 속 암 표지물질을 구조가 닮은 폴리아민과 어떻게 가려내는가를 문제로 세우고 양쪽성 이온 고분자로 답한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Breast cancer, a prevalent hormone-related malignancy",
+   "note": "도입은 서지만 본문 대부분이 용매비·유속 같은 조건 최적화 나열이라 발췌 지점이 도입·결론에 몰린다."
+  }
+ },
+ {
+  "id": "27a1979e-d4d9-4805-ae94-540f08839708",
+  "source_updated_at": "2026-09-13T06:46:46.615354+00:00",
+  "body_sha256": "1294b6ae1b986c843435a96ad61263d2001d8c57923ddab2a1e0b3fba8d26511",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "효모의 갈락토스 감지 장치를 초파리에 옮겨 조직별 당 농도를 눈으로 보이게 한 과정이 문제→설계→검증으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "We decided to develop a genetically",
+   "note": "Gal4/Gal80 을 「감지 장치의 두 부품」으로 바꾸면 도입과 고찰 앞단이 선다."
+  }
+ },
+ {
+  "id": "27a4c6e1-d7e8-44e7-b300-8378361359c6",
+  "source_updated_at": "2026-09-25T07:27:32.430402+00:00",
+  "body_sha256": "ee3ac526c250290e329ee558d8a60bded64e8e036d1606e1ba00c57887ced12f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "선모충 유충이 장 상피를 뚫는 경로를 수용체 결합→신호 활성→밀착연접 감소로 잇고 억제제로 되짚어 검증한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The IIL invasion of intestinal mucosa",
+   "note": "결과부가 통계치(F·P 값) 나열이라 떼어 낼 곳은 도입과 고찰이고, 단백질 약어는 바꾸기 어렵다."
+  }
+ },
+ {
+  "id": "27ae9cbe-9fcb-403b-8618-b27bf101e0d3",
+  "source_updated_at": "2026-09-25T07:27:32.850662+00:00",
+  "body_sha256": "df814e35d4067bfd324c99a1afd6abe0d398570bacf5260fa3cb6c5502bc1507",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "산성에서 결핵균이 모두 느려지는 게 아니라 멈춘 세포의 비율이 늘어난다는 반전이 단일세포 관찰로 세워진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A simple explanation for growth slowing",
+   "note": "「일률적으로 느려진다」는 통념을 먼저 세우고 뒤집는 구조라 앞 문맥 없이도 문단이 선다."
+  }
+ },
+ {
+  "id": "27c79b02-40db-406f-bbf7-8530136ab71c",
+  "source_updated_at": "2026-09-25T07:27:37.24525+00:00",
+  "body_sha256": "88efa40a5198ec9691de6c254996055a51ee4db22648ce98a3d9416e6b27f854",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "뇌허혈 표적 MMP-9 억제제를 계산으로 골라 내는 절차와 그 한계를 고찰에서 스스로 짚는다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Matrix metalloproteinase-9 plays a central role",
+   "note": "RMSD·PCA 같은 지표 서술이 문단 대부분이라 자족적인 곳은 고찰 첫 두 단락뿐이다."
+  }
+ },
+ {
+  "id": "27db4135-c83e-4788-b7fc-63b8f2d4cfa4",
+  "source_updated_at": "2026-09-25T07:27:38.590537+00:00",
+  "body_sha256": "4158b054d7df9e37b7642266780e2e5b9da45160aff58ebc6648713c4057753d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "커피 산지의 생태 협력 참여를 감정망·조언망으로 갈라 설명하며 정책 제언까지 이어지는 사회과학 논증이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "claim",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Traditional unilateral approaches to governance have",
+   "note": "약어(TPB·SNET)를 「계획행동이론」「사회연결망」으로 풀면 고2 밴드까지 내려온다."
+  }
+ },
+ {
+  "id": "27dc1333-8cc8-442f-955c-886610f51e92",
+  "source_updated_at": "2026-09-25T07:27:39.107077+00:00",
+  "body_sha256": "c727fbd7fbf0c2832ccbc8aafe8213f80d60d2b299dd52cd4ca92b2e86f06462",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "말라리아 간 감염을 사람 세포에서 다루기 어려웠던 이유를 짚고 유전자 편집 가능한 간세포주로 그 문턱을 낮춘다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Among the Plasmodium species responsible for",
+   "note": "통과(traversal)와 침입(invasion)의 구분만 살리면 도입·고찰이 서고 세포주 번호는 걷어도 된다."
+  }
+ },
+ {
+  "id": "2819cc96-0327-4943-83cf-318bc6adb15c",
+  "source_updated_at": "2026-09-15T14:41:37.436291+00:00",
+  "body_sha256": "57938244e5f1594b14c93a0963d69afd29b1a3965338f8899b3a5de834b9d51d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고추 성분이 듣는 두 유전자를 공개 데이터에서 추려 실험으로 확인하는 절차가 짧고 선명하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although capsaicin has been proven to",
+   "note": "데이터베이스 이름을 「공개 유전자 자료」로 묶으면 도입과 고찰 앞부분이 고3 밴드로 내려온다."
+  }
+ },
+ {
+  "id": "281bd893-901a-4fbd-aa41-a1670fcd2710",
+  "source_updated_at": "2026-09-13T07:03:05.147488+00:00",
+  "body_sha256": "65c3fc1cc7e0a8269ca9871639b4ef36376d0e57af24b938e834d1a7db575a80",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "낭성섬유증 정지돌연변이를 프라임 편집으로 고치고 기능 회복까지 보인 뒤 효율 한계를 정면으로 논한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Compared to the conventional CRISPR/Cas9-mediated HDR",
+   "note": "이중나선 절단 없이 고친다는 대비가 고찰에 정리돼 있어 그 단락만 떼도 논지가 선다."
+  }
+ },
+ {
+  "id": "283c248b-3fc2-4ca5-b825-2d089895a989",
+  "source_updated_at": "2026-09-13T06:56:48.764083+00:00",
+  "body_sha256": "fe81f2327389eaa295c2808c0d46a6084087ed3e7903899cb0587989db9731df",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "환자마다 제각각인 miRNA 목록이 같은 유전자 무리로 수렴한다는 주장을 무작위 비교로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "This might imply the unimportance of",
+   "note": "유전자·miRNA 이름 표가 길어 표를 걷어야 하고, 남은 서술만으로도 논지는 유지된다."
+  }
+ },
+ {
+  "id": "284a5863-2430-4137-8b74-47242deb2ee0",
+  "source_updated_at": "2026-09-25T07:27:47.067587+00:00",
+  "body_sha256": "f2fca6abe1746db6f9441d5fe0e259c20bb39f8c51e48edad28569aaf7e6780b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "긴장발화와 폭발발화에서 시냅스 가중치가 달리 움직이며 폭발 때 한 점으로 모인다는 발견을 모형과 수식으로 밀고 간다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Neural circuits can alternate between distinct",
+   "note": "본문에 수식 자리표시자가 많아 떼어 낼 곳은 도입과 고찰이고, 그마저 용어 밀도가 높다."
+  }
+ },
+ {
+  "id": "28597f54-57ac-42e4-b025-df7d2a8f6051",
+  "source_updated_at": "2026-09-25T07:27:48.630503+00:00",
+  "body_sha256": "b19dd03903145c94aa3deec9fd73a532dee2ce4cd3b4546ea5e41371c6d03479",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "education",
+  "why": "생성형 AI 학습에서 탐색보다 활용이 성과와 더 붙는다는 결과와 그 한계(자기보고·설명력 22%)를 함께 말한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "claim",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "With the rapid advancement of Generative",
+   "note": "구조방정식 지표(CFI·RMSEA)만 걷으면 도입과 5장 논의가 고2 밴드에서도 읽힌다."
+  }
+ },
+ {
+  "id": "285ce1b2-cfcb-4b37-8a77-8b2405517e1d",
+  "source_updated_at": "2026-09-25T07:27:49.392569+00:00",
+  "body_sha256": "2fe72451bb3c0ea2a74f4f85c5e755fb1a95b708165ee4b08b307c6fd0b6eb03",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "성장인자를 더 넣어도 상처가 더 빨리 낫지 않았다는 음성 결과를 천장효과로 해석하고 한계를 조목조목 적는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However, no significant differences in wound",
+   "note": "VEGF-A/C 를 「혈관 성장인자」「림프관 성장인자」로 바꾸면 고찰 전체가 고3 밴드로 내려온다."
+  }
+ },
+ {
+  "id": "286cc1cc-3e3d-4408-af6b-d09464275f28",
+  "source_updated_at": "2026-09-13T07:16:49.000082+00:00",
+  "body_sha256": "dcd7d7e9300769bf6aaeeb1b5c77293cf053e72bcea2b0804220c3c3781b0f6a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "사우디에서 MERS 가 오래 돈 이유를 혈중 sDPP4 가 낮다는 실측과 유전 변이로 설명하려는 가설이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our results clearly demonstrate lower levels",
+   "note": "SNP 번호를 걷고 sDPP4 를 「혈액 속 효소」로 바꾸면 고찰이 서고 논지도 남는다."
+  }
+ }
+]

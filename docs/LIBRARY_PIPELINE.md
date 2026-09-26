@@ -17,7 +17,9 @@ reject·분석 누락·CEFR 초과는 사용 차단. 발췌 위치만 있으면 
 배치 전 캐시 백업은 `.agent-logs`에 기록한다. 복구는 해당 배치의 이전 값만 복원하며 원문/정답을 덮지 않는다.
 원문 수정은 별도 revision 조건·본문 해시·앵커 영향 검증이 필요하다. 캐시 재검증은 내용 AI 판정을 대신하지 않는다.
 VOA ingestion은 관측된 댓글 안내 문단 제거 후 최소 길이를 검사한다. 기존 450편은 문항 100개(4편)의 위치 영향 때문에 보존한다.
-미판정 raw 31,367편은 발췌 후 판정 경로, 나머지 17,444편은 내용 검토 대상이다.
+미판정 raw 는 **보관 판정 → 발췌 → 발췌 판정** 순서다(2026-09-24). 보관 판정은 **전문**을 읽는다(`plos-raw-triage-export` · 기준 `docs/source-check/criteria.md` · 절차 `scripts/csat/plos-raw-triage-brief.md`) — 30편 대조에서 앞 800어 판정은 보관할 17편 중 12편을 버렸고 서론·고찰 판정은 버릴 5편을 남겼다. 판정자 흔들림은 이중 판정 κ 로 관리한다. 길이·어휘·V-Level 은 순서에만 쓰고 버리는 데 쓰지 않는다. 결과는 `csat_fit.gate.retain` 에만 쓰이고 게시 적격은 열지 않는다. `plos-extract` 는 보관 판정된 원본만 자르고, 발췌본에 판정을 스스로 붙이지 않는다(판정 드레인이 읽는다).
+
+**권리 표지 · PLOS 일괄 표기(DD-75 · 2026-09-24).** 라이선스로 원문을 버리지 않는다 — 적재기는 찾은 표기를 `license` 에 그대로 적고(없으면 `unknown`), 원문마다 `csat_fit.rights`(`rights-tag.ts`: class · evidence · attribution · needsResolution)를 붙인다. 서비스 차단은 여전히 `acp_classify_license` 트리거 → `copyright_safe_in_kr` 와 발행 적격 법적 축이 맡는다. ⚠️ 기존 PLOS 원본 **47,938행**은 수확기가 글마다 확인하지 않고 `CC BY 4.0` 을 일괄로 박은 것이다 — Solr `copyright` 필드로 보면 공유저작물 선언 글이 섞여 있다(`q=copyright:"public domain"` 18,185편). 이 행들은 원문 단위 확인이 필요하며 백필하지 않았다. 새 수확(`harvest-plos`)은 `copyright` 문장에서 license 를 읽고(evidence `api`), 발췌(`plos-extract`)는 원본 표지를 물려받되 없으면 `collection-default` 로 적는다.
 
 일일 읽기 전용 workflow `csat-source-audit.yml`은 DB/cache/snapshot drift와 모순을 exit 1로 알린다.
 기본 브랜치 반영 및 기존 Supabase secrets 설정 후 일정 실행이 활성화된다. 자동 데이터 수정은 없다.
@@ -298,6 +300,16 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 
 ## ACP — Article Curation Pipeline v1.0
 
+> ⚠️ **수집·적재 구조는 2026-09-23 에 재설계가 결정됐다** — 채택분만 본문을 보관하고, 제외는
+> 본문 없는 묘비로 기억해 다시 GET·재판정하지 않는다. 기준설계와 이행 순서:
+> [SOURCE_INTAKE_DESIGN](./SOURCE_INTAKE_DESIGN.md). 아래 「중복 방지 규약」은 **그 전의 구조**다
+> (보유 목록 = `library_articles` 전량 스캔). 이행이 끝나면 이 절을 기준설계로 갈음한다.
+>
+> ⚠️ **「게시 불가」와 「미보관」은 다르다.** `csat_fit.gate.publishable=false` 를 버릴 것으로 읽으면
+> 안 된다 — plos 원본은 전량 `oversize-raw` 로 게시가 막혀 있지만, 보관 여부는 **읽고 가른다**(2026-09-24 · `gate.retain`). 판정 전에는 `undecided`, 보관이면 추출 대기, 폐기면 `discard`.
+> 보관 축은 `gate-rules.retentionOf` 가 파생으로 답하고(저장하지 않는다), 감사가 확보 전량에 대해
+> 센다. 표와 실측은 SOURCE_INTAKE_DESIGN 「보관 축」.
+
 ### 중복 방지 규약 — 열쇠 한 벌 + 커서 한 벌 (2026-09-07)
 
 같은 소스를 다시 캘 때 **이미 확보·제외한 것을 또 하지 않게** 하는 두 축. 정본은 코드다:
@@ -329,6 +341,31 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 
 회귀: `ingest-article/source-key-contract.test.ts`(14) · `harvest-cursor-contract.test.ts`(10).
 후자는 **목록기를 등록부에 안 적거나, 깊이 캐면서 커서도 이유도 없으면 실패한다.**
+
+### 원천 먼저 — 조각은 `csat_fit.derived_from` 으로 원천에 잇는다 (2026-09-24)
+
+보관 판정은 원천(책·챕터·문서 한 편) 단위다(`docs/source-check/criteria.md` §1 · `gate-rules.derivativeKind`).
+실측 당시 수집기 다섯이 **자른 조각만** 담고 원천은 담지 않았다 — europe_pmc 1,300 중 1,211(`#p<a>-<b>` 서론 발췌) ·
+space_place 59 중 54 · storyweaver 136 중 77 · simple_wikipedia `#lead`/`#lead-trim` 59 · frym `frym:<DOI>` 152(초록만).
+
+- **수집기**(`scripts/textbook/{epmc,space-place,storyweaver,mediawiki-lead,frym}-ingest.mjs`)는 항목마다 먼저
+  원천 행(원본 열쇠 · 전문 · status `queued` · `csat_fit.rights`)을 담고(`scripts/textbook/_originals.mjs`),
+  그다음 원할 때만 조각 행을 `csat_fit.derived_from = { id, source_id, kind }` 과 함께 담는다
+  (kind: `paragraphs` europe_pmc · `excerpt` space_place/storyweaver/frym · `lead` 위키 · `abstract` frym 초록 · `adapt`).
+  창·칸·어휘·자립성 게이트는 **조각만** 가른다 — 창에 드는 조각이 없어도 원천은 담는다(frym-ingest 가 원천까지 버리던 것을 고쳤다).
+- 원천 열쇠: europe_pmc `europe_pmc:PMC…`(본문 전문 · `ingestEuropePmcArticle(…, { scope: 'full' })`) ·
+  위키 `<source>:<pageid>` · frym **`frym-full:<DOI>`** — `frym:<DOI>` 는 초록 행이 차지하고 있어 전문을 따로 둔다
+  (`SOURCE_KEY_SHAPE.frym` 이 두 접두어를 받는다).
+- `derivativeKind({ source_id, feed_id, derived_from })` 는 `derived_from` 이 있으면 그 kind 를 돌려준다 —
+  회차 표집(`source-round-export.mjs`)이 초록 행처럼 열쇠 모양으로 못 가르는 파생물도 뺀다.
+- **되채움**: `pnpm exec tsx scripts/textbook/originals-backfill.mjs [--source <s>] [--limit N] [--commit]` —
+  기존 파생물의 원천을 같은 파서로 받아 한 번만 담고(원천 묶음 단위), 조각의 `csat_fit` 에 `derived_from` 을 합친다
+  (다른 키 보존 · `updated_at` CAS). 기본 dry-run(받아 보기만), 재실행 안전.
+  ⚠️ 조각을 고치면 `updated_at` 이 올라 **적격 캐시가 낡는다**(그 행은 캐시를 다시 채울 때까지 부적격). `--commit` 이 남기는
+  `.agent-logs/originals-backfill-touched-<시각>-partNN.txt`(≤100) 마다 `source-policy-refresh.mjs --ids-file … --output …` →
+  `--plan` → `--commit` 을 돌린다(명령은 스크립트 머리말).
+- 남은 것: europe_pmc 의 **접미어 없는** 89행(`europe_pmc:PMC…`)은 서론 전체가 창에 들어 원본 열쇠로 담긴 **서론뿐인** 행이다.
+  되채움은 이것을 「원천 이미 있음」으로 읽는다 — 전문으로 바꿀지(본문 교체 · 판정 무효화)는 따로 정한다.
 
 
 ### 입력 — 소스별 "얼마나 깊이 들어갈 수 있는가" (실측 2026-08-30)
@@ -559,6 +596,14 @@ pnpm dlx tsx scripts/acp/process-queue.mjs  --source plos --commit --limit 900
   분석은 편당 어휘 행 수백 개를 만들어 디스크를 쓰므로, 무엇을 먼저 처리할지가 곧 비용이다.
 - 둘 다 재실행 안전(이미 있는 것은 건너뛴다). 분석은 `ANTHROPIC_API_KEY` 없이도 돌고
   LLM 시그널만 빠진다(CEFR 신뢰도 0.732 → 0.725).
+- **짧은 본문은 버리지 않는다**(2026-09-23 결정 — 길이로 원문을 제외하지 않는다). 수집기의
+  본문 하한은 파서 고장을 잡으려고만 남아 있고, 하한 밑이면 `ShortBodyError`
+  (`ingest-article/short-body.ts`)가 뽑은 본문과 기사 필드를 들고 나온다. `collect-daily` ·
+  `harvest-voa-sitemap` 은 본문이 있으면 성공 경로와 같은 필드로 `queued` 삽입 +
+  `status_message`「짧은 본문 N어 — 길이로 버리지 않는다(내용 판정이 가른다) · 파서 확인 대상」,
+  빈 본문(0어)은 담지 않고 영구 `seen` 에도 적지 않은 채 「빈 본문(파서 확인)」으로 따로 센다.
+  `scripts/textbook/{epmc,frym,space-place,storyweaver}-ingest.mjs` 는 짧은 본문을 발췌·창 판정으로 흘린다.
+  ⚠️ `process-queue` 가 `ready` 로 올릴 때 `status_message` 를 덮으므로 처리 뒤에는 `word_count` 로 센다.
 
 ### 처리
 - `/api/acp/enqueue` (article 큐 등록) → `/api/acp/dev-process` (article 처리)
@@ -692,6 +737,22 @@ pnpm vcb:curate                # 07-curate.ts
 pnpm vcb:publish               # 08-publish.ts
 pnpm vcb:publish-precheck      # 08b-publish-precheck.ts
 ```
+
+### 에디션 표지 — AI 생성 정사각 도판 (`scripts/vcb/editions/`, 2026-09-25)
+
+`/library/vocab` 벽 선반(참조 shopify.com/editions)에 거는 권별 표지. 결과는 `cover_image_meta.edition`
+(jsonb 키 하나 — migration 없음)이고, 없으면 선반은 종전 표지(`VocabCoverArt`)로 그린다.
+
+| # | 단계 | 명령 | 재실행 |
+|---|---|---|---|
+| ① | export — 발행 세트 → `work/sets.json` | `node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/vcb/editions/edition-export.mjs [--all]` | 안전(읽기만 · 이미 있는 권 제외) |
+| ② | 아트 디렉션 — 권별 피사체·화풍 → `work/prompts.out.json` | 에이전트가 채운다(화풍 8종은 `edition-styles.mjs` 단일 출처) | 안전(파일 편집) |
+| ③ | 생성 — `apps/web/public/covers/vocab/editions/<slug>.webp` | API: `edition-gen.mjs`(Qwen → GPT Image 폴백) · 무료 GPU: `scripts/design/illo-kaggle.mjs --scenes scripts/vcb/editions/edition-scenes.mjs --out apps/web/public/covers/vocab/editions --slug vocaflow-vcb-editions` | 안전(없는 파일만 · `--force` 는 한도 소모) |
+| ④ | import — `cover_image_meta.edition` 기록 | `edition-import.mjs [--commit]` | 안전(기존 jsonb 에 키 하나만 · 파일 없으면 건너뛴 수 출력) |
+
+- 제목은 그림에 굽지 않는다 — 모든 화풍이 위쪽 30% 를 비워 두고 HTML 이 한글 제목을 얹는다(글자색 `title_ink`).
+- 2026-09-25 실측: DashScope 무료 한도 소진 · OpenAI 크레딧 0 → Kaggle T4(Qwen-Image Q3 + Lightning 4스텝) 경로로 생성.
+- 되돌리기: `edition` 키를 지우면 선반이 종전 표지로 돌아간다(파일은 남는다).
 
 ### 카탈로그 파이프라인 — 발행 뒤 `/library/vocab` 한 권이 되기까지 (2026-08-31)
 
@@ -980,6 +1041,24 @@ A1=548 / A2=719 / B1=1,204 / B2=2,212 / C1=3,806 / C2=13,241
 v06.25 브릿지 — `shared_word_sets` 에 `category_id` + `additional_category_ids` 추가 (기존 `category` 보존).
 
 ---
+
+## 모음 단계 사전검증 (2026-09-25)
+
+`packages/library-pipeline/src/ingest-article/precheck.ts` — 원문을 창고에 넣기 **전에** 비용 낮은 순서로 본다.
+두 수집 경로(`scripts/acp/collect-daily.mjs` · `scripts/csat/source-get/import.mjs`)가 같은 함수를 부른다.
+
+| 단계 | 보는 것 | 비용 |
+|---|---|---|
+| ① 분류 | 원천이 준 카테고리·태그(`categoryBlock`) | 0 |
+| ② 제목 | `topic-fitness` 부적합 신호 + 원천별 `noiseKeywords` | 0 |
+| ③ 앞부분 | 앞 200어의 기능어 비율(영어) · 100어당 문장 끝 수(산문) · 짧은 본문의 안내문 표지 | 0 |
+| ④ 전문 | ② 원문 점검(LLM) — 여기서 하지 않는다 | 높음 |
+
+- 원천마다 단계별 `off / flag / block` (`PRECHECK_POLICY`). 기본은 전부 `flag` — **표시만 하고 담는다**. 결과는 `csat_fit.precheck`.
+- `block` 은 실측으로 오판이 드문 자리에만: wikinews 제목(부적합 표본 전부 정확) · 건강·그림책은 제목 `off`(「Heart Attack」 「Shock! Crash!」 오판).
+- 이미 담긴 대기분 소급: `pnpm dlx tsx scripts/csat/source-get/precheck-backfill.mjs [--source X] [--commit]` — 막힌 글은 지우지 않고 `archived` + `status_message='precheck:…'`. 되돌리기 `--restore --commit`(이 스크립트가 보관한 것만).
+- **판본 2 (2026-09-25)** — 원문 점검 회차 6 이 wikinews 제목 막음을 검산했더니 막은 7편 중 판정 13/14 가 보관이었다 → **제목으로 막는 원천 0**(테스트가 고정). 보관했던 6,434편은 되돌렸다. 기록: `docs/source-check/round-6.md` §5.
+- 규칙이 정당한 글을 걸면 글이 아니라 규칙을 고친다 — 오판 사례는 `precheck.test.ts` 에 회귀로 고정한다.
 
 ## Migration 시드 인프라
 

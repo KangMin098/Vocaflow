@@ -1,8 +1,8 @@
 /* apps/web/src/components/csat/session/visual-analysis.module.css */
-.comparison, .workbench, .patternTree { color: var(--t1); word-break: keep-all; }
-.comparison :is(button,a), .workbench :is(button,a), .patternTree a { transition: opacity var(--dur-normal) var(--ease); }
-.comparison :is(button,a):focus-visible, .workbench :is(button,a):focus-visible, .patternTree a:focus-visible { outline: 2px solid var(--p); outline-offset: 4px; }
-.comparison :is(button,a):active, .workbench :is(button,a):active, .patternTree a:active { opacity: .7; }
+.comparison, .workbench { color: var(--t1); word-break: keep-all; }
+.comparison :is(button,a), .workbench :is(button,a) { transition: opacity var(--dur-normal) var(--ease); }
+.comparison :is(button,a):focus-visible, .workbench :is(button,a):focus-visible { outline: 2px solid var(--p); outline-offset: 4px; }
+.comparison :is(button,a):active, .workbench :is(button,a):active { opacity: .7; }
 .workbench button:disabled { opacity: .45; cursor: not-allowed; }
 .comparison { margin-top: 16px; }
 .comparisonTop { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--t2); padding: 12px 0; }
@@ -46,26 +46,6 @@
 .comparisonDetails h3 { font-size: 16px; margin-bottom: 12px; }
 .comparisonDetails .pair p:not(.meta) { font-size: 14px; line-height: 1.8; margin: 6px 0; }
 .comparisonDetails a { display: inline-flex; min-height: 44px; align-items: center; font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
-.patternTree { display: grid; grid-template-columns: 150px 1fr; gap: 40px; align-items: center; padding: 24px 0; }
-.treeRoot { padding: 24px 12px; border: 1px solid var(--ju); background: var(--ju-light); position: relative; }
-.treeRoot::after { content: ''; position: absolute; left: 100%; top: 50%; width: 40px; border-top: 1px solid var(--ju); }
-.treeRoot strong { display: block; font-family: var(--font-ko-display),serif; font-size: 24px; margin: 12px 0; }
-.treeRoot span, .treeRoot small { color: var(--t2); font-size: 11px; }
-.branches { border-left: 1px solid var(--ju); padding-block: 12px; }
-.branch { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: center; padding: 14px 0 14px 28px; position: relative; }
-.branch::before { content: ''; position: absolute; left: 0; top: 50%; width: 28px; border-top: 1px solid var(--ju); }
-.patternNode { padding: 10px 16px; border: 1px solid var(--bd); min-height: 64px; position: relative; }
-.patternNode::after { content: ''; position: absolute; left: 100%; top: 50%; width: 24px; border-top: 1px solid var(--bd); }
-.patternNode strong { display: block; font-size: 17px; font-weight: 500; }
-.patternNode span { font-size: 11px; color: var(--t2); }
-.leaves { display: flex; flex-wrap: wrap; gap: 8px; }
-.leaves a { display: flex; align-items: center; gap: 8px; min-height: 52px; padding: 6px 12px; font-size: 12px; border: 1px dashed var(--bd); }
-.leaves small { display: block; font-size: 10px; color: var(--t2); }
-.recordMark { font-size: 24px; color: var(--t2); }
-.leaves [data-state=saved] { border-style: double; }
-.leaves [data-state=seen] { border-style: solid; }
-.leaves [data-state=review] { border-style: solid; background: var(--ju-light); }
-.patternTree a:hover { background: var(--bg2); outline: 1px solid var(--t2); }
 .workbench { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: 36px; margin-block: 24px 32px; }
 .source { border-top: 2px solid var(--t1); padding-top: 16px; }
 .sourceHead { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 12px; }
@@ -94,6 +74,6 @@
 .focusLabel { display: inline-block; font-size: 11px; padding: 3px 8px; background: var(--ju-light); border: 1px solid var(--ju); }
 .relationDetail button { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; text-decoration: underline; text-underline-offset: 4px; font-size: 13px; margin-top: 12px; }
 .relationDetail button:hover { opacity: .7; }
-@media (max-width: 1000px) { .workbench { grid-template-columns: 1fr; } .inspector { position: static; } .patternTree { grid-template-columns: 120px 1fr; gap: 24px; } .treeRoot::after { width: 24px; } .branch { grid-template-columns: 1fr; } }
-@media (max-width: 600px) { .pair { grid-template-columns: 1fr; } .patternTree { display: block; } .treeRoot::after { display: none; } }
-@media (prefers-reduced-motion: reduce) { .comparison :is(button,a), .workbench :is(button,a), .patternTree a { transition: opacity var(--dur-fast) var(--ease); } }
+@media (max-width: 1000px) { .workbench { grid-template-columns: 1fr; } .inspector { position: static; } }
+@media (max-width: 600px) { .pair { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .comparison :is(button,a), .workbench :is(button,a) { transition: opacity var(--dur-fast) var(--ease); } }
