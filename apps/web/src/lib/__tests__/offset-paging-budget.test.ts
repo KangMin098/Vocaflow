@@ -86,8 +86,13 @@ type Scanner = { scanFile: (file: string) => Hit[]; walk: (dir: string, out?: st
  *   적어 두었다 — 「다음에 스캐너가 헬퍼 경유를 구분하게 만드는 편이 낫다」. 올바른 사용이
  *   예산을 먹으면, 정작 막아야 할 **직접 `.range()` 루프**(items.ts 7 · resolve.ts 11)가
  *   같은 숫자 안에 숨는다. 그 분리가 다음 회차의 실제 할 일이고, **그 전에는 올리지 말 것.**
+ *
+ * ── 216 → 207 (2026-09-26 · CSAT 통합 빚 상환) ───────────────────────────
+ * `lib/csat/items.ts` 3곳과 `lib/csat/dissect-catalog.ts` 2곳의 OFFSET 호출을
+ * 고유 키 커서로 바꿨다. 실제 `.range()` 다섯 곳을 없애자 넓은 스캐너 창이 이웃 조회까지
+ * 같은 OFFSET 으로 세던 네 후보도 함께 사라졌다. 깨끗한 LF 체크아웃 실측 207.
  */
-const BASELINE = 216
+const BASELINE = 207
 
 let scanner: Scanner
 

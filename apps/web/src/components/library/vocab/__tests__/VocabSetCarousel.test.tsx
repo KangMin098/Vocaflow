@@ -110,9 +110,9 @@ describe('히어로 표지 — 규격의 글자', () => {
     expect(html).toContain('Vocaflow Vocabulary 4')
   })
 
-  it('판형·스크림·도판 여백이 규격 값이다', () => {
+  it('정사각 판형·스크림·도판 여백이 현재 선반 규격 값이다', () => {
     const html = render(set())
-    expect(html).toContain('aspect-ratio:3 / 4')
+    expect(html).toContain('aspect-square w-[196px]')
     expect(html).toContain('rgba(0,0,0,0.35) 62%')
     // 코드 하한(hero 0.34)이 아니라 캔버스 값이어야 한다.
     expect(html).not.toContain('rgba(0,0,0,0.34) 62%')
@@ -135,7 +135,7 @@ describe('히어로 표지 — 규격의 글자', () => {
         onSelectCategory={() => {}}
       />,
     )
-    expect(html).toContain('absolute bottom-3 right-3')
+    expect(html).toContain('absolute bottom-2 right-2')
     expect(html).not.toContain('absolute right-3 top-3')
   })
 })

@@ -17,7 +17,7 @@ timeout = 15
 statusMessage = "인수인계·잠금 확인"
 
 [[hooks.PreToolUse]]
-matcher = "^(Bash|shell|local_shell|exec_command)$"
+matcher = "^Bash$"
 
 [[hooks.PreToolUse.hooks]]
 type = "command"

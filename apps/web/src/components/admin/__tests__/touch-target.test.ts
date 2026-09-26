@@ -121,6 +121,12 @@ const CSS_MODULE_44PX: { file: string; module: string; guard: RegExp }[] = [
     module: 'apps/web/src/app/admin/csat/sources/sources.module.css',
     guard: /min-height:\s*44px/,
   },
+  {
+    // 소스 이름 자체가 프로필을 여는 단추다. 모듈이 이름의 탭 영역을 44px 로 보장한다.
+    file: 'apps/web/src/components/admin/SourceProfileDialog.tsx',
+    module: 'apps/web/src/components/admin/source-profile.module.css',
+    guard: /\.nameButton[^{]*\{[^}]*min-height:\s*44px/s,
+  },
 ]
 const CSS_MODULE_FILES = new Set(CSS_MODULE_44PX.map((e) => e.file))
 

@@ -27,6 +27,9 @@ DB 가 **25분간 전면 정지**했다. 원인은 사전 드레인이 `/rest/v1
 정말 한 행씩 해야 하면 **초당 상한을 둔다.** 이 DB 의 실측 한계는 초당 33건 아래다.
 
 **가드**: `node scripts/lib/scan-row-writes.mjs` — 루프 안 단건 쓰기를 훑는다.
+스캐너는 같은 500자 창의 **첫 DB 연산**을 기준으로 판정한다. 앞의 `.select()`와 뒤의
+`.update()`를 한 쓰기로 두 번 세면 예산을 낮춘 것이 아니라 오탐을 쌓은 것이므로, 조회 줄은
+후속 쓰기에 귀속하지 않는다(`row-write-budget.test.ts`가 이 순서를 회귀로 고정).
 2026-09-06 기준 **후보 135건**(`shared_dictionary` 58 · `library_books` 17 · `library_articles` 14).
 2026-09-08 재측정 **140건**(`shared_dictionary` 58 · `library_articles` 19 · `library_books` 17) —
 늘어난 9건은 전부 09-07 에 들어온 **일회성 백필·수확기**(backfill-source-ids · harvest-voa-sitemap 등)이고
