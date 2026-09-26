@@ -25,14 +25,17 @@ export function auditPick(ids, batch, rate = CHECKLIST_AUDIT.rate) {
   return [...ids].sort((a, b) => order(`audit-${batch}`, a).localeCompare(order(`audit-${batch}`, b))).slice(0, n)
 }
 
-/** 본문 글자 수 합이 budget 을 넘지 않게 자른다(한 편이 budget 보다 길면 그 한 편만 한 청크). */
-export function chunkByBudget(items, budget, len = (x) => String(x.content ?? '').length) {
+/**
+ * 본문 글자 수 합이 budget 을, 편수가 maxItems 를 넘지 않게 한 번에 자른다(한 편이 budget 보다 길면 그 한 편만 한 청크).
+ * 두 상한을 따로 적용하면 3~8편짜리 꼬리 청크가 생긴다 — 청크마다 판정자 고정비가 들므로 한 번에 자른다.
+ */
+export function chunkByBudget(items, budget, maxItems = Infinity, len = (x) => String(x.content ?? '').length) {
   const chunks = []
   let cur = []
   let size = 0
   for (const it of items) {
     const l = len(it)
-    if (cur.length && size + l > budget) { chunks.push(cur); cur = []; size = 0 }
+    if (cur.length && (size + l > budget || cur.length >= maxItems)) { chunks.push(cur); cur = []; size = 0 }
     cur.push(it)
     size += l
   }

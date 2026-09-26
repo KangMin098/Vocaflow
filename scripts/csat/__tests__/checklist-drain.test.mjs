@@ -33,9 +33,11 @@ test('감사 고르기: 5% 올림 · 최소 1편 · 같은 배치면 같은 선�
   assert.deepEqual(auditPick([], 1), [])
 })
 
-test('청크 자르기: 글자 수 상한 · 한 편이 상한보다 길면 그 한 편만', () => {
+test('청크 자르기: 글자 수·편수 상한을 한 번에 · 한 편이 상한보다 길면 그 한 편만', () => {
   const c = chunkByBudget([{ content: 'a'.repeat(50) }, { content: 'a'.repeat(40) }, { content: 'a'.repeat(200) }, { content: 'a'.repeat(10) }], 100)
   assert.deepEqual(c.map((x) => x.length), [2, 1, 1])
+  const d = chunkByBudget(Array.from({ length: 60 }, () => ({ content: 'a' })), 1000, 25)
+  assert.deepEqual(d.map((x) => x.length), [25, 25, 10])
 })
 
 test('논문 원천·꺼진 원천은 체크리스트 경로 밖', () => {

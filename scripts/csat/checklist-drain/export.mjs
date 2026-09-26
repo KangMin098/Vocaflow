@@ -99,11 +99,7 @@ const items = rows.sort((x, y) => rank.get(x.id) - rank.get(y.id)).map((r) => ({
 }))
 
 // 편수 상한과 글자 수 상한을 함께 — 짧은 단신 수백 편이 한 청크에 몰리지 않게.
-const chunks = chunkByBudget(items, BUDGET).flatMap((c) => {
-  const out = []
-  for (let i = 0; i < c.length; i += PER) out.push(c.slice(i, i + PER))
-  return out
-})
+const chunks = chunkByBudget(items, BUDGET, PER)
 fs.mkdirSync(OUT, { recursive: true })
 chunks.forEach((c, i) => {
   fs.writeFileSync(path.join(OUT, `chunk-${String(i + 1).padStart(2, '0')}.json`), `${JSON.stringify(c, null, 1)}\n`, { flag: 'wx' })
