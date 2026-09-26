@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **원문 점검 최소 비용 파이프라인 — 자동 꾸러미 → Claude 창 판정 → 예외만 전문**(2026-09-26 · migration 0 · 기준 버전 그대로 v6): `source-triage-packets.mts`(긴 글 창 3개 · 440어 이하 전문 · 표 같은 창 제외) · `gate-mixed-import` 가 `basis:"windows"` 보관 판정을 받되 **보관만 적재**하고 보류·폐기·`escalate` 는 `<파일>.escalate.json` 으로 · `source-triage-escalate.mjs`(전문 청크 재구성) · 창마다 내용 판정 `gate.retain.window_verdicts`. 회차 4 검증: 잘못 보관 0.7% · 전문 재판정 14% · 읽은 분량 21%. 기준 `docs/source-check/criteria.md` §13.
 - **대량 판정 회차 10 — NIH 전량 · Wikinews 둘째 몫 1,760편 적재**(2026-09-25 · DB: gate.retain 1,760 · 본문 254 갱신 · 판정 18 제거 · 파생 표시 24): 지름길 검산 SUSPECT 0 · WARN 0. 이중 판정 nih 일치 98.8% · wikinews 94.0%(κ 0.550 — 짧은 사실 단신 최소선이 v6 후보). 수집 결함: wikinews **인용 템플릿 `{{cquote}}` 등 ~570곳을 지워 「said:」 뒤가 비었다** → 수집기 수정 · 254편 갱신. 그림책 원천 간 진짜 중복 24편(Jaccard ≥0.6)을 `derived_from kind=duplicate` 로 묶음. 기록 `docs/source-check/round-10.md`.
 - **원문 6문항 반영 · 골격 802/802 · 설계 주석 3유형 198/198**(2026-09-25 · 사용자 직접 실행 `regen-passages --commit --mark-ok` · migration 0): REFLOW_VERSION 3 원문 6문항 적재 · 남은 body_ok=false 0 → 골격 전 문항(802 · 유출 0). 딱지가 풀린 빈칸 5문항 주석(r3) → 목적·빈칸·순서 198문항 전부 설계 주석.
 - **판정 기준 v5 검증 · NIH 두 회차 연속 통과**(2026-09-25 · DB: gate.retain 40): 기관 공지문 조항으로 nih 회차 7 재판정 일치 85%→**100%** · 회차 9 새 표본 100%. 적재 40편. 기록 `docs/source-check/round-9.md`.

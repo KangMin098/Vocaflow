@@ -25,7 +25,7 @@ const BLOCKED = new Set([...HARMFUL, ...UNFIT, 'poetry-drama'])
 // (조용히 비어 있으면 전량을 다시 읽어야 하는 것을 나중에야 알게 된다).
 const KEYS = ['id', 'verdict', 'genre', 'why', 'source_updated_at', 'body_sha256', 'uses', 'basis', 'kind']
 // 보관 판정(`kind:"retain"` · docs/source-check/criteria.md §3)의 키 — 규칙은 retain-record.mjs 가 적재기와 함께 쓴다.
-const RETAIN_KEYS = ['id', 'kind', 'basis', 'source_updated_at', 'body_sha256', 'retention', 'hold_reason', 'genre', 'why', 'slots', 'processing', 'uses', 'criteria_version', 'round']
+const RETAIN_KEYS = ['id', 'kind', 'basis', 'source_updated_at', 'body_sha256', 'retention', 'hold_reason', 'genre', 'why', 'slots', 'processing', 'uses', 'criteria_version', 'round', 'window_verdicts', 'escalate']
 const pairs = process.argv.slice(2)
 if (!pairs.length || pairs.length % 2) throw new Error('<export.json> <reviews.json> 쌍으로 넘긴다')
 
@@ -53,6 +53,9 @@ for (let i = 0; i < pairs.length; i += 2) {
       if (Date.parse(r.source_updated_at) !== Date.parse(src.source_updated_at)) problems.push(`${at} 리비전 불일치: ${r.id}`)
       if (r.body_sha256 !== src.body_sha256) problems.push(`${at} 본문 해시 불일치: ${r.id}`)
       if (src.kind !== 'retain') problems.push(`${at} kind 불일치: 청크 ${src.kind ?? 'content'} · 판정 retain`)
+      // 창 판정(criteria.md §13) — 청크가 준 창과 같은 개수로 창마다 판정해야 한다(몇 개만 읽고 나머지를 채우면 잡힌다).
+      if ((src.basis ?? 'full') !== (r.basis ?? 'full')) problems.push(`${at} basis 불일치: 청크 ${src.basis ?? 'full'} · 판정 ${r.basis ?? 'full'}`)
+      if (r.basis === 'windows' && Array.isArray(src.windows) && r.window_verdicts?.length !== src.windows.length) problems.push(`${at} 창 ${src.windows.length}개인데 창 판정 ${r.window_verdicts?.length ?? 0}개`)
       whyCount.set(r.why, (whyCount.get(r.why) ?? 0) + 1)
       continue
     }

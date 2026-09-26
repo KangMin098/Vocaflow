@@ -17,7 +17,7 @@ import crypto from 'node:crypto'
 import { isDeepStrictEqual } from 'node:util'
 
 import { hardReject, purposeOf, decide, PURPOSE_RULE, RULES_VERSION, CODES_VERSION, HARMFUL, UNFIT, SOURCE_USES } from './gate-rules.mjs'
-import { retainProblems, retainRecord } from './retain-record.mjs'
+import { retainProblems, retainRecord, needsFullRead } from './retain-record.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
 import { track } from './drain-run.mjs'
 
@@ -44,7 +44,7 @@ if (inputIndex >= 0) {
       // 보관 판정(docs/source-check/criteria.md §3) — 규칙은 retain-record.mjs 한 곳에 있다(검사기와 같다).
       const problems = retainProblems(r, r.id)
       if (problems.length) throw new Error(`Invalid retention record: ${problems.slice(0, 3).join(' · ')}`)
-      if (r.basis !== undefined && r.basis !== 'full') throw new Error(`Only full-body judgments are accepted: basis=${r.basis}`)
+      // 보관 판정은 창(`windows` · criteria.md §13)도 받는다 — 단 **보관만 적재**하고 나머지는 전문 판정(C)으로 넘긴다(아래).
       if (!Number.isFinite(Date.parse(r.source_updated_at)) || !/^[a-f0-9]{64}$/.test(r.body_sha256 ?? '')) throw new Error('Review must record revision and full-body SHA256')
       continue
     }
@@ -73,12 +73,16 @@ if (inputIndex >= 0) {
     stage: 'source', script: 'scripts/csat/gate-mixed-import.mjs',
     mode: COMMIT ? 'import' : 'validate', args: `--input ${file}${COMMIT ? ' --commit' : ''}`,
   }, async () => {
+  // 창 판정 중 보관이 아닌 것 · `escalate` — **쓰지 않고** 전문 판정 대상으로만 적는다(폐기는 되돌릴 수 없다).
+  const escalated = reviews.filter(needsFullRead).map(r => r.id)
+  const escalatedSet = new Set(escalated)
   const response = await client.from('library_articles').select('id,content,updated_at,status,feed_id,source,csat_fit').in('id', [...seenIds])
   if (response.error || response.data.length !== reviews.length) throw new Error('Cannot load every reviewed source')
   const runId = new Date().toISOString().replace(/[:.]/g, '-')
   const manifest = []
   for (const row of response.data) {
     const review = reviews.find(r => r.id === row.id)
+    if (escalatedSet.has(row.id)) continue
     if (crypto.createHash('sha256').update(row.content ?? '').digest('hex') !== review.body_sha256) throw new Error(`Reviewed body changed: ${row.id}`)
     const purpose = purposeOf(row), codes = hardReject(row.content ?? '')
     const decision = decide({ purpose, verdict: review.verdict, genre: review.genre, codes })
@@ -112,6 +116,9 @@ if (inputIndex >= 0) {
     manifest.push({ runId, id: row.id, revision: row.updated_at, body_sha256: review.body_sha256, before: previous, after, changed: !unchanged, status: row.status, csat_fit: row.csat_fit })
   }
   const logPath = `${file}.${COMMIT ? 'commit' : 'plan'}-${runId}.json`
+  // 전문 판정 대상 목록 — `source-triage-escalate.mjs` 가 이걸 읽어 전문 청크를 만든다. 같은 내용이면 다시 쓰지 않는다(재실행 안전).
+  const escalatePath = `${file}.escalate.json`
+  if (escalated.length) fs.writeFileSync(escalatePath, JSON.stringify(escalated, null, 1) + '\n')
   fs.writeFileSync(logPath, JSON.stringify(manifest, null, 2), { flag: 'wx' })
   let changed = 0
   for (const entry of manifest.filter(x => x.changed)) {
@@ -121,9 +128,9 @@ if (inputIndex >= 0) {
     }
     changed++
   }
-  console.log(JSON.stringify({ mode: COMMIT ? 'commit' : 'dry-run', requested: reviews.length, changed, skipped: reviews.length - changed, logPath, statusPreserved: true, next: 'Refresh affected source policy caches and re-audit' }))
+  console.log(JSON.stringify({ mode: COMMIT ? 'commit' : 'dry-run', requested: reviews.length, changed, skipped: reviews.length - changed - escalated.length, escalated: escalated.length, ...(escalated.length ? { escalatePath } : {}), logPath, statusPreserved: true, next: 'Refresh affected source policy caches and re-audit' }))
   // 건너뛴 수 = 이미 같은 판정이라 안 쓴 것. **재실행 안전의 증거**라 반드시 센다.
-  return { total: reviews.length, done: changed, skipped: reviews.length - changed }
+  return { total: reviews.length, done: changed, skipped: reviews.length - changed - escalated.length }
   })
 } else {
 if (COMMIT) throw new Error('Legacy mixed commit retired: use --input with UUID/revision/body-bound reviews; dry-run remains available')

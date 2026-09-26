@@ -11,6 +11,11 @@ import {
   SOURCE_USES, HARMFUL, UNFIT, CRITERIA_VERSION,
 } from './gate-rules.mjs'
 
+const BASES = new Set(['full', 'windows'])
+export const WINDOW_VERDICTS = new Set(['use', 'narrative', 'reject'])
+/** 창 판정 중 전문(C)으로 넘길 것 — 보관이 아닌 것 전부 · 판정자가 올린 것. 폐기는 되돌릴 수 없어 창만으로 정하지 않는다. */
+export const needsFullRead = (r) => (r.basis ?? 'full') === 'windows' && (r.retention !== 'keep' || r.escalate === true)
+
 const BLOCKED = new Set([...HARMFUL, ...UNFIT, 'poetry-drama'])
 const AXES = { ages: SLOT_AGES, purposes: SLOT_PURPOSES, types: SLOT_TYPES, platform: SLOT_PLATFORM }
 
@@ -54,6 +59,27 @@ export function retainProblems(r, at = '') {
   if (r.uses !== undefined) {
     if (!Array.isArray(r.uses) || r.uses.some((u) => !SOURCE_USES.has(u))) p.push(`${at} 모르는 uses: ${JSON.stringify(r.uses)}`)
   }
+
+  // 창 판정(criteria.md §13) — 창만 읽은 판정은 창마다 내용 판정을 남긴다. 창 개수 대조는 검사기가 청크와 한다.
+  const basis = r.basis ?? 'full'
+  if (!BASES.has(basis)) p.push(`${at} basis 는 full·windows 뿐이다: ${basis}`)
+  if (r.escalate !== undefined && typeof r.escalate !== 'boolean') p.push(`${at} escalate 는 참·거짓이다`)
+  if (basis === 'windows') {
+    const wv = r.window_verdicts
+    if (!Array.isArray(wv) || !wv.length) p.push(`${at} 창 판정인데 window_verdicts 가 없다`)
+    else wv.forEach((w, i) => {
+      if (!WINDOW_VERDICTS.has(w?.verdict)) p.push(`${at} window_verdicts[${i}].verdict 는 use·narrative·reject 다: ${w?.verdict}`)
+      if (w?.i !== i) p.push(`${at} window_verdicts[${i}].i 는 창 순번(${i})이다: ${w?.i}`)
+      if (typeof w?.genre !== 'string' || !w.genre) p.push(`${at} window_verdicts[${i}].genre 없음`)
+      if (w?.verdict !== 'reject' && BLOCKED.has(w?.genre)) p.push(`${at} window_verdicts[${i}] 모순: ${w?.verdict} + 차단 장르 ${w?.genre}`)
+      if (!Array.isArray(w?.uses) || w.uses.some((u) => !SOURCE_USES.has(u))) p.push(`${at} window_verdicts[${i}].uses 모르는 값: ${JSON.stringify(w?.uses)}`)
+      else if ((w.verdict === 'reject') !== (w.uses.length === 0)) p.push(`${at} window_verdicts[${i}] reject 면 uses 가 비고, 아니면 하나 이상이다`)
+    })
+    if (r.retention === 'keep' && Array.isArray(wv) && wv.length && wv.every((w) => w?.verdict === 'reject')) p.push(`${at} 모순: keep 인데 쓸 창이 하나도 없다`)
+  } else {
+    if (r.window_verdicts !== undefined) p.push(`${at} 전문 판정에 window_verdicts 가 있다`)
+    if (r.escalate !== undefined) p.push(`${at} 전문 판정에 escalate 가 있다(전문이 마지막 단계다)`)
+  }
   return p
 }
 
@@ -69,6 +95,7 @@ export function retainRecord(r) {
     ...(r.uses ? { uses: r.uses } : {}),
     criteria_version: r.criteria_version,
     basis: r.basis ?? 'full',
+    ...(r.basis === 'windows' ? { window_verdicts: r.window_verdicts.map((w) => ({ i: w.i, verdict: w.verdict, genre: w.genre, uses: w.uses })) } : {}),
     ...(r.round ? { round: r.round } : {}),
     by: 'chunk-llm',
   }

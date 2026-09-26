@@ -320,10 +320,12 @@ export const TBP_HELP: HelpRegistry = {
             title: 'PLOS 원본 보관 판정 드레인 (회차 안정·승인 후)',
             detail:
               '① `node --tls-max-v1.2 scripts/csat/plos-raw-triage-export.mjs`(예행, 편수만) → `--write --max N`: **전문**을 V-Level 낮은 것부터 20편씩 `scripts/csat/plos-raw-triage/` 에 뽑는다 — 읽기 전용, **이미 보관 판정됐거나 이미 청크에 든 원본은 건너뛰므로 재실행 안전**. 후보는 적격 캐시에서 고르므로 새로 수확한 원본은 캐시 갱신 뒤에 보인다. ' +
-              '② 에이전트(`csat-source-judge`)가 `scripts/csat/plos-raw-triage-brief.md` 를 따라 `chunk-NNN.out.json` 을 쓴다(`kind:"retain"` · `basis:"full"` · 20편에 약 26만 토큰 추정). 열 청크 중 하나는 두 번째 판정자가 따로 판정하고 `gate-reviews-agreement.mjs` 로 κ 를 잰다 — 0.6 미만이면 그 배치는 적재하지 않는다. ' +
-              '③ `gate-reviews-verify.mjs <chunk> <out>` → `gate-mixed-import.mjs --input <out>` 예행 → `--commit`. 적재기는 `gate.retain` 한 키만 더하고 `gate.verdict` 는 두므로 게시 판정이 바뀌지 않는다. 같은 판정 재적재는 변경 0(재실행 안전). ' +
+              '①-2 **최소 비용 꾸러미**(criteria.md §13 · 2026-09-26): `pnpm exec tsx scripts/csat/source-triage-packets.mts --in <전문 청크 디렉터리> --out <디렉터리>-lite` — 긴 글은 창 3개(첫 창 + 쉬운 창 2 · 표 같은 창 제외), 440어 이하 글은 전문 그대로. 읽기 전용 · 있는 출력 파일은 건너뛰므로 재실행 안전. ' +
+              '② 에이전트(`csat-source-judge`)가 **lite 청크**를 판정해 `chunk-NNN.out.json` 을 쓴다(창 항목은 `basis:"windows"` + 창마다 `window_verdicts`). 열 청크 중 하나는 두 번째 판정자가 따로 판정하고 `gate-reviews-agreement.mjs` 로 κ 를 잰다 — 0.6 미만이면 그 배치는 적재하지 않는다. ' +
+              '③ `gate-reviews-verify.mjs <lite chunk> <out>` → `gate-mixed-import.mjs --input <out>` 예행 → `--commit`. 창 판정은 **보관만** 적재되고, 보관이 아닌 것·`escalate` 는 쓰지 않고 `<out>.escalate.json` 에 적힌다. 적재기는 `gate.retain` 한 키만 더하고 `gate.verdict` 는 두므로 게시 판정이 바뀌지 않는다. 같은 판정 재적재는 변경 0(재실행 안전). ' +
+              '③-2 **전문 판정(C)**: `node scripts/csat/source-triage-escalate.mjs --lite <lite 디렉터리> --full <전문 청크 디렉터리> --out <디렉터리>-full` (읽기 전용 · 있는 출력은 건너뜀 · 전문 청크에 없는 id 가 있으면 exit 1) → 같은 판정자·검사기·적재기로 전문 판정 → 여기서 나온 폐기·보류가 확정이다. ' +
               '④ 보관이 쌓이면 `plos-extract` 를 돌린다 — 보관 판정 없는 원본은 「보관 판정 없음·폐기」로 건너뛴다.',
-            done: '`csat-sources-audit` 의 보관 미결정(undecided) 중 plos 몫이 0 이다.',
+            done: '`csat-sources-audit` 의 보관 미결정(undecided) 중 plos 몫이 0 이고, 적재 때 나온 `*.escalate.json` 이 전부 전문 판정으로 적재됐다(남은 escalate 는 미결정으로 남아 있다 — 버려진 것이 아니다).',
           },
           {
             title: '스캔을 다시 돌린다',
