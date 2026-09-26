@@ -174,7 +174,7 @@ export async function loadRequestBoard(db: AdminClient, plan: PlanBoard): Promis
   }
 }
 
-// rerender_requested_at 은 20260926120000 이 더한다 — 적용 전에도 화면이 돌도록 선택 칸으로 둔다(select '*')
+// rerender_requested_at 은 20260926130000 이 더한다 — 적용 전에도 화면이 돌도록 선택 칸으로 둔다(select '*')
 type RetireRow = {
   video_id: string
   reason: string

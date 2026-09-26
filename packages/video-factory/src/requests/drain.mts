@@ -61,7 +61,7 @@ interface RequestRow {
   error: string | null
   created_at: string
   mode: 'new' | 'replace'
-  /** applied 가 된 순간의 발행 시각(20260926120000) — 평가가 셀 재생 기록의 시작 */
+  /** applied 가 된 순간의 발행 시각(20260926130000) — 평가가 셀 재생 기록의 시작 */
   applied_at: string | null
 }
 
@@ -203,7 +203,7 @@ export interface RetirementRow {
  * 파일에는 **렌더에서 뺄 id**(`splitRetired().forRender`)를 쓴다 — 「다시 찍기」가 요청된 purge 편은
  * 음성·렌더·썸네일이 다시 만들 수 있게 빠진다. 반환값은 되살리지 않은 행 **전부**이고,
  * 포장·발행·retire:sync 는 이것으로 뺀다(다시 찍기가 끝나기 전에는 학습자 화면에 나가지 않는다).
- * `select('*')` 인 이유: rerender_requested_at 은 20260926120000 이 더한다 — 적용 전에도 돌아야 한다.
+ * `select('*')` 인 이유: rerender_requested_at 은 20260926130000 이 더한다 — 적용 전에도 돌아야 한다.
  */
 export async function refreshRetiredFile(db: SupabaseClient = requireServiceClient()): Promise<RetirementRow[]> {
   const rows = await must<RetirementRow[]>(db.from('video_retirements').select('*'), '내린 편 조회')

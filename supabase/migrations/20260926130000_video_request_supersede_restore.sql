@@ -1,4 +1,4 @@
--- supabase/migrations/20260926120000_video_request_supersede_restore.sql
+-- supabase/migrations/20260926130000_video_request_supersede_restore.sql
 --
 -- **PR #119 리뷰 결함 셋을 DB 쪽에서 막는다** (20260924150000 은 이미 적용됐으므로 고치지 않고 덧붙인다).
 --

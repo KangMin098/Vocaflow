@@ -184,13 +184,13 @@ Admin 「기획」 탭. Admin 은 커밋된 원천 + **DB 실측**으로 같은 
 | | 어떻게 | 되돌리기 |
 |---|---|---|
 | **내리기** | 화면(구성요소 탭 · 요청 상세)에서 이유와 함께 → `video_retirements` · `pnpm video retire:sync --commit` 이 manifest 에서 뺀다 → **커밋·배포 뒤** 화면에서 사라진다 | 「되살리기」 → 다음 `package` 가 manifest 에 되돌린다 |
-| **파일 삭제** | `retire:sync --commit --purge` — 버킷 + 로컬(out · dist-media) 파일을 지우고 `purged_at` | 「다시 찍어 되살리기」 → `rerender_requested_at` · 그 편만 렌더 목록에 돌아온다 → `pnpm video voice <id> && pnpm video render <id>` 가 **모든 규격**을 파일로 확인하면 `video_retire_rerendered` 가 purge 표시를 지우고 되살린다 → 다음 `package`. 그 전에는 포장·발행에서 계속 빠진다(`20260926120000`) |
+| **파일 삭제** | `retire:sync --commit --purge` — 버킷 + 로컬(out · dist-media) 파일을 지우고 `purged_at` | 「다시 찍어 되살리기」 → `rerender_requested_at` · 그 편만 렌더 목록에 돌아온다 → `pnpm video voice <id> && pnpm video render <id>` 가 **모든 규격**을 파일로 확인하면 `video_retire_rerendered` 가 purge 표시를 지우고 되살린다 → 다음 `package`. 그 전에는 포장·발행에서 계속 빠진다(`20260926130000`) |
 | **교체** | 「교체 요청」 → 요청(`mode=replace`, `video_id` = 그 자리) → 순환 그대로 → 발행이 같은 경로를 덮는다 | 교체본을 다시 교체하거나, 규칙 편이면 교체 요청을 거두기 전까지 |
 
 - **내린 편은 어디에도 다시 안 나온다** — `mergeSpecs` 가 음성·렌더·포장·Remotion 에서 빼고, `publish` 는 로컬에 남은 파일도 올리지 않는다. 목록은 명령마다 DB 에서 `work/retired.json` 으로 새로 받고, **못 받으면 멈춘다**(빈 목록으로 진행하면 내린 편이 되살아난다).
 - **교체 편은 같은 id 의 편을 이긴다**(`brief.replaces`). 새 요청 편은 같은 id 가 있으면 진다. 교체 편은 원래 편의 `kind` 를 이어받는다 — /video 의 칸과 계측 kind 가 그대로다.
 - **같은 자리의 진행 중 교체는 하나** — `video_requests_video_id_live_uniq`(approved·applying·applied).
-- **같은 자리의 주인은 가장 나중에 만든 요청** — `requests:pull` 은 `created_at` 순으로 읽고 `pickRequestOwners` 로 자리마다 하나만 설계도 파일에 쓰고 시작한다. 옛 `failed` 는 더 새 요청이 있으면 자동 재시도하지 않는다(두 행이 applying 이 되어 유일 인덱스에 걸리던 결함). `mergeSpecs` 도 같은 id 가 여럿이면 뒤의 것이 이긴다. DB 전이(`video_request_advance`)도 같은 규칙으로 막는다(`20260926120000`).
+- **같은 자리의 주인은 가장 나중에 만든 요청** — `requests:pull` 은 `created_at` 순으로 읽고 `pickRequestOwners` 로 자리마다 하나만 설계도 파일에 쓰고 시작한다. 옛 `failed` 는 더 새 요청이 있으면 자동 재시도하지 않는다(두 행이 applying 이 되어 유일 인덱스에 걸리던 결함). `mergeSpecs` 도 같은 id 가 여럿이면 뒤의 것이 이긴다. DB 전이(`video_request_advance`)도 같은 규칙으로 막는다(`20260926130000`).
 - **교체 편 평가는 새 발행 뒤만** — 요청이 applied 가 되는 순간의 발행 시각을 `video_requests.applied_at` 에 남기고, `evaluate` 는 `funnel_events.occurred_at ≥ applied_at` 만 센다. 교체 편인데 `applied_at` 이 없으면 옛 편 기록을 섞지 않고 「못 잼」.
 - **큐** — `video_job_advance` 는 단계를 되돌리지 않으므로, 교체 시작 때 `video_job_restart` 가 그 자리의 행을 `queued` 로 되돌린다.
 - **캐시** — 버킷은 7일 캐시(`cacheControl 604800`)라 같은 경로를 덮으면 옛 파일이 나간다. `package` 가 규격·포스터·자막마다 내용 해시(`v` · `posterV` · `captionsV`)를 manifest 에 쓰고 앱이 `?v=` 로 붙인다. 포스터는 영상이 더 새로우면 다시 뽑는다. 썸네일은 `thumbs <id> --force`.

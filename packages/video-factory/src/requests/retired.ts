@@ -42,7 +42,7 @@ export interface RetirementState {
   video_id: string
   restored_at: string | null
   purged_at: string | null
-  /** purge 된 편의 되살리기 = 다시 찍기 요청(20260926120000). 마이그레이션 전이면 없다 */
+  /** purge 된 편의 되살리기 = 다시 찍기 요청(20260926130000). 마이그레이션 전이면 없다 */
   rerender_requested_at?: string | null
 }
 
