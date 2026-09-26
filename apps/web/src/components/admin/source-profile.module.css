@@ -92,6 +92,7 @@
 /* 소스 이름 버튼 — 목록 안에서 이름 자리에 그대로 선다 */
 .nameButton {
   all: unset; cursor: pointer; color: inherit; font: inherit;
+  display: inline-flex; min-height: 44px; align-items: center;
   border-bottom: 1px dashed var(--bd-strong);
 }
 .nameButton:hover { border-bottom-color: var(--p); color: var(--p); }
