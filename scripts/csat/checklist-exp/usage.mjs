@@ -33,7 +33,8 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.output') || x.end
   for (const line of fs.readFileSync(path.join(dir, f), 'utf8').split('\n')) {
     if (!line) continue
     if (!label) {
-      const m = line.match(/(work[\w-]*)\/(chunk-\d+(?:\.[A-Za-z0-9]+)?)\.out\.json/)
+      // 작업 폴더 아래 한 단계 하위 폴더(work-plos/full1 등)도 이름표에 넣는다
+      const m = line.match(/(work[\w-]*(?:\/[\w-]+)?)\/(chunk-\d+(?:\.[A-Za-z0-9]+)?)\.out\.json/)
       if (m) label = `${m[1]}/${m[2]}`
     }
     let j

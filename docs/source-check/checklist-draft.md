@@ -1,9 +1,14 @@
-# 보관 판정 체크리스트 — 실험 초안 (v7 후보 · 정본 아님)
+# 보관 판정 체크리스트 — v7 채택(비논문 원천)
 
-> **정본은 [criteria.md](./criteria.md) v6 이다.** 이 파일은 실험 2(판정 분해)의 도구다 — 종합 판정 「보관할까」를
-> 예/아니요 질문으로 쪼개고, 보관 여부는 **판정자가 아니라 규칙**(`scripts/csat/checklist-exp/decide.mjs`)이 계산한다.
+> **기준 정본은 [criteria.md](./criteria.md) v7 이다.** 이 파일은 그 §3-6 **체크리스트 경로**의 질문지다 — 종합 판정 「보관할까」를
+> 질문으로 쪼개고, 보관 여부는 **판정자가 아니라 규칙**(`scripts/csat/checklist-exp/decide.mjs`)이 계산한다.
+> **쓰는 곳: 논문 원천을 뺀 원천만**(criteria §3-6). 규칙이 `keep` 이라 한 것만 확정하고 나머지는 전문 판정으로 간다 · 배치마다 5% 무작위 전문 재판정.
 > 질문마다 근거가 된 criteria.md 절을 적었다. 질문 뜻이 criteria.md 와 어긋나 보이면 criteria.md 를 따르고 `note` 에 적는다.
-> 실험이 통과하기 전에는 판정 적재에 쓰지 않는다. 결과 `docs/reports/checklist-exp-*.md`.
+> 실측: `docs/reports/checklist-exp-20260926.md`.
+>
+> v7 에서 기준이 정한 두 자리(판정자가 `gap` 으로 갈리던 곳):
+> - 운율을 맞춘 **아동 그림책·동시는 Q1 `blocked` 가 아니다**(`poetry-drama` 는 성인 대상 시·희곡만) — 다른 질문을 산문과 똑같이 답한다(criteria §5 `verse-children`).
+> - **Wikinews Shorts(단신 모음)** 는 수집 단계에서 꼭지별로 쪼갠다. 쪼개기 전 모음 행이 오면 Q1 `mixed` 로 막지 말고 Q14 `gap` 에 「단신 모음」이라 적는다(criteria §8).
 
 ## 답하는 법
 
