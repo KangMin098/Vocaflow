@@ -61,3 +61,30 @@ node agents/scripts/lock.mjs release <agent>     # 끝나면
 
 Codex 쪽 주의: 프로젝트 `.codex/` 는 **신뢰한 프로젝트에서만** 로드되고, 새 훅은 TUI 의 `/hooks` 에서 한 번 신뢰해야 돈다.
 Codex 는 `config.toml` 안의 `${VAR}` 를 치환하지 않는다 — 비밀은 `env_vars` 로 셸 환경에서 통과시킨다.
+
+## 5. 왔다 갔다 할 때 — 한도가 아니어도 같은 순서
+
+두 에이전트를 번갈아 쓰는 것 자체는 안전하다. 사고는 **넘기는 순간**에 난다(2026-09-26 한 세션에서 셋:
+옛 가드 워크트리 · 같은 마이그레이션 번호 · 폐기된 PR 위의 PR).
+
+**넘기는 쪽**
+1. 하던 일을 커밋·push 한다(`git commit --only <paths>`). 미커밋을 남기고 넘기지 않는다.
+2. `node agents/scripts/lock.mjs release <나>`
+3. `node agents/scripts/handoff.mjs <나> <상대> --done … --todo … --accept … --next …` — 짧은 일이어도 쓴다.
+   받는 쪽이 같은 세션 기억을 갖고 있지 않다는 것이 전제다.
+4. 출력된 「받는 쪽 시작 명령」을 사용자에게 준다.
+
+**받는 쪽** (세션 시작 훅이 알려 준다)
+1. **「[안전장치 낡음]」 이 떴으면 멈춘다** → 사용자에게 알리고 `git merge origin/main`. 옛 워크트리는 이 훅 자체가
+   없을 수 있다 — 그래서 **Codex 는 main 을 합친 워크트리에서만 띄운다**(지금 확인: `node agents/scripts/check.mjs`
+   가 D10 까지 11항목을 돌면 최신이다).
+2. 인수인계 수용 기준 재확인 → `handoff.mjs --verify` → `lock.mjs acquire <나>` → `handoff.mjs --ack <나>`.
+3. 이어받은 기능은 끝까지 한다(§3-4).
+
+**둘 다 지키는 것**
+- 마이그레이션: 만들기 직전 `ls supabase/migrations` 로 번호를 고른다 · DB 적용은 사용자 승인 뒤 한쪽만 · 적용한 쪽이
+  문서의 「미적용」 표기를 같은 PR 에서 고친다. 번호가 겹치면 **아직 적용 안 된 쪽**을 바꾼다(`check.mjs` D10).
+- 교차 리뷰: 상대가 쓴 기능은 머지 전에 이쪽이 리뷰한다(§1). 리뷰 결함은 그 PR 에 코멘트로 남겨 추적한다.
+- 다른 세션의 워크트리는 건드리지 않는다 — 고칠 게 있으면 `git worktree add --detach <임시경로> origin/<브랜치>` 에서
+  git 작업만 하고 `git push origin HEAD:<브랜치>` 뒤 지운다.
+- 쌓인 PR(stacked PR): base PR 이 닫혔으면 옮기기 전에 그 폐기 결정과 충돌하는지 본다(#118 ← #115 · DD-62/66).

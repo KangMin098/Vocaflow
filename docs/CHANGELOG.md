@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **Claude ↔ Codex 왕복 안전장치**(2026-09-26 · migration 0): 세션 시작 훅이 워크트리의 `agents/scripts` · `.codex` · `.claude/settings.json` 이 origin/main 보다 뒤면 「[안전장치 낡음]」 경고(실측 워크트리 13/15 가 옛 가드 — Codex 에서 파괴 명령 미차단) · `check.mjs` D10 마이그레이션 새 버전 중복 0(기존 17개 기준선 — 두 에이전트가 같은 날 `20260926120000` 을 만들었다) · AGENTS.md 규칙 4줄 · `agents/router.md` §5 「왔다 갔다 할 때」. 회귀 102/102.
 - **VCB 에디션 표지 기본 화풍 → tines**(2026-09-26 · migration 0): `edition-styles.mjs` 에 `tines`(illo-tines-scenes `STYLE_TILE` import · 면 색 6 · 10% 자르기) 추가 후 기본값으로, 55권 아트 디렉션을 사물 하나 + 면 색으로 재작성. 화풍별 부정 프롬프트(`negFor`) · illo-kaggle 장면별 `neg`.
 - **발행 콘텐츠 critical 0 복구**(2026-09-26 · #106 · migration 0): I1 `v_level` 결측 587 → 0(2026-08-26·09-05 추가분, 판정 3청크 `scripts/dict/vlevel-fill-20260926/` · CEFR 최빈 V 를 기준점으로 · 빈도 순위 전부 없음) · I12 예문 공백 204 → 0(`sync_published_set_examples()` 219행) · I5 옛 바인딩 3행(poring→pore 「모공」 · paged→page)을 표면형으로 · P&P I10 2 → 0(`republish_book_word_sets` 한 권). `content-quality-gate.integration` 13/13.
 - **영/미 철자 표제어 통합 — 미국식 정본**(2026-09-26 · #105 · migration `20260926120000_spelling_canonical`): `shared_dictionary.variant_of` 신설 + 187쌍 백필(뜻 대조로 오탐 17 제외 — four/for · tour/tor · prise/prize · dialogue 등) · `resolve_dict_headword` 는 5계층을 그대로 두고 결과만 정본으로 모은다(colours → color). 행은 지우지 않는다(발행 세트 참조). 되돌리기 = `variant_of` NULL.

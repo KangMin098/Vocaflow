@@ -152,6 +152,10 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 - 한도·중단 시 `handoff.mjs <from> <to>` → `.agent-handoff/latest.md`. **받는 쪽의 첫 동작은 그 파일을 읽고 수용 기준부터 재확인.** 받은 기능은 받은 쪽이 끝낸다.
 - MCP 정의는 `agents/mcp.source.json` 만 고친다 — `.mcp.json` · `.codex/config.toml` 의 `mcp_servers` 는 생성물.
 - **git 훅은 인덱스를 고치지 않는다**(검사·안내만) — 훅의 `git add` 는 `--only` 를 깨고 커밋 뒤에도 남는다(DD-49).
+- **안전장치가 최신인 워크트리에서만 일한다.** 세션 시작에 「[안전장치 낡음]」 이 뜨면 쓰기 전에 사용자에게 알리고 `git merge origin/main` — 옛 가드는 Codex 에서 파괴 명령을 막지 못한다(2026-09-26 실측: 워크트리 13/15).
+- **에이전트를 바꿀 때는 한도가 아니어도** 커밋·push → `lock.mjs release` → `handoff.mjs <from> <to>` 순서. 커밋 안 된 변경을 남긴 채 넘기지 않는다. 절차 [router.md §5](./agents/router.md).
+- **마이그레이션 버전은 만들기 직전 `ls supabase/migrations` 로 겹치지 않게** 고른다(두 에이전트가 같은 날 같은 번호를 만들었다 — `check.mjs` D10 이 막는다). 한쪽이 이미 DB 에 적용했으면 다른 쪽 번호를 바꾼다.
+- **다른 에이전트가 만든 PR 은 머지 전에 반대 에이전트가 리뷰한다**(router.md §1) · 폐기된 PR 위에 쌓인 PR 은 옮기기 전에 그 폐기 결정(DD)과 충돌하는지 본다.
 
 ## 하지 말 것 — 두 번 이상 고친 실수
 

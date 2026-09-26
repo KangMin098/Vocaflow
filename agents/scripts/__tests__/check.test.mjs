@@ -4,7 +4,7 @@
 // 검사기가 스스로 무력해지지 않았는지 — 일부러 넣은 중복·비밀값·드리프트를 잡아야 한다.
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { duplicates } from '../check.mjs'
+import { duplicateMigrationVersions, duplicates } from '../check.mjs'
 import { findSecrets, isEnvFile } from '../lib.mjs'
 import { renderMcpJson, renderTomlBlock, spliceToml, TOML_END, TOML_START } from '../sync.mjs'
 
@@ -97,4 +97,19 @@ test('sync: Codex 가 마커를 지워도 생성 표만 바꾸고 tools 승인 �
 
 test('sync: 마커가 한쪽만 남으면 추측하지 않고 멈춘다', () => {
   assert.throws(() => spliceToml(`${TOML_START}\nx = 1\n`, 'b', ['s']), /한쪽만/)
+})
+
+test('D10: 두 에이전트가 같은 버전으로 만든 마이그레이션을 잡는다', () => {
+  const names = ['20260926120000_spelling_canonical.sql', '20260926120000_video_request_supersede_restore.sql', '20260926130000_x.sql']
+  assert.deepEqual(duplicateMigrationVersions(names, new Set()), [names.slice(0, 2)])
+})
+
+test('D10: 옛 형식 YYYYMMDD_hhmmss 는 날짜만이 아니라 시각까지 버전이다', () => {
+  assert.deepEqual(duplicateMigrationVersions(['20260521_140000_a.sql', '20260521_200000_b.sql'], new Set()), [])
+  assert.equal(duplicateMigrationVersions(['20260521_140000_a.sql', '20260521140000_b.sql'], new Set()).length, 1)
+})
+
+test('D10: 버전 없는 파일과 기준선 버전은 세지 않는다', () => {
+  assert.deepEqual(duplicateMigrationVersions(['_pending_a.sql', '_pending_a.sql', 'README.md']), [])
+  assert.deepEqual(duplicateMigrationVersions(['20260924150000_a.sql', '20260924150000_b.sql']), [])
 })
