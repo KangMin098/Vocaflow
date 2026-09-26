@@ -433,7 +433,18 @@ const EditionCover = forwardRef<
       }}
     >
       <span className="absolute inset-0 overflow-hidden rounded-[2px] bg-[#1d1d1f]">
-        {ed ? (
+        {ed?.panel ? (
+          // tines — 표지를 그림의 면 색으로 채우고, 제목은 위쪽 면에, 그림은 아래쪽에 78% 로 앉힌다.
+          //   그림 바탕과 같은 색이라 이음새가 보이지 않는다(edition-import 가 모서리에서 뽑은 색).
+          <span className="absolute inset-0" style={{ backgroundColor: ed.panel }}>
+            <span className="absolute inset-x-[11%] bottom-0 top-[22%]">
+              <Image src={`${ed.src}?v=${ed.v}`} alt="" fill sizes="170px" className="object-contain object-bottom" draggable={false} />
+            </span>
+            <span className="absolute inset-x-0 top-0 px-3 pt-3 text-left text-[19px] font-[800] leading-[1.05] tracking-[-0.03em] text-white break-keep">
+              {set.title}
+            </span>
+          </span>
+        ) : ed ? (
           <>
             <Image src={`${ed.src}?v=${ed.v}`} alt="" fill sizes="220px" className="object-cover" draggable={false} />
             {/* 제목 — 표지 위쪽 30% 의 조용한 면에 앉는다(생성 프롬프트가 비워 둔 자리). 굵고 촘촘하게. */}

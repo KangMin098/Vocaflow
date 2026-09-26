@@ -14,6 +14,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import { DEFAULT_STYLE, TITLE_INK } from './edition-styles.mjs'
+import { chromium } from '../../design/lib/ref-page.mjs'
 
 const HERE = import.meta.dirname
 const ROOT = path.resolve(HERE, '../../..')
@@ -33,6 +34,25 @@ const prompts = JSON.parse(fs.readFileSync(path.join(HERE, 'work', 'prompts.out.
 const logPath = path.join(HERE, 'work', 'gen-log.json')
 const genLog = fs.existsSync(logPath) ? JSON.parse(fs.readFileSync(logPath, 'utf8')) : {}
 
+// 면 색 — tines 표지는 진한 단색 면 위 사물이다. 화면이 제목 띠를 **그림과 같은 색**으로 칠하도록
+//   네 모서리(24px 칸)의 중앙값을 적는다. 모델이 실제로 칠한 색이라 TILE_BG 의 이름표 색과 다를 수 있다(자홍이 라일락으로 나온다).
+const browser = await chromium.launch()
+const page = await browser.newPage()
+async function panelOf(file) {
+  return page.evaluate(async (src) => {
+    const im = new Image(); im.src = src; await im.decode()
+    const W = im.naturalWidth, H = im.naturalHeight, c = document.createElement('canvas'); c.width = W; c.height = H
+    const g = c.getContext('2d'); g.drawImage(im, 0, 0)
+    const px = []
+    for (const [x0, y0] of [[4, 4], [W - 28, 4], [4, H - 28], [W - 28, H - 28]]) {
+      const d = g.getImageData(x0, y0, 24, 24).data
+      for (let i = 0; i < d.length; i += 4) px.push([d[i], d[i + 1], d[i + 2]])
+    }
+    const med = [0, 1, 2].map((k) => px.map((p) => p[k]).sort((a, b) => a - b)[px.length >> 1])
+    return '#' + med.map((v) => v.toString(16).padStart(2, '0')).join('')
+  }, 'data:image/webp;base64,' + fs.readFileSync(file).toString('base64'))
+}
+
 let wrote = 0, skippedNoFile = 0, unchanged = 0
 for (const [slug, raw] of Object.entries(prompts)) {
   const p = { ...raw, style: raw.style ?? DEFAULT_STYLE }
@@ -47,9 +67,10 @@ for (const [slug, raw] of Object.entries(prompts)) {
     model: genLog[slug]?.model ?? 'qwen-image-q3-lightning (kaggle)',
     generated_at: genLog[slug]?.generated_at ?? fs.statSync(file).mtime.toISOString(),
     v: Math.round(fs.statSync(file).mtimeMs / 1000), // 캐시 무효화용 — 다시 그리면 바뀐다
+    ...(p.style === 'tines' ? { panel: await panelOf(file) } : {}),
   }
   const prev = row.cover_image_meta?.edition
-  if (prev && prev.src === edition.src && prev.v === edition.v && prev.style === edition.style) { unchanged++; continue }
+  if (prev && prev.src === edition.src && prev.v === edition.v && prev.style === edition.style && prev.panel === edition.panel) { unchanged++; continue }
   if (COMMIT) {
     const next = { ...(row.cover_image_meta ?? {}), edition }
     const { error: e2 } = await sb.from('shared_word_sets').update({ cover_image_meta: next }).eq('id', row.id)
@@ -58,4 +79,5 @@ for (const [slug, raw] of Object.entries(prompts)) {
   wrote++
   console.log(`  ${COMMIT ? '✓' : '·'} ${slug} (${p.style})`)
 }
+await browser.close()
 console.log(`${COMMIT ? '적재' : '드라이런'} ${wrote} · 변경 없음 ${unchanged} · 파일 없어 건너뜀 ${skippedNoFile}`)

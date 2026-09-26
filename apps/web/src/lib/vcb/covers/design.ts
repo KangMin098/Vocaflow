@@ -227,6 +227,11 @@ export interface EditionCover {
   generated_at: string
   /** 캐시 무효화 — 다시 그리면 바뀐다 */
   v: number
+  /**
+   * tines 화풍의 면 색(그림 네 모서리 중앙값). 있으면 선반은 표지를 이 색으로 채우고 제목을 위쪽 면에,
+   * 그림을 아래쪽에 줄여 앉힌다 — tines 사물은 위까지 차올라 제목과 겹친다(2026-09-26 실측).
+   */
+  panel?: string
 }
 
 /**
