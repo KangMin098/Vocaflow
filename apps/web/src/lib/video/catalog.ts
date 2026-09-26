@@ -28,6 +28,7 @@ export type VideoKind =
   | 'module'
   | 'method'
   | 'advice'
+  | 'request'
 export type VideoFormat = 'wide' | 'vertical' | 'square'
 
 export interface VideoFile {
@@ -36,6 +37,9 @@ export interface VideoFile {
   bytes: number
   width: number
   height: number
+  /** 내용 해시 — 같은 경로를 덮어쓰는 교체 뒤에도 캐시된 옛 파일이 안 나가게 `?v=` 로 붙인다 */
+  v?: string
+  posterV?: string
 }
 
 export interface VideoEvidence {
@@ -51,6 +55,7 @@ export interface VideoEntry {
   subtitle: string
   seconds: number
   captions: string
+  captionsV?: string
   /** 컷별 자막 전문 — 편별 페이지가 **서버 렌더 HTML** 로 낸다(I6). */
   transcript: string[]
   /** 화면에 나온 수치와 출처. 근거 없는 수치를 페이지에 싣지 않기 위해 함께 나른다. */
@@ -71,9 +76,10 @@ export const VIDEO_PUBLISHED = Boolean(manifest.baseUrl) && manifest.videos.leng
 
 export const VIDEO_BUILT_AT = manifest.builtAt
 
-function url(relative: string): string | null {
+function url(relative: string, v?: string): string | null {
   if (!manifest.baseUrl) return null
-  return `${manifest.baseUrl.replace(/\/$/, '')}/${relative}`
+  // 옛 manifest(해시 없음)는 그대로 — 해시는 다음 포장부터 붙는다
+  return `${manifest.baseUrl.replace(/\/$/, '')}/${relative}${v ? `?v=${v}` : ''}`
 }
 
 export interface ResolvedVideo {
@@ -97,9 +103,9 @@ export function videoById(id: string, format: VideoFormat = 'wide'): ResolvedVid
   const entry = manifest.videos.find((v) => v.id === id)
   const f = entry?.formats[format]
   if (!entry || !f) return null
-  const src = url(f.file)
-  const poster = url(f.poster)
-  const captions = url(entry.captions)
+  const src = url(f.file, f.v)
+  const poster = url(f.poster, f.posterV)
+  const captions = url(entry.captions, entry.captionsV)
   if (!src || !poster || !captions) return null
   return {
     id: entry.id,
@@ -168,6 +174,8 @@ export const KIND_LABEL: Record<VideoKind, string> = {
   series: '브랜드 시리즈',
   type: '문항 유형',
   module: '학습 활동',
+  // 관리자 요청으로 기획·검토를 거친 편 — 분야가 여럿이라 한 이름으로 묶는다
+  request: '기획 영상',
 }
 
 /**
@@ -177,6 +185,14 @@ export const KIND_LABEL: Record<VideoKind, string> = {
  *   **11편이 조용히 사라졌다**(73편 중 62편만 그려짐). 목록은 한 곳에만 있어야 한다.
  */
 export const KIND_ORDER = Object.keys(KIND_LABEL) as VideoKind[]
+
+/**
+ * **규칙이 만드는 종류** — 구성요소 하나당 영상 하나가 있어야 하는 종류(분모가 있는 종류).
+ *
+ * `request` 는 여기 없다: 관리자 요청 하나당 한 편이라 「있어야 할 편」의 분모가 없다.
+ * 요청 편 진척은 `/admin/video` 의 요청 탭(`video_requests`)이 센다.
+ */
+export const RULE_KIND_ORDER = KIND_ORDER.filter((k) => k !== 'request')
 
 /**
  * 목록 화면용 — 종류로 묶어서 돌려준다.

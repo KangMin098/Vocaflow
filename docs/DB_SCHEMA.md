@@ -1221,6 +1221,10 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260917150000  funnel_allow_csat_lecture                   ← 해설 강의 계측 2종 (30 → 32종 · csat_lecture_played · csat_lecture_ended)
 20260916120000  funnel_allow_csat_rest                      ← 기출 계측 8종 (22 → 30종). **그중 6종은 코드가 이미 보내던 것** — 지도/계획/훈련이 한 건도 안 쌓이고 있었다
 20260915143000  funnel_allow_csat_overlay                  ← 오버레이 관측 2종 (20 → 22종)
+20260926130000  video_request_supersede_restore            ← 요청 applied_at + 옛 failed 재시도 차단 + purge 뒤 다시 찍기 되살리기(rerender_requested_at · video_retire_rerendered) — **2026-09-26 적용(사용자 승인)**
+20260924150000  video_retire_replace                       ← 내린 편 표 + 요청 교체 모드 + RPC 4 (내리기·되살리기·purge 기록·큐 되돌리기)
+20260924130000  video_requests_format_ids                  ← 요청 규격 이름을 코드 정본(wide/vertical/square)에 맞춤
+20260924120000  video_requests                             ← 영상 요청 순환(분야·요청·rev·검토·평가 5표) + RPC 6 (아래 참조)
 20260915033000  funnel_allow_csat_evidence_opened          ← 기출 해설 「지문 지도」 상호작용 1종 (19 → 20종)
 20260914090000  video_job_eval                             ← 영상 평가 결과 5열 + 기록/요약 RPC 2 (아래 참조)
 20260913120000  video_jobs                                 ← 영상 공장 큐(편당 1행) + 단계 전진 RPC 2 (아래 참조)
@@ -1289,6 +1293,32 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 ⚠️ 쓰는 쪽(`packages/video-factory/src/jobs/client.ts`)은 **8초 타임아웃 + 첫 실패 시 그 실행 동안
 기록 끄기 + 예외 안 던지기**를 지킨다. 기록은 본 작업의 곁가지인데, 곁가지가 본 작업을 인질로
 잡은 적이 있다(실측: DB 가 응답하지 않는 동안 `enqueue` 가 62번 타임아웃을 기다려 10분을 넘겼다).
+
+### 영상 요청 — 요청 → 기획 → 설계 → 검토 → 적용 → 평가 (2026-09-24)
+
+`/admin/video` 는 보기만 하던 화면이었다. 목록은 코드 규칙이 만들고 나레이션도 코드에 박혀 있어, 분야를 늘리려면 코드를 써야 했고 사람이 승인하는 단계가 없었다.
+
+| | |
+|---|---|
+| 테이블 | `video_domains`(분야 = 설정, 시드 5 · `target_kinds` = 기획 후보 종류) · `video_requests`(요청 1행 · `phase`) · `video_request_revisions`(기획·설계 초안, `(request_id, rev)` UNIQUE) · `video_request_reviews`(결정·코멘트) · `video_request_evaluations`(규격 + 목적 평가, `(request_id, rev)` UNIQUE) |
+| RLS | 5표 모두 admin 읽기(`video_is_admin()`). 쓰기는 **RPC 로만** — `video_domains` 만 admin 전체 권한 |
+| RPC (화면 · authenticated, 안에서 admin 확인) | `video_request_create` · `video_request_review(id, rev, decision, comment)` — `designed` 의 **최신 rev** 에만, 수정·반려는 코멘트 필수 · `video_request_cancel` |
+| RPC (CLI · service_role) | `video_request_add_revision` → `designed` · `video_request_advance` — **현재 rev 에 approve 결정이 없으면 `applying` 불가** · `video_request_record_evaluation` → `evaluated` |
+| 변경 | `video_jobs_kind_check` 에 `'request'` 추가 — 요청 편이 기존 큐로 흐른다 |
+
+phase: `requested → designed → (changes_requested ↺ | approved | rejected) → applying → applied → evaluated` · `failed` · `cancelled`.
+전이 규칙은 DB 한 곳(RPC)에 있다 — 화면·드레인 어느 쪽도 phase 를 직접 UPDATE 하지 않는다.
+
+### 영상 내리기 · 교체 — `video_retirements` · `video_requests.mode` (2026-09-24)
+
+| | |
+|---|---|
+| 테이블 | `video_retirements` — `video_id` PK · `reason` NOT NULL · `retired_at` · `restored_at`(null = 지금 내림) · `purged_at`(파일 삭제) · admin 읽기 RLS |
+| 열 | `video_requests.mode` new/replace — replace 면 `video_id` = 대상 id(요청 때 확정) |
+| 인덱스 | `video_requests_video_id_live_uniq` — 부분 유일(approved·applying·applied). 옛 `video_requests_video_id_key` UNIQUE 는 제거(같은 자리를 여러 번 교체) |
+| RPC (화면) | `video_retire(id, reason)` · `video_restore(id)` — purged 면 거절 · `video_request_create(…, p_mode)` |
+| RPC (service_role) | `video_retire_mark_purged(id)` · `video_job_restart(id, kind)` — 교체 시작 때 큐 행을 queued 로 |
+| 20260926130000 | `video_requests.applied_at`(applied 전이 순간의 `video_jobs.published_at` — 평가 창의 시작) · `video_request_advance` 가 같은 자리에 더 새 요청이 있는 `failed` 의 재시도를 거절 · `video_retirements.rerender_requested_at` · `video_restore` 는 purged 면 거절 대신 다시 찍기 요청 · `video_retire` 는 재내림 때 요청을 지움 · `video_retire_rerendered(id)`(service_role — 렌더 완료 뒤 purged_at 해제 + 되살림) |
 
 ### 영상 평가 결과 — `video_jobs` 의 평가 열 (2026-09-14)
 
