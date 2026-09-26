@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **VCB 에디션 표지 기본 화풍 → tines**(2026-09-26 · migration 0): `edition-styles.mjs` 에 `tines`(illo-tines-scenes `STYLE_TILE` import · 면 색 6 · 10% 자르기) 추가 후 기본값으로, 55권 아트 디렉션을 사물 하나 + 면 색으로 재작성. 화풍별 부정 프롬프트(`negFor`) · illo-kaggle 장면별 `neg`.
 - **발행 콘텐츠 critical 0 복구**(2026-09-26 · #106 · migration 0): I1 `v_level` 결측 587 → 0(2026-08-26·09-05 추가분, 판정 3청크 `scripts/dict/vlevel-fill-20260926/` · CEFR 최빈 V 를 기준점으로 · 빈도 순위 전부 없음) · I12 예문 공백 204 → 0(`sync_published_set_examples()` 219행) · I5 옛 바인딩 3행(poring→pore 「모공」 · paged→page)을 표면형으로 · P&P I10 2 → 0(`republish_book_word_sets` 한 권). `content-quality-gate.integration` 13/13.
 - **영/미 철자 표제어 통합 — 미국식 정본**(2026-09-26 · #105 · migration `20260926120000_spelling_canonical`): `shared_dictionary.variant_of` 신설 + 187쌍 백필(뜻 대조로 오탐 17 제외 — four/for · tour/tor · prise/prize · dialogue 등) · `resolve_dict_headword` 는 5계층을 그대로 두고 결과만 정본으로 모은다(colours → color). 행은 지우지 않는다(발행 세트 참조). 되돌리기 = `variant_of` NULL.
 - **원문 점검 최소 비용 파이프라인 — 자동 꾸러미 → Claude 창 판정 → 예외만 전문**(2026-09-26 · migration 0 · 기준 버전 그대로 v6): `source-triage-packets.mts`(긴 글 창 3개 · 440어 이하 전문 · 표 같은 창 제외) · `gate-mixed-import` 가 `basis:"windows"` 보관 판정을 받되 **보관만 적재**하고 보류·폐기·`escalate` 는 `<파일>.escalate.json` 으로 · `source-triage-escalate.mjs`(전문 청크 재구성) · 창마다 내용 판정 `gate.retain.window_verdicts`. 회차 4 검증: 잘못 보관 0.7% · 전문 재판정 14% · 읽은 분량 21%. 기준 `docs/source-check/criteria.md` §13.
