@@ -1,0 +1,1416 @@
+{
+  "cat-curriculum-elem": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "band",
+    "series": "VOCA",
+    "wordmark": [
+      "VO",
+      "CA"
+    ],
+    "level": [
+      "초등",
+      "기본"
+    ],
+    "tagline": [
+      "교과서 순서 그대로 익히는",
+      ""
+    ],
+    "palette": {
+      "band": "#D9822B",
+      "tint": "#FCEBD2",
+      "accent": "#B5561A",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 1,
+      "total": 6
+    }
+  },
+  "cat-curriculum-mid": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "band",
+    "series": "VOCA",
+    "wordmark": [
+      "VO",
+      "CA"
+    ],
+    "level": [
+      "중등",
+      "기본"
+    ],
+    "tagline": [
+      "교과서 순서 그대로 익히는",
+      ""
+    ],
+    "palette": {
+      "band": "#A52A24",
+      "tint": "#F6E4CC",
+      "accent": "#A52A24",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 2,
+      "total": 6
+    }
+  },
+  "cat-curriculum-high": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "band",
+    "series": "VOCA",
+    "wordmark": [
+      "VO",
+      "CA"
+    ],
+    "level": [
+      "고등",
+      "기본"
+    ],
+    "tagline": [
+      "내신 첫 학기부터 대비하는",
+      ""
+    ],
+    "palette": {
+      "band": "#0B4D3A",
+      "tint": "#FDE8C4",
+      "accent": "#0B6B4F",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 3,
+      "total": 6
+    }
+  },
+  "cat-freq-2k": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "band",
+    "series": "VOCA",
+    "wordmark": [
+      "VO",
+      "CA"
+    ],
+    "level": [
+      "전 학년",
+      "빈출"
+    ],
+    "tagline": [
+      "가장 자주 만나는 순서로",
+      ""
+    ],
+    "palette": {
+      "band": "#3C4E8C",
+      "tint": "#E7E9F6",
+      "accent": "#3C4E8C",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 4,
+      "total": 6
+    }
+  },
+  "cat-csat-core": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "band",
+    "series": "VOCA",
+    "wordmark": [
+      "VO",
+      "CA"
+    ],
+    "level": [
+      "수능",
+      "필수"
+    ],
+    "tagline": [
+      "출제 리스트로 모집단을 고정한",
+      ""
+    ],
+    "palette": {
+      "band": "#0C2E4E",
+      "tint": "#FBD6C8",
+      "accent": "#C4432B",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 5,
+      "total": 6
+    }
+  },
+  "cat-academic-nawl": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "band",
+    "series": "VOCA",
+    "wordmark": [
+      "VO",
+      "CA"
+    ],
+    "level": [
+      "대학",
+      "학술"
+    ],
+    "tagline": [
+      "논문과 강의에 쓰이는",
+      ""
+    ],
+    "palette": {
+      "band": "#2B2233",
+      "tint": "#EDE4D8",
+      "accent": "#8A5A2B",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 6,
+      "total": 6
+    }
+  },
+  "cat-kice-purpose": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "slab",
+    "series": "수능 유형 VOCA",
+    "wordmark": [
+      "KI",
+      "CE"
+    ],
+    "level": [
+      "목적",
+      "요지"
+    ],
+    "tagline": [
+      "기출에서 반복 등장한 어휘만",
+      ""
+    ],
+    "palette": {
+      "band": "#1E3A5F",
+      "tint": "#F2EFE6",
+      "accent": "#F2B134",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 1,
+      "total": 3
+    }
+  },
+  "cat-kice-blank": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "slab",
+    "series": "수능 유형 VOCA",
+    "wordmark": [
+      "KI",
+      "CE"
+    ],
+    "level": [
+      "빈칸",
+      "추론"
+    ],
+    "tagline": [
+      "기출에서 반복 등장한 어휘만",
+      ""
+    ],
+    "palette": {
+      "band": "#3B1F4A",
+      "tint": "#F2EFE6",
+      "accent": "#F2B134",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 2,
+      "total": 3
+    }
+  },
+  "cat-kice-long": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "slab",
+    "series": "수능 유형 VOCA",
+    "wordmark": [
+      "KI",
+      "CE"
+    ],
+    "level": [
+      "장문",
+      "독해"
+    ],
+    "tagline": [
+      "기출에서 반복 등장한 어휘만",
+      ""
+    ],
+    "palette": {
+      "band": "#123B34",
+      "tint": "#F2EFE6",
+      "accent": "#F2B134",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 3,
+      "total": 3
+    }
+  },
+  "cat-level-v1-v3": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "minimal",
+    "series": "LEVEL VOCA",
+    "wordmark": [
+      "i+1"
+    ],
+    "level": [
+      "입문",
+      "V1–3"
+    ],
+    "tagline": [
+      "진단 레벨 기준 지금 읽을 만한 난이도",
+      ""
+    ],
+    "palette": {
+      "band": "#2E8B6E",
+      "tint": "#E3F2EC",
+      "accent": "#2E8B6E",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 1,
+      "total": 3
+    }
+  },
+  "cat-level-v4-v7": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "minimal",
+    "series": "LEVEL VOCA",
+    "wordmark": [
+      "i+1"
+    ],
+    "level": [
+      "중급",
+      "V4–7"
+    ],
+    "tagline": [
+      "진단 레벨 기준 지금 읽을 만한 난이도",
+      ""
+    ],
+    "palette": {
+      "band": "#2F6DB5",
+      "tint": "#E4EDF8",
+      "accent": "#2F6DB5",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 2,
+      "total": 3
+    }
+  },
+  "cat-level-v8-v10": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "minimal",
+    "series": "LEVEL VOCA",
+    "wordmark": [
+      "i+1"
+    ],
+    "level": [
+      "상급",
+      "V8–10"
+    ],
+    "tagline": [
+      "진단 레벨 기준 지금 읽을 만한 난이도",
+      ""
+    ],
+    "palette": {
+      "band": "#5B3FA8",
+      "tint": "#ECE7F7",
+      "accent": "#5B3FA8",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 3,
+      "total": 3
+    }
+  },
+  "cat-uncovered-v1": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "sideband",
+    "series": "GAP VOCA",
+    "wordmark": [
+      "GAP"
+    ],
+    "level": [
+      "초등",
+      "저학년"
+    ],
+    "tagline": [
+      "카탈로그의 빈칸을 메우는",
+      "아직 없는 말"
+    ],
+    "palette": {
+      "band": "#E0673A",
+      "tint": "#FFF1E6",
+      "accent": "#E0673A",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 1,
+      "total": 4
+    }
+  },
+  "cat-uncovered-v2": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "sideband",
+    "series": "GAP VOCA",
+    "wordmark": [
+      "GAP"
+    ],
+    "level": [
+      "초등",
+      "고학년"
+    ],
+    "tagline": [
+      "카탈로그의 빈칸을 메우는",
+      "아직 없는 말"
+    ],
+    "palette": {
+      "band": "#C94C6E",
+      "tint": "#FDEBEF",
+      "accent": "#C94C6E",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 2,
+      "total": 4
+    }
+  },
+  "cat-uncovered-v3": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "sideband",
+    "series": "GAP VOCA",
+    "wordmark": [
+      "GAP"
+    ],
+    "level": [
+      "중학",
+      "전권"
+    ],
+    "tagline": [
+      "카탈로그의 빈칸을 메우는",
+      "아직 없는 말"
+    ],
+    "palette": {
+      "band": "#6A4FB0",
+      "tint": "#EFEAF9",
+      "accent": "#6A4FB0",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 3,
+      "total": 4
+    }
+  },
+  "cat-uncovered-600": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "sideband",
+    "series": "GAP VOCA",
+    "wordmark": [
+      "GAP"
+    ],
+    "level": [
+      "전 학년",
+      "600"
+    ],
+    "tagline": [
+      "카탈로그의 빈칸을 메우는",
+      "아직 없는 말 600"
+    ],
+    "palette": {
+      "band": "#23395B",
+      "tint": "#E8ECF3",
+      "accent": "#23395B",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 4,
+      "total": 4
+    }
+  },
+  "unlock-pride-and-prejudice": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "sideband",
+    "series": "CLASSIC VOCA",
+    "wordmark": [
+      "P&P"
+    ],
+    "level": [
+      "해금",
+      "200"
+    ],
+    "tagline": [
+      "읽기 전에 여는",
+      "오만과 편견"
+    ],
+    "palette": {
+      "band": "#5A2E3A",
+      "tint": "#F4ECE1",
+      "accent": "#8C3B4A",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 1,
+      "total": 4
+    }
+  },
+  "cat-chapter-pride-1-3": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "sideband",
+    "series": "CLASSIC VOCA",
+    "wordmark": [
+      "P&P"
+    ],
+    "level": [
+      "1~3장",
+      "직전"
+    ],
+    "tagline": [
+      "읽기 직전 10분",
+      "오만과 편견"
+    ],
+    "palette": {
+      "band": "#5A2E3A",
+      "tint": "#F4ECE1",
+      "accent": "#8C3B4A",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 2,
+      "total": 4
+    }
+  },
+  "recycle-pride-1-5": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "sideband",
+    "series": "CLASSIC VOCA",
+    "wordmark": [
+      "P&P"
+    ],
+    "level": [
+      "1~5장",
+      "재회"
+    ],
+    "tagline": [
+      "책이 대신 복습해 주는",
+      "오만과 편견"
+    ],
+    "palette": {
+      "band": "#5A2E3A",
+      "tint": "#F4ECE1",
+      "accent": "#8C3B4A",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 3,
+      "total": 4
+    }
+  },
+  "cat-book-pride": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "series",
+    "template": "sideband",
+    "series": "CLASSIC VOCA",
+    "wordmark": [
+      "P&P"
+    ],
+    "level": [
+      "도서",
+      "전권"
+    ],
+    "tagline": [
+      "이 책에 실제로 나오는",
+      "오만과 편견"
+    ],
+    "palette": {
+      "band": "#5A2E3A",
+      "tint": "#F4ECE1",
+      "accent": "#8C3B4A",
+      "ink": "#262A33"
+    },
+    "volume": {
+      "index": 4,
+      "total": 4
+    }
+  },
+  "cat-topic-functions": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "ASK"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#1F4E5F",
+      "tint": "#F5EBDD",
+      "accent": "#F2A541",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-homes-and-buildings": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "HUT"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#7A2E1F",
+      "tint": "#F7E9DA",
+      "accent": "#F2B134",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-politics-and-society": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "LAW"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#1C2B4A",
+      "tint": "#EDEFF5",
+      "accent": "#E4574A",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-food-and-drink": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "EAT"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#8A2B1D",
+      "tint": "#FBEBD8",
+      "accent": "#FFB84D",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-people": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "WHO"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#3D2A5C",
+      "tint": "#F1EBF8",
+      "accent": "#FF8FAB",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-work-and-business": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "JOB"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#1E2A38",
+      "tint": "#EEF1F4",
+      "accent": "#4FC3F7",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-the-natural-world": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "ECO"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#1D4A2E",
+      "tint": "#EAF4E6",
+      "accent": "#B8E05C",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-health": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "FIT"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#0F5257",
+      "tint": "#E4F4F3",
+      "accent": "#FF7A59",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-travel": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "GO!"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#0D3B66",
+      "tint": "#EAF1F8",
+      "accent": "#FAD02C",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-animals": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "ZOO"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#4A3A12",
+      "tint": "#F6EFD9",
+      "accent": "#F28C28",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-culture": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "ART"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#4B1D3F",
+      "tint": "#F7E8F1",
+      "accent": "#FFC857",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-sport": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "RUN"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#0B3D2E",
+      "tint": "#E6F3EC",
+      "accent": "#FF5E5B",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-leisure": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "FUN"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#2F2A6B",
+      "tint": "#ECEBF8",
+      "accent": "#7FDBDA",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-communication": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "SAY"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#5C1F2E",
+      "tint": "#F8E8EC",
+      "accent": "#9AD1D4",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-science-and-technology": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "LAB"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#10243E",
+      "tint": "#E6ECF4",
+      "accent": "#5CE1E6",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-appearance": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "EYE"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#4A2C2A",
+      "tint": "#F7ECE8",
+      "accent": "#F7A072",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-notions": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "WHY"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#26303B",
+      "tint": "#EDEFF1",
+      "accent": "#C3E88D",
+      "ink": "#262A33"
+    }
+  },
+  "cat-topic-time-and-space": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "glyph",
+    "series": "VOCAFLOW TOPIC",
+    "wordmark": [
+      "NOW"
+    ],
+    "level": [
+      "주제",
+      "어휘"
+    ],
+    "tagline": [
+      "같은 장면에서 함께 쓰이는 말",
+      ""
+    ],
+    "palette": {
+      "band": "#16132D",
+      "tint": "#ECEAF5",
+      "accent": "#A78BFA",
+      "ink": "#262A33"
+    }
+  },
+  "cat-collocation": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "slab",
+    "series": "WORD LAB",
+    "wordmark": [
+      "CO",
+      "LLO"
+    ],
+    "level": [
+      "관계",
+      "연어"
+    ],
+    "tagline": [
+      "묶음으로 외우는",
+      ""
+    ],
+    "palette": {
+      "band": "#233D4D",
+      "tint": "#F2EFE6",
+      "accent": "#FE7F2D",
+      "ink": "#262A33"
+    }
+  },
+  "cat-phrasal": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "slab",
+    "series": "WORD LAB",
+    "wordmark": [
+      "PH",
+      "RV"
+    ],
+    "level": [
+      "관계",
+      "구동사"
+    ],
+    "tagline": [
+      "낱말 뜻을 합쳐도 안 나오는",
+      ""
+    ],
+    "palette": {
+      "band": "#3A1F5D",
+      "tint": "#F2EFE6",
+      "accent": "#F9C80E",
+      "ink": "#262A33"
+    }
+  },
+  "cat-synonym": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "minimal",
+    "series": "WORD LAB",
+    "wordmark": [
+      "≈"
+    ],
+    "level": [
+      "관계",
+      "유의어"
+    ],
+    "tagline": [
+      "어디가 다른지 나란히",
+      ""
+    ],
+    "palette": {
+      "band": "#2A6F97",
+      "tint": "#F6F2EA",
+      "accent": "#2A6F97",
+      "ink": "#262A33"
+    }
+  },
+  "cat-antonym": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "minimal",
+    "series": "WORD LAB",
+    "wordmark": [
+      "↔"
+    ],
+    "level": [
+      "관계",
+      "반의어"
+    ],
+    "tagline": [
+      "하나를 떠올리면 다른 하나가",
+      ""
+    ],
+    "palette": {
+      "band": "#B23A48",
+      "tint": "#F6F2EA",
+      "accent": "#B23A48",
+      "ink": "#262A33"
+    }
+  },
+  "cat-polysemy": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "slab",
+    "series": "WORD LAB",
+    "wordmark": [
+      "POLY"
+    ],
+    "level": [
+      "관계",
+      "다의어"
+    ],
+    "tagline": [
+      "아는 뜻 하나로는 어긋나는",
+      ""
+    ],
+    "palette": {
+      "band": "#1B4332",
+      "tint": "#F2EFE6",
+      "accent": "#F4A261",
+      "ink": "#262A33"
+    }
+  },
+  "cat-rhyme": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "minimal",
+    "series": "WORD LAB",
+    "wordmark": [
+      "♪"
+    ],
+    "level": [
+      "소리",
+      "각운"
+    ],
+    "tagline": [
+      "끝소리가 같은 말끼리",
+      ""
+    ],
+    "palette": {
+      "band": "#7B2CBF",
+      "tint": "#F6F2EA",
+      "accent": "#7B2CBF",
+      "ink": "#262A33"
+    }
+  },
+  "confusable-pairs-300": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "slab",
+    "series": "WORD LAB",
+    "wordmark": [
+      "VS"
+    ],
+    "level": [
+      "관계",
+      "혼동어"
+    ],
+    "tagline": [
+      "한 글자 차이로 갈리는",
+      ""
+    ],
+    "palette": {
+      "band": "#2B2D42",
+      "tint": "#F2EFE6",
+      "accent": "#EF233C",
+      "ink": "#262A33"
+    }
+  },
+  "cat-word-family": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "minimal",
+    "series": "WORD LAB",
+    "wordmark": [
+      "+ful"
+    ],
+    "level": [
+      "조립",
+      "파생어"
+    ],
+    "tagline": [
+      "접사가 뜻을 바꾸는 방식",
+      ""
+    ],
+    "palette": {
+      "band": "#386641",
+      "tint": "#F6F2EA",
+      "accent": "#386641",
+      "ink": "#262A33"
+    }
+  },
+  "cat-etymology-1500": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "slab",
+    "series": "WORD LAB",
+    "wordmark": [
+      "ROOT"
+    ],
+    "level": [
+      "조립",
+      "어원"
+    ],
+    "tagline": [
+      "어근 하나가 챕터 하나",
+      ""
+    ],
+    "palette": {
+      "band": "#582F0E",
+      "tint": "#F2EFE6",
+      "accent": "#DDA15E",
+      "ink": "#262A33"
+    }
+  },
+  "cat-pos-verbs": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "minimal",
+    "series": "WORD LAB",
+    "wordmark": [
+      "DO"
+    ],
+    "level": [
+      "품사",
+      "동사"
+    ],
+    "tagline": [
+      "문장의 뼈대가 되는",
+      ""
+    ],
+    "palette": {
+      "band": "#9C6644",
+      "tint": "#F6F2EA",
+      "accent": "#9C6644",
+      "ink": "#262A33"
+    }
+  },
+  "cat-mnemonic": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "brand",
+    "template": "slab",
+    "series": "WORD LAB",
+    "wordmark": [
+      "MEMO"
+    ],
+    "level": [
+      "기억",
+      "연상"
+    ],
+    "tagline": [
+      "소리와 모양에서 이야기를",
+      ""
+    ],
+    "palette": {
+      "band": "#3C096C",
+      "tint": "#F2EFE6",
+      "accent": "#FF9E00",
+      "ink": "#262A33"
+    }
+  },
+  "cat-day-30": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "standalone",
+    "template": "glyph",
+    "series": "30일 완성",
+    "wordmark": [
+      "30"
+    ],
+    "level": [
+      "하루",
+      "20개"
+    ],
+    "tagline": [
+      "오늘 것만 하면 되는",
+      ""
+    ],
+    "palette": {
+      "band": "#E63946",
+      "tint": "#FFF4E6",
+      "accent": "#1D3557",
+      "ink": "#262A33"
+    }
+  },
+  "cat-facet-500": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "standalone",
+    "template": "band",
+    "series": "FACET",
+    "wordmark": [
+      "FIVE",
+      "SIDES"
+    ],
+    "level": [
+      "다섯 면",
+      "완주"
+    ],
+    "tagline": [
+      "뜻·철자·조립·문맥·속도",
+      ""
+    ],
+    "palette": {
+      "band": "#264653",
+      "tint": "#E9F5F2",
+      "accent": "#E76F51",
+      "ink": "#262A33"
+    }
+  },
+  "facet-ladder-300": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "standalone",
+    "template": "band",
+    "series": "FACET",
+    "wordmark": [
+      "SIX",
+      "SIDES"
+    ],
+    "level": [
+      "여섯 면",
+      "완주"
+    ],
+    "tagline": [
+      "뜻·철자·소리·조립·문맥·속도",
+      ""
+    ],
+    "palette": {
+      "band": "#3D405B",
+      "tint": "#F4F1DE",
+      "accent": "#E07A5F",
+      "ink": "#262A33"
+    }
+  },
+  "cat-unlock-fables": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "standalone",
+    "template": "sideband",
+    "series": "CLASSIC VOCA",
+    "wordmark": [
+      "FAB",
+      "LES"
+    ],
+    "level": [
+      "해금",
+      "300"
+    ],
+    "tagline": [
+      "이 책이 가장 빨리 읽히는 순서",
+      "이솝 우화"
+    ],
+    "palette": {
+      "band": "#6B4226",
+      "tint": "#F7EEDB",
+      "accent": "#A0522D",
+      "ink": "#262A33"
+    }
+  },
+  "cat-recycle-pinocchio": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "standalone",
+    "template": "sideband",
+    "series": "CLASSIC VOCA",
+    "wordmark": [
+      "PINO"
+    ],
+    "level": [
+      "1~5장",
+      "재회"
+    ],
+    "tagline": [
+      "책이 대신 복습해 주는",
+      "피노키오"
+    ],
+    "palette": {
+      "band": "#2D6A4F",
+      "tint": "#EFF6EC",
+      "accent": "#B5651D",
+      "ink": "#262A33"
+    }
+  },
+  "cat-domain-medical": {
+    "brand": "VOCAFLOW",
+    "edition": "2026 개정",
+    "mode": "standalone",
+    "template": "slab",
+    "series": "MEDICAL VOCA",
+    "wordmark": [
+      "MED"
+    ],
+    "level": [
+      "전문",
+      "의학"
+    ],
+    "tagline": [
+      "문헌에 집중적으로 쓰이는",
+      ""
+    ],
+    "palette": {
+      "band": "#0B4F6C",
+      "tint": "#EAF4F8",
+      "accent": "#20BF55",
+      "ink": "#262A33"
+    }
+  }
+}

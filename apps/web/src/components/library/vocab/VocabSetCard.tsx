@@ -14,6 +14,8 @@ import { Check, Loader2, Minus, Plus, Users } from 'lucide-react'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { coverFamilyOf } from '@/lib/vcb/covers/design'
 import { VocabCoverArt } from './VocabCoverArt'
+import { VocabTradeCover } from './VocabTradeCover'
+import { TRADE_RATIO } from '@vocaflow/library-pipeline/vocab-trade-cover'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import { rungForSet } from '@/lib/library/vocab/rung'
 import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
@@ -74,6 +76,7 @@ export function VocabSetCard({
     각인이 없는 권(도서 챕터 단어장)에는 `null` 이라 종전 표지 그대로다.
   */
   const lockup = set.brandLockup
+  const trade = set.coverImageMeta?.trade ?? null
 
   // 사다리에서의 자리. 컴포저가 정한 값이 DB 에 있으면 그것을 쓰는 것이 맞지만, 카드는
   // 아직 그 컬럼을 받지 않는다 — 여기서는 카테고리·CEFR 로 **추정**한다(`rungForSet`).
@@ -106,7 +109,8 @@ export function VocabSetCard({
         style={{
           // 판형 — 규격(`coverGrid.ratio`)이 정한다. `aspect-[3/4]` 로 박아 두었더니 캔버스가
           //   비율을 바꿔도 서가가 안 따라왔다. 각인이 없는 권은 종전 3:4.
-          aspectRatio: lockup?.aspectRatio ?? '3 / 4',
+          // 교재 표지가 있으면 그 판형(152×225 — 시중 단어장)이 이긴다.
+          aspectRatio: trade ? TRADE_RATIO : (lockup?.aspectRatio ?? '3 / 4'),
           // 그리드 카드 — 반사 비활성 (행 간 겹침 방지)
           WebkitBoxReflect: 'none',
           background: `
@@ -115,6 +119,11 @@ export function VocabSetCard({
           `,
         }}
       >
+        {trade ? (
+          // 교재 표지(scripts/vcb/trade-covers) — 선반과 같은 조판.
+          <VocabTradeCover set={set} spec={trade} className="absolute inset-0 block" />
+        ) : (
+        <>
         {/* 표지 도판 — 캐러셀과 **같은 컴포넌트**를 쓴다. 이제 수집이 아니라 그린다. */}
         <VocabCoverArt
           family={family}
@@ -148,6 +157,8 @@ export function VocabSetCard({
           series={VOCAB_SERIES_BRAND}
           compact
         />
+        </>
+        )}
         <div aria-hidden className="book-cover-sheen absolute inset-0" />
         <div aria-hidden className="book-cover-grain absolute inset-0" />
         <div aria-hidden className="book-spine3d" />

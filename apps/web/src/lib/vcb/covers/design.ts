@@ -26,6 +26,7 @@
 import { FAMILY_DUOTONE } from '@vocaflow/library-pipeline/vocab-brand'
 
 import type { Blueprint } from '@/lib/vcb/compose/blueprints'
+import type { TradeCoverSpec } from '@vocaflow/library-pipeline/vocab-trade-cover'
 
 export type CoverFamily = Blueprint['family']
 
@@ -211,8 +212,13 @@ export interface CoverMeta {
   /** 어떤 검색어로 찾았나 — 나중에 왜 이 그림인지 되짚을 유일한 단서 */
   query: string
   family: CoverFamily
-  /** 에디션 표지 — AI 생성 정사각 도판(scripts/vcb/editions). 있으면 서가 선반이 이것을 건다. */
+  /** 에디션 표지 — AI 생성 정사각 도판(scripts/vcb/editions). `trade` 가 없을 때만 선반이 건다. */
   edition?: EditionCover
+  /**
+   * 교재 표지 — 시중 교재 문법의 조판 명세(scripts/vcb/trade-covers · `tradeCoverSvg`).
+   * 있으면 선반·카드가 이것을 최우선으로 건다(2026-09-27 사용자 지시 「시중 교재 디자인」).
+   */
+  trade?: TradeCoverSpec
 }
 
 /** `cover_image_meta.edition` — edition-import.mjs 가 적는다. */

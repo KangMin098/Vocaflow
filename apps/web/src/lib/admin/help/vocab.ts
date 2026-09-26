@@ -627,6 +627,10 @@ export const VCB_HELP: HelpRegistry = {
         '여기에는 수정·회수 버튼이 없다. 잘못 발행된 단어장은 같은 슬러그로 새 버전을 발행해 덮는 것이 유일한 교정 경로다.',
         '예문 한국어 해석은 이미 채워져 있다(카탈로그 표제어 11,166/11,183 = 99.8%, meanings_ko[].example_ko). 학습자도 플래시카드 정답면·읽기 조회 창에서 보고 있다 — scripts/vocab/example-ko-drain-* 은 다른 칸(example_ko 컬럼·senses[].examples_ko)을 채우는 도구이고, 지금 그 두 칸을 읽는 화면이 없어 돌릴 이유가 없다. 2026-08-30 에 우위지수가 이 축을 0% 로 잘못 읽어 3,450 문장을 중복으로 채운 적이 있다.',
         '브랜드 각인(curation_query.brand)은 계열 단위다 — 한 세트만 다시 그릴 수 없다. 그 계열 전체가 같은 규격을 받는다.',
+        '**서가 표지는 교재 표지(cover_image_meta.trade)가 이긴다**(2026-09-27). 권마다 목적(series·brand·standalone)·틀(band·sideband·glyph·slab·minimal)·시리즈 묶음을 정하는 별도 4단계다: '
+          + '① scripts/vcb/trade-covers/trade-export.mjs(읽기만 · 재실행 안전) → ② 에이전트가 work/specs.out.json 을 채운다 → '
+          + '③ trade-preview.mts 로 한 장에 모아 **눈으로 본다**(규칙 위반은 exit 1) → ④ trade-import.mts --commit(trade 키 하나만 바꾼다 · 재실행 안전 · 규칙 위반은 넣지 않고 건너뛴 수를 출력). '
+          + '표제어 수·「N일 완성」은 명세에 적지 않는다 — 화면이 DB 실측과 사다리 하루 분량으로 계산한다. 되돌리기: trade 키를 지우면 에디션 도판 → 종전 표지로 돌아간다.',
       ],
       drain: {
         what:

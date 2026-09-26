@@ -23,7 +23,8 @@
     "./vocab-typeset": "./src/vocab/typeset.ts",
     "./vocab-brand-canvas": "./src/vocab/brand-canvas.ts",
     "./vocab-cover-art": "./src/vocab/cover-art.ts",
-    "./vocab-book-guide": "./src/vocab/book-guide.ts"
+    "./vocab-book-guide": "./src/vocab/book-guide.ts",
+    "./vocab-trade-cover": "./src/vocab/trade-cover.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

@@ -738,7 +738,32 @@ pnpm vcb:publish               # 08-publish.ts
 pnpm vcb:publish-precheck      # 08b-publish-precheck.ts
 ```
 
-### 에디션 표지 — AI 생성 정사각 도판 (`scripts/vcb/editions/`, 2026-09-25)
+### 교재 표지 — 시중 교재 문법 조판 (`scripts/vcb/trade-covers/`, 2026-09-27) · **서가 기본**
+
+시중 단어장(능률VOCA 4권 실측 · 빠바 · 수능 1 Up · 딥독 · 올림포스 대조)의 문법을 옮긴 조판 표지. 렌더러는
+`packages/library-pipeline/src/vocab/trade-cover.ts`(`tradeCoverSvg` — SVG 문자열, 서브패스 `./vocab-trade-cover`)이고
+판형은 152×225(시중 단어장). 명세는 `cover_image_meta.trade`(jsonb 키 — migration 없음) 이며 있으면 선반·카드가 최우선으로 건다.
+
+| 목적 `mode` | 뜻 | 55권 배정(2026-09-27) |
+|---|---|---|
+| `series` | 뼈대 고정 · 권마다 급 색·급 문구·사다리 칸만 바뀜 · `volume` 필수 | VOCA(학교급 6) · 수능 유형 VOCA 3 · LEVEL VOCA 3 · GAP VOCA 4 · CLASSIC VOCA(오만과 편견) 4 |
+| `brand` | 각인 자리만 고정 · 권마다 틀·주인공 | VOCAFLOW TOPIC 18 · WORD LAB 11 |
+| `standalone` | 단행본 · 한 권만의 틀과 색 · `volume` 없음 | 30일 완성 · FACET 2 · 이솝 우화 · 피노키오 · MEDICAL |
+
+틀 5종: `band`(위 30% 급별 띠 + 쌓은 워드마크) · `sideband`(옆띠 파생본) · `glyph`(진한 면 + 두 색 큰 머리글자) · `slab`(사선 + 하단 흰 판) · `minimal`(옅은 면 + LEVEL 원).
+
+| # | 단계 | 명령 | 재실행 |
+|---|---|---|---|
+| ① | export → `work/sets.json`(사다리·계열·기존 각인 포함) | `node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/vcb/trade-covers/trade-export.mjs [--all]` | 안전(읽기만) |
+| ② | 아트 디렉션 → `work/specs.out.json`(권마다 mode·template·series·wordmark·level·tagline·palette·volume) | 에이전트가 채운다 | 안전 |
+| ③ | 미리보기 — 검증 + 한 장 PNG | `npx tsx --tsconfig apps/web/tsconfig.json scripts/vcb/trade-covers/trade-preview.mts` | 안전(파일만) |
+| ④ | import → `cover_image_meta.trade` | `npx tsx --tsconfig apps/web/tsconfig.json --env-file=apps/web/.env.local scripts/vcb/trade-covers/trade-import.mts [--commit]` | 안전(키 하나 · 키 순서 무관 비교 · 위반은 건너뛴 수 출력) |
+
+- 수치(표제어 수 · 「N일 완성」)는 명세에 없다 — 화면이 `wordCount`(DB)와 사다리 `wordsPerDay` 로 계산한다(I5). 일수는 `series` 만 싣는다.
+- 워드마크·제목 크기는 글자 폭 추정(`textEm` · M·W 는 따로)으로 판 안에 맞춘다 — 넓은 대문자를 같게 재면 WHO·MEMO 가 넘친다.
+- 로고·도판은 옮기지 않는다 — 격자·비율·색 규칙만.
+
+### 에디션 표지 — AI 생성 정사각 도판 (`scripts/vcb/editions/`, 2026-09-25) · 교재 표지가 없을 때만
 
 `/library/vocab` 벽 선반(참조 shopify.com/editions)에 거는 권별 표지. 결과는 `cover_image_meta.edition`
 (jsonb 키 하나 — migration 없음)이고, 없으면 선반은 종전 표지(`VocabCoverArt`)로 그린다.

@@ -17,6 +17,8 @@ import { Check, Eye, Loader2, Plus } from 'lucide-react'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { coverFamilyOf } from '@/lib/vcb/covers/design'
 import { VocabCoverArt } from './VocabCoverArt'
+import { VocabTradeCover } from './VocabTradeCover'
+import { TRADE_RATIO } from '@vocaflow/library-pipeline/vocab-trade-cover'
 import { rungForSet } from '@/lib/library/vocab/rung'
 import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
 // 카드와 **같은 함수**로 권 표시를 뽑는다 — 두 벌을 두면 매대와 캐러셀이 다른 수를 말한다.
@@ -397,6 +399,8 @@ const EditionCover = forwardRef<
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const [moving, setMoving] = useState(false)
   const ed = set.coverImageMeta?.edition
+  // 교재 표지가 최우선(시중 교재 문법 · 152×225). 없으면 에디션 도판 → 종전 표지.
+  const trade = set.coverImageMeta?.trade ?? null
 
   function onMove(e: React.PointerEvent<HTMLButtonElement>) {
     const r = e.currentTarget.getBoundingClientRect()
@@ -421,8 +425,9 @@ const EditionCover = forwardRef<
       onPointerMove={onMove}
       onFocus={() => { setHot(true); onPoint() }}
       onBlur={() => { setHot(false); setTilt({ x: 0, y: 0 }) }}
-      className="group relative block aspect-square w-[196px] shrink-0 rounded-[2px] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[6px] focus-visible:outline-black motion-reduce:![transform:none]"
+      className="group relative block w-[196px] shrink-0 rounded-[2px] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[6px] focus-visible:outline-black motion-reduce:![transform:none]"
       style={{
+        aspectRatio: trade ? TRADE_RATIO : '1 / 1',
         transform,
         transformOrigin: '50% 100%',
         transition: `transform ${moving ? 140 : 520}ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 520ms cubic-bezier(0.22, 1, 0.36, 1)`,
@@ -433,7 +438,9 @@ const EditionCover = forwardRef<
       }}
     >
       <span className="absolute inset-0 overflow-hidden rounded-[2px] bg-[#1d1d1f]">
-        {ed?.panel ? (
+        {trade ? (
+          <VocabTradeCover set={set} spec={trade} className="absolute inset-0 block" />
+        ) : ed?.panel ? (
           // tines — 표지를 그림의 면 색으로 채우고, 제목은 위쪽 면에, 그림은 아래쪽에 78% 로 앉힌다.
           //   그림 바탕과 같은 색이라 이음새가 보이지 않는다(edition-import 가 모서리에서 뽑은 색).
           <span className="absolute inset-0" style={{ backgroundColor: ed.panel }}>
