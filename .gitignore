@@ -256,3 +256,6 @@ scripts/acp/title-entity-repair.*.json
 # 출제 설계 주석 드레인 — 청크에 기출 원문이 실린다. 커밋하는 것은 *.out.json(라벨 · 한국어 설명)뿐
 scripts/csat/design-drain/chunk-*.json
 !scripts/csat/design-drain/*.out.json
+
+# 실험 2 체크리스트 청크 — 본문 전문을 담는다(export 로 다시 만든다)
+scripts/csat/checklist-exp/work/

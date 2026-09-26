@@ -1,0 +1,50 @@
+# 보관 판정 체크리스트 — 실험 초안 (v7 후보 · 정본 아님)
+
+> **정본은 [criteria.md](./criteria.md) v6 이다.** 이 파일은 실험 2(판정 분해)의 도구다 — 종합 판정 「보관할까」를
+> 예/아니요 질문으로 쪼개고, 보관 여부는 **판정자가 아니라 규칙**(`scripts/csat/checklist-exp/decide.mjs`)이 계산한다.
+> 질문마다 근거가 된 criteria.md 절을 적었다. 질문 뜻이 criteria.md 와 어긋나 보이면 criteria.md 를 따르고 `note` 에 적는다.
+> 실험이 통과하기 전에는 판정 적재에 쓰지 않는다. 결과 `docs/reports/checklist-exp-*.md`.
+
+## 답하는 법
+
+- **본문 전문을 처음부터 끝까지 읽는다**(criteria §2). 제목만·앞부분만 보고 답하지 않는다.
+- 각 질문에 `true` / `false` 로만 답한다. 망설여지면 그 질문에서 더 보수적인 쪽(아래 「망설이면」)을 고른다.
+- **보관·폐기를 답하지 않는다.** 종합 판단은 규칙이 한다. 질문에 없는 이유로 결론이 달라질 것 같으면 Q14 에 적는다.
+- 가공 질문(Q9–Q11)은 criteria §3-2 대로 **문단 하나를 골라 실제로 해 본다.** `sample` 에 그 문단 첫 여섯 낱말을 적는다.
+
+## 질문
+
+| # | 키 | 질문 | 망설이면 | 근거 |
+|---|---|---|---|---|
+| Q1 | `blocked` | 차단 장르 9종 중 하나인가 — 값은 장르 이름 또는 `null` | `null` | §5 |
+| Q2 | `needsVisual` | 그림·지도·표·화면 조작을 봐야 뜻이 서는가(캡션·포스터 해설·「화살표를 누르라」) | `false` | §5 fragmentary |
+| Q3 | `truncated` | 글이 **중간에서 끊겼나** — 목록 머리만 있고 목록이 없다 · 문장 도중 끝 · 예고한 절이 통째로 없다. 짧거나 도입부뿐인 것은 `false` | `false` | §3-5 |
+| Q4 | `listOnly` | 본문 대부분이 목록·주소·링크·편성표·참고문헌·수치 나열이고, 그 앞뒤에 권유·설명의 까닭이 서지 않는가 | `false` | §3-2 · §5 reference |
+| Q5 | `linked` | 문장끼리 **원인·결과·반응·다음 절차·이유·순서** 중 하나로라도 이어지는가(문장마다 수치·이름·일정만 바뀌어 되풀이되면 `false`) | `true` | §3-2 초등 최소선 · 짧은 사실 단신 |
+| Q6 | `mainPoint` | 글 전체(또는 떼어 낼 문단)의 요지를 한 문장으로 말할 수 있는가 | `false` | §6 argument |
+| Q7 | `narrative` | 사건·절차가 시간순으로 이어지는 이야기·전기·절차인가 | `false` | §6 sequence |
+| Q8 | `notice` | 누가 · 누구에게 · 무엇을 하라고(참여·신청·이용·주의) 알리는 글이 한 편 안에서 서는가 | `false` | §3-2 기관 공지문 |
+| Q9 | `detachable` | 고른 문단을 떼어 냈을 때 앞 문맥 없이 시작하는가(지시어·앞 장 참조를 걷어 낼 수 있으면 `true`) | `false` | §3-2 |
+| Q10 | `standsAlone` | 그 문단에서 고유명사·인용·수치를 걷어도 논지 또는 사건이 서는가 | `false` | §3-2 |
+| Q11 | `vocabAdjustable` | 어려운 낱말 2~3개를 실제로 바꿔 보면 어느 학습 밴드(V0–V11)로 내려오는가 | `false` | §3-2 |
+| Q12 | `factsMany` | 확인 가능한 사실 진술이 셋 이상이고, 그 사실들이 한 사건·주제로 묶이는가 | `false` | §6 factual · §3-2 |
+| Q13 | `stereotypeCore` | 외모·인종·성별 고정관념이 글의 **요지나 결말**인가(한두 구절에 그치면 `false`) | `false` | §8 |
+| Q14 | `gap` | 위 질문들로는 담기지 않는 이유로 이 원천의 보관이 갈릴 것 같은가 — `true` 면 `note` 에 그 이유 | `false` | §3-5 criteria-gap |
+
+## 출력 한 편
+
+```json
+{ "id": "…", "answers": { "blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linked": true,
+  "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true,
+  "factsMany": true, "stereotypeCore": false, "gap": false }, "sample": "첫 여섯 낱말", "note": "한국어 한 문장" }
+```
+
+## 규칙 (요약 — 정본은 코드)
+
+1. `blocked` 또는 `stereotypeCore` 또는 `needsVisual` → `discard`
+2. `truncated` → `hold`(`incomplete-source`)
+3. 채울 칸 = `mainPoint` ∨ `narrative` ∨ `notice` ∨ `factsMany`. 칸이 없거나 `listOnly` 이면서 `mainPoint`·`narrative`·`notice` 가 모두 없으면 → `discard`
+4. `linked` 가 없으면 → `discard`(수치만 되풀이되는 단신 · 무관한 특징 나열)
+5. 가공 셋(`detachable` · `standsAlone` · `vocabAdjustable`)이 모두 안 되면 → `discard`
+6. `gap` → `hold`(`criteria-gap`)
+7. 나머지 → `keep`
