@@ -113,8 +113,9 @@ function ffmpeg(args: string[]): void {
 
 async function main(): Promise<void> {
   // 내린 편은 manifest 에 싣지 않는다 — 목록을 DB 에서 새로 받는다(못 받으면 멈춘다)
-  await refreshRetiredFile()
-  const specs = allSpecs(loadBundle()).map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
+  //   (다시 찍기 요청된 purge 편도 뺀다 — 렌더가 끝나 되살아나기 전에는 싣지 않는다)
+  const retired = new Set((await refreshRetiredFile()).map((r) => r.video_id))
+  const specs = allSpecs(loadBundle(), { retired }).map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
   fs.mkdirSync(DIST, { recursive: true })
 
   const videos: ManifestEntry[] = []

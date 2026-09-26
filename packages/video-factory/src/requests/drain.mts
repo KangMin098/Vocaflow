@@ -31,7 +31,9 @@ import { NEEDS } from './audiences'
 import { PHASE_LABEL, nextStepText } from './phases'
 import { checkDesign } from './design'
 import { REQUEST_SPECS_PATH, loadRequestSpecs, writeRequestSpecs } from './store'
-import { writeRetired } from './retired'
+import { splitRetired, writeRetired } from './retired'
+import { pickRequestOwners } from './merge'
+import { outcomeWindow } from './outcome'
 import { buildRequestSpec, type BuildContext, type RequestMeta } from './to-spec'
 import type { RequestAudience, RequestDesign, RequestPhase, RequestPlan, RequestPurpose } from './types'
 
@@ -59,6 +61,8 @@ interface RequestRow {
   error: string | null
   created_at: string
   mode: 'new' | 'replace'
+  /** applied 가 된 순간의 발행 시각(20260926120000) — 평가가 셀 재생 기록의 시작 */
+  applied_at: string | null
 }
 
 interface RevisionRow {
@@ -189,20 +193,31 @@ export interface RetirementRow {
   retired_at: string
   restored_at: string | null
   purged_at: string | null
+  rerender_requested_at?: string | null
 }
 
 /**
  * DB 의 내린 편 → `work/retired.json`. 음성·렌더·포장 전에 돈다.
  * **못 읽으면 멈춘다** — 옛 파일이나 빈 목록으로 진행하면 내린 편이 되살아난다.
+ *
+ * 파일에는 **렌더에서 뺄 id**(`splitRetired().forRender`)를 쓴다 — 「다시 찍기」가 요청된 purge 편은
+ * 음성·렌더·썸네일이 다시 만들 수 있게 빠진다. 반환값은 되살리지 않은 행 **전부**이고,
+ * 포장·발행·retire:sync 는 이것으로 뺀다(다시 찍기가 끝나기 전에는 학습자 화면에 나가지 않는다).
+ * `select('*')` 인 이유: rerender_requested_at 은 20260926120000 이 더한다 — 적용 전에도 돌아야 한다.
  */
 export async function refreshRetiredFile(db: SupabaseClient = requireServiceClient()): Promise<RetirementRow[]> {
-  const rows = await must<RetirementRow[]>(
-    db.from('video_retirements').select('video_id,reason,retired_at,restored_at,purged_at'),
-    '내린 편 조회',
-  )
-  const live = rows.filter((r) => r.restored_at === null)
-  writeRetired(live.map((r) => r.video_id))
-  return live
+  const rows = await must<RetirementRow[]>(db.from('video_retirements').select('*'), '내린 편 조회')
+  const split = splitRetired(rows)
+  writeRetired(split.forRender)
+  return rows.filter((r) => r.restored_at === null)
+}
+
+/**
+ * 다시 찍기가 끝난 purge 편을 되살린다 — 렌더가 그 편의 **모든 규격을 파일로 확인한 뒤**에만 부른다.
+ * DB(`video_retire_rerendered`)가 purged_at 을 지우고 restored_at 을 채운다. 다음 package 부터 실린다.
+ */
+export async function markRerendered(videoId: string, db: SupabaseClient = requireServiceClient()): Promise<void> {
+  await must(db.rpc('video_retire_rerendered', { p_video_id: videoId }), `${videoId} 다시 찍기 완료 기록`)
 }
 
 /* ───────────────────────── 상태 · 동기화 ───────────────────────── */
@@ -426,10 +441,21 @@ export async function cmdRequestsPull(): Promise<number> {
   const db = requireServiceClient()
   const ctx = ctxOf(loadBundle())
   const rows = await must<RequestRow[]>(
-    db.from('video_requests').select('*').in('phase', ['approved', 'failed', 'applying', 'applied', 'evaluated']),
+    db
+      .from('video_requests')
+      .select('*')
+      .in('phase', ['approved', 'failed', 'applying', 'applied', 'evaluated'])
+      .order('created_at', { ascending: true })
+      .order('id', { ascending: true }),
     '적용 대상 조회',
   )
-  const ids = rows.map((r) => r.id)
+  // 같은 자리에 요청이 여럿이면 가장 새 요청 하나만 설계도·적용 대상이다(merge.ts pickRequestOwners)
+  const picked = pickRequestOwners(rows.map((r) => ({ ...r, videoId: r.video_id ?? requestVideoId(r.target_key, r.id) })))
+  for (const s of picked.superseded) {
+    console.log(`… ${s.id.slice(0, 8)} ${s.videoId} (${s.phase}) — 같은 자리에 더 새 요청이 있어 다시 적용하지 않는다`)
+  }
+  const starting = new Set(picked.starters.map((r) => r.id))
+  const ids = picked.owners.map((r) => r.id)
   const revs = ids.length
     ? await must<RevisionRow[]>(db.from('video_request_revisions').select('request_id,rev,plan,design').in('request_id', ids), 'rev')
     : []
@@ -437,7 +463,7 @@ export async function cmdRequestsPull(): Promise<number> {
   const specs: VideoSpec[] = []
   const toStart: { row: RequestRow; spec: VideoSpec }[] = []
   let broken = 0
-  for (const r of rows) {
+  for (const r of picked.owners) {
     const rev = revs.find((v) => v.request_id === r.id && v.rev === r.current_rev)
     if (!rev) {
       console.log(`✗ ${r.id.slice(0, 8)} rev ${r.current_rev} 가 없다`)
@@ -453,7 +479,7 @@ export async function cmdRequestsPull(): Promise<number> {
       continue
     }
     specs.push(built.spec)
-    if (r.phase === 'approved' || r.phase === 'failed') toStart.push({ row: r, spec: built.spec })
+    if (starting.has(r.id)) toStart.push({ row: r, spec: built.spec })
   }
 
   writeRequestSpecs(specs)
@@ -498,20 +524,27 @@ export async function recordRequestEvaluations(cards: Scorecard[]): Promise<numb
     .select('*')
     .in('video_id', cards.map((c) => c.videoId))
     .in('phase', ['applied', 'evaluated'])
-    .order('updated_at', { ascending: false })
+    .order('created_at', { ascending: true })
   const rows = (live ?? []) as RequestRow[]
+  // 같은 자리를 여러 번 교체했으면 가장 나중에 만든 요청이 이 파일의 주인이다(merge.ts pickRequestOwners)
+  const owners = new Map(
+    pickRequestOwners(rows.map((x) => ({ ...x, videoId: x.video_id! }))).owners.map((x) => [x.videoId, x]),
+  )
   let n = 0
   for (const c of cards) {
-    // 같은 자리를 여러 번 교체했으면 가장 최근 요청이 이 파일의 주인이다(applied 우선)
-    const mineRows = rows.filter((x) => x.video_id === c.videoId)
-    const r = mineRows.find((x) => x.phase === 'applied') ?? mineRows[0]
+    const r = owners.get(c.videoId)
     if (!r) continue
+    // 교체 편은 새 발행 뒤의 재생만 센다 — 옛 편의 기록을 섞지 않는다(outcome.ts)
+    const win = outcomeWindow(r)
     const count = async (event: string): Promise<number | null> => {
-      const { count: k, error } = await db
+      if (!win.measurable) return null
+      let q = db
         .from('funnel_events')
         .select('id', { count: 'exact', head: true })
         .eq('event', event)
         .eq('meta->>videoId', c.videoId)
+      if (win.since) q = q.gte('occurred_at', win.since)
+      const { count: k, error } = await q
       // 오류를 0 으로 삼키지 않는다 — 못 센 것은 null
       return error || k === null ? null : k
     }
@@ -520,11 +553,12 @@ export async function recordRequestEvaluations(cards: Scorecard[]): Promise<numb
     const enough = started !== null && started >= OUTCOME_MIN_STARTS
     const outcome = {
       purpose: r.purpose,
+      since: win.since,
       started,
       completed,
       completionRate: enough && completed !== null ? Math.round((completed / started!) * 1000) / 1000 : null,
       verdict: enough ? 'measured' : 'unknown',
-      note: enough ? null : `재생 ${started ?? '못 셈'}회 — ${OUTCOME_MIN_STARTS}회 미만은 비율을 내지 않는다`,
+      note: win.note ?? (enough ? null : `재생 ${started ?? '못 셈'}회 — ${OUTCOME_MIN_STARTS}회 미만은 비율을 내지 않는다`),
       cta: { verdict: 'unknown', note: '영상 CTA 클릭 계측이 아직 없다' },
     }
     await must(

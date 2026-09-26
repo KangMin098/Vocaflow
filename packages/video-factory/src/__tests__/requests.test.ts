@@ -12,8 +12,9 @@ import { requestVideoId } from '../catalog/ids'
 import { checkDesign } from '../requests/design'
 import { resolveFact, strayDigits } from '../requests/facts'
 import { buildRequestSpec, type RequestMeta } from '../requests/to-spec'
-import { mergeSpecs } from '../requests/merge'
-import { MissingRetiredError, readRetired } from '../requests/retired'
+import { mergeSpecs, pickRequestOwners } from '../requests/merge'
+import { outcomeWindow } from '../requests/outcome'
+import { MissingRetiredError, readRetired, splitRetired, type RetirementState } from '../requests/retired'
 import type { RequestDesign, RequestPlan } from '../requests/types'
 import { FIXTURE_BUNDLE_PATH } from './test-bundle'
 
@@ -176,5 +177,102 @@ describe('교체 · 내리기 — 합치기 규칙', () => {
 
   it('내린 편 목록 파일이 없으면 빈 목록으로 삼키지 않고 멈춘다', () => {
     expect(() => readRetired('does/not/exist.json')).toThrow(MissingRetiredError)
+  })
+})
+
+describe('같은 자리의 요청이 여럿일 때 (PR #119 리뷰 결함 1·2)', () => {
+  const rule = ctx.catalog
+  const base = rule.find((s) => s.id === 'series-reading')!
+
+  it('규칙 편에 없는 id 의 요청 편이 둘이면 뒤의 것이 이긴다(첫 항목이 남지 않는다)', () => {
+    const v1 = { ...base, id: 'req-x-1', title: '옛 편' }
+    const v2 = { ...base, id: 'req-x-1', title: '새 편' }
+    const merged = mergeSpecs(rule, [v1, v2], new Set())
+    const mine = merged.filter((s) => s.id === 'req-x-1')
+    expect(mine.length).toBe(1)
+    expect(mine[0]!.title).toBe('새 편')
+  })
+
+  it('교체 편이 둘이어도 규칙 자리에서 뒤의 것이 이긴다', () => {
+    const r1 = { ...base, title: '교체 1', brief: { ...base.brief, replaces: 'series-reading' } } as typeof base
+    const r2 = { ...base, title: '교체 2', brief: { ...base.brief, replaces: 'series-reading' } } as typeof base
+    const merged = mergeSpecs(rule, [r1, r2], new Set())
+    expect(merged.filter((s) => s.id === 'series-reading').map((s) => s.title)).toEqual(['교체 2'])
+  })
+
+  const row = (id: string, phase: string, created_at: string, videoId = 'series-reading') => ({ id, phase, created_at, videoId })
+
+  it('주인은 입력 순서가 아니라 created_at 으로 정해진다', () => {
+    const a = row('a', 'evaluated', '2026-09-20T00:00:00+00:00')
+    const b = row('b', 'applied', '2026-09-25T00:00:00+00:00')
+    expect(pickRequestOwners([a, b]).owners.map((r) => r.id)).toEqual(['b'])
+    expect(pickRequestOwners([b, a]).owners.map((r) => r.id)).toEqual(['b'])
+  })
+
+  it('옛 failed 는 같은 자리의 새 교체 요청이 있으면 재시도하지 않는다 — applying 두 행이 생기지 않는다', () => {
+    const oldFailed = row('old', 'failed', '2026-09-20T00:00:00+00:00')
+    const newApproved = row('new', 'approved', '2026-09-25T00:00:00+00:00')
+    const p = pickRequestOwners([newApproved, oldFailed])
+    expect(p.starters.map((r) => r.id)).toEqual(['new'])
+    expect(p.superseded.map((r) => r.id)).toEqual(['old'])
+  })
+
+  it('자리의 주인인 failed 는 재시도한다', () => {
+    const p = pickRequestOwners([row('old', 'evaluated', '2026-09-20T00:00:00+00:00'), row('new', 'failed', '2026-09-25T00:00:00+00:00')])
+    expect(p.starters.map((r) => r.id)).toEqual(['new'])
+    expect(p.superseded).toEqual([])
+  })
+
+  it('다른 자리는 서로 간섭하지 않는다', () => {
+    const p = pickRequestOwners([row('a', 'approved', '2026-09-20T00:00:00+00:00', 'x'), row('b', 'failed', '2026-09-21T00:00:00+00:00', 'y')])
+    expect(p.starters.map((r) => r.id).sort()).toEqual(['a', 'b'])
+  })
+})
+
+describe('교체 편 평가 창 (결함 3)', () => {
+  it('발행 시각이 있으면 그 뒤만 센다', () => {
+    expect(outcomeWindow({ mode: 'replace', applied_at: '2026-09-25T00:00:00+00:00' })).toEqual({
+      since: '2026-09-25T00:00:00+00:00',
+      measurable: true,
+      note: null,
+    })
+  })
+
+  it('교체 편인데 발행 시각이 없으면 옛 편 기록을 섞지 않고 재지 않는다', () => {
+    const w = outcomeWindow({ mode: 'replace', applied_at: null })
+    expect(w.measurable).toBe(false)
+    expect(w.note).toContain('applied_at')
+  })
+
+  it('새 편은 옛 기록이 없으니 창 제한 없이 잰다', () => {
+    expect(outcomeWindow({ mode: 'new', applied_at: null })).toEqual({ since: null, measurable: true, note: null })
+  })
+})
+
+describe('purge 뒤 되살리기 (결함 5)', () => {
+  const r = (video_id: string, extra: Partial<RetirementState> = {}): RetirementState => ({
+    video_id,
+    restored_at: null,
+    purged_at: null,
+    rerender_requested_at: null,
+    ...extra,
+  })
+
+  it('다시 찍기가 요청된 purge 편은 렌더 목록에서 빠지지 않지만 포장·발행에서는 계속 빠진다', () => {
+    const s = splitRetired([
+      r('kept'),
+      r('purged-only', { purged_at: '2026-09-24T00:00:00Z' }),
+      r('again', { purged_at: '2026-09-24T00:00:00Z', rerender_requested_at: '2026-09-25T00:00:00Z' }),
+      r('restored', { restored_at: '2026-09-25T00:00:00Z' }),
+    ])
+    expect(s.excluded.sort()).toEqual(['again', 'kept', 'purged-only'])
+    expect(s.forRender.sort()).toEqual(['kept', 'purged-only'])
+    expect(s.rerender).toEqual(['again'])
+  })
+
+  it('마이그레이션 전(칸 없음)이면 예전과 같다', () => {
+    const s = splitRetired([{ video_id: 'a', restored_at: null, purged_at: '2026-09-24T00:00:00Z' }])
+    expect(s.forRender).toEqual(['a'])
+    expect(s.rerender).toEqual([])
   })
 })

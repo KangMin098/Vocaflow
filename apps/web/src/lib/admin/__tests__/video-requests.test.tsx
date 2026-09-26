@@ -147,19 +147,36 @@ describe('교체 · 내리기', () => {
     expect(html).toContain('series-reading')
   })
 
-  it('파일까지 지운 편은 되살리기가 잠긴다', () => {
+  it('파일까지 지운 편은 「다시 찍어 되살리기」로 열려 있다 — 되살릴 길이 막히지 않는다', () => {
     const html = renderToString(
       <RequestDetailClient
         detail={detail({
           request: row({ phase: 'evaluated', current_rev: 1, video_id: 'req-volume-reading-4-111111' }),
-          retirement: { reason: '수치가 낡음', retired_at: '2026-09-24T00:00:00Z', purged: true },
+          retirement: { reason: '수치가 낡음', retired_at: '2026-09-24T00:00:00Z', purged: true, rerenderRequested: false },
         })}
         video={null}
       />,
     )
     expect(html).toContain('내림')
-    const restore = html.match(/<button[^>]*>되살리기/)?.[0] ?? ''
-    expect(restore).toContain('disabled')
+    const restore = html.match(/<button[^>]*>다시 찍어 되살리기/)?.[0] ?? ''
+    expect(restore).not.toBe('')
+    // 클래스의 `disabled:opacity-40` 이 아니라 속성을 본다
+    expect(restore).not.toMatch(/\sdisabled(=""|\s|>)/)
+  })
+
+  it('다시 찍기가 요청된 편은 버튼 대신 렌더 명령을 보여 준다', () => {
+    const html = renderToString(
+      <RequestDetailClient
+        detail={detail({
+          request: row({ phase: 'evaluated', current_rev: 1, video_id: 'req-volume-reading-4-111111' }),
+          retirement: { reason: '수치가 낡음', retired_at: '2026-09-24T00:00:00Z', purged: true, rerenderRequested: true },
+        })}
+        video={null}
+      />,
+    )
+    expect(html).toContain('다시 찍기 대기')
+    expect(html).toContain('pnpm video render req-volume-reading-4-111111')
+    expect(html).not.toMatch(/<button[^>]*>(다시 찍어 )?되살리기/)
   })
 
   it('발행된 대상을 고르면 교체/새 편을 고를 수 있다', () => {

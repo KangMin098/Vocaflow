@@ -124,7 +124,10 @@ export async function retireVideoAction(videoId: string, reason: string): Promis
   }
 }
 
-/** 내린 편을 되살린다. 파일까지 지운(purge) 편은 DB 가 거절한다 — 다시 찍어야 한다. */
+/**
+ * 내린 편을 되살린다. 파일까지 지운(purge) 편은 바로 되살리지 않고 DB 가 「다시 찍기」 요청으로 적는다
+ * (`rerender_requested_at`) — CLI 렌더가 모든 규격을 찍으면 `video_retire_rerendered` 가 되살린다.
+ */
 export async function restoreVideoAction(videoId: string): Promise<ActionResult> {
   try {
     await requireAdmin('/admin/video')

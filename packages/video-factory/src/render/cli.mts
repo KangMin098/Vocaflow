@@ -46,8 +46,10 @@ import {
   cmdRequestsPull,
   recordRequestEvaluations,
   refreshRetiredFile,
+  markRerendered,
   cmdRetireSync,
 } from '../requests/drain.mjs'
+import { splitRetired } from '../requests/retired'
 import { validateAll } from '../spec/validate'
 import { FPS, FORMATS, type FormatId } from '../spec/format'
 import { applyVoiceTiming, loadVoiceManifest, synthesizeSpec } from '../voice/edge-tts'
@@ -259,6 +261,9 @@ async function renderOne(
   return { file: outFile, bytes }
 }
 
+/** 다시 찍기가 요청된 purge 편 — main 이 DB 에서 받아 채운다(splitRetired) */
+let rerenderIds: ReadonlySet<string> = new Set()
+
 async function cmdRender(all: boolean): Promise<number> {
   ensureWorkFiles()
   const specs = select(specsWithVoice(), all ? [] : positionals())
@@ -298,6 +303,12 @@ async function cmdRender(all: boolean): Promise<number> {
         failed++
         console.log(`FAIL ${spec.id}--${format}  ${(err as Error).message.split('\n')[0]}`)
       }
+    }
+    // purge 뒤 「다시 찍기」로 되살리는 편 — **모든 규격**이 파일로 확인됐을 때만 되살림을 기록한다
+    //   (한 규격만 찍고 되살리면 포장이 빠진 규격을 싣지 못한다)
+    if (rerenderIds.has(spec.id) && !only && made === spec.formats.length) {
+      await markRerendered(spec.id)
+      console.log(`↺ ${spec.id} — 다시 찍기 완료 · 되살림(다음 package 부터 실린다)`)
     }
   }
   console.log(`\n찍음 ${ok} · 실패 ${failed} → ${path.relative(process.cwd(), OUT_DIR)}`)
@@ -626,7 +637,10 @@ const NEEDS_RETIRED = new Set(['list', 'check', 'voice', 'render', 'render-all',
 async function main(): Promise<void> {
   if (cmd && NEEDS_RETIRED.has(cmd)) {
     const live = await refreshRetiredFile()
+    const split = splitRetired(live)
+    rerenderIds = new Set(split.rerender)
     if (live.length > 0) console.log(`내린 편 ${live.length} — 목록에서 뺀다`)
+    if (split.rerender.length > 0) console.log(`다시 찍기 요청 ${split.rerender.length} — 렌더 대상에 넣는다: ${split.rerender.join(', ')}`)
   }
   switch (cmd) {
     case 'list':

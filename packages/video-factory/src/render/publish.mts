@@ -4,8 +4,9 @@
 //
 //   mp4 (out/<규격>/) + 포스터·자막 (dist-media/) → 버킷 → manifest 에 baseUrl 기록
 //
-// **재실행 안전**: 같은 크기의 파일이 이미 올라가 있으면 건너뛴다. 250MB 를 매번 다시
-// 올리면 발행이 부담스러워지고, 부담스러운 단계는 안 하게 된다.
+// **재실행 안전**: 같은 **내용(sha256)**의 파일이 이미 올라가 있으면 건너뛴다(`upload-plan.ts`).
+// 250MB 를 매번 다시 올리면 발행이 부담스러워지고, 부담스러운 단계는 안 하게 된다.
+// 크기로 가르면 교체 편처럼 같은 경로·같은 크기·다른 내용인 파일이 건너뛰어져 옛 편이 남는다.
 //
 // ⚠️ 버킷은 마이그레이션(`20260913000100_video_bucket.sql`)이 만든다. 적용 전에 돌리면
 //   **무엇이 없는지 분명히 말하고 멈춘다** — "업로드 실패" 만 찍고 끝내지 않는다.
@@ -17,6 +18,7 @@ import { createClient } from '@supabase/supabase-js'
 
 import { advance } from '../jobs/client'
 import { refreshRetiredFile } from '../requests/drain.mjs'
+import { HASH_INDEX_KEY, nextHashIndex, parseHashIndex, planUploads, sha256File } from './upload-plan'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const PKG = path.resolve(HERE, '../..')
@@ -94,25 +96,29 @@ async function main(): Promise<void> {
     throw new Error('올릴 것이 없다 — 먼저 `pnpm video render-all` 과 `pnpm video package` 를 돌린다')
   }
 
-  // 이미 같은 크기로 올라간 것은 건너뛴다.
-  const existing = new Map<string, number>()
-  for (const dir of ['wide', 'vertical', 'square', '']) {
-    const { data } = await db.storage.from(BUCKET).list(dir, { limit: 1000 })
-    for (const o of data ?? []) {
-      const size = (o.metadata as { size?: number } | null)?.size
-      if (typeof size === 'number') existing.set(dir ? `${dir}/${o.name}` : o.name, size)
-    }
+  // 이미 **같은 내용**으로 올라간 것만 건너뛴다 — 버킷에 실제로 있고, 기록된 sha256 이 같을 때.
+  const remoteKeys = new Set<string>()
+  for (const dir of ['wide', 'vertical', 'square', 'thumb', '']) {
+    const { data, error } = await db.storage.from(BUCKET).list(dir, { limit: 1000 })
+    if (error) throw new Error(`버킷 목록(${dir || '/'})을 못 읽었다: ${error.message}`)
+    // 폴더 항목은 id 가 null 이다 — 파일만 센다
+    for (const o of data ?? []) if (o.id) remoteKeys.add(dir ? `${dir}/${o.name}` : o.name)
   }
+  let prevHashes: Record<string, string> = {}
+  if (remoteKeys.has(HASH_INDEX_KEY)) {
+    const { data, error } = await db.storage.from(BUCKET).download(HASH_INDEX_KEY)
+    if (error) throw new Error(`해시 기록(${HASH_INDEX_KEY})을 못 읽었다: ${error.message}`)
+    prevHashes = parseHashIndex(await data.text())
+  }
+  const hashed = files.map((f) => ({ ...f, sha256: sha256File(f.abs) }))
+  const plan = planUploads(hashed, remoteKeys, prevHashes)
 
   let sent = 0
-  let skipped = 0
+  const skipped = plan.skip.length
   let failed = 0
-  for (const f of files) {
-    const bytes = fs.statSync(f.abs).size
-    if (existing.get(f.key) === bytes) {
-      skipped++
-      continue
-    }
+  const okFiles: { key: string; sha256: string }[] = [...plan.skip]
+  const failedKeys: string[] = []
+  for (const f of plan.upload) {
     const { error } = await db.storage
       .from(BUCKET)
       .upload(f.key, fs.readFileSync(f.abs), {
@@ -123,11 +129,21 @@ async function main(): Promise<void> {
       })
     if (error) {
       failed++
+      failedKeys.push(f.key)
       console.log(`FAIL ${f.key} — ${error.message}`)
       continue
     }
+    okFiles.push(f)
     sent++
   }
+
+  // 해시 기록 갱신 — 올린(또는 같음을 확인한) 것만. 이 기록을 못 쓰면 다음 발행이 전부 다시 올릴 뿐
+  // 틀리게 건너뛰지는 않으므로 실패로 치되 멈추지는 않는다.
+  const index = nextHashIndex(prevHashes, okFiles, failedKeys)
+  const { error: idxErr } = await db.storage
+    .from(BUCKET)
+    .upload(HASH_INDEX_KEY, JSON.stringify(index, null, 2) + '\n', { contentType: 'text/plain', upsert: true, cacheControl: '0' })
+  if (idxErr) console.log(`FAIL ${HASH_INDEX_KEY} — ${idxErr.message} (다음 발행은 전부 다시 올린다)`)
 
   // 큐에 마지막 단계를 남긴다 — 파일이 아니라 **기록**이 진행을 말해야 파이프라인이다.
   //

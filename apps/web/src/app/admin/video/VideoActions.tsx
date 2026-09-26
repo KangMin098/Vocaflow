@@ -44,27 +44,38 @@ export function VideoActions({
       <div className={compact ? 'flex flex-wrap items-center gap-1' : 'space-y-1'}>
         <span className="font-body text-[12px] font-[700] text-[var(--warning)]" title={retired.reason}>
           ⊘ 내림{retired.purged ? ' · 파일 삭제됨' : ''}
+          {retired.rerenderRequested ? ' · 다시 찍기 대기' : ''}
         </span>
         {!compact && <p className="break-keep font-body text-[12px] text-[var(--t2)]">이유 · {retired.reason}</p>}
-        <button
-          type="button"
-          disabled={pending || retired.purged}
-          title={retired.purged ? '파일을 지웠습니다 — 되살리려면 다시 찍어야 합니다' : undefined}
-          onClick={() =>
-            start(async () => {
-              setError(null)
-              const r = await restoreVideoAction(videoId)
-              if (!r.ok) setError(r.error ?? '되살리지 못했습니다')
-              else {
-                setDone('되살림 — package 를 다시 돌리면 manifest 에 돌아갑니다')
-                router.refresh()
-              }
-            })
-          }
-          className={`${btn} text-[var(--t2)] underline hover:text-[var(--t1)]`}
-        >
-          되살리기
-        </button>
+        {retired.rerenderRequested ? (
+          <p className="break-keep font-body text-[12px] text-[var(--t2)]">
+            다시 찍기 요청됨 — <code>{`pnpm video voice ${videoId} && pnpm video render ${videoId}`}</code> 가 모든 규격을 찍으면 되살아납니다
+          </p>
+        ) : (
+          <button
+            type="button"
+            disabled={pending}
+            title={retired.purged ? '파일을 지웠습니다 — 다시 찍기를 요청하고, 렌더가 끝나면 되살아납니다' : undefined}
+            onClick={() =>
+              start(async () => {
+                setError(null)
+                const r = await restoreVideoAction(videoId)
+                if (!r.ok) setError(r.error ?? '되살리지 못했습니다')
+                else {
+                  setDone(
+                    retired.purged
+                      ? `다시 찍기 요청 — pnpm video voice ${videoId} && pnpm video render ${videoId} 뒤 package 를 돌리면 manifest 에 돌아갑니다`
+                      : '되살림 — package 를 다시 돌리면 manifest 에 돌아갑니다',
+                  )
+                  router.refresh()
+                }
+              })
+            }
+            className={`${btn} text-[var(--t2)] underline hover:text-[var(--t1)]`}
+          >
+            {retired.purged ? '다시 찍어 되살리기' : '되살리기'}
+          </button>
+        )}
         {error && <p role="alert" className="font-body text-[12px] text-[var(--error-ink)]">✗ {error}</p>}
         {done && <p className="font-body text-[12px] text-[var(--t2)]">{done}</p>}
       </div>

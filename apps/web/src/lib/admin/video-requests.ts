@@ -54,6 +54,8 @@ export interface Retirement {
   retired_at: string
   /** 버킷 파일까지 지웠다 — 되살리려면 다시 찍어야 한다 */
   purged: boolean
+  /** purge 편의 되살리기가 「다시 찍기」로 요청돼 있다 — 렌더가 끝나면 되살아난다 */
+  rerenderRequested: boolean
 }
 
 export interface VideoRequestRow {
@@ -159,7 +161,7 @@ export async function loadRequestBoard(db: AdminClient, plan: PlanBoard): Promis
   const [d, r, t] = await Promise.all([
     db.from('video_domains').select('*').order('sort'),
     db.from('video_requests').select('*').order('created_at', { ascending: false }).limit(200),
-    db.from('video_retirements').select('video_id,reason,retired_at,purged_at').is('restored_at', null),
+    db.from('video_retirements').select('*').is('restored_at', null),
   ])
   // 표가 없으면(마이그레이션 전) 오류다 — 0건으로 삼키지 않는다
   if (d.error || r.error || t.error) return { ready: false, domains: [], targets: [], requests: [], retired: {} }
@@ -172,11 +174,27 @@ export async function loadRequestBoard(db: AdminClient, plan: PlanBoard): Promis
   }
 }
 
-type RetireRow = { video_id: string; reason: string; retired_at: string; purged_at: string | null }
+// rerender_requested_at 은 20260926120000 이 더한다 — 적용 전에도 화면이 돌도록 선택 칸으로 둔다(select '*')
+type RetireRow = {
+  video_id: string
+  reason: string
+  retired_at: string
+  purged_at: string | null
+  rerender_requested_at?: string | null
+}
+
+function toRetirement(x: RetireRow): Retirement {
+  return {
+    reason: x.reason,
+    retired_at: x.retired_at,
+    purged: x.purged_at !== null,
+    rerenderRequested: Boolean(x.rerender_requested_at),
+  }
+}
 
 function retiredMap(rows: RetireRow[]): Record<string, Retirement> {
   return Object.fromEntries(
-    rows.map((x) => [x.video_id, { reason: x.reason, retired_at: x.retired_at, purged: x.purged_at !== null }]),
+    rows.map((x) => [x.video_id, toRetirement(x)]),
   )
 }
 
@@ -193,7 +211,7 @@ export async function loadRequestDetail(db: AdminClient, id: string): Promise<Re
       ? db.from('video_jobs').select('stage,error,seconds,updated_at').eq('video_id', req.video_id).maybeSingle()
       : Promise.resolve({ data: null, error: null }),
     req.video_id
-      ? db.from('video_retirements').select('video_id,reason,retired_at,purged_at').eq('video_id', req.video_id).is('restored_at', null).maybeSingle()
+      ? db.from('video_retirements').select('*').eq('video_id', req.video_id).is('restored_at', null).maybeSingle()
       : Promise.resolve({ data: null, error: null }),
   ])
   const rt = retire.data as RetireRow | null
@@ -204,7 +222,7 @@ export async function loadRequestDetail(db: AdminClient, id: string): Promise<Re
     reviews: (reviews.data ?? []) as ReviewRow[],
     evaluations: (evaluations.data ?? []) as EvaluationRow[],
     job: (job.data as JobRow | null) ?? null,
-    retirement: rt ? { reason: rt.reason, retired_at: rt.retired_at, purged: rt.purged_at !== null } : null,
+    retirement: rt ? toRetirement(rt) : null,
     targetPublished: req.mode === 'replace' && allVideoIds().includes(req.target_key),
   }
 }
