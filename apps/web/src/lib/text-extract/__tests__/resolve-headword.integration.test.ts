@@ -91,11 +91,20 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
       expect(await resolve('optimized')).toBe('optimise')
     })
 
-    // 두 철자가 모두 표제어면 L1 이 먼저 걸려 L5 철자 해석까지 가지 않는다.
-    // 정본으로 모으는 것은 `variant_of` 설계(_pending_spelling_canonical.sql)의 몫 — #105.
-    it('두 철자가 모두 등재되면 각자 자기 자신이다 — optimization · optimisation', async () => {
+    // 두 철자가 모두 표제어면 `variant_of` 가 미국식 정본으로 모은다(20260926120000 · #105).
+    it('두 철자가 모두 등재되면 미국식 정본으로 모인다 — optimisation → optimization', async () => {
       expect(await resolve('optimization')).toBe('optimization')
-      expect(await resolve('optimisation')).toBe('optimisation')
+      expect(await resolve('optimisation')).toBe('optimization')
+    })
+
+    it('굴절형도 정본으로 모인다 — colours → color · centres → center', async () => {
+      expect(await resolve('colours')).toBe('color')
+      expect(await resolve('centres')).toBe('center')
+    })
+
+    it('철자 변이가 아닌 우연 짝은 모으지 않는다 — four · tour', async () => {
+      expect(await resolve('four')).toBe('four')
+      expect(await resolve('tour')).toBe('tour')
     })
 
     // 9섹터 실측(2026-08-13)에서 드러난 결함: L5 가 미국식→영국식 **단방향**이었다.
