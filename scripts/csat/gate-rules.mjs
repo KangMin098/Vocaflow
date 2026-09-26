@@ -328,6 +328,10 @@ export const RETENTION = new Set(['keep', 'keep-pending-extraction', 'hold', 'di
 
 /** 기준 버전. 판정 기록마다 남긴다 — 개정 뒤 재판정 대상을 이것으로 가른다. */
 export const CRITERIA_VERSION = 7
+/** 논문 원천 — v7 체크리스트 경로(criteria §3-6)를 쓰지 않는다. 정본 문구는 criteria §3-6, 목록은 여기(judge-criteria.test 가 대조한다). */
+export const PAPER_SOURCES = new Set(['plos', 'frontiers', 'europe_pmc', 'elife', 'scielo', 'openalex', 'olh', 'econstor'])
+/** 체크리스트 무작위 전문 재판정 비율 · 원천을 되돌리는 확정 오판율 · 판단을 시작하는 재판정 수(criteria §3-6). */
+export const CHECKLIST_AUDIT = { rate: 0.05, maxWrongKeep: 0.03, minAudited: 30 }
 export const RETENTION_VERDICTS = new Set(['keep', 'hold', 'discard'])
 export const HOLD_REASONS = new Set(['criteria-gap', 'processing-unclear', 'incomplete-source', 'borderline'])
 export const SLOT_AGES = new Set(['elem', 'mid', 'high1', 'high2', 'high3', 'adult'])

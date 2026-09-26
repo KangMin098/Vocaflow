@@ -89,3 +89,14 @@ test('옛 정본 자리와 청크 지시(brief)는 기준을 다시 쓰지 않�
     assert.ok(!/^\| `(use|fragmentary|elem)` \|/m.test(s), `${f} 에 기준 표가 있다`)
   }
 })
+
+test('v7 체크리스트 경로: 논문 원천 목록·감사 수치 = gate-rules', async () => {
+  const { PAPER_SOURCES, CHECKLIST_AUDIT } = await import('../gate-rules.mjs')
+  const s = section('3. 보관 판정')
+  const head = s.slice(s.indexOf('### 3-6.'))
+  const para = head.slice(0, head.indexOf('\n\n', head.indexOf('**논문 원천')))
+  assert.deepEqual(new Set(inlineKeys(para).filter((k) => !k.includes('-') || k === 'europe_pmc')), PAPER_SOURCES)
+  assert.match(head, new RegExp(`${Math.round(CHECKLIST_AUDIT.rate * 100)}% 를 무작위로`))
+  assert.match(head, new RegExp(`${Math.round(CHECKLIST_AUDIT.maxWrongKeep * 100)}% 를 넘으면`))
+  assert.match(head, new RegExp(`${CHECKLIST_AUDIT.minAudited}편 이상`))
+})

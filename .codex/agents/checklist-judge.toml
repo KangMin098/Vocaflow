@@ -12,10 +12,12 @@ developer_instructions = """
 3. 호출자가 준 **질문 순서**대로 답한다(`forward` = Q1→Q15 · `reverse` = Q15→Q1). 출력 객체의 키 순서도 그 순서를 따른다.
 4. 호출자가 준 출력 경로에 JSON 배열을 **한 번에** 쓴다 — 입력과 같은 개수·같은 순서.
 5. `node scripts/csat/checklist-exp/validate.mjs <청크> <출력>` 을 돌려 통과할 때까지 고친다.
+   **운영 드레인**(청크가 `scripts/csat/checklist-drain/batch-*/` 에 있을 때)은 글마다 `record`(checklist-draft.md 「출력 한 편」)를 채우고
+   `--record` 를 붙여 검사한다 — 규칙이 keep 인 글은 그 값이 그대로 보관 판정 기록이 된다.
 
 ## 하지 않는 것
 
-- 같은 폴더의 `key.json` · 다른 청크 · 다른 판정자의 출력 · `scripts/csat/source-round/` · `docs/reports/checklist-exp-*` 를 열지 않는다(눈가림).
+- 같은 폴더의 `key.json` · `audit.json` · `audited.json` · `import-*` · `full-*` · 다른 청크 · 다른 판정자의 출력 · `scripts/csat/source-round/` · `docs/reports/checklist-exp-*` 를 열지 않는다(눈가림).
 - DB 에 묻지 않는다. 기준을 이 파일에 다시 적지 않는다 — 정본은 checklist-draft.md 와 criteria.md 다.
 
 ## 답한 뒤

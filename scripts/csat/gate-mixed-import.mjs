@@ -21,9 +21,12 @@ import { retainProblems, retainRecord } from './retain-record.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
 import { track } from './drain-run.mjs'
 
-for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
-  const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
-  if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
+// 클라우드 세션에는 .env.local 이 없고 환경 변수로 들어온다 — 파일이 없어도 멈추지 않는다.
+if (fs.existsSync(path.resolve('apps/web/.env.local'))) {
+  for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
+    const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
+  }
 }
 const COMMIT = process.argv.includes('--commit')
 const REBASE_UNJUDGED = process.argv.includes('--rebase-unjudged')

@@ -368,6 +368,29 @@ space_place 59 중 54 · storyweaver 136 중 77 · simple_wikipedia `#lead`/`#le
   되채움은 이것을 「원천 이미 있음」으로 읽는다 — 전문으로 바꿀지(본문 교체 · 판정 무효화)는 따로 정한다.
 
 
+### 보관 판정 체크리스트 경로 — 비논문 원천 (판정 기준 v7 §3-6 · 2026-09-26)
+
+비논문 원천의 보관 판정은 체크리스트로 먼저 거른다. 판정자는 질문에만 답하고(`docs/source-check/checklist-draft.md`),
+보관 여부는 규칙(`scripts/csat/checklist-exp/decide.mjs`)이 낸다. 규칙이 `keep` 인 글만 바로 확정한다 — 나머지는 전문 판정으로 간다.
+논문 원천(`PAPER_SOURCES` · `gate-rules.mjs`)은 이 경로에 넣지 않는다(전문 한 편 체크리스트는 누수 50% — `docs/reports/checklist-exp-20260926.md`).
+
+`scripts/csat/checklist-drain/`(배치 폴더 `batch-<N>/` · 청크는 gitignore, 판정자 출력·감사 목록은 커밋):
+
+1. `node --tls-max-v1.2 scripts/csat/checklist-drain/export.mjs --batch N [--sources wikinews] [--sid '#brief-'] [--max 500] --write`
+   — 보관·내용 판정이 없는 원본만(파생물 제외). 논문 원천과 원장이 끈 원천은 뽑지 않는다. `audit.json` 에 5% 무작위 감사 대상(`sha256(audit-N:id)` 순서).
+   읽기만 · 같은 배치 번호로 다시 돌리면 멈춘다(새 번호로).
+2. 청크마다 `checklist-judge`(Opus)가 `chunk-NN.out.json` — 글마다 `record`(갈래·칸)까지. `validate.mjs <청크> <출력> --record` 로 적재기와 같은 검사.
+3. `node scripts/csat/checklist-drain/assemble.mjs --batch N` — keep·감사 밖 → `import-NN.json`(≤100) · 나머지와 감사분 → `full-NN.json`(체크리스트 답 없이).
+   파일만 쓴다 · 재실행 안전(내용이 다르면 멈춘다).
+4. `import-NN.json` 을 `gate-mixed-import.mjs --input … ` 예행 → `--commit`. 기록에는 `method:"checklist"` 와 판정자 답(`checklist.answers` · `rule`)이 함께 남는다.
+5. `full-NN.json` 은 `csat-source-judge` 가 전문 판정 → `full-NN.out.json` → 같은 적재기로 적재.
+6. `node scripts/csat/checklist-drain/ledger.mjs --batch N --date YYYY-MM-DD --write` — 감사분의 체크리스트 keep 을 전문 판정과 대 보고
+   원장 `docs/source-check/checklist-audit.json` 에 원천별로 적는다. 누적 감사 keep ≥30 · 오판 >3% 인 원천은 꺼지고 1단계가 더는 뽑지 않는다.
+   같은 배치를 다시 적으면 바꿔 쓴다(두 번 세지 않는다).
+
+수치(5% · 3% · 30)는 `gate-rules.mjs` 의 `CHECKLIST_AUDIT` 한 곳 — criteria §3-6 과의 일치는 `judge-criteria.test.mjs` 가 본다.
+회귀: `scripts/csat/__tests__/checklist-drain.test.mjs`.
+
 ### 입력 — 소스별 "얼마나 깊이 들어갈 수 있는가" (실측 2026-08-30)
 
 ⚠️ 이 표의 앞 버전은 `arxiv-feed`(v06.69 에 플랫폼에서 삭제됨) 를 포함한 **4 feed** 로

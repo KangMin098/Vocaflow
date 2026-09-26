@@ -42,8 +42,13 @@
 ```json
 { "id": "…", "answers": { "blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "strippedRemains": true,
   "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true,
-  "factsMany": true, "stereotypeCore": false, "gap": false }, "sample": "첫 여섯 낱말", "note": "한국어 한 문장" }
+  "factsMany": true, "stereotypeCore": false, "gap": false }, "sample": "첫 여섯 낱말", "note": "한국어 한 문장",
+  "record": { "genre": "news", "slots": { "ages": ["high1"], "purposes": ["mock"], "types": ["content_match"], "levels": ["V5"], "platform": [] } } }
 ```
+
+**`record` — 운영 드레인(`scripts/csat/checklist-drain`)에서만, 모든 글에 채운다.** 규칙이 `keep` 이면 이 값으로 보관 판정 기록을 만든다
+(기록 모양은 criteria §3-1 · §5 — `retain-record.mjs` 가 검사한다). `genre` 는 criteria §5 의 주제 갈래(차단 장르면 Q1 과 같은 값),
+`slots` 는 §3-1 의 네 축 + 플랫폼. 판정자는 여전히 보관·보류·폐기를 답하지 않는다. 실험 청크에서는 `record` 를 빼도 된다.
 
 ## 규칙 (요약 — 정본은 코드)
 

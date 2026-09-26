@@ -4,13 +4,17 @@
 // 입력의 id 마다 답이 정확히 하나 · 같은 순서 · 빠진 질문 없음 · note 중복 없음. 판정자가 매번 검사기를 새로 짜지 않게
 // 여기 둔다 — 서브에이전트 요청 수가 곧 비용이다(요청마다 컨텍스트 전체를 다시 읽는다 · docs/reports/checklist-exp-20260926.md).
 //
-// 실행: node scripts/csat/checklist-exp/validate.mjs <chunk.json> <out.json>   (통과 exit 0 · 실패 exit 1 과 사유)
+// `--record`(운영 드레인): 규칙이 keep 인 글은 `record` 로 보관 판정 기록을 만들어 적재기와 같은 검사를 돌린다.
+//
+// 실행: node scripts/csat/checklist-exp/validate.mjs <chunk.json> <out.json> [--record]   (통과 exit 0 · 실패 exit 1 과 사유)
 
 import fs from 'node:fs'
 
 import { missingAnswers } from './decide.mjs'
+import { toRetainReview } from '../checklist-drain/record.mjs'
 
-const [inPath, outPath] = process.argv.slice(2)
+const RECORD = process.argv.includes('--record')
+const [inPath, outPath] = process.argv.slice(2).filter((a) => !a.startsWith('--'))
 if (!inPath || !outPath) {
   console.error('사용: validate.mjs <chunk.json> <out.json>')
   process.exit(2)
@@ -38,6 +42,7 @@ else {
     if (typeof o.note !== 'string' || o.note.length < 12) problems.push(`${i}번 ${it.id.slice(0, 8)}: note 가 없거나 12자 미만`)
     else if (notes.has(o.note)) problems.push(`${i}번: note 가 ${notes.get(o.note)}번과 같다`)
     else notes.set(o.note, i)
+    if (RECORD && !miss.length) problems.push(...toRetainReview(it, o).problems.map((m) => `${i}번${m}`))
   })
 }
 if (problems.length) {

@@ -70,6 +70,9 @@ export function retainRecord(r) {
     criteria_version: r.criteria_version,
     basis: r.basis ?? 'full',
     ...(r.round ? { round: r.round } : {}),
+    // v7 체크리스트 경로(criteria §3-6) — 판정자 답을 함께 남긴다. 기준(규칙)을 바꾸면 이 답으로 다시 계산한다.
+    ...(r.method ? { method: r.method } : {}),
+    ...(r.checklist ? { checklist: r.checklist } : {}),
     by: 'chunk-llm',
   }
 }

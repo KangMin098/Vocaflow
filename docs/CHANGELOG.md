@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **판정 기준 v7 체크리스트 경로 운영 연결**(2026-09-26 · DB 0 · migration 0): `scripts/csat/checklist-drain/` export(비논문·원장이 끈 원천 제외 · 5% 감사 눈가림) → checklist-judge(`record` 갈래·칸) → assemble(keep 은 보관 판정 기록 · 나머지·감사분은 전문 판정 청크) → `gate-mixed-import --input` → ledger(원천별 누적 감사 keep ≥30 · 오판 >3% 면 끔 · 원장 `docs/source-check/checklist-audit.json`). 기록에 `method:"checklist"` 와 판정자 답을 남긴다(`retain-record.mjs`). 수치는 `gate-rules.CHECKLIST_AUDIT` · 논문 목록 `PAPER_SOURCES`. `gate-mixed-import` 는 `.env.local` 없는 클라우드 세션에서도 돈다. 회귀 `checklist-drain.test.mjs`(9).
 - **Wikinews Shorts 단신 모음 쪼개기 적용**(2026-09-26 · 판정 기준 v7 §8 · DB: 꼭지 원천 449행 추가 · 모음 149행 `derived_from.kind=digest` · 꼬리 5행 `digest-residue` · migration 0): `scripts/csat/source-get/wikinews-shorts-split.mjs --commit`. 모음 행·판정 기록(21행)은 지우지 않았다. 첫 적용에서 링크 안내·「전체 기사로 옮김」 꼬리 5행이 꼭지로 들어가 표시로 빼고 쪼개기 규칙을 고쳤다(10낱말 미만·안내문 제외) · 꼭지 제목이 모음으로 다시 읽히던 재실행 결함도 고침(회귀 테스트 5).
 - **실험 2 v2 — 체크리스트를 보관 거름망으로**(2026-09-26 · DB 0 · migration 0): 새 표본 195편. 대체로는 불합격(폐기 재현율 53.3%)이나 폐기→보관 누수 22→3건 · 거름망으로 쓰면 89.9% 를 바로 보관 확정하고 그 안의 오판 0.9%(판정자끼리 5.0%보다 작다). 같은 모델이면 절감 0 → 실험 3(Haiku)이 관문. `docs/reports/checklist-exp-20260926.md`.
 - **실험 2 — 보관 판정 체크리스트 분해 채점**(2026-09-26 · DB 0 · migration 0): 회차 8·10 층화 표본 200편 눈가림. 모집단 가중 일치율 95.5%지만 「전부 keep」 기준선이 92.8% · **폐기 재현율 48.3%** → 실질 불합격. 폐기 놓침 31건 중 22건이 「가는 연결」을 예/아니요로 접은 Q5 설계 결함. v2 후보(연결 3값 · 걷어낸 뒤 남는 문장) 기록. `docs/reports/checklist-exp-20260926.md`.
