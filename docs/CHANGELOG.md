@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **Claude ↔ Codex 왕복 안전장치**(2026-09-26 · migration 0): 세션 시작 훅이 워크트리의 `agents/scripts` · `.codex` · `.claude/settings.json` 이 origin/main 보다 뒤면 「[안전장치 낡음]」 경고(실측 워크트리 13/15 가 옛 가드 — Codex 에서 파괴 명령 미차단) · `check.mjs` D10 마이그레이션 새 버전 중복 0(기존 17개 기준선 — 두 에이전트가 같은 날 `20260926120000` 을 만들었다) · AGENTS.md 규칙 4줄 · `agents/router.md` §5 「왔다 갔다 할 때」. 회귀 102/102.
 - **CSAT 통합 OFFSET 빚 5곳을 키셋으로 상환**(2026-09-26 · migration 0): `lib/csat/items.ts` 3곳과 `dissect-catalog.ts` 2곳을 고유 `id`·`(item_id, version)` 커서로 전환하고 공용 `keyset-select` 회귀를 추가했다. 깨끗한 LF 체크아웃에서 offset-paging 예산 **216→207**. row-write 스캐너가 앞 SELECT에 뒤 UPDATE를 중복 귀속하던 오탐도 고쳐 예산 **158→137**. 전체 검증에서 드러난 키셋 mock·선반 규격·재고 스냅샷 기준 드리프트를 현재 정본에 맞추고 소스 프로필 이름 단추의 44px 탭 영역을 보강했다.
 - **Codex CLI 남은 게이트 4건 실측·훅 차단 교정**(2026-09-26 · migration 0): workspace-write 에이전트 테스트 **95/95**, force-push execpolicy `forbidden`, 실제 Codex→Claude 인계 검증 PASS. 중복 훅 정의와 Claude 전용 환경변수 의존을 제거하고, Codex PreToolUse는 exit 2가 아닌 JSON `permissionDecision=deny`로 차단하도록 실제 입력 회귀를 추가했다.
 - **대량 판정 회차 10 — NIH 전량 · Wikinews 둘째 몫 1,760편 적재**(2026-09-25 · DB: gate.retain 1,760 · 본문 254 갱신 · 판정 18 제거 · 파생 표시 24): 지름길 검산 SUSPECT 0 · WARN 0. 이중 판정 nih 일치 98.8% · wikinews 94.0%(κ 0.550 — 짧은 사실 단신 최소선이 v6 후보). 수집 결함: wikinews **인용 템플릿 `{{cquote}}` 등 ~570곳을 지워 「said:」 뒤가 비었다** → 수집기 수정 · 254편 갱신. 그림책 원천 간 진짜 중복 24편(Jaccard ≥0.6)을 `derived_from kind=duplicate` 로 묶음. 기록 `docs/source-check/round-10.md`.

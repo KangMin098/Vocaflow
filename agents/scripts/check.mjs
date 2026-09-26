@@ -6,6 +6,7 @@
 //   D2  mcp 생성물 드리프트 0 (sync.mjs --check 와 같은 판정)
 //   D3  에이전트 설정 파일 전체에서 비밀값 패턴 0
 //   D9  README 안내 · router.md · .gitignore 로컬 전용 항목
+//   D10 supabase/migrations 버전 번호 중복 0
 //
 //   node agents/scripts/check.mjs            # 표 출력, 실패 시 exit 1
 //   node agents/scripts/check.mjs --quiet    # 실패 항목만 출력
@@ -52,6 +53,34 @@ export function duplicates(agents, claude) {
     }
   }
   return out
+}
+
+/**
+ * 이미 겹쳐 있던 마이그레이션 버전 17개(2026-09-26 실측) — 라쳇 기준선. **늘리지 않는다.**
+ * MCP 적용은 원장 버전을 적용 시각으로 따로 매기므로 DB 는 멀쩡했다. 대신 파일 순서가 모호해져
+ * (로컬 reset·리뷰에서 어느 쪽이 먼저인지 모른다) 새로 생기는 중복만 막는다.
+ */
+export const KNOWN_DUPLICATE_MIGRATION_VERSIONS = new Set([
+  '20260606140000', '20260608120000', '20260614130000', '20260614200000', '20260614220000', '20260614230000',
+  '20260708120000', '20260712160000', '20260712165000', '20260712170000', '20260712180000', '20260713100000',
+  '20260808240000', '20260809120000', '20260830170000', '20260906030000', '20260924150000',
+])
+
+/**
+ * 버전이 겹치는 마이그레이션 묶음 — 버전은 `YYYYMMDDhhmmss` 또는 옛 형식 `YYYYMMDD_hhmmss`.
+ * `_pending_*` 처럼 버전이 없는 파일과 `known` 에 든 버전은 세지 않는다.
+ * ⚠️ 실측 2026-09-26: 두 에이전트가 같은 날 `20260926120000` 을 각자 만들었다(철자 정본 · 영상 요청).
+ *    각자 브랜치에서는 안 보이고 머지해야 겹친다 — 그래서 CI(main 대상 PR)에서 잡는다.
+ */
+export function duplicateMigrationVersions(names, known = KNOWN_DUPLICATE_MIGRATION_VERSIONS) {
+  const byVersion = new Map()
+  for (const n of names) {
+    const m = n.match(/^(\d{8})_?(\d{6})?_.+\.sql$/)
+    if (!m) continue
+    const v = m[1] + (m[2] ?? '')
+    byVersion.set(v, [...(byVersion.get(v) ?? []), n])
+  }
+  return [...byVersion].filter(([v, files]) => files.length > 1 && !known.has(v)).map(([, files]) => files)
 }
 
 /** 에이전트가 읽는 설정·지시 파일 전부 */
@@ -124,6 +153,12 @@ export function runChecks() {
   const orphanAgents = claudeAgents.filter((n) => !fs.existsSync(rel('.codex', 'agents', `${n}.toml`)))
   add('D9', `서브에이전트 ${claudeAgents.length}개 Codex 짝 존재`, orphanAgents.length === 0,
     orphanAgents.length ? `Codex 짝 없음: ${orphanAgents.join(', ')}` : claudeAgents.join(' · '))
+
+  // D10 — 두 에이전트가 따로 만든 마이그레이션이 같은 버전을 쓰면 머지 뒤 원장이 어긋난다.
+  const migDir = rel('supabase', 'migrations')
+  const dupMig = fs.existsSync(migDir) ? duplicateMigrationVersions(fs.readdirSync(migDir)) : []
+  add('D10', `마이그레이션 새 버전 중복 0 (기존 ${KNOWN_DUPLICATE_MIGRATION_VERSIONS.size}개 기준선)`, dupMig.length === 0,
+    dupMig.length ? dupMig.map((g) => g.join(' = ')).join(' / ') : '0')
 
   return rows
 }
