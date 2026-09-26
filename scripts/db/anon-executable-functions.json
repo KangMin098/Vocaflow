@@ -1,6 +1,6 @@
 {
   "note": "anon 이 EXECUTE 할 수 있는 public 스키마 SECURITY DEFINER 함수. 손으로 고치지 말 것 — --update 로만.",
-  "measured_at": "2026-09-19T23:27:58.391914+00:00",
+  "measured_at": "2026-09-20T01:49:03.122317+00:00",
   "functions": [
     "acp_article_rollup",
     "agg_daily_activity_from_learning_record",
@@ -83,8 +83,6 @@
     "unenroll_library_book",
     "update_pending_word_status",
     "video_eval_overview",
-    "video_job_advance",
-    "video_job_evaluate",
     "video_jobs_overview"
   ]
 }
