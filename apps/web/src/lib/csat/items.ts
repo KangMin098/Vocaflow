@@ -11,7 +11,9 @@
 
 import 'server-only'
 
-import { createCsatClient, selectAllPages } from './client'
+import { keysetSelectResult } from '@/lib/supabase/keyset-select'
+
+import { createCsatClient } from './client'
 import { auditAnalysis, summarizeAudit, type CsatItemAudit, type RawAnalysis } from './items-fold'
 import { loadItemSkeleton, type ItemSkeleton } from './skeleton'
 import verifiedAnchors from './dissect-anchors.json'
@@ -37,25 +39,45 @@ type ItemRow = {
 export async function loadCsatItemAudit(): Promise<{ page: CsatItemAuditPage | null; error: string | null }> {
   const db = createCsatClient()
 
-  const [examsRes, typesRes, itemsPaged, analysesPaged] = await Promise.all([
+  const [examsRes, typesRes, items, analyses] = await Promise.all([
     db.from('csat_exams').select('id, label'),
     db.from('csat_types').select('id, name'),
-    selectAllPages<ItemRow>((from, to) =>
-      db.from('csat_items').select('id, exam_id, no, type_id, points, answer').eq('in_scope', true).range(from, to),
+    keysetSelectResult<ItemRow, string>(
+      (cursor, limit) => {
+        let query = db
+          .from('csat_items')
+          .select('id, exam_id, no, type_id, points, answer')
+          .eq('in_scope', true)
+          .order('id')
+          .limit(limit)
+        if (cursor) query = query.gt('id', cursor)
+        return query
+      },
+      (row) => row.id,
     ),
-    selectAllPages<RawAnalysis>((from, to) =>
-      db
+    keysetSelectResult<RawAnalysis, { itemId: string; version: number }>(
+      (cursor, limit) => {
+        let query = db
         .from('csat_item_analyses')
         .select(
           'item_id, version, answer_unknown, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, required_vocab, time_budget_sec, difficulty',
         )
         .eq('status', 'published')
-        .range(from, to),
+          .order('item_id')
+          .order('version')
+          .limit(limit)
+        if (cursor) {
+          query = query.or(
+            `item_id.gt.${cursor.itemId},and(item_id.eq.${cursor.itemId},version.gt.${cursor.version})`,
+          )
+        }
+        return query
+      },
+      (row) => ({ itemId: row.item_id, version: row.version }),
     ),
   ])
 
-  const error =
-    examsRes.error?.message ?? typesRes.error?.message ?? itemsPaged.error ?? analysesPaged.error ?? null
+  const error = examsRes.error?.message ?? typesRes.error?.message ?? items.error ?? analyses.error ?? null
   if (error) return { page: null, error }
 
   const examLabel = new Map(((examsRes.data ?? []) as { id: string; label: string }[]).map((e) => [e.id, e.label]))
@@ -63,12 +85,12 @@ export async function loadCsatItemAudit(): Promise<{ page: CsatItemAuditPage | n
 
   // 문항마다 최신 버전만 — 분석은 버전을 올려 쌓이므로 옛 판을 감사하면 이미 고친 것을 다시 세운다
   const latest = new Map<string, RawAnalysis>()
-  for (const a of analysesPaged.rows) {
+  for (const a of analyses.rows) {
     const cur = latest.get(a.item_id)
     if (!cur || a.version > cur.version) latest.set(a.item_id, a)
   }
 
-  const rows = itemsPaged.rows
+  const rows = items.rows
     .map((it) =>
       auditAnalysis(
         {
@@ -129,8 +151,19 @@ export async function loadCsatItemFull(itemId: string): Promise<{ item: CsatItem
       .eq('status', 'published')
       .order('version', { ascending: false })
       .limit(1),
-    selectAllPages<{ version: number; status: string; created_at: string; updated_at: string }>((from, to) =>
-      db.from('csat_item_analyses').select('version, status, created_at, updated_at').eq('item_id', itemId).order('version', { ascending: false }).range(from, to)),
+    keysetSelectResult<{ version: number; status: string; created_at: string; updated_at: string }, number>(
+      (cursor, limit) => {
+        let query = db
+          .from('csat_item_analyses')
+          .select('version, status, created_at, updated_at')
+          .eq('item_id', itemId)
+          .order('version')
+          .limit(limit)
+        if (cursor != null) query = query.gt('version', cursor)
+        return query
+      },
+      (row) => row.version,
+    ),
   ])
 
   if (itemRes.error) return { item: null, error: itemRes.error.message }
@@ -151,7 +184,7 @@ export async function loadCsatItemFull(itemId: string): Promise<{ item: CsatItem
     item: {
       anchors: ((verifiedAnchors as Record<string, ItemSkeleton>)[itemId] ?? loadItemSkeleton(itemId))?.anchors.map(a => ({ id: a.id, sentences: a.sentences })) ?? [],
       metadata: DISSECTION_METADATA[itemId] ?? null,
-      history: historyRes.rows,
+      history: historyRes.rows.reverse(),
       historyError: historyRes.error,
       item_id: it.id,
       exam_label: (examRes.data as { label: string } | null)?.label ?? it.exam_id,
