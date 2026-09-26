@@ -15,8 +15,14 @@ import { Composition } from 'remotion'
 
 import bundleJson from '../../work/source-bundle.json'
 import voiceIndex from '../../work/voice/index.json'
+// 승인된 요청 편 — 없으면 ensure.ts 가 빈 배열 파일을 만든다(요청 편은 선택)
+import requestSpecsJson from '../../work/request-specs.json'
+// 내린 편 — 없으면 번들이 실패한다(빈 목록으로 삼키지 않는다 · requests/retired.ts)
+import retiredJson from '../../work/retired.json'
+import { mergeSpecs } from '../requests/merge'
 import { buildSpecs } from '../catalog/build'
 import type { SourceBundle } from '../catalog/bundle'
+import type { VideoSpec } from '../spec/types'
 import { FORMATS } from '../spec/format'
 import { applyVoiceTiming, type VoiceManifest } from '../voice/timing'
 import { VideoComposition, specDuration } from './VideoComposition'
@@ -27,9 +33,16 @@ const BRAND = 'VOCAFLOW'
 const bundle = bundleJson as unknown as SourceBundle
 const voices = voiceIndex as unknown as Record<string, VoiceManifest>
 
+/** 규칙 편 + 요청 편 − 내린 편 — CLI 와 같은 합치기(`requests/merge.ts`). */
+const specs: VideoSpec[] = mergeSpecs(
+  buildSpecs(bundle),
+  requestSpecsJson as unknown as VideoSpec[],
+  new Set(retiredJson as string[]),
+)
+
 export const Root: React.FC = () => (
   <>
-    {buildSpecs(bundle).flatMap((raw) => {
+    {specs.flatMap((raw) => {
       const voice = voices[raw.id] ?? null
       // 음성을 구웠으면 그 **실측 길이**가 컷 길이다. 안 구웠으면 자막 길이 계산으로 간다.
       const spec = applyVoiceTiming(raw, voice)

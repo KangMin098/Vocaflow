@@ -447,6 +447,7 @@ export type PublicEvent =
           | 'module'
           | 'method'
           | 'advice'
+          | 'request'
         format: 'wide' | 'vertical' | 'square'
         /** 영상 길이(초). 짧은 것이 더 끝까지 보이는지 보려면 필요하다 */
         seconds: number
@@ -480,6 +481,7 @@ export type PublicEvent =
           | 'module'
           | 'method'
           | 'advice'
+          | 'request'
         format: 'wide' | 'vertical' | 'square'
         seconds: number
         /**

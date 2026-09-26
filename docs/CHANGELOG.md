@@ -190,6 +190,11 @@
 
 - 디자인 방식 전환 「실물 우선」(DD-62): 문서가 화면을 정하던 순서를 뒤집고 초안 9개를 동결. 참조 사이트 계산값 추출기 2종 신설(`scripts/design/extract-computed.mjs` · `extract-app.mjs` → `docs/design/refs/tines/computed.json` · `app-measured.json`, 참조 이미지 0). 내부 측정용 복제 라우트 `/dev/replica/tines-home` · `/dev/replica/tines-app`(프로덕션 `notFound()` + noindex)와 판정기 `replica-diff.mjs` 추가 — 실측 홈 픽셀 차이 **1440 0.34% · 375 0.96%**(기준 ≤2%, 문구·그림 마스킹 후), 앱 골격 상자 **9/9 항목 ±8px 안**.
 
+- 영상 요청 PR #119 리뷰 결함 5건(`20260926130000_video_request_supersede_restore`, 2026-09-26 적용): 같은 자리 요청은 created_at 최신이 주인(`pickRequestOwners` · pull ORDER BY) · 옛 failed 자동 재시도 차단 · 교체 편 평가는 `applied_at` 이후 재생만 · 발행 건너뛰기를 크기 대신 sha256 으로 · purge 편을 「다시 찍어 되살리기」로 복구 가능.
+- 영상 공장 내리기·교체(`20260924150000_video_retire_replace`): 구성요소·요청 상세에서 교체 요청/내리기/되살리기, `pnpm video retire:sync [--commit] [--purge]`. 교체본은 같은 id·같은 kind 를 이어받고, 내린 편은 음성~발행 어디에도 안 나온다(목록 못 읽으면 멈춤). manifest 에 내용 해시 `?v=` — 7일 캐시 뒤 옛 영상 방지.
+- 영상 공장 요청 순환 화면·드레인: `/admin/video` 「요청」 탭 + `/admin/video/requests/[id]`(스테퍼 · 채운 미리보기 · 승인/수정/반려), `pnpm video requests[:export|:import|:pull]`, 설계 서브에이전트 `video-request-designer`. 초안은 숫자를 못 쓰고 번들 경로만 인용, 규칙 편 장면은 borrow 로 흡수. 교재 권별 요청 1건으로 요청→수정 요청→rev 2→승인→음성→렌더(가로)까지 실측.
+- 영상 공장 요청 순환 DB(`20260924120000_video_requests`): 분야 설정 표 + 요청·설계 rev·검토·평가 4표, phase 전이는 RPC 6개로만 — 현재 rev 승인 없이는 적용 불가. `video_jobs.kind` 에 `request` 추가.
+
 - 기출 분석 방법론: 「난이도는 소재가 아니라 형식(유형)」 실측 절 신설(CSAT_TYPE_ANALYSIS §1-1) — 802편 전수, 유형 간 격차 95포인트. 신호를 바꾸면 절대 수준은 바뀌어도 유형 순서는 유지된다는 대조를 함께.
 
 - 관리자 옛 AI-보라 전량 교체(Gate 4 (i) · DD-59): 66파일 318건 → 토큰(`--p` 계열), 평균 신호 라쳇 `admin.ai-purple` **318 → 0**. 코드모드 2개 신설(기본 예행 · 정확 일치만). 부작용으로 생긴 다크 AA 미달 20줄은 기준선을 올리지 않고 `text-[var(--on-p)]` 로 고쳤다. 화면도움말 「보라 테두리」 3곳 동기화.

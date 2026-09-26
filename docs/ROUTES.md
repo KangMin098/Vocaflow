@@ -204,6 +204,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 ## admin/* 관리자 콘솔
 
+> 2026-09-24 추가: **`/admin/video/requests/[id]`** — 영상 요청 상세(기획 · 설계 · 검토 · 적용 · 평가). `/admin/video` 에 「요청」 탭(맨 앞, 기본 탭).
 > 2026-09-13 추가: **`/admin/video`** — 영상 공장(VFP) 콘솔. 탭 3(현황·구성요소·내보내기).
 > 실행 버튼이 없는 유일한 파이프라인 콘솔이다(렌더가 서버에서 돌 수 없어 명령을 건넨다).
 > 새 테이블 없음 — manifest · `storage.objects` · `funnel_events` 로 답한다.
