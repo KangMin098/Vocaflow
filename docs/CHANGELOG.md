@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **실험 2 — 보관 판정 체크리스트 분해 채점**(2026-09-26 · DB 0 · migration 0): 회차 8·10 층화 표본 200편 눈가림. 모집단 가중 일치율 95.5%지만 「전부 keep」 기준선이 92.8% · **폐기 재현율 48.3%** → 실질 불합격. 폐기 놓침 31건 중 22건이 「가는 연결」을 예/아니요로 접은 Q5 설계 결함. v2 후보(연결 3값 · 걷어낸 뒤 남는 문장) 기록. `docs/reports/checklist-exp-20260926.md`.
 - **보관 판정 전 근사 중복 측정**(2026-09-26 · 읽기 전용 · migration 0): `scripts/csat/near-dup.mjs`(MinHash 128 · LSH 32×4) · `near-dup-measure.mjs`. 원천 77,903편 중 자카드 ≥0.8 중복은 **334편(0.43%)** — 대부분 VOA 재방송본과 본문 없는 강의 틀 64편. 판정 수 절감 수단으로는 채택하지 않는다. 기록 `docs/reports/near-dup-measure-20260926.md`.
 - **CSAT 통합 OFFSET 빚 5곳을 키셋으로 상환**(2026-09-26 · migration 0): `lib/csat/items.ts` 3곳과 `dissect-catalog.ts` 2곳을 고유 `id`·`(item_id, version)` 커서로 전환하고 공용 `keyset-select` 회귀를 추가했다. 깨끗한 LF 체크아웃에서 offset-paging 예산 **216→207**. row-write 스캐너가 앞 SELECT에 뒤 UPDATE를 중복 귀속하던 오탐도 고쳐 예산 **158→137**. 전체 검증에서 드러난 키셋 mock·선반 규격·재고 스냅샷 기준 드리프트를 현재 정본에 맞추고 소스 프로필 이름 단추의 44px 탭 영역을 보강했다.
 - **Codex CLI 남은 게이트 4건 실측·훅 차단 교정**(2026-09-26 · migration 0): workspace-write 에이전트 테스트 **95/95**, force-push execpolicy `forbidden`, 실제 Codex→Claude 인계 검증 PASS. 중복 훅 정의와 Claude 전용 환경변수 의존을 제거하고, Codex PreToolUse는 exit 2가 아닌 JSON `permissionDecision=deny`로 차단하도록 실제 입력 회귀를 추가했다.
