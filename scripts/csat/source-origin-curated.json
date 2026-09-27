@@ -1,0 +1,420 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-09-28",
+  "scope": {
+    "exam_rows": 30,
+    "exam_rows_with_items": 29,
+    "suneung_exam_rows": 14,
+    "mock_exam_rows": 16,
+    "in_scope_items": 802,
+    "unique_passages": 713,
+    "empty_exam_ids": ["M2009"],
+    "education_office_exam_rows": 0
+  },
+  "entries": {
+    "4d6f8b2199db333ecfafd9824f899cd43e7f83fa4684a00c1f84bf339fe25801": {
+      "status": "confirmed_exact",
+      "source": { "title": "The Network Society", "authors": ["Jan van Dijk"], "year": 2006, "publisher": "SAGE" },
+      "evidence": [
+        { "kind": "exact_text_with_attribution", "url": "https://bilgiyonetimi.net/essential-mooc/en/module_2_9.html?userType=trainee", "label": "New-media definition with van Dijk citation" }
+      ],
+      "note": "The passage preserves van Dijk's definition and examples with minor editing."
+    },
+    "c687109777bf43efec55b77c5a9a259618e91384ca68beadaff6349ac2e6796d": {
+      "status": "confirmed_exact",
+      "source": { "title": "Walt Whitman and the Culture of American Celebrity", "authors": ["David Haven Blake"], "year": 2006, "publisher": "Yale University Press" },
+      "evidence": [
+        { "kind": "publisher_exact_text", "url": "https://academic.oup.com/yale-scholarship-online/book/22558/chapter-abstract/182889838", "label": "Oxford Academic publisher page and exact preface text" }
+      ],
+      "note": "The exam passage closely follows the preface."
+    },
+    "9770a67b3c40ba6745f411ff0bed83563bc015b21367905d44a8cf48e6ff4c65": {
+      "status": "confirmed_exact",
+      "source": { "title": "Cognitive Psychology: Connecting Mind, Research, and Everyday Experience", "authors": ["E. Bruce Goldstein"], "year": 2011, "publisher": "Cengage" },
+      "evidence": [
+        { "kind": "exact_text", "url": "https://fliphtml5.com/lnym/ljxx/COGNITIVE_PSYCHOLOGY_2ND_EDITION/", "label": "Full-text copy, chapter on attention without eye movements" }
+      ],
+      "note": "The basketball and inattentional-reading examples match in sequence."
+    },
+    "8af429f15c192be758d88311b6ff92e9f8443ad6d9edbd5e16fdc92a9f3c82bd": {
+      "status": "confirmed_exact",
+      "source": { "title": "The Art of Understanding Art: A Behind the Scenes Story", "authors": ["Irina D. Costache"], "year": 2012, "publisher": "Wiley-Blackwell" },
+      "evidence": [
+        { "kind": "publisher_exact_text", "url": "https://catalogimages.wiley.com/images/db/pdf/9780470658321.excerpt.pdf", "label": "Wiley excerpt, chapter 1" },
+        { "kind": "catalog_metadata", "url": "https://catalogue.bnf.fr/ark:/12148/cb42719473n", "label": "Bibliothèque nationale de France metadata" }
+      ],
+      "note": "The sequence about artist, originality, authorship, and authenticity is nearly verbatim."
+    },
+    "ce53ef90d7503a08ec0a7344c4d0bbe845a270127acaa38dacf91c730b1f89fd": {
+      "status": "confirmed_exact",
+      "source": { "title": "Music, Imagination, and Culture", "authors": ["Nicholas Cook"], "year": 1990, "publisher": "Oxford University Press" },
+      "evidence": [
+        { "kind": "publisher_exact_text", "url": "https://academic.oup.com/book/49192/chapter-abstract/422321663", "label": "Oxford Academic chapter text" }
+      ],
+      "note": "The discussion of measurable tone and fixed pitches matches the chapter."
+    },
+    "653f9b122e55600ffb598ea7118ec6122f0fb87ae7d4342d8ec047e53aed82a1": {
+      "status": "confirmed_exact",
+      "source": { "title": "Cyber War Will Not Take Place", "authors": ["Thomas Rid"], "year": 2013, "publisher": "Oxford University Press" },
+      "evidence": [
+        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9780199365463_A24395982/preview-9780199365463_A24395982.pdf", "label": "Publisher preview, chapter 1" }
+      ],
+      "note": "The Clausewitz passage is reproduced with light lexical editing."
+    },
+    "29c75004dd24fa6aa985af8836f7e50af41ef92f4e3ae1490965b2051b35254b": {
+      "status": "confirmed_exact",
+      "source": { "title": "Project Control: Integrating Cost and Schedule in Construction", "authors": ["Wayne J. Del Pico"], "year": 2023, "publisher": "Wiley" },
+      "evidence": [
+        { "kind": "publisher_exact_text", "url": "https://catalogimages.wiley.com/images/db/pdf/9781394150120.excerpt.pdf", "label": "Wiley excerpt, Benefits of Proper Planning" }
+      ],
+      "note": "The current edition preserves the exact passage; the exam may derive from an earlier edition."
+    },
+    "856c1d3ef33142e77388d210680de1089bb3c3ff0fb5c4ae9ba6e5d5ee5035b0": {
+      "status": "confirmed_exact",
+      "source": { "title": "The Geography of Transport Systems", "authors": ["Jean-Paul Rodrigue", "Claude Comtois", "Brian Slack"], "year": 2013, "publisher": "Routledge" },
+      "evidence": [
+        { "kind": "author_site_exact_text", "url": "https://transportgeography.org/contents/chapter1/what-is-transport-geography/transportation-derived-demand/", "label": "Author-maintained open textbook page" }
+      ],
+      "note": "The derived-demand paragraph and unused flight capacity example match."
+    },
+    "24551a63d2916d03bb9ddb4cf1af3e86da9cba19ba2d23c68c0f9e5c91925ffd": {
+      "status": "confirmed_exact",
+      "source": { "title": "Conceptualising the Social World: Principles of Sociological Analysis", "authors": ["John Scott"], "year": 2011, "publisher": "Cambridge University Press", "part": "Chapter 2, Culture: the Socialisation of Meaning" },
+      "evidence": [
+        { "kind": "publisher_exact_text", "url": "https://www.cambridge.org/core/books/abs/conceptualising-the-social-world/culture-the-socialisation-of-meaning/0E91BA2F04F4A490E6D47D9BCC082F15", "label": "Cambridge Core chapter" }
+      ],
+      "note": "The paragraph on cultural integration and ripe discoveries matches."
+    },
+    "4d27fb65de5d2704da6a95ddce0079366caba0a5972b290f3b66e422eabcad3e": {
+      "status": "confirmed_exact",
+      "source": { "title": "Materials Science and Engineering: An Introduction", "authors": ["William D. Callister Jr.", "David G. Rethwisch"], "year": 2018, "publisher": "Wiley" },
+      "evidence": [
+        { "kind": "publisher_exact_text", "url": "https://catalogimages.wiley.com/images/db/pdf/9781119278566.excerpt.pdf", "label": "Wiley excerpt" }
+      ],
+      "note": "The historical paragraph on materials is nearly verbatim."
+    },
+    "468d65925afb04aca416af57f4796d24f38da54d7570dce44a3094d97759af44": {
+      "status": "confirmed_exact",
+      "source": { "title": "The Cambridge Handbook of Creativity across Domains", "authors": ["James C. Kaufman", "Vlad P. Glăveanu", "John Baer"], "year": 2017, "publisher": "Cambridge University Press", "part": "Opportunities, Conditions, and Limitations of Cross-Domain Creativity" },
+      "evidence": [
+        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9781108294775_A30638556/preview-9781108294775_A30638556.pdf", "label": "Publisher preview" }
+      ],
+      "note": "The cross-domain creativity paragraph matches."
+    },
+    "6c6081273389daf8b4cc0c23a01c25bab026d12212229c70bc1cd892b42913b1": {
+      "status": "confirmed_exact",
+      "source": { "title": "Museum Storage and Meaning: Tales from the Crypt", "authors": ["Mirjam Brusius", "Kavita Singh"], "year": 2018, "publisher": "Routledge", "part": "Introduction" },
+      "evidence": [
+        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9781351659437_A30869589/preview-9781351659437_A30869589.pdf", "label": "Publisher preview" }
+      ],
+      "note": "The passage about galleries, consumable spaces, and neglected storerooms matches."
+    },
+    "54abdfdf38754e78d1e144a1f717f3c4987d75f68de453526344088996a506bc": {
+      "status": "confirmed_exact",
+      "source": { "title": "International Companion Encyclopedia of Children's Literature", "authors": ["Peter Hunt"], "year": 2004, "publisher": "Routledge" },
+      "evidence": [
+        { "kind": "exact_text", "url": "https://pubhtml5.com/iytc/jrjd/basic/", "label": "Searchable full-text copy" },
+        { "kind": "publisher_preview", "url": "https://api.pageplace.de/preview/DT0400.9781134436842_A23777097/preview-9781134436842_A23777097.pdf", "label": "Publisher preview" }
+      ],
+      "note": "The paragraph on reading pictures, maps, screens, and design graphics matches."
+    },
+    "cc1f720ce73fe0821dbbebda8c3eced46a6efcfdf94cb3bfa33275dbe14c9ed7": {
+      "status": "confirmed_exact",
+      "source": { "title": "The Aesthetics of Emotion: Up the Down Staircase of the Mind-Body", "authors": ["Gerald C. Cupchik"], "year": 2016, "publisher": "Cambridge University Press" },
+      "evidence": [
+        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9781316540541_A27168315/preview-9781316540541_A27168315.pdf", "label": "Publisher preview" }
+      ],
+      "note": "The trade-off between subject matter and style matches."
+    },
+    "ef16d1e696bd639b14c477352d5220f16fffc2ae41f31fc179a933b237e85eb3": {
+      "status": "confirmed_exact",
+      "source": { "title": "Hunger and Public Action", "authors": ["Jean Drèze", "Amartya Sen"], "year": 1989, "publisher": "Oxford University Press", "part": "Experiences and Lessons" },
+      "evidence": [
+        { "kind": "publisher_exact_text", "url": "https://academic.oup.com/book/2070/chapter/141987885", "label": "Oxford Academic chapter" }
+      ],
+      "note": "The paragraph on famine vulnerability and direct public intervention matches."
+    },
+    "a29af4c2969ec1141b3fde9a77cbc206d22c81a53867cd83c70d41e04d859300": {
+      "status": "confirmed_exact",
+      "source": { "title": "Chaos and Life: Complexity and Order in Evolution and Thought", "authors": ["Richard J. Bird"], "year": 2003, "publisher": "Columbia University Press" },
+      "evidence": [
+        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9780231501552_A25430015/preview-9780231501552_A25430015.pdf", "label": "Publisher preview" }
+      ],
+      "note": "The magnetic pendulum example matches exactly; this corrects an unsupported attribution to Edward T. Hall."
+    },
+    "084674e085527bd96676700a10056bae359e8aef02418991a949ebb9e9a4c419": {
+      "status": "confirmed_exact",
+      "source": { "title": "Mapping Selfies and Memes as Touch", "authors": ["Fiona Andreallo"], "year": 2022, "publisher": "Palgrave Macmillan", "part": "Semeful Sociabilities: Socially Networked Photography as Embodied Relationships of Touch" },
+      "evidence": [
+        { "kind": "publisher_open_access_exact_text", "url": "https://link.springer.com/chapter/10.1007/978-3-030-94316-5_5", "label": "Springer open-access chapter" }
+      ],
+      "note": "The technological seamlessness paragraph matches with minor substitutions."
+    },
+    "b60e5253063b85c9017cc4738d532829f57b6078e2236b4ea1cc71b904281009": {
+      "status": "confirmed_exact",
+      "source": { "title": "An Introduction to Tourism", "authors": ["Leonard J. Lickorish", "Carson L. Jenkins"], "year": 1997, "publisher": "Butterworth-Heinemann" },
+      "evidence": [
+        { "kind": "exact_text", "url": "https://www.perlego.com/book/1625973/introduction-to-tourism-pdf", "label": "Searchable book preview" },
+        { "kind": "publisher_preview", "url": "https://api.pageplace.de/preview/DT0400.9781136391927_A23844089/preview-9781136391927_A23844089.pdf", "label": "Publisher preview" }
+      ],
+      "note": "The paragraph on the tourism industry's integration after the 1950s matches."
+    },
+    "31875c36b61e8bfbccecfe88be76c7b69dada708e549fb0892e8909b9cc10cb0": {
+      "status": "confirmed_exact",
+      "source": { "title": "Cities of Culture: Staging International Festivals and the Urban Agenda, 1851–2000", "authors": ["John R. Gold", "Margaret M. Gold"], "year": 2005, "publisher": "Ashgate" },
+      "evidence": [
+        { "kind": "exact_text", "url": "https://www.researchgate.net/publication/335925233_Cities_of_culture_staging_international_festivals_and_the_urban_agenda_1851-2000", "label": "Full-text author copy" },
+        { "kind": "publisher_preview", "url": "https://api.pageplace.de/preview/DT0400.9781351951470_A30893651/preview-9781351951470_A30893651.pdf", "label": "Publisher preview" }
+      ],
+      "note": "The passage on spectacle, cultural frames, convention, and originality matches."
+    },
+    "b37bfcf967ed3ae4af896d9cd4ed04cf3fbee043123cf514383b5a5fa721c888": {
+      "status": "supported_candidate",
+      "source": { "title": "Social Media ROI: Managing and Measuring Social Media Efforts in Your Organization", "authors": ["Olivier Blanchard"], "year": 2011, "publisher": "Que" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://www.informit.com/store/social-media-roi-managing-and-measuring-social-media-9780789747419", "label": "InformIT/Que metadata" },
+        { "kind": "searchable_book", "url": "https://www.oreilly.com/library/view/social-media-roi/9780132678032/", "label": "Searchable book record" }
+      ],
+      "note": "An exact-match full-text copy was found, but the publisher preview retained here does not expose the matched paragraph."
+    },
+    "27aacecf2a125bfc6cbd512cdf2dd7957449d4b3553bfdf312831a4744a507d5": {
+      "status": "supported_candidate",
+      "source": { "title": "Merchants of Doubt", "authors": ["Naomi Oreskes", "Erik M. Conway"], "year": 2010, "publisher": "Bloomsbury Press" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://www.bloomsbury.com/us/merchants-of-doubt-9781608192939/", "label": "Bloomsbury metadata" }
+      ],
+      "note": "Exact matching text was located in a full-book copy; official metadata confirms the bibliography but not the paragraph."
+    },
+    "a6374218884bd072995145055518cafc65d89d3c45ca1890c6ebcefde5f28f91": {
+      "status": "confirmed_exact",
+      "source": { "title": "Understanding Global Health", "authors": ["William H. Markle", "Melanie A. Fisher", "Raymond A. Smego Jr."], "year": 2014, "publisher": "McGraw-Hill", "part": "Chapter 6, Environmental Health in the Global Context" },
+      "evidence": [
+        { "kind": "publisher_exact_text", "url": "https://accessmedicine.mhmedical.com/content.aspx?bookid=710&sectionid=46796907", "label": "McGraw-Hill AccessMedicine chapter" }
+      ],
+      "note": "The passage is visible on the publisher's chapter page."
+    },
+    "238c2e3157785500d71eeefc1ae8f4c96058de12b0a552fc055c5d5359b5acf6": {
+      "status": "supported_candidate",
+      "source": { "title": "Thomas Kuhn", "authors": ["Thomas Nickles"], "publisher": "Cambridge University Press", "part": "Contemporary Philosophy in Focus" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://www.cambridge.org/core/books/thomas-kuhn/339C2A262C829739D7DC8C74AFE27280", "label": "Cambridge book metadata" },
+        { "kind": "conceptual_source", "url": "https://press.uchicago.edu/ucp/books/book/chicago/S/bo13179781.html", "label": "The Structure of Scientific Revolutions metadata" }
+      ],
+      "note": "The passage combines exposition with recognizable Kuhn wording; the exact chapter-level origin remains unverified."
+    },
+    "f74dc7841169c7c6d885663dc2274ba631734b46eab7c92e326c4acc8ef4fb3d": {
+      "status": "supported_candidate",
+      "source": { "title": "Waste and Want: A Social History of Trash", "authors": ["Susan Strasser"], "year": 1999, "publisher": "Metropolitan Books" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://us.macmillan.com/books/9780805065121/wasteandwant/", "label": "Macmillan metadata" }
+      ],
+      "note": "Bibliographic attribution is plausible, but an independently accessible exact paragraph was not found."
+    },
+    "c96acfa2cecf06c999ecea7536ab0bfa284acad26550db139455c25346d8298c": {
+      "status": "supported_candidate",
+      "source": { "title": "Botany: An Introduction to Plant Biology", "authors": ["James D. Mauseth"], "year": 2012, "publisher": "Jones & Bartlett Learning" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://samples.jblearning.com/9781284157352/9781284157468_FMXx_Pass04_Secured_19251_1.pdf", "label": "Jones & Bartlett sample and metadata" }
+      ],
+      "note": "The title attribution is supported, but the exact passage was not exposed in the publisher sample."
+    },
+    "12bbe03dbf5b2297c0a58c7fbb38dbc587e26bc6a7b36e4f7ffe10e6046e6a8a": {
+      "status": "supported_candidate",
+      "source": { "title": "Crop Responses to Environment: Adapting to Global Climate Change", "authors": [], "year": 2018, "publisher": "CRC Press" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://www.routledge.com/Crop-Responses-to-Environment-Adapting-to-Global-Climate-Change/", "label": "CRC/Routledge title metadata" }
+      ],
+      "note": "Exact wording appeared in a publisher-hosted preview during the audit, but the signed preview URL was not stable enough to retain."
+    },
+    "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc": {
+      "status": "supported_candidate",
+      "source": { "title": "Comic Relief: A Comprehensive Philosophy of Humor", "authors": ["John Morreall"], "year": 2009, "publisher": "Wiley-Blackwell", "part": "Chapter 5, The Negative Ethics of Humor" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/9781444307795", "label": "Wiley book page and contents" }
+      ],
+      "note": "Exact wording was found in a full-text copy; this corrects a weaker attribution to a different Morreall chapter."
+    },
+    "528594bb08c4f574e61d60cf7f5cd6677bd4deec2b9aec6db559d1391332a9ef": {
+      "status": "supported_candidate",
+      "source": { "title": "The SAGE Dictionary of Cultural Studies", "authors": ["Chris Barker"], "year": 2004, "publisher": "SAGE" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://www.sagepub.com/shop/buy-a-book/the-sage-dictionary-of-cultural-studies-1-219252", "label": "SAGE metadata" }
+      ],
+      "note": "Exact wording was found in a searchable copy, while the publisher page confirms the work."
+    },
+    "05288cbff96b44ed6560a69978fe84c6b5340d9b7b9cba209c43ceaac1e576f4": {
+      "status": "supported_candidate",
+      "source": { "title": "Social Traps and the Problem of Trust", "authors": ["Bo Rothstein"], "year": 2005, "publisher": "Cambridge University Press" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://www.cambridge.org/core/books/social-traps-and-the-problem-of-trust/02225C0BB48764F18F287FD6569EEF2E", "label": "Cambridge metadata" }
+      ],
+      "note": "Attribution is bibliographically strong, but publisher-visible exact text was not available."
+    },
+    "088563c00c5ae07908d75f8258c03e7b56dd33521edebab67a08dac4d46ed598": {
+      "status": "confirmed_exact",
+      "source": { "title": "Historical Representation", "authors": ["Frank Ankersmit"], "year": 2001, "publisher": "Stanford University Press" },
+      "evidence": [
+        { "kind": "exact_text", "url": "https://dokumen.pub/download/historical-representation-9781503619029.html", "label": "Searchable full-text copy" }
+      ],
+      "note": "The passage on precision, determinacy, and proliferating representations matches."
+    },
+    "a5a644a118074123868d9b4eb0d166a54204f4d73f119aa77a08ee0f0b2a081c": {
+      "status": "supported_candidate",
+      "source": { "title": "The Immersive Internet", "authors": ["Robin Teigland", "Dominic Power"], "year": 2013, "publisher": "Palgrave Macmillan" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://link.springer.com/book/10.1057/9781137283023", "label": "Springer/Palgrave metadata" }
+      ],
+      "note": "The book attribution is supported, but exact wording was not independently exposed."
+    },
+    "25b0736c9f9af55e3d4b3a336c5117fffcedd3273042224172f6125f8794d13b": {
+      "status": "supported_candidate",
+      "source": { "title": "Environment and Society: A Critical Introduction", "authors": ["Paul Robbins", "John Hintz", "Sarah A. Moore"], "year": 2011, "publisher": "Wiley-Blackwell" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://uat.store.wiley.com/en-us/environment-and-society-a-critical-introduction-2nd-edition-p-9781118451557", "label": "Wiley metadata for the later edition" }
+      ],
+      "note": "Exact wording was found in a searchable copy; edition-level certainty remains limited."
+    },
+    "484c5657b5bee1738e5116fe164d9cf398f6a94251f8de908c42d44c6365a22e": {
+      "status": "confirmed_exact",
+      "source": { "title": "Literary Fiction: The Ways We Read Narrative Literature", "authors": ["Geir Farner"], "year": 2014, "publisher": "Bloomsbury Academic" },
+      "evidence": [
+        { "kind": "exact_text", "url": "https://dokumen.pub/literary-fiction-the-ways-we-read-narrative-literature-9781623564841-9781623560249-9781628926996-9781623560256.html", "label": "Searchable full-text copy" },
+        { "kind": "official_metadata", "url": "https://www.bloomsbury.com/us/literary-fiction-9781623560256/", "label": "Bloomsbury metadata" }
+      ],
+      "note": "The wording matches and the publisher record confirms the bibliography."
+    },
+    "89c830aa54c650d02fc75096ec04b0289093778ee557d0e063c0a70060ae365a": {
+      "status": "supported_candidate",
+      "source": { "title": "Robot Ethics: The Ethical and Social Implications of Robotics", "authors": ["Patrick Lin", "Keith Abney", "George A. Bekey"], "year": 2012, "publisher": "MIT Press" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://mitpress.mit.edu/9780262526005/robot-ethics/", "label": "MIT Press metadata" }
+      ],
+      "note": "Exact wording was found in a searchable copy; the official page confirms the edited volume."
+    },
+    "5e5156b6787a3aef5080c3e4f83119a7f039de51083fd518b76cbc2e391a23c2": {
+      "status": "confirmed_exact",
+      "source": { "title": "The Real Gaze: Film Theory after Lacan", "authors": ["Todd McGowan"], "year": 2007, "publisher": "SUNY Press" },
+      "evidence": [
+        { "kind": "exact_text", "url": "https://pdfcoffee.com/the-real-gaze-film-theory-after-lacan-pdf-free.html", "label": "Searchable full-text copy" }
+      ],
+      "note": "The passage on cinema's fantasmatic dimension matches."
+    },
+    "58934cddcc758148e75a0d57f032316baed4e4bcfd230546ae7895b852cb56f4": {
+      "status": "supported_candidate",
+      "source": { "title": "Adaptation and Environment", "authors": ["Robert N. Brandon"], "year": 1990, "publisher": "Princeton University Press" },
+      "evidence": [
+        { "kind": "catalog_metadata", "url": "https://search.worldcat.org/search?q=ti%3AAdaptation+and+Environment+au%3ARobert+Brandon", "label": "WorldCat catalog search" }
+      ],
+      "note": "The title is consistently attributed, but a stable primary exact-text page was not retained."
+    },
+    "abd150006ef39404c8707dc9f1916111827f5d0fc710291e45e1461ac5081f3b": {
+      "status": "confirmed_exact",
+      "source": { "title": "The Art of Reasoning: An Introduction to Logic and Critical Thinking", "authors": ["David Kelley"], "year": 2013, "publisher": "W. W. Norton" },
+      "evidence": [
+        { "kind": "publisher_exact_text", "url": "https://nerd.wwnorton.com/ebooks/epub/artofreasoning5/EPUB/content/1.1.1-chapter01.xhtml", "label": "W. W. Norton ebook chapter" }
+      ],
+      "note": "The classification and concept/referent examples match; the publisher page is a later edition."
+    },
+    "4deb4899dcd562fe1b618cef5faaeba7690616b9ed97b25b16b5071a5d34a091": {
+      "status": "topic_lineage_only",
+      "source": { "title": "Play Signals as Punctuation: The Structure of Social Play in Canids", "authors": ["Marc Bekoff"], "year": 1995, "publisher": "Behaviour" },
+      "evidence": [
+        { "kind": "scholarly_topic_source", "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1439-0310.1995.tb01096.x", "label": "Scholarly paper on the same study lineage" }
+      ],
+      "note": "The study topic aligns, but the exam prose was not matched to this paper. Do not treat it as the textual origin."
+    },
+    "44330868551015973d7b376a75a82438797f2eaee6823528e10f9ae4b4c838bd": {
+      "status": "supported_candidate",
+      "source": { "title": "The Gig Economy: A Critical Introduction", "authors": ["Jamie Woodcock", "Mark Graham"], "year": 2019, "publisher": "Polity" },
+      "evidence": [
+        { "kind": "institutional_metadata", "url": "https://www.oii.ox.ac.uk/research/publications/the-gig-economy-a-critical-introduction/", "label": "Oxford Internet Institute publication record" }
+      ],
+      "note": "The attribution is strong and an exact-match copy was reported, but publisher-visible exact text was unavailable."
+    },
+    "0df714cfed308bfd6bf076636639bdc930c6c1fe146a0106ad9543b62950f6b8": {
+      "status": "supported_candidate",
+      "source": { "title": "Sport Entrepreneurial Ecosystems: Technology Innovation Perspectives", "authors": ["Vanessa Ratten"], "year": 2024, "publisher": "Springer Singapore" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://link.springer.com/book/10.1007/978-981-97-8923-8", "label": "Springer book page" }
+      ],
+      "note": "Independent teaching material attributes the passage to this book; this corrects an unsupported attribution to different sport authors."
+    },
+    "30e4c1823ee2a3d4cfd9066270c5be8fb1d53f01bcdc40dfd2439d5e27dedfe7": {
+      "status": "supported_candidate",
+      "source": { "title": "Human Transit", "authors": ["Jarrett Walker"], "year": 2012, "publisher": "Island Press" },
+      "evidence": [
+        { "kind": "author_site", "url": "https://humantransit.org/book/table-of-contents", "label": "Author's book site" },
+        { "kind": "exact_text_attribution", "url": "https://peshare.com/saying/view_saying.jsp?saying_id=242", "label": "Exact-match attribution page" }
+      ],
+      "note": "The exact passage is publicly reproduced and attributed to Walker, but the original author page containing it was not located."
+    },
+    "5a57a428c7a744591f0f17e375b7a90145ffac0dd4e0ecf647f55b2869d67e65": {
+      "status": "supported_candidate",
+      "source": { "title": "The Entertainment Industry: An Introduction", "authors": ["Stuart Moss"], "year": 2010, "publisher": "CABI", "part": "Chapter 16, Culturtainment" },
+      "evidence": [
+        { "kind": "book_metadata", "url": "https://books.google.com/books/about/The_Entertainment_Industry.html?id=n3Vi0RyXc5wC", "label": "Google Books metadata and contents" },
+        { "kind": "author_context", "url": "https://entplanet.blogspot.com/2009/10/entertainment-industry-introduction-new.html", "label": "Editor announcement" }
+      ],
+      "note": "The chapter title and rare term make the attribution strong; this corrects a different-title claim."
+    },
+    "f8203cbb81439587da8111702b0fa43d19adbf43dc1f46e5effcc9a882aa04ab": {
+      "status": "supported_candidate",
+      "source": { "title": "The Secret of Our Success", "authors": ["Joseph Henrich"], "year": 2015, "publisher": "Princeton University Press" },
+      "evidence": [
+        { "kind": "publisher_metadata", "url": "https://assets.press.princeton.edu/catalogs/F15InternationalD.pdf", "label": "Princeton catalog" },
+        { "kind": "publisher_preview", "url": "https://assets.press.princeton.edu/chapters/s10543.pdf", "label": "Princeton chapter preview" }
+      ],
+      "note": "The attribution is strong, but the retained publisher preview does not expose the exam paragraph."
+    },
+    "f4e395749fea1db9483415b834156347369150f4bd5296085edce8e95497d311": {
+      "status": "supported_candidate",
+      "source": { "title": "Strategic Issues in the Global Grain Trade", "authors": ["Sophia Murphy"], "publisher": "Institute for Agriculture and Trade Policy" },
+      "evidence": [
+        { "kind": "candidate_attribution", "url": "https://peshare.com/saying/view_saying.jsp?saying_id=248", "label": "Exact-match attribution page" }
+      ],
+      "note": "The title and author are plausible, but no independent primary full text was located."
+    },
+    "bfa5ddcea1c50e6c4fa42b2f353d86c0007abd95f955294c192dca1c728305e0": {
+      "status": "supported_candidate",
+      "source": { "title": "Interior Design Illustrated", "authors": ["Francis D. K. Ching", "Corky Binggeli"], "year": 2018, "publisher": "Wiley" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://uat.store.wiley.com/en-us/interior-design-illustrated-4th-edition-p-9781119468530", "label": "Wiley metadata" }
+      ],
+      "note": "The attribution is plausible and bibliographically verified, but exact wording was not independently exposed."
+    },
+    "b55393a504d52d671b92a4cc8efa3bbdb2fdf959defc0508ffdc6527f0181134": {
+      "status": "confirmed_exact",
+      "source": { "title": "Chaos and Life: Complexity and Order in Evolution and Thought", "authors": ["Richard J. Bird"], "year": 2003, "publisher": "Columbia University Press" },
+      "evidence": [
+        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9780231501552_A25430015/preview-9780231501552_A25430015.pdf", "label": "Publisher preview" }
+      ],
+      "note": "The exact magnetic-pendulum passage disproves the candidate attribution to The Dance of Life."
+    },
+    "006179bcf07d82fd7bcd34d78da5fcedcb2abf51bc6b44fd79778a861cd5d9e9": {
+      "status": "supported_candidate",
+      "source": { "title": "Effective Data Storytelling: How to Drive Change with Data, Narrative and Visuals", "authors": ["Brent Dykes"], "year": 2019, "publisher": "Wiley" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://uat.store.wiley.com/en-us/effective-data-storytelling-how-to-drive-change-with-data-narrative-and-visuals-p-9781119615729", "label": "Wiley metadata" }
+      ],
+      "note": "Independent teaching material attributes the passage to Dykes; this corrects the unsupported Sell with a Story claim."
+    },
+    "b7a85d81b7cbf6c821c93fb866f94bd0add28a16d8ee2a3ed1b9edeeefd32388": {
+      "status": "confirmed_exact",
+      "source": { "title": "Game Feel: A Game Designer's Guide to Virtual Sensation", "authors": ["Steve Swink"], "year": 2008, "publisher": "Morgan Kaufmann / CRC Press" },
+      "evidence": [
+        { "kind": "full_text_exact", "url": "https://studio.eecs.umich.edu/confluence/download/attachments/17827062/Game%20Feel.pdf?api=v2&modificationDate=1602432370681&version=1", "label": "University-hosted full text" },
+        { "kind": "official_metadata", "url": "https://www.routledge.com/Game-Feel-A-Game-Designers-Guide-to-Virtual-Sensation/Swink/p/book/9780123743282", "label": "CRC/Routledge metadata" }
+      ],
+      "note": "The passage matches the book."
+    },
+    "d17d529e8848e49eb697a5e542e1e520fd462a14b1fd104155ab4897b11089fb": {
+      "status": "supported_candidate",
+      "source": { "title": "Semiotics at the Circus", "authors": ["Paul Bouissac"], "year": 2010, "publisher": "De Gruyter Mouton" },
+      "evidence": [
+        { "kind": "official_metadata", "url": "https://www.degruyterbrill.com/document/doi/10.1515/9783110218312/html", "label": "De Gruyter book page" },
+        { "kind": "author_metadata", "url": "https://paulbouissac.com/cv-summary/", "label": "Author CV" }
+      ],
+      "note": "Independent teaching material gives this title; this corrects the vague claim that the source was merely a Semiotica article."
+    }
+  }
+}
