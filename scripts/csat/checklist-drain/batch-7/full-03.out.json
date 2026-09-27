@@ -1,0 +1,925 @@
+[
+  {
+    "id": "3f45684b-1b7d-4943-ba61-2ef0188a8354",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b93570aa102eba2fde377f4ea6f8f7a9093fd2cbde32bf3f73a4eefa286fb67b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "신임 투표 패배 → 사임 → 대통령의 선택지 → 베를루스코니 반응으로 원인·결과·반응이 이어져 고2~3 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The vote comes in the wake",
+      "note": "2단락(연정 소수파 이탈)은 앞 문맥 없이 서고, broke ranks·stint 정도를 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "3f52eb4a-f9c0-4265-bf5b-bd76138b0766",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7816820c11a630069844b54556d98ddc135d04c6c8a9ddd979575df2ba0eb918",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "메이의 출마 선언과 이유, 지난 보궐선거 결과, 의석 이력이 문장으로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "May ran recently in a federal",
+      "note": "5단락(보궐선거 2위와 첫 녹색당 의원 가능성)은 riding·by-election 만 풀면 혼자 서고, 여론조사 수치 문단은 걷는다."
+    }
+  },
+  {
+    "id": "3f535201-1dcf-4ac0-aa13-fdd4ac137606",
+    "source_updated_at": "2026-09-25T09:16:16.75017+00:00",
+    "body_sha256": "2b7fac1d934a4b041029c9146701e6b235cac4be3314798744b02c4dca2755d2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "본문 대부분이 요일별 시각·장소·공연 팀 이름의 일정표로, 문장마다 이름과 시각만 바뀌어 사건 흐름이나 논지가 없어 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "On Friday at 17:00 (UTC) the",
+      "note": "셋째 요일 문단을 떼어 보니 폴란드어 팀명과 시각만 남아 걷어 내면 문장이 남지 않았다."
+    }
+  },
+  {
+    "id": "3f5db7dd-d4ad-46cc-b88b-4908e3da9a53",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d96241e570c633ec13c66d4b845b2dfcc8aee635236ea8c0008e40308b5a3c96",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "납치 경위 → 1년 반 억류 → 구출 작전 → 인명 피해 없음으로 사건이 이어지는 단신이라 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The police said the Abu Sayyaf",
+      "note": "3단락(가게에서 납치)은 바로 서고, 무장단체 이름은 「a militant group」로 바꾸면 되며 buinessman 오타는 고친다."
+    }
+  },
+  {
+    "id": "3f6e2de4-23ae-4715-95dc-75630ac60a5d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "399e8e00d04b3bde7020600a22d674d8146e94ea52943c51fe89cf1363073190",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "대사관 개설 계획을 관계 개선의 징표로 풀고 교역 규모·논의 의제로 이어 가는 구성이라 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite the comment that the international",
+      "note": "5단락(교역 비중)은 Despite the comment 로 시작해 앞 문맥을 걷어야 하고, 걷으면 수출입 품목 대비로 선다."
+    }
+  },
+  {
+    "id": "3f74c678-72ec-4b93-9cc8-b7e6ba7d7780",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aa3ddb1e92480638fb1bd87c45aee81cc586798ae998176e00c444271799b9ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "후보 한 사람이 교통·환경·보육을 공약으로 까닭과 함께 답하는 한쪽 입장 인터뷰로, 주장 문항·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "ENVIROMENTAL ISSUES, RECYCLING, POLLUTION - These",
+      "note": "첫 답변(세 공약과 이유)은 대문자 머리말을 소문자로 고치고 cost effect 같은 오기를 고치면 요지 문단으로 선다."
+    }
+  },
+  {
+    "id": "3f75f37f-48b4-43db-bc65-f507439f69b7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "164f2b5d76323c2358ef26113106d0890bf23f4605a7ef591e71bd342054e928",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "주 전역 가뭄 선포 → 사료 부족 → 농민의 결정 부담 → 이례적 건조·고온 설명 → 엘니뇨 전망으로 원인과 결과가 이어져 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to BBC, Queensland, north of",
+      "note": "기상학자 인용 문단은 「따뜻한 기온이 흙을 더 말린다」는 인과가 서고, exacerbates 를 worsens 로 바꾸면 V5 이다."
+    }
+  },
+  {
+    "id": "3f7e2bb8-59be-4567-a489-076198261dae",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d751748a90ffd768003062c021f6644c4ce10801fb05e9222ab4ca4094a59602",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "방문 → 호텔 앞 시위 → 치안 우려로 모스크 방문 취소라는 반응이 문장으로 이어지는 짧은 단신이라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Her meeting has been followed by",
+      "note": "2단락은 시위와 취소의 인과가 한 문장에 있어 쉬웠고, constituency 하나만 풀면 된다."
+    }
+  },
+  {
+    "id": "3fa0d916-e439-4be5-b04a-0e3ddba723c1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d04b07ee77a0781b55aa3a25ddba0da658e516d4f727fd685ec7b5be857cd245",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "졸업 축하 파티로 알고 온 하객이 결혼식을 맞았다는 반전과 교제 이력이 사건 순서로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Monday, the day Zuckerberg turned",
+      "note": "3단락(졸업식과 깜짝 결혼식)은 혼자 서고 relocated·initial public offering 을 쉬운 말로 바꾸면 V4 이다."
+    }
+  },
+  {
+    "id": "3fb1455e-d73e-4515-b59e-d8f33bf7c0e0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5295fb472194d027ad5c5f55e1954ff5be5a7d5736199c7ee7a223df8fc301f8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "용의자 이름·나이·출신을 한 줄씩 늘어놓은 목록이 대부분이고 감시 카메라 동선 한 단락만 사건으로 이어지며, 초기 추정(공모자 신원)이 뒤에 바뀐 속보라 보관과 폐기 사이에 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The suspects were caught on surveillance",
+      "note": "카메라 동선 단락은 떼어지지만 나머지가 인물 목록이라 이름을 걷으면 남는 사건이 그 한 단락뿐이었다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "3fb3cc84-1de8-425a-b174-c9cc56ddb853",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dda83d0804c2140b96e5896b539f7f2319ef88877b913f72a737acdeb1c109ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭발 → 암모니아 누출(원인·결과 불분명) → 부상자 이송·대피 → 도로 통제로 원인·결과·후속 조치가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Eyewitnesses reported a loud explosion, and",
+      "note": "3단락(목격담과 누출)은 혼자 서고 anhydrous 를 빼고 inhalation 을 breathing in 으로 바꾸면 V4 이다."
+    }
+  },
+  {
+    "id": "3fb4cb7d-c535-4f00-a6ec-412c401172c7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b544ea0f469d49d1fab115655f46247d3c8c4908d1571205165d1b3af60aee68",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "규모 발표 → 다른 보도의 정정치 → 피해 없음과 도심 직장인 대피 반응 → 체감 지역으로 반응이 문장으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "No reports of damage, injuries, or",
+      "note": "4단락(피해 없음과 건물 밖 대피)은 앞 문맥 없이 서고 temblor 를 earthquake 로 바꾸는 정도면 된다."
+    }
+  },
+  {
+    "id": "3fc58b62-799a-4802-9cd8-29bbb4c1112b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "47d5e8ec2e757fa9380daa6758d4c22952009f0a953178a9e4b60831956e91fc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "선동죄의 정의 → 비판받은 계기 → 표현의 자유 침해라는 찬성 논거와 테러 우려라는 반대 논거 → 시행일로 논지가 서서 주제·제목·요약·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Minister of Justice Mark Burton criticised",
+      "note": "3단락(찬반 논거)은 떼어도 서고 infringement·persecution 을 limit·punishment 로 바꾸면 V6 으로 내려간다."
+    }
+  },
+  {
+    "id": "3fe46ea4-aa94-4396-b88f-89e0459f08e3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "831560376f865aea84bba687119ae0833d1fe8060d57576541d4d1c4072c8938",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "태풍 상륙 → 140만 명 대피(휴가객 포함) → 어선 귀항 명령 → 대만 사망·정전으로 원인과 조치가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Among the evacuated were 500,000 tourists",
+      "note": "4단락(휴가객 대피와 어선 귀항)은 바로 서고 landfall 만 풀면 V4 이다."
+    }
+  },
+  {
+    "id": "3feb7b77-998d-40a3-a6e9-3e71a683e5f0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba06d6fe2a15db1316fa7162319a45c1e411403397e85e4c0daa0dd899de8cbb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "허리케인 통과 → 사망·실종과 가옥 파괴 → 이웃 나라 홍수 경보와 사전 대피로 결과와 대비가 이어지는 단신이라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hurricane Felix has left at least",
+      "note": "1단락은 혼자 서고 in its wake 를 behind it 으로 바꾸면 되며 it's 오기는 고친다."
+    }
+  },
+  {
+    "id": "3fef63c7-cec2-4af0-8160-93313026affc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "658135237b9c68057e49d38e5a9c25a59832b09247611b63b4ebdb3dd06f06a3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "규모·진앙 거리·시각이 문장마다 바뀌어 되풀이되는 여진 목록이 본문이고 반응·피해·후속 절차가 없어(앞선 지진은 배경 한 구절) 내용 일치 칸의 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "This follows a magnitude 8.1 undersea",
+      "note": "셋째 단락을 떼어 수치를 걷으니 「같은 곳에 지진이 또 났다」만 남아 사건 흐름이 서지 않았다."
+    }
+  },
+  {
+    "id": "401033fc-8717-499b-967e-7c11b570e382",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d803ddf4a97f7761f712ce8b465b884607acf42044c2a8041c59b1038e02366e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "출판 서비스 Telegraph 의 특징을 Medium 과 대비해 로그인 없는 대신 수정 제약이 있다고 풀어 가는 기능 설명이라 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Unlike Medium and Quip Telegraph does",
+      "note": "3단락(로그인 없음과 편집 제약)은 대비 구조가 분명해 쉬웠고 cache 만 풀면 된다."
+    }
+  },
+  {
+    "id": "4013098c-de53-4014-9271-b2d954f00227",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "28a7fb6eded06cf69e928178ecee0261dcb8d71e1947dedabc961f813ba9c838",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "철거 사실 → 이스라엘 당국의 허가 없음 주장과 팔레스타인의 허가 불가 반론 → 유엔 수치 → 인구 정책이라는 연구자 인용으로 이어지며, 끝 인용은 한쪽 입장이지만 보도라 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since annexing the city in 1967",
+      "note": "4단락(1967년 이후 정책)은 떼어지고 hegemony·annexed 를 control·took over 로 바꾸면 V5 이며, 한쪽 인용임을 가공 때 밝힌다."
+    }
+  },
+  {
+    "id": "4014f3db-796b-4a52-b0c4-9a6f64714b85",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "73a0939d17ffe11fc52097116a6f31726e74493014a19919ee2fa21787ec690b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "빌딩 계단 오르기 대회가 대만 바나나를 주제로 열린다는 첫 단락은 행사 안내로 서지만 뒤 인용은 비문이 많아, 첫 단락만 내용 일치 칸으로 쓴다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 24th Shin Kong Life Tower",
+      "note": "1단락은 혼자 서지만 3·4단락 인용은 문법이 깨지고 에너지 절약 얘기로 새어 가공 때 고쳐 쓰거나 걷어야 했다."
+    }
+  },
+  {
+    "id": "40150c65-e9f6-4a73-a017-016741126307",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "94c9503cfca4c7b1799ec55c535ddab1353d38684a56a477209984886a5b5929",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "위장 수사 요원의 이메일 접촉 → 방콕 요원 인계 → 현장 확인 → 귀국 시 체포·유죄 인정으로 수사가 시간순으로 이어지나 아동 성매매가 소재라 성인 칸의 내용 일치·순서만 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "From June to late October of",
+      "note": "3단락(위장 이메일)은 서지만 미성년자 나이를 적은 구절과 업소 방문 묘사는 가공 때 걷어야 한다."
+    }
+  },
+  {
+    "id": "40168873-9484-4fc8-b6ab-a1e1a3486f27",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d95b3241f6a2efd014f27adbff01692b81ed30247e55b0f14b845b10caff94be",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "중도 탈락률 수치를 지역·성별로 풀고 끝에서 재정 부족·과밀 학급을 원인으로 들고 OECD 비교로 받쳐 원인까지 이어지므로 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Poor funding and large class sizes",
+      "note": "마지막 단락(원인과 OECD 순위)은 혼자 서고 retention 을 staying in school 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "402a70c2-95d7-4916-8d74-640886ff87f8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "494c75c39d65d11a73fa85fa812eccb8ea2ff1fb1835ca126e48d3c7d38b165f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "당선 → 경쟁자와의 표차 → 수낙 뒤를 이음 → 공약 → 두 당 대표의 축하로 결과와 반응이 이어지는 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On November 2, Kemi Badenoch was",
+      "note": "1단락(첫 흑인 당대표)은 혼자 서고 Tories 만 Conservatives 로 바꾸면 V3 이다."
+    }
+  },
+  {
+    "id": "40705d1f-248a-44a8-b6ff-4167e45e3aa9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8b203c80de5665c685337a1c2de46518524dd4dee42bca08d2d7ebf3ce8704f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "차량이 지뢰를 밟아 폭발 → 병사 넷 사망이라는 첫 단락의 인과가 서고 나머지는 별건 사상자 집계라, 고1 이상 내용 일치 칸 하나만 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Four US soldiers were killed by",
+      "note": "1단락은 인과가 분명해 서지만, 뒤 세 문장은 서로 다른 사건의 사망 집계라 가공 때 걷었다."
+    }
+  },
+  {
+    "id": "40acabf9-7cf6-43e0-abdc-874e157836b3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "210dd5f297ad7dd5ab4ccc053d53b7ddedc8ff54244ca867cd96d6bc76d2d331",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "첫 생방송 광고의 내용 → 방송사 평 → 사전 예고 → 새 슬로건과의 연결로 까닭이 이어져 내용 일치·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The first ever live advert to",
+      "note": "1단락은 서지만 「The image on the left」 문장은 그림을 가리키므로 걷어야 했고, 걷어도 뜻이 선다."
+    }
+  },
+  {
+    "id": "40c31c54-f413-41a1-ac71-e7b497bfdb0e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3fa29e42278ad07504a02cd49b1c092b125caae78928c3168cb398d4cd017aa4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "축제 폐막 → 참석자 인터뷰(가장 좋았던 행사) → 내년 일정 단축·가격 인하 예고로 다음 절차까지 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One attendee, Mack Budd, 18, attended",
+      "note": "2단락(18세 참석자)은 혼자 서고 slated 를 set 으로 바꾸면 V3 이다."
+    }
+  }
+]

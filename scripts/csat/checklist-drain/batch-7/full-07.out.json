@@ -1,0 +1,950 @@
+[
+  {
+    "id": "44a2f426-2360-46e7-88e1-1310a6d4465d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8d4186962312ebd00aff2c27ec267e337bb16e6143556141748530bd5ddd3941",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "첫 두 단락이 「유권자 800명인 까닭(주민 90%가 뉴질랜드 거주) → 무운동 선거 → 재무장관 두 표 차 낙선」으로 이어져 내용 일치 칸이 서고, 뒤의 득표 목록은 걷어 낸다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On April 30th the South Pacific",
+      "note": "앞 두 단락만 떼면 혼자 서고 득표수 목록(본문 절반 이상)은 가공 때 걷는다; self-government→self-rule, provisional→early 로 바꾸면 V4."
+    }
+  },
+  {
+    "id": "44b09cad-894f-45d4-a2db-73206862ec59",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7e17ccc5a533ebe125cedaa962baa6e2c88274a44a84d6430b94dff6d9991cb4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카트리나 뒤 20시간 근무와 참상이 경사의 자살로 이어지고 경찰청이 휴가·상담으로 대응하는 인과가 셋째 단락까지 서서 내용 일치·심경 칸을 채우되 자살 소재라 고등 이상.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The New Orleans Police Department has",
+      "note": "셋째 단락은 앞 문맥 없이 서고 unaccounted for→missing, anguish→pain 으로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "44b3f358-0e0e-4ce0-9f2b-17fdad1b217b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33d05f90957bc28d584ecd878f5b0515d02b8b899f4d564dee11cba757d4ca63",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "두 후보의 무기부 사실 뒤로 후보별 기부 금액·수령인 이름만 문장마다 바뀌어 되풀이되고 문장 사이를 잇는 사건이 없는 수치 나열이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Scott Brison is the most generous",
+      "note": "셋째·넷째 단락을 떼어 보니 금액과 이름을 걷으면 남는 논지가 없고 앞 단락도 「기부 기록이 없다」 한 사실뿐이다."
+    }
+  },
+  {
+    "id": "44c5466b-4858-477b-8a1f-6e6c915583f2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5b10860ec3c7ada8d9387d72b4645c88d7bacdb123ea7a2e055a4334af6c7705",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "인수 발표 → Shazam 작동 방식·수익 구조 → 양사 대변인의 「자연스러운 결합」 반응이 이어져 내용 일치·주제 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Founded in West London in 1999",
+      "note": "셋째 단락(작동 원리)은 창업자 이름을 걷어도 서고 commission→fee, integrated→built into 로 V4 가 된다."
+    }
+  },
+  {
+    "id": "44d2aa9b-0a5a-4e81-a724-ce66f3d3e698",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c138d4309fcbd2fe8b5b47e8e1fd5da4b1046a377d681d524310b09ab9fd1e11",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "59어 단신이지만 주차장 총격 → 쇼핑몰 진입 → 경찰에 사살로 사건이 문장끼리 이어져 내용 일치 칸 하나를 채우며 총격 소재라 고등 이상.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A gunman killed three people and",
+      "note": "전문 한 단락이 그대로 서고 presumably→probably 하나만 바꾸면 V3; 너무 짧아 다른 유형은 어렵다."
+    }
+  },
+  {
+    "id": "44df1710-0bc4-4dac-80c2-6791420e6bce",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6f58d3c47dbc9ac6fb0ec0084d9b894396836d5f159bda0c526246a32d98b024",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "news",
+    "why": "비평가 인용과 흥행 경쟁 논지는 서지만 끝 문장 「The following films will be playing…:」 뒤의 목록이 통째로 빠진 채 끊겨 불완전 원천이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Noise is a come-back attempt for",
+      "note": "셋째~여섯째 단락(혹평과 호평 대비)은 떼어도 서지만 원천 끝이 목록 머리에서 잘려 보관 확정은 미룬다."
+    }
+  },
+  {
+    "id": "44fd95f2-39ee-44f3-b287-71a3e4d1be05",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b32d71066ee1c56671885753f4e464958f991f15d15c23ec9faf8d4f5141698b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "순찰 중 폭발로 전사 → 지휘관의 추모 발언 → 유족 통보로 사건과 반응이 이어져 내용 일치 칸이 서며 전사 소재라 고등 이상.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He was a member of the",
+      "note": "둘째·셋째 단락이 지명을 걷어도 서고 deceased→dead, province→region 으로 V4 가 된다."
+    }
+  },
+  {
+    "id": "450dbea8-a456-4419-bef3-51779b2dfc43",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1fcd2f4344afaf8a4520c6fadc5658c86f7b3ef0343c3d32aef0af7ba66db4c3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "이지베이크 오븐 발명 경위(전구 가열 발상)와 성장기·가족 회고가 시간순으로 이어진 부고라 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ronald Howes died at the age",
+      "note": "첫 단락(발명 경위)은 회사명을 걷어도 서고 sentiment→idea, practical→useful 로 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "4513bb2f-cc79-4f79-86ac-9ceab6b5c767",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0425ca340e69f5f8d1b8e0eeac11024e8942117e872cafddec1e2e285d22c8de",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "수감 중인 전 정보국 간부가 암살 계획·첩보 시설·선거 부정을 차례로 폭로하는 한쪽 입장 보도로, 주장이 이어져 내용 일치 칸을 채우되 고유명사 부담이 커 고2 이상.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The information was revealed by Garcia",
+      "note": "둘째 단락은 떼면 서지만 인명·기관명을 걷으면 누가 누구를 고발했는지가 흐려진다; paramilitary→armed, conspiracy→plot 로 한 밴드 내린다."
+    }
+  },
+  {
+    "id": "4528c413-d6f5-4fec-80b3-cbb74038b020",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "08b7f7a1ef2abf34e0ee2df615c337331f02912eb2a3be7ce05aef319eb58d63",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "당 대표의 한쪽 입장 인터뷰로, 주택 투기 금지·공립학교 재정·제도 개혁 답변이 각각 주장과 까닭을 갖춰 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "We must restructure our housing market",
+      "note": "주택 답변 단락은 질문 없이도 주장으로 서고 speculation→buying to resell, profiteering→making money 로 V5 가 된다; 한 줄 답변(No·Vote Better)은 걷는다."
+    }
+  },
+  {
+    "id": "4543180f-d11f-4c3d-be91-f222b02f322f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ef048fde92ef8bc3e2aa331ade6d69c98ce14b1b08a1bee73b3539e351cb4925",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "학교 피격 → 피난 중 추가 사망 → 유엔 규탄·작전 중단 → 양측 사상자 집계로 원인·반응이 이어져 내용 일치 칸이 서며 민간인 사망 소재라 고등 이상.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two people were killed in the",
+      "note": "둘째 단락이 앞 문맥 없이 서고 temporary shelter→safe place, initial→first 로 V5 가 된다."
+    }
+  },
+  {
+    "id": "45555b72-12da-4234-8927-8a4ef24a27ed",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9b35732dd25d05a1dc9b9b43c19209e6e5ba1bb514ec8d9df7ae33123e4fa2e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "강풍·더위로 불이 번짐 → 600가구 소실 → 주민 증언 → 목조 밀집이라 빈민가 화재가 잦다는 까닭까지 이어져 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The fire spread quickly due to",
+      "note": "둘째 단락은 혼자 서고 extinguish→put out, proximity→closeness 로 V4 가 된다."
+    }
+  },
+  {
+    "id": "45618cd8-f4a7-4f94-9195-7cd7aa4ec814",
+    "source_updated_at": "2026-09-25T08:48:15.691467+00:00",
+    "body_sha256": "37c2115f4202d0da1c73fc552f5ea62c25bb0235da43acd3a9a802a1dd1c6bde",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "방송인·저자·교수로서의 업적과 정치인·방송인의 추모 인용이 이어진 부고라 내용 일치 칸이 서고 셋째·넷째 단락이 떼어진다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "John Davies, highly regarded Welsh historian,",
+      "note": "첫 단락은 혼자 서지만 추모 인용 단락은 인명을 걷으면 약해진다; definitive→most trusted, incontrovertibly→clearly 로 V5."
+    }
+  },
+  {
+    "id": "456cc8cd-04e4-49cd-84a2-00f2ef682155",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "22c05712e2d6e253abc1a03f0b9eb00530bbd9196c7cbf60925b8db83d69a07c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "출시 소식 뒤 사용자들의 성능 향상 증언과 Java DB·스크립팅 API 설명 단락이 이어져 내용 일치 칸이 서고, 뒤쪽 기능 목록은 걷는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Users of the pre-release versions have",
+      "note": "둘째 단락은 혼자 서지만 API·GTK·anti-aliasing 같은 전문어가 많아 두세 낱말 교체로는 밴드가 안 내려가고, 기능 목록 절반은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "458ab205-031b-4a20-bd5b-3f6d9d165f22",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2e2740b393bc7db0c7241bcee84f946d6a5d8a1731bd96b73761f98fd13df805",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "의석 추정 첫 단락은 수치 나열이지만 뒤로 연정 전망 → 양당 반응 → 출구조사 신뢰도 경고가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The results mean that Olmert could",
+      "note": "둘째~다섯째 단락을 떼면 선거 결과의 의미와 반응이 서고 unilateral→one-sided, definitive→final 로 V5; 첫 단락 의석 수는 줄인다."
+    }
+  },
+  {
+    "id": "45a1dbd4-604b-401c-a31d-edee7e04e682",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "84e1589216d2981a83a0c572661a51df61888464f19e41e71c81fd889716d63e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "시험 발사 성공 → 제원 설명 → 시험장 책임자 평가 → 추가 시험 뒤 2011년 배치 계획으로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sources at the ITR claimed the",
+      "note": "마지막 단락은 서지만 제원 단락(사거리가 80km·25km 로 서로 어긋남)은 수치만이라 걷는다; intercept→stop, validated→confirmed 로 V5."
+    }
+  },
+  {
+    "id": "45b920b9-d6eb-4951-b541-28bf4bc492a2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9bb673c2e6094c2c1d46b3e0c4062f47f44d45a99c086484778f00db60677152",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "103어 단신이지만 최다 수상작, 흥행 1위라서 골든릴상을 받은 영화, 시상식 주관 기관이 까닭으로 이어져 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The bilingual police-comedy Bon Cop, Bad",
+      "note": "둘째 단락은 혼자 서고 shut out→won nothing, revered→loved 로 V4 가 된다; 짧아 다른 유형은 없다."
+    }
+  },
+  {
+    "id": "45e1684b-801e-4415-ae04-e34ea0c80492",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6a035420026186a91e21055d909d81e4639f1d15c3278e910a3810a136925859",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "러시아 폭격기 접근과 요격을 냉전기 일상적 탐색전과 오늘날 대테러 임무로 대비하는 단락들이 이어져 내용 일치·주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During the Cold War in the",
+      "note": "냉전기 단락은 앞 문맥 없이 서고 perimeter→edge, accustomed→used 로 V6 이 된다."
+    }
+  },
+  {
+    "id": "45e87474-e971-4204-b082-49cf926c0e2a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9769090e0b2e5ffb2a97c5a352e48be3d6673a0dfa526e72364717fd18029277",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "75어 단신이지만 미사일 공격 → 이스라엘군이 댄 표적 까닭 → 납치 병사 구출 작전의 일부라는 맥락이 이어져 내용 일치 칸이 서며 고등 이상.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Israel fired a missile into northern",
+      "note": "전문이 한 편으로 서고 militants→fighters, stronghold→base 로 V4 에 맞지만 짧아 내용 일치 외 유형은 어렵다."
+    }
+  },
+  {
+    "id": "45fa42c1-fa8a-4618-9bcf-1bf19f6104e0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cc5d3acaea21cb25feb6b85ed122735d0857819146f5b15b7ebe4d60fc0c4461",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "투병 끝 별세 → 국립극장 감독·브로드웨이 토니상 후보 경력 → 추모 방송·장례 예정으로 이어진 부고라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nikos Kourkoulos played in several movies,",
+      "note": "셋째 단락은 혼자 서고 prominent→famous, tycoon→businessman 으로 V4; 첫 줄 「Athens, Greece -」 머리는 걷는다."
+    }
+  },
+  {
+    "id": "461b152a-db48-413b-934b-6b0dd697715a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6e752b60e654cf90c382df121d62e33eb3644ef16729c79332c3016b034580de",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "청취자가 후보 다섯을 고름 → 생방송 토론 → 이메일·문자 투표 → 비틀스를 400표 차로 제침으로 절차가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "More than 20,000 people voted for",
+      "note": "둘째·셋째 단락이 투표 절차로 이어지고 contenders→choices, finalists→last five 로 V3 가 된다."
+    }
+  },
+  {
+    "id": "462502f9-b551-4e6a-93a9-8fae6439e9d4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d57caaaff9b29f3afc3b6594db03b90dc6081378bc04083d352f67f804a844ca",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "도시·지역마다 정당 이름과 득표율·의석수만 바뀌어 되풀이되고 문장 사이를 잇는 원인·반응이 없는 득표율 나열이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "According to GONG, an NGO observing",
+      "note": "둘째 단락을 떼어 보니 퍼센트와 인명을 걷으면 「누가 앞선다」 외에 남는 사건이 없다."
+    }
+  },
+  {
+    "id": "4633ba92-c810-42b9-887a-5550825436b7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4812e6b6159cca5ba1e8da8af1c73d0b2c67ef044a8e56b82f3b42680b7f7130",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "성장률 둔화를 소비 지출 둔화·재고 축적 감속·무역적자 확대로 풀고 주·지방 지출 증가 같은 밝은 면과 대비해 수치 사이에 인과가 서므로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For this year's second quarter, the",
+      "note": "셋째 단락은 수치를 줄여도 둔화 까닭이 서고 disposable→spendable, contraction→shrinking 으로 V5; 개정 수치 단락은 걷는다."
+    }
+  },
+  {
+    "id": "4638de36-0b3f-4454-9ece-fff5e1a79f5f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a6e457cb2587a9a29a653df4b54df627fb5e8ef8c6b99d3598b6bac50d479369",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "순위 나열 사이에 문해 5수준·1수준의 뜻 설명과 「일본은 문해력이 사회 이동의 장벽이 아니나 미국은 상관한다」는 대비가 있어 내용 일치·주제 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Japanese data said adult literacy",
+      "note": "사회 이동 단락과 수준 설명 단락은 떼어도 서고 proficiency→skill, synthesize→combine 으로 V5 가 되며 조사국 목록 단락은 걷는다."
+    }
+  },
+  {
+    "id": "46403d8a-2a46-46bf-b7dc-625d1282adbf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "204444dc0ad20cf32107520914d0c46aced3fbcdec9b3835446d883a07a593f7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "평화협정과 2011년 분리 투표 사이 6년 개발 계획의 두 단계(긴급구호·귀환 → 기반시설)와 재원 요청·노르웨이 회의가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The plan, titled \"Framework for Sustained",
+      "note": "두 단계 설명 부분은 떼어도 서고 repatriation→return home, eradication→ending 으로 V6 까지 내린다."
+    }
+  }
+]

@@ -1,0 +1,979 @@
+[
+  {
+    "id": "3dd35c84-4c93-4f90-a712-0df06967cc82",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0efc06db8576ae1641bc621b42f195fde681a66509d15cc04d86eed271a52465",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아일랜드 도박업체가 교황 선출 배당을 연다 → 추기경 소집이 계기 → 경마에 빗댄 대변인 발언으로 이어져 사건 흐름이 선다(내용 일치·어휘 칸).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "mood",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Irish betting shop chain, Paddy Power,",
+      "note": "끝의 「betting list can be found here」 링크 문장만 걷으면 되고, callous·clued up 을 heartless·well informed 로 바꾸니 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "3dd4d92d-3396-4829-819a-0ccbb772b379",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1bea53402d3b02f87ced3ba2cf99deb3d75661e57cf3b22e7ead0bb1eb4b4e93",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "블레어의 사과 → 그 원인인 영국인 불만(대피 거부·지원 부재) → 부시 비판으로 원인·반응이 두 단락 안에서 이어진다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "British Prime Minister Tony Blair has",
+      "note": "destabilized·stranded 를 damaged·stuck 으로 바꾸면 V4 로 내려가고 앞 문맥이 필요 없다."
+    }
+  },
+  {
+    "id": "3df6ff17-0685-49a9-8c1a-fc5af6963d4e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6879e701659438e9d374d18e1b30dd92ec49bcf0a45094dcdbb27048c0626257",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "카카오 수출 금지 지지 → 그바그보 퇴진 압박이라는 목적 → 카길·마스·재무장관의 반응이 차례로 이어져 원인·결과·반응이 선다(내용 일치·요약 칸).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ouattara hopes that the embargo will",
+      "note": "둘째 단락이 봉쇄의 의도를 혼자 설명하고, incumbent·concede 를 current·give up 으로 바꾸면 V6 로 맞는다."
+    }
+  },
+  {
+    "id": "3e092761-113a-4d32-8e35-7065e078e113",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2543f893e57a6819de272291d614e4cddf9f1b1a4acbcd460a26d24d39290808",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "80어 단신이지만 폭탄 공격 → 사상자 → 주지사가 민간인 피해와 공격 표적을 추정하는 반응으로 이어져 수치만의 되풀이가 아니다(내용 일치 칸, 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Governor Mohammed Akram Akhpelwak said that",
+      "note": "짧아서 전편을 한 지문으로 쓰고, situated·intention 을 located·aim 으로 바꾸면 V4~V5 에 들고 폭력 소재라 고1 이상으로 둔다."
+    }
+  },
+  {
+    "id": "3e112443-a4e6-4fed-807b-5f23f495d602",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b3967714636df54a36bdd76ea8938ca72577fb5443871e8e0e4481ab1ae4ced8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "다우닝가 메모의 내용·부인·비판이 주장-근거 칸을 채울 만하지만, 콘여스 문단 뒤가 「has not given [the Senate] full information」 로 문장 도중에서 이어 붙어 본문이 빠졌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Critics of the war claim that",
+      "note": "비판 측 주장 단락은 떼어져 서지만 줄이 끊겨 있고 빠진 인용문 자리를 메울 수 없으며, pretextual·purporting 등 정치 어휘가 많아 V5 아래로는 안 내려간다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "3e1f4f85-bbe0-44e3-affa-c2d659a7ac16",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0056ecc974b7b99d97d17bb7973beaea804585184eb792eea1008873beb6b1a4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "정부의 구제금융 발표가 원인 → 세 지수 급등·은행주 반등이 결과로 문장이 이어지고 해외 시장 반응까지 붙어 수치 나열에 그치지 않는다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "United States stock markets surged on",
+      "note": "첫 두 단락이 원인-결과로 서고 지수 수치 단락은 가공 때 줄이며, toxic assets·rally 에 풀이를 달면 V5 에 든다."
+    }
+  },
+  {
+    "id": "3e212b69-a2a5-4334-99d2-f6aa127627e0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aaf89bd76af68b4ec5376096e55c5c3556a070bd8c07243eeef68ba14e5e26a0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "제휴 발표 → 공장 설립 협의 → 분석가의 기관차 수요 추정 → 11월 입찰 계획이라는 다음 절차까지 이어져 사건이 선다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bombardier Transportation officials have met Railways",
+      "note": "crore 단위 수치는 걷어도 협의·절차 흐름이 남고, greenfield·dedicated 를 new·special 로 바꾸니 V5 에 맞는다."
+    }
+  },
+  {
+    "id": "3e4613ff-d0ac-49b7-95e9-2bb101ccb3b3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "64bd8df026f5ec5539a3eaeb1cdc320cdd335d9298bedff78a9b6e995a22bbe3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "낭독회 개최 → 자리가 찼다 → 소개 → 초청 시인 낭독 → 오픈 마이크 순서로 행사가 흘러 이름 나열 안에도 사건 순서가 있다(중등 이상 내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The event was hosted in the",
+      "note": "시인 이름 여섯은 가공 때 줄이고 open mic 에 풀이를 달면 V3 까지 내려가지만 사건이 얇아 문항은 내용 일치 하나다."
+    }
+  },
+  {
+    "id": "3e4da79e-a023-4f5b-a52a-90b618ef8172",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c68e8e541b5de27356759f501e04eb150d5d947722adef8c6bd639eb01f39b9a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "다르푸르 평화유지군 피살 → 대변인의 경위 설명 → 전날 사건과의 연관 여부 → 누적 사망자와 지역 치안 배경으로 원인·배경이 이어진다(내용 일치·순서 칸, 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Friday, gunmen ambushed peacekeepers in",
+      "note": "금요일 단락이 앞 문맥 없이 서고, ambushed·subsided 를 attacked·died down 으로 바꾸면 V5 에 든다."
+    }
+  },
+  {
+    "id": "3e648da2-7d5d-4911-ac00-29e96643a20a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ee99d716f8ab5da1d95a766122777a7a16b823d594e306645b25659675de31ef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "브라운 총리 연설의 고용·범죄·빈곤 공약을 차례로 옮긴 한쪽 입장 보도로, 주장과 그 근거 수치가 짝지어 있다(주장·내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On the subjects of employment and",
+      "note": "「100,00」 오타와 닫히지 않은 따옴표를 고치면 되고, entitlements 를 rights 로 바꾸면 V4 에 든다."
+    }
+  },
+  {
+    "id": "3e6b25bf-5d71-48bd-adba-c11722b55492",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6a39bb652dbe1e3d5265188ae2eecd3bbf1b8f214a4a89204ef69f1a1bce74e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "4G 주파수 경매 시작 → 3G 보다 빠른 까닭 → 규제기관 지연 비판 → Ofcom 대표의 기대 발언으로 배경과 반응이 이어진다(내용 일치·주제 칸).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "4G mobile network technology will bring",
+      "note": "둘째 단락이 기술 이점과 비판을 혼자 담고, downstream·data-intensive 를 download·heavy data 로 바꾸면 V5 에 맞는다."
+    }
+  },
+  {
+    "id": "3e70dceb-c78f-4f82-9cd8-f513c8705252",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "896fac292059a523484923ec51d8d68c60721490d81c448c5066c93501888717",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "악어 두개골 발견 → 발견 경위(절벽 붕괴) → 발굴 허가 2주 → 전시 후 전문가 검토라는 다음 절차까지 사건이 시간순으로 선다(내용 일치·순서 칸).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The skull was discovered in April,",
+      "note": "셋째·넷째 단락이 절차 순서로 떼어지고, Site of Special Scientific Interest 를 protected area 로 바꾸면 V4 에 든다."
+    }
+  },
+  {
+    "id": "3e780521-ed41-46a2-b9cb-267771ffc292",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "499aaece2aaacf464831893b6a14829d9c56a604d60d07d26baa6b1090ad644e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "밝은 물체 낙하 목격 → 목격자의 색·궤적 묘사 → 충돌 여부 미상 → 과거 운석 기록으로 이어져 목격담 하나가 사건을 세운다(내용 일치·어휘 칸).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The object began as a small",
+      "note": "목격담 인용이 혼자 서는 묘사 문단이고, vantage·impacted 를 place·hit the ground 로 바꾸면 V4 에 든다."
+    }
+  },
+  {
+    "id": "3e9255b6-d1b3-4668-a97a-eb50758fc2ec",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b9b31a612b374be9ba1ab4c074688f59492319da9e249817ffd8862577bd8893",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "LHC 7TeV 충돌 성공 → 충돌 방식 설명 → 대변인이 말하는 발견의 조건 → 14TeV 준비라는 다음 단계로 이어진다(내용 일치·빈칸 칸).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Guido Tonelli, a spokesman for one",
+      "note": "발견은 수십억 건 중 드문 사건을 가려야 온다는 인용이 빈칸 자리가 되고, teraelectronvolts 는 풀이로 두고 usher in 을 start 로 바꾸면 V5 에 든다."
+    }
+  },
+  {
+    "id": "3e99939d-4826-4b4a-9665-cb83d7e27c53",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b43563d1e44146f82c1d1e6d80d5a88dd1608feeff998b55a7bb3e22810494c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "세계식량계획 사무소 폭탄 → 보안 조치 → 대변인의 인도 지원 지속 발언 → 과거 공격과 난민 송환 중단으로 결과·반응·배경이 이어진다(내용 일치 칸, 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Jamal said that despite the violence,",
+      "note": "대변인 반응 단락이 혼자 서고 마지막 대통령 관저 단락은 무관한 문장 자리로 쓸 수 있으며, hamper 를 stop 으로 바꾸면 V5 에 든다."
+    }
+  },
+  {
+    "id": "3ea42a99-3cd7-4e6d-afc6-ad2d0f8287a4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "049f7bf7ccd89726a6959df0c87259940ed50e3a38e380d357768d49acb88fde",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "가스관 폭발 → 인명 피해 없음·차량 전소 → 폭발 당시 작업 상황 → 정전이라는 결과로 원인·결과가 문장끼리 이어진다(중등 이상 내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Workers were laying pipes near pipes",
+      "note": "짧아 전편을 쓰고 ascertained 를 found out 으로 바꾸면 V3 까지 내려간다."
+    }
+  },
+  {
+    "id": "3ebc75cc-eb41-46d3-b4ed-7d7059ab3efc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9088482285ac18e4917f15c1e271d90b68163fc0bedffc2ab968c0c16135d85b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "가정집 총격 사망 → 911 신고와 SWAT 진입 → 용의자 미검거 → 기자회견 예정으로 다음 절차까지 이어져 사건이 선다(내용 일치 칸, 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At 10:25 p.m. (eastern time) on",
+      "note": "서커스 창립 문장은 무관한 문장 자리로 쓰거나 걷고, 닫히지 않은 인용부호를 고치면 되며 폭력 소재라 고1 이상으로 둔다."
+    }
+  },
+  {
+    "id": "3edeaae4-ad75-4e44-a5c2-ce667a29b5de",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4b7ad3f81fe6f3bbe1356e45ba0f46692ba17e162890aacd8fd6c4a25edaf97c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "economics",
+    "why": "우표값 인상과 CEO 의 까닭 설명이 목적·요지 칸을 채우지만, 끝 문장이 「Below is a table」 로 표를 예고하고 표가 통째로 없다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Moya Greene, the chief executive officer",
+      "note": "CEO 발언 단락은 물량 감소 → 수입 감소 → 인상 불가피로 혼자 서고 concurrently·franked 는 걷으면 되나, 예고된 표가 빠져 원천 자체가 끊겼다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "3ef7074a-1388-4023-a862-79145a5b4de4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b613eaa744f2eca7163ea21b86b7027ae23fb80f45ab85ca9075a71daafdde74",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "허리케인 빌 발생 → 세력 강화 예보 → 진로 전망 → 경계 권고라는 다음 절차로 예보 흐름이 이어진다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The storm is expected to gain",
+      "note": "「Safif-Simpson」 오기를 고치고 sustained 를 steady 로 바꾸면 V4 에 들며 좌표 수치는 줄여도 흐름이 남는다."
+    }
+  },
+  {
+    "id": "3f1842ea-9121-42de-85cc-52e556f87b8e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "553e0002a1ae60a1ca384c94723a3954858019d684b982de9af9bd3695f47466",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "67어 단신이지만 아틀란티스 착륙 → 13일 임무 종료 → 소유스 도킹과 겹치지 않게 된 까닭으로 결과와 이유가 문장으로 이어진다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Space Shuttle Atlantis has made a",
+      "note": "시각·활주로 번호를 걷어도 착륙과 교통 혼잡 회피가 남고 orbiter 를 spacecraft 로 바꾸면 V3 에 든다."
+    }
+  },
+  {
+    "id": "3f27a12f-0f93-4951-9926-3b81009de442",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3ef7c7ed798be88422572a2087e66b91c6c35edaf4ca7ef79a27b07ba2632b1c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "6개국의 이란 인센티브 합의 → 전달 절차 → 거부 시 안보리 제재 → 이란 외무장관의 조건부 대화 반응까지 양쪽 입장이 이어진다(요약·내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The agreement comes a day after",
+      "note": "전날 미국 제안과 이란 거부가 한 단락에 인과로 서고, enrichment·preconditions 에 풀이를 달면 V6 에 든다."
+    }
+  },
+  {
+    "id": "3f3638cf-ea6c-4a0f-b2c8-e8548aa186d3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "08f7152cc2439ea679e4043735ab6acd660fe89e0ef19b54ff9e5e40e788a31f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "체로키 재판소의 새 헌법 승인 → 조항 변화 → 추장의 주권 발언으로 결정과 그 의미가 이어진다(주장·내용 일치 칸, 끝 비교 자료 안내는 걷는다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Principle Chief Chad Smith said. \"This",
+      "note": "추장 발언 단락은 주권 주장으로 혼자 서지만 sovereignty·succession 같은 핵심 어휘가 바꿀 수 없는 개념이라 V6 아래로는 어렵다."
+    }
+  },
+  {
+    "id": "3f3a60b1-c075-486c-b087-ba03d47aca1d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bf8d0d781a1b443774d3fba2502c6d651bd067aadaa74b461f1c47f2d7f62dcc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "멸종위기종 목록 개정 → 분류 변화의 까닭(자료 증가) → 목록의 쓰임 → 장관의 경계 발언으로 목적과 반응이 이어진다(주제·내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Honourable Chris Carter, minister of conservation,",
+      "note": "장관 발언이 외래 포식자 위협이라는 요지로 서고, complacent·eradication 을 relaxed·removal 로 바꾸면 V5 에 든다."
+    }
+  },
+  {
+    "id": "3f3bda0b-b68f-4ac5-b771-9cabfb094a27",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f47606af9da5a0d4fff4c75909683a82dc883aa90c345cd7f07fd36a2866de48",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "매케인의 대선 탐색위원회 준비 → 결정 일정과 반박 → 캠프 준비 → 바이든 출마·파인골드 불출마로 같은 대선 주제 안에서 사건이 이어진다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "McCain's team is exploring office space",
+      "note": "셋째 단락이 혼자 서고 exploratory committee 에 풀이를 달면 V4 에 들지만, 둘째 단락의 반박 문장은 앞뒤가 엇갈려 가공 때 정리해야 한다."
+    }
+  },
+  {
+    "id": "3f4103c7-0b60-4223-ab87-6baf73a00455",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "982984279758f81ec595134e47708b502276a4e4b22ceeb3ad33eb152d5d387b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "technology",
+    "why": "링크 프리페치의 원리와 비공식 속도 비교가 내용 일치 칸을 채우지만, 「with this code included:」 뒤의 코드가 통째로 빠져 본문이 중간에서 끊겼다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When Google determines a user has",
+      "note": "둘째 단락은 원리 설명으로 혼자 서고 preload 를 load early 로 바꾸면 V5 에 드나, 예고된 코드가 빠졌고 끝의 설정 절차는 방법 나열이라 걷어야 한다."
+    },
+    "hold_reason": "incomplete-source"
+  }
+]

@@ -1,0 +1,737 @@
+[
+  {
+    "id": "47da32df-99d0-43d4-a4f8-7eb97d450b88",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "79c75b4b9f79324159445d8f9d846f4ff5b7b345101c6129f59dde4e0ff94521",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "총격전으로 열차·트램이 멈췄다가 19시에 운행이 재개됐다는 원인→결과→재개 흐름이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Trains, trams, cars and buses ground",
+      "note": "「this building」 가 앞 지시 없이 나와 「a building」 로 고쳐야 하고, 대변인 이름·시각은 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "47e9875a-a688-4c0e-bc7a-295e887f90e3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "962bb00fd7e4f50e5e959998d3eff1b20e3927c109917ee8d5ada7258cb75d58",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "하워드 총리가 사용후 우라늄 회수를 거부하며 공급국 역할과 안전협정 조건을 근거로 댄 단락들이 한쪽 입장 보도로서 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mr Howard said that Australia would",
+      "note": "proliferation·signatory·safeguards 를 spread·member·protections 로 바꾸니 V5 로 내려가고, 긴 인용문은 요약해 걷기 쉬웠다."
+    }
+  },
+  {
+    "id": "480c0a8f-21a7-4c5c-8220-0e4b1c2bd782",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "42114a85b9870d6dfac77fe55fad911f2bcf0de37246f507db2131ac588add81",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "1967년 2억과 2006년 3억 시점을 지역 분포·이민 구성 변화로 대조하는 단락이 있어 내용 일치·요약 칸과 시대 비교 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In terms of regional distribution, there",
+      "note": "수치가 많지만 교외 인구 증가라는 흐름이 있어 서고, suburbia·portion 을 suburbs·share 로 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "480fe4e6-dc10-4d08-8396-caeac013dcd8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b0cb987e4de669a3b38a6b70744b766e5fdb52ebc2809434ed6212647eb2b5a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "토론토 코믹콘의 규모·출연진·코스프레 변주를 차례로 전하는 행사 보도로 내용 일치 칸을 채우며, 코스프레 단락이 떼어 읽힌다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many cosplayers at the event gave",
+      "note": "고유명사가 촘촘해 몇 개는 걷어야 하고 「boudoir photo shoot」 구절은 중등 칸용 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "48256e13-2751-46ee-869b-726d641056a5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f196810dc1aa3c6b975b2e72622dcd4a3d18b5b35581878598f5ade323e08268",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "의회 표결→2014년 동반자법과의 차이→총리 반응→여론 변화가 이어지는 보도로, 총리 발언은 한쪽 입장이지만 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 2014 Registered Partnership Act, effective",
+      "note": "civil unions·inaugural 을 partnerships·first 로 바꾸면 쉬워지고, 표결 수치를 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "483bab05-7c89-4c29-94fc-b1eb5fce20ad",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5460ed4f5da2b3639d04dd4206ae79e2e254bbebae002efc8da11abba28e82e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "불꽃놀이 밤의 화재·소란 기록과 이를 근거로 한 소방청장의 판매 금지 요구·의원 법안이 이어져 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mike Hall, chief executive/national commander of",
+      "note": "「his call」 처럼 인칭이 꼬인 인용과 오탈자(Opinon)를 가공 때 다듬어야 하며, vindicates·indiscriminately 를 supports·carelessly 로 바꿨다."
+    }
+  },
+  {
+    "id": "48492c64-1717-4721-864c-21301aac549b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f5666868f84e59d1a949765bd3c94a72b85b82a441eecb8b94a96839789a5384",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "입장하려던 군 복무 전 수료식 참석자들이 압사하고 부상자가 병원으로 옮겨진 원인→결과가 문장으로 이어지는 짧은 단신으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The victims had been attempting to",
+      "note": "짧고 어휘가 이미 쉬워 바꿀 것이 없으며, 도시 이름 설명 문장은 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "485f7fd0-7e94-4d0b-9a3d-6f5cf61b4015",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "157c1b260e94a9e4295ed3c09f65e29c0bdeeb540eb3d91a84355e70c81bb879",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "블런킷의 「이라크가 블레어의 유산이 되지 않게」 발언 보도와 그것이 측근의 말이라 의미심장하다는 해석이 이어져 짧지만 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "In today's Guardian newspaper, David Blunkett",
+      "note": "블레어·이라크 배경을 모르면 발언의 무게가 안 서서 고유명사를 걷기 어렵고, 둘째 단락은 기자 논평이라 가공 때 표시해야 한다."
+    }
+  },
+  {
+    "id": "488824a6-40cf-4cee-b847-7e2ae531731f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c33b51cd968b7057ca9ea9e2139871af5b760265145469f67d8c9a01b1c378c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "안다만 지진에 쓰나미 경보가 내려졌다 해제되고 일본 지진 뒤 원자로가 멈춘 경보→해제→예방 조치 흐름이 있어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As a precaution, Japanese officials have",
+      "note": "containment·dislodged 를 the reactor building·fell off 로 바꾸면 되고, 끝의 연예인·인도네시아 문장은 걷는다."
+    }
+  },
+  {
+    "id": "48939eeb-3919-40f3-bc6c-427252c35ab0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8032cdae7b56d2b3019891544ddf025a2b33d0ff1532cadc5d7105156b602378",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "바라누스섬 폭발로 가스 공급 3분의 1이 끊기고 복구에 두 달이 걸려 위기가 악화된다는 원인→결과→전망이 이어진 단신으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A blast at the Apache Energy",
+      "note": "두 문장이 쉼표로 이어 붙어 있어 문장을 나눠야 했고, partially resumed 를 partly restarted 로 바꿨다."
+    }
+  },
+  {
+    "id": "489ec3a0-6d01-4126-9802-f7c49c41080c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "03a179e38ec1cc2ff9650e8cfdaabd7f134433bbd2b2bfd4f26db619edf8b990",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "인질 영상 공개→대사관 철수 요구와 처형 위협→수단의 대사관 철수 발표가 이어지는 단신으로 폭력 소재라 고1 이상 내용 일치 칸만 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The video indicates that the militants",
+      "note": "militants·diplomatic mission 을 fighters·embassy 로 바꾸니 쉬워졌고, 매우 짧아 문항은 일치 하나뿐이다."
+    }
+  },
+  {
+    "id": "48c37603-9c8e-4ce8-a059-57aeb916761c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e807ab47d3cfd62251c92bfe8ca177fa35790139f2efb76a9cff22443296777b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "로켓 발사→위성 분리→정지궤도 투입 예정으로 이어지고 위성의 쓰임(항공 관제·기상)을 설명해 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Japan Aerospace Exploration Agency has",
+      "note": "payload·geostationary 를 cargo·fixed 로 바꾸니 중등 밴드로 내려가고, 소속 부처 문장은 걷는다."
+    }
+  },
+  {
+    "id": "48dfe148-6063-47e5-a71d-b03786793b8f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "465e6747232406a0a2a3b06bb25c1d77cc404b9f1516f4fa541756c02260790e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "본문 두 단락이 위기의 원인(제목의 미국 압력)을 말하지 않아 「the incident」 가 무엇인지 서지 않으니 떼어 낸 문단으로 사건이 서는지 애매하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Some media sources are reporting that",
+      "note": "제목이 없으면 왜 외교 위기인지 본문만으로 알 수 없어 가공 때 배경 문장을 새로 써야 했다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "48f0aee9-0a46-4e41-a762-a303d60b1d09",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b79000fabb63aced454fd7414e4c02bbbf815e79bf1ec8802ee442a6c44781b6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "인도의 군사력 부상이 중국 견제가 될 수 있으나 두 나라가 자유무역협정을 모색한다는 대조 논지가 네 단락으로 서서 요지·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "India's rise to greater military power",
+      "note": "counterbalance·overtures 를 balance·offers 로 바꾸니 V6 로 내려가고, Nonetheless 가 대조 빈칸 자리로 쓰기 좋았다."
+    }
+  },
+  {
+    "id": "48f9fe6d-4347-45ac-bd25-cbea955ad814",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "85d219b41af57083d31daa777315015ad697d78d1eb825250110af276a2f705e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "선행지수 두 달 연속 상승과 오른·내린 지표에 이어 경제학자의 「경기 침체가 힘을 잃는다」 해석과 전망이 붙어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"The recession is losing steam,\" said",
+      "note": "「Seven of the ten」 이라면서 여섯만 나열해 가공 때 수를 맞춰야 하고, abating 을 calming down 으로 바꿨다."
+    }
+  },
+  {
+    "id": "49152a97-efba-4995-8f95-994a5415e39e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8e73ad14e3bee686039d203e09698a3c4513527d9b246e6c2c070f93ad244c18",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "내전 뒤 첫 대선의 두 후보를 지지자·반대자 논거로 나란히 대비하는 단락이 있어 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mrs. Johnson-Sirleaf, 66-year-old former economist of",
+      "note": "중간의 소문자 조각 「on November 28 we will know who won」 은 가공 때 걷고, runner-up 을 second place 로 바꿨다."
+    }
+  },
+  {
+    "id": "49204aca-4200-4480-bc20-a9ee39feb30b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0f13b20baa40b26ccde1c147c9c81ee94b249319f543ba911e8a376cc5a2935e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "GDP 4.3% 성장 뒤의 원인 문장까지 항목별 증가율만 되풀이돼 문장 사이를 잇는 사건·논지가 없는 수치 나열이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The rise is attributed to increases",
+      "note": "떼어 낸 원인 문단도 퍼센트 목록이라 수치를 걷으면 남는 것이 없고, 「Exports, however, increased」 처럼 논리가 어긋난 문장도 있다."
+    }
+  },
+  {
+    "id": "4930b294-f9cc-4daf-8cb2-484bca63281b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4e82891b5a483d1daa8090d8d3b97a1ffa78da41af3e926c68df765fe2c96066",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "다섯째 SAR-Lupe 위성 발사와 합성개구레이더가 어둠·구름 속에서도 지상을 탐지한다는 설명, 독·불 정보 교환이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Kosmos-3M carrier rocket has successfully",
+      "note": "reconnaissance·surveillance 를 spying·watching 으로 바꾸면 되고, 발사 횟수 통계 단락은 걷는다."
+    }
+  },
+  {
+    "id": "496d83ca-4138-479d-b0a1-168d79e273e1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cc09d59ebb6bb17a3ad84bbb006e004c7203d1bf5d3fc51970bfe6e614f8ea07",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "얼음 폭풍으로 15명 사망·60만 가구 정전, 미주리 비상사태 선포, 추가 폭풍 예보가 원인→피해→반응→전망으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "So far at least 15 people",
+      "note": "도시별 적빙량 나열 두 단락은 걷고, accumulate·disturbances 를 build up·storms 로 바꿨다."
+    }
+  },
+  {
+    "id": "49805925-9416-463a-86c5-01353fc32049",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "28f1e1fbb5c8cbdb28be9fc7aeb39b7745cd2d68e8deeb83d1375dd30b32c89d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "에피소드3을 두고 최고작이라는 평론과 트래버스의 반론을 맞세운 뒤 개봉 흥행 기록을 전해 내용 일치 칸과 대조 빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "George Lucas' final installment of the",
+      "note": "평론가 이름을 걷어도 찬반 대조가 서고, installment·heralded 를 part·praised 로 바꿨다."
+    }
+  }
+]

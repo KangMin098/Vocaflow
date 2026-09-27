@@ -1,0 +1,936 @@
+[
+  {
+    "id": "40da5cbb-785f-4cec-8a59-b55fd9b276f2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a6b57927c335faf982b5345df7202c0857d1325702434c73259b55e472fbf16c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "픽업트럭이 결혼 행렬을 덮친 사고 → 사상자 → 경찰 수사·기소 미정으로 사건과 다음 절차가 문장으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A pickup truck crashed into a",
+      "note": "지명(Lefeuvre Road 등)을 걷어도 사고-수사 흐름이 서고, procession·lay charges 를 쉬운 말로 바꾸면 V3 로 내려간다."
+    }
+  },
+  {
+    "id": "4106a98f-5dc8-4133-b019-f3fc616f2e1c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7558aee42b3470b383e2b36542e49250aef57a58e6b3224ef0c768a4cd1cb25c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "7·21 런던 폭탄 사건 첫 기소와 공소장 인용, 다른 용의자의 해명이 이어지는 보도라 고2 이상 칸의 내용 일치를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ismael Abdurahman was arrested in connection",
+      "note": "공소장 인용문이 법률 문장이라 가장 어려운데, 풀어 쓰면 기소-출석 일정-다른 용의자 주장 흐름이 선다."
+    }
+  },
+  {
+    "id": "4124da10-ebfb-4b17-8003-886fa03ff894",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6eecadc8a2c0cf78ddc0535ea35f245c442b72421c438f6bb42e382cc67b39ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "역주행 충돌 → 도주 → 발견 → 음주측정 → 무면허 확인 → 기소로 사건이 시간순으로 이어져 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police officials claim the 27 year",
+      "note": "둘째 문단부터 사건 순서가 뚜렷해 순서 배열 문항으로 자르기 쉽고, PCA·particulars 만 풀면 된다."
+    }
+  },
+  {
+    "id": "412ec2ec-c050-45c7-ac09-4f82bca35a18",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b0798e92fbb07f054d50407aa1e1b5d1df8993b3c5add8ffdcf6aa224936f22d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "디캐프리오의 첫 수상과 수상 소감(자연과 인간의 관계)을 다룬 앞 두 문단이 사건과 발언으로 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yesterday Leonardo DiCaprio won his first",
+      "note": "앞 두 문단(수상·소감)은 혼자 서고, 뒤의 부문별 수상자 나열은 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "413112d6-d735-48ca-bf2f-f721ecba4dd6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e971beed5dfe394905f34433460522f01bbf507451439e24d0fac1183bbb3ffc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "홀리 블러드 저자들의 표절 소송과 랜덤하우스의 반박 성명이 맞서는 구조라 주장·반론을 짚는 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Michael Baigent and Richard Leigh, who",
+      "note": "소송 제기-쟁점-반박-영화 영향까지는 이어지나, 마지막 문단(다음 책 소문·예일 비밀결사)은 곁가지라 걷어낸다."
+    }
+  },
+  {
+    "id": "413223ee-b01e-4761-ba98-a70d825a1aa1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "66cc00803cb561b76280ea593c0e25507319b99cb580a203a9c69ec092b95d9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "대만 간첩 혐의 중국 고위관리 처형과 양안 첩보전 배경을 잇는 보도로, 사형 소재라 고2 이상 칸의 내용 일치로 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Chinese government official convicted of",
+      "note": "처형-전력-양안 첩보 배경이 한 흐름이고, espionage·civil workers 정도만 풀면 된다."
+    }
+  },
+  {
+    "id": "4138b952-2ae7-4d1e-93ef-5236e486d5b3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "27a3d1f886d2f1fbcefb2cda923d796ce4843fd5445b752e7c9f41ddfff5d4c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "프루도만 송유관 원유 유출 규모와 환경단체의 반응(정화 작업 자체도 환경 영향)이 이어지는 짧은 단신이라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "BBC News is reporting \"up to 267,000",
+      "note": "유출-규모 비교-반응이 세 문단에 이어지고, crude·cleanup 은 문맥으로 잡혀 조정이 쉽다."
+    }
+  },
+  {
+    "id": "41473048-1949-4635-b49c-c84535e6d4cf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fc4b2c9dbbec301e4163afb5e58543eca6499d948895a1400cb715458a10d0b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "교황 베네딕토 16세의 바이에른 귀향 일정·미사·생가 낙서 사건·주민 반응이 이어지는 보도라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pope Benedict XVI went to visit",
+      "note": "방문 동선과 주민 인용이 쉬운 문장으로 이어지고, 성모 인용문은 앞 문맥이 없어 걷어낸다."
+    }
+  },
+  {
+    "id": "4151dc40-f255-4633-b669-17d434b6d4a1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "021c985baba3472a279027c875d6cbf6716420e1172e867517e5efc0b765a168",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "폭스 대통령이 미국의 이민 단속을 비판하는 한쪽 입장 발언과 미국 의회의 상반된 법안 움직임이 이어져 주장 칸을 쓸 수 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "President of Mexico Vicente Fox spoke",
+      "note": "짧지만 한쪽 입장(멕시코)과 미국 쪽 법안 두 갈래가 대비돼 서고, bilateral 만 풀면 된다."
+    }
+  },
+  {
+    "id": "4161ca76-4efb-4627-8c08-faecb279b2f8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a88da6c3c963be8b685793f71e4890c43b263e9006bb87b184fac94032583557",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "벨기에 총선 전날 여론조사, 언어권 갈등, 사법·환경·안락사 쟁점을 한 편으로 정리한 해설이라 요약·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The relations between the French- and",
+      "note": "뒤쪽 쟁점 문단(언어권·환경·안락사)은 혼자 서지만, 앞쪽 득표율 문단은 정당 이름 나열이라 걷어낸다."
+    }
+  },
+  {
+    "id": "4185626e-cff7-401e-814a-8e3db67acd6c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "69fe81bc1953d636bb5b9c6ae6e4969abc56782c71589a7110415cb4fc0eebce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "탈레반 대변인이 전한 오마르의 지하드 지속 성명과 후계자 임명을 옮긴 보도로, 선동을 반론 없이 대부분 옮긴 글은 아니라 한쪽 입장 보도로 보관한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The leadership council of the Taliban",
+      "note": "성명 전달-경력 배경-후계 임명이 이어지나, martyr·mujahedin 인용은 맥락 설명을 붙이거나 걷어야 한다."
+    }
+  },
+  {
+    "id": "4186fc9d-f734-4529-8b5a-b30cbe9cff59",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4bf6c3532c1695e48902336ed1aef3ecbfe5ab510f5c0e9220bb46569c1dde58",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "뉴질랜드 총선 투표 마감 단신이 시각·유권자 수·개표 일정 나열이 대부분이고 MMP 의석 규칙 한 문장만 설명이라 단신 최소선 경계에 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Under New Zealand's MMP system, parties",
+      "note": "MMP 규칙 문장만 떼어 낼 만하고 나머지는 일정 나열이라 사건 흐름이 약하며, 「on Wikinews」 자기 언급도 걷어야 한다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "418a6211-3a52-40e5-94ce-f2b5e31bc547",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b8cb2d25cfab007a9e9d7b4d8ff17f07eae073829790c2b7947c6d7cc38a1f9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "미국 8월 주별 실업 통계에 캘리포니아 예산 삭감이라는 원인과 경기침체 누적 일자리 손실이 이어져 수치 나열 이상의 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Labor Department indicated an overall",
+      "note": "캘리포니아 예산 삭감 문장이 원인을 잇고, nonfarm payroll contraction 을 풀면 V4 로 내려가며 주별 수치는 줄인다."
+    }
+  },
+  {
+    "id": "419c9d1d-19a8-4504-9364-76c3c9c69de4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ebb93410da574e4412bd26c031e01e5e142e8e25ef49c27eac57eeec944371cf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "파체코 대통령 지지율 하락 여론조사와 코스타리카만 CAFTA 비준이 늦어지는 상황이 이어져 짧은 단신이지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Costa Rica is the only Central",
+      "note": "두 문단이 여론-비준 지연으로 이어지고, ratify 만 풀면 되지만 CAFTA 배경 한 줄을 보태야 선다."
+    }
+  },
+  {
+    "id": "41b98d20-38d2-4e81-9857-1552b692c024",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6bd8c470fbe63eec26ae305d4cf5b5a0a88abd8f1bb5df7b2c6ec424aef9d348",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "선로 위 시신 발견 → 열차 운행 중단 → 사망 확인 → 자살 가능성 발표로 사건이 이어지는 단신이라 자살 소재를 감안해 고2 이상 칸의 내용 일치로 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Tuesday morning, Hollywood police reported",
+      "note": "주소·UTC 표기를 걷어도 발견-중단-확인 흐름이 서고, pronounced dead 만 풀면 된다."
+    }
+  },
+  {
+    "id": "41c0bc6c-c736-4d1a-931d-e5df6d83f956",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1eacd7b8852b7389b20e82f8c12340fd5fb8850453ce7d390964365dec37c812",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "테살로니키 영화제 개막 예고로 개막작·경쟁 부문 성격·예산·발칸 대표 영화제라는 위상이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 47th Thessaloniki Film Festival will",
+      "note": "개막-프로그램-위상 문장은 서지만 초청 인사 이름 나열이 많아 가공 때 두세 명만 남긴다."
+    }
+  },
+  {
+    "id": "41d216b6-8e5a-4782-939d-e2512ff40a9c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cc72068cc27ebe9c7fc5bad63c0fd50407702158bc9208a88be1858db910e136",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "타이베이 국제도서전의 사전 전시가 중단됐다가 재단 재편 뒤 되살아난 경위와 세미나·수상 행사를 소개해 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Since the Preview Exhibition was held",
+      "note": "사전 전시 부활 경위는 서지만 비문(consuming battle 등)이 많아 낱말 두세 개 교체로는 안 되고 문장을 다시 써야 한다."
+    }
+  },
+  {
+    "id": "41e29d11-8d75-4fb2-ab61-20216c55c887",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a201cf7034888005ce1ba3c2d486415cca8a229b15b604f68b615c33e176a1ca",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "남오세티야 의회선거를 분리 지역이라는 배경, 선거인 수 논란, 초기 개표 결과, 전쟁 뒤 첫 선거라는 의미로 이어 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "South Ossetia, one of two breakaway",
+      "note": "정당 이름 목록을 걷어도 선거-결과-의미 흐름이 서고, breakaway·recognised 만 풀면 된다."
+    }
+  },
+  {
+    "id": "41e58223-d9c4-4108-a22b-8b1302d42095",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6ac315ca28a6f094abf2f08dcfef4f85b0550164ee03c77de962106f5ebe8b6d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "샌토럼의 루이지애나 경선 승리와 남부 보수·종교 유권자층이라는 까닭, 다음 경선 일정이 이어져 짧지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Santorum has had success in the",
+      "note": "남부 승리-유권자 성향이라는 원인 문장이 있어 서고, leverage·delegates 만 풀면 된다."
+    }
+  },
+  {
+    "id": "41ebd65a-e6d9-4cb5-b674-f520e2a0f518",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b4f4674887d76cf9e8c5c7514e52fc2ca1bb43c8bdae6e4f229aa83b13351b54",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "루마니아 정부의 롬가즈 지분 10% 매각 발표를 가스·석유·전력 공기업 민영화 흐름 속에 놓아 설명해 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Romgaz is the latest Romanian energy",
+      "note": "민영화 연쇄 문단이 혼자 서고, privatisation·turnover 를 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "41f38d9f-8574-4f3c-b94c-2f799702219a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6e4353bd15806826472735ca8d05b3edc454105b728478b6e7dadcd2a8d24239",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "culture",
+    "why": "신 7대 불가사의 투표를 둘러싼 인도 타지마할 캠페인·유네스코 비판을 다룬 글이 마지막 「The 20 other candidates are:」 목록 머리에서 끊겨 본문이 불완전하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United Nations Educational, Scientific and",
+      "note": "유네스코 비판 문단은 인터넷 투표의 대표성 문제로 혼자 서지만, 글 끝이 목록 머리에서 잘려 있다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "41f39c77-6bc0-4e49-9ecb-bd96be73c658",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e19af26cd7f15634b71036ce9f867a86063357472d493fef496559771c88e23a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "성격파 배우 스키아벨리의 부고로 경력과 「이름은 못 기억해도 얼굴은 못 잊는」 외모 묘사 문단이 있어 내용 일치·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Vincent Schiavelli could do with a",
+      "note": "묘사 문단은 비유가 풍부해 어휘 문항에 맞고, off his meds 는 가공 때 걷고 countenance 를 face 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "422a4ce1-016a-4eb7-b324-755aca584a88",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "621b50df03165f014d79c4fb8f942952ea069ae7c5b0173f959b0cab4a552a1d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "핀란드가 가장 친환경 국가로 뽑힌 조사에서 평가 근거(공기·수질·영아 질병·재해 대비)를 밝힌 문단이 있어 순위 나열 이상으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Finland wins high marks for air",
+      "note": "평가 근거 인용 문단과 첫 문단은 서지만, 국가·도시 순위 나열 두 문단은 가공 때 크게 줄여야 한다."
+    }
+  },
+  {
+    "id": "424dce68-c49b-44af-b65a-4fa4bbd09b57",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d310fdaadfa00820e43fd3718c3524161292af8ee1eef69bdee757d4064afa1d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "파멜라 앤더슨의 아테네 방문과 MAC AIDS 기금 전달, 회사·배우의 에이즈 퇴치 활동을 잇는 보도라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The famous Baywatch star, Pamela Anderson,",
+      "note": "방문-기금 전달-팬 행사 흐름은 서지만 홍보성 문장(show-biz glitz 등)은 걷어낸다."
+    }
+  },
+  {
+    "id": "425984d1-dfe7-4789-b46a-7b00d591659c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bcf731dcb3a0259e34ee3f58b7c151bb1441653faf24d286ed316caa034a9a16",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "프리드먼 부고가 노벨상·통화주의 정립·레이건 자문·전후 미국 정책 영향으로 업적을 이어 짧은 단신이지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Friedman won the Nobel Prize in",
+      "note": "74어로 짧지만 업적이 인과로 이어지고, Monetarism 에 한 줄 풀이를 붙이면 V4 로 내려간다."
+    }
+  }
+]

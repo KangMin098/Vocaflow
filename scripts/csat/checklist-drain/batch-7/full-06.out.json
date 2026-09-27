@@ -1,0 +1,958 @@
+[
+  {
+    "id": "4398aecd-b0cd-4cad-b6fb-cef1d702e4f3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "28d3f93b7eb5355b4ccba241d299b99a184365766a79cb9008dbc1b85a217fb6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카라오케 폭발 → 부상자 → 미군 합동훈련·아부사야프 때문의 보안 우려 → 미군 사망 없음이 문장으로 이어져 내용 일치 칸을 채운다(폭력 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Security is a major concern for",
+      "note": "경비 우려 단락은 앞 문맥 없이 서고 guerilla·encamped 를 rebel·stationed 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "439bd799-32be-467d-ab3d-6b294f61e3cb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "70d186d890a37b7ae1060b97d44764b0fa238a735813ee7e9e627a81084354ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "세인트판크라스 이전 → 고속선 완공이 원인 → 사장 발언(환경 영향) → 워털루 국내선 환원으로 흐름이 서서 내용 일치·순서 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Eurostar train services which link the",
+      "note": "첫 단락이 이전과 그 이유(20분 단축)를 혼자 담고 reassurance·accessible 정도만 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "43a4bec3-8ee7-48fe-853c-93206ffff32e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3b254c556cf31e10b2ac065cb3ae4af3b6a0efc693a134525ac598a5fc1bbda2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사망자를 둘에서 열셋으로 고쳐 발표 → 시신 수습 → 폭탄 위치·양 추정으로 사건 경과가 이어져 짧아도 내용 일치 칸이 선다(테러 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Commissioner of London's Metropolitan Police,",
+      "note": "두 문단뿐이라 통째로 쓰고 detonated·wrecked 를 exploded·damaged 로 바꾸니 쉬워졌으나 분량이 짧다."
+    }
+  },
+  {
+    "id": "43a5c91d-49fb-4369-95af-a37af55ac61f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4589f5fc92d937578e46098c55741751ff8231774a05f471db06ba6fefd37dcc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "급식관 재삽입 긴급 항소 → 앞선 두 차례 기각 → 항소법원으로 간다는 절차가 순서대로 이어져 내용 일치 칸을 채운다(죽음 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bob Schindler and his wife Mary",
+      "note": "셋째 단락부터 떼도 항소 경과가 서고 reinserted·appeal 은 문맥으로 풀린다 — 마지막 날짜 문장은 앞으로 옮기면 된다."
+    }
+  },
+  {
+    "id": "43a93a6b-52d6-4b19-b7cd-c88b84631c2a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a8926466b9cc8e56d29cb0c8fb53b24e859bf7686d7ce84d846c5aa6a80deff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "타이베이101 계단 오르기에서 전 챔피언 부상 → 대체 초청 선수 우승 → 기업·학생 부문 결과로 이어지고 후반은 참가 단체 이름 나열이라 앞 세 단락만 내용 일치 칸으로 쓴다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Australian cyclist Paul Crake wasn't able",
+      "note": "둘째·셋째 단락은 부상 → 대체 선수 → 우승으로 서지만 넷째 이후 단체명 나열과 비문은 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "43aaaa55-ed80-4f4b-ae57-b72d742f8e94",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1173b6bc97568a2bfd4539499eeb062acfcbfc3a9e68bf184446f54eca4cc8dd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "주지사 회의 뒤 부시가 해외정보감시법 처리 지연을 하원 탓으로 돌리는 한쪽 입장 발언을 옮긴 보도로, 발언과 쟁점 경과가 이어져 주장·내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There has been debate recently about",
+      "note": "첫 문장은 주어(President George W. Bush)가 잘려 「has met」로 시작하므로 가공 때 복원하고, 셋째 단락은 혼자 선다."
+    }
+  },
+  {
+    "id": "43b9bf69-07a5-4ffc-a75d-d3c376d86e18",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e09f6ba29472db673e0c8f2b8cb3c71a1bcc5b776915a6110eb683f583001a6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "재임 2,273일로 역대 3위 → 총리실은 별도 기념 없다는 반응 → 전임자·네루·인디라 간디 재임일 비교로 이어져 수치 나열을 넘어 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Manmohan Singh, the 14th and current",
+      "note": "첫 단락과 반응 단락이 함께 서고 predecessor·publicised 를 바꾸면 V4 로 내려가나 마지막 단락은 재임일 수치뿐이다."
+    }
+  },
+  {
+    "id": "43c6480a-e447-4f19-a58e-2b195b5f0a5f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d0187510d375d3d67f0a74a45696363c994f253fb3fcfbd6d5615cbd58de0ecc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "마이클 잭슨 사후 판매 급증으로 7주 1위 → 6위로 하락 → 캘빈 해리스 1위·경쟁 앨범 2위로 차트 변화의 원인과 결과가 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Finally, after a seven week run",
+      "note": "둘째 단락은 Finally 만 걷으면 혼자 서고 compilation 을 collection 으로 바꾸면 쉬워진다 — 마지막 방송 시간 문장은 걷는다."
+    }
+  },
+  {
+    "id": "43c7f5cd-9bc6-4700-a115-01548bc5dc6e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aed79c61a177c4723f8c7c56ffa127618af9a484d384f4d74eee6f6ce9964830",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "게이터랜드 화재 → 입구 건물 소실 → 동물 피해·대피 → 임시 입구로 재개장 계획 → 원인 조사까지 사건 흐름이 서서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least four animals — two gators",
+      "note": "셋째 단락은 동물 피해와 대피를 혼자 담고 refuge·aviary 를 safety·bird house 로 바꾸니 V4 로 내려갔다."
+    }
+  },
+  {
+    "id": "43d17872-0420-4548-99ee-a5ac5bcf245b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cf6d53a35e1aa11bea267b0e6a92a651fc87aa0a38dbee8aa8cb47bab6ecf313",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "포브스 순위 수치 뒤에 신흥국 부의 증가로 미국 비중이 절반에서 3분의 1로 줄었다는 해석이 근거 수치와 함께 서서 내용 일치·요지 칸과 수치 주장 검증 속성이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although the US is home to",
+      "note": "셋째 단락이 「분포가 바뀐다 → 이유 → 근거 수치」로 혼자 서고 distribution·emerging 은 문맥으로 풀린다."
+    }
+  },
+  {
+    "id": "43d87447-8d12-4457-86b2-65259b77f55b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2d07af417e3edcc61243255210768d001fc5243cad1a23b59ba7d5014c26205c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "야라두아 사망 → 조너선 대통령이 공헌을 이유로 공항 이름 변경 발표 → 애도 기간 끝과 조문으로 결정의 이유·반응이 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nigeria has announced that an airport",
+      "note": "첫 두 단락이 발표와 이유를 담고 recognition·tributes 를 바꾸면 V3~V4 로 쉽게 내려간다."
+    }
+  },
+  {
+    "id": "43edda5a-4aba-45fe-854d-5cdb4e5c89e6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4f4e6e7f930b84744bb4703601575905eb9d3b6f67e9174ceeaf2061452ca51e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "아카데미 후보작 이름과 후보 수만 되풀이되고 수상 결과도 사건 흐름도 없어(「telecast finished」 뒤가 비었다) 수치·이름 나열에 그친다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Among the favorites are No Country",
+      "note": "떼어 봐도 작품명·후보 수만 남아 논지나 사건이 서지 않고, 어휘만 쉬울 뿐 읽을 흐름이 없다."
+    }
+  },
+  {
+    "id": "44019847-db74-4db4-9f4c-7ec07d97b839",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c25ef2f88b4d9c9d0843520d6e887559ae1aa7e50e5c3f3d866c6c9788044820",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "시의원 후보가 세대교체·개발 속도 조절·세금을 내세우는 한쪽 입장 인터뷰로, 개발 제한 답변처럼 주장과 이유가 선 문답이 있어 주장·내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "We have to consider environmental issues",
+      "note": "개발 제한 답은 혼자 주장이 서지만 「Slowly down」「Time is tell」 같은 비문을 고쳐야 하고 한 줄짜리 답은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "44025ebd-92b4-434c-866a-35db94853ddd",
+    "source_updated_at": "2026-09-25T09:17:05.27647+00:00",
+    "body_sha256": "1fae10d4bff9abaf37a2d733815b3004509518fffe47a4c51ab34bd144356567",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "30km 돌파 → 계획의 50배 → 지나온 크레이터와 최종 목적지 → 쌍둥이 로버 교신 두절 → 수명 초과와 발견으로 이어져 내용 일치·순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Both the Opportunity and Spirit rovers",
+      "note": "마지막 단락이 두 로버의 수명 초과와 성과를 혼자 담고 surpassed·operational lifespan 을 바꾸니 V4 가 된다."
+    }
+  },
+  {
+    "id": "441a73b1-15de-4a82-b0ab-96d4f87d2c86",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0c75315cdac5c5fa9dd6060e8cad5cc9359f5687243ae1522868d4a4979b52db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "규모 5.4 지진 → 먼 곳까지 흔들림 → 피해 없음이나 당국의 점검·대피 권고 → 여진과 규모 하향 발표가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fire officials have said that there",
+      "note": "셋째 단락은 당국 권고가 이유와 함께 서고 inspect·evacuating 을 check·leave 로 바꾸면 V4 로 내려간다 — 판사 주디 문장은 걷는다."
+    }
+  },
+  {
+    "id": "441f180f-0cc2-40a3-beb7-4979a2dd1f2d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "223d8183ee31cf4e902186d95faeb634b499fc4f23e657924132e51f1887fb17",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모스크바 도로 전광판 해킹 → 20분 만에 차단 → 업체는 해커 탓 → 경찰은 신고 없어 수사 안 함으로 경위가 이어지고 성적 묘사는 없으나 소재상 고2 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The display screen's owner, the Three",
+      "note": "셋째·넷째 단락이 원인 추정과 대응을 혼자 담고 hooliganism 을 mischief 로 바꾸면 쉬워진다 — 첫 문장의 explicit pornographic 은 가공 때 누그러뜨린다."
+    }
+  },
+  {
+    "id": "4425ca07-faef-41ae-ba61-a2c06d5932d2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "07ede85a14ddb77c51141663c25c19753fdfa655b3a874459e09c7878d4473ad",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "43어 단신이지만 주마의 법정 출두 → 앞서 재정고문의 사기 유죄에 따라 해임됐다는 원인이 문장으로 이어져 짧은 사실 단신 기준으로 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Former Deputy President of South Africa,",
+      "note": "두 문장뿐이라 통째로 쓰고 conviction·dismissed 를 풀면 V5 로 내려가지만 문항 하나 분량으로 짧다."
+    }
+  },
+  {
+    "id": "442f47c0-c9ff-48ba-8207-c9c80e808e0d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "41e097bac917e9b2cd81690d3cdbbd10ac49fa3492a73217d910d4807b5bda1e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "변호사 사망(투신 추정) → 검시 예정 → 경찰 비판·폭행 기소 이력으로 사건과 배경이 이어지나 자살 소재라 고2 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mr. Broudie was a staunch critic",
+      "note": "첫 두 단락이 사건과 인물 배경을 담고 staunch·affray 를 strong·fight 로 바꾸니 쉬워졌다 — 사무소 주소 문장은 걷는다."
+    }
+  },
+  {
+    "id": "444372fd-33c8-4d8d-91d6-4429e0d3608f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8fd6c73fa190b954c2630b689e9cba817fbf3ac82aa81ddde389d650f1802d25",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "매카시 별세 → 다섯 차례 대선 출마와 1968년 존슨 도전 → 아들의 추모 발언으로 한 인물의 부고가 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "McCarthy ran for President of the",
+      "note": "둘째 단락의 괄호 설명을 걷으면 혼자 서고 incumbent 를 current president 로 바꾸면 쉬워진다 — 첫 줄의 깨진 &ndasp; 는 고친다."
+    }
+  },
+  {
+    "id": "44522caa-73c2-4e33-87e9-1066cc1223fb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ca847892e314de38fd679893d8cdfae82d510c8ab08df0bdee8832b82d3fcfa1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "오브라이언과 NBC 4,500만 달러 합의 → 직원 퇴직금 배분 → 마지막 방송 계획 → 다른 방송사 반응으로 결과·반응·다음 절차가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As pertains to O'Brien's next move,",
+      "note": "셋째 단락은 방송사별 반응을 혼자 담고 As pertains to·severance 를 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "445b8f11-b4a6-4db3-a7bb-7ba7da121453",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4799e8aa15407d0f9701b0c596cf36f4a864d467c585be3a62f0263ea4fe327c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "빈라덴의 순교 찬양 영상 공개 → 알카에다 제작 표지·배경 → 감시 단체가 옛 영상이라 평가로 이어지는 보도로, 선동 발언은 한 줄 인용에 그치고 맥락이 붙어 고3·성인 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The video had the insignia of",
+      "note": "둘째·셋째 단락이 영상의 출처와 평가를 혼자 담고 insignia 를 logo 로 바꾸면 쉬워진다 — 순교 찬양 인용은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "448b3a24-26db-41e4-a03f-8fd0c286c3d2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3b7cbf1cde75cea913621f5ab7bc6b9ac5155a72e1ea7e438d1e9199da5d8bd8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "인술사가 미주기구 사무총장 당선을 자신 → 베네수엘라·아르헨티나·브라질 지지 → 경쟁 후보와 미국 지지로 불확실하다는 결론까지 이어져 내용 일치·요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Speaking in Brasilia, Brazil, he claimed",
+      "note": "둘째 단락은 he 를 인술사로 바꾸면 혼자 서고 consensus 는 문맥으로 풀린다 — 셋째 단락과 붙이면 대조가 선다."
+    }
+  },
+  {
+    "id": "4495e810-2719-4006-a591-06efded401dc",
+    "source_updated_at": "2026-09-25T08:58:02.531447+00:00",
+    "body_sha256": "f1f6c3411b474c8222e752e6cf5053ac16c95cabae10173b36437789497c3981",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "앤서니 치코네 사망 → 매형의 추모 글 → 가족과 소원·알코올 중독·노숙 → 2017년 재활과 화해로 삶의 흐름이 이어져 내용 일치·순서 칸이 된다(중독 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When Madonna left for New York",
+      "note": "마지막 두 단락이 소원 → 재활 → 화해로 혼자 서고 estranged 를 cut off 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "44a00498-7161-4534-a663-bc60ef8599fe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "45da52d037304aa8cc1119c4bb6f10f8d30eaff64f9dd3e665eefa653623f76b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미얀마 규모 6.8 지진(7.0에서 하향) → 방콕·하노이까지 흔들림 → 여진과 치앙라이 사망 1명 → 쓰나미 없음과 그 이유로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "No tsunami was formed or is",
+      "note": "마지막 단락은 쓰나미가 없는 이유를 혼자 설명하고 둘째 단락은 오탈자(collaspe) 만 고치면 된다."
+    }
+  },
+  {
+    "id": "44a0f0a6-c666-446c-9108-d2aa427a0cae",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2c761273ae52581a6a9caca33332f9961dba5c6f7bcc475f4d1f33a2711d8821",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "그레이엄 불출마 선언 → 밥 레이의 지역구 출마 예고와 다른 후보 → 레이의 헌사 발언 → 그레이엄의 경력으로 이어져 내용 일치·순서 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bob Rae, former NDP premier of",
+      "note": "둘째 단락은 지역구 경선 구도를 혼자 담고 riding·nomination 을 district·candidacy 로 바꾸면 쉬워진다."
+    }
+  }
+]
