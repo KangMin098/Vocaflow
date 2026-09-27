@@ -65,6 +65,15 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 [ 단독 ]    대시보드 (LayoutDashboard)
 [ 교재 ]     (accent: #8B5CF6)
    교재 공장 (Factory) — 하위 11칸. 들어가면 자동으로 펴지고, 화살표로 직접 접고 편다
+[ 학습 원리 ] (accent: var(--p)) — 2026-09-28. 공급이 아니라 판단 기준이라 교재와 공급 사이
+   원리 지도          /admin/knowledge
+   본질 · 원리        /admin/knowledge/principles
+   방법론 · 공부법    /admin/knowledge/methods
+   검토 대기          /admin/knowledge/review
+   근거 · 출처        /admin/knowledge/sources — 하위 2칸(기출 원천 · 가져오기 원장 /admin/methodology)
+   전문가 · 채널      /admin/knowledge/experts
+   공백               /admin/knowledge/gaps
+   = 7 항목 · 화면도움말 lib/admin/help/knowledge.ts · 정본 docs/methodology/SYSTEM.md
 [ 콘텐츠 공급 ] (accent: #8B5CF6)
    콘텐츠            /admin/library
    도서 수집   LCP   /admin/curation

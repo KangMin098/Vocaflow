@@ -1,0 +1,179 @@
+// apps/web/src/lib/admin/help/knowledge.ts
+//
+// 학습 원리(본질·원리·방법론·공부법·근거) 화면도움말. 정본 docs/methodology/SYSTEM.md.
+// 스키마·작성 원칙은 ./types.ts 참조. 화면을 바꾸면 이 파일도 같은 커밋에서 고친다.
+
+import type { HelpRegistry } from './types'
+
+const LAYER_FLOW = {
+  kind: 'flow' as const,
+  caption: '항목은 아래층에서 위층으로만 잇는다',
+  nodes: [
+    { label: 'L4 공부법', actor: 'claude' as const, says: '오늘 하는 루틴 — 조건이 다르면 다른 항목' },
+    { label: 'L3 방법론', actor: 'claude' as const, says: '원리를 한 영역에 쓰는 절차' },
+    { label: 'L2 원리', actor: 'user' as const, says: '왜 배워지는가 — 학습 과학 7 이 씨앗' },
+    { label: 'L1 본질', actor: 'user' as const, says: '사람만 쓰고 사람만 승인한다' },
+  ],
+}
+
+const STATUS_FLOW = {
+  kind: 'flow' as const,
+  caption: '한 항목이 채택되기까지',
+  nodes: [
+    { label: '추출됨', actor: 'claude' as const, says: '드레인이 뽑았다 — 아직 사실로 쓰지 않는다' },
+    { label: '검토 중', actor: 'user' as const, says: '근거 위치를 열어 확인한다' },
+    { label: '채택', actor: 'user' as const, says: '제품 판단에 써도 된다' },
+    { label: '제품 적용', actor: 'user' as const, says: '어느 모듈에 쓰였는지 기록' },
+  ],
+  branch: [{ when: '근거가 약하거나 틀림', then: '반려 — 이유를 적지 않으면 DB 가 거부한다' }],
+}
+
+export const KNOWLEDGE_HELP: HelpRegistry = {
+  // ───────────────────────────────────────────────────────────
+  // /admin/knowledge — 원리 지도
+  // ───────────────────────────────────────────────────────────
+  knowledge: {
+    title: '원리 지도',
+    screen: {
+      summary:
+        '영어 학습의 본질·원리·방법론·공부법이 층마다 몇 개이고 어느 상태인지, 무엇을 모르는지를 한 장으로 본다. 수치는 열 때마다 DB 를 다시 센 값이다.',
+      diagrams: [LAYER_FLOW],
+      fields: [
+        { label: '층 × 상태 표', detail: '「·」는 0 이다. 채택 칸이 비어 있으면 그 층은 아직 제품 판단에 쓸 근거가 없다는 뜻이다.' },
+        { label: '열린 공백', detail: '조사했지만 모르는 것. 공백이 0 이라고 다 아는 게 아니다 — 막힌 곳을 공백으로 남겨야 보인다.' },
+        { label: '기출 원천', detail: '수능·모평 지문이 온 책·논문. 등급 A 만 「확인」이다. B 는 후보, C 는 같은 소재의 다른 원천, G 는 미확인.' },
+      ],
+      cautions: [
+        '원리 7개는 학습 과학 씨앗이라 「검토 중」으로 들어왔고 근거가 아직 연결되지 않았다(공백 1건). 채택 전에 1차 연구 서지를 붙인다.',
+      ],
+    },
+  },
+
+  'knowledge-principles': {
+    title: '본질 · 원리',
+    screen: {
+      summary:
+        'L1 본질(이 영역에서 잘한다는 것)과 L2 원리(왜 그렇게 배워지는가). 개수가 적고 오래가는 층이다.',
+      diagrams: [LAYER_FLOW],
+      fields: [
+        { label: '근거 없음', detail: '연결된 근거가 0 이다. 이 상태로 채택하지 않는다.' },
+        { label: 'v 번호', detail: '문장이 바뀔 때마다 DB 가 올린다. 버전이 오르면 연결된 방법론을 다시 본다.' },
+      ],
+      cautions: [
+        '본질은 자동 추출로 만들지 않는다 — 기출 원천 같은 관찰을 근거로 사람이 쓰고, 분석자 추론(inferred)으로 표시한다.',
+        '표본이 작은 관찰로 전체를 단정하지 않는다(기출 원천은 713 지문 중 49개만 원천이 있다). 문장에 표본 크기를 함께 적는다.',
+      ],
+    },
+  },
+
+  'knowledge-methods': {
+    title: '방법론 · 공부법',
+    screen: {
+      summary:
+        'L3 방법론(원리를 한 영역에 쓰는 절차)과 L4 공부법(학습자가 오늘 하는 루틴). 조건 칩(학령·숙련도·시험·과정)이 다르면 같은 문장이라도 다른 항목이다.',
+      diagrams: [LAYER_FLOW],
+      cautions: [
+        '전문가 여럿이 같은 말을 해도 효과가 검증된 것은 아니다. 효과 강도는 연구 설계가 확인된 근거가 있을 때만 적는다.',
+        '같은 강사의 재업로드·쇼츠는 독립 근거가 아니다 — 근거 수를 부풀리지 않는다.',
+      ],
+    },
+  },
+
+  'knowledge-review': {
+    title: '검토 대기',
+    screen: {
+      summary: '「추출됨」·「검토 중」 항목. 사람이 근거를 확인해야 채택으로 간다.',
+      diagrams: [STATUS_FLOW],
+      steps: [
+        { title: '근거 위치를 연다', detail: '영상은 초 위치, 문서는 절 위치로 연다. 제목·챕터 이름만으로는 근거가 아니다.' },
+        { title: '기존 항목과 겹치는지 본다', detail: '표현이 비슷해도 조건이 다르면 합치지 않는다. 자동 병합은 없다.' },
+        { title: '채택하거나 반려한다', detail: '반려에는 이유가 필요하다(DB 제약). 상태 변경은 검토 기록에 자동으로 남는다.', done: '항목이 이 목록에서 사라지고 원리 지도의 채택 칸이 늘어난다.' },
+      ],
+    },
+  },
+
+  'knowledge-sources': {
+    title: '근거 · 출처',
+    screen: {
+      summary:
+        '출처 종류별로 무엇이 들어와 있고 항목에 얼마나 연결됐는지 본다. 어떤 출처도 원문(자막·지문·본문)을 저장하지 않는다 — 링크·위치·서지만.',
+      fields: [
+        { label: '가져오기 원장', detail: '방법론 조사 스냅샷(methodology_*). 한 번 가져온 스냅샷은 바뀌지 않고, 새로 가져오면 새 스냅샷이 생긴다.' },
+        { label: '항목에 연결된 근거', detail: '출처가 들어와 있어도 항목에 연결되지 않으면 판단에 쓰이지 않는다.' },
+      ],
+      cautions: [
+        'YouTube 자막은 자동 수집하지 않는다(봇 차단 우회 금지). 공식 대본이 있는 곳(BBC·VOA·British Council)이나 사람이 넣은 텍스트만 쓴다.',
+      ],
+    },
+  },
+
+  'knowledge-csat-origins': {
+    title: '기출 원천',
+    screen: {
+      summary:
+        '수능·평가원 모의평가 지문이 발췌된 책·논문. Codex 2026-09-28 전수 조사 결과이고, 지문 원문 없이 문항 번호·서지·근거 링크·등급만 보인다.',
+      diagrams: [
+        {
+          kind: 'flow',
+          caption: '등급은 이 순서로 약해진다',
+          nodes: [
+            { label: 'A 직접 확인', actor: 'auto', says: '원문 위치까지 대조했다', state: 'pass' },
+            { label: 'B 유력 후보', actor: 'auto', says: '서지는 공식 확인, 해당 단락 대조 미완', state: 'short' },
+            { label: 'C 계보만', actor: 'auto', says: '같은 소재의 다른 원천', state: 'short' },
+            { label: 'G 미확인', actor: 'auto', says: '검색으로 원천을 찾지 못했다', state: 'unmeasured' },
+          ],
+        },
+      ],
+      fields: [
+        { label: '문항', detail: '같은 지문을 여러 문항이 쓰면(41–42번 등) 한 줄에 모두 적는다.' },
+        { label: '근거', detail: '출판사·학술 페이지 링크. 시험 재게시물·학원 자료는 근거로 쓰지 않았다.' },
+      ],
+      drain: {
+        what: 'Codex 원천 조사 결과를 등록부(knowledge_csat_origins)에 적재한다.',
+        prerequisites: ['docs/reports/csat-source-origin-results-20260928.jsonl 이 있다', 'apps/web/.env.local 의 service role 자격'],
+        procedure: [
+          { title: '미리보기', detail: 'node scripts/knowledge/import-seed.mjs — 등급별 개수만 출력하고 쓰지 않는다.' },
+          { title: '적재', detail: 'node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/knowledge/import-seed.mjs --commit', done: '「원천 upsert 713」' },
+        ],
+        verify: ['이 화면의 A·B·C·G 개수가 보고서와 같다(26·22·1·664).'],
+        recovery: ['재실행 안전 — 원천은 지문 해시로 upsert, 원리·공백은 이미 있으면 건너뛴다.'],
+      },
+    },
+  },
+
+  'knowledge-experts': {
+    title: '전문가 · 채널',
+    screen: {
+      summary: '근거로 삼는 강사·연구자와 그 소유 채널. 가져오기 원장 최신 스냅샷에서 읽는다. 목록은 순위가 아니다.',
+      fields: [
+        { label: '후보 / 프로필 확인', detail: '후보는 공식 자료에서 이름만 확인한 사람, 프로필 확인은 공식 본문을 읽은 사람이다.' },
+      ],
+      cautions: [
+        '학원·방송 채널은 여러 강사 영상이 섞여 있다. 채널 영상을 특정 강사의 근거로 쓰기 전에 강사를 확인한다.',
+      ],
+    },
+  },
+
+  'knowledge-gaps': {
+    title: '공백',
+    screen: {
+      summary: '조사했지만 모르는 것. 원인과 다음 행동을 함께 둔다. 공백은 실패가 아니라 다음 조사의 목록이다.',
+      fields: [
+        { label: '영향', detail: '이 공백 때문에 판단할 수 없는 대상의 수(예: 원천 미확인 지문 수).' },
+        { label: '원인', detail: '자막 미확보 · 권리 미확인 · 찾지 못함 · 아직 조사 안 함 · 검증 불가. 원인마다 다음 행동이 다르다.' },
+      ],
+    },
+  },
+
+  // ───────────────────────────────────────────────────────────
+  // /admin/methodology — 가져오기 원장 (Codex 2026-09-19 워크벤치)
+  // ───────────────────────────────────────────────────────────
+  methodology: {
+    title: '가져오기 원장',
+    screen: {
+      summary:
+        '방법론 조사 스냅샷(전문가·채널·출처·주장·근거)을 그대로 읽는다. 스냅샷은 바뀌지 않는다 — 항목을 검토·채택하는 일은 학습 원리 등록부에서 한다.',
+      cautions: ['스냅샷의 방법 4개는 조사 초기 자료다. 학생 성과를 입증한 연구로 읽지 않는다.'],
+    },
+  },
+}

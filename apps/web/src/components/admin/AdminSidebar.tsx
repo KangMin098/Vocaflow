@@ -12,7 +12,9 @@ import {
   BookMarked,
   Brain,
   ChevronRight,
+  CircleHelp,
   ClipboardCheck,
+  Compass,
   CreditCard,
   Database,
   Factory,
@@ -24,8 +26,11 @@ import {
   History,
   LayoutDashboard,
   LayoutGrid,
+  Lightbulb,
+  ListChecks,
   MessageSquareText,
   Library,
+  Quote,
   Network,
   Newspaper,
   PenLine,
@@ -191,6 +196,29 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
         // 기출 분석 뷰 — 2026-09-17 까지 학습자 `/csat` 밑에 있던 분석 화면(지도·유형·문항·지형·
         // 사정권·계획). 학습자는 이제 「오늘의 세션」 루프만 보고, 분석을 읽는 일은 여기서 한다.
         { href: '/admin/kice', label: '기출 분석 뷰', Icon: ScanLine },
+      ],
+    },
+    {
+      // 학습 원리 — 공급이 아니라 「무엇이 좋은 학습인가」의 판단 기준이라 교재와 공급 사이에 둔다.
+      // 층(본질·원리·방법론·공부법)과 근거 등급은 docs/methodology/SYSTEM.md 가 정본.
+      label: '학습 원리',
+      color: 'var(--p)',
+      items: [
+        { href: '/admin/knowledge', label: '원리 지도', Icon: Compass },
+        { href: '/admin/knowledge/principles', label: '본질 · 원리', Icon: Lightbulb },
+        { href: '/admin/knowledge/methods', label: '방법론 · 공부법', Icon: Workflow },
+        { href: '/admin/knowledge/review', label: '검토 대기', Icon: ListChecks },
+        {
+          href: '/admin/knowledge/sources',
+          label: '근거 · 출처',
+          Icon: Quote,
+          children: [
+            { href: '/admin/knowledge/sources/csat', label: '기출 원천', Icon: ScanLine },
+            { href: '/admin/methodology', label: '가져오기 원장', Icon: History },
+          ],
+        },
+        { href: '/admin/knowledge/experts', label: '전문가 · 채널', Icon: Users },
+        { href: '/admin/knowledge/gaps', label: '공백', Icon: CircleHelp },
       ],
     },
     {

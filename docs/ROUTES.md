@@ -274,6 +274,22 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/admin/comic/[bookId]/drain` | `admin/comic/[bookId]/drain/page.tsx` + `DrainConsole.tsx` | 드레인 관측 — 실행/진행/자기발전/평가이력/컷상태/발행차단 사유 |
 | `/admin/pd-comics` | `admin/pd-comics/page.tsx` + `AdminPdComicsClient.tsx` | **PDCP 운영 콘솔** (CCP와 별도) — 소스·대량 적재 / 큐·드레인 / 도구. 어댑터 능력표 · 테스트 모드(앞 N장) · dry-run · 라이브 로그 · 실패 재시도 |
 
+### 학습 원리 — 본질·원리·방법론·공부법·근거 (2026-09-28)
+
+정본 [methodology/SYSTEM.md](./methodology/SYSTEM.md). 전부 `requireAdmin` · 읽기는 `lib/knowledge/server.ts`(service role, 오류를 빈 목록으로 삼키지 않음).
+
+| 경로 | 파일 | 비고 |
+|---|---|---|
+| `/admin/knowledge` | `admin/knowledge/page.tsx` | 원리 지도 — 층 × 상태 개수 · 열린 공백 · 기출 원천 등급 |
+| `/admin/knowledge/principles` | `…/principles/page.tsx` | L1 본질 · L2 원리 목록 |
+| `/admin/knowledge/methods` | `…/methods/page.tsx` | L3 방법론 · L4 공부법 목록 (조건 칩) |
+| `/admin/knowledge/review` | `…/review/page.tsx` | 추출됨·검토 중 항목 |
+| `/admin/knowledge/sources` | `…/sources/page.tsx` | 출처 종류 · 항목에 연결된 근거 수 |
+| `/admin/knowledge/sources/csat` | `…/sources/csat/page.tsx` | 기출 원천 — 문항·서지·근거 링크·등급 (지문 원문 없음) |
+| `/admin/knowledge/experts` | `…/experts/page.tsx` | 가져오기 원장 최신 스냅샷의 전문가·채널 |
+| `/admin/knowledge/gaps` | `…/gaps/page.tsx` | 공백 — 원인 · 다음 행동 · 영향 수 |
+| `/admin/methodology` | `admin/methodology/page.tsx` | 가져오기 원장(Codex 2026-09-19 워크벤치) — 메뉴상 「근거 · 출처」 하위 |
+
 ---
 
 ## API Routes (28)
