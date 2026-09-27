@@ -15,7 +15,9 @@ import {
   STATUSES,
   STATUS_LABEL,
 } from '@/lib/knowledge/labels'
-import { countByGrade, countByLayerStatus, listCsatOrigins, listGaps, listItems } from '@/lib/knowledge/server'
+import { KnowledgeGrid } from '@/components/admin/knowledge/KnowledgeGrid'
+import { buildGrid } from '@/lib/knowledge/grid'
+import { countByGrade, countByLayerStatus, listCsatOrigins, listGaps, listItems, listTaxonomy } from '@/lib/knowledge/server'
 
 export const dynamic = 'force-dynamic'
 
@@ -23,8 +25,8 @@ export default async function KnowledgeMapPage() {
   await requireAdmin('/admin/knowledge')
   let data
   try {
-    const [items, gaps, origins] = await Promise.all([listItems(), listGaps(), listCsatOrigins()])
-    data = { items, gaps, origins }
+    const [items, gaps, origins, taxonomy] = await Promise.all([listItems(), listGaps(), listCsatOrigins(), listTaxonomy()])
+    data = { items, gaps, origins, taxonomy }
   } catch {
     return (
       <KnowledgeFrame title="원리 지도" question="무엇을 알고, 무엇을 모르는가" help={<AdminScreenHelp screen="knowledge" />} back={{ href: '/admin', label: '관리자' }}>
@@ -36,11 +38,28 @@ export default async function KnowledgeMapPage() {
   const grid = countByLayerStatus(data.items)
   const grades = countByGrade(data.origins)
   const openGaps = data.gaps.filter((g) => g.status === 'open')
+  const skills = data.taxonomy.filter((t) => t.dimension === 'skill')
+  const map = buildGrid(data.items, skills.map((s) => s.id))
+  const knownEssence = Object.values(map.essenceKnown).filter(Boolean).length
 
   return (
     <KnowledgeFrame title="원리 지도" question="무엇을 알고, 무엇을 모르는가" help={<AdminScreenHelp screen="knowledge" />} back={{ href: '/admin', label: '관리자' }}>
+      <section aria-labelledby="map" className="mb-10">
+        <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+          <h2 id="map" className="text-lg font-semibold text-[var(--t1)]">영역 × 층</h2>
+          <p className="text-sm text-[var(--t2)]">
+            본질을 채택한 영역 <b className="tabular-nums text-[var(--t1)]">{knownEssence}</b> / {skills.length}
+          </p>
+        </div>
+        <KnowledgeGrid
+          columns={map.columns}
+          cells={map.cells}
+          columnLabel={Object.fromEntries(skills.map((s) => [s.id, s.label]))}
+        />
+      </section>
+
       <section aria-labelledby="layers" className="mb-10">
-        <h2 id="layers" className="mb-3 text-lg font-semibold text-[var(--t1)]">층별 항목</h2>
+        <h2 id="layers" className="mb-3 text-lg font-semibold text-[var(--t1)]">상태별</h2>
         {data.items.length === 0 ? (
           <EmptyState title="등록된 항목이 없습니다" next="씨앗 가져오기(scripts/knowledge/import-seed.mjs --commit)를 먼저 실행하세요." />
         ) : (

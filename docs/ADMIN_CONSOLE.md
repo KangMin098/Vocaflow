@@ -74,6 +74,8 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
    전문가 · 채널      /admin/knowledge/experts
    공백               /admin/knowledge/gaps
    = 7 항목 · 화면도움말 lib/admin/help/knowledge.ts · 정본 docs/methodology/SYSTEM.md
+   쓰기: 항목 상세(/admin/knowledge/item/[slug])의 상태 변경·층 연결·근거 추가, 목록의 「새 항목 쓰기」
+   규칙 lib/knowledge/rules.ts — 근거 0 이면 채택 불가 · 반려는 이유 필수 · 「구현」은 바로 위 층만
 [ 콘텐츠 공급 ] (accent: #8B5CF6)
    콘텐츠            /admin/library
    도서 수집   LCP   /admin/curation

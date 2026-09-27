@@ -1,6 +1,7 @@
 // apps/web/src/components/admin/knowledge/ItemList.tsx
 // 층 항목 목록 — 층 표지 · 제목 · 문장 · 상태 · 조건 칩 · 근거 수.
 // 근거가 0 인 항목은 「근거 없음」을 글자로 드러낸다(출처 없는 주장은 채택하지 않는다 — SYSTEM §3).
+import Link from 'next/link'
 import { LAYER_LABEL, LAYER_RANK, STATUS_LABEL } from '@/lib/knowledge/labels'
 import type { KnowledgeItem } from '@/lib/knowledge/server'
 import { EmptyState } from './KnowledgeFrame'
@@ -26,7 +27,14 @@ export function ItemList({ items, evidenceCount, taxonomyLabel, empty }: ItemLis
               <span className="text-[var(--t2)]">{LAYER_LABEL[it.layer]}</span>
             </div>
             <div className="min-w-0">
-              <h3 className="font-semibold text-[var(--t1)]">{it.title}</h3>
+              <h3 className="font-semibold text-[var(--t1)]">
+                <Link
+                  href={`/admin/knowledge/item/${it.slug}`}
+                  className="inline-flex min-h-11 items-center hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
+                >
+                  {it.title}
+                </Link>
+              </h3>
               <p className="mt-1 text-sm text-[var(--t1)]">{it.statement}</p>
               {chips.length > 0 && (
                 <ul className="mt-2 flex flex-wrap gap-1.5" aria-label="조건">

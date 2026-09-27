@@ -2,6 +2,7 @@
 // 본질(L1) · 원리(L2) — 적고 오래가는 층. 본질은 사람만 쓰고 사람이 승인한다(SYSTEM §1).
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { ItemList } from '@/components/admin/knowledge/ItemList'
+import { NewItemForm } from '@/components/admin/knowledge/NewItemForm'
 import { KnowledgeFrame, LoadFailed } from '@/components/admin/knowledge/KnowledgeFrame'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { loadItemView } from '@/lib/knowledge/server'
@@ -23,6 +24,7 @@ export default async function PrinciplesPage() {
   }
   return (
     <KnowledgeFrame {...frame}>
+      <NewItemForm layers={['essence', 'principle']} taxonomy={view.taxonomy} />
       <ItemList
         {...view}
         empty={{

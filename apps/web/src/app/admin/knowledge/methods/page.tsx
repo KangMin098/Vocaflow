@@ -2,6 +2,7 @@
 // 방법론(L3) · 공부법(L4) — 조건(학령·숙련도·시험·과정)이 다르면 다른 항목이다(SYSTEM §1).
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { ItemList } from '@/components/admin/knowledge/ItemList'
+import { NewItemForm } from '@/components/admin/knowledge/NewItemForm'
 import { KnowledgeFrame, LoadFailed } from '@/components/admin/knowledge/KnowledgeFrame'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { loadItemView } from '@/lib/knowledge/server'
@@ -23,6 +24,7 @@ export default async function MethodsPage() {
   }
   return (
     <KnowledgeFrame {...frame}>
+      <NewItemForm layers={['method', 'practice']} taxonomy={view.taxonomy} />
       <ItemList
         {...view}
         empty={{

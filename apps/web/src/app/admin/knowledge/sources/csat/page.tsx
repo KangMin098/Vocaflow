@@ -3,6 +3,7 @@
 // 지문 원문은 보이지 않는다: 문항 번호 · 서지 · 근거 링크 · 등급만. 미확인(G)은 목록 대신 개수로.
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { GradeMark, KnowledgeFrame, LoadFailed } from '@/components/admin/knowledge/KnowledgeFrame'
+import { OriginGrid } from '@/components/admin/knowledge/OriginGrid'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { GRADE_LABEL, share } from '@/lib/knowledge/labels'
 import { countByGrade, listCsatOrigins } from '@/lib/knowledge/server'
@@ -40,6 +41,12 @@ export default async function CsatOriginsPage() {
         미확인 <b className="tabular-nums text-[var(--t1)]">{grades.G}</b>. 표본이 작으니 「수능 지문 전체가 ~이다」로 읽지 않는다.
       </p>
 
+      <section aria-labelledby="origin-grid" className="mb-10">
+        <h2 id="origin-grid" className="mb-3 text-lg font-semibold text-[var(--t1)]">시험 × 문항</h2>
+        <OriginGrid origins={origins} />
+      </section>
+
+      <h2 className="mb-3 text-lg font-semibold text-[var(--t1)]">원천이 있는 지문</h2>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[48rem] border-collapse text-sm">
           <caption className="sr-only">원천이 확인되거나 유력한 기출 지문</caption>

@@ -288,6 +288,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/admin/knowledge/sources/csat` | `…/sources/csat/page.tsx` | 기출 원천 — 문항·서지·근거 링크·등급 (지문 원문 없음) |
 | `/admin/knowledge/experts` | `…/experts/page.tsx` | 가져오기 원장 최신 스냅샷의 전문가·채널 |
 | `/admin/knowledge/gaps` | `…/gaps/page.tsx` | 공백 — 원인 · 다음 행동 · 영향 수 |
+| `/admin/knowledge/item/[slug]` | `…/item/[slug]/page.tsx` | 항목 상세 — 위/아래 층 연결 · 근거 · 검토 기록 + 상태 변경·연결·근거 추가(Server Actions `admin/knowledge/actions.ts`) |
 | `/admin/methodology` | `admin/methodology/page.tsx` | 가져오기 원장(Codex 2026-09-19 워크벤치) — 메뉴상 「근거 · 출처」 하위 |
 
 ---

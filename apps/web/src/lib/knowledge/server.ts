@@ -273,7 +273,47 @@ export async function loadItemView(filter: { layers?: Layer[]; statuses?: ItemSt
   const evidenceCount: Record<string, number> = {}
   for (const e of evidence) evidenceCount[e.itemId] = (evidenceCount[e.itemId] ?? 0) + 1
   const taxonomyLabel = Object.fromEntries(taxonomy.map((t) => [t.id, t.label]))
-  return { items, evidenceCount, taxonomyLabel }
+  return { items, evidenceCount, taxonomyLabel, taxonomy }
+}
+
+/** 항목 상세 — 항목 · 위/아래 연결(상대 항목 포함) · 근거 · 검토 기록 · 분류 라벨. 없으면 null. */
+export async function loadItemDetail(slug: string) {
+  const client = db()
+  const { data: row, error } = await client.from('knowledge_items').select(ITEM_COLUMNS).eq('slug', slug).maybeSingle()
+  if (error) fail('항목', error)
+  if (!row) return null
+  const item = toItem(row as Record<string, unknown>)
+
+  const [links, evidence, reviews, taxonomy, all] = await Promise.all([
+    listLinks(),
+    listEvidence([item.id]),
+    listReviews([item.id]),
+    listTaxonomy(),
+    listItems(),
+  ])
+  const byId = new Map(all.map((i) => [i.id, i]))
+  const mine = links.filter((l) => l.fromId === item.id || l.toId === item.id)
+  const related = mine
+    .map((l) => {
+      const outgoing = l.fromId === item.id
+      const other = byId.get(outgoing ? l.toId : l.fromId)
+      return other ? { ...l, outgoing, other } : null
+    })
+    .filter((x): x is NonNullable<typeof x> => x !== null)
+
+  return {
+    item,
+    /** 이 항목이 구현하는 위층 항목 */
+    up: related.filter((r) => r.kind === 'implements' && r.outgoing),
+    /** 이 항목을 구현하는 아래층 항목 */
+    down: related.filter((r) => r.kind === 'implements' && !r.outgoing),
+    /** 반대·보완·조건 차이·중복 후보 */
+    side: related.filter((r) => r.kind !== 'implements'),
+    evidence,
+    reviews,
+    taxonomy,
+    others: all.filter((i) => i.id !== item.id),
+  }
 }
 
 export interface ExpertRow {
