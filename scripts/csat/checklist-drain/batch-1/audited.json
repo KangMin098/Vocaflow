@@ -1,0 +1,140 @@
+[
+ {
+  "id": "00f331b1-8cf6-48a0-8c30-fc43b596ba57",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "0809e4a5-43e5-4093-8186-5d49034ed714",
+  "source": "wikinews",
+  "checklist": "hold",
+  "rule": "linkThin"
+ },
+ {
+  "id": "0dec0fa6-a338-44d5-ab5b-cfd96a8bd9b3",
+  "source": "wikinews",
+  "checklist": "hold",
+  "rule": "linkThin"
+ },
+ {
+  "id": "24b3a860-cbbe-4715-9562-b3c742915d71",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "2ff3c70e-95e4-4b51-9b15-84996888a0bd",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "40cd0b8e-6e71-4512-8950-6bd8491f7b8a",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "45024706-4ea9-452f-b32b-bae6842cefee",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "48732a24-aefc-44b8-8b06-ac1ec2f07923",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "4d807a7e-7da2-401b-8f51-41af0624cf4d",
+  "source": "wikinews",
+  "checklist": "discard",
+  "rule": "listOnly"
+ },
+ {
+  "id": "53d93908-fe2d-4da3-a277-d2cedb5c2759",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "6d519b73-ac4c-401d-b947-dd18458b26e9",
+  "source": "wikinews",
+  "checklist": "hold",
+  "rule": "linkThin"
+ },
+ {
+  "id": "71237dba-a40b-498b-87b1-cd3c420fdead",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "76017b36-6137-40ed-aee3-ab6dc03b1974",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "78b4a2d0-8797-41c9-b06a-3911b615c8b1",
+  "source": "wikinews",
+  "checklist": "hold",
+  "rule": "linkThin"
+ },
+ {
+  "id": "9818bd1e-bbab-4f3d-934a-ed85098c7ce4",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "9cc9be3c-7ccb-46d8-8be7-10a8d8c7535d",
+  "source": "wikinews",
+  "checklist": "hold",
+  "rule": "linkThin"
+ },
+ {
+  "id": "aa6e21e5-f1f7-40aa-b417-afb1a11d2d03",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "ba49bdac-0550-4dac-b2ce-a43a397565e7",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "bb3f62f2-f8c0-4658-bade-39dcd60bcc05",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "cc368e3a-8660-4da9-ac87-2d869e01992c",
+  "source": "wikinews",
+  "checklist": "hold",
+  "rule": "linkThin"
+ },
+ {
+  "id": "eecffbfd-7610-4356-928d-48ae4a91d3ae",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "f94b0c83-7d9c-4c14-9d3c-520c3f8fc637",
+  "source": "wikinews",
+  "checklist": "hold",
+  "rule": "linkThin"
+ },
+ {
+  "id": "fbf23714-1be2-4814-9309-602bebd96343",
+  "source": "wikinews",
+  "checklist": "hold",
+  "rule": "linkThin"
+ }
+]
