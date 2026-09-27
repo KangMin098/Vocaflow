@@ -211,8 +211,8 @@
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": true,
-      "sample": "ENVIROMENTAL ISSUES, RECYCLING, POLLUTION - These",
-      "note": "첫 답변(세 공약과 이유)은 대문자 머리말을 소문자로 고치고 cost effect 같은 오기를 고치면 요지 문단으로 선다."
+      "sample": "THE MOVEMENT OF TRAFFIC WITHIN WARD",
+      "note": "첫 공약 답변(교통 정체와 안전)은 대문자 머리말을 문장으로 풀면 서고, 뒤 답변의 ENVIROMENTAL·cost effect 같은 오기는 고친다."
     }
   },
   {
@@ -252,7 +252,7 @@
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": true,
-      "sample": "According to BBC, Queensland, north of",
+      "sample": "According to ABC's reports, Australian Bureau",
       "note": "기상학자 인용 문단은 「따뜻한 기온이 흙을 더 말린다」는 인과가 서고, exacerbates 를 worsens 로 바꾸면 V5 이다."
     }
   },
