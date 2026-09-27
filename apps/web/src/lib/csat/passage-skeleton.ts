@@ -108,10 +108,12 @@ export function splitSentences(passage: string): { start: number; end: number }[
 
     if (ABBREV.test(passage.slice(start, j))) continue
 
-    // 다음 글자가 대문자/따옴표/괄호여야 새 문장이다.
+    // 다음 글자가 대문자/따옴표/괄호/원 숫자여야 새 문장이다.
+    // 원 숫자(①–⑤)는 무관한 문장 · 도표 · 어법 유형의 문장 표지다 — 빠지면 표지 붙은 문장이 앞 문장과
+    // 한 덩어리가 돼 제 번호를 못 받는다(2026-09-28 실측 802문항 중 61).
     let k = j
     while (k < passage.length && /\s/.test(passage[k])) k += 1
-    if (k < passage.length && !/[A-Z“"('‘[]/.test(passage[k])) continue
+    if (k < passage.length && !/[A-Z“"('‘[①②③④⑤]/.test(passage[k])) continue
 
     out.push({ start, end: j })
     start = k

@@ -1251,7 +1251,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:8"
+            "id": "sentence:10"
           },
           "segments": [
             {
@@ -1280,7 +1280,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:9"
+            "id": "sentence:11"
           },
           "segments": [
             {
@@ -1418,7 +1418,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:7"
+            "id": "sentence:9"
           },
           "segments": [
             {

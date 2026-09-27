@@ -43,6 +43,11 @@ describe('splitSentences', () => {
     expect(splitSentences(PASSAGE)).toEqual(splitSentences(PASSAGE))
   })
 
+  it('원 숫자 표지 앞에서 끊는다 — 무관한 문장 유형의 ①–⑤ 가 제 번호를 받는다', () => {
+    const s = splitSentences('Humor unites workers. ① One team laughed. ② Another did not.')
+    expect(s).toHaveLength(3)
+  })
+
   it('빈 지문에 빈 배열', () => {
     expect(splitSentences('')).toEqual([])
   })

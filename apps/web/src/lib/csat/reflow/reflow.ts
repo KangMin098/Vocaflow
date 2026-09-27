@@ -29,8 +29,9 @@ import { blankFrags } from './pdf-frags'
 
 /** 추출기 판. 규칙을 바꾸면 올린다 — 기기에 남은 옛 추출을 버리게 한다.
  *  2 (2026-09-25): 그린 선으로 된 빈칸을 `______` 로 복원한다(`pdf-frags.blankFrags`).
- *  3 (2026-09-25): 줄 끝에 걸린 빈칸(문장 부호 없이 일찍 끝나고 다음 줄이 이어짐)을 복원한다. */
-export const REFLOW_VERSION = 3
+ *  3 (2026-09-25): 줄 끝에 걸린 빈칸(문장 부호 없이 일찍 끝나고 다음 줄이 이어짐)을 복원한다.
+ *  4 (2026-09-28): 요약문 — 화살표 글리프를 문단 경계로, 지문 꼬리의 선지 표 머리 「(A) (B) (A) (B)」 를 뗀다. */
+export const REFLOW_VERSION = 4
 
 const CIRC = '①②③④⑤'
 
@@ -445,13 +446,20 @@ export function reflowExam(
         passageLines = [...passageLines.slice(0, last), stripped]
       }
     }
+    // 요약문: 선지 표 머리(「(A) (B)」 반복)가 선지 블록 앞 줄로 지문 꼬리에 남는다 — 지문이 아니다
+    if (type === 'R-SUMMARY') {
+      while (passageLines.length && /^\s*(?:\(A\)\s*\(B\)\s*)+$/.test(unGap(passageLines[passageLines.length - 1]))) {
+        passageLines = passageLines.slice(0, -1)
+      }
+    }
     const own = joinLines(passageLines)
     const shared = joinLines(setBody)
     let passage = shared ? (own ? `${shared}\n\n${own}` : shared) : own
     // 틈 표식 — 빈칸 유형이고 선으로 찾은 빈칸이 그 유형의 개수보다 적을 때만 빈칸이다.
     // 그 밖에는 공백으로 지운다(요약문은 (A) 는 선으로, (B) 는 틈으로 찾히는 문제지가 있다).
     const want = type != null ? BLANK_COUNT.get(type) ?? 0 : 0
-    if (type === 'R-SUMMARY') passage = summaryBlanks(passage)
+    // 요약 상자 앞 화살표(글꼴 사설 영역 글리프 U+F003B)는 문단 경계다 — 남기면 분할기가 요약문을 앞 문장에 붙인다
+    if (type === 'R-SUMMARY') passage = summaryBlanks(passage.replace(/\s*\u{F003B}\s*/gu, '\n\n'))
     const gapBlank = want > 0 && (passage.match(/______/g) ?? []).length < want
     passage = gapBlank
       ? passage.replace(GAP_RE, ' ______ ').replace(/[ \t]+/g, ' ').trim()
