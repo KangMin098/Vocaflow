@@ -80,14 +80,15 @@ describe.skipIf(skip)('기출 원문 저작권 경계 (실 DB)', () => {
 
   // **경계가 어디에 그어져 있는지** — 이 목록이 곧 결정이다.
   //
-  //   나가면 안 되는 것: `passage` · `choices` · `stem`.
-  //     발문은 「기능 문구」라 공개 가능하다고 봤으나(2026-09-23), 144문항의 발문에 영어 원문이
-  //     들어 있다 — 문장 삽입의 「주어진 문장」 · 밑줄 구절(2026-09-25 실측). 그래서 컬럼 권한으로 닫았다
-  //     (`20260925120000_csat_items_public_hide_stem`).
+  //   나가면 안 되는 것: `passage` · `choices`.
   //   나가도 되는 것:   `answer`(정답 번호) · `points`(배점) — 평가원이 정답표로 이미 공개한다.
+  //   발문 `stem` — **사용자 결정 2026-09-28: 숨기지 않는다.** 09-25 에 컬럼 권한으로 닫았다가
+  //     (`20260925120000_csat_items_public_hide_stem`) 09-27 `csat_items_public_restore_authenticated_select`
+  //     로 다시 열렸고, 그대로 두기로 했다. ⚠️ 144문항의 발문에 영어 원문(문장 삽입의 주어진 문장 ·
+  //     밑줄 구절)이 들어 있다는 실측(09-25)은 그대로다 — 이 선을 다시 옮길 때 이 수를 다시 잰다.
   //
   // 즉 이 테스트가 지키는 것은 "다 가려라" 가 아니라 **선이 옮겨 다니지 않는 것**이다.
-  it('학습자용 뷰는 지문·선지 컬럼 자체를 갖지 않고, 발문은 읽히지 않는다', async () => {
+  it('학습자용 뷰는 지문·선지 컬럼 자체를 갖지 않는다', async () => {
     const { data, error } = await learner.from('csat_items_public').select('id, exam_id, no, type_id, answer, points').limit(1)
     expect(error, `학습자가 csat_items_public 을 못 읽으면 화면이 빈다: ${error?.message}`).toBeNull()
     expect(data?.length, '뷰가 비어 있으면 이 단언이 아무것도 안 지킨다').toBe(1)
@@ -95,8 +96,6 @@ describe.skipIf(skip)('기출 원문 저작권 경계 (실 DB)', () => {
       const r = await learner.from('csat_items_public').select(forbidden).limit(1)
       expect(r.error, `csat_items_public 에 ${forbidden} 가 있다`).not.toBeNull()
     }
-    const stem = await learner.from('csat_items_public').select('stem').limit(1)
-    if (!stem.error) expect(stem.data ?? [], '학습자가 발문을 읽었다').toHaveLength(0)
   })
 
   it('학습자가 읽는 분석·검수는 published 만 보인다', async () => {

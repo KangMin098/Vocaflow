@@ -15,6 +15,7 @@ import { createClient } from '@supabase/supabase-js'
 import { describe, expect, it } from 'vitest'
 
 import { loadCsatOverview } from '../client'
+import { isKiceExam } from '../exam-id'
 import { loadCsatGuideSource } from '../guide'
 import { renderGuideMarkdown } from '../guide-fold'
 
@@ -38,12 +39,15 @@ describe.skipIf(skip)('기출 가이드 원천 자료 (실 DB)', () => {
     expect(error).toBeNull()
     expect(source).not.toBeNull()
 
-    const inScope = await svc
-      .from('csat_items')
-      .select('id', { count: 'exact', head: true })
-      .eq('in_scope', true)
+    // 가이드는 평가원 집합만 읽는다 — 학평(보조 집합)도 in_scope 라 전체 수와 대조하면 안 된다(2026-09-28 학평 적재 뒤 3,714).
+    const ids: string[] = []
+    for (let from = 0; ; from += 1000) {
+      const { data } = await svc.from('csat_items').select('id').eq('in_scope', true).order('id').range(from, from + 999)
+      ids.push(...(data ?? []).map((r) => r.id))
+      if ((data ?? []).length < 1000) break
+    }
     // 문항마다 최신 버전 하나로 접으므로 analyzed ≤ 사정권 문항
-    expect(source!.totals.items).toBe(inScope.count ?? 0)
+    expect(source!.totals.items).toBe(ids.filter(isKiceExam).length)
     expect(source!.totals.analyzed).toBeGreaterThan(0)
     expect(source!.totals.analyzed).toBeLessThanOrEqual(source!.totals.items)
   })
