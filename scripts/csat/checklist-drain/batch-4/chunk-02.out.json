@@ -1,0 +1,607 @@
+[
+ {
+  "id": "2e35018b-90c0-4699-baaa-3abe715af446",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "On March 2, 1797, the",
+  "note": "앞 다섯 문장(준전쟁 발발→XYZ 사건→당파 대립)은 그림 없이 서고, 만평 묘사 끝 두 문장은 말로 풀려 있어 가공 때 줄이면 된다.",
+  "record": {
+   "genre": "history",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "school"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "insert"
+    ],
+    "levels": [
+     "V6",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "338eb05a-33b4-46fa-a8a5-3918883036f8",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "There are two problems with",
+  "note": "소프트웨어 특허 반대론을 두 근거로 반박하는 문단이 떼어 내도 서며, 본문 중간 Diamond v. Diehr·State Street 절과 Cronin 소개가 빠져 있어 그 부분은 가공 때 걷는다.",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "csat",
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "main_point",
+     "claim",
+     "blank",
+     "order",
+     "insert",
+     "irrelevant",
+     "summary"
+    ],
+    "levels": [
+     "V8",
+     "V9",
+     "V7"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "3652f387-1c0d-4610-af81-0b63c6ebb87b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "In the first half of the",
+  "note": "정신질환자 처우 실태→유럽 경험→주 순회 기록→청원→평생 개혁으로 이어지는 짧은 전기라 떼어 내기와 어휘 조정(deplorable, abysmal)이 쉽다.",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "school"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "title",
+     "long_reference"
+    ],
+    "levels": [
+     "V5",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "37867b10-b32e-4781-9477-3a9b763ed1f9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "During a lunar eclipse, Earth",
+  "note": "첫 줄의 시각화 안내만 걷으면 일식·월식의 원인과 차이를 까닭으로 잇는 설명문이 그대로 서고 어휘도 이미 쉽다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "school",
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "topic",
+     "content_match",
+     "insert",
+     "order",
+     "irrelevant"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "3e7cce0e-34cc-4997-9dd8-c744b68213b2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": true,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "NASA opens the door to",
+  "note": "새 학년 학생에게 인턴십·챌린지·시민과학 참여를 권하는 안내문이지만 절마다 기회를 나열할 뿐 절끼리 잇는 흐름은 약하다.",
+  "record": {
+   "genre": "education",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "purpose",
+     "content_match"
+    ],
+    "levels": [
+     "V6",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "3f491d64-3e07-47e1-a07a-1661f040895f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The SBA offers financial assistance",
+  "note": "보증 대출 문단은 까닭(일반 대출이 안 되는 업체)과 방식이 이어지지만 글 전체는 SBA 서비스 항목을 차례로 늘어놓는 구성이다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "school"
+    ],
+    "types": [
+     "topic",
+     "content_match",
+     "irrelevant"
+    ],
+    "levels": [
+     "V6",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "3ff2b8d5-0a56-45ca-a248-a85f4f05cd2f",
+  "answers": {
+   "blocked": "fragmentary",
+   "needsVisual": true,
+   "truncated": true,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": false,
+   "narrative": false,
+   "notice": false,
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Hubble Space Telescope took",
+  "note": "만들기 단계는 빠진 채 문제 해결 팁만 남았고 나머지는 사진 속 색(노란 중심·분홍과 보라)을 봐야 뜻이 서는 캡션 세 개가 두 번 되풀이된다.",
+  "record": {
+   "genre": "fragmentary",
+   "slots": {
+    "ages": [
+     "elem"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "4375586c-0140-4211-b6e1-aecfbf254ea1",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": true,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": true,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Fun fact: Mariner 4 collected",
+  "note": "「Here's what you'll need:」·「email the following:」·동의서의 「display:」 뒤 목록이 모두 비어 있어 중간 끊김이며, 마리너 4호 사진 일화 문단은 혼자 선다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading",
+     "mock"
+    ],
+    "types": [
+     "purpose",
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V4",
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "4662c5b1-9346-4d17-947b-eeb4f0f7d20f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": true,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Teams interested in participating are",
+  "note": "대학 팀에게 참가를 권하고 의향서→질의응답→제안서→결선→포럼·시상 절차를 차례로 알리는 공모 안내라 목적·내용 일치 칸이 선다.",
+  "record": {
+   "genre": "education",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "purpose",
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V7",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "4dc067b0-5581-4d32-aec5-b54b9d585f2d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "To strengthen the nation’s space",
+  "note": "행정명령 서명의 목적→위원회 구성→120일 내 보고 절차로 이어지는 보도자료로, 대통령·장관 칭송 인용은 한쪽 입장이지만 선동은 아니다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "purpose"
+    ],
+    "levels": [
+     "V6",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "5527f456-050e-47d4-bdc7-4020dab0add7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": true,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "NASA astronauts Jessica Meir and",
+  "note": "우주유영 세 건마다 날짜·승무원·중계 시각이 되풀이되고 작업 목적 문장만 조금씩 달라 연결이 가늘며, 기자 참석 신청 안내가 공지로 선다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "purpose"
+    ],
+    "levels": [
+     "V6",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "5895a62e-1579-47f8-9678-9396202b784c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The mission team typically places",
+  "note": "동면 이유→동면 중 자료 수집→깨어남 확인→관측 재개 순서로 이어지고 거리 때문에 신호가 늦다는 인과가 있어 떼어 낸 문단이 선다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "school",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "insert",
+     "topic"
+    ],
+    "levels": [
+     "V6",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "5c89fef2-5a9a-425d-960f-bcbddf34d13d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "When I was a kid in",
+  "note": "어린 시절 셔틀 발사를 보고 꿈을 품어 공학 전공→셔틀 발사팀→SLS 팀으로 이어진 전기이며 사진 캡션·오디오 잔재는 가공 때 걷는다.",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "school",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "mood",
+     "long_reference"
+    ],
+    "levels": [
+     "V5",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ }
+]
