@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **체크리스트 배치 3 적재 — wikinews 일반 기사 500편**(2026-09-27 · DB: `gate.retain` 500행 · migration 0): 바로 확정 363(감사 밖 475편 중 76.4% — 단신 48~57%보다 높다) · 전문 판정 137 → 합계 keep 483 · hold 8 · discard 9. 감사 누적 wikinews 체크리스트 keep **30편 · 오판 0** — 원천 끄기 판단선(30편)에 처음 닿았고 wikinews 는 체크리스트 경로 유지. 판정자 기준 공백 표시: 한쪽 정치 인터뷰의 polemic 여부 · 노골적 성인 인터뷰(전문 판정은 §8 대로 성인 칸만 두고 보관). 재실행 변경 0.
 - **단신 「가는 연결」 규칙 재측정 — 풀지 않는다**(2026-09-27 · DB 0 · 추가 판정 0): `scripts/csat/checklist-exp/thin-rule.mjs`. `linkThin`→keep 후보 5종이 단신 473편에서 오판 8.4~9.9%, 실험 v2(모집단 가중)에서 20~43% — 3% 기준에 모두 못 든다. 규칙 유지 · 기록 `docs/reports/checklist-exp-20260926.md`.
 - **체크리스트 배치 2 적재 — 다시 쪼갠 꼭지 29편**(2026-09-27 · DB: `gate.retain` 29행 · migration 0): 바로 확정 13(48.1%) · 전문 판정 16 → 합계 keep 27 · discard 2(수치만 되풀이되는 실업률·이익 경고 단신). 감사 누적 wikinews 25편(체크리스트 keep 15) 오판 0. 재실행 변경 0.
 - **덜 쪼갠 Wikinews Shorts 꼭지 8행 다시 쪼개기**(2026-09-27 · 판정 기준 v7 §8 · DB: 꼭지 원천 29행 추가 · 부모 8행 `derived_from.kind=digest` · migration 0): 체크리스트 배치 1의 「덜 쪼갠 모음」 보류 8행 전부. 원인 둘 — 2012년 1월 형식은 「Sources」 줄이 없고(6행), `'Sources` 처럼 따옴표 붙은 줄을 못 알아봤다(1행). 빈 줄은 꼭지 경계가 아니라서(한 꼭지가 두세 문단) 에이전트가 본문을 읽고 경계를 `scripts/csat/source-get/wikinews-shorts-resplit.json` 에 적고 `wikinews-shorts-resplit.mjs --commit`(해시 결속 · CAS · 재실행 변경 0 확인)으로 적용. `wikinews-shorts-split.mjs` 는 이제 그 형식을 자동으로 쪼개지 않고 이름만 알린다(`needsManualSplit`) · 따옴표 줄·머리말 처리 · 회귀 4.
