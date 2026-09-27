@@ -1,6 +1,52 @@
 [
   {
-    "id": "3a32ae67-da47-4bc6-b7b8-775dbbaab0a2",
+    "id": "38261c82-0faa-4a6e-8816-e173b6f09997",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Unlike traditional search engines Wolfram Alpha",
+    "note": "검색엔진과 달리 모델링된 지식으로만 답한다는 대조와 그 결과(퍼지 질문 불가)가 이어져 요지·내용 일치 칸이 선다",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "main_point",
+          "topic",
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3827ee82-0e07-4b6b-830c-9264a58bab01",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -18,34 +64,37 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Friends faithfully turned up - women",
-    "note": "날씨가 나빴지만 행사가 이어지고 방문객 문의·수상으로 이어지는 흐름이 서며 둘째 문단을 떼어 쓰기 쉽다",
+    "sample": "During these five weeks of prorogation,",
+    "note": "조기 총선 부결 뒤 의회 정회와 그 결과(입법 불가)·야당 반응이 이어지는 보도라 내용 일치·순서 칸이 된다",
     "record": {
-      "genre": "culture",
+      "genre": "social",
       "slots": {
         "ages": [
-          "mid",
-          "high1"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
           "mock",
+          "csat",
           "reading"
         ],
         "types": [
           "content_match",
-          "mood",
-          "summary"
+          "order"
         ],
         "levels": [
-          "V4",
-          "V5"
+          "V6",
+          "V7"
         ],
-        "platform": []
+        "platform": [
+          "then-now"
+        ]
       }
     }
   },
   {
-    "id": "3a37caa5-eac9-447e-b06a-e20a13614e1f",
+    "id": "38290fc9-c56b-4f7c-b5dd-b5944e06eafb",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -63,10 +112,10 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The acrid haze situation in Southeast",
-    "note": "불법 화전 → 연무 확산 → 휴교·항공 차질 → 비판과 정부 반응으로 이어져 첫 문단이 혼자 선다",
+    "sample": "The rules are intended to curb",
+    "note": "메뉴 열량 표시 규칙의 적용 대상·예외와 비만 억제 목적이 인과로 이어져 요지·내용 일치 칸을 채운다",
     "record": {
-      "genre": "environment",
+      "genre": "health",
       "slots": {
         "ages": [
           "high1",
@@ -79,9 +128,53 @@
           "reading"
         ],
         "types": [
+          "main_point",
           "content_match",
-          "topic",
-          "title",
+          "summary"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "382bf4c7-0c3e-4da7-8d9f-4397048aa3bb",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The former president, Gotabaya Rajapaksa, fled",
+    "note": "경제 위기 시위 → 전임자 도피·사임 → 취임과 시위대 반응이 원인·결과로 이어지는 정권 교체 보도다",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
           "order"
         ],
         "levels": [
@@ -93,7 +186,7 @@
     }
   },
   {
-    "id": "3a3a0868-7aa2-4e5d-89cd-03a3761e66ea",
+    "id": "382c4fdf-c5da-4f68-a49f-308c24f966de",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -111,33 +204,75 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The British military says that the",
-    "note": "응급 수혈이 불가피했고 검사 누락 → 감염 위험 → 검사 진행으로 이어지며 낱말 몇 개만 바꾸면 된다",
+    "sample": "In future convictions, the death penalty",
+    "note": "사형제 폐지 서명과 앞으로의 효과·기존 사형수 처리·과거 경위가 이어져 내용 일치 칸이 선다 — 사형 소재라 고등 이상",
     "record": {
-      "genre": "health",
+      "genre": "social",
       "slots": {
         "ages": [
-          "high1",
-          "high2"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
           "mock",
+          "csat",
           "reading"
         ],
         "types": [
           "content_match",
-          "summary"
+          "topic"
         ],
         "levels": [
-          "V5",
-          "V6"
+          "V6",
+          "V7"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "3a3d46e9-9973-4d2d-8c89-bd517b9718de",
+    "id": "382cbe4b-8517-4635-a136-af17b14b79c5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "According to the Central Statistics Office",
+    "note": "실업률·등록자 수·국가별 비율만 바뀌며 되풀이되고 「유럽 최저 확인」 연결 하나뿐이라 수치를 걷으면 남는 문장이 없다",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "38385f0c-251a-41ae-aeeb-6f3af746dbf4",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -155,16 +290,17 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "This year of COMPUTEX has some",
-    "note": "본문 대부분이 전시관·포럼·참가국 나열이고 인용 속 SARS 중단 → 재정비 흐름 하나만 이어지며 인용 머리의 「1=」 잔재는 걷어야 한다",
+    "sample": "A bridge on a national highway",
+    "note": "지진 피해(다리·통신·가옥)와 5월 지진의 여진이라는 관계 하나 외에는 규모·위치·거리 수치 나열이라 연결이 가늘다",
     "record": {
-      "genre": "technology",
+      "genre": "news",
       "slots": {
         "ages": [
           "high1",
           "high2"
         ],
         "purposes": [
+          "mock",
           "reading"
         ],
         "types": [
@@ -179,7 +315,7 @@
     }
   },
   {
-    "id": "3a3dabe2-1b2e-4fbb-ac1d-52b8dd3b4231",
+    "id": "383a4cee-eaa1-41a6-bfc5-f0beea523817",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -197,37 +333,75 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "In 2009, two Muslim women accused",
-    "note": "고발 → 사형 선고 → 무죄 → 시위·위협 → 총리 대응의 흐름이 서며 살해 위협 인용이 있어 고1 이상 칸만 둔다",
+    "sample": "Former US President Bill Clinton left",
+    "note": "시술 → 퇴원 → 원인에 대한 의사 설명과 일정 과로 추측이 이어진다 — 「since the, which struck」 링크 누락 한 곳은 가공 때 고친다",
     "record": {
-      "genre": "social",
+      "genre": "health",
       "slots": {
         "ages": [
+          "mid",
           "high1",
-          "high2",
-          "high3"
+          "high2"
         ],
         "purposes": [
           "mock",
-          "csat",
           "reading"
         ],
         "types": [
-          "content_match",
-          "order",
-          "summary",
-          "insert"
+          "content_match"
         ],
         "levels": [
-          "V6",
-          "V7"
+          "V4",
+          "V5"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "3a4409b1-bd09-46df-a8ea-0b83af38a900",
+    "id": "383c059b-f43d-42cd-b0d2-51071c919189",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": false,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": true,
+      "strippedRemains": true
+    },
+    "sample": "A man has been jailed for",
+    "note": "서로 무관한 영국 사건 단신 넷을 묶은 Shorts 모음 행이라 꼭지별로 쪼개 판정해야 한다(criteria §8 단신 모음)",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "383c48ca-1cd1-4185-acd1-0fef243a578d",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -245,10 +419,97 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Sales of smartphones running the Android",
-    "note": "판매 3배 수치 뒤에 「소비자가 이름으로 찾는다」는 해석 하나만 이어지고 나머지는 기종 이름 나열이다",
+    "sample": "Levine created G.I. Joe for Mattel",
+    "note": "성경 인형 제품 나열이 대부분이고 G.I. Joe 탄생 경위 하나만 이유로 이어져 연결이 가늘다",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "383d0bd1-ca05-4a9c-87e7-1de673fab088",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Beginning Monday morning, many BlueFrog and",
+    "note": "경고 메일 → 대량 스팸 → 사이트 마비 → 회사 해명으로 이어지는 앞 네 문단이 선다 — 인용 스팸의 민족 비방 구절은 가공 때 걷는다",
     "record": {
       "genre": "technology",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "383f660b-4af8-461b-a099-95b191f44049",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Miami police officer Manny Gomez is",
+    "note": "말이 달려 나가 낙마했다는 원인 하나만 잇고 나머지는 경력·상태 사실이라 65어 단신의 연결이 가늘다",
+    "record": {
+      "genre": "news",
       "slots": {
         "ages": [
           "mid",
@@ -269,7 +530,7 @@
     }
   },
   {
-    "id": "3a44b1be-1671-4a3f-9ae1-4cf8bd0a1708",
+    "id": "38415516-5938-48eb-b5cb-2511525439f7",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -277,7 +538,7 @@
       "listOnly": false,
       "linkage": "strong",
       "mainPoint": true,
-      "narrative": false,
+      "narrative": true,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
@@ -287,14 +548,15 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "In an address to the nation,",
-    "note": "왕의 권력 반환 선언 → 야당의 유보 반응 → 앞선 미국 압박이 이어지며 고유명사를 걷어도 사건이 선다",
+    "sample": "The violence apparently commenced when a",
+    "note": "금지 구역 침입 → 난투 → 군경 개입으로 진압, 카르텔 대립과 과밀 수용이라는 배경이 이어져 내용 일치 칸이 된다 — 폭력 소재라 고등 이상",
     "record": {
-      "genre": "news",
+      "genre": "social",
       "slots": {
         "ages": [
-          "high1",
-          "high2"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
           "mock",
@@ -302,7 +564,7 @@
         ],
         "types": [
           "content_match",
-          "summary"
+          "order"
         ],
         "levels": [
           "V5",
@@ -313,7 +575,7 @@
     }
   },
   {
-    "id": "3a465b5c-7b82-4bee-8c4c-0d4a898efc18",
+    "id": "3841878e-fd17-4db3-a7b1-d2b0dafa5fa6",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -331,103 +593,15 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "A promotion for The Rockettes Radio",
-    "note": "홍보 행사 → 5분 춤으로 기록 경신 → 기네스 인증으로 이어지나 끝 두 문단은 참가자 나열이라 가공 때 걷는다",
+    "sample": "In 2003 the area's Forensic Evidence",
+    "note": "모발 증거 재검토 → 석방 → 유죄 파기 → 무죄 확정의 시간순 사건이 서고 당사자 소회가 붙는다 — 성폭행·자살 언급이라 고2 이상",
     "record": {
-      "genre": "culture",
-      "slots": {
-        "ages": [
-          "mid",
-          "high1"
-        ],
-        "purposes": [
-          "mock",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "summary"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a4de9d8-237f-4db1-bbf3-066906324b17",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Legal and taxes issues are nothing",
-    "note": "체포·기소 인정 거부 → 강제 답변 → 출국 제한 → 이의 제기로 이어지나 법률 용어가 많아 두세 낱말을 풀어야 한다",
-    "record": {
-      "genre": "news",
+      "genre": "social",
       "slots": {
         "ages": [
           "high2",
-          "high3"
-        ],
-        "purposes": [
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "order"
-        ],
-        "levels": [
-          "V6",
-          "V7"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a5519d2-e708-46d8-b8e9-e63be858dec2",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "So far, the investigation states that",
-    "note": "점검 누락이 겹쳐 실탄 미사일이 실렸고 → 조사·징계로 이어지는 원인·결과 흐름이 뚜렷하다",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3"
+          "high3",
+          "adult"
         ],
         "purposes": [
           "mock",
@@ -438,7 +612,7 @@
           "content_match",
           "order",
           "insert",
-          "summary"
+          "long_reference"
         ],
         "levels": [
           "V6",
@@ -449,272 +623,7 @@
     }
   },
   {
-    "id": "3a5870a3-94d1-4e71-b9e7-2d2dd5088f76",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Yesterday the President of Iran, Mahmoud",
-    "note": "번역 오류 → 금지 → 사과 → 해제의 인과가 짧게 이어져 초중급 밴드로 쉽게 내려온다",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "mid",
-          "high1"
-        ],
-        "purposes": [
-          "mock",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "order"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a6503c3-378a-44b1-8d7a-d671581bb430",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Earlier this morning, a controlled explosion",
-    "note": "체포 경위와 테러 경계 → 의심 소포 폭파 처리 → 역 폐쇄·재개로 이어지며 인물 이름을 걷어도 사건이 선다",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2"
-        ],
-        "purposes": [
-          "mock",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "summary"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a6b984c-bc4c-4aa7-ba14-bf651b2f8d0f",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "thin",
-      "mainPoint": false,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Wikinews reporter Diego Grez reports the",
-    "note": "규모·깊이·진앙 거리 되풀이가 대부분이고 「2월 지진의 늦은 여진, 같은 유형이나 약하다」는 해석 하나만 연결된다",
-    "record": {
-      "genre": "science",
-      "slots": {
-        "ages": [
-          "high1"
-        ],
-        "purposes": [
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a6e03c9-96ca-4952-9626-18ccfe0d7a7a",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "An explosion today in Makhachkala, Russia",
-    "note": "수색 중 폭발 → 사상자 수정 보고 → 범인 도주로 이어지고 폭력 기사라 고1 이상 칸만 둔다",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2"
-        ],
-        "purposes": [
-          "mock",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "order"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a6ed4e1-561d-402f-bff3-efdd709eebca",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "A domestic dispute resulted in shots",
-    "note": "말다툼 → 총격 → 경비원 대응 → 대피·수사로 이어지는 사건 흐름이며 살해 묘사가 있어 고1 이상 칸만 둔다",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2"
-        ],
-        "purposes": [
-          "mock",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "order",
-          "summary"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a72dfb8-00a0-4c5f-b01e-5dbee0cdf78a",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Over thirty people have died as",
-    "note": "충돌 원인 → 사상·피난 → 정부 결정 철회로 폭력 감소 → 각국 반응으로 이어지며 미국 성명은 취재원 입장 인용이다",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "summary",
-          "insert"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a7baa91-3995-4204-bf9f-97840f8b6c41",
+    "id": "3844f545-219d-4c17-8f6c-797f3ff44077",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -732,232 +641,10 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The official mourning period will last",
-    "note": "통치자 사망 → 애도 기간·관공서 휴무 → 증시 하락·축제 연기 → 승계로 결과가 이어진다",
+    "sample": "A source inside the Russian Foreign",
+    "note": "전문에 타르투 조약을 넣은 비준 → 러시아 서명 철회 → 에스토니아 반박이 이유와 반응으로 이어져 요지·내용 일치 칸이 선다",
     "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "mid",
-          "high1"
-        ],
-        "purposes": [
-          "mock",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "summary"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a7c41bd-7d24-48b8-b931-b8a66190e456",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "thin",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Today the U.S. House of Representatives",
-    "note": "하원 표결 결과와 거부권 예고·일몰 조항이 한두 번 이어질 뿐 대부분 표결 수치와 일정이다",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2"
-        ],
-        "purposes": [
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a7c8d99-80cb-4b2e-8644-3796d90f8cc9",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "The present aircraft, Sikorsky SeaKings, are",
-    "note": "노후·적재량 부족 → 교체 공모 → 자체 기종이 없어 유럽 기종을 개명해 제안하는 이유·순서가 이어진다",
-    "record": {
-      "genre": "technology",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2"
-        ],
-        "purposes": [
-          "mock",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "order"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a7eb88a-691c-4d58-bfa9-d307907521f9",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Governor Pat Quinn and President Barack",
-    "note": "교도소 매입 → 재정·일자리 효과 → 공화당 반대의 원인·반응이 이어지며 양쪽 입장을 인용한 보도다",
-    "record": {
-      "genre": "social",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "claim",
-          "summary"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a8056d8-bf59-45e4-9406-dc7ee9d9adaf",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Bainimarama overthrew the elected government of",
-    "note": "쿠데타 → 법원 위법 판결 → 헌법 폐지 → 재임명의 인과가 짧게 이어지나 abrogate 등 낱말을 풀어야 한다",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high2",
-          "high3"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "order"
-        ],
-        "levels": [
-          "V6",
-          "V7"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "3a835e5c-81c7-4ad8-9ccf-7178f077c511",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Several smokers in recent decades switched",
-    "note": "기계 측정과 실제 흡입의 차이 → 오도 광고 → 소송 허용으로 이어지며 셋째 문단이 법률 용어 없이 혼자 선다",
-    "record": {
-      "genre": "health",
+      "genre": "history",
       "slots": {
         "ages": [
           "high2",
@@ -965,33 +652,31 @@
           "adult"
         ],
         "purposes": [
+          "mock",
           "csat",
           "reading"
         ],
         "types": [
           "content_match",
-          "main_point",
-          "summary",
-          "blank"
+          "main_point"
         ],
         "levels": [
           "V7",
-          "V8",
-          "V9"
+          "V8"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "3a8441ce-0599-4cf8-8b70-f72821668c51",
+    "id": "3846107a-f61b-47a2-a0f8-c0a9d48c0986",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "thin",
-      "mainPoint": false,
+      "mainPoint": true,
       "narrative": false,
       "notice": false,
       "detachable": true,
@@ -999,16 +684,17 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": true,
+      "gap": false,
       "strippedRemains": true
     },
-    "sample": "American mystery writer Phyllis Ayame Whitney",
-    "note": "서로 무관한 부고 셋을 묶은 단신 모음(「to」「Sources」 잔재 포함)이라 꼭지별로 쪼개 판정할 대상이다",
+    "sample": "Sullivan was one of the founding",
+    "note": "사망 사실·밴드 이력·추모 성명·조사 진행이 따로 놓여 반응 하나 정도만 이어지는 부고 단신이다",
     "record": {
-      "genre": "news",
+      "genre": "culture",
       "slots": {
         "ages": [
-          "high1"
+          "high1",
+          "high2"
         ],
         "purposes": [
           "reading"
@@ -1025,13 +711,13 @@
     }
   },
   {
-    "id": "3a8478b3-52fd-4e8a-9912-db0dca5ef00e",
+    "id": "3847d528-6b24-4b8b-a0c6-044b6bed2759",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
-      "linkage": "strong",
+      "linkage": "thin",
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -1043,33 +729,33 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Commuters have been subject to railway",
-    "note": "시범 사업 성공(범죄 68% 감소) → 전국 확대 → 투자 이유가 이어지며 인용 문단은 줄여 쓸 수 있다",
+    "sample": "Although neither Hamas nor Hezbollah have",
+    "note": "할리우드 광고 성명과 하마스 쪽 반론이 한 번 맞서는 것 외에 서명자 명단이 커서 연결이 가늘다 — 한쪽 성명 보도지만 반론이 있어 선동은 아니다",
     "record": {
       "genre": "social",
       "slots": {
         "ages": [
-          "high1",
-          "high2"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
-          "mock",
           "reading"
         ],
         "types": [
           "content_match",
-          "summary"
+          "claim"
         ],
         "levels": [
-          "V5",
-          "V6"
+          "V6",
+          "V7"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "3a872935-78a3-4374-aa60-60f6f3ca26b7",
+    "id": "38507b6d-c311-4645-8348-3b9c84fc040b",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -1087,8 +773,103 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The discussions, which have been going",
-    "note": "부정선거 주장 → 폭력 → 협상 → 권력 분점 합의 → 보류로 이어지는 원인·경과가 뚜렷하다",
+    "sample": "Police say that the 21-year-old came",
+    "note": "캐나다 테러 음모 연루로 두 명 체포, 출국 사실 파악 → 경보 → 공항 체포와 통화 기록 추적이 절차로 이어진다",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "38539ac1-d42a-489e-bb28-8562b5de1aaf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Firstly the mural is in a",
+    "note": "벽화 복원 계획과 걱정 셋(훼손·비용·개발)을 이유와 함께 말하고 공개 회의 참여를 알려 주장·목적·내용 일치 칸이 선다",
+    "record": {
+      "genre": "art",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "claim",
+          "purpose",
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "38582d44-1cb9-4ccf-9e25-d2f0bcf4ecb3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The vehicle collided with a tree",
+    "note": "나무 충돌 → 경찰 출동 → 운전자 사망 → 동승자 병원 이송이 결과·다음 절차로 이어지는 짧은 사고 보도다",
     "record": {
       "genre": "news",
       "slots": {
@@ -1101,13 +882,234 @@
           "reading"
         ],
         "types": [
-          "content_match",
-          "order",
-          "summary"
+          "content_match"
         ],
         "levels": [
-          "V4",
-          "V5"
+          "V3",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "385ec2f0-fbe8-463b-85fe-381810062609",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The policemen were pursuing José Ricardo",
+    "note": "용의자 추적 → 캠프 충돌 → 경관 피살·납치 → 협상 석방 → 수사 강화와 MST 해명이 시간순으로 이어진다 — 폭력 소재라 고2 이상",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "385ec680-0a02-4b10-8a51-4bfef5acb8e3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Otter argued that during the period",
+    "note": "순회인 입회 규정 위반 → 서명 무효 인정 → 변호사이니 몰랐을 리 없다는 주장과 반박이 이유로 이어져 주장 칸이 선다",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "claim",
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "385faab5-5ecf-4949-837f-0d6a1c2ec50e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Locating the contract awarded to Blackwater",
+    "note": "하청 계약이 여러 겹 숨겨져 부인했다가 서한으로 인정하고 의원 비판·청문회로 이어지는 원인·반응의 흐름이 있다",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3861ad6b-8d05-474f-b08b-7a94e7798559",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Panamanian cargo Vessel \"New Flame\",",
+    "note": "충돌 → 선원 구조 → 선장 체포가 두 문장에 몰린 50어 단신이라 연결이 가늘고 제목(좌초)과 본문(충돌)도 어긋난다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V3",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "38661e92-cee0-4fb5-a117-1b58f6a9de21",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to the New York Times,",
+    "note": "매복 피해 사실과 무장단체 주장 인용, 회사 철수가 따로 놓여 반응 하나 정도로만 이어지는 단신이다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
         ],
         "platform": []
       }
