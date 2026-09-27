@@ -36,7 +36,8 @@ const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
   return i >= 0 ? process.argv[i + 1] : d
 }
-const TYPES = ['R-PURPOSE', 'R-BLANK', 'R-ORDER']
+// v1.2(2026-09-25): 대의 파악 6 + 글의 구조 2 를 더했다 — 유형별로 쓰는 칸은 기준 문서 「유형별로 쓰는 칸」
+const TYPES = ['R-PURPOSE', 'R-BLANK', 'R-ORDER', 'R-GIST', 'R-TOPIC', 'R-TITLE', 'R-CLAIM', 'R-IMPLY', 'R-SUMMARY', 'R-INSERT', 'R-IRRELEVANT']
 const ONLY = arg('type')
 const SIZE = Number(arg('size', 10))
 const LIMIT = arg('limit') ? Number(arg('limit')) : Infinity

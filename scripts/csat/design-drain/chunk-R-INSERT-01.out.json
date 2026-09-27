@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.2",
+  "type": "R-INSERT",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2706#39",
+      "roles": ["support", "topic", "support", "support", "support", "support", "example", "example"],
+      "alternatives": [{ "index": 5, "role": "conclusion" }],
+      "pattern": "general_specific",
+      "selection": "빨강의 우위라는 일반 진술에서 색채어 어휘라는 구체 증거로 넘어가는 국면 전환이 한 문장에 몰려 있어, 그 다리 문장을 빼면 정관사 붙은 어휘 목록이 갑자기 등장하는 공백이 생긴다.",
+      "transform": "none",
+      "transform_note": "앞 분열문을 '또한'으로 이어받는 구조와, 색채어를 처음 들여와 뒤의 정관사 어휘 명사를 가능하게 하는 점이 자리를 ③으로 고정한다.",
+      "cues": ["article", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M2706#38",
+      "roles": ["turn", "background", "background", "support", "support", "support", "example", "example", "example"],
+      "alternatives": [{ "index": 0, "role": "topic" }],
+      "pattern": "problem_solution",
+      "selection": "회오리 발생이라는 문제 서술과 설계 대책 나열이 경계 없이 이어져, 대책 묶음의 총론 한 문장이 빠진 지점을 찾아야 하는 글이다.",
+      "transform": "none",
+      "transform_note": "목적어 없이 끝나는 '도움이 된다' 문장 앞에 줄여야 할 목표를 세우는 총론이 필요하다는 논리 공백이 자리를 ③으로 정한다.",
+      "cues": ["logic", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#39",
+      "roles": ["topic", "background", "background", "background", "example", "example", "support", "conclusion"],
+      "alternatives": [{ "index": 6, "role": "support" }, { "index": 4, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "'남은 것'을 동사로만 흘려 두고 명제화된 문제 제기는 빠져 있어, 피라미드 사례가 무엇의 예인지 되짚어야 자리가 잡히는 글이다.",
+      "transform": "none",
+      "transform_note": "남은 것과 사라진 것의 중요도 대비 명제가 피라미드 사례와 그 뒤 '사라진 문화' 보충 사이의 대비 두 축을 이어 주므로 ② 자리다.",
+      "cues": ["repetition", "logic", "connective"],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#38",
+      "roles": ["support", "topic", "example", "example", "example", "support", "support", "support"],
+      "alternatives": [{ "index": 2, "role": "support" }],
+      "pattern": "cause_effect",
+      "selection": "단수 대명사로 이어지던 한 그루 나무 이야기 뒤에 복수 대명사가 갑자기 나와, 복수 선행사를 공급하는 문장의 자리를 찾게 하는 글이다.",
+      "transform": "none",
+      "transform_note": "③ 뒤 문장의 복수 대명사와 문두 지시어가 받을 대상(식물들과 계절 변화)을 주어진 문장이 공급하므로 ③ 자리다.",
+      "cues": ["pronoun", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#39",
+      "roles": ["support", "topic", "example", "example", "example", "example", "example"],
+      "alternatives": [{ "index": 2, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "걷기 비유가 덧셈과 뺄셈으로 확장되는 흐름에서, 앞뒤 걷기를 요약하는 문장은 두 요소가 모두 나온 뒤라야 가능하다는 점을 세게 하는 글이다.",
+      "transform": "none",
+      "transform_note": "주어진 문장의 '앞뒤로 걷기' 요약어가 뒤로 걷기 언급 이후를 요구하고, ⑤ 뒤의 even 이 상상 틀을 전제하므로 ⑤ 자리다.",
+      "cues": ["pronoun", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#38",
+      "roles": ["turn", "background", "turn", "support", "support", "support", "support"],
+      "alternatives": [{ "index": 2, "role": "topic" }],
+      "pattern": "contrast",
+      "selection": "귀여움·아름다움의 장점 두 문장과 단점 두 문장이 대칭으로 놓여, 단점 묶음의 표제 문장이 들어갈 경계를 찾게 하는 글이다.",
+      "transform": "none",
+      "transform_note": "역접 연결어와 '단점' 표제가 첫 부정 평가 문장 바로 앞을 요구하므로 ④ 자리다.",
+      "cues": ["connective", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#39",
+      "roles": ["topic", "background", "background", "background", "background", "example", "example"],
+      "alternatives": [{ "index": 0, "role": "turn" }],
+      "pattern": "myth_rebuttal",
+      "selection": "전통적 관리 절차가 예측 능력을 전제한다는 서술 뒤 곧바로 불확실성 예시가 이어져, 예시가 뒷받침할 명제 한 문장이 비어 있는 글이다.",
+      "transform": "none",
+      "transform_note": "④ 뒤 '이를 예시하자면'의 지시어가 예측 불가능성 명제를 요구하고, 주어진 문장의 척도 표현이 앞 문장의 시공간 척도를 받으므로 ④ 자리다.",
+      "cues": ["pronoun", "connective", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#38",
+      "roles": ["support", "topic", "support", "example", "example", "example", "example", "example"],
+      "alternatives": [{ "index": 7, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "로봇 제작 가정을 여러 단계로 쌓아 어느 요건 뒤에도 부정 조건이 붙을 듯 보이게 한 뒤, 조건절 없는 가정법 문장으로 빈자리를 드러내는 글이다.",
+      "transform": "none",
+      "transform_note": "'그렇지 않으면'이 바로 앞의 필수 요건을 부정하고 ⑤ 뒤 가정법 문장이 조건절을 요구하므로 ⑤ 자리다.",
+      "cues": ["connective", "logic", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#39",
+      "roles": ["support", "topic", "support", "support", "support", "conclusion", "support"],
+      "alternatives": [{ "index": 6, "role": "conclusion" }],
+      "pattern": "contrast",
+      "selection": "재현적 작품과 표현주의 작품의 대조 뒤, '능동적 관여'를 받을 선행 내용이 결론 문장 안에만 숨어 있어 지시어의 선행어를 추적하게 하는 글이다.",
+      "transform": "none",
+      "transform_note": "지시어 붙은 '능동적 관여'가 미적 태도를 요구받는다는 결론 문장을 받고, 뒤의 태도 전환 확장으로 이어지므로 ⑤ 자리다.",
+      "cues": ["pronoun", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#38",
+      "roles": ["turn", "topic", "support", "support", "support", "turn", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "concession" }],
+      "pattern": "contrast",
+      "selection": "배출량 과세의 장점만 한 방향으로 쌓인 뒤 양보 연결어가 홀로 나와, 그 연결어가 요구하는 단점 진술의 빈자리를 찾게 하는 글이다.",
+      "transform": "none",
+      "transform_note": "④ 뒤 Nevertheless 가 앞에 측정 비용이라는 부정 진술을 요구하므로 ④ 자리다.",
+      "cues": ["connective", "logic"],
+      "data_defect": null
+    }
+  ]
+}

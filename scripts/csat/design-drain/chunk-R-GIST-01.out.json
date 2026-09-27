@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.2",
+  "type": "R-GIST",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2706#22",
+      "roles": ["background", "example", "example", "topic", "support", "conclusion", "example"],
+      "alternatives": [{ "index": 6, "role": "conclusion" }, { "index": 0, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "신문 기사 인용과 통계가 지문 대부분을 차지하고 글쓴이의 진술은 짧은 두 문장뿐이라, 인용 속 세부와 필자의 요지를 가려내는 요지 유형에 알맞다.",
+      "transform": "compression",
+      "transform_note": "성난 얼굴로 가는 추세, 안전감을 준다는 가설, 판매 호조라는 여러 문장이 선지에서 ‘소비자 심리를 반영한 성난 외관이 인기’라는 한 구로 묶였다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#22",
+      "roles": ["background", "topic", "support", "example", "example", "example", "support", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "support" }, { "index": 6, "role": "example" }],
+      "pattern": "general_specific",
+      "selection": "요지를 두 번째 문장에 짧게 두고 뒤를 정의·사례·사회학자 인용으로 채워, 눈에 띄는 뒤쪽 세부가 아닌 앞의 일반 진술을 요지로 골라야 하는 글이다.",
+      "transform": "compression",
+      "transform_note": "소셜 미디어 참여가 사회적 자본을 늘린다는 둘째 문장과 새 미디어가 인맥의 범위를 넓힌다는 끝 문장이 ‘관계망 확장이 사회적 자본이 된다’로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#22",
+      "roles": ["background", "support", "support", "example", "example", "topic"],
+      "alternatives": [{ "index": 5, "role": "conclusion" }, { "index": 0, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "정보와 의미의 구분, 동전 던지기 예시, 해석의 전면적 지위를 말하는 끝 문장이 나뉘어 있어 예시의 확률 소재를 넘어 정의와 결론을 이어야 요지가 선다.",
+      "transform": "paraphrase",
+      "transform_note": "의미는 자료에 대한 해석이라는 정의와 해석이 모든 것의 중심이라는 끝 문장이 선지에서 ‘정보를 해석해 의미를 만든다’로 같은 수준에서 바꿔 말해졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#22",
+      "roles": ["example", "background", "background", "topic", "support", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "support" }, { "index": 5, "role": "support" }],
+      "pattern": "myth_rebuttal",
+      "selection": "개의 사례와 엔트로피 비유로 도덕적 책임이 보편 개념이라는 통념을 걷어 낸 뒤 요지를 세 문장에 나눠 담아, 성분을 모두 모아야 하는 요지 유형에 맞다.",
+      "transform": "compression",
+      "transform_note": "문화적 도구라는 정체, 타고나지 않고 배운다는 획득 방식, 인간 사회 안에서만이라는 범위가 선지 한 문장으로 압축됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#22",
+      "roles": ["topic", "support", "support", "example", "support", "concession", "turn", "example"],
+      "alternatives": [{ "index": 4, "role": "topic" }, { "index": 3, "role": "support" }],
+      "pattern": "cause_effect",
+      "selection": "말하기의 평등이 가치를 형성했다는 인과를 고대와 현대에 걸쳐 풀면서 시대 간 정도 차이를 한 문장 끼워 두어, 비교가 아닌 인과를 요지로 잡아야 하는 글이다.",
+      "transform": "compression",
+      "transform_note": "말하기의 확산이 가치를 만들었다는 첫 문장과 동등한 발화 기회가 공유·상호 돌봄 관념을 낳았다는 다섯째 문장이 ‘의사소통의 평등성이 공유와 공조 가치를 형성’으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#22",
+      "roles": ["background", "background", "turn", "example", "example", "turn", "topic", "conclusion"],
+      "alternatives": [{ "index": 2, "role": "support" }, { "index": 6, "role": "conclusion" }],
+      "pattern": "problem_solution",
+      "selection": "다문화주의 제안, 동화 압력, 과거 유럽 이민자, 현재 유색인종으로 층이 여러 번 바뀌어 각 층에서 다른 명제가 서므로, 끝의 과제 문장으로 묶는 판단을 요구한다.",
+      "transform": "perspective",
+      "transform_note": "다른 문화가 다르게 행동할 권리를 인정하는 것이 과제라는 진술이 선지에서 이민자를 받아들이는 공동체의 인식이 필요하다는 쪽으로 주체를 옮겨 말해졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#22",
+      "roles": ["topic", "support", "example", "example", "example", "example", "turn"],
+      "alternatives": [{ "index": 5, "role": "support" }, { "index": 6, "role": "support" }],
+      "pattern": "contrast",
+      "selection": "처방은 앞머리에, 가상 세계에서 방어가 덜하다는 진단은 끝에 두고 가운데를 현실 세계의 검증 장면으로 채워, 양 끝을 이어야 요지가 완성되는 글이다.",
+      "transform": "compression",
+      "transform_note": "받는 자료의 진위를 의심하라는 앞 문장과 가상 세계에서는 덜 방어적이라는 끝 문장이 ‘방어 기제가 덜 작동하는 가상 세계에서 신중한 검증’으로 묶였다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2309#22",
+      "roles": ["background", "background", "topic", "support", "support", "concession", "conclusion"],
+      "alternatives": [{ "index": 2, "role": "turn" }, { "index": 5, "role": "support" }],
+      "pattern": "myth_rebuttal",
+      "selection": "도덕 문제를 밀어내는 입법 관행을 먼저 길게 서술한 뒤 역접으로 뒤집고, 경제학의 부분 인정까지 넣어 두어 반박 이후의 주장을 가려야 하는 요지 유형에 맞다.",
+      "transform": "paraphrase",
+      "transform_note": "세금 정책을 만들려면 도덕적 목표를 정해야 한다는 끝 문장이 선지에서 같은 수준의 ‘세법 제정 시 도덕적 목표 설정이 중요’로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2306#22",
+      "roles": ["background", "background", "background", "background", "example", "topic"],
+      "alternatives": [{ "index": 3, "role": "support" }, { "index": 2, "role": "support" }],
+      "pattern": "problem_solution",
+      "selection": "소비자의 참여 증가, 데이터 제공의 대가, 이해 부족에서 오는 불안, 앱 사용자의 독백을 거쳐 끝에서야 능동적 참여자로의 변화를 말해, 조건과 결과를 이어야 요지가 선다.",
+      "transform": "negation_flip",
+      "transform_note": "자료 수집의 내용·시기·이유를 잘 모르면 취약해진다는 부정 조건이 선지에서 속성을 깊이 이해하면 주체적 소비자가 된다는 긍정형으로 뒤집혔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2209#22",
+      "roles": ["background", "background", "topic", "support", "example", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "support" }, { "index": 5, "role": "topic" }],
+      "pattern": "contrast",
+      "selection": "자율성과 책임 요구의 긴장을 세우고 중간에 전문가 권한의 오용 가능성을 길게 넣어 비판문처럼 보이게 한 뒤 끝에서 조건부 부여로 닫아, 축을 끝까지 따라가야 하는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "자율성은 일방통행이 아니며 사회 기여를 전제로 주어진다는 비유적·조건적 진술이 선지에서 ‘상응하는 사회적 책임을 수반한다’는 상위 원리로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

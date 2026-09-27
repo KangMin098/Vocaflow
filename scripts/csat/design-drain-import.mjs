@@ -36,6 +36,7 @@ export const ROLES = ['topic', 'support', 'example', 'turn', 'concession', 'conc
 export const PATTERNS = ['myth_rebuttal', 'general_specific', 'problem_solution', 'contrast', 'cause_effect', 'study_implication', 'request_letter', 'narrative', 'other']
 export const TRANSFORMS = ['abstraction', 'paraphrase', 'negation_flip', 'perspective', 'speech_act_verb', 'compression', 'inference', 'none']
 export const CUES = ['pronoun', 'connective', 'article', 'time', 'logic', 'repetition']
+export const CUE_TYPES = new Set(['R-ORDER', 'R-INSERT', 'R-IRRELEVANT'])
 
 const { createClient } = await import('@supabase/supabase-js')
 const { splitSentences } = await import('../../apps/web/src/lib/csat/passage-skeleton.ts')
@@ -73,7 +74,9 @@ for (const r of rows) {
   if (!PATTERNS.includes(r.pattern)) { bump('목록 밖 패턴'); continue }
   if (!TRANSFORMS.includes(r.transform)) { bump('목록 밖 변환'); continue }
   if ((r.cues ?? []).some((x) => !CUES.includes(x))) { bump('목록 밖 단서'); continue }
-  if (it.type_id === 'R-ORDER' && !(r.cues ?? []).length) { bump('순서 유형 단서 없음'); continue }
+  // 순서 · 삽입 · 무관한 문장은 변환 대신 단서를 적는다(기준 v1.2 「유형별로 쓰는 칸」)
+  if (CUE_TYPES.has(it.type_id) && !(r.cues ?? []).length) { bump('단서 유형인데 단서 없음'); continue }
+  if (CUE_TYPES.has(it.type_id) && r.transform !== 'none') { bump('단서 유형인데 변환을 적음'); continue }
   if ((r.alternatives ?? []).some((a) => !ROLES.includes(a.role) || a.index < 0 || a.index >= n)) { bump('대안 역할 오류'); continue }
   if (!r.selection?.trim() || r.selection.trim().length < 20) { bump('selection 비었거나 짧음'); continue }
   if (!r.transform_note?.trim() || r.transform_note.trim().length < 20) { bump('transform_note 비었거나 짧음'); continue }
