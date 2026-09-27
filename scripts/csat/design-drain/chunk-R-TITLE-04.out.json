@@ -1,0 +1,37 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-TITLE",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2014A#26",
+      "roles": [
+        "topic",
+        "background",
+        "support",
+        "support",
+        "example",
+        "example",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 7,
+          "role": "topic"
+        },
+        {
+          "index": 2,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "큰 동물이 위험하다는 상식을 반박하고 작은 동물이 더 위협적이라는 주장을 뱀·벌 사례로 받치는 글이라, 사례 소재 낱말로 만든 오답을 걸러 주장을 제목으로 골라야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "등산객이 작고 위험한 생물을 조심해야 한다는 마지막 문장이 선지에서 「작은 동물을 조심하라」라는 명령형으로 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

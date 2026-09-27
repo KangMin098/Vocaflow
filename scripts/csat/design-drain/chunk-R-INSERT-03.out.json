@@ -1,0 +1,262 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-INSERT",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#39",
+      "roles": [
+        "support",
+        "background",
+        "support",
+        "example",
+        "example",
+        "turn",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "수면의 대사 절약 가설과 필수 기능 가설을 대조하며, 수면의 대가(반응성 저하)를 말하는 문장의 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "주어진 문장의 반응성 저하를 뒤 문장의 지시어 구(이 잠재적 대가)가 받아 ⑤ 자리가 정해진다.",
+      "cues": [
+        "pronoun",
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2206#38",
+      "roles": [
+        "turn",
+        "background",
+        "support",
+        "support",
+        "topic",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "problem_solution",
+      "selection": "직속 상사 평가라는 관행의 문제와 해결책(다면 평가)을 잇는 글로, 문제 제기 문장이 들어갈 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "역접 표지로 관찰 불가 문제를 꺼내고 뒤의 질문과 딜레마 해소 문장이 그것을 받아 ② 자리가 된다.",
+      "cues": [
+        "connective",
+        "repetition",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#39",
+      "roles": [
+        "support",
+        "topic",
+        "turn",
+        "support",
+        "support",
+        "support",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "영화 문법이 미리 정해졌다는 통념을 부정하고 사용에서 생겼다고 말하는 글로, 부정 뒤 대안 진술 문장의 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "미리 정해진 것이 없다는 부정 문장 뒤에 대조 표지가 붙어 자연 발생을 말하고, 이를 유기적 발달 문장이 이어 ④ 자리가 된다.",
+      "cues": [
+        "connective",
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#38",
+      "roles": [
+        "example",
+        "topic",
+        "example",
+        "example",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "산수 없이 수 문제를 푸는 회의 자료 배부 사례로 일반 진술을 보여 주며, 사례의 절차 중간 문장 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "이니셜 표기 절차 뒤에 그 과정이 끝나면 충분함을 안다는 문장이 오고, 뒤 문장이 그러면 해결했다고 받아 ③ 자리가 된다.",
+      "cues": [
+        "logic",
+        "time",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#39",
+      "roles": [
+        "example",
+        "topic",
+        "example",
+        "support",
+        "support",
+        "example",
+        "example",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "study_implication",
+      "selection": "반딧불이 빛의 경고 기능을 실험으로 보이고 함의로 맺는 글로, 후속 실험 문장이 결과와 결론 사이에 들어갈 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "넷째 밤의 학습 결과 뒤에 빛을 가린 새 박쥐 집단 실험이 이어져야 결론의 새 발견으로 넘어가 ⑤ 자리가 된다.",
+      "cues": [
+        "article",
+        "logic",
+        "time"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#38",
+      "roles": [
+        "support",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 7,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "리더가 명료함을 얻기 어려운 이유를 여러 갈래로 나열하는 글로, 복잡성에 덧붙는 정보 과부하 문장의 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "복잡한 변수 문장 뒤에 어려움을 가중한다는 문장이 오고, 대안 표지로 정보가 단편적인 경우가 이어져 ② 자리가 된다.",
+      "cues": [
+        "connective",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#39",
+      "roles": [
+        "support",
+        "topic",
+        "example",
+        "example",
+        "example",
+        "example",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "속삭임 회랑이라는 현상을 사례로 소개하고 원리를 설명하는 글로, 위치 설명과 원리 설명을 잇는 초점 문장의 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "대각선 모서리에 서라는 문장을 지시어가 받고, 초점 개념이 뒤의 반사파 설명에서 반복돼 ④ 자리가 정해진다.",
+      "cues": [
+        "pronoun",
+        "repetition",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#38",
+      "roles": [
+        "support",
+        "background",
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "turn"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "쾌락 추구형 행복관을 통념으로 제시하고 반박하는 글로, 대안적 행복을 말하는 문장의 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "만족이 행복의 묘약이 아니라는 부정 뒤에 오히려 표지가 붙고, 그 경험의 가장자리를 뒤 문장이 받아 ⑤ 자리가 된다.",
+      "cues": [
+        "connective",
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#39",
+      "roles": [
+        "support",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "작곡가의 빠른 작곡에 대한 감탄이 잘못 향했다고 반박하는 글로, 옮겨 적기의 어려움을 말하는 문장 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "빠른 작곡으로 칭찬받았다는 문장 뒤에 역접으로 필사의 어려움이 오고, 뒤 문장이 이를 지시어로 받아 ⑤ 자리가 된다.",
+      "cues": [
+        "connective",
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#38",
+      "roles": [
+        "support",
+        "background",
+        "topic",
+        "concession",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "turn"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "인터넷이 정보 획득을 돕는다는 믿음을 반박하는 글로, 양보 뒤 반론을 여는 문장의 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "검색이 즉시 결과를 준다는 양보 뒤에 역접 표지와 지시어(이런 방식)로 정확성 문제를 꺼내 ③ 자리가 정해진다.",
+      "cues": [
+        "connective",
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    }
+  ]
+}

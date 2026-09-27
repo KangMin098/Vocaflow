@@ -1,0 +1,59 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-IMPLY",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2020#21",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "암기형 데이터베이스와 즉흥 능력 중 한쪽만 기르는 두 환경을 대비하고 재즈 비유를 이어가, 비유가 둘 중 어느 결핍을 가리키는지 가려야 한다.",
+      "transform": "compression",
+      "transform_note": "‘즉흥은 뛰어나나 지식의 깊이가 없다’와 ‘연주하는 듯 보이나 아는 게 없다’는 두 진술이 확고한 지식에 뿌리내리지 않은 겉보기 창의성으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#21",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "turn",
+        "support",
+        "example",
+        "example",
+        "example",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "밑줄이 첫 문장에 놓이고 결과 집착이라는 통념을 반박하며 페르미·노벨상 사례로 뜻을 풀어, 역설적 표현 ‘무지를 다듬기’를 뒤의 진술로 해석해야 한다.",
+      "transform": "abstraction",
+      "transform_note": "‘다음 질문’과 ‘새로운 무지의 발견’이라는 진술이 이미 아는 것 너머 남은 미지를 바라보는 태도라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

@@ -1,0 +1,238 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-IMPLY",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#21",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "example",
+        "example",
+        "example",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "창조적 일을 먼저 하라는 조언을 필자 경험으로 뒷받침하고 비유로 맺어, ‘빈 받은편지함’이 무엇을 대변하는지 타인의 기대라는 맥락에서 읽어야 한다.",
+      "transform": "abstraction",
+      "transform_note": "답장을 기다리는 사람들과 타인의 기대·압박이라는 구체 진술이 ‘빈 받은편지함’을 거쳐 남의 요구를 만족시키려는 시도라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#21",
+      "roles": [
+        "topic",
+        "example",
+        "example",
+        "example",
+        "support",
+        "support",
+        "example",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 7,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "예측과 기능적 고착이 삶을 편하게 한다는 주장을 식당 사례로 보이고 관용 표현을 비튼 명령문으로 맺어, 통념과 반대로 읽어야 하는 함정을 품은 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "‘상자를 깎아내리지 말라’가 첫 문장의 ‘일어날 법한 일을 예상하고 대비한다’는 진술과 같은 수준에서 습관적 기대에 따라 일을 처리하라는 말로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#21",
+      "roles": [
+        "topic",
+        "example",
+        "example",
+        "example",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "부수 사업이 ‘여정의 가장자리’에서 출발했다는 주장을 조립·설치·서비스 계약 사례로 채워, 사례의 공통점을 비유에 대입하게 만든 글이다.",
+      "transform": "abstraction",
+      "transform_note": "조립·배달·유지보수·교육 같은 구체 서비스 목록이 고객의 주된 구매를 넘어선 부가 서비스 제공이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#21",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "example",
+        "example",
+        "conclusion",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "support"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "활동과 결과를 혼동한 영업 프로세스의 결말을 영업사원의 인용으로 맺어, 인용된 관용구가 프로세스 설계의 결함을 가리킴을 잡아야 한다.",
+      "transform": "compression",
+      "transform_note": "활동을 이정표로 삼은 설계와 ‘요구한 활동만 돌아왔다’는 결과가 활동 중심 프로세스는 결국 효과가 없다는 한 문장으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2026#21",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "example",
+        "example",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "밑줄이 첫 문장에 놓이고 뒤따르는 설명·사례가 그 뜻을 풀어 주는 구조라, 추상적 형용사 ‘덜 끈적한’을 뒤의 장소 분리 진술로 번역해야 한다.",
+      "transform": "abstraction",
+      "transform_note": "일과 특정 장소의 연결이 끊기고 하루 만에 다른 도시의 인력을 쓰는 구체 진술이 사업 수행의 공간적 유연성 향상이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2025#21",
+      "roles": [
+        "background",
+        "example",
+        "example",
+        "topic"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "건축가의 지위와 교육 과정을 소개한 뒤 기술만 가진 쪽과 이론만 가진 쪽을 대비시켜, 인용 비유가 둘 중 어느 쪽을 가리키는지 가려야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "‘이론과 학식에만 기댄 자’라는 진술이 같은 수준에서 실무 기술 없이 건축의 이상만 좇는 것으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2024#21",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "좁은 주의와 넓은 주의를 대비해 스트레스 대처를 설명한 뒤 조리 도구 비유로 맺어, 비유를 앞의 대비 결론과 연결해야 풀린다.",
+      "transform": "compression",
+      "transform_note": "‘넓은 초점이 더 큰 관점에 놓게 한다’와 ‘불안한 세부보다 큰 그림이 중요하다’는 두 진술이 스트레스 요소 너머 경험을 넓게 보는 것으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2023#21",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "background"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "근대 일기가 주체성 형성의 매체였다는 설명 끝에 하버마스의 역설적 표현을 두어, 사적 글쓰기와 자기 공개라는 모순을 풀어야 하는 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "밑줄 바로 뒤 문장의 ‘자기 점검과 자기 비판의 대상이 된다’는 진술이 같은 수준에서 글쓰기를 자신을 성찰하는 수단으로 쓰는 것으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2022#21",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "example",
+        "topic",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 7,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "전문가의 한계와 제한된 신뢰를 논한 뒤 일상 비유로 맺어, 지문 어디에도 없는 출근 준비라는 장면을 전문가 정보의 쓰임새로 추론해야 한다.",
+      "transform": "inference",
+      "transform_note": "출근 준비 여부를 모른다는 비유가 지문에 직접 진술되지 않은 채, 지정된 전문가를 신뢰해야 얻는 즉시 쓸 수 있는 정보로 복원됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2021#21",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "아프리카 속담을 환경 기자의 역할로 옮긴 뒤 소비·권리 논의로 이어가, 속담 속 ‘사자의 역사가’가 결국 무엇을 촉구하는지 뒤쪽 주장까지 따라가야 한다.",
+      "transform": "compression",
+      "transform_note": "환경의 관점을 입법자에게 전하라는 진술과 인간 행동 변화를 요구하는 뒤쪽 주장이 자연을 위한 지속 가능한 행동으로의 전환 촉구라는 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

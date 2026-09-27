@@ -1,0 +1,196 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-SUMMARY",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2021#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example",
+        "support",
+        "example",
+        "support",
+        "conclusion",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "정치권력을 강제력으로 보는 등식이 서구의 고정관념일 뿐이라는 반박을 사례와 인용으로 받치는 글이라, 판단(A)과 이유(B)를 한 문장으로 묶기 알맞다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 강제력으로서의 권력 개념이 보편이 아니라는 진술이 문화 전반에 걸쳐 획일적이지 않다로(부정어는 요약문에 미리 있음), (A)는 그 등식이 의심스럽다는 첫 문장이 잘못된 방식이라는 평가로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2020#40",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "코끼리 인사 행동이 유대의 강도와 떨어진 기간 두 변수를 함께 반영한다는 글이라, 두 변수를 요약문의 두 자리에 섞지 않고 놓는지 가르기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 떨어져 있던 기간이라는 진술이 헤어져 있었다로, (A)는 사회적 유대의 강도가 사회적으로 묶여 있다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2019#40",
+      "roles": [
+        "background",
+        "topic",
+        "example",
+        "conclusion",
+        "closing"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "미래 산출을 할인하는 선호라는 원인에서 화석연료의 시간적 우위라는 결과로 가는 인과 글이라, 원인과 결과를 한 문장에 담게 하기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 화석연료가 시간적 우위를 가진다는 결론이 더 경쟁력 있다로, (A)는 현재 얻을 수 있는 산출을 선호한다는 전제가 즉각적인 산출로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2018#40",
+      "roles": [
+        "topic",
+        "example",
+        "support",
+        "turn",
+        "support",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "example"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "동질적 온라인 교류가 정보를 과도하게 걸러 새 착상을 줄인다는 인과를 실제 서가 탐색과 대비하는 글이라, 영향(동사)과 줄어드는 발견의 성격(형용사)을 나눠 묻기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 서가 탐색에서 나오는 놀라운 발견이 예상치 못한 발견으로, (A)는 지나치게 걸러 다양성을 없앤다는 진술이 정보원을 제한하다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2017#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "closing"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "주민들의 환경 영향 인식이 엇갈리고 그 차이가 여러 요인에 달렸다는 글이라, 부정어가 이미 들어간 요약문에서 다름을 뜻하는 말을 고르게 하기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 주민 감정의 차이가 요인에 따라 달라진다는 마지막 진술이 서로 다른 입장으로, (A)는 환경 피해를 관광 탓으로 보느냐가 영향을 따져 보다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2016#40",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "example",
+        "example",
+        "example",
+        "conclusion",
+        "closing"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "통제 밖 요인을 빼고 성과를 평가해야 한다는 원칙을 판매 하락 사례로 보이는 글이라, 원칙을 요약문 대비 구조(A 이지 B 가 아니다)로 옮기기 좋다.",
+      "transform": "abstraction",
+      "transform_note": "(A)는 때로 경제적 성격을 띠는 넓은 영향 요인이라는 진술이 맥락적 요인이라는 상위어로, (B)는 평균 대비 수치만 보는 태도가 수치에 의존하다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2015#40",
+      "roles": [
+        "example",
+        "example",
+        "example",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "turn"
+        },
+        {
+          "index": 0,
+          "role": "background"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "두 사상가의 예술 효과 확신을 소개한 뒤 반응이 사람마다 다르다고 반박하는 통념-반박 글이라, 주장 층과 필자 층을 Although 로 갈라 요약하게 하기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 사람마다 반응의 강도와 형태가 크게 다르다는 진술이 다르다로, (A)는 감염병처럼 피할 수 없다는 주장이 피할 수 없는 영향으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2014B#40",
+      "roles": [
+        "background",
+        "example",
+        "example",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "로볼링의 효과를 자기지각 이론과 인상관리 이론 두 설명으로 나란히 푸는 글이라, 두 이론을 요약문의 두 칸에 하나씩 대응시키기 좋다.",
+      "transform": "abstraction",
+      "transform_note": "(A)는 원래 조건의 구매 동의로 진심 어린 관심을 추론한다는 과정이 구매 결정을 정당화하다로 올라갔고, (B)는 무책임한 소비자로 보이지 않으려 한다는 진술이 체면을 지키다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    }
+  ]
+}

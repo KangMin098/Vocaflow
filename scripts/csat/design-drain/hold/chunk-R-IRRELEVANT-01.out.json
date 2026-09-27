@@ -1,0 +1,187 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-IRRELEVANT",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2706#35",
+      "roles": [
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "몸이 클수록 사소한 사고에도 크게 다친다는 주장에 아기 · 어른 · 키 큰 사람을 차례로 대는 글에, 같은 체질량 소재를 쓰지만 건강 점검 지표 이야기로 빠지는 ④가 예시 자리를 가장해 끼어 있다.",
+      "transform": "none",
+      "transform_note": "체질량과 뼈 강도로 부상 정도를 설명하는 사슬에서 ④만 체질량 지수의 일상적 쓰임을 말해 논리가 끊기며, mass 어휘 반복이 함정이다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2609#35",
+      "roles": [
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "다양한 멘토 네트워크가 소수 · 다수 집단 모두에 이롭다는 전개에, 멘토링 일반의 평판을 말하는 ④가 근거 자리를 가장해 들어 있다.",
+      "transform": "none",
+      "transform_note": "다양성의 이익을 두 집단별로 풀다가 ④가 멘토링이 흔히 요구 · 칭송된다는 일반론으로 초점을 옮겨 논리가 끊긴다(멘토링 반복이 함정).",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2606#35",
+      "roles": [
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "빙하가 기후 온난화로 빠르게 녹고 있다는 기록 · 위성 증거 · 전망이 이어지는 글에, 빙하 속 암석을 학교 과제 소재로 다루는 ④가 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "빙하 감소의 증거와 전망으로 이어지는 흐름에서 ④만 과학 교육 소재로 빠져, 빙하 어휘만 겹칠 뿐 논리가 이어지지 않는다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2509#35",
+      "roles": [
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "좋은 딜러가 폭넓은 연결망으로 수집가의 빈자리를 채워 준다는 주장에, 개인 맞춤 서비스를 구매의 장점으로 드는 ④가 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "딜러의 연결망 · 정보망 · 희망 목록 순환으로 이어지는 사슬을 ④가 끊고, 앞뒤 대명사 they 가 딜러를 받는 고리도 ④에서 흩어진다.",
+      "cues": [
+        "logic",
+        "pronoun"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2506#35",
+      "roles": [
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "narrative",
+      "selection": "새의 노래 학습이 암기 뒤 연습 단계로 다듬어지는 과정을 시간 순으로 서술하는 글에, 선호 · 제약이라는 연구 일반의 결론을 말하는 ④가 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "연습기의 서툰 노래가 점점 정확해지고 자기 소리를 들어야 한다는 과정 서술에서 ④만 연구가 낳은 일반 착상으로 초점을 옮겨, ⑤의 지시어 This 가 ③을 받는 고리를 끊는다.",
+      "cues": [
+        "logic",
+        "pronoun"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2409#35",
+      "roles": [
+        "topic"
+      ],
+      "alternatives": [],
+      "pattern": "problem_solution",
+      "selection": "재택근무 수용을 막는 요인들과 그 장벽이 점차 낮아진다는 전망을 잇는 글에, 적합한 직원 선발이라는 실무 지침인 ③이 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "제약 요인 → 그럼에도 새 문화가 등장 → 장벽을 줄일 요인으로 가는 흐름에서 ③만 직원 선발 조언으로 빠져 논리가 끊긴다.",
+      "cues": [
+        "logic",
+        "connective"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2406#35",
+      "roles": [
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "전문가가 숙련된 하위 기술 덕에 복합 과제를 쉽게 해낸다는 대비 글에, 초보자가 분리된 과제를 잘 처리한다는 ③이 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "전문가의 인지 부하가 낮은 이유를 풀고 초보자는 결합에 애쓴다고 맺는 흐름에 ③이 첨가 연결어로 초보자의 강점을 덧붙여 논리가 뒤틀린다(초보자 · 과제 어휘 반복이 함정).",
+      "cues": [
+        "logic",
+        "repetition",
+        "connective"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2309#35",
+      "roles": [
+        "topic",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "background"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "식물이 재난 뒤 빨리 회복하는 까닭을 분열조직으로 설명하고 재생 · 재파종으로 잇는 글에, 숲과 초원이 물 순환 · 대기 조성을 조절한다는 ④가 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "재난 후 회복 능력이라는 초점에서 ④만 식물의 평상시 생태 기능으로 옮겨 가, ⑤의 재생 · 재발아가 ③의 새 가지 사례를 잇는 고리를 끊는다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2306#35",
+      "roles": [
+        "topic"
+      ],
+      "alternatives": [],
+      "pattern": "problem_solution",
+      "selection": "갈등 상황의 동물이 정보 부족을 신호로 보충해 결정한다는 글에, 평상시 체중 유지와 섭식을 말하는 ③이 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "상대가 강하면 물러서고 약하면 싸운다는 판단과 정보 수집의 이점으로 이어지는 논리 사이에 ③만 먹이 섭취라는 무관한 소재를 넣어 흐름이 끊긴다.",
+      "cues": [
+        "logic"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2209#35",
+      "roles": [
+        "background",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "support"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "경제학 관점에서 이주를 비용 · 편익 계산으로 보는 글에, 부를 사치품으로 과시한다는 ③이 편익을 설명하는 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "편익 목록 → 개인 비용 → 심리적 비용으로 이어지는 비용 · 편익 틀에서 ③만 이주와 무관한 소비 행태로 빠진다(편익 · 금전 어휘 반복이 함정).",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    }
+  ]
+}

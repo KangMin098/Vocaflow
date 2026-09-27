@@ -1,0 +1,239 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-SUMMARY",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#40",
+      "roles": [
+        "topic",
+        "example",
+        "example",
+        "support",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "background"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "나무 심기의 두 기능(소유의 영속 선언 · 애국 행위로 보임)이 한 문단에 겹쳐 있어, 두 기능을 각각 한 낱말로 접어 요약문 두 칸에 나눠 넣게 하기 좋은 글이다.",
+      "transform": "abstraction",
+      "transform_note": "(B)는 애국적 행위로 여겨졌다는 진술이 충성을 드러내 보이는 일이라는 상위 명사로 올라갔고, (A)는 소유 주장의 영속성이 지속적이라는 형용사로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "M2109#40",
+      "roles": [
+        "example",
+        "example",
+        "example",
+        "example",
+        "example",
+        "turn",
+        "topic",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "study_implication",
+      "selection": "개인은 자기만 사회적 가치를 원한다고 믿어 고립되지만 실제로는 모두가 같은 생각이라는 반전이 있어, 믿음과 사실의 두 극을 요약문 앞뒤 절에 배치하기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 포커스 그룹에서 남들도 같은 견해임을 알았다는 대목이 흔한 걱정이라는 형용사로, (A)는 가치 중심 삶으로 가고 싶다는 바람이 좇는다는 동사로 바뀌었다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "M2106#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "closing"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "환경에 따라 화석화가 달라진다는 전제에서 화석 기록이 개체 수 · 출현 시기를 확정하지 못한다는 귀결로 가는 인과 구조라, 전제와 귀결을 한 문장으로 묶기 알맞다.",
+      "transform": "compression",
+      "transform_note": "화석의 많고 적음으로 개체 수를 단정할 수 없다는 진술과 출현 · 멸종 시점이 보수적 추정이라는 진술이 합쳐져 (B) 밝히다(부정 포함)로, 전제는 (A) 환경적 조건으로 압축됐다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "M2006#40",
+      "roles": [
+        "background",
+        "background",
+        "turn",
+        "example",
+        "example",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "같은 낱말의 쓰임이 초기 홍보용과 이후 실천용으로 시기별로 갈리는 대조 구조라, 두 시기의 태도를 각각 동사 하나로 요구하기 좋다.",
+      "transform": "abstraction",
+      "transform_note": "(B)는 폐기물 · 오염 · 탄소 배출을 실제로 줄이는 과제라는 구체 사례가 생각을 실현한다는 상위 동사로, (A)는 행동을 바꿀 뜻 없이 친환경으로 보이려 했다는 진술이 ~인 척했다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "M1809#40",
+      "roles": [
+        "topic",
+        "example",
+        "example",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "turn"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "지역 네트워크와 세계적 네트워크를 결속 · 정보 흐름 축으로 맞세운 대조 글이라, 내부 결속과 바깥 유대를 혼동하지 않는지 요약문 한 칸으로 가를 수 있다.",
+      "transform": "negation_flip",
+      "transform_note": "(A)는 다른 곳의 동맹과 연결이 없다는 결여 진술이 느슨한 유대라는 긍정형 형용사로, (B)는 새 정보의 흐름에서 이익을 본다는 진술이 그대로 이익을 얻다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2026#40",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "turn",
+        "support",
+        "topic",
+        "support",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "background"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "재정 불안이라는 약점 뒤에 However 로 매력이 유지된다는 반전이 오는 글이라, 반전 문장까지 읽었는지를 요약문 뒤 칸으로 확인하기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 경험을 중시하는 관객에게 매혹의 힘을 유지한다는 진술이 관객을 확보한다로, (A)는 외부 자금 의존으로 경제적으로 불안정하다는 진술이 재정적 어려움으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2025#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "concession",
+        "turn",
+        "closing"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "합성 성분이 더 해롭다는 통념을 제조 통제 가능성과 천연 성분의 변동성으로 반박하는 글이라, 통념 · 반박을 한 문장에 담기 알맞다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 정밀하게 통제된 방식으로 만들어진다는 진술이 통제 가능성이라는 명사로, (B)는 통념이 늘 옳지는 않다는 첫 문장이 통념에 이의를 제기하다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2024#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "support"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "과목을 차례로 탐구하면 성과를 낼 수 있고 앞선 지식이 압축돼 새 학습 공간이 남는다는 두 층 인과라, 두 칸을 각각 독립으로 결정하게 하기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 새 학습을 위한 공간이 남는다는 마지막 진술이 여지를 남기다로, (A)는 한 번에 하나씩 집중하면 주목할 만한 성과를 낸다는 첫 진술이 가능하게 하다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2023#40",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "support",
+        "turn",
+        "support",
+        "support",
+        "closing"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "장인정신이 산업화와 함께 쇠퇴했다는 통념을 부정하고 오래 지속된 충동이라 한 뒤 발전을 가로막는 조건을 드는 글이라, 통념 쪽 낱말을 오답으로 깔기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 오래 지속되는 기본 충동이라는 진술이 지속되어 왔다로, (B)는 사회 · 경제 조건이 방해하고 경쟁 압력이 약화시킨다는 진술이 제한하다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    },
+    {
+      "id": "2022#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "closing"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "과학적 설명의 두 견해(통합 · 인과 기제)를 앞뒤로 나란히 놓은 대조 글이라, 두 견해를 either-or 로 묶어 각 견해의 핵심어를 요구하기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 규칙성을 낳는 인과 기제라는 마지막 진술의 규칙성이 일반적 패턴으로, (A)는 최소 수의 일반화가 가장 적은 수의 원리로 옮겨졌다.",
+      "cues": [],
+      "data_defect": "요약문이 마지막 문장에 붙어 한 문장으로 분할되고(선지 앞 기호 포함), 선지 머리 「(A) (B)」 조각이 별도 문장으로 남았다."
+    }
+  ]
+}

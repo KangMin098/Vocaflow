@@ -1,0 +1,162 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-INSERT",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2016#38",
+      "roles": [
+        "support",
+        "topic",
+        "support",
+        "support",
+        "concession",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "concession"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "돈은 수단일 뿐이라는 주장 아래 부의 장점을 인정하다가 다시 본론으로 돌아오는 글로, 양보에서 본론으로 넘어가는 경계를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "앞 문장들이 부의 이점을 나열한 뒤 Even so로 가치는 돈 자체가 아니라 경험에 있다고 되돌려야 마지막 결론으로 이어지므로 ⑤ 자리다.",
+      "cues": [
+        "connective",
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2016#37",
+      "roles": [
+        "example",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "turn",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "개가 언제나 냄새로 판단한다는 기대를 뒤집는 글로, 주인에게 짖은 일화와 그 해석 사이 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "these dogs가 새 머리 모양으로 돌아온 주인에게 달려든 개를 받고, 눈을 썼다는 설명이 뒤의 코가 늘 켜진 것은 아니라는 결론으로 이어지므로 ⑤ 자리다.",
+      "cues": [
+        "pronoun",
+        "article",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2015#39",
+      "roles": [
+        "example",
+        "example",
+        "example",
+        "example",
+        "example",
+        "conclusion",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "study_implication",
+      "selection": "실험 절차를 시간순으로 전하고 함의를 이끄는 글로, 측정 단계들 사이에 평가 단계를 넣을 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "also로 앞의 측정에 평가를 덧붙이고 「those 가짜 외향인」이 연구진이 촬영한 내향인을 가리키며, 그다음 Then으로 진짜 외향인과 비교하므로 ② 자리다.",
+      "cues": [
+        "connective",
+        "pronoun",
+        "time"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2015#38",
+      "roles": [
+        "example",
+        "background",
+        "topic",
+        "example",
+        "example",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "study_implication",
+      "selection": "매미가 시간을 세는 방법에 관한 실험을 소개하는 글로, 결과 진술과 그 원인이 된 조작 설명을 잇는 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "this happen이 한 해 만에 나온 결과를 가리키고, 뒤 문장의 「By doing」 구가 낮 길이를 늘린 조작을 받으므로 ③ 자리다.",
+      "cues": [
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2014B#39",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "example",
+        "example",
+        "support",
+        "support",
+        "turn",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "언론이 다양한 관점을 제공해야 한다는 주장을 전쟁 사례로 좁히는 글로, 언론의 의무를 밝히는 문장과 그 의무의 구체 내용을 잇는 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "뒤 문장의 They가 받을 복수 주어, 곧 언론이 앞에 있어야 하고 전쟁을 최후 수단이라 한 앞 문장을 So로 이으므로 ② 자리다.",
+      "cues": [
+        "pronoun",
+        "connective",
+        "logic"
+      ],
+      "data_defect": "0번 문장이 발문 끝 조각(곳은?)이라 실제 주어진 문장은 1번이 됐다 — 발문·지문 분할 잡음."
+    },
+    {
+      "id": "2014A#39",
+      "roles": [
+        "background",
+        "example",
+        "background",
+        "example",
+        "example",
+        "example",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "narrative",
+      "selection": "시간순 일화에서 사건의 전환점을 찾게 하는 글로, 길을 건넌 뒤 가방이 생각나는 순간이 앞뒤 장면을 잇는다.",
+      "transform": "none",
+      "transform_note": "앞 문장이 길을 건너기 시작한 장면이고 뒤 문장이 벤치를 돌아보는 장면이므로, 건넌 뒤 가방을 떠올리는 문장이 ④에 와야 한다.",
+      "cues": [
+        "time",
+        "repetition",
+        "logic"
+      ],
+      "data_defect": "0번 문장이 발문 끝 조각(곳은?)이고 1번 문장 앞에 배점 표기가 붙어 있다 — 발문·지문 분할 잡음."
+    }
+  ]
+}

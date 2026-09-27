@@ -1,0 +1,194 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-IRRELEVANT",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#35",
+      "roles": [
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "현대의 친족 유대를 수정 확대가족 개념으로 정의 · 설명하는 글에, 최연장자가 중요한 결정을 내린다는 ④가 설명 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "같이 살지 않아도 유대가 유지되고 자유롭게 떠날 수 있다는 정의 설명에서 ④만 가족 내 결정권 이야기로 빠져 논리가 끊긴다(거리 어휘 반복이 함정).",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2109#35",
+      "roles": [
+        "topic",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "상업화된 사회에서 경관 자체가 상품이 되고 로고처럼 쓰인다는 글에, 미국의 경관 보호가 황야 지역에 집중된다는 ③이 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "경관의 상품화 → 정체성의 로고화 → 지명 사례로 이어지는 흐름에서 ③만 보호 정책으로 초점을 옮겨, 경관 어휘만 겹친다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2106#35",
+      "roles": [
+        "background",
+        "background",
+        "turn"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "시골 생활이 친환경이라는 통념을 자동차 이용 · 큰 주택 비용으로 반박하는 글에, 도시인이 도시 생활에 지쳐 시골로 간다는 ④가 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "시골 · 교외의 환경 비용을 드러내 밀집 공동체가 답이라는 결론으로 가는 논리에서 ④는 오히려 반대 방향의 경향을 말해 흐름을 거스른다(도시 · 시골 어휘 반복).",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M2006#35",
+      "roles": [
+        "background",
+        "topic"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "탐지견 훈련이 냄새를 가르치는 것이 아니라 특정 냄새에 감정적 흥분을 붙이는 일이라는 글에, 먹이 보상을 규칙적으로 주면 된다는 ④가 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "감정적 흥분 → 당기기 놀이가 먹이보다 강한 보상 → 개의 관점으로 이어지는 흐름에서 ④만 먹이 보상 원리로 돌아가 논리가 어긋난다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "M1809#35",
+      "roles": [
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "홍차 품질을 잎이 말린 정도로 평가하지만 그것이 맛과는 별개라는 글에, 잎을 마는 방법과 목적을 설명하는 ③이 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "상 · 하급 차의 말림 차이 → 말림은 우려내는 성질과 관련 → 그러니 맛을 판단하지 말라는 흐름에서 ③만 가공 공정으로 빠진다(rolling 반복이 함정).",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "2026#35",
+      "roles": [
+        "background",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "바쁜 날 자기 돌봄이 먼저 밀려나지만 장기적으로 예외여야 한다는 글에, 목공 수업을 디자인 수업보다 먼저 등록하라는 ④가 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "마감과 자기 돌봄의 단기 · 장기 비교로 이어지는 논리에서 ④만 수강 신청 순서라는 엉뚱한 조언을 해, 목공 수업 어휘만 앞 문장과 겹친다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "2025#35",
+      "roles": [
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "20세기 스포츠 관광 확장을 자동차의 보급 · 장점으로 설명하는 글에, 숙박 확충이 지역 식당 성장을 도왔다는 ④가 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "자동차의 역사 · 편리성 → 그 결과 원거리 스포츠 관광에 필수라는 흐름에서 ④만 숙박과 식당으로 빠지고, ⑤의 it 이 자동차를 받는 고리를 끊는다.",
+      "cues": [
+        "logic",
+        "pronoun"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "2024#35",
+      "roles": [
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "말이 빠르면 뇌가 선택지 앞에서 멈추는 사이 입이 앞서 군말이 생긴다는 인과 글에, 좋은 결정이 말을 빠르게 한다는 ③이 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "뇌의 망설임이 군말을 낳는다는 인과 사슬에서 ③은 반대로 빠른 말의 이점을 말해 논리가 뒤집히며, 결정 · 속도 어휘 반복이 함정이다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "2023#35",
+      "roles": [
+        "background",
+        "topic"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "신임 교사가 목소리를 다스리는 법을 익혀야 한다는 글에, 학교 소음 문제를 학생 · 학부모 · 교사가 함께 풀어야 한다는 ③이 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "자신감 있는 지시 → 큰 목소리의 쓸모 → 그러나 드물게 쓰라는 흐름에서 ③만 소음 해결책으로 빠져, ④의 역접어가 ②를 받는 고리를 끊는다.",
+      "cues": [
+        "logic",
+        "connective"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    },
+    {
+      "id": "2022#35",
+      "roles": [
+        "topic"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "정보 시스템이 기업 간 가치사슬을 통합해 생태계 전체를 고려하게 만들었다는 글에, 수익성 낮은 단위를 잘라 낸다는 ④가 근거 자리를 가장한다.",
+      "transform": "none",
+      "transform_note": "여러 기업의 단위가 협력하는 네트워크 → 공통 플랫폼 필요로 이어지는 흐름에서 ④만 사업 구조 축소를 말해, ⑤의 이 서로 다른 단위들이 받을 대상을 잃는다.",
+      "cues": [
+        "logic",
+        "pronoun"
+      ],
+      "data_defect": "①~⑤ 다섯 문장이 앞 문장과 함께 한 문장으로 분할돼, 무관한 문장이 따로 번호를 갖지 못한다(역할은 병합 문장 전체 기준)."
+    }
+  ]
+}

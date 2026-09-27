@@ -1,0 +1,238 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-TOPIC",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2021#23",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "자동화에서 남는 일을 사람에게 떠넘기는 방식의 문제를 먼저 말하고 감시·정밀 반복 같은 부적합한 일을 나열해, 협업의 이점 같은 반대 방향 오답과 문제 제기를 가르게 만든다.",
+      "transform": "compression",
+      "transform_note": "남은 일을 사람에게 배정하는 문제(첫 문장)와 인간에게 맞지 않는 영역에 기댄다는 결론이 선지에서 ‘자동화 체계에서 부적합한 일을 인간에게 배정하는 문제’로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2020#23",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 7,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "도덕적 행위자가 되는 과정을 도입으로 깐 뒤 however 로 본성과 양육의 상호작용이 복잡하다는 핵심을 내놓아, 본성 대 양육 논쟁이라는 낱말 반복 오답을 피하게 만든다.",
+      "transform": "paraphrase",
+      "transform_note": "‘본성과 양육의 상호작용이 매우 복잡하다’는 진술이 선지에서 ‘도덕 발달에서의 복잡한 유전자-환경 상호작용’으로 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#23",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "example",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "topic"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "정의의 원칙이 기후 정책의 토대라는 주장 아래 원조 확대·산림 보존 탄소 배출권·보조금 철폐를 해결책으로 나열해, 개별 정책이 아니라 원조와 정책 개혁이라는 묶음을 잡아야 한다.",
+      "transform": "compression",
+      "transform_note": "빈국 원조 확대와 보조금 철폐라는 정책 개혁 두 갈래가 선지에서 ‘원조와 정책 개혁으로 기후 변화에 대응하기’ 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2018#22",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "example",
+        "support",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "topic"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "감각 특정적 포만을 정의한 뒤 음식 다양성이 과식을 부른다는 인과를 세우고 디저트·파스타 사례로 받쳐, 다양성 유지 같은 처방형 오답과 사실 진술을 가르게 만든다.",
+      "transform": "paraphrase",
+      "transform_note": "‘음식이 다양할수록 더 많이 먹는다’는 진술이 선지에서 ‘음식 다양성이 섭취량에 미치는 영향’으로 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2017#21",
+      "roles": [
+        "background",
+        "concession",
+        "topic",
+        "support",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "support"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "지도의 정밀함이 주는 객관성의 인상을 길게 묘사한 뒤 그 신뢰가 곧 이데올로기 운반의 힘이라고 뒤집어, 정확성·권위 쪽 오답과 그 이면을 가르게 만든다.",
+      "transform": "compression",
+      "transform_note": "겉보기 객관성(앞 두 문장)과 그 신뢰가 이데올로기를 싣는다는 반전이 선지에서 ‘지도 객관성 아래 놓인 이데올로기’ 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2016#22",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 8,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "역사의 바다에 숨은 두 세이렌이라는 비유로 시작해 두 편향을 정의하고 그 결과를 풀어, 비유 뒤의 실체(두 믿음이 과거 오해를 낳음)를 스스로 잡아야 하는 글이다.",
+      "transform": "compression",
+      "transform_note": "두 중심주의의 정의와 그것이 과거에 대한 오해·부당한 비판을 낳는다는 결과가 선지에서 ‘과거를 편향되게 해석하게 만드는 믿음’으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2015#21",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "support",
+        "conclusion",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "아이가 놀이로 문제를 풀어 간다는 설명 뒤에 개입하지 말라는 처방을 붙여, 두 절반을 함께 담은 선지를 골라야 하는 글이다.",
+      "transform": "compression",
+      "transform_note": "놀이로 문제를 풀어 간다는 진술과 간섭 없이 승인하라는 처방이 선지에서 ‘최소한의 개입 아래 문제 해결로서의 놀이’로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2015#20",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "example",
+        "conclusion",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "첫 문장의 일반 주장을 논리학·물리학 사례로 뒷받침하는 전형적 일반-구체 글이라, 철학·과학 같은 사례 소재 오답을 걸러 내게 만든다.",
+      "transform": "paraphrase",
+      "transform_note": "‘추상적 공부보다 해 보면서 더 잘 배운다’는 첫 진술이 선지에서 ‘해 보며 배우기의 중요성’으로 같은 수준에서 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014B#24",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "conclusion",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "부모의 권위가 아이 독립의 전제라는 인과를 여러 번 되풀이하고 불안정한 부모의 결과까지 보여, 안전·사회성 같은 곁가지 오답과 ‘권위 전달-독립’ 연결을 가르게 만든다.",
+      "transform": "paraphrase",
+      "transform_note": "권위를 효과적으로 전달할수록 아이가 안정돼 독립할 수 있다는 진술이 선지에서 ‘독립을 위한 부모 권위 전달의 중요성’으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014A#25",
+      "roles": [
+        "background",
+        "example",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "problem_solution",
+      "selection": "압박 속에서 스스로를 벌하는 문제 행동을 보인 뒤 명령문으로 해결책(휴식)을 내놓고 이점을 나열해, 게임·죄책감 같은 소재 낱말 오답을 걸러 내게 만든다.",
+      "transform": "paraphrase",
+      "transform_note": "‘압박 속에서도 휴식과 삶에 더 신경 쓰라’는 권고가 선지에서 ‘시간 압박하에서의 휴식의 필요성’으로 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

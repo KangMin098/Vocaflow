@@ -1,0 +1,249 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-INSERT",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2026#39",
+      "roles": [
+        "support",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "게임 속 지각이 아바타의 행동을 통해 확장된다는 주장을 단계별로 설명하며, 현실과의 차이를 짚는 문장 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "현실처럼 지각에 행동이 필요하다는 문장 뒤에 차이는 아바타뿐이라는 문장이 와야 지각장 확장 문장으로 이어져 ③ 자리가 된다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2026#38",
+      "roles": [
+        "support",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "example",
+        "example",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "이야기끼리의 충돌이라는 주장 아래 내적 서사 형성 과정을 사례로 보이며, 정체성과 결합한 서사로 넘어가는 문장 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "대학 졸업생 사례 뒤에 서사가 정체성에 뿌리내린다는 일반화가 오고, 정치 성향 사례가 이를 예시해 ⑤ 자리가 된다.",
+      "cues": [
+        "repetition",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2025#39",
+      "roles": [
+        "support",
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "turn"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "사물 수명을 선형으로 보는 통념을 비판하는 글로, 실제 사물의 비선형 경로를 제시하는 문장 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "선형 수명 이해가 불완전하다는 비판 뒤에 실제로는 이라는 문장이 오고, 뒤 문장이 추가 표지로 재활용 경로를 보태 ④ 자리가 된다.",
+      "cues": [
+        "connective",
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2025#38",
+      "roles": [
+        "turn",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "problem_solution",
+      "selection": "비밀 유지를 택한 발명가가 법적 보호 없이 겪는 곤경을 설명하는 글로, 위험을 꺼내는 전환 문장의 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "비밀 유지의 이점을 나열한 뒤 역접 표지로 누설 위험을 꺼내고, 뒤 문장이 정보가 풀리면 자유재가 된다고 이어 ④ 자리가 된다.",
+      "cues": [
+        "connective",
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2024#39",
+      "roles": [
+        "turn",
+        "background",
+        "example",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "오탈자와 돌연변이의 유비를 이어 가다 끊기는 지점을 찾게 하는 글로, 유비가 깨진다는 전환 문장 자리를 묻는다.",
+      "transform": "none",
+      "transform_note": "유리한 돌연변이까지 유비가 이어진 뒤 역접 표지로 다음 단계에서 깨진다고 하고, 자연선택 설명과 책 대조가 뒤따라 ④ 자리가 된다.",
+      "cues": [
+        "connective",
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2024#38",
+      "roles": [
+        "concession",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "과학이 승자 독식 경쟁이라는 견해를 반박하는 글로, 반론 앞 양보 문장의 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "소수의 경쟁만 있다는 견해 비판 뒤에 일부 대회는 세계적이라는 양보가 오고, 역접으로 여러 부분의 경쟁이 이어져 ③ 자리가 된다.",
+      "cues": [
+        "connective",
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2023#39",
+      "roles": [
+        "example",
+        "topic",
+        "support",
+        "example",
+        "support",
+        "support",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "쟁점을 잘게 나누는 협상 전술을 수량 쟁점과 원칙 쟁점으로 나눠 설명하며, 시간 축 방법의 이점 문장 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "시행 시점을 활용한다는 문장 뒤에 먼 미래 시행이 합의를 쉽게 한다는 문장이 오고, 또 다른 방법으로 넘어가 ④ 자리가 된다.",
+      "cues": [
+        "logic",
+        "repetition",
+        "time"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2023#38",
+      "roles": [
+        "support",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "공원이 자연의 재현이라는 주장 아래 도시와 분리된 느낌의 기원을 설명하며, 그 느낌의 설계적 이유 문장 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "분리된 느낌 문장을 지시어가 받아 설계 관행을 말하고, 뒤 문장이 이 생각의 배경을 지시어로 이어 받아 ⑤ 자리가 된다.",
+      "cues": [
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2022#39",
+      "roles": [
+        "support",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "영화의 본질이 환상이라서 초기 이론가들이 사실적 기술을 반대했다는 인과의 글로, 무성 흑백 영화의 비현실성 문장 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "무성 흑백의 비현실성 문장 뒤에 역접으로 소리와 색이 바로 그런 착각을 만든다고 받아 ④ 자리가 된다.",
+      "cues": [
+        "connective",
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2022#38",
+      "roles": [
+        "support",
+        "background",
+        "topic",
+        "example",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "problem_solution",
+      "selection": "로봇 도입이 낳는 두려움을 경영진이 덜어야 한다는 해결책 나열 글로, 재교육 방안 문장이 들어갈 자리를 찾게 한다.",
+      "transform": "none",
+      "transform_note": "판단이 필요한 자리로 옮기라는 방안 뒤에 추가 표지와 함께 재교육 효과가 이어져 ⑤ 자리가 된다.",
+      "cues": [
+        "connective",
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    }
+  ]
+}

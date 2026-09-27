@@ -1,0 +1,242 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-TITLE",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#24",
+      "roles": [
+        "topic",
+        "example",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "노화가 사회적 지각을 해친다는 통념을 양보절로 받고 동기 이론의 이득을 내세우는 글이라, 손실과 이득 중 어느 쪽이 결론인지 가려 제목을 골라야 한다.",
+      "transform": "abstraction",
+      "transform_note": "노년에 손실만이 아니라 이득·질적 변화도 있다는 첫 문장이 선지에서 「나쁜 소식만은 아니다」라는 비유적 제목으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#24",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "turn",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "지식의 불완전함을 인정한 뒤 오히려 더 큰 목표가 생긴다는 반전을 산 정상 비유로 맺는 글이라, 비유를 해석해 겸손과 전진을 함께 담은 제목을 찾게 한다.",
+      "transform": "abstraction",
+      "transform_note": "정상의 정확한 높이는 몰라도 오를 수 있다는 마지막 비유가 선지에서 「아직 닿지 않은 정상과 지식으로의 여정」이라는 상위 비유로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#24",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "support",
+        "example",
+        "support",
+        "conclusion",
+        "support",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "이기적 유전자가 진화의 원동력이라는 통념을 반박하고 행동 변화가 먼저라는 주장을 세우는 글이라, 유전자와 행동의 선후 관계를 묻는 제목을 고르게 한다.",
+      "transform": "abstraction",
+      "transform_note": "환경 위협에 행동이 먼저 반응하고 유전 적응이 뒤따른다는 논지가 선지에서 「행동과 유전자 중 무엇이 먼저 적응하나」라는 의문형 제목으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#24",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "스포츠 속 인종 관계가 나아졌지만 과제가 계속 새로 생긴다는 주장을 한 사례로 뒷받침하는 글이라, 역사·인과가 아닌 「계속되는 과제」라는 초점을 잡아야 한다.",
+      "transform": "compression",
+      "transform_note": "첫 문장의 아직 변화가 필요하다는 진술과 마지막의 과제는 결코 한 번에 끝나지 않는다는 진술이 선지의 「진행 중인 과제」 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#23",
+      "roles": [
+        "background",
+        "example",
+        "example",
+        "support",
+        "turn",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "정부의 정보 공개 의무화와 그 실패 사례(엔론), 이후 규제 강화를 차례로 보여 주는 글이라, 사례를 묶어 시장 신뢰를 위한 공개라는 상위 개념을 세워야 한다.",
+      "transform": "abstraction",
+      "transform_note": "정보 공개를 강제하고 실패 뒤 신뢰성 규제를 더했다는 흐름이 선지에서 「진실 공개: 시장 신뢰를 향한 압력」이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2026#24",
+      "roles": [
+        "background",
+        "support",
+        "turn",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "문화 오락의 경제적 이득과 상업화가 원래 메시지를 훼손하는 위험을 맞세우는 글이라, 두 측면의 긴장을 함께 담은 제목을 골라야 한다.",
+      "transform": "compression",
+      "transform_note": "경제적 이득 문장과 상업화로 메시지를 잃는 위험 문장이 선지에서 「돈이냐 영혼이냐」라는 대비 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2025#24",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "셀피를 새 현상이 아니라 자화상 역사의 연장·강화로 규정하는 글이라, 「새로움」과 「연속성」의 관계를 제목에서 올바로 읽어야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "셀피가 자화상의 오랜 역사를 확장·강화한다는 첫 문장이 선지에서 자기 표현 방식의 최신 혁신이라는 같은 수준의 말로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2024#24",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "turn",
+        "concession",
+        "example",
+        "turn",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 9,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "과잉 관광 개념이 사람과 장소를 경계 있는 것으로 보는 가정에 기대고 있음을 드러낸 뒤 그 가정을 흔드는 글이라, 가정 비판을 담은 제목을 찾게 한다.",
+      "transform": "compression",
+      "transform_note": "사람·장소를 고정된 단위로 보는 가정 제시와 과잉의 기준이 물리적 수용력보다 복잡하다는 결론이 선지에서 「단순히 사람과 장소의 문제가 아니다」로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2023#24",
+      "roles": [
+        "background",
+        "support",
+        "support",
+        "support",
+        "background",
+        "topic",
+        "support",
+        "example",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "대상을 보면 모든 속성을 한꺼번에 본다는 통념을 뒤집고 뇌의 영역별 분업을 주장하는 글이라, 분리·독립이라는 핵심 성질을 제목으로 잡아야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "뇌의 각 부분이 모양·색·위치·움직임을 따로 본다는 5번 문장이 선지에서 「분리되고 독립적인 시각 지각」으로 같은 수준에서 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2022#24",
+      "roles": [
+        "topic",
+        "example",
+        "example",
+        "support",
+        "support",
+        "example",
+        "example",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "수선이 제작보다 더 큰 창의성을 요구한다는 주장을 대장장이 역사와 산업화 대비로 뒷받침하는 글이라, 기계가 대신하지 못하는 수선의 기술이라는 초점을 비유 제목에서 찾게 한다.",
+      "transform": "abstraction",
+      "transform_note": "대량 생산 뒤에도 수선만은 손과 전체 이해를 요구한다는 진술이 선지에서 「현대 대장장이에게 여전히 남은 수선의 기술」이라는 비유로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

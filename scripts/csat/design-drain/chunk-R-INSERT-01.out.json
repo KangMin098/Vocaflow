@@ -110,7 +110,7 @@
       "pattern": "contrast",
       "selection": "배출량 과세의 장점만 한 방향으로 쌓인 뒤 양보 연결어가 홀로 나와, 그 연결어가 요구하는 단점 진술의 빈자리를 찾게 하는 글이다.",
       "transform": "none",
-      "transform_note": "④ 뒤 Nevertheless 가 앞에 측정 비용이라는 부정 진술을 요구하므로 ④ 자리다.",
+      "transform_note": "④ 뒤 양보 연결어(그럼에도)가 앞에 측정 비용이라는 부정 진술을 요구하므로 ④ 자리다.",
       "cues": ["connective", "logic"],
       "data_defect": null
     }

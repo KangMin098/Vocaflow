@@ -1,0 +1,256 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-CLAIM",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2706#20",
+      "roles": [
+        "background",
+        "background",
+        "turn",
+        "background",
+        "turn",
+        "topic",
+        "example",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 7,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "체육 지도에서 흔한 관행(지시만 따르게 하기)을 두 번의 전환으로 뒤집고 당위 문장에 필자 목소리를 두어, 통념과 주장을 가려내게 만드는 글이다.",
+      "transform": "compression",
+      "transform_note": "지도자가 활동의 효과를 인식시켜야 한다는 당위 문장과 원리를 이해하면 스스로 발전한다는 끝 문장이 합쳐져 「원리를 알고 훈련하도록 돕기」가 됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#20",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "support",
+        "support",
+        "topic",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "turn"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "규칙 위반자를 찾아 벌하는 통상적 대응을 제시한 뒤 위반의 상당수가 몰라서라는 원인을 밝혀 해결책을 내놓는 구조라, 문제 제시와 해결 주장을 구분해야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "기업이 명확한 기준을 만들고 직원을 직접 교육해야 한다는 당위 문장이 선지에서 같은 수준으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#20",
+      "roles": [
+        "background",
+        "background",
+        "example",
+        "concession",
+        "turn",
+        "example",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "support"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "걱정의 정상성과 유용성을 먼저 인정한 뒤 지나친 걱정의 해를 사례로 보여 주고 맨 끝에서 당위를 내리는 글이라, 양보 부분을 주장으로 오인하지 않아야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "겪지 않을 수도 있는 일에 대한 끝없는 걱정을 멈추라는 끝 문장이 「일어날 것 같지 않은 일을 지나치게 걱정하지 말라」로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#20",
+      "roles": [
+        "background",
+        "turn",
+        "background",
+        "background",
+        "topic",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "support"
+        },
+        {
+          "index": 3,
+          "role": "support"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "진리의 중요성을 전제한 뒤 소셜 미디어의 허위 정보 확산이라는 문제를 제시하고 사용자 책임을 주장하는 글이라, 문제 서술과 필자 당위를 구분하게 한다.",
+      "transform": "compression",
+      "transform_note": "사실 확인에 더 큰 역할을 맡으라는 문장과 정보의 신뢰성을 지키라는 끝 문장이 합쳐져 「정확성과 신뢰성 확보에 힘써야 한다」가 됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#20",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "turn",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "background"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "인공지능 시대에 인간 판단의 역할이 줄어든다는 통념을 제시한 뒤 전환으로 인간의 오류 극복 능력을 되살리는 글이라, 통념과 반박 주장을 가려야 한다.",
+      "transform": "abstraction",
+      "transform_note": "인간이 실수를 인정하고 극복하는 능력으로 인공지능의 감독자 자리에 서야 한다는 끝 문장이 「오류 극복 능력을 활용해야 한다」는 일반 당위로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#20",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "자신감이 두려움 없는 상태라는 오해를 반박하고 두려움을 안고 나아가는 용기가 자신감을 만든다는 결론으로 가는 글이라, 오해 진술과 필자 주장을 구분해야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "두려움과 미지 속으로 들어서는 용기가 자신감을 쌓는다는 끝 문장이 「낯설고 두려운 일에 도전하는 용기」로 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#20",
+      "roles": [
+        "background",
+        "turn",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "background"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "이른 전문화라는 장애를 먼저 제시하고 영역 간 전이의 가치와 양 극단의 위험을 설명한 뒤 마지막에 처방을 내리는 글이라, 긴 설명 속 당위 문장을 찾게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "특정 영역의 창의적 도전을 지원하되 다른 영역에도 적용하도록 격려하라는 끝 문장이 선지로 거의 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2309#20",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        },
+        {
+          "index": 1,
+          "role": "support"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "문화의 보이는 면과 숨은 면을 대조하며 교류에 성공하려면 표면 아래를 봐야 한다고 주장하는 글이라, 일반 정의와 조건부 당위 중 어느 쪽이 요지인지 판단하게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "사업상 교류에 성공하려면 문화의 표면 아래 숨은 차원을 봐야 한다는 문장이 「교류를 잘하려면 이면을 알아야 한다」로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2306#20",
+      "roles": [
+        "example",
+        "example",
+        "example",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "support"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "두 선수의 사례로 열심히와 영리하게를 대비시킨 뒤 정신적 추진력이라는 개념으로 일반화하는 글이라, 사례 뒤에 나오는 개념 문장을 주장으로 잡아야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "기술·신체 영역의 성과를 극대화하려고 정신적 장치를 쓰는 추진력이 차이를 만든다는 문장이 「정신적 추진력을 잘 활용해야」로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2209#20",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "turn",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "background"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "빠른 해결책을 찾는 세태와 특정 내용·방법이 목적을 이뤄 준다는 착각을 먼저 비판하고 끝에서 대안을 내놓는 글이라, 비판 대상과 필자 처방을 구분하게 한다.",
+      "transform": "abstraction",
+      "transform_note": "부모와 교사가 아이와 함께 살고 대화하며 행동으로 보여 줘야 한다는 구체 나열이 「일상에서의 상호 작용」이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

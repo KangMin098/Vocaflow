@@ -1,0 +1,249 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-TITLE",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2706#24",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "background",
+        "topic",
+        "example",
+        "example",
+        "example",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "1950년대 이전의 분리된 업계와 이후의 통합된 업계를 시기로 대조하고 호텔·항공 사례를 양쪽에 배치해, 두 시기를 한 제목 안의 변화로 묶어야 하게 만든다.",
+      "transform": "compression",
+      "transform_note": "개별 사업으로 흩어졌던 업계(첫 문장)와 통합 활동으로의 변화(4번)가 제목에서 ‘분리에서 결합으로’라는 짧은 대비 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#24",
+      "roles": [
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "topic",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        },
+        {
+          "index": 2,
+          "role": "turn"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "수도원이 세상과 떨어져 있으면서도 사회 전체를 위해 존재했다는 역설을 담은 글이라, 고립과 기여 두 면을 함께 담은 비유적 제목을 골라야 한다.",
+      "transform": "abstraction",
+      "transform_note": "세상과 격리된 삶이 공동체를 위한 속죄로 여겨졌다는 진술이 제목에서 ‘고독의 은총: 떨어져 있으나 이어진’이라는 비유적 역설로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#24",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "turn",
+        "topic",
+        "support",
+        "support",
+        "example",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "topic"
+        }
+      ],
+      "pattern": "narrative",
+      "selection": "수천 년의 실용적 관심을 먼저 깔고 18세기 후반에 음식이 생존 필수품 이상이 됐다는 전환을 식당·미식가 사례로 받쳐, 시간 순 변화의 핵심을 제목으로 잡게 만든다.",
+      "transform": "paraphrase",
+      "transform_note": "‘음식이 단순한 생존 필수품 이상이 됐다’는 진술이 제목에서 ‘필수품을 넘어: 음식 문화의 부상’으로 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#24",
+      "roles": [
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "topic",
+        "example",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "직선적 진보라는 통념을 부정한 뒤 80년간 사무실 설계가 돌고 돌았다는 관찰을 1940년대와 현재의 비교로 보여, 순환이라는 결론을 관용구 제목으로 알아봐야 한다.",
+      "transform": "abstraction",
+      "transform_note": "사무실 공간이 되풀이되는 순환을 보인다는 관찰이 제목에서 ‘돌고 도는 것’이라는 비유적 관용구로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#24",
+      "roles": [
+        "example",
+        "example",
+        "example",
+        "example",
+        "example",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "topic"
+        }
+      ],
+      "pattern": "narrative",
+      "selection": "동굴 벽화부터 이집트·그리스·로마를 거쳐 오늘의 논쟁까지 그림자 표현을 시간 순으로 따라가서, 특정 시대 하나가 아닌 전 과정을 담는 제목을 골라야 한다.",
+      "transform": "compression",
+      "transform_note": "선사 동굴에서 고대 아테네를 거쳐 이후 계속된 발전까지의 여러 문장이 제목에서 ‘동굴에서 시작된 그림자의 여정’ 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#24",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "웹 이전의 신문 기록과 온라인 기록 접근 이후를 대조해 수명 연장과 맥락 확장을 차례로 말하므로, 두 효과를 함께 담은 제목을 가려야 한다.",
+      "transform": "compression",
+      "transform_note": "기록 접근으로 저널리즘의 수명이 늘었다는 진술과 뉴스를 더 큰 맥락의 결과로 이해하게 됐다는 결론이 제목에서 ‘더 오래, 더 넓게’로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#24",
+      "roles": [
+        "background",
+        "example",
+        "example",
+        "example",
+        "background",
+        "topic",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "turn"
+        },
+        {
+          "index": 7,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "더 많이 더 빨리 이동할수록 번영한다는 초이동성 관념과 통계를 앞세운 뒤 Yet 으로 접근성 위기를 드러내, 그 관념을 의심하는 의문형 제목을 골라야 한다.",
+      "transform": "abstraction",
+      "transform_note": "이동이 늘어도 접근은 어려워지고 부작용이 생긴다는 반전이 제목에서 ‘초이동성이 늘 좋은가’라는 의문형으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2309#24",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "악보에서 벗어난 표현적 편차가 음악의 아름다움이라는 첫 주장을 시쇼어의 연구와 반복 연주의 가치로 풀어, 비평·치료 같은 소재 오답이 아닌 변주의 가치를 제목으로 잡게 만든다.",
+      "transform": "abstraction",
+      "transform_note": "같은 음을 똑같이 연주하지 않는 편차가 음악의 매력이라는 진술이 제목에서 ‘결코 같지 않다’는 압축된 표어와 변주의 가치로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2306#24",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "example",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "인간-기계 팀에서 지능이 상승 작용한다는 접근을 정의하고 자율주행·오락 로봇 예시와 설계 원칙으로 채워, 대결·갈등형 오답을 피하고 협력을 표어로 잡게 만든다.",
+      "transform": "abstraction",
+      "transform_note": "각 행위자의 기여로 지능이 상승 작용한다는 정의가 제목에서 ‘함께일 때 더 낫다’는 표어형 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2209#24",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "행정 서비스의 발달을 배경으로 깐 뒤 그것이 시민 참여를 밀어냈다는 결과와 그 파장을 이어 가서, 정부 역할 옹호 쪽 오답과 ‘서비스의 대가’를 가르게 만든다.",
+      "transform": "compression",
+      "transform_note": "서비스 발달(1번)과 그로 인한 시민 참여 대체(2·4번)가 제목에서 ‘정부 서비스의 대가인 시민 참여 감소’로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

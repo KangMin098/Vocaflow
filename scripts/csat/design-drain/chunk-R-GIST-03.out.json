@@ -1,0 +1,213 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-GIST",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2021#22",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "인터넷 이전과 이후의 비평 관행을 시간 순으로 대비한 뒤 thus 로 결과를 맺어, 변화의 원인과 결과를 연결해야 요지가 잡힌다.",
+      "transform": "paraphrase",
+      "transform_note": "비평이 여론을 이끌던 데서 여론을 반영하게 되었다는 마지막 문장이 비평이 대중의 영향을 받게 되었다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2020#22",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "양을 세려는 욕구가 문자의 동력이었다는 의외의 주장을 첫머리에 두고 거래 기록 사례로 뒷받침해, 놀라운 첫 문장을 요지로 받아들여야 한다.",
+      "transform": "abstraction",
+      "transform_note": "양을 세려는 욕구라는 구체 표현이 경제 활동이라는 상위 개념으로 올라가 문자 기록의 원동력이 되었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#22",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "정보가 독자적 가치를 지닌 상품이 되었다는 첫 문장을 경제학적 연구 범주로 넓힌 뒤 측정·가격의 대상이라고 재진술해 맺는 두괄·미괄 겸형이다.",
+      "transform": "paraphrase",
+      "transform_note": "정보 사회에서 정보가 고유 가치를 지닌 상품으로 등장했다는 0번이 독자적 상품 가치를 지닌다로 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2018#21",
+      "roles": [
+        "background",
+        "example",
+        "example",
+        "example",
+        "example",
+        "support",
+        "support",
+        "support",
+        "topic",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 9,
+          "role": "topic"
+        }
+      ],
+      "pattern": "narrative",
+      "selection": "공 던지기 훈련 일화를 길게 풀고 나서야 전달 방식에 관한 교훈이 나와, 일화에서 협업의 일반 원리를 끌어내야 한다.",
+      "transform": "negation_flip",
+      "transform_note": "받는 법보다 전달하는 법에 덜 신경 쓰면 위임에 실패한다는 부정 조건문이 전달 방식에도 능숙해야 한다는 긍정 당위로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2017#20",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "conclusion",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "topic"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "현재의 노력이 지속 불가능하다는 첫 문장을 빚과 상속의 비유로 이어 가, 비유를 걷어 내고 미래 세대를 고려하지 않는 남용이라는 요지를 잡게 한다.",
+      "transform": "compression",
+      "transform_note": "지속 불가능한 자원 과소비(0·1번)와 갚을 생각 없이 미래 세대에게서 빌린다는 3번이 미래 세대 고려 없는 남용이라는 한 문장으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2016#21",
+      "roles": [
+        "background",
+        "concession",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "support"
+        }
+      ],
+      "pattern": "study_implication",
+      "selection": "외적 보상의 부작용 연구들을 먼저 쌓고 마지막 문장에서 내적 동기 교수법을 결론으로 제시해, 연구 소개 뒤의 함의를 요지로 골라야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "문화가 다양한 학생들에게 내적 동기 이론에 기반한 교수법이 더 효과적이라는 마지막 문장이 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2015#18",
+      "roles": [
+        "background",
+        "support",
+        "example",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 7,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "승패를 가르는 것이 패배를 다루는 방식이라는 도입 뒤 빠른 회복의 중요성을 말하고 끝에서 다시 재진술해, 반복되는 핵심을 잡게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "빠르게 회복하는 능력이 중요하다는 3번과 이를 재진술한 7번이 실패를 빨리 극복하는 것이 성공의 열쇠라는 같은 수준의 말로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014B#23",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "turn",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "topic"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "남을 기쁘게 하려다 경계를 잃는 문제를 먼저 제시하고 but 으로 거절의 효과를 말한 뒤 명령문으로 맺어, 문제 다음의 해결을 요지로 읽어야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "거절을 두려워하지 말라는 마지막 명령문이 원하지 않는 일은 거절할 필요가 있다는 당위로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014A#24",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "turn",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "topic"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "남을 기쁘게 하려다 경계를 잃는 문제를 먼저 제시하고 but 으로 거절의 효과를 말한 뒤 명령문으로 맺어, 문제 다음의 해결을 요지로 읽어야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "거절을 두려워하지 말라는 마지막 명령문이 원하지 않는 일은 거절할 필요가 있다는 당위로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

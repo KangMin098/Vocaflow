@@ -1,0 +1,206 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-TITLE",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2021#24",
+      "roles": [
+        "topic",
+        "example",
+        "example",
+        "example",
+        "example",
+        "example",
+        "example",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "촉각이 공간뿐 아니라 시간에 기반한다는 주장을 손바닥 실험으로 증명하는 글이라, 실험 소재(손가락·물체)에 끌리지 않고 촉각의 시간성이라는 요지를 잡아야 한다.",
+      "transform": "abstraction",
+      "transform_note": "촉각이 공간만큼 시간에 기반한다는 첫 문장이 선지에서 「시간이 중요하다: 촉각의 숨은 본질」이라는 비유적 제목으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2020#24",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "study_implication",
+      "selection": "외래종 침입 문제를 도입한 뒤 다양성이 침입을 막는다는 가설과 그 기제를 설명하는 글이라, 다양성과 침입 저항의 관계를 제목에서 찾게 한다.",
+      "transform": "abstraction",
+      "transform_note": "다양성이 높을수록 침입이 어렵다는 가설과 그 기제들이 선지에서 「생태의 수호자」라는 비유를 곁들인 상위 표현으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#24",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "turn",
+        "topic",
+        "support",
+        "support",
+        "example",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "사람들이 손실 수치를 이해하고 행동한다는 가정을 뒤집어 큰 숫자가 감정을 일으키지 못한다는 연구를 소개하는 글이라, 대규모 비극에 둔감해지는 역설을 제목으로 잡아야 한다.",
+      "transform": "compression",
+      "transform_note": "큰 숫자가 의미를 잃는다는 진술과 대규모 비극을 막지 못한다는 역설이 선지의 「대규모 비극에 대한 무감각」 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2018#23",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "저작권 기간 연장의 경위와 수혜자를 짚은 뒤 저작권의 이중 목적에 비추어 연장이 창작을 막는다고 결론 내는 글이라, 연장이 정말 보호와 창작을 돕는지 묻는 제목을 고르게 한다.",
+      "transform": "abstraction",
+      "transform_note": "연장된 저작권 보호가 새 창작을 좌절시킨다는 결론이 선지에서 「연장이 정말 보호와 창작을 높이나」라는 의문형 제목으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2017#23",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "영화감독을 연극 연출가와 대비해 기록된 필름 조각으로 새 현실을 만든다고 설명하는 글이라, 감독이 현실을 다루는 방식을 제목에서 짚어야 한다.",
+      "transform": "abstraction",
+      "transform_note": "감독이 필름 조각을 뜻대로 조합해 시공간까지 순종시킨다는 설명이 선지에서 「감독의 손안에 있는 현실」이라는 비유로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2017#22",
+      "roles": [
+        "background",
+        "turn",
+        "support",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "꿀벌 신호의 정확성과 대비해 언어의 모호성이 오히려 새로운 이해를 낳는다는 글이라, 모호함을 장점으로 읽는 의문형 제목을 고르게 한다.",
+      "transform": "abstraction",
+      "transform_note": "언어의 본질적 모호성과 적응성이 다양한 이해를 만든다는 마지막 문장이 선지에서 「언어의 무엇이 다양한 이해를 만드나」라는 의문형으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2016#23",
+      "roles": [
+        "background",
+        "support",
+        "support",
+        "support",
+        "topic",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "problem_solution",
+      "selection": "생물학적 노화 속도가 사람마다 다르지만 측정이 어렵다는 문제를 제시하고 이를 비춰 줄 지표를 찾고 싶다는 글이라, 해법 탐색이라는 초점을 비유 제목에서 찾게 한다.",
+      "transform": "abstraction",
+      "transform_note": "모든 노화 변화를 반영할 측정 가능한 지표를 원한다는 문장이 선지에서 「생물학적 노화를 비추는 거울을 찾아서」라는 비유로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2015#23",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "example",
+        "example",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "위험 감수의 열쇠가 다음 한 걸음에 있다는 주장을 스키 타는 사람 사례로 대비해 보이는 글이라, 최종 결과와 다음 단계의 대비를 제목에서 잡아야 한다.",
+      "transform": "compression",
+      "transform_note": "다음 단계에 집중하라는 첫 문장과 최종 결과에 집중하는 실수를 지적한 문장이 선지에서 「최종 결과가 아닌 다음 단계」 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2015#22",
+      "roles": [
+        "background",
+        "support",
+        "turn",
+        "topic",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "도덕 원칙이 믿음을 넘어 행동과 감정을 이끄는 동기가 된다고 설명하는 글이라, 죄책감·존중 같은 세부에 끌리지 않고 행동 인도라는 요지를 잡아야 한다.",
+      "transform": "abstraction",
+      "transform_note": "원칙이 요구하는 행동으로 강하게 동기화되고 어긋나면 죄책감·비난이 따른다는 설명이 선지에서 「우리 행동을 이끄는 도덕 원칙」으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014B#25",
+      "roles": [
+        "background",
+        "support",
+        "topic",
+        "support",
+        "support",
+        "example",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "음 높이 A440 기준이 임의적이며 다른 기준을 쓰는 사례가 있음을 보이는 글이라, 기준이 꼭 440이어야 하는지 묻는 의문형 제목을 고르게 한다.",
+      "transform": "abstraction",
+      "transform_note": "A를 440에 고정한 것이 전적으로 임의적이라는 진술과 다른 조율 사례가 선지에서 「A는 늘 440으로 조율돼야 하나」라는 의문형으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

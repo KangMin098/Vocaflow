@@ -1,0 +1,250 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-CLAIM",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#20",
+      "roles": [
+        "concession",
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "topic"
+        },
+        {
+          "index": 2,
+          "role": "support"
+        },
+        {
+          "index": 3,
+          "role": "support"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "과학 비판의 정당성을 일부 인정한 뒤 대중 매체 속 과학자 이미지 문제의 원인을 짚고 해결책을 내는 글이라, 양보와 원인 분석 사이에서 당위 문장을 찾게 한다.",
+      "transform": "compression",
+      "transform_note": "과학 대중화에 과학자 이미지 개선이 필요하다는 문장과 과학자를 긍정적으로 그린 작품이 더 필요하다는 문장이 한 선지로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#20",
+      "roles": [
+        "background",
+        "example",
+        "example",
+        "topic",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "study_implication",
+      "selection": "직장 동료 효과와 졸업생 연구 두 가지를 소개한 뒤 대학이 할 일을 끌어내는 글이라, 연구 내용이 아니라 그 함의를 주장으로 잡아야 한다.",
+      "transform": "abstraction",
+      "transform_note": "학생에게 폭넓은 경험과 다양한 생각을 접하게 하라는 구체 처방이 「기업가 정신을 함양하도록 환경을 조성」이라는 상위 표현으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#20",
+      "roles": [
+        "background",
+        "example",
+        "example",
+        "example",
+        "topic",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "support"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "불만을 돌려서 표현하는 여러 방식을 나열한 뒤 그 방식이 쓸모없다는 판단만 내리는 글이라, 부정 판단에서 필자가 바라는 행동을 끌어내야 한다.",
+      "transform": "negation_flip",
+      "transform_note": "간접 표현이 상대에게 대응 단서를 주지 못해 소용없다는 부정 판단이 선지에서 「문제를 직접 언급해야 한다」는 긍정 당위로 뒤집혔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#20",
+      "roles": [
+        "background",
+        "topic",
+        "example",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "한 번의 노출로는 부족하다는 일반 진술 뒤 학습 순환과 다양한 매체 경험을 예로 드는 글이라, 첫 두 문장 중 선지와 맞는 당위를 골라야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "개념을 기억하려면 여러 번 다양한 맥락에서 경험해야 한다는 문장이 「다양한 방식으로 여러 번 접해야」로 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#20",
+      "roles": [
+        "background",
+        "background",
+        "concession",
+        "concession",
+        "support",
+        "topic",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "support"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "칭찬의 불편함을 비유로 드러내고 끊기 어려움을 인정한 뒤 다시 생각할 때라고 말하는 글이라, 직접적 명령 없이 필자의 권고를 읽어 내야 한다.",
+      "transform": "inference",
+      "transform_note": "칭찬이 아이보다 어른의 필요 때문이라면 행동을 재고하라는 문장과 칭찬의 반대인 무조건적 지지가 필요하다는 진술을 이어 「칭찬 습관을 그만두라」를 복원해야 한다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2026#20",
+      "roles": [
+        "background",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "문학 연구가 현대 작사가의 기여를 외면해 왔다는 문제 제기와 셰익스피어와의 대비를 거쳐 끝에서 인정의 당위를 내리는 글이라, 문제 진술과 당위를 구분하게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "작사가들의 언어 발전 기여가 문학 분야에서 인정받아야 한다는 끝 문장이 선지로 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2025#20",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "turn",
+        "topic",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "게임이 학습을 방해한다는 통념을 길게 제시한 뒤 전환하여 학습에 연결된 게임 개발을 주장하는 글이라, 통념 부분에 속지 않고 반박 후 당위를 잡아야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "학생에게 원하는 학습 성과와 연결된 게임을 개발하자는 문장이 「학습 효과 증진에 활용될 게임 개발」로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2024#20",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "concession",
+        "support",
+        "topic",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "가치만으로는 문화가 생기지 않는다는 일반 진술에서 시작해 행동의 공유, 시각적 표현, 스포츠 작전집 비유로 구체화하는 글이라, 여러 단계의 당위 중 선지와 맞물리는 것을 찾게 한다.",
+      "transform": "compression",
+      "transform_note": "행동을 조직 전체에 공유해야 한다는 문장과 구체 행동을 시각적으로 담은 지침서가 필요하다는 문장이 「행동 공유를 위한 명시적 지침」으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2023#20",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "turn"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "삶의 갈림길과 직관의 한계를 문제로 제시한 뒤 불확실성을 수치로 바꾸는 확률 분석을 해결책으로 내는 글이라, 문제와 해법을 구분하게 한다.",
+      "transform": "compression",
+      "transform_note": "불확실성을 수치로 바꾸는 방법이 유효하다는 문장과 모든 시나리오의 성패 비율을 따져 보라는 전략 문장이 「성공 가능성을 확률적으로 분석」으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2022#20",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "조직이 도구와 플랫폼에만 매달리는 흔한 실수를 먼저 짚고 실제 성공은 조직 목표 이해에서 시작한다고 반박하는 글이라, 실수 서술과 필자 주장을 가려야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "소셜 미디어 프로그램은 도구가 아니라 조직 자신의 목표 이해에서 출발한다는 문장이 「사업 목표를 토대로 해야」로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

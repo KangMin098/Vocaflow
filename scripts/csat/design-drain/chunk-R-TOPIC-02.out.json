@@ -1,0 +1,245 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-TOPIC",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#23",
+      "roles": [
+        "background",
+        "example",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "아이들의 놀이·이야기 몰입을 깔아 둔 뒤 ‘자라면 놀이를 버린다’는 통념을 뒤집고, 후반은 허구 속 감정 경험으로 옮겨 가서 끝부분 인상에 끌리지 않고 반박 지점을 주제로 잡아야 하는 글이다.",
+      "transform": "compression",
+      "transform_note": "통념 반박(놀이를 그만두지 않는다)과 대안(놀이의 바탕이 스포츠·소설·게임으로 바뀐다) 두 문장이 선지에서 ‘형태가 바뀐 놀이의 지속’이라는 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#23",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "support"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "서양 통념(창의성은 개인·천재의 것)을 세 문장에 걸쳐 제시한 뒤 ‘요령’ 문장에서 개인이 사회적 구성물이라고 뒤집어, 통념 부분과 반박 부분을 가려야 주제가 선다.",
+      "transform": "paraphrase",
+      "transform_note": "‘개인은 그 자체로 사회적 구성물임을 인식하라’는 진술이 선지에서 ‘개인성에 내재한 사회적 본성의 인식’으로 같은 수준에서 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#23",
+      "roles": [
+        "background",
+        "topic",
+        "example",
+        "example",
+        "example",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "study_implication",
+      "selection": "문제 틀 짓기의 정의와 그 중요성을 앞에 두고 뒤를 은유 실험(바이러스 대 야수)으로 채워, 실험 결과의 세부(예방·경찰력)에 끌리지 않고 앞쪽 일반 진술을 잡아야 하는 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "‘고른 틀이 문제 이해와 해결 접근을 좌우한다’는 진술이 선지에서 ‘문제 틀 짓기가 접근·해결에 미치는 영향’으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#23",
+      "roles": [
+        "background",
+        "example",
+        "topic",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "예절 교본의 역사와 책 이름을 앞세운 뒤 그 기능(안과 밖을 가르기)과 농민 배제로 좁혀 가서, 역사 소개가 아닌 예절의 사회적 기능을 주제로 잡게 만든다.",
+      "transform": "compression",
+      "transform_note": "교본이 참여자와 배척된 자를 가른다는 진술과 식사 예절이 사회적 장벽의 표지가 됐다는 결론이 선지에서 ‘계급 구별의 표지로서의 식탁 예절’로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#22",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "turn"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "통찰은 경험과 무관하다는 기존 견해를 네 문장 동안 펼친 뒤 역접 연결어로 실험 결과를 들어 뒤집어서, 전환 이후를 주제로 잡아야 하고 앞부분 견해가 오답(경험의 단점)의 미끼가 된다.",
+      "transform": "paraphrase",
+      "transform_note": "‘통찰은 사실 평범한 분석적 사고의 결과’라는 진술이 선지에서 ‘통찰을 얻는 데 분석적 사고가 갖는 의의’로 같은 수준에서 바뀌었다.",
+      "cues": [],
+      "data_defect": "DB 지문에서 감탄 표현(아하 경험)이 느낌표에서 분할기에 잘려 7번 문장이 ‘Experience.’ 한 낱말뿐이다."
+    },
+    {
+      "id": "2026#23",
+      "roles": [
+        "concession",
+        "support",
+        "support",
+        "turn",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "속도 중시가 맞는 예외 상황을 먼저 인정한 뒤 도로와 대중교통을 대조해 빈도의 가치를 끌어내므로, 속도·지도 같은 소재 낱말이 아닌 대조가 가리키는 핵심 가치를 골라야 한다.",
+      "transform": "negation_flip",
+      "transform_note": "‘빈도 없이는 속도가 무가치하다’는 부정형 진술이 선지에서 ‘빈도를 중시하는 것의 중요성’이라는 긍정형으로 뒤집혔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2025#23",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "topic"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "산업 시대가 시간·노동·자본의 관계를 바꿨다는 첫 문장을 기계·교대 근무 사례로 풀고 마지막에 수확 주기에서 시계 중심으로의 전환으로 맺어, 사례 세부가 아닌 패러다임 변화를 잡게 만든다.",
+      "transform": "paraphrase",
+      "transform_note": "‘산업 시대가 시간과 노동의 관계를 바꿨다’는 첫 진술이 선지에서 ‘산업화가 가져온 노동-시간 패러다임의 전환’으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2024#23",
+      "roles": [
+        "background",
+        "example",
+        "background",
+        "topic",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "turn"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "시장 유인이 벌목을 부추긴다는 현실을 먼저 보인 뒤 But 으로 비시장 가치가 목재 가치보다 클 수 있다고 뒤집어, 시장 가치 쪽 오답과 비시장 가치 쪽 정답을 가르게 만든다.",
+      "transform": "abstraction",
+      "transform_note": "생태계 서비스의 비시장 가치가 목재의 경제 가치를 넘을 수 있다는 진술이 선지에서 ‘비시장 가치를 따져 보는 일의 중요성’이라는 상위 판단으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2023#23",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "support",
+        "example",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "공개의 장점을 첫 문장에 두고 규제 의무(무딘 칼)와 정보 제공을 대조한 뒤 자동차·식당 사례로 채워, 사례의 소비자 상황이 아니라 공개가 지키는 선택의 자유를 잡아야 한다.",
+      "transform": "compression",
+      "transform_note": "공개의 유연성·시장 존중(첫 문장)과 정보 제공이 선택의 자유를 존중한다는 문장이 선지에서 ‘자유로운 선택을 보장하는 정보 공개의 이점’ 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2022#23",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "과학자는 패러다임을 믿기보다 쓴다는 첫 주장을 공유 요소·역할 설명·쿤 인용으로 뒷받침해, 믿음이나 신념 쪽 오답을 피하고 패러다임의 쓰임새를 주제로 잡아야 한다.",
+      "transform": "abstraction",
+      "transform_note": "‘패러다임을 믿지 않고 사용한다’와 그 역할(설명 없이도 연구를 가능하게 함)이 선지에서 ‘연구에서 패러다임의 기능적 측면’이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

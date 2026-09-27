@@ -1,0 +1,237 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-GIST",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#22",
+      "roles": [
+        "background",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "topic",
+        "concession",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 8,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "계획의 이점을 길게 나열한 뒤 끝에서 한계를 양보하고 however 로 되받는 구조라, 양보문에 끌리지 않고 효율·성공 가능성이라는 요지를 모아야 한다.",
+      "transform": "compression",
+      "transform_note": "자원을 효율적으로 쓰는 계획의 목표(6번)와 성공 확률을 높인다는 마지막 진술(8번)이 한 문장의 두 술어로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#22",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "음악의 문화적 역할을 여러 문장으로 쌓다가 마지막 문장에서야 아이들의 균형 잡힌 성장이라는 요지가 나와, 끝 문장을 요지로 잡아야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "편견이 생기기 전 음악으로 타인을 아는 기회가 책임 있는 시민으로의 균형 발달을 돕는다는 끝 문장이 사회·문화적으로 균형 잡힌 시민으로 성장한다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#22",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "첫 문장이 정의의 함의를 추상적으로만 던지고 뒤에서 좁은 정의와 넓은 정의의 결과를 대비하므로, 그 함의가 참여·건강이라는 점을 모아야 한다.",
+      "transform": "compression",
+      "transform_note": "좁은 정의는 참여 배제와 건강 악화를, 넓은 정의는 높은 활동률과 건강 이익을 낳는다는 1·3·4번이 참여와 건강에 영향이라는 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#22",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "support",
+        "concession",
+        "turn",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "support"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "데이터는 넘치지만 정보·지식이 부족하다는 문제를 however 로 드러낸 뒤 변환 능력을 과제로 제시해, 문제 제기 뒤의 해결 방향을 요지로 읽어야 한다.",
+      "transform": "compression",
+      "transform_note": "지식이 경쟁 우위의 자원이라는 1번과 원자료를 정보·지식으로 바꾸는 것이 최대 과제라는 7번이 기업 경쟁력의 원천으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#21",
+      "roles": [
+        "background",
+        "background",
+        "turn",
+        "background",
+        "support",
+        "support",
+        "topic",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "study_implication",
+      "selection": "하향 비교라는 통념을 먼저 보이고 우월한 비교 대상만 있을 때를 묻는 질문으로 전환해, 이론이 답하는 반영 과정을 요지로 찾게 만든다.",
+      "transform": "paraphrase",
+      "transform_note": "자기 정의와 무관한 영역에서 남의 성취와 연관 지어 스스로를 치켜세운다는 6번이 타인의 성취를 자신과 연결해 긍정적 자아상을 유지한다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2026#22",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "conclusion",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "support"
+        },
+        {
+          "index": 4,
+          "role": "support"
+        },
+        {
+          "index": 8,
+          "role": "topic"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "협력과 경쟁을 동시에 추구하는 개념을 정의로 길게 풀고 나서 둘 사이 균형이 필요하다는 판단을 중간에 두어, 정의부와 요지를 구분해야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "각 활동에 둘 강조의 양을 조심스럽게 맞춰야 한다는 5번이 협력과 경쟁 사이의 균형 잡힌 접근이 요구된다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2025#22",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "example",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "감정 이해 능력이 집단에서 특히 중요하다는 첫 문장을 소통·협력 두 갈래의 근거와 갈등 사례로 받치는 두괄식이라 요지 파악에 알맞다.",
+      "transform": "compression",
+      "transform_note": "집단 상황에서의 중요성(0번), 명확한 소통(1번), 협력(2번)이 원활한 소통과 협력을 촉진한다는 한 문장으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2024#22",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "turn",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "게시 동기를 설명한 뒤 대부분의 칭찬이 응답받지 못한다는 현실을 지적하고 놓친 기회라고 맺어, 부정적 진술을 당위로 뒤집어 읽어야 한다.",
+      "transform": "negation_flip",
+      "transform_note": "칭찬이 답을 받지 못해 팬층을 만들 기회를 잃는다는 4·5번의 부정 진술이 칭찬에 응답하는 것이 중요하다는 긍정 당위로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2023#22",
+      "roles": [
+        "background",
+        "topic",
+        "example",
+        "example",
+        "example",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "도시 배송 차량 이야기에서 자전거를 유력한 수단으로 좁힌 뒤 여러 나라 사례를 나열해, 사례들 위의 공통 주장을 잡게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "자전거가 혼잡 지역의 마지막 구간 운송 수단으로 선호될 잠재력이 있다는 1번이 도시에서 효율적 배송 수단으로 쓰일 수 있다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2022#22",
+      "roles": [
+        "background",
+        "support",
+        "topic",
+        "support",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "problem_solution",
+      "selection": "피하기 어려운 오염은 노출이 비자발적이라는 문제를 제시하고 곧바로 사회적 조치가 필요하다는 해결을 붙여, 문제와 해결을 묶어 읽어야 한다.",
+      "transform": "compression",
+      "transform_note": "개인이 피하기 어려운 오염(1번)과 사회적 조치가 필요하다(2번)는 두 문장이 한 문장의 조건과 결론으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

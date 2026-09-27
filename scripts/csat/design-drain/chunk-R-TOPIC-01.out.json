@@ -1,0 +1,219 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-TOPIC",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2706#23",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "크기와 시간 감각이 연관된다는 짧은 첫 문장을 작은 동물과 큰 동물의 대조로 풀어, 대조 양쪽을 아우르는 주제를 찾아야 한다.",
+      "transform": "compression",
+      "transform_note": "작은 동물의 빠른 반사·짧은 수명과 큰 동물의 느린 반사·학습 기회라는 대조 전체가 크기가 수명과 생존 기술에 갖는 의미라는 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#23",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "turn",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "전기 작가와 자서전 작가가 쓰는 증거를 대비하며 개인 기억의 위상이 갈리는 점을 보여, 두 글쓰기에 걸친 기억의 역할을 주제로 잡게 한다.",
+      "transform": "compression",
+      "transform_note": "전기 작가는 개인 기억을 드물게 쓰고 자서전 작가는 주된 원천으로 쓴다는 대비가 서로 다른 삶 쓰기에서의 개인 기억의 역할로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#23",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "support",
+        "turn",
+        "concession",
+        "concession",
+        "concession",
+        "topic",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "토론 중 필기가 어렵다는 이유들을 양보로 늘어놓고 but 으로 필기가 가능하고 중요하다고 뒤집어, 양보 뒤의 주장을 주제로 골라야 한다.",
+      "transform": "compression",
+      "transform_note": "필기가 가능하고 중요하다는 8번과 참여를 활발하게 한다는 9번이 토론 참여를 위한 필기의 중요성이라는 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#23",
+      "roles": [
+        "background",
+        "example",
+        "turn",
+        "topic",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "일식처럼 드문 현상과 낙하처럼 일상적 현상을 대비한 뒤 같은 원리로 묶어, 평범한 것에 대한 물음이 기이한 것을 설명한다는 주제를 끌어내게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "평범하고 익숙한 것을 이해하면 두렵고 특이한 것을 설명할 수 있다는 3번이 특이한 것을 이해하려면 평범한 것을 물어야 한다로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#23",
+      "roles": [
+        "background",
+        "support",
+        "example",
+        "topic",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "광고가 내세운 자연과 실제 자연의 괴리를 사회학자의 개념으로 설명한 뒤 낱말 뜻이 바뀌었다고 정리해, 현상 서술에서 언어 변화라는 주제를 잡게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "광고가 신선함·자연 같은 낱말에 전통과 반대되는 새 정의를 익히게 했다는 3번이 음식 광고와 연결된 낱말 의미의 변화로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#23",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "support",
+        "topic",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "청취자 규모가 가장 중요한 지표라는 전제에서 결과 연결어로 인과를 이어 가, 연쇄의 끝 결과를 주제로 읽어야 한다.",
+      "transform": "abstraction",
+      "transform_note": "인기곡 편성·위험 회피·좁은 재생 목록이라는 구체 결과가 대규모 청취자 확보 시도의 결과라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#23",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "박물관이 전시실을 수장고보다 앞세우는 압력이 있다는 첫 문장을 수익 압박과 수장고 방치로 풀어, 원인과 결과를 묶은 주제를 찾게 한다.",
+      "transform": "compression",
+      "transform_note": "수입 증대 압박 속 소비 가능한 공간 우선 예산(1·2번)과 수장고의 방치(4번)가 이윤 지향 운영의 결과라는 한 구로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2309#23",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "농부가 결과 정보를 실험처럼 관찰한다는 설명 뒤 but 으로 농장은 결함 있는 실험실이라고 뒤집어, 전환 뒤의 한계를 주제로 골라야 한다.",
+      "transform": "abstraction",
+      "transform_note": "통제 조건 불가·관찰 곤란·비교 정보 부족 같은 구체 제약이 경험적 관찰 활용의 한계라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2306#23",
+      "roles": [
+        "background",
+        "turn",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "문화마다 감정 어휘가 다르다는 연구를 먼저 인정하고 however 로 감정 자체는 보편적이라 뒤집되 해석·표현은 문화가 만든다고 정리해, 정답이 반박 뒤 남은 쪽을 가리킨다.",
+      "transform": "compression",
+      "transform_note": "감정의 해석·분류·명명이 문화마다 다르다는 2번과 감정과 자극·행동의 연결이 문화 속에서 학습된다는 4번이 문화적으로 구성된 감정 표상으로 합쳐졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2209#23",
+      "roles": [
+        "background",
+        "support",
+        "topic",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "기하 도형은 너무 완벽해 미적 경험을 못 준다는 칸트의 견해를 먼저 두고 반대 연결어로 제약되지 않은 형태를 대비해, 대조의 뒤쪽을 주제로 잡게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "측정할 수 없거나 제약되지 않은 형태가 상상력을 자극해 미적 경험을 일으킨다는 2번이 제약되지 않은 것에서 오는 미적 즐거움으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

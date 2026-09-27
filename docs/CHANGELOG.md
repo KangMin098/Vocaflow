@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **출제 설계 주석 v1.3 대량 적재**(2026-09-28 · migration 0 · jsonb `answer_locus.passage_design` +193 → 391문항): 필자 주장 · 요지 · 주제 · 제목 · 함축 의미 · 문장 삽입 20청크. 재실행 쓸 것 0. 무관한 문장 · 요약문 6청크는 문장 분할 결함(①–⑤ 뒤 미분할 · 요약문·선지 머리글이 지문에 섞임)으로 `hold/` 보류 — [결함 목록](./csat-learner/design-drain-defects.md).
 - **평가원 영어 기출 원천 전수 조사**(2026-09-28 · DB 쓰기 0): 수능·평가원 모의평가 802문항을 본문 해시 기준 713개 고유 지문으로 묶어 검색·대조했다. 원문 직접 확인 26 · 서지 유력 후보 22 · 소재 계보만 1 · 미확인 664. 재현용 `scripts/csat/source-origin-*`와 본문을 제외한 [감사 보고서](./reports/csat-source-origin-audit-20260928.md)·713행 JSONL을 추가했고, 검색 작업물은 저장소에서 제외했다.
 - **단어장 교재 표지 — 시중 교재 문법 조판**(2026-09-27 · migration 0 · jsonb 키 `cover_image_meta.trade` 55행): `tradeCoverSvg`(152×225 · 틀 5 · 목적 series/brand/standalone) + `scripts/vcb/trade-covers` export → 아트 디렉션 → 미리보기 → import. 선반·카드가 `VocabTradeCover` 로 최우선 표시(에디션 도판은 폴백). 시리즈 5 · 브랜드 2 · 단행본 6권.
 - **Claude ↔ Codex 왕복 안전장치**(2026-09-26 · migration 0): 세션 시작 훅이 워크트리의 `agents/scripts` · `.codex` · `.claude/settings.json` 이 origin/main 보다 뒤면 「[안전장치 낡음]」 경고(실측 워크트리 13/15 가 옛 가드 — Codex 에서 파괴 명령 미차단) · `check.mjs` D10 마이그레이션 새 버전 중복 0(기존 17개 기준선 — 두 에이전트가 같은 날 `20260926120000` 을 만들었다) · AGENTS.md 규칙 4줄 · `agents/router.md` §5 「왔다 갔다 할 때」. 회귀 102/102.

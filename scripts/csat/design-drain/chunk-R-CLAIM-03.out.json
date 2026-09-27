@@ -1,0 +1,137 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-CLAIM",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2021#20",
+      "roles": [
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "background"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "전문성의 비용, 영역 한정성, 시간 부족을 차례로 근거로 쌓은 뒤 끝에서 어디에 전문성을 모을지 결론 내는 글이라, 근거의 누적에서 당위를 끌어내게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "삶에 흔하거나 중요하고 즐겨 배우는 영역에 전문성을 집중하라는 끝 문장이 「자신에게 의미 있는 영역을 정해 전문성을 키워야」로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2020#20",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "background"
+        },
+        {
+          "index": 3,
+          "role": "background"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "어른이 놀이를 가로막는 걱정과 규범의 내면화를 길게 설명한 뒤 맨 끝에서 스스로 허락하라고 권하는 글이라, 문제 서술 끝의 짧은 당위를 찾게 한다.",
+      "transform": "compression",
+      "transform_note": "규범이 놀이를 억누른다는 앞부분 설명과 즉흥·흉내를 스스로 허락하라는 끝 문장이 합쳐져 「규범에 얽매이지 말고 자유롭게 놀이를 즐겨야」가 됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#20",
+      "roles": [
+        "background",
+        "support",
+        "example",
+        "example",
+        "example",
+        "topic",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "turn"
+        },
+        {
+          "index": 6,
+          "role": "support"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "적의 개념이 전쟁의 본질이라는 논의를 인용으로 쌓은 뒤 전환으로 그것을 추상적·획일적으로 보지 말라고 경계하는 글이라, 인용 부분이 아니라 전환 뒤를 주장으로 잡아야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "전쟁과 적의 이미지를 추상적이고 획일적으로 생각하는 것을 조심해야 한다는 문장이 선지에서 같은 수준으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2018#20",
+      "roles": [
+        "example",
+        "example",
+        "example",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "유명 인사의 발언을 인용해 시작한 뒤 편안한 영역을 벗어나 자신에게 도전하라는 당위를 반복해 펼치는 글이라, 여러 당위 중 가장 포괄적인 것을 고르게 한다.",
+      "transform": "abstraction",
+      "transform_note": "익숙한 영역을 벗어나고 자신의 내적 현상 유지에 도전하라는 여러 당위가 「현재의 자신을 넘어서는 도전」이라는 상위 표현으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2016#20",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "example",
+        "topic"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "topic"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "상담사는 늘 동조한다는 통념적 이미지를 제시한 뒤 차별적 농담 사례로 단호함의 필요를 보이는 글이라, 통념과 필자 주장을 구분하게 한다.",
+      "transform": "abstraction",
+      "transform_note": "단호함이 상담사의 기법 목록에 잘 어울리는 고도의 기술이라는 끝 문장이 「자기 생각을 분명히 드러낼 줄도 알아야」라는 당위로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}
