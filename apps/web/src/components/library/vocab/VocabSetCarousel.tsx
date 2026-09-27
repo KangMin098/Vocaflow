@@ -36,6 +36,19 @@ import { categoryImportance, VOCAB_CATEGORIES, type VocabCategoryId } from './ca
 
 /** 선반 한 판에 서는 권 수 */
 const SHELF_SIZE = 5
+/** 선반 줄마다 권 수 — 참조(Editions)는 위 4 · 아래 5 로 엇갈린다. 짝이 맞지 않으면 벽이 격자로 읽힌다. */
+const ROW_PATTERN = [4, SHELF_SIZE] as const
+
+/** 권 번호들을 줄로 나눈다(4 · 5 · 4 · 5 …). */
+function shelfRows(n: number): number[][] {
+  const rows: number[][] = []
+  for (let i = 0, k = 0; i < n; k++) {
+    const size = ROW_PATTERN[k % ROW_PATTERN.length] ?? SHELF_SIZE
+    rows.push(Array.from({ length: Math.min(size, n - i) }, (_, j) => i + j))
+    i += size
+  }
+  return rows
+}
 
 /**
  * 유형 색은 `lib/library/book-cover` 의 `categoryIdentity` 한 곳에서 온다.
@@ -140,11 +153,21 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
 
   // 선반 키보드 — 창 전체의 화살표를 가로채지 않는다(본문 스크롤·다른 입력을 빼앗던 종전 전역 리스너를 걷었다).
   function onShelfKey(e: React.KeyboardEvent) {
+    // ↑/↓ — 줄 길이가 달라(4·5) 번호 차가 일정하지 않다. 가운데 정렬 기준으로 **보이는 위치가 가장 가까운** 권으로 간다.
+    const rows = shelfRows(items.length)
+    const ri = rows.findIndex((row) => row.includes(active))
+    const vertical = (dir: -1 | 1) => {
+      const from = rows[ri]
+      const to = rows[ri + dir]
+      if (!from || !to) return active
+      const col = from.indexOf(active) + (to.length - from.length) / 2
+      return to[Math.max(0, Math.min(to.length - 1, Math.round(col)))] ?? active
+    }
     const move: Record<string, number> = {
       ArrowLeft: active - 1,
       ArrowRight: active + 1,
-      ArrowUp: active - SHELF_SIZE,
-      ArrowDown: active + SHELF_SIZE,
+      ArrowUp: vertical(-1),
+      ArrowDown: vertical(1),
       Home: 0,
       End: last,
     }
@@ -296,7 +319,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
           onKeyDown={onShelfKey}
           className="relative mx-auto flex max-w-[1240px] flex-col gap-[60px] px-[120px] pb-[120px] pt-[110px]"
         >
-          {Array.from({ length: Math.ceil(items.length / SHELF_SIZE) }, (_, row) => (
+          {shelfRows(items.length).map((rowIdx, row) => (
             <div key={row} className="relative">
               {/* 선반 뒤 조명 — 흰 타원이 벽에 번진다(참조: 선반 위 벽이 화면에서 가장 밝다) */}
               <div
@@ -304,15 +327,16 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
                 className="pointer-events-none absolute -inset-x-[140px] -top-[90px] bottom-[-30px] bg-[radial-gradient(52%_62%_at_50%_70%,#ffffff_0%,rgba(255,255,255,0.97)_38%,rgba(255,255,255,0.45)_68%,rgba(255,255,255,0)_100%)]"
               />
               {/* 책 줄 — 밑면이 선반 윗면 안쪽에 앉도록 윗면 깊이만큼 내린다(-mb). 참조처럼 권마다 방향이 조금씩 다르다. */}
-              <div className="relative z-10 -mb-[13px] flex items-end justify-center gap-[34px]" style={{ perspective: '1400px' }}>
-                {items.slice(row * SHELF_SIZE, row * SHELF_SIZE + SHELF_SIZE).map((set, i) => {
-                  const idx = row * SHELF_SIZE + i
+              <div className="relative z-10 -mb-[13px] flex items-end justify-center gap-[34px]" style={{ perspective: '1200px', perspectiveOrigin: '50% -30%' }}>
+                {rowIdx.map((idx) => {
+                  const set = items[idx]
+                  if (!set) return null
                   return (
                     <EditionCover
                       key={set.id}
                       ref={(el) => { coverRefs.current[idx] = el }}
                       set={set}
-                      lean={4 + ((idx * 7) % 3)}
+                      lean={9 + ((idx * 7) % 4)}
                       yaw={((idx * 37) % 9) - 4}
                       isActive={idx === active}
                       isLoggedIn={isLoggedIn}
@@ -335,7 +359,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
                   className="h-[34px] bg-gradient-to-b from-[#dedbd6] via-[#efedea] to-[#fbfbfa]"
                   style={{ transform: 'rotateX(64deg)', transformOrigin: '50% 100%', marginTop: '-20px' }}
                 />
-                <div className="relative h-[12px] rounded-b-[2px] bg-gradient-to-b from-white via-[#f7f7f6] to-[#e4e3e1] shadow-[inset_0_1px_0_#ffffff,0_2px_3px_rgba(0,0,0,0.22),0_26px_36px_-10px_rgba(0,0,0,0.30),0_60px_80px_-20px_rgba(0,0,0,0.16)]" />
+                <div className="relative h-[14px] rounded-b-[2px] bg-gradient-to-b from-white via-[#f7f7f6] to-[#e4e3e1] shadow-[inset_0_1px_0_#ffffff,0_2px_3px_rgba(0,0,0,0.22),0_26px_36px_-10px_rgba(0,0,0,0.30),0_60px_80px_-20px_rgba(0,0,0,0.16)]" />
               </div>
             </div>
           ))}
@@ -410,9 +434,10 @@ const EditionCover = forwardRef<
     onOpen: () => void
   }
 >(function EditionCover({ set, lean, yaw, isActive, isLoggedIn, onToggle, isSubscribed, isPending, onPoint, onOpen }, ref) {
-  const [hot, setHot] = useState(false)
+  // ⚠️ 「가리킴」 은 상태로 들고 있지 않는다 — CSS :hover · :focus-within 이 정한다.
+  //   JS 로 pointerenter/leave 를 따라가던 동안, 탭 전환·스크롤로 책이 커서 밑으로 **움직여 들어오면** leave 가 오지 않아
+  //   두 권이 당겨진 채 남았다(2026-09-27 실측 2권). JS 는 기울기 각도(변수)만 넘긴다 — 남아도 해가 없다.
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
-  const [moving, setMoving] = useState(false)
   const ed = set.coverImageMeta?.edition
   // 교재 표지가 최우선(시중 교재 문법 · 152×225). 없으면 에디션 도판 → 종전 표지.
   const trade = set.coverImageMeta?.trade ?? null
@@ -420,42 +445,37 @@ const EditionCover = forwardRef<
   function onMove(e: React.PointerEvent<HTMLDivElement>) {
     const r = e.currentTarget.getBoundingClientRect()
     setTilt({ x: (e.clientX - r.left) / r.width - 0.5, y: (e.clientY - r.top) / r.height - 0.5 })
-    setMoving(true)
   }
 
   // 쉴 때: 뒤로 기대고(lean) 좌우로 조금 튼(yaw) 자세. 가리키면: 똑바로 서며 앞으로 당겨지고 포인터 쪽으로 기운다.
-  const transform = hot
-    ? `translate3d(0,-12px,60px) rotateX(${(lean * 0.25 - tilt.y * 10).toFixed(2)}deg) rotateY(${(tilt.x * 14).toFixed(2)}deg) scale(1.05)`
-    : `rotateX(${lean}deg) rotateY(${yaw}deg)`
+  const poseVars = {
+    '--rest': `rotateX(${lean}deg) rotateY(${yaw}deg)`,
+    '--hx': `${(lean * 0.25 - tilt.y * 10).toFixed(2)}deg`,
+    '--hy': `${(tilt.x * 14).toFixed(2)}deg`,
+  } as React.CSSProperties
   const pill =
-    'pointer-events-auto inline-flex min-h-[44px] items-center gap-1.5 rounded-full bg-white/25 px-4 text-[14px] font-[600] text-white backdrop-blur-md transition-colors hover:bg-white/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
+    'pointer-events-auto inline-flex min-h-[44px] items-center gap-1.5 rounded-full bg-black/45 px-4 text-[14px] font-[600] text-white backdrop-blur-md transition-colors hover:bg-black/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
 
   return (
     <div
-      onPointerEnter={() => { setHot(true); onPoint() }}
-      onPointerLeave={() => { setHot(false); setMoving(false); setTilt({ x: 0, y: 0 }) }}
+      onPointerEnter={onPoint}
+      onPointerLeave={() => setTilt({ x: 0, y: 0 })}
       onPointerMove={onMove}
-      // 틀 안(표지 · 알약 버튼) 어디에 포커스가 있어도 앞으로 당겨진 채 — 알약으로 Tab 해도 내려앉지 않는다.
-      onFocus={() => { setHot(true); onPoint() }}
-      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) { setHot(false); setTilt({ x: 0, y: 0 }) } }}
-      className="relative w-[196px] shrink-0 motion-reduce:![transform:none]"
+      // 틀 안(표지 · 알약 버튼) 어디에 포커스가 있어도 :focus-within 으로 당겨진 채 — 알약으로 Tab 해도 내려앉지 않는다.
+      onFocus={onPoint}
+      className="group relative z-[1] w-[196px] shrink-0 [transform:var(--rest)] [transition:transform_420ms_cubic-bezier(0.22,1,0.36,1)] focus-within:z-[5] focus-within:[transform:translate3d(0,-12px,60px)_rotateX(var(--hx))_rotateY(var(--hy))_scale(1.05)] hover:z-[5] hover:[transform:translate3d(0,-12px,60px)_rotateX(var(--hx))_rotateY(var(--hy))_scale(1.05)] motion-reduce:![transform:none]"
       style={{
+        ...poseVars,
         aspectRatio: trade ? TRADE_RATIO : '1 / 1',
-        transform,
         transformOrigin: '50% 100%',
         transformStyle: 'preserve-3d',
-        transition: `transform ${moving ? 140 : 560}ms cubic-bezier(0.22, 1, 0.36, 1), filter 560ms cubic-bezier(0.22, 1, 0.36, 1)`,
-        // 벽에 드리우는 그림자 — 빛이 앞 위에서 오므로 아래·뒤로 번진다. 당겨지면 벽에서 멀어져 더 넓고 옅다.
-        filter: hot
-          ? 'drop-shadow(0 30px 26px rgba(0,0,0,0.30)) drop-shadow(0 6px 8px rgba(0,0,0,0.16))'
-          : 'drop-shadow(8px 16px 14px rgba(0,0,0,0.26)) drop-shadow(0 2px 3px rgba(0,0,0,0.18))',
-        zIndex: hot ? 5 : 1,
+        // ⚠️ filter 를 쓰지 않는다 — drop-shadow 는 preserve-3d 를 평평하게 눌러 책 옆면(두께)이 사라졌다. 그림자는 표지 버튼의 box-shadow.
       }}
     >
-      {/* 책 두께 — 오른쪽 옆면(종이 단면). 표지와 같은 3D 공간에서 90° 돌려 세운다. */}
+      {/* 책 두께 — 오른쪽 옆면(종이 단면). 표지와 같은 3D 공간에서 90° 돌려 세운다(참조 표지 오른쪽의 흰 단면). */}
       <span
         aria-hidden
-        className="absolute right-0 top-0 h-full w-[9px] bg-[repeating-linear-gradient(90deg,#f4f1ea_0_1px,#dcd7cc_1px_2px)]"
+        className="absolute right-0 top-0 h-full w-[12px] bg-[repeating-linear-gradient(90deg,#f7f5f0_0_1px,#dedad1_1px_2px)]"
         style={{ transform: 'rotateY(90deg)', transformOrigin: '100% 50%' }}
       />
     <button
@@ -465,7 +485,8 @@ const EditionCover = forwardRef<
       tabIndex={isActive ? 0 : -1}
       aria-label={`${set.title} · ${set.wordCount.toLocaleString()} 단어${isSubscribed ? ' · 추가됨' : ''} — 상세 열기`}
       onClick={onOpen}
-      className="absolute inset-0 block rounded-[2px] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[6px] focus-visible:outline-black"
+      // 참조 표지는 벽에 거의 붙어 있어 그림자가 옅다 — 짧고 부드럽게. 당겨지면(hover · focus-within) 벽에서 떨어져 넓어진다.
+      className="absolute inset-0 block rounded-[2px] shadow-[4px_8px_14px_-6px_rgba(0,0,0,0.22),0_1px_2px_rgba(0,0,0,0.12)] outline-none transition-shadow duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[6px] focus-visible:outline-black group-focus-within:shadow-[0_28px_36px_-12px_rgba(0,0,0,0.34),0_6px_10px_rgba(0,0,0,0.14)] group-hover:shadow-[0_28px_36px_-12px_rgba(0,0,0,0.34),0_6px_10px_rgba(0,0,0,0.14)]"
     >
       <span className="absolute inset-0 overflow-hidden rounded-[2px] bg-[#1d1d1f]">
         {trade ? (
@@ -499,9 +520,8 @@ const EditionCover = forwardRef<
         {/* 빛 — 포인터를 따라 표면에 번진다(참조 표지의 광택). 모션 감소에서도 남는다(페이드). */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 transition-opacity duration-500"
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-focus-within:opacity-100 group-hover:opacity-100"
           style={{
-            opacity: hot ? 1 : 0,
             background: `radial-gradient(60% 60% at ${50 + tilt.x * 100}% ${50 + tilt.y * 100}%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 60%)`,
             mixBlendMode: 'soft-light',
           }}
@@ -526,8 +546,7 @@ const EditionCover = forwardRef<
         지금 권(isActive)일 때만 탭 순서에 든다 — 표지 → 상세 → 담기 순.
       */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center gap-2 transition-opacity duration-300"
-        style={{ opacity: hot ? 1 : 0 }}
+        className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center gap-2 opacity-0 transition-opacity duration-300 group-focus-within:opacity-100 group-hover:opacity-100"
       >
         <button type="button" tabIndex={isActive ? 0 : -1} onClick={onOpen} className={pill} aria-label={`${set.title} 상세`}>
           <Eye size={14} aria-hidden /> 상세
