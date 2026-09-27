@@ -24,6 +24,7 @@ import { resolve } from 'node:path'
 import { createRequire } from 'node:module'
 import { createClient } from '@supabase/supabase-js'
 import { processText } from '@vocaflow/wlp'
+import { schoolYearOf } from './lib-exam-id.mjs'
 
 for (const line of readFileSync(resolve('apps/web/.env.local'), 'utf8').split(/\r?\n/)) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -106,7 +107,11 @@ function byVocab(text: string): { level: Cefr; hitRate: number } {
   return { level: 'C2', hitRate: known / Math.max(1, seen) }
 }
 
-const yearOf = (examId: string) => (/^M(\d{2})\d{2}$/.exec(examId)?.[1] ? `20${/^M(\d{2})/.exec(examId)![1]}` : examId)
+// 학년도 표기. 회차 id 문법은 `lib-exam-id.mjs` 한곳이 읽는다
+const yearOf = (examId: string) => {
+  const y: number = schoolYearOf(examId)
+  return Number.isNaN(y) ? examId : String(y)
+}
 
 const byType = new Map<string, Record<string, number>>()
 const byYear = new Map<string, Record<string, number>>()

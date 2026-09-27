@@ -17,6 +17,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, setBlockFor, passageOf, choicesOf, INLINE_SYMBOL_TYPES } from './lib-passage.mjs'
+import { examMetaOf, listeningEndOf } from './lib-exam-id.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
 const read = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))
@@ -65,19 +66,13 @@ if (fs.existsSync(kicePath)) {
  * '독해' 로 들어와 분석 사정권을 오염시킨다 — 실측으로 걸렸다(지문 길이 5~24자).
  */
 function listeningEnd(exam) {
-  return exam.startsWith('2014') ? 22 : 17
+  return listeningEndOf(exam)
 }
 
 /** 회차 성격 — 수능인가 모평인가, 몇 학년도 몇 월인가 */
 function examMeta(exam) {
-  if (exam.startsWith('M')) {
-    const yy = exam.slice(1, 3)
-    const mm = exam.slice(3, 5)
-    return { kind: 'mock', year: 2000 + Number(yy), month: Number(mm), label: `20${yy}학년도 ${Number(mm)}월 모의평가` }
-  }
-  const year = Number(exam.slice(0, 4))
-  const form = exam.length > 4 ? exam.slice(4) : null
-  return { kind: 'suneung', year, month: 11, form, label: `${year}학년도 수능${form ? ` ${form}형` : ''}` }
+  // 회차 id 문법은 `lib-exam-id.mjs` 한곳이 읽는다(학평 `H2503G1` 포함)
+  return examMetaOf(exam)
 }
 
 /**

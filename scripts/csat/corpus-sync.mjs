@@ -26,6 +26,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
+import { listeningEndOf, parseExamId } from './lib-exam-id.mjs'
 
 const COMMIT = process.argv.includes('--commit')
 const PRUNE_LISTENING = process.argv.includes('--prune-listening')
@@ -81,8 +82,8 @@ for (const it of corpus.items) {
     kind: it.exam_kind,
     year: it.year,
     month: it.month,
-    form: it.exam.length > 4 && !it.exam.startsWith('M') ? it.exam.slice(4) : null,
-    listening_end: it.exam.startsWith('2014') ? 22 : 17,
+    form: parseExamId(it.exam)?.form ?? null,
+    listening_end: listeningEndOf(it.exam),
     item_count: 0,
     has_answer_key: false,
     source_note: null,

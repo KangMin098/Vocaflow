@@ -18,6 +18,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { pagedSelect } from '@/lib/supabase/paged-select'
 import { createClient } from '@/lib/supabase/server'
+import { schoolYearOf } from './exam-id'
 
 /** 한 칸 — (연도 × 유형). */
 export interface HeatCell {
@@ -59,8 +60,7 @@ export const RECENT_FROM = 2023
  * `learner.ts` 의 같은 함수와 **규칙이 같아야 한다** — 갈리면 두 화면이 다른 해를 말한다.
  */
 export function yearOf(examId: string): number {
-  if (examId.startsWith('M')) return 2000 + Number(examId.slice(1, 3))
-  return Number(examId.slice(0, 4))
+  return schoolYearOf(examId)
 }
 
 export interface HeatInput {

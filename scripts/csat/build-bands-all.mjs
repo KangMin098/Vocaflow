@@ -21,6 +21,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, setBlockFor, passageOf, allRows } from './lib-passage.mjs'
 import { cleanPassage, looksInterleaved } from './clean-passage.mjs'
+import { isSuneung } from './lib-exam-id.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
 const W = (s) => (s.match(/[A-Za-z][A-Za-z'-]*/g) ?? [])
@@ -76,7 +77,7 @@ function listeningSamples() {
     //    수능 7회차 → 수능 7 + 모평 9 로 늘었는데, 그때 모평이 걸러진 이유는 규칙이 아니라
     //    `classified.json` 에 모평 듣기 행이 없다는 **우연**이었다. 행이 생기는 날 대역이
     //    소리 없이 바뀌므로 여기서 못을 박는다 — 모평을 넣으려면 `rule` 을 함께 고칠 것.
-    if (it.exam.startsWith('M')) continue
+    if (!isSuneung(it.exam)) continue
     const t = typeOf.get(`${it.exam}#${it.no}`)
     if (!t) continue
     const text = (it.turns ?? []).map((x) => x.text).join(' ').replace(/\s+/g, ' ').trim()

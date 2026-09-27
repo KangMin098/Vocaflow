@@ -12,6 +12,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createClient } from '@/lib/supabase/server'
+import { schoolYearOf } from './exam-id'
 import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
 
 /**
@@ -101,10 +102,8 @@ export function capQuoteWords(quote: string | null, cap = QUOTE_WORD_CAP): strin
   return `${words.slice(0, cap).join(' ')} …`
 }
 
-function yearOf(examId: string): number {
-  if (examId.startsWith('M')) return 2000 + Number(examId.slice(1, 3))
-  return Number(examId.slice(0, 4))
-}
+/** 학년도 — 회차 id 문법은 `exam-id.ts` 한곳이 읽는다 */
+const yearOf = schoolYearOf
 
 /**
  * 유형 카드 목록.

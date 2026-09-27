@@ -14,6 +14,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createCsatClient, selectAllPages } from './client'
+import { schoolYearOf } from './exam-id'
 import { detectTypeReportMeta } from './evidence-fold'
 import {
   foldTrapFamilies,
@@ -32,10 +33,8 @@ export type {
   CsatGuideVocab,
 } from './guide-fold'
 
-function yearOf(examId: string): number {
-  if (examId.startsWith('M')) return 2000 + Number(examId.slice(1, 3))
-  return Number(examId.slice(0, 4))
-}
+/** 학년도 — 회차 id 문법은 `exam-id.ts` 한곳이 읽는다 */
+const yearOf = schoolYearOf
 
 /** 최근 4개년 기준 — 학습자 화면(`learner.ts`)과 같은 값을 쓴다. 갈라지면 같은 유형이 두 비중을 갖는다 */
 const RECENT_FROM = 2023
