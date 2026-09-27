@@ -1,0 +1,27 @@
+[
+  {
+    "id": "fedd8d91-9625-4298-9a47-a25d3fc649ad",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1e046cbca4c86b49b8566c3014563400479ecdf23226cec568d7d8eca011d800",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "전문이 교사용 수업 절차(학생에게 회상시키라·소그룹으로 Document 1을 분석하라·논지문을 쓰게 하라)이고 분석할 편지 본문은 없어, 떼어 낼 만한 것은 보스턴 포위 사실 두 문장뿐이라 논지·사건 흐름이 서는 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Students should recall that, in the",
+      "note": "「Students should recall that」을 걷으면 보스턴 포위 단락은 앞 문맥 없이 시작하지만 사실 두 문장(기간·영국군 점령·긴장)에 그쳐 논지나 사건 연결이 없고, 나머지 단락은 모두 없는 문서 묶음을 가리키는 교수 절차라 가공할 본문이 없다."
+    }
+  }
+]
