@@ -14,6 +14,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
+import { isKiceExam } from './lib-exam-id.mjs'
 
 for (const f of ['apps/web/.env.local', '.env.local']) {
   try {
@@ -28,8 +29,14 @@ for (const f of ['apps/web/.env.local', '.env.local']) {
 const COMMIT = process.argv.includes('--commit')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 
-const { data: items, error: e1 } = await db.from('csat_items').select('id, type_id')
-if (e1) throw new Error(e1.message)
+// 페이지로 읽는다 — 학평 문항이 들어와 1,000행을 넘는다(한 번에 읽으면 조용히 잘린다)
+const items = []
+for (let from = 0; ; from += 1000) {
+  const { data, error } = await db.from('csat_items').select('id, type_id').order('id').range(from, from + 999)
+  if (error) throw new Error(error.message)
+  items.push(...data)
+  if (data.length < 1000) break
+}
 const analyzed = new Set()
 for (let from = 0; ; from += 1000) {
   const { data, error } = await db.from('csat_item_analyses').select('item_id').eq('status', 'published').range(from, from + 999)
@@ -38,8 +45,9 @@ for (let from = 0; ; from += 1000) {
   if (data.length < 1000) break
 }
 const byType = new Map()
+// 유형 리포트는 평가원 집합의 것이다 — 학평(보조 집합) 문항은 세지 않는다
 for (const it of items) {
-  if (!analyzed.has(it.id)) continue
+  if (!isKiceExam(it.id) || !analyzed.has(it.id)) continue
   if (!byType.has(it.type_id)) byType.set(it.type_id, [])
   byType.get(it.type_id).push(it.id)
 }
