@@ -26,12 +26,22 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
-import { listeningEndOf, parseExamId } from './lib-exam-id.mjs'
+import { examMetaOf, isKiceExam, listeningEndOf, parseExamId } from './lib-exam-id.mjs'
 
 const COMMIT = process.argv.includes('--commit')
 const PRUNE_LISTENING = process.argv.includes('--prune-listening')
 const PRUNE_STALE = process.argv.includes('--prune-stale')
 const DIR = path.resolve('scripts/csat/data')
+
+/**
+ * **어느 집합을 올리나** — `kice`(기본, corpus.json) | `hakpyeong`(corpus-hakpyeong.json).
+ * 집합이 다르면 **서로의 행을 보지 않는다**: 잔여 문항 비교·삭제는 같은 집합 안에서만 하고,
+ * 유형의 현행/폐지 상태는 평가원 원장만 정한다(학평은 없는 유형만 더한다).
+ * 이걸 안 가르면 학평을 올리는 순간 평가원 802문항이 «코퍼스에 없는 문항» 이 된다.
+ */
+const SET = process.argv.includes('--set') ? process.argv[process.argv.indexOf('--set') + 1] : 'kice'
+if (!['kice', 'hakpyeong'].includes(SET)) throw new Error(`--set 은 kice | hakpyeong: ${SET}`)
+const inSet = (id) => (SET === 'kice' ? isKiceExam(id) : !isKiceExam(id))
 
 function env(name) {
   if (process.env[name]) return process.env[name]
@@ -48,7 +58,8 @@ const KEY = env('SUPABASE_SERVICE_ROLE_KEY') ?? env('SUPABASE_SERVICE_KEY')
 if (!URL || !KEY) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 를 못 찾았다 (.env.local 확인)')
 const db = createClient(URL, KEY, { auth: { persistSession: false } })
 
-const corpus = JSON.parse(fs.readFileSync(path.join(DIR, 'corpus.json'), 'utf8'))
+const corpus = JSON.parse(fs.readFileSync(path.join(DIR, SET === 'kice' ? 'corpus.json' : 'corpus-hakpyeong.json'), 'utf8'))
+if (corpus.items.some((i) => !inSet(i.exam))) throw new Error(`${SET} 원장에 다른 집합의 회차가 섞였다`)
 const typeTable = JSON.parse(fs.readFileSync(path.join(DIR, 'classified.json'), 'utf8')).types
 
 // ── 유형 ──────────────────────────────────────────────────────────────
@@ -84,6 +95,9 @@ for (const it of corpus.items) {
     month: it.month,
     form: parseExamId(it.exam)?.form ?? null,
     listening_end: listeningEndOf(it.exam),
+    organizer: examMetaOf(it.exam).organizer,
+    grade: examMetaOf(it.exam).grade,
+    exam_year: examMetaOf(it.exam).exam_year,
     item_count: 0,
     has_answer_key: false,
     source_note: null,
@@ -94,7 +108,7 @@ for (const it of corpus.items) {
 }
 // 정답표가 없는 회차는 그 사실을 회차 행에 적어 둔다 — 화면이 "왜 비었나" 를 설명할 수 있어야 한다
 for (const e of examMap.values()) {
-  if (!e.has_answer_key) e.source_note = '평가원 정답표 PDF 가 실제로는 듣기 대본 — 정답·배점 미상'
+  if (!e.has_answer_key) e.source_note = SET === 'kice' ? '평가원 정답표 PDF 가 실제로는 듣기 대본 — 정답·배점 미상' : '정답표를 읽지 못함 — 정답·배점 미상'
 }
 const exams = [...examMap.values()]
 
@@ -135,7 +149,20 @@ async function upsert(table, rows, chunk = 500) {
   process.stdout.write('\n')
 }
 
-await upsert('csat_types', types)
+if (SET === 'kice') {
+  await upsert('csat_types', types)
+} else {
+  // 유형 상태(현행/폐지)는 평가원 원장의 몫이다 — 학평은 **DB 에 없는 유형만** 더한다.
+  // 평가원 최근 회차에 없는 유형이므로 status 는 retired(문항 FK 를 세우려고 두는 행).
+  const { data: have, error } = await db.from('csat_types').select('id')
+  if (error) throw new Error(error.message)
+  const known = new Set((have ?? []).map((t) => t.id))
+  const missing = types.filter((t) => !known.has(t.id)).map((t) => ({ ...t, status: 'retired' }))
+  if (missing.length) {
+    console.log(`  · 평가원 원장에 없는 유형 ${missing.length}개를 retired 로 더한다: ${missing.map((t) => t.id).join(' ')}`)
+    await upsert('csat_types', missing)
+  }
+}
 await upsert('csat_exams', exams)
 await upsert('csat_items', items)
 
@@ -148,9 +175,10 @@ await upsert('csat_items', items)
 //    (실측 2026-09-03. 잘린 줄 모르고 그 수를 믿을 뻔했다).
 const dbIds = []
 for (let from = 0; ; from += 1000) {
-  const { data, error } = await db.from('csat_items').select('id, section').range(from, from + 999)
+  const { data, error } = await db.from('csat_items').select('id, section').order('id').range(from, from + 999)
   if (error) throw new Error(error.message)
-  dbIds.push(...(data ?? []))
+  // 같은 집합 안에서만 비교한다 — 다른 집합의 행은 «빠진 문항» 이 아니다
+  dbIds.push(...(data ?? []).filter((r) => inSet(r.id)))
   if ((data ?? []).length < 1000) break
 }
 const have = new Set(items.map((i) => i.id))

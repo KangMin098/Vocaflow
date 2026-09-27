@@ -229,3 +229,12 @@ scripts/textbook/item-review-drain/**/*.imported
 # 로컬 디자인 캡처 — 커밋하지 않는다(기출 원문·실제 사용자 데이터가 찍힐 수 있다). 골든은 docs/design/golden/ 에만
 # (design-empty 계정·검수대 데이터로 다시 찍는다). 이미 추적 중인 v07 전후 16장은 이 줄로 빠지지 않는다 — design/DECISIONS DD-47
 docs/design/shots/
+
+# 교육청 학평 원문 산출물 — 해설지에 «EBSi 에서만 제공 · 무단 전재 및 재배포 금지».
+# ingest-hakpyeong.mjs 가 원본 폴더에서 언제든 다시 만든다. (수기 정답표 hakpyeong-answers-manual.json 은 원문이 아니라 커밋한다)
+scripts/csat/data/columns2/H*.txt
+scripts/csat/data/hakpyeong-questions.json
+scripts/csat/data/hakpyeong-answers.json
+scripts/csat/data/hakpyeong-inventory.json
+scripts/csat/data/corpus-hakpyeong.json
+scripts/csat/data/corpus-hakpyeong-report.json

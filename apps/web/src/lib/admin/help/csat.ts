@@ -1276,6 +1276,7 @@ export const CSAT_HELP: HelpRegistry = {
           '`node scripts/csat/build-corpus.mjs` 로 원장이 최신인가 (`test-corpus-integrity.mjs` PASS).',
           '`node scripts/csat/corpus-sync.mjs --commit` 으로 유형·회차·문항이 DB 에 올라와 있는가.',
           '`.env.local` 에 `SUPABASE_SERVICE_ROLE_KEY` 가 있는가 — 없으면 import 가 시작도 못 한다.',
+          '교육청 학평(보조·검증 집합, 회차 id `H…`)은 **원장이 따로다**: `ingest-hakpyeong.mjs` → `build-corpus.mjs --set hakpyeong` → `corpus-sync.mjs --set hakpyeong --commit`. 집합을 가르지 않고 돌리면 평가원 문항이 «코퍼스에 없는 문항» 으로 잡힌다. 학평 원문(`columns2/H*.txt` · `*hakpyeong*.json`)은 EBSi 재배포 금지라 커밋하지 않는다(gitignore).',
         ],
         procedure: [
           {
