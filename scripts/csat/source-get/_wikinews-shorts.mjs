@@ -8,9 +8,12 @@
 // 본문 모양(실측): 꼭지마다 끝에 「Sources」 또는 「Source」 한 줄이 붙는다(출처 목록은 수집 때 이미 걷혔다).
 // 순수 함수만 둔다 — DB 를 만지지 않는다. 쓰는 곳: `import.mjs`(새 수집) · `wikinews-shorts-split.mjs`(이미 들어온 행).
 
-// 꼭지 제목도 「Wikinews Shorts…」 로 시작한다(`briefTitle`) — 「 — 」 가 붙은 것은 모음이 아니라 꼭지다.
+// 꼭지 제목도 모음 제목으로 시작한다(`briefTitle`) — 「 — 」 가 붙은 것은 모음이 아니라 꼭지다.
 // (첫 적용 뒤 재실행 예행에서 꼭지 449편을 모음으로 다시 쪼개려 했다 · 2026-09-26)
-export const isDigestTitle = (title) => /^Wikinews Shorts\b/i.test(String(title ?? '')) && !/ — /.test(String(title))
+// 모음 제목은 「Wikinews Shorts…」 말고도 「UK Wikinews Shorts: …」 · 「Obituaries: …」(부고 모음) · 「Queensland state election shorts: …」 가 있다 —
+// 처음 조건이 이 17행을 놓쳐 모음째 판정에 올라갔다(체크리스트 배치 6에서 「모음」 보류 3편 · 실측 2026-09-27).
+const DIGEST_TITLE = /^(?:UK\s+)?Wikinews Shorts\b|^Obituaries\s*:|\bshorts\s*:/i
+export const isDigestTitle = (title) => DIGEST_TITLE.test(String(title ?? '')) && !/ — /.test(String(title))
 
 /** 꼭지 행인지 — source_id 끝이 `#brief-N`. */
 export const isBriefSourceId = (sid) => /#brief-\d+$/.test(String(sid ?? ''))
@@ -26,11 +29,13 @@ const BOILERPLATE = /^If you believe any of these stories deserves more in-depth
 export const paragraphs = (content) => String(content ?? '').split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
 
 /**
- * 「Sources」 줄이 없어 자동으로 못 쪼개는 모음인가 — 2012년 1월 형식(머리말 뒤에 꼭지들이 빈 줄로만 이어진다).
+ * 「Sources」 줄이 없어 자동으로 못 쪼개는 모음인가 — 2012년 1월 형식(머리말 뒤에 꼭지들이 빈 줄로만 이어진다) ·
+ * 2008년 3월 부고 모음(「The following deaths were reported yesterday」 뒤에 한 사람씩) · 선거 단신 모음.
  * 빈 줄은 꼭지 경계가 아니다(한 꼭지가 두세 문단이다) — 이런 모음은 자동으로 쪼개지 않고 사람·에이전트가 경계를 적는다
  * (`wikinews-shorts-resplit.json`). 실측 2026-09-27: 이 형식 6행이 꼭지 하나로 들어가 판정에서 「덜 쪼갠 모음」 보류가 됐다.
+ * 모음 제목인 행에만 부른다 — 「Sources」 줄이 없으면 `splitDigest` 는 본문 전체를 꼭지 하나로 돌려준다(쪼갠 것이 아니다).
  */
-export const needsManualSplit = (content) => BOILERPLATE.test(String(content ?? '').trim()) && !SPLIT.test(String(content ?? ''))
+export const needsManualSplit = (content) => !SPLIT.test(String(content ?? ''))
 
 /**
  * 적어 둔 경계로 쪼갠다. `groups` 는 꼭지마다 문단 번호 배열(0부터) — 모든 문단이 정확히 한 번씩(버릴 문단은 `drop`) 나와야 한다.

@@ -37,7 +37,8 @@ const { data: digests, error } = await db
   .from('library_articles')
   .select('id,source,source_id,source_url,title,author,published_at,license,license_class,copyright_safe_in_kr,language,content,csat_fit')
   .eq('source', 'wikinews')
-  .ilike('title', 'Wikinews Shorts%')
+  // 넓게 걸러 오고 `isDigestTitle` 로 가린다 — 「UK Wikinews Shorts」 · 「Obituaries:」 · 「… shorts:」 도 모음이다(2026-09-27).
+  .or('title.ilike.%Wikinews Shorts%,title.ilike.Obituaries%,title.ilike.%shorts:%')
   .not('source_id', 'like', '%#brief-%') // 꼭지 행은 모음이 아니다
   .order('source_id')
 if (error) throw new Error(`모음 조회 — ${error.message}`)

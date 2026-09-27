@@ -8,7 +8,7 @@
 //
 // 하는 일(행마다):
 //   1. 본문 해시가 경계를 적을 때와 같은지 본다 — 다르면 그 행은 건너뛴다(본문이 바뀌면 문단 번호가 틀린다).
-//   2. 꼭지마다 새 원천 행 — `source_id = <행>.<N>`(1부터) · 출처·권리·날짜를 물려받는다 · status `queued` · `csat_fit.digest_of` 로 부모를 가리킨다.
+//   2. 꼭지마다 새 원천 행 — `source_id = <행>.<N>`(1부터 · 부모가 꼭지가 아닌 모음이면 `<모음>#brief-N`) · 출처·권리·날짜를 물려받는다 · status `queued` · `csat_fit.digest_of` 로 부모를 가리킨다.
 //   3. 부모 행 `csat_fit.derived_from = { kind:'digest', source_id, briefs:N }` 을 **더한다**(기존 csat_fit 을 읽어 키 하나만 ·
 //      `updated_at` CAS). 부모의 보관 판정(`gate.retain` hold)은 지우지 않는다 — 왜 다시 쪼갰는지의 기록이다.
 // 재실행 안전: 이미 `derived_from.kind === 'digest'` 인 부모는 건너뛰고, 이미 있는 꼭지 source_id 는 넣지 않는다.
@@ -20,7 +20,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 
-import { splitByGroups, briefTitle } from './_wikinews-shorts.mjs'
+import { splitByGroups, briefTitle, briefSourceId, isBriefSourceId } from './_wikinews-shorts.mjs'
 
 try {
   for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -55,7 +55,8 @@ for (const p of PLAN) {
   if (crypto.createHash('sha256').update(d.content ?? '').digest('hex') !== p.body_sha256) { failures.push(`${p.source_id} 본문이 경계를 적은 뒤 바뀌었다 — 경계를 다시 적는다`); continue }
   const { briefs, problems } = splitByGroups(d.content, p.groups, p.drop)
   if (problems.length) { failures.push(`${p.source_id} ${problems.join(' · ')}`); continue }
-  const ids = briefs.map((_, i) => `${d.source_id}.${i + 1}`)
+  // 덜 쪼갠 꼭지 행 → `<꼭지>.<N>` · 처음부터 손으로 쪼갤 모음(「Sources」 줄 없음) → 자동 쪼개기와 같은 `<모음>#brief-N`.
+  const ids = briefs.map((_, i) => (isBriefSourceId(d.source_id) ? `${d.source_id}.${i + 1}` : briefSourceId(d.source_id, i)))
   const { data: have, error: e2 } = await db.from('library_articles').select('source_id').eq('source', d.source).in('source_id', ids)
   if (e2) throw new Error(`꼭지 조회 — ${e2.message}`)
   const exists = new Set((have ?? []).map((r) => r.source_id))

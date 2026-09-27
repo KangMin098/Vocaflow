@@ -58,6 +58,13 @@ test('기사가 아닌 꼬리는 꼭지가 아니다 (첫 적용 때 들어간 5
 
 test('꼭지 제목·source_id 는 모음으로 다시 읽히지 않는다 (재실행 예행 실측)', () => {
   assert.equal(isDigestTitle('Wikinews Shorts: April 23, 2008 — An attack on a U.S. base.'), false)
+  assert.equal(isDigestTitle('UK Wikinews Shorts: December 22, 2009'), true)
+  assert.equal(isDigestTitle('Obituaries: January 21-27, 2008'), true)
+  assert.equal(isDigestTitle('Obituaries:March 4, 2008'), true)
+  assert.equal(isDigestTitle('Queensland state election shorts: January 30, 2012'), true)
+  assert.equal(isDigestTitle('UK Wikinews Shorts: December 22, 2009 — A man was arrested.'), false)
+  assert.equal(isDigestTitle('Hunter S. Thompson obituary spawns "murder" theory'), false)
+  assert.equal(isDigestTitle("Media round-up: April Fools' Day 2008"), false)
   assert.equal(isBriefSourceId('wikinews:104498#brief-1'), true)
   assert.equal(isBriefSourceId('wikinews:104498'), false)
 })
@@ -73,6 +80,12 @@ test('2012년 1월 형식(머리말 · Sources 줄 없음)은 자동으로 쪼�
   assert.equal(needsManualSplit(BODY), false, 'Sources 줄이 있으면 자동')
   // 자동으로 돌리더라도 머리말은 꼭지에 남지 않는다
   assert.doesNotMatch(splitDigest(body).briefs[0], /^If you believe/)
+})
+
+test('머리말이 없어도 Sources 줄이 없는 모음은 손으로 (2008년 3월 부고 모음 실측)', () => {
+  const body = 'The following deaths were reported yesterday.\n\nErnest Gary Gygax, co-creator of Dungeons & Dragons, died at his home yesterday at the age of 69.\n\nElla Nathanael, Greek actress died yesterday from lung cancer at the age of 67.'
+  assert.equal(needsManualSplit(body), true)
+  assert.equal(splitDigest(body).briefs.length, 1, '자동으로 돌리면 본문 전체가 꼭지 하나 — 그래서 막는다')
 })
 
 test('적어 둔 경계로 쪼갠다 — 모든 문단을 정확히 한 번씩 덮어야 한다', () => {

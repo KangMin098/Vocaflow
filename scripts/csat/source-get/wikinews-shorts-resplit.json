@@ -1,5 +1,5 @@
 {
- "note": "「Sources」 줄이 없어 자동으로 못 쪼갠 꼭지 행의 꼭지 경계(문단 번호, 0부터 · 빈 줄 기준). 2026-09-27 에이전트가 본문을 읽고 적었다. 적용: wikinews-shorts-resplit.mjs",
+ "note": "「Sources」 줄이 없어 자동으로 못 쪼갠 꼭지 행과 모음 행의 꼭지 경계(문단 번호, 0부터 · 빈 줄 기준). 2026-09-27 에이전트가 본문을 읽고 적었다. 적용: wikinews-shorts-resplit.mjs",
  "rows": [
   {
    "id": "74fbf667-8310-4196-8afa-9f90f4b346c4",
@@ -205,6 +205,75 @@
     ]
    ],
    "drop": []
+  },
+  {
+   "id": "9258ad19-547e-455d-ab30-0a359c5ed0cb",
+   "source_id": "wikinews:101182",
+   "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+   "body_sha256": "7dc1b8af372a38d1b95f72e26d53e348a4bad199ed4bc04a05aae319c8fb747c",
+   "groups": [
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6
+    ]
+   ],
+   "drop": [
+    0
+   ]
+  },
+  {
+   "id": "67dab02e-553e-4adf-a702-8aa19a1fe992",
+   "source_id": "wikinews:101219",
+   "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+   "body_sha256": "e1bd5e091093d99a86ccd5bd575d80b55e71b274a4d5d57249de1d1d63f4c4d9",
+   "groups": [
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "drop": [
+    0
+   ]
+  },
+  {
+   "id": "49b7b8c1-f026-4dc9-9715-745fb103d9a7",
+   "source_id": "wikinews:351927",
+   "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+   "body_sha256": "1126bf8a05d15f47c62e5a9e52b34f90eb8ff83e14fd905c836c4d61241a2132",
+   "groups": [
+    [
+     2,
+     3
+    ],
+    [
+     4
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "drop": [
+    0,
+    1,
+    5
+   ]
   }
  ]
 }
