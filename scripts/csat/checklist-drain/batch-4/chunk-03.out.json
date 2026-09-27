@@ -1,0 +1,692 @@
+[
+ {
+  "id": "5e951d08-f424-442a-b226-63b990e79520",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Anything that has mass also has",
+  "note": "질량과 거리로 중력 세기가 정해지고 그 결과 무게·궤도·조석이 생긴다는 인과 설명이 한 흐름으로 이어진다.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "school",
+     "reading"
+    ],
+    "types": [
+     "topic",
+     "main_point",
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V2",
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "62ec8975-78c6-4826-8b38-5010f1fb25bb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Black holes form at the end",
+  "note": "별의 붕괴에서 특이점·사건의 지평선·스파게티화로 이어지는 원인과 결과 설명이 떼어 내도 선다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading",
+     "school"
+    ],
+    "types": [
+     "topic",
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V2",
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "637bf272-4cd6-4932-aaf8-20c4c043f3c8",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Cassini spacecraft arrived at Saturn",
+  "note": "탐사선 방문과 발견, 카시니 임무의 도착부터 종료까지 순서가 서며 첫 문단의 모형 언급만 걷으면 된다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading",
+     "school"
+    ],
+    "types": [
+     "content_match",
+     "topic",
+     "order"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6450b3fe-122c-4cc8-8040-4ec0035e2bf6",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Moon does not produce its",
+  "note": "달이 빛을 내지 않고 태양 빛을 반사하며 궤도 위치에 따라 보이는 부분이 바뀐다는 이유 설명이 선다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "school",
+     "reading"
+    ],
+    "types": [
+     "topic",
+     "main_point",
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6919f51f-a869-43d3-a3ce-484cc5799fb8",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "However, there are cases where linear",
+  "note": "공식과 그림 번호가 빠진 자리가 있으나 빙판 위 타이어 문단은 선속도와 접선속도 차이를 이유로 설명해 떼어 낼 수 있다.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "reading",
+     "csat"
+    ],
+    "types": [
+     "main_point",
+     "content_match",
+     "irrelevant"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6f0b4847-6cd2-4819-99c1-a0784443cdba",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "No manager or executive can be",
+  "note": "위기 대응 지침과 세계화에 따른 문화 차이 관리 문단이 주장과 이유로 이어지며, 뒤의 윤리 딜레마·사례·출처는 가공 때 걷는다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "csat",
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "main_point",
+     "claim",
+     "summary",
+     "title",
+     "blank"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "700a4596-49c0-459d-846d-5518f52414d9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Many people believe that Earth is",
+  "note": "거리 때문이라는 통념을 세우고 근일점 시기 반증과 자전축 기울기로 뒤집는 구조가 뚜렷하다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "school",
+     "reading",
+     "mock"
+    ],
+    "types": [
+     "main_point",
+     "topic",
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V3",
+     "V4",
+     "V5"
+    ],
+    "platform": [
+     "myth-rebuttal"
+    ]
+   }
+  }
+ },
+ {
+  "id": "76dc91f9-1c08-46d8-acb5-fac2244dcbe7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": true,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": false,
+   "narrative": true,
+   "notice": false,
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Break several toothpicks in half. You",
+  "note": "구미 모형 만들기는 위에 보인 그림과 라벨 예시를 봐야 따라 할 수 있고 대기 관측 문단은 오존 분포 그림 해설에 기대며 같은 단락이 두 번 되풀이된다.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "elem"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7d5a0875-fc45-4139-bbcc-6f650942cfb5",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": true,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Comet tails are a result of",
+  "note": "혜성 막대 만들기 활동을 예고하고 만드는 절차가 통째로 없으며, 꼬리 생성 원인 문단 자체는 태양풍에서 두 꼬리로 이어져 선다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f98fa10-36e1-4d16-bd2d-d118637416fa",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": true,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "NASA astronauts Reid Wiseman, Victor Glover,",
+  "note": "달 궤도 임무 완수가 훈장 수여의 까닭으로 이어지는 것 하나뿐이고 나머지는 행사 일시와 취재 신청 마감 안내다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "purpose",
+     "content_match"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "87e02777-f1db-4955-ae9e-dd09f1aaa63b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The appointment marks a return to",
+  "note": "스리랑카 소년이 JPL에 편지를 쓰고 소포를 받은 기억이 총장 취임으로 이어지는 이야기가 떼어 내도 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "mood",
+     "order",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "8ac7d527-4766-442d-af05-8a18fd133369",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "As the Moon blocks the Sun",
+  "note": "달이 해를 가려 그림자 경로가 생기고 개기일식 때 코로나가 보인다는 원인과 결과가 짧은 문장으로 이어진다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading",
+     "school"
+    ],
+    "types": [
+     "topic",
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V2",
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "8dca8c47-0803-4d47-928f-579a28afdaf1",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "On February 21, 1797, Secretary of",
+  "note": "프랑스의 선박 나포에서 준전쟁, 외국인·선동법 제정, 제퍼슨과 매디슨의 반대 결의로 이어지는 인과 순서가 한 문단에 선다.",
+  "record": {
+   "genre": "history",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "school",
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "90ec2007-531b-4d58-9ca5-53fc7c5c9619",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "When the universe began, it was",
+  "note": "르메트르의 가설과 허블의 관측이 팽창 결론으로 이어지고 입자에서 원자·별·은하가 생기는 순서가 서며 끝 단락 중복은 걷는다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "reading",
+     "school"
+    ],
+    "types": [
+     "topic",
+     "order",
+     "content_match",
+     "title"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "96812c6d-712c-46b2-990f-319c12e2b6b5",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Why mention the average distance? Well,",
+  "note": "궤도가 원이 아니라 거리가 달라진다는 연결 하나에 거리 수치가 되풀이되고 해 보기 절차는 일부가 빠져 중복된다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V2",
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ }
+]

@@ -1,0 +1,539 @@
+[
+ {
+  "id": "9eb312f5-9112-4ad0-b4f4-2f717992c761",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The original patent law passed",
+  "note": "미국 특허 제도의 여섯 특징(낮은 수수료→서민 발명가 증가 등)이 원인·결과로 이어지는 논설로, 수수료 단락을 떼면 요지·빈칸·순서 칸이 서고 본문 속 인용 서지와 영상 안내 첫 문장은 가공 때 걷는다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "csat",
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "main_point",
+     "title",
+     "blank",
+     "order",
+     "insert",
+     "content_match"
+    ],
+    "levels": [
+     "V7",
+     "V8"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "a16af0a7-5115-45f0-81b9-19a223b11a50",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "NASA has selected Chugach Intelligence",
+  "note": "NASA 계약 발표 단신으로 업체 선정→시설 유지 목적 한 연결뿐이고 나머지는 계약 기간·금액·연락처 나열이라 연결이 가늘다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "a2a34003-4882-4c69-83d3-fa9f0472e8a8",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": true,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Infringement is a strict liability violation",
+  "note": "특허 침해 판단 절차를 설명하다 「Several options exist」라고 예고한 선택지 목록이 통째로 빠진 채 끝나 중간에서 끊긴 원천이다.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V8"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "a72a3d67-c1a3-4ed3-a6eb-67caff852662",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Sunlight reaches Earth's atmosphere and",
+  "note": "햇빛 산란→파장이 짧은 파랑이 더 흩어짐→하늘이 파랗고 지평선·노을 색이 달라지는 인과가 이어져 초등·중등 설명문 칸이 서며, 첫 줄의 제목 질문 참조와 한 항목만 남은 목록 조각은 가공 때 걷는다.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading",
+     "school"
+    ],
+    "types": [
+     "topic",
+     "title",
+     "order",
+     "content_match"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "a9343c8d-12e9-4c3c-82ca-33f6b13d6287",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Sometimes galaxies get too close and",
+  "note": "은하의 정의·모양에 이어 은하 충돌→그래도 행성은 부딪히지 않는 까닭까지 이어져 초등 설명문 내용 일치·주제 칸이 선다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading",
+     "school"
+    ],
+    "types": [
+     "topic",
+     "content_match",
+     "title"
+    ],
+    "levels": [
+     "V2",
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b28cb73a-b9e6-4317-9e21-387d134bc8e6",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Earlier, you have read that distance",
+  "note": "속력과 속도를 정의하고 왕복 운전 예로 평균 속력은 12 km/h 인데 평균 속도는 0 인 까닭을 보여 주는 교과 설명문이라 내신·내용 일치 칸이 서고, 그림을 가리키는 「shown in .」 구절은 걷는다.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "school",
+     "reading"
+    ],
+    "types": [
+     "main_point",
+     "content_match",
+     "blank"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "bcf77569-71d6-45cf-b8df-6293772417a1",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "So what can you do to",
+  "note": "프랜차이즈의 개념·계약·성장 요인·준비 절차가 이유와 다음 절차로 이어지는 경영 교과 설명문으로, 준비 절차 단락을 떼면 요지·순서 칸이 서고 빠진 표·그림 참조 구절은 걷는다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "school",
+     "reading"
+    ],
+    "types": [
+     "main_point",
+     "summary",
+     "order",
+     "content_match",
+     "blank"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "ccab98e9-5d8f-4c76-b359-f18865a20bba",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "That’s a lot of hydrogen. That",
+  "note": "태양이 크다→중력→압력→핵융합→에너지가 표면으로 나간다는 인과 연쇄가 한 흐름이라 초등·중등 순서·내용 일치 칸이 서고 영상·퀴즈 안내 문장은 걷는다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading",
+     "school"
+    ],
+    "types": [
+     "order",
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "ce5e1e3b-eff5-4e44-ae93-1c8a26451dab",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Venus is unusual because it spins",
+  "note": "금성의 두꺼운 대기가 열을 가둬 가장 뜨겁고 느린 역자전 때문에 하루가 한 해보다 길다는 인과가 이어져 초등 내용 일치 칸이 선다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading",
+     "school"
+    ],
+    "types": [
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "d7cba510-18c5-4616-a341-075f712f5a11",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Because Mercury is so close to",
+  "note": "행성별 위성 수를 차례로 대는 글로 수성이 위성을 못 붙잡는 까닭 하나만 이유로 이어지고 나머지는 개수·이름 되풀이라 연결이 가늘다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V2",
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "d7eb4337-d61d-43c8-a5eb-39935c838a3a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Sun is always spewing gas",
+  "note": "태양풍→자기장 방패→오로라, 태양 폭풍→위성·전력망 피해→예보·관측이라는 원인·결과·대응이 한 흐름이라 초등·중등 요지·순서 칸이 서고 끝의 링크 제목 줄은 걷는다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading",
+     "school"
+    ],
+    "types": [
+     "topic",
+     "order",
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "d9d3c482-79b9-4a7e-8c43-89c97f07fab4",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "One meaning of a \"blood moon\"",
+  "note": "월식 때 대기가 파랑을 흩뜨려 붉은빛만 달에 닿는 인과 등 보름달 종류별 까닭을 설명해 초등·중등 내용 일치 칸이 서고, 블루문 단락의 되풀이 문장과 끝 링크 줄은 가공 때 걷는다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "elem",
+     "mid"
+    ],
+    "purposes": [
+     "reading",
+     "school"
+    ],
+    "types": [
+     "content_match",
+     "topic",
+     "title"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ }
+]
