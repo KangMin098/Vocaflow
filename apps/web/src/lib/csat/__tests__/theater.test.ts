@@ -13,6 +13,7 @@ import type { LectureStep } from '../lecture/types'
 import {
   BLOCK_TINT,
   blockKeyForTarget,
+  evidenceGradeChip,
   stepName,
   theaterBlocks,
   theaterClock,
@@ -219,5 +220,17 @@ describe('BLOCK_TINT — 블록 종류마다 고정 면 색', () => {
   it('모든 종류에 색이 있다 — 색 없는 카드가 생기지 않는다', () => {
     const kinds = theaterBlocks(FULL).map((b) => b.kind)
     for (const kind of new Set(kinds)) expect(BLOCK_TINT[kind], kind).toBeTruthy()
+  })
+})
+
+describe('evidenceGradeChip — 근거 등급', () => {
+  it('인용이 지문에 붙으면 초록, 못 붙으면 경고, 모르면 칩 없음', () => {
+    expect(evidenceGradeChip({ evidence_located: true })).toEqual({ text: '지문에서 확인', tone: 'ok' })
+    expect(evidenceGradeChip({ evidence_located: false })?.tone).toBe('warn')
+    expect(evidenceGradeChip({})).toBeNull()
+  })
+
+  it('도표 문항은 인용이 붙어도 원본 미대조로 말한다 — 그림을 못 본 해설이다', () => {
+    expect(evidenceGradeChip({ evidence_located: true, visual_unverified: true })).toEqual({ text: '도표 원본 미대조', tone: 'warn' })
   })
 })

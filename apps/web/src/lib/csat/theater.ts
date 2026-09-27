@@ -111,7 +111,7 @@ export interface TheaterBlock {
   key: string
   kind: TheaterBlockKind
   title: string
-  chips: { text: string; tone?: 'ok' | 'warn' | 'quiet' }[]
+  chips: TheaterChip[]
   /** 문단들. 빈 문자열은 담지 않는다 */
   body: string[]
   /** 근거 인용(짧은 발췌) — 없으면 null */
@@ -119,6 +119,11 @@ export interface TheaterBlock {
 }
 
 /** 블록을 만들 때 필요한 것만 — 로더의 전체 모양에 묶이지 않게 좁혀 받는다 */
+export interface TheaterChip {
+  text: string
+  tone?: 'ok' | 'warn' | 'quiet'
+}
+
 export interface TheaterSource {
   exam_label: string
   no: number
@@ -135,9 +140,25 @@ export interface TheaterSource {
   distractors: { n: number; trap: string | null; why_tempting: string | null; how_to_reject: string | null }[]
   procedure: { step: string; on_fail?: string }[]
   required_vocab: string[]
+  /**
+   * **근거 등급**(2026-09-28 · 재검증 보고서 우선순위 3). 저장하지 않고 그릴 때 정한다 — 둘 다 다른 자료에서
+   * 바로 나오는 값이라 칸으로 두면 어긋날 수 있다.
+   *   evidence_located  근거 인용이 지문 문장에 붙었나(골격 앵커). 없으면(undefined) 칩을 그리지 않는다.
+   *   visual_unverified 도표처럼 원본 그림을 분석이 못 본 문항 — 선지 문장만으로 쓴 해설이다.
+   */
+  evidence_located?: boolean
+  visual_unverified?: boolean
 }
 
-const text = (s: string | null | undefined): string[] => (s && s.trim() ? [s.trim()] : [])
+/** 근거 블록에 붙는 등급 칩 — 「지문에서 확인」만 초록이고 나머지는 경고다 */
+export function evidenceGradeChip(item: Pick<TheaterSource, 'evidence_located' | 'visual_unverified'>): TheaterChip | null {
+  if (item.visual_unverified) return { text: '도표 원본 미대조', tone: 'warn' }
+  if (item.evidence_located === true) return { text: '지문에서 확인', tone: 'ok' }
+  if (item.evidence_located === false) return { text: '근거 위치 미확인', tone: 'warn' }
+  return null
+}
+
+const text =(s: string | null | undefined): string[] => (s && s.trim() ? [s.trim()] : [])
 
 /**
  * 분석 자료 → 오른쪽에 차례로 쌓일 블록들.
@@ -197,6 +218,7 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
       chips: [
         { text: '정답 근거', tone: 'ok' },
         ...(item.answer != null && !item.answer_unknown ? [{ text: CIRCLED[item.answer] ?? String(item.answer) }] : []),
+        ...[evidenceGradeChip(item)].filter((c): c is TheaterChip => c != null),
       ],
       body: [...text(item.why_correct), ...text(item.evidence_reasoning)],
       quote: item.evidence_quote?.trim() || null,

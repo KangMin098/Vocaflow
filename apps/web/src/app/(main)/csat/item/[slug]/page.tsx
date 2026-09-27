@@ -80,7 +80,13 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   const outline = lectureOutline(item.id)
   const meta = lectureMeta(item.id)
   const steps = theaterSteps(outline)
-  const blocks = theaterBlocks(item)
+  // 근거 등급 — 인용이 지문 문장에 붙었나(골격) · 도표 원본을 못 본 문항인가
+  const answerAnchor = skeleton?.anchors.find((x) => x.id === 'answer')
+  const blocks = theaterBlocks({
+    ...item,
+    evidence_located: answerAnchor ? answerAnchor.sentences.length > 0 : undefined,
+    visual_unverified: item.type_id === 'R-CHART',
+  })
 
   // 같은 유형의 다음 문항 — 조회 0회(커밋된 골격이 `type_id` 를 들고 있다)
   const siblings = item.type_id
