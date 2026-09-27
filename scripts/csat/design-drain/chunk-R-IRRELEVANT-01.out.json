@@ -1,0 +1,257 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-IRRELEVANT",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2706#35",
+      "roles": [
+        "topic",
+        "background",
+        "example",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "example"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "유아와 성인의 넘어짐 부상을 질량·뼈 두께로 대조하는 글이라, ④는 체질량지수의 일상 건강 점검 활용을 말해 부상 원리라는 흐름에서 벗어난다.",
+      "transform": "none",
+      "transform_note": "④는 몸의 크기라는 소재를 되풀이하지만 넘어짐 부상의 원인이 아닌 건강 지표의 쓰임새로 화제를 옮긴 점이 드러난다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "example",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 3,
+          "role": "support"
+        },
+        {
+          "index": 4,
+          "role": "support"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "다양한 멘토망이 소수·다수 집단 모두에게 이롭다는 글이라, ④는 멘토링이 고용주 개인 발달에 필수로 칭송돼 왔다는 일반론으로 다양성 논의를 벗어난다.",
+      "transform": "none",
+      "transform_note": "④는 멘토링이라는 낱말을 반복할 뿐 다양한 멘토의 이점이라는 초점과 이어지지 않는다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#35",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "example",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "빙하가 기후 온난화로 빠르게 녹고 있다는 사례 나열 글이라, ④는 빙하 속 암석·광물이 학교 과학 과제 소재가 됐다는 내용으로 녹는 흐름과 무관하다.",
+      "transform": "none",
+      "transform_note": "④는 빙하라는 소재만 공유하고 녹는 속도와 그 증거라는 전개에서 벗어난다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "example",
+        "example",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "전문 딜러가 넓은 연결망으로 수집가를 위해 물건을 찾아 준다는 글이라, ④는 딜러에게 사는 이점을 개인 맞춤 서비스로 요약해 연결망 전개를 끊는다.",
+      "transform": "none",
+      "transform_note": "④ 뒤의 「차례로」 문장이 ③의 정보망을 이어 받으므로 가운데 끼인 맞춤 서비스 이야기가 흐름을 끊는다.",
+      "cues": [
+        "logic",
+        "connective",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "turn",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "narrative",
+      "selection": "새의 노래 학습 중 연습 단계를 시간 순으로 설명하는 글이라, ④는 선호와 한계라는 상위 일반론을 꺼내 연습 과정 서술을 벗어난다.",
+      "transform": "none",
+      "transform_note": "⑤의 「이 과정」은 ③의 미세 조정 연습을 가리키는데 ④가 그 사이에 끼어 지시가 끊기는 것이 단서다.",
+      "cues": [
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#35",
+      "roles": [
+        "topic",
+        "support",
+        "turn",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "problem_solution",
+      "selection": "재택근무 확산을 막는 요인과 그 장벽이 줄어드는 흐름을 다룬 글이라, ③은 재택근무에 맞는 직원 선발 주의를 말해 확산 전망 흐름에서 벗어난다.",
+      "transform": "none",
+      "transform_note": "②의 새 근무 문화 등장 뒤 ④가 장벽을 줄이는 요인들을 잇는데 ③의 직원 선발 조언은 그 연결과 무관하다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "turn"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "숙련자가 자동화로 인지 부담을 덜어 복합 과제를 쉽게 한다는 대조 글이라, ③은 초보자가 분리된 과제를 잘한다는 칭찬으로 대조 방향을 거스른다.",
+      "transform": "none",
+      "transform_note": "③은 「게다가」로 덧붙이지만 숙련자 설명 도중 초보자의 장점을 내세워 ④의 「이는」이 ②를 받는 흐름을 끊는다.",
+      "cues": [
+        "connective",
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2309#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "식물이 분열 조직 덕분에 재난에서 회복한다는 인과 글이라, ④는 숲·초원이 물 순환과 대기 조성을 조절한다는 생태 기능으로 회복 흐름에서 벗어난다.",
+      "transform": "none",
+      "transform_note": "⑤는 「재생 외에도」로 회복 방식을 잇는데 ④의 대기·물 조절 기능은 회복 이야기가 아니다.",
+      "cues": [
+        "logic",
+        "connective"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2306#35",
+      "roles": [
+        "background",
+        "support",
+        "support",
+        "support",
+        "topic",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        },
+        {
+          "index": 4,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "싸울지 달아날지 정보가 부족한 동물이 상대를 탐색해 결정한다는 글이라, ③은 평상시 체중과 먹이 섭취의 항상성을 말해 결정 문제와 무관하다.",
+      "transform": "none",
+      "transform_note": "③은 동물이라는 소재만 같고 경쟁자 정보 수집이라는 논리 고리에서 완전히 벗어난다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2209#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "example"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "이민을 비용·편익 계산으로 보는 경제학 관점을 풀어 쓴 글이라, ③은 부자가 사치품으로 지위를 과시한다는 소비 행태로 비용·편익 나열을 끊는다.",
+      "transform": "none",
+      "transform_note": "②의 편익과 ④의 비용이 짝을 이루는데 ③은 금전 이득이라는 낱말만 이어 받고 이주 결정과 관계가 없다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    }
+  ]
+}

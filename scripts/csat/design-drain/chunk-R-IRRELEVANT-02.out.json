@@ -1,0 +1,231 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-IRRELEVANT",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#35",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "떨어져 살아도 유대가 유지되는 수정 확대 가족을 설명하는 글이라, ④는 가장 나이 많은 구성원이 중요한 결정을 내린다는 위계 이야기로 흐름에서 벗어난다.",
+      "transform": "none",
+      "transform_note": "④는 거리에 관계없다는 표현을 되풀이하지만 거주·이동의 자유라는 논점 대신 의사 결정 권한을 끌어들인다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "상업화된 사회에서 경관과 주민 정체성이 상품이 된다는 글이라, ③은 미국 경관 보호가 황무지 보존에 집중해 왔다는 정책 이야기로 상품화 흐름을 끊는다.",
+      "transform": "none",
+      "transform_note": "③은 경관이라는 소재만 반복하고 ②의 상품화와 ④의 「로고」화 사이 연결에 끼지 못한다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#35",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "시골 생활이 친환경이라는 통념을 반박하며 도시의 환경적 우위를 주장하는 글이라, ④는 도시민이 도시 생활에 지쳐 시골로 간다는 반대 경향으로 주장을 거스른다.",
+      "transform": "none",
+      "transform_note": "④의 「이는 보여 준다」는 ③의 환경 비용을 받지 못하고 도시를 떠나는 경향이라는 엉뚱한 결론을 낸다.",
+      "cues": [
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#35",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "탐지견 훈련이 특정 냄새에 정서적 흥분을 붙이는 것이라는 글이라, ④는 먹이 보상을 규칙적으로 주면 된다는 말로 정서적 보상 흐름을 거스른다.",
+      "transform": "none",
+      "transform_note": "③이 줄다리기가 먹이보다 강한 보상이라 했는데 ④가 먹이 보상을 내세워 ⑤의 줄다리기 설명과 이어지지 않는다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#35",
+      "roles": [
+        "background",
+        "support",
+        "support",
+        "turn",
+        "support",
+        "conclusion",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "홍차 등급을 잎이 말린 정도로 매기지만 그것이 맛과는 무관하다는 글이라, ③은 잎을 마는 방법과 목적을 설명해 등급·맛 논의를 끊는다.",
+      "transform": "none",
+      "transform_note": "④의 「그러므로」는 ②의 맛과 무관하다는 진술을 받아야 하는데 ③의 제조 공정 설명이 그 사이를 가로막는다.",
+      "cues": [
+        "connective",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2026#35",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "support",
+        "support",
+        "topic"
+      ],
+      "alternatives": [],
+      "pattern": "problem_solution",
+      "selection": "급한 업무에 밀려 자기 돌봄을 포기하게 된다는 문제와 장기적 균형을 권하는 글이라, ④는 목공반을 디자인반보다 먼저 등록하라는 조언으로 흐름에서 벗어난다.",
+      "transform": "none",
+      "transform_note": "④는 목공 수업이라는 낱말을 이어 받지만 마감 대 자기 돌봄의 우선순위 대비와 관계가 없다.",
+      "cues": [
+        "repetition",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2025#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "자동차가 스포츠 관광 확대에 기여했다는 인과 글이라, ④는 숙박 성장으로 지역 식당이 늘었다는 내용으로 자동차라는 축을 벗어난다.",
+      "transform": "none",
+      "transform_note": "⑤의 「그 결과 그것은」이 ③의 자동차 장점을 가리켜야 하는데 ④가 끼면 지시 대상이 끊긴다.",
+      "cues": [
+        "pronoun",
+        "connective",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2024#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "빨리 말하면 뇌가 따라가지 못해 군말이 나온다는 글이라, ③은 좋은 결정이 말을 더 빠르게 해 준다는 반대 방향 주장으로 흐름을 거스른다.",
+      "transform": "none",
+      "transform_note": "②의 뇌가 멈춰 고민하는 장면이 ④의 지시가 끊기는 순간으로 이어지는데 ③이 빨리 말하기를 옹호해 논리를 뒤집는다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2023#35",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "turn",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "초임 교사가 목소리를 조절해야 한다는 글이라, ③은 학교 소음 문제를 학생·학부모·교사가 함께 풀라는 제안으로 목소리 조절 흐름을 벗어난다.",
+      "transform": "none",
+      "transform_note": "④의 「그러나」는 ②의 큰 목소리 이점을 뒤집어야 하는데 ③의 소음 해결 제안이 끼어 대비가 끊긴다.",
+      "cues": [
+        "connective",
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2022#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "정보 시스템이 기업 간 협력망을 만들어 생태계 전체를 고려하게 했다는 글이라, ④는 수익 부문 집중과 비수익 부문 정리라는 경영 전략으로 흐름을 벗어난다.",
+      "transform": "none",
+      "transform_note": "⑤의 「이 서로 다른 단위들」은 ③의 주변 단위 생태계를 받는데 ④의 부문 정리는 그 연결을 가로막는다.",
+      "cues": [
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    }
+  ]
+}

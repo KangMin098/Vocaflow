@@ -1,0 +1,202 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-IRRELEVANT",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2021#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "example",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "공유된 웃음이 조직 구성원의 유대를 만든다는 글이라, ③은 광고가 주의를 끌려고 유머를 쓴다는 내용으로 조직 유대라는 흐름을 벗어난다.",
+      "transform": "none",
+      "transform_note": "③은 유머라는 소재를 반복하지만 조직 소속감이 아니라 광고 기법으로 초점을 옮긴다.",
+      "cues": [
+        "repetition",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2020#35",
+      "roles": [
+        "topic",
+        "example",
+        "example",
+        "support",
+        "support",
+        "support",
+        "example"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "상식과 격언이 서로 모순돼 통찰을 주지 못한다는 글이라, ③은 어려울 때 격언에 크게 의존한다는 긍정적 진술로 비판 흐름을 거스른다.",
+      "transform": "none",
+      "transform_note": "④의 「그것들은 한층 더 적은 지침을」은 ②의 통찰이 거의 없다는 진술을 이어야 하는데 ③이 끼면 연결이 깨진다.",
+      "cues": [
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2019#35",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "example",
+        "topic",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "사진의 등장이 회화를 재현에서 추상으로 옮겨 가게 했다는 글이라, ④는 20세기 화가가 현실 그대로 표현에 집중했다는 반대 결론으로 흐름을 뒤집는다.",
+      "transform": "none",
+      "transform_note": "④의 「그러므로」는 ③의 추상으로의 이동과 모순된 결론을 내므로 논리 고리가 끊긴다.",
+      "cues": [
+        "connective",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2018#35",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "SNS 미디어 문해력이 타인의 권리 존중을 가르쳐야 한다는 글이라, ③은 지식 축적을 위해 아이의 SNS 활동을 장려하자는 말로 권리 존중 흐름에서 벗어난다.",
+      "transform": "none",
+      "transform_note": "④의 「이것 또한 황금률이어야」는 ②의 격언을 받는데 ③이 끼어 지시가 끊긴다.",
+      "cues": [
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2017#35",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "turn",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "직업으로 자신을 규정하면 정체성을 잃는다는 글이라, ②는 직장에서 할 수 있는 일을 파악하면 경력에 도움이 된다는 긍정론으로 흐름을 거스른다.",
+      "transform": "none",
+      "transform_note": "③의 「이런 관행을 따르는 사람들」은 ①의 직업으로 자기 소개하기를 받아야 하는데 ②가 끼면 지시 대상이 흐려진다.",
+      "cues": [
+        "pronoun",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2016#39",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 7,
+          "role": "support"
+        }
+      ],
+      "pattern": "narrative",
+      "selection": "음식 품질을 오감으로 판단하는 과정을 외관·냄새에서 입 안 순서로 서술하는 글이라, ③은 음식 가치를 영양소 수준으로 정의해 감각 판단 순서를 끊는다.",
+      "transform": "none",
+      "transform_note": "④의 「여기서」는 ②의 입 안을 가리키는데 ③의 영양가 정의가 끼면 장소 지시가 끊긴다.",
+      "cues": [
+        "pronoun",
+        "time",
+        "logic"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2015#35",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "환경 문제를 기술 탓으로 돌리는 통념을 반박하며 기술은 사람들의 요구에 반응한다는 글이라, ②는 태양 에너지가 대체 에너지가 될 수 있다는 내용으로 흐름을 벗어난다.",
+      "transform": "none",
+      "transform_note": "②는 환경이라는 소재만 공유할 뿐 ①의 자동차 오염 논의와 ③의 더 깨끗한 차 전개 사이 고리에 들지 못한다.",
+      "cues": [
+        "logic",
+        "repetition"
+      ],
+      "data_defect": null
+    },
+    {
+      "id": "2014A#38",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "인생을 롤러코스터에 빗대어 태도를 권하는 글이라, ④는 아이용 놀이공원 설계 시 롤러코스터 위치를 고려하라는 실무 조언으로 비유 흐름을 벗어난다.",
+      "transform": "none",
+      "transform_note": "④는 롤러코스터라는 낱말만 반복하고 시작·정점·끝으로 이어지는 인생 비유의 시간 흐름에서 벗어난다.",
+      "cues": [
+        "repetition",
+        "time",
+        "logic"
+      ],
+      "data_defect": null
+    }
+  ]
+}
