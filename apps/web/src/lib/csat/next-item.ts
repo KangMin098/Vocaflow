@@ -19,6 +19,7 @@
 //   ④ 그래도 없으면 **null** — 없는 길을 있는 척하지 않는다. 화면이 그때는 문을 안 그린다.
 //
 // 순수 함수다. 목록과 «골격이 있는가» 를 받아 고르기만 한다 — 조회는 부르는 쪽의 몫이다.
+import { examIdOf, parseExamId } from './exam-id'
 
 /** 이 자가 고를 수 있는 최소한의 문항 정보. `CsatItemBrief` 가 그대로 들어맞는다. */
 export interface NextCandidate {
@@ -45,18 +46,13 @@ export interface NextPick {
  * **label 을 파싱하지 않는다** — 사람이 읽는 문자열이라 언제든 바뀐다.
  */
 export function examRank(itemId: string): number {
-  const exam = itemId.split('#')[0] ?? ''
-  if (exam.startsWith('M')) {
-    const yy = Number(exam.slice(1, 3))
-    const mm = Number(exam.slice(3, 5))
-    if (Number.isFinite(yy) && Number.isFinite(mm)) return 2000 + yy + mm / 100
-  }
-  // ⚠️ `Number('')` 은 0 이고 **유한하다**. 빈 id 를 그냥 통과시키면 `0.99` 를 받아
-  //    정렬에서 없는 회차가 실재하는 것처럼 끼어든다(검사가 잡았다). 네 자리 숫자만 받는다.
-  const head = exam.slice(0, 4)
-  if (!/^\d{4}$/.test(head)) return 0
-  // 수능은 그해 11월 시행이라 같은 해 모평보다 뒤다.
-  return Number(head) + 0.99
+  // ⚠️ 빈 id·문법 밖 id 는 0 — `0.99` 같은 값을 받으면 없는 회차가 실재하는 것처럼
+  //    정렬에 끼어든다(검사가 잡았다). 판정은 `exam-id.ts` 한곳이 한다.
+  const p = parseExamId(examIdOf(itemId))
+  if (!p) return 0
+  // 수능은 그해 11월 시행이라 같은 학년도 모의고사보다 뒤다. 같은 달 학평은 학년 순.
+  if (p.kind === 'suneung') return p.schoolYear + 0.99
+  return p.schoolYear + p.month / 100 + (p.kind === 'hakpyeong' ? p.grade / 1000 : 0)
 }
 
 /**

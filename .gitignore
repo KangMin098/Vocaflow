@@ -259,3 +259,12 @@ scripts/csat/design-drain/chunk-*.json
 
 # 평가원 원천 조사 검색 작업물 — 기출 지문·대용량 검색 응답을 포함하고 export로 재생성 가능하다.
 scripts/csat/source-origin-work/
+
+# 교육청 학평 원문 산출물 — 해설지에 «EBSi 에서만 제공 · 무단 전재 및 재배포 금지».
+# ingest-hakpyeong.mjs 가 원본 폴더에서 언제든 다시 만든다. (수기 정답표 hakpyeong-answers-manual.json 은 원문이 아니라 커밋한다)
+scripts/csat/data/columns2/H*.txt
+scripts/csat/data/hakpyeong-questions.json
+scripts/csat/data/hakpyeong-answers.json
+scripts/csat/data/hakpyeong-inventory.json
+scripts/csat/data/corpus-hakpyeong.json
+scripts/csat/data/corpus-hakpyeong-report.json

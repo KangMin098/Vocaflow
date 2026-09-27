@@ -28,6 +28,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { IRREGULAR } from './_irregular.mjs'
+import { isKiceExam } from '../csat/lib-exam-id.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -131,7 +132,8 @@ const yearOf = (examId) => (examId.startsWith('M') ? 2000 + Number(examId.slice(
  */
 async function collectFromAnalyses() {
   const [items, analyses] = await Promise.all([
-    allRows((f, t) => db.from('csat_items').select('id, exam_id, passage').eq('in_scope', true).range(f, t)),
+    // 평가원 회차만 — 학평(보조·검증 집합)은 이 측정의 분모가 아니다
+    allRows((f, t) => db.from('csat_items').select('id, exam_id, passage').eq('in_scope', true).range(f, t)).then((rs) => rs.filter((r) => isKiceExam(r.id))),
     allRows((f, t) =>
       db.from('csat_item_analyses').select('item_id, version, required_vocab').eq('status', 'published').range(f, t),
     ),

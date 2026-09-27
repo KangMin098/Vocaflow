@@ -15,6 +15,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, choicesOf, answerOf } from './lib-passage.mjs'
 import { binomUpper } from './claim-gate.mjs'
+import { isSuneung } from './lib-exam-id.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
 const L = JSON.parse(fs.readFileSync(path.join(DIR, 'listening-all.json'), 'utf8')).items
@@ -25,7 +26,7 @@ const typeOf = new Map(rows.map((r) => [`${r.exam}#${r.no}`, r.type]))
 for (const it of L) it.type = typeOf.get(`${it.exam}#${it.no}`) ?? it.typeGuess ?? null
 
 const EXAMS = [...new Set(L.map((i) => i.exam))]
-const N_SUNEUNG = EXAMS.filter((e) => !e.startsWith('M')).length
+const N_SUNEUNG = EXAMS.filter((e) => isSuneung(e)).length
 const N_MOCK = EXAMS.length - N_SUNEUNG
 
 const med = (a) => { const x = [...a].sort((p, q) => p - q); return x.length ? x[Math.floor(x.length / 2)] : 0 }

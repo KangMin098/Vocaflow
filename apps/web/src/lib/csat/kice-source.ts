@@ -29,6 +29,8 @@
 // 직접 링크를 채우려면: 평가원 그 회차 글에서 `영어영역_문제지.pdf` 의 `fileSeq` 를 복사해
 // 아래 표에 한 줄 더한다(크롤링이 아니라 사람이 옮기는 것이다).
 
+import { examKindOf } from './exam-id'
+
 /** 기출문제 게시판 — 직접 링크가 없는 회차는 여기로 보낸다 */
 export const KICE_ARCHIVE_URL =
   'https://www.suneung.re.kr/boardCnts/list.do?boardID=1500234&m=0403&s=suneung'
@@ -50,8 +52,8 @@ const PAPER_FILE_SEQ: Record<string, string> = {
 export interface KiceSource {
   /** 그 문제지 PDF 를 바로 여는 링크. 없으면 null */
   paperUrl: string | null
-  /** 사람이 찾아 들어갈 목록 — `paperUrl` 이 없을 때의 다음 걸음 */
-  listUrl: string
+  /** 사람이 찾아 들어갈 목록 — `paperUrl` 이 없을 때의 다음 걸음. 평가원 회차가 아니면(학평) null */
+  listUrl: string | null
   /** 왜 직접 링크가 없는지 — 화면이 그대로 말할 수 있게 */
   reason: string | null
 }
@@ -65,7 +67,12 @@ export function kiceSourceOf(examId: string): KiceSource {
       reason: null,
     }
   }
-  const isMock = examId.startsWith('M')
+  const kind = examKindOf(examId)
+  if (kind === 'hakpyeong') {
+    // 학평은 교육청 출제라 평가원 게시판에 없다. 없는 곳으로 보내느니 링크를 주지 않는다
+    return { paperUrl: null, listUrl: null, reason: '학력평가는 교육청 출제라 평가원 자료실에 없어요' }
+  }
+  const isMock = kind === 'mock'
   return {
     paperUrl: null,
     listUrl: isMock ? KICE_MOCK_URL : KICE_ARCHIVE_URL,

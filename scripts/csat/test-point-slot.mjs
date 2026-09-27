@@ -20,12 +20,13 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { answerOf, allRows } from './lib-passage.mjs'
 import { binomUpper } from './claim-gate.mjs'
+import { schoolYearOf } from './lib-exam-id.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
 const rows = allRows()
 
 // 2019 개편 이후만 — 그 전에는 번호 배치 자체가 다르다
-const yearOf = (e) => (String(e).startsWith('M') ? 2000 + Number(String(e).slice(1, 3)) : Number(e))
+const yearOf = (e) => schoolYearOf(e)
 const exams = [...new Set(rows.map((r) => r.exam))].filter((e) => yearOf(e) >= 2019).sort()
 
 const GROUPS = [

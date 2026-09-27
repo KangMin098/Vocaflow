@@ -206,6 +206,14 @@
 - 영상 공장 요청 순환 화면·드레인: `/admin/video` 「요청」 탭 + `/admin/video/requests/[id]`(스테퍼 · 채운 미리보기 · 승인/수정/반려), `pnpm video requests[:export|:import|:pull]`, 설계 서브에이전트 `video-request-designer`. 초안은 숫자를 못 쓰고 번들 경로만 인용, 규칙 편 장면은 borrow 로 흡수. 교재 권별 요청 1건으로 요청→수정 요청→rev 2→승인→음성→렌더(가로)까지 실측.
 - 영상 공장 요청 순환 DB(`20260924120000_video_requests`): 분야 설정 표 + 요청·설계 rev·검토·평가 4표, phase 전이는 RPC 6개로만 — 현재 rev 승인 없이는 적용 불가. `video_jobs.kind` 에 `request` 추가.
 
+- **오판 정정**(`20260927161216` → `20260927172604`): 학평 브랜치의 옛 저작권 경계 테스트가 `select('*')` 로 permission denied 를 내자 «권한 유실» 로 보고 table-level SELECT 를 복구했으나, 실제로는 `20260925120000`(hide_stem)이 일부러 컬럼 단위로 발문만 닫은 상태였다 — 복구가 144문항 발문 영어 원문을 다시 열었다. `20260927172604_csat_items_public_rehide_stem` 으로 원복(적용됨 — stem 컬럼 SELECT false 확인). 교훈: 권한이 «없어 보이면» main 최신 마이그레이션과 `pg_attribute.attacl` 부터.
+
+- 학평 수용 4단계: `csat_items`·`csat_exams` 를 직접 읽는 웹 6곳(guide·order-view·client·items·evidence·heatmap·learner 회차표)과 스크립트 6곳을 평가원 회차로 좁힘(`onlyKiceItems`·`onlyKiceExams`·`isKiceExam`) + 재발 가드 2건. 학평 적재 전 선행 조건.
+
+- 학평 수용 2·3단계: 마이그레이션 `20260927153152_csat_exams_hakpyeong`(organizer·grade·exam_year, 학습자 뷰·csat_coverage 는 평가원만 — 2026-09-28 적용, 뷰 802·coverage 29회차 불변 확인). `ingest-hakpyeong.mjs`(pdfjs+cMap — pdftotext 는 학평 한글을 못 읽는다) 2018~ 105회차 중 104 수집, 사정권 2,912문항 유형 배정 99.5%·정답 100%(9회차는 그림 정답표를 렌더링해 눈으로 이중 대조). 원장은 `build-corpus/corpus-sync --set hakpyeong` 으로 분리, 모평 파서는 `lib-mock-parse.mjs` 로 공유(모평 산출 바이트 불변).
+
+- 학평 수용 1단계: 회차 id 판정을 `lib/csat/exam-id.ts` · `scripts/csat/lib-exam-id.mjs` 한곳으로 모음(흩어진 `startsWith('M')` 17곳 치환 + 재발 가드). 학평 id 문법 `H{시행YY}{MM}G{학년}` 예약, 학평 회차는 평가원 원본 링크를 내지 않는다. 기존 코퍼스 1,302문항 메타 불변 대조.
+
 - 기출 분석 방법론: 「난이도는 소재가 아니라 형식(유형)」 실측 절 신설(CSAT_TYPE_ANALYSIS §1-1) — 802편 전수, 유형 간 격차 95포인트. 신호를 바꾸면 절대 수준은 바뀌어도 유형 순서는 유지된다는 대조를 함께.
 
 - 관리자 옛 AI-보라 전량 교체(Gate 4 (i) · DD-59): 66파일 318건 → 토큰(`--p` 계열), 평균 신호 라쳇 `admin.ai-purple` **318 → 0**. 코드모드 2개 신설(기본 예행 · 정확 일치만). 부작용으로 생긴 다크 AA 미달 20줄은 기준선을 올리지 않고 `text-[var(--on-p)]` 로 고쳤다. 화면도움말 「보라 테두리」 3곳 동기화.

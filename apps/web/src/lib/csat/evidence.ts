@@ -26,6 +26,7 @@ import {
   type EvidenceType,
 } from './evidence-fold'
 import { normalizeForMatch } from './quote-match'
+import { HAKPYEONG_ID_PREFIX } from './exam-id'
 
 type ExamRow = { id: string; label: string; kind: string; year: number; month: number }
 type TypeRow = { id: string; name: string; status: string }
@@ -183,7 +184,8 @@ export async function loadEvidence(): Promise<EvidenceData> {
   // 것으로 끝나지 않고 **statement timeout 으로 빈 화면이 된다**(실측 2026-09-16). 그래서
   // 먼저 id·버전만 받아 최신 802개를 고르고, 무거운 칸은 그 802개만 가져온다.
   const [examsRes, typesRes, reportsRes, itemsPaged, headsPaged] = await Promise.all([
-    db.from('csat_exams').select('id, label, kind, year, month'),
+    // 평가원 회차만(학평은 보조·검증 집합) — 조건을 직접 적는 이유는 exam-id.ts 「DB 질의 범위」
+    db.from('csat_exams').select('id, label, kind, year, month').eq('organizer', 'kice'),
     db.from('csat_types').select('id, name, status').eq('in_scope', true),
     db
       .from('csat_type_reports')
@@ -200,11 +202,12 @@ export async function loadEvidence(): Promise<EvidenceData> {
         .from('csat_items')
         .select('id, exam_id, no, type_id, points, answer, answers, high_score, body_ok, passage')
         .eq('in_scope', true)
+        .not('exam_id', 'like', `${HAKPYEONG_ID_PREFIX}%`)
         .order('id', { ascending: true })
         .range(from, to),
     ),
     selectAllPages<{ id: string; item_id: string; version: number }>((from, to) =>
-      db.from('csat_item_analyses').select('id, item_id, version').eq('status', 'published').range(from, to),
+      db.from('csat_item_analyses').select('id, item_id, version').eq('status', 'published').not('item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`).range(from, to),
     ),
   ])
 

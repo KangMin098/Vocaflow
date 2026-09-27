@@ -21,6 +21,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { isKiceExam } from './lib-exam-id.mjs'
 
 for (const f of ['apps/web/.env.local', '.env.local']) {
   try {
@@ -62,7 +63,8 @@ const items = []
 for (let from = 0; ; from += PAGE) {
   const { data, error } = await db.from('csat_items').select('id, passage, body_ok').order('id').range(from, from + PAGE - 1)
   if (error) { console.error('지문 조회 실패:', error.message); process.exit(1) }
-  items.push(...data)
+  // 평가원 회차만 — 학평(보조·검증 집합)은 이 측정의 분모가 아니다
+  items.push(...data.filter((r) => isKiceExam(r.id)))
   if (data.length < PAGE) break
 }
 const P = new Map(items.map((i) => [i.id, i]))

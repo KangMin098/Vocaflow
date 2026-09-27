@@ -27,6 +27,7 @@ import { createHash } from 'node:crypto'
 import { DatabaseSync } from 'node:sqlite'
 import { createClient } from '@supabase/supabase-js'
 import { processText } from '@vocaflow/wlp'
+import { isKiceExam } from './lib-exam-id.mjs'
 
 for (const line of readFileSync(resolve('apps/web/.env.local'), 'utf8').split(/\r?\n/)) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -129,6 +130,8 @@ for (let from = ''; ; ) {
   if (error) throw new Error(error.message)
   if (!data?.length) break
   for (const r of data) {
+    // 평가원 회차만 — 학평(보조·검증 집합)은 이 드레인·측정의 범위 밖
+    if (!isKiceExam(r.id as string)) continue
     const text = String(r.passage ?? '').trim()
     if (text.split(/\s+/).length >= 40) measure('① 기출', text)
   }

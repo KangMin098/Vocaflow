@@ -11,6 +11,7 @@
 //
 // ⚠️ 순수 모듈이다 — 시각은 인자로 받는다(`now`). 테스트가 시간을 옮겨 「3일 뒤」를 검사한다(F7).
 // ⚠️ 저장은 여기서 하지 않는다. 기록을 받아 새 기록을 돌려준다 — 저장소는 `store.ts` 가 맡는다.
+import { examOrder as examOrderOf } from '../exam-id'
 
 /** 세션이 고를 수 있는 문항 한 줄 — **글자가 없다**(원문은 학습자 PDF 에서 온다). */
 export interface CatalogItem {
@@ -355,9 +356,5 @@ export function shortTypeName(name: string): string {
 
 /** 회차 id → 정렬 열쇠(클수록 최근). `2026` = 2026학년도 수능, `M2706` = 2027학년도 6월 모평. */
 export function examOrder(examId: string): number {
-  const m = examId.match(/^M(\d{2})(\d{2})$/)
-  if (m) return (2000 + Number(m[1])) * 100 + Number(m[2])
-  const y = examId.match(/^(\d{4})/)
-  if (!y) return 0
-  return Number(y[1]) * 100 + 11 + (examId.endsWith('B') ? 0.5 : 0)
+  return examOrderOf(examId)
 }

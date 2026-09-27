@@ -15,6 +15,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
+import { HAKPYEONG_ID_PREFIX } from './exam-id'
 
 export function createCsatClient(): SupabaseClient {
   return createAdminClient() as unknown as SupabaseClient
@@ -117,13 +118,17 @@ export async function loadCsatOverview(): Promise<CsatOverview> {
   const [typesRes, itemsPaged, analysesPaged, reportsRes, reviewsRes] = await Promise.all([
     db.from('csat_types').select('id, name, section, status, in_scope').eq('in_scope', true),
     selectAllPages<{ id: string; type_id: string | null; answer: number | null }>((from, to) =>
-      db.from('csat_items').select('id, type_id, answer').eq('in_scope', true).range(from, to),
+      db.from('csat_items').select('id, type_id, answer').eq('in_scope', true).not('id', 'like', `${HAKPYEONG_ID_PREFIX}%`).range(from, to),
     ),
     selectAllPages<{ item_id: string; status: string }>((from, to) =>
-      db.from('csat_item_analyses').select('item_id, status').range(from, to),
+      db.from('csat_item_analyses').select('item_id, status').not('item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`).range(from, to),
     ),
     db.from('csat_type_reports').select('type_id, n_analyzed, status'),
-    db.from('csat_analysis_reviews').select('id', { count: 'exact', head: true }),
+    // 검수는 분석을 거쳐야 문항에 닿는다 — 평가원 분석의 검수만 센다
+    db
+      .from('csat_analysis_reviews')
+      .select('id, csat_item_analyses!inner(item_id)', { count: 'exact', head: true })
+      .not('csat_item_analyses.item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`),
   ])
 
   const firstError =
