@@ -1,0 +1,454 @@
+[
+  {
+    "id": "20b4254c-ad2b-4f7a-8dce-17cb67224fb0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "41171d9e368c82d7a03eb22407f6b7c9238f08e784064c18b19dfc44f1ffa4d7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "정전 발생 → 원인(독일발 고장·기온 급강하) → 응급 전화 폭주라는 원인·결과 연결이 네 단락 안에서 서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The blackout was triggered due to",
+      "note": "셋째 단락은 원인·결과가 이어져 바로 떼어지고, \"effected\"·\"over heated\" 오기만 고치면 되며 지역 이름은 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "20be76bf-54a8-4a01-aa61-3eeb28156c04",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7fafb2288ffabac8cac719e3e58efbf866a213ea1a6f7b2c09bc8b8f2359b750",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "에스토니아발 폭발물 제보 → 항구 봉쇄 → 트럭 전수 검사로 원인과 다음 절차가 이어지는 단신이라 내용 일치 칸 하나로 보관한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Finnish police received reports from Estonia",
+      "note": "둘째 단락이 제보→검사→이미 검사된 배라는 흐름을 혼자 담고, 항구 이름을 걷어도 서며 isolated 를 closed 로 바꾸면 한 밴드 내려간다."
+    }
+  },
+  {
+    "id": "20c7eb67-8dca-4060-a96a-a860e7cd6eb8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "54e1954404bd6cf094a85751df5290b4347bf642e5e5813cf5ea2f9593f2cf26",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "계약 연장 사실 뒤로 우승 트로피 목록·출전 수·다른 선수들의 계약 만료 연도만 이어지고, 유일한 반응인 선수 발언은 \"said,.\" 로 비어 있어 이을 사건이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Now-25-year-old Carvajal joined Los Blancos",
+      "note": "둘째 단락을 떼어 보니 트로피 이름과 경기·골 수를 걷으면 남는 논지나 사건이 없고, 인용이 빠진 자리 때문에 반응 문장도 쓸 수 없다."
+    }
+  },
+  {
+    "id": "20d2f6cc-5fd8-4d9e-b985-3f4144a43a90",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4fe4ad17d760a59afedd9f2cdfce94cf54ec7545ee512a8cf793831d308f13a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "무선망이 대부분 안전하지 않다는 발견이 한 엔지니어의 독립 연구로 이어져 암호화 서비스가 나왔다는 까닭이 둘째 단락에서 서서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Google provides its engineers with time",
+      "note": "둘째 단락은 앞 문맥 없이 시작되고, encrypts·Virtual Private Network 를 풀어 쓰면 V4 로 내려가며 2005년 베타라는 시점이 분명해 시대 비교 재료도 된다."
+    }
+  },
+  {
+    "id": "20e01353-b548-4ab1-a010-5aacedcffc8d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "999ec6dd25cf5d36162b64dd41121dcfe8d3780fb995ff1ce6af0c38db15a4ef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "70억 번째 아기 탄생 → 유엔의 기념일 선포 → 필리핀 인구 문제(청소년 출산)를 부각한다는 반응으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Philippines is currently the world's",
+      "note": "마지막 단락이 인구 규모→청소년 출산 비율→문제 부각으로 혼자 서고, childbearing 을 having babies 로 바꾸면 쉬워진다; 청소년 출산 소재라 고등 이상으로 둔다."
+    }
+  },
+  {
+    "id": "20fe0b73-6478-4e1c-b59d-e1b0ce4690cc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "760a89112e8085eed5bf210596ad89559a659af1b16b390c8d5671945f1f0b0e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "51어 본문 전체가 \"사진으로 보여 준다\"는 포토에세이 소개문이고 실제 내용은 사진에 있어 글만으로는 사건이 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The recent string of earthquakes in",
+      "note": "두 문장 중 둘째가 사진을 가리키는 예고라 떼어 내면 \"지진으로 피해가 컸다\" 한 문장만 남는다."
+    }
+  },
+  {
+    "id": "210855f3-f69e-4e78-99b9-b5006976541b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e0e974b1ef8e39c73c91a54964b2c8bc85466b0b3398bd7e36d07c53b1071589",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "진행자의 퇴진 발표 → 계약 비갱신과 과도기 잔류라는 사정을 대리인 성명이 설명하는 흐름이 셋째 단락에서 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ben's two-year contract with GMTV is",
+      "note": "성명 단락은 이름만 \"the presenter\" 로 바꾸면 혼자 서고 transitional 을 short 로 바꾸면 되지만, 마지막 Adrian Chiles 단락은 딴 이야기라 걷는다."
+    }
+  },
+  {
+    "id": "21257f7d-51f4-435f-a63c-c7afeb77258c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9d22c542056f620faf0cd05e1d4fdf97f19dcdf02e61272cf12269a61e74f755",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "정상회의 개최 예고에 의제(코소보)·양자 회담 목적·시위 대비 경비 계획이 까닭과 함께 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For the safety of the leaders",
+      "note": "국가 나열 문장은 걷고 의제·경비 단락만 남기면 서며, counterpart·bilateral 을 풀어 쓰면 한 밴드 내려간다; 국명 목록은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "2138f17a-de4f-451b-abc4-287c72552606",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "56543892264e115e3bb5441430db5da481d085e68ea5c7d7174add38c00a7ae3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "literature",
+    "why": "수상 결정이 만장일치는 아니었으나 타협도 아니었다는 심사위원 발언, 도박사 선호작은 오히려 불리하다는 속설이 이어져 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to Ladbrokes bookmakers, the novel",
+      "note": "마지막 단락이 선호작 → 불리하다는 속설 → 2002년 이후 첫 사례로 혼자 서지만, \"57 other authors were short-listed\" 는 사실과 달라 심사위원 명단과 함께 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "216e77e0-169e-4fa4-bdcc-c7be5d3dee86",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ebefc67a523ec45517c55b4e8c673f0f03e32d1e4ccf31e17c40ab7a48465f10",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "출생 → 중국 애니메이션 창시 → 문화대혁명 중 작업 금지 → 대표작으로 이어지는 생애 흐름이 부고 안에서 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Born in 1915 as Sheng Song,",
+      "note": "셋째 단락부터 끝까지 이으면 생애가 서고 respiratory failure 는 걷어도 되지만, 짧아서 문장 사이를 조금 이어 줘야 한다."
+    }
+  },
+  {
+    "id": "2182a7dd-e42b-4815-924f-9b7683ac6d08",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7eb6cd9ca0eaba74be8d0c14b3c171e40a1d9816cb8b323a1077bb649e5e3590",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "판피어를 현생 어류 조상으로 보던 통념이 탯줄 화석으로 뒤집혀 태생·체내수정 기원이 2억 년 앞당겨졌다는 논지가 첫·넷째 단락에서 서서 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A 375 million-year old fossilised umbilical",
+      "note": "첫 단락과 넷째 단락을 이으면 통념 → 발견 → 결론이 서고, placoderm·viviparity·vertebrate 를 풀어 쓰면 V5 로 내려가며 학명 유래 단락은 걷는다."
+    }
+  },
+  {
+    "id": "21a2d6bc-d3ee-413c-a306-d63d326c1854",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "36b981688c50dea2a9f7a034925dcf61a016b14b2712261869d0c2608b1a4a4b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "알제 폭탄 테러 → 파리·루앙 급습 체포 → 일부 석방 → 배후 조직의 자칭 책임으로 원인과 다음 절차가 이어지는 단신이라 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The men were arrested with three",
+      "note": "두 단락이 그대로 한 편으로 서고 조직 이름 괄호를 걷으면 쉬워지나, 테러 사망 소재라 고등 이상 칸만 단다."
+    }
+  }
+]
