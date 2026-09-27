@@ -106,7 +106,6 @@
         "background",
         "topic",
         "support",
-        "support",
         "support"
       ],
       "alternatives": [
@@ -120,7 +119,7 @@
       "transform": "paraphrase",
       "transform_note": "‘통찰은 사실 평범한 분석적 사고의 결과’라는 진술이 선지에서 ‘통찰을 얻는 데 분석적 사고가 갖는 의의’로 같은 수준에서 바뀌었다.",
       "cues": [],
-      "data_defect": "DB 지문에서 감탄 표현(아하 경험)이 느낌표에서 분할기에 잘려 7번 문장이 ‘Experience.’ 한 낱말뿐이다."
+      "data_defect": null
     },
     {
       "id": "2026#23",
