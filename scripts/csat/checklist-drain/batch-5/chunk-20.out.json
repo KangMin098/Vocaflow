@@ -1,0 +1,502 @@
+[
+  {
+    "id": "2873b075-ee13-48b9-a048-fca6ba348970",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Although Putin promised to complete the",
+    "note": "계약 이행 약속 → 서방 반대 이유 → 지연 원인을 두고 양측 주장이 엇갈리는 흐름이 서고, 마지막 문단은 지명만 걷으면 대립 구도가 그대로 남는다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "2873f171-aa8f-4436-8326-e84b07255ae2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "I've contemplated my mortality a lot.",
+    "note": "후보 한 사람이 자기 입장을 말하는 긴 인터뷰로 polemic 은 아니며, 흑색종 투병 뒤 삶을 돌아본 답(원인→깨달음→변화)과 과학·신앙 답이 떼어 쓰기 좋다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "claim",
+          "main_point",
+          "content_match",
+          "mood"
+        ],
+        "levels": [
+          "V6",
+          "V7",
+          "V8"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "2877674d-a230-4012-b5f4-7dd3042fdd1e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Police became suspicious when a 19-year-old",
+    "note": "감금·성학대 사건이라 성인 칸만 두며, 입원 → 의료기록 확인 → 의심 → 진술 확보로 이어지는 수사 경위 문단이 이름을 걷어도 사건으로 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "2877e199-d846-4d53-9d53-09ae9d905ca6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Belgian Foreign Minister Karel De Gucht asked",
+    "note": "내전 뒤 새 헌법 채택 → 선거 준비 → 선거 지연과 폭동 우려 → 군 지원 요청으로 원인과 반응이 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "2879845f-7e17-4843-ac77-de7a7d0ac595",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "My motivation for pursuing pubic office is",
+    "note": "빈 답이 절반인 후보 문답이지만 교통 혼잡 답(혼잡 → 경제·삶의 비용 → 대중교통·카풀 대책)은 도로명을 걷어도 주장으로 서며, 빈 문항과 공적 나열은 가공 때 걷는다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "claim",
+          "main_point",
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "28798c90-f085-4851-97b5-825dcaa0c3bf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The mission of the robotic craft,",
+    "note": "세 문장짜리 단신으로 탐사 목적(얼음을 찾으려 표토를 판다) 하나만 이어지고 나머지는 웹사이트 개설과 계열 소개라 연결이 가늘다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "reading",
+          "vocab"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "287b6c25-df91-4398-90fe-b5172b1e450d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Some of the affected genes control",
+    "note": "FOXP2 유전자 차이 → 다른 유전자 발현 변화 → 뇌 연결·얼굴 운동 → 언어 장애로 이어지는 설명이 서고, transcription factor 등을 풀어 쓰면 고등 밴드로 내려온다.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "topic",
+          "blank"
+        ],
+        "levels": [
+          "V7",
+          "V8"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "287bc2cb-a1a0-47fc-8c6e-9c04aca65f56",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The vote follows a report released",
+    "note": "철군 법안 가결의 배경(진전 부족 보고서) → 상원 압박 → 대통령 거부권 위협으로 이유와 반응이 이어져 짧지만 단신 최소선을 넘는다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "287bf81b-ec92-47cc-ab80-a10bacc786f9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On the hand other, Yasin Hayal",
+    "note": "암살 교사 의혹이 정보원의 사전 제보 → 당국 방치 → 검찰 판단으로 이어지나, 원문 어법 오류(On the hand other 등)가 있어 가공 때 바로잡아야 한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "287ff521-76ad-40b3-82df-87cf7df5d485",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "I Support a cap to slow",
+    "note": "개발 상한 답이 「상한만으로는 부족 → 주 정부와 분산 계획 필요 → 개발 압력 완화」로 이유가 이어지는 주장 문단이고, 나머지 답은 구호 수준이다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "claim",
+          "main_point",
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "2884620f-29c3-4489-b44d-b26c45498c51",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Prior to the study, it was",
+    "note": "체온 차이 때문에 사람 감염이 어려웠다 → 바이러스가 낮은 체온에 적응했다 → 추가 변이가 필요하다는 인과가 서고 WHO 반론까지 있어 내용 일치·요지 칸이 된다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "summary"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  }
+]
