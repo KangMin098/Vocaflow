@@ -1,0 +1,1165 @@
+[
+  {
+    "id": "40168873-9484-4fc8-b6ab-a1e1a3486f27",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Poor funding and large class sizes",
+    "note": "중퇴율 수치 나열이 대부분이고 연결은 마지막 단락의 원인(재정 부족·과밀 학급) 하나뿐이다.",
+    "record": {
+      "genre": "education",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V2",
+          "V3"
+        ],
+        "platform": [
+          "data-claim"
+        ]
+      }
+    }
+  },
+  {
+    "id": "401b488a-4c7f-4c0a-8bd7-fdefa4270556",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Described as one of the most",
+    "note": "엑손 회장의 경고와 그 이유, 반대 보고서, 주민 여론이 원인·반응으로 이어진다; 경제 어휘 두셋을 바꾸면 V4.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "summary"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "401b819c-1857-4ba1-ab23-760e46357101",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On July 20, Denmark said that",
+    "note": "덴마크 철군 의식과 통역원 대피의 이유가 이어지는 보도로, 통역원 단락은 수치를 걷어도 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "401e017d-d3d6-4fda-b0da-1047f4906fcd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "An undetonated bomb, reportedly from World",
+    "note": "폭탄 발견→활주로 폐쇄→지연·주민 대피로 원인과 결과가 이어진다; 첫 단락이 혼자 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V4",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4023962b-2ce3-4c6c-ac31-a04317e70d5c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The policy had previously been proposed",
+    "note": "EPA 제안과 찬반 반응, 백악관 입장이 반응·이유로 이어지며 온실가스 규제 요지가 선다.",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "claim"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "40253c6a-a80d-439f-acfc-0b5c959af078",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The system files moved or deleted",
+    "note": "잘못된 업데이트가 시스템 파일을 지워 PC 가 멈춘 원인·결과·대응이 한 흐름으로 간다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "summary"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "402a70c2-95d7-4916-8d74-640886ff87f8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On November 2, Kemi Badenoch was",
+    "note": "당선 사실과 표차, 축하 반응만 있는 백 낱말 단신으로 반응 연결 하나만 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "402a971b-807b-4541-8817-b8f8f9638f41",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Blogger George Vaccaro is a customer",
+    "note": "센트와 달러 혼동으로 과금→상담 전화→사과 메일과 절반 환불 제안이 순서대로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "mood"
+        ],
+        "levels": [
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "402bc3cc-44fe-423e-9333-9bd719ad35dd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "However, Evelyn Bencinich, a resident of",
+    "note": "호텔 건립안 심의 보류의 이유와 주민·업체의 찬반 발언이 이어지고, 인근 주민 단락이 우려 근거를 나열한다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim",
+          "main_point"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "4035d01b-453f-4fd1-81ea-fee1b8bac22e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "One year and one month after",
+    "note": "지진 뒤 시청이 등록·방문을 빠뜨려 가족들이 보조금을 못 받게 된 원인과 주지사 조치가 이어진다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4036786f-eab4-4f40-a8d0-144d4e46d318",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The 100-mile-long, 1,200 square mile iceberg",
+    "note": "빙산 충돌이 펭귄 번식지를 막을 수 있다는 원인·결과와 가능한 결말 두 가지가 이어진다.",
+    "record": {
+      "genre": "nature",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "insert",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "403d8247-047b-4480-8e28-2ffc479f209e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Earlier, Peter Aldridge, aged 19, belonging",
+    "note": "순찰 중 폭발로 숨진 병사와 가족 통보, 앞선 전사자 가족의 말이 순서로 이어진다; 연령은 고1 이상.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "mood"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "40419c37-23b2-45ed-94e6-84b95d8582a6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The passengers were rescued by Achiles,",
+    "note": "좌초→연료 유출→칠레 해군 구조→항공 이송이 차례로 이어진다; 국적 목록 단락은 가공 때 걷는다.",
+    "record": {
+      "genre": "geography",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "40444244-83ed-452c-9065-2b9b9256a0ba",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "According to Hungarian Water engineers, a",
+    "note": "수위 수치가 많지만 역 침수로 지하철 폐쇄 위험, 1838년 얼음 댐 홍수 원인이 문장으로 이어진다.",
+    "record": {
+      "genre": "environment",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "40468130-e16a-4755-ba2b-cfb0e52a2416",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Tariceanu and his ministers are saying",
+    "note": "헌재 판결로 법안이 막혀 총리가 사퇴한 경위와 여야의 상반된 주장이 이유·반응으로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "404ac0b3-2e05-410b-b5be-37a03c30c04e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The cause of the explosion is",
+    "note": "폭발 원인을 가스와 폭발물 사이에서 추적하는 수사 경과가 이유·다음 절차로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "404ec7ad-8d87-4f8b-a28a-6340b1b8d31b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The attackers escaped with Sullivan captive",
+    "note": "예배 중 목사 납치→차량 발견→수사·협상 진행이 시간순으로 이어진다; 폭력 소재라 고1 이상.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "404ecc45-c20c-45f3-87b1-0d7f1ed745da",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "In 1973 Augusto Pinochet took power",
+    "note": "피노체트 사망과 장례 결정, 축하·애도의 엇갈린 반응, 독재의 경과가 반응·원인으로 이어진다.",
+    "record": {
+      "genre": "history",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "mood",
+          "summary"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": [
+          "then-now"
+        ]
+      }
+    }
+  },
+  {
+    "id": "40532fbd-06e6-4342-9cf9-422a1ad75625",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Over the last few years, the",
+    "note": "안테나·전원 고장으로 연료가 얼기 전 퇴역을 결정한 원인·결과 흐름이 뚜렷하다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V6",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4059ca6c-42cb-4f80-8608-e9bcf9297bde",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "After finding out that he will",
+    "note": "정비 부담이 사라진 기쁨에 낙타를 잡고 비판을 받아 해고된 경위가 이유·결과로 이어진다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "mood"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "405b538f-97e0-4841-be8a-b700afc519cb",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Iran has consistently claimed that it",
+    "note": "이란의 평화적 이용 주장과 서방의 근거 제시가 주장·근거 짝으로 이어진다; 전문 용어는 바꿔야 한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim",
+          "summary"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "4061b9d9-4415-421d-95d8-717cdef97e58",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "In 1994, Cameroon approached the International",
+    "note": "국제사법재판소 판결→그린트리 협정→반도 인계와 주민 반발이 시간순·반응으로 이어진다.",
+    "record": {
+      "genre": "geography",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4068a9f9-a77c-4c17-ab18-5895c5b97e5b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Indonesian security were at first unwilling",
+    "note": "호텔 두 곳 연쇄 자폭 테러의 경과와 세 번째 폭발이 무관하다는 경찰 판단이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "406a5b60-6be5-4cb4-b6a9-24eff1f9517c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "According to Washington Post, many auto-part",
+    "note": "부품업체가 값싼 노동력에 끌려 루마니아로 모였다는 이유와 공장 인수 경위가 이어진다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "40705d1f-248a-44a8-b6ff-4167e45e3aa9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Four US soldiers were killed by",
+    "note": "지뢰로 차량이 폭발한 연결 하나 뒤에 서로 다른 전사 건수가 나열될 뿐인 89어 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

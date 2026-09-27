@@ -1,0 +1,1110 @@
+[
+  {
+    "id": "3f7e2bb8-59be-4567-a489-076198261dae",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Her meeting has been followed by",
+    "note": "항의 시위로 모스크 방문이 취소됐다는 인과 하나뿐이고 나머지는 방문 일정·장소 나열이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V2",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3f808ded-8810-4154-9a1e-7b45d9d205b1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Gongadze criticised the government of then-President",
+    "note": "정부 비판 → 납치·살해 → 자백·유해 위치 제보로 사건이 이어지며, 참수 묘사는 고등 이상 칸으로 제한한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3f8ebb40-84d7-4137-8461-a6c0edaaad3b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Oil and gas pipelines in Mexico",
+    "note": "폭발 → 주민 대피 → 송유관 폐쇄 → 반군 책임 주장으로 결과·반응이 둘 이상 이어지는 짧은 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3f90d75c-2bcf-4fba-b455-4f266f462e9f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The editor of Utrop, a newspaper",
+    "note": "국가 번역 제안과 그 이유, 진보당의 반대 근거가 맞서는 구조라 주장·근거 문항으로 떼기 쉽다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "claim"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "3f9a1614-8d89-4ae1-95f9-64116374bb2a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The London Underground, also known as",
+    "note": "고장 → 견인 중 분리 → 여섯 역 통과 → 경사에서 정지로 시간순 사건 흐름이 분명하다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3f9b03ab-a914-492e-878f-5890fa776a33",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Azov Brigade was banned from",
+    "note": "무기 사용 제한 해제의 이유와 러시아·여단 측 반응이 이어지며 양쪽 입장을 함께 옮긴 보도다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3f9bef12-a4e4-4e67-9dc7-c2f7abcfc8da",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The former king, Gyanendra of Nepal,",
+    "note": "왕정 폐지 투표 → 국왕 퇴거 시한 → 지도자들의 반응으로 결과와 반응이 둘 이상 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fa02984-e4c6-4d51-b82e-701fbae98853",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The national debt ceiling is supposed",
+    "note": "부채 한도의 작동 원리(초과 → 정부 기능 축소)를 설명하는 문단이 인과로 서서 떼어 쓰기 좋다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "csat",
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "blank"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fa0d916-e439-4be5-b04a-0e3ddba723c1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The couple, who had been in",
+    "note": "결혼 사실에 반지·드레스·하객 같은 세부가 나열되고 연결은 하버드에서 만나 이주했다는 정도라 가늘다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fa34019-8c90-4779-b990-59ac171488a2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Superintendent Ponting also warned the authors",
+    "note": "선동 문자 확산 → 경찰 경고·처벌 고지 → 발신자 추적으로 반응과 절차가 이어지며 선동 문구는 인용에 그친다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fad35b6-dd67-43ab-bbfa-926a308a90d3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Sea Shepherds had made arrangements",
+    "note": "급유 약속 → 업체의 취소 → 추격 포기와 귀항으로 원인·결과가 이어지는 문단이 혼자 선다.",
+    "record": {
+      "genre": "environment",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "3fad75ad-faf2-4268-af2d-994058464f9f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Baghdad bureau of the German",
+    "note": "납치 → 테이프 요구 → 방송사 방영 거부·외교부 협상으로 반응이 둘 이상 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fad9ed6-d060-4ad8-b6c9-15ae6abce2c0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "It was discovered by the method",
+    "note": "통과 관측법의 원리와 처음엔 행성으로 오인한 까닭을 인과로 설명해 과학 설명문으로 쓸 수 있다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "csat",
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "blank",
+          "insert"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fb1455e-d73e-4515-b59e-d8f33bf7c0e0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": true,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The suspects were caught on surveillance",
+    "note": "용의자 신상 목록이 본문 대부분이고 감시카메라 동선 문단 하나만 흐름이 있으며, 초기 보도 명단이라 사실이 낡았을 수 있다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fb1af22-ecf4-4553-bb87-5524ada63b25",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The color-based system has been heavily",
+    "note": "색 경보 체계가 비판받은 이유 → 새 체계로 교체라는 원인·결과가 서서 요지를 뽑기 쉽다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "title"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fb2725d-f4a6-4c02-b807-31ca2f5bc9fe",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The United Nations mission in Abidjan,",
+    "note": "차량 추적 → 입구 도착 → 발포 → 응사로 시간순 사건이 이어지고 선거 분쟁 배경이 이유를 준다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fb2ad79-11c3-4448-a608-6bc0ad6db555",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "However, \"North Korea will take a",
+    "note": "통일세 제안과 북한 반발 우려·비용 때문에 통일을 늦추길 바라는 여론이 이유로 이어진다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "claim"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fb3cc84-1de8-425a-b174-c9cc56ddb853",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Eyewitnesses reported a loud explosion, and",
+    "note": "폭발 → 벽 붕괴·차량 파손 → 암모니아 누출 차단 → 대피로 결과와 다음 절차가 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fb4cb7d-c535-4f00-a6ec-412c401172c7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "No reports of damage, injuries, or",
+    "note": "규모·진앙·깊이 나열 사이에 흔들림에 사람들이 건물 밖으로 뛰쳐나왔다는 반응 하나만 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fb7920f-0b42-445f-ab9c-6718208daf73",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The ongoing financial crisis over adjustable-rate",
+    "note": "실업률 상승 → 감세 검토, 주택담보 위기 → 건설·제조업 일자리 감소로 인과가 둘 이상이다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "csat",
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fb82ff8-7351-41cf-9da9-e07667d05dd9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Harry, aged 20, was attending a",
+    "note": "파티 사진 촬영 → 신문 게재 → 게재 뒤 사과 성명으로 짧지만 결과와 반응이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fbaab95-fcfa-4906-85c3-2daaaa73cc79",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On March 23, the fifteen sailors",
+    "note": "재판 불필요 발언 → 영국의 검토·응답 예고, 억류 경위와 영해 주장 대립이 이유로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fc44fd6-ae35-46c5-ba12-40475ace815a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Robida was captured Saturday February 4,",
+    "note": "범행 → 도주 중 경관 살해 → 추격 → 총격전으로 시간순 흐름이 분명하고 폭력 묘사라 고2 이상 칸만 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "3fc58b62-799a-4802-9cd8-29bbb4c1112b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Sedition is the crime of inciting",
+    "note": "선동죄 정의 → 판결 뒤 비판 → 폐지 권고와 찬반 논거로 이유와 결과가 이어진다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "csat",
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "claim"
+        ],
+        "levels": [
+          "V7",
+          "V6"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "3fcad8af-77c6-4fa5-be92-d08b92b8d84d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Even at the reduced figure of",
+    "note": "후보가 자기 입장을 밝히는 인터뷰로 polemic 이 아니며 국방비 답변 문단이 주장·근거로 혼자 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "csat"
+        ],
+        "types": [
+          "claim",
+          "main_point",
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  }
+]

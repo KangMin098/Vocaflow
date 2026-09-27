@@ -1,0 +1,1157 @@
+[
+  {
+    "id": "41a39b68-1fb0-4fe1-9acf-1b1630f65155",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The new method involves connecting the",
+    "note": "기존 칼륨·얼음 보존의 한계 → 뛰는 심장 기계 연결 → 손상 회복·이식 수 증가로 이어지는 설명 문단이 떼어져 내용 일치·요지 칸을 채운다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title",
+          "main_point",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41a5f297-4572-4b23-8d8a-d141895beeda",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Communal tensions have risen in Mumbai",
+    "note": "동상 훼손 → 시위·상점 폐쇄·버스 방화 → 경찰 대응의 인과가 이어지며 폭력 소재라 고2 이상 칸으로 둔다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41a659d3-dc8e-4d21-8d9f-405e7ca90dea",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "IB had intercepted suspicious phone calls,",
+    "note": "통화 감청 → 감시 → 증거 확인 → 체포의 수사 절차가 시간순으로 서서 인명을 걷어도 사건 흐름이 남는다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41ac4c29-574e-46b0-9785-e1c0a9a1f6c2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Ukrainian forces continued advancing, and, on",
+    "note": "반격 진전 → 러시아군 퇴각 → 항복 권유 전단으로 이어지는 전황 문단이 떼어지나 끝 문단의 문장 조각은 가공 때 다듬어야 한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "order",
+          "summary"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41b012ed-a20d-4847-a160-884e9212ef0c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The snow fell mostly during the",
+    "note": "약 백 년 만의 눈 → 주민들이 눈놀이 · 이례적 추위 → 노숙인 사망으로 원인과 결과가 이어진다(끝의 구글 장식 문장은 걷는다).",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title"
+        ],
+        "levels": [
+          "V4",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41b7b517-3eac-473a-8d0a-3c5a1a3697fe",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "But the new study now shows",
+    "note": "해안선이 너무 울퉁불퉁해 바다 흔적이 아니라던 통념을 자전축 이동으로 뒤집는 논지가 서서 요지·빈칸 칸을 쓸 수 있다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "main_point",
+          "blank",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41b8b0c4-ba9e-4310-a28f-456cf1b7bbec",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The pro-independence parties include the Junts",
+    "note": "국민투표 불허 → 조기 선거 · 후보 지지 불일치 → 타협 후보 필요 등 이유 연결이 둘 이상이고 정당별 입장 비교가 한 주제로 묶인다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41b98d20-38d2-4e81-9857-1552b692c024",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Tuesday morning, Hollywood police reported",
+    "note": "시신 발견 → 운행 중단 연결 하나 뒤로 사망 판정·신원 비공개만 이어져 사실이 셋 남짓이고 흐름이 가늘다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41b9f4e3-81b7-4a61-9f45-f76aceacc03c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Parliamentarians became more-enthusiastic about the project",
+    "note": "의원 촬영 행사가 도착·촬영·영상 녹화·언론 반응으로 시간순 이어지고 후반 참여 증가와 늦게 온 의원의 아쉬움이 인과로 묶인다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title",
+          "order",
+          "summary"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41ba3d73-7683-418c-bece-8b52ee00d4c5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to a statement released by",
+    "note": "체포 시도 → 무장 저항 → 사살 → 대통령 정당화 발언으로 반응이 이어지며 폭력 소재라 고2 이상 칸만 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41c0bc6c-c736-4d1a-931d-e5df6d83f956",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The 47th Thessaloniki Film Festival will",
+    "note": "개막일·상영작·초청 인사·예산이 이름만 바뀌며 나열되고 문화부의 국제화 노력 한 줄 말고는 문장 사이 연결이 없다.",
+    "record": {
+      "genre": "art",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41c8c03b-c12e-4b95-898b-481d4e37cce9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A search concluded that there were",
+    "note": "화장실 연기 → 제압 → 폭발물 없음 확인 · 외교 면책 → 기소 어려움으로 원인·결과가 여럿 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41cb47d8-eb61-44af-9812-addca3a0fc9e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Five children were killed by a",
+    "note": "지사를 노린 자폭 공격 → 아이 다섯 사망 → 지사의 회고로 원인·반응이 이어지나 뒤 문단의 다른 지역 사건은 걷는 편이 낫다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41ceb013-f927-4d84-a3c8-d1b02cc228de",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In a news conference in Boise,",
+    "note": "체포 보도 → 기자회견 사과 → 직무 방해를 이유로 사퇴 → 후임 지명 절차로 이어지며 성 추문 소재라 고2 이상 칸으로 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41d216b6-8e5a-4782-939d-e2512ff40a9c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "This pre-main-show exhibition style was replaced",
+    "note": "예비 전시가 사라졌다 재단 개편 뒤 돌아왔다는 연결 하나 뒤로 세미나·초청인·전시관 이름 나열이 이어지고 문장도 어색하다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41d37187-4c84-4a07-a312-b42bca3e19c5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Thirty-four thousand Transport Workers Union Local",
+    "note": "연금 기여 인상 요구 → 파업 → 중재 합의 → 복귀로 원인과 다음 절차가 이어져 사건 흐름 칸을 채운다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title",
+          "order",
+          "summary"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41d4638d-d354-4be5-bd09-d5314153237b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Mohamed brought the digital clock he",
+    "note": "시계를 폭탄으로 오인 → 체포 → 해시태그 확산 → 기업·대통령의 초청으로 반응이 시간순 이어져 요지와 순서 칸이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title",
+          "order",
+          "summary"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41d6aaee-59a6-406d-be35-5f7d41a107a7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Officials in the U.S. are now",
+    "note": "위성 요격 시험 → 파편 4만 개 → 다른 위성 위협 우려로 결과와 반응이 이어지고 수치를 걷어도 논지가 남는다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41d993fd-18a0-46e9-b3d2-f0cc3a9a966b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to Gen Iinuma, Maui County",
+    "note": "대형 헬기는 물을 더 싣지만 하강풍이 불을 키울 수 있다는 장단점 대조와 지상 진화 한계가 이어져 떼어 쓰기 좋다.",
+    "record": {
+      "genre": "environment",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41e08f7e-e109-4386-a901-5ca0979fefee",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Many trees were cut down by",
+    "note": "폭염 끝 한랭전선 → 폭풍 → 쓰러진 나무로 교통·축제·공연 차질이 이어지는 결과 사슬이 뚜렷하다(끝의 사진 링크 문장은 걷는다).",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "order",
+          "summary"
+        ],
+        "levels": [
+          "V4",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41e191e4-4efe-4e1f-8a4d-2630aa2e7fcb",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A car bomb exploded in the",
+    "note": "경고 전화 → 대피 → 폭발 → 정부의 대화 중단 결정으로 원인·결과·다음 절차가 이어진다(끝의 영상 안내 문장은 걷는다).",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41e29d11-8d75-4fb2-ab61-20216c55c887",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "South Ossetia, one of two breakaway",
+    "note": "의석 수·정당 이름·유권자 수·초기 결과가 차례로 놓이고 분석가의 과장 지적 하나 말고는 문장 사이 연결이 없다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41e3af00-c16d-4633-8278-a765b527f59a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "NASA managers have extended their hold",
+    "note": "연료전지 고장 → 발사 연기 → 현장 수리 불가로 회수 가능성 → 다음 회의에서 결정으로 원인과 다음 절차가 이어진다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "title",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41e58223-d9c4-4108-a22b-8b1302d42095",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Santorum has had success in the",
+    "note": "루이지애나 승리가 영향력을 키웠다는 결과 하나와 보수층 지지라는 이유 하나 외에는 대의원 수·주 이름 나열이라 가늘다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "41e63fa4-ae72-4d1c-9093-f66f5fed8af2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The clashes began when the body",
+    "note": "시신 유기 → 폭동 → 사망 → 통행금지·수사로 원인·결과·다음 절차가 이어지며 종교 폭력 소재라 고2 이상 칸만 둔다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  }
+]
