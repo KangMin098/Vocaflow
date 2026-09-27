@@ -5,7 +5,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
-import { isDigestTitle, isBriefSourceId, splitDigest, briefTitle, briefSourceId, isResidue } from '../source-get/_wikinews-shorts.mjs'
+import { isDigestTitle, isBriefSourceId, splitDigest, briefTitle, briefSourceId, isResidue, needsManualSplit, splitByGroups, paragraphs } from '../source-get/_wikinews-shorts.mjs'
 import { derivativeKind } from '../gate-rules.mjs'
 
 const BODY = `Records at McGill University were made public because of a glitch in a new search system, CBC reports.
@@ -60,4 +60,32 @@ test('꼭지 제목·source_id 는 모음으로 다시 읽히지 않는다 (재�
   assert.equal(isDigestTitle('Wikinews Shorts: April 23, 2008 — An attack on a U.S. base.'), false)
   assert.equal(isBriefSourceId('wikinews:104498#brief-1'), true)
   assert.equal(isBriefSourceId('wikinews:104498'), false)
+})
+
+test("따옴표 붙은 'Sources 줄에서도 자른다 (wikinews:130347 실측)", () => {
+  const body = "Hakimullah had earlier issued statements denying the reported death of the other leader today.\n\n'Sources\n\nHurricane Felicia has weakened to a tropical storm, but residents of Hawaii are continuing to monitor it."
+  assert.equal(splitDigest(body).briefs.length, 2)
+})
+
+test('2012년 1월 형식(머리말 · Sources 줄 없음)은 자동으로 쪼개지 않는다', () => {
+  const body = 'If you believe any of these stories deserves more in-depth coverage, feel free to write a full article on the issues raised.\n\nMSF have announced a partial withdrawal from Libya over torture of detainees.\n\nThe UN estimates some 8,500 loyalists are held.\n\nMick Jagger has withdrawn from the tea party in Davos, Switzerland this week.'
+  assert.equal(needsManualSplit(body), true)
+  assert.equal(needsManualSplit(BODY), false, 'Sources 줄이 있으면 자동')
+  // 자동으로 돌리더라도 머리말은 꼭지에 남지 않는다
+  assert.doesNotMatch(splitDigest(body).briefs[0], /^If you believe/)
+})
+
+test('적어 둔 경계로 쪼갠다 — 모든 문단을 정확히 한 번씩 덮어야 한다', () => {
+  const body = 'Head line to drop.\n\nFirst story sentence one has enough words to count here.\n\nFirst story continues with its second paragraph right here.\n\nSecond story is a different topic with enough words to count.'
+  const ok = splitByGroups(body, [[1, 2], [3]], [0])
+  assert.deepEqual(ok.problems, [])
+  assert.equal(ok.briefs.length, 2)
+  assert.match(ok.briefs[0], /second paragraph/)
+  assert.equal(splitByGroups(body, [[1], [3]], [0]).problems.length, 1, '빠진 문단')
+  assert.equal(splitByGroups(body, [[1, 2], [2, 3]], [0]).problems.length, 1, '겹친 문단')
+  assert.equal(paragraphs(body).length, 4)
+})
+
+test('다시 쪼갠 꼭지 source_id(#brief-N.M)도 원천이다', () => {
+  assert.equal(derivativeKind({ source_id: 'wikinews:350068#brief-1.3' }), null)
 })

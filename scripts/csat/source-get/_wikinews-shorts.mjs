@@ -15,8 +15,36 @@ export const isDigestTitle = (title) => /^Wikinews Shorts\b/i.test(String(title 
 /** 꼭지 행인지 — source_id 끝이 `#brief-N`. */
 export const isBriefSourceId = (sid) => /#brief-\d+$/.test(String(sid ?? ''))
 
-const SPLIT = /\n[ \t]*Sources?[ \t]*(?:\n|$)/
+// 따옴표가 붙은 「'Sources」 줄도 있다(실측 wikinews:130347 — 이 줄을 못 알아봐 무관한 두 꼭지가 한 행에 남았다).
+const SPLIT = /\n[ \t]*['"‘’“”]*Sources?['"‘’“”]*[ \t]*(?:\n|$)/
 const words = (s) => (String(s).match(/\S+/g) ?? []).length
+
+// 2012년 1월 모음의 머리말 — 꼭지가 아니라 편집 안내다.
+const BOILERPLATE = /^If you believe any of these stories deserves more in-depth coverage\b[^\n]*(?:\n\s*)*/i
+
+/** 문단 나누기 — 빈 줄 기준. */
+export const paragraphs = (content) => String(content ?? '').split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
+
+/**
+ * 「Sources」 줄이 없어 자동으로 못 쪼개는 모음인가 — 2012년 1월 형식(머리말 뒤에 꼭지들이 빈 줄로만 이어진다).
+ * 빈 줄은 꼭지 경계가 아니다(한 꼭지가 두세 문단이다) — 이런 모음은 자동으로 쪼개지 않고 사람·에이전트가 경계를 적는다
+ * (`wikinews-shorts-resplit.json`). 실측 2026-09-27: 이 형식 6행이 꼭지 하나로 들어가 판정에서 「덜 쪼갠 모음」 보류가 됐다.
+ */
+export const needsManualSplit = (content) => BOILERPLATE.test(String(content ?? '').trim()) && !SPLIT.test(String(content ?? ''))
+
+/**
+ * 적어 둔 경계로 쪼갠다. `groups` 는 꼭지마다 문단 번호 배열(0부터) — 모든 문단이 정확히 한 번씩(버릴 문단은 `drop`) 나와야 한다.
+ * @returns {{ briefs: string[], problems: string[] }}
+ */
+export function splitByGroups(content, groups, drop = []) {
+  const ps = paragraphs(content)
+  const seen = [...groups.flat(), ...drop].sort((a, b) => a - b)
+  const problems = []
+  if (seen.length !== ps.length || seen.some((x, i) => x !== i)) problems.push(`문단 ${ps.length}개를 정확히 한 번씩 덮지 않는다: ${JSON.stringify(seen)}`)
+  const briefs = groups.map((g) => g.map((i) => ps[i]).join('\n\n'))
+  for (const b of briefs) if (words(b) < MIN_BRIEF_WORDS) problems.push(`꼭지가 ${MIN_BRIEF_WORDS}낱말 미만: ${b.slice(0, 40)}`)
+  return { briefs, problems }
+}
 
 // 꼭지가 아닌 꼬리 — 링크 안내 · 「전체 기사로 옮겼다」 안내 · 날짜 머리 · 지도 캡션.
 // 실측(2026-09-26 첫 적용 449꼭지): 이런 조각 5개가 낱말 5~9개로 꼭지처럼 들어갔다. 진짜 단신은 가장 짧은 것도 23낱말이었다.
@@ -29,7 +57,7 @@ const MIN_BRIEF_WORDS = 10
  * @returns {{ briefs: string[], dropped: string[] }}
  */
 export function splitDigest(content) {
-  const parts = String(content ?? '').split(SPLIT).map((p) => p.trim()).filter(Boolean)
+  const parts = String(content ?? '').trim().replace(BOILERPLATE, '').split(SPLIT).map((p) => p.trim()).filter(Boolean)
   const briefs = []
   const dropped = []
   for (const p of parts) (words(p) >= MIN_BRIEF_WORDS && !RESIDUE.test(p) ? briefs : dropped).push(p)

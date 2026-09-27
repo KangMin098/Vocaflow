@@ -1,0 +1,210 @@
+{
+ "note": "「Sources」 줄이 없어 자동으로 못 쪼갠 꼭지 행의 꼭지 경계(문단 번호, 0부터 · 빈 줄 기준). 2026-09-27 에이전트가 본문을 읽고 적었다. 적용: wikinews-shorts-resplit.mjs",
+ "rows": [
+  {
+   "id": "74fbf667-8310-4196-8afa-9f90f4b346c4",
+   "source_id": "wikinews:118158#brief-1",
+   "source_updated_at": "2026-09-27T00:34:24.933523+00:00",
+   "body_sha256": "3d02fbc14493898c3aa9c71d0509d7d9803e9d4a0b573f6580e52418c4225726",
+   "groups": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ]
+   ],
+   "drop": []
+  },
+  {
+   "id": "dfb63755-542d-4fc9-8a47-9a93f55f5b63",
+   "source_id": "wikinews:130347#brief-9",
+   "source_updated_at": "2026-09-27T00:34:48.953965+00:00",
+   "body_sha256": "d2cdfc7b1028a35007d244b58b631ffd65441365752a5d216315f2de42e76c0d",
+   "groups": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     4,
+     5,
+     6
+    ]
+   ],
+   "drop": [
+    3
+   ]
+  },
+  {
+   "id": "6ecc4eb4-4c99-49c6-b233-d7fc5f8fd562",
+   "source_id": "wikinews:344550#brief-1",
+   "source_updated_at": "2026-09-27T00:34:23.414071+00:00",
+   "body_sha256": "e2d88ab82d0491b83f68211a34eeefbde471814731bb860a4881fd9bc68ae6b3",
+   "groups": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     7,
+     8
+    ],
+    [
+     9,
+     10,
+     11
+    ]
+   ],
+   "drop": [
+    0
+   ]
+  },
+  {
+   "id": "a223da5d-bf81-45fc-aea3-e545dd193078",
+   "source_id": "wikinews:346756#brief-1",
+   "source_updated_at": "2026-09-27T00:34:34.424333+00:00",
+   "body_sha256": "361cede3f443e746ad4c190f8f2e8bcac797733530669dabaf341a880436b68f",
+   "groups": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     7,
+     8
+    ],
+    [
+     9,
+     10
+    ],
+    [
+     11
+    ],
+    [
+     12
+    ]
+   ],
+   "drop": [
+    0
+   ]
+  },
+  {
+   "id": "e87522cc-8a1f-4463-a3a5-8347f2c4fe45",
+   "source_id": "wikinews:349043#brief-1",
+   "source_updated_at": "2026-09-27T00:34:50.678973+00:00",
+   "body_sha256": "3e24613f91afb303fb6056c552d3cf62184f8af3609a50af1f256c8592a78bbc",
+   "groups": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     6
+    ]
+   ],
+   "drop": [
+    0
+   ]
+  },
+  {
+   "id": "f94b0c83-7d9c-4c14-9d3c-520c3f8fc637",
+   "source_id": "wikinews:350068#brief-1",
+   "source_updated_at": "2026-09-27T00:34:53.224531+00:00",
+   "body_sha256": "09642873d48b94e5bab6eb7d98cb21bf5d522d9ea418fade76f757ef5b286b6a",
+   "groups": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     7,
+     8
+    ],
+    [
+     9,
+     10
+    ]
+   ],
+   "drop": [
+    0
+   ]
+  },
+  {
+   "id": "6580d020-ce0f-4b79-95ed-58efe57f5094",
+   "source_id": "wikinews:351053#brief-1",
+   "source_updated_at": "2026-09-27T00:34:21.4652+00:00",
+   "body_sha256": "d8e6eaffaef3b3b6fc91b599d024ae49faf51752f7208f02aa8bd495780fe1ca",
+   "groups": [
+    [
+     1,
+     2,
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "drop": [
+    0
+   ]
+  },
+  {
+   "id": "3b00b5d4-7b5d-4d88-8e76-c9ed8b1f18ca",
+   "source_id": "wikinews:65849#brief-3",
+   "source_updated_at": "2026-09-27T00:34:11.801661+00:00",
+   "body_sha256": "8da7152dafea448606c8b61cdc02ff221986f9881f22f80d6dc39adca4199a68",
+   "groups": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     3,
+     4,
+     5
+    ]
+   ],
+   "drop": []
+  }
+ ]
+}

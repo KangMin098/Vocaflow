@@ -17,7 +17,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { isDigestTitle, isBriefSourceId, splitDigest, briefTitle, briefSourceId } from './_wikinews-shorts.mjs'
+import { isDigestTitle, isBriefSourceId, splitDigest, briefTitle, briefSourceId, needsManualSplit } from './_wikinews-shorts.mjs'
 
 try {
   for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -49,9 +49,12 @@ let briefsExisting = 0
 let dropped = 0
 let judged = 0
 const failures = []
+const manual = []
 for (const d of digests.filter((x) => isDigestTitle(x.title) && !isBriefSourceId(x.source_id))) {
   if (done >= LIMIT) break
   if (d.csat_fit?.derived_from?.kind === 'digest') { already++; continue }
+  // 「Sources」 줄 없는 형식은 자동으로 쪼개지 않는다 — 경계를 적어 `wikinews-shorts-resplit.mjs` 로(꼭지 하나로 넣으면 무관한 단신이 한 행에 남는다).
+  if (needsManualSplit(d.content)) { manual.push(d.source_id); continue }
   if (d.csat_fit?.gate?.retain) judged++
   const { briefs, dropped: tail } = splitDigest(d.content)
   dropped += tail.length
@@ -98,6 +101,7 @@ for (const d of digests.filter((x) => isDigestTitle(x.title) && !isBriefSourceId
 
 console.log(`  ${COMMIT ? '적재' : '예행'} · 모음 ${digests.length}행 중 이번 ${done} · 이미 쪼갬 ${already}`)
 console.log(`  꼭지 새로 ${briefsNew} · 이미 있음 ${briefsExisting} · 꼬리 조각 뺌 ${dropped} · 판정 기록이 붙은 모음 ${judged}(지우지 않고 파생물로 표시)`)
+if (manual.length) console.log(`  자동으로 못 쪼갬(「Sources」 줄 없음) ${manual.length} — wikinews-shorts-resplit.json 에 경계를 적는다: ${manual.join(' ')}`)
 if (failures.length) {
   console.log(`  실패 ${failures.length}:\n    ${failures.join('\n    ')}`)
   process.exitCode = 1
