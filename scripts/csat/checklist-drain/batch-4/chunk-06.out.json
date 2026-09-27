@@ -1,0 +1,9 @@
+[
+  { "id": "fedd8d91-9625-4298-9a47-a25d3fc649ad",
+    "answers": { "blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong",
+      "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true,
+      "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": true },
+    "sample": "Students should recall that, in",
+    "note": "교사용 수업 지도안으로 본문 대부분이 함께 오지 않은 문서 묶음(편지 발췌·Document 1)을 가리키는 지시라, 떼어 쓸 만한 것은 보스턴 포위 한 문단뿐이어서 보관이 갈릴 수 있다.",
+    "record": { "genre": "history", "slots": { "ages": ["high1"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V5"], "platform": [] } } }
+]
