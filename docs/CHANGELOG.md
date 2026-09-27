@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **단어장 선반 3D 장면화**(2026-09-28 · 라우트·migration 0): `VocabShelf3D`(three.js · @react-three/fiber) — 책 = 두께 있는 상자(앞면 교재 표지 SVG 텍스처 · 옆면 종이 단면) · 흰 선반 판 · 그림자 판(선반 그늘 · 책 그림자) · 벽은 투명(페이지 바탕). 호버/포커스 시 책이 당겨지고 포인터 쪽으로 기움, 접근성은 3D 위치에 투영한 진짜 버튼(로빙 탭 · ↑↓ 줄 이동). frameloop=demand(정지 시 GPU 0) · 표지 텍스처 1배.
 - **기출 원문 결함 조치**(2026-09-28 · migration 0): reflow 발문 종결 「곳은?」(2014A·B#39 지문 0번이 발문 꼬리였다) · `splitSentences` 「Aha! Experience.」 오분할(M1809#22) — 오탐 2건(「Wow!」·「Mrs.」) 확인 뒤 조건을 좁힘 · M2509#31 은 PDF 대조로 결함 아님.
 - **문장 분할 · 요약문 추출 수정**(2026-09-28 · migration 0): `splitSentences` 가 ①–⑤ 앞에서도 자른다(무관한 문장 28 · 도표 29 · 어법 3 · 지칭 1문항이 문장이 합쳐져 있었다 · 회귀 추가) — 강의 큐 3개를 글자 위치로 옮김(`remap-lecture-split.mts`). reflow v4: 요약문 화살표 글리프 → 문단 경계, 지문 꼬리 선지 표 머리 제거(R-SUMMARY 28문항 · DB 반영은 `regen-passages --commit`).
 - **출제 설계 주석 v1.3 대량 적재**(2026-09-28 · migration 0 · jsonb `answer_locus.passage_design` +249 → 447문항 · 무관한 문장·요약문은 분할 수정 뒤 재주석): 필자 주장 · 요지 · 주제 · 제목 · 함축 의미 · 문장 삽입 20청크. 재실행 쓸 것 0. 무관한 문장 · 요약문 6청크는 문장 분할 결함(①–⑤ 뒤 미분할 · 요약문·선지 머리글이 지문에 섞임)으로 `hold/` 보류 — [결함 목록](./csat-learner/design-drain-defects.md).
