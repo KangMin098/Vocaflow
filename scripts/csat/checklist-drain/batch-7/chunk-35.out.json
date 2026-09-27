@@ -1,54 +1,6 @@
 [
   {
-    "id": "439cef73-df3d-4873-a9f1-7725f259f424",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "However, Mr. Netanyahu demanded military action",
-    "note": "위키리크스 전문으로 드러난 네타냐후의 이란 공격 요구를 연정 협상·배경과 함께 인과로 잇는 보도다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "main_point",
-          "content_match",
-          "title"
-        ],
-        "levels": [
-          "V6",
-          "V7"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "439fbfa8-3b37-4404-9570-3d4aa42885fc",
+    "id": "465a9d04-e509-4bc4-a7c7-ffef0242d5f8",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -66,58 +18,10 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The original reports claimed that de",
-    "note": "런던 지하철 오인 사살 사건의 초기 발표와 유출 문서를 대조하며 반응까지 잇는 기사로 사망 묘사가 있어 고1 이상 칸이다.",
+    "sample": "The British Scorpio ROV cut fishing",
+    "note": "갇힌 잠수정을 영국 무인잠수정이 그물을 잘라 구조하고 승조원이 병원으로 옮겨진 흐름이 서며 끝의 승조원 이름 목록은 가공 때 걷는다.",
     "record": {
       "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "main_point",
-          "order"
-        ],
-        "levels": [
-          "V6",
-          "V7"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43a0baec-96e8-449e-b390-3677a5f3a6f1",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Phoenix was launched atop a Delta",
-    "note": "피닉스 착륙의 발사·진입·착륙 순서와 임무 목적을 시간순으로 서술해 순서·내용일치 칸을 채운다.",
-    "record": {
-      "genre": "space",
       "slots": {
         "ages": [
           "mid",
@@ -132,481 +36,64 @@
           "reading"
         ],
         "types": [
-          "order",
           "content_match",
-          "insert"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43a4bec3-8ee7-48fe-853c-93206ffff32e",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "thin",
-      "mainPoint": false,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "All bodies have now been removed",
-    "note": "버스 폭탄 사망자 수 정정과 폭발 상황 두 문단뿐인 단신으로 폭발-피해 외 연결이 가늘다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43a4c207-504c-40ef-9050-ca8164ad6765",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "The report found that over 80%",
-    "note": "금욕 성교육 프로그램의 오류 보고서와 예산 증가·반박을 잇는 보도로 성교육 소재라 고1 이상 칸이며 문장 사이 공백 누락은 가공 때 고친다.",
-    "record": {
-      "genre": "health",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "main_point",
-          "content_match",
-          "summary"
-        ],
-        "levels": [
-          "V6",
-          "V7"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43a5c91d-49fb-4369-95af-a37af55ac61f",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "thin",
-      "mainPoint": false,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Bob Schindler and his wife Mary",
-    "note": "급식관 재삽입 긴급 항소와 이전 기각을 잇는 짧은 단신으로 절차 연결 하나 외에는 날짜·법원 이름뿐이다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43a69dd6-a928-4f1a-840b-f010bcf9c948",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Libya's foreign minister, Abdul Ati al-Obeidi,",
-    "note": "리비아 군사고문 파견과 그에 대한 반응, 미스라타 사진기자 사망을 한 전쟁 흐름으로 잇는 기사로 사상 묘사가 있어 고1 이상이다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "main_point",
-          "irrelevant"
-        ],
-        "levels": [
-          "V6",
-          "V7"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43a93a6b-52d6-4b19-b7cd-c88b84631c2a",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "thin",
-      "mainPoint": false,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Australian cyclist Paul Crake wasn't able",
-    "note": "타이베이 101 계단 경주 결과를 기업·학교 이름 나열로 전하며 부상 선수 대체 초청 하나 외 연결이 가늘고 영어도 어색하다.",
-    "record": {
-      "genre": "sports",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43aaaa55-ed80-4f4b-ae57-b72d742f8e94",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "thin",
-      "mainPoint": false,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": false,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "There has been debate recently about",
-    "note": "부시와 주지사 회동 기사로 첫 문장 주어가 빠진 채 시작하고 본문이 발언 인용 위주라 보호법 논쟁 하나만 이어진다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43abe064-594d-4ff6-a4df-1e1bd220a814",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "As the Programme expanded and continued,",
-    "note": "석유식량 프로그램 부실 관리의 책임 소재·원인·권고를 인과로 풀어낸 조사 보고 기사다.",
-    "record": {
-      "genre": "social",
-      "slots": {
-        "ages": [
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "main_point",
+          "title",
+          "topic",
           "summary",
+          "order"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "465e230c-a4f7-4170-a382-e798663fcde4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The last publicly released value for",
+    "note": "영란은행이 물가를 목표로 되돌리려 금리를 올렸고 분석가 추정과 주가 하락 반응이 이어져 원인·반응 연결이 둘 이상이다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
           "content_match",
+          "title",
+          "topic",
+          "summary",
           "blank"
         ],
         "levels": [
-          "V7",
-          "V8"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43b63a7f-e08e-41e1-a7ad-987c1033cfaf",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "According to officials, such violations as",
-    "note": "러시아기 영공 침범에 대한 핀란드의 대응·요구·재발 이유를 차례로 잇는 기사다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "main_point",
-          "order"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43b8f44d-dec5-4b1d-8710-4c0fca9b8e87",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Bush also praised the security forces",
-    "note": "이라크 폭력 감소를 병력 증파·이라크군 역량이라는 이유와 함께 전하는 연설 보도로 한쪽 입장이지만 취재원 발언 보도다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "main_point",
-          "content_match",
-          "claim"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43b9bf69-07a5-4ffc-a75d-d3c376d86e18",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "thin",
-      "mainPoint": false,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "\"There are no special celebrations for",
-    "note": "싱 총리의 재임 일수 순위 단신으로 재임일 비교 수치가 중심이고 기념행사 없음 외 연결이 가늘다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
           "V4",
           "V5"
         ],
@@ -615,149 +102,7 @@
     }
   },
   {
-    "id": "43bd08f2-f817-4764-bbee-d2722c4b390a",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "The propulsion technology is currently believed",
-    "note": "태양돛이 연료 없이 빛의 압력으로 가속하는 원리와 한계를 이유로 설명해 요지·빈칸 칸이 선다.",
-    "record": {
-      "genre": "space",
-      "slots": {
-        "ages": [
-          "mid",
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "main_point",
-          "blank",
-          "content_match"
-        ],
-        "levels": [
-          "V6",
-          "V7"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43c38a01-a66a-41b7-a1bc-e8789ffbcba5",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Ok had been trying to overturn",
-    "note": "간통죄 판결과 위헌 소원·법 존폐 논쟁을 잇는 기사로 성인 주제라 고2 이상 칸만 둔다.",
-    "record": {
-      "genre": "social",
-      "slots": {
-        "ages": [
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "main_point",
-          "claim"
-        ],
-        "levels": [
-          "V6",
-          "V7"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43c6480a-e447-4f19-a58e-2b195b5f0a5f",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "thin",
-      "mainPoint": false,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Finally, after a seven week run",
-    "note": "앨범 차트 순위 변동 단신으로 사망 뒤 판매 급증 하나 외에는 순위·곡명 나열이다.",
-    "record": {
-      "genre": "art",
-      "slots": {
-        "ages": [
-          "mid",
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43c7f5cd-9bc6-4700-a115-01548bc5dc6e",
+    "id": "465e9f1d-291a-4418-9952-d02b7a08bab3",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -775,13 +120,62 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "At least four animals — two gators",
-    "note": "게이터랜드 화재의 피해·동물 대피·임시 재개장 계획이 시간순과 반응으로 이어지는 짧은 사건 기사다.",
+    "sample": "As a leader of the lenca",
+    "note": "원주민 지도자 피살과 가족의 보복 주장, 댐 반대로 업체가 철수한 경위가 원인·결과로 이어지며 살해 소재라 고1 이상 칸만 둔다.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
-          "elem",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "topic",
+          "summary",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "466267b0-0957-4f8e-9731-066562265dd5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The stars had upset many Kurds",
+    "note": "바트당 이상을 뜻하던 별이 쿠르드인 반감을 사 국기에서 빠졌다는 이유와 찬반 반응이 이어져 요지가 분명하다.",
+    "record": {
+      "genre": "history",
+      "slots": {
+        "ages": [
           "mid",
           "high1",
           "high2",
@@ -795,10 +189,63 @@
         ],
         "types": [
           "content_match",
+          "title",
+          "topic",
+          "summary",
+          "insert"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4669b7d3-5d16-44ab-8c75-21b185f66fc0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The oil spill has poured at",
+    "note": "원유 유출 피해와 비판에 대응해 대통령이 배상 기금을 요구하고 주정부·이사회가 반응하는 원인·다음 절차가 여럿 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "topic",
+          "summary",
           "order"
         ],
         "levels": [
-          "V3",
           "V4",
           "V5"
         ],
@@ -807,7 +254,7 @@
     }
   },
   {
-    "id": "43caf49e-8c19-4935-814d-5b529c1f2160",
+    "id": "466e904c-34fc-4516-98bc-e80e3adc71ff",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -825,12 +272,14 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "This news comes as police suspended",
-    "note": "뉴올리언스 폭발과 약탈 대응·연방 늑장 비판을 잇는 기사로 끝 인용에 비속어가 있어 가공 때 걷어내며 고2 이상 칸이다.",
+    "sample": "It is the biggest acquisition in",
+    "note": "인수 목적(수익원 다각화)과 결과(주당 이익 감소 예상)가 이어지며 끝의 관련 기사 제목 한 줄은 잔재라 걷는다.",
     "record": {
-      "genre": "news",
+      "genre": "economics",
       "slots": {
         "ages": [
+          "mid",
+          "high1",
           "high2",
           "high3",
           "adult"
@@ -841,7 +290,10 @@
           "reading"
         ],
         "types": [
-          "content_match"
+          "content_match",
+          "title",
+          "topic",
+          "summary"
         ],
         "levels": [
           "V4",
@@ -852,7 +304,7 @@
     }
   },
   {
-    "id": "43cc2a3c-4b79-487d-95b6-374fb48f2998",
+    "id": "46724c8d-476a-404a-b6ae-8ee6fa5a1040",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -870,12 +322,13 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "McGovern also claims that whistleblowing could",
-    "note": "전 CIA 요원의 내부고발 촉구를 개인 경험과 이라크 전례를 근거로 전하는 보도로 한쪽 입장이나 취재원 주장 보도라 차단하지 않는다.",
+    "sample": "Captain John Carr, the second prosecutor",
+    "note": "전직 검사들의 조작 주장과 근거 인용, 군 측 반박이 주장·반응으로 이어지며 비속어 한 구절은 가공 때 걷는다.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
+          "high1",
           "high2",
           "high3",
           "adult"
@@ -886,56 +339,10 @@
           "reading"
         ],
         "types": [
+          "content_match",
           "claim",
-          "main_point",
-          "content_match"
-        ],
-        "levels": [
-          "V6",
-          "V7"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43cdbddf-6861-435c-b7c7-e00d215e9b39",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Reports say the man walked into",
-    "note": "피트니스센터 총격의 경위·자살·동기 추정·목격담이 시간순으로 이어지는 사건 기사로 폭력 묘사라 고1 이상이다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "order"
+          "topic",
+          "summary"
         ],
         "levels": [
           "V5",
@@ -946,7 +353,7 @@
     }
   },
   {
-    "id": "43cea6e2-20f7-4fef-87cb-d960a2e9527c",
+    "id": "4674d047-544b-40cf-ace5-c2208a43c755",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -964,8 +371,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The screen consists of a backing",
-    "note": "말 수 있는 전자종이 화면의 구조와 트랜지스터 전하로 입자를 움직여 상을 만드는 원리를 설명한다.",
+    "sample": "The letter accused Meta of systemic",
+    "note": "트위터가 영업비밀 유용을 이유로 메타에 소송을 경고하고 머스크·저커버그의 반응과 가입자 수가 이어져 흐름이 선다.",
     "record": {
       "genre": "technology",
       "slots": {
@@ -983,68 +390,21 @@
         ],
         "types": [
           "content_match",
-          "main_point",
-          "order"
+          "title",
+          "topic",
+          "summary",
+          "claim"
         ],
         "levels": [
-          "V5",
-          "V6"
+          "V4",
+          "V5"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "43cf5b88-5c56-4974-8c55-4e953de96ce7",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "The theatre nights sometimes involve bars",
-    "note": "금연법의 연극 예외를 노린 술집 편법과 보건부의 불인정·단속 방침을 이유와 함께 잇는 기사다.",
-    "record": {
-      "genre": "health",
-      "slots": {
-        "ages": [
-          "mid",
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "mock",
-          "csat",
-          "reading"
-        ],
-        "types": [
-          "main_point",
-          "purpose",
-          "content_match"
-        ],
-        "levels": [
-          "V5",
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "43d04ecd-472d-40fd-803a-0608eff933f1",
+    "id": "46758646-1de5-42b1-b575-cbe425819bd4",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -1062,13 +422,12 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The typhoon made landfall in the",
-    "note": "태풍 코푸 상륙과 피해·구조·당부가 차례로 이어지는 재난 기사다.",
+    "sample": "The shooting occurred after the police",
+    "note": "경고 뒤 발포, 체포와 기소, 수색기 실종이 시간순으로 이어지는 사건 기사이며 사망 소재라 고1 이상 칸이다.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
-          "mid",
           "high1",
           "high2",
           "high3",
@@ -1081,28 +440,28 @@
         ],
         "types": [
           "content_match",
-          "order",
-          "insert"
+          "title",
+          "topic",
+          "summary",
+          "order"
         ],
         "levels": [
-          "V4",
-          "V5",
-          "V6"
+          "V5"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "43d17872-0420-4548-99ee-a5ac5bcf245b",
+    "id": "4675fd30-cca4-4846-908e-2b028744c9d0",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
-      "linkage": "thin",
-      "mainPoint": false,
-      "narrative": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
@@ -1112,8 +471,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Although the US is home to",
-    "note": "포브스 부자 순위 기사로 신흥국 부 증가에 따른 미국 비중 감소 하나 외에는 순위·금액 나열이다.",
+    "sample": "The strike at Lindsey this week",
+    "note": "파업에 대응한 해고, 연대 파업과 중재 실패, 노조 반응이 원인·결과로 이어지는 노사 분쟁 기사로 요지가 분명하다.",
     "record": {
       "genre": "economics",
       "slots": {
@@ -1129,7 +488,11 @@
           "reading"
         ],
         "types": [
-          "content_match"
+          "content_match",
+          "title",
+          "topic",
+          "summary",
+          "order"
         ],
         "levels": [
           "V5",
@@ -1140,7 +503,56 @@
     }
   },
   {
-    "id": "43d30d62-f88f-4a63-9b3a-3be988a24ab6",
+    "id": "46771d40-13c0-4f0f-8397-cc1cad52ff4e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Russia has made delivery of its",
+    "note": "러시아 연료 공급이 이란 농축 중단의 근거가 된다는 미·러 주장과 이란의 거부 반응이 대립 구조로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "topic",
+          "summary",
+          "claim"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4681a497-13c7-4caf-8ccb-4aa3c156f798",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -1158,8 +570,58 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "According to Vibber, Cogent Communications readvertised",
-    "note": "위키미디어 접속 장애의 원인·읽기 전용 전환·복구가 인과와 순서로 이어지는 기사다.",
+    "sample": "The New Jersey appellate panel ruled",
+    "note": "항소법원이 하급심을 뒤집은 이유와 양측 변호인 반응, 석면 질환 설명이 이유·반응으로 이어지는 긴 법정 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "topic",
+          "summary",
+          "insert"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4682ae29-8f0e-43c2-b640-31927da5f835",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The attacks are reported as being",
+    "note": "양국 정부 누리집 공격이 어업 분쟁과 연관됐다는 추정 하나로만 이어지고 끝 두 줄은 출처 제목 잔재라 연결이 가늘다.",
     "record": {
       "genre": "technology",
       "slots": {
@@ -1176,12 +638,500 @@
           "reading"
         ],
         "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4682cf60-7ab4-4af4-9f0a-e6060a0a2e60",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Much of the 90 minute hearing",
+    "note": "신용카드 금리 인상 관행을 두고 위원장의 비판과 발급사 임원들의 반론이 주장·근거로 맞서는 청문회 기사다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
           "content_match",
+          "claim",
+          "topic",
+          "summary"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "46831ae5-27b9-4bd0-8486-b97a03833b8a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The two most important opposition parties",
+    "note": "부토 암살로 선거가 미뤄지고 폭력 우려로 투표가 저조하며 야당 부정 주장과 탄핵 가능성이 원인·결과로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "topic",
+          "summary",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "46847aa0-e8fc-4f55-9cb6-8fd37705a0ea",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Mao suit has a long",
+    "note": "젊은 세대가 새 옷을 좇아 마오 복장이 사라진다는 요지에 판매 비중·상인 말·유래가 근거로 붙어 초등 이상도 읽힌다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "topic",
+          "summary",
+          "insert"
+        ],
+        "levels": [
+          "V3",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "468ec41f-9469-4d0e-a316-87ce2290b141",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The suspension of an elected representative",
+    "note": "기자 모욕 발언 때문에 정직 결정이 났고 부시장 비판과 항소 가능성이 반응·다음 절차로 이어지는 짧은 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "468edca3-9a87-4668-991f-206b215efc63",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The move follows the parliamentary election",
+    "note": "총선 패배 뒤 내각이 총사퇴하고 새 총리 지명이 예고되며 양안 정책은 크게 바뀌지 않으리라는 전망이 이유와 함께 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "topic",
+          "summary",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "469353cb-0d89-485e-af49-5b537b6d1962",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The ANC announced earlier today that",
+    "note": "부패 사건 개입 의혹으로 여당이 사임을 요구하고 대통령이 받아들인 뒤 내각 이탈 위협이 이어지는 원인·결과 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary",
+          "order"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4693a7bc-ed2a-4114-ba0c-f4e8fe7eccba",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Residents of the town will vote",
+    "note": "주민 청원이 모여 전쟁범죄 기소 투표에 부쳐지고 당국은 체포 권한이 없어 상징적이라 밝힌 절차·이유가 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "46944ce4-23dc-4498-8806-95e9f488cf7b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Prime Minister Silvio Berlusconi has declared",
+    "note": "지진 발생 뒤 사상자와 건물 붕괴, 비상사태 선포와 구호 지원이 결과·반응으로 이어지며 앞머리 포털 안내는 잔재라 걷는다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "topic",
+          "summary",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4696c3fa-22b4-493c-8ae9-395bbe54b486",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Representatives from consulting firms Predicta Lab",
+    "note": "호출기 폭발의 원인 조사와 제조사 책임 공방, 국제 반응이 원인·반응으로 이어지는 사건 기사이며 사상 소재라 고1 이상이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "topic",
+          "summary",
           "order"
         ],
         "levels": [
           "V5",
           "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "4696cfb6-e211-4c67-b0fc-27cd906efc67",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "After fleeing the court house Atlanta",
+    "note": "재판 중 피고인이 총을 빼앗아 세 명을 쏘고 달아나 수배와 현상금으로 이어지는 시간순 사건으로 강력범죄 소재라 고1 이상이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "summary"
+        ],
+        "levels": [
+          "V4",
+          "V5"
         ],
         "platform": []
       }
