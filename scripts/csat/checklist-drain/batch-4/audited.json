@@ -1,0 +1,26 @@
+[
+ {
+  "id": "1952d727-4219-4f1e-b607-019a29542acb",
+  "source": "nasa",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "700a4596-49c0-459d-846d-5518f52414d9",
+  "source": "space_place",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "8dca8c47-0803-4d47-928f-579a28afdaf1",
+  "source": "openstax",
+  "checklist": "keep",
+  "rule": "keep"
+ },
+ {
+  "id": "ea7a508d-7533-4f13-bc45-7a3d398f2cbf",
+  "source": "openstax",
+  "checklist": "hold",
+  "rule": "truncated"
+ }
+]
