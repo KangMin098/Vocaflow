@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **기출 원문 결함 조치**(2026-09-28 · migration 0): reflow 발문 종결 「곳은?」(2014A·B#39 지문 0번이 발문 꼬리였다) · `splitSentences` 「Aha! Experience.」 오분할(M1809#22) — 오탐 2건(「Wow!」·「Mrs.」) 확인 뒤 조건을 좁힘 · M2509#31 은 PDF 대조로 결함 아님.
 - **문장 분할 · 요약문 추출 수정**(2026-09-28 · migration 0): `splitSentences` 가 ①–⑤ 앞에서도 자른다(무관한 문장 28 · 도표 29 · 어법 3 · 지칭 1문항이 문장이 합쳐져 있었다 · 회귀 추가) — 강의 큐 3개를 글자 위치로 옮김(`remap-lecture-split.mts`). reflow v4: 요약문 화살표 글리프 → 문단 경계, 지문 꼬리 선지 표 머리 제거(R-SUMMARY 28문항 · DB 반영은 `regen-passages --commit`).
 - **출제 설계 주석 v1.3 대량 적재**(2026-09-28 · migration 0 · jsonb `answer_locus.passage_design` +249 → 447문항 · 무관한 문장·요약문은 분할 수정 뒤 재주석): 필자 주장 · 요지 · 주제 · 제목 · 함축 의미 · 문장 삽입 20청크. 재실행 쓸 것 0. 무관한 문장 · 요약문 6청크는 문장 분할 결함(①–⑤ 뒤 미분할 · 요약문·선지 머리글이 지문에 섞임)으로 `hold/` 보류 — [결함 목록](./csat-learner/design-drain-defects.md).
 - **평가원 영어 기출 원천 전수 조사**(2026-09-28 · DB 쓰기 0): 수능·평가원 모의평가 802문항을 본문 해시 기준 713개 고유 지문으로 묶어 검색·대조했다. 원문 직접 확인 26 · 서지 유력 후보 22 · 소재 계보만 1 · 미확인 664. 재현용 `scripts/csat/source-origin-*`와 본문을 제외한 [감사 보고서](./reports/csat-source-origin-audit-20260928.md)·713행 JSONL을 추가했고, 검색 작업물은 저장소에서 제외했다.

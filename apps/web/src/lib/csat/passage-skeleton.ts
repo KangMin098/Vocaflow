@@ -114,6 +114,10 @@ export function splitSentences(passage: string): { start: number; end: number }[
     let k = j
     while (k < passage.length && /\s/.test(passage[k])) k += 1
     if (k < passage.length && !/[A-Z“"('‘[①②③④⑤]/.test(passage[k])) continue
+    // 「Aha! Experience.」 처럼 느낌표·물음표 뒤가 낱말 하나로 끝나는 조각이면 이름·제목의 일부다(M1809#22).
+    // 「Wow!」 같은 감탄 한 낱말 문장 · 「Mrs.」 같은 약어는 제외한다(2015#19 · M1809#19 오탐 실측).
+    const word = /^[A-Z][A-Za-z'’-]*\.["'’”)]*(?=\s|$)/.exec(passage.slice(k))?.[0]
+    if (ch !== '.' && word && !ABBREV.test(word)) continue
 
     out.push({ start, end: j })
     start = k

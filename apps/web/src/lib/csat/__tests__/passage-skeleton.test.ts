@@ -48,6 +48,12 @@ describe('splitSentences', () => {
     expect(s).toHaveLength(3)
   })
 
+  it('느낌표 뒤 한 낱말 조각은 이름의 일부다 — 「Aha! Experience.」 · 감탄 문장·약어는 끊는다', () => {
+    expect(splitSentences('It produces the Aha! Experience.')).toHaveLength(1)
+    expect(splitSentences('Sales Director! Wow! This was a dream.')).toHaveLength(3)
+    expect(splitSentences('I’m sorry!” Mrs. Cline smiled.')).toHaveLength(2)
+  })
+
   it('빈 지문에 빈 배열', () => {
     expect(splitSentences('')).toEqual([])
   })

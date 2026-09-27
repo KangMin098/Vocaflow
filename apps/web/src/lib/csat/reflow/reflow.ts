@@ -93,7 +93,8 @@ export const INLINE_SYMBOL_TYPES: ReadonlySet<string> = new Set([
 ])
 
 /** 발문은 덩어리로 끝난다 — 이 표지 뒤부터가 지문이다(`lib-passage.mjs` 와 같은 표지). */
-const STEM_END = /(?:것은\s*\??|것을\s*고르시오\s*\.?|고르시오\s*\.?|하시오\s*\.?|답하시오\s*\.?)(?:\s*\[\s*3\s*점\s*\])?/
+// 「곳은?」 — 문장 삽입 발문(「…가장 적절한 곳은?」). 빠지면 줄바꿈된 발문 꼬리가 지문 0번 문장이 된다(2014A·B#39).
+const STEM_END = /(?:것은\s*\??|곳은\s*\??|것을\s*고르시오\s*\.?|고르시오\s*\.?|하시오\s*\.?|답하시오\s*\.?)(?:\s*\[\s*3\s*점\s*\])?/
 const HANGUL = /[가-힣]/
 const HIGH_SCORE = /\[\s*3\s*점\s*\]/
 const SET_HEAD = /^\s*\[\s*(\d{1,2})\s*[~～∼〜–—-]\s*(\d{1,2})\s*\]\s*(.*)$/
