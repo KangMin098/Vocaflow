@@ -1,0 +1,947 @@
+[
+  {
+    "id": "1f880dd4-5798-4c95-8576-ac396ead2639",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "97b64adf04a42471fb1056384c4faa8659c7c16ca4f8c533ecdb429e43cf4a7f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경선 승리 → 득표 격차 → 지지자 연설 인용으로 결과와 반응이 한 편 안에서 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hillary Clinton earned a victory in",
+      "note": "commanding lead·convention 을 쉬운 말로 바꾸니 V4 로 내려갔고 인용 두 개가 반응 문장으로 남는다."
+    }
+  },
+  {
+    "id": "1fa2ae76-6449-48c2-9390-e27499c5bf18",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "31abcfb172fc064496edcf494626ff06959314218503e7b6ca0176c12d7c757d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "폭풍이 불마다 다르게 작용했다(비로 진화 도움 · 효과 없음 · 오히려 번개로 새 불)는 인과가 네 문단을 잇는다 — 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Firefighters in the Australian state of",
+      "note": "mixed blessing·contain·spot fires 를 풀어 쓰니 중등 밴드로 내려가고 지명을 걷어도 대비 구조가 선다."
+    }
+  },
+  {
+    "id": "1fa9a016-d17f-4743-8c19-69f2e5d736a1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fb0ff8efece95cd86f2e827199ae8febabbfd00b6be9f5d5259c940fa6a9e0a6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "머큐리·제미니·아폴로 세 비행을 시간순으로 짚은 부고 기사라 경력 흐름이 서서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Schirra also flew on the Gemini",
+      "note": "rendezvous·low Earth orbit 을 풀면 V4 에 들고 세 임무 순서가 뚜렷해 순서 배열이 쉽다."
+    }
+  },
+  {
+    "id": "1fbcfba2-787f-41d6-856e-74efb13da9e4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "01d8d8e61c11ad63846ca1c10a3580ac896a4fe7d95f85013631135c4c5855db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "영장 공개 → 압수 대상(무단 계좌 개설) → 다른 주·의원의 잇단 조치로 사건과 반응이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The warrant said property to be",
+      "note": "긴 인명 나열을 걷고 affidavit·felonious 를 바꾸면 V6 이고 무단 계좌 사건의 줄기는 남는다."
+    }
+  },
+  {
+    "id": "1fc4c208-089b-4230-af4c-da355c6c5f6c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d56d1f6a9fd8e2a94e7f3f6831aedf655c5d2a40f92cc385f5a4884ba09bb117",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "language",
+    "why": "악수 거절 → 욕설 교환 → 번역 논란 → 대통령궁의 인터뷰 문구 삽입 폭로로 사건이 이어지나 비속어 번역이 중심이라 성인 칸만 단다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In an interview published Tuesday in",
+      "note": "프랑스어 원문·직역 비속어 줄을 걷고 Le Parisien 삽입 폭로 문단 중심으로 두면 서지만 욕설 번역 대목은 가공 때 반드시 걷는다."
+    }
+  },
+  {
+    "id": "1fc7610c-8c3f-4347-90fa-7b840850d12f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5ce13598980d5c4ed09774ae77420de471631237327a683bd02f941c5d3d01f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "과반 득표자가 없어 결선이 열렸다는 까닭과 두 후보의 공약 대비, 선출되지 않은 성직자 기구의 통제가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The choice is between conservative candidate",
+      "note": "westernized·portrays 를 바꾸니 V5 이고 후보 대비가 남는다 — 2005년 시점임을 가공 때 밝힌다."
+    }
+  },
+  {
+    "id": "1fcf25e7-3e30-46b2-9171-bb5e0181e1b8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7ae90771381a3b5672b709cc3efc12df37e85fb281ed13421b69374f184f2d1c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "실내 공공장소 금연 발표 → 적용 범위와 예외 → 위반 시 현장 벌금·표지 의무로 규정의 결과가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Welsh Assembly Government has announced",
+      "note": "discretion·enclosed 를 풀면 V4 로 내려가고 다른 지역과의 비교 문장이 내용 일치 선지 재료가 된다."
+    }
+  },
+  {
+    "id": "1fd55cef-47a5-4440-b717-ec8e55971430",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3c001f3765389b792717edbef0dbb607510b293fdaf854c696d3bbe9e44da26a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "계단 오르기 대회의 상금·조별 참가 방식·온라인 추첨 신청 기간·의료 대기를 알리는 안내가 마지막 문단에서 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the main organizers, this",
+      "note": "원문 영어가 비문투성이라 후원사 홍보 인용과 등록 오류 문단을 걷고 마지막 안내 문단을 다시 써야 하며 그러면 V4 로 선다."
+    }
+  },
+  {
+    "id": "1fde133b-7cd4-4589-a4ac-519abaaab22d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8f6c55ea5877d1463e4f6b81bea5512b03e338120503f23061736d673e26bb82",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "비공개 보고서 배포 → 인터넷 유출 → 결론 인용(신고 물질은 확인, 원심분리 계획은 공백)으로 사건과 내용이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The report's concluding paragraphs summarise the",
+      "note": "인용 결론 문단은 떼면 서지만 safeguards·undeclared·centrifuge 가 핵심어라 바꾸면 뜻이 흐려져 밴드가 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "1fe4cc11-0194-4ae8-83da-4acfd8d83b38",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80c628f675a61bd513d31443cc2326f6054eb9b571792350ac5fbfebd265101f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "산불이 마을 남쪽까지 다가와 1,500명이 대피했고 번개가 원인으로 추정된다는 원인·결과가 두 문단에서 이어진다 — 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "1,500 people in the town of",
+      "note": "evacuated·substation·blaze 를 바꾸니 V3 이고 짧지만 원인과 결과가 모두 있다."
+    }
+  },
+  {
+    "id": "1ff2e552-fd3a-490a-abe6-70e95cb986cf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "507dda3b4df20b4b5de78e0ea26e97c0baba3571ae071ece58af28ceded90585",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "노조 결성·교섭 봉쇄·회사의 역설적 파업 유도 경위와 자유무역지대에서 여성 노동이 선호되는 까닭을 설명한 Burn 인용 문단이 논지를 세워 주제·요약·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to Burn (2005, p. 170-172),",
+      "note": "출처 표기를 걷어도 「무역지대 → 법 면제 → 여성이 싼 노동력」 논지가 서고 patriarchal·exempt 를 바꾸면 V6 — 끝의 시위 일정 두 줄과 부부관계 금지 대목은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "200a5373-c47a-49cb-9890-59bdb639aae0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ac314c638d9c1bff6278082222af45de8b84459775238fdf3ebc6b0f5d8e8b59",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "홍수로 사망·피난 → 추가 강우 예보 → 기상청 경보와 2단계 비상 대응으로 결과와 다음 절차가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Over 50 people have been confirmed",
+      "note": "관청 인용문이 딱딱해 걷고 submerged·drought relief 를 풀면 V4 로 사건 흐름이 남는다."
+    }
+  },
+  {
+    "id": "20241cdf-a0f0-4e62-a195-aeb1ad46f7a3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b9a280bf4c2ed5e931cc83cfc0bf591fc5ec2ecb75b1ab5690bf6a43181cd232",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "social",
+    "why": "「이슬람 혐오가 퍼졌다」는 한 줄 주장에 여론조사 수치 셋이 붙은 한 문단뿐이고 마지막 문장이 마침표 없이 끝나 수치 나열과 주장-근거 사이에서 갈린다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Islamophobia seems to be alive and",
+      "note": "주장 문장 하나와 퍼센트 셋이 전부라 수치를 걷으면 논지가 남지 않고 끝 문장이 끊긴 것인지 원래 그런지 가를 수 없다."
+    }
+  },
+  {
+    "id": "202b9154-de97-4fa7-b39c-e739e28a8be0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e9771cc0546f493b19cf5b924b2f7e3c329b1e8a7623cb2f89e684b6ebac52d3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "득표율 나열 뒤에 투표제도 결함 때문에 여당이 제2표를 찍지 말라고 한 역설과 그로 인한 의석 이동이 인과로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The CDU had actually urged supporters",
+      "note": "제2표 역설 문단은 떼면 서지만 overhang seat·second vote 개념을 풀어 설명해야 해 낱말 바꾸기만으로는 밴드가 안 내려가고 끝의 링크 문장은 걷는다."
+    }
+  },
+  {
+    "id": "2032aabd-82cf-43cd-9fdc-46ddd2c8290e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8ef09f53a9762a66648833bf99aa3df254b0ea7733c626fa906f1dd5aaa090c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "education",
+    "why": "연구청 출범 → 예산 → 지원 분야·교육·특허 자문 역할 → 학자들의 평가로 기관의 목적이 한 편으로 서서 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "NASR will also train scientists and",
+      "note": "intellectual property·infrastructure 를 풀면 V5 이고 역할 나열이 문장으로 이어져 요약문 재료가 된다."
+    }
+  },
+  {
+    "id": "203b873f-00d1-408b-b359-8a28d07b3ebb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "10b92de764ec653dd95bb093af90fe0bc09fdeddb0cb65a7267ed3210c782228",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "비밀·소송 속 기조연설 시작 → 제품 발표 → 「One More Thing」 → 퇴장으로 행사 순서가 서고 Mac mini·iPod shuffle 문단이 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mac mini is a new $499",
+      "note": "제품 사양 목록 대부분(코덱·포맷)은 걷고 도입부와 Mac mini·iPod shuffle 두 문단만 남기면 사건 순서가 서며 사양 수치를 줄이면 V5 다."
+    }
+  },
+  {
+    "id": "20401375-ce27-4c99-9be6-3b5a57d872d4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c9f60f31c13656b65155c43da3475a5129695e59125aa467e7da950e0bc0077e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "성장 배경(어머니의 가르침)·실용주의·「세금은 신뢰의 문제」 답변 문단이 각각 요지를 세워 주장·요지·주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "topic",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In reference to my upbringing, I",
+      "note": "질문을 걷고 1인칭 답 한 문단만 떼도 「노력하면 된다」 요지가 서며 pragmatist·arcane 을 바꾸면 V5 — 당파 공격 대목은 가공 때 뺀다."
+    }
+  },
+  {
+    "id": "208257c0-a7b8-4ad3-9265-223807048e99",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d63d2416389c2fc164a8d5832218b6310d705a250593b34d3d4effe566bd8c73",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "PKK 공격 → 국경 도시 금지구역 선포 → 무단 진입 시 사살 경고와 항공편 중단으로 조치가 원인에서 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Turkey has tightened access to its",
+      "note": "trespassing·extraordinary 를 바꾸면 V5 이고 사살 경고는 사실 서술이라 연령을 고1 이상으로 둔다."
+    }
+  },
+  {
+    "id": "209d2e7e-c7d0-4031-a0eb-2a6960c04a67",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8921b6981f035297bbf495a5eb94dec94b3314e7a92b2d9449fd2ac988ef2248",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "아동 성범죄 사형 허용 법안 서명과 찬성(영혼을 죽인 자) · 반대(용서의 힘) 논변이 짝을 이뤄 주장 칸이 서나 소재가 무거워 고3·성인 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Gumm, a sponsor of SB 1800,",
+      "note": "찬반 두 인용이 대비를 이뤄 떼어도 서고 molesters·parole 을 바꾸면 V6 — 이 법은 2008년 연방대법원 판결로 효력을 잃었으니 가공 때 시점을 밝힌다."
+    }
+  },
+  {
+    "id": "20a26bda-65db-430a-a461-f425777ed263",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9dff0871e18a9ced27050d3529eca982a916635625cbba04518f40da7d4cf24d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "진앙·깊이 수치 문단 뒤에 멀리서도 느껴졌고 인명 피해는 없으나 전화선이 끊겼으며 앞선 8.8 지진 이재민이 아직 천막에 산다는 결과·맥락이 이어진다 — 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wikinews's Diego Grez reported that the",
+      "note": "앞 세 문단의 거리·깊이 수치는 걷고 마지막 문단만 쓰면 사건과 피해가 서며 casualties·monitored 를 바꾸면 V3 이다."
+    }
+  },
+  {
+    "id": "20a68c06-27d3-4626-a9c6-834403ecc83a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33d6b2264c5b776c6caf991e8339c1b3167cc0dcfef6d9f540d1b33c1ea5549f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "식품검사청이 소비자에게 비소 우려 생수를 마시지 말라고 알리고 까닭과 회수 조치를 밝혀 누가·누구에게·무엇을이 서므로 목적·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Canadian Food Inspection Agency (CFIA) issued",
+      "note": "권유·까닭 문단은 그대로 서고 carcinogen 을 풀면 V4 — 뒤의 UPC·용량·전화번호 목록은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "20af6447-662b-48a9-b726-046ba653a483",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e62ad6bbf88dd3e6351195441d5633a9d47928b7fd9c5ef98bc79b8454f7db0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "경찰 단속 → 허가 여부를 둘러싼 경찰·주최 측 주장 대립 → 과잉 진압 증언과 보안관 반박이 이어져 주장-근거 대조와 내용 일치·요약 칸이 서나 마약·폭력 묘사로 고2 이상이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The police have publicly stated that",
+      "note": "허가 공방 문단은 양쪽 주장과 확인한 공무원 증언이 한데 있어 떼도 서고 bureau·deployed 를 바꾸면 V6 — 욕설 인용·영상 링크 줄은 걷는다."
+    }
+  },
+  {
+    "id": "20aff070-9ac9-4e4f-a797-eb0d3918fd3f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6881efc09c36f78eff74ec0a41f2fa07829b5502b4d86de41765a76709fee000",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "여행가방 속 시신 발견 → 두 남성 기소 → 법정 출석과 무죄 답변 예고로 사건과 다음 절차가 이어지나 살인 소재라 고1 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two men charged after the body",
+      "note": "name suppression·ransom 을 풀면 V4~5 이고 짧지만 기소와 절차가 한 흐름이다."
+    }
+  },
+  {
+    "id": "20aff62f-ccb6-4f0f-8b6b-aba2c75e7272",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ee1cab54d53c357c4a3a456d112e46566d31ff73d3f5f1e2357da9755223d9e7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "literature",
+    "why": "대부분이 노골적 성·근친 문답이지만 영국과 미국 문단 구조를 대비한 답변 문단과 「동성애 소설은 시장이 만든다」 대목이 요지를 세워 성인 칸의 주제·요지를 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "London is such a different place",
+      "note": "미국 작가는 흩어져 있고 영국 작가는 런던에 모여 서로 안다는 대비 문단은 인명을 걷어도 서고 bastion·prestigious 를 바꾸면 V6 — 성·근친·욕설 문답 전부는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "20b3cba8-b204-42dd-9d1c-f4a4f00540e3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "691231a9326126954ca8795c63df2116433eaa6f512e50f902e3f05f5b5a93e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "착륙 뒤 화재 → 진화·승무원 대피 → 기종 설명과 앞선 활주로 이탈 사고로 사건과 결과가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A United States Air Force B-1",
+      "note": "close-air support 문장을 걷거나 풀면 V4 이고 사건·결과 두 문단이 그대로 선다."
+    }
+  }
+]
