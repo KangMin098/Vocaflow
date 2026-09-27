@@ -1,0 +1,890 @@
+[
+  {
+    "id": "1dbc7e64-1379-49d0-bf1b-52d36db4eb63",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e165257a69e916d74b6d92a31161fbca2d428c7c9a8fab1f186add710606d05d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "서로 무관한 한 해 취재 꼭지(남극 말미잘·수마트라코뿔소·패럴림픽 등)를 묶은 연말 결산이라 단신 모음과 같은 자리 — 꼭지로 쪼개기 전엔 판정하지 않는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In late 2010 a geological expedition",
+      "note": "남극 말미잘 두 단락은 혼자 서고 ROV·propagation 같은 낱말만 바꾸면 되나, 글 전체는 주제가 꼭지마다 갈아엎힌다."
+    }
+  },
+  {
+    "id": "1dcd818c-0f46-4434-b0ea-35924ecd9e17",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0ef0f7026d7628cfebd6a6f1fe5a05ee5928860e3713c0b314bbdd69ce315568",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "후보 인터뷰 중 MMP 국민투표·녹색 일자리 답변 단락이 주장과 이유를 한 단락에 세워 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I support it. The current system",
+      "note": "MMP 답변 단락은 질문 없이도 주장→근거로 서고 skewed·antiquated 만 바꾸면 V5; 공약 목록과 선거구 고유명사는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "1dcdeb2c-81c4-4aa8-b73a-5ea0b50fe838",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "95572f47be042a53a5c3a3c8bff80015112b748a835ad774262d5d290f4f18e9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "technology",
+    "why": "컴퓨텍스 예고 기사는 행사·포럼 이름 나열이 대부분이고 비문(Its goals aims, do the be the best)이 많아 내용 일치 칸이 서는지 애매하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Organizing the show and promoting the",
+      "note": "총통 정책→전시관 재배치 한 줄 인과만 있고 나머지는 이름 목록이라 걷으면 논지가 거의 안 남는다."
+    }
+  },
+  {
+    "id": "1dd47ee8-ca1c-4621-b133-d9889fad26b4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7dc819f7e2b702f213cbecec0cf6e5e1c92f19c5d19527400e50937b2dbbc824",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭우로 코스가 잠김→주자 대피·헬기 구조→부상자 이송으로 사건이 이어져 짧은 단신으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "All 2,500 runners in the Lake",
+      "note": "대피소 고유명사 나열만 줄이고 fell·hypothermia 를 풀면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "1de1cd73-67f2-4a43-b2cf-3047b6b97465",
+    "source_updated_at": "2026-09-25T09:17:18.836896+00:00",
+    "body_sha256": "539f0b26255d8d72100dcf188bc197f023c53235a7f64419be8f490171891ce0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "travel",
+    "why": "문화 여행 강연 기사가 강연 개념 소개→사진·질의→저조한 참석으로 이어지고 문화 관광과 문화 여행의 구분이 한 단락에 서서 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The author began the lecture by",
+      "note": "둘째 단락은 한 문장이 너무 길고 끝의 과장된 인용·영상 목록 잔재는 걷어야 해서 낱말 교체만으로는 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "1debcb59-ec65-4ee3-9acf-0f996c66b10c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7bd56a1ed76856b425ff4756cd7267439fa27804313fae5263253736ae1eb15e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "영장 없는 도청이 수상 사유→법원 영장이 통상 절차→행정부의 반론으로 이어져 주장-근거가 서는 기사, 내용 일치·요지 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The commonly accepted legal use of",
+      "note": "warrant·eavesdropping 을 풀면 V5 로 내려가고, 법률 이름은 걷어도 「영장 필요 ↔ 행정부 예외 주장」 대립이 남는다."
+    }
+  },
+  {
+    "id": "1def4b23-720a-4141-b32d-35ff712ae3aa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8f226d8a3ffdd8bcedef91ead1314d75867863b860d4b5668c519fd1d48ed776",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "앞 두 단락이 시장들의 교토 목표 서약과 비판 측 반응을 잇고 뒤는 시장 명단이라, 명단을 걷으면 짧은 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Going against the Bush administration's opposition",
+      "note": "명단과 「Full list」 줄은 가공 때 걷고 sprawl 만 풀면 된다; 남는 글은 두 단락으로 짧다."
+    }
+  },
+  {
+    "id": "1def9cef-ba56-44b6-aab9-acc3a97230c9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "44fd42957a0eb19e179d63aa12d61bae330761f48fe6fbb516a805de526a60ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "코미 퇴임→마골리스 대행→플래니건 지명·인준 심문으로 인사 절차가 이어져 내용 일치 칸이 서고, 둘째 단락의 음모 주장은 걷어 낸다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "President Bush nominated Timothy E. Flanigan",
+      "note": "마지막 두 단락은 혼자 서지만 직함·고유명사가 많아 낱말 몇 개로는 밴드가 안 내려가고, Al Martin 의 마약 거래 주장 단락은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "1e131968-54a8-43cd-9829-f55989b1d8f8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cfceca47ac8c06b0782fc40cce9073badab48186176cc9c17d288fe0ed5579e4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "bias",
+    "why": "나치 정당 대표 인터뷰로 「International jewry」·흑인 비하 호칭·「3rd World invaders」 같은 인종·반유대 편견이 답변 전체의 전제라 떼어 낼 수 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Commander Schoep: This would be an",
+      "note": "경제 답변 단락조차 이스라엘·외국인 배제가 전제라 편견을 걷으면 논지가 사라진다."
+    }
+  },
+  {
+    "id": "1e24d4e4-0cbb-4cec-9f4e-31716b44e05b",
+    "source_updated_at": "2026-09-25T09:16:58.927772+00:00",
+    "body_sha256": "4b600eee425975efb6c16e6a2ac26c247c2cf3b7d1ad6028845027b21850c155",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "앞 세 단락이 규모 8.0 보도→3.4·3.2로 정정→아이티 여진이라는 판정으로 이어져 발표 정정 흐름이 선다; 뒤 두 지진은 수치 나열이라 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "USGS reported that an earthquake struck",
+      "note": "초 단위 시각·거리 수치를 걷고 epicenter·aftershock 만 풀면 되며, 통가·류큐 단락은 흐름 없는 제원 나열이라 뺀다."
+    }
+  },
+  {
+    "id": "1e273d14-76ee-47e6-a1ce-608ef6c704d5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f14ece73ad1fdeacf80d62dcba5393ca8e7f7e95e3521931a45453895989237e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "매복 공격→전날 인질극→실종 공무원 수색 배치→총리 규탄으로 원인과 반응이 이어지는 단신, 폭력 소재라 고등 이상 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least 16 soldiers and militants",
+      "note": "paramilitary·convoy·valour 셋을 바꾸면 V5 로 내려가고 두 단락이 앞 문맥 없이 선다."
+    }
+  },
+  {
+    "id": "1e27488d-a56c-41a3-aa37-5ecc77b14d40",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "38b93446bae677acc3ed2ec97123955168e4a632f8f762ea09309cd7979623a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "유료 TV 불법 접속 소프트웨어 배포 혐의로 압수 수색→업계 단체의 손실·「소비자가 진짜 피해자」 반응으로 이어져 내용 일치·주장 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"The real victims here are the",
+      "note": "unauthorised·hoodwinked 을 풀면 되고, 업계 대변인 인용 두 단락이 주장-이유로 혼자 선다."
+    }
+  },
+  {
+    "id": "1e2750fa-ace1-487e-a053-9bf30560cf0e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "41484253db52f9dc2fa3922dc3001f8a1146e58e60c8c3562c093500e4bf7ca8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "위원회 12대 9 반대 표결→결의문 요지→양당 의원 반응→본회의 토론 예정으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Wednesday, the Senate Foreign Relations",
+      "note": "결의문 인용의 deepen·involvement 정도만 풀면 되고 의원 인용 셋은 줄여도 흐름이 남는다."
+    }
+  },
+  {
+    "id": "1e3b1c61-24a6-4646-aa25-e896779f243c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c57d70913fd2b25ca479d95b3dfe198034b7cac210685f72d35a190294d2051e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "news",
+    "why": "「with the caption:」 뒤 인용이 없고 「dubbed the or the」·「The law prohibits.」처럼 인용이 빠져 문장이 도중에 끊겨 있다 — 칸(내용 일치·주장)은 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Judge Joaquim Bosch, Judges for Democracy",
+      "note": "판사·앰네스티 비판 단락은 혼자 서지만 법 조항을 소개하는 단락이 잘려 사건의 법적 근거가 비어 있다."
+    }
+  },
+  {
+    "id": "1e3c681e-d6db-408d-a538-702ad4bf30fa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "861adf82905e8199d5b4cf6a3e9dd5b1a829605343bece2eb272bc0093eb81f6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "space",
+    "why": "영상 중계 발표에 컬럼비아 사고 뒤 첫 비행·점검 기술 검증이라는 임무 목적이 이어져 내용 일치 칸이 선다; 승무원 명단·일정은 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The mission will link Discovery to",
+      "note": "resupply·verify 만 풀면 되지만, Expedition 10/11 혼동과 문단 중간 줄바꿈이 있어 앞부분은 가공 때 고쳐야 한다."
+    }
+  },
+  {
+    "id": "1e436fec-eb84-4fab-8a24-623a61016710",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0944ce18ac5e9494af308c918dfdce4e9c9f941d69ffa438d10865525b84d67d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "매케인 승복→사전투표 규모→당일 긴 줄·기술 문제→선거인단 예상으로 선거일이 이어져 내용 일치 칸, 발행 연도가 분명해 시대 비교 후보.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Record numbers of voters were expected",
+      "note": "득표수 자릿수와 끝의 Note 줄을 걷으면 turnout·precinct 만 풀어 중등 밴드까지 내려간다."
+    }
+  },
+  {
+    "id": "1e48938c-f4d5-481d-84cc-9bfec36108db",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "828fd8cb7933e0599ee227d94ba2abaab24eb7b8c915329de481953d920bfb9d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "DVD판을 팔던 출판사가 인쇄판을 내려 한다→권수·가격·출간 일정이라는 다음 절차로 이어지는 64어 단신, 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The German online news site, Der",
+      "note": "출판사 이름만 걷으면 한 단락이 그대로 서지만 짧아서 문항 하나(내용 일치) 이상은 어렵다."
+    }
+  },
+  {
+    "id": "1e4c202c-8f68-42f1-918b-c8b8a9e63058",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4ad9109387a6ba1b0bbdaa384f6ae7a26bef377cc218837c1566c3ff3aeeb0a1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "살인 재판 기사가 검찰 동기 주장→변호인 반론→사건 경위→배심원 선정 다툼으로 이어져 내용 일치·순서 칸, 살해 묘사가 구체적이라 성인 칸만.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Foley's defense attorney, Jeffrey Monzo, said",
+      "note": "venue·manslaughter 를 풀면 V5 이고 검찰↔변호인 단락이 번갈아 있어 순서·삽입 가공이 쉬우나 살해 경위 단락은 걷거나 줄인다."
+    }
+  },
+  {
+    "id": "1e4d3b8e-a3cc-491d-ae89-9cca1795a40d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "284296895b0f95867d66256e0dd7ee37cd40755af335b20ddb55182015beac6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "부사관의 IS 합류 의심→검찰 수사→국방장관 비판→네덜란드의 연합 참여 배경으로 이어져 짧은 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yesterday the Dutch Defence Ministry said",
+      "note": "radicalisation·sanctions 를 풀면 V5 로 내려가고 이름을 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "1e54965b-d1cd-46db-b44e-888bc87b8bb8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0627bba7b2ba6d727614708538f2abb6f986610d512c879e879e7cf9cab1febf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이륙 직후 이상→바다 추락→승무원 부상→헬기로 병원 이송으로 68어 안에서 사건이 이어져 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A British Royal Air Force tornado",
+      "note": "기지·병원 이름만 걷으면 두 단락이 그대로 서고 낱말 교체는 거의 필요 없다."
+    }
+  },
+  {
+    "id": "1e57f559-3cbd-418b-9635-1eeed5287e26",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5bb31a38a5a7cc8aad8c13148152be6c87884f0fe96d706209bd7307a91f80ba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이륙 직후 추락→FAA 원인 조사·날씨 문제 없음→희생자 신원으로 결과와 다음 절차가 이어져 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Federal Aviation Administration (FAA) is",
+      "note": "기종·운항사 이름을 걷고 aboard 정도만 풀면 되며, 사망 소재라 중등 칸은 달지 않았다."
+    }
+  },
+  {
+    "id": "1e677137-8d10-49d4-ba70-437c03e842ea",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f00a727d5f959a482567ed6e7b7c5942b15f8599e23a5bdb15b243fb6df3c9c3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "말리키 총리가 부정을 주장해 재검표 요청→지금은 절차 문제로 중단 요구라는 반전이 이유와 함께 이어져 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The recount was requested by incumbent",
+      "note": "incumbent·provisional 을 풀면 V5 이고 의석 수 단락은 걷어도 요청↔철회 흐름이 남는다."
+    }
+  },
+  {
+    "id": "1e7369fb-fda5-48f8-9160-395ff48eec97",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c807dc841a7687e854d637297b5245e3e5028715465dfb461a7f3b69e1502a7c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "양육권 분쟁에서 어머니의 반대 이유와 아버지의 종교 자유 주장→대법원이 아이 의사를 반영하라며 환송으로 이어져 내용 일치·요약 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After conversion, James began discussing the",
+      "note": "invasive·amicus 를 풀면 되고 판사 이름을 걷어도 양측 주장→판결 흐름이 선다."
+    }
+  },
+  {
+    "id": "1e7d0e26-dbe8-4ddf-a286-87d7cc092045",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "46b9f97a25467a220d3f4a75d4f23239b0a7df8caa1b3e97547360308a6cb865",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "social",
+    "why": "「The city reasoned,.」·「said a is needed.」·「called the sentence and:.」처럼 인용이 빠진 채 문장이 끊긴 자리가 다섯 곳이라 받은 본문이 불완전하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In the past few days in",
+      "note": "앞 두 단락(대법원 판결→지자체 과세 요구)은 서지만 반응 단락들이 인용 없이 잘려 있어 ICI·IMU 설명까지 풀어야 한다."
+    }
+  },
+  {
+    "id": "1e8af7b2-0fee-43ba-af75-7da5b5cc0bf7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d02cd7e924348306445bdbc307d7d3184c569d1a118b54ced33a2d65c11de50c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "대표 교체 발표 뒤로 새 대표 경력과 회사·주주 소개만 이어지고 교체의 이유·반응·다음 절차가 없어 이름·직함 나열에 그친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Holz has had a long career",
+      "note": "떼어 낸 단락이 경력 목록뿐이라 이름을 걷으면 남는 사건이 없다."
+    }
+  }
+]
