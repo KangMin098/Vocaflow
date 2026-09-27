@@ -1,0 +1,826 @@
+[
+ {
+  "id": "2de31b2e-8587-4985-9fea-bd79591ea4a2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "649244cd688b645411e33c77991d5485f0ab564a0a38c9cb2324b4c220c56db6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "주가 하락 → 스트링어의 구조조정안 → 감원·공장 폐쇄·적자 예상으로 원인과 결과가 이어져 두 번째 단락이 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The plan to try and revitalise",
+   "note": "brainchild·revitalise 를 idea·revive 로 바꾸니 V5 로 내려가고, 수치를 걷어도 '실적 악화 → 감원·공장 매각' 흐름이 선다."
+  }
+ },
+ {
+  "id": "2de3e380-22ed-4493-bcd2-f9eb3517cd28",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e1f73dd4bd447595a3e44a56711f61b520300240791f83b95def9db358604c55",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "디즈니 잡지의 인도판 창간 → 구성·가격·발행사 → 미국판의 변천으로 사건과 배경이 이어져 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "An international format adapted for India,",
+   "note": "agencyfaqs! 인용과 Power Rangers 문장은 걷으면 되고, 마지막 단락의 문법 오류(issues … is)는 가공 때 고친다."
+  }
+ },
+ {
+  "id": "2debd50b-1c73-4714-acbe-edd89f414c0d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9eb064235387e64f83c2e829458aede6d71b576d429fdf8f80b7a39daa33ebd7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "현 총독의 사임 → 장이 후임이 된다 → 총리의 공식 발표 일정으로 다음 절차가 문장으로 이어져 짧은 단신이지만 내용 일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sources have told the Canadian television",
+   "note": "pacemaker surgery·officeholder 를 heart surgery·current governor 로 바꾸면 V4, 시각 표기를 걷어도 교체 사건이 선다."
+  }
+ },
+ {
+  "id": "2df0468e-aeab-4313-b705-04137bf2e9bf",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6687bd6aa78ad8d65c82445202b2e33abce86046b84e81e0882fe91e18bf79cd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "본문 중심이 유명인 하객 서른여 명 이름 나열이고 나머지는 사진 라이선스 안내라, 떼어 낼 문단에 사건 흐름이 없어 칸을 채우지 못한다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Among the guests at the event",
+   "note": "하객 명단 단락을 걷으면 촬영 사실·라이선스 문장만 남아 논지나 사건 흐름이 서지 않는다."
+  }
+ },
+ {
+  "id": "2df7f493-c63d-4406-a444-d7d5665d828c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0b2ddf661f4532820ca09b6327797d12519a70328ef78b1846cf75edc12e8330",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "서로 무관한 네 나라 지진을 시각·규모·장소만 바꿔 되풀이하고 문장 사이를 잇는 사건이 없어 단신 최소선에 못 미친다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "On Sunday at 7:27 p.m.,",
+   "note": "문단마다 규모·시각·지명만 다른 나열이라 하나를 떼어도 원인·반응·다음 절차가 없다."
+  }
+ },
+ {
+  "id": "2e025322-d493-4806-b348-0165d73fe3c3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6ee2320c7fb2177124fb59480e2c564e20313a6f7d8a0ce52f48f69c3ebfbdd0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "ROADPOL 음주·약물 단속 캠페인 시작 → 24시간 '마라톤' 단속 예고 → 세르비아 적발 통계로 목적과 절차가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Serbian Ministry of Internal Affairs",
+   "note": "psychoactive substances·breathalyzers 를 drugs·alcohol testers 로 바꾸면 V4, 통계 단락은 걷어도 캠페인 흐름이 선다."
+  }
+ },
+ {
+  "id": "2e0abd4e-c8ff-4304-b50f-cdbf0fc81600",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e93f6c0628ad74a3a61e0ce40bc911d2a6992b18809ab27774ace49e37bbb55d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "하이데라바드 힌두 축제의 개막 → 가수들의 순서 → 예물·아르티 폐회로 행사가 시간순으로 흘러 내용 일치·순서 칸을 채운다(교리 주장은 없다).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The program started at 8:30 p.m.",
+   "note": "shringar·Chhappan Bhog 같은 낯선 용어는 본문 괄호 풀이가 있어 쉽게 걷히고, 가수 이름 나열은 줄여야 한다."
+  }
+ },
+ {
+  "id": "2e175aaa-2a27-459d-bb4c-a09110aa0e0f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8527b3a6116f1dd89bf0f0a175330debed477ace1c1a3884a4bf89f76fadb028",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "태국의 몽족 송환을 두고 미국·UNHCR·HRW의 비판과 태국 정부의 반박이 맞서 주장·근거가 한 편 안에서 서므로 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "summary",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Human rights groups fear the Hmong,",
+   "note": "persecuted·amnesty·coercive 를 punished·pardon·forced 로 바꾸면 V6 까지 내려가고, 인명을 걷어도 강제 송환 논란이 선다."
+  }
+ },
+ {
+  "id": "2e2c7383-4488-4e89-ab69-f64d39a9d0db",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5569e6fa442da547a024f1231c2474b157afaff61d08347f1e40a673557f5b17",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "일본의 포경 확대안 표결 직전 비공개 협의로 휴회 → 호주의 반발 → 신규 회원국의 표 향방으로 사건과 반응이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A meeting of the International Whaling",
+   "note": "adjourned·stall 을 paused·delay 로 바꾸면 V5, 국가 이름을 줄여도 찬반 대립 구도가 선다."
+  }
+ },
+ {
+  "id": "2e3a7fa0-a562-4fd7-a43d-cb06a11c9621",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3daca6efeda8c56ee4780dcfa3e93bf265b43542f00be25a4349d2e9e6d56b55",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "남오세티야 교전에 대한 스웨덴·영국·유엔·리투아니아의 반응이 각자 이유와 요구를 담아 이어지므로 내용 일치·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Bildt pointed out that \"there have",
+   "note": "territorial integrity·restraint 를 borders·calm 으로 바꾸면 V6, 인용 위주라 간접화법으로 풀어야 한다."
+  }
+ },
+ {
+  "id": "2e7a8c5c-4afd-4537-94a8-6f3a2fea59d1",
+  "source_updated_at": "2026-09-25T09:16:37.113678+00:00",
+  "body_sha256": "9c53e1d864086e8bededc73dac53bd4c82f976e48466ee68a593a02d674a5e76",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "두 기업의 FOSI 가입 → 자녀 인터넷 안전 교육 권유 인용 → 보호 소프트웨어·이사회 합류로 이어져 짧지만 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Apart from AT&T, Blue Coat recently",
+   "note": "둘째 단락 인용문은 '1=' 잔재와 문법 오류(we encourages)가 있어 가공 때 고쳐 쓰거나 걷어야 한다."
+  }
+ },
+ {
+  "id": "2e86d7df-465f-4a45-9a53-92ea3ebfeb1c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "719bd4649c9abeb453aa4f0a7c5cd08a8d83155068194dad2b99947fa8304f77",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "슈워제네거의 매케인 지지 선언 → 이유 → 줄리아니 사퇴와의 관계 → 태양광 공장 연설로 사건과 이유가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Schwarzenegger called McCain \"a great American",
+   "note": "reaching across the aisle 같은 관용 표현을 working with both parties 로 바꾸니 V5, 인명을 줄여도 지지 선언 흐름이 선다."
+  }
+ },
+ {
+  "id": "2e913063-d4be-44f6-9c7b-dab43c1b00cc",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b319200a0e29626bb4564518dff13d63c253423d7302edcd5cf9526be86e92e5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "다나베의 사망으로 앨링엄이 최고령 남성이 되었고 1915년 입대 → 1918년 공군 전환의 이력이 이어져 전기형 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "He joined the Royal Naval Air",
+   "note": "inception·honorary freeman 을 start·honour 로 바꾸면 V5, 셋째 단락의 훈장 나열은 줄여야 한다."
+  }
+ },
+ {
+  "id": "2ebc353c-d197-4378-9a0a-63df6adf3587",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a8e693f8afeba98adf981f48c5bb721427414ac67220c66858a6d4db7aa2d9a2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "백만 번째 계정 생성 → 다른 사용자들의 확인 → 문서 수보다 빠른 가입자 증가라는 대조로 사건이 이어져 짧은 단신이지만 내용 일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Recently, there has been increasing excitement",
+   "note": "impending·milestone 을 coming·big moment 로 바꾸면 V4, 사용자명 세 개를 걷어도 '가입자가 문서보다 빨리 는다'가 선다."
+  }
+ },
+ {
+  "id": "2ebdb02f-0666-4be0-8044-d272c2095d23",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a36be855ee9806aba059c04b71646c345f2973eafb8ee113cf1c91142f2b63b7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "health",
+  "why": "산소 후드 화재의 발생 → 원인 추정 → 의료진의 진화와 화상 정도 → 경찰·FDA 조사로 원인·결과·다음 절차가 이어진다(부상 소재라 고1 이상 칸).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Hospital staff, who were present when",
+   "note": "ignited·classified as life-threatening 을 caught fire·very serious 로 바꾸면 V5, 둘째 단락의 문법 오류(what could has caused)는 고친다."
+  }
+ },
+ {
+  "id": "2ecb5c89-f7ec-4979-8485-f989ed58930a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d4c3aa66343eedf33ed092784227c88fde2e3a39b9b469da1b7502d23d408b3e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "science",
+  "why": "같은 팀의 두 번째 기록 소수 발견 → 검증 → 상금 기준에 못 미친 결과로 사건이 이어지고 메르센 소수 설명이 붙어 내용 일치·어휘 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although the number is just shy",
+   "note": "primality·astonshing(오탈자) 를 being prime·amazing 으로 바꾸면 V4, 거듭제곱 표기(2^32,582,657)가 깨져 있어 고쳐야 한다."
+  }
+ },
+ {
+  "id": "2ed25ca2-c303-430c-9a92-42ef1ad7c170",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "863b042ab8b1acf65ac6c141ed6fc0465ac877accd00786a50a7e5a731f0b244",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "discard",
+  "genre": "polemic",
+  "why": "본문 대부분이 자와히리의 지하드 촉구·'이스라엘 제거는 신자의 의무' 같은 선동 발언을 반론·맥락 없이 그대로 옮겨 차단 장르에 해당한다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "\"The Islamic nation must support the",
+   "note": "선동 인용을 걷으면 테이프 공개 일시와 알자지라 방송 여부만 남아 떼어 낼 문단에 논지가 없다."
+  }
+ },
+ {
+  "id": "2ee0658d-f33b-448e-abdc-6dde36c66176",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b71376e9f8b947dd0c1e1297a86a52b498ffea51c21367e37a5cbd860532fe0e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "첫 단락이 허리케인 얼의 발생지 → 카리브 피해 → 북상 경로를 이어 설명해 혼자 서므로 내용 일치 칸을 채우고, 뒤의 실시간 갱신 목록은 가공 때 걷는다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Hurricane Earl, a large tropical cyclone",
+   "note": "첫 단락은 tropical cyclone 을 storm 으로만 바꿔도 V4 로 선다; 뒤는 역순 갱신·'(link)' 잔재라 걷어야 하고 순서 문항에는 못 쓴다."
+  }
+ },
+ {
+  "id": "2efd4acf-93e0-4b97-96dc-0bd3e3aafe1c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "341ce9a1b0f601483181eafa1f612a67ff9c749fb7233fd48806d8c84afee601",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "다베이비의 HIV 발언 → 두아 리파 반응 → 라디오 방송 중단 → 옹호와 사과로 원인·반응이 이어지나 비속어·성적 인용이 있어 성인 칸만 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Audacy, which is the second-largest radio",
+   "note": "둘째 단락의 비속어·성적 인용과 넷째 단락 누드 묘사는 가공 때 걷고, 방송사 반응·사과 단락만으로도 사건이 선다."
+  }
+ },
+ {
+  "id": "2f0d4ba6-9b16-4909-a988-588c81b69fa5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "26c17cdac59b46b79fa52390897da7166a6d2301564b8f948210e95f1225bfaf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "EU가 농산물 관세 양보를 거부해 도하 협상이 교착 → 한국 통상장관의 우려 → 라이스의 테러 공조 요구로 입장과 반응이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The deadlock held in place by",
+   "note": "deliberalizing·concessions 를 lowering·offers 로 바꾸면 V6, 넷째 단락 테러 이야기는 주제가 갈려 떼어 낼 때 걷는다."
+  }
+ },
+ {
+  "id": "2f1cf0ea-d485-43e6-b898-76d2ae55d628",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f6f3c3687599cc9ead15591c4e6e639a1ee37eb907c076640fd1bfe39c63bc7c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "허리케인 해나 경보 발령 → 이동 속도·예상 강우 → 미국 상륙 가능성과 '계속 지켜보라'는 대변인 당부로 경보와 다음 행동이 이어진다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Forecasters have also predicted that the",
+   "note": "sustained·uncertainty 를 steady·not sure 로 바꾸면 V4, 오탈자(my strike)는 고친다."
+  }
+ },
+ {
+  "id": "2f337cf2-4e0f-4677-86ff-7d3765c4b56d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0e2e980e243871d974f91497204fd1143c0dd0b184c3e06529758ff3e8e9c1c3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "명예학위 수여자 일곱 명의 이름·직함과 바흐찬의 다른 수상 이력만 문장마다 바꿔 나열해 사건 흐름 없는 수상자 명단에 그친다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The University will also honour historian",
+   "note": "어느 단락을 떼어도 수상자·학위 이름만 바뀌고 이유·반응·다음 절차가 없다."
+  }
+ },
+ {
+  "id": "2f4052b7-f20a-4685-b480-d2553700d4fd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4225211a9d3edd5d37711ce08565b301fc177cd05a05b995f0487f9b2a9dd856",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "매케인 자원봉사자의 피습 신고 → 경찰이 모순을 찾아 거짓말 탐지 → 자백 → 언론 확산으로 사건이 시간순으로 이어져 내용 일치·순서 칸을 채운다(인종 묘사는 거짓 진술의 일부).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Pittsburgh Police Department administered a",
+   "note": "polygraph·inconsistencies 를 lie detector·problems 로 바꾸니 V5, 'fondled' 문장과 가해자 인종 묘사는 가공 때 걷어도 날조 사건이 선다."
+  }
+ }
+]

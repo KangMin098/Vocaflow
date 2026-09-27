@@ -1,0 +1,955 @@
+[
+  {
+    "id": "21b71ca9-7a03-4305-90ee-91e61f6eac1f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e9c878a9bfb0dd07860dc1f19359eb9b32ddaba59dff030da7e767430a994833",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "매입 거래 → 트럼프 소송 책임 해소 → 건물 내력(본사 이전)이 문장으로 이어져 내용 일치 칸이 서고, 끝 단락의 속어(lookee loos)는 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Before 2005, 555 California had",
+      "note": "본사 이전 단락은 혼자 서고, ate up·lookee loos 를 took over·visitors 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "21c2ca97-448f-4f86-b351-4d5717014d85",
+    "source_updated_at": "2026-09-25T08:56:27.490141+00:00",
+    "body_sha256": "ab23900f8d1c831d1790519ea9b862e3d5b61de21cf9043c1e6811497d7b86d4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "사망 10만 돌파 → 세계 대비 비중 → 규제 완화 시점과 향후 예측이 이어져 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The milestone came as states",
+      "note": "마지막 단락이 앞 문맥 없이 서고, surpassed·milestone 을 passed·mark 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "21e4aa2b-691a-4c03-a940-6344761fb412",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e9fb16e3ffe478eb7839104674383fcf7cbc5f5e1a67ed2e9484a2e21c3aede",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "협박 편지 → 발신자 신원 확인 → 발췌 공개와 대학 반응 → 협박 수위 상승으로 사건이 이어져 고등 이상 내용 일치 칸이 선다(줄바꿈 깨짐은 가공 때 잇는다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Among other statements, Korn compared",
+      "note": "살해 언급 단락은 떼어도 서지만 아동성범죄자 비유는 걷고, 문장 중간 줄바꿈을 이어야 한다."
+    }
+  },
+  {
+    "id": "21ebdc5b-75a3-45f8-9866-56ae676b03a6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "edc1908fc07dd2147e19968cd75f0a751782dc16dc69d519829255ecfbb9c3ef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "앞 두 단락이 사망자 집계 → 인도네시아가 집계를 멈추고 장티푸스 방지에 매달린다는 결과·대응으로 이어져 내용 일치 칸이 서고, 뒤의 국가별·매체별 수치 목록은 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nearly a week after tsunami",
+      "note": "첫 두 단락은 사건 흐름이 있으나 뒤 절반은 수치 나열이라 가공 때 통째로 걷는다."
+    }
+  },
+  {
+    "id": "21ef001d-cc55-4fd5-9d1d-062afc0ebf50",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c54125cad35cbfc15a26ff0d120872dd1f4666d8f4b6d342b090e556c3db37a7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "두 은행 자본 투입 계획 → 부실채권 보증 제도 → 이전 제안과 국유화 선례가 까닭·배경으로 이어진 92어 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An insurance scheme to underwrite bad",
+      "note": "recapitalization·underwrite 를 new money·cover 로 바꾸면 한 단계 내려가지만 금융 개념 설명이 필요하다."
+    }
+  },
+  {
+    "id": "22149300-cec6-4927-bf82-f138e7819c1b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2c0bf0a22916567a94a9ea1e8b17ae4141a2ddbf3de816c87bcea6373734599b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "레빗 지명 → 맡을 부처 업무 → 2기 내각 대폭 교체의 역대 비교가 이어져 내용 일치 칸이 서고 then-now 비교 문장도 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Thompson is the ninth cabinet member",
+      "note": "내각 교체 비교 단락이 혼자 서고, overhaul·confirm 을 change·approve 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "221b8325-e90f-44d3-8130-e50ad91d5783",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a0b061054785230adc85b67440991511402d28ed292818567398a0b4e2e6a9eb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "본문 대부분이 실명 정치인의 성적 지향을 폭로하는 방송 대화록(목욕탕 농담 포함)이고 편집 은폐 사건은 두 문장뿐이라, 사생활 폭로 가십을 어느 칸에 둘지 기준이 말하지 않는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Last Thursday, CNN edited out portions",
+      "note": "은폐 사실 두 문장만 떼면 폭로 내용 없이 사건이 서지 않고, 대화록을 남기면 실명 인물의 성적 지향 추측이 중심이 된다."
+    }
+  },
+  {
+    "id": "222e0654-efd9-450f-8b88-2b9f9a527436",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba4e44792d077f6306f3c083ced89a33bbe13db22ae190b21e0c0e1dbe2baeda",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "놀이터 흙에서 발암 의심 물질 발견 → 분석으로 확인 → 시의회가 표토를 걷어 내는 대응과 건강 위험 기준이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chemicals, which the Auckland City Council",
+      "note": "물질 이름(benzo-a-pyrene)을 걷고 contamination·respiratory 를 pollution·breathing 으로 바꾸면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "223a980c-68bb-46f6-b0c2-29cbba8753c2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c1d361ec6059ca1037b1ee375050728938ed982c064ece28101df0a6fc6f67bf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "기념비 부지 계획 → 채권 재원과 의회 처리 일정 → 주 예산이 없어 위원회가 모금한다는 까닭이 이어져 내용 일치 칸이 선다(깨진 문장 하나는 고친다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "War On Terror Memorial Design Committee",
+      "note": "마지막 단락이 까닭(예산 없음 → 모금)으로 서고, 셋째 단락의 「If Oklahoma legislators could」 비문은 가공 때 고친다."
+    }
+  },
+  {
+    "id": "223da3e6-7f61-4c66-a10a-38b595d662f2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "edf848a8691fd0bb52c06b4b71737782371b5beb5a826b39a78f835b0e7e6313",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "소년의 멧돼지 사냥 → 크기 측정과 전문가 반응 → 세 시간 추격 → 이전 기록(Hogzilla) 비교로 사건이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two previous record holders are Hogzilla",
+      "note": "총기 제원 문장은 걷어야 하고, 이전 기록 단락은 실측 무게가 줄었다는 반전까지 혼자 선다."
+    }
+  },
+  {
+    "id": "2275989e-dfcf-4680-b6c3-cb1b28ca1905",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6c0bb2f5106db15c6f7e5036b82d9e306d51b6820a600c31e534e3fa7eecfa77",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "공연 직전 입원 → 수술 뒤 생명유지 → 사망과 파키스탄 매체의 반응이 이어진 68어 부고라 짧아도 연결이 있어 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He was admitted to Lilivati Hospital",
+      "note": "haemorrhage 를 bleeding in the brain 으로 바꾸면 V3 로 내려가고 나머지는 이미 쉽다."
+    }
+  },
+  {
+    "id": "227ee25b-3223-4975-8230-6f3e07fb6347",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cc96911187f620fa55872295c86bf137fcba499fbbd6cf97320affb75ca4e402",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "군사재판 회부 발표 → 혐의 목록 → 신문소 책임자였던 배경과 최대 형량이 이어져 고등 이상 내용 일치 칸이 선다(수감자 학대 묘사는 짧다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "50-year-old Jordan, a reservist from Virginia",
+      "note": "dereliction·demeaning 을 failure·shameful 로 바꾸면 한 단계 내려가고 단락은 혼자 선다."
+    }
+  },
+  {
+    "id": "22a908d9-f03c-4829-a238-1085fdcff398",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c9eb03a0daa8f3328c7781c7590bb77679560295bcfd4b4b06f8a0f24ef4a2b8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "아마추어 무선가들이 처음으로 보이저 1호 신호를 받았다 → 발사·태양계 이탈 배경 → 현재 거리와 임무가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Voyager 1 had been launched on",
+      "note": "termination shock·interstellar medium 을 풀어 쓰면 중등 밴드로 내려가고 단락은 앞 문맥 없이 선다."
+    }
+  },
+  {
+    "id": "22b56b04-b07b-4782-9e61-ec649b3ab02b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4ff14103a529c04427efe1253297eb6e7749492123a7b43e80a4ada5232161f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "입회자 발표 → 시애틀 이전 뒤 첫 행사 · 평생 업적 기준 · 올해 처음 문학 밖 입회라는 배경이 이어져 내용 일치 칸이 서고, 뒤의 인물별 작품 목록은 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Scheduled to take place on May",
+      "note": "둘째·셋째 단락은 선정 기준과 변화로 서고, 인물별 단락은 작품명 나열이라 걷는다."
+    }
+  },
+  {
+    "id": "22bea6c3-aa8a-4255-a68c-8f8f60c0a699",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "acc8a314f48fa7070cedf895a0bfe5f67122170fb7973c74b4f48c80483583cf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "현직과 야당 후보가 모두 승리를 주장 → 개표 3분의 1 진행 → 양측 발언 → 공식 발표 대기로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Both incumbent Faure Gnassingbe and candidate",
+      "note": "incumbent·resoundingly 를 current·clearly 로 바꾸면 쉬워지고 양측 대조 구조가 그대로 남는다."
+    }
+  },
+  {
+    "id": "22d6024c-e0e0-4b31-b17d-4d6c6a5278c6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "138619cb5af13c212c456ec37dfad69d9b2d7543f5c7c37582a13fb1b0781c74",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "병원 화재로 18명 사망 → 수술 뒤 쉬던 5층에서 사망이 몰림 → 간호사가 환자를 구하다 숨짐으로 이어진 48어 단신이라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Early this morning a fire erupted",
+      "note": "이미 쉬운 문장이고 erupted 를 started 로 바꾸면 되며 세 문장이 원인·장소·반응으로 이어진다."
+    }
+  },
+  {
+    "id": "22db8ecc-5a9d-4539-867c-362f519c3c08",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "67db5f22417138db037debb1c1db69415d510d00e5d950e80f6259045174c094",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "교회 총격 → 예배 뒤 인질극 → 투항과 범인 신원 단서가 이어진 53어 속보라 고등 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The incident took place after the",
+      "note": "disgruntled 를 angry 로 바꾸면 V4 이고, 사건 순서(총격 → 인질 → 투항)가 문장으로 이어진다."
+    }
+  },
+  {
+    "id": "22ea50cf-3550-4173-bdca-cc1643dae248",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "67c4ce0c22a60ff957c1ea78715c71e6bf6d2554c5b1df5b7957fe3fcedb5c2a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "라테스의 사망 → 1947년 파이온 발견과 그 의의 → 생애와 연구소 설립으로 이어진 부고라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lattes, along with Giuseppe Occhialini and",
+      "note": "발견 단락이 혼자 서고 병원·지명 나열은 걷으면 되며 subatomic 은 문맥으로 잡힌다."
+    }
+  },
+  {
+    "id": "22ed765f-4bd1-49e7-913d-4e7848ad9a4d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "07a2012738799e245698b5de17d83e6cc698bfe6bf5f24517cba968badcee3ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "오바마 당선에 각국 정상이 보낸 반응을 인용으로 잇고 마지막 베를루스코니 발언 → 인종차별 비판 → 해명이 사건으로 이어져 내용 일치·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Silvio Berlusconi, Italy's Prime Minister, congratulated",
+      "note": "베를루스코니 단락은 발언 → 비판 → 해명으로 혼자 서고, 나머지 정상 단락은 같은 틀 반복이라 골라 쓴다."
+    }
+  },
+  {
+    "id": "2337d204-0365-408a-b1b2-0ba872c7eeb5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "92498c1f9f4ce299d136b491e0a27e478693b14022c9735ca0c49d7d1b344202",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "민주당의 이라크 정책 비판 속에 상원이 라이스를 인준했다는 결과와 반응이 한 문장으로 이어져 40어라도 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Senate on Wednesday overwhelmingly confirmed",
+      "note": "첫 문장은 비판 → 인준으로 서지만 둘째 문장은 군더더기라 걷고, overwhelmingly 를 by a large vote 로 바꾼다."
+    }
+  },
+  {
+    "id": "234892fc-0a5b-47c2-8912-7e15069d6af4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7bce6de8f368fc1af9082586888faae51cb62da4c05bd1d2a37415a5198ceed9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "아들 사망 → 아버지 감염 → 가금 접촉 없음이라 사람 간 전염 의심 → 접촉자 68명 관찰로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Neither of the men have had",
+      "note": "셋째 단락이 의심의 까닭을 혼자 세우고, transmission·contracted 를 spread·caught 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "234ca3c8-1ddf-48e0-b870-0696d9dd083c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "804ea80c92d9d39cd9e9aa608b628b27372d1f77d6c68606ccc54d573b2ec505",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "제목의 노트북 증거 설득은 첫 단락뿐이고 나머지는 기자 목소리로 이란 정권의 음해를 단정하며 MEK 를 옹호해, 취재원 인용(v8)인지 글 자체의 한쪽 편들기(polemic)인지 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "In a press conference in Washington,",
+      "note": "2002년 폭로 단락은 떼어지나 뒷 단락이 MEK 옹호로 흘러 논지가 중립적으로 서지 않는다."
+    }
+  },
+  {
+    "id": "236fc81a-3db6-449d-b3d3-7ec980deadae",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c26eb193d72295e9cfd49c4f98c5c61983eeb4581b3cf0c5414a50df7d39549e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "MIT 신기술 학회 소개 → 35세 이하 혁신가 시상 → 줄기세포 재프로그래밍과 5달러 안경 기계라는 수상 근거가 이어져 내용 일치·문장 삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "And the \"Humanitarian of the Year\"",
+      "note": "안경 기계 단락은 발명 → 작동 → 출시 전망으로 혼자 서고 pluripotent 같은 말만 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "237155de-bd8e-4bd1-b3ae-8aa555f0cbde",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3c25ddaf2bdfd436bb186783a164a960eae97fa58e1f9e9ae44b3eb608764b56",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭발로 미군 사망 → 7월이 최악의 달 → 6월 NATO 전체 수치와 비교 → 증파가 사상자 증가로 이어졌다는 원인이 서서 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As US President Barack Obama ordered",
+      "note": "마지막 단락이 증파 → 사상자 증가 → 철수 약속으로 서고 reinforcements 만 more troops 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "2372ecb3-5136-4471-9110-14e4e7b1e930",
+    "source_updated_at": "2026-09-25T09:16:32.400738+00:00",
+    "body_sha256": "88ca748f920e560fcd4b9051e06faa5d55827928af67aba578bb6fdfe8a843df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "교사 파업으로 1200개 학교 휴교 예상 → 지역별 예 → 21년 만의 전국 파업 → 교장단 대표의 우려로 이어져 내용 일치 칸이 선다(파업 이유는 없다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Guardian reports that the strike,",
+      "note": "셋째·넷째 단락이 파업의 의미와 반응으로 서고 지역별 수치 문장은 줄여도 된다."
+    }
+  }
+]

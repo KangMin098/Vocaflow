@@ -1,0 +1,951 @@
+[
+  {
+    "id": "26f9053f-1c18-4681-bf82-c4c95e3b6587",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "debd895fc6593bc6cc75fe1a68cbc55cffb198c6bbedf6693bc7ad2d84f4755a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "지사 개설 → 루마니아 카드 사용 급증 → 칩 카드 출시 예고로 문단이 사업 확장의 까닭과 다음 절차로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The use of VISA cards in",
+      "note": "셋째 문단을 붙이면 성장→칩 카드 도입의 흐름이 서고, co-ordinate·embedded 를 쉬운 말로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "26fe4cd5-fd31-415b-b2ec-4b526b6ee057",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6f681ea8680880d4c7431e8296589789109826e690f5ce017c7609fc13895ce7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "새 앨범 발표와 「I Gotta Feeling」 600만 다운로드 기록을 리더 발언으로 잇는 짧은 보도로, 사실·인용이 엮여 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"I Gotta Feeling\" officially became the",
+      "note": "셋째·넷째 문단만 떼어도 기록 → 소감이 이어지고, multiplatinum·milestone 을 풀면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "2700d810-f196-4767-a9a4-68309829b57a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "366c9f8120492c5eaa1d5e438ee72b15ec63eca6c1a5ecc8eb0aa29d1bc4fffe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "버스 폭발 → 배후 불명·정부군 겨냥 추정 → 반군 활동 배경으로 원인과 맥락이 이어지는 테러 단신이라 고등 이상 내용 일치 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least 15 civilians, including women",
+      "note": "첫 두 문단으로 사건과 배경이 서고, insurgency·ousted 를 바꾸면 V5 이지만 마지막 별건 사건 문장은 걷는다."
+    }
+  },
+  {
+    "id": "2704931a-f38a-412e-acda-a55aba1e86b5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7e0e421d844da230b4b1693f0da0f0c342c2c86fcfed31fc117032ea6ef25ef4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "BAFTA 시상식 기사 전체가 부문별 수상작·수상자 이름 나열뿐이고 문장 사이를 잇는 사건이 없어 칸 하나 수치·이름 나열 원천이다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The film The Brutalist also won",
+      "note": "어느 문단을 떼어도 작품명·부문명만 바뀌어 되풀이돼 논지나 사건 흐름이 서지 않는다."
+    }
+  },
+  {
+    "id": "271a697f-b184-4787-bd6d-cd28bb358f6c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0b0b2d86548509abac36240d477abc82d57a39c6bf055256ed8ce723edcfbdb5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "구멍 발견 → 원인 미상(운석·우주 쓰레기 추정) → 승무원·임무에 피해 없음으로 원인·결과가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The impact occurred sometime during the",
+      "note": "NASA 성명 문단이 혼자 서고, payload bay·radiator 를 풀어 쓰면 V5 로 내려간다; 매체 이름은 걷는다."
+    }
+  },
+  {
+    "id": "27223f76-3a23-4d50-b23a-5ee1738ef313",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f29718d885eaf4abb706b6b8fd0c9d4448be1d2c02136f368ff9d780166e1e9c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "유아 사망 → 백신 접종 전 연령이라는 결론 → 부모 감염 경로 → 추가 접종 권고 → 증상 설명으로 원인·대응이 이어져 주제·요약·빈칸·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Some parents are refusing to have",
+      "note": "백신 효력이 사라진다는 문단이 대변인 이름을 걷어도 서고, indefinitely·booster 를 바꾸면 V5 가 된다."
+    }
+  },
+  {
+    "id": "27366de7-9e2e-4668-9a53-a8dfa3643372",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "16c5988dc5a0c20a2eee6124bb654ed610af2603c39fe766a0bb853de4894bee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "이틀 새 두 번째 지진 → 피해 보고 없음 → 규모가 작아 쓰나미 위험 없다는 판단으로 원인·반응 문장이 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An earthquake measuring 6.3 or 6.4",
+      "note": "첫 문단이 한 편으로 서지만 규모 수치 비중이 커서 내용 일치 문항 한두 개가 한도이고, preliminary·magnitude 는 쉽게 바꿀 수 있다."
+    }
+  },
+  {
+    "id": "274647fc-284a-4ed0-830a-35f0116c0454",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ef98d114a24bdffb4f6414ff165c65095edf51630f02214bab7d75c8808f19ae",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "약물 운전 단속 시범 결과(46명 중 1명 양성) → 상시화 입법 → 음주 운전보다 약한 처벌을 강화하겠다는 까닭이 이어져 주제·요약·내용 일치 칸과 주장-근거 짝이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The legislation comes in response to",
+      "note": "입법 까닭 문단과 처벌 비교 문단을 이으면 논지가 서고, 벌금 수치 문단은 줄이며 demerit·prosecute 를 풀면 V6 이 된다."
+    }
+  },
+  {
+    "id": "276a00eb-6f63-42ed-9207-d0cfa4a2eb9c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "436f0b642e9e441d81e6a99ac3a19db3738a35830fc6100f4c0da736c287d094",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "평범해 보이던 아이들 → 밤에는 우리에 가뒀다는 혐의 → 부모 부인·위탁 보호로 대비와 사건이 이어지는 아동 학대 보도라 고등 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The children looked ordinary enough to",
+      "note": "첫 두 문단의 겉모습/실상 대비가 혼자 서고, allegedly·fetal alcohol syndrome 을 걷거나 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "276b4685-4d59-4d48-8fa6-aff25de1f9b1",
+    "source_updated_at": "2026-09-25T08:48:14.209339+00:00",
+    "body_sha256": "00507304a0b23aaf3e4861d6be6d1700d9f7863d51ff954346ca179a41cc02c5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "용의자 사살 → 두 차례 총격 경위(표현의 자유 토론회·유대교 회당) → 테러 규정 → 각국 규탄으로 사건과 반응이 이어져 순서·삽입·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The first shooting took place in",
+      "note": "첫 총격 문단은 고유명사를 줄여도 표현의 자유 행사를 노린 공격이라는 사건이 서고, balaclava·perpetrators 를 바꾸면 V6 이다."
+    }
+  },
+  {
+    "id": "27704fc1-8842-4b3d-b1f9-5b4ac71c3df6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3f69ff952c17ddc93ef623648756bcd23da0b9199d8b623eace3cae9041f24f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "열대 폭풍 발생 → 서쪽 이동·세력 강화 예보 → 자메이카 홍수·온두라스 경보로 원인·결과·다음 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Richard currently sustains winds of 45",
+      "note": "둘째 문단이 강화→강우→이동으로 혼자 서지만, 셋째 문단의 경보 지역 나열은 가공 때 걷는다; sustains·parishes 를 바꾸면 V5."
+    }
+  },
+  {
+    "id": "278d4811-4a95-46ad-a872-846c74c7357f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f4963beee3c55381eff5807a547f985aebcd1cd6c49ed292934f1c6dae7952dd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "영국 정보요원 고문 연루 보도 → 그리스 의회 소동 → 두 나라 장관 부인으로 의혹과 반응이 이어지는 단신이라 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The disclosure of British MI6 agents",
+      "note": "셋째 문단을 붙이면 의혹→부인이 서고, precipitated·uproar 를 쉬운 말로 바꾸면 V6 로 내려가며 그리스어 의회명은 걷는다."
+    }
+  },
+  {
+    "id": "2793b294-62cb-4013-91dc-9722120b4e7f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8f891e40b6294fa02078dfb1a7366534567a44fb03af56632f73d3fc49a506f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "끝 두 문단이 신뢰를 잃은 인권위원회를 대체하는 이사회 창설의 까닭과 회원국 재검토 의무를 말해 주제·내용 일치 칸이 서고, 지역별 국가 나열은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The creation of the Human Rights",
+      "note": "마지막 두 문단이 이사회 개편의 까닭→의무로 혼자 서고, discredited·dubious 를 바꾸면 V6 이며 지역 그룹 나열 네 문단은 걷는다."
+    }
+  },
+  {
+    "id": "27b643a8-24f8-49cf-a584-034cc449644f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b0c3ed03490e73ea1a7adfd1b7d9eb68879e265de821bbe5a68602926499f83a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "중서부를 지난 눈폭풍 도착 예고 → 겨울 폭풍 경보 → 주차 금지 시행으로 원인과 대응이 이어져 쉬운 밴드의 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A storm that has been passing",
+      "note": "전문이 짧아 통째로 쓰며, 첫 문장의 어색한 「the midwest some parts」 만 고치면 되고 blizzard 정도만 풀면 V2 이다."
+    }
+  },
+  {
+    "id": "27fa3dee-202a-467e-b913-1b21c20d44c4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "26026356fa870aedff18e91ea66ee21d76583d64acd2d782af9da8a0c8253125",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "당선자 세 명 이름이 중심이지만 셋째 문단이 전임 의원 사퇴 까닭(시장 출마·가족)을 문장으로 잇고 있어 「의원 이름만」 폐기와 「원인 연결」 보관 사이에 걸린다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Former Conservative MPP Cam Jackson resigned",
+      "note": "사퇴 문단은 떼어지지만 인물마다 따로인 사유 나열이라 사건 흐름이 약하고, 마지막 문장은 위키백과 결과로 넘긴다."
+    }
+  },
+  {
+    "id": "27fb8af3-1cf4-4c68-b637-adcf44b7ff71",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a349aaa8d6ce75c780c10ef21c4882d0bd9f308eb12ade1f66fbabe4e7a1fa2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "초승달 관측 → 라마단 시작 선언 → 델리·뭄바이는 구름으로 관측 실패 → 라마단 관습 설명으로 절차와 까닭이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ramadan is observed by fasting from",
+      "note": "관습 설명 문단과 구름 문단이 이름을 걷어도 서고, lunar calendar 정도만 풀면 중등 밴드가 된다."
+    }
+  },
+  {
+    "id": "2814a4f6-a884-4cd9-b97d-6b58d30e3fff",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1da72396df3f2a93795a9bb73fbf1b89d860e0b7d6309b8006701ef9f36e046a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "법정에서 테러범 CCTV 영상 공개 → 피고인 혐의 → 이전 작별 영상과 동기 발언 → 사건 배경으로 재판 경과가 이어지는 보도라 고등 이상 내용 일치 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The video was shown as part",
+      "note": "영상 공개 문단과 사건 배경 문단이 이어서 서며, conspiracy·coordinated 를 바꾸면 V5; 테러범 동기 인용은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "28190020-ec85-4966-aac1-785dbcfca8de",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2b6e4857122152fef48f80e8c8f55cb08974fac692cb9b015c19dcc07f71ed67",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "첫 문단 뒤 전체가 장관별 담당 부처 목록이라 떼어 낼 문단에 논지·사건이 없고 이름·부처명만 바뀌어 되풀이돼 칸 최소선에 못 미친다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The ministers and their portfolios are",
+      "note": "부처 목록은 이어지는 문장이 없고, 첫 문단만으로는 전임자 사퇴 한 줄뿐이라 가공할 흐름이 없다."
+    }
+  },
+  {
+    "id": "2825b5ae-0179-490d-9263-1f975424eca4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f4d25d73ed9e21b0858d5a10fc912925f5e637af5ed0e85e43aa884b4b8f067f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "다합 폭탄 테러 → 부시·무바라크 규탄 → 배후를 두고 이집트 정부와 다른 기관이 엇갈림으로 반응이 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Egyptian government has said the",
+      "note": "마지막 두 문단이 혼자 서고 heinous·condolences 를 바꾸면 V5 이며, 모금 행사 장소 구절은 걷는다."
+    }
+  },
+  {
+    "id": "28471186-5289-483b-ae9f-f745d304c263",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a74ddb8443e44038a080e07cd4ee9fe2fe40b93fe4f2e205bd139bd00a8c9ceb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "평화유지군 파견 승인 → 내전 종식 협정 감시 → 책임자의 정치·보급 장애 경고로 결정과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United Nations Security Council approved",
+      "note": "첫 두 문단이 혼자 서고 deployment·ceasefire 를 풀면 V5; 인용의 중복 낱말 「allow allow」 는 고친다."
+    }
+  },
+  {
+    "id": "28798c90-f085-4851-97b5-825dcaa0c3bf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "10d6c94541cbc13f8961f50fd337fd3eb1206196271d8fa2c7f8be27d88849c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "피닉스 착륙선 공식 사이트 개설과 함께 북극 지역 얼음을 찾는 임무 목적·새 Scout 계열 첫 탐사선이라는 설명이 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The mission of the robotic craft,",
+      "note": "임무 문단은 줄바꿈으로 갈린 「by the / Odyssey」 만 이으면 서고, 2007 발사 예정이라 시제를 과거로 고쳐야 한다."
+    }
+  },
+  {
+    "id": "28903fa2-5fee-4a73-b951-abd526cddd36",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a6fb036617edd371aed1ccf549adc1149d6f902839430cef1b134e505104df28",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "앞 세 문단의 수사 축소·유력 가설은 서지만 넷째 문단이 실명 개인(Philip Zack)을 출처 없이 공모 혐의로 지목하고 사건이 뒤에 다른 결론으로 닫혀, 실명 무출처 혐의·낡은 수사 보도를 다룰 기준이 없다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The FBI is preparing an internal",
+      "note": "둘째 문단은 유나바머 비교로 혼자 서고 magnitude·manifesto 를 풀면 V6 이지만, 넷째 문단 혐의 제기는 걷어야 한다."
+    }
+  },
+  {
+    "id": "2897aa13-2104-42bd-9a62-c5390a4b34fe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7d5988a94f03e8f85414184a43b7231e74e5201bb1eae877a0f2e1f38b58e676",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "KDE 4.0 출시 → 프로젝트 목적 → 이전 판과 크게 달라진 Plasma 등 새 기능 설명으로 이어지는 소프트웨어 보도라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "KDE is a free software project",
+      "note": "목적 문단은 혼자 서지만 API·framework·widget 같은 전문어가 많아 2~3개를 바꿔도 밴드가 크게 내려가지 않는다."
+    }
+  },
+  {
+    "id": "28a42f8b-df73-475e-930d-1229d4d07886",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "150c97c51b84a831af190f3ae120d8017749a7c9610c7bf92337eb69ca564336",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "스트로의 베일 반대 주장과 두 까닭(표정 소통·공동체 분리) → 정부 거리 두기 → 무슬림 단체 반론·여론 조사로 여러 입장을 함께 실은 보도라 주장·요지·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Initially, he said that, when meeting",
+      "note": "주장·근거 두 개가 첫 문단에 모여 혼자 서고, constituents·pandering 을 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "28a57bc1-381c-4f54-895c-7d62e90a1ff5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "65bf55d4c0d35f694a61bc3c4b631b9d09bca9de142d837c1cd7ee996b97c2fa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "럭비 선수 폭행에 쓰인 핸드백 → 경매 낙찰가 2만 2750달러 → 원래 주인의 놀란 소감 → 사이트 마비로 사건과 반응이 이어져 내용 일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The original owner of the bag,",
+      "note": "주인 소감 문단이 혼자 서서 놀람·들뜬 심경이 읽히고, patron·a.k.a. 를 걷거나 바꾸면 중등 밴드가 된다."
+    }
+  }
+]

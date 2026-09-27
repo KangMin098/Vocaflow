@@ -1,0 +1,958 @@
+[
+  {
+    "id": "2ba4889e-4004-4dd6-b523-a83a59738515",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ee8ce92f63c8b4b11d9f7b9264f6773ec77ff144eb7c02df99b541e7a3d0345a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "영업비밀 매도 시도 → 펩시의 FBI 신고 → 위장 거래 → 체포 → 양사 반응이 단락마다 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When being offered to buy the",
+      "note": "둘째 단락부터 떼도 사건이 서고 undercover·breach 를 쉬운 말로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "2bb48043-15d9-483b-9788-a9599073e7f3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7af07ac5acfadb278f3ab6e0493abcf7b497d0c3c22ae5f9eafcc9b342a34c37",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "파업 허가 범위 → 임금 인상 요구의 근거 → 철도청의 조건부 제안 → 동독 지역 임금 쟁점으로 원인·반응이 이어져 내용 일치·요약 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Germany's public workers' union is demanding",
+      "note": "임금 요구와 사측 제안 두 단락이 앞 문맥 없이 서고 금액은 걷어도 쟁점이 남는다."
+    }
+  },
+  {
+    "id": "2bc01416-99cf-446f-93ac-e01e4497a16e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8aa9897c80b16c415382ad9a88df48730419d3227befdf758102ab9570a998a6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "인질 납치 → 살해 → 시신 발견 → 반군·정부 양쪽에 시달리는 농민이라는 배경까지 한 단락에 이어지나 살해 묘사가 있어 고등 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The bodies of 13 tribal villagers",
+      "note": "78어 한 단락이라 그대로 쓰고 slit the throats 는 가공 때 순화하면 된다."
+    }
+  },
+  {
+    "id": "2bf0f857-5133-4a63-b36b-74ba0a641a50",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8d9ff2805cf8431ee767407e2ee17bb3091fb2dfec6ca994ddc28ad00dda14b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "두 회사의 전시 경쟁을 서술한 뒤 협력사 인터뷰가 「가격보다 기능을 보라」는 주장으로 맺어 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As the two rivals postured over",
+      "note": "마지막 단락의 협력사 조언은 떼어도 주장이 서지만 제품명은 걷어야 하고 원문 영어가 어색해 손질이 필요하다."
+    }
+  },
+  {
+    "id": "2bf29dad-dec5-40b6-8e7f-cc22ccb72260",
+    "source_updated_at": "2026-09-25T09:16:08.082885+00:00",
+    "body_sha256": "74c808b4f74891552e2753eac32651b0e1d19876c90cdc19a2c25e045f025de1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "전임 공중보건국장의 임기 만료 → 대행 체제 → 새 후보 지명과 그 자격을 말한 발표문이 이어져 짧지만 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since August 1, 2006, Kenneth P.",
+      "note": "이름·날짜가 대부분이라 떼면 임기 만료 → 지명의 순서만 남고 논지는 없으나 사실 문항 하나는 된다."
+    }
+  },
+  {
+    "id": "2bfdea32-d51c-4f82-9b7e-5a39ec094c84",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "abd407ee3ca754212b43f3143441674e45f586f954a157d33ae37347d45038d5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이틀간 네 차례 폭탄 테러의 경위와 당국 발표·지사 규탄·목격자 증언이 이어지나 사상자 묘사가 중심이라 고등 이상 칸으로 제한한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Issam Salim, a witness to Thursday's",
+      "note": "목격자 증언 단락은 떼어도 장면이 서지만 수치가 많은 앞 단락은 사상자 숫자를 걷어야 한다."
+    }
+  },
+  {
+    "id": "2c034d3b-bad5-4df8-8cb6-7f4b959c8e30",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "125551c4accc9ad2d7e572a38f1cc8f8088f63ff7365e05c3b7584ac4f02e150",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "여론조사 동률이라는 수치 뒤에 부통령 지명에 대한 반응과 클린턴 대의원 이양 예정이 이어져 내용 일치 칸과 수치 주장 검증 속성이 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Obama has recently added Senator Joe",
+      "note": "바이든 지명 반응 단락은 떼어도 서지만 앞 단락은 수치를 걷으면 남는 것이 적다."
+    }
+  },
+  {
+    "id": "2c06e0ac-3a9f-4182-b180-caaefa1f2a32",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "26f8a5be22e268d044973893ba1ac67c31a660f50bc95dad77fccc62afa9851c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "법원 퇴거 시한 만료 → 무토지 농민운동의 잔류 결정 → 경찰 진입 가능성과 지원이 원인·반응으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The members of the Brazilian Landless",
+      "note": "첫 단락이 사건을 혼자 세우고 끝의 도시 소개 문장은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "2c0eb5fc-3a6f-4bd6-83a9-53a29592db2d",
+    "source_updated_at": "2026-09-25T09:16:06.127576+00:00",
+    "body_sha256": "61bc347cdd2b8d52f1fb3e7b7d59c2044a6330a58407656c31fb1e426d1cca16",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "한쪽 입장 — 성직자의 금요 설교 발언을 옮긴 보도지만 전문가회의 설명·득표 수 등 맥락이 붙어 선동문 자체는 아니어서 주장·내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Emami-Kashani is a senior member of",
+      "note": "기관 설명 단락은 떼어도 서고 발언 인용은 한쪽 입장임을 밝혀 두면 주장 파악 재료가 된다."
+    }
+  },
+  {
+    "id": "2c10ae89-f8f5-49b9-93ef-005de60f896a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "10efff58f0a46593983bb2942aca895970cce7a2e57dcab28fdd86844a96f825",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "중앙은행 총재의 집값 하락 전망과 그 까닭(금리 인상)·배경 수치가 이어져 짧지만 주장·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dr. Bollard told Bloomberg Television, \"house",
+      "note": "전망과 근거가 두 문장으로 서고 monetary policy 를 풀어 쓰면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "2c24f242-39d8-455c-b8d2-ea4544158f27",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "025cf428069f3ba047426930ad1dd1c1aed8a7c7791b3850ffac59e716bedfcc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "지붕을 뚫은 돌 → 과학자 감정 → 철질·소행성 핵 조각이라는 추정 근거 → 학자 반응으로 이어져 내용 일치·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "title",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The meteorite is named \"Freehold Township\"",
+      "note": "둘째 단락이 혼자 서고 density·magnetic 을 쉬운 말로 바꾸면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "2c25675b-15ff-41c4-b71a-c1121b287403",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6aa2d22d1c2b78bc24f50d35776df984f77155169b4a0440c0574e1c7af1f219",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "수상 소식에 이어 RNA 간섭의 원리와 쓰임을 설명하는 넷째 단락이 있어 내용 일치·주제 칸을 채우고 수상 경력 나열은 걷는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "RNA interference (or RNAi) is the",
+      "note": "RNAi 설명 단락은 떼어도 서지만 messenger RNA 같은 용어는 바꾸기 어렵고 수상 목록 단락은 걷어야 한다."
+    }
+  },
+  {
+    "id": "2c26051d-00ac-43e3-af06-144f1aaee816",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bde08164e5bb07706435dfd0edcd2d1ac49c43d3431edf85fb4076f069feb7da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "장례 연기 발표 → 새 날짜 → 비공개 매장과 장소 비밀 유지로 다음 절차가 문장으로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A spokesperson for Michael Jackson's family",
+      "note": "첫 단락이 혼자 서고 interring 을 burial 로 바꾸면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "2c2dd019-24a6-42c3-a082-c3c238ad411d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aea09496eafe3c6b0f01f0697bab811717a1651259977c1730690fb924c52236",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "대회 개최지 이력과 수상 와인 이름·메달 수만 문장마다 바뀌어 되풀이될 뿐 문장 사이를 잇는 사건이 없어 단신 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Moldovan wine makers participated with 12",
+      "note": "떼어 보면 제품명·메달 목록만 남고 원인·반응이 없어 문항을 세울 논지가 없다."
+    }
+  },
+  {
+    "id": "2c36665c-bd9b-408c-8412-e38384a3647b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1616b15c76425041c5087cf483986672d94a48c258db12d1b924d4a77acde8c9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "투병 끝 사망 → 이력(인종차별 괴롭힘 논란) → 장례 예정으로 다음 절차까지 이어져 내용 일치 칸 하나를 채우고 죽음 소재라 고등 이상만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "She was born Jade Cerisa Lorraine",
+      "note": "생애 단락은 떼어도 서지만 사실 나열에 가까워 사실 문항 외에는 쓰기 어렵다."
+    }
+  },
+  {
+    "id": "2c4541e2-397a-4204-a690-0a215e5b4b83",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9bf357b6dd6e567bea8e36c3a22ac5a7fa46984ec7b3ca44d16204ee69e561c3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "사진 전시 소식 뒤에 나이팅게일이 사진을 피한 두 가지 이유를 잇는 문장이 있어 45어로도 이유 연결이 서서 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A recently discovered photograph of Florence",
+      "note": "두 문장 전부가 한 덩어리로 서고 interfere 를 get in the way 로 바꾸면 중등 밴드가 된다."
+    }
+  },
+  {
+    "id": "2c468633-226c-42d4-bfa3-5c7fdfbd6bd3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "944bdf955136e6b52b9ec32c38d0f1cb2b8c7730da46fa87442764a0dd746dcf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "박격포 공격 → 표적이 된 거점의 쓰임과 잦은 공격 이력 → 피해자 소식 미확인으로 이유가 이어져 짧은 내용 일치 칸 하나가 되고 전투 소재라 고등 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Canadian soldier and five Afghans",
+      "note": "64어 한 단락 전체가 서고 insurgents 를 fighters 로 바꾸면 쉬워지나 끝 시각 문장은 걷는다."
+    }
+  },
+  {
+    "id": "2c52925f-3cd0-4b99-a97e-d941b0c2ab7d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e837a5ed262ba4171043363fefc6cfb0d3ead73ee4bc17531faea7d8034b195d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "외무장관 지명 → 미국 관계와 유럽 자립 사이에서 풀어야 할 과제 → 우크라이나 지원 입장 → 경력으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wadephul would have to navigate maintaining",
+      "note": "과제 단락은 떼어도 서지만 정당 약칭은 걷어야 하고 navigate 를 balance 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "2c5c5a5b-1fec-45d9-bb35-ecfef4a56d4c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0768693fa8c7b16697066044b65066c6897f16f2ed1f304090ef9427c1962a34",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "40어에 사임 → 후임 지명 → 월가 출신 첫 인물이라는 세 문장뿐이라 다음 절차 연결은 있으나 이름 나열과 가르는 선 위에 있어 보류한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "George W. Bush has nominated Goldman",
+      "note": "떼면 후임 지명 사실 하나만 남아 문항을 세울 만큼의 사건 흐름이 되는지 애매하다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "2c6b3861-634f-4077-88cf-2c2358c2e7d8",
+    "source_updated_at": "2026-09-25T09:17:02.204313+00:00",
+    "body_sha256": "8ab456b7bbaa6b2b878edd7f55989fad0664618235f56e36195e7053b7d39e3d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "규모·깊이 뒤에 먼 관측소에서 느낀 진동, 서부 지역 정전·통신 두절, 쓰나미 경보 없음이라는 결과가 이어져 수치만 되풀이하는 단신이 아니다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to a member of staff",
+      "note": "피해 단락은 떼어도 서고 epicenter 를 center 로 바꾸면 쉬워지지만 거리 수치는 걷는다."
+    }
+  },
+  {
+    "id": "2c85d98f-a8fa-449f-ad36-f068404bd220",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3247faf4c18b30c19d7c7206f59ee1279d8d36d076d57b67bb8b38d53469dafb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "흰 연기 → 선출 발표 → 첫 북미 출신 등 의미 → 페루 주교·교황청 이력으로 사건과 생애가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pope Leo XIV became the second",
+      "note": "둘째 단락이 혼자 서고 Dicastery·Suburbicarian 같은 교회 용어는 걷거나 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "2c9b1967-51d3-48c1-bc2b-692682ed998b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "65dacb8843854e8595cf8cf47e7010eb231b89fb2ff7b4594dd61bdbf5426eeb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "선거 유권자 보호라는 목적 아래 통금·공항 폐쇄·국경 봉쇄 조치를 알리고 병원 증원과 효과 보장 불가로 맺어 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Iraqi government has also told",
+      "note": "조치 목록은 한 문장으로 묶어야 하지만 목적과 마지막 단락이 사건을 세운다 — 원문 오타 garuntee 는 고친다."
+    }
+  },
+  {
+    "id": "2c9ec887-f428-46fa-9ff5-c5c3bddd3dbe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "88e85e161255f46b3ada33c0cbc214fd87a7552b56ce9bcd123234ba506e46b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "증언과 서명 메모가 어긋난다는 논지는 서지만 「The following are excerpts from the memo:」와 「was:」 뒤 인용이 통째로 빠져 본문이 중간에서 끊겼다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "But Sanchez's 2004 answer is at",
+      "note": "대조 단락은 떼어도 서지만 가혹 신문 용어가 많고 예고된 메모 인용이 없어 근거 쪽이 비어 있다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "2ca3c3d1-2d20-48a4-aa69-ffdf09140a2f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8edbc1a57dcd64a35d1babee2b8b31817172ef4900ded39fbfd40fca1a8f9a5b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "무명 상원의원의 대선 탐색 → 공화당 강세 지역 당선이라는 강점 → 경선에서의 약점 비판 → 모금액 비교로 주장과 근거가 이어져 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Among the selling points Bayh points",
+      "note": "강점·약점 두 단락은 떼어도 서고 모금액 단락의 수치와 인명은 걷어도 논지가 남는다."
+    }
+  },
+  {
+    "id": "2cbda341-244f-44d2-a530-f1b50aab925c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4d3c0a7cffcfac11b53584dcd62e65385704613ea33b66b7c6d8fdc585799b55",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "두 무역 박람회 개막 → 양 진영 정치인의 방문과 발언(야당 후보의 경제 정책 비판) → 선거 무대가 되었다는 평으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "From the Pan-Blue Coalition, 2008 vice-presidential",
+      "note": "야당 후보 단락은 떼어도 서지만 직함이 긴 인명은 줄여야 하고 인용문 어법 오류를 고쳐야 한다."
+    }
+  }
+]

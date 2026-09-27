@@ -1,0 +1,951 @@
+[
+  {
+    "id": "25c2bd7d-cf4d-497a-ac22-de0e5970d066",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "11de8fdb72c6baee54549570602fdc4cd03a9a0f32dee8e44c4fadcd29651903",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "코펜하겐 합의에 대한 중국·인도네시아의 환영과 양제츠의 「차등 책임」 발언 문단이 반응과 근거로 이어져 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yang Jiechi, who is the 10th",
+      "note": "양제츠 인용 문단은 직함을 걷어도 선진국·개도국 차등 책임 논지가 서고 historical emissions·obligations 를 풀면 V5 로 내려간다; 문법이 거친 문장은 손봐야 한다."
+    }
+  },
+  {
+    "id": "25cc70fb-0d82-4d4b-8b99-7478b86d5970",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0b704254a2821b9a8f4b42c909d23cbdb83491b7b4b96b6abb4d1598ac8ec71f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "앞 두 문단이 금지 조치와 그 까닭(국제 안전 기준 미달)·위원의 발언으로 이어져 내용 일치 칸을 채우고, 뒤의 항공사 목록은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "EU Transport Commissioner Jacques Barrot on",
+      "note": "조치-까닭-발언 두 문단은 혼자 서지만 짧고, 항공사·국가 이름 목록은 걷어야 한다; categorically·dubious 를 바꾸면 V4."
+    }
+  },
+  {
+    "id": "25e122ff-5353-4cf8-a053-7f5e4dea223e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "db88d9389a31cb96f70f5f0f3bbcce4102fd4d91ace8e631ccd9e6099158bdc6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "바레인 기지 총격 → 부상자 이송 → 해군의 「테러 아님·내부 다툼」 발표로 사건과 반응이 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Bahrain, two unnamed United States",
+      "note": "첫 두 문단이 사건·반응을 담아 떼기 쉽고, pronounced dead·isolated 를 풀면 V4; 죽음 소재라 고1 이상 칸만 둔다."
+    }
+  },
+  {
+    "id": "25ed5751-2f04-41e9-be2b-a2e100fd907b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aba9df845dbbdb1807e2cf80cbb1f8a728e2a76aad71036cd68b427700f2e913",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모리스의 입국 거부 → 우리베 정권 비판 이력 → 재단·본인의 반응으로 원인 추정과 반응이 이어져 내용 일치 칸과 주장-근거 짝을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The journalist has called attention to",
+      "note": "둘째 문단부터 떼면 앞 문장의 Morris 소개만 붙이면 되고, speculated·counterpart 를 바꾸면 V5; 기관 약어(DAS·FARC)는 풀어야 한다."
+    }
+  },
+  {
+    "id": "2605f512-d646-4a91-9b96-fee74484d34a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1bca51ffe4b0f21c310aa95c931583f1f7f006c60a176ee10161da729e2583e9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "네 수상자마다 수상 사유(연기 경력·여성 공학 장려·언어 보존·위탁 양육)가 문장으로 붙어 있어 이름 나열이 아니라 인물별 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Laurie Baymarrwangga, an elder from the",
+      "note": "원로 수상자 문단은 사전 편찬 동기와 결석 사정까지 한 편으로 서고, initiated·heritage 를 바꾸면 V5; 지명은 줄여야 한다."
+    }
+  },
+  {
+    "id": "26071356-7e12-46a5-80b3-dd1cd2fd5a5f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "607bd7f7a1359b1ffdb7473b7afc50bedc6e02bb166e1be2270aeee0b4980fbb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "호메이니 1988년 서한 공개 → 전쟁 지속 요건(핵무기)·경제 상황 → 휴전을 「독 마시기」로 표현한 대목까지 사건 흐름이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A letter that had been written",
+      "note": "첫 문단은 긴 관계절을 쪼개야 하지만 인용을 걷어도 서한의 요지가 서고, acquire·cease-fire 는 문맥으로 잡힌다; 오탈자(reportadly)는 고친다."
+    }
+  },
+  {
+    "id": "26134dbe-694b-4d80-adfd-a3f41a7ba9d9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d49112d4b1969ee5b79f4b9601415b6f9acf9c48552d167dd1211bfbe61e6bb0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "활주로 이탈 → 창고 충돌·화재 → 조종사 사망과 목격자 증언으로 사고 경과가 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The plane veered off the airport",
+      "note": "둘째 문단이 사고 순서를 담아 떼기 쉽고 veered·composite 를 바꾸면 V4; 첫 문장 오탈자(crahed)는 고친다."
+    }
+  },
+  {
+    "id": "261e4cb4-805c-4646-9630-eda398a1f408",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fb3893ac31c19346c495ed0a60f651e8efed413ee97b5396f96ec6dbfc8b6ba3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "인종 편견 주장을 편 강사를 대학이 정직시키고 법적 근거(인종평등법)를 든 보도라 편견을 전제로 깔지 않으며, 조치와 까닭이 이어져 고2 이상 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Leeds University has suspended a lecturer",
+      "note": "첫 문단만으로 사건·조치·근거가 서지만, 인용된 인종 지능 주장은 보도 대상임을 분명히 하는 틀을 가공 때 유지해야 한다."
+    }
+  },
+  {
+    "id": "262a9431-891b-4b96-8186-5d93e8c5b16e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c1a7ab34b4ad6588ce5bbfaa2b3ec193fc1369a1e775a2e7978ee479350418b5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "탱크로리 추락 → 주민 대피 → 가스 이송·차량 인양 절차 → 철도 복구 전망으로 사건과 다음 절차가 시간순으로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chris Hockaday, from County Durham and",
+      "note": "소방관 인용 문단은 시간 표지가 뚜렷해 순서 문항으로 자르기 좋고, decanting·right the vehicle 를 풀면 V5."
+    }
+  },
+  {
+    "id": "2638b594-da16-48c0-ba4c-a60570a0bcc8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "42ecb3377d75f71577c6e4db9e7e8fd38c37a9d1e83775bd6a4922ca973759ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "플루크의 여성 건강 강연과 주최 측 칭찬을 옮긴 한쪽 입장 보도로, 강연 주장 문단과 이력 문단이 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fluke's speech centered on women's rights,",
+      "note": "강연 요지 문단은 선거·참여 촉구 주장이 한 편으로 서고 spurred on·at stake 를 바꾸면 V5; 뒤의 수상·지명 이력 나열은 걷는다."
+    }
+  },
+  {
+    "id": "263ec3d6-a06b-4dd2-9823-a45e621532ce",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "720c1b3290e6c813a1c7e83e5300005096b5c4dbdceaa9ec4ccffa207237f843",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카페 앞 차량 폭탄 → 사상자 → 다게스탄 무장세력의 잦은 공격과 모스크바 공항 테러 연관 의심으로 원인 배경이 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There are nearly daily attacks in",
+      "note": "배경 문단은 사건 문단과 붙여야 뜻이 서지만 100어 안팎으로 한 편이 되고 militants·unconfirmed 를 풀면 V3."
+    }
+  },
+  {
+    "id": "264a0ce4-3830-47ef-8ffd-2fb2e3835c8f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e2c7ccb545d08b0fc734d136cf8b6148347c1c3bd4ae534309146d463909774c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "news",
+    "why": "보이콧 제안과 양측 반응이 이어지다 마지막 문장이 「statement boycotting ... saying,」에서 인용 없이 끊겨 원천이 중간에서 잘렸다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Speaking to news site Dublin Live,",
+      "note": "시장 발언 문단은 떼면 서지만 이스라엘-팔레스타인 배경 설명이 길고 끝 인용이 잘려 어휘 조정만으로는 한 편이 되지 않는다."
+    }
+  },
+  {
+    "id": "265bb1db-dc7b-492e-8054-b9656161bdb2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1535a578162448176bcc788606f3c06be970fc1daecf897254157f0b34dc82a1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "보스턴 퍼스트 나이트 행사와 어린이를 위한 정오 카운트다운 같은 까닭 있는 사건이 이어져 중등 이상 쉬운 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Last night, 1 million people filed",
+      "note": "전문이 짧아 통째로 쓰되 오탈자(where·Thomasn·City Hill)를 고치고 filed into·festivities 를 바꾸면 V2."
+    }
+  },
+  {
+    "id": "2688d959-7292-4f26-b43f-cb0f38e71eec",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2c2662ef1066284450dde765907f2536f4989cfdaf9f786f763b8d1c88102156",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "처칠 교수의 9·11 희생자 비유 → 미국 인디언 운동의 규탄 까닭(비유·신분 사칭)으로 항의의 이유가 문장으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The American Indian Movement says Churchill’s",
+      "note": "둘째 문단은 항의 근거 둘이 갈라져 서지만, 셋째 문단의 표절·미술 사기 단정은 출처가 없어 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "2694c870-855a-4c8e-ac64-4185f43b6f26",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "79ff05a4454380e3ab9c85a6adbcbb7a63f513d5c6f625c0af86efcb43d86b27",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "브뤼셀 급습·21명 체포 → 최고 경보·지하철·학교 폐쇄 → 형의 자수 권유와 총리의 정상화 발언으로 대응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In response to the possibility of",
+      "note": "셋째 문단은 대응 조치가 한 흐름으로 떼어지고 lockdown·simultaneously 를 풀면 V4."
+    }
+  },
+  {
+    "id": "26990fc6-9d4f-432e-be22-d23ea5daf6e4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "26c69213fc63f919a5a286cd8afacdb1f31ce049cc76100db99ef01fdd18ba2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "73어 단신이지만 방화 추정 화재 → 소방관 100여 명 진화 → 투숙객 12명 대피·한 명 치료로 사건과 결과가 문장으로 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Dubliner, a famous Irish pub",
+      "note": "전문을 그대로 쓰고 deliberately·smoke inhalation 을 바꾸면 V3; 짧아서 순서 문항엔 모자란다."
+    }
+  },
+  {
+    "id": "2699d4ca-2e10-4c62-8487-c30de2a4dbf7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0677dd2bd1a071b6e5fa57649e396c4b09f623b435336c3cba04f8d378f1860d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "타블로이드의 출연 소문 → 세서미 워크숍 두 관계자의 부인으로 소문과 반증이 이어져 내용 일치와 통념 교정 칸을 채우고 뒤의 게스트 명단은 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Published reports in British tabloid newspaper",
+      "note": "소문 문단을 앞에 두고 부인 인용을 뒤에 붙이면 한 편이 서고 dumbed-down 을 풀면 V4; 양육권 문장과 게스트 명단은 걷는다."
+    }
+  },
+  {
+    "id": "26b52f0f-ac70-4b06-838f-7d5fdda7bbf1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "230f57e41df1cd6c0b276d612d3f38261095e817044786464ffb86fec86d1557",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "스즈키의 강연 예고에 재단 보고서의 계기(캐나다 환경 순위 28위)와 과제가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The David Suzuki Foundation developed a",
+      "note": "보고서 문단은 계기와 제안 세 가지가 한 편으로 서고 agenda·sustainable 을 풀면 V5."
+    }
+  },
+  {
+    "id": "26b813f6-74c6-47f5-8f95-5cb249fb3e13",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "60d110d658d42a59fa44c402a967282b49a5e6ef6c4d67394df08565a8d06bb2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "운전 중 휴대전화 금지 법안에 연구 근거(음주 운전 수준 주의 분산·사고 700건)와 업계의 반론이 붙어 주장-근거·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Several studies have found a link",
+      "note": "연구 문단은 주 이름·수치를 걷어도 주의 분산 논지가 서고 blood alcohol reading·distractions 를 풀면 V4."
+    }
+  },
+  {
+    "id": "26b8d827-6f73-41ad-88ed-67c8a392bccd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "43871e483491c83f8087171224193caa1a013e90f29801dac6342bef8c52fd96",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아마디네자드가 인질범이라는 사진 비교 주장과 이란 정부·전 요원·미국 관리의 반박이 짝을 이뤄 주장-반박 흐름의 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many top news sources reported that",
+      "note": "사진 비교 문단은 떼어 서지만 「To no great surprise」 같은 논평과 연도 오기(1981→1979)는 가공 때 고쳐야 한다."
+    }
+  },
+  {
+    "id": "26bde7ac-df64-4991-a690-099a02e3d95a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "94141efbd0e08776631a473c1ebb759f0e5c2d8a30e8612f36240edb2a9cf2ea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "독립 15주년에 유셴코의 EU·NATO 노선 발언과 푸틴의 축하·관계 다짐이 반응으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Russian president Vladimir Putin sent",
+      "note": "두 정상 발언 문단이 대조로 떼어지나 인용이 길어 reiterate·irreversible 을 풀고 줄여야 V5 가 된다."
+    }
+  },
+  {
+    "id": "26d2b6cc-7ffe-4036-b90d-d2c000b72a3d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "00cc660ecf0166bf2963be3b4e623bdcb32fd5735a7d5f6321190fca5e8b6d0f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "캐스팅 소식에 감독의 장편 데뷔·줄거리·두 배우의 전작과 관계가 이어져 짧은 문화 단신의 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Going the Distance, written by New",
+      "note": "줄거리 문단과 전작 문단을 붙이면 한 편이 되고 제작사 이름을 걷어도 서며 grossed 를 풀면 V4."
+    }
+  },
+  {
+    "id": "26d89f0b-b408-409a-9d17-05262413524c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0abc61b8c5d6ac69091ddc73933309d71ea4b4b483e82efc237385ec2349321b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "루마니아 26개 소도시 부분 선거에 시행 까닭(임기 종료·시 승격)과 제도 배경이 문장으로 붙어 지명 나열을 걷으면 짧은 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Partial local elections will be held",
+      "note": "첫 문단과 끝 문단만 이으면 까닭과 배경이 서고, 둘째 문단의 군 이름 나열은 걷는다; proclaimed 를 바꾸면 V4."
+    }
+  },
+  {
+    "id": "26da5e9a-c9f5-4661-86fa-aaa3c21631b6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0dca179cd15cff1b3a1509231f025a2fd41ebca135253a3b9169135f06d6490f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "황금사자상 수상과 이사회 선정 이유(사람을 모으는 건축) 인용이 한 편으로 서서 내용 일치·요지 칸을 채우고, 대표작 나열은 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Board stated that \"Rem Koolhaas",
+      "note": "이사회 인용은 고유명사를 걷어도 건축의 역할이라는 요지가 서고 expanded the possibilities 는 쉬워 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "26efe2f2-5098-4884-8511-457c28772126",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "51bd9c865a94b0a377b497e2059d88ebe2617ae0c41db41f110c0b3243fec83e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "영국 지진 → 보험업계의 피해액 추정 → 접수된 청구의 피해 유형·건수로 원인과 결과가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Senior claims manager at the",
+      "note": "피해 유형 문단은 떼어 서고 claims·breakages 를 풀면 V3; 도시 이름 나열은 걷는다."
+    }
+  }
+]

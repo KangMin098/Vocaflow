@@ -1,0 +1,915 @@
+[
+  {
+    "id": "28aef2b8-8630-4171-8fa8-b36ca72746e9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c26f30b03a4b96e3d731310721f3048ef9171b0feae2bf0794fe23dab9ce86fd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "개표 중간 결과 → 북부 미집계 → 탈라바니 총리 요구가 수니파 반발을 부를 수 있다는 전망 → 최종 발표 일정이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Iraq – With more than two-thirds",
+      "note": "지명 나열 단락은 걷고 considerable→big, inflame→anger 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "28b54085-2f57-4e0b-bf0b-7fe9ca6328d9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ca549aea238e27c4a42c6609a39e7a4257cdaac2115bcd2f826c054c337d9880",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "sports",
+    "why": "역전 홈런 경기 흐름은 있으나 첫 단락부터 비문(may varied Asian's teams)이고 끝 두 줄은 표 머리만 남아 문장 단위 가공이 애매하다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Even though the starting pitcher Nelson",
+      "note": "셋째 단락은 사건이 서지만 넷째 단락 Instead of SK 가 누가 이겼는지 흐려 낱말 교체가 아니라 재작성이 필요하다."
+    }
+  },
+  {
+    "id": "28cedb1e-97a3-4d46-bf5d-9a06adafef35",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "733e1f03ae4e161bcf7c1558b7dc7de2b2add5136ca3da1e1e1e0a2388ce2679",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "시드니·뉴욕·런던·토론토 신년 행사를 도시별로 전하며 지하철 파업에도 관객이 늘었다는 등 사실 사이 연결이 있어 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "London celebrated the New Year at",
+      "note": "런던 단락은 혼자 서며 observation wheel→big wheel, estimated→about 로 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "28d02bf3-b785-440c-a7f1-19ae9e9a70aa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9ae0d7fbae84ae674794384e2cff71c96dbfcd6f4a3d7f070967310e32fcb0a3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "TR35 수상자·연사·과거 수상자의 이름과 소속만 문장마다 바뀌어 되풀이되고 사건 흐름이 없어 수상자 명단 단신의 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Web 2.0 companies are well-represented, as",
+      "note": "고유명사를 걷으면 남는 논지가 없어 문단이 서지 않는다."
+    }
+  },
+  {
+    "id": "28ee61ae-3a0d-4286-8377-6c5f04094ff3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7dbc64031ac5e5ff96efd2d18aba046a3441b7e349ea75e62f5fd15b2ac1b38e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "여론조사 평균 수치에 오차범위를 대어 통계적 우위를 해석하고 부동층 11%라 승자를 부르기 이르다는 결론까지 이어져 내용 일치·수치 주장 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After several days in Europe, Barack",
+      "note": "마지막 조사 목록 단락은 걷고 margin of error 를 문맥으로 풀면 수치 해석 문단이 혼자 선다."
+    }
+  },
+  {
+    "id": "28fb14d9-a003-4aee-9695-a2b1a9ddc3dc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "15d817e9290020bcf21db313acde1de31950e76f020cf9c867c7c0b3d33f5502",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경관 살해로 17세 기소 → 추가 혐의·출정 → 무장조직의 책임 주장 → 정당들의 규탄이 이어져 사건·반응 흐름이 있어 고1 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police in Northern Ireland have charged",
+      "note": "Continuity IRA 등 조직명을 한 번 풀어 주면 되고 condemned→criticized 정도로 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "290d3f8c-4e86-4cdb-98fc-0c22c06e1147",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7d3c51af5f383e206ce5eea583bd168bc6d8ba5a2d67a59e44796d9d4df187aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아동 성착취물 수사가 1만2천 명 용의자로 이어졌고 자료 분석 → 영장 청구 → 70개국 수사 확대로 절차가 문장으로 이어져 성인 칸 내용 일치로 둔다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Germany has just announced that a",
+      "note": "소재가 민감해 연령을 고3·성인으로 제한했고 묘사는 없어 걷어 낼 문단은 없다."
+    }
+  },
+  {
+    "id": "2934e94e-a838-4540-b64a-8dc651267914",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eaacce739bd9f6ea3b92f07d08425f5c123d80ef3a68bb4a80786b5ac0867136",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사망자 집계 차이 → 실종·열차 행방불명 → 원전 우려로 대피 확대 → 구조·파괴 규모가 인과로 이어져 재난 단신의 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the aftermath of the disaster,",
+      "note": "셋째 단락은 앞 문맥 없이 서며 aftermath→after, deployed→sent 로 바꾸면 V4 다."
+    }
+  },
+  {
+    "id": "2953c049-ff70-44c7-8591-503b5d449311",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f8a567ad8ad3ccc258d1c088534f4b1d563746fa346ac2fd10b6124f9204b34d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "ARVC 유전자 발견 → 질환 설명 → 진단이 어려운 이유(증상 없음) → 뉴펀들랜드가 유전학 낙원인 까닭까지 이어져 설명문 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "ARVC is an often hereditary condition",
+      "note": "질환명 약어를 heart disease 로 두고 hereditary→passed down in families 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "295c3ce6-377f-4095-97d6-301057e9218a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bbcf2a6a0a302b680954f97f70c2d30b3d2c2551bc00bcd748ecf5664aec77f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "정당 지지율 수치에 조사회사 대표가 환경 정책 실망·윤리 쟁점 퇴조로 흐름을 해석하는 인용 단락이 붙어 내용 일치·수치 주장 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"What is troubling for the Conservatives",
+      "note": "Graves 인용 단락은 혼자 서며 dissipated→faded 로 바꾸면 되고 출처·방법 줄과 주별 수치 단락은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "296b8327-fe0e-423c-a066-0b0a0290c1ab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "163356705762f47b78703d60e53da9c24a902fa6c1f08e59a849887fdad63a91",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "비틀스 신보 제작 → 서커스 공연 LOVE 기반 리믹스 → 원 녹음 사용이라 해체 뒤 가장 원작에 가깝다는 평가 → 11월 발매로 이어져 짧아도 연결이 있다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The album will be based on",
+      "note": "둘째 단락은 혼자 서며 legendary 만 famous 로 바꾸면 중등 밴드에 맞는다."
+    }
+  },
+  {
+    "id": "2970e00c-2aa6-4879-934d-2d8742754d6a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "09849ec2635a496db7c607b7c4ec79fb3616662467b35b6a6d2fa637f73647ea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "후보 인터뷰 답이 「See my plateform」처럼 본문 밖 공약을 가리키거나 한두 낱말뿐이라 질문·답 어느 쪽도 떼어 내 뜻이 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Q: Describe the three most important",
+      "note": "답이 외부 공약서를 가리켜 문단 하나로 뜻이 서지 않고 바꿀 낱말도 없다."
+    }
+  },
+  {
+    "id": "29745501-0e8c-4239-be66-69f4a410b613",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1c0900ee6dbaf57b444ce0f3f4058131cfa8759a32331c914e40469fe73e524d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "88세 사망 소식에 1953년 첫 방송 → 5년 뒤 새 본부 대성당 건립이라는 경력의 시간 순서가 문장으로 이어져 짧은 부고로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rex Humbard, who for several decades",
+      "note": "televangelist→TV preacher, constructed→built 로 바꾸면 되고 55어라 다른 글과 묶어 쓸 수 있다."
+    }
+  },
+  {
+    "id": "297a4eb0-e284-4036-aa9d-467564dab57e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "64541cc9ad96be7ce7897fa0624f6c01f8f78760502aee57b1182cbf77901c9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "다마스쿠스 폭발 목격 보도 → 영상 → 원인 미상이나 반군의 발전 시설 공격 → 다른 도시 민간인 사망으로 교전 상황이 이어져 고1 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The explosion reported occurred just before",
+      "note": "트위터·알아라비야 출처 문장은 걷고 allegedly→is said to 로 바꾸면 둘째 단락이 혼자 선다."
+    }
+  },
+  {
+    "id": "298dd916-6ca6-4145-82f1-ccc1abb5b06e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5060c25dea185e354ab2dac7ccd3a39c63c2246995b9dbb8df92d8b5f23739b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "로보게임 참가 규모·메달 국가에 멕시코 학생의 참가 소감과 대회가 만들어진 까닭(아이디어 교환)이 붙어 국가 나열을 넘는 흐름이 있다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "RoboGames, previously ROBOlympics, holds the",
+      "note": "「see table below」와 종목 나열 단락은 걷고 마지막 두 단락을 이으면 V4 로 선다."
+    }
+  },
+  {
+    "id": "2994d592-5254-419c-92c3-db618226f10b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7179ea4936abbd891040755c29de7f8c8f3f4556a150d6ee3c26d4a39fd2f641",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "앞선 강진의 여진이라는 맥락 → 피해·경보 없음 → 쓰나미 위험이 낮다는 지진학자 반응이 이어져 규모·진앙 나열을 넘는 단신이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A fresh, 6.3 magnitude earthquake struck",
+      "note": "진앙·깊이 문장은 걷어도 사건이 서고 reeling→still recovering 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "299600cf-5716-4301-a8ba-7d01ff81f91f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "232a7bd33eacb74000449f88df1736f603698db0d6842db60d0265774c3eae23",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "구글의 무료 인터넷전화 계획 → 영국 우선 출시 관측 → 회사 사명과 규모 설명이 이어지고 2005년 시점 기술 예고라 시대 비교 칸 후보이기도 하다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Internet search king Google is preparing",
+      "note": "VoIP 는 뒤 설명으로 풀려 있고 telephony→phone 만 바꾸면 V4 로 된다."
+    }
+  },
+  {
+    "id": "29a54d49-377b-4ca1-b09c-781144bcc57e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9f84056bfd207143387e5946ee21db7d0ee4250d2b39796b75a9f242438ec1dd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "biography",
+    "why": "가수 사망·나이·유족 뒤에 녹음곡과 앨범 이름만 이어지고 원인·반응·다음 절차가 없어 짧은 단신 연결 최소선에 걸치는 부고다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Kevin DuBrow, lead singer of American",
+      "note": "곡명·앨범명을 걷으면 사망 사실 한 문장만 남아 사건이 서는지 애매하다."
+    }
+  },
+  {
+    "id": "29ab4417-4bc8-4145-97e3-46953fd29fd2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23c6339558b2b697a030fd44384a8c102d3f3c22c6f5d1f7d7350f0768e50159",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "레반꽁과 카라다가 시기마다 패럴림픽 기록을 주고받다 네 번째 시기에 세계기록을 세우는 경기 순서가 이어져 서사형 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Qarada traded Paralympic records with Cong",
+      "note": "둘째 단락은 혼자 서고 traded→took turns setting 로 풀면 중등 밴드에 맞는다."
+    }
+  },
+  {
+    "id": "29c6eeec-8c1c-4cae-81c9-d96de00f60b1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7df0ca1d168745c5d896d3609ae4d8f19f4975834f198fe71d86f585171e2ffd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "health",
+    "why": "분광·PET·혈중 단백질·주스·음주 연구 결과를 출처 없이 한 문단에 병렬로 늘어놓아 문장 사이 연결이 없고 2005년 연구라 현재 사실 여부도 걸린다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "It is believed that magnetic resonance",
+      "note": "연구마다 주어가 달라 한 논지로 묶이지 않고 전문 용어를 바꿔도 목록으로 남는다."
+    }
+  },
+  {
+    "id": "29d50f20-c824-454d-8b3b-951ac9788ee0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bd20f103c6e3c31108806943636cb8c59deb65ad2f4f597778f4016c079eded2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시성식을 앞두고 십자가가 무너져 청년이 숨졌고 시장의 반응 인용과 기념 행사 취소, 조형물 내력이 이어져 죽음 소재라 고1 이상 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Marco Gusmini, 21, died after part",
+      "note": "둘째·셋째 단락이 사건을 세우고 splintered→cracked, toppling→falling 으로 바꾸면 V4 까지 내려간다."
+    }
+  },
+  {
+    "id": "29d70c82-39cd-4748-8541-04b799e12fd1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7d04de8ad1aa5851fe32e0161d50d756bae99f125bd075f2dde06f606f438be4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "컴퓨텍스 포럼에서 인텔은 WiMAX 전망과 SSD 시연을, MS 는 윈도 최적화를 발표하고 패널이 인프라를 관건으로 본 흐름이 있어 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In the opening keynote, Sean M.",
+      "note": "원문 영어가 어색해(shocking and stunning its device, [sic]) 낱말 두셋 교체로는 안 되고 문장 손질이 필요하다."
+    }
+  },
+  {
+    "id": "29f02f80-ab2d-460f-a85d-e605fadcd3dc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0e00af1f5374e19904a4ce1d330df7cd4557b75bb2d8c68368e66956610761e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "첫 두 단락이 강풍·폭우 → 정전 1만 가구·교통 차질 → 기상청 저기압 예보로 인과를 세우고 지역별 홍수 경보 나열은 가공 때 걷으면 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The southern United Kingdom has experienced",
+      "note": "지역별 경보 시각 단락과 전화번호 줄은 걷고 gales→strong winds 로 바꾸면 첫 두 단락이 선다."
+    }
+  },
+  {
+    "id": "29f24522-47f6-4a08-a6cd-45552e8f594d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "813fab0d2720ed1307c7aebea97dbbe7348fce83da1187babf9c6ad10f150e64",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "지중해 고염 분지에서 미생물 70종 발견 → 산소 없는 환경의 호염균 → 비슷한 액체가 화성에 있다면 생명 가능성이라는 함의로 이어진다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Around seventy new species of microbes",
+      "note": "halophile→salt-loving, devoid of→without, niche→place 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "2a07c63c-a942-44d4-af15-e9e4a36cbae9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8e563749b6d4df59ebb2f0a33d9d73c31f6701174e762230057480bec087e02e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아마디네자드의 안보리 비판과 부시의 자유·테러 연설을 양쪽 다 인용해 대비하므로 선동이 아니며 주장-근거 짝과 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Freedom, by its nature, cannot be",
+      "note": "부시 인용 단락은 혼자 서고 hegemonic→powerful, marginalized→pushed aside 로 바꾸면 V6 에 맞는다."
+    }
+  }
+]
