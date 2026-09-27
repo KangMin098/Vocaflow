@@ -28,6 +28,8 @@ import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import { examMetaOf, isKiceExam, listeningEndOf, parseExamId } from './lib-exam-id.mjs'
 
+const HAKPYEONG_ID_PREFIX = 'H' // apps/web/src/lib/csat/exam-id.ts 와 같다(학평 id 문법 H{YY}{MM}G{학년})
+
 const COMMIT = process.argv.includes('--commit')
 const PRUNE_LISTENING = process.argv.includes('--prune-listening')
 const PRUNE_STALE = process.argv.includes('--prune-stale')
@@ -42,6 +44,11 @@ const DIR = path.resolve('scripts/csat/data')
 const SET = process.argv.includes('--set') ? process.argv[process.argv.indexOf('--set') + 1] : 'kice'
 if (!['kice', 'hakpyeong'].includes(SET)) throw new Error(`--set 은 kice | hakpyeong: ${SET}`)
 const inSet = (id) => (SET === 'kice' ? isKiceExam(id) : !isKiceExam(id))
+// 미리보기에서도 거부한다 — 잘못된 조합을 --commit 을 붙이는 순간에야 알게 하지 않는다
+if (PRUNE_LISTENING && SET !== 'kice') {
+  console.error('  ✗ --prune-listening 은 평가원 집합(--set kice, 기본)에서만 쓴다 — 아무것도 지우지 않았다')
+  process.exit(1)
+}
 
 function env(name) {
   if (process.env[name]) return process.env[name]
@@ -235,6 +242,10 @@ if (gone.length) {
   console.log(`  ⚠ 코퍼스에 없는 DB 문항 ${gone.length}개 (${risk}): ${gone.slice(0, 5).map((r) => r.id).join(' ')}`)
 }
 // ── 듣기 행 삭제 (--prune-listening) ─────────────────────────────────
+// 듣기 유형은 평가원 원장의 몫이고, 이 블록은 표 전체의 듣기 행을 지운다 — 학평 집합으로 돌리면
+// 평가원 듣기 행까지 지운다(PR #123 리뷰). 그래서 평가원 집합에서만 받고, 문항 삭제도 평가원 id 로 좁힌다.
+/** 평가원 문항만 — 학평 행은 이 삭제의 대상이 아니다 */
+const kiceOnly = (q) => q.not('id', 'like', `${HAKPYEONG_ID_PREFIX}%`)
 if (PRUNE_LISTENING) {
   // 전제를 **지금 다시 잰다.** 예전에 0이었다는 것은 근거가 아니다.
   const countOf = async (table, build) => {
@@ -242,12 +253,12 @@ if (PRUNE_LISTENING) {
     if (error) throw new Error(`${table}: ${error.message}`)
     return count ?? 0
   }
-  const listeningItems = await countOf('csat_items', (q) => q.eq('section', '듣기'))
+  const listeningItems = await countOf('csat_items', (q) => kiceOnly(q.eq('section', '듣기')))
   const listeningTypes = await countOf('csat_types', (q) => q.eq('section', '듣기'))
-  const stuckInScope = await countOf('csat_items', (q) => q.eq('section', '듣기').eq('in_scope', true))
+  const stuckInScope = await countOf('csat_items', (q) => kiceOnly(q.eq('section', '듣기').eq('in_scope', true)))
 
   // 듣기 문항에 붙은 분석 — 하나라도 있으면 멈춘다(CASCADE 로 사라진다)
-  const { data: lIds, error: lErr } = await db.from('csat_items').select('id').eq('section', '듣기')
+  const { data: lIds, error: lErr } = await kiceOnly(db.from('csat_items').select('id').eq('section', '듣기'))
   if (lErr) throw new Error(lErr.message)
   let attached = 0
   for (let i = 0; i < (lIds ?? []).length; i += 200) {
@@ -275,7 +286,7 @@ if (PRUNE_LISTENING) {
   }
 
   // 문항 → 유형 순서. 반대로 하면 `csat_items.type_id` FK(NO ACTION)에 막힌다.
-  const di = await db.from('csat_items').delete().eq('section', '듣기').select('id')
+  const di = await kiceOnly(db.from('csat_items').delete().eq('section', '듣기')).select('id')
   if (di.error) throw new Error(`문항 삭제: ${di.error.message}`)
   const dt = await db.from('csat_types').delete().eq('section', '듣기').select('id')
   if (dt.error) throw new Error(`유형 삭제: ${dt.error.message}`)

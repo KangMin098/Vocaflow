@@ -130,25 +130,14 @@ export function listeningEndOf(id: string): number {
 //
 // 학평은 **보조·검증 집합**이라 평가원 통계(유형 비중·분석 완결도·유형 가이드)에 섞이면 안 된다.
 // 학습자 뷰 `csat_items_public` 과 `csat_coverage()` 는 DB 가 걸러 준다(마이그레이션
-// `20260927153152`). `csat_items` · `csat_exams` 를 **직접** 읽는 곳은 아래 둘을 지나간다.
-// `__tests__/exam-id.test.ts` 가 직접 읽는 파일이 이것을 쓰는지 검사한다.
+// `20260927153152`). `csat_items` · `csat_exams` · `csat_item_analyses` · `csat_analysis_reviews` 를
+// **직접** 훑는 질의는 조건을 그 자리에 적는다:
+//   문항·분석  `.not('<id 칸>', 'like', `${HAKPYEONG_ID_PREFIX}%`)`   (문항 id 는 회차 id 로 시작한다)
+//   회차       `.eq('organizer', 'kice')`
+//   검수       `.select('…, csat_item_analyses!inner(item_id)').not('csat_item_analyses.item_id', 'like', …)`
+// 헬퍼 함수로 감싸지 않는 이유: Supabase 빌더의 재귀 제네릭을 헬퍼가 다시 풀면 Promise.all 안에서
+// TS2589(Type instantiation is excessively deep)가 난다 — PR #123 리뷰에서 CI 가 그걸로 떨어졌다.
+// `__tests__/exam-id.test.ts` 가 직접 훑는 질의마다 이 조건이 있는지 검사한다.
 
 /** 학평 회차 id 접두어 — 문항 id 도 회차 id 로 시작하므로 같은 접두어로 거른다 */
 export const HAKPYEONG_ID_PREFIX = 'H'
-
-interface NotFilterable<Q> {
-  not(column: string, operator: string, value: unknown): Q
-}
-interface EqFilterable<Q> {
-  eq(column: string, value: unknown): Q
-}
-
-/** `csat_items` 질의를 평가원 회차로 좁힌다. `column` 은 회차 id 로 시작하는 칸(exam_id 또는 id) */
-export function onlyKiceItems<Q extends NotFilterable<Q>>(q: Q, column: 'exam_id' | 'id' = 'exam_id'): Q {
-  return q.not(column, 'like', `${HAKPYEONG_ID_PREFIX}%`)
-}
-
-/** `csat_exams` 질의를 평가원 회차로 좁힌다 */
-export function onlyKiceExams<Q extends EqFilterable<Q>>(q: Q): Q {
-  return q.eq('organizer', 'kice')
-}

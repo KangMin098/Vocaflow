@@ -231,7 +231,8 @@ for (const e of EXAMS) {
   if (keyRows.length) {
     keyRows = keyRows.map((r) => ({ ...r, points: three.has(r.no) ? 3 : 2, key_source: keySource }))
     pointSum = keyRows.reduce((a, r) => a + r.points, 0)
-    for (const r of keyRows) answers.push({ exam: e.id, ...r })
+    // 발문이 하나도 없는 회차의 정답은 붙을 문항이 없다 — 고아 정답을 원장에 남기지 않는다
+    if (stems.length) for (const r of keyRows) answers.push({ exam: e.id, ...r })
   }
   const flags = []
   if (stems.length < 45) flags.push(`발문${stems.length}`)
@@ -247,7 +248,20 @@ for (const e of EXAMS) {
 fs.writeFileSync(path.join(DIR, 'hakpyeong-questions.json'), JSON.stringify({ report, rows: questions }, null, 1))
 fs.writeFileSync(path.join(DIR, 'hakpyeong-answers.json'), JSON.stringify({ answers }, null, 1))
 fs.writeFileSync(path.join(DIR, 'hakpyeong-inventory.json'), JSON.stringify({ src: SRC, from: FROM, exams: EXAMS }, null, 1))
+/**
+ * 알려진 예외 — 사유가 확인된 회차만. 여기에 없는 검산 실패는 **파서 퇴행**으로 보고 exit 1.
+ * (PR #123 리뷰: 실패가 exit 0 으로 끝나면 다음 단계가 «104회차 정상» 을 조용히 받아들인다)
+ */
+const KNOWN_BAD = {
+  H2004G3: '문제지 PDF 가 스캔 이미지(글자층 0) — OCR 없이는 발문·지문을 못 뜬다',
+}
 const bad = report.filter((r) => r.missing_paper || r.flags?.length)
+const unexpected = bad.filter((r) => !KNOWN_BAD[r.exam])
 console.log()
-console.log(`  회차 ${EXAMS.length} · 문항 ${questions.length} · 정답 ${answers.length} · 검산 실패 회차 ${bad.length}`)
+console.log(`  회차 ${EXAMS.length} · 문항 ${questions.length} · 정답 ${answers.length} · 검산 실패 회차 ${bad.length}(알려진 예외 ${bad.length - unexpected.length})`)
+for (const r of bad) if (KNOWN_BAD[r.exam]) console.log(`  · ${r.exam} 제외 — ${KNOWN_BAD[r.exam]}`)
 console.log('→ hakpyeong-questions.json · hakpyeong-answers.json · hakpyeong-inventory.json · columns2/H*.txt')
+if (unexpected.length) {
+  console.error(`\n  ✗ 예상 밖 검산 실패 ${unexpected.length}회차: ${unexpected.map((r) => `${r.exam}(${(r.flags ?? ['문제지 없음']).join(' ')})`).join(' · ')}`)
+  process.exit(1)
+}

@@ -108,25 +108,30 @@ describe('흩어진 판정 금지', () => {
     expect(hits).toEqual([])
   })
 
-  // 학평은 보조·검증 집합이다. `csat_items` · `csat_exams` 를 **직접** 읽는 질의가 범위를 안 좁히면
-  // 학평 2,912문항이 유형 가이드·분석 완결도·지형 분모에 조용히 섞인다(학습자 뷰는 DB 가 거른다).
-  // 한 행을 id 로 짚는 조회와 수능만 고르는 조회는 범위가 이미 정해져 있어 통과시킨다.
-  it('csat_items · csat_exams 직접 질의는 평가원으로 좁힌다', () => {
+  // 학평은 보조·검증 집합이다. 문항·회차·분석·검수 표를 **직접 훑는** 질의가 범위를 안 좁히면
+  // 학평이 유형 가이드·분석 완결도·검수 총계·지형 분모에 조용히 섞인다(학습자 뷰는 DB 가 거른다).
+  // 이미 고른 id 로 짚는 조회(`.eq/.in` id)와 수능만 고르는 조회는 범위가 정해져 있어 통과시킨다.
+  // 창은 **그 질의 하나**로 자른다(다음 `.from(` 전까지) — 옆 질의의 조건으로 통과하지 않게.
+  // (PR #123 리뷰: 처음 가드는 문항·회차만 봐서 분석·검수 총계 누락을 못 잡았다)
+  it('평가원 표 직접 질의는 평가원으로 좁힌다', () => {
     const SCOPED = [
-      'onlyKiceItems',
-      'onlyKiceExams',
       'HAKPYEONG_ID_PREFIX',
       ".eq('organizer', 'kice')",
-      ".eq('id',",
       ".eq('kind', 'suneung')",
+      ".eq('id',",
+      ".eq('item_id',",
+      ".in('id',",
+      ".in('item_id',",
+      ".in('analysis_id',",
     ]
     const hits: string[] = []
     for (const f of walk(path.join(ROOT, 'apps/web/src'), [])) {
       const rel = path.relative(ROOT, f).split(path.sep).join('/')
       const src = fs.readFileSync(f, 'utf8')
-      for (const m of src.matchAll(/\.from\(\s*['"](csat_items|csat_exams)['"]\s*\)/g)) {
+      for (const m of src.matchAll(/\.from\(\s*['"](csat_items|csat_exams|csat_item_analyses|csat_analysis_reviews)['"]\s*\)/g)) {
         const at = m.index ?? 0
-        const window = src.slice(Math.max(0, at - 40), at + 320)
+        const next = src.indexOf('.from(', at + 6)
+        const window = src.slice(Math.max(0, at - 40), next < 0 ? at + 600 : Math.min(next, at + 600))
         if (!SCOPED.some((k) => window.includes(k))) hits.push(`${rel}:${src.slice(0, at).split('\n').length} ${m[1]}`)
       }
     }

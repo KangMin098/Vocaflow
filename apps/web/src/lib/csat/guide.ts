@@ -14,7 +14,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createCsatClient, selectAllPages } from './client'
-import { onlyKiceExams, onlyKiceItems, schoolYearOf } from './exam-id'
+import { HAKPYEONG_ID_PREFIX, schoolYearOf } from './exam-id'
 import { detectTypeReportMeta } from './evidence-fold'
 import {
   foldTrapFamilies,
@@ -163,7 +163,7 @@ export async function loadCsatGuideSource(): Promise<{ source: CsatGuideSource |
 
   const [typesRes, examsRes, reportsRes, itemsPaged, analysesPaged] = await Promise.all([
     db.from('csat_types').select('id, name, section, status').eq('in_scope', true),
-    onlyKiceExams(db.from('csat_exams').select('id, label, kind, year')),
+    db.from('csat_exams').select('id, label, kind, year').eq('organizer', 'kice'),
     db
       .from('csat_type_reports')
       .select(
@@ -171,13 +171,14 @@ export async function loadCsatGuideSource(): Promise<{ source: CsatGuideSource |
       )
       .eq('status', 'published'),
     selectAllPages<ItemRow>((from, to) =>
-      onlyKiceItems(db.from('csat_items').select('id, type_id, exam_id, points').eq('in_scope', true)).range(from, to),
+      db.from('csat_items').select('id, type_id, exam_id, points').eq('in_scope', true).not('exam_id', 'like', `${HAKPYEONG_ID_PREFIX}%`).range(from, to),
     ),
     selectAllPages<AnalysisRow>((from, to) =>
       db
         .from('csat_item_analyses')
         .select('item_id, version, required_vocab, difficulty, time_budget_sec')
         .eq('status', 'published')
+        .not('item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`)
         .range(from, to),
     ),
   ])

@@ -465,7 +465,7 @@ export async function loadCsatTypeItems(
   const db = await csatDb()
   const [itemsRes, examsRes] = await Promise.all([
     db.from('csat_items_public').select('id, exam_id, no, points, answer').eq('type_id', typeId).eq('in_scope', true),
-    // onlyKiceExams 와 같은 조건 — 이 Promise.all 은 타입이 깊어 헬퍼를 거치면 TS2589
+    // 평가원 회차만(학평은 보조·검증 집합) — 조건을 직접 적는 이유는 exam-id.ts 「DB 질의 범위」
     db.from('csat_exams').select('id, label, year, month').eq('organizer', 'kice'),
   ])
   if (itemsRes.error || examsRes.error) {
