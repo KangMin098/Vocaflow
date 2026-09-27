@@ -15,8 +15,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "A modern Remembrance Day is really",
   "note": "재향군인회 대변인 문답이 전쟁의 대가와 기념일의 의미를 이유로 이어 설명해 주제·요지 칸이 서고, 고유명사를 걷어도 논지가 남는다",
@@ -63,8 +63,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Kenya's political opposition says mediation efforts",
   "note": "중재 결렬 → 집회 촉구 → 경찰 불허 → 사망·피난으로 원인과 반응이 이어져 케냐 선거 분쟁 기사가 내용 일치 칸을 채운다",
@@ -106,8 +106,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "A recording of Pavarotti's famous duet",
   "note": "장례식 진행과 녹음 재생에 이어진 기립 박수·공군 비행이 시간순으로 이어져 파바로티 장례 기사가 내용 일치 칸을 채운다",
@@ -148,8 +148,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "It is thought that the man",
   "note": "입건 직후 경찰서에서 경찰차를 훔쳐 추격 끝에 재체포된 사건이 순서대로 이어지는 짧은 단신이라 내용 일치·순서 칸이 선다",
@@ -191,8 +191,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Researchers at the National Institutes of",
   "note": "비타민 C 주사가 과산화수소를 만들어 암세포를 죽인다는 인과와 경구 투여의 실패 이유가 이어져 과학 단신의 요지·내용 일치 칸이 선다",
@@ -237,8 +237,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "On Saturday the Pentagon confirmed the",
   "note": "공습으로 인한 사망 확인과 국방장관 반응, 민간인 피해 비판이 이어지나 뒷문단이 다른 논점으로 넓어져 첫 문단 중심으로 가공한다",
@@ -279,8 +279,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": true
+   "gap": true,
+   "strippedRemains": true
   },
   "sample": "I became involved because through my",
   "note": "선거 후보 문답이라 요지는 서지만 한 정당 후보의 공약·상대 비판이 대부분이어서 일방적 정치 주장 차단 여부가 기준 밖으로 갈린다",
@@ -325,8 +325,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The Taipei Computer Association (TCA), one",
   "note": "컴퓨텍스 전시회 예고로 행사·기관·포럼 이름 나열이 대부분이고 문장 사이 연결은 세미나 평판 하나뿐이라 연결이 가늘다",
@@ -367,8 +367,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "As they left a hotel, in",
   "note": "왕세자가 기자 질문에 퉁명스레 답하자 구경꾼이 놀라고 항의한 반응이 시간순으로 이어져 내용 일치·심경 칸이 선다",
@@ -411,8 +411,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Research into stop and search powers",
   "note": "불심검문 4분의 1이 불법일 수 있다는 조사 → 지침 개정 → 입법 경고와 야당 반응이 이유로 이어져 요지·내용 일치 칸이 선다",
@@ -457,8 +457,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Days after Palestinian refugees fled the",
   "note": "교전 재개와 국방장관·총리의 최후통첩, 무장단체의 반발과 폭탄 테러가 반응으로 이어져 레바논 교전 기사가 내용 일치 칸을 채운다",
@@ -500,8 +500,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The police reported that all participants",
   "note": "폭우로 코스가 잠겨 주자들이 대피·구조되고 부상자가 병원에 옮겨진 결과가 이어지는 짧은 재난 단신이라 내용 일치 칸이 선다",
@@ -543,8 +543,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Security officials in the town informed",
   "note": "첫 공습 뒤 구조하던 무장원이 두 번째 공습에 죽고 신원 확인이 이어지는 순서가 있어 드론 공습 단신이 내용 일치 칸을 채운다",
@@ -585,8 +585,8 @@
    "vocabAdjustable": true,
    "factsMany": false,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The author began the lecture by",
   "note": "여행 작가 발표회 소개로 문화여행 개념 설명 하나만 이어지고 나머지는 발표 특징·음반 나열에 영상 자료 안내 잔재가 남아 연결이 가늘다",
@@ -628,8 +628,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The Foreign Minister Nasser Judeh called",
   "note": "남부 시리아 폭력 → 난민 유입 → 요르단의 긴급 원조 호소와 국경 폐쇄 경고가 원인·반응으로 이어져 요지·내용 일치 칸이 선다",
@@ -671,8 +671,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "It is believed that the BBC",
   "note": "연금 이전 비용 때문에 매각이 손실이 될 수 있고 연금 흑자 활용이 거부된 인과가 이어져 BBC 자회사 매각 기사가 내용 일치 칸을 채운다",
@@ -713,8 +713,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Delta has faced pressure from low-fare",
   "note": "저가 항공 압박 → 국내선 축소·국제선 확대 → 새 로고로 이어지는 구조조정 이유가 서서 항공사 파산 탈출 기사가 요지·내용 일치 칸을 채운다",
@@ -757,8 +757,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The commonly accepted legal use of",
   "note": "무영장 도청이 수상 이유라는 연결 하나뿐이고 나머지는 상의 취지와 법무장관 입장 인용이라 연결이 가늘다",
@@ -798,8 +798,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Officials from the Centers for Disease",
   "note": "유행 발생 → 감염원 추적 → 항공편 승객 연락, 전파 경로와 합병증 설명이 이어져 볼거리 유행 단신이 내용 일치 칸을 채운다",
@@ -842,8 +842,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Senator Chris Ellison, Minister for Justice",
   "note": "사형 반대 결의안 문구를 두고 수정 제의 → 반발 → 사과 → 표결로 이어지는 과정이 있어 상원 논쟁 기사가 내용 일치·순서 칸을 채운다",
@@ -885,8 +885,8 @@
    "vocabAdjustable": true,
    "factsMany": false,
    "stereotypeCore": false,
-   "strippedRemains": false,
-   "gap": false
+   "gap": false,
+   "strippedRemains": false
   },
   "sample": "Going against the Bush administration's opposition",
   "note": "시장 130여 명의 교토 목표 서약 한 문단 뒤는 시장 이름·도시 목록이라 본문 대부분이 명단이고 연결이 하나뿐이다",
@@ -926,8 +926,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "President Bush nominated Timothy E. Flanigan",
   "note": "검사 인사 교체와 후임 지명이 이름 중심으로 되풀이되고 검증 안 된 음모 주장 인용이 섞여 연결이 가늘다",
@@ -968,8 +968,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Cairns, who was a Roman Catholic",
   "note": "의원 사망과 각계 추모, 사제 출신이라 법 개정 뒤에야 출마할 수 있었던 이유, 보궐선거라는 결과가 이어져 부고 기사가 내용 일치 칸을 채운다",
@@ -1011,8 +1011,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The earlier action by Venezuela had",
   "note": "베네수엘라의 미 무관 추방에 대한 맞대응 추방과 양측 설전, 귀국 환영이 원인·반응으로 이어져 외교 갈등 기사가 내용 일치 칸을 채운다",
@@ -1054,8 +1054,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Ford is the world’s third-largest automaker",
   "note": "손실 누적과 유가 상승에 따른 SUV 판매 부진이 감산의 원인으로 이어지고 공장 목록은 가공 때 걷어 내면 요지·내용 일치 칸이 선다",
