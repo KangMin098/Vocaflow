@@ -1,0 +1,237 @@
+[
+  {
+    "id": "3c750182-bb26-422a-99b4-b2de3a9a864c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e12a03179500324f5dcd0754b92b01679c5950e5e10c88ab3f390ddbcd943ef5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "버펄로 호텔 건립 소송의 예비심리가 시가 방어 준비 기간을 요청해 2주 미뤄졌다는 사건·원인과 호텔 계획·철거 대상 배경이 이어져 내용 일치 칸을 채운다(피고 명단 문단은 가공 때 걷는다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Elmwood Village Hotel is a",
+      "note": "호텔 계획 문단은 앞 문맥 없이 서고 demolition·franchise 를 tear down·chain 으로 바꾸면 V5 로 내려가지만, 첫 문단은 오탈자(charege)와 뒤엉킨 동격 구문이라 다시 써야 한다."
+    }
+  },
+  {
+    "id": "3c7e06ce-3d66-4a32-b193-64f9127eefa0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "53bd1db6651e6037d14d3562bf6a24617424a2af37d6fab6ea01ef5e97bdbeba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "데즈먼드가 채널5를 사들인 뒤 비용 절감·광고 영업 개선으로 흑자로 돌려 비아콤에 되판다는 인수→회생→매각 흐름과 다른 입찰자의 철회가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Desmond's Northern & Shell — which also",
+      "note": "둘째 문단이 매입가·흑자 전환의 까닭까지 담아 혼자 서고 contemplated·acquired 를 considered·bought 로 바꾸면 V4 로 내려간다; 금액 수치는 문항 선지로 쓸 수 있다."
+    }
+  },
+  {
+    "id": "3c8015e4-f358-42fc-82be-9f7548607b76",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a19b4b3491a41af903829d33558ede922b655c6a695c4e5d98d2802d2e8111f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "브리스틀 테러 용의자 체포 뒤 7일 조사 시한·통제 폭파·주민 대피·지역 무슬림 단체와 경찰의 반응이 사건 흐름으로 이어져 내용 일치 칸을 채우고, 테러 소재라 고1 이상 칸으로 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police have been given seven days",
+      "note": "첫 두 문단(시한→석방 또는 기소)과 체포·폭파·대피 문단을 합치면 앞뒤 없이 서며 anticipated·extension 을 expected·more time 으로 바꾸면 쉬워지지만, 문단 순서가 시간순이 아니어서 재배열이 필요하다."
+    }
+  },
+  {
+    "id": "3c82568b-17b3-40e3-aa7b-3edea079868b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f2844a594560e1812905c9b047c5c096ecb2e1f95f002e1f19f12dd30f9848ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "포셋이 이륙 직후 연료 손실과 발전기 고장에도 최장 무착륙 비행 기록을 깨고 목적지를 바꿔 착륙했다는 원인→결과 흐름과 본인 소감이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fossett had to land at Bournemouth",
+      "note": "착륙지 변경 문단은 까닭(발전기 고장)을 스스로 담아 서고 circumnavigation 을 trip around the world 로 바꾸면 V4 가 되나, 기록 수치 문단은 마일·킬로미터 병기를 걷어야 읽힌다."
+    }
+  },
+  {
+    "id": "3c97082a-0d09-4be3-af8b-463e942fbe87",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c679de0f68fd32a51af0e3bd9b51df662025328cb1ed7726146cdc4e5d1ae021",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "미국 집값이 사상 최대 폭으로 떨어졌다는 발표에 지수위원장과 경제학자의 해석(일자리 사정·불확실성)과 소비자 신뢰 저조가 반응으로 이어져 수치 나열에 그치지 않고 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to data released on Tuesday,",
+      "note": "글 전체가 한 덩어리로 서고 plunged·slumped·sentiment 를 fell·dropped·feelings 로 바꾸면 V5 로 내려가지만, 지수 이름(S&P/Case Shiller·Conference Board)을 걷으면 수치 출처가 흐려진다."
+    }
+  },
+  {
+    "id": "3c976602-2739-471f-81d8-ed4ca5f08f9e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1da5f35a24ecf9b5c4d5d28833284bbd95700591bba7c46f429b7f36490a25b2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "베이루트 차량 폭탄 테러의 경위·사망자와 연쇄 폭탄에도 체포가 없어 치안 신뢰가 낮다는 결과, 대통령·총리 부재 논란이 이어져 내용 일치 칸을 채우고 사망 소재라 고1 이상 칸으로 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A series of car bombings preceded",
+      "note": "연쇄 폭탄·체포 없음·신뢰 저하 문단은 앞 문맥 없이 서고 predominantly·closure 를 mostly·answers 로 바꾸면 쉬워지나, 필자 논평(understandably so)과 하리리 수사 인명은 가공 때 걷어야 한다."
+    }
+  }
+]

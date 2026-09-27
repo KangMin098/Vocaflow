@@ -1,0 +1,939 @@
+[
+  {
+    "id": "387cb8b4-3558-48cd-a67f-44affb741cde",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b25bca9fa2f764bbc3a4f74879f4f0d4b8b7656b9f0101b175dace42b35c9408",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "후보가 나치 모임 연설로 논란 → 해명 → 양당 규탄으로 이어지는 보도이며 반유대 발언은 보도 대상일 뿐 글이 선동하지 않아 성인·고3 내용 일치 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In defending his remarks, Zirkle explained",
+      "note": "defending→explain, valid opportunity→good chance 로 바꾸면 V4 로 서지만 반유대·인종 주장 문장은 가공 때 걷어야 한다."
+    }
+  },
+  {
+    "id": "387d5089-c085-467a-85b7-7de7847c5498",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f1e16ff80e6a2d223242c8defffc5189c0cd978e70788163bf6066ca4ddceb0d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "새 약 등재 발표 뒤 PBS 가 대량 구매·보조금 차액을 메우는 원리를 설명하는 셋째 단락이 서서 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Federal Government through the PBS",
+      "note": "subsidised→cheaper, pre-agreed→fixed 로 바꾸면 V5 로 내려가고 약 이름 없이도 보조금 구조가 선다."
+    }
+  },
+  {
+    "id": "3882efa4-1a56-4a43-98a6-37b6b4dee102",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9b42cac1bd7cb78b984cea490561dc6dab400c46157c1110298ca37440fd1f64",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "찬반 논거 단락은 서지만 끝이 「Results are now available:」에서 결과 없이 끊겨 예고한 부분이 통째로 없다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Supporters say that if people vote",
+      "note": "찬반 두 단락은 떼면 서지만 문장 오류(such be, invalided)를 손봐야 하고 결과 목록이 빠져 있다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "3883b28b-ba46-401f-9005-206af6f8c201",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f9c3e812dd43374ae2375a7cda47fd5f8a5d1a01b4556436d985ff6e929dbf32",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "총리 사임 → 사유 인용 → 후임 지명 → 선거 일정으로 사건이 이어지는 두 단락 단신이라 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prime Minister of Russia Mikhail Fradkov",
+      "note": "personnel→staff, dissolved→closed 로 바꾸면 V4 로 서며 인용 문장이 사임 까닭을 이어 준다."
+    }
+  },
+  {
+    "id": "388837ea-4fda-4698-b9af-aeb1bef81fb2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "13029afed09f01d7f086c6be7e8d914325765be652270947e9387bbd0f824728",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "평화상 수여 발표 → 선정 이유 인용 → 암살 경위 → 단체의 목적으로 이어져 내용 일치 칸이 서고 암살 묘사가 짧아 고교 칸에 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Benazir fought all her battles through",
+      "note": "reconciliation→peace, surrender→give in 으로 바꾸면 V4 로 내려가고 인용 단락만으로 선정 이유가 선다."
+    }
+  },
+  {
+    "id": "38ab9b37-c89a-4df1-8f24-dca2ccc6ac73",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bc242dc7fabf81928ca52fea5776ed37dc7cafdf00c5d2d60f7e81968fa07b40",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "튜링 이름을 딴 건물이 드물었다는 비판 단락과 우연한 만남을 노린 설계 단락이 각각 서서 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The new building deliberately attempts to",
+      "note": "conducive→helpful, collaboration→teamwork 로 바꾸면 V4 가 되고 설계 목적(협업·에너지 절약)이 앞 문맥 없이 선다."
+    }
+  },
+  {
+    "id": "38b79abd-abad-44d3-a5e5-d86be1c2915b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c8a3bc51cf4528a7ae1087ab1d9b3e9649ca4a8a8c3cee9fa83f642960010f46",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "파티 학교 1위 선정 → 음주 억제 노력 중인 학교의 실망 → 총장의 반응으로 이어지는 앞 세 단락이 서서 음주 소재라 고교 이상 내용 일치 칸에 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "School administrators say they are disappointed,",
+      "note": "curb→stop, rowdy→noisy 로 바꾸면 V3~4 로 서고 뒤의 순위 나열 두 단락은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "38e58675-3211-4124-80df-ef90e56470ee",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2995bb3f8c0ef248d5c070d0e132b7fc647a7b0bd7599a6c198592ff672b918d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "학교 PC 리눅스 전환 → 가정용 LiveCD 배포 목적 → 공동 책임자 인용 → 재원으로 이어져 내용 일치·주제 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In addition to the desktops in",
+      "note": "LiveCDs 를 free discs 로 풀어 쓰고 scheduled→planned 로 바꾸면 V4 로 서며 가정에서도 같은 소프트웨어를 쓰게 하려는 까닭이 선다."
+    }
+  },
+  {
+    "id": "38e82d37-5664-48e5-a18f-532891e4c9d2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5006e3da7049f1710073bf6402c764f551d943b3b77a00b0b0669c00f5533085",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "방송 일정·진행자·출연자 이름 나열이 본문 대부분이고 1966년 첫 방송에서 모금액이 커진 끝 단락만 흐름이 있어 단신 최소선에 걸친다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Lewis started the telethon on just",
+      "note": "마지막 단락은 떼어지지만 두 문장뿐이고 나머지는 이름·시간을 걷으면 남는 사건이 없다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "38ffb3a6-63db-46c8-87d5-61a97c9f5a29",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f4099353a913d83c2de071b0b9874c8953ebf5c05a984fb3af33ad0865c5f201",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "상의 취지 한 문장 뒤는 부문별 후보 작품·인물 이름만 바뀌며 되풀이되어 문장 사이를 잇는 사건이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Gus Van Sant's biopic Milk, starring",
+      "note": "작품 이름을 걷으면 남는 문장이 없어 떼어 낼 논지·사건이 없다."
+    }
+  },
+  {
+    "id": "390c7047-3c46-488a-a585-8c543ef0068f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f81f92ddb126edf18479bf4daf22ed0cc876f19863cac63d0557b092b609e6f5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "아이팟 나노가 미니를 대체하고 용량·가격을 비교하는 단락과 ROKR 휴대폰 기능 단락이 사실 진술로 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Motorola ROKR pauses music automatically",
+      "note": "utilize→use, randomly autofill→fill at random 으로 바꾸면 V4 가 되고 기능 문장들이 떼어도 선다."
+    }
+  },
+  {
+    "id": "3928a39a-f878-436d-8aef-9b18d703b7ae",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "363d3077632089e58436bcc87c889d84b9bab9f0739b8169ea39073515987969",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "기상청 경보 발령 → 확대 가능성 → 환경청 전망 → 웨일스 주민 반응으로 사건이 이어지고 지역 나열은 걷을 수 있어 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to a spokesperson for the",
+      "note": "둘째 단락의 지역 이름 나열은 걷고 accumulations→amounts 로 바꾸면 V4 로 서며 경보·반응 흐름이 남는다."
+    }
+  },
+  {
+    "id": "39375874-5b47-4524-9858-352965fbd8b8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b210e3030f7bd92278af709ad7794a47388e8b0f4f500c83380fd9778223c1c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하원이 국경 장벽을 가결 → 법안이 국토안보부에 통제권·단속권을 주고 캐나다 국경 연구를 지시하는 내용이 이어져 짧지만 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The bill also orders the U.S.",
+      "note": "feasibility→whether it can be built 로 풀면 V4 로 서지만 세 단락뿐이라 지문 길이는 짧다."
+    }
+  },
+  {
+    "id": "393a333e-1c6a-4e3c-8069-e207b7bc566b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a882319b7681823be44da8cebacfa6296e5f7f86f866c5b31396904ce2274cf4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "군 조사에서 사기 저하 비율 → 가장 큰 원인이 복무 기간 → 럼즈펠드의 답변으로 원인과 반응이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A U.S. Army report finds stress",
+      "note": "bothersome→troubling, reorganization→changes 로 바꾸면 V3 로 서고 수치를 빼도 원인 문장이 논지를 잡는다."
+    }
+  },
+  {
+    "id": "394aa3b9-214d-4d52-9afb-ea2f83f32b71",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aec5aca4d86479ea6a2464025409104606e381ccf45aadaad16ca76f5114b7be",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "영사관 피격 → 사상자 없음 → 건물 내력 → 헤라트 지역 치안 배경이 문장으로 이어져 짧은 사실 단신의 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Herat is located near Afghanistan's border",
+      "note": "rebel groups→fighters, acquired→bought 로 바꾸면 V3 로 서지만 사건이 작아 문항은 내용 일치 정도다."
+    }
+  },
+  {
+    "id": "3951e1d0-cec8-45f7-baae-64a639581417",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "38d3526588eb5a769d39fdae5e735e6e7740720c13aa64d53b91fa942571e5aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "청소년 긴급사용 승인 → 인도 임상 효능 → 다른 나라 시험 비교 → 제조사 반응으로 이어져 내용 일치 칸이 서고 효능 수치가 원자료와 대조될 수 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Covovax is the first protein-based subunit",
+      "note": "authorisation→approval, efficacy→how well it works 로 풀면 V5 로 내려가고 백신 코드명은 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "39588476-a179-4476-bc29-e11276ae0c66",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80798b98a997fad60e518d52d445e88c707f40bcc9faecd867cc9710c0d3f7e7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "해군 미사일 시험 → 억지 메시지라는 공식 설명 → 해군참모총장 반응 → 한 달 전 인도 시험이라는 배경으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The maneuvers included tests of newly",
+      "note": "deterrence→warning, nefarious→evil 로 바꾸면 V5 로 서며 마지막 단락만으로 인도와의 맥락이 선다."
+    }
+  },
+  {
+    "id": "3961a931-ae5f-4e1b-b60e-7553ed4fb358",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "59692135dcbbdd1a7dfb2f9f7ab9fe3f01c4ee7b634a6d7f4bee4614365e0359",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "비공개 장소 공연에서 세 무대가 차례로 이어지고 마지막 무대가 앞과 대비되는 흐름이 서서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Jennifer Gersten played the first set,",
+      "note": "amplification→speakers, extended techniques→new ways of playing 으로 바꾸면 V4 로 서고 무대 순서가 문단 경계로 뚜렷하다."
+    }
+  },
+  {
+    "id": "39689375-3111-4f8d-8ba4-6ee0cd1b6634",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b036e02f2d4ed02602f170edba6251978580dbb093605d9f5a61af9f93ee8030",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "몬순 폭우로 80년 만의 홍수 → 피해 → 당국 대응 비판 → 날씨로 막힌 구조 작업으로 원인·결과·반응이 이어져 고교 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rescue operations have been hampered by",
+      "note": "hampered→slowed, deluge→flood 로 바꾸면 V4 로 서고 끝의 여객기 추락 문장은 주제 밖이라 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "396b2c0e-50bd-4d4d-ab0d-7a783d018e26",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "49d80b4f52135f65f62b42aa8f5458a86b47ef033f3ba2f7b915410bb4d2bd89",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "허리케인 진로 예보 → 두 주에 감시 권고 → 전문가 인용 → 2003년 허리케인 후안 피해 회상으로 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three years ago the Maritimers suffered",
+      "note": "Maritimers→people on the east coast 로 풀면 V3 로 서고 과거 피해 단락이 예보의 까닭을 받친다."
+    }
+  },
+  {
+    "id": "39706e5f-2b83-4c87-8046-07011587be8e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eafc3c8ed4c7e84bb17c23ae51269289627d7fc0c95be67181af6bc6fb0775c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "첫 YouTube Live 개최 → 출연자와 노래의 사연 → 마케팅 책임자가 밝힌 취지로 이어져 내용 일치 칸과 인용 단락의 요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "YouTube Live is the first time",
+      "note": "invaluable→very useful, emerged→come out 으로 바꾸면 V3 로 서고 행사 취지가 인용 하나로 선다."
+    }
+  },
+  {
+    "id": "397e561c-9cc9-4c40-9b6f-8272bb917c4d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "abe970104a8e3e3bb0d0fe28169863d4ddf9ce15eafcaaa7ead2dc8f6ee70742",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뇌우 속 경비행기가 아파트에 추락 → 조종사 사망·지상 피해 없음 → 기종과 목적지 추정으로 결과가 이어지는 세 문장 단신이라 고교 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During a heavy thunderstorm at around",
+      "note": "51어 전체가 한 덩어리로 서지만 문항 지문으로는 짧아 다른 단신과 묶거나 어휘 교재로 쓴다."
+    }
+  },
+  {
+    "id": "398e4050-646a-48f0-9f85-738b20f36d68",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3c268b7030af533d882a1b7c9b607d44bbc0de5f29fe0885ba1dade06e6fda6b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "콘버그의 사망과 DNA 중합효소 발견 업적 · 아들의 노벨상까지 생애가 이어지는 부고라 내용 일치 칸이 서지만 생화학 용어가 많아 상위 밴드다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Kornberg is best known for his",
+      "note": "isolation of DNA polymerase I→finding the enzyme that copies DNA 로 풀고 PRPP·polyphosphates 문장을 걷으면 V6 까지 내려간다."
+    }
+  },
+  {
+    "id": "399b90a8-1df5-4413-8b81-2990011026a8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bf6d635506969cdb579ed66821e37fc6141a285a65333acf7c09e5e91520d54f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "마약·총기 합법화 발언 → 당원 자격 정지라는 원인·결과가 서고 발언은 취재원의 한쪽 입장을 옮긴 보도라 주장·근거를 짚는 칸을 쓸 수 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He also called for legalisation of",
+      "note": "advocate→support, legalisation→making legal 로 바꾸면 V4 로 서고 총기 주장과 그 까닭(자기 보호)이 한 단락에서 짝을 이룬다."
+    }
+  },
+  {
+    "id": "39a4f545-f46c-4a4b-a7d1-cb4c52edd75c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cc05660a021398d633444ac74a10e5b3ccbf7786e60cc24b8aebfb95b25713cd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "웨일스 농장 아동 사망 사고와 프레스트윅 공항 활주로 이탈이라는 서로 무관한 두 단신을 묶은 모음이라 꼭지별로 쪼개 판정해야 한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Boeing 737 belonging to Irish",
+      "note": "꼭지 하나씩은 떼면 사건이 서지만 모음 행 자체는 파생물로 두고 원천을 쪼개야 한다."
+    },
+    "hold_reason": "criteria-gap"
+  }
+]

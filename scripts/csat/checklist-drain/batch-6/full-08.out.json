@@ -1,0 +1,946 @@
+[
+  {
+    "id": "39aca36a-3995-48a5-8288-2e282a8ad1b0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ee30b552adb60c782d38ef71b42a4496a32c26e959b23477f873bf77e16dbd95",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "입원 사실 뒤 둘째 단락이 총리 교체가 왕세자 겸직 관행을 깼다는 결과로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sheikh Saad has been crown prince",
+      "note": "head of government를 leader로, appointment를 choice로 바꾸면 V4로 내려가고 앞 문맥 없이 시작한다."
+    }
+  },
+  {
+    "id": "39b9447c-5203-4eda-b29c-e04a4cf0684c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "00d97850d9d94ab4589ea3e633779b99d9db7f253551f73d05d5f3f3cb6a9f54",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "통념(남자는 성, 여자는 포옹 선호)을 연구 결과로 뒤집는 마지막 단락까지 주제·요지·내용 일치 칸을 채우나 성생활 소재라 고3·성인 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A recently-published international study shows that",
+      "note": "킨제이 연구소 1940년대 여담 문장은 걷고 borne out을 supported로 바꾸면 통념-반증 구조가 그대로 선다."
+    }
+  },
+  {
+    "id": "39bead9d-11fa-40c3-ad11-813aa584e3a6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7d109cadb11f12ad32b7a51867bfc62b867117fb8c995fb1d8ab7944edfa43ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이상 수치 발견 → 감사 결정 → 라이스 발언과 반박 → 결과 영향 전망으로 사건이 이어져 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Independent Electoral Commission of Iraq (IECI)",
+      "note": "기관 약어와 인명을 걷어도 이상 수치 → 수작업 검토 흐름이 서고 anomalies를 unusual results로 바꾸기 쉽다."
+    }
+  },
+  {
+    "id": "39c2164b-a990-476d-b199-ac16f4158b1d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "28b6d9b24c9836842e16e5e7b937e1c7ed11bc03c0bfcf4d23b042345bed61da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "변호사의 비난과 EA 대변인의 반박이 맞서고 모드의 정의로 끝나 주장·내용 일치 칸이 서지만 신체 부위 인용 때문에 고3·성인 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Electronic Arts' defense, EA",
+      "note": "신체 부위를 나열한 톰프슨 인용 문장은 가공 때 걷어낸다 — 걷어도 비난과 반박 구조가 남는다."
+    }
+  },
+  {
+    "id": "39c49735-5bd6-4b88-b48f-ee6ab8f87f6b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "865a455ce3b0915ccd5d62840f2e504bea23b24da43972be1500ba46fc6669b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "아이들은 호랑이·거미를 크게 보지만 숲에 영향이 큰 것은 개미라는 대비가 둘째 단락에서 서서 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The study showed that children have",
+      "note": "disproportionately를 too many로, perception을 view로 바꾸면 V4로 내려가고 앞 문맥 없이 선다."
+    }
+  },
+  {
+    "id": "39cc3186-966d-4c6c-b432-c855a3b34cb8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b9c41acf45e120d16cf89c79bc89317f0c77c7dd1533a5cfc623fa18b1007063",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "유가 하락과 GM 등급 상향이 원인으로, 지수 돌파가 결과로, 애널리스트의 심리적 효과 평가가 반응으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lower oil and natural gas prices",
+      "note": "종가 수치 몇 개를 걷어도 원인-결과가 서고, 둘째 단락의 인용은 반응으로 남는다."
+    }
+  },
+  {
+    "id": "39df427c-0e03-4570-8b05-75e1894dfcca",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a7af94912ae2db9bd426698b20de84918b9a463bdae1b9809c5bc480329b4da4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "영어권에 러시아 잡지가 없던 공백과 뻔한 인물을 뺀 편집 방향을 설명하는 둘째·셋째 단락이 내용 일치 칸을 채운다(홍보성 원고라는 편집 주석은 걷는다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite all the attention Russia gets",
+      "note": "첫 단락의 위키뉴스 편집 주석은 본문이 아니므로 가공 때 걷고, unorthodox를 unusual로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "39ede0da-6e39-4684-af26-b85849d8c67e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d9594a40cd13e5da8d12852a8173560860ef61a11ab7913933789bafe1d268bf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "빌보드 1위 기록 → 본인 소감 → 1987년 이후 처음이라는 비교 → X Factor 우승 이력이 이어져 중등 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "British pop star Leona Lewis has",
+      "note": "차트 이름 나열 문장만 줄이면 기록-소감-배경 흐름이 서고 어휘는 이미 쉽다."
+    }
+  },
+  {
+    "id": "3a0b57bf-bc12-468b-84e8-e767901b6acd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e91ed801cd6ad98751ca619244ef1e098c4d30705fc281017c768fbefdb5195c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시신 발견 → 검시관이 밝힌 사망 원인 후보 → 밀항 시도 통계로 이어져 내용 일치 칸이 서며 죽음이 중심이라 고1 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to San Mateo County Coroner",
+      "note": "hypothermia를 extreme cold로, stowaway를 hide on a plane으로 바꾸면 V5로 내려간다."
+    }
+  },
+  {
+    "id": "3a3d46e9-9973-4d2d-8c89-bd517b9718de",
+    "source_updated_at": "2026-09-25T09:16:35.92335+00:00",
+    "body_sha256": "da63a006c2f8174e0e9b2b04cc86bc7eb69afa4eceb07ae0bcab470a1b9b7201",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "셋째 단락 인용에서 SARS로 중단 → 전시장 정비 → 세계 2위 전시회로 성장한 흐름이 서서 내용 일치 칸 하나는 채운다(나머지는 행사 이름 나열).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "This 28-year-old trade show competes",
+      "note": "인용문 영어가 비문(ever confronted, I'm very appreciated)이라 고쳐 써야 하고 행사·포럼 이름 목록은 걷는다."
+    }
+  },
+  {
+    "id": "3a4409b1-bd09-46df-a8ea-0b83af38a900",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "252e02d5daa3c826aa2f04d569da808fce5c0ddfb3945002c0ba2005949f77ba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "안드로이드 판매가 세 배가 됐다는 수치 뒤에 소비자가 이름으로 찾기 시작했다는 분석가의 해석이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sales of smartphones running the Android",
+      "note": "기종 이름 문장을 걷어도 증가-해석이 서고 handsets를 phones로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "3a6b984c-bc4c-4aa7-ba14-bf651b2f8d0f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3175fbb00a3da7dc2c3b5bdd10255923d965f5bce602dea6b15b6908dcfb74a1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "규모·깊이·진앙 거리 나열이 대부분이지만 셋째 단락이 피칠레무 체감과 2월 대지진의 늦은 여진이라는 원인 설명으로 이어져 내용 일치 칸을 겨우 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wikinews reporter Diego Grez reports the",
+      "note": "진앙 거리 목록 둘째·넷째 단락은 걷고 셋째 단락과 첫 문장만 남기면 원인-반응이 선다."
+    }
+  },
+  {
+    "id": "3a7c41bd-7d24-48b8-b931-b8a66190e456",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2029d2fe351713b57fa5ba5d1aba544db55dbb1a28e555aeb201548cb4eff21c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하원 가결 → 대통령 거부권 예고 → 상원 표결 남음 → 연말 일몰 조항과의 관계가 이어져 짧지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Today the U.S. House of Representatives",
+      "note": "veto를 block으로, provision을 rule로 바꾸면 V5로 내려가고 앞 문맥 없이 시작한다."
+    }
+  },
+  {
+    "id": "3a8441ce-0599-4cf8-8b70-f72821668c51",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bb1c5753242b007d8194bba1684cb382c534344506d9f5f191dde5bc1fbe3ba2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "서로 무관한 부고 셋(휘트니 · 포셋 · 대학 총격범)을 한 행에 묶은 모음이라 꼭지별로 쪼개기 전에는 원천으로 판정하지 않는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "American mystery writer Phyllis Ayame Whitney",
+      "note": "휘트니 부고 꼭지 하나는 혼자 서지만 모음 행 자체는 쪼개야 하고 Sources 잔재가 끼어 있다."
+    }
+  },
+  {
+    "id": "3a911711-237b-4fda-89ae-058e5d8b16d2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "343c9e207c64acea3ba8731d7d71619f4e3fb9227425fd1fe5de0b60ef01e5e0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "추천 → 후보 등록 → 재선출 → 향후 당 운영 전망으로 사건이 이어져 내용 일치 칸 하나는 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Singh filed his nomination to O.P.",
+      "note": "인명이 많아 걷으면 절차만 남고, 마지막 문장의 saffron brotherhood 같은 기자 논평 표현은 걷는다."
+    }
+  },
+  {
+    "id": "3a9c4196-9e8c-4e60-829b-f9cc585f75f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2e61ecd22cdf8b406860042e542fe0620e85d4d334d36ace8e299c7a88a26f03",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "공습으로 12명 사망 → 전날 공습과의 연결 → 경찰 매복 피습으로 사건이 이어져 내용 일치 칸이 서지만 목이 베인 시신 묘사 때문에 고2 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three hideouts of suspected insurgents were",
+      "note": "셋째 단락의 시신 묘사 구절은 가공 때 걷고 insurgents를 fighters로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "3a9f8452-d189-4e08-a225-88cddd3e6d58",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ce1df62bcffc1ada2e1ccad32c4b84fa16c3453aa528d6ec1b155c3c594447f7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "의석수 결과 → 어느 쪽도 단독 과반이 아니라 연정이 필요하다는 결과 → 특별투표 집계 일정으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Neither the Labour-led coalition or the",
+      "note": "overhang 설명 괄호와 방송사 출처 문장을 걷으면 결과-연정 필요-남은 집계가 선다."
+    }
+  },
+  {
+    "id": "3aad5e62-ed39-45ba-87a8-ec19eb703bff",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "16a24d3ec609f8f3894ac7b9921bf9752059827f325d7fe766f5dc378f837632",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "국기를 내려 불태운 행위 → 두 사람 기소 → 각 법원 출석으로 사건과 다음 절차가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police have alleged that one of",
+      "note": "indictable offence를 serious crime으로, set alight를 burned로 바꾸면 V5로 내려간다."
+    }
+  },
+  {
+    "id": "3aae43b8-4cfb-46d7-9bbf-47f78d67227e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "759264848468f9427c32ffe507c3cc6a6c5b2c82d7a02755ad541255c2de2212",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "2003년 방영 취소 → 판권 인수 → 새 에피소드 제작 결정과 방송사 반응으로 이어져 중등 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "20th Century Fox will produce at",
+      "note": "성우 이름 목록 문장을 걷어도 취소-부활 흐름이 서고 back catalogue를 old episodes로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "3ad5d335-6682-47d1-b309-403fabb8611a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "12f3eb29b58810bdc47c99a2d5bf1942fbe6f07b7dcb67c5d85b1bf71ce8ec9c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "존슨 측의 99% 발언에 맞서 로머 측이 100%를 말한 경위와 제3당의 성격·투표 등록 현황이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Americans Elect intends to field a",
+      "note": "주 이름 목록은 걷고 field a ticket를 put forward candidates로 바꾸면 제3당 설명 단락이 혼자 선다."
+    }
+  },
+  {
+    "id": "3addc72d-3824-4e9b-9ebc-2166638208b9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "75382fb2dd09c48be8b2440fec0ede31e7b1889f2a87bdd1752e4d61a8dcb01c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "technology",
+    "why": "셋 결합 전시로 업계 상하류를 잇겠다는 목적 한 문장 외에는 전시관·세미나·기관 이름 나열이라 내용 일치 칸 최소선에 걸친다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "This 3-in-1 show is mainly focused",
+      "note": "떼어 낸 문단도 부스·전시관 이름 목록뿐이라 사건 흐름이 서지 않고 오탈자(Fourm, Manufactorers)도 고쳐야 한다."
+    }
+  },
+  {
+    "id": "3af80be9-c3e3-4ffa-971c-e1b45604952e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33ce03c6e766541a05a5efb268f3f2d8818c267bf1231f0200f353d4faf119f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "출생 → 총리 부인 → 1971년 백악관 드레스 화제 → 남편 사후 자선 활동 → 투병과 사망으로 한 사람의 생애가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "McMahon was born in August 1932,",
+      "note": "자선 단체 이름 나열을 줄이면 생애 흐름이 서고 socialite·patron을 쉬운 말로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "3b01d699-d7cd-4443-8800-3c55c4fbb38f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5d2c59c759f643b966e3561ffb3262273ab44571f1574ab3859a9f0f370185a7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "사고사 직후 정자 채취 → 7년 뒤 재판소 허가 → 빅토리아주에선 사후 임신이 불법이라 NSW로 옮긴다는 까닭까지 70어 안에 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An Australian woman has won the",
+      "note": "impregnated·posthumous conception을 have a baby·having a child after death로 바꾸면 V5로 내려간다."
+    }
+  },
+  {
+    "id": "3b13df2b-e275-4590-94c7-99d2f961ffe7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "42c3fbfeb8926643376f9de5eac271eab371b98b02d1c295e61ef247eab3a17a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "오페라 측이 오픈소스 기여 이력과 개방 표준이 핵심이라는 견해를 답하는 인터뷰로 한쪽 입장이지만 주장·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Open source or closed source are",
+      "note": "답이 한두 문장으로 짧아 긴 지문은 안 되고, 질문-답 짝을 묶어 쓰면 된다."
+    }
+  },
+  {
+    "id": "3b1a9f64-477b-485e-954f-c166522065b1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f6a510cf3946d3ddadbed645d0b8c36bf31145bce61a366fdb83c13e951cb9d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하메네이가 옛 군대를 비판하고 군의 종교적 정체성·자체 기술 확보를 촉구한 연설을 옮긴 보도로 한쪽 입장이지만 선동문이 아니라 주장·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Khamenei then went on to pay",
+      "note": "exhorted를 urged로, sophisticated를 advanced로 바꾸면 V6으로 내려가고 연설 요지가 그대로 선다."
+    }
+  }
+]

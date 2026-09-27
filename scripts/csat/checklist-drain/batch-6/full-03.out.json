@@ -1,0 +1,937 @@
+[
+  {
+    "id": "32e5826b-5202-467f-be7e-1a5288df3671",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "41bb2c378aeebe3551a102b9b2f758d88ef64beffffed0143d4d690aada37810",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "군정의 집회 금지 때문에 폭력이 우려된다는 인과와 주최 측 사이트 차단이 두 문단으로 이어져 짧지만 사건이 서는 단신이라 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There will be an anti-coup gathering",
+      "note": "시각·장소 표기를 걷고 junta·erupt 를 military government·break out 으로 바꾸니 V4 로 내려갔고 문단이 앞 문맥 없이 시작한다."
+    }
+  },
+  {
+    "id": "33187782-ddb2-4897-954d-a727770e6d9e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b509b211fd1c3d3ebdfdaa7da5e3a02256e3b6289e0c988946c3ddf3292bc15b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "해킹 → 복구 → 재공격 → 인터뷰 반응으로 사건이 시간순으로 이어지는 기사라 내용 일치·순서 칸으로 보관하되 비속어·혐오 표현이 든 인용 문단 때문에 고2 이상으로 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The legitimate administrators of 711chan regained",
+      "note": "「711chan is full of …」 인용 문단(비속어·혐오어)은 가공 때 걷고, 복구·재공격 두 문단만 떼니 사건 흐름이 선다; allusion·affiliates 를 바꿔 V5."
+    }
+  },
+  {
+    "id": "3320482d-0083-4f8f-b4f8-783b27722471",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "69c3054c1cc829341ba46bfcc172f3b441ae078af730d0260efbdafeb7d0a881",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "애플의 법적 조치 사건 뒤에 지식재산 보호는 무료 홍보와 무임승차 방지 사이의 균형이라는 일반 논지 문단이 붙어 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Protecting intellectual property can involve a",
+      "note": "둘째 문단은 앞 문맥 없이 균형 논지로 서고, appropriated·piggybacking·unauthorized 를 풀어 쓰니 V5 로 내려갔다."
+    }
+  },
+  {
+    "id": "333225cd-a9c9-4094-8607-b5d3c286fc58",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e967e368543f15479157b181828273211632cee37ecb196b562101b102c80b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "스티브 어윈의 사망 → 월터스가 미망인 인터뷰를 위해 호주로 간다는 발표 → 방송 예정으로 이어지는 단신이라 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tuesday morning, ABC News correspondent, Barbara",
+      "note": "고유명사(The View·ABC)를 줄여도 인터뷰 계획과 그 까닭이 서고, widow·segment 를 wife·part 로 바꾸니 V3 가 된다."
+    }
+  },
+  {
+    "id": "3333cd96-5815-4373-bffb-d4aa228f61bd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e1d029cd70c97af869081e669ec2ca862c5fa3c786a11be9e53820ad79add6cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "국제해사국 연보의 사망자·공격 건수·지역별 순위를 문장마다 수치만 바꿔 옮긴 요약이라 떼어 낸 문단에 사건 흐름이나 논지가 없어 수치 나열 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Indonesian waters are the most violent,",
+      "note": "문단을 떼면 시작은 되지만 수치·지역 이름을 걷으면 남는 사건·논지가 없어 내용 일치 칸 하나를 수치로만 채우게 된다."
+    }
+  },
+  {
+    "id": "335b0097-4ee4-40e6-b0f8-ab3dd7581960",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e49da15d37e0e7368131abf638d164040a3d3a849b42376cc0716f48c0415b68",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "개혁안 발표 → 안보리 확대·인권이사회 신설이라는 내용 → 캐나다 대사와 NGO 의 반응으로 이어져 사건·결과·반응이 서는 단신이라 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "If implemented, this plan will be",
+      "note": "revitalise·implemented 를 renew·carried out 으로 바꾸니 V4 이고, 둘째 문단은 plan 만 이 개혁안으로 풀면 혼자 선다."
+    }
+  },
+  {
+    "id": "33649b8f-f2a5-4260-9fd7-2800d7eb7880",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "38fa00ff1b344f3b35c9c5f3457dafbf41211aaccaca0ec8854c9df000c27cfa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "기자 사망·투옥 통계에 더해 CPJ 국장이 근거 없는 투옥을 국가 납치라 비판하며 석방을 요구하는 주장 문단이 있어 내용 일치·주장 칸을 채운다(한쪽 입장).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The report also shows that the",
+      "note": "마지막 문단은 수치를 줄여도 투옥 비판 주장이 서고, antistate·impunity·abysmal 을 풀어 쓰면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "337d0717-b33d-48e5-a9a4-e3ab2e8e9d5c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "10e9d6b69c7bd592dfd335cb6501c020492c5683bd887902714a96a41ba44265",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "IFTTT 연동이 무엇이고 양방향이 무슨 뜻인지 설명한 뒤 새 기능들을 문단별로 소개해 단락 경계가 뚜렷하므로 내용 일치·순서·삽입 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "IFTTT facilities allow users to connect",
+      "note": "둘째 문단은 앞 문맥 없이 양방향 연동을 설명하고, facilitate·opt-in 을 help·choose 로 바꾸니 V4 가 된다."
+    }
+  },
+  {
+    "id": "337d70ff-da49-476f-b8de-25784fa3f0c8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba45d291472b459875ab547c47671e4078df1966028137a8021235c3e8da9049",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "발사·임무 목적 → 지연 원인 → 디스커버리의 이력 → 퇴역 전망 → 비행감독 소감으로 문단이 뚜렷이 나뉘어 내용 일치·순서·삽입·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The launch of Discovery, which was",
+      "note": "지연 문단은 기체 이름만 밝히면 혼자 서고, dexterous·microgravity·payloads 를 풀어 쓰면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "3384f192-bfee-4233-a54c-ef80dcb52a92",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0713b4f8a51ba2206b7af3eff0a0e2fb936f1d8609c0481891fdf7f68eaabf13",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "당첨 → 세후 수령액 → 동료에게 비밀 유지를 당부 → 당첨자 사정과 판매점 보상으로 이어지는 단신이라 사건 연결이 있어 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "David Reese, a KNBC assistant manager,",
+      "note": "번호·확률 문장은 걷고 당첨 소식 전달 문단만 떼면 사건이 서며, anonymous·laid off 를 unknown·lost his job 으로 바꾸니 V3."
+    }
+  },
+  {
+    "id": "3387ba28-4d47-4ffa-b9a5-0abbc14fcc82",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "de1f94144dd7aa1733d96b3a6933d611fea1b5f02de3ce5381b4c36d32f698f9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "1년 넘게 미뤄진 선거 끝의 취임 → 베이루트의 축포 → 부시의 축하 성명으로 결과와 반응이 이어지는 단신이라 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Michel Suleiman officially became the President",
+      "note": "결의안 번호는 걷을 수 있으나 본문 절반이 부시 성명 인용이라 sovereignty·reconciliation 을 바꿔도 외교 어휘가 남아 V5 아래로는 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "3396ca44-48a9-44e5-9938-eb9e9a7b731a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "79233efb346116ad001966276814346e2fa38fab332ec2c495d791a77931d194",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "추락·전원 사망 → 운항사 애도 → 희생자 신원 → 수색 → 콩고 항공사고가 잦아 EU 운항 금지라는 배경까지 이어지는 사고 기사라 고1 이상 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Air crashes are common in the",
+      "note": "희생자 소속 나열 문단은 걷고 추락·수색·배경 문단을 이으니 사건이 서며, condolences 를 sorrow 로 바꾸면 V4."
+    }
+  },
+  {
+    "id": "339f946c-4ed0-462c-b5ea-f169d0789580",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bea75d7f32cebf2b3e8d848a1e3339e8104726b6742ddbf94e3650d207d2ab12",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "빈라덴 영상 보도 자체는 서지만 둘째 문단이 이름 혼동으로 이미 정정된 「납치범 여럿이 살아 있다」 주장을 사실처럼 전해 obsolete-fact 로 막을지 걷고 보관할지 갈린다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "In the video, Bin Laden is",
+      "note": "영상 속 인물 문단은 떼어 낼 수 있지만 제목과 첫 문단이 논란 주장에 기대어 있어 그 문단을 걷으면 기사의 초점이 흐려진다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "33b0b5b5-e612-420e-afcd-04d28fba994b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a8b1d63580b044b51731b9c4c8115b8e7a3c492e17835dc4d8add0ff50ef2e1d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "히로시마의 날을 기려 촛불을 띄운다는 행사와 그 까닭(원폭 60주년), 준비 과정이 이어지는 짧은 기사라 중등 이상 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hundreds of floating candles will be",
+      "note": "행사 이유와 준비가 한 편 안에서 서고, witness·annual Yearly Meeting 을 event·yearly meeting 으로 풀면 V3 에 맞는다."
+    }
+  },
+  {
+    "id": "33e13b3d-815d-4f66-9fb7-16d9510af8ef",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a0b022dd3a6b865506d13e2d4a7a636f4b36807d4f3be94f16f6ecaab62cb1db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "가입자·매출 증가 수치에 회사 측의 연간 목표 낙관이라는 반응과 시장 전망 문장이 이어져 짧은 단신 최소선을 넘으므로 content_match 칸 하나로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Orange Romania, the country's largest mobile",
+      "note": "수치가 대부분이라 내용 일치 외 칸은 어렵고, subscribers·objectives 를 users·goals 로 바꾸면 V4 로 읽힌다."
+    }
+  },
+  {
+    "id": "33f6a8a4-45ac-49bb-8add-3af5a8da8225",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "53aa0bf58c895495d6e960b01615a33cda2996d7a7c12685e80d4718d6fd7ec5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "승리 결과 뒤에 롬니의 승리 연설과 깅리치의 전략·반박 발언이 이어져 득표율 나열만이 아니라 결과·반응이 서므로 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At his victory celebration, Romney told",
+      "note": "득표율 문단은 걷고 연설·전략 두 문단을 이으니 서며, caucuses·delegates 를 풀어 쓰면 V4."
+    }
+  },
+  {
+    "id": "3401d5e8-0d0d-4d10-849d-0ee630fa325b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f7f0fa4e2f23ccffd268378e824f99c8f34ecf68836f5bcb9e4a5983f5be445a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "아프리카연합군 파병에 반대하는 시위 → 조직 주체와 종교적 반대 이유 → 1991년 이후 무정부 배경과 과도정부로 이어져 원인·배경이 서므로 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The African Union plans on deploying",
+      "note": "배경 문단은 앞 문맥 없이 서고, deployment·factions 를 sending·groups 로 바꾸면 V5; 끝 문장 마침표만 빠졌을 뿐 끊기지 않았다."
+    }
+  },
+  {
+    "id": "3401ed94-6f55-47ed-8c44-9b2353428620",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a194e869575719dc41428d4a8fdac3658e3b1178210cbd295a2bab6921eacb85",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경찰이 시민에게 7월 21일 테러 미수 용의자를 보면 999 에 신고하라고 알리는 공지라 누가·누구에게·무엇을 하라는지가 서서 purpose 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anyone who sees any of these",
+      "note": "전화번호는 가공 때 걷어도 신고 권유가 서며, whereabouts 를 where they are 로 바꾸니 V3."
+    }
+  },
+  {
+    "id": "340c2baf-dbf9-4f40-9250-9de7a345cfcc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "433653eb1be048fab25d724a77462b38596a557d22cb39e76180cf6f56cd4922",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "북한이 IAEA 사찰을 허용한다는 소식 뒤 5년 만의 고위급 방문 → 환영 → 서울 보고 일정으로 원인과 다음 절차가 이어지는 단신이라 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This trip comes on the heels",
+      "note": "on the heels of·entourage 를 soon after·team 으로 바꾸니 V3 이고 직함을 줄여도 방문 흐름이 선다."
+    }
+  },
+  {
+    "id": "34131cb5-75c9-480d-a0b3-1fe3abb3b12c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f73006b3c0abf291993b5f8e2840d270aee86583eac0744eab2d2acbf48b8035",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "정부군 발포와 반군 사망 → 남부의 반격 → 체포와 재판 회부로 사건이 이어지는 교전 보도라 고1 이상 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In southern Yemen, SABA news agency",
+      "note": "문장 중간의 줄바꿈 두 곳은 형식 잔재라 이으면 되고, retaliate·separatist 를 fight back·independence 로 풀면 V4~5."
+    }
+  },
+  {
+    "id": "341746c8-b32d-4b30-b8d6-4c7ef9cf6907",
+    "source_updated_at": "2026-09-25T09:16:29.828359+00:00",
+    "body_sha256": "b97dfce5a6e0b37cd937298b12de8a8e663f4aafd9d5711813e24f2a7b0427e0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "engineering",
+    "why": "자동차 산업은 IT·전자와 협업해야 한다는 논지가 셋째·끝 문단에 있으나 문장 대부분이 비문이고 「1=」 잔재 인용이 섞여 떼어 낸 문단을 살리려면 사실상 재집필이 필요하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Generally in the automobile industry, progressively",
+      "note": "마지막 문단의 논지는 서지만 「progressively conformed by」「not any company can do any monopoly」 같은 비문이라 낱말 2~3개 교체로는 고쳐지지 않았다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "341a6838-d891-466b-af46-3b787e70387e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ce54780426c850a1a56d9c6effbf1a7af7ff99991f8e4c486fdd710f33a1dfda",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "첫 세 문단이 신기술의 편리함과 보안 위험의 긴장을 명확히 세우고 홍의 「양날 노」 비유 답변이 이를 받쳐 주제·요지·내용 일치 칸을 채운다(인터뷰 답은 비문이 많아 걷는다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Computers and technology make our modern",
+      "note": "도입 세 문단은 앞 문맥 없이 서고 WiMAX 를 a new wireless technology 로 바꾸면 고유명사 없이도 논지가 선다; 창 답변 문단은 비문이라 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "342317dd-9c16-48c5-bdec-c22bf20166e3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8731661d5b36448b8e98d7f43b73d6fabdebf52995b332a37680ee7568d5aef6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망 소식 뒤 출생 → 힌데미트 사사 → 교직과 종군 → 두 음대 교수로 이어지는 생애가 시간순으로 연결돼 짧은 부고지만 content_match 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Born on February 9, 1909 in",
+      "note": "학교 이름은 a music school 로 줄여도 생애 순서가 서고, composition·contemporary 를 풀면 V4; 다만 문장마다 연도·학교만 바뀌는 느낌이 있다."
+    }
+  },
+  {
+    "id": "3427e86e-e200-4037-8789-4897c2437765",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f891bebb36941385209baf80cf1aa8c80fb1ce0f29661dd5efcdc2cb0b66f2d4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "시상자 명단과 셜리 템플의 출연작 목록이 본문 대부분이라 문장마다 이름만 바뀌어 되풀이되고 이어지는 사건이 없어 단신 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The first roster of presenters will",
+      "note": "괄호 속 작품명과 이름을 걷으면 「시상자가 발표됐다」 한 문장만 남아 논지·사건이 서지 않는다."
+    }
+  },
+  {
+    "id": "342acda7-8307-4054-95a9-6533e7f7baf3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cf6fd63cf763fec79f8c3e2c8b38042e4f3314f0fed8f27a891defb562007175",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "시상식 개요 → 공연 → 수상 소감 → 갤러거 소동 → 해리 왕자 영상으로 장면이 이어지는 기사라 내용 일치·순서 칸으로 보관하되 비속어 인용과 끝 수상자 목록은 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At one point during the programme,",
+      "note": "해리 왕자 영상 문단은 혼자 서고 쉬운 편이며, 갤러거 문단의 비속어 인용과 마지막 수상자 목록은 가공 때 걷는다."
+    }
+  }
+]

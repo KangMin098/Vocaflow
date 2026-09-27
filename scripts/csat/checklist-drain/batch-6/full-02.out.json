@@ -1,0 +1,969 @@
+[
+  {
+    "id": "30f958c5-9d4c-47fb-8944-f91a7f88bb01",
+    "source_updated_at": "2026-09-25T09:15:59.92845+00:00",
+    "body_sha256": "d97f4c190ccac7acec497edd119ae70f6411582dc68e128116c562b1f305c3f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "제보 → 공습 → 미군 발표와 이라크 경찰 발표(민간인 사상)가 엇갈리는 흐름이 문단마다 이어져 고1 이상 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United States military said that",
+      "note": "insurgents·predominantly·collateral 을 fighters·mostly·civilian 으로 바꾸면 V5 로 내려가고, [sic] 인용은 걷는다."
+    }
+  },
+  {
+    "id": "3129a6c8-1d18-40fb-aafd-448ca0f4ff04",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "357e70aceafbf2f50d2bd9159a21d12532b45458f6343c4681fd73bc95fb1ba6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "입원 → 사망, 아역 무대 → 코러스 → 조연 → 할리우드 스타로 이어지는 경력 문단이 짧은 부고 안에서 순서로 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "She started her career as a",
+      "note": "sexpot 을 star 로, impromptu 를 unplanned 로 바꾸면 중등 칸에도 실린다 — 경력 문단이 혼자 선다."
+    }
+  },
+  {
+    "id": "3148a0b0-b4aa-40bd-93d3-e9562d45c13d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "53fab131c5911047155bff7be2bdce71bc54ef68c47c6f139957832476d2954f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "규제기관의 「아동 부적절」 판단 → 방영 중단 → 대체 편성이라는 원인·결과가 첫 두 문단에서 서서 내용 일치 칸이 된다(팩트북 채널 수 문단은 곁가지).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The animated television show, The Simpsons,",
+      "note": "채널 수 문단은 주제와 멀어 무관한 문장 재료로 쓸 수 있고, infringing 을 breaking 으로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "314f586d-4db7-4f2c-befc-89c2556a47e1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c4df326c297377e0604a807eaad22df1b40af44367f02a9320030984846c1980",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭탄 테러로 장관 사망 → 정부의 타밀 반군 지목 → 반군 조직 설명으로 사건·반응이 이어지는 단신이라 고1 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Media Minister for Sri Lanka",
+      "note": "12명과 첫 문단 「Over 14 others」 수치가 어긋나 가공 때 맞춘다 · advocates 를 supporters 로 바꾼다."
+    }
+  },
+  {
+    "id": "315b22aa-5e2b-41f7-8693-f791579b5dfd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fc7906e850995375c993a63994211e61260e168722a50e29a6a427d63573080a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "후보 한 명이 치안·교통·세비 문제에 자기 공약을 말하는 문답으로 한쪽 입장이지만 주장·근거가 답마다 서서 성인 주장·요지 칸이 된다(제목의 Ward 1 과 본문의 Ward 3 가 어긋남).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Crime must be contained and reduced",
+      "note": "답변이 한 문장 수십 낱말의 비문이라 낱말 교체가 아니라 문장을 나눠 다시 써야 하고, 선거 안내 머리 문단은 걷는다."
+    }
+  },
+  {
+    "id": "316909e9-93d6-452e-a6e6-19b30ee7012a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4b0d4456a39808a2124fcb5922fa9c334f39aeed5ce7f9d6992e4bd2683b5636",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "economics",
+    "why": "판매 감소와 그 원인(전년 대작 출시) 문단은 서지만 끝 문장 「Below are the full results provided by NPD:」 뒤의 표가 통째로 없어 글이 중간에 끊겼다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The fall in hardware sales year-over-year",
+      "note": "원인 문단은 혼자 서지만 예고한 결과표가 없어 원천이 불완전하다 — 머리 문장만 걷으면 짧은 단신은 된다."
+    }
+  },
+  {
+    "id": "31707d49-e908-4844-9fbc-b91a02d113c9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "318dcc73b42944fb5544f2d28272cadef7d2405893cb44e7fdce02a897b36383",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "놀이기구 사망 → 부검·조사 → 탑승 경고문 → 과거 사망자도 기저 질환이 있었다는 사례로 원인 추정이 이어져 내용 일치·삽입 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since 1989, 15 people have died",
+      "note": "congenital 을 inborn 으로, aggravated 를 worsened 로 바꾸면 쉬워지고, 과거 사례 문단이 따로 떨어져도 선다."
+    }
+  },
+  {
+    "id": "31724bb4-1d5f-4571-a453-8ee08a3d9c56",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "efa2e4fde659bf50d29d633fd210e8f7a9b3247cd82f4ef061b467e75cd51f07",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "폭풍 명명 → 위치·풍속 → 강화 가능성 경고 → 경보 발령과 강우·해일 예보로 다음 절차가 문장으로 이어져 수치 나열을 넘는 단신이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "But, forecasters warn that additional strengthening",
+      "note": "수치가 많지만 경고→경보→예보가 이어져 선다 · sustained·landfall 을 steady·reaching land 로 바꿔 본다."
+    }
+  },
+  {
+    "id": "319741d3-b919-4c16-aee3-4c36135d2550",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "457e1c096c925835c8a447d970f565ffac60d0c229ee3dd3d3d2175dd608de2c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "인수를 앞둔 에릭손 CEO 가 마르코니 사업장을 순회하고 그 목적(직원 질문 받기)을 밝히는 세 문단이 이어져 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The purpose of the tour is",
+      "note": "짧지만 순회 → 환영 → 목적이 이어진다 · stake-holders·asset purchase 를 쉬운 말로 풀어야 한다."
+    }
+  },
+  {
+    "id": "31d3279f-acd8-4d48-b741-e54fd969e993",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "072d518ba1d3e2fee1ea322c1b6645bf363d26b16a61bed043c83efe091d4c1e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망 경위 → 기상 캐스터 경력 → 기후변화 회의론 단체 창립과 그 단체 주장이 인물 서술로 이어지고 단체 주장은 그들 입장으로 전해져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Professor Auer recently became involved in",
+      "note": "회의론은 단체의 믿음으로 인용되어 사실 주장이 아니다 · 가공 때 그 귀속을 유지해야 한다."
+    }
+  },
+  {
+    "id": "31dc7375-870a-48a2-887a-572acf3e75be",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "44b8342cf9692a38869f79ce74f8ed11b891e239a3f800c93acc9f260bb5613f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "열차 세 대 충돌 → 인명 피해 → 경찰이 밝힌 원인(선로에 버린 차)과 용의자 체포로 원인·결과가 이어져 고1 이상 내용 일치·순서 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The chief of police of Glendale",
+      "note": "원인 문단이 혼자 서고, 자살 시도 언급이 있어 중등 칸은 달지 않는다."
+    }
+  },
+  {
+    "id": "31e1dbea-6e12-4254-bac6-e2d5f039b08d",
+    "source_updated_at": "2026-09-25T09:16:37.325164+00:00",
+    "body_sha256": "3d2c749494c3870f59df2c640d22c37b0f22a5f259a043625edfe966da8835af",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "대만 첫 개발자 행사 개최와 주제, 발표된 이론에 대한 구글 대만 임원의 논평이 이어지나 인용문이 어색한 번역투라 칸은 내용 일치 하나다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Unlike the first two Developer Days",
+      "note": "앞 두 문단은 서지만 논평 인용이 「agglomerations」 등 뜻이 흐려 다시 써야 논지가 선다."
+    }
+  },
+  {
+    "id": "31eb3503-5b91-4269-81dc-d72acd3a6720",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8cf37edd2b6d6c7e38b49290eda9b1f3814748e32d7f413369f65d20ef1931f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "2,258명 전향 연구 → 지중해식 식단과 알츠하이머 위험 감소의 연관 → 전문가 반응으로 연구·결과·평가가 서서 요지·내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "U.S. scientists prospectively analysed the health",
+      "note": "prospectively·confounders·legumes 를 over time·other factors·beans 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "3201db22-d12a-4a20-be28-783c2e8cfe36",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b8498fa3201f261cca340994532197aee78e5ee637321d9b876e6e2b45013cb6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "우승 결과 뒤에 심사위원 영향·표절 비판, 우크라이나 대신 영국이 개최한 까닭, 두 번째 우승의 의미가 이어져 점수 나열을 넘는 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Loreen won for Sweden in 2012",
+      "note": "점수 문단은 걷고 마지막 문단과 개최 배경만으로도 선다 · sequentially·plagiarising 을 쉬운 말로 바꾼다."
+    }
+  },
+  {
+    "id": "321e94f7-b6ca-4da5-be00-dbea40c1b4f0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5b179f6660f4618b6f45651a242592b2ef8f7490eb2733b7f84036bbe5841fb9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "로마 출신 가수의 음악 이력·인권 활동·수양 자녀 등 생애가 부고 안에서 이어져 인물 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An ethnic Roma, Redžepova spent decades",
+      "note": "둘째 문단이 혼자 서고, humanitarian·thrice 를 helping·three times 로 바꾸면 중등 밴드다."
+    }
+  },
+  {
+    "id": "324f1571-d486-42d0-9eb6-b8686e3c659b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c748628ea86346ec094967469fd8ee812c36e814dfa7092b8c2083d172a4e617",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "광고견 사망 → 주인의 말 → 한 번만 방영할 광고가 캠페인이 된 경위와 출연작이 이어져 쉬운 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The dog was featured in the",
+      "note": "어휘가 쉬워 dubbed 하나만 풀면 중등 밴드로 실린다."
+    }
+  },
+  {
+    "id": "32615f43-69f3-4a3f-8901-944d3d3378c9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3d2713bec3cc09eaf79c7d24254025388fc03b6ad67ca5a33ca153e1204c696b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "스위스 대통령의 가나 방문 → 민주주의 칭찬과 투자 희망 → 무역·세제·코코아 지원 논의로 이어져 외교 방문 단신의 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "She held talks with John Kufuor",
+      "note": "짧지만 방문 목적과 논의 안건이 이어지고, budgetary 를 money 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "32624344-7609-4089-a936-5adef3074522",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a0fdaf619c80eadf8e56d69aca59189b7a73021404371128e58e61699db693a3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "여론조사 결과의 오차 범위 해석과 이전 조사 대비 변화, 결선 투표 제도 설명이 문장으로 이어져 수치 단신을 넘는 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Finnish presidential elections are completed",
+      "note": "제도 설명 문단은 혼자 서지만 짧고, 득표율 문단은 수치 비교형 문항에나 쓴다."
+    }
+  },
+  {
+    "id": "3263926a-1932-4bc9-9266-d8dfe77b0c65",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "61dbe078e1ae75dca5521ba4d7f719baf3c53ee9440df8b679fff9450cb03f67",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "두 병사의 사망 원인(총격·급조폭발물) → 누적 사망 327명 → 대변인의 추모 발언으로 사건과 반응이 이어져 고1 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Including these new deaths, the total",
+      "note": "사망 보도라 중등 칸은 두지 않고, improvised explosive device 는 풀어 써야 한다."
+    }
+  },
+  {
+    "id": "32714017-05fd-4a94-ba7b-7fbd71c80e47",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2e92459bbc871c73d6e8cf2df2e01bf21c3edf476a5eaaf96862620aa81c8ee2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "낡은 여객선 매입 → 침몰로 74명 사망 → 왕립 조사위 결론 → 네 명과 선사 유죄로 원인·결과·절차가 길게 이어져 순서·삽입·요약 칸까지 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Built in the early 1970s, by",
+      "note": "선박 이력 문단이 원인을 혼자 세운다 · unseaworthy·due diligence 를 unsafe·careful checks 로 바꾼다."
+    }
+  },
+  {
+    "id": "328bd4c9-cfc5-4baf-93ea-491755b14717",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "daf668be77fcb15c76ac29f78c19d0f7a1e7d00675f66ba915e878504f3d90e3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "부자 명단 발표와 1위 웨스턴이 규정 변경으로 들어온 까닭·납치 미수 뒤 이주한 경위가 둘째 문단에서 이어져 내용 일치 칸이 되고 6인 목록은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Topping the list was the new",
+      "note": "둘째 문단이 사건 흐름을 갖고 뒤 목록은 걷어낸다 · 소유격 오타(Irelands, grandfathers)를 고친다."
+    }
+  },
+  {
+    "id": "329d1332-f0b2-4beb-bbeb-72e491bad342",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fde703cb86fe48f1ef6d706a004c23353d97c121bfe7c6132865221284a86c72",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시장 피살 → 현장 감식(총상·탄피) → 수사 진행 → 경력으로 사건과 다음 절차가 이어지는 단신이라 고1 이상 내용 일치 칸 하나다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The body of Victor Dorkin, the",
+      "note": "주소·시각 같은 세부를 걷어도 사건은 서고, preliminary 를 early 로 바꾼다."
+    }
+  },
+  {
+    "id": "32a6b4a8-b833-44e6-9f97-cf9f323b7a3f",
+    "source_updated_at": "2026-09-25T08:59:08.919108+00:00",
+    "body_sha256": "428542c1e09f18f3337eab5eab52c26d8e39fc4e21dc8c9dbfe7c67a98bbe4a6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "81어 단신이지만 미니버스 피격 → 구조 출동 → 주지사가 러시아 드론을 지목하며 「비인도적」이라 한 반응까지 사건·반응이 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A minibus in Bilopillia, Ukraine was",
+      "note": "짧아 한 편 전체를 쓰고, characterized 를 called 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "32bea05d-454a-4d4a-9f25-263dfc4934f7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "83a26fc4306bde6dc3a4eac03bb19fdfd845495159b20770b23054c3f413242d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "합작 할인점의 첫 세 점포 개점과 투자 규모, 올해·내년 확장 계획과 중소도시 입지 방침이 이어져 기업 계획 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The company is planning to open",
+      "note": "수치가 많지만 개점 → 확장 계획이 이어지고, inaugural 을 first 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "32d23111-76fb-439b-87fd-86cdb0f40dbe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fbaded09fb9574ede18ad75d922ac02bc677abbece8b47a62783a9a95bef0a4f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "5,600만 파운드 당첨금 신고 → 영국 최고 기록 경신과 이전 기록 → 스페인과의 분할 → 운영사 반응으로 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A spokesperson for the Camelot Group,",
+      "note": "세 통화 병기 괄호를 걷으면 읽기 쉬워지고 운영사 발언 문단이 혼자 선다."
+    }
+  }
+]

@@ -1,0 +1,940 @@
+[
+  {
+    "id": "2f56f322-920c-4df2-a154-d1ebcfaff7e2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "54207d0f199b1a8aa7c615f38086e78bc2666f4c913982e39a4809a5f957bd50",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "polemic",
+    "why": "앞 세 단락만 보도이고 본문 대부분이 자르카위·빈라덴의 지하드 선동 연설 전문을 반론·맥락 없이 옮긴 것이라 polemic 폐기다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The first \"visual issue\" of the",
+      "note": "보도 단락을 떼면 남는 것은 선동 전문뿐이고 보도 단락도 연설 요약이라 선동 내용을 걷으면 사건이 서지 않는다."
+    }
+  },
+  {
+    "id": "2f5dfb24-239f-4b98-a24a-5fe54de939a6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "52d7574844c8ad8720391e4dc384511c5395d5f8bdeec318018ad94417f2f23b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "밀렵(고기 수요)→개체수 10만→5천 감소라는 원인·결과가 첫 세 단락에서 이어지고 DNA 분화 단락까지 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Congo's population of Bonobo,",
+      "note": "dwindling→declining, squabbles→fights 로 바꾸면 V4 로 내려가고, 성행위 묘사 단락은 가공 때 걷어낸다(그래서 중등 칸은 달지 않는다)."
+    }
+  },
+  {
+    "id": "2f8f540a-c669-4195-a455-f8da3581d002",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1bb273fdee5071b166b0af00a969def86b9abdae858d48384630918cfe388d7e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "법원의 매각 승인 → 채권자 보호 중이라 입찰 자격(재무 건전성)이 의문이었다는 까닭 → 입찰 마감으로 이어져 짧은 경제 단신으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Québec Superior Court judge has",
+      "note": "creditor protection·solvent 를 풀어 쓰면 V5 이고, 조달 전략 약칭(NSPS)과 경쟁 조선소 이름은 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "2f976600-de42-4400-8e90-601b7458e463",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "944080f7d53d53d8454c19319f876bf41b3d2ad2fee4a352c34725806bfb4f2c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "루카스의 주간 3D 애니 발표 → 디지털 기술 덕에 비용이 감당된다는 이유 진술까지 한 단신 안에서 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At the Siggraph 2005 computer graphics",
+      "note": "spinoff·limited-run 을 쉬운 말로 바꾸면 되고, 채널·장소 이름을 걷어도 발표와 그 이유가 남는다."
+    }
+  },
+  {
+    "id": "2fa0fc36-6e9c-4e95-8b2b-304e42d37df1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c6af3ed0c7d61eccae9fd68851cd6d49b2704b47c9c83e6482c7c24b9aa08dd7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "수력발전소 폭발 → 사망·실종·부상 → 변압기 화재 시작·원인 미확인으로 사건이 이어지는 짧은 사고 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A hydroelectric powerplant located on Lake",
+      "note": "문장이 짧고 쉬워 hydroelectric 정도만 풀면 되며, 사망자가 나온 사고라 고1 이상 칸만 둔다."
+    }
+  },
+  {
+    "id": "2fa1c9cb-dccc-4f9c-9496-697ef1d8917f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d9bc138aecb45e0f531b4a463a50eae358922b78dea2b6922cf097f0e5e2a36b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "맥글래샨의 두 번째 Silver Scroll 수상·수상곡·첫 수상·심사 기준·평이 앞 네 단락에서 이어지며, 뒤의 기타 수상자 목록은 걷으면 되는 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yesterday the Prime Minister of New",
+      "note": "앞 네 단락은 혼자 서고 「Other winners」 이하 목록은 가공 때 걷는다; prestigious·emotive 만 바꾸면 V4."
+    }
+  },
+  {
+    "id": "2fa596f9-63ec-4efe-a602-8c3b04a600fa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d57669197f036f2abee2d431da6f174fde541ea4a68f9ea1cb00862cb8546fa7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "48어 단신이지만 지뢰 폭발 사상 → 경찰청장이 마오이스트 반군을 지목했다는 반응이 문장으로 이어져 짧은 단신 기준상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A land mine blast killed two",
+      "note": "지명을 걷어도 폭발·사상·책임 지목이 남지만 두 단락뿐이라 문항은 내용 일치 하나 정도만 나온다."
+    }
+  },
+  {
+    "id": "2faab82a-c3d4-41da-8d31-757ac25fe2e3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a32614c72c28131f9b5375c6c23064434316c421434206fbcef62af4b4bd6b42",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "신민당 후보 한 사람의 한쪽 입장 인터뷰로, 최저임금·산업 전기요금·재산세 답변마다 주장과 근거가 붙어 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I believe that property taxes are",
+      "note": "재산세 답변 단락은 주장(너무 높다)→까닭(주정부 떠넘기기)→대책(업로드)으로 혼자 서고, downloading·upload 만 풀면 된다."
+    }
+  },
+  {
+    "id": "2fb8b44b-a2fd-403d-866f-d6d0c09e98a4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "024eaeee04215fd814434e5bd75df34ccb4d438799ecfb9dd503bfb9f56c6804",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "Digg 3판 출시·범위 확대 → 스크린샷 유출 → AOL 모방 사이트와 반응 → 출시 파티로 이어지는 기술 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Today, the Internet news site Digg",
+      "note": "마지막 문장은 링크가 빠져 「located at」에서 끊기므로 걷고, 나머지 두 단락으로 사건이 선다."
+    }
+  },
+  {
+    "id": "2fcb73e7-9280-4a49-a38a-26478207c9be",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "84bb8485e2b760cb82497db544b09cf7ee9dd76979db3afe4c76f7dacc800ef8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "남북이 평화적 해결 추구엔 합의했으나 회담 날짜는 못 정했다는 결과와 공동성명 인용·김정일 조건부 복귀 발언이 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "North and South Korea today agreed",
+      "note": "denuclearization·stalemate 를 풀어 쓰면 V5 이고 장관 인용을 걷어도 합의·미합의 내용이 선다."
+    }
+  },
+  {
+    "id": "2fdd288d-4350-4e71-97f0-40bbbecd31ef",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2e4e1d4c381ca9778d476307ef75b6d96fd2dcb47196046d573606bc2993a40b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "그란다 체포를 둘러싼 콜롬비아·베네수엘라 양측의 주장·맞대응이 앞 단락에서 이어져 내용 일치 칸이 서지만 명단·연표와 기계 번역투 문장은 걷어야 한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Colombia and Venezuela continue to clash",
+      "note": "첫 세 단락은 혼자 서지만 수배자 명단·날짜 연표·「(audio)」 참조를 걷어야 하고, 「Mature Nicholas」 같은 오역 문장은 고쳐 써야 쓸 수 있다."
+    }
+  },
+  {
+    "id": "2fe6dc93-704a-420b-a6c6-e2aebc8c1445",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e587be5a6022600261583fbd03bf597f589f0cd56f0952f13392ec607c2254ea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "규모 8.1 지진 → 쓰나미 경보 → 해제, 두려워한 2m 대신 40cm 파도였다는 대비가 문장으로 이어지는 짧은 재난 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The tsunami alert issued for certain",
+      "note": "두 단락뿐이지만 경보·해제·실제 파도 크기가 이어져 서고, watches in affect 오타만 고치면 된다."
+    }
+  },
+  {
+    "id": "30095553-d031-4e06-8895-95970b0cd2fe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "769c417b86e206673498f744eb06e932e8d7c1a1128c64f0ad6645f9698f2a61",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이륙 1분 만의 추락 → 주거지 피해 → 사상자 → 기체 연식·정비 → 탑승 정치인으로 이어지는 사고 보도라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Boeing 737 jetliner operated by",
+      "note": "사상자 수치가 범위로 적혀 있어 문항 정답 근거로는 정리가 필요하지만, densely-populated 정도만 풀면 V5 로 읽힌다."
+    }
+  },
+  {
+    "id": "300fc01a-d028-46e4-a936-73b11545a6b5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "24be477d783c6f23f2b83abb64ad26a546d56be118a2addbb248cf69cd8db88d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "해외 그리스인 첫 세계대회의 일시·취지(프로그램 10주년)·후원·초청 인사와 아바나 시장 표창 까닭이 이어지는 행사 안내 보도라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The first world conference of Greeks",
+      "note": "종교 지도자 이름 나열 단락을 걷어도 행사 개요는 서지만, patronage·expatriate Hellenism 등 어휘가 무거워 V5 아래로는 어렵다."
+    }
+  },
+  {
+    "id": "3026e0b8-51f0-42c6-af8c-88b7ae156f29",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ab482b515f11e071f4fe4c9ef464f1e756b69595ad193209ac7d59dbabfe8067",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "46명 탑승기 이륙 → 관제탑 교신 두절 → 추락인지 실종인지 모른다는 당국 발표로 이어지는 실종 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Venezuelan plane with 46 passengers",
+      "note": "인명을 걷어도 이륙·교신 두절·불확실한 상황이 선다; 마지막 관광지 문장은 부가 정보라 빼도 된다."
+    }
+  },
+  {
+    "id": "302f1d95-6bc2-447a-95ca-58c08c45dc54",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ae2f91503a2f345f0bd7026026c99e55f84b798c2a69fd7114fcfc27e2cc0b26",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "신임투표 통과 → 다음 관문인 예산안 표결 → 그 예산 수정이 신민당과의 거래에서 나온 경위와 스캔들 배경까지 인과가 이어져 내용 일치·주제 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Canada's scandal-plagued Liberal party has survived",
+      "note": "confidence vote·snap election 을 풀어 쓰면 V5 이고 인명을 걷어도 정치 경위가 선다."
+    }
+  },
+  {
+    "id": "30306f42-9712-4373-a981-e0ace183919b",
+    "source_updated_at": "2026-09-25T08:55:52.156975+00:00",
+    "body_sha256": "005b6e3aa69288817657ff2b38c024dbdd281fcd62950259db7b7fa834b440ad",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "코로나 하루 최다 사망 발표 → 사망자 구성 → 대중교통 중단 연장 조치 → 첫 감염 경위로 이어져 수치 나열을 넘는 사건 흐름이 있는 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Saturday, in an online video",
+      "note": "교통 중단 연장 단락은 원래 계획과 바뀐 일정·예외 품목이 이어져 혼자 서고, 앞 단락의 연령대 수치는 걷어도 된다."
+    }
+  },
+  {
+    "id": "30600dc9-fa3d-4869-abc8-641c14e8d61d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "033ccd228fc74d2712c8939669563c3681477ab81ce55e98f40f8bad032c04ec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "46어 전체가 라이스 장관의 방문국 목록과 도착 시각·호텔 이동 일정뿐이고 원인·결과·반응이 없어 일정만 되풀이하는 단신이라 폐기다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The US Secretary of State Condoleezza",
+      "note": "떼어 낼 수는 있지만 방문국·시각을 걷으면 남는 사건이 없어 논지·흐름이 서지 않는다."
+    }
+  },
+  {
+    "id": "30728ebe-ac40-4799-8d94-e8cd8e0934e3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "630e3d12fa52bcdd1af3491a4bb00d78e1b869bac757819e613db92b7a082423",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "다우 지수 상승 → 유가 반등에도 불구하고 → 원유 재고 감소 발표가 반등 원인이라는 인과가 두 단락에 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After substantial gains yesterday, U.S. stocks",
+      "note": "지수 수치를 걷어도 상승·유가 반등·그 원인이 남고, inventories·rebound 만 풀면 된다."
+    }
+  },
+  {
+    "id": "30796e88-d0ea-4d1f-9fec-eb622577d9f6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f633e24adae93e36287ff01ccbecb82eab28fab60dc00eb2af289bf9e0fef08d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "흉부 감염 입원 → 89세 별세 → 영부인 재임·남편 사별 → 대통령의 추모 서한으로 이어지는 부고 기사라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Janaki Venkataraman, former first lady of",
+      "note": "인명이 많지만 입원·별세·추모 흐름은 이름을 줄여도 서고, 「around around」 중복만 고치면 된다."
+    }
+  },
+  {
+    "id": "30a23438-b796-42b6-9178-2f25e97f538e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b61247811176d8d85f8228606e18eb48c53d15414dae7ca909484672eaf4e3fa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "투르 드 프랑스 코스의 폭발물 발견 → 폭발 시점에 대한 엇갈린 보도 → ETA 책임 주장·전화 위협으로 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Authorities in Spain say that at",
+      "note": "detonated·separatist 만 풀면 되고 지명을 걷어도 발견·책임 주장이 선다."
+    }
+  },
+  {
+    "id": "30a93517-8abf-456d-a258-d0d8912965a8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "da611d6443b7cf4dda1829ad49609d9ca3da54073a830786c7a026755db0097c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "공원 정자에 낙뢰 → 1명 사망·4명 부상·입원 → 폭풍으로 2만6천 가구 정전으로 결과가 이어지는 짧은 사고 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least 4 people are injured,",
+      "note": "문장이 쉬워 어휘 조정이 거의 필요 없고, ofthe 같은 오타만 고치면 된다."
+    }
+  },
+  {
+    "id": "30b2bd3d-ae1f-4f71-b31a-97671990cb6d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5fe7a277167f15898274840fa04cf141a0e58d810dec8c0452da2a2a8eb10925",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "코미디언의 폐렴 치료 호전 → 기존 폐질환과 무관 → 위독·사망 루머 부인 발언으로 반응이 이어지는 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Associated Press reported Sunday that",
+      "note": "inflammatory·remission 을 풀면 V4 이고 매체 이름을 걷어도 치료·루머 부인이 선다."
+    }
+  },
+  {
+    "id": "30b34e40-b8ec-4308-810f-e8e1c9b06cdf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "27892c1fb8d33f280e069320a10477619b23a32c88807b51d7dd00366ce6cf52",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "군용기 추락 보고 → 기종·소속 미상이라는 관리들의 발언 → 나토의 확인 불가·조사 중 반응으로 이어져 짧은 단신 기준의 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A senior Afghan intelligence official has",
+      "note": "인용이 같은 「알 수 없다」를 되풀이해 문항 거리가 적지만, 보고→미확인→조사 반응은 이름을 걷어도 선다."
+    }
+  },
+  {
+    "id": "30c98f10-9a5a-4854-8498-d788ba63cf58",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23170b0c05a5036125bdaf1f22a22a6e7f206ecdac4ca64eef7b6fd0c91c50ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "탈레반의 카불 동시 공격 → 사상자 → 대통령의 통제 발언과 계속된 총성 → 목표·피해 건물로 이어지는 공격 보도라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Several gunmen and suicide bombers from",
+      "note": "묘사가 구체적이지 않아 고1 이상 칸이면 되고, 인명·지명을 걷어도 공격·양측 발표가 선다."
+    }
+  }
+]

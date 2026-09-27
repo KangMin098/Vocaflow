@@ -1,0 +1,925 @@
+[
+  {
+    "id": "3b248887-0bc2-46f0-82d7-edcaf8ad26b7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c9b36a0daef49167da52a22f8f168a4f7dc56c76d84a7e8ac83fe0a363576a9a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "장례를 마친 경찰관들이 폭발로 숨졌다는 사건과 앞선 피살·전쟁 이후 희생이라는 맥락이 이어져 짧아도 내용 일치 칸이 서고, 죽음이 중심이라 고1 이상 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Four policemen are dead and eight",
+      "note": "중령 이름을 걷어도 사건이 서고 roadside explosion·gunmen 은 그대로 두거나 풀어 쓰면 V4 까지 내려간다."
+    }
+  },
+  {
+    "id": "3b41f750-44fd-4d78-a866-8b3608a0ae22",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9054fdf8e883989aca0b407b11d62d11e68e1dfb5d885a6b7e07323ce05aa431",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "왕세자의 투병·사망 장소·경력과 그 죽음이 왕위 계승 서열에 주는 결과가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prince Sultan bin Abdulaziz al Saud, the",
+      "note": "terminal·half brother 를 풀면 V5 로 내려가고, 직함 나열은 한 문장으로 줄이면 된다."
+    }
+  },
+  {
+    "id": "3b4afeb0-a7a1-4a68-b8c1-a39e4c298cb5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b4636442f2bf2586393e107a89352d3addb407e9c1c1be1466795729e50615f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "NPT 회의 실패를 두고 비확산 위반 탓과 핵보유국 군축 불이행 탓이 대표별로 맞서는 구조가 한 편 안에서 서서 주장·요약·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "However, the Iranian representative, Javad Zarif,",
+      "note": "이란 대표 단락은 세 기둥 논리로 혼자 서지만 문장이 매우 길고 조약 용어가 촘촘해 낱말 두세 개 교체로는 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "3b4e149b-701a-4f64-892c-141d8319fe9f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "85497834d5b14a2907aa781c605a55c3b63b11214e1482bc68e14501440d2958",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "초인플레이션의 수치 → 통화 신뢰 상실 논리(대사 발언) → 상점 폐업·빈곤 → 구제안과 관영 선전으로 원인·결과가 이어져 주제·빈칸·요약·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Shops are running out of goods",
+      "note": "상점 단락은 앞 문맥 없이 서고 inflation-crippled·retaliation 을 풀면 V6 까지 내려가며, 환율 나열 단락은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "3b562445-8634-4173-ab6c-d041cb55a63e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b792f4abb9cff84d763e102a900d1b7647cba91e3d8ae6c351b214e445a26506",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "고용 → 운송 → 체포 → 재판 → 사형 선고로 사건 흐름이 문장으로 이어져 이름·수치 나열을 넘어 내용 일치 칸이 서고, 사형이라 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The People's Court of the northern",
+      "note": "피고인 다섯 이름과 환산 금액을 걷으면 사건이 더 또렷해지고 confiscated·trafficking 을 풀면 V5 다."
+    }
+  },
+  {
+    "id": "3b562baa-20a0-4453-99a3-3e3c9a405b35",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fd452c662993a0494bcc4665c7fbc179fa7de0b66762907e2c29f6a76a38e435",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망 원인과 의사의 반응, 게임쇼·토크쇼 경력이 두 단락으로 이어져 아주 짧지만 내용 일치 칸 하나는 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Merv Griffin, creator of game shows",
+      "note": "길이가 짧아 문항은 3~4 선택지가 한계지만 prostate 를 cancer 로만 줄이면 V3 까지 쉽게 내려간다."
+    }
+  },
+  {
+    "id": "3b5935d6-44ca-4e25-ac35-c747539d7dbb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e05418a1cad883bc2658a0ebd8c969d2c354637c1cf063345f0c7338dfcc1da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "차량 이탈 → 전복 → 즉사 → 안전벨트 미착용이라는 원인·결과가 이어져 짧은 사고 단신으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The victim was reportedly killed on",
+      "note": "둘째 단락의 거리·지명 나열을 걷어도 사고가 서고 reportedly·impact 를 풀면 V4 다."
+    }
+  },
+  {
+    "id": "3b6e615f-cf8d-402a-9d0b-5c2520a3e2b5",
+    "source_updated_at": "2026-09-25T08:55:45.645156+00:00",
+    "body_sha256": "4d4389f408fb3bf18cfbf15fad78a79276b6136e2fcf3fd02532cf47209b533c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "장례 행렬 중 압사 사고 → 사상자 → 매장 지연, 그리고 공습 피살이라는 배경이 이어져 내용 일치 칸이 서고, 죽음 소재라 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The stampede, which occurred in Kerman,",
+      "note": "stampede·procession 은 문맥으로 뜻이 잡혀 어휘 문항 재료가 되고 by varying reports 를 풀면 V5 다."
+    }
+  },
+  {
+    "id": "3b7a569b-5edb-492a-b843-370e6cf57136",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ffd661b51be219e869d6972056f7688cc22d308ac9c11745b6ce0adfa97848d8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "민사 사건에서는 ISP 가 개인정보를 넘길 의무가 없고 형사 사건은 다르다는 판결 요지가 두 단락으로 서서 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "According the European Court of Justice",
+      "note": "긴 법조문 인용을 걷으면 요지는 서지만 retain·civil proceedings 등 법률어가 핵심이라 두세 낱말 교체로는 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "3b823f1e-97f5-4aa2-88e1-05637b0ba501",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e5402ca266daa3b2f9492a20a5d915d83d7116cc60023ba8d19fffce663f7bd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "폐사 → H5 확인 → 백신 접종으로 흐름은 서지만 셋째 단락 주지사 발언이 「said,」 뒤에서 끊겨 인용이 통째로 빠진 불완전 본문이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Krasnodar, Russia officials said yesterday they",
+      "note": "끊긴 인용 문장을 걷으면 사건이 서지만 원문에서 무엇이 빠졌는지 확인이 필요하다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "3b841d01-765f-4707-b983-51814841130d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "069f1dd91032b843f57a6d214dc944713f00d3b6f62281be136a3abe11c2f12e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "교토의정서 비준 거부에 대한 비판과 미국 협상 대표의 「과학이 아니라 정치적 합의」라는 반박이 맞서 주장·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Watson countered these complaints by arguing",
+      "note": "반박 단락은 앞 문맥 한 문장만 보태면 서고 steadfast·ratify 를 풀면 V6 까지 내려가나, 마지막 문장은 뜻이 흐려 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "3b9b239d-d3aa-456d-992b-f637b7d7bc7d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cec9fc204c2025b04000ad7fdcb00f476f7057b3d9d67f6689f213d0a26b94ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아미티지가 유출 원천으로 드러남 → 플레임 부부의 민사 소송 → 본인이 FBI 에 알린 경위가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Former Deputy Secretary of State Richard",
+      "note": "사건이 인물 이름에 기대고 있어 이름을 걷으면 배경 설명 한두 문장을 보태야 하며, classified·retaliate 를 풀면 V6 다."
+    }
+  },
+  {
+    "id": "3b9c8180-7e31-4fc1-8030-9e0df00507ea",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2be3b966b805acaae4c6f6fab80001ab21ec781c587c03d1c3ce6751af7cdc80",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "polemic",
+    "why": "본문 대부분이 무장단체의 성전 선전 성명을 반론·맥락 없이 그대로 옮긴 것이라 차단 장르 polemic 이고, 앞의 두 문장만으로는 떼어 쓸 사건이 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "A video released by the Mujahideen",
+      "note": "성명을 걷으면 남는 것이 영상 공개 사실 두 문장뿐이라 가공 셋이 다 안 된다."
+    }
+  },
+  {
+    "id": "3b9de30b-7156-4bc9-8992-17702204cc20",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d8c1269f9c9fb88ff13fa2d07e691641337179a1ef672d68d5738230da4ce914",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "technology",
+    "why": "지메일 번역·자원봉사 모집 기사인데 끝의 「Languages into which ... may be translated:」 목록 머리 뒤 목록이 없어 글이 중간에서 끊겼다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "While most of the languages listed",
+      "note": "가상 언어·Pig Latin 단락은 혼자 서고 obscure 를 풀면 V5 지만, 언어 목록과 끊긴 끝을 걷으면 남는 분량이 적다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "3ba9689b-1c5f-4310-9bef-974bad8c39c9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ec1baeeb5492fb57ce8e50e838bf6bef60ce611cd03f1fc89ec9d90c6d62fcad",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "설문 결과로 뽑힌 우스운 법 목록과 그중 일부가 도시 전설이라는 시의회 반박이 이어져 통념 교정 구조와 내용 일치 칸이 서지만, 살인·노출 항목 때문에 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least some of the items",
+      "note": "목록의 퍼센트 수치와 살인·노출 항목은 가공 때 걷고 treason·urban legends 를 풀면 V5 다."
+    }
+  },
+  {
+    "id": "3bbb72eb-1b8a-41a8-ad78-8ed7d58f2c9e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a6b309d99ea628eea5d50fccdeec826b497611aaa02d8a6b9a01a6590836dd9e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "크라이튼의 투병과 사망, 가족 성명, 출생·대표작·ER 제작 경력이 이어져 인물 소개형 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Crichton, who was born in Chicago,",
+      "note": "마지막 단락은 혼자 서고 가족 성명 속 preconceived notions 를 풀면 V5 까지 내려간다."
+    }
+  },
+  {
+    "id": "3be4f92c-a2f0-48ab-a137-41fbc7589f85",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "273e327f77f533060df434197f69916851ff4077153315eab9bf20b760711940",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "제임스 웹 망원경의 공개·관측 목표·거울과 차광막 규모·발사 계획이 이어져 내용 일치 칸이 서고, 2013년 발사 예정이라는 당시 계획이 실제와 달라 시대 비교 재료다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Researchers at NASA say that the",
+      "note": "관측 목표 두 단락은 앞 문맥 없이 서고 peer·planetary 를 풀면 V5 이며, 발사 연도는 게시 전 현재 사실을 덧붙여야 한다."
+    }
+  },
+  {
+    "id": "3bf1a15d-075f-451b-aff9-eda2875a11e5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "184f4d91fe43ff371fe9c2cf4e0eb36f44f4fba6114e110675f299bd28f7cd32",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "뉴욕 필의 평양 공연이 관계 개선을 노린다는 목적과 핵 협상 긴장이라는 배경, 이례적 개방 조치가 이어져 주제·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The New York Philharmonic Orchestra has",
+      "note": "unprecedented·broker 를 풀면 V5~V6 으로 내려가고 클랩턴 초청 문장은 걷어도 된다."
+    }
+  },
+  {
+    "id": "3c06ff96-77e7-4bf4-8d5f-e1ec84f7b03b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "39bac014c88e50c2477dd807a7075014c288a5c8b08e75c8a79fb44b09745bb4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "작업 발판 추락 사고의 경위·조사, 교통국 애도, 앞선 사고, 어머니의 말이 이어져 내용 일치 칸과 인물 심경 재료가 서며 죽음 소재라 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mr. Burris was from a line",
+      "note": "마지막 단락은 짧아 첫 단락과 이어 붙여야 하고 integral·foul play 를 풀면 V5 다."
+    }
+  },
+  {
+    "id": "3c250805-ed2f-41d4-93d4-2720591bf9d2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9502009c2245d3996b62064fed02010eb78535fb66ebad4855af018a4ab57f5a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "에어쇼 일시·개장 시간·공연 내용·입장료를 대중에게 알리는 안내문이라 누가·누구에게·무엇을이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 21st Annual Wings Over Houston",
+      "note": "실용문 내용 일치형으로 그대로 옮기기 쉽고 static displays·aerobatics 를 풀면 V4 다."
+    }
+  },
+  {
+    "id": "3c34bbf0-374a-4dd7-812c-81a7ec9c9f39",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "04414a72a4115d517004a40873785f355fa1537114515eb83bf1c8bd3f9c01e0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "멀티코어·스레드 개념 설명, 소스 공개 방식, 시장 점유율 하락이라는 동기, 오픈소스 하드웨어 흐름이 이어져 주제·빈칸·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A multicore processor is like having",
+      "note": "개념 설명 단락은 앞 문맥 없이 서고 concurrently 를 at the same time 으로 바꾸면 V6 이다."
+    }
+  },
+  {
+    "id": "3c3bd9d3-d5f3-4ff3-861f-7561cb5eaf4b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "294ded07dd5b7237bab64d7b6bf265f6031e6e47f8aa761d53cbce0e1263c56b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "서구식 이발에 대한 살해 위협 → 이발소의 대응과 피살 → 경찰 수사 결과 → 종교 지도자의 규탄이 이어져 주제·내용 일치 칸이 서며 폭력 소재라 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A series of threats have been",
+      "note": "flout·castigated 를 풀면 V6 으로 내려가고 인용 속 compulsion 은 문맥으로 뜻이 잡혀 어휘 문항 재료다."
+    }
+  },
+  {
+    "id": "3c46516e-e6bc-4e49-b8c6-2ba00d52c069",
+    "source_updated_at": "2026-09-25T09:16:53.581393+00:00",
+    "body_sha256": "932ab3c465ca658c81f222837621b0c80dd64a2e470f5402b6f9e56d1998b826",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "엔진 정지와 과적 → 침몰 → 11명 익사 → 경찰의 원인 발표와 관계자 방문이 이어져 원인·결과가 선 사고 단신으로 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Forty farmers, along with their goods,",
+      "note": "셋째 단락을 첫머리로 올려 순서를 바로잡으면 사건이 시간순으로 서고 severity 를 strength 로 바꾸면 V4 다."
+    }
+  },
+  {
+    "id": "3c6a40e1-1988-44b9-a0db-484a77acf464",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d0111fa3b5486a63596edd8cb1f07044d4deb20aaba64d49b4b04b9f9adffbb6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "괴베클리테페 유물 전시의 개막·구성·기획 주체와 첫 해외 반출이라는 의미가 이어져 이름이 많아도 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Stone sculptures from the UNESCO World",
+      "note": "유적·기관 이름을 걷으면 남는 내용이 얇아 이름은 두고 문장만 줄여야 하며 curated·interpretations 를 풀면 V6 이다."
+    }
+  },
+  {
+    "id": "3c6f98c9-0240-4020-9541-39296ce10431",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1062bcc8879da2aea74f55b3fa2c9ca63216e94b3bdbc746e630ac301abe4dbc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "당대회 표결로 총리가 당수 자리를 잃고 당수·총리직 통합 결정에 따라 새 당수가 총리를 이을 전망이라는 결과가 이어져 짧은 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Mongolian People's Revolutionary Party has",
+      "note": "긴 인명을 한 번씩만 쓰고 unify 를 combine 으로 바꾸면 V5~V6 이지만 문항 수는 셋 안팎이 한계다."
+    }
+  }
+]

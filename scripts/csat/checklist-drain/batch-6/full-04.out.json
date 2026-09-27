@@ -1,0 +1,955 @@
+[
+  {
+    "id": "342c6729-cc3f-40b7-8789-efd433366b3b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "32e7f444df727495abdd3776df75fe0fec96fea87c2867363b13c4bdff54d480",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "인터넷 초대 → 500명 난동 → 경찰 출동 → 사과·체포·비용 청구로 사건이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A raucous party thrown at a",
+      "note": "terrorized·liabilities 를 caused trouble·costs 로 바꾸니 내려갔고, 끝 문장(아동 음란물 기소)은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "342caf23-e097-4743-97f6-b8d866568f05",
+    "source_updated_at": "2026-09-25T08:58:18.409953+00:00",
+    "body_sha256": "44592aaac1af66b2b622c77ccde98eade077caaa4c2b1cb264765da86abd0529",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미사일 공습 → 사상자 → 대통령 반응으로 이어지는 전쟁 보도로 내용 일치 칸 — 젤렌스키 발언은 한쪽 입장이지만 취재원 인용이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Saturday, authorities in Sloviansk,",
+      "note": "사상자 수·지명을 걷어도 공습-피해-반응이 서고, surface-to-air 설명 구절은 빼도 된다."
+    }
+  },
+  {
+    "id": "344383c6-03a0-48b4-af54-7857e46bdb7a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6fc77faec678c6fc3f3154f808a5e850f1f78ad4eebebad52ca61df39073b5e6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이륙 중 추락 → 화재 → 부상자 이송 → 소방·경찰 대응이 문장으로 이어지는 짧은 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Another four people were taken to",
+      "note": "병원 이름을 걷고 retardant foam 을 special foam 으로 바꾸니 쉬워졌다."
+    }
+  },
+  {
+    "id": "344cd137-63e9-41a8-adc5-a3791531f53b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e22eb8b6e33c894d558308b28214bbe7f0e8f60f8369106621402ba5cb81d0ea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "news",
+    "why": "증언 요지 한 문장 뒤가 이메일 원문 인용 두 토막뿐이고 줄바꿈이 깨져, 무시당한 호소와 저녁 일정의 대비가 서술 없이 암시에만 머문다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Marty Bahamonde, the only FEMA",
+      "note": "첫 문장은 서지만 나머지가 오타 섞인 이메일 인용이라 떼어 낼 서술 문단이 없다."
+    }
+  },
+  {
+    "id": "345442ee-240f-4282-b7e8-b115fef33148",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fc2c77f8a2d99584162f117ab1dcd2fdb1e6ea33031c828081d2b74a7c4d5bf3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "셋째 단락이 잠정 결과 → 이의 심사 → 1월 확정 발표 → 재투표 요구 기각으로 다음 절차를 이어 줘 득표 나열을 넘는다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the IECI, these preliminary",
+      "note": "adjudication·irregularities 를 review·problems 로 바꾸니 내려갔고, 득표수 단락은 가공 때 줄인다."
+    }
+  },
+  {
+    "id": "34a69863-63e3-4a3e-8c57-b15070cf26d1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1c528e1da81c838865b69b77bd4997e463e44f5182ed7701c769f79016398e1c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "후보별 모금액을 문장마다 숫자만 바꿔 나열하고 원인·반응·다음 절차가 없어 수치 나열 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "United States Presidential candidate Fred",
+      "note": "금액을 걷으면 남는 것이 기대에 못 미쳤다는 한 마디뿐이라 사건 흐름이 없다."
+    }
+  },
+  {
+    "id": "34a86efe-0350-4d2c-a1f7-e1f095b37779",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a7a2aaa4289a5f869808e57787e5a85eceeccb0c19aa562cbedd02dbeff134ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "주별 순위·모금액 나열이 대부분이나 전당대회 일정(다음 절차) 한 단락이 있어 단신 최소선 경계에 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Libertarian Party will hold their",
+      "note": "순위를 걷으면 전당대회 안내만 남아 경선 결과와 이어지는 연결이 약하다."
+    }
+  },
+  {
+    "id": "34d44bb9-2221-4f92-9b97-2f6cee4d1bab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e76a0daf8932efdc66f8610036f776d10e20375e9222277222f2e56cc651e765",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "최저임금 인상 발표 → 정부 근거 → 녹색당 환영·부족 지적 → 돌봄업계 반대로 입장이 갈려 내용 일치·주제·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However HealthCare Providers New Zealand is",
+      "note": "임금 수치를 걷어도 「재정 지원 없이 인상하면 돌봄이 최저임금 직업이 된다」는 논지가 서고 funding claim 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "34d74bae-3ec0-4b14-abf7-e6a1410ba1f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2f5a55c648e5a9f1a870d612b104768ef75ddd78b7a815792a35722feea998e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "사용자가 순위를 매기는 검색엔진을 알고리즘 방식과 대비해 설명하는 두 단락이라 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The new search engine appears unique",
+      "note": "webcrawlers·page analysis algorithms 를 automatic programs 로 바꾸니 대비 논지가 그대로 선다."
+    }
+  },
+  {
+    "id": "34efb47f-cb3e-49f2-98e2-1cf5deeedb41",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fda6f1b88f2535b28eb662c911db46d7ec735eed556cd39d31976959256ca9ea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "분화 → 경보 상향 → 이류·대피 권고 → 화산재 확산 → 원유 이송으로 원인과 대응이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the Observatory, seismic activity",
+      "note": "lahar 설명이 본문에 붙어 있어 쉽고, 시각·고도 수치는 걷어도 흐름이 선다."
+    }
+  },
+  {
+    "id": "34fe2e7a-90b8-4600-8d46-cc80bad3eb6f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e67d7921eec661ab0eb9a93c4d62d59489641d24bec5b4031826692459e8b123",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "외무장관 망명에 이어 측근들이 잇따라 이탈하는 흐름을 전해 이름 나열을 넘는 사건 연결이 있다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This latest breakthrough follows the defection",
+      "note": "인명을 걷어도 이탈이 이어진다는 사건이 서고 defect 를 leave 로 바꾸면 내려간다."
+    }
+  },
+  {
+    "id": "350762f2-8953-4e45-ab70-10de8966d315",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0046a9f879c8c0ec2f89ca138efab80a62abf7561e784597ac79d16d3b1293d5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "득표율에 더해 싹쓸이로 대의원 수 우위를 얻었다는 결과와 클린턴 캠프 인사 교체가 문장으로 이어져 단신 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Obama led in the Virginia polls",
+      "note": "득표율을 걷으면 결과·캠프 혼란이 남지만 문장 자체가 꼬여 있어 어휘보다 문장 손질이 필요하다."
+    }
+  },
+  {
+    "id": "350a111b-ea48-4481-a8d3-3e0691009cdc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0c74ef4fb536df6a89286b772f19c442c04f5c55f4c88ed44457f26279b63e01",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "축제 개막 → 도로 통제 → 주최 측 설명 → 항구·노예무역 역사로 행사 안내와 배경이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bristol was a major port in",
+      "note": "abolition 을 end 로 바꾸면 쉽고, 역사 단락이 앞 문맥 없이 선다."
+    }
+  },
+  {
+    "id": "351ae478-438f-4743-add0-106bf081a4ed",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ea5fc9fd0561d9bbfe35812ff001b809eb410033e17ae179aaf407a6f545b090",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "수색 → 교신 직후 레이더 소실 → 조난 신호 없음 → 날씨는 원인 아님으로 원인 추정이 이어지는 짧은 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Air-traffic controllers lost radar contact with",
+      "note": "distress signal·visibility 를 emergency call·how far one could see 로 바꾸니 내려갔다."
+    }
+  },
+  {
+    "id": "352ee2d5-f1ef-4769-8e57-a6edc9df0cc1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3f35b093c0ad187e7bf66e9bc5e8fc2207c6ad7840237fd3737401c89bbfb586",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "새 고양이 입주 → 이름 유래 → 총리 측 반응 → 관저 쥐잡이 고양이 전통을 가벼운 어조로 이어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The cats at 10 Downing Street",
+      "note": "Chancellor of the Exchequer 같은 직함을 걷으면 쥐잡이 전통 이야기가 혼자 선다."
+    }
+  },
+  {
+    "id": "3538474d-c2fe-4544-9913-372300f06674",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fede48e5ff71e1490b61b49d9f77567f6fec0ea67c989418d4607e1f44b3b150",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "서류 문제로 한 번 미뤄졌다가 첫 운항 → 할인 → 뒤이을 민간 항공사로 사건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The airline tried to start last",
+      "note": "한자 병기와 도시 괄호 설명을 걷으니 쉽게 읽혔다."
+    }
+  },
+  {
+    "id": "35433607-2e53-4834-9f5a-00b91b194ede",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d44a991ec7d50b522ba0683c3557d3cd1ba76a4005d67b4b293e80340888220e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "규모·진앙 뒤에 쓰나미 경보 없음·주민이 흔들림을 느꼈다는 반응과 3년 전 같은 지진 비교가 이어져 수치 나열을 넘는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Pacific Tsunami Warning Center in",
+      "note": "깊이·거리 수치를 걷어도 경보·피해·반응이 선다."
+    }
+  },
+  {
+    "id": "354b5732-20fe-4455-9e40-332b8f7dd820",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e744ddd912f4183ba250e8c5d44e6bd2a5378695d77b69dafa2e2dac72b0967b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이혼 사유로 대사 거부 → 10개월 관계 동결 → 새 대사 수락 → 상원 비준 절차로 외교 갈등의 원인과 해소가 이어진다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Vatican has accepted Juan Pablo",
+      "note": "Holy See·ratify 를 the Vatican·approve 로 바꾸니 내려갔다."
+    }
+  },
+  {
+    "id": "356823be-9b70-4e4a-8b0d-ea325a02362e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "46a0791f67be286e64ce23cc618433a874c7e4a5621d261667d9ba0859b390c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "동결 자금이 은행 몇 곳을 거쳐 송금된 경로와, 그 동결이 핵시설 폐쇄 협상을 막았다는 이유가 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pressure is mounting from the international",
+      "note": "원자로 이름을 걷고 frozen·mounting 을 풀어 쓰니 이유 문장이 선다."
+    }
+  },
+  {
+    "id": "35693de9-1029-475d-9b0d-ffcfd713cf50",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b0d9884bd46e4d37216eac3007a3cb197f81f2c9596a1c4bc78c37fd58bd8e23",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "십대 연주 → 비틀스 협업 → 솔로 성공 → 약물 문제와 투병으로 생애가 시간순으로 이어지는 부고라 내용 일치 칸 — 약물 언급으로 고1 이상.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He later backed up the Beatles,",
+      "note": "곡명 나열을 걷어도 생애 흐름이 서고 backed up 을 supported 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "356fc5f6-86dd-48ea-a36b-75435c25d9f2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ec2fa95ac6c200a69438b2527fa219d05ca2932f01035cbfcdfaf67ae3437687",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이란 방송의 음모론을 옮기되 논리·사실의 모순을 짚고 감시단체 평가로 맺는 보도라 선동이 아니며 요지·주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "claim"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In reviving the Jewish-Papal conspiracy theory,",
+      "note": "마지막 두 단락은 인명을 걷어도 「주장의 근거가 없다」는 요지가 서고 adjudicate 류 어휘는 적다."
+    }
+  },
+  {
+    "id": "35826be6-b264-4253-9c37-5af1e73bd4c5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "13f55d61d8c983a13d39b726b01362bfdec24d28a6195123c5eecfb2c0b9343e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "유튜브 차단 → 세금 청구 → 등록하면 해제를 앞당기겠다는 조건 → 국경없는기자회 비판으로 사건과 반응이 이어진다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Several internet sites have recently been",
+      "note": "arbitrary·surveillance 를 unfair·watch 로 바꾸니 내려갔고 매체 출처 표기는 걷는다."
+    }
+  },
+  {
+    "id": "35951e2b-83fa-4e2b-b81f-6028fec2ac10",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "19b45c4a9ce408020c08526bdc7586f86799b6ab7398825dd03a4759b7110d90",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "마지막 단락이 서브프라임 대출 → 증권화 → 연쇄 부도 위험을 인과로 설명해 주제·빈칸·순서·삽입 칸을 채우고 앞 단락은 내용 일치다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sub-prime lenders provide mortgages to people",
+      "note": "GMAC·은행 이름을 걷어도 위험이 위로 번지는 논리가 서고 collateral·covenants 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "35a7ac1c-358e-47a7-834d-3419a86fdd73",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "590e53c5ed9a9a8d61d05f40bb93034867bb0ecb080da09a4e2661e5984a6cdd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연명 소송 기금 후원자 명단 판매 → 대변인 확인 → 통상 가격 → 금액 비공개로 사건과 반응이 이어지는 짧은 단신이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A local news station reported the",
+      "note": "날짜 줄을 걷고 finance legal battles 를 pay for court fights 로 바꾸니 쉬워졌다."
+    }
+  },
+  {
+    "id": "35a7ce24-5f9e-496a-8647-559de815217b",
+    "source_updated_at": "2026-09-25T09:16:38.061158+00:00",
+    "body_sha256": "4b2ae866feede5fa0e54d4b7ea2f4a61d2c6d9ba9c54c4a460f9be9ffdf1873d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "대만 인터넷 산업 전시의 목적 → 기조연설 → 30개 사이트 전시·심사로 행사가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In this exhibition, thirty websites from",
+      "note": "깨진 인용(「1=」)과 인명은 가공 때 걷고, 전시·심사 단락은 혼자 선다."
+    }
+  }
+]
